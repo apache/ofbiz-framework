@@ -707,9 +707,9 @@ under the License.
               </#if>
            <tr><td colspan="3"><hr /></td></tr>
            <tr>
-              <td align="right" valign="top" width="15%">
-                <span class="label">&nbsp;${uiLabelMap.OrderShipAfterDate}</span><br/>
-                <span class="label">&nbsp;${uiLabelMap.OrderShipBeforeDate}</span>
+              <td align="right" width="15%">
+                <span class="label">&nbsp;${uiLabelMap.OrderShipAfterDate}</span><br/><br/>
+                <span class="label">&nbsp;${uiLabelMap.OrderShipBeforeDate}</span><br/>
               </td>
               <td width="5">&nbsp;</td>
               <td valign="top" width="80%">
@@ -722,7 +722,26 @@ under the License.
                   <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
                   </form>
               </td>
-           </tr>
+           <tr>
+              <td align="right" width="15%">
+                <span class="label">&nbsp;${uiLabelMap.ProductEstimatedShipDate}</span>
+              </td>
+              <td width="5">&nbsp;</td>
+              <td width="80%">
+                  <#if shipGroup.estimatedShipDate?has_content><#assign estimatedShipDate=shipGroup.estimatedShipDate?date><#else><#assign estimatedShipDate="-"/></#if>
+                <@htmlTemplate.renderDisplayField type="date" imageLocation="" idName="" description="${estimatedShipDate}" title="" class="" alert=""/>
+              </td>
+            </tr>
+           <tr>
+              <td align="right" width="15%">
+                <span class="label">&nbsp;${uiLabelMap.OrderOrderQuoteEstimatedDeliveryDate}</span>
+              </td>
+              <td width="5">&nbsp;</td>
+              <td valign="top" width="80%">
+                  <#if shipGroup.estimatedDeliveryDate?has_content><#assign estimatedDeliveryDate=shipGroup.estimatedDeliveryDate?date><#else><#assign estimatedDeliveryDate="-"/></#if>
+                <@htmlTemplate.renderDisplayField type="date" imageLocation="" idName="" description="${estimatedDeliveryDate}" title="" class="" alert=""/>
+              </td>
+            </tr>
          <#assign shipGroupShipments = shipGroup.getRelated("PrimaryShipment", null, null, false)>
          <#if shipGroupShipments?has_content>
             <tr><td colspan="3"><hr /></td></tr>
