@@ -90,6 +90,9 @@
                         <screenlet title="${uiLabelMap.WebtoolsGeoEdit}">
                             <include-form name="EditGeo" location="component://webtools/widget/GeoManagementForms.xml"/>
                         </screenlet>
+                        <screenlet title="${uiLabelMap.WebtoolsGeoAssocList}">
+                            <include-grid name="ListGeoAssoc" location="component://webtools/widget/GeoManagementForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

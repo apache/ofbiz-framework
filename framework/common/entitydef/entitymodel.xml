@@ -275,7 +275,7 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="GeoAssocType" package-name="org.ofbiz.common.geo"
-        title="Geographic Boundary Association Entity">
+        title="Geographic Boundary Association Entity" default-resource-name="CommonEntityLabels">
       <field name="geoAssocTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="geoAssocTypeId"/>

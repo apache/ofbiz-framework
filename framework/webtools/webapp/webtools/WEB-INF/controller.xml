@@ -567,6 +567,12 @@ under the License.
         </response>
         <response name="error" type="view" value="FindGeo"/>
     </request-map>
+    <request-map uri="deleteGeoAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteGeoAssoc"/>
+        <response name="success" type="view" value="EditGeo"/>
+        <response name="error" type="view" value="EditGeo"/>
+    </request-map>
     <request-map uri="linkGeos">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="linkGeos"/>

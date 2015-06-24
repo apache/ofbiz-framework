@@ -2395,6 +2395,10 @@
         <value xml:lang="zh">通用Java线程</value>
         <value xml:lang="zh-TW">通用JAVA執行緒</value>
     </property>
+    <property key="WebtoolsGeoAssocList">
+        <value xml:lang="en">List GeoAssoc</value>
+        <value xml:lang="fr">Lister les relations de zone géographique</value>
+    </property>
     <property key="WebtoolsGeoCreateNew">
         <value xml:lang="en">Create/Edit Geo</value>
         <value xml:lang="fr">Créer/Modifier une zone géographique</value>

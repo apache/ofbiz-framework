@@ -5885,6 +5885,26 @@
         <value xml:lang="zh">格鲁吉亚</value>
         <value xml:lang="zh-TW">格魯吉亞</value>
     </property>
+    <property key="GeoAssocType.description.COUNTY_CITY">
+        <value xml:lang="en">City in a county</value>
+        <value xml:lang="fr">Ville du département</value>
+    </property>
+    <property key="GeoAssocType.description.COUNTY_SEAT">
+        <value xml:lang="en">Administrative Main City of a County</value>
+        <value xml:lang="fr">Chef-lieu du département</value>
+    </property>
+    <property key="GeoAssocType.description.GROUP_MEMBER">
+        <value xml:lang="en">Geo Group Member</value>
+        <value xml:lang="fr">Membre de la zone Géographique</value>
+    </property>
+    <property key="GeoAssocType.description.POSTAL_CODE">
+        <value xml:lang="en">Postal code associated to a GeoType</value>
+        <value xml:lang="fr">Code Postal associé au type Géographique</value>
+    </property>
+    <property key="GeoAssocType.description.REGIONS">
+        <value xml:lang="en">For a region of a larger Geo, i.e. states, counties, provinces...</value>
+        <value xml:lang="fr">Région d'une zone géographique plus large</value>
+    </property>
     <property key="Geo.geoName.GHA">
         <value xml:lang="ar">غانا</value>
         <value xml:lang="de">Ghana</value>
