@@ -132,5 +132,33 @@
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-        
+    <grid name="ListGeoAssoc" list-name="listIt" paginate-target="EditGeo" target="deleteGeoAssoc"
+          odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="GeoAssoc" list="listIt">
+                <field-map field-name="geoId"/>
+            </entity-and>
+        </actions>
+        <row-actions>
+            <entity-one entity-name="Geo" value-field="geoTo">
+                <field-map field-name="geoId" from-field="geoIdTo"/>
+            </entity-one>
+        </row-actions>
+        <field name="geoId"><hidden/></field>
+        <field name="geoIdTo" title="${uiLabelMap.CommonGeo}">
+            <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName}">
+                <sub-hyperlink target="EditGeo" description="[${geoIdTo}]">
+                    <parameter param-name="geoId" from-field="geoIdTo"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="geoTypeId" map-name="geoTo"  title="${uiLabelMap.CommonGeoTypeId}">
+            <display-entity entity-name="GeoType"/>
+        </field>
+        <field name="geoAssocTypeId" title="${uiLabelMap.CommonGeoAssocTypeId}">
+            <display-entity entity-name="GeoAssocType" key-field-name="geoAssocTypeId"/>
+        </field>
+        <field name="delete" title="${uiLabelMap.CommonDelete}"><submit/></field>
+    </grid>
+
 </forms>

@@ -724,6 +724,11 @@ under the License.
         <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="deleteGeoAssoc" default-entity-name="GeoAssoc" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Geo</description>
+        <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
     <service name="linkGeos" engine="simple" auth="true"
         location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="linkGeos">
         <description>Link Geos to another Geo</description>
