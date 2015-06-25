@@ -823,7 +823,6 @@ function getJSONuiLabels(requiredLabels) {
             url: "getJSONuiLabelArray",
             type: "POST",
             data: {"requiredLabels" : requiredLabelsStr},
-            async: false,
             success: function(data) {
                 returnVal = data;
             }
@@ -851,7 +850,6 @@ function getJSONuiLabel(uiResource, errUiLabel) {
             url: "getJSONuiLabel",
             type: "POST",
             data: {"requiredLabel" : requiredLabelStr},
-            async: false,
             success: function(data) {
                 returnVal = data[0];
             }

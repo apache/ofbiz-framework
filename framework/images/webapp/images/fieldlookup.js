@@ -833,7 +833,6 @@ lookupDescriptionLoaded.prototype.update = function() {
             url : this.url,
             type : "POST",
             data : this.allParams,
-            async : false,
             success : function(result) {
                 setLookDescription(_fieldId, result.trim(), "", "");
             }
