@@ -259,7 +259,7 @@ under the License.
     -->
     <Agreement agreementId="AGR_SALES"  partyIdFrom="DemoCustomer" partyIdTo="Company" roleTypeIdFrom="CUSTOMER"  roleTypeIdTo="INTERNAL_ORGANIZATIO" agreementTypeId="SALES_AGREEMENT" description="Agreement for DemoCustomer"/>
     <AgreementItem agreementId="AGR_SALES" agreementItemSeqId="00001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_PRICING_PR"  agreementText="Price list in US Dollars"/>
-    <AgreementTerm agreementId="AGR_SALES" agreementItemSeqId="00001" agreementTermId="10000" description="Sales test agreement" termDays="30" termTypeId="FIN_PAYMENT_FIXDAY"/>
+    <AgreementTerm agreementId="AGR_SALES" agreementItemSeqId="00001" agreementTermId="9000" description="Sales test agreement" termDays="30" termTypeId="FIN_PAYMENT_FIXDAY"/>
     <!-- An AgreementProductAppls aris related to an AgreementItem. AgreementProductAppls are optional. If a  product id and a price are specified the price will override the ProductPrice if the agreement is selected in the order -->
     <AgreementProductAppl agreementId="AGR_SALES" agreementItemSeqId="00001" price="10.000" productId="GZ-1000"/>
 
