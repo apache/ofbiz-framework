@@ -40,7 +40,9 @@ under the License.
                                 <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <screenlet id="FindPartyPanel" title="${uiLabelMap.PartyFindParty}" navigation-form-name="lookupparty" save-collapsed="false" collapsible="true" initially-collapsed="${initialyCollapsed}">
+                                <screenlet id="FindPartyPanel" title="${uiLabelMap.PartyFindParty}" navigation-menu-name="create-new-party"
+                                           navigation-form-name="lookupparty" save-collapsed="false" collapsible="true" initially-collapsed="${initialyCollapsed}">
+                                    <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="create-new-party"/>
                                     <include-form name="lookupparty" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.CommonSearchResults}" navigation-form-name="ListParty">
@@ -656,35 +658,6 @@ under the License.
                             <include-form name="AddSegmentRole" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                         <include-form name="ListSegmentRoles" location="component://party/widget/partymgr/PartyForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-    <!-- Create New Party Screen -->
-    <screen name="CreateNewParty">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleCreateNewPartyDetail"/>
-                <set field="headerItem" value="find"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="PARTYMGR" action="_CREATE"/>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.PartyCreateNewParty}">
-                                    <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="create-new-party"/>
-                                </screenlet>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.PartyMgrCreatePermissionError}</label>
-                            </fail-widgets>
-                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

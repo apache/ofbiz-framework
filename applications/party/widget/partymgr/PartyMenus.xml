@@ -218,24 +218,39 @@
             </link>
         </menu-item>
     </menu>
-    <menu name="create-new-party" type="simple" menu-container-style="basic-nav">
+    <menu name="create-new-party" menu-container-style="basic-nav">
         <menu-item name="create-party-group" title="${uiLabelMap.PartyCreateNewPartyGroup}">
+            <condition>
+                <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+            </condition>
             <link target="editpartygroup">
                 <parameter param-name="create_new" value="Y"/>
             </link>
         </menu-item>
         <menu-item name="create-person" title="${uiLabelMap.PartyCreateNewPerson}">
+            <condition>
+                <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+            </condition>
             <link target="editperson">
                 <parameter param-name="create_new" value="Y"/>
             </link>
         </menu-item>
         <menu-item name="create-customer" title="${uiLabelMap.PartyCreateNewCustomer}">
+            <condition>
+                <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+            </condition>
             <link target="NewCustomer"/>
         </menu-item>
         <menu-item name="create-prospect" title="${uiLabelMap.PartyCreateNewProspect}">
+            <condition>
+                <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+            </condition>
             <link target="NewProspect"/>
         </menu-item>
         <menu-item name="create-employee" title="${uiLabelMap.PartyCreateNewEmployee}" >
+            <condition>
+                <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+            </condition>
             <link target="NewEmployee"/>
         </menu-item>
     </menu>
