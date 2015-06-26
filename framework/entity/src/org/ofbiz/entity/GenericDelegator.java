@@ -423,7 +423,7 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public Map<String, ModelEntity> getModelEntityMapByGroup(String groupName) throws GenericEntityException {
-        Set<String> entityNameSet = getModelGroupReader().getEntityNamesByGroup(groupName);
+        Set<String> entityNameSet = getModelGroupReader().getEntityNamesByGroup(delegatorBaseName, groupName);
 
         if (this.delegatorInfo.getDefaultGroupName().equals(groupName)) {
             // add all entities with no group name to the Set
