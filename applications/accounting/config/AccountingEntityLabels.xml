@@ -614,6 +614,7 @@
     </property>
     <property key="FixedAssetIdentType.description.GAS_CARD1">
         <value xml:lang="ar">بطاقة الوقود رقم 1</value>
+        <value xml:lang="de">Tankkarte Nummer 1</value>
         <value xml:lang="en">Gas Card Number 1</value>
         <value xml:lang="fr">Carte d'essence 1</value>
         <value xml:lang="hi-IN">गैस कार्ड नंबर 1</value>
@@ -630,6 +631,7 @@
     </property>
     <property key="FixedAssetIdentType.description.GAS_CARD2">
         <value xml:lang="ar">بطاقة الوقود رقم 2</value>
+        <value xml:lang="de">Tankkarte Nummer 2</value>
         <value xml:lang="en">Gas Card Number 2</value>
         <value xml:lang="fr">Carte d'essence 2</value>
         <value xml:lang="hi-IN">गैस कार्ड नंबर 2</value>
@@ -646,6 +648,7 @@
     </property>
     <property key="FixedAssetIdentType.description.GAS_CARD3">
         <value xml:lang="ar">بطاقة الوقود رقم 3</value>
+        <value xml:lang="de">Tankkarte Nummer 3</value>
         <value xml:lang="en">Gas Card Number 3</value>
         <value xml:lang="fr">Carte d'essence 3</value>
         <value xml:lang="hi-IN">गैस कार्ड नंबर 3</value>
@@ -696,7 +699,7 @@
     </property>
     <property key="FixedAssetIdentType.description.TRACKING_VENDOR">
         <value xml:lang="ar">رقم تتبع/المخزون بالبائع</value>
-        <value xml:lang="de">Referneznummer des Herstellers</value>
+        <value xml:lang="de">Referenznummer des Herstellers</value>
         <value xml:lang="en">Vendor Tracking/Inventory Number</value>
         <value xml:lang="fr">Traçage fournisseur/Numéro d'inventaire</value>
         <value xml:lang="hi-IN">विक्रेता ट्रैकिंग/सूची संख्या</value>
@@ -1612,7 +1615,7 @@
     </property>
     <property key="GlAccountType.description.COGS_ADJ_AVG_COST">
         <value xml:lang="ar">COGS - تعديل متوسط التكلفة</value>
-        <value xml:lang="de">COGS - Durchschnittliche Regulieringskosten</value>
+        <value xml:lang="de">COGS - Durchschnittliche Regulierungskosten</value>
         <value xml:lang="en">COGS - Average Cost Adjustment</value>
         <value xml:lang="fr">Variation des stocks - Ajustement au coût moyen</value>
         <value xml:lang="hi-IN">COGS - औसत मूल्य समायोजन(Adjustment)</value>
@@ -1643,7 +1646,7 @@
     </property>
     <property key="GlAccountType.description.COMMISSIONS_WRITEOFF">
         <value xml:lang="ar">مشطوبات العمولات المستحقة للدفع</value>
-        <value xml:lang="de">Abschreibung von Kommissionierungskosten</value>
+        <value xml:lang="de">Abschreibung von Kommissionskosten</value>
         <value xml:lang="en">Commissions Payables Write Off</value>
         <value xml:lang="hi-IN">देय दलाली राइट ऑफ</value>
         <value xml:lang="it">Provvigioni a credito</value>
@@ -1656,7 +1659,7 @@
     </property>
     <property key="GlAccountType.description.COMMISSION_EXPENSE">
         <value xml:lang="ar">مصروف العمولة</value>
-        <value xml:lang="de">Kommisionsausgaben</value>
+        <value xml:lang="de">Kommissionsausgaben</value>
         <value xml:lang="en">Commission Expense</value>
         <value xml:lang="fr">Frais de commission</value>
         <value xml:lang="hi-IN">दलाली व्यय</value>
@@ -2680,6 +2683,7 @@
         <value xml:lang="zh-TW">退貨的製成品/數字產品細項</value>
     </property>
     <property key="InvoiceItemType.description.CRT_RPROD_ITEM">
+        <value xml:lang="de">Retoure Rohmaterial</value>
         <value xml:lang="en">Return Raw Material Good Item</value>
         <value xml:lang="zh">退货的原料商品明细</value>
     </property>
@@ -2719,7 +2723,7 @@
     </property>
     <property key="InvoiceItemType.description.CRT_MAN_ADJ">
         <value xml:lang="ar">تعديل يدوي للمسترجع</value>
-        <value xml:lang="de">Retoure manueller Anpassung</value>
+        <value xml:lang="de">Retoure manuelle Anpassung</value>
         <value xml:lang="en">Return Manual Adjustment</value>
         <value xml:lang="fr">Ajustement manuel sur retour</value>
         <value xml:lang="hi-IN">रिटर्न मैनुअल समायोजन</value>
@@ -2991,7 +2995,7 @@
     </property>
     <property key="InvoiceItemType.description.INVOICE_ITM_ADJ">
         <value xml:lang="ar">تعديل بند الفاتورة</value>
-        <value xml:lang="de">Positionsanpassung</value>
+        <value xml:lang="de">Rechnungspostensanpassung</value>
         <value xml:lang="en">Invoice Item Adjustment</value>
         <value xml:lang="fr">Régularisation de ligne de facturation</value>
         <value xml:lang="hi-IN">चालान मद समायोजन</value>
@@ -3513,28 +3517,36 @@
         <value xml:lang="zh">佣金</value>
         <value xml:lang="zh-TW">佣金</value>
     </property>
+    <!-- payroll deductions -->
     <property key="InvoiceItemType.description.PAYROL_DD_125COMPY">
+        <value xml:lang="de">125*Compy. Contr Other Prem.</value>
         <value xml:lang="en">125*Compy. Contr Other Prem.</value>
         <value xml:lang="it">125*Compy. Contr Altri Prem.</value>
         <value xml:lang="vi">125*Compy. Contr Other Prem.</value>
         <value xml:lang="zh">125医疗计划公司存入的其它奖励</value>
         <value xml:lang="zh-TW">125醫療計劃公司存入的其他獎勵</value>
     </property>
+    <!-- HSA - Health Savings Account -->
     <property key="InvoiceItemType.description.PAYROL_DD_125HSA">
+        <value xml:lang="de">125*HSA Beitrag (vor Steuer)</value>
         <value xml:lang="en">125*HSA Contribution (pre tax)</value>
         <value xml:lang="it">125*HSA Contributo (prima delle tasse)</value>
         <value xml:lang="vi">125*HSA Contribution (trước thuế)</value>
         <value xml:lang="zh">125医疗计划存款账户（税前）</value>
         <value xml:lang="zh-TW">125醫療計劃存款帳戶(稅前)</value>
     </property>
+    <!-- PPO - preferred provider organisation - health insurance related -->
     <property key="InvoiceItemType.description.PAYROL_DD_125PPO">
+        <value xml:lang="de">125*PPO (vor Steuer)</value>
         <value xml:lang="en">125*PPO (pre tax)</value>
         <value xml:lang="it">125*PPO (prima delle tasse)</value>
         <value xml:lang="vi">125*PPO (trước thuế)</value>
         <value xml:lang="zh">125医疗计划首选供应商组织（税前）</value>
         <value xml:lang="zh-TW">125醫療計劃首選供應商組織(稅前)</value>
     </property>
+    <!-- US retirement savings / deductions -->
     <property key="InvoiceItemType.description.PAYROL_DD_401K">
+        <value xml:lang="de">401K Emp.</value>
         <value xml:lang="en">401K Emp.</value>
         <value xml:lang="it">401K Emp.</value>
         <value xml:lang="ja">401K 被雇用者</value>
@@ -3603,6 +3615,7 @@
         <value xml:lang="zh-TW">預付工資</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_DD_ROTH_401K">
+        <value xml:lang="de">Roth 401k Emp.</value>
         <value xml:lang="en">Roth 401k Emp.</value>
         <value xml:lang="it">Roth 401k Emp.</value>
         <value xml:lang="ja">Roth 401k 被雇用者</value>
@@ -3622,6 +3635,7 @@
         <value xml:lang="zh-TW">不付薪酬的病休假</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_DD_SIMP_IRA">
+        <value xml:lang="de">Einfacher IRA Mitarbeiter</value>
         <value xml:lang="en">Simple IRA emp.</value>
         <value xml:lang="it">Semplice IRA emp.</value>
         <value xml:lang="vi">Simple IRA emp.</value>
@@ -3810,6 +3824,7 @@
         <value xml:lang="zh-TW">代扣聯邦稅</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_TAX_MD_WITHOL">
+        <value xml:lang="de">MD Einbehalten</value>
         <value xml:lang="en">MD Withholding</value>
         <value xml:lang="it">Trattenute MD</value>
         <value xml:lang="ja">MD源泉税</value>
@@ -4429,6 +4444,7 @@
         <value xml:lang="zh-TW">成品/數字商品退貨</value>
     </property>
     <property key="InvoiceItemType.description.SRT_RPROD_ITEM">
+        <value xml:lang="de">Retoure Rohmaterial</value>
         <value xml:lang="en">Return Raw Material Good Item</value>
         <value xml:lang="zh">退货的原料商品明细</value>
     </property>
@@ -4588,7 +4604,7 @@
     </property>
     <property key="InvoiceItemType.description.SRT_SPROD_ITEM">
         <value xml:lang="ar">بند سلعة خدمة مسترجع</value>
-        <value xml:lang="de">Korrekturbuchung Diensleistung</value>
+        <value xml:lang="de">Korrekturbuchung Dienstleistung</value>
         <value xml:lang="en">Return Service Product Item</value>
         <value xml:lang="fr">Retour Service</value>
         <value xml:lang="hi-IN">रिटर्न सेवा उत्पाद मद</value>
@@ -4946,6 +4962,7 @@
     </property>
     <property key="PaymentMethodType.description.EXT_EBAY">
         <value xml:lang="ar">eBay</value>
+        <value xml:lang="de">eBay</value>
         <value xml:lang="en">eBay</value>
         <value xml:lang="th">อีเบย์</value>
         <value xml:lang="zh">eBay</value>
@@ -5013,7 +5030,7 @@
     </property>
     <property key="PaymentMethodType.description.GIFT_CERTIFICATE">
         <value xml:lang="ar">شهادة الهدية</value>
-        <value xml:lang="de">Gutschein</value>
+        <value xml:lang="de">Geschenk Zertifikat</value>
         <value xml:lang="en">Gift Certificate</value>
         <value xml:lang="fr">Bon d'achat</value>
         <value xml:lang="hi-IN">उपहार प्रमाण पत्र(GiftCertificate)</value>
@@ -5063,6 +5080,7 @@
         <value xml:lang="zh-TW">個人支票</value>
     </property>
     <property key="PaymentMethodType.description.PIN">
+        <value xml:lang="de">PIN Zahlung</value>
         <value xml:lang="en">PIN Payment</value>
         <value xml:lang="fr">Paiement par code confidentiel</value>
         <value xml:lang="nl">PIN betaling</value>
@@ -5204,7 +5222,7 @@
     </property>
     <property key="PaymentType.description.INTEREST_RECEIPT">
         <value xml:lang="ar">وصل الفائدة</value>
-        <value xml:lang="de">Zinsenbeleg</value>
+        <value xml:lang="de">Zinseinnahme</value>
         <value xml:lang="en">Interest Receipt</value>
         <value xml:lang="fr">Reçu d'intérêt</value>
         <value xml:lang="hi-IN">ब्याज रसीद</value>
@@ -5220,7 +5238,7 @@
     </property>
     <property key="PaymentType.description.PAYROLL_TAX_PAYMENT">
         <value xml:lang="ar">دفعة ضريبة رول الراتب</value>
-        <value xml:lang="de">Lohnsummensteuerentrichtung</value>
+        <value xml:lang="de">Lohnsteuerentrichtung</value>
         <value xml:lang="en">Payroll Tax Payment</value>
         <value xml:lang="fr">Paiement des charges sociales</value>
         <value xml:lang="hi-IN">वेतन भुगतान कर</value>
@@ -5249,7 +5267,7 @@
     </property>
     <property key="PaymentType.description.PAY_CHECK">
         <value xml:lang="ar">شيك دفع</value>
-        <value xml:lang="de">Lohnzahlung</value>
+        <value xml:lang="de">Lohnscheck</value>
         <value xml:lang="en">Pay Check</value>
         <value xml:lang="fr">Paiement des salaires</value>
         <value xml:lang="hi-IN">चेक भुगतान</value>
@@ -5381,7 +5399,7 @@
     </property>
     <property key="RateType.description.AVERAGE_PAY_RATE">
         <value xml:lang="ar">نسبة متوسط الدفع</value>
-        <value xml:lang="de">Normaler Satz</value>
+        <value xml:lang="de">Durchschnittlicher Satz</value>
         <value xml:lang="en">Average Pay Rate</value>
         <value xml:lang="fr">Prix moyen</value>
         <value xml:lang="ja">平均支払レート</value>
@@ -5412,7 +5430,7 @@
     </property>
     <property key="RateType.description.LOW_PAY_RATE">
         <value xml:lang="ar">أقل نسبة دفع</value>
-        <value xml:lang="de">Günstigster Satz</value>
+        <value xml:lang="de">Niedrigster Satz</value>
         <value xml:lang="en">Lowest Pay Rate</value>
         <value xml:lang="fr">Prix bas</value>
         <value xml:lang="ja">最低支払レート</value>
@@ -5508,7 +5526,7 @@
     </property>
     <property key="TaxAuthorityRateType.description.INCOME_TAX">
         <value xml:lang="ar">ضريبة الدخل</value>
-        <value xml:lang="de">Einkommenssteuer</value>
+        <value xml:lang="de">Einkommensteuer</value>
         <value xml:lang="en">Income Tax</value>
         <value xml:lang="fr">Impôt sur le revenu</value>
         <value xml:lang="hi-IN">आयकर</value>
@@ -5560,6 +5578,7 @@
         <value xml:lang="zh-TW">使用稅</value>
     </property>
     <property key="TaxAuthorityRateType.description.EXCISE_TAX">
+        <value xml:lang="de">Verbrauchssteuer</value>
         <value xml:lang="en">Excise Tax</value>
         <value xml:lang="nl">Belasting - Accijns</value>
         <value xml:lang="zh">特种税</value>
