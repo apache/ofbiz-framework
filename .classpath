@@ -179,6 +179,7 @@
     <classpathentry kind="src" path="specialpurpose/projectmgr/src"/>
     <classpathentry kind="src" path="specialpurpose/scrum/src"/>
     <classpathentry kind="src" path="specialpurpose/webpos/src"/>
+    <classpathentry kind="src" path="specialpurpose/passport/src"/>
     <classpathentry kind="con" path="GROOVY_SUPPORT" exported="true"/>
     <classpathentry kind="con" path="GROOVY_DSL_SUPPORT" exported="true"/>
     <classpathentry kind="output" path="bin"/>

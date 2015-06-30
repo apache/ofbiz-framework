@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!--
+<#--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
 distributed with this work for additional information
@@ -18,11 +17,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://ecommerce/webapp/ecommerce/WEB-INF/controller.xml"/>
-    <include location="component://passport/webapp/passport/WEB-INF/controller-passport.xml"/>
-    <description>OFBiz: eCommerce SEO Controller Configuration File</description>
-    
-    <handler name="jsp" type="view" class="org.ofbiz.ecommerce.webapp.view.JspViewHandler"/>
-</site-conf>
+<#if storeLoginMethList?exists && storeLoginMethList?has_content>
+<div class="screenlet">
+  <div class="screenlet-title-bar"><h3>${uiLabelMap.ThirdPartyLogin}</h3></div>
+  <div class="screenlet-body">
+    <#list storeLoginMethList as storeLoginMeth>
+      <span><a href="${storeLoginMeth.localRedirectUri!}"><img src="${storeLoginMeth.iconUrl!}"></a></span>
+    </#list>
+  </div>
+</div>
+</#if>
