@@ -336,6 +336,7 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://ecommerce/webapp/ecommerce/login.ftl"/></html>
                         </platform-specific>
+                        <include-screen name="ListThirdPartyLogins" location="component://passport/widget/PassportScreens.xml"/>
                         <platform-specific>
                             <html><html-template location="component://ecommerce/webapp/ecommerce/order/startanoncheckout.ftl"/></html>
                         </platform-specific>

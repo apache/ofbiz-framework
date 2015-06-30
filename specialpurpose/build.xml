@@ -37,6 +37,7 @@
         projectmgr/build.xml,
         scrum/build.xml,
         bi/build.xml,
-        webpos/build.xml
+        webpos/build.xml,
+        passport/build.xml
     "/>
 </project>

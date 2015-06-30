@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -18,11 +18,17 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://ecommerce/webapp/ecommerce/WEB-INF/controller.xml"/>
-    <include location="component://passport/webapp/passport/WEB-INF/controller-passport.xml"/>
-    <description>OFBiz: eCommerce SEO Controller Configuration File</description>
+<entity-engine-xml>
+
+    <EnumerationType description="GitHub Login" enumTypeId="GitHub" hasTable="N" parentTypeId="ppLoginProvider"/>
+
+    <ThirdPartyLogin productStoreId="9000" loginMethTypeId="OAuth2" loginProviderId="GitHub" fromDate="2011-01-01 00:00:00.0" thruDate="" sequenceNum=""/>
     
-    <handler name="jsp" type="view" class="org.ofbiz.ecommerce.webapp.view.JspViewHandler"/>
-</site-conf>
+    <OAuth2GitHub productStoreId="9000" 
+                    clientId="" clientSecret=""
+                    returnUrl=""
+                    localRedirectUri="/ecomseo/gitHubRedirect" 
+                    iconUrl="/passport/images/github.png" fromDate="2011-01-01 00:00:00.0" thruDate=""/>
+    <!-- The returnUrl, i.e. https://yourWebSiteOrIp:8443/ecomseo/githubResponse -->
+    
+</entity-engine-xml>

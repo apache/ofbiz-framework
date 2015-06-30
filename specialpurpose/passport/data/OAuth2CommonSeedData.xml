@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -18,11 +18,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://ecommerce/webapp/ecommerce/WEB-INF/controller.xml"/>
-    <include location="component://passport/webapp/passport/WEB-INF/controller-passport.xml"/>
-    <description>OFBiz: eCommerce SEO Controller Configuration File</description>
-    
-    <handler name="jsp" type="view" class="org.ofbiz.ecommerce.webapp.view.JspViewHandler"/>
-</site-conf>
+<entity-engine-xml>
+
+    <EnumerationType description="Passport Login Method Type" enumTypeId="ppLoginMethType" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Passport Login Provider" enumTypeId="ppLoginProvider" hasTable="N" parentTypeId=""/>
+
+    <EnumerationType description="OAuth2 Login Method Type" enumTypeId="OAuth2" hasTable="N" parentTypeId="ppLoginMethType"/>
+
+</entity-engine-xml>

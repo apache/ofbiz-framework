@@ -40,4 +40,5 @@ under the License.
     <load-component component-location="bi"/>
     <load-component component-location="example"/>
     <load-component component-location="exampleext"/>
+    <load-component component-location="passport"/>
 </component-loader>
