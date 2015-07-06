@@ -21,7 +21,9 @@ under the License.
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://ecommerce/webapp/ecommerce/WEB-INF/controller.xml"/>
+    <!-- 
     <include location="component://passport/webapp/passport/WEB-INF/controller-passport.xml"/>
+     -->
     <description>OFBiz: eCommerce SEO Controller Configuration File</description>
     
     <handler name="jsp" type="view" class="org.ofbiz.ecommerce.webapp.view.JspViewHandler"/>
