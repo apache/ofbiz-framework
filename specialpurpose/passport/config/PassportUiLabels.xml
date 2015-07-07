@@ -75,10 +75,6 @@ under the License.
         <value xml:lang="en">Failed to match the state parameter in GitHub response. Just try to login again.</value>
         <value xml:lang="zh">GitHub响应中的state参数不一致。重试登录即可。</value>
     </property>
-    <property key="FailedToGetLinkedInAuthorizationCode">
-        <value xml:lang="en">Failed to get LinkedIn authorization code.&lt;br&gt;Error: ${error}&lt;br&gt;Error description: ${error_description}</value>
-        <value xml:lang="zh">获取领英授权码时出错。&lt;br&gt;错误: ${error}&lt;br&gt;错误描述: ${error_description}</value>
-    </property>
     <property key="GetGitHubAuthorizationCodeError">
         <value xml:lang="en">Failed to get GitHub authorization code.</value>
         <value xml:lang="zh">获取GitHub授权码时出错。</value>
