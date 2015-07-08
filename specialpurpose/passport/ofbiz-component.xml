@@ -17,8 +17,8 @@
     
     <!-- Seed Data -->
     <entity-resource type="data" reader-name="seed" loader="main" location="data/OAuth2CommonSeedData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/OAuth2LinkedInSeedData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/OAuth2GitHubSeedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OAuth2LinkedInSeedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OAuth2GitHubSeedData.xml"/>
 
     <!-- service resources: model(s), eca(s) and group definitions -->
     <!-- 
