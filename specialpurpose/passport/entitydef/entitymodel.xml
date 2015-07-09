@@ -40,10 +40,8 @@ under the License.
         <relation type="one" fk-name="PROD_STORE_LOGINS" rel-entity-name="ProductStore">
             <key-map field-name="productStoreId"/>
         </relation>
-        <relation type="one" fk-name="LOGIN_METH_TYPE_ID" rel-entity-name="EnumerationType">
+        <relation type="many" rel-entity-name="EnumerationType">
             <key-map field-name="loginMethTypeId" rel-field-name="enumTypeId"/>
-        </relation>
-        <relation type="one" fk-name="LOGIN_PROVIDER_ID" rel-entity-name="EnumerationType">
             <key-map field-name="loginProviderId" rel-field-name="enumTypeId"/>
         </relation>
     </entity>
@@ -99,7 +97,7 @@ under the License.
         <field name="thruDate" type="date-time"></field>
         <prim-key field="productStoreId"/>
         <prim-key field="fromDate"/>
-        <relation type="one" fk-name="STORE_OAUTH_LINKEDIN" rel-entity-name="ProductStore">
+        <relation type="one" fk-name="OAUTH2_LINKEDIN" rel-entity-name="ProductStore">
             <key-map field-name="productStoreId"/>
         </relation>
     </entity>
@@ -113,7 +111,7 @@ under the License.
         <field name="envPrefix" type="short-varchar"></field>
         <field name="accessToken" type="value"></field>
         <prim-key field="linkedInUserId"/>
-        <relation type="one" fk-name="LINKEDIN_USER_STORE" rel-entity-name="ProductStore">
+        <relation type="one" fk-name="LINKEDIN_USER" rel-entity-name="ProductStore">
             <key-map field-name="productStoreId"/>
         </relation>
     </entity>

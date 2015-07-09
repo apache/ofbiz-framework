@@ -10,7 +10,6 @@
 
     <!-- load single or multiple external libraries -->
     <classpath type="jar" location="build/lib/*"/>
-    <classpath type="jar" location="lib/*"/>
 
     <!-- entity resources: model(s), eca(s), group, and data definitions -->
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
