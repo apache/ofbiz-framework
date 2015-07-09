@@ -933,7 +933,7 @@ public class UtilHttp {
             response.setContentType(contentType);
         }
         if (fileName != null) {
-            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+            response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
         }
 
         // create the streams
@@ -982,7 +982,7 @@ public class UtilHttp {
             response.setContentType(contentType);
         }
         if (fileName != null) {
-            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+            response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
         }
 
         // stream the content
