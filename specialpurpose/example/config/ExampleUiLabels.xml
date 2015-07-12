@@ -1108,4 +1108,20 @@
         <value xml:lang="zh">你修改了选择框中的值</value>
         <value xml:lang="zh-TW">你修改了選擇框中的值</value>
     </property>
+    <property key="ExamplePdfPassword">
+        <value xml:lang="en">PDF With Password</value>
+        <value xml:lang="zh">有密码的PDF</value>
+    </property>
+    <property key="PageTitleSetExamplePdfPassword">
+        <value xml:lang="en">Set PDF Protected By Password</value>
+        <value xml:lang="zh">设置有密码保护的PDF</value>
+    </property>
+    <property key="ExampleGeneratePDF">
+        <value xml:lang="en">Generate PDF</value>
+        <value xml:lang="zh">生成PDF</value>
+    </property>
+    <property key="password_did_not_match_confirm_password">
+        <value xml:lang="en">Password did not match confirm password.</value>
+        <value xml:lang="zh">密码与验证密码不一致。</value>
+    </property>
 </resource>

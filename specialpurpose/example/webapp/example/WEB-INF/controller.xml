@@ -225,6 +225,19 @@ under the License.
         <response name="success" type="view" value="ExamplePieChart"/>
     </request-map>
     
+    <!-- Pdf Report Options -->
+    <request-map uri="ExampleReportPdfOptions">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ExampleReportPdfOptions"/>
+    </request-map>
+    <request-map uri="setExamplePdfPassword">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.example.ExampleEvents" invoke="setExamplePdfPassword"/>
+        <response name="success" type="none"/>
+        <response name="nopassword" type="view" value="ExampleReportPdf"/>
+        <response name="error" type="view" value="ExampleReportPdfOptions"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -283,5 +296,6 @@ under the License.
         application/vnd.oasis.opendocument.presentation
      -->
 
+    <view-map name="ExampleReportPdfOptions" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleReportPdfOptions"/>
     <!-- end of view mappings -->
 </site-conf>

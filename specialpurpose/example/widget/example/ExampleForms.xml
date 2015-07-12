@@ -311,4 +311,11 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+
+    <form name="SetExamplePdfPassword" type="single" target="setExamplePdfPassword" title="">
+        <field name="exampleId"><hidden/></field>
+        <field name="PASSWORD" title="${uiLabelMap.CommonPassword}"><password size="15" maxlength="250"/></field>
+        <field name="CONFIRM_PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="* ${uiLabelMap.CommonConfirm}"><password size="15" maxlength="250"/></field>
+        <field name="submitButton" title="${uiLabelMap.ExampleGeneratePDF}"><submit button-type="button"/></field>
+    </form>
 </forms>
