@@ -163,7 +163,7 @@ public class ExampleEvents {
         
         // parse the pdf with PDFBox
         ByteArrayInputStream is = new ByteArrayInputStream(out.toByteArray());
-        PDDocument document;
+        PDDocument document = null;
         try {
             document = PDDocument.load(is);
             int keyLength = 40;
@@ -187,6 +187,13 @@ public class ExampleEvents {
             try {
                 if (is != null) {
                     is.close();
+                }
+            } catch (IOException e) {
+                // ignore
+            }
+            try {
+                if (document != null) {
+                    document.close();
                 }
             } catch (IOException e) {
                 // ignore
