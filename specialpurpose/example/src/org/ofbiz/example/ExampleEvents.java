@@ -70,7 +70,7 @@ public class ExampleEvents {
 
     public static final String exampleDefaultOwnerPassword = UtilProperties.getPropertyValue(examplePdfProperties, "default.pdf.owner.password", "ofbiz");
     
-    public static final String resourceExample = "ExampleUiLables";
+    public static final String resourceExample = "ExampleUiLabels";
 
     /** Set password to the specified example and output the generated PDF.
      *@param request The HTTPRequest object for the current request
@@ -87,10 +87,10 @@ public class ExampleEvents {
         String confirmPassword = (String) requestParams.get("CONFIRM_PASSWORD");
 
         if (UtilValidate.isEmpty(password) && UtilValidate.isEmpty(confirmPassword) && (UtilValidate.isEmpty(exampleDefaultOwnerPassword) || !useExampleDefaultOwnerPassword)) {
-        	return "nopassword";
+            return "nopassword";
         }
         if (UtilValidate.isNotEmpty(password) && !password.equals(confirmPassword)) {
-        	String errMsg = UtilProperties.getMessage(resourceExample, "password_not_equal_confirm_password", locale);
+            String errMsg = UtilProperties.getMessage(resourceExample, "password_not_equal_confirm_password", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -138,7 +138,7 @@ public class ExampleEvents {
             Debug.logError(e, errMsg, module);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
-		}
+        }
 
         // set the input source (XSL-FO) and generate the PDF
         StreamSource src = new StreamSource(new StringReader(reportWriter.toString()));
@@ -159,60 +159,60 @@ public class ExampleEvents {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             Debug.logError(e, module);
             return "error";
-		}
+        }
         
         // parse the pdf with PDFBox
         ByteArrayInputStream is = new ByteArrayInputStream(out.toByteArray());
         PDDocument document;
-		try {
-			document = PDDocument.load(is);
-	        int keyLength = 40;
-	        AccessPermission ap = new AccessPermission();
-	        String ownerPassword = exampleDefaultOwnerPassword;
-	        if (UtilValidate.isEmpty(ownerPassword) || !useExampleDefaultOwnerPassword) {
-	        	ownerPassword = password;
-	        }
-	        StandardProtectionPolicy spp = new StandardProtectionPolicy(ownerPassword, password, ap);
-	        spp.setEncryptionKeyLength(keyLength);
-	        document.protect(spp);
-		} catch (IOException e) {
+        try {
+            document = PDDocument.load(is);
+            int keyLength = 40;
+            AccessPermission ap = new AccessPermission();
+            String ownerPassword = exampleDefaultOwnerPassword;
+            if (UtilValidate.isEmpty(ownerPassword) || !useExampleDefaultOwnerPassword) {
+                ownerPassword = password;
+            }
+            StandardProtectionPolicy spp = new StandardProtectionPolicy(ownerPassword, password, ap);
+            spp.setEncryptionKeyLength(keyLength);
+            document.protect(spp);
+        } catch (IOException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             Debug.logError(e, module);
             return "error";
-		} catch (BadSecurityHandlerException e) {
+        } catch (BadSecurityHandlerException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             Debug.logError(e, module);
             return "error";
-		} finally {
+        } finally {
             try {
-            	if (is != null) {
-    				is.close();
-            	}
-			} catch (IOException e) {
-				// ignore
-			}
-		}
+                if (is != null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                // ignore
+            }
+        }
 
-		out = new ByteArrayOutputStream();
-		try {
-			document.save(out);
-	        // set the content type and length
-	        response.setContentType(MimeConstants.MIME_PDF);
-	        response.setContentLength(out.size());
-			out.flush();
-			out.close();
-	        // write to the browser
-        	response.getOutputStream().write(out.toByteArray());
+        out = new ByteArrayOutputStream();
+        try {
+            document.save(out);
+            // set the content type and length
+            response.setContentType(MimeConstants.MIME_PDF);
+            response.setContentLength(out.size());
+            out.flush();
+            out.close();
+            // write to the browser
+            response.getOutputStream().write(out.toByteArray());
             response.getOutputStream().flush();
-		} catch (COSVisitorException e) {
+        } catch (COSVisitorException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             Debug.logError(e, module);
-        	return "error";
-		} catch (IOException e) {
+            return "error";
+        } catch (IOException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             Debug.logError(e, module);
-        	return "error";
-		}
+            return "error";
+        }
 
         return "success";
     }
