@@ -1120,7 +1120,7 @@
         <value xml:lang="en">Generate PDF</value>
         <value xml:lang="zh">生成PDF</value>
     </property>
-    <property key="password_did_not_match_confirm_password">
+    <property key="password_not_equal_confirm_password">
         <value xml:lang="en">Password did not match confirm password.</value>
         <value xml:lang="zh">密码与验证密码不一致。</value>
     </property>
