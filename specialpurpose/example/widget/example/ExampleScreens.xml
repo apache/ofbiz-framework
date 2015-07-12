@@ -494,4 +494,21 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="ExampleReportPdfOptions">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSetExamplePdfPassword"/>
+                <set field="tabButtonItem" value="EditExample"/>
+                <set field="exampleId" from-field="parameters.exampleId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonExampleDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="SetExamplePdfPassword" location="component://example/widget/example/ExampleForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

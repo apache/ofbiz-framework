@@ -103,6 +103,10 @@ under the License.
                                                 <parameter param-name="exampleId"/>
                                                 <image url-mode="raw" src="${iconsLocation}/page_white_acrobat.png"/>
                                             </link>
+                                            <link target="ExampleReportPdfOptions" text="${uiLabelMap.ExamplePdfPassword}" style="buttontext">
+                                                <parameter param-name="exampleId"/>
+                                                <image url-mode="raw" src="${iconsLocation}/page_white_acrobat.png"/>
+                                            </link>
                                             <link target="help" text="${uiLabelMap.CommonHelp}" style="buttontext" target-window="_blank">
                                                 <parameter param-name="topic" value="ExampleEditHelp"/>
                                                 <image url-mode="raw" src="${iconsLocation}/help.png"/>
