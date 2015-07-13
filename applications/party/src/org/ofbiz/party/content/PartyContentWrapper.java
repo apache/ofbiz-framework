@@ -105,11 +105,11 @@ public class PartyContentWrapper implements ContentWrapper {
     // static methods
     public static String getPartyContentAsText(GenericValue party, String partyContentId, HttpServletRequest request) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        return getPartyContentAsText(party, partyContentId, UtilHttp.getLocale(request), "text/html", party.getDelegator(), dispatcher, true);
+        return getPartyContentAsText(party, partyContentId, null, UtilHttp.getLocale(request), "text/html", party.getDelegator(), dispatcher, true);
     }
 
     public static String getPartyContentAsText(GenericValue party, String partyContentId, Locale locale, LocalDispatcher dispatcher) {
-        return getPartyContentAsText(party, partyContentId, locale, null, null, dispatcher, true);
+        return getPartyContentAsText(party, partyContentId, null, locale, null, null, dispatcher, true);
     }
 
     public static String getPartyContentAsText(GenericValue party, String partyContentTypeId,
