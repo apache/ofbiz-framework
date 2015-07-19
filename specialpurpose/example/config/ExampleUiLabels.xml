@@ -1124,4 +1124,52 @@
         <value xml:lang="en">Password did not match confirm password.</value>
         <value xml:lang="zh">密码与验证密码不一致。</value>
     </property>
+    <property key="PDFOwnerPassword">
+        <value xml:lang="en">Owner Password</value>
+        <value xml:lang="zh">拥有者密码</value>
+    </property>
+    <property key="PDFUserPassword">
+        <value xml:lang="en">User Password</value>
+        <value xml:lang="zh">使用者密码</value>
+    </property>
+    <property key="PDFAllowPrint">
+        <value xml:lang="en">Allow Print</value>
+        <value xml:lang="zh">允许打印</value>
+    </property>
+    <property key="PDFAllowCopyContent">
+        <value xml:lang="en">Allow Copy Content</value>
+        <value xml:lang="zh">允许复制内容</value>
+    </property>
+    <property key="PDFAllowEditContent">
+        <value xml:lang="en">Allow Edit Content</value>
+        <value xml:lang="zh">允许编辑内容</value>
+    </property>
+    <property key="PDFAllowEditAnnotations">
+        <value xml:lang="en">Allow Edit Annotations</value>
+        <value xml:lang="zh">允许编辑注释</value>
+    </property>
+    <property key="PDFAllowFillInForms">
+        <value xml:lang="en">Allow Fill-in Forms</value>
+        <value xml:lang="zh">允许填写表格</value>
+    </property>
+    <property key="PDFAllowAccessContent">
+        <value xml:lang="en">Allow Access Content</value>
+        <value xml:lang="zh">允许访问内容</value>
+    </property>
+    <property key="PDFAllowAssembleDocument">
+        <value xml:lang="en">Allow Assemble Document</value>
+        <value xml:lang="zh">允许组装文档</value>
+    </property>
+    <property key="PDFAllowPrintHq">
+        <value xml:lang="en">Allow Print HQ</value>
+        <value xml:lang="zh">允许高质量打印</value>
+    </property>
+    <property key="PDFEncryptMetadata">
+        <value xml:lang="en">Encrypt Metadata</value>
+        <value xml:lang="zh">加密元数据</value>
+    </property>
+    <property key="PDFEncryptionLength">
+        <value xml:lang="en">Encryption Length</value>
+        <value xml:lang="zh">密钥长度</value>
+    </property>
 </resource>

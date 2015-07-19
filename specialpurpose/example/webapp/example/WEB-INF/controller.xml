@@ -230,13 +230,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ExampleReportPdfOptions"/>
     </request-map>
-    <request-map uri="setExamplePdfPassword">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.example.ExampleEvents" invoke="setExamplePdfPassword"/>
-        <response name="success" type="none"/>
-        <response name="nopassword" type="view" value="ExampleReportPdf"/>
-        <response name="error" type="view" value="ExampleReportPdfOptions"/>
-    </request-map>
     
     <!-- end of request mappings -->
 
