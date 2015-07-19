@@ -312,10 +312,65 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
-    <form name="SetExamplePdfPassword" type="single" target="setExamplePdfPassword" title="">
+    <form name="SetExamplePdfPassword" type="single" target="ExampleReportPdf" title="">
         <field name="exampleId"><hidden/></field>
-        <field name="PASSWORD" title="${uiLabelMap.CommonPassword}"><password size="15" maxlength="250"/></field>
-        <field name="CONFIRM_PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="* ${uiLabelMap.CommonConfirm}"><password size="15" maxlength="250"/></field>
+        <field name="ownerPassword" title="${uiLabelMap.PDFOwnerPassword}"><text size="15" maxlength="250"/></field>
+        <field name="userPassword" title="${uiLabelMap.PDFUserPassword}"><text size="15" maxlength="250"/></field>
+        <field name="allowPrint" title="${uiLabelMap.PDFAllowPrint}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="allowCopyContent" title="${uiLabelMap.PDFAllowCopyContent}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="allowEditContent" title="${uiLabelMap.PDFAllowEditContent}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="allowEditAnnotations" title="${uiLabelMap.PDFAllowEditAnnotations}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="allowFillInForms" title="${uiLabelMap.PDFAllowFillInForms}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="allowAccessContent" title="${uiLabelMap.PDFAllowAccessContent}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="allowAssembleDocument" title="${uiLabelMap.PDFAllowAssembleDocument}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="allowPrintHq" title="${uiLabelMap.PDFAllowPrintHq}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="encrypt-metadata" title="${uiLabelMap.PDFEncryptMetadata}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="encryption-length" title="${uiLabelMap.PDFEncryptionLength}"><text size="15"/></field>
         <field name="submitButton" title="${uiLabelMap.ExampleGeneratePDF}"><submit button-type="button"/></field>
     </form>
 </forms>

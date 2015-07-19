@@ -2,9 +2,9 @@
 <classpath>
     <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
     <classpathentry kind="lib" path="applications/content/lib/dom4j-1.6.1.jar"/>
-    <classpathentry kind="lib" path="applications/content/lib/fontbox-1.7.1.jar"/>
-    <classpathentry kind="lib" path="applications/content/lib/jempbox-1.7.1.jar"/>
-    <classpathentry kind="lib" path="applications/content/lib/pdfbox-1.7.1.jar"/>
+    <classpathentry kind="lib" path="applications/content/lib/pdfbox-1.8.5.jar"/>
+    <classpathentry kind="lib" path="applications/content/lib/jempbox-1.8.5.jar"/>
+    <classpathentry kind="lib" path="applications/content/lib/fontbox-1.8.5.jar"/>
     <classpathentry kind="lib" path="applications/content/lib/poi-3.10.1-20140818.jar"/>
     <classpathentry kind="lib" path="applications/content/lib/tika-core-1.7.jar"/>
     <classpathentry kind="lib" path="applications/content/lib/tika-parsers-1.7.jar"/>
@@ -15,10 +15,10 @@
     <classpathentry kind="lib" path="framework/base/lib/ant-1.9.0-ant-launcher.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-framework-4.2.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/barcode4j-2.1-barcode4j-fop-ext-complete.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/batik-all-1.7.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/batik-all-1.8.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/clhm-release-1.0-lru.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/esapi-2.1.0.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/fop-1.1.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/fop-2.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.22.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/hamcrest-all-1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpclient-4.3.6.jar"/>
@@ -48,7 +48,7 @@
     <classpathentry kind="lib" path="framework/base/lib/ws-commons-java5-1.0.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ws-commons-util-1.0.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xercesImpl-2.9.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/xmlgraphics-commons-1.5.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/xmlgraphics-commons-2.0.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xmlrpc-client-3.1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xmlrpc-common-3.1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xmlrpc-server-3.1.2.jar"/>
