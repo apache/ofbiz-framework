@@ -15,7 +15,7 @@ framework/base/lib/ant-1.9.0-ant.jar
 framework/base/lib/ant-1.9.0-ant-junit.jar
 framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar
 framework/base/lib/avalon-framework-4.2.0.jar
-framework/base/lib/batik-all-1.7.jar
+framework/base/lib/batik-all-1.8.jar
 framework/base/lib/barcode4j-2.1-barcode4j-fop-ext-complete.jar
 framework/base/lib/clhm-release-1.0-lru.jar
 framework/base/lib/freemarker-2.3.22.jar
@@ -94,8 +94,8 @@ framework/service/lib/axis2-transport-local-1.5.2.jar
 framework/service/lib/commons-httpclient-3.1.jar
 framework/service/lib/neethi-2.0.4.jar
 framework/service/lib/XmlSchema-1.4.3.jar
-framework/webapp/lib/fop-1.1.jar
-framework/webapp/lib/xmlgraphics-commons-1.5.jar
+framework/webapp/lib/fop-2.0.jar
+framework/webapp/lib/xmlgraphics-commons-2.0.1.jar
 framework/webapp/lib/ezmorph-0.9.1.jar
 framework/webapp/lib/rome-0.9.jar
 framework/webapp/lib/serializer-2.7.0.jar
@@ -103,9 +103,9 @@ framework/webapp/lib/xalan-2.7.1.jar
 framework/geronimo/lib/geronimo-transaction-3.1.1.jar
 framework/testtools/lib/org.springframework.core-3.1.0.M2.jar
 framework/testtools/lib/org.springframework.test-3.1.0.M2.jar
-applications/content/lib/fontbox-1.7.1.jar
-applications/content/lib/jempbox-1.7.1.jar
-applications/content/lib/pdfbox-1.7.1.jar
+applications/content/lib/fontbox-1.8.5.jar
+applications/content/lib/jempbox-1.8.5.jar
+applications/content/lib/pdfbox-1.8.5.jar
 applications/content/lib/poi-3.10.1-20140818.jar
 applications/content/lib/tika-core-1.7.jar
 applications/content/lib/tika-parsers-1.7.jar
