@@ -1338,10 +1338,17 @@ public class ModelFormField {
                 retVal = this.getDescription().expandString(localContext, locale);
             }
             // try to get the entry for the field if description doesn't expand to anything
-            if (UtilValidate.isEmpty(retVal))
+            if (UtilValidate.isEmpty(retVal)) {
                 retVal = fieldValue;
-            if (UtilValidate.isEmpty(retVal))
+            } 
+            if (UtilValidate.isEmpty(retVal)) {
                 retVal = "";
+            } else if (this.getModelFormField().getEncodeOutput()) {
+                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                if (simpleEncoder != null) {
+                    retVal = simpleEncoder.encode(retVal);
+                }
+            }
             return retVal;
         }
 
