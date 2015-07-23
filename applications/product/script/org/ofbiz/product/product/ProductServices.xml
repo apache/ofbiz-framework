@@ -91,7 +91,7 @@ under the License.
             </iterate>
         </if-has-permission>
     </simple-method>
-    <simple-method method-name="updateProduct" short-description="Update an Product">
+    <simple-method method-name="updateProduct" short-description="Update a Product">
         <set value="updateProduct" field="callingMethodName"/>
         <set value="UPDATE" field="checkAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
@@ -769,7 +769,7 @@ under the License.
     </simple-method>
 
     <!-- ProductCategoryGlAccount methods -->
-    <simple-method method-name="createProductCategoryGlAccount" short-description="Create an ProductCategoryGlAccount">
+    <simple-method method-name="createProductCategoryGlAccount" short-description="Create a ProductCategoryGlAccount">
         <set value="createProductCategoryGlAccount" field="callingMethodName"/>
         <set value="CREATE" field="checkAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
@@ -781,7 +781,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
 
-    <simple-method method-name="updateProductCategoryGlAccount" short-description="Update an ProductCategoryGlAccount">
+    <simple-method method-name="updateProductCategoryGlAccount" short-description="Update a ProductCategoryGlAccount">
         <set value="updateProductCategoryGlAccount" field="callingMethodName"/>
         <set value="UPDATE" field="checkAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
@@ -792,7 +792,7 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <simple-method method-name="deleteProductCategoryGlAccount" short-description="Delete an ProductCategoryGlAccount">
+    <simple-method method-name="deleteProductCategoryGlAccount" short-description="Delete a ProductCategoryGlAccount">
         <set value="deleteProductCategoryGlAccount" field="callingMethodName"/>
         <set value="DELETE" field="checkAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
