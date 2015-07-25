@@ -162,7 +162,7 @@ under the License.
         </field>
     </form>
     <form name="EditProdCatalogCategories" type="list" target="updateProductCategoryToProdCatalog" title="" list-name="prodCatalogCategories"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProdCatalogCategories">
         <auto-fields-service service-name="updateProductCategoryToProdCatalog"/>
         <field name="prodCatalogId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}">
