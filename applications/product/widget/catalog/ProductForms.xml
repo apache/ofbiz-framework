@@ -1640,7 +1640,7 @@ under the License.
 
     <!-- ProductSubscriptionResource -->
     <form name="ListProductSubscriptionResources" type="list" list-name="productSubscriptionResources" target="updateProductSubscriptionResource"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductSubscriptionResources">
         <actions>
             <entity-condition entity-name="ProductSubscriptionResource">
                 <condition-expr field-name="productId" from-field="productId"/>
