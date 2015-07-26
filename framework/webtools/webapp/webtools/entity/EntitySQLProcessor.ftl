@@ -16,45 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-    <form method="post" action="EntitySQLProcessor" name="EntitySQLCommand">
-      <table class="basic-table" cellspacing="0">
-        <tr>
-            <td class="label">
-                ${uiLabelMap.CommonGroup}
-            </td>
-            <td>
-                <select name="group">
-                    <#list groups as group>
-                        <option value="${group}" <#if selGroup??><#if group = selGroup>selected="selected"</#if></#if>>${group}</option>
-                    </#list>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td class="label">
-                ${uiLabelMap.WebtoolsSqlCommand}
-            </td>
-            <td>
-                <textarea name="sqlCommand" cols="100" rows="5">${sqlCommand!}</textarea>
-            </td>
-        </tr>
-        <tr>
-            <td class="label">
-                ${uiLabelMap.WebtoolsLimitRowsTo}
-            </td>
-            <td>
-                <input name="rowLimit" type="text" size="5" value="${rowLimit?default(200)}"/>
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>
-                <input type="submit" name="submitButton" value="${uiLabelMap.CommonSubmit}"/>
-            </td>
-        </tr>
-      </table>
-    </form>
-
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>

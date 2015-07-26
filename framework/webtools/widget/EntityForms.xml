@@ -67,4 +67,17 @@ under the License.
             <include-menu name="ListEntitiesAction" location="component://webtools/widget/Menus.xml"/>
         </field>
     </grid>
+
+    <form name="EntitySQLCommand" target="EntitySQLProcessor">
+        <field name="group" title="${uiLabelMap.CommonGroup}">
+            <drop-down allow-empty="false">
+                <list-options list-name="groups" key-name="group" description="${group}"/>
+            </drop-down>
+        </field>
+        <field name="sqlCommand" title="${uiLabelMap.WebtoolsSqlCommand}">
+            <textarea cols="60" rows="6"/>
+        </field>
+        <field name="rowLimit" title="${uiLabelMap.WebtoolsLimitRowsTo}" encode-output="false"><text default-value="200" size="5"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSend}"><submit/></field>
+    </form>
 </forms>
