@@ -77,7 +77,7 @@ under the License.
         <field name="sqlCommand" title="${uiLabelMap.WebtoolsSqlCommand}">
             <textarea cols="60" rows="6"/>
         </field>
-        <field name="rowLimit" title="${uiLabelMap.WebtoolsLimitRowsTo}" encode-output="false"><text default-value="200" size="5"/></field>
+        <field name="rowLimit" title="${uiLabelMap.WebtoolsLimitRowsTo}"><text default-value="200" size="5"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSend}"><submit/></field>
     </form>
 </forms>
