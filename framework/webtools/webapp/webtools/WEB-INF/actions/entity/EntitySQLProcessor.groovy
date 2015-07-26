@@ -31,7 +31,8 @@ rs = null;
 columns = [];
 records = [];
 mgr = delegator.getModelGroupReader();
-groups = mgr.getGroupNames(delegator.getDelegatorName());
+groups = [];
+for (String group : mgr.getGroupNames(delegator.getDelegatorName())) groups.add(0,["group":group]); //use for list-option in widget drop-down
 
 if (sqlCommand && selGroup) {
     du = new SQLProcessor(delegator, delegator.getGroupHelperInfo(selGroup));
