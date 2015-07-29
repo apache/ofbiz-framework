@@ -136,7 +136,6 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             FopFactory fopFactory = ApacheFopWorker.getFactoryInstance();
             foUserAgent = fopFactory.newFOUserAgent();
             PDFEncryptionParams pdfEncryptionParams = new PDFEncryptionParams(userPassword, ownerPassword, allowPrint, allowCopyContent, allowEditContent, allowEditAnnotations, encryptMetadata);
-            pdfEncryptionParams.setEncryptionLengthInBits(256);
             pdfEncryptionParams.setAllowFillInForms(allowFillInForms);
             pdfEncryptionParams.setAllowAccessContent(allowAccessContent);
             pdfEncryptionParams.setAllowAssembleDocument(allowAssembleDocument);
