@@ -849,7 +849,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             if (textSize > 0 && description.length() > textSize) {
                 description = description.substring(0, textSize - 8) + "..." + description.substring(description.length() - 5);
             }
-            options.append(encode(description, modelFormField, context));
+            options.append(encode(description.replaceAll("'", "\\\\\'"), modelFormField, context));
 
             if (UtilValidate.isNotEmpty(currentValueList)) {
                 options.append("'");
