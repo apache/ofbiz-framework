@@ -231,7 +231,7 @@ under the License.
   <span class="ui-widget">
     <select name="${name?default("")}<#rt/>" <@renderClass className alert /><#if id?has_content> id="${id}"</#if><#if multiple?has_content> multiple="multiple"</#if><#if otherFieldSize gt 0> onchange="process_choice(this,document.${formName}.${otherFieldName})"</#if><#if event?has_content> ${event}="${action}"</#if><#if size?has_content> size="${size}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>>
       <#if firstInList?has_content && currentValue?has_content && !multiple?has_content>
-        <option selected="selected" value="${currentValue}">${explicitDescription?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/>
+        <option selected="selected" value="${currentValue}">${explicitDescription?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/><#-- replace("&#x5c;&#x27;","&#x27;") related to OFBIZ-6504 -->
         <option value="${currentValue}">---</option><#rt/>
       </#if>
       <#if allowEmpty?has_content || !options?has_content>
@@ -239,9 +239,9 @@ under the License.
       </#if>
       <#list options as item>
         <#if multiple?has_content>
-          <option<#if currentValue?has_content && item.selected?has_content> selected="${item.selected}" <#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> selected="selected" </#if> value="${item.key}">${item.description?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/>
+          <option<#if currentValue?has_content && item.selected?has_content> selected="${item.selected}" <#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> selected="selected" </#if> value="${item.key}">${item.description?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/> <#-- replace("&#x5c;&#x27;","&#x27;") related to OFBIZ-6504 -->
         <#else>
-          <option<#if currentValue?has_content && currentValue == item.key && dDFCurrent?has_content && "selected" == dDFCurrent> selected="selected"<#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> selected="selected"</#if> value="${item.key}">${item.description?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/>
+          <option<#if currentValue?has_content && currentValue == item.key && dDFCurrent?has_content && "selected" == dDFCurrent> selected="selected"<#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> selected="selected"</#if> value="${item.key}">${item.description?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/> <#-- replace("&#x5c;&#x27;","&#x27;") related to OFBIZ-6504 -->
         </#if>
       </#list>
     </select>
