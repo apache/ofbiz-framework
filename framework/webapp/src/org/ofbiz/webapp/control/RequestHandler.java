@@ -612,7 +612,7 @@ public class RequestHandler {
 
         // if the request has the save-last-view attribute set, save it now before the view can be rendered or other chain done so that the _LAST* session attributes will represent the previous request
         if (nextRequestResponse.saveLastView) {
-            Debug.logInfo("======save last view: " + session.getAttribute("_LAST_VIEW_NAME_"), module);
+            // Debug.logInfo("======save last view: " + session.getAttribute("_LAST_VIEW_NAME_"));
             String lastViewName = (String) session.getAttribute("_LAST_VIEW_NAME_");
             // Do not save the view if the last view is the same as the current view and saveCurrentView is false
             if (!(!nextRequestResponse.saveCurrentView && "view".equals(nextRequestResponse.type) && nextRequestResponse.value.equals(lastViewName))) {
