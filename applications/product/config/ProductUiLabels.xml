@@ -25138,7 +25138,7 @@
         <value xml:lang="ru">Повышение продукта</value>
         <value xml:lang="th">เพิ่มราคาสินค้า</value>
         <value xml:lang="vi">Chuyển đến sản phẩm</value>
-        <value xml:lang="zh">产品跃升</value>
+        <value xml:lang="zh">跳转到产品</value>
         <value xml:lang="zh-TW">功能挑選</value>
     </property>
     <property key="ProductProductName">
