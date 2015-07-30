@@ -390,7 +390,7 @@ public class UtilHttp {
     }
 
     public static Map<String, Object> makeParamMapWithPrefix(HttpServletRequest request, Map<String, ? extends Object> additionalFields, String prefix, String suffix) {
-        return makeParamMapWithPrefix(getParameterMap(request), additionalFields, prefix, suffix);
+        return makeParamMapWithPrefix(getCombinedMap(request), additionalFields, prefix, suffix);
     }
 
     public static Map<String, Object> makeParamMapWithPrefix(Map<String, ? extends Object> context, Map<String, ? extends Object> additionalFields, String prefix, String suffix) {
