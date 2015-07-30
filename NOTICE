@@ -221,15 +221,6 @@ This product includes software developed by the JDBM Project
 (http://jdbm.sourceforge.net/).
 
 =========================================================================
-==  PNG Behavior Notice                                                ==
-=========================================================================
-
-This product includes software developed by
-WebFX (webfx.eae.net):
-
-framework/images/webapp/images/pngbehavior.htc
-
-=========================================================================
 ==  JSON-LIB Notice                                                    ==
 =========================================================================
 
@@ -294,13 +285,3 @@ Under the following conditions:
     * Notice — For any reuse or distribution, you must make clear to others 
       the license terms of this work. The best way to do this is with a link to 
       this web page. 
-=========================================================================
-
-This product includes software developed by Steven Levithan
-(http://blog.stevenlevithan.com/archives/date-time-format). MIT license
-=========================================================================
-
-This product includes software developed by Matthew Eernisse (mde@fleegix.org)
-and Open Source Applications Foundation. Licensed under the ASL2
-https://github.com/mde/timezone-js
-=========================================================================
