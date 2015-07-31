@@ -26,6 +26,8 @@ import java.util.Iterator;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.model.ModelGroupReader;
 
+sqlCommand = context.request.getParameter("sqlCommand");
+
 resultMessage = "";
 rs = null;
 columns = [];
@@ -74,3 +76,4 @@ context.groups = groups;
 context.resultMessage = resultMessage;
 context.columns = columns;
 context.records = records;
+context.sqlCommand = sqlCommand; // (see OFBIZ-6567)
