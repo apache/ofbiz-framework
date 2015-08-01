@@ -27,7 +27,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.sql.XAConnection;
 import javax.transaction.HeuristicMixedException;
@@ -79,14 +78,7 @@ public class TransactionUtil implements Status {
     // in order to improve performance allThreadsTransactionBeginStack and allThreadsTransactionBeginStackSave are only maintained when logging level INFO is on
     private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(new HashMap<Long, Exception>());
     private static Map<Long, List<Exception>> allThreadsTransactionBeginStackSave = Collections.<Long, List<Exception>>synchronizedMap(new HashMap<Long, List<Exception>>());
-    private static List<TransactionListener> listeners = new CopyOnWriteArrayList<TransactionListener>();
 
-    public static void addListener(TransactionListener listener) {
-        if (listener != null && !listeners.contains(listener)) {
-            listeners.add(listener);
-        }
-    }
-    
     public static <V> V doNewTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException) throws GenericEntityException {
         return noTransaction(inTransaction(callable, ifErrorMessage, timeout, printException)).call();
     }
@@ -171,9 +163,7 @@ public class TransactionUtil implements Status {
                         Debug.logError(e, module);
                     }
                 }
-                for (TransactionListener listener : listeners) {
-                    listener.update(ut, TransactionListener.EventType.BEGIN);
-                }
+
                 return true;
             } catch (NotSupportedException e) {
                 throw new GenericTransactionException("Not Supported error, could not begin transaction (probably a nesting problem)", e);
@@ -262,9 +252,7 @@ public class TransactionUtil implements Status {
                     // clear out the stack too
                     clearTransactionBeginStack();
                     clearSetRollbackOnlyCause();
-                    for (TransactionListener listener : listeners) {
-                        listener.update(ut, TransactionListener.EventType.COMMIT);
-                    }
+
                     Debug.logVerbose("Transaction committed", module);
                 } else {
                     Debug.logWarning("Not committing transaction, status is " + getStatusString(), module);
@@ -340,9 +328,7 @@ public class TransactionUtil implements Status {
                     // clear out the stack too
                     clearTransactionBeginStack();
                     clearSetRollbackOnlyCause();
-                    for (TransactionListener listener : listeners) {
-                        listener.update(ut, TransactionListener.EventType.ROLLBACK);
-                    }
+
                     ut.rollback();
                     Debug.logInfo("Transaction rolled back", module);
                 } else {

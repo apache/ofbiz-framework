@@ -18,12 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.entity.cache;
 
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.transaction.UserTransaction;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -31,34 +26,15 @@ import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.transaction.GenericTransactionException;
-import org.ofbiz.entity.transaction.TransactionFactoryLoader;
-import org.ofbiz.entity.transaction.TransactionListener;
-import org.ofbiz.entity.transaction.TransactionUtil;
 
-public class EntityCache extends AbstractCache<GenericPK, GenericValue> implements TransactionListener {
+public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
     public static final String module = EntityCache.class.getName();
-    private final ConcurrentHashMap<UserTransaction, Map<GenericPK, GenericValue>> txCacheMap = new ConcurrentHashMap<UserTransaction, Map<GenericPK, GenericValue>>();
 
     public EntityCache(String delegatorName) {
         super(delegatorName, "entity");
     }
 
     public GenericValue get(GenericPK pk) {
-        try {
-            if (TransactionUtil.getStatus() == TransactionUtil.STATUS_ACTIVE) {
-                UserTransaction tx = TransactionFactoryLoader.getInstance().getUserTransaction();
-                Map<GenericPK, GenericValue> tempCache = txCacheMap.get(tx);
-                if (tempCache != null) {
-                    GenericValue value = tempCache.get(pk);
-                    if (value != null) {
-                        return value;
-                    }
-                }
-            }
-        } catch (GenericTransactionException e) {
-            Debug.logWarning(e, "Exception thrown while getting transaction status: ", module);
-        }
         UtilCache<GenericPK, GenericValue> entityCache = getCache(pk.getEntityName());
         if (entityCache == null) return null;
         return entityCache.get(pk);
@@ -74,46 +50,18 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> implemen
             Debug.logWarning("Tried to put a value of the " + pk.getEntityName() + " entity in the BY PRIMARY KEY cache but this entity has never-cache set to true, not caching.", module);
             return null;
         }
-        pk.setImmutable();
+
         if (entity == null) {
             entity = GenericValue.NULL_VALUE;
         } else {
             // before going into the cache, make this value immutable
             entity.setImmutable();
         }
-        try {
-            if (TransactionUtil.getStatus() == TransactionUtil.STATUS_ACTIVE) {
-                UserTransaction tx = TransactionFactoryLoader.getInstance().getUserTransaction();
-                Map<GenericPK, GenericValue> tempCache = txCacheMap.get(tx);
-                if (tempCache != null) {
-                    return tempCache.put(pk, entity);
-                }
-            }
-        } catch (GenericTransactionException e) {
-            Debug.logWarning(e, "Exception thrown while getting transaction status: ", module);
-        }
         UtilCache<GenericPK, GenericValue> entityCache = getOrCreateCache(pk.getEntityName());
         return entityCache.put(pk, entity);
     }
 
     public void remove(String entityName, EntityCondition condition) {
-        try {
-            if (TransactionUtil.getStatus() == TransactionUtil.STATUS_ACTIVE) {
-                UserTransaction tx = TransactionFactoryLoader.getInstance().getUserTransaction();
-                Map<GenericPK, GenericValue> tempCache = txCacheMap.get(tx);
-                if (tempCache != null) {
-                    for (Map.Entry<GenericPK, GenericValue> entry : tempCache.entrySet()) {
-                        GenericPK pk = entry.getKey();
-                        GenericValue value = entry.getValue();
-                        if (condition.entityMatches(value)) {
-                            tempCache.remove(pk);
-                        }
-                    }
-                }
-            }
-        } catch (GenericTransactionException e) {
-            Debug.logWarning(e, "Exception thrown while getting transaction status: ", module);
-        }
         UtilCache<GenericPK, GenericValue> entityCache = getCache(entityName);
         if (entityCache == null) return;
         for (GenericPK pk: entityCache.getCacheLineKeys()) {
@@ -128,17 +76,6 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> implemen
     }
 
     public GenericValue remove(GenericPK pk) {
-        try {
-            if (TransactionUtil.getStatus() == TransactionUtil.STATUS_ACTIVE) {
-                UserTransaction tx = TransactionFactoryLoader.getInstance().getUserTransaction();
-                Map<GenericPK, GenericValue> tempCache = txCacheMap.get(tx);
-                if (tempCache != null) {
-                    return tempCache.remove(pk);
-                }
-            }
-        } catch (GenericTransactionException e) {
-            Debug.logWarning(e, "Exception thrown while getting transaction status: ", module);
-        }
         UtilCache<GenericPK, GenericValue> entityCache = getCache(pk.getEntityName());
         if (Debug.verboseOn()) Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], will remove from this cache: " + (entityCache == null ? "[No cache found to remove from]" : entityCache.getName()), module);
         if (entityCache == null) return null;
@@ -153,60 +90,5 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> implemen
         }
         if (Debug.verboseOn()) Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], found this in the cache: " + retVal, module);
         return retVal;
-    }
-
-    @Override
-    public void clear() {
-        try {
-            if (TransactionUtil.getStatus() == TransactionUtil.STATUS_ACTIVE) {
-                UserTransaction tx = TransactionFactoryLoader.getInstance().getUserTransaction();
-                txCacheMap.remove(tx);
-            }
-        } catch (GenericTransactionException e) {
-            Debug.logWarning(e, "Exception thrown while getting transaction status: ", module);
-        }
-        super.clear();
-    }
-
-    @Override
-    public void remove(String entityName) {
-        try {
-            if (TransactionUtil.getStatus() == TransactionUtil.STATUS_ACTIVE) {
-                UserTransaction tx = TransactionFactoryLoader.getInstance().getUserTransaction();
-                Map<GenericPK, GenericValue> tempCache = txCacheMap.get(tx);
-                if (tempCache != null) {
-                    for (GenericPK pk : tempCache.keySet()) {
-                        if (pk.getEntityName().equals(entityName)) {
-                            tempCache.remove(pk);
-                        }
-                    }
-                }
-            }
-        } catch (GenericTransactionException e) {
-            Debug.logWarning(e, "Exception thrown while getting transaction status: ", module);
-        }
-        super.remove(entityName);
-    }
-
-    @Override
-    public void update(UserTransaction tx, EventType notificationType) {
-        switch (notificationType) {
-            case BEGIN:
-                txCacheMap.put(tx, new HashMap<GenericPK, GenericValue>());
-                break;
-            case COMMIT:
-                Map<GenericPK, GenericValue> tempCache = txCacheMap.remove(tx);
-                if (tempCache != null) {
-                    for (Map.Entry<GenericPK, GenericValue> entry : tempCache.entrySet()) {
-                        GenericPK pk = entry.getKey();
-                        GenericValue value = entry.getValue();
-                        UtilCache<GenericPK, GenericValue> entityCache = getOrCreateCache(pk.getEntityName());
-                        entityCache.put(pk, value);
-                    }
-                }
-                break;
-            case ROLLBACK:
-                txCacheMap.remove(tx);
-        }
     }
 }
