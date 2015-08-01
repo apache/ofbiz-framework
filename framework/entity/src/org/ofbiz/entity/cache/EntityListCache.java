@@ -21,22 +21,18 @@ package org.ofbiz.entity.cache;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-
-import javax.transaction.UserTransaction;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.transaction.TransactionListener;
 
-public class EntityListCache extends AbstractEntityConditionCache<Object, List<GenericValue>> implements TransactionListener {
+
+public class EntityListCache extends AbstractEntityConditionCache<Object, List<GenericValue>> {
 
     public static final String module = EntityListCache.class.getName();
-    private final ConcurrentHashMap<UserTransaction, Map<Object, List<GenericValue>>> txCacheMap = new ConcurrentHashMap<UserTransaction, Map<Object, List<GenericValue>>>();
 
     public EntityListCache(String delegatorName) {
         super(delegatorName, "entity-list");
@@ -90,29 +86,5 @@ public class EntityListCache extends AbstractEntityConditionCache<Object, List<G
 
     public static final Object getOrderByKey(List<String> orderBy) {
         return orderBy != null ? (Object) orderBy : "{null}";
-    }
-
-    @Override
-    public void update(UserTransaction tx, EventType notificationType) {
-        /*
-        switch (notificationType) {
-            case BEGIN:
-                txCacheMap.put(tx, new HashMap<GenericPK, GenericValue>());
-                break;
-            case COMMIT:
-                Map<Object, List<GenericValue>> tempCache = txCacheMap.remove(tx);
-                if (tempCache != null) {
-                    for (Map.Entry<GenericPK, GenericValue> entry : tempCache.entrySet()) {
-                        GenericPK pk = entry.getKey();
-                        GenericValue value = entry.getValue();
-                        UtilCache<GenericPK, GenericValue> entityCache = getOrCreateCache(pk.getEntityName());
-                        entityCache.put(pk, value);
-                    }
-                }
-                break;
-            case ROLLBACK:
-                txCacheMap.remove(tx);
-        }
-        */
     }
 }
