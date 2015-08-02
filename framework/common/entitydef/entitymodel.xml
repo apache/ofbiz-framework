@@ -283,6 +283,8 @@ under the License.
     <entity entity-name="GeoPoint" package-name="org.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
         title="Geographic Location">
         <field name="geoPointId" type="id-ne"></field>
+         <field name="geoPointTypeEnumId" type="id"/>
+        <field name="description" type="description"></field>
         <field name="dataSourceId" type="id"></field>
         <field name="latitude" type="short-varchar" not-null="true"></field>
         <field name="longitude" type="short-varchar" not-null="true"></field>
@@ -292,6 +294,9 @@ under the License.
         <prim-key field="geoPointId"/>
         <relation type="one" fk-name="GEOPOINT_DTSRC" rel-entity-name="DataSource">
             <key-map field-name="dataSourceId"/>
+        </relation>
+        <relation type="one" fk-name="GEOPOINT_TYPE" title="GeoPointType" rel-entity-name="Enumeration">
+            <key-map field-name="geoPointTypeEnumId" rel-field-name="enumId"/>
         </relation>
         <relation type="one" fk-name="GPT_ELEV_UOM" title="Elevation" rel-entity-name="Uom">
             <key-map field-name="elevationUomId" rel-field-name="uomId"/>
