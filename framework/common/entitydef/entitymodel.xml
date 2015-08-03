@@ -283,7 +283,7 @@ under the License.
     <entity entity-name="GeoPoint" package-name="org.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
         title="Geographic Location">
         <field name="geoPointId" type="id-ne"></field>
-         <field name="geoPointTypeEnumId" type="id"/>
+        <field name="geoPointTypeEnumId" type="id"/>
         <field name="description" type="description"></field>
         <field name="dataSourceId" type="id"></field>
         <field name="latitude" type="short-varchar" not-null="true"></field>
