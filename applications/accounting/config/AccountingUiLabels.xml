@@ -11162,7 +11162,6 @@
         <value xml:lang="zh-TW">用SecurePay支付</value>
     </property>
     <property key="AccountingPayWithWorldPay">
-        <value xml:lang="de">Bezahlung mit WorldPay</value>
         <value xml:lang="de">Zahle mit WorldPay</value>
         <value xml:lang="en">Pay With WorldPay</value>
         <value xml:lang="es">Pagar con WorldPay</value>
@@ -19671,7 +19670,6 @@
         <value xml:lang="zh-TW">訂單序號</value>
     </property>
     <property key="FormFieldTitle_organizationPartyId">
-        <value xml:lang="de">Firmen-ID</value>
         <value xml:lang="de">Organisation Akteur Id</value>
         <value xml:lang="en">Organization Party Id</value>
         <value xml:lang="es">Id Grupo de Organización</value>
