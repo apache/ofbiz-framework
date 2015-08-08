@@ -46,7 +46,6 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
@@ -291,8 +290,8 @@ public class SeoContextFilter extends ContextFilter {
         }
 
         // check if multi tenant is enabled
-        String useMultitenant = UtilProperties.getPropertyValue("general.properties", "multitenant");
-        if ("Y".equals(useMultitenant)) {
+        boolean useMultitenant = EntityUtil.isMultiTenantEnabled();
+        if (useMultitenant) {
             // get tenant delegator by domain name
             String serverName = httpRequest.getServerName();
             try {

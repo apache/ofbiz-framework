@@ -254,8 +254,8 @@ public class UrlRegexpContextFilter extends ContextFilter {
         }
 
         // check if multi tenant is enabled
-        String useMultitenant = UtilProperties.getPropertyValue("general.properties", "multitenant");
-        if ("Y".equals(useMultitenant)) {
+        boolean useMultitenant = EntityUtil.isMultiTenantEnabled();
+        if (useMultitenant) {
             // get tenant delegator by domain name
             String serverName = httpRequest.getServerName();
             try {
