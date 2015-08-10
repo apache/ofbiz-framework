@@ -251,6 +251,8 @@ public class ContextFilter implements Filter {
 
         // check if multi tenant is enabled
         boolean useMultitenant = EntityUtil.isMultiTenantEnabled();
+        setCharacterEncoding(request);
+        setAttributesFromRequestBody(request);
         if (useMultitenant) {
             // get tenant delegator by domain name
             String serverName = httpRequest.getServerName();
@@ -317,9 +319,6 @@ public class ContextFilter implements Filter {
                 Debug.logWarning(e, "Unable to get Tenant", module);
             }
         }
-
-        setCharacterEncoding(request);
-        setAttributesFromRequestBody(request);
 
         // we're done checking; continue on
         chain.doFilter(request, httpResponse);
