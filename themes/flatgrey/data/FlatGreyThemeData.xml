@@ -29,11 +29,10 @@ under the License.
     <!-- css references -->
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/flatgrey/maincss.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/flatgrey/javascript.css" sequenceId="02"/>
+    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" sequenceId="03"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_HELPSTYLESHEET" resourceValue="/flatgrey/help.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_DOCBOOKSTYLESHEET" resourceValue="/flatgrey/webapp/flatgrey/docbook.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/flatgrey/mainrtl.css" sequenceId="01"/>
-    
-    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" sequenceId="02"/>
     
     <!-- javascript references -->
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-1.11.0.min.js" sequenceId="01"/>
