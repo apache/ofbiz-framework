@@ -1327,19 +1327,19 @@ under the License.
         <security https="false" auth="false"/>
         <event type="service" invoke="signUpForContactList"/>
         <response name="success" type="view-last"/>
-        <response name="error" type="view-last"/>
+        <response name="error" type="view-last" value="main"/>
     </request-map>
     <request-map uri="unsubscribeContactListParty">
         <security https="false" auth="false"/>
         <event type="service" invoke="unsubscribeContactListParty"/>
         <response name="success" type="view-last"/>
-        <response name="error" type="view-last"/>
+        <response name="error" type="view-last" value="main"/>
     </request-map>
     <request-map uri="unsubscribeContactListPartyContachMech">
         <security https="false" auth="false"/>
         <event type="service" invoke="unsubscribeContactListPartyContachMech"/>
         <response name="success" type="view-last"/>
-        <response name="error" type="view-last"/>
+        <response name="error" type="view-last" value="main"/>
     </request-map>
     <request-map uri="contactListOptOut" track-serverhit="false" track-visit="false">
         <security https="false" auth="false"/>
