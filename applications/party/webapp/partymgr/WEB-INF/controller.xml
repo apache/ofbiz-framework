@@ -1241,7 +1241,7 @@ under the License.
     </request-map>
     <request-map uri="ProfileRemoveUserLoginFromSecurityGroup">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateUserLoginToSecurityGroup"/>
+        <event type="service" path="" invoke="removeUserLoginToSecurityGroup"/>
         <response name="success" type="view" value="ProfileEditUserLoginSecurityGroups"/>
         <response name="error" type="view" value="ProfileEditUserLoginSecurityGroups"/>
     </request-map>
