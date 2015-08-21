@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="QRTypeNotSupported">
+        <value xml:lang="en">The QRCode type {0} is not supported!</value>
+        <value xml:lang="zh">二维码不支持{0}类型!</value>
+    </property>
+    <property key="ParameterCannotEmpty">
+        <value xml:lang="en">The {0} parameter cannot be empty in generateQRCodeImage service!</value>
+        <value xml:lang="zh">在generateQRCodeImage服务中，参数{0}不能为空!</value>
+    </property>
+    <property key="SizeOutOfBorderError">
+        <value xml:lang="en">Error: the value of {0} parameter is {1}, it is not between {2} and {3}!</value>
+        <value xml:lang="zh">错误：参数{0}的值是{1}，不在{2}和{3}之间的范围内!</value>
+    </property>
+    <property key="ErrorGenerateQRCode">
+        <value xml:lang="en">Error while generating QRCode: {0}</value>
+        <value xml:lang="zh">生成二维码时出错：{0}</value>
+    </property>
+    <property key="ErrorFormatNotSupported">
+        <value xml:lang="en">Error: format {0} is not supported.</value>
+        <value xml:lang="zh">错误：不支持格式{0}。</value>
+    </property>
+    <property key="ErrorWriteFormatToFile">
+        <value xml:lang="en">Could not write an image of format {0}.</value>
+        <value xml:lang="zh">无法写格式为{0}的图片。</value>
+    </property>
+    <property key="ErrorVerifyQRCode">
+        <value xml:lang="en">Error while verifying QR code: {0}</value>
+        <value xml:lang="zh">验证二维码时出错：{0}</value>
+    </property>
+    <property key="GeneratedTextNotMatchOriginal">
+        <value xml:lang="en">The text in generated QR code doesn't match the original: <br/>[Text in QR code]{0} <br/>[Original text]{1}</value>
+        <value xml:lang="zh">二维码中的文字信息与原信息不一致：<br/>[二维码中文字]{0}<br/>[原信息文字]{1}</value>
+    </property>
+</resource>

@@ -1112,6 +1112,20 @@
         <value xml:lang="en">PDF With Password</value>
         <value xml:lang="zh">有密码的PDF</value>
     </property>
+    <property key="ExamplePdfBarcode">
+        <value xml:lang="de">Barcode</value>
+        <value xml:lang="en">Barcode</value>
+        <value xml:lang="es">Código de barra</value>
+        <value xml:lang="fr">Code barre</value>
+        <value xml:lang="it">Codice a barre</value>
+        <value xml:lang="ja">バーコード</value>
+        <value xml:lang="ro">Cod bara</value>
+        <value xml:lang="ru">Баркод</value>
+        <value xml:lang="th">บาร์โคด</value>
+        <value xml:lang="vi">Mã vạch (Barcode)</value>
+        <value xml:lang="zh">条形码</value>
+        <value xml:lang="zh-TW">條形碼</value>
+    </property>
     <property key="PageTitleSetExamplePdfPassword">
         <value xml:lang="en">Set PDF Protected By Password</value>
         <value xml:lang="zh">设置有密码保护的PDF</value>

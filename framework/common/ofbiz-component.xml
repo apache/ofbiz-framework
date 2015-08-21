@@ -65,6 +65,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_cdyne.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_email.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_qrcode.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_security.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_test.xml"/>
     <service-resource type="group" loader="main" location="servicedef/groups_test.xml"/>
