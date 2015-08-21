@@ -511,4 +511,22 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="ExampleReportPdfBarcode">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="exampleId" from-field="parameters.exampleId"/>
+                <entity-one entity-name="Example" value-field="example"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <xsl-fo><html-template location="component://example/webapp/example/reports/BarCode.fo.ftl"/></xsl-fo>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>

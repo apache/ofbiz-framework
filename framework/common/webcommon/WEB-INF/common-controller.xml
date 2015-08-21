@@ -255,6 +255,13 @@ under the License.
         <response name="error" type="request" value="json"/>
     </request-map>
     
+    <request-map uri="qrcode">
+        <security auth="true" https="false" />
+        <event type="java" path="org.ofbiz.common.qrcode.QRCodeEvents" invoke="serveQRCodeImage"/>
+        <response name="success" type="none" />
+        <response name="error" type="none" />
+    </request-map>
+
     <!--========================== AJAX events =====================-->
 
     <!-- View Mappings -->

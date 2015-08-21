@@ -231,6 +231,12 @@ under the License.
         <response name="success" type="view" value="ExampleReportPdfOptions"/>
     </request-map>
     
+    <!-- Barcode/QRCode example requests -->
+    <request-map uri="ExampleReportPdfBarcode">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ExampleReportPdfBarcode"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -243,6 +249,7 @@ under the License.
     <view-map name="EditExampleFeatureAppls" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExampleFeatureAppls"/>
     <view-map name="ExampleReportHtml" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleReport"/>
     <view-map name="ExampleReportPdf" type="screenfop" page="component://example/widget/example/ExampleScreens.xml#ExampleReport" content-type="application/pdf" encoding="none"/>
+    <view-map name="ExampleReportPdfBarcode" type="screenfop" page="component://example/widget/example/ExampleScreens.xml#ExampleReportPdfBarcode" content-type="application/pdf" encoding="none"/>
 
     <view-map name="FindExampleFeature" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#FindExampleFeature"/>
     <view-map name="EditExampleFeature" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#EditExampleFeature"/>
