@@ -26,6 +26,11 @@ under the License.
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${applicationTitle!}</title>
+    <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
+        <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
+            <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
+        </#list>
+    </#if>
     <#if layoutSettings.javaScripts?has_content>
         <#assign javaScriptsSet = Static["org.ofbiz.base.util.UtilMisc"].toSet(layoutSettings.javaScripts)/>
         <#list layoutSettings.javaScripts as javaScript>
@@ -35,11 +40,7 @@ under the License.
             </#if>
         </#list>
     </#if>
-    <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
-        <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
-            <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
-        </#list>
-    </#if>
+
   </head>
   <body>
     <div data-role="header">

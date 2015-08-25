@@ -37,11 +37,24 @@ under the License.
     <#if shortcutIcon?has_content>
       <link rel="shortcut icon" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)}</@ofbizContentUrl>" />
     </#if>
+    
     <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
         <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
             <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
         </#list>
     </#if>
+    <#if layoutSettings.javaScripts?has_content>
+      <#--layoutSettings.javaScripts is a list of java scripts. -->
+      <#-- use a Set to make sure each javascript is declared only once, but iterate the list to maintain the correct order -->
+      <#assign javaScriptsSet = Static["org.ofbiz.base.util.UtilMisc"].toSet(layoutSettings.javaScripts)/>
+      <#list layoutSettings.javaScripts as javaScript>
+        <#if javaScriptsSet.contains(javaScript)>
+          <#assign nothing = javaScriptsSet.remove(javaScript)/>
+          <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
+        </#if>
+      </#list>
+    </#if>
+
     <#if layoutSettings.styleSheets?has_content>
         <#--layoutSettings.styleSheets is a list of style sheets. So, you can have a user-specified "main" style sheet, AND a component style sheet.-->
         <#list layoutSettings.styleSheets as styleSheet>
