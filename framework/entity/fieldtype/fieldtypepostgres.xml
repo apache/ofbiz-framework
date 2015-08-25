@@ -46,8 +46,8 @@ under the License.
     <field-type-def type="long-varchar" sql-type="VARCHAR(255)" java-type="String"/>
     <field-type-def type="very-long" sql-type="TEXT" java-type="String"/>
     
-    <field-type-def type="comment" sql-type="TEXT" java-type="String"/>
-    <field-type-def type="description" sql-type="TEXT" java-type="String"/>
+    <field-type-def type="comment" sql-type="VARCHAR(255)" java-type="String"/>
+    <field-type-def type="description" sql-type="VARCHAR(255)" java-type="String"/>
     <field-type-def type="name" sql-type="VARCHAR(100)" java-type="String"/>
     <field-type-def type="value" sql-type="VARCHAR(255)" java-type="String"/>
     
