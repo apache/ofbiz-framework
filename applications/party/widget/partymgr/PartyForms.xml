@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="lookupparty" type="single" target="findparty" focus-field-name="partyName">
+    <form name="lookupparty" type="single" target="findparty" focus-field-name="partyId">
         <actions>
             <set field="states" value="${groovy: org.ofbiz.common.CommonWorkers.getStateList(delegator)}"/>
             <!-- Here is some alternate code to get states limited to a region
@@ -43,7 +43,7 @@ under the License.
         <field name="userLoginId"><text size="15" /></field>
         <field name="lastName"><text size="15"/></field>
         <field name="firstName"><text size="15"/></field>
-        <field name="partyGroupName" title="${uiLabelMap.PartyGroupName}"><text size="15"/></field>
+        <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text size="15"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId">
@@ -94,7 +94,7 @@ under the License.
             <sort-field name="userLoginId"/>
             <sort-field name="lastName"/>
             <sort-field name="firstName"/>
-            <sort-field name="partyGroupName"/>
+            <sort-field name="groupName"/>
             <sort-field name="roleTypeId"/>
             <sort-field name="partyTypeId"/>
             <field-group title="${uiLabelMap.PartyPartyIdentification}" initially-collapsed="true">
