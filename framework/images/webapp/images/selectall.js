@@ -643,17 +643,19 @@ function toggleScreenlet(link, areaId, saveCollapsed, expandTxt, collapseTxt){
        }
    }
    var paginationMenus = jQuery('div.nav-pager');
-   jQuery.each(paginationMenus, function(menu) {
+   jQuery.each(paginationMenus, function(index, menu) {
        if (menu) {
-           var childElements = menu.getElementsByTagName('a');
+           var childElements = jQuery(menu).find('a');
            for (var i = 0; i < childElements.length; i++) {
                if (childElements[i].href.indexOf("http") == 0) {
                    childElements[i].href = replaceQueryParam(childElements[i].href, currentParam, newParam);
                }
            }
-           childElements = menu.getElementsByTagName('select');
+           childElements = jQuery(menu).find('select');
            for (i = 0; i < childElements.length; i++) {
-               if (childElements[i].href.indexOf("location.href") >= 0) {
+             //FIXME: Not able to understand the purpose of below line, as href is not valid attribute of select element.
+             //if (childElements[i].href.indexOf("location.href") >= 0) {
+               if (childElements[i].value.indexOf("location.href") >= 0) {
                    Element.extend(childElements[i]);
                    childElements[i].writeAttribute("onchange", replaceQueryParam(childElements[i].readAttribute("onchange"), currentParam, newParam));
                }
