@@ -63,6 +63,11 @@ under the License.
   <#if sessionAttributes.overrideCss??>
     <link rel="stylesheet" href="${StringUtil.wrapString(sessionAttributes.overrideCss)}" type="text/css"/>
   </#if>
+  <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
+    <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
+      <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"></script>
+    </#list>
+  </#if>
   <#if layoutSettings.javaScripts?has_content>
     <#--layoutSettings.javaScripts is a list of java scripts. -->
     <#-- use a Set to make sure each javascript is declared only once, but iterate the list to maintain the correct order -->
@@ -72,11 +77,6 @@ under the License.
         <#assign nothing = javaScriptsSet.remove(javaScript)/>
         <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"></script>
       </#if>
-    </#list>
-  </#if>
-  <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
-    <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
-      <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"></script>
     </#list>
   </#if>
   ${layoutSettings.extraHead!}
