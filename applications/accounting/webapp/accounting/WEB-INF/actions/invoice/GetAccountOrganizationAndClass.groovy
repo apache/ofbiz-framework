@@ -73,7 +73,7 @@ if ("SALES_INVOICE".equals(invoice.invoiceTypeId)) {
     glAccountOrganizationAndClassList = from("GlAccountOrganizationAndClass").where('organizationPartyId', invoice.partyId).queryList();
 } else {
     map = from("InvoiceItemTypeMap").where('invoiceTypeId', invoice.invoiceTypeId).cache(true).queryList();
-    invoiceItemTypes = EntityUtil.getRelated("InvoiceItemType", map, null, false);
+    invoiceItemTypes = EntityUtil.getRelated("InvoiceItemType", null, map, false);
 }
 context.invoiceItemTypes = invoiceItemTypes;
 
