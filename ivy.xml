@@ -35,7 +35,7 @@
     <dependencies>
         <dependency org="org.apache.activemq" name="activemq-all" rev="5.4.2" conf="activemq->default"/>
         <dependency org="net.sourceforge.cobertura" name="cobertura" rev="1.9.4.1" conf="cobertura->default"/>
-        <dependency org="mysql" name="mysql-connector-java" rev="5.1.6" conf="mysql->default"/>
+        <dependency org="mysql" name="mysql-connector-java" rev="5.1.36" conf="mysql->default"/>
         <dependency org="postgresql" name="postgresql" rev="9.0-801.jdbc4" conf="postgres->default"/>
         <dependency org="org.codehaus.sonar-plugins" name="sonar-ant-task" rev="1.3" conf="sonar-ant-task->default"/>
 
