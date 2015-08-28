@@ -34,6 +34,7 @@ import org.ofbiz.base.util.cache.UtilCache;
 public class JNDIContextFactory {
 
     public static final String module = JNDIContextFactory.class.getName();
+    // FIXME: InitialContext instances are not thread-safe! They should not be cached.
     private static final UtilCache<String, InitialContext> contexts = UtilCache.createUtilCache("entity.JNDIContexts", 0, 0);
 
     /**
