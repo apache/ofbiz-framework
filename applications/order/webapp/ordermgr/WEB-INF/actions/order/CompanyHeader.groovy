@@ -262,3 +262,4 @@ if (partyTaxAuthInfoList) {
         context.sendingPartyTaxId = partyTaxAuthInfoList[0].partyTaxId;
     }
 }
+
