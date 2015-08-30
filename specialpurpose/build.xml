@@ -32,6 +32,7 @@
         hhfacility/build.xml,
         ldap/build.xml,
         lucene/build.xml,
+        solr/build.xml,
         oagis/build.xml,
         pos/build.xml,
         projectmgr/build.xml,

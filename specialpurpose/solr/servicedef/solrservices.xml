@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+
+    <description>Content Component Services</description>
+    <vendor>OFBiz</vendor>
+    
+    <!-- Test Case -->
+    <service name="SolrProductSearch" engine="java"
+        transaction-timeout="72000"
+        location="org.ofbiz.solr.SolrProductSearch"
+        invoke="SolrProductSearch" debug="true" validate="true">
+        <description>First Test with Solr</description>
+    </service>
+
+    <!-- Rebuild the Solr Tree -->
+    <service name="rebuildSolrIndex" engine="java"
+        transaction-timeout="72000"
+        location="org.ofbiz.solr.SolrProductSearch"
+        invoke="rebuildSolrIndex" debug="true" validate="true">
+        <description>rebuild SOLR Index</description>
+        <attribute mode="IN" name="treatConnectErrorNonFatal" optional="true" type="Boolean" default-value="false" />
+    </service>
+
+    <!--  Add to Solr Tree -->
+    <service name="addToSolr" engine="java"
+        transaction-timeout="72000"
+        location="org.ofbiz.solr.SolrProductSearch"
+        invoke="addToSolr" debug="true" validate="true">
+        <description>Adds product to solr, with product denoted by productId field in instance attribute
+            - intended for use with ECAs/SECAs</description>
+        <attribute mode="IN" name="instance" optional="false" type="org.ofbiz.entity.GenericValue" />
+    </service>
+
+    <service name="addToSolrIndex" engine="java"
+        transaction-timeout="72000"
+        location="org.ofbiz.solr.SolrProductSearch"
+        invoke="addToSolrIndex" debug="true" validate="true">
+        <description>Add a Product to Solr Index</description>
+        <attribute mode="IN" name="treatConnectErrorNonFatal" optional="true" type="Boolean" />
+        <attribute mode="IN" name="productId" optional="false" type="String" />
+        <attribute mode="IN" name="sku" optional="true" type="String" />
+        <attribute mode="IN" name="internalName" optional="true" type="String" />
+        <attribute mode="IN" name="manu" optional="true" type="String" />
+        <attribute mode="IN" name="cat" optional="true" type="String" />
+        <attribute mode="IN" name="listPrice" optional="true" type="String" />
+        <attribute mode="IN" name="defaultPrice" optional="true" type="String" />
+        <attribute mode="IN" name="description" optional="true" type="Map" />
+        <attribute mode="IN" name="longDescription" optional="true" type="Map" />
+        <attribute mode="IN" name="title" optional="true" type="Map" />
+        <attribute mode="IN" name="image" optional="true" type="String" />
+        <attribute mode="IN" name="keywords" optional="true" type="String" />
+        <attribute mode="IN" name="category" optional="true" type="List" />
+        <attribute mode="IN" name="features" optional="true" type="Set" />
+        <attribute mode="IN" name="attributes" optional="true" type="List" />
+        <attribute mode="IN" name="isVirtual" optional="true" type="Boolean" />
+        <attribute mode="IN" name="isDigital" optional="true" type="Boolean" />
+        <attribute mode="IN" name="isPhysical" optional="true" type="Boolean" />
+        <attribute mode="IN" name="inStock" optional="true" type="String" />
+        <attribute mode="IN" name="catalog" optional="true" type="List" />
+        <attribute mode="IN" name="smallImage" optional="true" type="String" />
+        <attribute mode="IN" name="mediumImage" optional="true" type="String" />
+        <attribute mode="IN" name="largeImage" optional="true" type="String" />
+        <attribute mode="OUT" name="errorType" optional="true" type="String" />
+    </service>
+    
+    <service name="addListToSolrIndex" engine="java"
+        transaction-timeout="72000"
+        location="org.ofbiz.solr.SolrProductSearch"
+        invoke="addListToSolrIndex" debug="true" validate="true">
+        <description>Add a List of Products to Solr Index and flush after all have been added</description>
+        <attribute mode="IN" name="treatConnectErrorNonFatal" optional="true" type="Boolean" />
+        <attribute mode="IN" name="fieldList" optional="false" type="List" />
+        <attribute mode="OUT" name="errorType" optional="true" type="String" />
+    </service>
+
+    <!--  Solr Queries  -->
+    <service name="solrProductsSearch" engine="java"
+        transaction-timeout="72000"
+        location="org.ofbiz.solr.SolrProductSearch"
+        invoke="productsSearch" debug="true" validate="true">
+        <description>Run a query on Solr and return the results</description>
+        <attribute mode="IN" optional="false" name="productCategoryId" type="String"/>
+        <attribute mode="IN" optional="true" name="viewSize" type="String"/>
+        <attribute mode="IN" optional="true" name="viewIndex" type="String"/>
+        <attribute mode="IN" optional="true" name="sortBy" type="String"/>
+        <attribute mode="IN" optional="true" name="sortByReverse" type="Boolean"/>
+        <attribute name="results" type="List" mode="OUT" optional="true"/>
+        <attribute name="viewSize" type="Integer" mode="OUT" optional="true"/>
+        <attribute name="viewIndex" type="Long" mode="OUT" optional="true"/>
+        <attribute name="listSize" type="Long" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="solrKeywordSearch" engine="java"
+        transaction-timeout="72000"
+        location="org.ofbiz.solr.SolrProductSearch"
+        invoke="keywordSearch" debug="true" validate="true">
+        <description>Run a query on Solr and return the results</description>
+        <attribute mode="IN" optional="false" name="query" type="String"/>
+        <attribute mode="IN" optional="true" name="viewSize" type="String"/>
+        <attribute mode="IN" optional="true" name="viewIndex" type="String"/>
+        <attribute mode="IN" optional="true" name="queryFilter" type="String"/>
+        <attribute mode="IN" optional="true" name="sortBy" type="String"/>
+        <attribute mode="IN" optional="true" name="sortByReverse" type="Boolean"/>
+        <attribute mode="IN" optional="true" name="returnFields" type="String"/>
+        <attribute mode="IN" optional="true" name="facetQuery" type="String"/>
+        <attribute name="results" type="List" mode="OUT" optional="true"/>
+        <attribute name="isCorrectlySpelled" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="facetQueries" type="Map" mode="OUT" optional="true"/>
+        <attribute name="facetFields" type="Map" mode="OUT" optional="true"/>
+        <attribute name="viewSize" type="Integer" mode="OUT" optional="true"/>
+        <attribute name="viewIndex" type="Long" mode="OUT" optional="true"/>
+        <attribute name="listSize" type="Long" mode="OUT" optional="true"/>
+        <attribute name="queryTime" type="Long" mode="OUT" optional="true"/>
+        <attribute name="suggestions" type="List" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="runSolrQuery" engine="java"
+        transaction-timeout="72000"
+        location="org.ofbiz.solr.SolrProductSearch"
+        invoke="runSolrQuery" debug="true" validate="true">
+        <description>Run a query on Solr and return the results</description>
+        <attribute mode="IN" optional="false" name="query" type="String"/>
+        <attribute mode="IN" optional="true" name="viewSize" type="Integer"/>
+        <attribute mode="IN" optional="true" name="viewIndex" type="Integer"/>
+        <attribute mode="IN" optional="true" name="queryFilter" type="String"/>
+        <attribute mode="IN" optional="true" name="sortBy" type="String"/>
+        <attribute mode="IN" optional="true" name="sortByReverse" type="Boolean"/>
+        <attribute mode="IN" optional="true" name="returnFields" type="String"/>
+        <attribute mode="IN" optional="true" name="facetQuery" type="String"/>
+        <attribute mode="IN" optional="true" name="facet" type="Boolean" default-value="true"/>
+        <attribute mode="IN" optional="true" name="highlight" type="Boolean" default-value="true"/>
+        <attribute mode="IN" optional="true" name="spellcheck" type="Boolean" default-value="true"/>
+        <attribute name="queryResult" type="org.apache.solr.client.solrj.response.QueryResponse" mode="OUT" optional="false"/>
+    </service>
+    
+    <service name="solrAvailableCategories" engine="java"
+        transaction-timeout="72000"
+        location="org.ofbiz.solr.SolrProductSearch"
+        invoke="getAvailableCategories" debug="true" validate="true">
+        <description>Run a query on Solr and return the results</description>
+        <attribute mode="IN" optional="true" name="productCategoryId" type="String"/>
+        <attribute mode="IN" optional="true" name="productId" type="String"/>
+        <attribute mode="IN" optional="true" name="catalogId" type="String"/>
+        <attribute mode="IN" optional="true" name="displayProducts" type="Boolean"/>
+        <attribute mode="IN" optional="true" name="viewSize" type="Integer"/>
+        <attribute mode="IN" optional="true" name="viewIndex" type="Long"/>
+        <attribute name="numFound" type="Long" mode="OUT" optional="false"/>
+        <attribute name="categories" type="java.util.Map" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="solrSideDeepCategory" engine="java"
+        transaction-timeout="72000"
+        location="org.ofbiz.solr.SolrProductSearch"
+        invoke="getSideDeepCategories" debug="true" validate="true">
+        <description>Run a query on Solr and return the results</description>
+        <attribute mode="IN" optional="true" name="productCategoryId" type="String"/>
+        <attribute mode="IN" optional="true" name="catalogId" type="String"/>
+        <attribute name="numFound" type="Long" mode="OUT" optional="false"/>
+        <attribute name="categories" type="java.util.Map" mode="OUT" optional="true"/>
+    </service>
+    
+</services>

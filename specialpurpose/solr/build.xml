@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<project name="OFBiz - Solr Component" default="jar" basedir=".">
+    <import file="../../common.xml"/>
+
+    <!-- ================================================================== -->
+    <!-- Initialization of all property settings                            -->
+    <!-- ================================================================== -->
+
+    <property name="desc" value="Solr Component"/>
+    <property name="name" value="ofbiz-solr"/>
+    <property name="ofbiz.home.dir" value="../.."/>
+    <property name="src.dir" value="src" />
+    <property name="dtd.dir" value="dtd" />
+    <property name="lib.dir" value="lib" />
+    <property name="build.dir" value="build" />
+
+    <path id="local.class.path">
+        <fileset dir="${lib.dir}/compile" includes="*.jar"/>
+        <fileset dir="../../framework/base/lib" includes="*.jar"/>
+        <fileset dir="../../framework/base/lib/commons" includes="*.jar"/>
+        <fileset dir="../../framework/base/lib/j2eespecs" includes="*.jar"/>
+        <fileset dir="../../framework/base/lib/scripting" includes="*.jar"/>
+        <fileset dir="../../framework/base/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/entity/lib" includes="*.jar"/>
+        <fileset dir="../../framework/entity/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/security/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/service/lib" includes="*.jar"/>
+        <fileset dir="../../framework/service/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/minilang/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/common/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/webapp/build/lib" includes="*.jar"/>
+        <fileset dir="../../applications/party/build/lib" includes="*.jar"/>
+        <fileset dir="../../applications/product/build/lib" includes="*.jar"/>
+        <fileset dir="../../applications/marketing/build/lib" includes="*.jar"/>
+        <fileset dir="../../applications/order/build/lib" includes="*.jar"/>
+        <fileset dir="../../applications/accounting/build/lib" includes="*.jar"/>
+    </path>
+    
+    <target name="check-uiloginservice">
+        <available file="uiloginservice.build.xml" property="uiloginservice.present"/>
+    </target>
+    
+    <target name="build-uiloginservice">
+        <subant target="make.repo">
+            <file file="uiloginservice.build.xml"/>
+        </subant>
+    </target>   
+    
+    <target name="build">
+        <antcall target="jar"/>
+        <antcall target="build-uiloginservice"/>
+    </target>
+
+    <target name="clean-uiloginservice" depends="check-uiloginservice" if="uiloginservice.present">
+        <subant target="clean">
+            <file file="uiloginservice.build.xml"/>
+        </subant>
+    </target>   
+    
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <antcall target="clean-uiloginservice"/>
+    </target>
+</project>
