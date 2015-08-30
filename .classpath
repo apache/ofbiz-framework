@@ -56,6 +56,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/xml-apis-ext-1.3.04.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xpp3-1.1.4c.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xstream-1.4.6.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/zxing-core-3.2.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-beanutils-core-1.8.3.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-codec-1.10.jar"/>
@@ -137,7 +138,8 @@
 	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-analyzers-common-4.9.0.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-core-4.9.0.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-queryparser-4.9.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/zxing-core-3.2.0.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/compile/solr-core-4.9.0.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/compile/solr-solrj-4.9.0.jar"/>
 	<classpathentry excluding="org/ofbiz/accounting/thirdparty/cybersource/**|org/ofbiz/accounting/thirdparty/verisign/**|org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java|org/ofbiz/accounting/thirdparty/orbital/**|org/ofbiz/accounting/thirdparty/securepay/**|org/ofbiz/accounting/thirdparty/ideal/**" kind="src" path="applications/accounting/src"/>
 	<classpathentry excluding="org/ofbiz/content/openoffice/|org/ofbiz/content/report/" kind="src" path="applications/content/src"/>
 	<classpathentry kind="src" path="applications/manufacturing/src"/>
@@ -179,6 +181,7 @@
 	<classpathentry kind="src" path="specialpurpose/pos/src"/>
 	<classpathentry kind="src" path="specialpurpose/projectmgr/src"/>
 	<classpathentry kind="src" path="specialpurpose/scrum/src"/>
+	<classpathentry kind="src" path="specialpurpose/solr/src"/>
 	<classpathentry kind="src" path="specialpurpose/webpos/src"/>
 	<classpathentry kind="src" path="specialpurpose/passport/src"/>
 	<classpathentry exported="true" kind="con" path="GROOVY_SUPPORT"/>
