@@ -20,7 +20,37 @@ specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
 specialpurpose/lucene/lib/lucene-analyzers-common-4.9.0.jar
 specialpurpose/lucene/lib/lucene-core-4.9.0.jar
 specialpurpose/lucene/lib/lucene-queryparser-4.9.0.jar
-
+specialpurpose/solr/lib/compile/solr-core-4.9.0.jar
+specialpurpose/solr/lib/compile/solr-solrj-4.9.0.jar
+specialpurpose/solr/lib/runtime/guava-14.0.1.jar
+specialpurpose/solr/lib/runtime/joda-time-2.2.jar
+specialpurpose/solr/lib/runtime/lucene-analyzers-common-4.9.0.jar
+specialpurpose/solr/lib/runtime/lucene-codecs-4.9.0.jar
+specialpurpose/solr/lib/runtime/lucene-highlighter-4.9.0.jar
+specialpurpose/solr/lib/runtime/lucene-join-4.9.0.jar
+specialpurpose/solr/lib/runtime/lucene-queries-4.9.0.jar
+specialpurpose/solr/lib/runtime/lucene-spatial-4.9.0.jar
+specialpurpose/solr/lib/runtime/noggit-0.5.jar
+specialpurpose/solr/lib/runtime/org.restlet-2.1.1.jar
+specialpurpose/solr/lib/runtime/org.restlet.ext.servlet-2.1.1.jar
+specialpurpose/solr/lib/runtime/spatial4j-0.4.1.jar
+specialpurpose/solr/lib/runtime/zookeeper-3.4.6.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/commons-cli-1.2.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/commons-configuration-1.6.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/concurrentlinkedhashmap-lru-1.2.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-annotations-2.2.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-auth-2.2.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-common-2.2.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-hdfs-2.2.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/hppc-0.5.2.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/httpmime-4.3.1.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-analyzers-kuromoji-4.9.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-analyzers-phonetic-4.9.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-expressions-4.9.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-grouping-4.9.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-memory-4.9.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-misc-4.9.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/wstx-asl-3.2.7.jar
 =========================================================================
                                  Apache License
                            Version 2.0, January 2004
@@ -234,6 +264,10 @@ The following libraries distributed with Apache OFBiz are licensed under the
 BSD License:
 specialpurpose/ldap/lib/cas-server-core-3.3.jar
 specialpurpose/pos/lib/looks-2.0.2.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/antlr-runtime-3.5.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/asm-4.1.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/asm-commons-4.1.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/protobuf-java-2.5.0.jar
 =========================================================================
 The BSD License
 
