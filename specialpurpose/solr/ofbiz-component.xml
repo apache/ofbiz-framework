@@ -36,11 +36,12 @@ under the License.
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
 
     <webapp name="solr"
-        title="solr"
+        title="Apache Solr Integration"
         server="default-server"
         location="webapp/solr"
         mount-point="/solr"
         base-permission="OFBTOOLS,CONTENTMGR"
-        app-bar-display="false" />
+        menu-name="secondary"
+        app-bar-display="true" />
 
 </ofbiz-component>

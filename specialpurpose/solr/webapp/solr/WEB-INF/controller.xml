@@ -38,4 +38,11 @@
         <response name="success" type="view" value="login"/>
         <response name="error" type="view" value="login"/>
     </request-map>
+    <request-map uri="main">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.solr.control.OFBizSolrLoginWorker" invoke="extensionCheckLogin"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+
 </site-conf>
