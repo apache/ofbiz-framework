@@ -53,8 +53,8 @@ under the License.
         <fileset dir="../../applications/marketing/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/order/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/accounting/build/lib" includes="*.jar"/>
-    	<fileset dir="../../applications/content/build/lib" includes="*.jar"/>
-    	<fileset dir="../../specialpurpose/lucene/lib" includes="*.jar"/>
+        <fileset dir="../../applications/content/build/lib" includes="*.jar"/>
+        <fileset dir="../../specialpurpose/lucene/lib" includes="*.jar"/>
     </path>
     
     <target name="check-uiloginservice">
