@@ -149,7 +149,7 @@ public final class MetricsFactory {
         @LockedBy("this")
         private long totalEvents = 0;
         @LockedBy("this")
-        private long cumulativeEvents;
+        private long cumulativeEvents = 0;
         private final String name;
         private final int estimationSize;
         private final long estimationTime;
