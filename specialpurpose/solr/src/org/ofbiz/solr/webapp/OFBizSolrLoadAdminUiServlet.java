@@ -44,11 +44,11 @@ public class OFBizSolrLoadAdminUiServlet extends OFBizSolrRedirectServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	boolean isForwarded = forwardUrl(request, response);
-    	if (isForwarded) {
-    		return;
-    	}
-    	
+        boolean isForwarded = forwardUrl(request, response);
+        if (isForwarded) {
+            return;
+        }
+        
         // This attribute is set by the SolrDispatchFilter
         CoreContainer cores = (CoreContainer) request.getAttribute("org.apache.solr.CoreContainer");
 

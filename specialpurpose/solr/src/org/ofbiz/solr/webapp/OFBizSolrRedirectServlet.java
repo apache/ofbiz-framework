@@ -28,9 +28,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.solr.servlet.RedirectServlet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.security.Security;
+import org.ofbiz.security.SecurityConfigurationException;
+import org.ofbiz.security.SecurityFactory;
 import org.ofbiz.webapp.OfbizUrlBuilder;
+import org.ofbiz.webapp.control.LoginWorker;
 import org.ofbiz.webapp.control.WebAppConfigurationException;
 
 /**
@@ -46,24 +51,55 @@ public class OFBizSolrRedirectServlet extends RedirectServlet {
      */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	boolean isForwarded = forwardUrl(request, response);
-    	if (isForwarded) {
-    		return;
-    	}
-    	
-    	super.doGet(request, response);
+        boolean isForwarded = forwardUrl(request, response);
+        if (isForwarded) {
+            return;
+        }
+        
+        super.doGet(request, response);
     }
 
-	protected static boolean forwardUrl(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected static boolean forwardUrl(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         boolean forwardToLogin = false;
         if (UtilValidate.isEmpty(userLogin)) {
-        	forwardToLogin = true;
+            forwardToLogin = true;
+        } else {
+            Security security = (Security) request.getAttribute("security");
+            if (security == null) {
+                security = (Security) session.getAttribute("security");
+                if (security != null) {
+                	request.setAttribute("security", security);
+                }
+            }
+            if (security == null) {
+                security = (Security) request.getServletContext().getAttribute("security");
+                if (security != null) {
+                	request.setAttribute("security", security);
+                }
+            }
+            if (!LoginWorker.hasBasePermission(userLogin, request)) {
+                forwardToLogin = true;
+            }
         }
-		
-    	// check request schema
-    	if (forwardToLogin || !request.getScheme().equals("https")) {
+        
+        if (forwardToLogin) {
+            String contextPath = request.getContextPath();
+            String uri = request.getRequestURI();
+            if (UtilValidate.isNotEmpty(contextPath) && uri.startsWith(contextPath)) {
+                uri = uri.replaceFirst(request.getContextPath(), "");
+            }
+            String servletPath = request.getServletPath();
+            if (UtilValidate.isNotEmpty(servletPath) && uri.startsWith(servletPath)) {
+                uri = uri.replaceFirst(servletPath, "");
+            }
+            response.sendRedirect(contextPath + "/control/checkLogin" + uri);
+            return true;
+        }
+        
+        // check request schema
+        if (!request.getScheme().equals("https")) {
             StringBuilder newURL = new StringBuilder(250);
             // Build the scheme and host part
             try {
@@ -82,24 +118,7 @@ public class OFBizSolrRedirectServlet extends RedirectServlet {
                 Debug.logError(e, "Exception thrown while writing to StringBuilder: ", module);
                 return false;
             }
-            if (forwardToLogin) {
-            	String contextPath = request.getContextPath();
-            	if (UtilValidate.isNotEmpty(contextPath)) {
-            		newURL.append(contextPath);
-            	}
-            	newURL.append("/control/checkLogin");
-            	String uri = request.getRequestURI();
-            	if (UtilValidate.isNotEmpty(contextPath) && uri.startsWith(contextPath)) {
-            		uri = uri.replaceFirst(request.getContextPath(), "");
-            	}
-            	String servletPath = request.getServletPath();
-            	if (UtilValidate.isNotEmpty(servletPath) && uri.startsWith(servletPath)) {
-            		uri = uri.replaceFirst(servletPath, "");
-            	}
-                newURL.append(uri);
-            } else {
-                newURL.append(request.getRequestURI());
-            }
+            newURL.append(request.getRequestURI());
 
             // send the redirect
             try {            
@@ -109,8 +128,28 @@ public class OFBizSolrRedirectServlet extends RedirectServlet {
             } catch (IllegalStateException ise) {
                 throw new IOException(ise.getMessage(), ise);
             }
-    		return true;
-    	}
-		return false;
-	}
+            return true;
+        }
+        return false;
+    }
+
+    protected Security getSecurity(HttpServletRequest request) {
+        Security security = (Security) request.getServletContext().getAttribute("security");
+        if (security == null) {
+            Delegator delegator = (Delegator) request.getServletContext().getAttribute("delegator");
+
+            if (delegator != null) {
+                try {
+                    security = SecurityFactory.getInstance(delegator);
+                } catch (SecurityConfigurationException e) {
+                    Debug.logError(e, "Unable to obtain an instance of the security object.", module);
+                }
+            }
+            request.getServletContext().setAttribute("security", security);
+            if (security == null) {
+                Debug.logError("An invalid (null) Security object has been set in the servlet context.", module);
+            }
+        }
+        return security;
+    }
 }
