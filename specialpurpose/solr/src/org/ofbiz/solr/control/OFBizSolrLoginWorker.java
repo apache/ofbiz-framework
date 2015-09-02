@@ -40,8 +40,8 @@ public class OFBizSolrLoginWorker extends LoginWorker {
      *         JSP should generate its own content. This allows an event to override the default content.
      */
     public static String login(HttpServletRequest request, HttpServletResponse response) {
-    	String result = LoginWorker.login(request, response);
-    	if (result.equals("success")) {
+        String result = LoginWorker.login(request, response);
+        if (result.equals("success")) {
             // send the redirect
             try {            
                 response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
@@ -51,13 +51,13 @@ public class OFBizSolrLoginWorker extends LoginWorker {
                 Debug.logError(ise.getMessage(), module);
                 return "error";
             }
-    	}
-    	return result;
+        }
+        return result;
     }
 
     public static String extensionCheckLogin(HttpServletRequest request, HttpServletResponse response) {
-    	String result = LoginWorker.extensionCheckLogin(request, response);
-    	if (result.equals("success")) {
+        String result = LoginWorker.extensionCheckLogin(request, response);
+        if (result.equals("success")) {
             // send the redirect
             try {            
                 response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
@@ -67,7 +67,7 @@ public class OFBizSolrLoginWorker extends LoginWorker {
                 Debug.logError(ise.getMessage(), module);
                 return "error";
             }
-    	}
+        }
         return result;
     }
 }

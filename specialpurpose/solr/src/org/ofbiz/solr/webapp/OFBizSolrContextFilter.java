@@ -82,7 +82,7 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
      */
     public void init(FilterConfig config) throws ServletException {
-    	super.init(config);
+        super.init(config);
         this.config = config;
 
         // puts all init-parameters in ServletContext attributes for easier parameterization without code changes
@@ -169,46 +169,46 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
             }
         }
 
-    	String servletPath = httpRequest.getServletPath();
+        String servletPath = httpRequest.getServletPath();
         if (UtilValidate.isNotEmpty(servletPath) && servletPath.equals("/control")) {
-        	doControlFilter(request, response, chain);
+            doControlFilter(request, response, chain);
             // we're done checking; continue on
             chain.doFilter(request, response);
         } else {
-        	// check if the request is from an authorized user
-        	if (UtilValidate.isNotEmpty(servletPath) && servletPath.startsWith("/admin/")) {
+            // check if the request is from an authorized user
+            if (UtilValidate.isNotEmpty(servletPath) && servletPath.startsWith("/admin/")) {
                 HttpSession session = httpRequest.getSession();
                 GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
                 Security security = (Security) request.getAttribute("security");
                 if (security == null) {
-                	security = (Security) httpRequest.getServletContext().getAttribute("security");
-                	if (security != null) {
+                    security = (Security) httpRequest.getServletContext().getAttribute("security");
+                    if (security != null) {
                         request.setAttribute("security", security);
-                	}
+                    }
                 }
                 if (security == null) {
-                	security = getSecurity();
-                	if (security != null) {
+                    security = getSecurity();
+                    if (security != null) {
                         request.setAttribute("security", security);
-                	}
+                    }
                 }
                 if (UtilValidate.isEmpty(userLogin) || !LoginWorker.hasBasePermission(userLogin, httpRequest)) {
-                	response.setContentType("application/x-json");
-                	MapToJSON mapToJson = new MapToJSON();
-                	JSON json;
-					try {
-						json = mapToJson.convert(UtilMisc.toMap("ofbizLogin", (Object) "true"));
-	                	OutputStream os = response.getOutputStream();
-	                	os.write(json.toString().getBytes());
-	                	os.flush();
-					} catch (ConversionException e) {
-						Debug.logError("Error while converting ofbizLogin map to JSON.", module);
-					}
-                	return;
+                    response.setContentType("application/x-json");
+                    MapToJSON mapToJson = new MapToJSON();
+                    JSON json;
+                    try {
+                        json = mapToJson.convert(UtilMisc.toMap("ofbizLogin", (Object) "true"));
+                        OutputStream os = response.getOutputStream();
+                        os.write(json.toString().getBytes());
+                        os.flush();
+                    } catch (ConversionException e) {
+                        Debug.logError("Error while converting ofbizLogin map to JSON.", module);
+                    }
+                    return;
                 }
-        	}
-        	// NOTE: there's a chain.doFilter in SolrDispatchFilter's doFilter
-        	super.doFilter(request, response, chain);
+            }
+            // NOTE: there's a chain.doFilter in SolrDispatchFilter's doFilter
+            super.doFilter(request, response, chain);
         }
     }
 
@@ -311,7 +311,7 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
             // get tenant delegator by domain name
             String serverName = httpRequest.getServerName();
             try {
-            	
+                
                 // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
                 Delegator delegator = getDelegator(config.getServletContext());
 
@@ -373,9 +373,9 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                 Debug.logWarning(e, "Unable to get Tenant", module);
             }
         }
-	}
+    }
 
-	/**
+    /**
      * @see javax.servlet.Filter#destroy()
      */
     public void destroy() {
