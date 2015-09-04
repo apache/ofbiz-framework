@@ -423,7 +423,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     There are as much as types (of type request) as available defined and accessible event handlers.
-                    Most used are java, service, service-multi, simple and bsf (or groovy).
+                    Most used are java, service, service-multi, simple and groovy (or bsf).
                     A most comprehensive list can be found in the common-controller.
                 </xs:documentation>
             </xs:annotation>
