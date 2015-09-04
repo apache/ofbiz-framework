@@ -476,16 +476,6 @@ under the License.
     <!-- Build JavaDocs                                                     -->
     <!-- ================================================================== -->
 
-    <target name="docs" depends="ofbiz-init">
-        <echo message="[docs] ========== Start Building (JavaDoc) =========="/>
-        <antcall target="docs-framework"/>
-        <antcall target="docs-applications"/>
-        <antcall target="docs-specialpurpose"/>
-        <hotdeployant target="docs"/>
-
-        <echo message="[docs] ========== Done Building (JavaDocs) =========="/>
-    </target>
-
     <target name="docs-framework">
         <iterate target="docs" filelist="framework-builds"/>
     </target>
@@ -549,14 +539,6 @@ under the License.
     <!-- ================================================================== -->
     <!-- WebSite Targets                                                    -->
     <!-- ================================================================== -->
-
-    <target name="build-website"
-            description="For committers : Update dtds from OFBiz instance to site">
-        <antcall target="copy-dtds"/>
-        <!-- now deprecated since Buildbot creates and updates those automatically
-        <antcall target="docs"/>
-        <antcall target="copy-apis"/-->
-    </target>
 
     <target name="copy-apis">
         <mkdir dir="${site.dir}/api"/>
