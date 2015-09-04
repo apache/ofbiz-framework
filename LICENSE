@@ -76,15 +76,15 @@ framework/base/lib/scripting/jansi-1.2.1.jar
 framework/base/lib/xmlrpc-client-3.1.2.jar
 framework/base/lib/xmlrpc-common-3.1.2.jar
 framework/base/lib/xmlrpc-server-3.1.2.jar
-framework/catalina/lib/tomcat-7.0.59-catalina-ha.jar
-framework/catalina/lib/tomcat-7.0.59-catalina-tribes.jar
-framework/catalina/lib/tomcat-7.0.59-catalina.jar
-framework/catalina/lib/tomcat-7.0.59-jasper.jar
-framework/catalina/lib/tomcat-7.0.59-tomcat-api.jar
-framework/catalina/lib/tomcat-7.0.59-tomcat-coyote.jar
-framework/catalina/lib/tomcat-7.0.59-tomcat-util.jar
-framework/catalina/lib/tomcat-extras-7.0.59-tomcat-juli.jar
-framework/catalina/lib/tomcat-extras-7.0.59-tomcat-juli-adapters.jar
+framework/catalina/lib/tomcat-7.0.64-catalina-ha.jar
+framework/catalina/lib/tomcat-7.0.64-catalina-tribes.jar
+framework/catalina/lib/tomcat-7.0.64-catalina.jar
+framework/catalina/lib/tomcat-7.0.64-jasper.jar
+framework/catalina/lib/tomcat-7.0.64-tomcat-api.jar
+framework/catalina/lib/tomcat-7.0.64-tomcat-coyote.jar
+framework/catalina/lib/tomcat-7.0.64-tomcat-util.jar
+framework/catalina/lib/tomcat-extras-7.0.64-tomcat-juli.jar
+framework/catalina/lib/tomcat-extras-7.0.64-tomcat-juli-adapters.jar
 framework/entity/lib/commons-dbcp2-2.1.jar
 framework/entity/lib/jdbc/derby-10.11.1.1.jar
 framework/service/lib/axiom-api-1.2.9.jar
@@ -2177,7 +2177,7 @@ of California, with venue lying in Santa Clara County, California.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Eclipse Public License - v 1.0:
-framework/catalina/lib/ecj-4.4.jar
+framework/catalina/lib/ecj-4.4.2.jar
 =========================================================================
 Eclipse Public License - v 1.0
 
