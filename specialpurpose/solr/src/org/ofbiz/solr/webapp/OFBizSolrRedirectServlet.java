@@ -26,14 +26,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.solr.servlet.RedirectServlet;
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
-import org.ofbiz.webapp.OfbizUrlBuilder;
 import org.ofbiz.webapp.control.LoginWorker;
-import org.ofbiz.webapp.control.WebAppConfigurationException;
 
 /**
  * OFBizSolrRedirectServlet.java - Master servlet for the ofbiz-solr application.
@@ -67,13 +63,13 @@ public class OFBizSolrRedirectServlet extends RedirectServlet {
             if (security == null) {
                 security = (Security) session.getAttribute("security");
                 if (security != null) {
-                	request.setAttribute("security", security);
+                    request.setAttribute("security", security);
                 }
             }
             if (security == null) {
                 security = (Security) request.getServletContext().getAttribute("security");
                 if (security != null) {
-                	request.setAttribute("security", security);
+                    request.setAttribute("security", security);
                 }
             }
             if (!LoginWorker.hasBasePermission(userLogin, request)) {
@@ -95,38 +91,6 @@ public class OFBizSolrRedirectServlet extends RedirectServlet {
             return true;
         }
         
-        // check request schema
-//        if (!request.getScheme().equals("https")) {
-//            StringBuilder newURL = new StringBuilder(250);
-//            // Build the scheme and host part
-//            try {
-//                OfbizUrlBuilder builder = OfbizUrlBuilder.from(request);
-//                builder.buildHostPart(newURL, "", true);
-//            } catch (GenericEntityException e) {
-//                // If the entity engine is throwing exceptions, then there is no point in continuing.
-//                Debug.logError(e, "Exception thrown while getting web site properties: ", module);
-//                return false;
-//            } catch (WebAppConfigurationException e) {
-//                // If we can't read the controller.xml file, then there is no point in continuing.
-//                Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
-//                return false;
-//            } catch (IOException e) {
-//                // If we can't write to StringBuilder, then there is no point in continuing.
-//                Debug.logError(e, "Exception thrown while writing to StringBuilder: ", module);
-//                return false;
-//            }
-//            newURL.append(request.getRequestURI());
-//
-//            // send the redirect
-//            try {            
-//                response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-//                response.setHeader("Location", newURL.toString());
-//                response.setHeader("Connection", "close");
-//            } catch (IllegalStateException ise) {
-//                throw new IOException(ise.getMessage(), ise);
-//            }
-//            return true;
-//        }
         return false;
     }
 }
