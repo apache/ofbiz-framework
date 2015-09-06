@@ -206,18 +206,18 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                         os.flush();
                         String message = "";
                         if (UtilValidate.isEmpty(userLogin)) {
-                            message = "To manage solor in OFBiz, you have to login first and have the permission to do so.";
+                            message = "To manage Solr in OFBiz, you have to login first and have the permission to do so.";
                         } else {
-                            message = "To manage solor in OFBiz, you have to the permission to do so.";
+                            message = "To manage Solr in OFBiz, you have to the permission to do so.";
                         }
                         Debug.logInfo("[" + httpRequest.getRequestURI().substring(1) + "(Domain:" + request.getScheme() + "://" + request.getServerName() + ")] Request error: " + message, module);
                     } catch (ConversionException e) {
-                        Debug.logError("Error while converting solr ofbizLogin map to JSON.", module);
+                        Debug.logError("Error while converting Solr ofbizLogin map to JSON.", module);
                     }
                     return;
                 } else if (servletPath.endsWith("/update") || servletPath.endsWith("/update/json") || servletPath.endsWith("/update/csv") || servletPath.endsWith("/update/extract")) {
                     // NOTE: the update requests are defined in an index's solrconfig.xml
-                    // get the solr index name from the request
+                    // get the Solr index name from the request
                     if (UtilValidate.isEmpty(userLogin) || !LoginWorker.hasBasePermission(userLogin, httpRequest)) {
                         httpResponse.setContentType("application/x-json");
                         MapToJSON mapToJson = new MapToJSON();
@@ -229,12 +229,12 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                             if (UtilValidate.isEmpty(userLogin)) {
                                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                                 responseHeader.put("status", HttpServletResponse.SC_UNAUTHORIZED);
-                                message = "To update a solr index in OFBiz, you have to login first and have the permission to do so.";
+                                message = "To update a Solr index in OFBiz, you have to login first and have the permission to do so.";
                                 responseHeader.put("message", message);
                             } else {
                                 httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
                                 responseHeader.put("status", HttpServletResponse.SC_FORBIDDEN);
-                                message = "To update a solr index in OFBiz, you have to have the permission to do so.";
+                                message = "To update a Solr index in OFBiz, you have to have the permission to do so.";
                                 responseHeader.put("message", message);
                             }
                             json = mapToJson.convert(UtilMisc.toMap("responseHeader", (Object) responseHeader));
