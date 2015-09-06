@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -51,6 +52,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
@@ -176,7 +178,8 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
             chain.doFilter(request, response);
         } else {
             // check if the request is from an authorized user
-            if (UtilValidate.isNotEmpty(servletPath) && servletPath.startsWith("/admin/")) {
+            if (UtilValidate.isNotEmpty(servletPath) && (servletPath.startsWith("/admin/") || servletPath.endsWith("/update") 
+                    || servletPath.endsWith("/update/json") || servletPath.endsWith("/update/csv") || servletPath.endsWith("/update/extract"))) {
                 HttpSession session = httpRequest.getSession();
                 GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
                 Security security = (Security) request.getAttribute("security");
@@ -192,7 +195,7 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                         request.setAttribute("security", security);
                     }
                 }
-                if (UtilValidate.isEmpty(userLogin) || !LoginWorker.hasBasePermission(userLogin, httpRequest)) {
+                if (servletPath.startsWith("/admin/") && (UtilValidate.isEmpty(userLogin) || !LoginWorker.hasBasePermission(userLogin, httpRequest))) {
                     response.setContentType("application/x-json");
                     MapToJSON mapToJson = new MapToJSON();
                     JSON json;
@@ -201,14 +204,68 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                         OutputStream os = response.getOutputStream();
                         os.write(json.toString().getBytes());
                         os.flush();
+                        String message = "";
+                        if (UtilValidate.isEmpty(userLogin)) {
+                            message = "To manage solor in OFBiz, you have to login first and have the permission to do so.";
+                        } else {
+                            message = "To manage solor in OFBiz, you have to the permission to do so.";
+                        }
+                        Debug.logInfo("[" + httpRequest.getRequestURI().substring(1) + "(Domain:" + request.getScheme() + "://" + request.getServerName() + ")] Request error: " + message, module);
                     } catch (ConversionException e) {
-                        Debug.logError("Error while converting ofbizLogin map to JSON.", module);
+                        Debug.logError("Error while converting solr ofbizLogin map to JSON.", module);
                     }
                     return;
+                } else if (servletPath.endsWith("/update") || servletPath.endsWith("/update/json") || servletPath.endsWith("/update/csv") || servletPath.endsWith("/update/extract")) {
+                    // NOTE: the update requests are defined in an index's solrconfig.xml
+                    // get the solr index name from the request
+                    if (UtilValidate.isEmpty(userLogin) || !LoginWorker.hasBasePermission(userLogin, httpRequest)) {
+                        httpResponse.setContentType("application/x-json");
+                        MapToJSON mapToJson = new MapToJSON();
+                        Map<String, Object> responseHeader = new HashMap<String, Object>();
+                        JSON json;
+                        String message = "";
+                        try {
+                            OutputStream os = httpResponse.getOutputStream();
+                            if (UtilValidate.isEmpty(userLogin)) {
+                                httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                                responseHeader.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+                                message = "To update a solr index in OFBiz, you have to login first and have the permission to do so.";
+                                responseHeader.put("message", message);
+                            } else {
+                                httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                responseHeader.put("status", HttpServletResponse.SC_FORBIDDEN);
+                                message = "To update a solr index in OFBiz, you have to have the permission to do so.";
+                                responseHeader.put("message", message);
+                            }
+                            json = mapToJson.convert(UtilMisc.toMap("responseHeader", (Object) responseHeader));
+                            os.write(json.toString().getBytes());
+                            os.flush();
+                            Debug.logInfo("[" + httpRequest.getRequestURI().substring(1) + "(Domain:" + request.getScheme() + "://" + request.getServerName() + ")] Request error: " + message, module);
+                        } catch (ConversionException e) {
+                            Debug.logError("Error while converting responseHeader map to JSON.", module);
+                        }
+                        return;
+                    }
                 }
+            }
+            
+            String charset = request.getCharacterEncoding();
+            String rname = null;
+            if (httpRequest.getRequestURI() != null) {
+                rname = httpRequest.getRequestURI().substring(1);
+            }
+            if (rname != null && (rname.endsWith(".css") || rname.endsWith(".js") || rname.endsWith(".ico") || rname.endsWith(".html") || rname.endsWith(".png") || rname.endsWith(".jpg") || rname.endsWith(".gif"))) {
+                rname = null;
+            }
+            UtilTimer timer = null;
+            if (Debug.timingOn() && rname != null) {
+                timer = new UtilTimer();
+                timer.setLog(true);
+                timer.timerString("[" + rname + "(Domain:" + request.getScheme() + "://" + request.getServerName() + ")] Request Begun, encoding=[" + charset + "]", module);
             }
             // NOTE: there's a chain.doFilter in SolrDispatchFilter's doFilter
             super.doFilter(request, response, chain);
+            if (Debug.timingOn() && rname != null) timer.timerString("[" + rname + "(Domain:" + request.getScheme() + "://" + request.getServerName() + ")] Request Done", module);
         }
     }
 
