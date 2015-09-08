@@ -17,9 +17,9 @@
  * under the License.
  */
 
+import java.sql.Timestamp;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
-import java.sql.Timestamp;
 
 fromDate = parameters.fromDate;
 thruDate = parameters.thruDate;

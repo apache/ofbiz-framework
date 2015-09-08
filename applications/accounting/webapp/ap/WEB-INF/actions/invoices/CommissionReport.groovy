@@ -17,10 +17,12 @@
  * under the License.
  */
 
+ 
+import java.sql.Timestamp;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.UtilMisc;
 
 if ("Y".equals(parameters.isSearch)) {
     fromDate = parameters.fromDate;
