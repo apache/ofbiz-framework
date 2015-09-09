@@ -1259,7 +1259,6 @@ under the License.
     <view-map name="AddSprint" type="screen" page="component://scrum/widget/scrumScreens.xml#AddSprint"></view-map>
     <view-map name="SprintList" type="screen" page="component://scrum/widget/scrumScreens.xml#SprintList"></view-map>
     <view-map name="ViewSprint" type="screen" page="component://scrum/widget/scrumScreens.xml#ViewSprint"></view-map>
-    <view-map name="EditSprintItem" type="screen" page="component://scrum/widget/scrumScreens.xml#EditSprintItem"></view-map>
     <view-map name="EditSprint" type="screen" page="component://scrum/widget/scrumScreens.xml#EditSprint"></view-map>
     <view-map name="SprintMember" type="screen" page="component://scrum/widget/scrumScreens.xml#SprintMember"/>
     
