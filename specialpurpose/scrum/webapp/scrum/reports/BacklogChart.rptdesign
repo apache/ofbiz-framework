@@ -17,12 +17,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.21" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 2.6.1.v20100902 Build &lt;2.6.1.v20100915-1750></property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.2.v201410272105 Build &lt;4.4.2.v20150217-1805></property>
     <property name="units">in</property>
-    <method name="initialize"><![CDATA[importPackage(Packages.java.math);
+    <method name="initialize"><![CDATA[
+    
+importPackage(Packages.java.math);
 importPackage(Packages.java.text);
-
+importPackage(Packages.java.util);
 importPackage(Packages.org.ofbiz.base.util);
 importPackage(Packages.org.ofbiz.entity.condition);
 module = "BacklogChart.rptdesign";
@@ -1060,9 +1062,9 @@ return true;]]></method>
 ]]></xml-property>
             <property name="outputFormat">SVG</property>
             <property name="inheritColumns">false</property>
-            <property name="dataSet">TestDataSet</property>
             <property name="height">3.1956521739130435in</property>
             <property name="width">6.163043478260869in</property>
+            <property name="dataSet">TestDataSet</property>
             <list-property name="boundDataColumns">
                 <structure>
                     <property name="name">DataName</property>
