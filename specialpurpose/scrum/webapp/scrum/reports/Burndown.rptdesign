@@ -20,10 +20,12 @@ under the License.
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.21" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 2.6.1.v20100902 Build &lt;2.6.1.v20100915-1750></property>
     <property name="units">in</property>
-    <method name="initialize"><![CDATA[importPackage(Packages.java.math);
-importPackage(Packages.java.text);
+    <method name="initialize"><![CDATA[
+importPackage(Packages.java.math);
 importPackage(Packages.java.sql);
-
+importPackage(Packages.java.text);
+importPackage(Packages.java.util);
+importPackage(Packages.javolution.util);
 importPackage(Packages.org.ofbiz.base.util);
 importPackage(Packages.org.ofbiz.entity.condition);
 
@@ -45,7 +47,7 @@ var countHoliday = 0;
 while (countHoliday < dayNumber) {
     var conditionTimestampFrom = new Timestamp(actualStartDate.getTime() + (countHoliday*1000*60*60*24));
     // get public holiday
-    var holidayConds = new LinkedkList();
+    var holidayConds = FastList.newInstance();
     holidayConds.add(EntityCondition.makeCondition("workEffortTypeId",EntityOperator.EQUALS, "PUBLIC_HOLIDAY"));
     holidayConds.add(EntityCondition.makeCondition("estimatedStartDate", EntityOperator.EQUALS, conditionTimestampFrom));
     var fieldsToSelect = UtilMisc.toSet("workEffortId","estimatedStartDate");
@@ -234,7 +236,7 @@ remainActualHours = BigDecimal.ZERO;
 
 averageHours = previousAverageHours;
 
-holidays = new LinkedkList();
+holidays = FastList.newInstance();
 reportContext.getAppContext().put("holidays", holidays);
 ]]></method>
             <method name="fetch"><![CDATA[if (dayCount >= dayNumber || currentDay >= 0) return false;
@@ -251,7 +253,7 @@ if (nowTimestamp.getTime() >= conditionTimestampFrom.getTime() &amp;&amp; nowTim
 }
 
 // get public holiday
-var holidayConds = new LinkedkList();
+var holidayConds = FastList.newInstance();
 holidayConds.add(EntityCondition.makeCondition("workEffortTypeId",EntityOperator.EQUALS, "PUBLIC_HOLIDAY"));
 holidayConds.add(EntityCondition.makeCondition("estimatedStartDate", EntityOperator.EQUALS, conditionTimestampFrom));
 var fieldsToSelect = UtilMisc.toSet("workEffortId","estimatedStartDate");
@@ -279,7 +281,7 @@ for (i=0; i<backlogItems.size(); i++) {
     // get all task from backlog item
     var backlogItem = backlogItems.get(i);
     var custRequestId = backlogItem.get("custRequestId");
-    var conds = new LinkedkList();
+    var conds = FastList.newInstance();
     conds.add(EntityCondition.makeCondition("custRequestId", custRequestId));
     conds.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.NOT_EQUAL, "SCRUM_SPRINT"));
     var tasks = delegator.findList("CustRequestAndWorkEffort", EntityCondition.makeCondition(conds), null, null, null, false);
@@ -301,7 +303,7 @@ for (i=0; i<backlogItems.size(); i++) {
             }
         }
         // get all time entries from task
-        var timeEntryConds = new LinkedkList();
+        var timeEntryConds = FastList.newInstance();
         timeEntryConds.add(EntityCondition.makeCondition("workEffortId", workEffortId));
         timeEntryConds.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, conditionTimestampFrom));
         timeEntryConds.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, conditionTimestampTo));

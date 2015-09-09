@@ -22,7 +22,7 @@ under the License.
     <property name="units">in</property>
     <method name="initialize"><![CDATA[importPackage(Packages.java.math);
 importPackage(Packages.java.text);
-
+importPackage(Packages.java.util);
 importPackage(Packages.org.ofbiz.base.util);
 importPackage(Packages.org.ofbiz.entity.condition);
 module = "BacklogByTypeChart.rptdesign";
@@ -1060,9 +1060,9 @@ return true;]]></method>
 ]]></xml-property>
             <property name="outputFormat">SVG</property>
             <property name="inheritColumns">false</property>
-            <property name="dataSet">Data Set</property>
             <property name="height">3in</property>
             <property name="width">6in</property>
+            <property name="dataSet">Data Set</property>
             <list-property name="boundDataColumns">
                 <structure>
                     <property name="name">DataName</property>
