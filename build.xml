@@ -488,8 +488,7 @@ under the License.
         <iterate target="docs" filelist="specialpurpose-builds"/>
     </target>
 
-    <target name="docs-all" depends="build,ofbiz-init"
-            description="For committers : Build all javadoc into one tree for easier viewing by the community">
+    <target name="docs-all" depends="build,ofbiz-init"><!--description="For committers : Build all javadoc into one tree for easier viewing by the community"  Note: this is now done automatically by Buildbot at the ASF-->
 
         <echo message="[docs-all] ========== Start Building (JavaDoc) =========="/>
 
