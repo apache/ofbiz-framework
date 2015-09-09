@@ -22,7 +22,7 @@ under the License.
     <property name="units">in</property>
     <method name="initialize"><![CDATA[importPackage(Packages.java.math);
 importPackage(Packages.java.text);
-
+importPackage(Packages.java.util);
 importPackage(Packages.org.ofbiz.base.util);
 importPackage(Packages.org.ofbiz.entity.condition);
 module = "TaskByStatusChart.rptdesign";
@@ -2056,9 +2056,9 @@ return true;]]></method>
 ]]></xml-property>
             <property name="outputFormat">SVG</property>
             <property name="inheritColumns">true</property>
-            <property name="dataSet">Data Set</property>
             <property name="height">3in</property>
             <property name="width">7.5in</property>
+            <property name="dataSet">Data Set</property>
             <list-property name="boundDataColumns">
                 <structure>
                     <property name="name">Completed</property>
