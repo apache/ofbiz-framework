@@ -196,7 +196,7 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                     }
                 }
                 if (servletPath.startsWith("/admin/") && (UtilValidate.isEmpty(userLogin) || !LoginWorker.hasBasePermission(userLogin, httpRequest))) {
-                    response.setContentType("application/x-json");
+                    response.setContentType("application/json");
                     MapToJSON mapToJson = new MapToJSON();
                     JSON json;
                     try {
@@ -219,7 +219,7 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                     // NOTE: the update requests are defined in an index's solrconfig.xml
                     // get the Solr index name from the request
                     if (UtilValidate.isEmpty(userLogin) || !LoginWorker.hasBasePermission(userLogin, httpRequest)) {
-                        httpResponse.setContentType("application/x-json");
+                        httpResponse.setContentType("application/json");
                         MapToJSON mapToJson = new MapToJSON();
                         Map<String, Object> responseHeader = new HashMap<String, Object>();
                         JSON json;

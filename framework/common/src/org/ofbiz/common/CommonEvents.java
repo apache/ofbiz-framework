@@ -313,8 +313,8 @@ public class CommonEvents {
             jsonStr = "//" + jsonStr;
         }
 
-        // set the X-JSON content type
-        response.setContentType("application/x-json");
+        // set the JSON content type
+        response.setContentType("application/json");
         // jsonStr.length is not reliable for unicode characters
         response.setContentLength(jsonStr.getBytes("UTF8").length);
 
