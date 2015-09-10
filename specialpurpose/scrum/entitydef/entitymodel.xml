@@ -331,59 +331,6 @@ under the License.
         </entity-condition>
     </view-entity>
     
-    <view-entity entity-name="PartyRelationshipAndPartyDetail" 
-            package-name="org.ofbiz.party.party"
-            title="Party Relationship And Party Details">
-        <member-entity entity-alias="TO_PTY" entity-name="Party"/><!-- Party To Detail -->
-        <member-entity entity-alias="PTYREL" entity-name="PartyRelationship"/>
-        <member-entity entity-alias="TO_PER" entity-name="Person"/>
-        <member-entity entity-alias="TO_PTYGRP" entity-name="PartyGroup"/>
-        <member-entity entity-alias="FROM_PER" entity-name="Person"/><!-- Party From Detail -->
-        <member-entity entity-alias="FROM_PTYGRP" entity-name="PartyGroup"/>
-        <alias-all entity-alias="PTYREL"/>
-        <alias entity-alias="TO_PTY" name="partyId"/>
-        <alias entity-alias="TO_PTY" name="partyTypeId"/>
-        <alias entity-alias="TO_PTY" name="description"/>
-        <alias entity-alias="TO_PTY" name="partyStatusId" field="statusId"/>
-        <alias entity-alias="TO_PER" name="toFirstName" field="firstName"/>
-        <alias entity-alias="TO_PER" name="toMiddleName" field="middleName"/>
-        <alias entity-alias="TO_PER" name="toLastName" field="lastName"/>
-        <alias entity-alias="TO_PER" name="tofirstNameLocal" field="firstNameLocal"/>
-        <alias entity-alias="TO_PER" name="toLastNameLocal" field="lastNameLocal"/>
-        <alias entity-alias="TO_PER" name="toPersonalTitle" field="personalTitle"/>
-        <alias entity-alias="TO_PER" name="toSuffix" field="suffix"/>
-        <alias entity-alias="TO_PTYGRP" name="toGroupName" field="groupName"/>
-        <alias entity-alias="TO_PTYGRP" name="toGroupNameLocal" field="groupNameLocal"/>
-        <alias entity-alias="FROM_PER" name="fromFirstName" field="firstName"/>
-        <alias entity-alias="FROM_PER" name="fromMiddleName" field="middleName"/>
-        <alias entity-alias="FROM_PER" name="fromLastName" field="lastName"/>
-        <alias entity-alias="FROM_PER" name="fromfirstNameLocal" field="firstNameLocal"/>
-        <alias entity-alias="FROM_PER" name="fromLastNameLocal" field="lastNameLocal"/>
-        <alias entity-alias="FROM_PER" name="fromPersonalTitle" field="personalTitle"/>
-        <alias entity-alias="FROM_PER" name="fromSuffix" field="suffix"/>
-        <alias entity-alias="FROM_PTYGRP" name="fromGroupName" field="groupName"/>
-        <alias entity-alias="FROM_PTYGRP" name="fromGroupNameLocal" field="groupNameLocal"/>
-        
-        <view-link entity-alias="TO_PTY" rel-entity-alias="PTYREL" rel-optional="true">
-          <key-map field-name="partyId" rel-field-name="partyIdTo"/>
-        </view-link>
-        <view-link entity-alias="TO_PTY" rel-entity-alias="TO_PER" rel-optional="true">
-          <key-map field-name="partyId"/>
-        </view-link>
-        <view-link entity-alias="TO_PTY" rel-entity-alias="TO_PTYGRP" rel-optional="true">
-          <key-map field-name="partyId"/>
-        </view-link>
-        <view-link entity-alias="PTYREL" rel-entity-alias="FROM_PER" rel-optional="true">
-          <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-        </view-link>
-        <view-link entity-alias="PTYREL" rel-entity-alias="FROM_PTYGRP" rel-optional="true">
-          <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-        </view-link>
-        <relation type="one-nofk" rel-entity-name="Party">
-          <key-map field-name="partyId"/>
-        </relation>
-    </view-entity>
-    
     <view-entity entity-name="ScrumPersonAndCompany"
             package-name="org.ofbiz.scrum" 
             title="person -> partyrelationship -> company">
