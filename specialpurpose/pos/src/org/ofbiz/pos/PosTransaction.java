@@ -599,9 +599,9 @@ public class PosTransaction implements Serializable {
             ShoppingCartItem item = cart.findCartItem(iCartIndex);
             List<GenericValue> adjustments = item.getAdjustments();
             for (GenericValue gvAdjustment : adjustments){
-                    item.removeAdjustment(gvAdjustment);
+                item.removeAdjustment(gvAdjustment);
             }
-               int idx = item.addAdjustment(adjustment);
+            item.addAdjustment(adjustment);
         } else {
             trace("add sale adjustment");
             if (cartDiscount > -1) {
@@ -1938,7 +1938,7 @@ public class PosTransaction implements Serializable {
                             trace("updatePassword");
                             String passwordAcceptEncryptedAndPlain = null;
                             try {
-                            	
+                                
                                 passwordAcceptEncryptedAndPlain = EntityUtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain", delegator);
                                 UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", "true");
                                 svcRes = dispatcher.runSync("updatePassword",
