@@ -450,14 +450,16 @@ public class EntityQuery {
         if (dynamicViewEntity == null) {
             result = delegator.findList(entityName, makeWhereCondition(useCache), fieldsToSelect, orderBy, findOptions, useCache);
         } else {
-            result = queryIterator().getCompleteList();
+            EntityListIterator it = queryIterator();
+            result = it.getCompleteList();
+            it.close();
         }
         if (filterByDate && useCache) {
             return EntityUtil.filterByCondition(result, this.makeDateCondition());
         }
         return result;
     }
-
+    
     private EntityFindOptions makeEntityFindOptions() {
         EntityFindOptions findOptions = new EntityFindOptions();
         if (resultSetType != null) {
