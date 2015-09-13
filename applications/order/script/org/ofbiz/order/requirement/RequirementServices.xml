@@ -107,6 +107,14 @@ under the License.
         <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
         <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="partyRole"/>
         <if-empty field="partyRole.partyId">
+            <check-permission permission="PARTYMGR" action="_CREATE">
+                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
+            </check-permission>
+            <check-errors/>
+            <check-permission permission="PARTYMGR" action="_UPDATE">
+                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
+            </check-permission>
+            <check-errors/>
             <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
             <create-value value-field="partyRole"/>

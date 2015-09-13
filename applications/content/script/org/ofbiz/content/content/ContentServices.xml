@@ -278,6 +278,14 @@
         <set-pk-fields value-field="partyRolePK" map="parameters"/>
         <find-by-primary-key entity-name="PartyRole" map="partyRolePK" value-field="partyRole"/>
         <if-empty field="partyRole">
+            <check-permission permission="PARTYMGR" action="_CREATE">
+                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
+            </check-permission>
+            <check-errors/>
+            <check-permission permission="PARTYMGR" action="_UPDATE">
+                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
+            </check-permission>
+            <check-errors/>
             <make-value entity-name="PartyRole" map="partyRolePK" value-field="partyRole"/>
             <create-value value-field="partyRole"/>
         </if-empty>

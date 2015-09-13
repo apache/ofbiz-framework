@@ -1171,6 +1171,16 @@
         <value xml:lang="zh">必须的参数 'email' 不能为空。</value>
         <value xml:lang="zh-TW">必要的參數 'email' 不能為空.</value>
     </property>
+    <property key="PartyErrorCreatePermissionError">
+        <value xml:lang="ar">خطأ أمني: يجب أن يكون لديك أذن PARTYMGR_CREATE أو PARTYMGR_UPDATE لتشغل ${resourceDescription}</value>
+        <value xml:lang="de">Berechtigungsfehler: Um ${resourceDescription} auszuführen muss man PARTYMGR_CREATE oder PARTYMGR_UPDATE Berechtigungen haben</value>
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the PARTYMGR_CREATE or PARTYMGR_UPDATE permission</value>
+        <value xml:lang="fr">Erreur de sécurité : pour effectuer ${resourceDescription} vous devez avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_UPDATE</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso PARTYMGR_CREATE o PARTYMGR_UPDATE</value>
+        <value xml:lang="ja">セキュリティエラー: ${resourceDescription} を実行するには PARTYMGR_CREATE または PARTYMGR_UPDATE 権限が必要です</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền PARTYMGR_CREATE hoặc PARTYMGR_UPDATE</value>
+        <value xml:lang="zh">系统错误：要运行${resourceDescription}，你必须有 PARTYMGR_CREATE 或 PARTYMGR_UPDATE 权限</value>
+    </property>
     <property key="person.create.db_error">
         <value xml:lang="de">Kann Informationen zur Person nicht hinzufügen (Schreibfehler): ${0}</value>
         <value xml:lang="en">Could not add person info (write failure): ${0}</value>
