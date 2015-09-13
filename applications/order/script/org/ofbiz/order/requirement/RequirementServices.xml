@@ -110,7 +110,6 @@ under the License.
             <check-permission permission="PARTYMGR" action="_CREATE">
                 <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
             </check-permission>
-            <check-errors/>
             <check-permission permission="PARTYMGR" action="_UPDATE">
                 <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
             </check-permission>
