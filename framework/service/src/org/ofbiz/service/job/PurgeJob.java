@@ -54,8 +54,8 @@ public class PurgeJob extends AbstractJob implements Serializable {
             if (relatedValue != null) {
                 List<GenericValue> valueList = relatedValue.getRelated("JobSandbox", null, null, false);
                 if (valueList.isEmpty()) {
-                    relatedValue.removeRelated("RecurrenceRule");
                     relatedValue.remove();
+                    relatedValue.removeRelated("RecurrenceRule");
                 }
             }
             relatedValue = jobValue.getRelatedOne("RuntimeData", false);
