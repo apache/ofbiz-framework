@@ -1335,8 +1335,8 @@ public class UtilValidate {
         if (ean == null || ean.length() != 13) {
             throw new IllegalArgumentException("Invalid EAN length; must be 13 characters");
         }
-        char csum = ean.charAt(13);
-        char calcSum = calcChecksum(ean, 13);
+        char csum = ean.charAt(12);
+        char calcSum = calcChecksum(ean, 12);
         return csum == calcSum;
     }
 
