@@ -121,7 +121,7 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     categoryAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
     categoryAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
 
-    categoryResultListIterator = select("productCategoryId", "quantityTotal", "amountTotal").from(InvoiceItemCategorySummary).where(categoryAndExprs).cursorScrollInsensitive().cache(true).queryIterator();
+    categoryResultListIterator = select("productCategoryId", "quantityTotal", "amountTotal").from("InvoiceItemCategorySummary").where(categoryAndExprs).cursorScrollInsensitive().cache(true).queryIterator();
     categoryResultMap = [:];
     while ((categoryResult = categoryResultListIterator.next())) {
         categoryResultMap[categoryResult.productCategoryId] = categoryResult;
@@ -153,7 +153,7 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
 }
 
 context.productResultMapByDayList = productResultMapByDayList;
-context.productNullResultByDayList = productNullResultMapByDayList;
+context.productNullResultByDayList = productNullResultByDayList;
 context.categoryResultMapByDayList = categoryResultMapByDayList;
 
 context.monthProductResultMap = monthProductResultMap;
