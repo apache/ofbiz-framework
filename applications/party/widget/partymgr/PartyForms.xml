@@ -960,7 +960,7 @@ under the License.
         <field name="comments"><display/></field>
     </form>
 
-    <form name="ListPartyRelationships" type="list" list-name="partyRelationships" default-table-style="basic-table" target="updatePartyRelationship">
+    <form name="ListPartyRelationships" type="list" list-name="partyRelationships" default-table-style="basic-table" target="updatePartyRelationship" odd-row-style="alternate-row">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyId}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
