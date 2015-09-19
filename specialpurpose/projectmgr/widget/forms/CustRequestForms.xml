@@ -115,25 +115,6 @@ under the License.
         <field name="createdDate"><display type="date"/></field>
         <field name="lastModifiedDate"><display type="date"/></field>
     </form>
-    <form name="RequestRolesInfo" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-and entity-name="CustRequestParty">
-                <field-map field-name="custRequestId" from-field="custRequestId"/>
-            </entity-and>
-        </actions>
-        <row-actions>
-            <entity-one entity-name="Person" value-field="person">
-                <field-map field-name="partyId" from-field="partyId"/>
-            </entity-one>
-        </row-actions>
-        <field name="partyId" widget-style="buttontext">
-            <hyperlink description="${partyId}" target="viewprofile">
-                <parameter param-name="partyId"/>
-            </hyperlink>
-        </field>
-        <field name="RequestTaker"><display description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName}"/></field>
-    </form>
     <form name="ListRequestsWorkEffortForm" type="list" use-row-submit="true" list-name="listIt" paginate-target="requestlist"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
