@@ -185,6 +185,7 @@ under the License.
           stepMinute: 1,
           stepSecond: 1,
       </#if>
+          showWeek: true,
           showOn: 'button',
           buttonImage: '',
           buttonText: '',
@@ -500,6 +501,7 @@ under the License.
             stepMinute: 5,
             stepSecond: 10,
         </#if>
+            showWeek: true,
             showOn: 'button',
             buttonImage: '',
             buttonText: '',
@@ -536,6 +538,7 @@ under the License.
             stepMinute: 5,
             stepSecond: 10,
         </#if>
+            showWeek: true,
             showOn: 'button',
             buttonImage: '',
             buttonText: '',
