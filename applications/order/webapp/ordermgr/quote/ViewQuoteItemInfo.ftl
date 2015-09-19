@@ -116,8 +116,8 @@ under the License.
                 <#-- now show adjustment details per line item -->
                 <#list quoteItemAdjustments as quoteItemAdjustment>
                     <#assign adjustmentType = quoteItemAdjustment.getRelatedOne("OrderAdjustmentType", false)>
-                    <tr class="alternate-row">
-                        <td align="right" colspan="4"><span class="label">${adjustmentType.get("description",locale)!}</span></td>
+                    <tr <#if alt_row>class="alternate-row" </#if>>
+                        <td align="right" colspan="6"><span class="label">${adjustmentType.get("description",locale)!}</span></td>
                         <td align="right"><@ofbizCurrency amount=quoteItemAdjustment.amount isoCode=quote.currencyUomId/></td>
                         <td>&nbsp;</td>
                     </tr>
