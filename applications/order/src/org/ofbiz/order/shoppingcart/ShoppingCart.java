@@ -2696,11 +2696,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns the total from the cart, including tax/shipping. */
     public BigDecimal getGrandTotal() {
         // sales tax and shipping are not stored as adjustments but rather as part of the ship group
-        // Debug.logInfo("Subtotal:" + this.getSubTotal() + " Shipping:" + this.getTotalShipping() + "SalesTax: "+ this.getTotalSalesTax() + " others: " + this.getOrderOtherAdjustmentTotal(),module);
-        BigDecimal grandTotal = this.getSubTotal().add(this.getTotalShipping()).add(this.getTotalSalesTax()).add(this.getOrderOtherAdjustmentTotal());
-        // Debug.logInfo("Grand Total before rounding:" + grandTotal, module);
-        grandTotal = this.getSubTotal().add(this.getTotalShipping()).add(this.getTotalSalesTax()).add(this.getOrderOtherAdjustmentTotal()).add(this.getOrderGlobalAdjusments());
-        return grandTotal;
+        // Debug.logInfo("Subtotal:" + this.getSubTotal() + " Shipping:" + this.getTotalShipping() + "SalesTax: "+ this.getTotalSalesTax() + " others: " + this.getOrderOtherAdjustmentTotal() + " global: " + this.getOrderGlobalAdjustments(), module);
+        return this.getSubTotal().add(this.getTotalShipping()).add(this.getTotalSalesTax()).add(this.getOrderOtherAdjustmentTotal()).add(this.getOrderGlobalAdjustments());
     }
 
     public BigDecimal getDisplaySubTotal() {
@@ -2710,11 +2707,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         return itemsTotal;
     }
-    public BigDecimal getOrderGlobalAdjusments() {
+    public BigDecimal getOrderGlobalAdjustments() {
         List<GenericValue> cartAdjustments = this.getAdjustments();
         List<GenericValue> tempAdjustmentsList = new LinkedList<GenericValue>();
         if (cartAdjustments != null) {
-            Iterator cartAdjustmentIter = cartAdjustments.iterator();
+            Iterator<GenericValue> cartAdjustmentIter = cartAdjustments.iterator();
             while (cartAdjustmentIter.hasNext()) {
                 GenericValue checkOrderAdjustment = (GenericValue) cartAdjustmentIter.next();
                 if (UtilValidate.isEmpty(checkOrderAdjustment.getString("shipGroupSeqId")) || DataModelConstants.SEQ_ID_NA.equals(checkOrderAdjustment.getString("shipGroupSeqId"))) {
@@ -2739,7 +2736,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     /** Returns the total from the cart, including tax/shipping. */
     public BigDecimal getDisplayGrandTotal() {
-        return this.getDisplaySubTotal().add(this.getTotalShipping()).add(this.getTotalSalesTax()).add(this.getOrderOtherAdjustmentTotal()).add(this.getOrderGlobalAdjusments());
+        return this.getDisplaySubTotal().add(this.getTotalShipping()).add(this.getTotalSalesTax()).add(this.getOrderOtherAdjustmentTotal()).add(this.getOrderGlobalAdjustments());
     }
 
     public BigDecimal getOrderOtherAdjustmentTotal() {
@@ -4904,7 +4901,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 }
                 if ("Y".equals(splitPayPrefPerShpGrp)  && cart.paymentInfo.size() == 1) {
                     for (CartShipInfo csi : cart.getShipGroups()) {
-                        maxAmount = csi.getTotal().add(cart.getOrderOtherAdjustmentTotal().add(cart.getOrderGlobalAdjusments()).divide(new BigDecimal(cart.getShipGroupSize()), generalRounding)).add(csi.getShipEstimate().add(csi.getTotalTax(cart)));
+                        maxAmount = csi.getTotal().add(cart.getOrderOtherAdjustmentTotal().add(cart.getOrderGlobalAdjustments()).divide(new BigDecimal(cart.getShipGroupSize()), generalRounding)).add(csi.getShipEstimate().add(csi.getTotalTax(cart)));
                         maxAmount = maxAmount.setScale(scale, rounding);
 
                         // create the OrderPaymentPreference record
