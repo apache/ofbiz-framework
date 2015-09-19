@@ -1157,6 +1157,22 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="GetPartyGeoLocation">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitlePartyGeoLocation"/>
+                <set field="tabButtonItem" value="PartyGeoLocation"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/PartyGeoLocation.groovy"/>
+            </actions>
+            <widgets>
+                <label>${uiLabelMap.CommonLatitude} ${latestGeoPoint.latitude}</label>
+                <label>${uiLabelMap.CommonLongitude} ${latestGeoPoint.longitude}</label>
+                <label>${uiLabelMap.CommonElevation} ${latestGeoPoint.elevation} ${elevationUomAbbr}</label>
+                <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditGeoLocation">
         <section>
             <actions>
