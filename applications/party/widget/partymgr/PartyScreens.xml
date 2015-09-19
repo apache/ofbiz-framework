@@ -284,7 +284,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PartyRelationships}" navigation-form-name="ListPartyRelationships">
+                        <screenlet title="${uiLabelMap.PartyRelationships}">
                             <include-form name="ListPartyRelationships" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                         <container style="lefthalf">
