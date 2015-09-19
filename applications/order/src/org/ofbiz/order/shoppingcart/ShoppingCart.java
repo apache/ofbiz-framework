@@ -376,6 +376,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public void setLocale(Locale locale) {
         this.locale = locale;
+        for (ShoppingCartItem cartItem : cartLines) {
+            cartItem.setLocale(locale);
+        }
     }
 
     public void setOrderName(String orderName) {
