@@ -21,6 +21,7 @@ package org.ofbiz.order.order;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -78,7 +79,7 @@ public class OrderLookupServices {
         }
 
         // list of fields to select (initial list)
-        Set<String> fieldsToSelect = new HashSet<String>();
+        Set<String> fieldsToSelect = new LinkedHashSet<String>();
         fieldsToSelect.add("orderId");
         fieldsToSelect.add("orderName");
         fieldsToSelect.add("statusId");
