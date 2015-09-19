@@ -18,10 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.base.util.collections;
 
+import java.util.AbstractSet;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -298,7 +301,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     public Set<Map.Entry<K, V>> entrySet() {
         // walk the stackList and the entries for each Map and if nothing is in for the current key, put it in
         Set<K> resultKeySet = new HashSet<K>();
-        Set<Map.Entry<K, V>> resultEntrySet = new HashSet<Map.Entry<K, V>>();
+        Set<Map.Entry<K, V>> resultEntrySet = new ListSet<Map.Entry<K, V>>();
         for (Map<K, V> curMap: this.stackList) {
             for (Map.Entry<K, V> curEntry: curMap.entrySet()) {
                 if (!resultKeySet.contains(curEntry.getKey())) {
@@ -334,4 +337,49 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         }
         return fullMapString.toString();
     }
+
+    private static final class ListSet<E> extends AbstractSet<E> implements Set<E> {
+
+        protected final List<E> listImpl;
+
+        public ListSet() {
+            this.listImpl = new ArrayList<E>();
+        }
+
+        public int size() {
+            return this.listImpl.size();
+        }
+
+        public Iterator<E> iterator() {
+            return this.listImpl.iterator();
+        }
+
+        public boolean add(final E obj) {
+            boolean added = false;
+
+            if (!this.listImpl.contains(obj)) {
+                added = this.listImpl.add(obj);
+            }
+
+            return added;
+        }
+
+        public boolean isEmpty() {
+            return this.listImpl.isEmpty();
+        }
+
+        public boolean contains(final Object obj) {
+            return this.listImpl.contains(obj);
+        }
+
+        public boolean remove(final Object obj) {
+            return this.listImpl.remove(obj);
+        }
+
+        public void clear() {
+            this.listImpl.clear();
+        }
+
+    }
+
 }
