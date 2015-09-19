@@ -932,8 +932,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (cartLines.size() <= index) return;
         ShoppingCartItem item = cartLines.remove(index);
 
-        // set quantity to 0 to trigger necessary events
-        item.setQuantity(BigDecimal.ZERO, dispatcher, this);
+        // set quantity to 0 to trigger necessary events, but skip price calc and inventory checks
+        item.setQuantity(BigDecimal.ZERO, dispatcher, this, true, true, false, true);
     }
 
     /** Moves a line item to a different index. */
