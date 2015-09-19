@@ -140,6 +140,20 @@
 	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-queryparser-4.9.0.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/compile/solr-core-4.9.0.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/compile/solr-solrj-4.9.0.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/guava-14.0.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/joda-time-2.2.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-analyzers-common-4.9.0.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-codecs-4.9.0.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-highlighter-4.9.0.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-join-4.9.0.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-queries-4.9.0.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-spatial-4.9.0.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-suggest-4.9.0.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/noggit-0.5.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/org.restlet-2.1.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/org.restlet.ext.servlet-2.1.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/spatial4j-0.4.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/zookeeper-3.4.6.jar"/>
 	<classpathentry excluding="org/ofbiz/accounting/thirdparty/cybersource/**|org/ofbiz/accounting/thirdparty/verisign/**|org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java|org/ofbiz/accounting/thirdparty/orbital/**|org/ofbiz/accounting/thirdparty/securepay/**|org/ofbiz/accounting/thirdparty/ideal/**" kind="src" path="applications/accounting/src"/>
 	<classpathentry excluding="org/ofbiz/content/openoffice/|org/ofbiz/content/report/" kind="src" path="applications/content/src"/>
 	<classpathentry kind="src" path="applications/manufacturing/src"/>
