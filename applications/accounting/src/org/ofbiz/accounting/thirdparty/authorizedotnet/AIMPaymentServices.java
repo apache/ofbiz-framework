@@ -252,7 +252,7 @@ public class AIMPaymentServices {
             return reply;
         }
         Map<String, Object> results = ServiceUtil.returnSuccess();
-        context.put("x_Amount", context.get("releaseAmount")); // hack for releaseAmount
+        context.put("x_Amount", ((BigDecimal) context.get("releaseAmount")).toPlainString()); // hack for releaseAmount
         results.putAll(processReleaseTransResult(context, reply));
         return results;
     }
@@ -823,8 +823,8 @@ public class AIMPaymentServices {
     private static BigDecimal getXAmount(Map<String, Object> request) {
         BigDecimal amt = BigDecimal.ZERO;
         if (request.get("x_Amount") != null) {
-            BigDecimal amount = (BigDecimal) request.get("x_Amount");
             try {
+                BigDecimal amount = new BigDecimal((String) request.get("x_Amount"));
                 amt = amount;
             } catch (NumberFormatException e) {
                 Debug.logWarning(e, e.getMessage(), module);
