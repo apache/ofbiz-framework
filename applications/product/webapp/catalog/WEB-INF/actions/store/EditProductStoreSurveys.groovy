@@ -32,9 +32,9 @@ if (productStoreId) {
 
 context.productStoreSurveys = from("ProductStoreSurveyAppl").where("productStoreId", productStoreId).filterByDate().queryList();
 
-context.surveys = from("Survey").orderBy("description").queryOne();
+context.surveys = from("Survey").orderBy("description").queryList();
 
-context.surveyApplTypes = from("SurveyApplType").orderBy("description").queryFirst();
+context.surveyApplTypes = from("SurveyApplType").orderBy("description").queryList();
 
 context.productCategories = from("ProductCategory").orderBy("description").queryList();
 
