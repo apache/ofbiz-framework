@@ -1159,6 +1159,11 @@ under the License.
         <response name="success" type="view" value="PartyGeoLocation"/>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
+    <request-map uri="GetPartyGeoLocation">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="GetPartyGeoLocation"/>
+        <response name="error" type="view" value="viewprofile"/>
+    </request-map>
     <request-map uri="addGeoLocation">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="addGeoLocation"/>
@@ -1376,6 +1381,7 @@ under the License.
     <view-map name="PartyFinancialHistory" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#PartyFinancialHistory"/>
     <view-map name="Preferences" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#Preferences"/>
     <view-map name="PartyGeoLocation" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#PartyGeoLocation"/>
+    <view-map name="GetPartyGeoLocation" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#GetPartyGeoLocation"/>
 
     <view-map name="UpdateCommOrders" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommOrders"/>
     <view-map name="UpdateCommProducts" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommProducts"/>
