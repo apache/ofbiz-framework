@@ -5037,8 +5037,15 @@ public class OrderServices {
                     if (!UtilValidate.isEmpty(shipGroup.getString("supplierPartyId"))) {
                         // This ship group is a drop shipment: we create a purchase order for it
                         String supplierPartyId = shipGroup.getString("supplierPartyId");
+                        // Set supplier preferred currency for drop-ship (PO) order to support multi currency
+                        GenericValue supplierParty = delegator.findOne("Party", UtilMisc.toMap("partyId", supplierPartyId), false);
+                        String currencyUomId = supplierParty.getString("preferredCurrencyUomId");
+                        // If supplier currency not found then set currency of sales order
+                        if (UtilValidate.isEmpty(currencyUomId)) {
+                            currencyUomId = orh.getCurrency();
+                        }
                         // create the cart
-                        ShoppingCart cart = new ShoppingCart(delegator, orh.getProductStoreId(), null, orh.getCurrency());
+                        ShoppingCart cart = new ShoppingCart(delegator, orh.getProductStoreId(), null, currencyUomId);
                         cart.setOrderType("PURCHASE_ORDER");
                         cart.setBillToCustomerPartyId(cart.getBillFromVendorPartyId()); //Company
                         cart.setBillFromVendorPartyId(supplierPartyId);
