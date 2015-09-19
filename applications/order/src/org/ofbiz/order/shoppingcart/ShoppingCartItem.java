@@ -1737,6 +1737,11 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.supplierProductId = supplierProductId;
     }
 
+    /** Set the item's locale (from ShoppingCart.setLocale) */
+    protected void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
     /** Set the item's description. */
     public void setName(String itemName) {
         this.itemDescription = itemName;
