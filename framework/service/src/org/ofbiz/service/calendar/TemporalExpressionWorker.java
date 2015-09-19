@@ -34,7 +34,7 @@ public class TemporalExpressionWorker {
 
     public final static String module = TemporalExpressionWorker.class.getName();
 
-    // Temporal expression constants
+    // Temporal expression type constants
     public final static String DateRange = "DATE_RANGE";
     public final static String DayInMonth = "DAY_IN_MONTH";
     public final static String DayOfMonthRange = "DAY_OF_MONTH_RANGE";
@@ -49,6 +49,11 @@ public class TemporalExpressionWorker {
     public final static String Union = "UNION";
     public final static String ExpressionTypeList[] = {DateRange, DayInMonth, DayOfMonthRange, DayOfWeekRange,
         Difference, Frequency, HourRange, Intersection, MinuteRange, MonthRange, Substitution, Union};
+
+    // Temporal expression assoc type constants
+    public final static String INCLUDE = "INCLUDE";
+    public final static String EXCLUDE = "EXCLUDE";
+    public final static String SUBSTITUTE = "SUBSTITUTE";
 
     /** Get a <code>TemporalExpression</code> from persistent storage.
      * @param delegator
@@ -96,9 +101,9 @@ public class TemporalExpressionWorker {
             GenericValue inclAssoc = null;
             GenericValue exclAssoc = null;
             for (GenericValue childExpression : childExpressions) {
-                if ("INCLUDE".equals(childExpression.get("exprAssocType"))) {
+                if (INCLUDE.equals(childExpression.get("exprAssocType"))) {
                     inclAssoc = childExpression;
-                } else if ("EXCLUDE".equals(childExpression.get("exprAssocType"))) {
+                } else if (EXCLUDE.equals(childExpression.get("exprAssocType"))) {
                     exclAssoc = childExpression;
                 }
             }
@@ -121,11 +126,11 @@ public class TemporalExpressionWorker {
             GenericValue exclAssoc = null;
             GenericValue substAssoc = null;
             for (GenericValue childExpression : childExpressions) {
-                if ("INCLUDE".equals(childExpression.get("exprAssocType"))) {
+                if (INCLUDE.equals(childExpression.get("exprAssocType"))) {
                     inclAssoc = childExpression;
-                } else if ("EXCLUDE".equals(childExpression.get("exprAssocType"))) {
+                } else if (EXCLUDE.equals(childExpression.get("exprAssocType"))) {
                     exclAssoc = childExpression;
-                } else if ("SUBSTITUTION".equals(childExpression.get("exprAssocType"))) {
+                } else if (SUBSTITUTE.equals(childExpression.get("exprAssocType"))) {
                     substAssoc = childExpression;
                 }
             }
