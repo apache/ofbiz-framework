@@ -791,8 +791,9 @@ public class LoginServices {
             return ServiceUtil.returnError(errMsg);
         }
 
+        // Deactivate 'old' UserLogin and do not set disabledDateTime here, otherwise the 'old' UserLogin would be reenabled by next login
         loggedInUserLogin.set("enabled", "N");
-        loggedInUserLogin.set("disabledDateTime", UtilDateTime.nowTimestamp());
+        loggedInUserLogin.set("disabledDateTime", null);
 
         try {
             loggedInUserLogin.store();
