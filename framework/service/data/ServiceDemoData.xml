@@ -121,7 +121,7 @@ under the License.
         [2] Month: January = 0, Undecimber = 12
         [3] Day of month: 1 to 31
         [4] Integer: -5 to +5, zero excluded
-        [5] Second = 13, Minute = 12, Hour = 11, Day = 5, Month = 2, Year = 1
+        [5] Second = 13, Minute = 12, Hour = 10, Day = 5, Month = 2, Year = 1
         [6] Positive integer, zero excluded
         [7] If null, defaults to system date when the expression was retrieved from storage.
         [8] Integer: 0 to 23, midnight = 0
