@@ -326,7 +326,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
         if (this.checkDataOnly) {
             EntityDataAssert.checkValueList(valuesToWrite, delegator, this.getMessageList());
         } else {
-            delegator.storeAll(valuesToWrite, doCacheClear, createDummyFks);
+            delegator.storeAll(valuesToWrite, new EntityStoreOptions(createDummyFks));
         }
     }
 
@@ -495,7 +495,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
                             if (Action.DELETE == currentAction) {
                                 valuesToDelete.add(currentValue);
                                 if (valuesToDelete.size() >= valuesPerWrite) {
-                                    delegator.removeAll(valuesToDelete, doCacheClear);
+                                    delegator.removeAll(valuesToDelete);
                                     valuesToDelete.clear();
                                 }
                             } else {
