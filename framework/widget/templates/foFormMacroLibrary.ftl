@@ -90,7 +90,7 @@ under the License.
 <#-- FIXME: this is an hack to avoid FOP rendering errors for empty lists (fo:table-body cannot be null) -->
 <fo:table-row><fo:table-cell><fo:block/></fo:table-cell></fo:table-row>
 </#macro>
-<#macro renderFormatHeaderRowCellOpen style positionSpan><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><@getFoStyle "listtitlestyle"/>><fo:block></#macro>
+<#macro renderFormatHeaderRowCellOpen style positionSpan><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle "${style}"/><#else><@getFoStyle "listtitlestyle"/></#if>><fo:block></#macro>
 <#macro renderFormatHeaderRowCellClose></fo:block></fo:table-cell></#macro>
 
 <#macro renderFormatHeaderRowFormCellOpen style><fo:table-cell></#macro>
