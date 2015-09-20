@@ -198,7 +198,5 @@
 	<classpathentry kind="src" path="specialpurpose/solr/src"/>
 	<classpathentry kind="src" path="specialpurpose/webpos/src"/>
 	<classpathentry kind="src" path="specialpurpose/passport/src"/>
-	<classpathentry exported="true" kind="con" path="GROOVY_SUPPORT"/>
-	<classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
