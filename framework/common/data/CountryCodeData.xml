@@ -229,6 +229,7 @@ under the License.
     <CountryCode countryAbbr="STP" countryCode="ST" countryName="SAO TOME AND PRINCIPE" countryNumber="678"/>
     <CountryCode countryAbbr="SAU" countryCode="SA" countryName="SAUDI ARABIA" countryNumber="682"/>
     <CountryCode countryAbbr="SEN" countryCode="SN" countryName="SENEGAL" countryNumber="686"/>
+    <CountryCode countryAbbr="SRB" countryCode="RS" countryName="SERBIA" countryNumber="688"/>
     <CountryCode countryAbbr="SYC" countryCode="SC" countryName="SEYCHELLES" countryNumber="690"/>
     <CountryCode countryAbbr="SLE" countryCode="SL" countryName="SIERRA LEONE" countryNumber="694"/>
     <CountryCode countryAbbr="SGP" countryCode="SG" countryName="SINGAPORE" countryNumber="702"/>
@@ -276,7 +277,6 @@ under the License.
     <CountryCode countryAbbr="WLF" countryCode="WF" countryName="WALLIS AND FUTUNA ISLANDS" countryNumber="876"/>
     <CountryCode countryAbbr="WSM" countryCode="WS" countryName="SAMOA" countryNumber="882"/>
     <CountryCode countryAbbr="YEM" countryCode="YE" countryName="YEMEN" countryNumber="887"/>
-    <CountryCode countryAbbr="YUG" countryCode="YU" countryName="YUGOSLAVIA" countryNumber="891"/>
     <CountryCode countryAbbr="ZMB" countryCode="ZM" countryName="ZAMBIA" countryNumber="894"/>
     <CountryCode countryAbbr="SCOT" countryCode="SCT" countryName="SCOTLAND" countryNumber="895"/>
     <CountryCode countryAbbr="ENGL" countryCode="ENG" countryName="ENGLAND" countryNumber="896"/>
@@ -520,10 +520,11 @@ under the License.
     <CountryCapital countryCapital="Apia" countryCode="WS"/>
     <CountryCapital countryCapital="San&apos;a" countryCode="YE"/>
     <CountryCapital countryCapital="Dzaoudzi" countryCode="YT"/>
-    <CountryCapital countryCapital="Belgrade" countryCode="YU"/>
     <CountryCapital countryCapital="Pretoria" countryCode="ZA"/>
     <CountryCapital countryCapital="Lusaka" countryCode="ZM"/>
     <CountryCapital countryCapital="Harare" countryCode="ZW"/>
+    <CountryCapital countryCapital="Podgorica" countryCode="ME"/>
+    <CountryCapital countryCapital="Belgrade" countryCode="RS"/>
     <CountryTeleCode countryCode="AD" teleCode="376"/>
     <CountryTeleCode countryCode="AE" teleCode="971"/>
     <CountryTeleCode countryCode="AF" teleCode="93"/>
@@ -758,7 +759,8 @@ under the License.
     <CountryTeleCode countryCode="WS" teleCode="684"/>
     <CountryTeleCode countryCode="YE" teleCode="967"/>
     <CountryTeleCode countryCode="YT" teleCode="269"/>
-    <CountryTeleCode countryCode="YU" teleCode="381"/>
+    <CountryTeleCode countryCode="RS" teleCode="381"/>
+    <CountryTeleCode countryCode="ME" teleCode="382"/>
     <CountryTeleCode countryCode="ZA" teleCode="27"/>
     <CountryTeleCode countryCode="ZM" teleCode="260"/>
     <CountryTeleCode countryCode="ZW" teleCode="263"/>
