@@ -32,6 +32,7 @@ under the License.
         "h1":"font-size=\"12\" font-weight=\"bold\"",
         "h2":"font-weight=\"bold\"",
         "h3":"font-weight=\"bold\" font-style=\"italic\"",
+        "alternate-row" : "background-color=\"lightgray\"",
         "error":"color=\"red\""}/>
     <#list style?split(' ') as styleItem>
         <#assign foStyle = foStyles[styleItem]?default("")/>
@@ -97,7 +98,7 @@ under the License.
 <#macro renderFormatHeaderRowFormCellClose></fo:table-cell></#macro>
 <#macro renderFormatHeaderRowFormCellTitleSeparator style isLast></#macro>
 
-<#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle><fo:table-row></#macro>
+<#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle><fo:table-row <@getFoStyle "${altRowStyles}"/>></#macro>
 <#macro renderFormatItemRowClose formName></fo:table-row></#macro>
 <#macro renderFormatItemRowCellOpen fieldName style positionSpan><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle style/><#else><@getFoStyle "tabletext"/></#if>></#macro>
 <#macro renderFormatItemRowCellClose fieldName></fo:table-cell></#macro>
