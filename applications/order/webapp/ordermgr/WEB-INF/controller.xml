@@ -27,7 +27,7 @@ under the License.
     
     <!-- event handlers -->
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
-    <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
+    <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
     <preprocessor>
@@ -1903,11 +1903,11 @@ under the License.
         <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
         to the handler section of this file and uncomment the following lines:
     <request-map uri="orderreportjasper.pdf"><security https="true" auth="true"/>
-        <event type="bsf" path="/reports/" invoke="OrderReportPrepare.groovy"/>
+        <event type="groovy" path="/reports/" invoke="OrderReportPrepare.groovy"/>
         <response name="success" type="view" value="orderreportjasper"/>
     </request-map>
     <request-map uri="orderitemreportjasper.pdf"><security https="true" auth="true"/>
-        <event type="bsf" path="/reports/" invoke="OrderReportPrepare.groovy"/>
+        <event type="groovy" path="/reports/" invoke="OrderReportPrepare.groovy"/>
         <response name="success" type="view" value="orderitemreportjasper"/>
     </request-map>
     <request-map uri="orderreportlist">
