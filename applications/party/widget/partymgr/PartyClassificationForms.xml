@@ -30,7 +30,7 @@ under the License.
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
         <field name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}">
-            <display-entity entity-name="PartyClassificationGroup" key-field-name="partyClassificationGroupId" description="${description}&amp;nbsp;[${partyClassificationGroupId}]"/>
+            <display-entity entity-name="PartyClassificationGroup" key-field-name="partyClassificationGroupId" description="${description} [${partyClassificationGroupId}]"/>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
@@ -128,7 +128,7 @@ under the License.
             </entity-and>
         </actions>
         <field name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}">
-            <display-entity entity-name="PartyClassificationGroup" key-field-name="partyClassificationGroupId" description="${description}&amp;nbsp;[${partyClassificationGroupId}]"/>
+            <display-entity entity-name="PartyClassificationGroup" key-field-name="partyClassificationGroupId" description="${description} [${partyClassificationGroupId}]"/>
         </field>
         <field name="partyId" title="${uiLabelMap.Party}">
            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${lastName} ${groupName}">

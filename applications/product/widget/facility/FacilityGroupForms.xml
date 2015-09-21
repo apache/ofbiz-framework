@@ -36,7 +36,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="facilityGroup==null" target="createFacilityGroup"/>
         <auto-fields-service service-name="updateFacilityGroup"/>
-        <field name="facilityGroupId" use-when="facilityGroup!=null" tooltip="&amp;nbsp;${uiLabelMap.ProductNotModificationRecrationFacilityGroup}"><display/></field>
+        <field name="facilityGroupId" use-when="facilityGroup!=null" tooltip="${uiLabelMap.ProductNotModificationRecrationFacilityGroup}"><display/></field>
         <field name="facilityGroupId" use-when="facilityGroup==null"><hidden/></field>
         <field name="facilityGroupTypeId">
             <drop-down allow-empty="true">
