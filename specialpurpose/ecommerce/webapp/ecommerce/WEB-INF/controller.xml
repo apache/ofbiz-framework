@@ -24,7 +24,7 @@ under the License.
     <errorpage>/error/error.jsp</errorpage>
 
     <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
-    <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
+    <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
     <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
     <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
@@ -81,7 +81,7 @@ under the License.
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="storeCheckLogin"/>
-        <response name="success" type="view-last"/>
+        <response name="success" type="view-last" value="main"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     <request-map uri="login">
@@ -121,7 +121,7 @@ under the License.
 <!--         <response name="success" type="view" value="main"/> -->
 <!--     </request-map> -->
 
-    <request-map uri="main"><security https="false" auth="false"/><response name="success" type="view" value="main" save-current-view="true"/></request-map>
+    <request-map uri="main"><security https="false" auth="false"/><response name="success" type="view" value="main"/></request-map>
     <request-map uri="policies"><security https="false" auth="false"/><response name="success" type="view" value="policies"/></request-map>
 
     <!-- TO BE REMOVED
@@ -437,7 +437,7 @@ under the License.
 
     <request-map uri="processPaymentSettings">
        <security https="true" auth="false"/>
-       <event type="bsf" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+       <event type="groovy" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
        <response name="success" type="request" value="reviewOrder"/>
        <response name="error" type="view" value="paymentinformation"/>
    </request-map>
@@ -523,7 +523,7 @@ under the License.
 
     <request-map uri="quickAnonAddCreditCardToCart">
        <security https="true" auth="false"/>
-       <event type="bsf" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+       <event type="groovy" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
        <response name="success" type="view" value="quickAnonCcInfo"/>
        <response name="error" type="view" value="quickAnonCcInfo"/>
    </request-map>
@@ -537,21 +537,21 @@ under the License.
 
    <request-map uri="quickAnonAddEftAccountToCart">
        <security https="true" auth="false"/>
-       <event type="bsf" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+       <event type="groovy" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
        <response name="success" type="view" value="quickAnonEftInfo"/>
        <response name="error" type="view" value="quickAnonEftInfo"/>
    </request-map>
 
    <request-map uri="quickAnonEnterExtOffline">
         <security https="true" auth="false"/>
-        <event type="bsf" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+        <event type="groovy" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
         <response name="success" type="view" value="quickAnonOrderReview"/>
         <response name="error" type="view" value="quickAnonOrderReview"/>
    </request-map>
 
    <request-map uri="quickAnonAddGiftCardToCart">
        <security https="true" auth="false"/>
-       <event type="bsf" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+       <event type="groovy" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
        <response name="success" type="request" value="quickAnonGcInfo"/>
        <response name="error" type="view" value="quickAnonGcInfo"/>
    </request-map>
