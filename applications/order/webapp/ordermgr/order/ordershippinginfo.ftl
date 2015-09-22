@@ -249,7 +249,7 @@ under the License.
                   <input type="hidden" name="orderItemSeqId" value="${orderItem.orderItemSeqId}"/>
                   <#list OISGAssContents as OISGAssContent>
                       <#assign OISG = OISGAssContent.getRelatedOne("OrderItemShipGroup")>
-                      <#assign orderShipments = OISGAssContent.getRelated("OrderShipment")>
+                      <#assign orderShipments = OISGAssContent.getRelated("OrderShipment", null, null, false)>
           <tr>
               <input name="_rowSubmit_o_${rowCount}" value="Y" type="hidden">
               <input type="hidden" name="orderId_o_${rowCount}" value="${orderId}"/>
@@ -516,8 +516,8 @@ under the License.
         </script>
         <table width="100%" border="0" cellpadding="1" cellspacing="0">
           <#if shipGroup.supplierPartyId?has_content>
-            <tr><td colspan="3"><hr /></td></tr>           
-           <#assign OISGAContent = shipGroup.getRelated("OrderItemShipGroupAssoc")>
+            <tr><td colspan="3"><hr /></td></tr>
+           <#assign OISGAContent = shipGroup.getRelated("OrderItemShipGroupAssoc", null, null, false)>
            <#if OISGAContent.size() == 0>
            <tr>
               <td colspan="3" valign="top" width="100%" align="center">
