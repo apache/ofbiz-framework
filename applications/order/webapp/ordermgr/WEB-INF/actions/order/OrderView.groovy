@@ -194,7 +194,7 @@ if (orderHeader) {
         }
         OISGAssContents = [];
         shipGroups.each { shipGroup ->
-            OISGAssContents.addAll(EntityUtil.filterByAnd(shipGroup.getRelated("OrderItemShipGroupAssoc"), UtilMisc.toMap("orderItemSeqId", orderItem.getString("orderItemSeqId"))));
+            OISGAssContents.addAll(EntityUtil.filterByAnd(shipGroup.getRelated("OrderItemShipGroupAssoc", null, null, false), UtilMisc.toMap("orderItemSeqId", orderItem.getString("orderItemSeqId"))));
         }
         BigDecimal totalQuantityPlanned = 0;
         OISGAssContents.each { OISGAssContent ->
