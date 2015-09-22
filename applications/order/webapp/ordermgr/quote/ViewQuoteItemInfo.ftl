@@ -72,7 +72,7 @@ under the License.
                             ${quoteItem.quoteItemSeqId}
                         </#if>
                         </div>
-                        <#assign quoteTerms = delegator.findByAnd("QuoteTerm", {"quoteId" : quoteItem.quoteId, "quoteItemSeqId" : quoteItem.quoteItemSeqId})>
+                        <#assign quoteTerms = delegator.findByAnd("QuoteTerm", {"quoteId" : quoteItem.quoteId, "quoteItemSeqId" : quoteItem.quoteItemSeqId}, null, false)>
                     </td>
                     <td valign="top">
                         <div>
