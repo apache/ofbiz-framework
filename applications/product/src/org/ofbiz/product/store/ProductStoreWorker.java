@@ -683,7 +683,7 @@ public class ProductStoreWorker {
             try {
                 productFacilities = product.getRelated("ProductFacility", null, null, true);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, "Error invoking getRelatedCache in isCatalogInventoryAvailable", module);
+                Debug.logWarning(e, "Error invoking getRelated in isCatalogInventoryAvailable", module);
                 return false;
             }
 
