@@ -362,31 +362,8 @@ public class EntityUtil {
      */
     @Deprecated
     public static List<GenericValue> getRelated(String relationName, List<GenericValue> values) throws GenericEntityException {
+        Debug.logWarning("deprecated method, please replace as suggested in API Java Doc, and link to OFBIZ-6651", GenericValue.getStackTraceAsString());
         return getRelated(relationName, null, values, false);
-    }
-
-    /**
-     * @deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public static List<GenericValue> getRelatedCache(String relationName, List<GenericValue> values) throws GenericEntityException {
-        return getRelated(relationName, null, values, true);
-    }
-
-    /**
-     * @deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public static List<GenericValue> getRelatedByAnd(String relationName, Map<String, ? extends Object> fields, List<GenericValue> values) throws GenericEntityException {
-        return getRelated(relationName, fields, values, false);
-    }
-
-    /**
-     * @deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public static List<GenericValue> getRelatedByAndCache(String relationName, Map<String, ? extends Object> fields, List<GenericValue> values) throws GenericEntityException {
-        return getRelated(relationName, fields, values, true);
     }
 
     public static List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> fields, List<GenericValue> values, boolean useCache) throws GenericEntityException {

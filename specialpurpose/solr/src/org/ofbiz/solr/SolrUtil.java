@@ -130,10 +130,6 @@ public abstract class SolrUtil {
             List<String> category = UtilGenerics.<String>checkList(context.get("category"));
             Iterator<String> catIter = category.iterator();
             while (catIter.hasNext()) {
-                /*
-                 * GenericValue cat = (GenericValue) catIter.next(); GenericValue prodCategory = cat.getRelatedOneCache("ProductCategory"); if (prodCategory.get("description") != null) {
-                 * doc1.addField("category", prodCategory.get("description")); } doc1.addField("cat", prodCategory.get("productCategoryId"));
-                 */
                 String cat = (String) catIter.next();
                 doc1.addField("cat", cat);
             }

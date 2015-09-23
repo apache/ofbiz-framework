@@ -22,6 +22,7 @@ package org.ofbiz.entity;
 import java.util.List;
 import java.util.Map;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.model.ModelEntity;
 
 /**
@@ -30,7 +31,7 @@ import org.ofbiz.entity.model.ModelEntity;
  */
 @SuppressWarnings("serial")
 public class GenericValue extends GenericEntity {
-
+    
     public static final GenericValue NULL_VALUE = new NullGenericValue();
 
     /** Creates new GenericValue */
@@ -95,6 +96,7 @@ public class GenericValue extends GenericEntity {
      */
     @Deprecated
     public List<GenericValue> getRelated(String relationName) throws GenericEntityException {
+        Debug.logWarning("deprecated method, please replace as suggested in API Java Doc, and link to OFBIZ-6651", getStackTraceAsString());
         return this.getDelegator().getRelated(relationName, null, null, this, false);
     }
 
@@ -107,6 +109,7 @@ public class GenericValue extends GenericEntity {
      */
     @Deprecated
     public List<GenericValue> getRelated(String relationName, List<String> orderBy) throws GenericEntityException {
+        Debug.logWarning("deprecated method, please replace as suggested in API Java Doc, and link to OFBIZ-6651", getStackTraceAsString());
         return this.getDelegator().getRelated(relationName, null, orderBy, this, false);
     }
 
@@ -120,18 +123,8 @@ public class GenericValue extends GenericEntity {
      */
     @Deprecated
     public List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy) throws GenericEntityException {
+        Debug.logWarning("deprecated method, please replace as suggested in API Java Doc, and link to OFBIZ-6651", getStackTraceAsString());
         return this.getDelegator().getRelated(relationName, byAndFields, orderBy, this, false);
-    }
-
-    /** Get the named Related Entity for the GenericValue from the persistent
-     *  store, looking first in the global generic cache (for the moment this isn't true, is same as EmbeddedCache variant)
-     *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
-     *@return List of GenericValue instances as specified in the relation definition
-     *@deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public List<GenericValue> getRelatedCache(String relationName) throws GenericEntityException {
-        return this.getDelegator().getRelated(relationName, null, null, this, true);
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent store
@@ -174,33 +167,6 @@ public class GenericValue extends GenericEntity {
         return this.getDelegator().getMultiRelation(this, relationNameOne, relationNameTwo, null);
     }
 
-    /** Get the named Related Entity for the GenericValue from the persistent
-     *  store, looking first in the global generic cache (for the moment this isn't true, is same as EmbeddedCache variant)
-     *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
-     * @param byAndFields the fields that must equal in order to keep; may be null
-     * @param orderBy The fields of the named entity to order the query by; may be null;
-     *      optionally add a " ASC" for ascending or " DESC" for descending
-     *@return List of GenericValue instances as specified in the relation definition
-     *@deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public List<GenericValue> getRelatedCache(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy) throws GenericEntityException {
-        return this.getDelegator().getRelated(relationName, byAndFields, orderBy, this, true);
-    }
-
-    /** Get the named Related Entity for the GenericValue from the persistent
-     *  store, looking first in the global generic cache (for the moment this isn't true, is same as EmbeddedCache variant)
-     *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
-     * @param orderBy The fields of the named entity to order the query by; may be null;
-     *      optionally add a " ASC" for ascending or " DESC" for descending
-     *@return List of GenericValue instances as specified in the relation definition
-     *@deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public List<GenericValue> getRelatedCache(String relationName, List<String> orderBy) throws GenericEntityException {
-        return this.getDelegator().getRelated(relationName, null, orderBy, this, true);
-    }
-
     /** Get the named Related Entity for the GenericValue from the persistent store
      *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
      *@return List of GenericValue instances as specified in the relation definition
@@ -208,18 +174,8 @@ public class GenericValue extends GenericEntity {
      */
     @Deprecated
     public GenericValue getRelatedOne(String relationName) throws GenericEntityException {
+        Debug.logWarning("deprecated method, please replace as suggested in API Java Doc, and link to OFBIZ-6651", getStackTraceAsString());
         return this.getDelegator().getRelatedOne(relationName, this, false);
-    }
-
-    /** Get the named Related Entity for the GenericValue from the persistent
-     *  store, looking first in the global generic cache (for the moment this isn't true, is same as EmbeddedCache variant)
-     *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
-     *@return List of GenericValue instances as specified in the relation definition
-     *@deprecated use {@link #getRelatedOne(String, boolean)}
-     */
-    @Deprecated
-    public GenericValue getRelatedOneCache(String relationName) throws GenericEntityException {
-        return this.getDelegator().getRelatedOne(relationName, this, true);
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent store
@@ -229,52 +185,6 @@ public class GenericValue extends GenericEntity {
      */
     public GenericValue getRelatedOne(String relationName, boolean useCache) throws GenericEntityException {
         return this.getDelegator().getRelatedOne(relationName, this, useCache);
-    }
-
-    /** Get the named Related Entity for the GenericValue from the persistent store and filter it
-     *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
-     *@param fields the fields that must equal in order to keep
-     *@return List of GenericValue instances as specified in the relation definition
-     *@deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public List<GenericValue> getRelatedByAnd(String relationName, Map<String, ? extends Object> fields) throws GenericEntityException {
-        return this.getDelegator().getRelated(relationName, fields, null, this, false);
-    }
-
-    /** Get the named Related Entity for the GenericValue from the persistent
-     *  store and filter it, looking first in the global generic cache (for the moment this isn't true, is same as EmbeddedCache variant)
-     *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
-     *@param fields the fields that must equal in order to keep
-     *@return List of GenericValue instances as specified in the relation definition
-     *@deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public List<GenericValue> getRelatedByAndCache(String relationName, Map<String, ? extends Object> fields) throws GenericEntityException {
-        return this.getDelegator().getRelated(relationName, fields, null, this, true);
-    }
-
-    /** Get the named Related Entity for the GenericValue from the persistent store and order it
-     *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
-     *@param orderBy the order that they should be returned
-     *@return List of GenericValue instances as specified in the relation definition
-     *@deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public List<GenericValue> getRelatedOrderBy(String relationName, List<String> orderBy) throws GenericEntityException {
-        return this.getDelegator().getRelated(relationName, null, orderBy, this, false);
-    }
-
-    /** Get the named Related Entity for the GenericValue from the persistent
-     *  store and order it, looking first in the global generic cache (for the moment this isn't true, is same as EmbeddedCache variant)
-     *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
-     *@param orderBy the order that they should be returned
-     *@return List of GenericValue instances as specified in the relation definition
-     *@deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public List<GenericValue> getRelatedOrderByCache(String relationName, List<String> orderBy) throws GenericEntityException {
-        return this.getDelegator().getRelated(relationName, null, orderBy, this, true);
     }
 
     /** Remove the named Related Entity for the GenericValue from the persistent store
@@ -331,4 +241,8 @@ public class GenericValue extends GenericEntity {
             return "[null-entity-value]";
         }
     }
+    
+    public static String getStackTraceAsString() {
+        return Thread.currentThread().getStackTrace().toString();
+    }    
 }
