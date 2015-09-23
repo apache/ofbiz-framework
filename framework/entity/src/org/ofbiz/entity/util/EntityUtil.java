@@ -53,6 +53,7 @@ public class EntityUtil {
 
     public static final String module = EntityUtil.class.getName();
 
+    @SafeVarargs
     public static <V> Map<String, V> makeFields(V... args) {
         Map<String, V> fields = new HashMap<String, V>();
         if (args != null) {
