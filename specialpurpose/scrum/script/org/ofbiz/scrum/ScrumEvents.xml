@@ -655,7 +655,7 @@
                 <set field="custRequestIndexList" type="List"/>
                 <set field="custRequestList" type="List"/>
                 <loop count="${rowCount}" field="j">
-                    <set field="custRequestMap" value="null" type="NewMap"/>
+                    <set field="custRequestMap" type="NewMap"/>
                     <set field="custRequestMap.custRequestId" from-field="paramMap[&quot;custRequestId_o_${j}&quot;]"/>
                     <set field="custRequestMap.custSequenceNum" from-field="paramMap[&quot;realSequenceNum_o_${j}&quot;]"/>
                     <field-to-list list="custRequestList" field="custRequestMap"/>
@@ -664,7 +664,7 @@
                 <set field="newCustRequestList" type="List"/>
                 <set field="custRequestListWithNewSeq" type="List"/>
                 <loop count="${rowCount}" field="k">
-                    <set field="custRequestMap" value="null" type="NewMap"/>
+                    <set field="custRequestMap" type="NewMap"/>
                     <set field="custRequestMap.custRequestId" from-field="paramMap[&quot;custRequestId_o_${k}&quot;]"/>
                     <set field="oldSequenceNum" from-field="paramMap[&quot;realSequenceNum_o_${k}&quot;]"/>
                     <set field="newSequenceNum" from-field="paramMap[&quot;newSequenceNum_o_${k}&quot;]"/>
