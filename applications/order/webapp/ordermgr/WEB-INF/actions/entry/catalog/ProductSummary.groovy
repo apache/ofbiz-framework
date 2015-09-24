@@ -190,7 +190,12 @@ if (product) {
                 } else {
                     virtualPriceMap = runService('calculatePurchasePrice', priceContext);
                 }
-                variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.basePrice) + "\"; ");
+                if (virtualPriceMap.basePrice) {
+                    basePrice = numberFormat.format(virtualPriceMap.basePrice);
+                } else {
+                    basePrice = UtilProperties.getResourceBundleMap("CommonUiLabels", locale).get("CommonNA")
+                }
+                variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + basePrice + "\"; ");
             }
             variantPriceJS.append(" } ");
             
