@@ -335,10 +335,10 @@ $(function(){
 </#macro>
 
 <div id="productdetail">
-    <#assign productAdditionalImage1 = productContentWrapper.get("ADDITIONAL_IMAGE_1")! />
-    <#assign productAdditionalImage2 = productContentWrapper.get("ADDITIONAL_IMAGE_2")! />
-    <#assign productAdditionalImage3 = productContentWrapper.get("ADDITIONAL_IMAGE_3")! />
-    <#assign productAdditionalImage4 = productContentWrapper.get("ADDITIONAL_IMAGE_4")! />
+    <#assign productAdditionalImage1 = productContentWrapper.get("ADDITIONAL_IMAGE_1", "url")! />
+    <#assign productAdditionalImage2 = productContentWrapper.get("ADDITIONAL_IMAGE_2", "url")! />
+    <#assign productAdditionalImage3 = productContentWrapper.get("ADDITIONAL_IMAGE_3", "url")! />
+    <#assign productAdditionalImage4 = productContentWrapper.get("ADDITIONAL_IMAGE_4", "url")! />
     
       <#-- Category next/previous -->
       <#if category??>
@@ -358,7 +358,7 @@ $(function(){
         <#if productImageList?has_content>
             <#-- Product image/name/price -->
             <div id="detailImageBox">
-                <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")! />
+                <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL", "url")! />
                 <#-- remove the next two lines to always display the virtual image first (virtual images must exist) -->
                 <#if firstLargeImage?has_content>
                     <#assign productLargeImageUrl = firstLargeImage />
@@ -384,7 +384,7 @@ $(function(){
         <#else>
             <#-- Product image/name/price -->
             <div id="detailImageBox">
-                <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")! />
+                <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL", "url")! />
                 <#-- remove the next two lines to always display the virtual image first (virtual images must exist) -->
                 <#if firstLargeImage?has_content>
                     <#assign productLargeImageUrl = firstLargeImage />
@@ -422,8 +422,8 @@ $(function(){
         </#if>
         
         <div id="productDetailBox">
-          <h2>${productContentWrapper.get("PRODUCT_NAME")!}</h2>
-          <div>${productContentWrapper.get("DESCRIPTION")!}</div>
+          <h2>${productContentWrapper.get("PRODUCT_NAME", "html")!}</h2>
+          <div>${productContentWrapper.get("DESCRIPTION", "html")!}</div>
           <div>${product.productId!}</div>
           <#-- example of showing a certain type of feature with the product -->
           <#if sizeProductFeatureAndAppls?has_content>
@@ -681,7 +681,7 @@ $(function(){
                 </#if>
               </#list>
             <#elseif minimumQuantity?? && minimumQuantity?has_content && minimumQuantity &gt; 0>
-               <div>minimum order quantity for ${productContentWrapper.get("PRODUCT_NAME")!} is ${minimumQuantity!}</div>
+               <div>minimum order quantity for ${productContentWrapper.get("PRODUCT_NAME", "html")!} is ${minimumQuantity!}</div>
             </#if>
             </fieldset>
           </form>
@@ -738,9 +738,9 @@ $(function(){
                 <#list imageKeys as key>
                   <#assign swatchProduct = imageMap.get(key) />
                   <#if swatchProduct?has_content && indexer &lt; maxIndex>
-                    <#assign imageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request)! />
+                    <#assign imageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request, "url")! />
                     <#if !imageUrl?string?has_content>
-                      <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL")! />
+                      <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL", "url")! />
                     </#if>
                     <#if !imageUrl?string?has_content>
                       <#assign imageUrl = "/images/defaultImage.jpg" />
@@ -768,8 +768,8 @@ $(function(){
     
       <#-- Long description of product -->
       <div id="long-description">
-          <div>${productContentWrapper.get("LONG_DESCRIPTION")!}</div>
-          <div>${productContentWrapper.get("WARNINGS")!}</div>
+          <div>${productContentWrapper.get("LONG_DESCRIPTION", "html")!}</div>
+          <div>${productContentWrapper.get("WARNINGS", "html")!}</div>
       </div>
     
       <#-- Any attributes/etc may go here -->
@@ -810,7 +810,7 @@ $(function(){
         <#assign targetRequest = targetRequestName />
       </#if>
       <#if assocProducts?has_content>
-        <h2>${beforeName!}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME")!}</#if>${afterName!}</h2>
+        <h2>${beforeName!}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME", "html")!}</#if>${afterName!}</h2>
     
         <div class="productsummary-container">
         <#list assocProducts as productAssoc>

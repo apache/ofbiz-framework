@@ -1235,7 +1235,7 @@ under the License.
     <form name="ListCostComponents" type="list" title="" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductCosts">
         <actions>
-        	<set field="InParam.productId" from-field="requestParameters.productId"/>
+            <set field="InParam.productId" from-field="requestParameters.productId"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="InParam"/>
                 <field-map field-name="entityName" value="CostComponent"/>

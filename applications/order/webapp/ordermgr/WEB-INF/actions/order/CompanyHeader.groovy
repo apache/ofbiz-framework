@@ -213,7 +213,7 @@ if (emails) {
 
 // website
 websiteUrls = from("PartyContactWithPurpose")
-                  .where("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_WEB_URL")
+                  .where("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_WEB_URL", "url")
                   .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
                   .queryList();
 if (websiteUrls) {

@@ -24,13 +24,13 @@ under the License.
   <#list productCategoryMembers as productCategoryMember>
   <#assign product = productCategoryMember.getRelatedOne("Product", false)!>
   <#if product?? && product?has_content>
-    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "SMALL_IMAGE_URL", locale, dispatcher)! />
+    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "SMALL_IMAGE_URL", locale, dispatcher, "url")! />
     <#if !smallImageUrl?string?has_content>
       <#assign smallImageUrl = "/images/defaultImage.jpg">
     </#if>
-    <#assign productName = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher)! />
+    <#assign productName = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher, "html")! />
     <#if !productName?string?has_content>
-      <#assign productName = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "DESCRIPTION", locale, dispatcher)! />
+      <#assign productName = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "DESCRIPTION", locale, dispatcher, "html")! />
     </#if>
     <#assign addItemLink = "javascript:addItem('" + product.productId + "', '1', 'Y');">
     <td>

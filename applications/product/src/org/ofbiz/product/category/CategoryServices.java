@@ -503,8 +503,8 @@ public class CategoryServices {
                         Map dataAttrMap = new HashMap();
                         CategoryContentWrapper categoryContentWrapper = new CategoryContentWrapper(cate, request);
                         String title = null;
-                        if (UtilValidate.isNotEmpty(categoryContentWrapper.get(catNameField))) {
-                            title = new StringBuffer(categoryContentWrapper.get(catNameField).toString()).append(" [").append(catId).append("]").toString();
+                        if (UtilValidate.isNotEmpty(categoryContentWrapper.get(catNameField, "html"))) {
+                            title = new StringBuffer(categoryContentWrapper.get(catNameField, "html").toString()).append(" [").append(catId).append("]").toString();
                             dataMap.put("title", title);
                         } else {
                             title = catId.toString();

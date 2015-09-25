@@ -20,9 +20,9 @@ package org.ofbiz.product.product;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -1096,7 +1096,7 @@ public class ProductEvents {
             compareList.add(product);
         }
         session.setAttribute("productCompareList", compareList);
-        String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", request);
+        String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", request, "html");
         String eventMsg = UtilProperties.getMessage("ProductUiLabels", "ProductAddToCompareListSuccess", UtilMisc.toMap("name", productName), UtilHttp.getLocale(request));
         request.setAttribute("_EVENT_MESSAGE_", eventMsg);
         return "success";
@@ -1133,7 +1133,7 @@ public class ProductEvents {
             }
         }
         session.setAttribute("productCompareList", compareList);
-        String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", request);
+        String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", request, "html");
         String eventMsg = UtilProperties.getMessage("ProductUiLabels", "ProductRemoveFromCompareListSuccess", UtilMisc.toMap("name", productName), UtilHttp.getLocale(request));
         request.setAttribute("_EVENT_MESSAGE_", eventMsg);
         return "success";

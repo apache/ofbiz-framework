@@ -258,7 +258,7 @@ ${virtualJavaScript!}
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
   <tr>
     <td align="left" valign="top" width="0">
-      <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")!>
+      <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL", "url")!>
       <#if firstLargeImage?has_content>
         <#assign productLargeImageUrl = firstLargeImage>
       </#if>
@@ -268,7 +268,7 @@ ${virtualJavaScript!}
       </#if>
     </td>
     <td align="right" valign="top" width="100%">
-    <#--    <h2>${productContentWrapper.get("PRODUCT_NAME")!}</h2>  -->
+    <#--    <h2>${productContentWrapper.get("PRODUCT_NAME", "html")!}</h2>  -->
         <#assign inStock = true>
         <#if product.isVirtual!?upper_case == "Y">
         <#if product.virtualVariantMethodEnum! == "VV_FEATURETREE" && featureLists?has_content>
@@ -365,9 +365,9 @@ ${virtualJavaScript!}
             <#list imageKeys as key>
               <#assign swatchProduct = imageMap.get(key)>
               <#if swatchProduct?has_content && indexer < maxIndex>
-                <#assign imageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request)!>
+                <#assign imageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request, "url")!>
                 <#if !imageUrl?string?has_content>
-                  <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL")!>
+                  <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL", "url")!>
                 </#if>
                 <#if !imageUrl?string?has_content>
                   <#assign imageUrl = "/images/defaultImage.jpg">

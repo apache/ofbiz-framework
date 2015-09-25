@@ -27,7 +27,7 @@ under the License.
 
 <ul>
     <li>Month: ${month}/${year}</li>
-    <li>Root Category: ${(Static["org.ofbiz.product.category.CategoryContentWrapper"].getProductCategoryContentAsText(rootProductCategory, "CATEGORY_NAME", locale, dispatcher))!} [${rootProductCategoryId}]</li>
+    <li>Root Category: ${(Static["org.ofbiz.product.category.CategoryContentWrapper"].getProductCategoryContentAsText(rootProductCategory, "CATEGORY_NAME", locale, dispatcher, "html"))!} [${rootProductCategoryId}]</li>
     <li>Organization: ${(organizationPartyName.groupName)!} [${organizationPartyId?default("No Organization Specified")}]</li>
     <li>Currency: ${(currencyUom.description)!} [${currencyUomId?default("No Currency Specified")}]</li>
 </ul>
@@ -38,10 +38,10 @@ under the License.
         <td>Day</td>
         <td>[No Product]</td>
     <#list productList as product>
-        <td>${product.internalName?default((Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher))!)}<br />P:[${product.productId}]</td>
+        <td>${product.internalName?default((Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher, "html"))!)}<br />P:[${product.productId}]</td>
     </#list>
     <#list productCategoryList as productCategory>
-        <td>${(Static["org.ofbiz.product.category.CategoryContentWrapper"].getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale, dispatcher))!}<br />C:[${productCategory.productCategoryId}]</td>
+        <td>${(Static["org.ofbiz.product.category.CategoryContentWrapper"].getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale, dispatcher, "html"))!}<br />C:[${productCategory.productCategoryId}]</td>
     </#list>
     </tr>
     <#-- Days of the month -->

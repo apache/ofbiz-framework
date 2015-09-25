@@ -25,7 +25,7 @@ under the License.
   </span>
   <span class="name">
     <div>
-      <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="buttontext">${productContentWrapper.get("PRODUCT_NAME")!}</a>
+      <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="buttontext">${productContentWrapper.get("PRODUCT_NAME", "html")!}</a>
     </div>
   </span>
   <span class="listPrice">

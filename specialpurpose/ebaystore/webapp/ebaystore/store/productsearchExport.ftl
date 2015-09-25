@@ -239,7 +239,7 @@ under the License.
                      <#assign smallImageUrl = "">
                      <#if contentList?has_content>
                           <#list contentList as content>
-                                <#if content.product.productId! == item.getSKU()!><#assign smallImageUrl = content.productContentWrapper.get("SMALL_IMAGE_URL")!></#if>
+                                <#if content.product.productId! == item.getSKU()!><#assign smallImageUrl = content.productContentWrapper.get("SMALL_IMAGE_URL", "url")!></#if>
                           </#list>
                      </#if>
                      <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>

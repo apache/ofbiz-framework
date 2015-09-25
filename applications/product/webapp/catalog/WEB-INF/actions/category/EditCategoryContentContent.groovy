@@ -59,6 +59,6 @@ if ("RELATED_URL".equals(prodCatContentTypeId)) {
         context.dataResourceTypeId = "VIDEO_OBJECT";
     }
     context.contentFormName = "EditCategoryContentDownload";
-	context.contentFormTitle = "${uiLabelMap.ProductUpdateDownloadContentCategory}";
-	
+    context.contentFormTitle = "${uiLabelMap.ProductUpdateDownloadContentCategory}";
+    
 }
