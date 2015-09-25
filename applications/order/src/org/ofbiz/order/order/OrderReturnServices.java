@@ -1844,7 +1844,7 @@ public class OrderReturnServices {
                                     newItem.set("itemDescription", orderItem.get("itemDescription"));
                                 } else {
                                     newItem.set("productId", refurbItem.get("productId"));
-                                    newItem.set("itemDescription", ProductContentWrapper.getProductContentAsText(refurbItem, "PRODUCT_NAME", locale, null));
+                                    newItem.set("itemDescription", ProductContentWrapper.getProductContentAsText(refurbItem, "PRODUCT_NAME", locale, null, "html"));
                                 }
                                 newItem.set("orderItemTypeId", orderItem.get("orderItemTypeId"));
                                 newItem.set("productFeatureId", orderItem.get("productFeatureId"));
@@ -1959,7 +1959,7 @@ public class OrderReturnServices {
                                                 newItem.set("productId", repairItemProduct.get("productId"));
                                                 // TODO: orderItemTypeId, prodCatalogId, productCategoryId
                                                 newItem.set("quantity", repairQuantity);
-                                                newItem.set("itemDescription", ProductContentWrapper.getProductContentAsText(repairItemProduct, "PRODUCT_NAME", locale, null));
+                                                newItem.set("itemDescription", ProductContentWrapper.getProductContentAsText(repairItemProduct, "PRODUCT_NAME", locale, null, "html"));
                                                 newItem.set("statusId", "ITEM_CREATED");
                                                 orderItems.add(newItem);
                                                 additionalItemTotal = additionalItemTotal.add(repairQuantity.multiply(repairUnitPrice));

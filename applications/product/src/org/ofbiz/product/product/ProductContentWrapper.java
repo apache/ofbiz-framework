@@ -30,10 +30,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.content.content.ContentWrapper;
@@ -78,28 +79,30 @@ public class ProductContentWrapper implements ContentWrapper {
         this.mimeTypeId = "text/html";
     }
 
-    public StringUtil.StringWrapper get(String productContentTypeId) {
+    public StringUtil.StringWrapper get(String productContentTypeId, String encoderType) {
         if (this.product == null) {
             Debug.logWarning("Tried to get ProductContent for type [" + productContentTypeId + "] but the product field in the ProductContentWrapper is null", module);
             return null;
         }
-        return StringUtil.makeStringWrapper(getProductContentAsText(this.product, productContentTypeId, locale, mimeTypeId, null, null, this.product.getDelegator(), dispatcher));
+        return StringUtil.makeStringWrapper(getProductContentAsText(this.product, productContentTypeId, locale, mimeTypeId, null, null, this.product.getDelegator(), dispatcher, encoderType));
     }
 
-    public static String getProductContentAsText(GenericValue product, String productContentTypeId, HttpServletRequest request) {
+    public static String getProductContentAsText(GenericValue product, String productContentTypeId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        return getProductContentAsText(product, productContentTypeId, UtilHttp.getLocale(request), "text/html", null, null, product.getDelegator(), dispatcher);
+        return getProductContentAsText(product, productContentTypeId, UtilHttp.getLocale(request), "text/html", null, null, product.getDelegator(), dispatcher, encoderType);
     }
 
-    public static String getProductContentAsText(GenericValue product, String productContentTypeId, Locale locale, LocalDispatcher dispatcher) {
-        return getProductContentAsText(product, productContentTypeId, locale, null, null, null, null, dispatcher);
+    public static String getProductContentAsText(GenericValue product, String productContentTypeId, Locale locale, LocalDispatcher dispatcher, String encoderType) {
+        return getProductContentAsText(product, productContentTypeId, locale, null, null, null, null, dispatcher, encoderType);
     }
 
-    public static String getProductContentAsText(GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, String partyId, String roleTypeId, Delegator delegator, LocalDispatcher dispatcher) {
+    public static String getProductContentAsText(GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, String partyId, 
+            String roleTypeId, Delegator delegator, LocalDispatcher dispatcher, String encoderType) {
         if (product == null) {
             return null;
         }
 
+        UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
         String candidateFieldName = ModelUtil.dbNameToVarName(productContentTypeId);
         /* caching: there is one cache created, "product.content"  Each product's content is cached with a key of
          * contentTypeId::locale::mimeType::productId, or whatever the SEPARATOR is defined above to be.
@@ -115,19 +118,19 @@ public class ProductContentWrapper implements ContentWrapper {
             getProductContentAsText(null, product, productContentTypeId, locale, mimeTypeId, partyId, roleTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
-                return productContentCache.putIfAbsentAndGet(cacheKey, outString);
+                return productContentCache.putIfAbsentAndGet(cacheKey, encoder.encode(outString));
             } else {
                 String candidateOut = product.getModelEntity().isField(candidateFieldName) ? product.getString(candidateFieldName): "";
-                return candidateOut == null? "" : candidateOut;
+                return candidateOut == null? "" : encoder.encode(candidateOut);
             }
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering ProductContent, inserting empty String", module);
             String candidateOut = product.getModelEntity().isField(candidateFieldName) ? product.getString(candidateFieldName): "";
-            return candidateOut == null? "" : candidateOut;
+            return candidateOut == null? "" : encoder.encode(candidateOut);
         } catch (IOException e) {
             Debug.logError(e, "Error rendering ProductContent, inserting empty String", module);
             String candidateOut = product.getModelEntity().isField(candidateFieldName) ? product.getString(candidateFieldName): "";
-            return candidateOut == null? "" : candidateOut;
+            return candidateOut == null? "" : encoder.encode(candidateOut);
         }
     }
 

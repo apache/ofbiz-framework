@@ -26,6 +26,6 @@ import org.ofbiz.base.util.StringUtil;
 
 public interface ContentWrapper {
 
-    public StringUtil.StringWrapper get(String contentTypeId);
+    public StringUtil.StringWrapper get(String contentTypeId, String encoderType); 
 
 }

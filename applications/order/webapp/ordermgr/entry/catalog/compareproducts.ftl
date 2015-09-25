@@ -26,13 +26,13 @@ under the License.
     <#assign productContentWrapper = productData.productContentWrapper/>
     <#assign price = productData.priceMap/>
     <#assign productUrl><@ofbizCatalogAltUrl productId=product.productId/></#assign>
-    <#assign smallImageUrl = productContentWrapper.get("SMALL_IMAGE_URL")/>
+    <#assign smallImageUrl = productContentWrapper.get("SMALL_IMAGE_URL", "url")/>
     <#if smallImageUrl!?length == 0>
         <#assign smallImageUrl = "/images/defaultImage.jpg"/>
     </#if>
         <td style="width:${tdWidth?c}%;">
             <img src="<@ofbizContentUrl>${contentPathPrefix!}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br />
-            ${productContentWrapper.get("PRODUCT_NAME")}<br />
+            ${productContentWrapper.get("PRODUCT_NAME", "html")}<br />
     <#if totalPrice??>
             <div>${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
     <#else>
@@ -101,7 +101,7 @@ under the License.
 <#list compareList as product>
     <#assign productData = productDataMap[product.productId]/>
     <#assign productContentWrapper = productData.productContentWrapper/>
-        <td>${productContentWrapper.get("DESCRIPTION")?default("&nbsp;")}</td>
+        <td>${productContentWrapper.get("DESCRIPTION", "html")?default("&nbsp;")}</td>
 </#list>
     </tr>
     <#-- Long Description -->
@@ -110,7 +110,7 @@ under the License.
 <#list compareList as product>
     <#assign productData = productDataMap[product.productId]/>
     <#assign productContentWrapper = productData.productContentWrapper/>
-        <td>${productContentWrapper.get("LONG_DESCRIPTION")?default("&nbsp;")}</td>
+        <td>${productContentWrapper.get("LONG_DESCRIPTION", "html")?default("&nbsp;")}</td>
 </#list>
     </tr>
 <#list productFeatureTypeIds as productFeatureTypeId>

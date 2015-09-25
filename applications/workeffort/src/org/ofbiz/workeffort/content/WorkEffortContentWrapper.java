@@ -18,28 +18,33 @@
  *******************************************************************************/
 package org.ofbiz.workeffort.content;
 
-import java.util.*;
-import java.io.Writer;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ofbiz.content.content.ContentWrapper;
-import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.util.EntityQuery;
-import org.ofbiz.entity.model.ModelUtil;
-import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.GeneralRuntimeException;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.content.content.ContentWorker;
+import org.ofbiz.content.content.ContentWrapper;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.LocalDispatcher;
 
 /**
@@ -71,8 +76,8 @@ public class WorkEffortContentWrapper implements ContentWrapper {
     }
 
     // interface implementation(s)
-    public String get(String workEffortContentId, boolean useCache) {
-        return getWorkEffortContentAsText(workEffort, workEffortContentId, locale, mimeTypeId, workEffort.getDelegator(), dispatcher, useCache);
+    public String get(String workEffortContentId, boolean useCache, String encoderType) {
+        return getWorkEffortContentAsText(workEffort, workEffortContentId, locale, mimeTypeId, workEffort.getDelegator(), dispatcher, useCache, encoderType);
     }
 
     /**
@@ -80,8 +85,8 @@ public class WorkEffortContentWrapper implements ContentWrapper {
      * @param contentTypeId Type of content to return
      * @return String containing the content data
      */
-    public StringUtil.StringWrapper get(String contentTypeId) {
-        return StringUtil.makeStringWrapper(get(contentTypeId, true));
+    public StringUtil.StringWrapper get(String contentTypeId, String encoderType) {
+        return StringUtil.makeStringWrapper(get(contentTypeId, true, encoderType));
     }
 
     /**
@@ -194,35 +199,36 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         return null;
     }
 
-    public String getContent(String contentId, boolean useCache) {
-        return getWorkEffortContentAsText(workEffort, contentId, null, locale, mimeTypeId, workEffort.getDelegator(), dispatcher, useCache);
+    public String getContent(String contentId, boolean useCache, String encoderType) {
+        return getWorkEffortContentAsText(workEffort, contentId, null, locale, mimeTypeId, workEffort.getDelegator(), dispatcher, useCache, encoderType);
     }
 
-    public String getContent(String contentId) {
-        return getContent(contentId, true);
+    public String getContent(String contentId, String encoderType) {
+        return getContent(contentId, true, encoderType);
     }
 
     // static method helpers
-     public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentTypeId, HttpServletRequest request) {
+     public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentTypeId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        return getWorkEffortContentAsText(workEffort, workEffortContentTypeId, UtilHttp.getLocale(request), "text/html", workEffort.getDelegator(), dispatcher, true);
+        return getWorkEffortContentAsText(workEffort, workEffortContentTypeId, UtilHttp.getLocale(request), "text/html", workEffort.getDelegator(), dispatcher, true, encoderType);
     }
 
-    public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentTypeId, Locale locale, LocalDispatcher dispatcher) {
-        return getWorkEffortContentAsText(workEffort, workEffortContentTypeId, locale, null, null, dispatcher, true);
+    public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentTypeId, Locale locale, LocalDispatcher dispatcher, String encoderType) {
+        return getWorkEffortContentAsText(workEffort, workEffortContentTypeId, locale, null, null, dispatcher, true, encoderType);
     }
 
     public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentTypeId,
-            Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, boolean useCache) {
-        return getWorkEffortContentAsText(workEffort, null, workEffortContentTypeId, locale, mimeTypeId, delegator, dispatcher, useCache);
+            Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, boolean useCache, String encoderType) {
+        return getWorkEffortContentAsText(workEffort, null, workEffortContentTypeId, locale, mimeTypeId, delegator, dispatcher, useCache, encoderType);
     }
 
     public static String getWorkEffortContentAsText(GenericValue workEffort, String contentId, String workEffortContentTypeId,
-            Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, boolean useCache) {
+            Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, boolean useCache, String encoderType) {
         if (workEffort == null) {
             return null;
         }
 
+        UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
         String candidateFieldName = ModelUtil.dbNameToVarName(workEffortContentTypeId);
         String cacheKey;
         if (contentId != null) {
@@ -245,19 +251,19 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             getWorkEffortContentAsText(contentId, null, workEffort, workEffortContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
-                return workEffortContentCache.putIfAbsentAndGet(cacheKey, outString);
+                return workEffortContentCache.putIfAbsentAndGet(cacheKey, encoder.encode(outString));
             } else {
                 String candidateOut = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName): "";
-                return candidateOut == null? "" : candidateOut;
+                return candidateOut == null? "" : encoder.encode(candidateOut);
             }
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering WorkEffortContent, inserting empty String", module);
             String candidateOut = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName): "";
-            return candidateOut == null? "" : candidateOut;
+            return candidateOut == null? "" : encoder.encode(candidateOut);
         } catch (IOException e) {
             Debug.logError(e, "Error rendering WorkEffortContent, inserting empty String", module);
             String candidateOut = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName): "";
-            return candidateOut == null? "" : candidateOut;
+            return candidateOut == null? "" : encoder.encode(candidateOut);
         }
     }
 

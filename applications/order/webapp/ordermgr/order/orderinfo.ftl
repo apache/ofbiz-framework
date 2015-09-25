@@ -223,7 +223,7 @@ under the License.
               </td>
             </tr>
             </#if>
-            <#if orderContentWrapper.get("IMAGE_URL")?has_content>
+            <#if orderContentWrapper.get("IMAGE_URL", "url")?has_content>
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderImage}</td>

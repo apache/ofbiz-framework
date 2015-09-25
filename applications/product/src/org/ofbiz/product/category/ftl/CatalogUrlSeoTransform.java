@@ -209,7 +209,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                     } else {
                         GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", categoryId), true);
                         CategoryContentWrapper wrapper = new CategoryContentWrapper(productCategory, request);
-                        StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL");
+                        StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL", "url");
                         if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
                             categoryIdName = SeoUrlUtil.replaceSpecialCharsUrl(alternativeUrl.toString());
                             categoryNameId = categoryIdName + URL_HYPHEN + categoryId.trim().replaceAll(" ", URL_HYPHEN);
@@ -299,7 +299,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                     urlBuilder.append(productName + URL_HYPHEN);
                 } else {
                     ProductContentWrapper wrapper = new ProductContentWrapper(product, request);
-                    StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL");
+                    StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL", "url");
                     if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
                         productName = SeoUrlUtil.replaceSpecialCharsUrl(alternativeUrl.toString());
                         if (UtilValidate.isNotEmpty(productName)) {
@@ -678,8 +678,8 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
      * @param productId
      * @return
      */
-	public static String makeProductUrl(Delegator delegator, ProductContentWrapper wrapper, String prefix, String contextPath, String currentCategoryId, String previousCategoryId,
-			String productId) {
+    public static String makeProductUrl(Delegator delegator, ProductContentWrapper wrapper, String prefix, String contextPath, String currentCategoryId, String previousCategoryId,
+            String productId) {
         StringBuilder urlBuilder = new StringBuilder();
         GenericValue product = null;
         urlBuilder.append(prefix);
@@ -731,7 +731,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                 if (UtilValidate.isNotEmpty(productName)) {
                     urlBuilder.append(productName + URL_HYPHEN);
                 } else {
-                    StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL");
+                    StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL", "url");
                     if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
                         productName = SeoUrlUtil.replaceSpecialCharsUrl(alternativeUrl.toString());
                         if (UtilValidate.isNotEmpty(productName)) {
@@ -753,26 +753,26 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
         }
         
         return urlBuilder.toString();
-	}
+    }
 
-	/**
+    /**
      * This is used when building category url in services.
-	 * 
-	 * @param delegator
-	 * @param wrapper
-	 * @param prefix
-	 * @param productCategoryId
-	 * @param previousCategoryId
-	 * @param productId
-	 * @param viewSize
-	 * @param viewIndex
-	 * @param viewSort
-	 * @param searchString
-	 * @return
-	 */
-	public static String makeCategoryUrl(Delegator delegator, CategoryContentWrapper wrapper, String prefix,
-			String currentCategoryId, String previousCategoryId, String productId, String viewSize, String viewIndex,
-			String viewSort, String searchString) {
+     * 
+     * @param delegator
+     * @param wrapper
+     * @param prefix
+     * @param productCategoryId
+     * @param previousCategoryId
+     * @param productId
+     * @param viewSize
+     * @param viewIndex
+     * @param viewSort
+     * @param searchString
+     * @return
+     */
+    public static String makeCategoryUrl(Delegator delegator, CategoryContentWrapper wrapper, String prefix,
+            String currentCategoryId, String previousCategoryId, String productId, String viewSize, String viewIndex,
+            String viewSort, String searchString) {
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(prefix);
         if (urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
@@ -835,5 +835,5 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
         }
         
         return urlBuilder.toString();
-	}
+    }
 }

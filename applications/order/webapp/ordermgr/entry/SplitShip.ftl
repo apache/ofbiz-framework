@@ -176,7 +176,7 @@ function submitForm(form, mode, value) {
                     <#if cartLine.getProductId()??>
                       <#-- product item -->
                       <#-- start code to display a small image of the product -->
-                      <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)!>
+                      <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher, "url")!>
                       <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
                       <#if smallImageUrl?string?has_content>
                         <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>">

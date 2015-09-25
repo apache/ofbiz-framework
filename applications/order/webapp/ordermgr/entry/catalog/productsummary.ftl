@@ -62,7 +62,7 @@ ${virtualJavaScript!}
     <#if requestAttributes.productCategoryMember??>
         <#assign prodCatMem = requestAttributes.productCategoryMember>
     </#if>
-    <#assign smallImageUrl = productContentWrapper.get("SMALL_IMAGE_URL")!>
+    <#assign smallImageUrl = productContentWrapper.get("SMALL_IMAGE_URL", "url")!>
     <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
     <#-- end variable setup -->
     <#assign productInfoLinkId = "productInfoLink">
@@ -160,9 +160,9 @@ ${virtualJavaScript!}
         </div>
         <div class="productinfo">
           <div>
-            <a href="${productUrl}" class="linktext">${productContentWrapper.get("PRODUCT_NAME")!}</a>
+            <a href="${productUrl}" class="linktext">${productContentWrapper.get("PRODUCT_NAME", "html")!}</a>
           </div>
-          <div>${productContentWrapper.get("DESCRIPTION")!}<#if daysToShip??>&nbsp;-&nbsp;${uiLabelMap.ProductUsuallyShipsIn} <b>${daysToShip}</b> ${uiLabelMap.CommonDays}!</#if></div>
+          <div>${productContentWrapper.get("DESCRIPTION", "html")!}<#if daysToShip??>&nbsp;-&nbsp;${uiLabelMap.ProductUsuallyShipsIn} <b>${daysToShip}</b> ${uiLabelMap.CommonDays}!</#if></div>
 
           <#-- Display category-specific product comments -->
           <#if prodCatMem?? && prodCatMem.comments?has_content>

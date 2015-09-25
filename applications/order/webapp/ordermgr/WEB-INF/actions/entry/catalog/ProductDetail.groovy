@@ -121,7 +121,7 @@ if (product) {
     context.productContentWrapper = productContentWrapper;
 
     // get the main detail image (virtual or single product)
-    mainDetailImage = productContentWrapper.get("DETAIL_IMAGE_URL");
+    mainDetailImage = productContentWrapper.get("DETAIL_IMAGE_URL", "url");
     if (mainDetailImage) {
         mainDetailImageUrl = ContentUrlTag.getContentPrefix(request) + mainDetailImage;
         context.mainDetailImageUrl = mainDetailImageUrl.toString();
@@ -347,8 +347,8 @@ if (product) {
                             contentWrapper = new ProductContentWrapper(imageMap[key], request);
 
                             // initial image paths
-                            detailImage = contentWrapper.get("DETAIL_IMAGE_URL") ?: productContentWrapper.get("DETAIL_IMAGE_URL");
-                            largeImage = contentWrapper.get("LARGE_IMAGE_URL") ?: productContentWrapper.get("LARGE_IMAGE_URL");
+                            detailImage = contentWrapper.get("DETAIL_IMAGE_URL", "url") ?: productContentWrapper.get("DETAIL_IMAGE_URL", "url");
+                            largeImage = contentWrapper.get("LARGE_IMAGE_URL", "url") ?: productContentWrapper.get("LARGE_IMAGE_URL", "url");
 
                             // full image URLs
                             detailImageUrl = null;

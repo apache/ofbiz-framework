@@ -710,7 +710,7 @@ public class ProductPromoWorker {
                 if (UtilValidate.isEmpty(messageContext.get("partyId"))) messageContext.put("partyId", "any");
                 GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
                 if (product != null) {
-                    messageContext.put("productName", ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, null));
+                    messageContext.put("productName", ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, null, "html"));
                 }
 
                 String msgProp = UtilProperties.getMessage("promotext", "action." + productPromoAction.getString("productPromoActionEnumId"), messageContext, locale);

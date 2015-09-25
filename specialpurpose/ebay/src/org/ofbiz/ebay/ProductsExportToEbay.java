@@ -46,10 +46,10 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.util.EntityUtilProperties;
+import org.ofbiz.product.product.ProductContentWrapper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.product.product.ProductContentWrapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -265,7 +265,7 @@ public class ProductsExportToEbay {
                 }
 
                 ProductContentWrapper pcw = new ProductContentWrapper(dctx.getDispatcher(), prod, locale, "text/html");
-                StringUtil.StringWrapper ebayDescription = pcw.get("EBAY_DESCRIPTION");
+                StringUtil.StringWrapper ebayDescription = pcw.get("EBAY_DESCRIPTION", "html");
                 if (UtilValidate.isNotEmpty(ebayDescription.toString())) {
                     UtilXml.addChildElementCDATAValue(itemElem, "Description", ebayDescription.toString(), itemDocument);
                 } else {

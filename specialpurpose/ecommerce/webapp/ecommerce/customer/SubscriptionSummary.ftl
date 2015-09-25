@@ -46,7 +46,7 @@ under the License.
                         <td>
                             <#assign product = subscription.getRelatedOne('Product', false)!>
                             <#if product?has_content>
-                                <#assign productName = Static['org.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request)!>
+                                <#assign productName = Static['org.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request, "html")!>
                                 <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="linktext">${productName?default(product.productId)}</a>
                             </#if>
                         </td>

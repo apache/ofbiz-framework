@@ -19,24 +19,34 @@
 
 package org.ofbiz.party.content;
 
-import org.ofbiz.content.content.ContentWrapper;
-import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.util.EntityQuery;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.model.ModelUtil;
-import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.service.LocalDispatcher;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.util.*;
-import java.io.Writer;
-import java.io.IOException;
-import java.io.StringWriter;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.GeneralRuntimeException;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.content.content.ContentWorker;
+import org.ofbiz.content.content.ContentWrapper;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelUtil;
+import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.LocalDispatcher;
 
 /**
  * WorkEffortContentWrapper; gets work effort content for display
@@ -68,12 +78,12 @@ public class PartyContentWrapper implements ContentWrapper {
     }
 
     // interface implementation
-    public String get(String contentTypeId, boolean useCache) {
-        return getPartyContentAsText(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), dispatcher, useCache);
+    public String get(String contentTypeId, boolean useCache, String encoderType) {
+        return getPartyContentAsText(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), dispatcher, useCache, encoderType);
     }
 
-    public StringUtil.StringWrapper get(String contentTypeId) {
-        return StringUtil.makeStringWrapper(get(contentTypeId, true));
+    public StringUtil.StringWrapper get(String contentTypeId, String encoderType) {
+        return StringUtil.makeStringWrapper(get(contentTypeId, true, encoderType));
     }
 
     public String getId(String contentTypeId) {
@@ -94,35 +104,36 @@ public class PartyContentWrapper implements ContentWrapper {
         }
     }
 
-    public String getContent(String contentId, boolean useCache) {
-        return getPartyContentAsText(party, contentId, null, locale, mimeTypeId, party.getDelegator(), dispatcher, useCache);
+    public String getContent(String contentId, boolean useCache, String encoderType) {
+        return getPartyContentAsText(party, contentId, null, locale, mimeTypeId, party.getDelegator(), dispatcher, useCache, encoderType);
     }
 
-    public String getContent(String contentId) {
-        return getContent(contentId, true);
+    public String getContent(String contentId, String encoderType) {
+        return getContent(contentId, true, encoderType);
     }
 
     // static methods
-    public static String getPartyContentAsText(GenericValue party, String partyContentId, HttpServletRequest request) {
+    public static String getPartyContentAsText(GenericValue party, String partyContentId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        return getPartyContentAsText(party, partyContentId, null, UtilHttp.getLocale(request), "text/html", party.getDelegator(), dispatcher, true);
+        return getPartyContentAsText(party, partyContentId, null, UtilHttp.getLocale(request), "text/html", party.getDelegator(), dispatcher, true,encoderType);
     }
 
-    public static String getPartyContentAsText(GenericValue party, String partyContentId, Locale locale, LocalDispatcher dispatcher) {
-        return getPartyContentAsText(party, partyContentId, null, locale, null, null, dispatcher, true);
+    public static String getPartyContentAsText(GenericValue party, String partyContentId, Locale locale, LocalDispatcher dispatcher, String encoderType) {
+        return getPartyContentAsText(party, partyContentId, null, locale, null, null, dispatcher, true, encoderType);
     }
 
     public static String getPartyContentAsText(GenericValue party, String partyContentTypeId,
-            Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, boolean useCache) {
-        return getPartyContentAsText(party, null, partyContentTypeId, locale, mimeTypeId, delegator, dispatcher, useCache);
+            Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, boolean useCache, String encoderType) {
+        return getPartyContentAsText(party, null, partyContentTypeId, locale, mimeTypeId, delegator, dispatcher, useCache, encoderType);
     }
 
     public static String getPartyContentAsText(GenericValue party, String contentId, String partyContentTypeId,
-            Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, boolean useCache) {
+            Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, boolean useCache, String encoderType) {
         if (party == null) {
             return null;
         }
-
+        
+        UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
         String candidateFieldName = ModelUtil.dbNameToVarName(partyContentTypeId);
         String cacheKey;
         if (contentId != null) {
@@ -146,19 +157,19 @@ public class PartyContentWrapper implements ContentWrapper {
 
             String outString = outWriter.toString();
             if (outString.length() > 0) {
-                return partyContentCache.putIfAbsentAndGet(cacheKey, outString);
+                return partyContentCache.putIfAbsentAndGet(cacheKey, encoder.encode(outString));
             } else {
                 String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
-                return candidateOut == null ? "" : candidateOut;
+                return candidateOut == null? "" : encoder.encode(candidateOut);
             }
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering PartyContent, inserting empty String", module);
             String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
-            return candidateOut == null? "" : candidateOut;
+            return candidateOut == null? "" : encoder.encode(candidateOut);
         } catch (IOException e) {
             Debug.logError(e, "Error rendering PartyContent, inserting empty String", module);
             String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName): "";
-            return candidateOut == null? "" : candidateOut;
+            return candidateOut == null? "" : encoder.encode(candidateOut);
         }
     }
 

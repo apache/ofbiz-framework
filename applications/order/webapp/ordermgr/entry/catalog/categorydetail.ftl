@@ -91,7 +91,7 @@ under the License.
         <a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${productCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchInCategory}</a>
     </#if>
     <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION")!/>
-    <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL")!/>
+    <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL", "url")!/>
     <#if categoryImageUrl?string?has_content || longDescription?has_content>
       <div>
         <#if categoryImageUrl?string?has_content>
