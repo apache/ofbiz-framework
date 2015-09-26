@@ -55,16 +55,16 @@ List fillTree(rootCat ,CatLvl, parentCategoryId) {
                 def rootMap = [:];
                 category = from("ProductCategory").where("productCategoryId", root.productCategoryId).queryOne();
                 categoryContentWrapper = new CategoryContentWrapper(category, request);
-                context.title = categoryContentWrapper.CATEGORY_NAME;
-                categoryDescription = categoryContentWrapper.DESCRIPTION;
+                context.title = categoryContentWrapper.get("CATEGORY_NAME", "html");
+                categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html");
                 
                 if(categoryContentWrapper.CATEGORY_NAME)
-                    rootMap["categoryName"] = categoryContentWrapper.CATEGORY_NAME;
+                    rootMap["categoryName"] = categoryContentWrapper.get("CATEGORY_NAME", "html");
                 else
                     rootMap["categoryName"] = root.categoryName;
                 
                 if(categoryContentWrapper.DESCRIPTION)
-                    rootMap["categoryDescription"] = categoryContentWrapper.DESCRIPTION;
+                    rootMap["categoryDescription"] = categoryContentWrapper.get("DESCRIPTION", "html");
                 else
                     rootMap["categoryDescription"] = root.description;
                 
