@@ -56,7 +56,7 @@ orderHeaderList.each { orderHeader ->
             orderItemDetail.productId = orderItem.productId;
             product = from("Product").where("productId", orderItem.productId).queryOne()
             contentWrapper = new ProductContentWrapper(product, request);
-            orderItemDetail.productName = contentWrapper.get("PRODUCT_NAME");
+            orderItemDetail.productName = contentWrapper.get("PRODUCT_NAME", "html");
             orderItemDetail.amount = amount;
             orderItemDetail.qtyOrdered = qtyOrdered;
             orderItemDetail.currencyUom = orderHeader.currencyUom;

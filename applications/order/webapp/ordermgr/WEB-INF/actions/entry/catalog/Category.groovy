@@ -79,12 +79,12 @@ if (category) {
     }
     categoryContentWrapper = new CategoryContentWrapper(category, request);
     
-    categoryDescription = categoryContentWrapper.DESCRIPTION;
+    categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html");
 
     if (pageTitle) {
         context.title = pageTitle.textData;
     } else {
-        context.title = categoryContentWrapper.CATEGORY_NAME;
+        context.title = categoryContentWrapper.get("CATEGORY_NAME", "html");
     }
 
     if (metaDescription) {
