@@ -26,7 +26,7 @@ under the License.
     </div>
     <#escape x as x?xml>
       <#if productCategory.productCategoryId != currentSearchCategory.productCategoryId>
-        <#assign currentSearchCategoryName = categoryContentWrapper.get("CATEGORY_NAME")?string />
+        <#assign currentSearchCategoryName = categoryContentWrapper.get("CATEGORY_NAME", "html")?string />
         <#list searchConstraintStrings as searchConstraintString>
           <#if searchConstraintString.indexOf(currentSearchCategoryName) != -1>
             <div id="searchConstraints">&nbsp;<a href="<@ofbizUrl>category/~category_id=${productCategoryId}?removeConstraint=${searchConstraintString_index}&amp;clearSearch=N<#if previousCategoryId??>&amp;searchCategoryId=${previousCategoryId}</#if></@ofbizUrl>" class="buttontext">X</a><#noescape>&nbsp;${searchConstraintString}</#noescape></div>
@@ -45,7 +45,7 @@ under the License.
         <ul>
           <#list subCategoryList as category>
             <#assign subCategoryContentWrapper = category.categoryContentWrapper />
-            <#assign categoryName = subCategoryContentWrapper.get("CATEGORY_NAME")!?string />
+            <#assign categoryName = subCategoryContentWrapper.get("CATEGORY_NAME", "html")!?string />
             <li><a href="<@ofbizUrl>category/~category_id=${productCategoryId}?SEARCH_CATEGORY_ID${index}=${category.productCategoryId}&amp;searchCategoryId=${category.productCategoryId}&amp;clearSearch=N</@ofbizUrl>">${categoryName!} (${category.count})</li>
           </#list>
         </ul>

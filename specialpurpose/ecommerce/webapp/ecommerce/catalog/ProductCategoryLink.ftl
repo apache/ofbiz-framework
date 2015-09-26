@@ -34,9 +34,9 @@ under the License.
       <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "category/~category_id=" + productCategoryLink.linkInfo) + "/~pcategory=" + productCategoryId/>
       <#assign linkProductCategory = delegator.findOne("ProductCategory", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", productCategoryLink.linkInfo), true)/>
       <#assign linkCategoryContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(linkProductCategory, request)/>
-      <#assign titleText = productCategoryLink.titleText?default(linkCategoryContentWrapper.get("CATEGORY_NAME"))!/>
+      <#assign titleText = productCategoryLink.titleText?default(linkCategoryContentWrapper.get("CATEGORY_NAME", "html"))!/>
       <#assign imageUrl = productCategoryLink.imageUrl?default(linkCategoryContentWrapper.get("CATEGORY_IMAGE_URL", "url"))!/>
-      <#assign detailText = productCategoryLink.detailText?default(linkCategoryContentWrapper.get("DESCRIPTION"))!/>
+      <#assign detailText = productCategoryLink.detailText?default(linkCategoryContentWrapper.get("DESCRIPTION", "html"))!/>
     </#if>
 
     <div class="productcategorylink">
