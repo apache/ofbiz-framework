@@ -42,8 +42,8 @@ if (category) {
         detailScreen = category.detailScreen;
     }
     categoryContentWrapper = new CategoryContentWrapper(category, request);
-    context.title = categoryContentWrapper.CATEGORY_NAME;
-    categoryDescription = categoryContentWrapper.DESCRIPTION;
+    context.title = categoryContentWrapper.get("CATEGORY_NAME", "html");
+    categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html");
     if (categoryDescription) {
         context.metaDescription = categoryDescription;
         context.metaKeywords = categoryDescription + ", " + catalogName;

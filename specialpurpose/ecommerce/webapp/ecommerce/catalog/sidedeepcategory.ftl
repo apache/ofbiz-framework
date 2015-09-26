@@ -22,13 +22,13 @@ under the License.
 
 <#-- looping macro -->
 <#macro categoryList parentCategory category wrapInBox>
-  <#if catContentWrappers?? && catContentWrappers[category.productCategoryId]?? && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")??>
-    <#assign categoryName = catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")>
+  <#if catContentWrappers?? && catContentWrappers[category.productCategoryId]?? && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME", "html")??>
+    <#assign categoryName = catContentWrappers[category.productCategoryId].get("CATEGORY_NAME", "html")>
   <#else>
     <#assign categoryName = category.categoryName!>
   </#if>
-  <#if catContentWrappers?? && catContentWrappers[category.productCategoryId]?? && catContentWrappers[category.productCategoryId].get("DESCRIPTION")??>
-    <#assign categoryDescription = catContentWrappers[category.productCategoryId].get("DESCRIPTION")>
+  <#if catContentWrappers?? && catContentWrappers[category.productCategoryId]?? && catContentWrappers[category.productCategoryId].get("DESCRIPTION", "html")??>
+    <#assign categoryDescription = catContentWrappers[category.productCategoryId].get("DESCRIPTION", "html")>
   <#else>
     <#assign categoryDescription = category.description!>
   </#if>
