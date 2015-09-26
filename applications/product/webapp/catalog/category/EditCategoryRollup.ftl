@@ -58,7 +58,7 @@ under the License.
                                 <a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" >
                                     <#assign catContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)!>
                                     <#if catContentWrapper?has_content>
-                                        ${catContentWrapper.get("CATEGORY_NAME")!catContentWrapper.get("DESCRIPTION")!curCategory.categoryName!curCategory.description!}
+                                        ${catContentWrapper.get("CATEGORY_NAME", "html")!catContentWrapper.get("DESCRIPTION", "html")!curCategory.categoryName!curCategory.description!}
                                     <#else>
                                         ${curCategory.categoryName!curCategory.description!}
                                     </#if>
@@ -166,7 +166,7 @@ under the License.
                                     <a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" >
                                         <#assign catContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)!>
                                         <#if catContentWrapper?has_content>
-                                            ${catContentWrapper.get("CATEGORY_NAME")!catContentWrapper.get("DESCRIPTION")!curCategory.categoryName!curCategory.description!}
+                                            ${catContentWrapper.get("CATEGORY_NAME", "html")!catContentWrapper.get("DESCRIPTION", "html")!curCategory.categoryName!curCategory.description!}
                                         <#else>
                                             ${curCategory.categoryName!curCategory.description!}
                                         </#if>
