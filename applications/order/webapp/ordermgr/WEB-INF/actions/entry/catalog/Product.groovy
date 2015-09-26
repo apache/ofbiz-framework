@@ -94,27 +94,27 @@ if (productId) {
         if (pageTitle) {
             context.title = pageTitle.textData;
         } else {
-            context.put("title", contentWrapper.get("PRODUCT_NAME"));
+            context.put("title", contentWrapper.get("PRODUCT_NAME", "html"));
         }
 
         if (metaDescription) {
             context.metaDescription = metaDescription.textData;
         } else {
-            context.put("metaDescription", contentWrapper.get("DESCRIPTION"));
+            context.put("metaDescription", contentWrapper.get("DESCRIPTION", "html"));
         }
 
         if (metaKeywords) {
             context.metaKeywords = metaKeywords.textData;
         } else {
             keywords = [];
-            keywords.add(contentWrapper.get("PRODUCT_NAME"));
+            keywords.add(contentWrapper.get("PRODUCT_NAME", "html"));
             keywords.add(catalogName);
             members = from("ProductCategoryMember").where("productId", productId).cache(true).queryList();
             members.each { member ->
                 category = member.getRelatedOne("ProductCategory", true);
                 if (category.description) {
                     categoryContentWrapper = new CategoryContentWrapper(category, request);
-                    categoryDescription = categoryContentWrapper.DESCRIPTION;
+                    categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html"));
                     if (categoryDescription) {
                             keywords.add(categoryDescription);
                     }
