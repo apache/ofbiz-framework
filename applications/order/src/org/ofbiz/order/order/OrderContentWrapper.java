@@ -29,10 +29,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.content.content.ContentWorker;
+import org.ofbiz.content.content.ContentWrapper;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
@@ -42,7 +45,7 @@ import org.ofbiz.service.LocalDispatcher;
  * Order Content Worker: gets order content to display
  *
  */
-public class OrderContentWrapper {
+public class OrderContentWrapper implements ContentWrapper {
 
     public static final String module = OrderContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
@@ -72,23 +75,25 @@ public class OrderContentWrapper {
         this.mimeTypeId = "text/html";
     }
 
-    public String get(String orderContentTypeId) {
-        return getOrderContentAsText(order, orderContentTypeId, locale, mimeTypeId, order.getDelegator(), dispatcher);
+    public StringUtil.StringWrapper get(String orderContentTypeId, String encoderType) {
+        return StringUtil.makeStringWrapper(getOrderContentAsText(order, orderContentTypeId, locale, mimeTypeId, order.getDelegator(), dispatcher, encoderType));
     }
 
-    public static String getOrderContentAsText(GenericValue order, String orderContentTypeId, HttpServletRequest request) {
+    public static String getOrderContentAsText(GenericValue order, String orderContentTypeId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        return getOrderContentAsText(order, orderContentTypeId, UtilHttp.getLocale(request), "text/html", order.getDelegator(), dispatcher);
+        return getOrderContentAsText(order, orderContentTypeId, UtilHttp.getLocale(request), "text/html", order.getDelegator(), dispatcher, encoderType);
     }
 
-    public static String getOrderContentAsText(GenericValue order, String orderContentTypeId, Locale locale, LocalDispatcher dispatcher) {
-        return getOrderContentAsText(order, orderContentTypeId, locale, null, null, dispatcher);
+    public static String getOrderContentAsText(GenericValue order, String orderContentTypeId, Locale locale, LocalDispatcher dispatcher, String encoderType) {
+        return getOrderContentAsText(order, orderContentTypeId, locale, null, null, dispatcher, encoderType);
     }
 
-    public static String getOrderContentAsText(GenericValue order, String orderContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher) {
+    public static String getOrderContentAsText(GenericValue order, String orderContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, String encoderType) {
         /* caching: there is one cache created, "order.content"  Each order's content is cached with a key of
          * contentTypeId::locale::mimeType::orderId::orderItemSeqId, or whatever the SEPARATOR is defined above to be.
          */
+        UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
+
         String orderItemSeqId = (order.getEntityName().equals("OrderItem")? order.getString("orderItemSeqId"): "_NA_");
 
         String cacheKey = orderContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + order.get("orderId") + SEPARATOR + orderItemSeqId;
@@ -102,7 +107,7 @@ public class OrderContentWrapper {
             getOrderContentAsText(null, null, order, orderContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
-                outString = orderContentCache.putIfAbsentAndGet(cacheKey, outString);
+                outString = orderContentCache.putIfAbsentAndGet(cacheKey, encoder.encode(outString));
             }
             return outString;
 
