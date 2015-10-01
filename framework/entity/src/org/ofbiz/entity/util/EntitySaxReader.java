@@ -663,10 +663,11 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
                         name = attributes.getQName(i);
                     }
                     try {
-                        // treat empty strings as nulls
-                        if (UtilValidate.isNotEmpty(value)) {
+                        // treat empty strings as nulls, but do NOT ignore them, instead set as null and update
+                        if (value != null) {
                             if (currentValue.getModelEntity().isField(name.toString())) {
-                                currentValue.setString(name.toString(), value.toString());
+                                String valueString = (value.length() > 0 ? value.toString() : null);
+                                currentValue.setString(name.toString(), valueString);
                                 if (Action.CREATE_REPLACE == currentAction && absentFields != null) absentFields.remove(name);
                             } else {
                                 Debug.logWarning("Ignoring invalid field name [" + name + "] found for the entity: " + currentValue.getEntityName() + " with value=" + value, module);
