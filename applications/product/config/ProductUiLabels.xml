@@ -8342,6 +8342,7 @@
     <property key="ImageManagement">
         <value xml:lang="de">Bildverwaltung</value>
         <value xml:lang="en">Image Management</value>
+        <value xml:lang="fr">Gestion d'images</value>
         <value xml:lang="ja">画像管理</value>
         <value xml:lang="th">จัดการรูปภาพ</value>
         <value xml:lang="vi">Quản trị Ảnh</value>
