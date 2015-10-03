@@ -114,6 +114,9 @@ function getUploadProgressStatus(event){
                             checkIframeStatus();
                         }
                      }
+                },
+                error: function() {
+                     timerId.stop();
                 }
             });
         }
