@@ -34,11 +34,11 @@
         <value xml:lang="zh-TW">說明主題沒有找到.</value>
     </property>
     <property key="PageTitleHelp">
-        <value xml:lang="da">Open for Business hjælp</value>
-        <value xml:lang="de">Open for Business Hilfe</value>
-        <value xml:lang="en">Open for Business Help</value>
-        <value xml:lang="es">Ayuda de Open for Business</value>
-        <value xml:lang="fr">Aide OFBiz (Open for Business)</value>
+        <value xml:lang="da">Apache OFBiz hjælp</value>
+        <value xml:lang="de">Apache OFBiz Hilfe</value>
+        <value xml:lang="en">Apache OFBiz Help</value>
+        <value xml:lang="es">Ayuda de Apache OFBiz</value>
+        <value xml:lang="fr">Aide OFBiz (Apache OFBiz)</value>
         <value xml:lang="it">Aiuto</value>
         <value xml:lang="ja">OFBizヘルプ</value>
         <value xml:lang="pt-BR">Ajuda do OFBiz</value>

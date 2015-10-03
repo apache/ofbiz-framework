@@ -43,7 +43,7 @@ under the License.
                 <manifest>
                     <attribute name="Manifest-Version" value="1.0"/>
                     <attribute name="Implementation-Title" value="Apache OFBiz Startup"/>
-                    <attribute name="Implementation-Vendor" value="The Apache Open for Business Project"/>
+                    <attribute name="Implementation-Vendor" value="The Apache Apache OFBiz Project"/>
                     <attribute name="Main-Class" value="org.ofbiz.base.start.Start"/>
                 </manifest>
             </main-elements>

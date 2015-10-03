@@ -17,8 +17,8 @@
 -->
 <web-app>
 
-    <display-name>Open For Business - Solr Component</display-name>
-    <description>Solr Component of the Open For Business Project</description>
+    <display-name>Apache OFBiz - Solr Component</display-name>
+    <description>Solr Component of the Apache OFBiz Project</description>
 
     <context-param>
         <param-name>entityDelegatorName</param-name>

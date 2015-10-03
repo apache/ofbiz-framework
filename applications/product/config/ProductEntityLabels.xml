@@ -4328,7 +4328,7 @@
     </property>
     <property key="FieldDescription.ProductStore.itemApprovedStatus">
         <value xml:lang="de">Auf welchen Status sollen Bestellpositionen gesetzt werden, wenn Bestellungen freigegeben, abgelehnt oder storniert werden. Basierend auf den standardmässig definierten Statuscodes in OFBiz.</value>
-        <value xml:lang="en">What to set order items status to when orders are approved, declined, or canceled. Based on the standard defined status codes in Open for Business.</value>
+        <value xml:lang="en">What to set order items status to when orders are approved, declined, or canceled. Based on the standard defined status codes in Apache OFBiz.</value>
         <value xml:lang="ja">注文が承認、否認、または取消された時に、注文アイテムステータスに何を設定しますか。OFBizで標準定義されたステータスコードに基づきます。</value>
         <value xml:lang="vi">Để thiết lập trật tự các mục tình trạng khi đơn đặt hàng được phê duyệt , từ chối hoặc hủy bỏ. Dựa trên mã trạng thái quy định tiêu chuẩn mở cho doanh nghiệp.</value>
         <value xml:lang="zh">当订单被批准、被拒绝或被取消时，把订单明细设置成什么状态。基于OFBiz中定义的标准状态代码。</value>
@@ -4336,7 +4336,7 @@
     </property>
     <property key="FieldDescription.ProductStore.digitalItemApprovedStatus">
         <value xml:lang="de">Auf welchen Status sollen Bestellpositionen gesetzt werden, wenn digitale Bestellungen freigegeben, abgelehnt oder storniert werden. Basierend auf den standardmässig definierten Statuscodes in OFBiz.</value>
-        <value xml:lang="en">What to set order items status to when Digital Item orders are approved, declined, or canceled. Based on the standard defined status codes in Open for Business.</value>
+        <value xml:lang="en">What to set order items status to when Digital Item orders are approved, declined, or canceled. Based on the standard defined status codes in Apache OFBiz.</value>
         <value xml:lang="ja">デジタル商品の注文が承認、否認、または取消された時に、注文アイテムステータスに何を設定しますか。OFBizで標準定義されたステータスコードに基づきます。</value>
         <value xml:lang="vi">Để thiết lập trật tự các mục tình trạng khi các đơn đặt hàng mục kỹ thuật số được phê duyệt , từ chối hoặc hủy bỏ. Dựa trên các mã trạng thái quy định tiêu chuẩn mở cho doanh nghiệp.</value>
         <value xml:lang="zh">当数字产品明细订单被批准、被拒绝或被取消时，把订单明细设置成什么状态。基于OFBiz中定义的标准状态代码。</value>
@@ -4344,7 +4344,7 @@
     </property>
     <property key="FieldDescription.ProductStore.headerDeclinedStatus">
         <value xml:lang="de">Dies ist die Statusnachricht die Ihre Kunden sehen sollen, wenn ihre Bestellung abgelehnt wurde. Basierend auf den standardmässig definierten Statuscodes in OFBiz.</value>
-        <value xml:lang="en">This is the message you want your customers to see when their order is declined. Based on the standard defined status codes in Open for Business.</value>
+        <value xml:lang="en">This is the message you want your customers to see when their order is declined. Based on the standard defined status codes in Apache OFBiz.</value>
         <value xml:lang="ja">注文が否認された時に顧客に見せたいメッセージを指定します。OFBizで標準定義されたステータスコードに基づきます。</value>
         <value xml:lang="vi">Tin nhắn mà bạn muốn khách hàng của bạn nhìn thấy khi đặt hàng của họ bị từ chối. Dựa trên các mã trạng thái quy định tiêu chuẩn mở cho doanh nghiệp.</value>
         <value xml:lang="zh">当客户的订单被拒绝时，这是你想要他们看到的信息。基于OFBiz中定义的标准状态代码。</value>

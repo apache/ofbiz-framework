@@ -84,7 +84,7 @@ under the License.
  <presetdef name="default-javadoc">
     <javadoc classpathref="local.class.path"
              destdir="${build.dir}/javadocs"
-             windowtitle="Apache Open for Business - ${desc}"
+             windowtitle="Apache OFBiz - ${desc}"
              useexternalfile="yes"
              maxmemory="512M"
              encoding="UTF-8"

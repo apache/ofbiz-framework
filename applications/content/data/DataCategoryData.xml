@@ -29,7 +29,7 @@ under the License.
     <DataCategory dataCategoryId="BUS_SERVICE" parentCategoryId="BUSINESS" categoryName="Service"/>
     <DataCategory dataCategoryId="BUS_MANU" parentCategoryId="BUSINESS" categoryName="Manufacturing"/>
     <DataCategory dataCategoryId="TECH_SOFT" parentCategoryId="TECHNOLOGY" categoryName="Software"/>
-    <DataCategory dataCategoryId="TECH_SOFT_OFBIZ" parentCategoryId="TECH_SOFT" categoryName="Open for Business"/>
+    <DataCategory dataCategoryId="TECH_SOFT_OFBIZ" parentCategoryId="TECH_SOFT" categoryName="Apache OFBiz"/>
     <DataCategory dataCategoryId="TECH_SOFT_LINUX" parentCategoryId="TECH_SOFT" categoryName="Linux"/>
     <DataCategory dataCategoryId="TECH_SOFT_JAVA" parentCategoryId="TECH_SOFT" categoryName="Java"/>
     <DataCategory dataCategoryId="TECH_HARD" parentCategoryId="TECHNOLOGY" categoryName="Hardware"/>
