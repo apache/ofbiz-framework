@@ -85,7 +85,6 @@ under the License.
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
                                 <fo:block text-align="right">${paymentMethodType.description!} <#if creditCard?has_content && creditCard??>(${creditCard.cardType!})</#if></fo:block>
-                                <#assign creditCard = null/>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
                                 <fo:block text-align="right">
@@ -108,7 +107,7 @@ under the License.
                         </fo:table-row>
                     </#list>
                     <fo:table-row>
-                        <fo:table-cell number-columns-spanned="3"/>
+                        <fo:table-cell number-columns-spanned="3"><fo:block/></fo:table-cell>
                         <fo:table-cell padding="4pt" background-color="#D4D0C8" font-weight="bold">
                             <fo:block text-align="right">
                                 ${uiLabelMap.FormFieldTitle_totalAmount}
@@ -122,11 +121,11 @@ under the License.
                     </fo:table-row>
                 <#else>
                     <fo:table-row>
-                        <fo:table-cell number-columns-spanned="2"/>
+                        <fo:table-cell number-columns-spanned="2"><fo:block/></fo:table-cell>
                         <fo:table-cell padding="2pt">
                             <fo:block>${uiLabelMap.CommonNoRecordFound}</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell number-columns-spanned="2"/>
+                        <fo:table-cell number-columns-spanned="2"><fo:block/></fo:table-cell>
                     </fo:table-row>
                 </#if>
             </fo:table-body>
