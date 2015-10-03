@@ -119,12 +119,12 @@
         <value xml:lang="zh-TW">OFBiz:場所管理程式</value>
     </property>
     <property key="FacilityCompanySubtitle">
-        <value xml:lang="de">Teil der Open For Business Familie von Open Source Software</value>
-        <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
-        <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
-        <value xml:lang="ja">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="nl">Deel van de 'Open For Business' familie van open source software</value>
+        <value xml:lang="de">Teil der Apache OFBiz Familie von Open Source Software</value>
+        <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="fr">Un module de la famille Apache OFBiz, logiciel libre de gestion d'entreprise.</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
+        <value xml:lang="ja">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="nl">Deel van de 'Apache OFBiz' familie van open source software</value>
         <value xml:lang="vi">Một phần của Đại gia đình phần mềm mã mở dành cho kinh doanh</value>
         <value xml:lang="zh">开源软件OFBiz的组成部分</value>
         <value xml:lang="zh-TW">開源軟體OFBiz的組成部分</value>

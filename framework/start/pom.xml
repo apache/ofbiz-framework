@@ -39,7 +39,7 @@ under the License.
             <manifestEntries>
               <Manifest-Version>1.0</Manifest-Version>
               <Implementation-Title>Apache OFBiz Startup</Implementation-Title>
-              <Implementation-Vendor>The Apache Open for Business Project</Implementation-Vendor>
+              <Implementation-Vendor>The Apache Apache OFBiz Project</Implementation-Vendor>
               <Main-Class>org.ofbiz.base.start.Start</Main-Class>
             </manifestEntries>
           </archive>

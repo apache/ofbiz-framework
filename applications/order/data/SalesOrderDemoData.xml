@@ -23,11 +23,11 @@ under the License.
     <Facility facilityId="WebStoreWarehouse"/>
     
     <!-- PRODUCT STORE -->
-    <ProductStore productStoreId="B2CStore" storeName="OFBiz the B2C Store" companyName="Open For Business" autoApproveReviews="Y" title="Open For Business to Customer"
+    <ProductStore productStoreId="B2CStore" storeName="OFBiz the B2C Store" companyName="Apache OFBiz" autoApproveReviews="Y" title="Apache OFBiz to Customer"
         subtitle="" prorateShipping="Y" prorateTaxes="Y" defaultLocaleString="en_US" defaultCurrencyUomId="USD"
         autoApproveInvoice="Y" autoApproveOrder="Y" shipIfCaptureFails="Y" requireInventory="N" reserveInventory="Y" inventoryFacilityId="WebStoreWarehouse"
         orderNumberPrefix="B2CS" visualThemeId="EC_DEFAULT" payToPartyId="Company" defaultSalesChannelEnumId="WEB_SALES_CHANNEL"/>
-    <ProductStore productStoreId="B2BStore" storeName="OFBiz the B2B Store" companyName="Open For Business" autoApproveReviews="Y" title="Open For Business to Business"
+    <ProductStore productStoreId="B2BStore" storeName="OFBiz the B2B Store" companyName="Apache OFBiz" autoApproveReviews="Y" title="Apache OFBiz to Business"
         subtitle="" prorateShipping="Y" prorateTaxes="Y" defaultLocaleString="en_US" defaultCurrencyUomId="USD"
         autoApproveInvoice="Y" autoApproveOrder="Y" shipIfCaptureFails="Y" requireInventory="N" reserveInventory="Y" inventoryFacilityId="WebStoreWarehouse"
         orderNumberPrefix="B2BS" visualThemeId="EC_DEFAULT" payToPartyId="Company" defaultSalesChannelEnumId="WEB_SALES_CHANNEL"/>

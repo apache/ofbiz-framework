@@ -21,7 +21,7 @@
     <title>Catalog Features overview </title>
     <anchor xml:id="ProductCatalogFeatures"/>
     <para>To Sell and to Differentiate Products
-Features are characteristics used to sell and to differentiate products. The Open for Business catalog manager allows you to define any feature set you wish for your products. Typical features include size and color. In Open for Business, features are associated, or applied, to products as Standard Features, Selectable Features, or Distinguishing Features.
+Features are characteristics used to sell and to differentiate products. The Apache OFBiz catalog manager allows you to define any feature set you wish for your products. Typical features include size and color. In Apache OFBiz, features are associated, or applied, to products as Standard Features, Selectable Features, or Distinguishing Features.
 </para>
 
 

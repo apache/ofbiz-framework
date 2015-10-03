@@ -1637,7 +1637,7 @@
         <value xml:lang="th">ระบบปฏิบัติการลีนุกซ์</value>
     </property>
     <property key="DataCategory.categoryName.TECH_SOFT_OFBIZ">
-        <value xml:lang="en">Open for Business</value>
+        <value xml:lang="en">Apache OFBiz</value>
         <value xml:lang="ja">OFBiz</value>
         <value xml:lang="th">เปิดสำหรับทางธุรกิจ</value>
         <value xml:lang="zh">OFBiz</value>

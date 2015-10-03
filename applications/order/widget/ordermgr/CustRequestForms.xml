@@ -29,8 +29,8 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId">
-            <drop-down allow-empty="true" allow-multiple="true">
-                <entity-options entity-name="StatusItem">
+            <drop-down allow-multiple="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="CUSTREQ_STTS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
