@@ -21,8 +21,8 @@
 -->
 
 <web-app>
-    <display-name>Open For Business - Setup Manager</display-name>
-    <description>Setup Manager Module of the Open For Business Project</description>
+    <display-name>Apache OFBiz - Setup Manager</display-name>
+    <description>Setup Manager Module of the Apache OFBiz Project</description>
     
     <context-param>
         <param-name>entityDelegatorName</param-name>

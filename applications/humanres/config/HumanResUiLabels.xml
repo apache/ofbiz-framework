@@ -1144,11 +1144,11 @@
         <value xml:lang="zh-TW">OFBiz: 人力資源管理</value>
     </property>
     <property key="HumanResCompanySubtitle">
-        <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
         <value xml:lang="fr">Partie de l'ouverture pour la famille d'affaires du logiciel libre</value>
-        <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
-        <value xml:lang="ja">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="pt-BR">Parte da Família Open For Business de Software livre</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
+        <value xml:lang="ja">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="pt-BR">Parte da Família Apache OFBiz de Software livre</value>
         <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
         <value xml:lang="vi">Thành viên của gia đình mã nguồn mở Ofbiz</value>
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>

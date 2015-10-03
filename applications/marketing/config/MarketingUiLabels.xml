@@ -383,17 +383,17 @@
     </property>
     <property key="MarketingCompanySubtitle">
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
-        <value xml:lang="de">Teil der Open For Business Familie von Open Source Software</value>
-        <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
-        <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
-        <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
-        <value xml:lang="ja">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
+        <value xml:lang="de">Teil der Apache OFBiz Familie von Open Source Software</value>
+        <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="es">Parte de la familia de software Apache OFBiz de código abierto</value>
+        <value xml:lang="fr">Un module de la famille Apache OFBiz, logiciel libre de gestion d'entreprise.</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
+        <value xml:lang="ja">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="nl">Deel van de Apache OFBiz-suite van Open Source Software</value>
         <value xml:lang="pt-BR">Parte da família OfBiz de software de código livre</value>
         <value xml:lang="pt-PT">Parte da família OfBiz de software de fonte aberta</value>
         <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
-        <value xml:lang="ru">Входит в состав семейства Open For Business</value>
+        <value xml:lang="ru">Входит в состав семейства Apache OFBiz</value>
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
         <value xml:lang="vi">Thành phần của Gia đình mã nguồn mở OFBIZ</value>
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>

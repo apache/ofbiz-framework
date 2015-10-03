@@ -22,7 +22,7 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Defaults ======================= -->
     <!-- ========================================================= -->
-    <title>Entity of an Open For Business Project Component</title>
+    <title>Entity of an Apache OFBiz Component</title>
     <description>None</description>
     <version>1.0</version>
     <default-resource-name>ProductEntityLabels</default-resource-name>

@@ -11414,23 +11414,23 @@
     </property>
     <property key="CommonTheOpenForBusinessProject">
         <value xml:lang="ar">مشروع اوفبيز</value>
-        <value xml:lang="cs">Projkekt Open For Business</value>
-        <value xml:lang="de">Das Open For Business Projekt</value>
-        <value xml:lang="en">The Open For Business Project</value>
-        <value xml:lang="es">El proyecto Open For Business</value>
-        <value xml:lang="fr">Le projet Apache Open For Business</value>
+        <value xml:lang="cs">Projkekt Apache OFBiz</value>
+        <value xml:lang="de">Das Apache OFBiz Projekt</value>
+        <value xml:lang="en">The Apache OFBiz Project</value>
+        <value xml:lang="es">El proyecto Apache OFBiz</value>
+        <value xml:lang="fr">Le projet Apache Apache OFBiz</value>
         <value xml:lang="hi-IN">द् ओपन फॉर बिसनेस प्रोजेक्ट</value>
-        <value xml:lang="it">Il progetto Open For Business</value>
-        <value xml:lang="ja">The Open For Business Project</value>
-        <value xml:lang="nl">Het Open For Business Project</value>
-        <value xml:lang="pt">The Open For Business Project</value>
-        <value xml:lang="pt-BR">O Projeto Open For Business</value>
-        <value xml:lang="ro">Proiectul Open For Business</value>
-        <value xml:lang="ru">Проект 'Open For Business'</value>
+        <value xml:lang="it">Il progetto Apache OFBiz</value>
+        <value xml:lang="ja">The Apache OFBiz Project</value>
+        <value xml:lang="nl">Het Apache OFBiz Project</value>
+        <value xml:lang="pt">The Apache OFBiz Project</value>
+        <value xml:lang="pt-BR">O Projeto Apache OFBiz</value>
+        <value xml:lang="ro">Proiectul Apache OFBiz</value>
+        <value xml:lang="ru">Проект 'Apache OFBiz'</value>
         <value xml:lang="th">เปิดโปรเจคธุรกิจ</value>
         <value xml:lang="vi">Dự án mã mở cho kinh doanh vCloudBusiness OFBIZ</value>
         <value xml:lang="zh">OFBiz项目</value>
-        <value xml:lang="zh-CN">The Open For Business Project</value>
+        <value xml:lang="zh-CN">The Apache OFBiz Project</value>
         <value xml:lang="zh-TW">OFBiz專案</value>
     </property>
     <property key="CommonThis">

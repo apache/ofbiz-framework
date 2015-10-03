@@ -17,8 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <web-app>
-    <display-name>Open For Business - Account Payable</display-name>
-    <description>Accounting Payable Module of the Open For Business Project</description>
+    <display-name>Apache OFBiz - Account Payable</display-name>
+    <description>Accounting Payable Module of the Apache OFBiz Project</description>
 
     <context-param>
         <param-name>entityDelegatorName</param-name>

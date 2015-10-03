@@ -20,7 +20,7 @@ under the License.
 -->
 
 <web-app>
-  <display-name>Open For Business - multiflex Ecommerce Visual Theme</display-name>
+  <display-name>Apache OFBiz - multiflex Ecommerce Visual Theme</display-name>
   <description>multiflex Ecommerce Visual Theme</description>
 
   <session-config>

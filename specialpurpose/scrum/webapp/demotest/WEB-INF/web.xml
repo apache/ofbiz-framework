@@ -18,8 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
     <web-app>
-    <display-name>Open For Business - scrum Component</display-name>
-    <description>scrum Component of the Open For Business Project
+    <display-name>Apache OFBiz - scrum Component</display-name>
+    <description>scrum Component of the Apache OFBiz Project
     </description>
 
     <context-param>

@@ -21,7 +21,7 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - Manufacturing Manager</display-name>
+    <display-name>Apache OFBiz - Manufacturing Manager</display-name>
     <description>Manufacturing Manager Module by TAU Informatica srl</description>
 
     <context-param>

@@ -29,7 +29,7 @@
     <PartyRole partyId="DemoEbayAccount1" roleTypeId="OWNER"/>
     <UserLogin userLoginId="testuser_ofbiz1" partyId="DemoEbayAccount1" currentPassword="{SHA}bbf272ce445e1c48d94096afdba6a7888c1df1fe"/>
     <ProductStore productStoreId="90101" storeName="OFBiz Ebay Store1-AU" companyName="Apache Ofbiz" title="Test OFBiz store1"
-        subtitle="Part of the Open For Business Family of Open Source Software" payToPartyId="DemoEbayAccount1" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
+        subtitle="Part of the Apache OFBiz Family of Open Source Software" payToPartyId="DemoEbayAccount1" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
         inventoryFacilityId="WebStoreWarehouse" oneInventoryFacility="Y" checkInventory="Y" reserveInventory="Y" balanceResOnOrderCreation="Y" reserveOrderEnumId="INVRO_FIFO_REC" requireInventory="N"
         defaultLocaleString="en_US" defaultCurrencyUomId="USD" defaultSalesChannelEnumId="EBAY_SALES_CHANNEL" allowPassword="Y" explodeOrderItems="N" retryFailedAuths="Y" reqReturnInventoryReceive="N"
         headerApprovedStatus="ORDER_APPROVED" itemApprovedStatus="ITEM_APPROVED" digitalItemApprovedStatus="ITEM_APPROVED" headerDeclinedStatus="ORDER_REJECTED"
@@ -109,7 +109,7 @@
     <PartyRole partyId="DemoEbayAccount2" roleTypeId="OWNER"/>
     <UserLogin userLoginId="testuser_ofbiz2" partyId="DemoEbayAccount2" currentPassword="{SHA}bbf272ce445e1c48d94096afdba6a7888c1df1fe"/>
     <ProductStore productStoreId="90102" storeName="OFBiz Ebay Store2-AU" companyName="Apache Ofbiz" title="Test OFBiz store2"
-        subtitle="Part of the Open For Business Family of Open Source Software" payToPartyId="DemoEbayAccount2" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
+        subtitle="Part of the Apache OFBiz Family of Open Source Software" payToPartyId="DemoEbayAccount2" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
         inventoryFacilityId="WebStoreWarehouse" oneInventoryFacility="Y" checkInventory="Y" reserveInventory="Y" balanceResOnOrderCreation="Y" reserveOrderEnumId="INVRO_FIFO_REC" requireInventory="N"
         defaultLocaleString="en_US" defaultCurrencyUomId="USD" defaultSalesChannelEnumId="EBAY_SALES_CHANNEL" allowPassword="Y" explodeOrderItems="N" retryFailedAuths="Y" reqReturnInventoryReceive="N"
         headerApprovedStatus="ORDER_APPROVED" itemApprovedStatus="ITEM_APPROVED" digitalItemApprovedStatus="ITEM_APPROVED" headerDeclinedStatus="ORDER_REJECTED"

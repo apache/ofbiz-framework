@@ -24,7 +24,7 @@ under the License.
     <!-- Generic POSKeyboard Device Implementation (included w/ OFBiz) -->
     <JposEntry logicalName="GenericKeyboard">
         <creation factoryClass="org.ofbiz.pos.jpos.factory.OfbizJposServiceFactory" serviceClass="org.ofbiz.pos.jpos.service.KeyboardService"/>
-        <vendor name="The Open For Business Project" url="http://ofbiz.apache.org"/>
+        <vendor name="The Apache OFBiz Project" url="http://ofbiz.apache.org"/>
         <jpos category="POSKeyboard" version="1.7"/>
         <product description="Generic Keyboard Device" name="Keyboard" url="ofbiz.apache.org"/>
 
@@ -63,7 +63,7 @@ under the License.
 
     <JposEntry logicalName="GenericScanner">
         <creation factoryClass="org.ofbiz.pos.jpos.factory.OfbizJposServiceFactory" serviceClass="org.ofbiz.pos.jpos.service.ScannerKybService"/>
-        <vendor name="The Open For Business Project" url="http://ofbiz.apache.org"/>
+        <vendor name="The Apache OFBiz Project" url="http://ofbiz.apache.org"/>
         <jpos category="Scanner" version="1.7"/>
         <product description="Generic Keyboard Wedge Scanner" name="KybScanner" url="ofbiz.apache.org"/>
 
@@ -101,7 +101,7 @@ under the License.
     <!-- Generic Keyboard Wedge MSR Device (included w/ OFBiz) -->
     <JposEntry logicalName="GenericMsr">
         <creation factoryClass="org.ofbiz.pos.jpos.factory.OfbizJposServiceFactory" serviceClass="org.ofbiz.pos.jpos.service.MsrKybService"/>
-        <vendor name="The Open For Business Project" url="http://ofbiz.apache.org"/>
+        <vendor name="The Apache OFBiz Project" url="http://ofbiz.apache.org"/>
         <jpos category="MSR" version="1.7"/>
         <product description="Generic Keyboard Wedge Msr" name="KybMsr" url="ofbiz.apache.org"/>
 
@@ -111,7 +111,7 @@ under the License.
     <!-- Button Triggered Test MSR Device (included w/ OFBiz) -->
     <JposEntry logicalName="TestMsr">
         <creation factoryClass="org.ofbiz.pos.jpos.factory.OfbizJposServiceFactory" serviceClass="org.ofbiz.pos.jpos.service.MsrTestService"/>
-        <vendor name="The Open For Business Project" url="http://ofbiz.apache.org"/>
+        <vendor name="The Apache OFBiz Project" url="http://ofbiz.apache.org"/>
         <jpos category="MSR" version="1.7"/>
         <product description="Button Triggered Test Msr" name="TestMsr" url="ofbiz.apache.org"/>
 
@@ -121,7 +121,7 @@ under the License.
     <!-- Null POSPrinter (included w/ OFBiz) -->
     <JposEntry logicalName="NullReceipt">
         <creation factoryClass="org.ofbiz.pos.jpos.factory.OfbizJposServiceFactory" serviceClass="org.ofbiz.pos.jpos.service.NullPosPrinter"/>
-        <vendor name="The Open For Business Project" url="http://ofbiz.apache.org"/>
+        <vendor name="The Apache OFBiz Project" url="http://ofbiz.apache.org"/>
         <jpos category="Scanner" version="1.2"/>
         <product description="Null POSPrinter " name="NullPOSPrinter" url="ofbiz.apache.org"/>
 
@@ -131,7 +131,7 @@ under the License.
     <!-- Null CashDrawer (included w/ OFBiz) -->
     <JposEntry logicalName="NullCashDrawer">
         <creation factoryClass="org.ofbiz.pos.jpos.factory.OfbizJposServiceFactory" serviceClass="org.ofbiz.pos.jpos.service.NullCashDrawer"/>
-        <vendor name="The Open For Business Project" url="http://ofbiz.apache.org"/>
+        <vendor name="The Apache OFBiz Project" url="http://ofbiz.apache.org"/>
         <jpos category="Scanner" version="1.2"/>
         <product description="Null CashDrawer " name="NullPOSPrinter" url="ofbiz.apache.org"/>
 

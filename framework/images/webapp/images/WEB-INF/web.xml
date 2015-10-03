@@ -20,8 +20,8 @@ under the License.
 -->
 
 <web-app>
-  <display-name>Open For Business - demostore images</display-name>
-  <description>Demo Store Images for the Open For Business Project</description>
+  <display-name>Apache OFBiz - demostore images</display-name>
+  <description>Demo Store Images for the Apache OFBiz Project</description>
 
   <session-config>
     <session-timeout>1</session-timeout>

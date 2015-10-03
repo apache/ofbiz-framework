@@ -21,8 +21,8 @@ under the License.
 -->
 
 <web-app>
-  <display-name>Open For Business - Party Manager</display-name>
-  <description>Party Manager Module of the Open For Business Project</description>
+  <display-name>Apache OFBiz - Party Manager</display-name>
+  <description>Party Manager Module of the Apache OFBiz Project</description>
 
   <context-param>
     <param-name>entityDelegatorName</param-name>

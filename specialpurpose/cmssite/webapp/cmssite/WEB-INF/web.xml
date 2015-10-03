@@ -21,8 +21,8 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - CMS Site</display-name>
-    <description>CMS Site for the Open For Business Project</description>
+    <display-name>Apache OFBiz - CMS Site</display-name>
+    <description>CMS Site for the Apache OFBiz Project</description>
 
     <context-param>
         <param-name>webSiteId</param-name>
