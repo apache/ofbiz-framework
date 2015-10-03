@@ -20,7 +20,7 @@ under the License.
 <#-- Render the survey -->
 <#if surveyString?has_content>
   <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>updateSurveyResponse</@ofbizUrl>" name="EditSurveyResponseForm" style="margin: 0;">
-    <div>${uiLabelMap.PartyPartyId}: <@htmlTemplate.lookupField value="${userLogin.partyId}" formName="EditSurveyResponseForm" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
+    <div>${uiLabelMap.PartyPartyId}: <@htmlTemplate.lookupField value="${surveyPartyId!(userLogin.partyId!)}" formName="EditSurveyResponseForm" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
     <#-- pass through the dataResourceId so the response can be associated with it -->
     <input type="hidden" name="dataResourceId" value="${parameters.dataResourceId!}"/>
     <input type="hidden" name="rootContentId" value="${parameters.rootContentId!}"/>
