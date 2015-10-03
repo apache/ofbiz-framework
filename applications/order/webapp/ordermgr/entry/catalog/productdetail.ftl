@@ -533,10 +533,16 @@ ${virtualJavaScript!}
                 <table width="100%"><tr>
                     <@htmlTemplate.renderDateTimeField name="reservStart" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="startDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     <@htmlTemplate.renderDateTimeField name="reservEnd" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="endDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
-                <tr>
-                <#--td nowrap="nowrap" align="right">Number<br />of days</td><td><input type="textt" size="4" name="reservLength"/></td></tr><tr><td>&nbsp;</td><td align="right" nowrap>&nbsp;</td-->
-                <td nowrap="nowrap" align="right">Number of persons</td><td><input type="text" size="4" name="reservPersons" value="2"/></td>
-                <td nowrap="nowrap" align="right">Number of rooms</td><td><input type="text" size="5" name="quantity" value="1"/></td></tr></table>
+                  <tr>
+                    <#--td nowrap="nowrap" align="right">Number<br />of days</td><td><input type="textt" size="4" name="reservLength"/></td></tr><tr><td>&nbsp;</td><td align="right" nowrap>&nbsp;</td-->
+                    <#if (product.reservMaxPersons!)?is_number>
+                      <td nowrap="nowrap" align="right">Number of persons</td>
+                      <td><input type="text" size="4" name="reservPersons" value="2"/></td>
+                    </#if>
+                      <td nowrap="nowrap" align="right">Quantity</td>
+                      <td><input type="text" size="5" name="quantity" value="1"/></td>
+                  </tr>
+                </table>
             <#else/>
                 <input type="text" size="5" name="quantity" value="1"<#if product.isVirtual!?upper_case == "Y"> disabled="disabled"</#if>/>
             </#if>
