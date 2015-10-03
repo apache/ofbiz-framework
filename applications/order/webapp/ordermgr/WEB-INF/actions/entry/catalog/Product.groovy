@@ -114,7 +114,7 @@ if (productId) {
                 category = member.getRelatedOne("ProductCategory", true);
                 if (category.description) {
                     categoryContentWrapper = new CategoryContentWrapper(category, request);
-                    categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html"));
+                    categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html");
                     if (categoryDescription) {
                             keywords.add(categoryDescription);
                     }
