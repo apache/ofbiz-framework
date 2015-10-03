@@ -3072,7 +3072,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     public void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, Map<String, String> parameterMap, String description, String confirmation, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context,
             String targetWindow) throws IOException {
-        if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
+        if (description != null || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             StringBuilder linkUrl = new StringBuilder();
             WidgetWorker.buildHyperlinkUrl(linkUrl, target, targetType, parameterMap, null, false, false, true, request, response, context);
             String event = "";
