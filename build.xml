@@ -933,7 +933,19 @@ under the License.
         sub-target of create-tenant, can't used alone => no description, to not clutter "ant -p" -->
     <target name="create-tenant-on-Derby" depends="get-tenant-data" if="isDerby">
         <echo message="Installing on Derby"/>
-        <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-Derby.xml" tofile="runtime/tmp/tmpTenantData.xml">
+        <!-- Below code will handle the case of optional domain name. It will remove the TenantDomainName entry from tmpTenantData.xml file
+            if domain name is empty, so that record would not get created. -->
+        <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-Derby.xml" tofile="runtime/tmp/tmpTenantData.xml"/>
+        <if>
+          <equals arg1="${domainName}" arg2="" />
+          <then>
+            <replace file="runtime/tmp/tmpTenantData.xml">
+               <replacetoken><![CDATA[<TenantDomainName tenantId="@tenantId@" domainName="@domainName@" />]]></replacetoken>
+               <replacevalue><![CDATA[]]></replacevalue>
+            </replace>
+          </then>
+        </if>
+        <copy file="runtime/tmp/tmpTenantData.xml" tofile="runtime/tmp/tmpFilteredTenantData.xml">
             <filterset>
                 <filter token="tenantId" value="${tenantId}"/>
                 <filter token="tenantName" value="${tenantName}"/>
@@ -941,9 +953,10 @@ under the License.
             </filterset>
         </copy>
         <antcall target="load-file">
-            <param name="data-file" value="runtime/tmp/tmpTenantData.xml"/>
+            <param name="data-file" value="runtime/tmp/tmpFilteredTenantData.xml"/>
         </antcall>
         <delete file="runtime/tmp/tmpTenantData.xml"/>
+        <delete file="runtime/tmp/tmpFilteredTenantData.xml"/>
         <antcall target="load-tenant-data-readers"/>
         <antcall target="load-tenant-admin-user-login">
             <param name="userLoginId" value="${tenantId}-admin"/>
@@ -954,7 +967,19 @@ under the License.
         sub-target of create-tenant, can't used alone => no description, to not clutter "ant -p" -->
     <target name="create-tenant-on-MySQL" depends="get-tenant-data" if="isMySQL">
         <echo message="Installing on MySQL"/>
-        <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-MySQL.xml" tofile="runtime/tmp/tmpTenantData.xml">
+        <!-- Below code will handle the case of optional domain name. It will remove the TenantDomainName entry from tmpTenantData.xml file
+            if domain name is empty, so that record would not get created. -->
+        <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-MySQL.xml" tofile="runtime/tmp/tmpTenantData.xml"/>
+        <if>
+          <equals arg1="${domainName}" arg2="" />
+          <then>
+            <replace file="runtime/tmp/tmpTenantData.xml">
+               <replacetoken><![CDATA[<TenantDomainName tenantId="@tenantId@" domainName="@domainName@" />]]></replacetoken>
+               <replacevalue><![CDATA[]]></replacevalue>
+            </replace>
+          </then>
+        </if>
+        <copy file="runtime/tmp/tmpTenantData.xml" tofile="runtime/tmp/tmpFilteredTenantData.xml">
             <filterset>
                 <filter token="tenantId" value="${tenantId}"/>
                 <filter token="tenantName" value="${tenantName}"/>
@@ -965,9 +990,10 @@ under the License.
             </filterset>
         </copy>
         <antcall target="load-file">
-            <param name="data-file" value="runtime/tmp/tmpTenantData.xml"/>
+            <param name="data-file" value="runtime/tmp/tmpFilteredTenantData.xml"/>
         </antcall>
         <delete file="runtime/tmp/tmpTenantData.xml"/>
+        <delete file="runtime/tmp/tmpFilteredTenantData.xml"/>
         <antcall target="load-tenant-data-readers"/>
         <antcall target="load-tenant-admin-user-login">
             <param name="userLoginId" value="${tenantId}-admin"/>
@@ -978,7 +1004,19 @@ under the License.
         sub-target of create-tenant, can't used alone => no description, to not clutter "ant -p" -->
     <target name="create-tenant-on-Oracle" depends="get-tenant-data" if="isOracle">
         <echo message="Installing on Oracle"/>
-        <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-Oracle.xml" tofile="runtime/tmp/tmpTenantData.xml">
+        <!-- Below code will handle the case of optional domain name. It will remove the TenantDomainName entry from tmpTenantData.xml file
+            if domain name is empty, so that record would not get created. -->
+        <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-Oracle.xml" tofile="runtime/tmp/tmpTenantData.xml"/>
+        <if>
+          <equals arg1="${domainName}" arg2="" />
+          <then>
+            <replace file="runtime/tmp/tmpTenantData.xml">
+               <replacetoken><![CDATA[<TenantDomainName tenantId="@tenantId@" domainName="@domainName@" />]]></replacetoken>
+               <replacevalue><![CDATA[]]></replacevalue>
+            </replace>
+          </then>
+        </if>
+        <copy file="runtime/tmp/tmpTenantData.xml" tofile="runtime/tmp/tmpFilteredTenantData.xml">
             <filterset>
                 <filter token="tenantId" value="${tenantId}"/>
                 <filter token="tenantName" value="${tenantName}"/>
@@ -989,9 +1027,10 @@ under the License.
             </filterset>
         </copy>
         <antcall target="load-file">
-            <param name="data-file" value="runtime/tmp/tmpTenantData.xml"/>
+            <param name="data-file" value="runtime/tmp/tmpFilteredTenantData.xml"/>
         </antcall>
         <delete file="runtime/tmp/tmpTenantData.xml"/>
+        <delete file="runtime/tmp/tmpFilteredTenantData.xml"/>
         <antcall target="load-tenant-data-readers"/>
         <antcall target="load-tenant-admin-user-login">
             <param name="userLoginId" value="${tenantId}-admin"/>
@@ -1002,7 +1041,19 @@ under the License.
         sub-target of create-tenant, can't used alone => no description, to not clutter "ant -p" -->
     <target name="create-tenant-on-PostgreSQL" depends="get-tenant-data" if="isPostgreSQL">
         <echo message="Installing on PostgreSQL"/>
-        <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-PostgreSQL.xml" tofile="runtime/tmp/tmpTenantData.xml">
+        <!-- Below code will handle the case of optional domain name. It will remove the TenantDomainName entry from tmpTenantData.xml file
+            if domain name is empty, so that record would not get created. -->
+        <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-PostgreSQL.xml" tofile="runtime/tmp/tmpTenantData.xml"/>
+        <if>
+          <equals arg1="${domainName}" arg2="" />
+          <then>
+            <replace file="runtime/tmp/tmpTenantData.xml">
+               <replacetoken><![CDATA[<TenantDomainName tenantId="@tenantId@" domainName="@domainName@" />]]></replacetoken>
+               <replacevalue><![CDATA[]]></replacevalue>
+            </replace>
+          </then>
+        </if>
+        <copy file="runtime/tmp/tmpTenantData.xml" tofile="runtime/tmp/tmpFilteredTenantData.xml">
             <filterset>
                 <filter token="tenantId" value="${tenantId}"/>
                 <filter token="tenantName" value="${tenantName}"/>
@@ -1013,9 +1064,10 @@ under the License.
             </filterset>
         </copy>
         <antcall target="load-file">
-            <param name="data-file" value="runtime/tmp/tmpTenantData.xml"/>
+            <param name="data-file" value="runtime/tmp/tmpFilteredTenantData.xml"/>
         </antcall>
         <delete file="runtime/tmp/tmpTenantData.xml"/>
+        <delete file="runtime/tmp/tmpFilteredTenantData.xml"/>
         <antcall target="load-tenant-data-readers"/>
         <antcall target="load-tenant-admin-user-login">
             <param name="userLoginId" value="${tenantId}-admin"/>
