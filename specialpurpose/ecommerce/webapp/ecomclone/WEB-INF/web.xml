@@ -21,8 +21,8 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - demostore</display-name>
-    <description>Cloned Demo Store for the Open For Business Project</description>
+    <display-name>Apache OFBiz - demostore</display-name>
+    <description>Cloned Demo Store for the Apache OFBiz Project</description>
 
     <context-param>
         <param-name>webSiteId</param-name>

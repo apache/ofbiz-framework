@@ -21,8 +21,8 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - Accounting Manager</display-name>
-    <description>Accounting Manager Module of the Open For Business Project</description>
+    <display-name>Apache OFBiz - Accounting Manager</display-name>
+    <description>Accounting Manager Module of the Apache OFBiz Project</description>
 
     <context-param>
         <param-name>entityDelegatorName</param-name>

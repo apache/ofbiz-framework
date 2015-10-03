@@ -105,7 +105,7 @@ public class ICalConverter {
 
     protected static final String module = ICalConverter.class.getName();
     protected static final String partyIdXParamName = "X-ORG-APACHE-OFBIZ-PARTY-ID";
-    protected static final ProdId prodId = new ProdId("-//Apache Open For Business//Work Effort Calendar//EN");
+    protected static final ProdId prodId = new ProdId("-//Apache OFBiz//Work Effort Calendar//EN");
     protected static final String workEffortIdParamName = "X-ORG-APACHE-OFBIZ-WORKEFFORT-ID";
     protected static final String uidPrefix = "ORG-APACHE-OFBIZ-WE-";
     protected static final String workEffortIdXPropName = "X-ORG-APACHE-OFBIZ-WORKEFFORT-ID";

@@ -20,7 +20,7 @@ under the License.
 -->
 
 <web-app>
-  <display-name>Open For Business - bluelight Visual Theme</display-name>
+  <display-name>Apache OFBiz - bluelight Visual Theme</display-name>
   <description>bluelight Visual Theme</description>
 
   <session-config>

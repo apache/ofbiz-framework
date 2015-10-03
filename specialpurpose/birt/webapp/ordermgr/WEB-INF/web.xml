@@ -21,8 +21,8 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - Order Manager</display-name>
-    <description>Order Manager Module of the Open For Business Project</description>
+    <display-name>Apache OFBiz - Order Manager</display-name>
+    <description>Order Manager Module of the Apache OFBiz Project</description>
 
     <context-param>
         <param-name>entityDelegatorName</param-name>

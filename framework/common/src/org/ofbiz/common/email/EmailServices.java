@@ -248,7 +248,7 @@ public class EmailServices {
             }
             mail.setFrom(new InternetAddress(sendFrom));
             mail.setSubject(subject, "UTF-8");
-            mail.setHeader("X-Mailer", "Apache OFBiz, The Apache Open For Business Project");
+            mail.setHeader("X-Mailer", "Apache OFBiz, The Open For Business Project");
             mail.setSentDate(new Date());
             mail.addRecipients(Message.RecipientType.TO, sendTo);
 

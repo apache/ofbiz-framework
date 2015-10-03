@@ -20,8 +20,8 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - eBay Store</display-name>
-    <description>eBay Store component of the Open For Business Project</description>
+    <display-name>Apache OFBiz - eBay Store</display-name>
+    <description>eBay Store component of the Apache OFBiz Project</description>
 
     <context-param>
         <param-name>webSiteId</param-name>

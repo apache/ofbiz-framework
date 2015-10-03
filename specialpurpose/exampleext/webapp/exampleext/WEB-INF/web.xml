@@ -20,8 +20,8 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - Extended Example Application</display-name>
-    <description>Extended Example Application of the Open For Business Project</description>
+    <display-name>Apache OFBiz - Extended Example Application</display-name>
+    <description>Extended Example Application of the Apache OFBiz Project</description>
 
     <context-param>
         <param-name>localDispatcherName</param-name><param-value>exampleext</param-value>

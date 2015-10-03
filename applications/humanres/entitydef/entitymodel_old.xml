@@ -20,7 +20,7 @@ under the License.
 
 <entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
-    <title>Entity of an Open For Business Project Component</title>
+    <title>Entity of an Apache OFBiz Component</title>
     <description>None</description>
     <version>1.0</version>
 

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <!--
-     * This is the DTD for the Open For Business Generic Entity Model field type definition XML file.
+     * This is the DTD for the Apache OFBiz Generic Entity Model field type definition XML file.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <!-- ====================== Root Element ======================= -->

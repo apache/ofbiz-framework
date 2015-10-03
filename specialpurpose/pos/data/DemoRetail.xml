@@ -44,7 +44,7 @@
     <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9301" contactMechPurposeTypeId="PHONE_SHIPPING" fromDate="2004-07-26 16:49:09.267"/>
 
     <ProductStore productStoreId="9100" storeName="OFBiz Physical Retail Store" companyName="Open For Business" title="Open For Retail"
-        subtitle="Part of the Open For Business Family of Open Source Software" payToPartyId="Company" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
+        subtitle="Part of the Apache OFBiz Family of Open Source Software" payToPartyId="Company" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
         inventoryFacilityId="MyRetailStore" oneInventoryFacility="Y" checkInventory="N" reserveInventory="Y"
         reserveOrderEnumId="INVRO_FIFO_REC" requireInventory="N" isImmediatelyFulfilled="Y"
         defaultLocaleString="en_US" defaultCurrencyUomId="USD" allowPassword="Y" explodeOrderItems="N" retryFailedAuths="N" manualAuthIsCapture="Y"

@@ -20,7 +20,7 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - Flat Grey Visual Theme</display-name>
+    <display-name>Apache OFBiz - Flat Grey Visual Theme</display-name>
     <description>Flat Grey Visual Theme</description>
     
     <session-config>

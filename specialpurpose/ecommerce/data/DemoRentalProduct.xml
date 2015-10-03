@@ -20,7 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <ProductStore productStoreId="RentalStore" storeName="Open Travel system Demo Site" companyName="Open Travel Ltd" title="Ready for your reservation"
-        subtitle="Part of the Open For Business Family of Open Source Software" payToPartyId="Company" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y" isImmediatelyFulfilled="Y"
+        subtitle="Part of the Apache OFBiz Family of Open Source Software" payToPartyId="Company" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y" isImmediatelyFulfilled="Y"
         inventoryFacilityId="WebStoreWarehouse" oneInventoryFacility="N" checkInventory="N" reserveInventory="N" reserveOrderEnumId="INVRO_FIFO_REC" requireInventory="N"
         defaultLocaleString="en_US" defaultCurrencyUomId="EUR" allowPassword="Y" explodeOrderItems="N" retryFailedAuths="Y"
         headerApprovedStatus="ORDER_APPROVED" itemApprovedStatus="ITEM_APPROVED" digitalItemApprovedStatus="ITEM_APPROVED" headerDeclinedStatus="ORDER_REJECTED"

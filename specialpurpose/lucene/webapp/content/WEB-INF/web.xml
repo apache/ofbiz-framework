@@ -21,8 +21,8 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - Lucene Component</display-name>
-    <description>Lucene Component of the Open For Business Project</description>
+    <display-name>Apache OFBiz - Lucene Component</display-name>
+    <description>Lucene Component of the Apache OFBiz Project</description>
 
     <!-- context-param>
         <param-name>webSiteId</param-name>

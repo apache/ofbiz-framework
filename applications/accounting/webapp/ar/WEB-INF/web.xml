@@ -21,8 +21,8 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - Account Receivable</display-name>
-    <description>Accounting Receivable Module of the Open For Business Project</description>
+    <display-name>Apache OFBiz - Account Receivable</display-name>
+    <description>Accounting Receivable Module of the Apache OFBiz Project</description>
 
     <context-param>
         <param-name>entityDelegatorName</param-name>

@@ -27,9 +27,9 @@
         <value xml:lang="zh-TW">OFBiz: Eclipse BIRT</value>
     </property>
     <property key="BirtCompanySubtitle">
-        <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
-        <value xml:lang="ja">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
+        <value xml:lang="ja">Part of the Apache OFBiz Family of Open Source Software</value>
         <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
         <value xml:lang="zh">开源软件OFBiz的组成部分</value>
         <value xml:lang="zh-TW">開源軟體OFBiz的組成部分</value>

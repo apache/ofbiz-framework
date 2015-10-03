@@ -21,7 +21,7 @@
 
 <web-app>
     <display-name>Open Oagis - Oagis Implementation</display-name>
-    <description>Oagis Implementation component of the Open For Business Project</description>
+    <description>Oagis Implementation component of the Apache OFBiz Project</description>
 
     <context-param>
         <param-name>entityDelegatorName</param-name>

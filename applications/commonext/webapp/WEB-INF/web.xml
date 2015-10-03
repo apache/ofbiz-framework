@@ -21,8 +21,8 @@ under the License.
 -->
 
 <web-app>
-  <display-name>Open For Business - Common application extension</display-name>
-  <description>Common application extension Module of the Open For Business Project</description>
+  <display-name>Apache OFBiz - Common application extension</display-name>
+  <description>Common application extension Module of the Apache OFBiz Project</description>
 
   <context-param>
     <param-name>entityDelegatorName</param-name>

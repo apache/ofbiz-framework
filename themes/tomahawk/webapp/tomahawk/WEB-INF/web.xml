@@ -20,7 +20,7 @@ under the License.
 -->
 
 <web-app>
-  <display-name>Open For Business - Tomahawk Visual Theme</display-name>
+  <display-name>Apache OFBiz - Tomahawk Visual Theme</display-name>
   <description>Tomahawk Visual Theme</description>
 
   <session-config>

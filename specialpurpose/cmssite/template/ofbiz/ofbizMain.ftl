@@ -34,7 +34,7 @@ under the License.
 
       <div id="intro">
         <h2>Introduction: What is Apache OFBiz?</h2>
-        <p>The Apache Open For Business Project is an open source enterprise
+        <p>The Apache OFBiz Project is an open source enterprise
         automation software project licensed under the Apache License Version 2.0. By open source enterprise automation we mean:
         Open Source ERP, Open Source CRM, Open Source E-Business / E-Commerce, Open Source SCM, Open Source MRP,
         Open Source CMMS/EAM, and so on.</p>
@@ -173,7 +173,7 @@ under the License.
 
 
         <p>The 2006 OFBiz Users Conference turned out Great! The video recordings are available <a href="VideosConf.html">here</a>.</p>
-        <p>The <b>2006 Open For Business Users Conference</b> was held in Ephraim, UT, USA on the 3rd and 4th of November, 2006.
+        <p>The <b>2006 OFBiz Users Conference</b> was held in Ephraim, UT, USA on the 3rd and 4th of November, 2006.
               Special thanks to <a href="http://www.automationgroups.com" target="_blank">Automation Groups</a> for hosting the conference this year.
         </p>
 
@@ -188,7 +188,7 @@ under the License.
         <p>The 2005 OFBiz Users Conference turned out Great! The video recordings are available <a href="VideosConf.html">here</a>.</p>
 
 
-        <p>The <b>2005 Open For Business Users Conference</b> was held in St. Louis, MO, USA on the 21st and 22nd of July, 2005.
+        <p>The <b>2005 OFBiz Users Conference</b> was held in St. Louis, MO, USA on the 21st and 22nd of July, 2005.
         Special thanks to <a href="http://www.contegix.com" target="_blank">Contegix</a> for hosting the conference this year.
          <a href="http://www.hotwaxmedia.com/?atc=OFB">Hotwax Media</a> teamed up with Contegix to offer 2 days of training prior to the conference (on July 19-20).
         For details and registration information please see the <a href="http://lists.ofbiz.org/pipermail/users/2005-May/007887.html" target="_blank">official announcement</a> on the OFBiz Users mailing list,
@@ -211,7 +211,7 @@ under the License.
         <a href="http://today.java.net/pub/a/today/2004/06/01/ofbiz.html" target="_blank">Read it here.</a>
         </p>
 
-        <p>The <b>2004 Open For Business Users Conference</b> was
+        <p>The <b>2004 OFBiz Users Conference</b> was
         held in Minneapolis, MN, USA on the 27th and 28th of May, 2004. It was
         hosted by <a href="http://www.go-integral.com" target="_blank">Integral Business Solutions</a>
         and held in a contributed room on the new Best Buy campus. Just like
