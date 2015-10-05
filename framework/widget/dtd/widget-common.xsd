@@ -607,14 +607,13 @@ under the License.
                             <xs:documentation>
                                 If selected the hidden-form type will be used if the url-mode is intra-app
                                 and the request specified has an event, otherwise the anchor type will be used,
-                                except if the ajax-window mode is specified.
+                                except if the layered-modal mode is specified.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
                     <xs:enumeration value="anchor" />
                     <xs:enumeration value="hidden-form" />
-                        <!-- FIXME: This is not a link type. It indicates the target window should be a popup dialog. -->
-                    <xs:enumeration value="ajax-window" />
+                    <xs:enumeration value="layered-modal" />
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>

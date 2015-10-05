@@ -91,7 +91,7 @@ under the License.
 </#macro>
 
 <#macro renderLink parameterList targetWindow target uniqueItemName linkType actionUrl id style name height width linkUrl text imgStr>
-    <#if "ajax-window" != linkType>
+    <#if "layered-modal" != linkType>
         <#if "hidden-form" == linkType>
             <form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${uniqueItemName}"><#rt/>
                 <#list parameterList as parameter>

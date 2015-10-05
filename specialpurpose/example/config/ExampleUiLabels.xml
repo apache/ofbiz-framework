@@ -647,6 +647,10 @@
         <value xml:lang="zh">分层的查找数据项（仅用于测试）</value>
         <value xml:lang="zh-TW">階層式尋找資料項目(僅用於測試)</value>
     </property>
+    <property key="ExampleLinks">
+        <value xml:lang="en">Links</value>
+        <value xml:lang="fr">Liens</value>
+    </property>
     <property key="ExampleLongDescription">
         <value xml:lang="en">Long Description</value>
         <value xml:lang="it">Descrizione lunga</value>

@@ -32,6 +32,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 import java.util.WeakHashMap;
 
 import javax.servlet.ServletContext;
@@ -313,6 +314,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request.setAttribute("imageTitle", encodedImageTitle);
         this.request.setAttribute("descriptionSize", hyperlinkField.getSize());
         this.request.setAttribute("id", hyperlinkField.getId(context));
+        this.request.setAttribute("width", hyperlinkField.getWidth());
+        this.request.setAttribute("height", hyperlinkField.getHeight());
         makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getUrlMode(), hyperlinkField.getTarget(context), hyperlinkField.getParameterMap(context), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context),
                 hyperlinkField.getConfirmation(context), modelFormField, this.request, this.response, context);
         this.appendTooltip(writer, context, modelFormField);
@@ -2998,6 +3001,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
             return;
         }
         if (subHyperlink.shouldUse(context)) {
+            if (UtilValidate.isNotEmpty(subHyperlink.getWidth())) this.request.setAttribute("width", subHyperlink.getWidth());
+            if (UtilValidate.isNotEmpty(subHyperlink.getHeight())) this.request.setAttribute("height", subHyperlink.getHeight());
             writer.append(' ');
             makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getStyle(context), subHyperlink.getUrlMode(),
                     subHyperlink.getTarget(context), subHyperlink.getParameterMap(context), subHyperlink.getDescription(context),
@@ -3065,9 +3070,27 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, encodedDescription, confirmation, modelFormField, request, response, context);
             }
         } else {
-            makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, encodedDescription, confirmation, modelFormField, request, response, context, targetWindow);
+            if ("layered-modal".equals(realLinkType)) {
+                String uniqueItemName = "Modal_".concat(UUID.randomUUID().toString());
+                String width = (String) this.request.getAttribute("width");
+                if (UtilValidate.isEmpty(width)) {
+                    width = String.valueOf(UtilProperties.getPropertyValue("widget.properties", "widget.link.default.layered-modal.width", "800"));
+                    this.request.setAttribute("width", width);
+                }
+                String height = (String) this.request.getAttribute("height");
+                if (UtilValidate.isEmpty(height)) {
+                    height = String.valueOf(UtilProperties.getPropertyValue("widget.properties", "widget.link.default.layered-modal.height", "600"));
+                    this.request.setAttribute("height", height);
+                }
+                this.request.setAttribute("uniqueItemName", uniqueItemName);
+                makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, encodedDescription, confirmation, modelFormField, request, response, context, targetWindow);
+                this.request.removeAttribute("uniqueItemName");
+                this.request.removeAttribute("height");
+                this.request.removeAttribute("width");
+            } else {
+                makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, encodedDescription, confirmation, modelFormField, request, response, context, targetWindow);
+            }
         }
-
     }
 
     public void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, Map<String, String> parameterMap, String description, String confirmation, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context,
@@ -3080,6 +3103,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
             String imgSrc = "";
             String alt = "";
             String id = "";
+            String uniqueItemName = "";
+            String width = "";
+            String height = "";
             String imgTitle = "";
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
             if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
@@ -3109,6 +3135,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
             if (UtilValidate.isNotEmpty(request.getAttribute("id"))) {
                 id = request.getAttribute("id").toString();
             }
+            if (UtilValidate.isNotEmpty(request.getAttribute("uniqueItemName"))) {
+                uniqueItemName = request.getAttribute("uniqueItemName").toString();
+                width = request.getAttribute("width").toString();
+                height = request.getAttribute("height").toString();
+            }
             StringWriter sr = new StringWriter();
             sr.append("<@makeHyperlinkString ");
             sr.append("linkStyle=\"");
@@ -3133,6 +3164,12 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append(description);
             sr.append("\" confirmation =\"");
             sr.append(confirmation);
+            sr.append("\" uniqueItemName=\"");
+            sr.append(uniqueItemName);
+            sr.append("\" height=\"");
+            sr.append(height);
+            sr.append("\" width=\"");
+            sr.append(width);
             sr.append("\" id=\"");
             sr.append(id);
             sr.append("\" />");

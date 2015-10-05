@@ -82,7 +82,7 @@ under the License.
         <auto-fields-service service-name="updateExampleFeatureAppl"/>
         <field name="exampleId" title="${uiLabelMap.ExampleExample}">
             <display-entity entity-name="Example" description="${exampleName}">
-                <sub-hyperlink target="EditExample" description="${exampleId}" link-style="buttontext">
+                <sub-hyperlink target="EditExampleLayer" description="${exampleId}" link-style="buttontext" link-type="layered-modal">
                     <parameter param-name="exampleId"/>
                 </sub-hyperlink>
             </display-entity>

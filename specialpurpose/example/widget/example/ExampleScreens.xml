@@ -43,8 +43,8 @@ under the License.
                             </condition>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="menu-bar"><label>${formExampleListName}</label>
-                                        <container style="button-bar"><link target="EditExampleLayer" link-type="ajax-window" height="500" width="500" text="${uiLabelMap.ExampleNewExample}" style="buttontext create"/></container>
+                                    <decorator-section name="menu-bar">
+                                        <container style="button-bar"><link target="EditExampleLayer" link-type="layered-modal" text="${uiLabelMap.ExampleNewExample}" style="buttontext create"/></container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindExamples" location="component://example/widget/example/ExampleForms.xml"/>
