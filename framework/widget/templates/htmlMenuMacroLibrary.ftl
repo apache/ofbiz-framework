@@ -54,11 +54,48 @@ under the License.
     </#list>
 </form><#rt/>
   </#if>
+  <#if uniqueItemName?has_content && "layered-modal" == linkType>
+<div id="${uniqueItemName}"></div>
+<a href="javascript:void(0);" id="${uniqueItemName}_link" 
+    <#if style?has_content>class="${style}"</#if>>
+    <#if text?has_content>${text}</#if></a>
+<script type="text/javascript">
+    function getRequestData () {
+        var data =  {
+                   <#--list parameterList as parameter>
+                        "${parameter.name}": "${parameter.value}",
+                    </#list-->
+                    "presentation": "layer"
+                };
+                return data;
+            }
+            jQuery("#${uniqueItemName}_link").click(function () {
+                jQuery("#${uniqueItemName}").dialog("open");
+            });
+            jQuery("#${uniqueItemName}").dialog({
+                 autoOpen: false,
+                 <#if text?has_content>title: "${text}",</#if>
+                 height: <#if height == "">600<#else>${height}</#if>,
+                 width: <#if width == "">800<#else>${width}</#if>,
+                 modal: true,
+                 closeOnEscape: true,
+                 open: function() {
+                         jQuery.ajax({
+                             url: "${linkUrl}",
+                             type: "POST",
+                             data: getRequestData(),
+                             success: function(data) {jQuery("#${uniqueItemName}").html(data);}
+                         });
+                 }
+            });
+      </script>
+  <#else>
 <#if (linkType?has_content && "hidden-form" == linkType) || linkUrl?has_content>
 <a<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if><#if name?has_content> name="${name}"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if> href="<#if "hidden-form"==linkType>javascript:document.${uniqueItemName}.submit()<#else>${linkUrl}</#if>"><#rt/>
 </#if>
 <#if imgStr?has_content>${imgStr}</#if><#if text?has_content>${text}</#if><#rt/>
 <#if (linkType?has_content && "hidden-form" == linkType) || linkUrl?has_content></a><#rt/></#if>
+  </#if>
 </#macro>
 
 <#macro renderMenuItemBegin style toolTip linkStr containsNestedMenus>

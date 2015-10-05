@@ -358,7 +358,9 @@ public final class CommonWidgetModels {
                     this.image = null;
                 }
             }
-            this.linkType = linkElement.getAttribute("link-type");
+            //Backwards compatibility 
+            if ("ajax-window".equals(linkElement.getAttribute("link-type"))) this.linkType = "layered-modal";
+            else this.linkType = linkElement.getAttribute("link-type");
             List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
             if (parameterElementList.isEmpty()) {
                 this.parameterList = Collections.emptyList();

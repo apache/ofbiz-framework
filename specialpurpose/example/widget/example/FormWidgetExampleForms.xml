@@ -394,4 +394,13 @@ under the License.
         </field>
     </form>
 
+     <form name="LinksExampleForm" type="single">
+        <!-- ************************ -->
+        <!-- ***   Layered-modal  *** -->
+        <!-- ************************ -->
+        <field name="emptyField0" title=" "><display/></field>
+        <field name="newExample" title=" " widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.ExampleNewExample}" target="EditExampleLayer" link-type="layered-modal"/>
+        </field>
+    </form>
 </forms>

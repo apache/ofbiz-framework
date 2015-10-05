@@ -134,6 +134,11 @@ under the License.
         <actions>
             <entity-condition entity-name="Example"><order-by field-name="exampleName"/></entity-condition>
         </actions>
+        <field name="exampleId" title="${uiLabelMap.ExampleExampleId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${exampleId}" target="EditExampleLayer" link-type="layered-modal">
+                <parameter param-name="exampleId"/>
+            </hyperlink>
+        </field>
         <field name="exampleName" title="${uiLabelMap.CommonName}" id-name="exampleName">
             <display>
                 <in-place-editor url="/example/control/updateExample" cancel-control="button" saving-text="Updating..." text-between-controls=" ">

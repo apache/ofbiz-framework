@@ -226,7 +226,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         String linkUrl = "";
         String actionUrl = "";
         StringBuilder targetParameters = new StringBuilder();
-        if ("hidden-form".equals(linkType) || "ajax-window".equals(linkType)) {
+        if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
             StringBuilder sb = new StringBuilder();
             WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), null, link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
             actionUrl = sb.toString();

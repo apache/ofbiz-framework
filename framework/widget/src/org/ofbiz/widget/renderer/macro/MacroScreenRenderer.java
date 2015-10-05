@@ -235,13 +235,13 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         StringBuilder parameters = new StringBuilder();
         String width = link.getWidth();
         if (UtilValidate.isEmpty(width)) {
-            width = "300";
+            width = String.valueOf(UtilProperties.getPropertyValue("widget.properties", "widget.link.default.layered-modal.width", "800"));
         }
         String height = link.getHeight();
         if (UtilValidate.isEmpty(height)) {
-            height = "200";
+            height = String.valueOf(UtilProperties.getPropertyValue("widget.properties", "widget.link.default.layered-modal.height", "600"));
         }
-        if ("hidden-form".equals(linkType) || "ajax-window".equals(linkType)) {
+        if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
             StringBuilder sb = new StringBuilder();
             WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), null, link.getPrefix(context),
                     link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);

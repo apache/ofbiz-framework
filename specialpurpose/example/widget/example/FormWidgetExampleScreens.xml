@@ -115,6 +115,15 @@ under the License.
                                     </container>
                                 </container>
                                 <container style="screenlet-body">
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleLinks}</label></container>
+                                    <container style="screenlet-body">
+                                        <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
+                                        <label>${uiLabelMap.ExampleDefinitionName} &quot;LinksExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
+                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/specialpurpose/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                        <include-form name="LinksExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
                                     <container style="button-bar"><label style="h2">${uiLabelMap.ExamplePrintButton}</label></container>
                                     <container style="screenlet-body">
                                         <label>${uiLabelMap.ExampleFopFonts}</label>
