@@ -103,6 +103,7 @@ sammy.get
                           data: {
                             title : file,
                             attr : {
+                              title : file,
                               href : '#/' + current_core + '/files?file=' + prefix + file
                             }
                           },
@@ -161,7 +162,7 @@ sammy.get
 
           var endpoint = file_endpoint + '?file=' + selected_file;
 
-          var content_type_map = { xml : 'text/xml', html : 'text/html', js : 'text/javascript' };
+          var content_type_map = { xml : 'text/xml', html : 'text/html', js : 'text/javascript', json : 'application/json', 'css' : 'text/css' };
           var file_ext = selected_file.match( /\.(\w+)$/  );
           endpoint += '&contentType=' + ( content_type_map[ file_ext[1] || '' ] || 'text/plain' ) + ';charset=utf-8';
 
@@ -209,6 +210,14 @@ sammy.get
                   {
                     highlight = 'javascript';
                   }
+                  else if( 0 === content_type.indexOf( 'text/css' ) )
+                  {
+                    highlight = 'css';
+                  }
+                  else if( 0 === content_type.indexOf( 'application/json' ) )
+                  {
+                    highlight = 'json';
+                  }
 
                   var code = $(
                     '<pre class="syntax' + ( highlight ? ' language-' + highlight : '' )+ '"><code>' +
@@ -228,6 +237,10 @@ sammy.get
                 },
                 error : function( xhr, text_status, error_thrown)
                 {
+                  /** OFBiz customization **/
+                  if (error_thrown == "Unauthorized" || error_thrown == "Forbidden") {
+                    context.redirect( 'control/checkLogin' );
+                  }
                   $( '.view-file .response', this )
                     .text( 'No such file exists.' );
                 },

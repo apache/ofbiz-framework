@@ -51,7 +51,7 @@ public class DocumentIndexer extends Thread {
     private DocumentIndexer(Delegator delegator, String indexName) {
         this.delegator = delegator;
         try {
-            this.indexDirectory = FSDirectory.open(new File(SearchWorker.getIndexPath(indexName)));
+            this.indexDirectory = FSDirectory.open(new File(SearchWorker.getIndexPath(indexName)).toPath());
         } catch (CorruptIndexException e) {
             Debug.logError("Corrupted lucene index: "  + e.getMessage(), module);
         } catch (LockObtainFailedException e) {
@@ -98,7 +98,9 @@ public class DocumentIndexer extends Thread {
             Document document = ofbizDocument.prepareDocument(this.delegator);
             if (indexWriter == null) {
                 try {
-                    indexWriter  = new IndexWriter(this.indexDirectory, new IndexWriterConfig(SearchWorker.LUCENE_VERSION, new StandardAnalyzer(SearchWorker.LUCENE_VERSION)));
+                	StandardAnalyzer analyzer = new StandardAnalyzer();
+                	analyzer.setVersion(SearchWorker.LUCENE_VERSION);
+                    indexWriter  = new IndexWriter(this.indexDirectory, new IndexWriterConfig(analyzer));
                 } catch (CorruptIndexException e) {
                     Debug.logError("Corrupted lucene index: "  + e.getMessage(), module);
                     break;

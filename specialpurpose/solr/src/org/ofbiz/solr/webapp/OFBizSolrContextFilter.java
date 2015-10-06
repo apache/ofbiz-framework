@@ -27,6 +27,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.FilterChain;
@@ -39,9 +40,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.solr.core.ConfigSolr;
+import org.apache.solr.core.NodeConfig;
+import org.apache.solr.common.SolrException;
 import org.apache.solr.core.CoreContainer;
-import org.apache.solr.core.SolrResourceLoader;
 import org.apache.solr.servlet.SolrDispatchFilter;
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.JSONConverters.MapToJSON;
@@ -179,7 +180,8 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
         } else {
             // check if the request is from an authorized user
             if (UtilValidate.isNotEmpty(servletPath) && (servletPath.startsWith("/admin/") || servletPath.endsWith("/update") 
-                    || servletPath.endsWith("/update/json") || servletPath.endsWith("/update/csv") || servletPath.endsWith("/update/extract"))) {
+                    || servletPath.endsWith("/update/json") || servletPath.endsWith("/update/csv") || servletPath.endsWith("/update/extract")
+            		|| servletPath.endsWith("/replication") || servletPath.endsWith("/file") || servletPath.endsWith("/file/"))) {
                 HttpSession session = httpRequest.getSession();
                 GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
                 Security security = (Security) request.getAttribute("security");
@@ -199,9 +201,10 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                     response.setContentType("application/json");
                     MapToJSON mapToJson = new MapToJSON();
                     JSON json;
+                    OutputStream os = null;
                     try {
                         json = mapToJson.convert(UtilMisc.toMap("ofbizLogin", (Object) "true"));
-                        OutputStream os = response.getOutputStream();
+                        os = response.getOutputStream();
                         os.write(json.toString().getBytes());
                         os.flush();
                         String message = "";
@@ -213,6 +216,10 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                         Debug.logInfo("[" + httpRequest.getRequestURI().substring(1) + "(Domain:" + request.getScheme() + "://" + request.getServerName() + ")] Request error: " + message, module);
                     } catch (ConversionException e) {
                         Debug.logError("Error while converting Solr ofbizLogin map to JSON.", module);
+                    } finally {
+                    	if (os != null) {
+                    		os.close();
+                    	}
                     }
                     return;
                 } else if (servletPath.endsWith("/update") || servletPath.endsWith("/update/json") || servletPath.endsWith("/update/csv") || servletPath.endsWith("/update/extract")) {
@@ -224,8 +231,9 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                         Map<String, Object> responseHeader = new HashMap<String, Object>();
                         JSON json;
                         String message = "";
+                        OutputStream os = null;
                         try {
-                            OutputStream os = httpResponse.getOutputStream();
+                            os = httpResponse.getOutputStream();
                             if (UtilValidate.isEmpty(userLogin)) {
                                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                                 responseHeader.put("status", HttpServletResponse.SC_UNAUTHORIZED);
@@ -243,6 +251,80 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                             Debug.logInfo("[" + httpRequest.getRequestURI().substring(1) + "(Domain:" + request.getScheme() + "://" + request.getServerName() + ")] Request error: " + message, module);
                         } catch (ConversionException e) {
                             Debug.logError("Error while converting responseHeader map to JSON.", module);
+                        } finally {
+                        	if (os != null) {
+                        		os.close();
+                        	}
+                        }
+                        return;
+                    }
+                } else if (servletPath.endsWith("/replication")) {
+                    // get the Solr index name from the request
+                    if (UtilValidate.isEmpty(userLogin) || !LoginWorker.hasBasePermission(userLogin, httpRequest)) {
+                        httpResponse.setContentType("application/json");
+                        MapToJSON mapToJson = new MapToJSON();
+                        Map<String, Object> responseHeader = new HashMap<String, Object>();
+                        JSON json;
+                        String message = "";
+                        OutputStream os = null;
+                        try {
+                            os = httpResponse.getOutputStream();
+                            if (UtilValidate.isEmpty(userLogin)) {
+                                httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                                responseHeader.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+                                message = "To enable/disable replication of a Solr index in OFBiz, you have to login first and have the permission to do so.";
+                                responseHeader.put("message", message);
+                            } else {
+                                httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                responseHeader.put("status", HttpServletResponse.SC_FORBIDDEN);
+                                message = "To enable/disable replication of a Solr index in OFBiz, you have to have the permission to do so.";
+                                responseHeader.put("message", message);
+                            }
+                            json = mapToJson.convert(UtilMisc.toMap("responseHeader", (Object) responseHeader));
+                            os.write(json.toString().getBytes());
+                            os.flush();
+                            Debug.logInfo("[" + httpRequest.getRequestURI().substring(1) + "(Domain:" + request.getScheme() + "://" + request.getServerName() + ")] Request error: " + message, module);
+                        } catch (ConversionException e) {
+                            Debug.logError("Error while converting responseHeader map to JSON.", module);
+                        } finally {
+                        	if (os != null) {
+                        		os.close();
+                        	}
+                        }
+                        return;
+                    }
+                } else if (servletPath.endsWith("/file") || servletPath.endsWith("/file/")) {
+                    // get the Solr index name from the request
+                    if (UtilValidate.isEmpty(userLogin) || !LoginWorker.hasBasePermission(userLogin, httpRequest)) {
+                        httpResponse.setContentType("application/json");
+                        MapToJSON mapToJson = new MapToJSON();
+                        Map<String, Object> responseHeader = new HashMap<String, Object>();
+                        JSON json;
+                        String message = "";
+                        OutputStream os = null;
+                        try {
+                            os = httpResponse.getOutputStream();
+                            if (UtilValidate.isEmpty(userLogin)) {
+                                httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                                responseHeader.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+                                message = "To view files of a Solr index in OFBiz, you have to login first and have the permission to do so.";
+                                responseHeader.put("message", message);
+                            } else {
+                                httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                                responseHeader.put("status", HttpServletResponse.SC_FORBIDDEN);
+                                message = "To view files of a Solr index in OFBiz, you have to have the permission to do so.";
+                                responseHeader.put("message", message);
+                            }
+                            json = mapToJson.convert(UtilMisc.toMap("responseHeader", (Object) responseHeader));
+                            os.write(json.toString().getBytes());
+                            os.flush();
+                            Debug.logInfo("[" + httpRequest.getRequestURI().substring(1) + "(Domain:" + request.getScheme() + "://" + request.getServerName() + ")] Request error: " + message, module);
+                        } catch (ConversionException e) {
+                            Debug.logError("Error while converting responseHeader map to JSON.", module);
+                        } finally {
+                        	if (os != null) {
+                        		os.close();
+                        	}
                         }
                         return;
                     }
@@ -561,10 +643,14 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
      * Override this to change CoreContainer initialization
      * @return a CoreContainer to hold this server's cores
      */
-    protected CoreContainer createCoreContainer() {
-        SolrResourceLoader loader = new SolrResourceLoader("specialpurpose/solr/conf");
-        ConfigSolr config = ConfigSolr.fromSolrHome(loader, loader.getInstanceDir());
-        CoreContainer cores = new CoreContainer(loader, config);
+    protected CoreContainer createCoreContainer(String solrHome, Properties extraProperties) {
+        NodeConfig nodeConfig = null;
+        try {
+            nodeConfig = loadNodeConfig(solrHome, extraProperties);
+        } catch (SolrException e) {
+            nodeConfig = loadNodeConfig("specialpurpose/solr/home", extraProperties);
+        }
+        cores = new CoreContainer(nodeConfig, extraProperties, true);
         cores.load();
         return cores;
     }

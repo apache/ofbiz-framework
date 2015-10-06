@@ -45,7 +45,7 @@ sammy.bind
               dataimport_handlers.push( key );
             }
           }
-          params.callback( dataimport_handlers );
+          params.callback( dataimport_handlers.sort(naturalSort) );
         },
         error : function( xhr, text_status, error_thrown)
         {
@@ -350,7 +350,7 @@ sammy.get
                 {
                   url : handler_url + '?command=abort&wt=json',
                   dataType : 'json',
-                  type: 'POST',
+                  type: 'GET',
                   context: $( this ),
                   beforeSend : function( xhr, settings )
                   {
