@@ -35,7 +35,7 @@ import javolution.util.FastMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -112,7 +112,7 @@ public abstract class SolrProductSearch {
      * Adds product to solr index.
      */
     public static Map<String, Object> addToSolrIndex(DispatchContext dctx, Map<String, Object> context) throws GenericEntityException {
-        HttpSolrServer server = null;
+        HttpSolrClient client = null;
         Map<String, Object> result;
         String productId = (String) context.get("productId");
         // connectErrorNonFatal is a necessary option because in some cases it may be considered normal that solr server is unavailable;
@@ -121,7 +121,7 @@ public abstract class SolrProductSearch {
         try {
             Debug.logInfo("Solr: Generating and indexing document for productId '" + productId + "'", module);
             
-            server = new HttpSolrServer(SolrUtil.solrUrl);
+            client = new HttpSolrClient(SolrUtil.solrUrl);
             //Debug.log(server.ping().toString());
 
             // Construct Documents
@@ -135,8 +135,8 @@ public abstract class SolrProductSearch {
             docs.add(doc1);
 
             // push Documents to server
-            server.add(docs);
-            server.commit();
+            client.add(docs);
+            client.commit();
             
             final String statusStr = "Document for productId " + productId + " added to solr index";
             Debug.logInfo("Solr: " + statusStr, module);
@@ -168,6 +168,14 @@ public abstract class SolrProductSearch {
             Debug.logError(e, e.getMessage(), module);
             result = ServiceUtil.returnError(e.toString());
             result.put("errorType", "ioError");
+        } finally {
+            if (client != null) {
+                try {
+                    client.close();
+                } catch (IOException e) {
+                    // do nothing
+                }
+            }
         }
         return result;
     }
@@ -178,7 +186,7 @@ public abstract class SolrProductSearch {
      * This is faster than reflushing the index each time.
      */
     public static Map<String, Object> addListToSolrIndex(DispatchContext dctx, Map<String, Object> context) throws GenericEntityException {
-        HttpSolrServer server = null;
+        HttpSolrClient client = null;
         Map<String, Object> result;
         Boolean treatConnectErrorNonFatal = (Boolean) context.get("treatConnectErrorNonFatal");
         try {
@@ -197,9 +205,9 @@ public abstract class SolrProductSearch {
                 docs.add(doc1);
             }
             // push Documents to server
-            server = new HttpSolrServer(SolrUtil.solrUrl);
-            server.add(docs);
-            server.commit();
+            client = new HttpSolrClient(SolrUtil.solrUrl);
+            client.add(docs);
+            client.commit();
             
             final String statusStr = "Added " + fieldList.size() + " documents to solr index";
             Debug.logInfo("Solr: " + statusStr, module);
@@ -230,6 +238,14 @@ public abstract class SolrProductSearch {
             Debug.logError(e, e.getMessage(), module);
             result = ServiceUtil.returnError(e.toString());
             result.put("errorType", "ioError");
+        } finally {
+            if (client != null) {
+                try {
+                    client.close();
+                } catch (IOException e) {
+                    // do nothing
+                }
+            }
         }
         return result;
     }
@@ -242,10 +258,10 @@ public abstract class SolrProductSearch {
      */
     public static Map<String, Object> runSolrQuery(DispatchContext dctx, Map<String, Object> context) {
         // get Connection
-        HttpSolrServer server = null;
+        HttpSolrClient client = null;
         Map<String, Object> result;
         try {
-            server = new HttpSolrServer(SolrUtil.solrUrl);
+            client = new HttpSolrClient(SolrUtil.solrUrl);
             // create Query Object
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setQuery((String) context.get("query"));
@@ -324,12 +340,20 @@ public abstract class SolrProductSearch {
                 solrQuery.addFacetQuery((String) context.get("facetQuery"));
             }
 
-            QueryResponse rsp = server.query(solrQuery);
+            QueryResponse rsp = client.query(solrQuery);
             result = ServiceUtil.returnSuccess();
             result.put("queryResult", rsp);
         } catch (Exception e) {
             Debug.logError(e, e.getMessage(), module);
             result = ServiceUtil.returnError(e.toString());
+        } finally {
+            if (client != null) {
+                try {
+                    client.close();
+                } catch (IOException e) {
+                    // do nothing
+                }
+            }
         }
         return result;
     }
@@ -584,7 +608,7 @@ public abstract class SolrProductSearch {
      * Rebuilds the solr index.
      */
     public static Map<String, Object> rebuildSolrIndex(DispatchContext dctx, Map<String, Object> context) throws GenericEntityException {
-        HttpSolrServer server = null;
+        HttpSolrClient client = null;
         Map<String, Object> result;
         GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -594,7 +618,7 @@ public abstract class SolrProductSearch {
         Boolean treatConnectErrorNonFatal = (Boolean) context.get("treatConnectErrorNonFatal");
         
         try {
-            server = new HttpSolrServer(SolrUtil.solrUrl);
+            client = new HttpSolrClient(SolrUtil.solrUrl);
 
             // now lets fetch all products
             List<Map<String, Object>> solrDocs = FastList.newInstance();
@@ -614,8 +638,8 @@ public abstract class SolrProductSearch {
             }
 
             // this removes everything from the index
-            server.deleteByQuery("*:*");
-            server.commit();
+            client.deleteByQuery("*:*");
+            client.commit();
 
             // THis adds all products to the Index (instantly)
             Map<String, Object> runResult = dispatcher.runSync("addListToSolrIndex", UtilMisc.toMap("fieldList", solrDocs, "userLogin", userLogin, 
@@ -669,6 +693,14 @@ public abstract class SolrProductSearch {
         } catch (Exception e) {
             Debug.logError(e, e.getMessage(), module);
             result = ServiceUtil.returnError(e.toString());
+        } finally {
+            if (client != null) {
+                try {
+                    client.close();
+                } catch (IOException e) {
+                    // do nothing
+                }
+            }
         }
         return result;
     }

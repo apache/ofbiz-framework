@@ -144,6 +144,8 @@ var sammy = $.sammy
 
           this.active_core = active_element;
         }
+
+        check_fixed_menu();
       }
     );
   }
@@ -390,7 +392,8 @@ var solr_admin = function( app_config )
                     '<li class="plugins"><a href="#/' + core_name + '/plugins"><span>Plugins / Stats</span></a></li>' + "\n" +
                     '<li class="query"><a href="#/' + core_name + '/query"><span>Query</span></a></li>' + "\n" +
                     '<li class="replication"><a href="#/' + core_name + '/replication"><span>Replication</span></a></li>' + "\n" +
-                    '<li class="schema-browser"><a href="#/' + core_name + '/schema-browser"><span>Schema Browser</span></a></li>'
+                    '<li class="schema-browser"><a href="#/' + core_name + '/schema-browser"><span>Schema Browser</span></a></li>' +
+                    '<li class="segments"><a href="#/' + core_name + '/segments"><span>Segments info</span></a></li>'
                   )
                   .show();
 
@@ -402,6 +405,9 @@ var solr_admin = function( app_config )
                 }
               }
             );
+
+          check_fixed_menu();
+          $( window ).resize( check_fixed_menu );
 
           var system_url = config.solr_path + '/admin/info/system?wt=json';
           $.ajax
@@ -593,6 +599,11 @@ var solr_admin = function( app_config )
       sep[ browser.locale ] || sep[ browser.language ] || sep['_']
     );
   };
+
+  check_fixed_menu = function check_fixed_menu()
+  {
+    $( '#wrapper' ).toggleClass( 'scroll', $( window ).height() < $( '#menu-wrapper' ).height() + $( '#header' ).height() + 40 );
+  }
 
 };
 

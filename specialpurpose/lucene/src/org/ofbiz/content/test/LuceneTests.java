@@ -68,7 +68,7 @@ public class LuceneTests extends OFBizTestCase {
         try {
             Thread.sleep(3000); // sleep 3 seconds to give enough time to the indexer to process the entries
         } catch(Exception e) {}
-        Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath("content")));
+        Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath("content")).toPath());
         DirectoryReader r = null;
         try {
             r = DirectoryReader.open(directory);
@@ -76,17 +76,19 @@ public class LuceneTests extends OFBizTestCase {
             fail("Could not open search index: " + directory);
         }
 
-        BooleanQuery combQuery = new BooleanQuery();
+        BooleanQuery.Builder combQueryBuilder = new BooleanQuery.Builder();
         String queryLine = "hand";
 
         IndexSearcher searcher = new IndexSearcher(r);
-        Analyzer analyzer = new StandardAnalyzer(SearchWorker.LUCENE_VERSION);
+        Analyzer analyzer = new StandardAnalyzer();
+        analyzer.setVersion(SearchWorker.LUCENE_VERSION);
 
-        QueryParser parser = new QueryParser(SearchWorker.LUCENE_VERSION, "content", analyzer);
+        QueryParser parser = new QueryParser("content", analyzer);
         Query query = parser.parse(queryLine);
-        combQuery.add(query, BooleanClause.Occur.MUST);
+        combQueryBuilder.add(query, BooleanClause.Occur.MUST);
+        BooleanQuery combQuery = combQueryBuilder.build();
 
-        TopScoreDocCollector collector = TopScoreDocCollector.create(10, false);
+        TopScoreDocCollector collector = TopScoreDocCollector.create(10);
         searcher.search(combQuery, collector);
 
         assertEquals("Only 1 result expected from the testdata", 1, collector.getTotalHits());

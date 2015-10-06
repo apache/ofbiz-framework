@@ -23,22 +23,22 @@
     <context-param>
         <param-name>entityDelegatorName</param-name>
         <param-value>default</param-value>
-        <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
+        <!-- The Name of the Entity Delegator to use, defined in entityengine.xml -->
     </context-param>
     <context-param>
         <param-name>localDispatcherName</param-name>
         <param-value>solr</param-value>
-        <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
+        <!-- A unique name used to identify/recognize the local dispatcher for the Service Engine -->
     </context-param>
     <context-param>
         <param-name>mainDecoratorLocation</param-name>
         <param-value>component://content/widget/CommonScreens.xml</param-value>
-        <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
+        <!-- The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files. -->
     </context-param>
     <context-param>
         <param-name>partyDecoratorLocation</param-name>
         <param-value>component://content/widget/CommonScreens.xml</param-value>
-        <description>The location of the CommonPartyDecorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
+        <!-- The location of the CommonPartyDecorator screen to use for this webapp; referred to as a context variable in screen def XML files. -->
     </context-param>
 
     <filter>
@@ -76,8 +76,7 @@
     
     <servlet>
         <servlet-name>ControlServlet</servlet-name>
-        <display-name>ControlServlet</display-name>
-        <description>Main Control Servlet</description>
+        <!-- Main Control Servlet -->
         <servlet-class>org.ofbiz.webapp.control.ControlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -139,15 +138,6 @@
         </init-param>
     </servlet>
 
-    <servlet>
-        <servlet-name>SolrConfigRestApi</servlet-name>
-        <servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
-        <init-param>
-            <param-name>org.restlet.application</param-name>
-            <param-value>org.apache.solr.rest.SolrConfigRestApi</param-value>
-        </init-param>
-    </servlet>
-  
     <servlet-mapping>
         <servlet-name>RedirectOldAdminUI</servlet-name>
         <url-pattern>/admin/</url-pattern>
@@ -180,13 +170,8 @@
         <url-pattern>/schema/*</url-pattern>
     </servlet-mapping>
   
-    <servlet-mapping>
-        <servlet-name>SolrConfigRestApi</servlet-name>
-        <url-pattern>/config/*</url-pattern>
-    </servlet-mapping>
-  
     <session-config>
-        <session-timeout>60</session-timeout>
+        <session-timeout>2</session-timeout>
     </session-config>
 
     <mime-mapping>

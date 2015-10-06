@@ -27,7 +27,7 @@ import javolution.util.FastMap;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrRequest.METHOD;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrInputDocument;
 import org.ofbiz.base.component.ComponentConfig;
@@ -189,11 +189,11 @@ public abstract class SolrUtil {
     public static Map<String, Object> categoriesAvailable(String catalogId, String categoryId, String productId, String facetPrefix, boolean displayproducts, int viewIndex, int viewSize) {
         // create the data model
         Map<String, Object> result = FastMap.newInstance();
-        HttpSolrServer server = null;
+        HttpSolrClient client = null;
         QueryResponse returnMap = new QueryResponse();
         try {
             // do the basic query
-            server = new HttpSolrServer(solrUrl);
+            client = new HttpSolrClient(solrUrl);
             // create Query Object
             String query = "inStock[1 TO *]";
             if (categoryId != null)
@@ -227,7 +227,7 @@ public abstract class SolrUtil {
             solrQuery.addFacetField("cat");
             solrQuery.setFacetLimit(-1);
             Debug.logVerbose("solr: solrQuery: " + solrQuery, module);
-            returnMap = server.query(solrQuery, METHOD.POST);
+            returnMap = client.query(solrQuery, METHOD.POST);
             result.put("rows", returnMap);
             result.put("numFound", returnMap.getResults().getNumFound());
         } catch (Exception e) {

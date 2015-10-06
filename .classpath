@@ -21,9 +21,6 @@
 	<classpathentry kind="lib" path="framework/base/lib/fop-2.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.22.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/hamcrest-all-1.2.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/httpclient-4.3.6.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/httpclient-cache-4.3.6.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/httpcore-4.3.3.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/httpunit-1.7.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-rc2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/icu4j-52_1.jar"/>
@@ -135,23 +132,8 @@
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/looks-2.0.2.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/XuiCoreSwing-v3.2rc2b.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/XuiOptional-v3.2rc2b.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-analyzers-common-4.9.0.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-core-4.9.0.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-queryparser-4.9.0.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/compile/solr-core-4.9.0.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/compile/solr-solrj-4.9.0.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/guava-14.0.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/joda-time-2.2.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-analyzers-common-4.9.0.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-codecs-4.9.0.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-highlighter-4.9.0.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-join-4.9.0.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-queries-4.9.0.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-spatial-4.9.0.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-suggest-4.9.0.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/noggit-0.5.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/org.restlet-2.1.1.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/org.restlet.ext.servlet-2.1.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/spatial4j-0.4.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/zookeeper-3.4.6.jar"/>
 	<classpathentry excluding="org/ofbiz/accounting/thirdparty/cybersource/**|org/ofbiz/accounting/thirdparty/verisign/**|org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java|org/ofbiz/accounting/thirdparty/orbital/**|org/ofbiz/accounting/thirdparty/securepay/**|org/ofbiz/accounting/thirdparty/ideal/**" kind="src" path="applications/accounting/src"/>
@@ -198,5 +180,22 @@
 	<classpathentry kind="src" path="specialpurpose/solr/src"/>
 	<classpathentry kind="src" path="specialpurpose/webpos/src"/>
 	<classpathentry kind="src" path="specialpurpose/passport/src"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/compile/solr-core-5.3.1.jar" sourcepath="/solr-5.3.1/core/src/java"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/compile/solr-solrj-5.3.1.jar" sourcepath="/solr-5.3.1/solrj/src/java"/>
+	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-analyzers-common-5.3.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-core-5.3.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-queryparser-5.3.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-codecs-5.3.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-highlighter-5.3.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-join-5.3.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-queries-5.3.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-spatial-5.3.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-suggest-5.3.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/noggit-0.6.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/org.restlet-2.3.0.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/org.restlet.ext.servlet-2.3.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/httpclient-4.4.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/httpclient-cache-4.4.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/httpcore-4.4.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

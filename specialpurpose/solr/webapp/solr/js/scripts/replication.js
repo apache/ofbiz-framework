@@ -76,7 +76,7 @@ var replication_fetch_status = function()
       {
         $( '.refresh-status span', navigation_element )
           .removeClass( 'loader' );
-                
+
         var data = response.details;
         var is_slave = 'true' === data.isSlave;
 
@@ -447,6 +447,11 @@ var replication_fetch_status = function()
       },
       error : function( xhr, text_status, error_thrown )
       {
+        /** OFBiz customization **/
+        if (error_thrown == "Unauthorized" || error_thrown == "Forbidden") {
+          $(location).attr( 'href', 'control/checkLogin' );
+        }
+
         $( '#content' )
           .html( 'sorry, no replication-handler defined!' );
       },
@@ -509,14 +514,33 @@ sammy.get
               }
               else if( command )
               {
-                $.get
+                /** OFBiz customization **/
+                $.ajax
                 (
-                  core_basepath + '/replication?command=' + command + '&wt=json',
-                  function()
                   {
-                    replication_fetch_status();
-                  }
-                );
+                    url : core_basepath + '/replication?command=' + command + '&wt=json',
+                    dataType : 'json',
+                    success : function ()
+                    {
+                    	replication_fetch_status();
+                    },
+                    error : function( xhr, text_status, error_thrown )
+                    {
+                        /** OFBiz customization **/
+                        if (error_thrown == "Unauthorized" || error_thrown == "Forbidden") {
+                          context.redirect( 'control/checkLogin' );
+                        }
+                     }
+                   }
+                 );
+//                $.get
+//                (
+//                  core_basepath + '/replication?command=' + command + '&wt=json',
+//                  function()
+//                  {
+//                    replication_fetch_status();
+//                  }
+//                );
               }
               return false;
             }

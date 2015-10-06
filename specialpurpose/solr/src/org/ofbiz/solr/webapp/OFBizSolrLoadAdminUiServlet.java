@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.solr.common.params.CommonParams;
 import org.apache.solr.core.CoreContainer;
 import org.apache.solr.core.SolrCore;
 
@@ -65,7 +66,7 @@ public class OFBizSolrLoadAdminUiServlet extends OFBizSolrRedirectServlet {
                 String[] search = new String[] { "${contextPath}", "${adminPath}", "${version}" };
                 String[] replace = new String[] {
                         StringEscapeUtils.escapeJavaScript(request.getContextPath()),
-                        StringEscapeUtils.escapeJavaScript(cores.getAdminPath()),
+                        StringEscapeUtils.escapeJavaScript(CommonParams.CORES_HANDLER_PATH),
                         StringEscapeUtils.escapeJavaScript(pack.getSpecificationVersion()) };
 
                 out.write(StringUtils.replaceEach(html, search, replace));

@@ -42,7 +42,7 @@ public class SearchWorker {
 
     public static final String module = SearchWorker.class.getName();
 
-    public static final Version LUCENE_VERSION = Version.LUCENE_4_9;
+    public static final Version LUCENE_VERSION = Version.LUCENE_5_3_1;
 
     public static void indexContentTree(LocalDispatcher dispatcher, Delegator delegator, String siteId) throws Exception {
         GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
