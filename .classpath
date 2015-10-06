@@ -180,8 +180,8 @@
 	<classpathentry kind="src" path="specialpurpose/solr/src"/>
 	<classpathentry kind="src" path="specialpurpose/webpos/src"/>
 	<classpathentry kind="src" path="specialpurpose/passport/src"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/compile/solr-core-5.3.1.jar" sourcepath="/solr-5.3.1/core/src/java"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/compile/solr-solrj-5.3.1.jar" sourcepath="/solr-5.3.1/solrj/src/java"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/compile/solr-core-5.3.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/compile/solr-solrj-5.3.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-analyzers-common-5.3.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-core-5.3.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/lucene/lib/lucene-queryparser-5.3.1.jar"/>
