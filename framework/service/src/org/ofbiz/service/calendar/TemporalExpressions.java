@@ -469,6 +469,7 @@ public class TemporalExpressions implements Serializable {
             Calendar next = (Calendar) cal.clone();
             if (includesDate(next)) {
                 if (context.dayBumped) {
+                    context.dayBumped = false;
                     return next;
                 }
                 next.add(Calendar.DAY_OF_MONTH, 1);
