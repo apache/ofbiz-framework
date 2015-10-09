@@ -662,7 +662,13 @@ public class WorkEffortServices {
                         if (UtilValidate.isNotEmpty(partyIdsToUse) && !"WES_PUBLIC".equals(workEffort.getString("scopeEnumId")) && !partyIdsToUse.contains(workEffort.getString("partyId"))) {
                             continue;
                         }
+                        // if the workeffort has actual date time, using temporal expression has no sense
+                        if (UtilValidate.isNotEmpty(workEffort.getTimestamp("actualStartDate")) || UtilValidate.isNotEmpty(workEffort.getTimestamp("actualCompletionDate"))) {
+                            continue;
+                        }
                         TemporalExpression tempExpr = TemporalExpressionWorker.getTemporalExpression(delegator, workEffort.getString("tempExprId"));
+                        DateRange weRange = new DateRange(workEffort.getTimestamp("estimatedStartDate"), workEffort.getTimestamp("estimatedCompletionDate"));
+
                         Set<Date> occurrences = tempExpr.getRange(range, cal);
                         for (Date occurrence : occurrences) {
                             for (DateRange periodRange : periodRanges) {
@@ -678,7 +684,9 @@ public class WorkEffortServices {
                                         cloneWorkEffort.set("estimatedStartDate", periodRange.startStamp());
                                         cloneWorkEffort.set("estimatedCompletionDate", periodRange.endStamp());
                                     }
-                                    inclusions.add(cloneWorkEffort);
+                                    if (weRange.includes(cloneWorkEffort.getTimestamp("estimatedStartDate"))) {
+                                       inclusions.add(cloneWorkEffort);
+                                    }
                                 }
                             }
                         }
