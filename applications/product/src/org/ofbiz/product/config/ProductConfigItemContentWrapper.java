@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -30,9 +29,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.StringUtil.StringWrapper;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.content.ContentWorker;
+import org.ofbiz.content.content.ContentWrapper;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericValue;
@@ -46,7 +49,7 @@ import org.ofbiz.service.ServiceContainer;
  * Product Config Item Content Worker: gets product content to display
  */
 @SuppressWarnings("serial")
-public class ProductConfigItemContentWrapper implements java.io.Serializable {
+public class ProductConfigItemContentWrapper implements ContentWrapper {
 
     public static final String module = ProductConfigItemContentWrapper.class.getName();
 
@@ -83,8 +86,8 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
         this.mimeTypeId = "text/html";
     }
 
-    public String get(String confItemContentTypeId) {
-        return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, locale, mimeTypeId, getDelegator(), getDispatcher());
+    public StringWrapper get(String confItemContentTypeId, String encoderType) {
+        return StringUtil.makeStringWrapper(getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, locale, mimeTypeId, getDelegator(), getDispatcher(), encoderType));
     }
 
     public Delegator getDelegator() {
@@ -101,32 +104,36 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
         return dispatcher;
     }
 
-    public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, HttpServletRequest request) {
+    public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, UtilHttp.getLocale(request), "text/html", productConfigItem.getDelegator(), dispatcher);
+        return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, UtilHttp.getLocale(request), "text/html", productConfigItem.getDelegator(), dispatcher, encoderType);
     }
 
-    public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, Locale locale, LocalDispatcher dispatcher) {
-        return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, locale, null, null, dispatcher);
+    public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, Locale locale, LocalDispatcher dispatcher, String encoderType) {
+        return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, locale, null, null, dispatcher, encoderType);
     }
 
-    public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher) {
+    public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, String encoderType) {
+        UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
         String candidateFieldName = ModelUtil.dbNameToVarName(confItemContentTypeId);
         try {
             Writer outWriter = new StringWriter();
             getProductConfigItemContentAsText(null, productConfigItem, confItemContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
-                return outString;
+                return encoder.encode(outString);
             } else {
-                return null;
+                String candidateOut = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
+                return candidateOut == null? "" : encoder.encode(candidateOut);
             }
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering ProdConfItemContent, inserting empty String", module);
-            return productConfigItem.getString(candidateFieldName);
+            String candidateOut = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
+            return candidateOut == null? "" : encoder.encode(candidateOut);
         } catch (IOException e) {
             Debug.logError(e, "Error rendering ProdConfItemContent, inserting empty String", module);
-            return productConfigItem.getString(candidateFieldName);
+            String candidateOut = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
+            return candidateOut == null? "" : encoder.encode(candidateOut);
         }
     }
 
