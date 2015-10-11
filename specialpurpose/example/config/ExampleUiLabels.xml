@@ -314,7 +314,7 @@
     </property>
     <property key="ExampleDefinitionName">
         <value xml:lang="en">See the form definition with name</value>
-        <value xml:lang="fr">Voir la défintion avec la form de nom </value>
+        <value xml:lang="fr">Voir la définition avec la form de nom </value>
         <value xml:lang="it">Vedi la definizione della form con il nome</value>
         <value xml:lang="ja">- フォーム定義を参照、名称</value>
         <value xml:lang="zh"> - 参见表单定义，名称为</value>
