@@ -142,9 +142,6 @@ under the License.
     </screen>
     <screen name="printExampleFOPFonts">
         <section>
-            <actions>
-                <property-to-field resource="fop.properties" field="defaultFontFamily" property="fop.font.family" default="NotoSans" />
-            </actions>
             <widgets>
                 <platform-specific><xsl-fo><html-template location="component://example/webapp/example/reports/fonts.fo.ftl"/></xsl-fo></platform-specific>
             </widgets>
