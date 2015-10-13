@@ -2965,6 +2965,8 @@ under the License.
         <alias entity-alias="PA" name="stateProvinceGeoId"/>
         <alias entity-alias="PA" name="postalCode"/>
         <alias entity-alias="PA" name="countryGeoId"/>
+        <alias entity-alias="PCM" name="fromDate"/>
+        <alias entity-alias="PCM" name="thruDate"/>
         <view-link entity-alias="PRT" rel-entity-alias="GRP" rel-optional="true">
             <key-map field-name="partyId"/>
         </view-link>
