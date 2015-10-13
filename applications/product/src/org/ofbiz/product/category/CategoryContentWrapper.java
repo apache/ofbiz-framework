@@ -36,6 +36,7 @@ import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.content.content.ContentWrapper;
 import org.ofbiz.entity.Delegator;
@@ -52,6 +53,8 @@ import org.ofbiz.service.LocalDispatcher;
 public class CategoryContentWrapper implements ContentWrapper {
 
     public static final String module = CategoryContentWrapper.class.getName();
+    public static final String SEPARATOR = "::";    // cache key separator
+    private static final UtilCache<String, String> categoryContentCache = UtilCache.createUtilCache("category.content", true); // use soft reference to free up memory if needed
 
     protected LocalDispatcher dispatcher;
     protected GenericValue productCategory;
@@ -92,11 +95,17 @@ public class CategoryContentWrapper implements ContentWrapper {
     public static String getProductCategoryContentAsText(GenericValue productCategory, String prodCatContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, String encoderType) {
         String candidateFieldName = ModelUtil.dbNameToVarName(prodCatContentTypeId);
         UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
+        String cacheKey = prodCatContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + productCategory.get("productCategoryId");
         try {
+            String cachedValue = categoryContentCache.get(cacheKey);
+            if (cachedValue != null) {
+                return cachedValue;
+            }
             Writer outWriter = new StringWriter();
             getProductCategoryContentAsText(null, productCategory, prodCatContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
+                outString = categoryContentCache.putIfAbsentAndGet(cacheKey, encoder.encode(outString));
                 return encoder.encode(outString);
             } else {
                 return null;

@@ -34,6 +34,7 @@ import org.ofbiz.base.util.StringUtil.StringWrapper;
 import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.content.content.ContentWrapper;
 import org.ofbiz.entity.Delegator;
@@ -52,6 +53,8 @@ import org.ofbiz.service.ServiceContainer;
 public class ProductConfigItemContentWrapper implements ContentWrapper {
 
     public static final String module = ProductConfigItemContentWrapper.class.getName();
+    public static final String SEPARATOR = "::";    // cache key separator
+    private static final UtilCache<String, String> configItemContentCache = UtilCache.createUtilCache("configItem.content", true); // use soft reference to free up memory if needed
 
     protected transient LocalDispatcher dispatcher;
     protected String dispatcherName;
@@ -116,11 +119,17 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
     public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, String encoderType) {
         UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
         String candidateFieldName = ModelUtil.dbNameToVarName(confItemContentTypeId);
+        String cacheKey = confItemContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + productConfigItem.get("productCategoryId");
         try {
+            String cachedValue = configItemContentCache.get(cacheKey);
+            if (cachedValue != null) {
+                return cachedValue;
+            }
             Writer outWriter = new StringWriter();
             getProductConfigItemContentAsText(null, productConfigItem, confItemContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
+                outString = configItemContentCache.putIfAbsentAndGet(cacheKey, encoder.encode(outString));
                 return encoder.encode(outString);
             } else {
                 String candidateOut = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
