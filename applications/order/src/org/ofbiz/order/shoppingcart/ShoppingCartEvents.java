@@ -644,11 +644,19 @@ public class ShoppingCartEvents {
         if (UtilValidate.isNotEmpty(itemId)) {
             request.setAttribute("itemId", itemId);
         }
-        for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
-            String shipContactMechId = cart.getShippingContactMechId(shipGroupIndex);
-            if (UtilValidate.isNotEmpty(shipContactMechId)) {
-                cart.setShipmentMethodTypeId(shipGroupIndex, null);
+        try {
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
+            //Reset shipment method information in cart only if shipping applies on product.
+            if (ProductWorker.shippingApplies(product)) {
+                for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
+                    String shipContactMechId = cart.getShippingContactMechId(shipGroupIndex);
+                    if (UtilValidate.isNotEmpty(shipContactMechId)) {
+                        cart.setShipmentMethodTypeId(shipGroupIndex, null);
+                    }
+                }
             }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error getting product"+e.getMessage(), module);
         }
         // Determine where to send the browser
         if (controlDirective.equals(ERROR)) {
