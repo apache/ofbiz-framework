@@ -22,7 +22,6 @@ specialpurpose/lucene/lib/lucene-core-4.9.0.jar
 specialpurpose/lucene/lib/lucene-queryparser-4.9.0.jar
 specialpurpose/solr/lib/compile/solr-core-4.9.0.jar
 specialpurpose/solr/lib/compile/solr-solrj-4.9.0.jar
-specialpurpose/solr/lib/runtime/guava-14.0.1.jar
 specialpurpose/solr/lib/runtime/joda-time-2.2.jar
 specialpurpose/solr/lib/runtime/lucene-analyzers-common-4.9.0.jar
 specialpurpose/solr/lib/runtime/lucene-codecs-4.9.0.jar
