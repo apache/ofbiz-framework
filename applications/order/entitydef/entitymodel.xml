@@ -1508,9 +1508,11 @@ under the License.
     <entity entity-name="QuoteRole"
             package-name="org.ofbiz.order.quote"
             title="Quote Role Entity">
-      <field name="quoteId" type="id-ne"></field>
-      <field name="partyId" type="id-ne"></field>
-      <field name="roleTypeId" type="id-ne"></field>
+      <field name="quoteId" type="id-ne"/>
+      <field name="partyId" type="id-ne"/>
+      <field name="roleTypeId" type="id-ne"/>
+      <field name="fromDate" type="date-time"/>
+      <field name="thruDate" type="date-time"/>
       <prim-key field="quoteId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
