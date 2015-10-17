@@ -180,7 +180,7 @@ public class DataEvents {
             https = "true";
         }
 
-        // get the data resource stream and conent length
+        // get the data resource stream and content length
         Map<String, Object> resourceData;
         try {
             resourceData = DataResourceWorker.getDataResourceStream(dataResource, https, webSiteId, locale, contextRoot, false);
