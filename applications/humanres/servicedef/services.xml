@@ -288,6 +288,7 @@ under the License.
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="payGradeId" mode="IN" type="String"/>
+        <attribute name="fromDate" mode="IN" type="Timestamp"/>
         <attribute name="salaryStepSeqId" mode="OUT" type="String"/>
     </service>
 
