@@ -551,6 +551,7 @@ under the License.
       <relation type="one-nofk" fk-name="PAY_HIST_SSTP" rel-entity-name="SalaryStep">
         <key-map field-name="salaryStepSeqId"/>
         <key-map field-name="payGradeId"/>
+        <key-map field-name="fromDate"/>
       </relation>
       <relation type="one" fk-name="PAY_HIST_PDTP" rel-entity-name="PeriodType">
         <key-map field-name="periodTypeId"/>
@@ -840,6 +841,7 @@ under the License.
     <relation type="one-nofk" fk-name="EMPL_PTPRT_SSTP" rel-entity-name="SalaryStep">
       <key-map field-name="salaryStepSeqId"/>
       <key-map field-name="payGradeId"/>
+      <key-map field-name="fromDate"/>
     </relation>
     <relation type="one-nofk" fk-name="EMPL_PTPRT_RTTYP" rel-entity-name="RateType">
       <key-map field-name="rateTypeId"/>
