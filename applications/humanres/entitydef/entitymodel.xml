@@ -597,10 +597,15 @@ under the License.
             title="Salary Step Entity">
       <field name="salaryStepSeqId" type="id-ne"></field>
       <field name="payGradeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
       <field name="dateModified" type="date-time"></field>
       <field name="amount" type="currency-amount"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="salaryStepSeqId"/>
       <prim-key field="payGradeId"/>
+      <prim-key field="fromDate"/>
       <relation type="one" fk-name="SLRY_STP_PGRD" rel-entity-name="PayGrade">
         <key-map field-name="payGradeId"/>
       </relation>

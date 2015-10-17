@@ -74,6 +74,7 @@
             <hyperlink target="deleteSalaryStep" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="salaryStepSeqId"/>
                 <parameter param-name="payGradeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>
