@@ -114,6 +114,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.HumanResLookupSalaryStepSeqId}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
