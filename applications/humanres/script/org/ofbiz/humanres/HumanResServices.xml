@@ -226,9 +226,19 @@
         <make-value entity-name="SalaryStep" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <set field="newEntity.createdByUserLogin" from-field="parameters.userLogin.userLoginId"/>
         <sequenced-id sequence-name="SalaryStep" field="newEntity.salaryStepSeqId"/>
         <field-to-result field="salaryStepSeqId" result-name="salaryStepSeqId"/>
         <create-value value-field="newEntity"/>
-    </simple-method>    
+    </simple-method>
+    
+    <simple-method method-name="updateSalaryStep" short-description="Update Salary Step">
+        <entity-one entity-name="SalaryStep" value-field="lookedUpValue"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <set field="lookedUpValue.lastModifiedByUserLogin" from-field="parameters.userLogin.userLoginId"/>
+        <now field="fromDate"/>
+        <set field="lookedUpValue.dateModified" from-field="fromDate"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
 
 </simple-methods>

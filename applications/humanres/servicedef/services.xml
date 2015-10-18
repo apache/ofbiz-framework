@@ -292,7 +292,8 @@ under the License.
         <override type="String" mode="IN" name="salaryStepSeqId" optional="true"/>
     </service>
 
-    <service name="updateSalaryStep" engine="entity-auto" default-entity-name="SalaryStep" invoke="update" auth="true">
+    <service name="updateSalaryStep" engine="simple" default-entity-name="SalaryStep"
+             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updateSalaryStep" auth="true">
         <description>Update Salary Step</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
