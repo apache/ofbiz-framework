@@ -52,4 +52,19 @@ under the License.
       <key-map field-name="rateTypeId"/>
     </relation>
   </entity>
+  
+    <entity entity-name="OldSalaryStep" table-name="SALARY_STEP"
+            package-name="org.ofbiz.humanres.employment"
+            title="Salary Step Entity">
+      <field name="salaryStepSeqId" type="id-ne"></field>
+      <field name="payGradeId" type="id-ne"></field>
+      <field name="dateModified" type="date-time"></field>
+      <field name="amount" type="currency-amount"></field>
+      <prim-key field="salaryStepSeqId"/>
+      <prim-key field="payGradeId"/>
+      <relation type="one" fk-name="SLRY_STP_PGRD" rel-entity-name="PayGrade">
+        <key-map field-name="payGradeId"/>
+      </relation>
+    </entity>
+  
 </entitymodel>
