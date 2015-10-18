@@ -1364,8 +1364,8 @@ under the License.
         <sonar:sonar key="org.apache:ofbiz" version="${info.entry.commit(revision)}" xmlns:sonar="antlib:org.sonar.ant:sonar"/>
         <property name="sonar.dynamicAnalysis" value="reuseReports" />
         <property name="sonar.cobertura.reportPath" value="runtime/logs/cobertura-report/coverage.xml"/>
-        <property name="sonar.java.source" value="1.7" />
-        <property name="sonar.java.target" value="1.7" />
+        <property name="sonar.java.source" value="1.8" />
+        <property name="sonar.java.target" value="1.8" />
         <!-- default for jdbc url: jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8-->
         <property name="sonar.jdbc.url" value="${sonar.jdbc.url}"/>
         <property name="sonar.jdbc.driverClassName" value="com.mysql.jdbc.Driver" />

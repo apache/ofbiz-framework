@@ -23,12 +23,12 @@ under the License.
  <antversion property="antversion" atleast="${minimumantversion}"/>
  <fail unless="antversion" message="Please upgrade ant to at least ${minimumantversion}. Current ant version is ${ant.version}"/>
 
- <condition property="javaatleast17">
+ <condition property="javaatleast18">
   <not>
-   <matches pattern="^1\.[0-6]($|\..*)" string="${ant.java.version}"/>
+   <matches pattern="^1\.[0-7]($|\..*)" string="${ant.java.version}"/>
   </not>
  </condition>
- <fail unless="javaatleast17" message="Please upgrade java to at least 1.7. Current Java version is ${ant.java.version}"/>
+ <fail unless="javaatleast18" message="Please upgrade java to at least 1.8. Current Java version is ${ant.java.version}"/>
 
  <dirname property="ofbiz.home.dir" file="${ant.file.Ant - Macros}"/>
  <macrodef name="iterate">
@@ -71,8 +71,8 @@ under the License.
   </javac>
  </presetdef>
 
- <presetdef name="javac17">
-  <default-javac compiler="javac1.7" target="1.7" source="1.7" encoding="UTF-8" includeantruntime="false">
+ <presetdef name="javac18">
+  <default-javac compiler="javac1.8" target="1.8" source="1.8" encoding="UTF-8" includeantruntime="false">
    <compilerarg value="-Xlint:-path"/>
    <!--
    Please leave this line here.  It makes it easier to enable/disable it.
@@ -107,7 +107,7 @@ under the License.
         <exclude name="**/JasperReportsJXlsViewHandler.java"/>
         <exclude name="**/JasperReportsPoiXlsViewHandler.java"/>
       </fileset>
-      <link href="http://java.sun.com/javase/7/docs/api/" offline="true" packagelistLoc="${ofbiz.home.dir}/tools/api-java17"/>
+      <link href="http://docs.oracle.com/javase/8/docs/api" offline="true" packagelistLoc="${ofbiz.home.dir}/tools/api-java18"/>
     </javadoc>
  </presetdef>
 
