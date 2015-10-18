@@ -20,6 +20,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/esapi-2.1.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/fop-2.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.22.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/guava-14.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/hamcrest-all-1.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/httpunit-1.7.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-rc2.jar"/>
@@ -133,7 +134,6 @@
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/looks-2.0.2.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/XuiCoreSwing-v3.2rc2b.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/XuiOptional-v3.2rc2b.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/guava-14.0.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/joda-time-2.2.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/spatial4j-0.4.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/zookeeper-3.4.6.jar"/>
