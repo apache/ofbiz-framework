@@ -221,5 +221,14 @@
         <create-value value-field="personTraining"/>
         <check-errors/>
     </simple-method>
+    
+    <simple-method method-name="createSalaryStep" short-description="Create a Salary Step">
+        <make-value entity-name="SalaryStep" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <sequenced-id sequence-name="SalaryStep" field="newEntity.salaryStepSeqId"/>
+        <field-to-result field="salaryStepSeqId" result-name="salaryStepSeqId"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>    
 
 </simple-methods>

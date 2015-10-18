@@ -283,13 +283,13 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
-    <service name="createSalaryStep" engine="entity-auto" default-entity-name="SalaryStep" invoke="create" auth="true">
+    <service name="createSalaryStep" engine="simple" default-entity-name="SalaryStep"
+             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createSalaryStep" auth="true">
         <description>Create Salary Step</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <attribute name="payGradeId" mode="IN" type="String"/>
-        <attribute name="fromDate" mode="IN" type="Timestamp"/>
-        <attribute name="salaryStepSeqId" mode="OUT" type="String"/>
+        <override type="String" mode="IN" name="salaryStepSeqId" optional="true"/>
     </service>
 
     <service name="updateSalaryStep" engine="entity-auto" default-entity-name="SalaryStep" invoke="update" auth="true">
