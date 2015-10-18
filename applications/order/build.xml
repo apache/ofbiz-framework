@@ -57,10 +57,10 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-        <javac17>
+        <javac18>
             <!-- exclude the payment processor packages; comment if you have libs -->
             <exclude name="org/ofbiz/order/thirdparty/taxware/**"/>
-        </javac17>
+        </javac18>
     </target>
 
     <target name="jar" depends="classes">

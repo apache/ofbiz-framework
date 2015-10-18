@@ -34,7 +34,7 @@ under the License.
 
     <target name="classes" depends="prepare">
         <!-- compile start -->
-        <javac17 destdir="${build.dir}/classes" srcdir="${src.dir}"/>
+        <javac18 destdir="${build.dir}/classes" srcdir="${src.dir}"/>
     </target>
 
     <target name="jar" depends="classes">

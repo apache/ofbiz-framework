@@ -1,9 +1,9 @@
 
 Welcome to Apache OFBiz!
 
-All you need to run OFBiz is a 1.7 (version 7) JDK
+All you need to run OFBiz is a 1.8 (version 8) JDK
 (not just the JRE, the full JDK).
-http://java.sun.com/javase/downloads/index.jsp
+http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 You can load the demo data (strongly advised if you are new to
 OFBiz) with the following command on the command line
