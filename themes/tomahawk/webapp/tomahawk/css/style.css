@@ -705,7 +705,12 @@ background-color: #000000;
 }
 
 .page-title {
-display: none;
+color: #262626;
+font-size:2em;
+font-weight:700;
+clear:both;
+display:inline-block;
+margin:5px 0 10px;
 }
 
 DIV.row {
