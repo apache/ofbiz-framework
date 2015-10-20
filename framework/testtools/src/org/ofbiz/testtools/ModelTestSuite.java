@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.testtools;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -133,6 +134,16 @@ public class ModelTestSuite {
                 } catch (MiniLangException e) {
                     Debug.logError(e, module);
                 }
+            }
+        } else if ("webdriver-test".equals(nodeName)) {
+            try {
+                String className = "org.ofbiz.testtools.WebDriverTest";
+                Class<?> cl;
+                cl = Class.forName(className);
+                Constructor<?> con = cl.getConstructor(String.class, Element.class);
+                this.testList.add((Test)con.newInstance(caseName, testElement));
+            } catch (Exception e) {
+                Debug.logError(e, module);
             }
         } else if ("entity-xml".equals(nodeName)) {
             this.testList.add(new EntityXmlAssertTest(caseName, testElement));
