@@ -2608,6 +2608,41 @@ width:10%
 width:10%
 }
 
+/*set Jgrowl css here to avoid side effect with other class*/
+.errorMessageJGrowl {
+background: url("/bluelight/images/exclamation.png") no-repeat scroll 5px 50% #820f05;
+border: 3px solid #f0f0f0;
+color: #ffffff;
+font-size: 1.3em;
+font-weight: bold;
+padding: 10px 10px 10px 50px;
+line-height: 1.3em;
+min-width: 350px;
+word-wrap: break-word;
+box-shadow: -0px -0px 20px 5px #888888;
+text-overflow: ellipsis;
+}
+.eventMessageJGrowl {
+background: url("/bluelight/images/information.png") no-repeat scroll 5px 50% #105fa8;
+border: 3px solid #f0f0f0;
+color: #ffffff;
+font-size: 1.3em;
+font-weight: bold;
+padding: 10px 10px 10px 50px;
+line-height: 1.3em;
+min-width: 350px;
+word-wrap: break-word;
+box-shadow: -0px -0px 20px 5px #888888;
+}
+.closeAllJGrowl{
+min-width: 350px;
+padding: 5px 5px 5px 50px;
+border: 1px solid #f0f0f0;
+}
+.content-messages p {
+display: none;
+}
+
 /* From http://jqueryui.com/demos/autocomplete/maxheight.html */
 /* When displaying a long list of options, you can simply set the max-height for the autocomplete menu to prevent the menu from growing too large */
 .ui-autocomplete {

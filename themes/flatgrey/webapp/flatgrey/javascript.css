@@ -556,3 +556,39 @@ width: 18px;
 .ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
 .ui-timepicker-div td { font-size: 90%; }
 .ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+/*set Jgrowl css here to avoid side effect with other class*/
+.errorMessageJGrowl {
+background: url("/flatgrey/images/exclamation.png") no-repeat scroll 5px 50% #820f05;
+border: 3px solid #f0f0f0;
+color: #ffffff;
+font-size: 1.3em;
+font-weight: bold;
+padding: 10px 10px 10px 50px;
+line-height: 1.3em;
+min-width: 350px;
+word-wrap: break-word;
+box-shadow: -0px -0px 20px 5px #888888;
+text-overflow: ellipsis;
+}
+.eventMessageJGrowl {
+background: url("/flatgrey/images/information.png") no-repeat scroll 5px 50% #105fa8;
+border: 3px solid #f0f0f0;
+color: #ffffff;
+font-size: 1.3em;
+font-weight: bold;
+padding: 10px 10px 10px 50px;
+line-height: 1.3em;
+min-width: 350px;
+word-wrap: break-word;
+box-shadow: -0px -0px 20px 5px #888888;
+}
+.closeAllJGrowl{
+min-width: 350px;
+padding: 5px 5px 5px 50px;
+border: 1px solid #f0f0f0;
+}
+.content-messages p {
+display: none;
+}
+
