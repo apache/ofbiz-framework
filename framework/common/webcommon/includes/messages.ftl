@@ -49,6 +49,7 @@ under the License.
       </#if>
     </div>
   </#if>
+    <script>showjGrowl();</script>
   <#-- display the event messages -->
   <#if (eventMessage?has_content || eventMessageList?has_content)>
     <div id="content-messages" class="content-messages eventMessage" onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
@@ -62,5 +63,6 @@ under the License.
         </#list>
       </#if>
     </div>
+    <script>showjGrowl();</script>
   </#if>
 </#escape>

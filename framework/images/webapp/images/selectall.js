@@ -732,6 +732,44 @@ function submitFormDisableSubmits(form) {
     }
 }
 
+
+function showjGrowl() {
+    var contentMessages = jQuery("#content-messages");
+    if (contentMessages.length) { 
+       jQuery("#content-messages").hide();
+       var errMessage = jQuery("#content-messages").html();
+       var classeEvent = "";
+       var classList = jQuery("#content-messages").attr('class').split(/\s+/);
+       var stickyValue = false;
+       jQuery(classList).each(function(index){
+            var localClass = classList[index];
+            if(localClass == "eventMessage" || localClass == "errorMessage" ){
+            classEvent = localClass + "JGrowl";
+            }
+       });
+       if(classEvent == "errorMessageJGrowl"){
+           stickyValue = true;
+       }
+       
+        if (errMessage == null || errMessage == "" || errMessage == undefined ) {
+            // No Error Message Information is set, Error Msg Box can't be created
+            return;
+        }
+        $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">Hide All Notifications</div>';
+        $.jGrowl(errMessage, { theme: classEvent, sticky: stickyValue,
+           afterOpen: function(e,m) {
+               jQuery(".jGrowl-message").readmore({
+                   moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">Show All</a>',
+                   lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">Show Less</a>',
+                   maxHeight: 75
+                   });
+            },
+            speed:1000
+        });
+    }
+}
+
+
 // prevents doubleposts for <submit> inputs of type "button" or "image"
 function submitFormDisableButton(button) {
     if (button.form.action != null && button.form.action.length) {
@@ -760,7 +798,7 @@ function submitFormEnableButton(button) {
  */
 function expandAllP(bool, portalPortletId) {
     jQuery('#scrlt_'+portalPortletId+' .fieldgroup').each(function() {
-        var titleBar = $(this).children('.fieldgroup-title-bar'), body = $(this).children('.fieldgroup-body');
+        var titleBar = jQuery(this).children('.fieldgroup-title-bar'), body = jQuery(this).children('.fieldgroup-body');
         if (titleBar.children().length > 0 && body.is(':visible') != bool) {
             toggleCollapsiblePanel(titleBar.find('a'), body.attr('id'), 'expand', 'collapse');
         }
@@ -774,7 +812,7 @@ function expandAllP(bool, portalPortletId) {
  */
 function expandAll(bool) {
     jQuery('.fieldgroup').each(function() {
-        var titleBar = $(this).children('.fieldgroup-title-bar'), body = $(this).children('.fieldgroup-body');
+        var titleBar = jQuery(this).children('.fieldgroup-title-bar'), body = jQuery(this).children('.fieldgroup-body');
         if (titleBar.children().length > 0 && body.is(':visible') != bool) {
             toggleCollapsiblePanel(titleBar.find('a'), body.attr('id'), 'expand', 'collapse');
         }
