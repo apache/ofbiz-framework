@@ -191,7 +191,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="exampleName" required-field="true" widget-style="required"></field>
+        <field name="exampleName" required-field="true" widget-style="required"><text placeholder="${uiLabelMap.FormFieldTitle_exampleName}"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"/>
         <field name="longDescription" title="${uiLabelMap.ExampleLongDescription}"/>
         <field name="anotherText">
