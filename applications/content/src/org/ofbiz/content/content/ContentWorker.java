@@ -860,7 +860,6 @@ public class ContentWorker implements org.ofbiz.widget.content.ContentWorkerInte
         return assocs;
     }
 
-    @SuppressWarnings("unchecked")
     public static List<GenericValue> getContentAssocsWithId(Delegator delegator, String contentId, Timestamp fromDate, Timestamp thruDate, String direction, List<String> assocTypes) throws GenericEntityException {
         List<EntityCondition> exprList = new LinkedList<EntityCondition>();
         EntityExpr joinExpr = null;
