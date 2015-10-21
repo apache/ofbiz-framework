@@ -92,7 +92,7 @@
 
     <form name="EditFixedAssetMaint" extends="EditFixedAssetMaint" extends-resource="component://accounting/widget/FixedAssetForms.xml" target="updateFixedAssetMaintAndWorkEffort">
         <alt-target use-when="fixedAssetMaint==null" target="createFixedAssetMaintUpdateWorkEffort"/>
-        <field name="fixedAssetId" use-when="fixedAssetMaint==null" title="${uiLabelMap.AccountingFixedAssetId}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupFixedAsset"/></field>
+        <field name="fixedAssetId" use-when="fixedAssetMaint==null" title="${uiLabelMap.AccountingFixedAssetId}" required-field="true"><lookup target-form-name="LookupFixedAsset"/></field>
         <field name="scheduleWorkEffortId"><hidden/></field>
         <field name="submitButton" ><ignored/></field>
         <field map-name="workEffort" position="1"  name="estimatedStartDate"><date-time/></field>
@@ -116,7 +116,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="productId" title="${uiLabelMap.AssetMaintPartId}*" required-field="true"><lookup  target-form-name="LookupPartsProduct"/></field>
+        <field name="productId" title="${uiLabelMap.AssetMaintPartId}" required-field="true"><lookup  target-form-name="LookupPartsProduct"/></field>
         <field name="quantity" position="1" title="${uiLabelMap.CommonQuantity}*"><text size="10"/></field>
         <field name="maintHistSeqId"><hidden/></field>
         <field name="fixedAssetId"><hidden/></field>

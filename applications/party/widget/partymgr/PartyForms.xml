@@ -189,8 +189,8 @@ under the License.
         <field use-when="personInfo!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="personInfo==null&amp;&amp;partyId==null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonIdGeneratedIfEmpty}"><text/></field>
         <field use-when="personInfo==null&amp;&amp;partyId!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyId}]"><display also-hidden="false"/></field>
-        <field name="firstName" title="${uiLabelMap.PartyFirstName}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="40" maxlength="60"/></field>
-        <field name="lastName" title="${uiLabelMap.PartyLastName}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="40" maxlength="60"/></field>
+        <field name="firstName" title="${uiLabelMap.PartyFirstName}" required-field="true"><text size="40" maxlength="60"/></field>
+        <field name="lastName" title="${uiLabelMap.PartyLastName}" required-field="true"><text size="40" maxlength="60"/></field>
         <field name="gender">
             <drop-down allow-empty="true">
                 <option key="M" description="${uiLabelMap.CommonMale}"/>
@@ -265,7 +265,7 @@ under the License.
         <field use-when="partyGroup!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="partyGroup==null&amp;&amp;partyId==null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonIdGeneratedIfEmpty}"><text/></field>
         <field use-when="partyGroup==null&amp;&amp;partyId!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyId}]"><display also-hidden="false"/></field>
-        <field name="groupName" tooltip="${uiLabelMap.CommonRequired}" required-field="true"></field>
+        <field name="groupName" required-field="true"></field>
         <field name="partyTypeId"><ignored/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="preferredCurrencyUomId">
@@ -597,17 +597,17 @@ under the License.
         <field name="USE_ADDRESS"><hidden value="${USE_ADDRESS}"/></field>
         <field name="require_email"><hidden value="${require_email}"/></field>
         <field name="USER_TITLE" title="${uiLabelMap.CommonTitle}"><text size="10" maxlength="30"/></field>
-        <field name="USER_FIRST_NAME" title="${uiLabelMap.PartyFirstName}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="USER_FIRST_NAME" title="${uiLabelMap.PartyFirstName}" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="USER_MIDDLE_NAME" title="${uiLabelMap.PartyMiddleInitial}"><text size="4" maxlength="4"/></field>
-        <field name="USER_LAST_NAME" title="${uiLabelMap.PartyLastName}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="USER_LAST_NAME" title="${uiLabelMap.PartyLastName}" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="USER_SUFFIX" title="${uiLabelMap.PartySuffix}"><text size="10" maxlength="30"/></field>
         <field name="ShippingAddressTitle" title="${uiLabelMap.PartyAddressMailingShipping}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field name="USER_ADDRESS1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="USER_ADDRESS1" title="${uiLabelMap.CommonAddress1}" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="USER_ADDRESS2" title="${uiLabelMap.CommonAddress2}"><text size="30" maxlength="60"/></field>
-        <field name="USER_CITY" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="USER_CITY" title="${uiLabelMap.CommonCity}" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="USER_STATE" title="${uiLabelMap.CommonState}" required-field="true"><drop-down allow-empty="false"/></field>
-        <field name="USER_POSTAL_CODE" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="10" maxlength="30"/></field>
-        <field name="USER_COUNTRY" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="USER_POSTAL_CODE" title="${uiLabelMap.CommonZipPostalCode}" required-field="true"><text size="10" maxlength="30"/></field>
+        <field name="USER_COUNTRY" title="${uiLabelMap.CommonCountry}" required-field="true">
             <drop-down no-current-selected-key="${defaultCountryGeoId}">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId}: ${geoName}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
@@ -642,17 +642,17 @@ under the License.
         <field name="USER_MOBILE_CONTACT" title="${uiLabelMap.PartyPhoneNumber}"><text size="15" maxlength="15"/></field>
         <field name="USER_MOBILE_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
         <field name="EmailAddressTitle" title="${uiLabelMap.PartyEmailAddress}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field use-when="require_email!=null" name="USER_EMAIL" title="${uiLabelMap.CommonEmail}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="60" maxlength="250"/></field>
+        <field use-when="require_email!=null" name="USER_EMAIL" title="${uiLabelMap.CommonEmail}" required-field="true"><text size="60" maxlength="250"/></field>
         <field use-when="require_email==null" name="USER_EMAIL" title="${uiLabelMap.CommonEmail}" required-field="true"><text size="60" maxlength="250"/></field>
         <field name="USER_EMAIL_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
         <!-- <field name="USER_ORDER_EMAIL" title="Order Emails (comma separated)" ><text size="60" maxlength="250"/></field> -->
-        <field use-when="displayPassword!=null" name="USERNAME" title="${uiLabelMap.CommonUsername}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="250"/></field>
-        <field use-when="displayPassword!=null" name="PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><password size="15" maxlength="250"/></field>
+        <field use-when="displayPassword!=null" name="USERNAME" title="${uiLabelMap.CommonUsername}" required-field="true"><text size="30" maxlength="250"/></field>
+        <field use-when="displayPassword!=null" name="PASSWORD" title="${uiLabelMap.CommonPassword}" required-field="true"><password size="15" maxlength="250"/></field>
         <field use-when="displayPassword!=null" name="CONFIRM_PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="* ${uiLabelMap.CommonConfirm}" required-field="true"><password size="15" maxlength="250"/></field>
         <field name="USERNAME" title="${uiLabelMap.CommonUsername}" tooltip="* ${uiLabelMap.PartyTemporaryPassword}" required-field="true"><text size="30" maxlength="250"/></field>
         <!--<field name="RequiredNote" title=" "><display description="${uiLabelMap.PartyRequiredNote}" also-hidden="false"/></field> -->
 
-        <field name="PRODUCT_STORE_ID" title="Product Store" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="PRODUCT_STORE_ID" title="Product Store" required-field="true">
             <drop-down>
                 <entity-options entity-name="ProductStore" key-field-name="productStoreId" description="${storeName} (${productStoreId})">
                     <entity-order-by field-name="productStoreId"/>
@@ -905,8 +905,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonRequired}"/>
-        <field name="accountNumber" title="${uiLabelMap.AccountingAccountNumber}" tooltip="${uiLabelMap.CommonRequired}"/>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"/>
+        <field name="accountNumber" title="${uiLabelMap.AccountingAccountNumber}" required-field="true"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
@@ -1304,7 +1304,7 @@ under the License.
     
     <form name="EditProductStoreRole" type="single" extends="EditProductStoreRole" extends-resource="component://product/widget/catalog/StoreForms.xml">
         <field name="partyId"><hidden/></field>
-        <field name="productStoreId" use-when="productStoreRole==null" title="${uiLabelMap.ProductStoreId}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="productStoreId" use-when="productStoreRole==null" title="${uiLabelMap.ProductStoreId}" required-field="true">
             <drop-down>
                 <entity-options entity-name="ProductStore" key-field-name="productStoreId" description="${storeName} (${productStoreId})">
                     <entity-order-by field-name="productStoreId"/>
@@ -1315,7 +1315,7 @@ under the License.
     </form>
     <form name="FindProductStoreRole" type="single" extends="FindProductStoreRole" extends-resource="component://product/widget/catalog/StoreForms.xml">
         <field name="partyId"><hidden/></field>
-        <field name="productStoreId" title="${uiLabelMap.ProductStoreId}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="productStoreId" title="${uiLabelMap.ProductStoreId}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductStore" key-field-name="productStoreId" description="${storeName} (${productStoreId})">
                     <entity-order-by field-name="productStoreId"/>

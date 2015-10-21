@@ -644,7 +644,7 @@ under the License.
             <text size="63" maxlength="255"/>
         </field>
         <field name="description" title="${uiLabelMap.ScrumProductBacklogItem}" required-field="true" tooltip="${uiLabelMap.ScrumMax255Chars}" use-when="custRequest!=null&amp;&amp;isTeamMember==false"><text size="63" maxlength="255"/></field>
-        <field name="description" title="${uiLabelMap.ScrumProductBacklogItem}" required-field="true" tooltip="${uiLabelMap.CommonRequired}" use-when="custRequest!=null&amp;&amp;isTeamMember==true"><display/></field>
+        <field name="description" title="${uiLabelMap.ScrumProductBacklogItem}" required-field="true" use-when="custRequest!=null&amp;&amp;isTeamMember==true"><display/></field>
         <field name="productId" map-name="product" title="${uiLabelMap.ScrumProjectMoveToProduct}" use-when="custRequest!=null&amp;&amp;isTeamMember==false">
             <drop-down>
                 <entity-options description="${groupName}  ${internalName}[${productId}]" entity-name="ProductAndRole" key-field-name="productId">
@@ -1487,7 +1487,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="internalName" title="${uiLabelMap.ScrumProductName}" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
+        <field name="internalName" title="${uiLabelMap.ScrumProductName}" required-field="true"><text/></field>
         <field name="longDescription" title="${uiLabelMap.CommonDescription}"><textarea/></field>
         <field name="productTypeId"><hidden value="SCRUM_ITEM"/></field>
         <field name="productId"><hidden value="${parameters.productId}"/></field>
@@ -2827,14 +2827,14 @@ under the License.
         <actions>
             <set field="unplanned" from-field="parameters.unplanned"/>
         </actions>
-        <field name="description" title="${uiLabelMap.ScrumProductBacklogItem}" required-field="true" tooltip="${uiLabelMap.CommonRequired}"><text size="50" maxlength="255"/></field>
+        <field name="description" title="${uiLabelMap.ScrumProductBacklogItem}" required-field="true"><text size="50" maxlength="255"/></field>
         <field name="billed" title="${uiLabelMap.ScrumBilled}">
             <drop-down allow-empty="false" no-current-selected-key="Y">
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
                 <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
-        <field name="unplanned" title="${uiLabelMap.ScrumUnplanBacklog}" event="onchange" action="javascript:document.QuickAddBacklog.action='QuickAddBacklog';document.QuickAddBacklog.submit();" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="unplanned" title="${uiLabelMap.ScrumUnplanBacklog}" event="onchange" action="javascript:document.QuickAddBacklog.action='QuickAddBacklog';document.QuickAddBacklog.submit();" required-field="true">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectOne} -"/>
                 <option key="Y" description="${uiLabelMap.CommonYes}"/>
@@ -2842,7 +2842,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.ScrumProductName}" use-when="${groovy: unplanned.equals(&quot;Y&quot;)}" event="onchange" action="javascript:document.QuickAddBacklog.action='QuickAddBacklog';document.QuickAddBacklog.submit();"
-            required-field="true" tooltip="${uiLabelMap.CommonRequired}">
+            required-field="true">
             <drop-down allow-empty="true">
                 <entity-options description="${groupName} -- ${internalName}[${productId}]" entity-name="ProductAndRole" key-field-name="productId">
                     <entity-constraint name="supportDiscontinuationDate" operator="equals" value=""/>
@@ -2853,7 +2853,7 @@ under the License.
             </drop-down>
         </field>
         <field name="keyId" title="${uiLabelMap.ScrumProduct} ${uiLabelMap.ScrumProject} ${uiLabelMap.ScrumSprint}" use-when="${groovy: unplanned.equals(&quot;N&quot;)}" event="onchange" action="javascript:document.QuickAddBacklog.action='QuickAddBacklog';document.QuickAddBacklog.submit();"
-            required-field="true" tooltip="${uiLabelMap.CommonRequired}">
+            required-field="true">
             <drop-down allow-empty="true">
                 <list-options key-name="keyId" list-name="workEffortList" description="[${productId}] ${internalName} -- [${projectId}] ${projectName} -- [${sprintId}] ${sprintName}"/>
             </drop-down>

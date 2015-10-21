@@ -111,7 +111,7 @@ under the License.
         <alt-target use-when="insideEmployee != null" target="createEmploymentAppExt"/>
         <auto-fields-service service-name="createEmploymentApp" default-field-type="hidden"/>
         <field name="partyId"><hidden value="${referredByPartyId}" /></field>
-        <field name="applicationId" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupEmploymentApp"/></field>
+        <field name="applicationId" required-field="true"><lookup target-form-name="LookupEmploymentApp"/></field>
         <field name="emplPositionId"><lookup target-form-name="LookupEmplPosition"/></field>
         <field name="statusId">
             <drop-down allow-empty="true" current-description="">

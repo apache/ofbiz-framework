@@ -79,10 +79,10 @@ under the License.
     <form name="EditProductStoreRole" type="single" target="storeUpdateRole" default-map-name="productStoreRole"
             header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productStoreRole==null" target="storeCreateRole"/>
-        <field name="partyId" use-when="productStoreRole==null" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" use-when="productStoreRole==null" title="${uiLabelMap.PartyPartyId}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyId" use-when="productStoreRole!=null" title="${uiLabelMap.PartyPartyId}"><display/></field>
         <field name="productStoreId"><hidden/></field>
-        <field name="roleTypeId" use-when="productStoreRole==null" title="${uiLabelMap.PartyRoleTypeId}" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="roleTypeId" use-when="productStoreRole==null" title="${uiLabelMap.PartyRoleTypeId}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>

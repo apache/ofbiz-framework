@@ -30,8 +30,8 @@
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
         <field name="partyId" use-when="myTask!=void"><hidden value="${userLogin.partyId}"/></field>
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
-        <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
-        <field name="workEffortParentId" use-when="myTask==void @and projectId!=void" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" required-field="true"><text/></field>
+        <field name="workEffortParentId" use-when="myTask==void @and projectId!=void" title="${uiLabelMap.ProjectMgrTaskPhase}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${projectId}.${sequenceNum} ${workEffortName}[${workEffortId}]">
                     <entity-constraint name="workEffortTypeId" value="PHASE"/>
@@ -41,7 +41,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortParentId" use-when="myTask==void @and projectId==void" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}"> 
+        <field name="workEffortParentId" use-when="myTask==void @and projectId==void" title="${uiLabelMap.ProjectMgrTaskPhase}" required-field="true"> 
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${projectName} -- ${phaseName}">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
@@ -55,7 +55,8 @@
                 <sub-hyperlink target="MyTasks" description="[${uiLabelMap.CommonChange}]"/>
             </display-entity>
         </field>
-        <field name="workEffortParentId" use-when="myTask!=void @and parameters.get(&quot;workEffortParentId&quot;)==null" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}" event="onchange" action="javascript:document.EditTask.submit();">
+        <field name="workEffortParentId" use-when="myTask!=void @and parameters.get(&quot;workEffortParentId&quot;)==null" title="${uiLabelMap.ProjectMgrTaskPhase}*" 
+                event="onchange" action="javascript:document.EditTask.submit();" required-field="true">
                 <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${projectName} -- ${phaseName}">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
@@ -118,7 +119,7 @@
 
     <form name="AssignTaskOtherProject" type="single" target="updateTask" default-map-name="task">
         <field name="workEffortId"><hidden/></field>
-        <field name="workEffortParentId" entry-name="empty" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="workEffortParentId" entry-name="empty" title="${uiLabelMap.ProjectMgrTaskPhase}" required-field="true">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${projectName} -- ${phaseName}">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
@@ -136,7 +137,7 @@
         <field name="workEffortParentId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
         <field name="currentStatusId"><hidden value="_NA_"/></field>
-        <field name="phaseName"  parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrPhaseName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
+        <field name="phaseName"  parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrPhaseName}" required-field="true"><text/></field>
         <field name="phaseSeqId" entry-name="sequenceNum" parameter-name="sequenceNum" title="${uiLabelMap.FormFieldTitle_sequenceNum}"><text size="3"/></field>
         <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonMax250Chars}"><textarea/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
@@ -147,7 +148,7 @@
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
         <field name="currentStatusId"><hidden value="_NA_"/></field>
         <field name="sequenceNum"><text size="3"/></field>
-        <field name="phaseName"  parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrPhaseName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
+        <field name="phaseName"  parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrPhaseName}" required-field="true"><text/></field>
         <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
@@ -702,7 +703,7 @@
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
         <field name="currentStatusId"><hidden value="PTS_CREATED"/></field>
-        <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text default-value="${custRequest.custRequestName}"/></field>
+        <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" required-field="true"><text default-value="${custRequest.custRequestName}"/></field>
         <field name="taskDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text default-value="${custRequest.description}"/></field>
         <field name="childWorkEffortId" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*">
             <drop-down allow-empty="false">

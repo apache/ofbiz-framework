@@ -369,7 +369,7 @@
     </form>
     <form name="AssignTaskOtherProject" type="single" target="updateTask" default-map-name="task">
         <field name="workEffortId"><hidden/></field>
-        <field name="workEffortParentId" entry-name="empty" title="${uiLabelMap.ScrumTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="workEffortParentId" entry-name="empty" title="${uiLabelMap.ScrumTaskPhase}" required-field="true">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${projectName} -- ${phaseName}">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>

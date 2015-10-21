@@ -26,14 +26,14 @@
         <field name="USE_ADDRESS"><hidden value="${USE_ADDRESS}"/></field>
         <field name="require_email"><hidden value="${require_email}"/></field>
         <field name="partyId"><text/></field>
-        <field name="groupName" title="${uiLabelMap.SetupOrganizationName}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="groupName" title="${uiLabelMap.SetupOrganizationName}" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="ShippingAddressTitle" title="${uiLabelMap.PartyAddressMailingShipping}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field name="USER_ADDRESS1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="USER_ADDRESS1" title="${uiLabelMap.CommonAddress1}" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="USER_ADDRESS2" title="${uiLabelMap.CommonAddress2}"><text size="30" maxlength="60"/></field>
-        <field name="USER_CITY" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="USER_CITY" title="${uiLabelMap.CommonCity}" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="USER_STATE" title="${uiLabelMap.CommonState}" required-field="true"><drop-down allow-empty="false"/></field>
-        <field name="USER_POSTAL_CODE" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="10" maxlength="30"/></field>
-        <field name="USER_COUNTRY" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="USER_POSTAL_CODE" title="${uiLabelMap.CommonZipPostalCode}" required-field="true"><text size="10" maxlength="30"/></field>
+        <field name="USER_COUNTRY" title="${uiLabelMap.CommonCountry}" required-field="true">
             <drop-down no-current-selected-key="${defaultCountryGeoId}">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId}: ${geoName}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
@@ -55,7 +55,7 @@
         <field name="USER_FAX_EXT" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
         <field name="USER_FAX_ALLOW_SOL"><hidden value="Y"/></field>
         <field name="EmailAddressTitle" title="${uiLabelMap.PartyEmailAddress}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field use-when="require_email!=null" name="USER_EMAIL" title="${uiLabelMap.CommonEmail}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="60" maxlength="250"/></field>
+        <field use-when="require_email!=null" name="USER_EMAIL" title="${uiLabelMap.CommonEmail}" required-field="true"><text size="60" maxlength="250"/></field>
         <field use-when="require_email==null" name="USER_EMAIL" title="${uiLabelMap.CommonEmail}" required-field="true"><text size="60" maxlength="250"/></field>
         <field name="USER_EMAIL_ALLOW_SOL"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
@@ -88,9 +88,9 @@
         <alt-target use-when="facility==null" target="CreateFacility"/>
 
         <field use-when="facility!=null" name="facilityId" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductStore}"><display/></field>
-        <field use-when="facility==null" name="facilityId" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text default-value="${partyId}"/></field>
+        <field use-when="facility==null" name="facilityId" required-field="true"><text default-value="${partyId}"/></field>
 
-        <field name="facilityName" title="${uiLabelMap.ProductName}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="facilityName" title="${uiLabelMap.ProductName}" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="description" title="${uiLabelMap.SetupFacilityDescription}"><text size="60" maxlength="250"/></field>
         <field name="defaultDaysToShip" title="${uiLabelMap.ProductDefaultDaysToShip}"><text size="10" maxlength="20"/></field>
         <field name="facilityTypeId"><hidden value="WAREHOUSE"/></field>
@@ -108,10 +108,10 @@
         <alt-target use-when="productStore==null" target="createProductStore"/>
         
         <field use-when="productStore!=null" name="productStoreId" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductStore}"><display/></field>
-        <field use-when="productStore==null&amp;&amp;productStoreId==null" name="productStoreId" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text default-value="${partyId}"/></field>
+        <field use-when="productStore==null&amp;&amp;productStoreId==null" name="productStoreId" required-field="true"><text default-value="${partyId}"/></field>
         <field use-when="productStore==null&amp;&amp;productStoreId!=null" name="productStoreId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${productStoreId}]"><text size="20" maxlength="20"/></field>
         
-        <field name="storeName" title="${uiLabelMap.ProductStoreName}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="storeName" title="${uiLabelMap.ProductStoreName}" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="companyName"><hidden value="${partyGroup.groupName}"/></field>
         <field name="primaryStoreGroupId"><hidden/></field>
         <field name="title"><hidden/></field>
@@ -189,8 +189,8 @@
 
     <form name="EditWebSite" extends="EditWebSite" extends-resource="component://content/widget/website/WebSiteForms.xml">
         <actions><set field="webSiteId" from-field="webSite.webSiteId"/></actions>
-        <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text default-value="WebStore"/></field>
-        <field name="siteName" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId" required-field="true"><text default-value="WebStore"/></field>
+        <field name="siteName" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="visualThemeSetId"><hidden value="ECOMMERCE"/></field>
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="httpHost"><hidden/></field>
@@ -206,8 +206,8 @@
     </form>
     
     <form name="EditProdCatalog" extends="EditProdCatalog" extends-resource="component://product/widget/catalog/ProdCatalogForms.xml">
-        <field use-when="prodCatalog==null&amp;&amp;prodCatalogId==null" name="prodCatalogId" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text default-value="${partyId}"/></field>
-        <field name="catalogName" title="${uiLabelMap.FormFieldTitle_prodCatalogName}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field use-when="prodCatalog==null&amp;&amp;prodCatalogId==null" name="prodCatalogId" required-field="true"><text default-value="${partyId}"/></field>
+        <field name="catalogName" title="${uiLabelMap.FormFieldTitle_prodCatalogName}" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="productStoreId"><hidden value="${productStoreId}"/></field>
         <field name="useQuickAdd"><hidden value="Y"/></field>
@@ -225,11 +225,11 @@
         <alt-target use-when="productCategory==null" target="createProductCategory"/>
         
         <field use-when="productCategory!=null" name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}" tooltip="${uiLabelMap.ProductNotModificationRecrationCategory}."><display/></field>
-        <field use-when="productCategory==null&amp;&amp;productCategoryId==null" name="productCategoryId" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text default-value="${partyId}"/></field> 
+        <field use-when="productCategory==null&amp;&amp;productCategoryId==null" name="productCategoryId" required-field="true"><text default-value="${partyId}"/></field> 
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="prodCatalogId"><hidden value="${prodCatalogId}"/></field>
         <field name="productCategoryTypeId"><hidden value="CATALOG_CATEGORY"/></field>
-        <field name="categoryName" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="categoryName" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="description" title="${uiLabelMap.ProductCategoryDescription}"><textarea cols="60" rows="2"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>  
@@ -240,13 +240,13 @@
         
         <field position="1" use-when="product!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotModificationRecreatingProduct}"><display/></field>
         <field position="1" use-when="product==null&amp;&amp;productId!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotFindProductId} [${productId}]"><text size="20" maxlength="20"/></field>
-        <field position="1" use-when="product==null&amp;&amp;productId==null" name="productId" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text default-value="${partyId}"/></field>
+        <field position="1" use-when="product==null&amp;&amp;productId==null" name="productId" required-field="true"><text default-value="${partyId}"/></field>
         
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="productCategoryId"><hidden value="${productCategoryId}"/></field>
         <field name="promoCat"><hidden value="${promoCat}"/></field>
         <field name="productTypeId"><hidden value="FINISHED_GOOD"/></field>
-        <field name="internalName" title="${uiLabelMap.ProductInternalName}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="productName" title="${uiLabelMap.ProductProductName}" ><text size="30" maxlength="60"/></field>
         <field name="description" title="${uiLabelMap.ProductShortDescription}"><text size="60" maxlength="250"/></field>
         <field name="defaultPrice" title="${uiLabelMap.ProductDefaultPrice}"><text size="8" default-value="${defaultPrice}"/></field>

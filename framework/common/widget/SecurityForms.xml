@@ -109,7 +109,7 @@ under the License.
     </form>
 
     <form name="CreateSecurityGroup" type="single" target="createSecurityGroup" default-map-name="securityGroup">
-        <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" required-field="true" tooltip="${uiLabelMap.CommonRequired}"><text size="20" maxlength="20"/></field>
+        <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" required-field="true"><text size="20" maxlength="20"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">

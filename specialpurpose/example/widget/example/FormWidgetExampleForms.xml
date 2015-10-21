@@ -267,7 +267,7 @@ under the License.
             <display description="${uiLabelMap.ExampleDependentDropDownTooltip}"/>
         </field>
         <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" required-field="true"><drop-down allow-empty="false"/></field>
-        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" required-field="true">
             <drop-down no-current-selected-key="USA">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>

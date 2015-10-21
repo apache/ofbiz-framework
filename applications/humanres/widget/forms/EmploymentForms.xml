@@ -115,7 +115,7 @@
         <auto-fields-service service-name="createEmployment" default-field-type="hidden"/>
         <field name="roleTypeIdFrom"><hidden value="INTERNAL_ORGANIZATIO"/></field>
         <field name="roleTypeIdTo"><hidden value="EMPLOYEE"/></field>
-        <field name="partyIdFrom" use-when="employment==null" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="partyIdFrom" use-when="employment==null" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}" required-field="true">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PartyRole" description="${partyId}" key-field-name="partyId">
                     <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
@@ -123,9 +123,9 @@
             </drop-down>
         </field>
         <field name="partyIdFrom" use-when="employment!=null" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><hidden/></field>
-        <field name="partyIdTo" use-when="employment==null" title="${uiLabelMap.HumanResEmployeePartyIdTo}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyIdTo" use-when="employment==null" title="${uiLabelMap.HumanResEmployeePartyIdTo}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" use-when="employment!=null" title="${uiLabelMap.HumanResEmployeePartyIdTo}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><hidden/></field>
-        <field name="fromDate" use-when="employment==null" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonRequired}"><date-time/></field>
+        <field name="fromDate" use-when="employment==null" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time/></field>
         <field name="fromDate" use-when="employment!=null" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="thruDate" use-when="employment!=null" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="terminationReasonId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationReasonId}">
@@ -227,14 +227,14 @@
         <field name="partyIdFrom"><hidden/></field>
         <field name="partyIdTo"><hidden/></field>
         <field name="fromDate"><hidden/></field>
-        <field name="benefitTypeId" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="benefitTypeId" required-field="true">
             <drop-down allow-empty="false">
                 <entity-options key-field-name="benefitTypeId" entity-name="BenefitType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}"/>
+        <field name="fromDate" required-field="true"/>
         <field name="periodTypeId">
             <drop-down allow-empty="false">
                 <entity-options key-field-name="periodTypeId" entity-name="PeriodType">
@@ -276,7 +276,7 @@
     <form name="AddPayrollPreference" type="single" target="createPayrollPreference"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPayrollPreference"/>
-        <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResPayrollPreferenceSeqId}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupPayRollPreference"/></field>
+        <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResPayrollPreferenceSeqId}" required-field="true"><lookup target-form-name="LookupPayRollPreference"/></field>
         <field name="partyId"><hidden/></field>
         <field name="roleTypeId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
@@ -375,7 +375,7 @@
     <form name="AddUnemploymentClaim" type="single" target="createUnemploymentClaim" title="" default-map-name="unemploymentClaim"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createUnemploymentClaim"/>
-        <field name="unemploymentClaimId" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupUnemploymentClaim"/></field>
+        <field name="unemploymentClaimId" required-field="true"><lookup target-form-name="LookupUnemploymentClaim"/></field>
         <field name="statusId">
             <drop-down allow-empty="false">
                 <entity-options key-field-name="statusId" entity-name="StatusItem">
@@ -422,18 +422,18 @@
     <form name="AddAgreementEmploymentAppl" type="single" target="createAgreementEmploymentAppl" default-map-name="agreementEmploymentAppl"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createAgreementEmploymentAppl" default-field-type="display"/>
-        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupAgreement"/></field>
-        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupAgreementEmploymentAppl"/></field>
-        <field name="partyIdFrom" title="${uiLabelMap.HumanResPartyIdFrom}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="partyIdTo" title="${uiLabelMap.HumanResPartyIdTo}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeIdFrom" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}" required-field="true"><lookup target-form-name="LookupAgreement"/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}" required-field="true"><lookup target-form-name="LookupAgreementEmploymentAppl"/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.HumanResPartyIdFrom}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyIdTo" title="${uiLabelMap.HumanResPartyIdTo}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeIdFrom">
             <drop-down allow-empty="false">
                 <entity-options key-field-name="roleTypeId" entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="roleTypeIdTo" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="roleTypeIdTo" required-field="true">
             <drop-down allow-empty="false">
                 <entity-options key-field-name="roleTypeId" entity-name="RoleType">
                     <entity-order-by field-name="description"/>

@@ -523,13 +523,13 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="quoteItemSeqId" use-when="quoteItemSeqId!=null" tooltip="${uiLabelMap.CommonRequired}"><display/></field>
-        <field name="termTypeId" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="quoteItemSeqId" use-when="quoteItemSeqId!=null"><display/></field>
+        <field name="termTypeId" required-field="true">
             <drop-down current-description="">
                 <entity-options entity-name="TermType" key-field-name="termTypeId"/>
             </drop-down>
         </field>
-        <field name="termTypeId" use-when="termTypeId!=null" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="termTypeId" use-when="termTypeId!=null">
             <display-entity entity-name="TermType" description="${description} [${termTypeId}]" key-field-name="termTypeId"/>
         </field>
         <field name="quoteId"><hidden/></field>
