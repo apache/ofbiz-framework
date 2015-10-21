@@ -247,22 +247,22 @@
     </form>
     
     <form name="QuickAddParty" type="single" target="createQuickAddParty">
-        <field name="firstName" title="${uiLabelMap.PartyFirstName}" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="firstName" title="${uiLabelMap.PartyFirstName}" required-field="true">
            <text/>
         </field>
         <field name="middleName" title="${uiLabelMap.PartyMiddleName}">
            <text size="10"/>
         </field>
-        <field name="lastName" title="${uiLabelMap.PartyLastName}" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="lastName" title="${uiLabelMap.PartyLastName}" required-field="true">
            <text/>
         </field>
-        <field name="emailAddress" title="${uiLabelMap.PartyEmailAddress}" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="emailAddress" title="${uiLabelMap.PartyEmailAddress}" required-field="true">
            <text size="50"/>
         </field>
-        <field name="userLoginId" title="${uiLabelMap.CommonUsername}" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="userLoginId" title="${uiLabelMap.CommonUsername}" required-field="true">
            <text/>
         </field>
-        <field name="password" title="${uiLabelMap.CommonPassword}" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="password" title="${uiLabelMap.CommonPassword}" required-field="true">
            <password/>
         </field>
         <field name="confirmPassword" title="${uiLabelMap.ScrumVerifyPassword}" required-field="true" tooltip="${uiLabelMap.PartyRepeatPassword}">
@@ -276,16 +276,16 @@
                 </entity-options>
             </drop-down> 
         </field>
-        <field name="company" title="${uiLabelMap.ScrumCompanyNameShow}" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="company" title="${uiLabelMap.ScrumCompanyNameShow}" required-field="true">
             <lookup target-form-name="LookupPartyGroup"></lookup>
         </field>
         <field name="createButton" title="${uiLabelMap.CommonCreate}"><submit/></field>
     </form>
     <form name="QuickAddPartyRelationship" type="single" target="createQuickAddPartyRelationship">
-        <field name="contactPartyId" title="${uiLabelMap.PartyPartyId}" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="contactPartyId" title="${uiLabelMap.PartyPartyId}" required-field="true">
            <lookup target-form-name="LookupPerson"></lookup>
         </field>
-        <field name="accountPartyId" title="${uiLabelMap.ScrumCompanyPartyId}" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="accountPartyId" title="${uiLabelMap.ScrumCompanyPartyId}" required-field="true">
             <lookup target-form-name="LookupPartyGroup"></lookup>
         </field>
         <field name="comments"><hidden/> </field>

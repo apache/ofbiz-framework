@@ -96,9 +96,9 @@
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="leaveApp==null" target="createEmplLeaveExt"/>
         <auto-fields-service service-name="updateEmplLeave" map-name="leaveApp"/>
-        <field name="partyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="approverPartyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="leaveTypeId" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="partyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="approverPartyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="leaveTypeId" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="leaveTypeId" entity-name="EmplLeaveType"/>
             </drop-down>
@@ -108,8 +108,8 @@
                 <entity-options key-field-name="emplLeaveReasonTypeId" entity-name="EmplLeaveReasonType"/>
             </drop-down>
         </field>
-        <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}"><date-time type="date"/></field>
-        <field name="thruDate" tooltip="${uiLabelMap.CommonRequired}"><date-time type="date"/></field>
+        <field name="fromDate" required-field="true"><date-time type="date"/></field>
+        <field name="thruDate" required-field="true"><date-time type="date"/></field>
         <field name="leaveStatus"><hidden value="LEAVE_CREATED"/></field>
         <field name="submitButton" use-when="leaveApp==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="leaveApp!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>

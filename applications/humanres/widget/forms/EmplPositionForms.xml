@@ -129,8 +129,8 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createEmplPositionFulfillment"/>
         <field name="emplPositionId"><hidden /></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonRequired}"/>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
@@ -162,9 +162,9 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createEmplPositionReportingStruct"/>
         <field name="emplPositionId"><hidden value="${parameters.emplPositionId}"/></field>
-        <field name="emplPositionIdReportingTo" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupEmplPosition"/></field>
-        <field name="emplPositionIdManagedBy" tooltip="${uiLabelMap.CommonRequired}"><hidden value="${parameters.emplPositionId}"/></field>
-        <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}"/>
+        <field name="emplPositionIdReportingTo" required-field="true"><lookup target-form-name="LookupEmplPosition"/></field>
+        <field name="emplPositionIdManagedBy" required-field="true"><hidden value="${parameters.emplPositionId}"/></field>
+        <field name="fromDate" required-field="true"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListReportedToEmplPositionReportingStructs" type="list" target="updateEmplPositionReportingStruct" title="" paginate-target="EditReportedToEmplPositionReportingStruct"
@@ -196,8 +196,8 @@ under the License.
         <auto-fields-service service-name="createEmplPositionReportingStruct"/>
         <field name="emplPositionId"><hidden value="${parameters.emplPositionId}"/></field>
         <field name="emplPositionIdReportingTo"><hidden value="${parameters.emplPositionId}"/></field>
-        <field name="emplPositionIdManagedBy" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupEmplPosition"/></field>
-        <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}"/>
+        <field name="emplPositionIdManagedBy" required-field="true"><lookup target-form-name="LookupEmplPosition"/></field>
+        <field name="fromDate" required-field="true"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListEmplPositionResponsibilities" type="list" target="updateEmplPositionResponsibility" title="" paginate-target="findEmplPositionResponsibilities"
@@ -225,7 +225,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createEmplPositionResponsibility"/>
         <field name="emplPositionId"><hidden /></field>
-        <field name="responsibilityTypeId"  tooltip="${uiLabelMap.CommonRequired}">
+        <field name="responsibilityTypeId" required-field="true">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ResponsibilityType" key-field-name="responsibilityTypeId" description=" ${description}">
                     <entity-order-by field-name="description"/>

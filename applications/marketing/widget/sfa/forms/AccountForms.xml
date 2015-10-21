@@ -23,7 +23,7 @@ under the License.
 
     <form name="NewAccount" type="single" target="createAccount" header-row-style="header-row" default-table-style="basic-table">
         <field name="accountType"><hidden value="${accountType}"/></field>
-        <field name="groupName" title="${uiLabelMap.PartyGroupName}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="groupName" title="${uiLabelMap.PartyGroupName}" required-field="true">
             <text size="30" maxlength="60"/>
         </field>
         <field name="numEmployees" title="${uiLabelMap.MarketingNoOfEmployees}"><text size="30"/></field>
@@ -31,14 +31,14 @@ under the License.
         <field name="postalAddressTitle" title="${uiLabelMap.PartyGeneralCorrespondenceAddress}" title-area-style="group-label">
             <display description=" " also-hidden="false"/>
         </field>
-        <field name="address1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="address1" title="${uiLabelMap.CommonAddress1}" required-field="true">
             <text size="50" maxlength="60"/>
         </field>
         <field name="address2" title="${uiLabelMap.CommonAddress2}"><text size="50" maxlength="60"/></field>
-        <field name="city" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="city" required-field="true">
             <text size="30" maxlength="60"/>
         </field>
-        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} - ${geoId}">
                     <entity-constraint name="geoTypeId" operator="in" value="STATE,PROVINCE"/>
@@ -46,11 +46,11 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" required-field="true">
             <text size="10" maxlength="30"/>
         </field>
         <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" required-field="true"><drop-down allow-empty="false"/></field>
-        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" required-field="true">
             <drop-down no-current-selected-key="${defaultCountryGeoId}">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} - ${geoId}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>

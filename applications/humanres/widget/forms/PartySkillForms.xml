@@ -70,8 +70,8 @@ under the License.
         </actions>
         <alt-target use-when="insideEmployee != null" target="createPartySkillExt"/>
         <field name="partyId" use-when="partySkill != null"><hidden/></field>
-        <field name="partyId" use-when="partySkill == null" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="skillTypeId" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
+        <field name="partyId" use-when="partySkill == null" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="skillTypeId" required-field="true">
             <drop-down>
                 <entity-options entity-name="SkillType">
                     <entity-order-by field-name="description"/>

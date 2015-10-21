@@ -53,7 +53,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="storeName" title="${uiLabelMap.ProductStoreName}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="100"/></field>
+        <field name="storeName" title="${uiLabelMap.ProductStoreName}" required-field="true"><text size="30" maxlength="100"/></field>
         <field name="title" title="${uiLabelMap.ProductTitle}"><text size="30" maxlength="100"/></field>
         <field name="subtitle" title="${uiLabelMap.ProductSubTitle}"><text size="60" maxlength="250"/></field>
         <field name="payToPartyId"><lookup target-form-name="LookupPartyName"/></field>
@@ -1039,7 +1039,7 @@
                 <entity-options entity-name="ProductPromo" description="[${productPromoId}] ${promoName}"/>
             </drop-down>
         </field>
-        <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><date-time/></field>
+        <field name="fromDate" required-field="true"><date-time/></field>
         <field name="thruDate"><date-time/></field>
         <field name="manualOnly">
             <drop-down>
