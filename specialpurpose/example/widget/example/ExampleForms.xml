@@ -171,7 +171,7 @@ under the License.
         <field use-when="example!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="example==null @and exampleId==null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><ignored/></field>
         <field use-when="example==null @and exampleId!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${exampleId}]" also-hidden="false"/></field>
-        <field name="exampleTypeId" title="${uiLabelMap.CommonType}" id-name="exampleTypeId" widget-style="required">
+        <field name="exampleTypeId" title="${uiLabelMap.CommonType}" id-name="exampleTypeId" required-field="true">
             <drop-down allow-empty="false">
                 <!-- this is a neat feature, but not good for the type because the user would have to know the possible types in order to enter at least the first letter, so leaving it out by default; just uncomment to enable: <auto-complete/> -->
                 <entity-options entity-name="ExampleType">
@@ -179,19 +179,19 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="statusId"  use-when="example==null" title="${uiLabelMap.CommonStatus}" widget-style="required">
+        <field name="statusId"  use-when="example==null" title="${uiLabelMap.CommonStatus}" required-field="true">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ExampleStatusItem"/>
             </drop-down>
         </field>
-        <field name="statusId" use-when="example!=null" title="${uiLabelMap.CommonStatus}" widget-style="required">
+        <field name="statusId" use-when="example!=null" title="${uiLabelMap.CommonStatus}" required-field="true">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" env-name="example.statusId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="exampleName" required-field="true" widget-style="required"><text placeholder="${uiLabelMap.FormFieldTitle_exampleName}"/></field>
+        <field name="exampleName" title="${uiLabelMap.FormFieldTitle_exampleName}" required-field="true"><text /></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"/>
         <field name="longDescription" title="${uiLabelMap.ExampleLongDescription}"/>
         <field name="anotherText">

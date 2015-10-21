@@ -22,7 +22,7 @@ under the License.
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="showTrainingCalendar" type="single" target="applyTraining">
         <field name="partyId"><hidden value="${loginPartyId}"/></field>
-        <field name="approverId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="approverId" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTraining} ${uiLabelMap.CommonName}"><display/></field>
         <field name="approvalStatus"><hidden value="TRAINING_APPLIED"/></field>
         <field name="workEffortTypeId"><hidden/></field>
@@ -149,7 +149,7 @@ under the License.
             </drop-down>
         </field>
         <field name="approvalStatus" use-when="personTraining!=null&amp;&amp;personTraining.getString(&quot;approvalStatus&quot;).equals(&quot;TRAINING_REJECTED&quot;)"><display/></field>
-        <field name="reason" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="reason" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
         <field name="reason" use-when="personTraining!=null&amp;&amp;personTraining.getString(&quot;approvalStatus&quot;).equals(&quot;TRAINING_REJECTED&quot;)"><display/></field>
         <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

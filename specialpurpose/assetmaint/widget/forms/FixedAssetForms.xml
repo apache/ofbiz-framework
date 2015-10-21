@@ -92,7 +92,7 @@
 
     <form name="EditFixedAssetMaint" extends="EditFixedAssetMaint" extends-resource="component://accounting/widget/FixedAssetForms.xml" target="updateFixedAssetMaintAndWorkEffort">
         <alt-target use-when="fixedAssetMaint==null" target="createFixedAssetMaintUpdateWorkEffort"/>
-        <field name="fixedAssetId" use-when="fixedAssetMaint==null" title="${uiLabelMap.AccountingFixedAssetId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupFixedAsset"/></field>
+        <field name="fixedAssetId" use-when="fixedAssetMaint==null" title="${uiLabelMap.AccountingFixedAssetId}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupFixedAsset"/></field>
         <field name="scheduleWorkEffortId"><hidden/></field>
         <field name="submitButton" ><ignored/></field>
         <field map-name="workEffort" position="1"  name="estimatedStartDate"><date-time/></field>

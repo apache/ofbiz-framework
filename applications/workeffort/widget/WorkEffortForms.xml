@@ -1359,7 +1359,7 @@ under the License.
         <field name="currentStatusId"><hidden value="CAL_CANCELLED"></hidden></field>
         <field name="quickAssignPartyId" title="${uiLabelMap.WorkEffortICalendarOwner}" use-when="workEffort==null @and workEffortId==null"><lookup target-form-name="LookupPartyName"/></field>
         <field name="workEffortId" use-when="workEffort!=null" title="${uiLabelMap.WorkEffortICalendarUrl}"><display description="${serverRootUrl}/iCalendar/${workEffortId}/"/></field>
-        <field name="workEffortName" title="${uiLabelMap.WorkEffortICalendarName}" widget-style="required" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
+        <field name="workEffortName" title="${uiLabelMap.WorkEffortICalendarName}" required-field="true" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
         <field name="scopeEnumId" title="${uiLabelMap.WorkEffortICalendarVisibility}">
             <drop-down no-current-selected-key="WES_PRIVATE">
                 <entity-options entity-name="Enumeration" key-field-name="enumId">

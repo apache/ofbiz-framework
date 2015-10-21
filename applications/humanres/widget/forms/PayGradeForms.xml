@@ -55,7 +55,7 @@
         <auto-fields-service service-name="updatePayGrade"/>
         <field use-when="payGrade!=null" name="payGradeId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="payGrade==null" name="payGradeId"><text/></field>
-        <field name="payGradeName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="payGradeName" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="payGrade!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

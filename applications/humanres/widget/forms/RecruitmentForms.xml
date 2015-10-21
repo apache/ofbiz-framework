@@ -101,9 +101,9 @@ under the License.
         <field name="jobRequisitionId" use-when="jobRequisition==null"><ignored/></field>
         <field use-when="jobRequisition!=null" name="jobRequisitionId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="jobDescription" title="${uiLabelMap.CommonDescription}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field name="jobLocation" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="jobLocation" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
         <field name="age"><text/></field>
-        <field name="noOfResources" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="noOfResources" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
         <field name="gender">
             <drop-down allow-empty="true">
                 <option key="M" description="${uiLabelMap.CommonMale}"/>
@@ -111,7 +111,7 @@ under the License.
             </drop-down>
         </field>
         <field name="durationMonths"><text/></field>
-        <field name="qualification" widget-style="required" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="qualification" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyQualType" key-field-name="partyQualTypeId">
                     <entity-order-by field-name="description"/>
@@ -127,15 +127,15 @@ under the License.
             </drop-down>
         </field>
         <field name="skillCriteria" title="${uiLabelMap.HumanResSkills} ${uiLabelMap.CommonRequired}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field name="skillTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="skillTypeId" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="SkillType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="experienceMonths" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
-        <field name="experienceYears" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="experienceMonths" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
+        <field name="experienceYears" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
         <field name="jobPostingTypeEnumId"><hidden value="JOB_POSTING_INTR"/></field>
         <field name="submitButton" use-when="jobRequisition==null" title="Create" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="jobRequisition!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>

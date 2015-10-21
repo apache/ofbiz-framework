@@ -119,8 +119,8 @@ under the License.
             </drop-down>
         </field>
         <field name="nextStepDate" position="1" title="${uiLabelMap.SfaNextStepDate}"><date-time/></field>
-        <field name="estimatedCloseDate" position="2" title="${uiLabelMap.SfaCloseDate}" widget-style="required"><date-time/></field>
-        <field name="opportunityStageId" position="1" title="${uiLabelMap.SfaInitialStage}" widget-style="required">
+        <field name="estimatedCloseDate" position="2" title="${uiLabelMap.SfaCloseDate}" required-field="true"><date-time/></field>
+        <field name="opportunityStageId" position="1" title="${uiLabelMap.SfaInitialStage}" required-field="true">
             <drop-down>
                 <entity-options entity-name="SalesOpportunityStage">
                     <entity-order-by field-name="sequenceNum"/>
@@ -153,8 +153,8 @@ under the License.
         </field>
         <field name="accountPartyId" use-when="communicationEvent==null" title="${uiLabelMap.SfaInitialAccount}" ><lookup target-form-name="LookupPartyGroup" default-value="${accountPartyId}"/></field>
         <field name="accountPartyId" use-when="communicationEvent!=null" title="${uiLabelMap.SfaInitialAccount}" ><lookup target-form-name="LookupPartyGroup" default-value="${accountPartyId}"/></field>
-        <field name="leadPartyId" use-when="communicationEvent==null" title="${uiLabelMap.SfaLead}" widget-style="required"><lookup target-form-name="LookupPerson" default-value="${leadPartyId}"/></field>
-        <field name="leadPartyId" use-when="communicationEvent!=null" title="${uiLabelMap.SfaLead}" widget-style="required"><lookup target-form-name="LookupPerson" default-value="${communicationEvent.partyIdFrom}"/></field>
+        <field name="leadPartyId" use-when="communicationEvent==null" title="${uiLabelMap.SfaLead}" required-field="true"><lookup target-form-name="LookupPerson" default-value="${leadPartyId}"/></field>
+        <field name="leadPartyId" use-when="communicationEvent!=null" title="${uiLabelMap.SfaLead}" required-field="true"><lookup target-form-name="LookupPerson" default-value="${communicationEvent.partyIdFrom}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" use-when="salesOpportunity==null"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="salesOpportunity!=null"><submit button-type="button"/></field>
     </form>

@@ -106,8 +106,8 @@ under the License.
         <alt-target use-when="insideEmployee != null" target="createPartyQualExt"/>
         <auto-fields-service service-name="createPartyQual"/>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="partyQual!=null"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="partyQual==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="partyQualTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="partyQual==null" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyQualTypeId" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="partyQualTypeId" entity-name="PartyQualType">
                     <entity-order-by field-name="description"/>

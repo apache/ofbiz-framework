@@ -21,14 +21,14 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="ProgramExport" type="single" target="ProgramExport" default-map-name="parameters">
-        <field name="groovyProgram" widget-style="required" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="groovyProgram" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
             <textarea cols="120" rows="20" />
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
     </form>
 
     <form name="LayoutDemoForm" type="single" target="${demoTargetUrl}" default-map-name="demoMap">
-        <field name="name" title="${uiLabelMap.CommonName}" widget-style="required" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="name" title="${uiLabelMap.CommonName}" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
             <text />
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
