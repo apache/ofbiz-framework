@@ -341,7 +341,7 @@
         <field name="currencyUomId" title="${uiLabelMap.ProductCurrency}"><display-entity entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time default-value="${thruDate}"/></field>
-        <field name="price" title="${uiLabelMap.ProductPrice}" widget-style="required"><text size="25" default-value="${price}"/></field>
+        <field name="price" title="${uiLabelMap.ProductPrice}" required-field="true"><text size="25" default-value="${price}"/></field>
         <field name="updateFeaturePrice" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="lastModifiedBy" title="${uiLabelMap.ProductLastModifiedBy}"><display description="[${lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${lastModifiedDate}"/></field>
         <field name="deleteFeaturePrice" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
@@ -367,7 +367,7 @@
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" position="1"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" position="2"><date-time/></field>
-        <field name="price" title="${uiLabelMap.ProductPrice}" widget-style="required" position="1"><text size="25"/></field>
+        <field name="price" title="${uiLabelMap.ProductPrice}" required-field="true" position="1"><text size="25"/></field>
         <field name="currencyUomId" title="${uiLabelMap.ProductCurrency}" position="2">
             <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">

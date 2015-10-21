@@ -23,10 +23,10 @@
     <form name="AddEmployee" type="single" target="createEmployee"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="salutation" title="${uiLabelMap.CommonTitle}"><text size="10" maxlength="30"/></field>
-        <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
         <field name="middleName" title="${uiLabelMap.PartyMiddleInitial}"><text size="4" maxlength="4"/></field>
-        <field name="lastName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
-        <field name="partyIdFrom" title="${uiLabelMap.OrderOrderEntryInternalOrganization}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="lastName" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.OrderOrderEntryInternalOrganization}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyRoleNameDetail" key-field-name="partyId" description="${groupName}">
                     <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
@@ -37,10 +37,10 @@
         <field name="fromDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><date-time/></field>
         <field name="permanentAddress" title="${uiLabelMap.OrderAddress}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="postalAddContactMechPurpTypeId"><hidden value="PRIMARY_LOCATION"/></field>
-        <field name="address1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="address1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
         <field name="address2" title="${uiLabelMap.CommonAddress2}"><text size="30" maxlength="60"/></field>
-        <field name="city" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
-        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="city" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} - ${geoId}">
                     <entity-constraint name="geoTypeId" operator="in" value="STATE,PROVINCE"/>
@@ -48,8 +48,8 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="10" maxlength="30"/></field>
-        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="10" maxlength="30"/></field>
+        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} - ${geoId}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
@@ -60,7 +60,7 @@
         <field name="phoneTitle" title="${uiLabelMap.PartyPrimaryPhone}" title-area-style="group-label"><display/></field>
         <field name="countryCode" title="${uiLabelMap.CommonCountryCode}"><text size="4" maxlength="10"/></field>
         <field name="areaCode" title="${uiLabelMap.PartyAreaCode}"><text size="4" maxlength="10"/></field>
-        <field name="contactNumber" title="${uiLabelMap.PartyPhoneNumber}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="15" maxlength="15"/></field>
+        <field name="contactNumber" title="${uiLabelMap.PartyPhoneNumber}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="15" maxlength="15"/></field>
         <field name="extension" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
         <field name="emailAddressTitle" title="${uiLabelMap.PartyEmailAddress}" title-area-style="group-label"><display/></field>
         <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="50" maxlength="60"/></field>
@@ -68,7 +68,7 @@
     </form>
     <form name="AddEmployeeSkills" type="single" target="createEmployeeSkill" default-map-name="partySkill">
         <field name="partyId"><hidden/></field>
-        <field name="skillTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="skillTypeId" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
             <drop-down>
                 <entity-options entity-name="SkillType">
                     <entity-order-by field-name="description"/>
@@ -106,7 +106,7 @@
     <form name="AddEmployeeQualification" type="single" target="createEmployeeQualification">
         <auto-fields-service service-name="createPartyQual"/>
         <field name="partyId"><hidden/></field>
-        <field name="partyQualTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="partyQualTypeId" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="partyQualTypeId" entity-name="PartyQualType">
                     <entity-order-by field-name="description"/>
@@ -173,7 +173,7 @@
     </form>
     <form name="AddEmployeeTraining" type="single" target="createEmployeeTraining">
         <field name="partyId"><hidden/></field>
-        <field name="trainingClassTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="trainingClassTypeId" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
             <drop-down allow-empty="false">
                 <entity-options entity-name="TrainingClassType">
                     <entity-order-by field-name="description"/>

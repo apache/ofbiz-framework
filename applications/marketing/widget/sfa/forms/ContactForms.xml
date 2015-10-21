@@ -104,14 +104,14 @@ under the License.
         <field name="assignToMe"><hidden/></field>
     </form>
     <form name="NewContact" type="single" target="createContact" header-row-style="header-row" default-table-style="basic-table">
-        <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
-        <field name="lastName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
+        <field name="lastName" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
         <field name="suffix"><text/></field>
         <field name="postalAddressTitle" title="${uiLabelMap.PartyGeneralCorrespondenceAddress}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field name="address1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="50" maxlength="60"/></field>
+        <field name="address1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="50" maxlength="60"/></field>
         <field name="address2" title="${uiLabelMap.CommonAddress2}"><text size="50" maxlength="60"/></field>
-        <field name="city" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
-        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="city" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId} - ${geoName}">
                     <entity-constraint name="geoTypeId" operator="in" value="STATE,PROVINCE"/>
@@ -119,8 +119,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="10" maxlength="30"/></field>
-        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text size="10" maxlength="30"/></field>
+        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" required-field="true">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId}: ${geoName}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
@@ -170,8 +170,8 @@ under the License.
     </form>
 
     <form name="QuickAddContact" type="single" target="quickAddContact">
-        <field name="firstName"  title="${uiLabelMap.PartyFirstName}*" widget-style="required"><text size="15"/></field>
-        <field name="lastName" title="${uiLabelMap.PartyLastName}*" widget-style="required"><text size="15"/></field>
+        <field name="firstName"  title="${uiLabelMap.PartyFirstName}*" required-field="true"><text size="15"/></field>
+        <field name="lastName" title="${uiLabelMap.PartyLastName}*" required-field="true"><text size="15"/></field>
         <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="15"/></field>
         <field name="contactListId" title="${uiLabelMap.MarketingContactList}">
             <drop-down allow-empty="true">

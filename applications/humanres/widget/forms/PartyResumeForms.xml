@@ -62,7 +62,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="partyResume != null" target="updatePartyResume"/>
         <field name="resumeId" use-when="partyResume!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field name="resumeId" use-when="partyResume==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="resumeId" use-when="partyResume==null" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
         <field name="contentId"><lookup target-form-name="LookupContent"/></field>
         <field name="partyId" use-when="partyResume!=null&amp;&amp;partyId!=null" title="${uiLabelMap.FormFieldTitle_partyId}"><hidden/></field>
         <field name="partyId" use-when="partyResume==null&amp;&amp;partyId==null" title="${uiLabelMap.FormFieldTitle_partyId}"><lookup target-form-name="LookupPartyName"/></field>

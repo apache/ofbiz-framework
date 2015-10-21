@@ -72,7 +72,7 @@ under the License.
         <auto-fields-service service-name="updatePerfReview" map-name="perfReview"/>
         <field name="perfReviewId" use-when="perfReview==null"><text/></field>
         <field name="perfReviewId" use-when="perfReview!=null"><ignored/></field>
-        <field name="employeePartyId" use-when="perfReview==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="employeePartyId" use-when="perfReview==null" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="employeePartyId" use-when="perfReview!=null"><ignored/></field>
         <field name="employeeRoleTypeId"><hidden value="EMPLOYEE"/></field>
         <field name="managerPartyId"><lookup target-form-name="LookupPartyName"/></field>

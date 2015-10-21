@@ -22,8 +22,8 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="createLead" type="single" target="createLead" header-row-style="header-row" default-table-style="basic-table" default-map-name="contactDetailMap">
-        <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
-        <field name="lastName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
+        <field name="lastName" tooltip="${uiLabelMap.CommonRequired}" required-field="true"><text/></field>
         <field name="suffix"><text/></field>
         <field name="groupName"><text/></field>
         <field name="title"><text/></field>
@@ -120,8 +120,8 @@ under the License.
     </form>
 
     <form name="QuickAddLead" type="single" target="quickAddLead">
-        <field name="firstName" title="${uiLabelMap.PartyFirstName}*" widget-style="required"><text size="15"/></field>
-        <field name="lastName" title="${uiLabelMap.PartyLastName}*" widget-style="required"><text size="15"/></field>
+        <field name="firstName" title="${uiLabelMap.PartyFirstName}*" required-field="true"><text size="15"/></field>
+        <field name="lastName" title="${uiLabelMap.PartyLastName}*" required-field="true"><text size="15"/></field>
         <field name="groupName" title="${uiLabelMap.CommonGroup}"><text size="15"/></field>
         <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="15"/></field>
         <field name="contactListId" title="${uiLabelMap.MarketingContactList}">
