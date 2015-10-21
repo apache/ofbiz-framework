@@ -17,7 +17,7 @@ Then start OFBiz:
 
 ant start
 
-(or "java -Xms128M -Xmx512M -XX:MaxPermSize=128m -jar ofbiz.jar")
+(or "java -Xms128M -Xmx512M -jar ofbiz.jar")
 (you can also run directly "ant load-demo start")
 
 Once OFBiz starts, you can look at the demo storefront at:
