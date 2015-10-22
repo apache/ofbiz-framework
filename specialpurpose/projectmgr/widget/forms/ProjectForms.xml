@@ -272,7 +272,7 @@
         <field name="fromDate"><hidden/></field>
         <field name="workEffortAssocTypeId"><hidden/></field>
         <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
-        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}" required-field="true"><display/></field>
+        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}"><display/></field>
 
         <field name="currentStatusId">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
@@ -367,7 +367,7 @@
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortAssocTypeId"><hidden/></field>
         <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
-        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}" required-field="true"><display/></field>
+        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="projectId" title="${uiLabelMap.ProjectMgrWorkEffortIdFrom}"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="fromDate"><date-time/></field>
         <field name="currentStatusId">
@@ -399,7 +399,7 @@
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="phaseId" parameter-name="workEffortId"><hidden/></field>
         <field name="phaseSeqNum" parameter-name="sequenceNum" title="${uiLabelMap.FormFieldTitle_sequenceNum}"><text size="3"/></field>
-        <field name="phaseName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><text/></field>
+        <field name="phaseName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}" required-field="true"><text/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
         <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>

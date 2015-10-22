@@ -644,7 +644,7 @@ under the License.
             <text size="63" maxlength="255"/>
         </field>
         <field name="description" title="${uiLabelMap.ScrumProductBacklogItem}" required-field="true" tooltip="${uiLabelMap.ScrumMax255Chars}" use-when="custRequest!=null&amp;&amp;isTeamMember==false"><text size="63" maxlength="255"/></field>
-        <field name="description" title="${uiLabelMap.ScrumProductBacklogItem}" required-field="true" use-when="custRequest!=null&amp;&amp;isTeamMember==true"><display/></field>
+        <field name="description" title="${uiLabelMap.ScrumProductBacklogItem}" use-when="custRequest!=null&amp;&amp;isTeamMember==true"><display/></field>
         <field name="productId" map-name="product" title="${uiLabelMap.ScrumProjectMoveToProduct}" use-when="custRequest!=null&amp;&amp;isTeamMember==false">
             <drop-down>
                 <entity-options description="${groupName}  ${internalName}[${productId}]" entity-name="ProductAndRole" key-field-name="productId">
@@ -2674,7 +2674,7 @@ under the License.
                 <entity-options entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
         </field>
-        <field name="dataResourceName" title="${uiLabelMap.CommonUpload}*"><file/></field>
+        <field name="dataResourceName" title="${uiLabelMap.CommonUpload}" required-field="true"><file/></field>
         <field name="createButton"><submit button-type="button"/></field>
     </form>
     <form name="ListCustRequestContent" type="list" list-name="custRequestAndContents"
