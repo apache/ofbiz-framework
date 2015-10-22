@@ -72,7 +72,7 @@
         </field>
 
         <field name="manualAuthIsCapture">
-            <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}" disabled="true"/></drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="prorateShipping">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
