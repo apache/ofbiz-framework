@@ -455,9 +455,9 @@ under the License.
         <field name="custRequestId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
             <display-entity also-hidden="true" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}">
-	            <sub-hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
-	                <parameter param-name="partyId"/>
-	            </sub-hyperlink>
+                <sub-hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+                    <parameter param-name="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
@@ -611,7 +611,7 @@ under the License.
                 <entity-options entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
         </field-->
-        <field name="dataResourceName" title="${uiLabelMap.CommonUpload}*"><file/></field>
+        <field name="dataResourceName" title="${uiLabelMap.CommonUpload}" required-field="true"><file/></field>
        <!-- <field name="dataCategoryId" use-when="dataResource==null">
             <drop-down allow-empty="false">
                 <entity-options description="${categoryName}" entity-name="DataCategory" key-field-name="dataCategoryId"/>

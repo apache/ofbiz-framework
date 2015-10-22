@@ -38,7 +38,7 @@ under the License.
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
         <field name="currentStatusId"><hidden value="PTS_CREATED"/></field>
         <!--field name="communicationEventId"><hidden value="${communicationEvent.communicationEventId}"/></field-->
-        <field name="childWorkEffortId" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*">
+        <field name="childWorkEffortId" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="WorkEffortAndChild" description="${workEffortName} -- ${childWorkEffortName}">
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>

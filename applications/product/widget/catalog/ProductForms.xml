@@ -2213,9 +2213,9 @@ under the License.
         <field name="productId"><hidden/></field>
         <field name="statusId"><hidden value="GO_CREATED"/></field>
         <field name="soldOrderQty"><hidden value="0"/></field>
-        <field name="reqOrderQty" title="${uiLabelMap.ProductDealQuantity}*"><text/></field>
-        <field name="fromDate" title="${uiLabelMap.ProductDealStartDate}*"><date-time/></field>
-        <field name="thruDate" title="${uiLabelMap.ProductDealEndDate}*"><date-time/></field>
+        <field name="reqOrderQty" title="${uiLabelMap.ProductDealQuantity}" required-field="true"><text/></field>
+        <field name="fromDate" title="${uiLabelMap.ProductDealStartDate}" required-field="true"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.ProductDealEndDate}" required-field="true"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
@@ -2224,9 +2224,9 @@ under the License.
         <field name="groupOrderId"><hidden/></field>
         <field name="productId"><hidden/></field>
         <field name="statusId"><hidden/></field>
-        <field name="reqOrderQty" title="${uiLabelMap.ProductDealQuantity}*"><text/></field>
-        <field name="fromDate" title="${uiLabelMap.ProductDealStartDate}*"><date-time/></field>
-        <field name="thruDate" title="${uiLabelMap.ProductDealEndDate}*"><date-time/></field>
+        <field name="reqOrderQty" title="${uiLabelMap.ProductDealQuantity}" required-field="true"><text/></field>
+        <field name="fromDate" title="${uiLabelMap.ProductDealStartDate}" required-field="true"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.ProductDealEndDate}" required-field="true"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 

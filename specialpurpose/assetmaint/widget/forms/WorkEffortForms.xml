@@ -30,9 +30,9 @@
         <alt-target target="createWorkEffort" use-when="workEffort==null"/>
         <alt-target target="updateWorkEffortAndAssoc" use-when="workEffortIdFrom!=null"/>
         <field name="maintHistSeqId" map-name="fixedAssetMaint"><hidden/></field>
-        <field map-name="workEffort" name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}*"><display/></field>
-        <field map-name="workEffort" name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><text size="60"/></field>
-        <field map-name="workEffort" name="description" position="1" title="${uiLabelMap.CommonDescription}*"><text size="60"/></field>
+        <field map-name="workEffort" name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}" required-field="true"><display/></field>
+        <field map-name="workEffort" name="workEffortName" position="1" title="${uiLabelMap.CommonName}" required-field="true"><text size="60"/></field>
+        <field map-name="workEffort" name="description" position="1" title="${uiLabelMap.CommonDescription}" required-field="true"><text size="60"/></field>
         <!-- Child workeffort fields -->
         <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
         <field name="workEffortIdTo"><hidden value="${parameters.workEffortId}"/></field>
@@ -48,7 +48,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field map-name="workEffort" name="currentStatusId" title="${uiLabelMap.CommonStatus}*" position="1">
+        <field map-name="workEffort" name="currentStatusId" title="${uiLabelMap.CommonStatus}" required-field="true" position="1">
             <drop-down>
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
