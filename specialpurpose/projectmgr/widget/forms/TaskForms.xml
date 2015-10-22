@@ -50,12 +50,12 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortParentId" use-when="myTask!=void @and parameters.get(&quot;workEffortParentId&quot;)!=null" title="${uiLabelMap.ProjectMgrTaskPhase}*">
+        <field name="workEffortParentId" use-when="myTask!=void @and parameters.get(&quot;workEffortParentId&quot;)!=null" title="${uiLabelMap.ProjectMgrTaskPhase}" required-field="true">
             <display-entity entity-name="WorkEffort" description="${workEffortName}[${workEffortId}]" key-field-name="workEffortId">
                 <sub-hyperlink target="MyTasks" description="[${uiLabelMap.CommonChange}]"/>
             </display-entity>
         </field>
-        <field name="workEffortParentId" use-when="myTask!=void @and parameters.get(&quot;workEffortParentId&quot;)==null" title="${uiLabelMap.ProjectMgrTaskPhase}*" 
+        <field name="workEffortParentId" use-when="myTask!=void @and parameters.get(&quot;workEffortParentId&quot;)==null" title="${uiLabelMap.ProjectMgrTaskPhase}" 
                 event="onchange" action="javascript:document.EditTask.submit();" required-field="true">
                 <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${projectName} -- ${phaseName}">
@@ -705,7 +705,7 @@
         <field name="currentStatusId"><hidden value="PTS_CREATED"/></field>
         <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" required-field="true"><text default-value="${custRequest.custRequestName}"/></field>
         <field name="taskDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text default-value="${custRequest.description}"/></field>
-        <field name="childWorkEffortId" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*">
+        <field name="childWorkEffortId" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}" required-field="true">
             <drop-down allow-empty="false">
                 <entity-options entity-name="WorkEffortAndChild" description="${workEffortName} -- ${childWorkEffortName}">
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>
