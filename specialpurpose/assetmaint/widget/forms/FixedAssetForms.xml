@@ -117,7 +117,7 @@
             </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.AssetMaintPartId}" required-field="true"><lookup  target-form-name="LookupPartsProduct"/></field>
-        <field name="quantity" position="1" title="${uiLabelMap.CommonQuantity}*"><text size="10"/></field>
+        <field name="quantity" position="1" title="${uiLabelMap.CommonQuantity}" required-field="true"><text size="10"/></field>
         <field name="maintHistSeqId"><hidden/></field>
         <field name="fixedAssetId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>

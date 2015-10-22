@@ -319,7 +319,7 @@
     </form>
 
     <form name="CreateProductFeature" type="single" target="CreateFeatureCategory">
-        <field name="description" title="${uiLabelMap.CommonDescription}*"><text size="25"></text></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" required-field="true"><text size="25"></text></field>
         <field name="parentCategory" title="${uiLabelMap.ProductParentCategory}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductFeatureCategory" key-field-name="description">

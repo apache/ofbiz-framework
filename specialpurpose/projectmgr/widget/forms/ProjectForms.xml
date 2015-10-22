@@ -47,7 +47,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrProjectName}*"><text/></field>
+        <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrProjectName}" required-field="true"><text/></field>
         <field name="projectDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="currentStatusId" use-when="projectId!=null" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="currentStatusId" use-when="projectId==null"><hidden value="_NA_"/></field>
@@ -272,7 +272,7 @@
         <field name="fromDate"><hidden/></field>
         <field name="workEffortAssocTypeId"><hidden/></field>
         <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
-        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><display/></field>
+        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}" required-field="true"><display/></field>
 
         <field name="currentStatusId">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
@@ -367,7 +367,7 @@
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortAssocTypeId"><hidden/></field>
         <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
-        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><display/></field>
+        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}" required-field="true"><display/></field>
         <field name="projectId" title="${uiLabelMap.ProjectMgrWorkEffortIdFrom}"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="fromDate"><date-time/></field>
         <field name="currentStatusId">
