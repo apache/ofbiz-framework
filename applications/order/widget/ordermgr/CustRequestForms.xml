@@ -316,6 +316,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="parentCustRequestId"><lookup target-form-name="LookupCustRequest"/></field>
         <field name="createdDate"><hidden/></field>
         <field name="createdByUserLogin"><hidden/></field>
         <field name="lastModifiedDate"><hidden/></field>
