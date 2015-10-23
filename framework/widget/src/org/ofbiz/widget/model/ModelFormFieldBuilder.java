@@ -533,7 +533,7 @@ public class ModelFormFieldBuilder {
                         Integer.valueOf(250), null);
                 this.setFieldInfo(textField);
             } else if ("floating-point".equals(modelField.getType()) || "currency-amount".equals(modelField.getType())
-                    || "numeric".equals(modelField.getType())) {
+                    || "numeric".equals(modelField.getType()) || "fixed-point".equals(modelField.getType()) || "currency-precise".equals(modelField.getType())) {
                 ModelFormField.RangeFindField textField = new ModelFormField.RangeFindField(FieldInfo.SOURCE_AUTO_ENTITY, 6, null);
                 this.setFieldInfo(textField);
             } else if ("date-time".equals(modelField.getType()) || "date".equals(modelField.getType())
