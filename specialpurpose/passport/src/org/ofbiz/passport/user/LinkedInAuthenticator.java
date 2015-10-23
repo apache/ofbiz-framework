@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.passport.user;
 
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.io.IOException;
@@ -55,8 +56,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import javolution.util.FastMap;
 
 /**
  * LinkedIn OFBiz Authenticator
@@ -260,7 +259,7 @@ public class LinkedInAuthenticator implements Authenticator {
         Map<String, String> userInfo = parseLinkedInUserInfo(user);
 
         // create person + userLogin
-        Map<String, Serializable> createPersonUlMap = FastMap.newInstance();
+        Map<String, Serializable> createPersonUlMap = new HashMap<String, Serializable>();
         String userLoginId = delegator.getNextSeqId("UserLogin");
         if (userInfo.containsKey("firstName")) {
             createPersonUlMap.put("firstName", userInfo.get("firstName"));
@@ -298,7 +297,7 @@ public class LinkedInAuthenticator implements Authenticator {
 
         // create email
         if (userInfo.containsKey("emailAddress")) {
-            Map<String, Serializable> createEmailMap = FastMap.newInstance();
+            Map<String, Serializable> createEmailMap = new HashMap<String, Serializable>();
             createEmailMap.put("emailAddress", userInfo.get("emailAddress"));
             createEmailMap.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
             createEmailMap.put("partyId", partyId);
@@ -327,7 +326,7 @@ public class LinkedInAuthenticator implements Authenticator {
 
             // add it to the user if it exists
             if (secGroup != null) {
-                Map<String, Serializable> createSecGrpMap = FastMap.newInstance();
+                Map<String, Serializable> createSecGrpMap = new HashMap<String, Serializable>();
                 createSecGrpMap.put("userLoginId", userLoginId);
                 createSecGrpMap.put("groupId", securityGroup);
                 createSecGrpMap.put("fromDate", now);
@@ -437,7 +436,7 @@ public class LinkedInAuthenticator implements Authenticator {
     }
 
     public static Map<String, String> parseLinkedInUserInfo(Document userInfo) {
-        Map<String, String> results = FastMap.newInstance();
+        Map<String, String> results = new HashMap<String, String>();
         NodeList persons = userInfo.getElementsByTagName("person");
         if (UtilValidate.isEmpty(persons) || persons.getLength() <= 0) {
             return results;

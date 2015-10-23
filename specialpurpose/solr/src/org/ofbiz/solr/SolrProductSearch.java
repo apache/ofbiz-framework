@@ -24,13 +24,12 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -366,7 +365,7 @@ public abstract class SolrProductSearch {
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         try {
-            Map<String, Object> dispatchMap = FastMap.newInstance();
+            Map<String, Object> dispatchMap = new HashMap<String, Object>();
             if (UtilValidate.isNotEmpty(context.get("productCategoryId"))){
                 String productCategoryId = (String) context.get("productCategoryId");
                 dispatchMap.put("query", "cat:*" + productCategoryId+"*");
@@ -409,7 +408,7 @@ public abstract class SolrProductSearch {
             if (context.get("query") == null || context.get("query").equals(""))
                 context.put("query", "*:*");
 
-            Map<String, Object> dispatchMap = FastMap.newInstance();
+            Map<String, Object> dispatchMap = new HashMap<String, Object>();
             if (context.get("viewSize") != null)
                 dispatchMap.put("viewSize", Integer.parseInt(((String) context.get("viewSize"))));
             if (context.get("viewIndex") != null)
@@ -422,7 +421,7 @@ public abstract class SolrProductSearch {
             Map<String, Object> searchResult = dispatcher.runSync("runSolrQuery", dispatchMap);
             QueryResponse queryResult = (QueryResponse) searchResult.get("queryResult");
 
-            List<List<String>> suggestions = FastList.newInstance();
+            List<List<String>> suggestions = new ArrayList<List<String>>();
             if (queryResult.getSpellCheckResponse() != null && queryResult.getSpellCheckResponse().getSuggestions() != null) {
                 Iterator<Suggestion> iter = queryResult.getSpellCheckResponse().getSuggestions().iterator();
                 while (iter.hasNext()) {
@@ -441,16 +440,16 @@ public abstract class SolrProductSearch {
             result.put("isCorrectlySpelled", isCorrectlySpelled);
 
             Map<String, Integer> facetQuery = queryResult.getFacetQuery();
-            Map<String, String> facetQueries = FastMap.newInstance();
+            Map<String, String> facetQueries = new HashMap<String, String>();
             for (String fq : facetQuery.keySet()) {
                 if (facetQuery.get(fq).intValue() > 0)
                     facetQueries.put(fq, fq.replaceAll("^.*\\u005B(.*)\\u005D", "$1") + " (" + facetQuery.get(fq).intValue() + ")");
             }
 
-            Map<String, Map<String, Long>> facetFields = FastMap.newInstance();
+            Map<String, Map<String, Long>> facetFields = new HashMap<String, Map<String, Long>>();
             List<FacetField> facets = queryResult.getFacetFields();
             for (FacetField facet : facets) {
-                Map<String, Long> facetEntry = FastMap.newInstance();
+                Map<String, Long> facetEntry = new HashMap<String, Long>();
                 List<FacetField.Count> facetEntries = facet.getValues();
                 if (UtilValidate.isNotEmpty(facetEntries)) {
                     for (FacetField.Count fcount : facetEntries)
@@ -503,7 +502,7 @@ public abstract class SolrProductSearch {
             QueryResponse cat = (QueryResponse) query.get("rows");
             result = ServiceUtil.returnSuccess();
             result.put("numFound", (long) 0);
-            Map<String, Object> categories = FastMap.newInstance();
+            Map<String, Object> categories = new HashMap<String, Object>();
             List<FacetField> catList = (List<FacetField>) cat.getFacetFields();
             for (Iterator<FacetField> catIterator = catList.iterator(); catIterator.hasNext();) {
                 FacetField field = (FacetField) catIterator.next();
@@ -541,7 +540,7 @@ public abstract class SolrProductSearch {
             
             String productCategoryId = (String) context.get("productCategoryId") != null ? CategoryUtil.getCategoryNameWithTrail((String) context.get("productCategoryId"),dctx) : null;
             result = ServiceUtil.returnSuccess();
-            Map<String, List<Map<String, Object>>> catLevel = FastMap.newInstance();
+            Map<String, List<Map<String, Object>>> catLevel = new HashMap<String, List<Map<String, Object>>>();
             Debug.logInfo("productCategoryId: "+productCategoryId, module);
             
             //Add toplevel categories
@@ -559,7 +558,7 @@ public abstract class SolrProductSearch {
                 //Debug.logInfo("categoryPath: "+categoryPath + " facetQuery: "+facetQuery,module);
                 Map<String, Object> query = SolrUtil.categoriesAvailable(catalogId, categoryPath, null, facetQuery,false, 0, 0);
                 QueryResponse cat = (QueryResponse) query.get("rows");
-                List<Map<String, Object>> categories = FastList.newInstance();
+                List<Map<String, Object>> categories = new ArrayList<Map<String, Object>>();
                 
                 
                 List<FacetField> catList = (List<FacetField>) cat.getFacetFields();
@@ -570,8 +569,8 @@ public abstract class SolrProductSearch {
                         for (Iterator<Count> catIter = catL.iterator(); catIter.hasNext();) {
                             FacetField.Count f = (FacetField.Count) catIter.next();
                             if (f.getCount() > 0) {
-                                Map<String, Object> catMap = FastMap.newInstance();
-                                FastList<String> iName = FastList.newInstance();
+                                Map<String, Object> catMap = new HashMap<String, Object>();
+                                LinkedList<String> iName = new LinkedList<String>();
                                 iName.addAll(Arrays.asList(f.getName().split("/")));
                                 //Debug.logInfo("topLevel "+topLevel,"");
                                 // int l = Integer.parseInt((String) iName.getFirst());
@@ -621,7 +620,7 @@ public abstract class SolrProductSearch {
             client = new HttpSolrClient(SolrUtil.solrUrl);
 
             // now lets fetch all products
-            List<Map<String, Object>> solrDocs = FastList.newInstance();
+            List<Map<String, Object>> solrDocs = new ArrayList<Map<String, Object>>();
             List<GenericValue> products = delegator.findList("Product", null, null, null, null, true);
             int numDocs = 0;
             if (products != null) {

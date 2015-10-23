@@ -33,8 +33,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javolution.util.FastList;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -3015,7 +3013,7 @@ public class OrderReadHelper {
     }
 
     public List<BigDecimal> getShippableSizes(String shipGrouSeqId) {
-        List<BigDecimal> shippableSizes = FastList.newInstance();
+        List<BigDecimal> shippableSizes = new ArrayList<BigDecimal>();
 
         List<GenericValue> validItems = getValidOrderItems(shipGrouSeqId);
         if (validItems != null) {
