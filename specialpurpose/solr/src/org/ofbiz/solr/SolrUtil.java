@@ -18,12 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.solr;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastMap;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrRequest.METHOD;
@@ -188,7 +187,7 @@ public abstract class SolrUtil {
 
     public static Map<String, Object> categoriesAvailable(String catalogId, String categoryId, String productId, String facetPrefix, boolean displayproducts, int viewIndex, int viewSize) {
         // create the data model
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         HttpSolrClient client = null;
         QueryResponse returnMap = new QueryResponse();
         try {

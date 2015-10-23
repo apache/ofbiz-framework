@@ -27,9 +27,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
@@ -117,7 +114,7 @@ public abstract class ProductUtil {
                 dispatchContext.put("category", trails);
 
                 // Get the catalogs that have associated the categories
-                List<String> catalogs = FastList.newInstance();
+                List<String> catalogs = new ArrayList<String>();
                 for (String trail : trails) {
                     String productCategoryId = (trail.split("/").length > 0) ? trail.split("/")[1] : trail;
                     List<String> catalogMembers = CategoryUtil.getCatalogIdsByCategoryId(delegator, productCategoryId);
@@ -154,7 +151,7 @@ public abstract class ProductUtil {
                 if (isPhysical)
                     dispatchContext.put("isPhysical", isPhysical);
 
-                FastMap<String, String> title = new FastMap<String, String>();
+                Map<String, String> title = new HashMap<String, String>();
                 String detitle = productContentDe.get("PRODUCT_NAME", "html").toString();
                 if (detitle != null)
                     title.put("de", detitle);
@@ -172,7 +169,7 @@ public abstract class ProductUtil {
                     title.put("fr", (String) product.get("productName"));
                 dispatchContext.put("title", title);
 
-                Map<String, String> description = new FastMap<String, String>();
+                Map<String, String> description = new HashMap<String, String>();
                 String dedescription = productContentDe.get("DESCRIPTION", "html").toString();
                 if (dedescription != null)
                     description.put("de", dedescription);
@@ -184,7 +181,7 @@ public abstract class ProductUtil {
                     description.put("fr", frdescription);
                 dispatchContext.put("description", description);
 
-                FastMap<String, String> longDescription = new FastMap<String, String>();
+                Map<String, String> longDescription = new HashMap<String, String>();
                 String delongDescription = productContentDe.get("LONG_DESCRIPTION", "html").toString();
                 if (delongDescription != null)
                     longDescription.put("de", delongDescription);

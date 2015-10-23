@@ -38,7 +38,6 @@ import org.ofbiz.service.GenericServiceException;
  *
  * The following third-party libraries (can be found in OFBiz) also need to be on the client's classpath:
  * commons-collections.jar
- * javolution.jar
  * jdbm.jar
  * log4j.jar
  *

@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.passport.user;
 
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.io.IOException;
@@ -54,8 +55,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilValidate;
-
-import javolution.util.FastMap;
 
 /**
  * GitHub OFBiz Authenticator
@@ -250,7 +249,7 @@ public class GitHubAuthenticator implements Authenticator {
     
     private String createUser(Map<String, Object> userMap, GenericValue system) throws AuthenticatorException {
         // create person + userLogin
-        Map<String, Serializable> createPersonUlMap = FastMap.newInstance();
+        Map<String, Serializable> createPersonUlMap = new HashMap<String, Serializable>();
         String userLoginId = delegator.getNextSeqId("UserLogin");
         if (userMap.containsKey("name")) {
             // use github's name as OFBiz's lastName
@@ -286,7 +285,7 @@ public class GitHubAuthenticator implements Authenticator {
 
         // create email
         if (userMap.containsKey("email")) {
-            Map<String, Serializable> createEmailMap = FastMap.newInstance();
+            Map<String, Serializable> createEmailMap = new HashMap<String, Serializable>();
             createEmailMap.put("emailAddress", (String) userMap.get("email"));
             createEmailMap.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
             createEmailMap.put("partyId", partyId);
@@ -315,7 +314,7 @@ public class GitHubAuthenticator implements Authenticator {
 
             // add it to the user if it exists
             if (secGroup != null) {
-                Map<String, Serializable> createSecGrpMap = FastMap.newInstance();
+                Map<String, Serializable> createSecGrpMap = new HashMap<String, Serializable>();
                 createSecGrpMap.put("userLoginId", userLoginId);
                 createSecGrpMap.put("groupId", securityGroup);
                 createSecGrpMap.put("fromDate", now);

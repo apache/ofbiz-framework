@@ -18,15 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.passport.user;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Arrays;
 import java.util.Set;
 
 import org.ofbiz.base.util.UtilProperties;
-
-import javolution.util.FastList;
-import javolution.util.FastSet;
 
 /**
  * GitHub UserGroupMapper
@@ -41,7 +40,7 @@ public class GitHubUserGroupMapper {
 
     public GitHubUserGroupMapper(String group) {
         if (groups == null) {
-            groups = FastList.newInstance();
+            groups = new ArrayList<String>();
         }
         groups.add(group);
     }
@@ -49,7 +48,7 @@ public class GitHubUserGroupMapper {
     public Set<String> getSecurityGroups() {
         Properties props = UtilProperties.getProperties(GitHubAuthenticator.props);
 
-        Set<String> secGroups = FastSet.newInstance();
+        Set<String> secGroups = new HashSet<String>();
         boolean running = true;
         int index = 1;
 

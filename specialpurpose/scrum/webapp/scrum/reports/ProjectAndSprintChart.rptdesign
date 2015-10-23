@@ -24,7 +24,6 @@ under the License.
 importPackage(Packages.java.sql);
 importPackage(Packages.java.text);
 importPackage(Packages.java.util);
-importPackage(Packages.javolution.util);
 importPackage(Packages.org.ofbiz.base.util);
 importPackage(Packages.org.ofbiz.entity.condition);
 module = "ProjectAndSprintChart.rptdesign";
@@ -129,7 +128,7 @@ productId = params["productId"].value;
             <property name="dataSource">Data Source</property>
             <method name="open"><![CDATA[
             
-            resultList = FastList.newInstance();
+            resultList = new ArrayList();
 var projectList = null;
 try{
     var projectList = delegator.findByAnd("WorkEffortAndProduct", UtilMisc.toMap("productId", productId, "workEffortTypeId", "SCRUM_PROJECT"), null, false);
