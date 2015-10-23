@@ -1134,6 +1134,23 @@ under the License.
     <field name="description" type="description"></field>
     <prim-key field="accommodationMapTypeId"/>
   </entity>
+    <view-entity entity-name="FixedAssetMaintWorkEffort" package-name="org.ofbiz.accounting.fixedasset"
+        title="FixedAssetMaint and WorkEffort View Entity">
+        <member-entity entity-alias="FA" entity-name="FixedAsset"/>
+        <member-entity entity-alias="FAM" entity-name="FixedAssetMaint"/>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <alias-all entity-alias="FA"/>
+        <alias-all entity-alias="FAM"/>
+        <alias-all entity-alias="WE">
+            <exclude field="fixedAssetId"/>
+        </alias-all>
+        <view-link entity-alias="FAM" rel-entity-alias="FA">
+            <key-map field-name="fixedAssetId"/>
+        </view-link>
+        <view-link entity-alias="FAM" rel-entity-alias="WE">
+            <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
+        </view-link>
+    </view-entity>
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.accounting.invoice -->
