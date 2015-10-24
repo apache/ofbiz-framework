@@ -4173,10 +4173,10 @@
         <value xml:lang="zh-TW">產品商店標識.</value>
     </property>
     <property key="FieldDescription.ProductStore.primaryStoreGroupId">
+    <!-- Store groups cannot be set up in the catalog manager and must be inserted directly into the database. -->
         <value xml:lang="de">Zu welcher Gruppe gehört dieser Laden. Läden können gruppiert werden mit einem Preis je Ladengruppe. Kann leer bleiben, wenn keine Ladengruppen eingerichtet sind.</value>
         <value xml:lang="en">What group this store belongs to. Stores can be grouped together with a price for each store group. It can be left blank if there are no store groups set up.</value>
         <value xml:lang="fr">Le groupe d'appartenance du magasin. Les magasins peuvent être regroupés, avec un prix pour chaque groupe. Il peut être laissé vide si il n'y a aucun groupes de magasins mis en place.</value>
-    <!-- Store groups cannot be set up in the catalog manager and must be inserted directly into the database. -->
         <value xml:lang="zh">这个店铺属于哪个组。多个店铺能够编成组，每个店铺组使用同一个价格。如果没有设置店铺组，则不填。</value>
         <value xml:lang="zh-TW">這個店鋪屬於哪個群組.多個店鋪能夠編成群組,每個店鋪群組使用同一個價格.如果沒有設置店鋪群組,則不填.</value>
     </property>
@@ -4226,10 +4226,10 @@
         <value xml:lang="zh-TW">注意:這與把總帳交易過帳到的那個組織團體標識(organizationPartyId)有關.</value>
     </property>
     <property key="FieldDescription.ProductStore.daysToCancelNonPay">
+    <!-- There is an automated service that can be scheduled (see Job Scheduler in Webtools) nightly to cancel orders which have not been paid. This defines how many days an order can be outstanding and unpaid before it is canceled. A value of zero here will leave all orders open indefinitely. -->
         <value xml:lang="de">Steuert die Stornierung von Bestellungen bei Nichtzahlung nach Ablauf der hier angegebenen Tage.</value>
         <value xml:lang="en">Triggers cancellation of orders for non-payment after the number of days entered here.</value>
         <value xml:lang="fr">Déclenche l'annulation des commandes pour non-paiement après la période spécifiée(jours).</value>
-    <!-- There is an automated service that can be scheduled (see Job Scheduler in Webtools) nightly to cancel orders which have not been paid. This defines how many days an order can be outstanding and unpaid before it is canceled. A value of zero here will leave all orders open indefinitely. -->
         <value xml:lang="zh">取消达到这里输入的天数后仍未付款的订单的触发器。</value>
         <value xml:lang="zh-TW">取消達到這裡輸入的天數後仍未付款的訂單的觸發器.</value>
     </property>
@@ -4237,7 +4237,6 @@
         <value xml:lang="de">Manuelle Authorisierung beim Zahlungseinzug.</value>
         <value xml:lang="en">Drop-down Y/N box on the question of whether a Manual Authorization is captured.</value>
         <value xml:lang="fr">Si oui, autorisation Manuelle est enregistrée.</value>
-    <!--  TODO - what does this really mean? -->
         <value xml:lang="ja">手動承認がキャプチャされるかを選択します。</value>
         <value xml:lang="vi">Bảng sổ xuống Y/N có câu hỏi cho dù một Ủy quyền Hướng dẫn sử dụng được ghi nhận</value>
         <value xml:lang="zh">是否捕获手工授权问题的是/否（Y/N）选项的下拉框。</value>
@@ -4246,8 +4245,7 @@
     <property key="FieldDescription.ProductStore.prorateShipping">
         <value xml:lang="de">Wenn Teile der Lieferkosten von einem anderen Konto als dem Rechnungskonto getragen werden.</value>
         <value xml:lang="en">When some share of the cost of shipping is covered under an account other than the bill-to.</value>
-        <value xml:lang="fr">Si une partie du coût de l'expédition est payée à partir d'un compte autre que «Compte de Facturation».</value>
-    <!--  TODO - what does this really mean? -->
+        <value xml:lang="fr">Quand une partie du coût de l'expédition est payée à partir d'un compte autre que «Compte de Facturation».</value>
         <value xml:lang="ja">請求先以外のアカウントでいつ共有の発送原価が含まれますか。</value>
         <value xml:lang="vi">Khi một số chia sẻ chi phí vận chuyển được chi trả dưới một tài khoản khác hơn so với hóa đơn.</value>
         <value xml:lang="zh">当送货成本的一部分由一个账户而不是记账账户支付时。</value>
@@ -4269,7 +4267,7 @@
     <property key="FieldDescription.ProductStore.viewCartOnAdd">
         <value xml:lang="de">Steuert, ob der Benutzer direkt zum Warenkorb weitergeleitet wird, wenn er ein Produkt hineingelegt hat.</value>
         <value xml:lang="en">Controls whether the user is taken to the shopping cart immediately after adding a product to his cart.</value>
-        <value xml:lang="fr">Utilisateur est dirigé vers le caddie après avoir ajouté un produit.</value>
+        <value xml:lang="fr">L'utilisateur est dirigé vers le caddie après avoir ajouté un produit.</value>
         <value xml:lang="ja">ユーザが製品を買い物かごに追加した後で、買い物かごにすぐ移動しますか。</value>
         <value xml:lang="vi">Kiểm soát xem người dùng được đưa vào giỏ mua hàng ngay lập tức sau khi thêm một sản phẩm vào giỏ hàng của mình</value>
         <value xml:lang="zh">控制当向购物车添加了商品后，是否把用户立即转到购物车。</value>
@@ -4278,7 +4276,7 @@
     <property key="FieldDescription.ProductStore.autoSaveCart">
         <value xml:lang="de">Sollen die Warenkorbinhalte automatisch gespeichert werden?</value>
         <value xml:lang="en">Drop-down Y/N box on the question of automatically saving the contents of the shopping cart.</value>
-        <value xml:lang="fr">Sauvegarder automatiquement le contenu du panier.</value>
+        <value xml:lang="fr">Sauvegarde automatiquement le contenu du panier.</value>
         <value xml:lang="ja">買い物かごのコンテンツを自動保存しますか。</value>
         <value xml:lang="vi">Bảng sổ xuống Y/N có câu hỏi về việc tự động lưu lại nội dung của giỏ hàng mua sắm.</value>
         <value xml:lang="zh">自动保存购物车内容问题的是/否（Y/N）选项的下拉框。</value>
@@ -4303,17 +4301,17 @@
     <property key="FieldDescription.ProductStore.isImmediatelyFulfilled">
         <value xml:lang="de">Wenn eingeschaltet, werden Bestellungen sofort durch systemgenerierte Prozesse ausgeführt (z.B. für POS Käufe). Wenn ausgeschaltet, werden sie für eine manuelle Prüfung zurückgehalten.</value>
         <value xml:lang="en">If Yes, the order will be immediately fulfilled through system-generated processes in ofbiz (e.g. for POS sales).  If no, it will be held for manual review.</value>
-        <value xml:lang="fr">Si Oui, toutes les commandes seront automatiquement remplies par le système (e.g. Les ventes du pos). Si Non, les commandes seront retenues à des fins de traitement manuel.</value>
+        <value xml:lang="fr">Si Oui, toutes les commandes seront automatiquement remplies par le système (e.g. Les ventes du POS). Si Non, les commandes seront retenues à des fins de traitement manuel.</value>
         <value xml:lang="ja">はいの場合、ofbizではシステムに生成されるプロセスで注文がすぐ実行されます。いいえの場合は、手動で確認されるまで保留されます。</value>
         <value xml:lang="vi">Nếu có, đặt hàng sẽ được tự động điền đầy đủ ngay lập tức thông qua hệ thống xử lý của Ofbiz (ví dụ như hệ thống bán hàng POS). Nếu không, nó sẽ dẫn đến phần xem xét thủ công</value>
         <value xml:lang="zh">如果是，则会在OFBiz中通过系统生成过程立即执行（如POS销售）。如果否，则会等待人工检查。</value>
         <value xml:lang="zh-TW">如果是,則會在OFBiz中通過系統產生過程立即責任履行(如POS銷售).如果否,則會等待人工檢查.</value>
     </property>
     <property key="FieldDescription.ProductStore.inventoryFacilityId">
+    <!-- Used for knowing where to change product inventory as items are sold. See the 'Facility Manager' to create a facility. All existing facilities are presented here. -->
         <value xml:lang="de">Hier werden die Lagerbestände verwaltet.</value>
         <value xml:lang="en">This is where the stock levels are drawn from.</value>
         <value xml:lang="fr">Les stocks sont prélevés à partir d'ici.</value>
-    <!-- Used for knowing where to change product inventory as items are sold. See the 'Facility Manager' to create a facility. All existing facilities are presented here. -->
         <value xml:lang="zh">这是库存水平数据的来源。</value>
         <value xml:lang="zh-TW">這是庫存水準資料的來源.</value>
     </property>
@@ -4327,17 +4325,17 @@
         <value xml:lang="zh-TW">如果這是一個'單一的庫存'場所.對較新的或複雜度較低的業務,你會發現單一的庫存概念更容易使用.</value>
     </property>
     <property key="FieldDescription.ProductStore.checkInventory">
+    <!--  If inventory IS checked (Y), the item cannot be ordered or rather the order cannot be fulfilled if there is insufficient QOH or ATP. If Inventory is not checked, however, the order may be accepted but items not available will be processed as a back-order. You need a system in place to track, replenish and fulfill back-ordered items if you set this flag to N. -->
         <value xml:lang="de">Legt fest, ob das System beim Ausführen einer Bestellung den Lagerbestand prüfen soll.</value>
         <value xml:lang="en">This determines whether the system checks inventory levels when processing an order.</value>
         <value xml:lang="fr">Si Oui, le système vérifie les niveaux de stocks lors du traitement d'une commande.</value>
-    <!--  If inventory IS checked (Y), the item cannot be ordered or rather the order cannot be fulfilled if there is insufficient QOH or ATP. If Inventory is not checked, however, the order may be accepted but items not available will be processed as a back-order. You need a system in place to track, replenish and fulfill back-ordered items if you set this flag to N. -->
         <value xml:lang="zh">这会决定在处理订单时，系统是否检查库存水平。</value>
         <value xml:lang="zh-TW">這會決定在處理訂單時,系統是否檢查庫存水準.</value>
     </property>
     <property key="FieldDescription.ProductStore.reserveInventory">
         <value xml:lang="de">Sorgt für eine Bestandsreservierung für bestellte Artikel. Dieser Bestand ist noch vorhanden, jedoch nicht für andere Bestellungen verfügbar.</value>
         <value xml:lang="en">Causes inventory to be reserved for items ordered in the store. The inventory may still be on hand but will no longer be available for other orders.</value>
-        <value xml:lang="fr">Les commandes placent une réserve dans l'inventaire.</value>
+        <value xml:lang="fr">Les commandes placent une réservation dans l'inventaire.</value>
         <value xml:lang="ja">店舗で注文されたアイテムを予約済の在庫として取り扱います。在庫はまだ手元にありますが、他の注文で取り扱うことはできません。</value>
         <value xml:lang="vi">Vì lý do kho chứa cần dự trự hàng cho các đặt hàng tại cửa hàng. Kho chứa có thể còn hàng nhưng không có sẵn cho các đặt hàng khác</value>
         <value xml:lang="zh">导致为店铺订单明细保留库存。可能手头还有库存，但是不再能用于其它订单了。</value>
@@ -4373,7 +4371,7 @@
     <property key="FieldDescription.ProductStore.requirementMethodEnumId">
         <value xml:lang="de">Bezieht sich auf Schwellwerte im Lagerbestand.</value>
         <value xml:lang="en">Refers to warehouse stocking level triggers.</value>
-        <value xml:lang="fr">Le déclencheur de niveau de stock de l'entrepôt.</value>
+        <value xml:lang="fr">Déclencheur de niveau de stock de l'entrepôt.</value>
         <value xml:lang="ja">倉庫の在庫レベルトリガーを参照します。</value>
         <value xml:lang="vi">Chuyển tới ấn định cấp độ bán hàng tại kho hàng</value>
         <value xml:lang="zh">指向仓库存货水平触发程序。</value>
@@ -4391,7 +4389,7 @@
     <property key="FieldDescription.ProductStore.defaultLocaleString">
         <value xml:lang="de">Standardlokalisierung für Sprache, Nummern- und Währungsformat.</value>
         <value xml:lang="en">Default locale, for language, number, and currency formats.</value>
-        <value xml:lang="fr">Utilise cette localité (Langue, Nombre, Format monétaire).</value>
+        <value xml:lang="fr">Utilise cette régionalisation (langue, formats des nombre et monétaire).</value>
         <value xml:lang="ja">デフォルトの地域。言語、数値、および通貨の書式を指定します。</value>
         <value xml:lang="vi">Khu vực mặc định, cho ngôn ngữ, con số và loại tiền tệ.</value>
         <value xml:lang="zh">缺省语言，用于文字、数字和币种格式。</value>
@@ -4565,34 +4563,34 @@
         <value xml:lang="zh-TW">用於控制一個網店的外觀感受.</value>
     </property>
     <property key="FieldDescription.ProductStore.storeCreditAccountEnumId">
+    <!-- This field is override by ReturnHeader.billingAccountId or ReturnHeader.finAccountId, whichever is specified but if only finAccountId is specified explicitly then system will first try to locate any billing account with -ve amount. If found, then amount is credit to this billing account else the amount will be credit to the financial account of the user. -->
         <value xml:lang="de">Spezifiziert den Typ (Rechnungs- oder Finanzkonto) des Laden Kreditkontos für Rückzahlungen.</value>
         <value xml:lang="en">Specify the type (Billing Account or Financial Account) of Store Credit Account used for refund return.</value>
         <value xml:lang="fr">Défini le type de Compte de crédit du magasin, utilisé pour le remboursement de retour (Compte de facturation ou compte financier).</value>
-    <!-- This field is override by ReturnHeader.billingAccountId or ReturnHeader.finAccountId, whichever is specified but if only finAccountId is specified explicitly then system will first try to locate any billing account with -ve amount. If found, then amount is credit to this billing account else the amount will be credit to the financial account of the user. -->
         <value xml:lang="zh">为店铺的信用账户退款指定类型（账单账户或财务账户）。</value>
         <value xml:lang="zh-TW">為店鋪的信用帳戶退款指定類型(帳單帳戶或財務帳戶).</value>
     </property>
     <property key="FieldDescription.ProductStore.usePrimaryEmailUsername">
+    <!-- If set to N, the default, there is a checkbox a user can select to use the email address as a username, but they also have the option of entering a username. -->
         <value xml:lang="de">Wenn eingeschaltet, wird kein Eingabefeld für den Benutzernamen angezeigt, sondern die primäre Emailadresse für den Benutzernamen verwendet.</value>
         <value xml:lang="en">If set to Y then in the create customer form no entry box will be presented for a username - the primary email address will be used for username.</value>
         <value xml:lang="fr">Si Oui, utiliser l'adresse e-mail principale comme nom d'utilisateur lors de la création d'un nouveau compte client.</value>
-    <!-- If set to N, the default, there is a checkbox a user can select to use the email address as a username, but they also have the option of entering a username. -->
         <value xml:lang="zh">如果设为是（Y），那么在创建用户的表单中将没有用户名 —— 会使用首选电子邮件地址作为用户名。</value>
         <value xml:lang="zh-TW">如果設為是(Y),那麼在新建使用者的表單中將沒有使用者名 —— 會使用首選電子郵件地址作為使用者名.</value>
     </property>
     <property key="FieldDescription.ProductStore.requireCustomerRole">
+    <!-- If they are not associated with the store in the Customer role, they will receive an error message when they try to login. Note that this means entering an assignment of Customer as Role for every customer that wants to by. This could delay them from being able to make purchases. It also means giving attention to every prospect until they become identified as a Customer. -->
         <value xml:lang="de">Wenn eingeschaltet, muss der Kunde mit dem Laden über die Kundenrolle verbunden sein, um sich einzuloggen (z.B. B2B)</value>
         <value xml:lang="en">If set to Y then the customer must be associated with the store in the Customer role in order to be able to login (e.g. B2B)</value>
-        <value xml:lang="fr">Si Oui, le client doit être associé à la boutique dans le 'rôle du client' afin d'être capable de se connecter(B2B)</value>
-    <!-- If they are not associated with the store in the Customer role, they will receive an error message when they try to login. Note that this means entering an assignment of Customer as Role for every customer that wants to by. This could delay them from being able to make purchases. It also means giving attention to every prospect until they become identified as a Customer. -->
+        <value xml:lang="fr">Si Oui, le client doit être associé à la boutique dans le 'rôle du client' afin d'être capable de se connecter (ex: B2B)</value>
         <value xml:lang="zh">如果设为是（Y），那么客户必须在订单的客户角色中与店铺关联，才能登录（如B2B）</value>
         <value xml:lang="zh-TW">如果設為是(Y),那麼客戶必須在訂單的客戶角色中與店鋪結合,才能登入(如B2B)</value>
     </property>
     <property key="FieldDescription.ProductStore.autoInvoiceDigitalItems">
+    <!--  If N, will need to wait for some sort of fulfillment process to set the item status to complete which would then trigger the invoice creation. -->
         <value xml:lang="de">Wenn eingeschaltet, werden digitale Produkte direkt in Rechnung gestellt, wenn die Bestellung platziert wird.</value>
         <value xml:lang="en">If Y, digital items will be immediately invoiced when the order is placed.</value>
         <value xml:lang="fr">Si Oui, les articles numériques seront immédiatement facturés lorsque la commande est passée.</value>
-    <!--  If N, will need to wait for some sort of fulfillment process to set the item status to complete which would then trigger the invoice creation. -->
         <value xml:lang="zh">如果是（Y），下单时会立刻为数字产品明细生成发票。</value>
         <value xml:lang="zh-TW">如果是(Y),下單時會立刻為數字產品細項產生發票.</value>
     </property>
@@ -4606,10 +4604,10 @@
         <value xml:lang="zh-TW">數位產品細項必須有送貨位址？注意:這僅在購物車中只有數位商品時有效.</value>
     </property>
     <property key="FieldDescription.ProductStore.showCheckoutGiftOptions">
+    <!--  This is meant for use in business oriented stores or others where the gift options do not make sense. -->
         <value xml:lang="de">Wenn ausgeschaltet werden die Geschenkoptionen ('ist ein Geschenk' und 'Geschenknachricht') im Bestellprozes nicht angezeigt.</value>
         <value xml:lang="en">If set to N the options related to gifts (the 'is gift' and 'gift message' options) will not be shown during checkout.</value>
         <value xml:lang="fr">Si Non, les options appliquées aux dons («C'est un cadeau» and «Message cadeau») ne seront pas affichées lors de votre commande.</value>
-    <!--  This is meant for use in business oriented stores or others where the gift options do not make sense. -->
         <value xml:lang="zh">如果设为否（N），在结账时不显示与礼品（'是礼品'和'礼品信息'选项）相关的选项。</value>
         <value xml:lang="zh-TW">如果設為否(N),在結帳時不顯示與禮物('是禮物'和'禮物資訊'選項)相關的選項.</value>
     </property>
@@ -4643,7 +4641,7 @@
     <property key="FieldDescription.ProductStore.vatTaxAuthGeoId">
         <value xml:lang="de">Wie ist die geographische ID der Umsatzsteuerbehörde?</value>
         <value xml:lang="en">What is the Geographical ID for the VAT taxing authority?</value>
-        <value xml:lang="fr">ID géographique pour l'autorité fiscale TVA.</value>
+        <value xml:lang="fr">Quelle est l'identifiant géographique pour l'autorité fiscale de TVA ?</value>
         <value xml:lang="ja">消費税税務機関に対する位置IDは?</value>
         <value xml:lang="vi">Mã địa lý với đối tượng đánh thuế VAT</value>
         <value xml:lang="zh">增值税征税机构的地理标识是什么？</value>
@@ -4652,7 +4650,7 @@
     <property key="FieldDescription.ProductStore.vatTaxAuthPartyId">
         <value xml:lang="de">Wie ist die Akteur ID der Umsatzsteuerbehörde?</value>
         <value xml:lang="en">What is the Party ID of the Vat Taxing Authority?</value>
-        <value xml:lang="fr">Ref. ID de l'autorité fiscale TVA.</value>
+        <value xml:lang="fr">Identifiant de l'autorité fiscale de TVA.</value>
         <value xml:lang="ja">消費税税務機関の取引先IDは?</value>
         <value xml:lang="vi">Mã đối tượng với cơ quan đánh thuế VAT</value>
         <value xml:lang="zh">增值税征税机构的会员标识是什么？</value>
@@ -4661,7 +4659,7 @@
     <property key="FieldDescription.ProductStore.enableAutoSuggestionList">
         <value xml:lang="de">Die automatische Vorschlagsliste ist eine spezielle Einkaufsliste, die der addSuggestionsToShoppingList Service für das Cross-Selling der bestellten Artikel automatisch pflegt.</value>
         <value xml:lang="en">The auto-suggestion list is a special ShoppingList that the addSuggestionsToShoppingList service will maintain for cross-sells of ordered items.</value>
-        <value xml:lang="fr">La liste auto-suggerée est une 'liste de courses' qui est utilisée pour maintenir la vente croisée des articles commandés. Cette liste est traitée par la service addSuggestionsToShoppingList().</value>
+        <value xml:lang="fr">La liste auto-suggérée est une 'liste de courses' qui est utilisée pour maintenir la vente croisée des articles commandés. Cette liste est traitée par la service addSuggestionsToShoppingList().</value>
         <value xml:lang="ja">自動提案リストは、買い物リストに提案を追加するサービスが管理する、注文された商品の組み合わせ販売のための特別な買い物リストです。</value>
         <value xml:lang="vi">Danh sách tự động gợi ý là danh sách mua hàng đặt biệt mà dịch vụ addSuggestionsToShoppingList sẽ duy trì cho việc bán chéo các sản phẩm được đặt hàng</value>
         <value xml:lang="zh">自动建议列表是一个特殊的购物列表（ShoppingList），添加建议到购物列表（addSuggestionsToShoppingList）服务会维护订单明细的交叉销售。</value>
@@ -4724,7 +4722,7 @@
     <property key="FieldDescription.ProductStore.autoOrderCcTryLaterMax">
         <value xml:lang="de">Wie oft soll bei automatischen Bestellungen und Kreditkarten Unterdeckung erneut versucht werden.</value>
         <value xml:lang="en">For auto-orders if Credit Cards fails for NSF try again how many times.</value>
-        <value xml:lang="fr">Pour les commandes automatiques. Nombre d'essais maximal pour charger la carte de crédit.</value>
+        <value xml:lang="fr">Pour les commandes automatiques. Nombre d'essais maximal pour débiter la carte de crédit.</value>
         <value xml:lang="ja">自動注文に対して、クレジットカードの限度額不足(NSF)の場合、再試行回数。</value>
         <value xml:lang="vi">Dành cho việc tự động đặt hàng nếu Thẻ tín dụng bị lỗi cho phép NSF thực hiện lại bao nhiêu lần.</value>
         <value xml:lang="zh">对于自动生成的订单，如果信用卡余额不足，再尝试多少次。</value>
@@ -4769,7 +4767,7 @@
     <property key="FieldDescription.ProductStore.setOwnerUponIssuance">
         <value xml:lang="de">Wenn eingeschaltet oder leer, wird der Besitzer bei der Warenausgabe gesetzt.</value>
         <value xml:lang="en">If Y or empty, set the inventory item owner upon issuance.</value>
-        <value xml:lang="fr">Si oui ou vide, sera défini le propriétaire de l'élément d'inventaire dès l'émission.</value>
+        <value xml:lang="fr">Si oui ou vide, défini le propriétaire de l'élément d'inventaire dès l'émission.</value>
         <value xml:lang="ja">Y またはブランクの場合、在庫アイテムの所有者を発行者にセットします。</value>
         <value xml:lang="vi">Nếu chọn Y hoặc bỏ trống, cài đặt hàng tồn kho của chủ sở hữu lên trên để xuất ra</value>
         <value xml:lang="zh">如果是（Y）或空，一旦生效，立刻设置库存明细拥有者。</value>
