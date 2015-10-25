@@ -167,7 +167,10 @@ under the License.
             </xs:attribute>
             <xs:attribute type="xs:string" name="override-list-size">
                 <xs:annotation>
-                    <xs:documentation>The total number of rows in the original list (used for pagination). If not specified, the size of the list will be used. Accepts ${} notation.</xs:documentation>
+                    <xs:documentation>The total number of rows in the original list (used for pagination). 
+                                      If not specified, the size of the list will be used. Accepts ${} notation.
+                                      You may use any value, true makes sense, when using performFindList, but one value must be passed. 
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="paginate-first-label">
