@@ -248,7 +248,10 @@ under the License.
 
     <service name="performFindList" auth="false" engine="java" invoke="performFindList" location="org.ofbiz.common.FindServices">
         <description>Generic service to return an partial list.  set filterByDate to Y to exclude expired records.
-            set noConditionFind to Y to find without conditions.  </description>
+            set noConditionFind to Y to find without conditions. 
+            If used in a form, it is necessary to assign a value (true makes sense) to override-list-size attribute so that 
+            FormRenderer.renderItemRows sets the lowIndex correctly, because once the results of performFindList are displayed, 
+            otherwise pages > 0 are rendered as empty. see OFBIZ-6422 + 6423 for details
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
         <attribute name="orderBy" type="String" mode="IN" optional="true"/>
