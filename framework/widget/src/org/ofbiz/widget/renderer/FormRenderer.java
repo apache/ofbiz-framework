@@ -394,6 +394,7 @@ public class FormRenderer {
         // ===========================
         // Rendering
         // ===========================
+        formStringRenderer.renderFormatHeaderOpen(writer, context, modelForm);
         for (Map<String, List<ModelFormField>> listsMap : fieldRowsByPosition) {
             List<ModelFormField> innerDisplayHyperlinkFieldsBegin = listsMap.get("displayBefore");
             List<ModelFormField> innerFormFields = listsMap.get("inputFields");
@@ -492,6 +493,7 @@ public class FormRenderer {
                 formStringRenderer.renderFormatHeaderRowClose(writer, context, modelForm);
             }
         }
+        formStringRenderer.renderFormatHeaderClose(writer, context, modelForm);
 
         return maxNumOfColumns;
     }
