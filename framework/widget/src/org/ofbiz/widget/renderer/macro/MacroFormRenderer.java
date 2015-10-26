@@ -1532,20 +1532,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
             renderEndingBoundaryComment(writer, "Grid Widget - Grid Element", modelForm);
         }
     }
-    
-    public void renderFormatHeaderOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatHeaderOpen ");
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
-    }
-    
-    public void renderFormatHeaderClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatHeaderClose");
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
-    }
 
     public void renderFormatHeaderRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         String headerStyle = FlexibleStringExpander.expandString(modelForm.getHeaderRowStyle(), context);
