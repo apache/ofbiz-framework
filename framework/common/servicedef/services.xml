@@ -251,7 +251,7 @@ under the License.
             set noConditionFind to Y to find without conditions. 
             If used in a form, it is necessary to assign a value (true makes sense) to override-list-size attribute so that 
             FormRenderer.renderItemRows sets the lowIndex correctly, because once the results of performFindList are displayed, 
-            otherwise pages > 0 are rendered as empty. see OFBIZ-6422 + 6423 for details
+            otherwise pages > 0 are rendered as empty. see OFBIZ-6422 + 6423 for details</description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
         <attribute name="orderBy" type="String" mode="IN" optional="true"/>
