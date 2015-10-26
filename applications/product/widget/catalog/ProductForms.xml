@@ -30,11 +30,11 @@ under the License.
         </field>
     </form>
 
-    <form name="ListProducts" list-name="listIt" target="" title="" type="list" paginate-target="FindProduct"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+    <form name="ListProducts" list-name="list" target="" title="" type="list" paginate-target="FindProduct"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2" override-list-size="true">
         <actions>
             <set field="entityName" value="Product"/>
-            <service service-name="performFind" result-map="result" result-map-list="listIt">
+            <service service-name="performFindList" result-map="result" result-map-list="list">
                 <field-map field-name="inputFields" from-field="requestParameters"/>
                 <field-map field-name="entityName" from-field="entityName"/>
                 <field-map field-name="orderBy" from-field="parameters.sortField"/>
