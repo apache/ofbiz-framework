@@ -25,12 +25,12 @@ under the License.
     <StatusItem description="In Progress" sequenceId="03" statusCode="INPROGRESS" statusId="MKTG_CAMP_INPROGRESS" statusTypeId="MKTG_CAMP_STATUS"/>
     <StatusItem description="Completed" sequenceId="04" statusCode="COMPLETED" statusId="MKTG_CAMP_COMPLETED" statusTypeId="MKTG_CAMP_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="05" statusCode="CANCELLED" statusId="MKTG_CAMP_CANCELLED" statusTypeId="MKTG_CAMP_STATUS"/>
-    <StatusValidChange condition="" statusId="MKTG_CAMP_PLANNED" statusIdTo="MKTG_CAMP_APPROVED" transitionName="Approve Marketing Campaign"/>
-    <StatusValidChange condition="" statusId="MKTG_CAMP_APPROVED" statusIdTo="MKTG_CAMP_INPROGRESS" transitionName="Marketing Campaign In Progress"/>
-    <StatusValidChange condition="" statusId="MKTG_CAMP_INPROGRESS" statusIdTo="MKTG_CAMP_COMPLETED" transitionName="Complete Marketing Campaign"/>
-    <StatusValidChange condition="" statusId="MKTG_CAMP_PLANNED" statusIdTo="MKTG_CAMP_CANCELLED" transitionName="Cancel Marketing Campaign"/>
-    <StatusValidChange condition="" statusId="MKTG_CAMP_APPROVED" statusIdTo="MKTG_CAMP_CANCELLED" transitionName="Cancel Marketing Campaign"/>
-    <StatusValidChange condition="" statusId="MKTG_CAMP_INPROGRESS" statusIdTo="MKTG_CAMP_CANCELLED" transitionName="Cancel Marketing Campaign"/>
+    <StatusValidChange statusId="MKTG_CAMP_PLANNED" statusIdTo="MKTG_CAMP_APPROVED" transitionName="Approve Marketing Campaign"/>
+    <StatusValidChange statusId="MKTG_CAMP_APPROVED" statusIdTo="MKTG_CAMP_INPROGRESS" transitionName="Marketing Campaign In Progress"/>
+    <StatusValidChange statusId="MKTG_CAMP_INPROGRESS" statusIdTo="MKTG_CAMP_COMPLETED" transitionName="Complete Marketing Campaign"/>
+    <StatusValidChange statusId="MKTG_CAMP_PLANNED" statusIdTo="MKTG_CAMP_CANCELLED" transitionName="Cancel Marketing Campaign"/>
+    <StatusValidChange statusId="MKTG_CAMP_APPROVED" statusIdTo="MKTG_CAMP_CANCELLED" transitionName="Cancel Marketing Campaign"/>
+    <StatusValidChange statusId="MKTG_CAMP_INPROGRESS" statusIdTo="MKTG_CAMP_CANCELLED" transitionName="Cancel Marketing Campaign"/>
 
     <ContactListType contactListTypeId="MARKETING" description="Marketing"/>
     <ContactListType contactListTypeId="NEWSLETTER" description="Newsletter"/>
@@ -44,21 +44,21 @@ under the License.
     <StatusItem description="Invalid" sequenceId="05" statusCode="INVALID" statusId="CLPT_INVALID" statusTypeId="CONTACTLST_PARTY"/>
     <StatusItem description="Unsubscription pending" sequenceId="06" statusCode="UNSUBS_PENDING" statusId="CLPT_UNSUBS_PENDING" statusTypeId="CONTACTLST_PARTY"/>
     <StatusItem description="Unsubscribed" sequenceId="07" statusCode="UNSUBSCRIBED" statusId="CLPT_UNSUBSCRIBED" statusTypeId="CONTACTLST_PARTY"/>
-    <StatusValidChange condition="" statusId="CLPT_PENDING" statusIdTo="CLPT_ACCEPTED" transitionName="Accept"/>
-    <StatusValidChange condition="" statusId="CLPT_PENDING" statusIdTo="CLPT_REJECTED" transitionName="Reject"/>
-    <StatusValidChange condition="" statusId="CLPT_ACCEPTED" statusIdTo="CLPT_REJECTED" transitionName="Reject"/>
-    <StatusValidChange condition="" statusId="CLPT_REJECTED" statusIdTo="CLPT_ACCEPTED" transitionName="Accept"/>
-    <StatusValidChange condition="" statusId="CLPT_REJECTED" statusIdTo="CLPT_PENDING" transitionName="Pending Accept"/>
-    <StatusValidChange condition="" statusId="CLPT_ACCEPTED" statusIdTo="CLPT_IN_USE" transitionName="Locked - In Use"/>
-    <StatusValidChange condition="" statusId="CLPT_ACCEPTED" statusIdTo="CLPT_INVALID" transitionName="Invalid"/>
-    <StatusValidChange condition="" statusId="CLPT_ACCEPTED" statusIdTo="CLPT_UNSUBS_PENDING" transitionName="Subscription Accepted - Unsubscription Pending"/>
-    <StatusValidChange condition="" statusId="CLPT_PENDING" statusIdTo="CLPT_UNSUBS_PENDING" transitionName="Subscription Pending - Unsubscription Pending"/>
-    <StatusValidChange condition="" statusId="CLPT_IN_USE" statusIdTo="CLPT_UNSUBS_PENDING" transitionName="Subscription In Use - Unsubscription Pending"/>
-    <StatusValidChange condition="" statusId="CLPT_INVALID" statusIdTo="CLPT_UNSUBS_PENDING" transitionName="Subscription Invalid - Unsubscription Pending"/>
-    <StatusValidChange condition="" statusId="CLPT_ACCEPTED" statusIdTo="CLPT_UNSUBSCRIBED" transitionName="Subscription Accepted - Unsubscribed"/>
-    <StatusValidChange condition="" statusId="CLPT_PENDING" statusIdTo="CLPT_UNSUBSCRIBED" transitionName="Subscription Accepted - Unsubscribed"/>
-    <StatusValidChange condition="" statusId="CLPT_IN_USE" statusIdTo="CLPT_UNSUBSCRIBED" transitionName="Subscription In Use - Unsubscribed"/>
-    <StatusValidChange condition="" statusId="CLPT_INVALID" statusIdTo="CLPT_UNSUBSCRIBED" transitionName="Subscription Invalid - Unsubscribed"/>
+    <StatusValidChange statusId="CLPT_PENDING" statusIdTo="CLPT_ACCEPTED" transitionName="Accept"/>
+    <StatusValidChange statusId="CLPT_PENDING" statusIdTo="CLPT_REJECTED" transitionName="Reject"/>
+    <StatusValidChange statusId="CLPT_ACCEPTED" statusIdTo="CLPT_REJECTED" transitionName="Reject"/>
+    <StatusValidChange statusId="CLPT_REJECTED" statusIdTo="CLPT_ACCEPTED" transitionName="Accept"/>
+    <StatusValidChange statusId="CLPT_REJECTED" statusIdTo="CLPT_PENDING" transitionName="Pending Accept"/>
+    <StatusValidChange statusId="CLPT_ACCEPTED" statusIdTo="CLPT_IN_USE" transitionName="Locked - In Use"/>
+    <StatusValidChange statusId="CLPT_ACCEPTED" statusIdTo="CLPT_INVALID" transitionName="Invalid"/>
+    <StatusValidChange statusId="CLPT_ACCEPTED" statusIdTo="CLPT_UNSUBS_PENDING" transitionName="Subscription Accepted - Unsubscription Pending"/>
+    <StatusValidChange statusId="CLPT_PENDING" statusIdTo="CLPT_UNSUBS_PENDING" transitionName="Subscription Pending - Unsubscription Pending"/>
+    <StatusValidChange statusId="CLPT_IN_USE" statusIdTo="CLPT_UNSUBS_PENDING" transitionName="Subscription In Use - Unsubscription Pending"/>
+    <StatusValidChange statusId="CLPT_INVALID" statusIdTo="CLPT_UNSUBS_PENDING" transitionName="Subscription Invalid - Unsubscription Pending"/>
+    <StatusValidChange statusId="CLPT_ACCEPTED" statusIdTo="CLPT_UNSUBSCRIBED" transitionName="Subscription Accepted - Unsubscribed"/>
+    <StatusValidChange statusId="CLPT_PENDING" statusIdTo="CLPT_UNSUBSCRIBED" transitionName="Subscription Accepted - Unsubscribed"/>
+    <StatusValidChange statusId="CLPT_IN_USE" statusIdTo="CLPT_UNSUBSCRIBED" transitionName="Subscription In Use - Unsubscribed"/>
+    <StatusValidChange statusId="CLPT_INVALID" statusIdTo="CLPT_UNSUBSCRIBED" transitionName="Subscription Invalid - Unsubscribed"/>
 
     <SegmentGroupType segmentGroupTypeId="MARKET_SEGMENT" description="Market Segment"/>
     <SegmentGroupType segmentGroupTypeId="SALES_SEGMENT" description="Sales Segment"/>
@@ -93,10 +93,10 @@ under the License.
     <StatusItem description="Converted" sequenceId="02" statusCode="CONVERTED" statusId="LEAD_CONVERTED" statusTypeId="LEAD_STATUS"/>
     <StatusItem description="Qualified" sequenceId="03" statusCode="QUALIFIED" statusId="LEAD_QUALIFIED" statusTypeId="LEAD_STATUS"/>
 
-    <StatusValidChange condition="" statusId="PARTY_ENABLED" statusIdTo="LEAD_ASSIGNED" transitionName="Assigned"/>
-    <StatusValidChange condition="" statusId="LEAD_ASSIGNED" statusIdTo="LEAD_CONVERTED" transitionName="Converted"/>
-    <StatusValidChange condition="" statusId="LEAD_ASSIGNED" statusIdTo="LEAD_QUALIFIED" transitionName="Qualified"/>
-    <StatusValidChange condition="" statusId="LEAD_ASSIGNED" statusIdTo="PARTY_DISABLED" transitionName="Disabled"/>
+    <StatusValidChange statusId="PARTY_ENABLED" statusIdTo="LEAD_ASSIGNED" transitionName="Assigned"/>
+    <StatusValidChange statusId="LEAD_ASSIGNED" statusIdTo="LEAD_CONVERTED" transitionName="Converted"/>
+    <StatusValidChange statusId="LEAD_ASSIGNED" statusIdTo="LEAD_QUALIFIED" transitionName="Qualified"/>
+    <StatusValidChange statusId="LEAD_ASSIGNED" statusIdTo="PARTY_DISABLED" transitionName="Disabled"/>
 
     <EnumerationType enumTypeId="SLSOPP_TYP_ENUM" description="Sales Opportunity Type"/>
     

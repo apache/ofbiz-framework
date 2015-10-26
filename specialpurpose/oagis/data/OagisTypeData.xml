@@ -36,20 +36,20 @@ under the License.
     <StatusItem description="Received Success Confirm" sequenceId="28" statusCode="REC_SUC_CON" statusId="OAGMP_REC_SUC_CON" statusTypeId="OAGIS_MP_STATUS"/>
     <StatusItem description="Received Error Confirm" sequenceId="29" statusCode="REC_ERR_CON" statusId="OAGMP_REC_ERR_CON" statusTypeId="OAGIS_MP_STATUS"/>
 
-    <StatusValidChange condition="" statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_PROC_SUCCESS" transitionName="Processing Succeeded"/>
-    <StatusValidChange condition="" statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_PROC_ERROR" transitionName="Processing Errored"/>
-    <StatusValidChange condition="" statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_SYS_ERROR" transitionName="Processing System Error"/>
-    <StatusValidChange condition="" statusId="OAGMP_PROC_ERROR" statusIdTo="OAGMP_ERRCONFSENT" transitionName="Error Confirm Sent"/>
+    <StatusValidChange statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_PROC_SUCCESS" transitionName="Processing Succeeded"/>
+    <StatusValidChange statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_PROC_ERROR" transitionName="Processing Errored"/>
+    <StatusValidChange statusId="OAGMP_RECEIVED" statusIdTo="OAGMP_SYS_ERROR" transitionName="Processing System Error"/>
+    <StatusValidChange statusId="OAGMP_PROC_ERROR" statusIdTo="OAGMP_ERRCONFSENT" transitionName="Error Confirm Sent"/>
     <!-- this transition is to restart and re-process failed incoming messages -->
-    <StatusValidChange condition="" statusId="OAGMP_PROC_ERROR" statusIdTo="OAGMP_RECEIVED" transitionName="Error Recoved to Received"/>
-    <StatusValidChange condition="" statusId="OAGMP_SYS_ERROR" statusIdTo="OAGMP_RECEIVED" transitionName="Error Recoved to Received"/>
-    <StatusValidChange condition="" statusId="OAGMP_ERRCONFSENT" statusIdTo="OAGMP_RECEIVED" transitionName="Error Recoved to Received"/>
+    <StatusValidChange statusId="OAGMP_PROC_ERROR" statusIdTo="OAGMP_RECEIVED" transitionName="Error Recoved to Received"/>
+    <StatusValidChange statusId="OAGMP_SYS_ERROR" statusIdTo="OAGMP_RECEIVED" transitionName="Error Recoved to Received"/>
+    <StatusValidChange statusId="OAGMP_ERRCONFSENT" statusIdTo="OAGMP_RECEIVED" transitionName="Error Recoved to Received"/>
 
-    <StatusValidChange condition="" statusId="OAGMP_TRIGGERED" statusIdTo="OAGMP_OGEN_SUCCESS" transitionName="Out Generation Succeeded"/>
-    <StatusValidChange condition="" statusId="OAGMP_TRIGGERED" statusIdTo="OAGMP_OGEN_ERROR" transitionName="Out Generation Errored"/>
-    <StatusValidChange condition="" statusId="OAGMP_OGEN_SUCCESS" statusIdTo="OAGMP_SENT" transitionName="Out Message Sent"/>
-    <StatusValidChange condition="" statusId="OAGMP_OGEN_SUCCESS" statusIdTo="OAGMP_SEND_ERROR" transitionName="Out Message Send Error"/>
+    <StatusValidChange statusId="OAGMP_TRIGGERED" statusIdTo="OAGMP_OGEN_SUCCESS" transitionName="Out Generation Succeeded"/>
+    <StatusValidChange statusId="OAGMP_TRIGGERED" statusIdTo="OAGMP_OGEN_ERROR" transitionName="Out Generation Errored"/>
+    <StatusValidChange statusId="OAGMP_OGEN_SUCCESS" statusIdTo="OAGMP_SENT" transitionName="Out Message Sent"/>
+    <StatusValidChange statusId="OAGMP_OGEN_SUCCESS" statusIdTo="OAGMP_SEND_ERROR" transitionName="Out Message Send Error"/>
 
-    <StatusValidChange condition="" statusId="OAGMP_SENT" statusIdTo="OAGMP_REC_SUC_CON" transitionName="Success Confirm Received"/>
-    <StatusValidChange condition="" statusId="OAGMP_SENT" statusIdTo="OAGMP_REC_ERR_CON" transitionName="Error Confirm Received"/>
+    <StatusValidChange statusId="OAGMP_SENT" statusIdTo="OAGMP_REC_SUC_CON" transitionName="Success Confirm Received"/>
+    <StatusValidChange statusId="OAGMP_SENT" statusIdTo="OAGMP_REC_ERR_CON" transitionName="Error Confirm Received"/>
 </entity-engine-xml>

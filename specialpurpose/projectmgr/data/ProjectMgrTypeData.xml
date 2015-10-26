@@ -53,7 +53,7 @@ under the License.
     <!-- assignment status on a task -->
     <StatusItem description="Assigned" sequenceId="01" statusCode="ASSIGNED" statusId="PAS_ASSIGNED" statusTypeId="PROJECT_ASSGN_STATUS"/>
     <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="PAS_COMPLETED" statusTypeId="PROJECT_ASSGN_STATUS"/>
-    <StatusValidChange condition="" statusId="PAS_ASSIGNED" statusIdTo="PAS_COMPLETED" transitionName="Assignment Complete"/>
+    <StatusValidChange statusId="PAS_ASSIGNED" statusIdTo="PAS_COMPLETED" transitionName="Assignment Complete"/>
 
     <!-- status of the task itself -->
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PTS_CREATED" statusTypeId="PROJECT_TASK_STATUS"/>
@@ -63,17 +63,17 @@ under the License.
     <StatusItem description="Completed" sequenceId="05" statusCode="COMPLETED" statusId="PTS_COMPLETED" statusTypeId="PROJECT_TASK_STATUS"/>
     <StatusItem description="On Hold" sequenceId="07" statusCode="ON_HOLD" statusId="PTS_ON_HOLD" statusTypeId="PROJECT_TASK_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="09" statusCode="CANCELLED" statusId="PTS_CANCELLED" statusTypeId="PROJECT_TASK_STATUS"/>
-    <StatusValidChange condition="" statusId="PTS_CREATED" statusIdTo="PTS_COMPLETED" transitionName="Task Complete"/>
-    <StatusValidChange condition="" statusId="PTS_CREATED" statusIdTo="PTS_ON_HOLD" transitionName="Task On Hold"/>
-    <StatusValidChange condition="" statusId="PTS_CREATED" statusIdTo="PTS_CANCELLED" transitionName="Task On Hold"/>
-    <StatusValidChange condition="" statusId="PTS_ON_HOLD" statusIdTo="PTS_CREATED" transitionName="Activated"/>
+    <StatusValidChange statusId="PTS_CREATED" statusIdTo="PTS_COMPLETED" transitionName="Task Complete"/>
+    <StatusValidChange statusId="PTS_CREATED" statusIdTo="PTS_ON_HOLD" transitionName="Task On Hold"/>
+    <StatusValidChange statusId="PTS_CREATED" statusIdTo="PTS_CANCELLED" transitionName="Task On Hold"/>
+    <StatusValidChange statusId="PTS_ON_HOLD" statusIdTo="PTS_CREATED" transitionName="Activated"/>
 
     <!-- status of project and phase is defined by the underlying task status.
         however to remove the project from current lists the closed status is introduced -->
     <StatusItem description="Active" sequenceId="01" statusCode="ACTIVE" statusId="PRJ_ACTIVE" statusTypeId="PROJECT_STATUS"/>
     <StatusItem description="Closed" sequenceId="09" statusCode="CLOSED" statusId="PRJ_CLOSED" statusTypeId="PROJECT_STATUS"/>
-    <StatusValidChange condition="" statusId="PRJ_ACTIVE" statusIdTo="PRJ_CLOSED" transitionName="Close project"/>
+    <StatusValidChange statusId="PRJ_ACTIVE" statusIdTo="PRJ_CLOSED" transitionName="Close project"/>
     <!-- for current installations -->
-    <StatusValidChange condition="" statusId="_NA_" statusIdTo="PRJ_CLOSED" transitionName="Close project"/>
+    <StatusValidChange statusId="_NA_" statusIdTo="PRJ_CLOSED" transitionName="Close project"/>
 
 </entity-engine-xml>
