@@ -164,16 +164,16 @@ under the License.
     <StatusItem description="Deactivated" sequenceId="99" statusCode="DEACTIVATED" statusId="CTNT_DEACTIVATED" statusTypeId="CONTENT_STATUS"/>
     <StatusItem description="Available" sequenceId="10" statusCode="AVAILABLE" statusId="CTNT_AVAILABLE" statusTypeId="CONTENT_STATUS"/>
 
-    <StatusValidChange condition="" statusId="CTNT_IN_PROGRESS" statusIdTo="CTNT_INITIAL_DRAFT" transitionName="First draft"/>
-    <StatusValidChange condition="" statusId="CTNT_IN_PROGRESS" statusIdTo="CTNT_PUBLISHED" transitionName="Publised, not revised"/>
-    <StatusValidChange condition="" statusId="CTNT_IN_PROGRESS" statusIdTo="CTNT_AVAILABLE" transitionName="Available"/>
-    <StatusValidChange condition="" statusId="CTNT_INITIAL_DRAFT" statusIdTo="CTNT_REVISED_DRAFT" transitionName="Draft revised"/>
-    <StatusValidChange condition="" statusId="CTNT_INITIAL_DRAFT" statusIdTo="CTNT_PUBLISHED" transitionName="Initial draft Publised"/>
-    <StatusValidChange condition="" statusId="CTNT_REVISED_DRAFT" statusIdTo="CTNT_FINAL_DRAFT" transitionName="Final draft"/>
-    <StatusValidChange condition="" statusId="CTNT_REVISED_DRAFT" statusIdTo="CTNT_PUBLISHED" transitionName="Revised draft Publised"/>
-    <StatusValidChange condition="" statusId="CTNT_FINAL_DRAFT" statusIdTo="CTNT_PUBLISHED" transitionName="Final draft Published"/>
-    <StatusValidChange condition="" statusId="CTNT_PUBLISHED" statusIdTo="CTNT_DEACTIVATED" transitionName="Deactivated"/>
-    <StatusValidChange condition="" statusId="CTNT_AVAILABLE" statusIdTo="CTNT_DEACTIVATED" transitionName="Available to Deactivated"/>
+    <StatusValidChange statusId="CTNT_IN_PROGRESS" statusIdTo="CTNT_INITIAL_DRAFT" transitionName="First draft"/>
+    <StatusValidChange statusId="CTNT_IN_PROGRESS" statusIdTo="CTNT_PUBLISHED" transitionName="Publised, not revised"/>
+    <StatusValidChange statusId="CTNT_IN_PROGRESS" statusIdTo="CTNT_AVAILABLE" transitionName="Available"/>
+    <StatusValidChange statusId="CTNT_INITIAL_DRAFT" statusIdTo="CTNT_REVISED_DRAFT" transitionName="Draft revised"/>
+    <StatusValidChange statusId="CTNT_INITIAL_DRAFT" statusIdTo="CTNT_PUBLISHED" transitionName="Initial draft Publised"/>
+    <StatusValidChange statusId="CTNT_REVISED_DRAFT" statusIdTo="CTNT_FINAL_DRAFT" transitionName="Final draft"/>
+    <StatusValidChange statusId="CTNT_REVISED_DRAFT" statusIdTo="CTNT_PUBLISHED" transitionName="Revised draft Publised"/>
+    <StatusValidChange statusId="CTNT_FINAL_DRAFT" statusIdTo="CTNT_PUBLISHED" transitionName="Final draft Published"/>
+    <StatusValidChange statusId="CTNT_PUBLISHED" statusIdTo="CTNT_DEACTIVATED" transitionName="Deactivated"/>
+    <StatusValidChange statusId="CTNT_AVAILABLE" statusIdTo="CTNT_DEACTIVATED" transitionName="Available to Deactivated"/>
 
     <SubscriptionType description="Newsgroup" hasTable="N" parentTypeId="" subscriptionTypeId="NEWSGROUP_SUBSCR"/>
     <SubscriptionType description="Other" hasTable="N" parentTypeId="" subscriptionTypeId="OTHER_SUBSCR"/>

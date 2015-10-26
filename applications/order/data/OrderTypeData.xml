@@ -125,32 +125,32 @@ under the License.
     <StatusItem description="Rejected" sequenceId="98" statusCode="REJECTED" statusId="ITEM_REJECTED" statusTypeId="ORDER_ITEM_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="ITEM_CANCELLED" statusTypeId="ORDER_ITEM_STATUS"/>
 
-    <StatusValidChange condition="" statusId="ORDER_CREATED" statusIdTo="ORDER_PROCESSING" transitionName="Process Order"/>
-    <StatusValidChange condition="" statusId="ORDER_CREATED" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
-    <StatusValidChange condition="" statusId="ORDER_CREATED" statusIdTo="ORDER_HOLD" transitionName="Hold Order"/>
-    <StatusValidChange condition="" statusId="ORDER_CREATED" statusIdTo="ORDER_REJECTED" transitionName="Reject Order"/>
-    <StatusValidChange condition="" statusId="ORDER_CREATED" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
-    <StatusValidChange condition="" statusId="ORDER_PROCESSING" statusIdTo="ORDER_HOLD" transitionName="Hold Order"/>
-    <StatusValidChange condition="" statusId="ORDER_PROCESSING" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
-    <StatusValidChange condition="" statusId="ORDER_PROCESSING" statusIdTo="ORDER_REJECTED" transitionName="Reject Order"/>
-    <StatusValidChange condition="" statusId="ORDER_PROCESSING" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
-    <StatusValidChange condition="" statusId="ORDER_APPROVED" statusIdTo="ORDER_SENT" transitionName="Send Order"/>
-    <StatusValidChange condition="" statusId="ORDER_APPROVED" statusIdTo="ORDER_PROCESSING" transitionName="Process Order"/>
-    <StatusValidChange condition="" statusId="ORDER_APPROVED" statusIdTo="ORDER_COMPLETED" transitionName="Complete Order"/>
-    <StatusValidChange condition="" statusId="ORDER_APPROVED" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
-    <StatusValidChange condition="" statusId="ORDER_APPROVED" statusIdTo="ORDER_HOLD" transitionName="Hold Order"/>
-    <StatusValidChange condition="" statusId="ORDER_HOLD" statusIdTo="ORDER_PROCESSING" transitionName="Process Order"/>
-    <StatusValidChange condition="" statusId="ORDER_HOLD" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
-    <StatusValidChange condition="" statusId="ORDER_HOLD" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
-    <StatusValidChange condition="" statusId="ORDER_SENT" statusIdTo="ORDER_COMPLETED" transitionName="Order Completed"/>
-    <StatusValidChange condition="" statusId="ORDER_SENT" statusIdTo="ORDER_CANCELLED" transitionName="Order Cancelled"/>
-    <StatusValidChange condition="" statusId="ORDER_COMPLETED" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
-    <StatusValidChange condition="" statusId="ITEM_CREATED" statusIdTo="ITEM_APPROVED" transitionName="Approve Item"/>
-    <StatusValidChange condition="" statusId="ITEM_CREATED" statusIdTo="ITEM_REJECTED" transitionName="Reject Item"/>
-    <StatusValidChange condition="" statusId="ITEM_CREATED" statusIdTo="ITEM_CANCELLED" transitionName="Cancel Item"/>
-    <StatusValidChange condition="" statusId="ITEM_APPROVED" statusIdTo="ITEM_COMPLETED" transitionName="Complete Item"/>
-    <StatusValidChange condition="" statusId="ITEM_APPROVED" statusIdTo="ITEM_CANCELLED" transitionName="Cancel Item"/>
-    <StatusValidChange condition="" statusId="ITEM_COMPLETED" statusIdTo="ITEM_APPROVED" transitionName="Approve Item"/>
+    <StatusValidChange statusId="ORDER_CREATED" statusIdTo="ORDER_PROCESSING" transitionName="Process Order"/>
+    <StatusValidChange statusId="ORDER_CREATED" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
+    <StatusValidChange statusId="ORDER_CREATED" statusIdTo="ORDER_HOLD" transitionName="Hold Order"/>
+    <StatusValidChange statusId="ORDER_CREATED" statusIdTo="ORDER_REJECTED" transitionName="Reject Order"/>
+    <StatusValidChange statusId="ORDER_CREATED" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
+    <StatusValidChange statusId="ORDER_PROCESSING" statusIdTo="ORDER_HOLD" transitionName="Hold Order"/>
+    <StatusValidChange statusId="ORDER_PROCESSING" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
+    <StatusValidChange statusId="ORDER_PROCESSING" statusIdTo="ORDER_REJECTED" transitionName="Reject Order"/>
+    <StatusValidChange statusId="ORDER_PROCESSING" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
+    <StatusValidChange statusId="ORDER_APPROVED" statusIdTo="ORDER_SENT" transitionName="Send Order"/>
+    <StatusValidChange statusId="ORDER_APPROVED" statusIdTo="ORDER_PROCESSING" transitionName="Process Order"/>
+    <StatusValidChange statusId="ORDER_APPROVED" statusIdTo="ORDER_COMPLETED" transitionName="Complete Order"/>
+    <StatusValidChange statusId="ORDER_APPROVED" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
+    <StatusValidChange statusId="ORDER_APPROVED" statusIdTo="ORDER_HOLD" transitionName="Hold Order"/>
+    <StatusValidChange statusId="ORDER_HOLD" statusIdTo="ORDER_PROCESSING" transitionName="Process Order"/>
+    <StatusValidChange statusId="ORDER_HOLD" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
+    <StatusValidChange statusId="ORDER_HOLD" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
+    <StatusValidChange statusId="ORDER_SENT" statusIdTo="ORDER_COMPLETED" transitionName="Order Completed"/>
+    <StatusValidChange statusId="ORDER_SENT" statusIdTo="ORDER_CANCELLED" transitionName="Order Cancelled"/>
+    <StatusValidChange statusId="ORDER_COMPLETED" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
+    <StatusValidChange statusId="ITEM_CREATED" statusIdTo="ITEM_APPROVED" transitionName="Approve Item"/>
+    <StatusValidChange statusId="ITEM_CREATED" statusIdTo="ITEM_REJECTED" transitionName="Reject Item"/>
+    <StatusValidChange statusId="ITEM_CREATED" statusIdTo="ITEM_CANCELLED" transitionName="Cancel Item"/>
+    <StatusValidChange statusId="ITEM_APPROVED" statusIdTo="ITEM_COMPLETED" transitionName="Complete Item"/>
+    <StatusValidChange statusId="ITEM_APPROVED" statusIdTo="ITEM_CANCELLED" transitionName="Cancel Item"/>
+    <StatusValidChange statusId="ITEM_COMPLETED" statusIdTo="ITEM_APPROVED" transitionName="Approve Item"/>
 
     <!-- order payment pref status -->
     <StatusType description="Payment Preference" hasTable="N" parentTypeId="" statusTypeId="PAYMENT_PREF_STATUS"/>
@@ -162,13 +162,13 @@ under the License.
     <StatusItem description="Declined" sequenceId="04" statusCode="DECLINED" statusId="PAYMENT_DECLINED" statusTypeId="PAYMENT_PREF_STATUS"/>
     <StatusItem description="Refunded" sequenceId="05" statusCode="REFUNDED" statusId="PAYMENT_REFUNDED" statusTypeId="PAYMENT_PREF_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="PAYMENT_CANCELLED" statusTypeId="PAYMENT_PREF_STATUS"/>
-    <StatusValidChange condition="" statusId="PAYMENT_NOT_RECEIVED" statusIdTo="PAYMENT_RECEIVED" transitionName="Payment Received"/>
-    <StatusValidChange condition="" statusId="PAYMENT_NOT_RECEIVED" statusIdTo="PAYMENT_CANCELLED" transitionName="Payment Cancelled"/>
-    <StatusValidChange condition="" statusId="PAYMENT_NOT_AUTH" statusIdTo="PAYMENT_AUTHORIZED" transitionName="Payment Authorized"/>
-    <StatusValidChange condition="" statusId="PAYMENT_NOT_AUTH" statusIdTo="PAYMENT_CANCELLED" transitionName="Payment Cancelled"/>
-    <StatusValidChange condition="" statusId="PAYMENT_AUTHORIZED" statusIdTo="PAYMENT_SETTLED" transitionName="Payment Settled"/>
-    <StatusValidChange condition="" statusId="PAYMENT_AUTHORIZED" statusIdTo="PAYMENT_CANCELLED" transitionName="Payment Cancelled"/>
-    <StatusValidChange condition="" statusId="PAYMENT_SETTLED" statusIdTo="PAYMENT_REFUNDED" transitionName="Payment Refunded"/>
+    <StatusValidChange statusId="PAYMENT_NOT_RECEIVED" statusIdTo="PAYMENT_RECEIVED" transitionName="Payment Received"/>
+    <StatusValidChange statusId="PAYMENT_NOT_RECEIVED" statusIdTo="PAYMENT_CANCELLED" transitionName="Payment Cancelled"/>
+    <StatusValidChange statusId="PAYMENT_NOT_AUTH" statusIdTo="PAYMENT_AUTHORIZED" transitionName="Payment Authorized"/>
+    <StatusValidChange statusId="PAYMENT_NOT_AUTH" statusIdTo="PAYMENT_CANCELLED" transitionName="Payment Cancelled"/>
+    <StatusValidChange statusId="PAYMENT_AUTHORIZED" statusIdTo="PAYMENT_SETTLED" transitionName="Payment Settled"/>
+    <StatusValidChange statusId="PAYMENT_AUTHORIZED" statusIdTo="PAYMENT_CANCELLED" transitionName="Payment Cancelled"/>
+    <StatusValidChange statusId="PAYMENT_SETTLED" statusIdTo="PAYMENT_REFUNDED" transitionName="Payment Refunded"/>
 
     <!-- order delivery schedule status -->
     <StatusType description="Order Delivery Schedule" hasTable="N" parentTypeId="" statusTypeId="ORDER_DEL_SCH"/>
@@ -177,13 +177,13 @@ under the License.
     <StatusItem description="Schedule Approved" sequenceId="03" statusCode="APPROVED" statusId="ODS_APPROVED" statusTypeId="ORDER_DEL_SCH"/>
     <StatusItem description="Delivery Arranged" sequenceId="04" statusCode="ARRANGED" statusId="ODS_ARRANGED" statusTypeId="ORDER_DEL_SCH"/>
     <StatusItem description="Delivery Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="ODS_CANCELLED" statusTypeId="ORDER_DEL_SCH"/>
-    <StatusValidChange condition="" statusId="ODS_SUBMITTED" statusIdTo="ODS_ACCEPTED" transitionName="Accept Delivery Information"/>
-    <StatusValidChange condition="" statusId="ODS_ACCEPTED" statusIdTo="ODS_APPROVED" transitionName="Approve Delivery Schedule"/>
-    <StatusValidChange condition="" statusId="ODS_APPROVED" statusIdTo="ODS_ARRANGED" transitionName="Arrange Delivery"/>
-    <StatusValidChange condition="" statusId="ODS_SUBMITTED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
-    <StatusValidChange condition="" statusId="ODS_ACCEPTED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
-    <StatusValidChange condition="" statusId="ODS_APPROVED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
-    <StatusValidChange condition="" statusId="ODS_ARRANGED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
+    <StatusValidChange statusId="ODS_SUBMITTED" statusIdTo="ODS_ACCEPTED" transitionName="Accept Delivery Information"/>
+    <StatusValidChange statusId="ODS_ACCEPTED" statusIdTo="ODS_APPROVED" transitionName="Approve Delivery Schedule"/>
+    <StatusValidChange statusId="ODS_APPROVED" statusIdTo="ODS_ARRANGED" transitionName="Arrange Delivery"/>
+    <StatusValidChange statusId="ODS_SUBMITTED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
+    <StatusValidChange statusId="ODS_ACCEPTED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
+    <StatusValidChange statusId="ODS_APPROVED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
+    <StatusValidChange statusId="ODS_ARRANGED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
 
     <!-- order return status for returns to customers -->
     <StatusType description="Order Return Status For Customer Returns" hasTable="N" parentTypeId="" statusTypeId="ORDER_RETURN_STTS"/>
@@ -193,13 +193,13 @@ under the License.
     <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="RETURN_COMPLETED" statusTypeId="ORDER_RETURN_STTS"/>
     <StatusItem description="Manual Refund Required" sequenceId="11" statusCode="MANUAL_REFUND" statusId="RETURN_MAN_REFUND" statusTypeId="ORDER_RETURN_STTS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="RETURN_CANCELLED" statusTypeId="ORDER_RETURN_STTS"/>
-    <StatusValidChange condition="" statusId="RETURN_REQUESTED" statusIdTo="RETURN_ACCEPTED" transitionName="Requested Return Accepted"/>
-    <StatusValidChange condition="" statusId="RETURN_REQUESTED" statusIdTo="RETURN_CANCELLED" transitionName="Requested Return Cancelled"/>
-    <StatusValidChange condition="" statusId="RETURN_ACCEPTED" statusIdTo="RETURN_RECEIVED" transitionName="Accepted Return Received"/>
-    <StatusValidChange condition="" statusId="RETURN_ACCEPTED" statusIdTo="RETURN_CANCELLED" transitionName="Accepted Return Cancelled"/>
-    <StatusValidChange condition="" statusId="RETURN_RECEIVED" statusIdTo="RETURN_COMPLETED" transitionName="Received Return Completed"/>
-    <StatusValidChange condition="" statusId="RETURN_RECEIVED" statusIdTo="RETURN_CANCELLED" transitionName="Received Return Cancelled"/>
-    <StatusValidChange condition="" statusId="RETURN_RECEIVED" statusIdTo="RETURN_MAN_REFUND" transitionName="Received Return Requires Manual Refund"/>
+    <StatusValidChange statusId="RETURN_REQUESTED" statusIdTo="RETURN_ACCEPTED" transitionName="Requested Return Accepted"/>
+    <StatusValidChange statusId="RETURN_REQUESTED" statusIdTo="RETURN_CANCELLED" transitionName="Requested Return Cancelled"/>
+    <StatusValidChange statusId="RETURN_ACCEPTED" statusIdTo="RETURN_RECEIVED" transitionName="Accepted Return Received"/>
+    <StatusValidChange statusId="RETURN_ACCEPTED" statusIdTo="RETURN_CANCELLED" transitionName="Accepted Return Cancelled"/>
+    <StatusValidChange statusId="RETURN_RECEIVED" statusIdTo="RETURN_COMPLETED" transitionName="Received Return Completed"/>
+    <StatusValidChange statusId="RETURN_RECEIVED" statusIdTo="RETURN_CANCELLED" transitionName="Received Return Cancelled"/>
+    <StatusValidChange statusId="RETURN_RECEIVED" statusIdTo="RETURN_MAN_REFUND" transitionName="Received Return Requires Manual Refund"/>
     <!-- order return status for returns to suppliers -->
     <StatusType description="Order Return Status For Supplier Returns" hasTable="N" parentTypeId="" statusTypeId="PORDER_RETURN_STTS"/>
     <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="SUP_RETURN_REQUESTED" statusTypeId="PORDER_RETURN_STTS"/>
@@ -207,12 +207,12 @@ under the License.
     <StatusItem description="Shipped" sequenceId="03" statusCode="SHIPPED" statusId="SUP_RETURN_SHIPPED" statusTypeId="PORDER_RETURN_STTS"/>
     <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="SUP_RETURN_COMPLETED" statusTypeId="PORDER_RETURN_STTS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="SUP_RETURN_CANCELLED" statusTypeId="PORDER_RETURN_STTS"/>
-    <StatusValidChange condition="" statusId="SUP_RETURN_REQUESTED" statusIdTo="SUP_RETURN_ACCEPTED" transitionName="Requested Return Accepted"/>
-    <StatusValidChange condition="" statusId="SUP_RETURN_REQUESTED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Requested Return Cancelled"/>
-    <StatusValidChange condition="" statusId="SUP_RETURN_ACCEPTED" statusIdTo="SUP_RETURN_SHIPPED" transitionName="Accepted Return Shipped"/>
-    <StatusValidChange condition="" statusId="SUP_RETURN_ACCEPTED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Accepted Return Cancelled"/>
-    <StatusValidChange condition="" statusId="SUP_RETURN_SHIPPED" statusIdTo="SUP_RETURN_COMPLETED" transitionName="Shipped Return Completed"/>
-    <StatusValidChange condition="" statusId="SUP_RETURN_SHIPPED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Shipped Return Cancelled"/>
+    <StatusValidChange statusId="SUP_RETURN_REQUESTED" statusIdTo="SUP_RETURN_ACCEPTED" transitionName="Requested Return Accepted"/>
+    <StatusValidChange statusId="SUP_RETURN_REQUESTED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Requested Return Cancelled"/>
+    <StatusValidChange statusId="SUP_RETURN_ACCEPTED" statusIdTo="SUP_RETURN_SHIPPED" transitionName="Accepted Return Shipped"/>
+    <StatusValidChange statusId="SUP_RETURN_ACCEPTED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Accepted Return Cancelled"/>
+    <StatusValidChange statusId="SUP_RETURN_SHIPPED" statusIdTo="SUP_RETURN_COMPLETED" transitionName="Shipped Return Completed"/>
+    <StatusValidChange statusId="SUP_RETURN_SHIPPED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Shipped Return Cancelled"/>
 
     <!-- CustRequest statuses -->
     <StatusType description="Custom Request Status" hasTable="N" parentTypeId="" statusTypeId="CUSTREQ_STTS"/>
@@ -224,26 +224,26 @@ under the License.
     <StatusItem description="Completed" sequenceId="04" statusCode="COMPLETED" statusId="CRQ_COMPLETED" statusTypeId="CUSTREQ_STTS"/>
     <StatusItem description="Rejected" sequenceId="98" statusCode="REJECTED" statusId="CRQ_REJECTED" statusTypeId="CUSTREQ_STTS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="CRQ_CANCELLED" statusTypeId="CUSTREQ_STTS"/>
-    <StatusValidChange condition="" statusId="CRQ_DRAFT" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
-    <StatusValidChange condition="" statusId="CRQ_DRAFT" statusIdTo="CRQ_SUBMITTED" transitionName="Submit Request"/>
-    <StatusValidChange condition="" statusId="CRQ_DRAFT" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
-    <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
-    <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
-    <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_REJECTED" transitionName="Reject Request"/>
-    <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
-    <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_PENDING" transitionName="Pending customer"/>
-    <StatusValidChange condition="" statusId="CRQ_PENDING" statusIdTo="CRQ_SUBMITTED" transitionName="Submit Request"/>
-    <StatusValidChange condition="" statusId="CRQ_PENDING" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
-    <StatusValidChange condition="" statusId="CRQ_PENDING" statusIdTo="CRQ_REVIEWED" transitionName="Review Request"/>
-    <StatusValidChange condition="" statusId="CRQ_PENDING" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
-    <StatusValidChange condition="" statusId="CRQ_ACCEPTED" statusIdTo="CRQ_REVIEWED" transitionName="Review Request"/>
-    <StatusValidChange condition="" statusId="CRQ_ACCEPTED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
-    <StatusValidChange condition="" statusId="CRQ_ACCEPTED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
-    <StatusValidChange condition="" statusId="CRQ_ACCEPTED" statusIdTo="CRQ_PENDING" transitionName="Pending Customer"/>
-    <StatusValidChange condition="" statusId="CRQ_REVIEWED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
-    <StatusValidChange condition="" statusId="CRQ_REVIEWED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
-    <StatusValidChange condition="" statusId="CRQ_REVIEWED" statusIdTo="CRQ_PENDING" transitionName="Pending Customer"/>
-    <StatusValidChange condition="" statusId="CRQ_COMPLETED" statusIdTo="CRQ_REVIEWED" transitionName="Re-open Request"/>
+    <StatusValidChange statusId="CRQ_DRAFT" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
+    <StatusValidChange statusId="CRQ_DRAFT" statusIdTo="CRQ_SUBMITTED" transitionName="Submit Request"/>
+    <StatusValidChange statusId="CRQ_DRAFT" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange statusId="CRQ_SUBMITTED" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
+    <StatusValidChange statusId="CRQ_SUBMITTED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
+    <StatusValidChange statusId="CRQ_SUBMITTED" statusIdTo="CRQ_REJECTED" transitionName="Reject Request"/>
+    <StatusValidChange statusId="CRQ_SUBMITTED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange statusId="CRQ_SUBMITTED" statusIdTo="CRQ_PENDING" transitionName="Pending customer"/>
+    <StatusValidChange statusId="CRQ_PENDING" statusIdTo="CRQ_SUBMITTED" transitionName="Submit Request"/>
+    <StatusValidChange statusId="CRQ_PENDING" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
+    <StatusValidChange statusId="CRQ_PENDING" statusIdTo="CRQ_REVIEWED" transitionName="Review Request"/>
+    <StatusValidChange statusId="CRQ_PENDING" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange statusId="CRQ_ACCEPTED" statusIdTo="CRQ_REVIEWED" transitionName="Review Request"/>
+    <StatusValidChange statusId="CRQ_ACCEPTED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
+    <StatusValidChange statusId="CRQ_ACCEPTED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange statusId="CRQ_ACCEPTED" statusIdTo="CRQ_PENDING" transitionName="Pending Customer"/>
+    <StatusValidChange statusId="CRQ_REVIEWED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
+    <StatusValidChange statusId="CRQ_REVIEWED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange statusId="CRQ_REVIEWED" statusIdTo="CRQ_PENDING" transitionName="Pending Customer"/>
+    <StatusValidChange statusId="CRQ_COMPLETED" statusIdTo="CRQ_REVIEWED" transitionName="Re-open Request"/>
 
     <!-- Requirement statuses -->
     <StatusType description="Requirement Status" hasTable="N" parentTypeId="" statusTypeId="REQUIREMENT_STATUS"/>
@@ -252,12 +252,12 @@ under the License.
     <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="REQ_APPROVED" statusTypeId="REQUIREMENT_STATUS"/>
     <StatusItem description="Ordered" sequenceId="03" statusCode="ORDERED" statusId="REQ_ORDERED" statusTypeId="REQUIREMENT_STATUS"/>
     <StatusItem description="Rejected" sequenceId="98" statusCode="REJECTED" statusId="REQ_REJECTED" statusTypeId="REQUIREMENT_STATUS"/>
-    <StatusValidChange condition="" statusId="REQ_PROPOSED" statusIdTo="REQ_APPROVED" transitionName="Accept Requirement"/>
-    <StatusValidChange condition="" statusId="REQ_PROPOSED" statusIdTo="REQ_REJECTED" transitionName="Reject Requirement"/>
-    <StatusValidChange condition="" statusId="REQ_CREATED" statusIdTo="REQ_APPROVED" transitionName="Accept Requirement"/>
-    <StatusValidChange condition="" statusId="REQ_CREATED" statusIdTo="REQ_REJECTED" transitionName="Reject Requirement"/>
-    <StatusValidChange condition="" statusId="REQ_APPROVED" statusIdTo="REQ_ORDERED" transitionName="Order Requirement"/>
-    <StatusValidChange condition="" statusId="REQ_APPROVED" statusIdTo="REQ_REJECTED" transitionName="Reject Requirement"/>
+    <StatusValidChange statusId="REQ_PROPOSED" statusIdTo="REQ_APPROVED" transitionName="Accept Requirement"/>
+    <StatusValidChange statusId="REQ_PROPOSED" statusIdTo="REQ_REJECTED" transitionName="Reject Requirement"/>
+    <StatusValidChange statusId="REQ_CREATED" statusIdTo="REQ_APPROVED" transitionName="Accept Requirement"/>
+    <StatusValidChange statusId="REQ_CREATED" statusIdTo="REQ_REJECTED" transitionName="Reject Requirement"/>
+    <StatusValidChange statusId="REQ_APPROVED" statusIdTo="REQ_ORDERED" transitionName="Order Requirement"/>
+    <StatusValidChange statusId="REQ_APPROVED" statusIdTo="REQ_REJECTED" transitionName="Reject Requirement"/>
 
     <!-- Quote statuses -->
     <StatusType description="Quote Status" hasTable="N" parentTypeId="" statusTypeId="QUOTE_STATUS"/>
@@ -265,10 +265,10 @@ under the License.
     <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="QUO_APPROVED" statusTypeId="QUOTE_STATUS"/>
     <StatusItem description="Ordered" sequenceId="03" statusCode="ORDERED" statusId="QUO_ORDERED" statusTypeId="QUOTE_STATUS"/>
     <StatusItem description="Rejected" sequenceId="98" statusCode="REJECTED" statusId="QUO_REJECTED" statusTypeId="QUOTE_STATUS"/>
-    <StatusValidChange condition="" statusId="QUO_CREATED" statusIdTo="QUO_APPROVED" transitionName="Accept Quote"/>
-    <StatusValidChange condition="" statusId="QUO_CREATED" statusIdTo="QUO_REJECTED" transitionName="Reject Quote"/>
-    <StatusValidChange condition="" statusId="QUO_APPROVED" statusIdTo="QUO_ORDERED" transitionName="Order Quote"/>
-    <StatusValidChange condition="" statusId="QUO_APPROVED" statusIdTo="QUO_REJECTED" transitionName="Reject Quote"/>
+    <StatusValidChange statusId="QUO_CREATED" statusIdTo="QUO_APPROVED" transitionName="Accept Quote"/>
+    <StatusValidChange statusId="QUO_CREATED" statusIdTo="QUO_REJECTED" transitionName="Reject Quote"/>
+    <StatusValidChange statusId="QUO_APPROVED" statusIdTo="QUO_ORDERED" transitionName="Order Quote"/>
+    <StatusValidChange statusId="QUO_APPROVED" statusIdTo="QUO_REJECTED" transitionName="Reject Quote"/>
 
     <!-- Return Adjustment Types-->
     <ReturnAdjustmentType description="Return Promotion" hasTable="N" returnAdjustmentTypeId="RET_PROMOTION_ADJ" parentTypeId=""/>

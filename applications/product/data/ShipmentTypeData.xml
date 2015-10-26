@@ -50,27 +50,27 @@ under the License.
     <StatusItem description="Shipped" sequenceId="05" statusCode="SHIPPED" statusId="SHIPMENT_SHIPPED" statusTypeId="SHIPMENT_STATUS"/>
     <StatusItem description="Delivered" sequenceId="06" statusCode="DELIVERED" statusId="SHIPMENT_DELIVERED" statusTypeId="SHIPMENT_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="SHIPMENT_CANCELLED" statusTypeId="SHIPMENT_STATUS"/>
-    <StatusValidChange condition="" statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_SCHEDULED" transitionName="Schedule"/>
-    <StatusValidChange condition="" statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_PICKED" transitionName="Pick"/>
-    <StatusValidChange condition="" statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_PACKED" transitionName="Pack"/>
-    <StatusValidChange condition="" statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_PICKED" transitionName="Pick"/>
-    <StatusValidChange condition="" statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_PACKED" transitionName="Pack"/>
-    <StatusValidChange condition="" statusId="SHIPMENT_PICKED" statusIdTo="SHIPMENT_PACKED" transitionName="Pack"/>
-    <StatusValidChange condition="" statusId="SHIPMENT_PACKED" statusIdTo="SHIPMENT_SHIPPED" transitionName="Ship"/>
-    <StatusValidChange condition="" statusId="SHIPMENT_SHIPPED" statusIdTo="SHIPMENT_DELIVERED" transitionName="Deliver"/>
-    <StatusValidChange condition="" statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
-    <StatusValidChange condition="" statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
-    <StatusValidChange condition="" statusId="SHIPMENT_PICKED" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_SCHEDULED" transitionName="Schedule"/>
+    <StatusValidChange statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_PICKED" transitionName="Pick"/>
+    <StatusValidChange statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_PACKED" transitionName="Pack"/>
+    <StatusValidChange statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_PICKED" transitionName="Pick"/>
+    <StatusValidChange statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_PACKED" transitionName="Pack"/>
+    <StatusValidChange statusId="SHIPMENT_PICKED" statusIdTo="SHIPMENT_PACKED" transitionName="Pack"/>
+    <StatusValidChange statusId="SHIPMENT_PACKED" statusIdTo="SHIPMENT_SHIPPED" transitionName="Ship"/>
+    <StatusValidChange statusId="SHIPMENT_SHIPPED" statusIdTo="SHIPMENT_DELIVERED" transitionName="Deliver"/>
+    <StatusValidChange statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="SHIPMENT_PICKED" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
 
     <!-- these shipment status are intended for purchase shipments -->
     <StatusType description="Purchase Shipment" hasTable="N" parentTypeId="" statusTypeId="PURCH_SHIP_STATUS"/>
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PURCH_SHIP_CREATED" statusTypeId="PURCH_SHIP_STATUS"/>
     <StatusItem description="Shipped" sequenceId="02" statusCode="SHIPPED" statusId="PURCH_SHIP_SHIPPED" statusTypeId="PURCH_SHIP_STATUS"/>
     <StatusItem description="Received" sequenceId="03" statusCode="RECEIVED" statusId="PURCH_SHIP_RECEIVED" statusTypeId="PURCH_SHIP_STATUS"/>
-    <StatusValidChange condition="" statusId="PURCH_SHIP_CREATED" statusIdTo="PURCH_SHIP_RECEIVED" transitionName="Receive"/>
-    <StatusValidChange condition="" statusId="PURCH_SHIP_CREATED" statusIdTo="PURCH_SHIP_SHIPPED" transitionName="Ship"/>
-    <StatusValidChange condition="" statusId="PURCH_SHIP_SHIPPED" statusIdTo="PURCH_SHIP_RECEIVED" transitionName="Receive"/>
-    <StatusValidChange condition="" statusId="PURCH_SHIP_RECEIVED" statusIdTo="PURCH_SHIP_SHIPPED" transitionName="Ship"/>
+    <StatusValidChange statusId="PURCH_SHIP_CREATED" statusIdTo="PURCH_SHIP_RECEIVED" transitionName="Receive"/>
+    <StatusValidChange statusId="PURCH_SHIP_CREATED" statusIdTo="PURCH_SHIP_SHIPPED" transitionName="Ship"/>
+    <StatusValidChange statusId="PURCH_SHIP_SHIPPED" statusIdTo="PURCH_SHIP_RECEIVED" transitionName="Receive"/>
+    <StatusValidChange statusId="PURCH_SHIP_RECEIVED" statusIdTo="PURCH_SHIP_SHIPPED" transitionName="Ship"/>
 
     <!-- ShipmentRouteSegment CarrierService status -->
     <StatusType description="ShipmentRouteSegment:CarrierService" hasTable="N" parentTypeId="" statusTypeId="SHPRTSG_CS_STATUS"/>
@@ -78,10 +78,10 @@ under the License.
     <StatusItem description="Confirmed" sequenceId="02" statusCode="CONFIRMED" statusId="SHRSCS_CONFIRMED" statusTypeId="SHPRTSG_CS_STATUS"/>
     <StatusItem description="Accepted" sequenceId="03" statusCode="ACCEPTED" statusId="SHRSCS_ACCEPTED" statusTypeId="SHPRTSG_CS_STATUS"/>
     <StatusItem description="Voided" sequenceId="08" statusCode="VOIDED" statusId="SHRSCS_VOIDED" statusTypeId="SHPRTSG_CS_STATUS"/>
-    <StatusValidChange condition="" statusId="SHRSCS_NOT_STARTED" statusIdTo="SHRSCS_CONFIRMED" transitionName="Confirm"/>
-    <StatusValidChange condition="" statusId="SHRSCS_CONFIRMED" statusIdTo="SHRSCS_ACCEPTED" transitionName="Accept"/>
-    <StatusValidChange condition="" statusId="SHRSCS_CONFIRMED" statusIdTo="SHRSCS_VOIDED" transitionName="Void"/>
-    <StatusValidChange condition="" statusId="SHRSCS_ACCEPTED" statusIdTo="SHRSCS_VOIDED" transitionName="Void"/>
+    <StatusValidChange statusId="SHRSCS_NOT_STARTED" statusIdTo="SHRSCS_CONFIRMED" transitionName="Confirm"/>
+    <StatusValidChange statusId="SHRSCS_CONFIRMED" statusIdTo="SHRSCS_ACCEPTED" transitionName="Accept"/>
+    <StatusValidChange statusId="SHRSCS_CONFIRMED" statusIdTo="SHRSCS_VOIDED" transitionName="Void"/>
+    <StatusValidChange statusId="SHRSCS_ACCEPTED" statusIdTo="SHRSCS_VOIDED" transitionName="Void"/>
     <!-- can go from accepted to voided? -->
 
     <RejectionReason rejectionId="SRJ_DAMAGED" description="Damaged"/>
@@ -95,23 +95,23 @@ under the License.
     <StatusItem description="Printed" sequenceId="03" statusCode="PRINTED" statusId="PICKLIST_PRINTED" statusTypeId="PICKLIST_STATUS"/>
     <StatusItem description="Picked" sequenceId="10" statusCode="PICKED" statusId="PICKLIST_PICKED" statusTypeId="PICKLIST_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="PICKLIST_CANCELLED" statusTypeId="PICKLIST_STATUS"/>
-    <StatusValidChange condition="" statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_ASSIGNED" transitionName="Assign"/>
-    <StatusValidChange condition="" statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_PRINTED" transitionName="Print"/>
-    <StatusValidChange condition="" statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
-    <StatusValidChange condition="" statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
-    <StatusValidChange condition="" statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
-    <StatusValidChange condition="" statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_PRINTED" transitionName="Print"/>
-    <StatusValidChange condition="" statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
-    <StatusValidChange condition="" statusId="PICKLIST_PRINTED" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
-    <StatusValidChange condition="" statusId="PICKLIST_PRINTED" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_ASSIGNED" transitionName="Assign"/>
+    <StatusValidChange statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_PRINTED" transitionName="Print"/>
+    <StatusValidChange statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
+    <StatusValidChange statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
+    <StatusValidChange statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_PRINTED" transitionName="Print"/>
+    <StatusValidChange statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="PICKLIST_PRINTED" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
+    <StatusValidChange statusId="PICKLIST_PRINTED" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
 
     <!-- Picklist item status -->
     <StatusType description="Picklist Item" hasTable="N" parentTypeId="" statusTypeId="PICKITEM_STATUS"/>
     <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="PICKITEM_PENDING" statusTypeId="PICKITEM_STATUS"/>
     <StatusItem description="Completed" sequenceId="50" statusCode="COMPLETED" statusId="PICKITEM_COMPLETED" statusTypeId="PICKITEM_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="PICKITEM_CANCELLED" statusTypeId="PICKITEM_STATUS"/>
-    <StatusValidChange condition="" statusId="PICKITEM_PENDING" statusIdTo="PICKITEM_COMPLETED" transitionName="Complete"/>
-    <StatusValidChange condition="" statusId="PICKITEM_PENDING" statusIdTo="PICKITEM_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="PICKITEM_PENDING" statusIdTo="PICKITEM_COMPLETED" transitionName="Complete"/>
+    <StatusValidChange statusId="PICKITEM_PENDING" statusIdTo="PICKITEM_CANCELLED" transitionName="Cancel"/>
     
     <!-- Shipment Gateway Config -->
     <ShipmentGatewayConfigType shipmentGatewayConfTypeId="DHL" hasTable="N" description="DHL Shipment Gateway"/>

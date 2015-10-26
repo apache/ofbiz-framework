@@ -35,16 +35,16 @@ under the License.
     <StatusItem description="Tested" sequenceId="05" statusCode="TESTED" statusId="EXST_TESTED" statusTypeId="EXAMPLE_STATUS"/>
     <StatusItem description="Complete" sequenceId="06" statusCode="COMPLETE" statusId="EXST_COMPLETE" statusTypeId="EXAMPLE_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="EXST_CANCELLED" statusTypeId="EXAMPLE_STATUS"/>
-    <StatusValidChange condition="" statusId="EXST_IN_DESIGN" statusIdTo="EXST_DEFINED" transitionName="Definition Complete"/>
-    <StatusValidChange condition="" statusId="EXST_DEFINED" statusIdTo="EXST_APPROVED" transitionName="Approve"/>
-    <StatusValidChange condition="" statusId="EXST_APPROVED" statusIdTo="EXST_IMPLEMENTED" transitionName="Implementation Complete"/>
-    <StatusValidChange condition="" statusId="EXST_IMPLEMENTED" statusIdTo="EXST_TESTED" transitionName="Testing Complete"/>
-    <StatusValidChange condition="" statusId="EXST_TESTED" statusIdTo="EXST_COMPLETE" transitionName="Example Completed"/>
-    <StatusValidChange condition="" statusId="EXST_IN_DESIGN" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
-    <StatusValidChange condition="" statusId="EXST_DEFINED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
-    <StatusValidChange condition="" statusId="EXST_APPROVED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
-    <StatusValidChange condition="" statusId="EXST_IMPLEMENTED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
-    <StatusValidChange condition="" statusId="EXST_TESTED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
+    <StatusValidChange statusId="EXST_IN_DESIGN" statusIdTo="EXST_DEFINED" transitionName="Definition Complete"/>
+    <StatusValidChange statusId="EXST_DEFINED" statusIdTo="EXST_APPROVED" transitionName="Approve"/>
+    <StatusValidChange statusId="EXST_APPROVED" statusIdTo="EXST_IMPLEMENTED" transitionName="Implementation Complete"/>
+    <StatusValidChange statusId="EXST_IMPLEMENTED" statusIdTo="EXST_TESTED" transitionName="Testing Complete"/>
+    <StatusValidChange statusId="EXST_TESTED" statusIdTo="EXST_COMPLETE" transitionName="Example Completed"/>
+    <StatusValidChange statusId="EXST_IN_DESIGN" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
+    <StatusValidChange statusId="EXST_DEFINED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
+    <StatusValidChange statusId="EXST_APPROVED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
+    <StatusValidChange statusId="EXST_IMPLEMENTED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
+    <StatusValidChange statusId="EXST_TESTED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
 
     <EnumerationType description="Example Feature Source" enumTypeId="EXMPL_FEAT_SOURCE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Customer" enumCode="CUSTOMER" enumId="EXFTSRC_CUSTOMER" sequenceId="01" enumTypeId="EXMPL_FEAT_SOURCE"/>

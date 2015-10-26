@@ -50,10 +50,10 @@ under the License.
         however to remove the project from current lists the closed status is introduced -->
     <StatusItem description="Active" sequenceId="01" statusCode="ACTIVE" statusId="SPJ_ACTIVE" statusTypeId="SCRUM_PROJECT_STATUS"/>
     <StatusItem description="Closed" sequenceId="09" statusCode="CLOSED" statusId="SPJ_CLOSED" statusTypeId="SCRUM_PROJECT_STATUS"/>
-    <StatusValidChange condition="" statusId="SPJ_ACTIVE" statusIdTo="SPJ_CLOSED" transitionName="Close project"/>
-    <StatusValidChange condition="" statusId="SPJ_CLOSED" statusIdTo="SPJ_ACTIVE" transitionName="Re-Open project"/>
+    <StatusValidChange statusId="SPJ_ACTIVE" statusIdTo="SPJ_CLOSED" transitionName="Close project"/>
+    <StatusValidChange statusId="SPJ_CLOSED" statusIdTo="SPJ_ACTIVE" transitionName="Re-Open project"/>
     <!-- for current installations -->
-    <StatusValidChange condition="" statusId="_NA_" statusIdTo="SPJ_CLOSED" transitionName="Close project"/>
+    <StatusValidChange statusId="_NA_" statusIdTo="SPJ_CLOSED" transitionName="Close project"/>
     
     <StatusItem statusId="SPRINT_ACTIVE" statusTypeId="SPRINT_STATUS" description="Active" sequenceId="01" statusCode="ACTIVE"/>
     <StatusItem statusId="SPRINT_CLOSED" statusTypeId="SPRINT_STATUS" description="Closed" sequenceId="02" statusCode="CLOSED"/>
@@ -70,7 +70,7 @@ under the License.
     <!-- assignment status on a task -->
     <StatusItem description="Assigned" sequenceId="01" statusCode="ASSIGNED" statusId="SCAS_ASSIGNED" statusTypeId="SCRUM_ASSGN_STATUS"/>
     <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="SCAS_COMPLETED" statusTypeId="SCRUM_ASSGN_STATUS"/>
-    <StatusValidChange condition="" statusId="SCAS_ASSIGNED" statusIdTo="SCAS_COMPLETED" transitionName="Assignment Complete"/>
+    <StatusValidChange statusId="SCAS_ASSIGNED" statusIdTo="SCAS_COMPLETED" transitionName="Assignment Complete"/>
     
     <!-- status of the task itself -->
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="STS_CREATED" statusTypeId="SCRUM_TASK_STATUS"/>
@@ -80,12 +80,12 @@ under the License.
     <StatusItem description="Completed" sequenceId="05" statusCode="COMPLETED" statusId="STS_COMPLETED" statusTypeId="SCRUM_TASK_STATUS"/>
     <StatusItem description="On Hold" sequenceId="07" statusCode="ON_HOLD" statusId="STS_ON_HOLD" statusTypeId="SCRUM_TASK_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="09" statusCode="CANCELLED" statusId="STS_CANCELLED" statusTypeId="SCRUM_TASK_STATUS"/>
-    <StatusValidChange condition="" statusId="STS_CREATED" statusIdTo="STS_COMPLETED" transitionName="Task Complete"/>
-    <StatusValidChange condition="" statusId="STS_CREATED" statusIdTo="STS_ON_HOLD" transitionName="Task On Hold"/>
-    <StatusValidChange condition="" statusId="STS_CREATED" statusIdTo="STS_CANCELLED" transitionName="Task On Hold"/>
-    <StatusValidChange condition="" statusId="STS_ON_HOLD" statusIdTo="STS_CREATED" transitionName="Activated"/>
-    <StatusValidChange condition="" statusId="STS_COMPLETED" statusIdTo="STS_CREATED" transitionName="Task Re-Open"/>
-    <StatusValidChange condition="" statusId="STS_CREATED" statusIdTo="SPJ_CLOSED" transitionName="Task Complete with Project Complete"/>
+    <StatusValidChange statusId="STS_CREATED" statusIdTo="STS_COMPLETED" transitionName="Task Complete"/>
+    <StatusValidChange statusId="STS_CREATED" statusIdTo="STS_ON_HOLD" transitionName="Task On Hold"/>
+    <StatusValidChange statusId="STS_CREATED" statusIdTo="STS_CANCELLED" transitionName="Task On Hold"/>
+    <StatusValidChange statusId="STS_ON_HOLD" statusIdTo="STS_CREATED" transitionName="Activated"/>
+    <StatusValidChange statusId="STS_COMPLETED" statusIdTo="STS_CREATED" transitionName="Task Re-Open"/>
+    <StatusValidChange statusId="STS_CREATED" statusIdTo="SPJ_CLOSED" transitionName="Task Complete with Project Complete"/>
     
     <StatusItem description="Open" sequenceId="02" statusCode="ACCEPTED" statusId="CRQ_ACCEPTED" statusTypeId="CUSTREQ_STTS"/>
     <StatusItem description="Being implemented" sequenceId="03" statusCode="REVIEWED" statusId="CRQ_REVIEWED" statusTypeId="CUSTREQ_STTS"/>

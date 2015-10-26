@@ -135,7 +135,7 @@ under the License.
     <StatusItem statusId="KW_APPROVED" statusTypeId="KEYWORD_STATUS" statusCode="APPROVED" sequenceId="01" description="Approved"/>
     <StatusItem statusId="KW_PENDING" statusTypeId="KEYWORD_STATUS" statusCode="PENDING" sequenceId="02" description="Pending"/>
     <StatusItem statusId="KW_DISAPPROVED" statusTypeId="KEYWORD_STATUS" statusCode="DISAPPROVED" sequenceId="03" description="Disapproved"/>
-    <StatusValidChange condition="" statusId="KW_PENDING" statusIdTo="KW_APPROVED" transitionName="Review Approved"/>
-    <StatusValidChange condition="" statusId="KW_PENDING" statusIdTo="KW_DISAPPROVED" transitionName="Review Disapproved"/>
+    <StatusValidChange statusId="KW_PENDING" statusIdTo="KW_APPROVED" transitionName="Review Approved"/>
+    <StatusValidChange statusId="KW_PENDING" statusIdTo="KW_DISAPPROVED" transitionName="Review Disapproved"/>
 
 </entity-engine-xml>

@@ -325,8 +325,8 @@ under the License.
     <StatusType description="Party" hasTable="N" parentTypeId="" statusTypeId="PARTY_STATUS"/>
     <StatusItem description="Enabled" sequenceId="01" statusCode="ENABLED" statusId="PARTY_ENABLED" statusTypeId="PARTY_STATUS"/>
     <StatusItem description="Disabled" sequenceId="99" statusCode="DISABLED" statusId="PARTY_DISABLED" statusTypeId="PARTY_STATUS"/>
-    <StatusValidChange condition="" statusId="PARTY_ENABLED" statusIdTo="PARTY_DISABLED" transitionName="Disable"/>
-    <StatusValidChange condition="" statusId="PARTY_DISABLED" statusIdTo="PARTY_ENABLED" transitionName="Re-Enable"/>
+    <StatusValidChange statusId="PARTY_ENABLED" statusIdTo="PARTY_DISABLED" transitionName="Disable"/>
+    <StatusValidChange statusId="PARTY_DISABLED" statusIdTo="PARTY_ENABLED" transitionName="Re-Enable"/>
     
     <StatusType description="Case" hasTable="N" parentTypeId="" statusTypeId="CASE_STATUS"/>
 
@@ -341,40 +341,40 @@ under the License.
     <StatusItem description="Referred" sequenceId="22" statusCode="REFERRED" statusId="COM_REFERRED" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Bounced" sequenceId="50" statusCode="BOUNCED" statusId="COM_BOUNCED" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="COM_CANCELLED" statusTypeId="COM_EVENT_STATUS"/>
-    <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_PENDING" transitionName="Set Pending, only visible to originator"/>
-    <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_IN_PROGRESS" transitionName="Set In Progress, waiting to be send"/>
-    <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
-    <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_ENTERED" transitionName="Entered,visible to all participants"/>
-    <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_IN_PROGRESS" transitionName="Set In Progress, waiting to be send"/>
-    <StatusValidChange condition="" statusId="COM_IN_PROGRESS" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
-    <StatusValidChange condition="" statusId="COM_IN_PROGRESS" statusIdTo="COM_BOUNCED" transitionName="Bounced"/>
-    <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_RESOLVED" transitionName="Resolve"/>
-    <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_REFERRED" transitionName="Refer"/>
-    <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_BOUNCED" transitionName="Bounced"/>
-    <StatusValidChange condition="" statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
-    <StatusValidChange condition="" statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_ENTERED" transitionName="Corrected"/>
-    <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
+    <StatusValidChange statusId="COM_ENTERED" statusIdTo="COM_PENDING" transitionName="Set Pending, only visible to originator"/>
+    <StatusValidChange statusId="COM_ENTERED" statusIdTo="COM_IN_PROGRESS" transitionName="Set In Progress, waiting to be send"/>
+    <StatusValidChange statusId="COM_ENTERED" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
+    <StatusValidChange statusId="COM_PENDING" statusIdTo="COM_ENTERED" transitionName="Entered,visible to all participants"/>
+    <StatusValidChange statusId="COM_PENDING" statusIdTo="COM_IN_PROGRESS" transitionName="Set In Progress, waiting to be send"/>
+    <StatusValidChange statusId="COM_IN_PROGRESS" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
+    <StatusValidChange statusId="COM_IN_PROGRESS" statusIdTo="COM_BOUNCED" transitionName="Bounced"/>
+    <StatusValidChange statusId="COM_COMPLETE" statusIdTo="COM_RESOLVED" transitionName="Resolve"/>
+    <StatusValidChange statusId="COM_COMPLETE" statusIdTo="COM_REFERRED" transitionName="Refer"/>
+    <StatusValidChange statusId="COM_COMPLETE" statusIdTo="COM_BOUNCED" transitionName="Bounced"/>
+    <StatusValidChange statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
+    <StatusValidChange statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_ENTERED" transitionName="Corrected"/>
+    <StatusValidChange statusId="COM_PENDING" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
 
-    <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
-    <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
-    <StatusValidChange condition="" statusId="COM_IN_PROGRESS" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
-    <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
-    <StatusValidChange condition="" statusId="COM_RESOLVED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
-    <StatusValidChange condition="" statusId="COM_REFERRED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
-    <StatusValidChange condition="" statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="COM_ENTERED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="COM_PENDING" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="COM_IN_PROGRESS" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="COM_COMPLETE" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="COM_RESOLVED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="COM_REFERRED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
 
     <StatusType description="Communication Event Role" hasTable="N" parentTypeId="COM_EVENT_STATUS" statusTypeId="COM_EVENT_ROL_STATUS"/>
     <StatusItem description="Created" sequenceId="01" statusCode="ENTERED" statusId="COM_ROLE_CREATED" statusTypeId="COM_EVENT_ROL_STATUS"/>
     <StatusItem description="Read" sequenceId="02" statusCode="PENDING" statusId="COM_ROLE_READ" statusTypeId="COM_EVENT_ROL_STATUS"/>
     <StatusItem description="Closed" sequenceId="03" statusCode="READ" statusId="COM_ROLE_COMPLETED" statusTypeId="COM_EVENT_ROL_STATUS"/>
-    <StatusValidChange condition="" statusId="COM_ROLE_CREATED" statusIdTo="COM_ROLE_READ" transitionName="Read"/>
-    <StatusValidChange condition="" statusId="COM_ROLE_CREATED" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
-    <StatusValidChange condition="" statusId="COM_ROLE_READ" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
+    <StatusValidChange statusId="COM_ROLE_CREATED" statusIdTo="COM_ROLE_READ" transitionName="Read"/>
+    <StatusValidChange statusId="COM_ROLE_CREATED" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
+    <StatusValidChange statusId="COM_ROLE_READ" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
 
     <StatusType description="Party Relationship" hasTable="N" parentTypeId="" statusTypeId="PARTY_REL_STATUS"/>
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PARTYREL_CREATED" statusTypeId="PARTY_REL_STATUS"/>
     <StatusItem description="Expired" sequenceId="02" statusCode="EXPIRED" statusId="PARTYREL_EXPIRED" statusTypeId="PARTY_REL_STATUS"/>
-    <StatusValidChange condition="" statusId="PARTYREL_CREATED" statusIdTo="PARTYREL_EXPIRED" transitionName="Expired"/>
+    <StatusValidChange statusId="PARTYREL_CREATED" statusIdTo="PARTYREL_EXPIRED" transitionName="Expired"/>
     
     <StatusType description="Party Invitation" hasTable="N" parentTypeId="" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Sent" sequenceId="01" statusCode="SENT" statusId="PARTYINV_SENT" statusTypeId="PARTY_INV_STATUS"/>
@@ -382,12 +382,12 @@ under the License.
     <StatusItem description="Invitation Accepted" sequenceId="05" statusCode="ACCEPTED" statusId="PARTYINV_ACCEPTED" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Declined" sequenceId="06" statusCode="DECLINED" statusId="PARTYINV_DECLINED" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Cancelled" sequenceId="10" statusCode="CANCELLED" statusId="PARTYINV_CANCELLED" statusTypeId="PARTY_INV_STATUS"/>
-    <StatusValidChange condition="" statusId="PARTYINV_SENT" statusIdTo="PARTYINV_PENDING" transitionName="Pending"/>
-    <StatusValidChange condition="" statusId="PARTYINV_SENT" statusIdTo="PARTYINV_ACCEPTED" transitionName="Accepted"/>
-    <StatusValidChange condition="" statusId="PARTYINV_SENT" statusIdTo="PARTYINV_DECLINED" transitionName="Declined"/>
-    <StatusValidChange condition="" statusId="PARTYINV_SENT" statusIdTo="PARTYINV_CANCELLED" transitionName="Cancelled"/>
-    <StatusValidChange condition="" statusId="PARTYINV_PENDING" statusIdTo="PARTYINV_ACCEPTED" transitionName="Accepted"/>
-    <StatusValidChange condition="" statusId="PARTYINV_PENDING" statusIdTo="PARTYINV_CANCELLED" transitionName="Cancelled"/>
+    <StatusValidChange statusId="PARTYINV_SENT" statusIdTo="PARTYINV_PENDING" transitionName="Pending"/>
+    <StatusValidChange statusId="PARTYINV_SENT" statusIdTo="PARTYINV_ACCEPTED" transitionName="Accepted"/>
+    <StatusValidChange statusId="PARTYINV_SENT" statusIdTo="PARTYINV_DECLINED" transitionName="Declined"/>
+    <StatusValidChange statusId="PARTYINV_SENT" statusIdTo="PARTYINV_CANCELLED" transitionName="Cancelled"/>
+    <StatusValidChange statusId="PARTYINV_PENDING" statusIdTo="PARTYINV_ACCEPTED" transitionName="Accepted"/>
+    <StatusValidChange statusId="PARTYINV_PENDING" statusIdTo="PARTYINV_CANCELLED" transitionName="Cancelled"/>
 
     <TermType description="Financial" hasTable="N" parentTypeId="" termTypeId="FINANCIAL_TERM"/>
     <TermType description="Payment (net days)" hasTable="N" parentTypeId="FINANCIAL_TERM" termTypeId="FIN_PAYMENT_TERM"/>

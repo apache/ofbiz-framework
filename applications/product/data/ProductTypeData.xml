@@ -539,30 +539,30 @@ under the License.
     <StatusItem description="On Hold (Non-Serialized)" sequenceId="01" statusCode="ON_HOLD_NS" statusId="INV_NS_ON_HOLD" statusTypeId="INV_NON_SER_STTS"/>
     <StatusItem description="Defective (Non-Serialized)" sequenceId="02" statusCode="DEFECTIVE_NS" statusId="INV_NS_DEFECTIVE" statusTypeId="INV_NON_SER_STTS"/>
     <StatusItem description="Returned (Non-Serialized)" sequenceId="02" statusCode="RETURNED_NS" statusId="INV_NS_RETURNED" statusTypeId="INV_NON_SER_STTS"/>
-    <StatusValidChange condition="" statusId="INV_ON_ORDER" statusIdTo="INV_AVAILABLE" transitionName="Order Arrived"/>
-    <StatusValidChange condition="" statusId="INV_AVAILABLE" statusIdTo="INV_PROMISED" transitionName="Promise"/>
-    <StatusValidChange condition="" statusId="INV_AVAILABLE" statusIdTo="INV_ON_HOLD" transitionName="Hold"/>
-    <StatusValidChange condition="" statusId="INV_AVAILABLE" statusIdTo="INV_DEFECTIVE" transitionName="Mark As Defective"/>
-    <StatusValidChange condition="" statusId="INV_AVAILABLE" statusIdTo="INV_BEING_TRANSFERED" transitionName="Being Transfered"/>
-    <StatusValidChange condition="" statusId="INV_ON_HOLD" statusIdTo="INV_AVAILABLE" transitionName="Release Hold"/>
-    <StatusValidChange condition="" statusId="INV_ON_HOLD" statusIdTo="INV_DEFECTIVE" transitionName="Mark Held Defective"/>
-    <StatusValidChange condition="" statusId="INV_BEING_TRANSFERED" statusIdTo="INV_AVAILABLE" transitionName="Transfer Complete"/>
-    <StatusValidChange condition="" statusId="INV_PROMISED" statusIdTo="INV_AVAILABLE" transitionName="Cancel Promise"/>
-    <StatusValidChange condition="" statusId="INV_PROMISED" statusIdTo="INV_DELIVERED" transitionName="Deliver"/>
-    <StatusValidChange condition="" statusId="INV_PROMISED" statusIdTo="INV_DEFECTIVE" transitionName="Mark As Defective"/>
-    <StatusValidChange condition="" statusId="INV_PROMISED" statusIdTo="INV_BEING_TRANS_PRM" transitionName="Being Transfered (Promised)"/>
-    <StatusValidChange condition="" statusId="INV_BEING_TRANS_PRM" statusIdTo="INV_PROMISED" transitionName="Transfer Complete (Promised)"/>
-    <StatusValidChange condition="" statusId="INV_DELIVERED" statusIdTo="INV_RETURNED" transitionName="Return Status Pending"/>
-    <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_AVAILABLE" transitionName="Make Return Available"/>
-    <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_ON_HOLD" transitionName="Make Return Held"/>
-    <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_DEFECTIVE" transitionName="Mark Return Defective"/>
-    <StatusValidChange condition="" statusId="INV_DELIVERED" statusIdTo="INV_ACTIVATED" transitionName="Activate"/>
-    <StatusValidChange condition="" statusId="INV_ACTIVATED" statusIdTo="INV_DEACTIVATED" transitionName="Deactivate"/>
-    <StatusValidChange condition="" statusId="INV_ACTIVATED" statusIdTo="INV_RETURNED" transitionName="Return Status Pending"/>
-    <StatusValidChange condition="" statusId="INV_DEACTIVATED" statusIdTo="INV_ON_HOLD" transitionName="Hold Inactive"/>
-    <StatusValidChange condition="" statusId="INV_DEACTIVATED" statusIdTo="INV_RETURNED" transitionName="Return Inactive"/>
-    <StatusValidChange condition="" statusId="INV_NS_RETURNED" statusIdTo="INV_NS_ON_HOLD" transitionName="Make Return Held"/>
-    <StatusValidChange condition="" statusId="INV_NS_RETURNED" statusIdTo="INV_NS_DEFECTIVE" transitionName="Mark Return Defective"/>
+    <StatusValidChange statusId="INV_ON_ORDER" statusIdTo="INV_AVAILABLE" transitionName="Order Arrived"/>
+    <StatusValidChange statusId="INV_AVAILABLE" statusIdTo="INV_PROMISED" transitionName="Promise"/>
+    <StatusValidChange statusId="INV_AVAILABLE" statusIdTo="INV_ON_HOLD" transitionName="Hold"/>
+    <StatusValidChange statusId="INV_AVAILABLE" statusIdTo="INV_DEFECTIVE" transitionName="Mark As Defective"/>
+    <StatusValidChange statusId="INV_AVAILABLE" statusIdTo="INV_BEING_TRANSFERED" transitionName="Being Transfered"/>
+    <StatusValidChange statusId="INV_ON_HOLD" statusIdTo="INV_AVAILABLE" transitionName="Release Hold"/>
+    <StatusValidChange statusId="INV_ON_HOLD" statusIdTo="INV_DEFECTIVE" transitionName="Mark Held Defective"/>
+    <StatusValidChange statusId="INV_BEING_TRANSFERED" statusIdTo="INV_AVAILABLE" transitionName="Transfer Complete"/>
+    <StatusValidChange statusId="INV_PROMISED" statusIdTo="INV_AVAILABLE" transitionName="Cancel Promise"/>
+    <StatusValidChange statusId="INV_PROMISED" statusIdTo="INV_DELIVERED" transitionName="Deliver"/>
+    <StatusValidChange statusId="INV_PROMISED" statusIdTo="INV_DEFECTIVE" transitionName="Mark As Defective"/>
+    <StatusValidChange statusId="INV_PROMISED" statusIdTo="INV_BEING_TRANS_PRM" transitionName="Being Transfered (Promised)"/>
+    <StatusValidChange statusId="INV_BEING_TRANS_PRM" statusIdTo="INV_PROMISED" transitionName="Transfer Complete (Promised)"/>
+    <StatusValidChange statusId="INV_DELIVERED" statusIdTo="INV_RETURNED" transitionName="Return Status Pending"/>
+    <StatusValidChange statusId="INV_RETURNED" statusIdTo="INV_AVAILABLE" transitionName="Make Return Available"/>
+    <StatusValidChange statusId="INV_RETURNED" statusIdTo="INV_ON_HOLD" transitionName="Make Return Held"/>
+    <StatusValidChange statusId="INV_RETURNED" statusIdTo="INV_DEFECTIVE" transitionName="Mark Return Defective"/>
+    <StatusValidChange statusId="INV_DELIVERED" statusIdTo="INV_ACTIVATED" transitionName="Activate"/>
+    <StatusValidChange statusId="INV_ACTIVATED" statusIdTo="INV_DEACTIVATED" transitionName="Deactivate"/>
+    <StatusValidChange statusId="INV_ACTIVATED" statusIdTo="INV_RETURNED" transitionName="Return Status Pending"/>
+    <StatusValidChange statusId="INV_DEACTIVATED" statusIdTo="INV_ON_HOLD" transitionName="Hold Inactive"/>
+    <StatusValidChange statusId="INV_DEACTIVATED" statusIdTo="INV_RETURNED" transitionName="Return Inactive"/>
+    <StatusValidChange statusId="INV_NS_RETURNED" statusIdTo="INV_NS_ON_HOLD" transitionName="Make Return Held"/>
+    <StatusValidChange statusId="INV_NS_RETURNED" statusIdTo="INV_NS_DEFECTIVE" transitionName="Mark Return Defective"/>
 
     <!-- inventory transfer status -->
     <StatusType description="Inventory Transfer" hasTable="N" parentTypeId="" statusTypeId="INVENTORY_XFER_STTS"/>
@@ -571,23 +571,23 @@ under the License.
     <StatusItem description="En-Route" sequenceId="03" statusCode="EN_ROUTE" statusId="IXF_EN_ROUTE" statusTypeId="INVENTORY_XFER_STTS"/>
     <StatusItem description="Complete" sequenceId="04" statusCode="COMPLETE" statusId="IXF_COMPLETE" statusTypeId="INVENTORY_XFER_STTS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="IXF_CANCELLED" statusTypeId="INVENTORY_XFER_STTS"/>
-    <StatusValidChange condition="" statusId="IXF_REQUESTED" statusIdTo="IXF_SCHEDULED" transitionName="Inventory Request Scheduled"/>
-    <StatusValidChange condition="" statusId="IXF_REQUESTED" statusIdTo="IXF_EN_ROUTE" transitionName="Inventory Request In Route"/>
-    <StatusValidChange condition="" statusId="IXF_REQUESTED" statusIdTo="IXF_COMPLETE" transitionName="Inventory Request Completed"/>
-    <StatusValidChange condition="" statusId="IXF_REQUESTED" statusIdTo="IXF_CANCELLED" transitionName="Inventory Request Cancelled"/>
-    <StatusValidChange condition="" statusId="IXF_SCHEDULED" statusIdTo="IXF_EN_ROUTE" transitionName="Scheduled Inventory In Route"/>
-    <StatusValidChange condition="" statusId="IXF_SCHEDULED" statusIdTo="IXF_COMPLETE" transitionName="Scheduled Inventory Completed"/>
-    <StatusValidChange condition="" statusId="IXF_SCHEDULED" statusIdTo="IXF_CANCELLED" transitionName="Scheduled Inventory Cancelled"/>
-    <StatusValidChange condition="" statusId="IXF_EN_ROUTE" statusIdTo="IXF_COMPLETE" transitionName="In Route Transfer Completed"/>
+    <StatusValidChange statusId="IXF_REQUESTED" statusIdTo="IXF_SCHEDULED" transitionName="Inventory Request Scheduled"/>
+    <StatusValidChange statusId="IXF_REQUESTED" statusIdTo="IXF_EN_ROUTE" transitionName="Inventory Request In Route"/>
+    <StatusValidChange statusId="IXF_REQUESTED" statusIdTo="IXF_COMPLETE" transitionName="Inventory Request Completed"/>
+    <StatusValidChange statusId="IXF_REQUESTED" statusIdTo="IXF_CANCELLED" transitionName="Inventory Request Cancelled"/>
+    <StatusValidChange statusId="IXF_SCHEDULED" statusIdTo="IXF_EN_ROUTE" transitionName="Scheduled Inventory In Route"/>
+    <StatusValidChange statusId="IXF_SCHEDULED" statusIdTo="IXF_COMPLETE" transitionName="Scheduled Inventory Completed"/>
+    <StatusValidChange statusId="IXF_SCHEDULED" statusIdTo="IXF_CANCELLED" transitionName="Scheduled Inventory Cancelled"/>
+    <StatusValidChange statusId="IXF_EN_ROUTE" statusIdTo="IXF_COMPLETE" transitionName="In Route Transfer Completed"/>
 
     <!-- product review status -->
     <StatusType description="Product Review" hasTable="N" parentTypeId="" statusTypeId="PRODUCT_REVIEW_STTS"/>
     <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="PRR_PENDING" statusTypeId="PRODUCT_REVIEW_STTS"/>
     <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="PRR_APPROVED" statusTypeId="PRODUCT_REVIEW_STTS"/>
     <StatusItem description="Deleted" sequenceId="99" statusCode="DELETED" statusId="PRR_DELETED" statusTypeId="PRODUCT_REVIEW_STTS"/>
-    <StatusValidChange condition="" statusId="PRR_PENDING" statusIdTo="PRR_APPROVED" transitionName="Review Approved"/>
-    <StatusValidChange condition="" statusId="PRR_PENDING" statusIdTo="PRR_DELETED" transitionName="Review Deleted"/>
-    <StatusValidChange condition="" statusId="PRR_APPROVED" statusIdTo="PRR_DELETED" transitionName="Review Deleted"/>
+    <StatusValidChange statusId="PRR_PENDING" statusIdTo="PRR_APPROVED" transitionName="Review Approved"/>
+    <StatusValidChange statusId="PRR_PENDING" statusIdTo="PRR_DELETED" transitionName="Review Deleted"/>
+    <StatusValidChange statusId="PRR_APPROVED" statusIdTo="PRR_DELETED" transitionName="Review Deleted"/>
 
     <VarianceReason varianceReasonId="VAR_LOST" description="Lost"/>
     <VarianceReason varianceReasonId="VAR_STOLEN" description="Stolen"/>
