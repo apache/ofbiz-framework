@@ -86,8 +86,11 @@ under the License.
 <#macro renderFormatListWrapperOpen formName style columnStyles><fo:table border="solid black" <@getFoStyle style/>><#list columnStyles as columnStyle><fo:table-column<#if columnStyle?has_content> <@getFoStyle columnStyle/></#if>/></#list></#macro>
 <#macro renderFormatListWrapperClose formName></fo:table-body></fo:table></#macro>
 
-<#macro renderFormatHeaderRowOpen style><fo:table-header><fo:table-row></#macro>
-<#macro renderFormatHeaderRowClose></fo:table-row></fo:table-header><fo:table-body>
+<#macro renderFormatHeaderOpen><fo:table-header></#macro>
+<#macro renderFormatHeaderClose></fo:table-header><fo:table-body></#macro>
+
+<#macro renderFormatHeaderRowOpen style><fo:table-row></#macro>
+<#macro renderFormatHeaderRowClose></fo:table-row>
 <#-- FIXME: this is an hack to avoid FOP rendering errors for empty lists (fo:table-body cannot be null) -->
 <fo:table-row><fo:table-cell><fo:block/></fo:table-cell></fo:table-row>
 </#macro>

@@ -1327,6 +1327,18 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         renderEndingBoundaryComment(writer, "Form Widget - Formal List Wrapper", modelForm);
     }
+    
+    public void renderFormatHeaderOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.append("  <thead");
+        writer.append(">");
+        appendWhitespace(writer);
+    }
+        
+    public void renderFormatHeaderClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.append("  </thead");
+        writer.append(">");
+        appendWhitespace(writer);
+    }
 
     /* (non-Javadoc)
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowOpen(java.io.Writer, java.util.Map, org.ofbiz.widget.form.model.ModelForm)

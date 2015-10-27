@@ -223,19 +223,27 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
         writer.append("</fo:table>");
         appendWhitespace(writer);
     }
+    
+    public void renderFormatHeaderOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.append("<fo:table-header>");
+        appendWhitespace(writer);
+    }
+        
+    public void renderFormatHeaderClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.append("  </fo:table-header>");
+        writer.append("  <fo:table-body>");
+        // FIXME: this is an hack to avoid FOP rendering errors for empty lists (fo:table-body cannot be null)
+        writer.append("<fo:table-row><fo:table-cell><fo:block/></fo:table-cell></fo:table-row>");
+        appendWhitespace(writer);
+    }
 
     public void renderFormatHeaderRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        writer.append("<fo:table-header>");
         writer.append("<fo:table-row>");
         appendWhitespace(writer);
     }
 
     public void renderFormatHeaderRowClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         writer.append("</fo:table-row>");
-        writer.append("</fo:table-header>");
-        writer.append("<fo:table-body>");
-        // FIXME: this is an hack to avoid FOP rendering errors for empty lists (fo:table-body cannot be null)
-        writer.append("<fo:table-row><fo:table-cell><fo:block/></fo:table-cell></fo:table-row>");
         appendWhitespace(writer);
     }
 
