@@ -376,6 +376,13 @@ under the License.
   </table><#lt/>
 </#macro>
 
+<#macro renderFormatHeaderOpen>
+  <thead>
+</#macro>
+<#macro renderFormatHeaderClose>
+  </thead>
+</#macro>
+
 <#macro renderFormatHeaderRowOpen style>
   <tr class="<#if style?has_content>${style}<#else>header-row</#if>">
 </#macro>
