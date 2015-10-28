@@ -38,10 +38,10 @@
             </then>
         </if>
         <check-errors/>
-
-        <!-- PartyRole check start - if the user does not have OWNER roleType then add it -->
         <set field="createPartyRoleCtx.partyId" from-field="userLogin.partyId"/>
         <set field="createPartyRoleCtx.roleTypeId" value="OWNER"/>
+        
+        <!-- PartyRole check start - if the user does not have OWNER roleType then add it -->
         <entity-one entity-name="PartyRole" value-field="roleFound">
             <field-map field-name="partyId" from-field="createPartyRoleCtx.partyId"/>
             <field-map field-name="roleTypeId" from-field="createPartyRoleCtx.roleTypeId"/>
