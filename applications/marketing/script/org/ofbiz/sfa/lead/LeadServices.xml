@@ -38,9 +38,19 @@
             </then>
         </if>
         <check-errors/>
+
+        <!-- PartyRole check start - if the user does not have OWNER roleType then add it -->
         <set field="createPartyRoleCtx.partyId" from-field="userLogin.partyId"/>
         <set field="createPartyRoleCtx.roleTypeId" value="OWNER"/>
-        <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
+        <entity-one entity-name="PartyRole" value-field="roleFound">
+            <field-map field-name="partyId" from-field="createPartyRoleCtx.partyId"/>
+            <field-map field-name="roleTypeId" from-field="createPartyRoleCtx.roleTypeId"/>
+        </entity-one>
+        <if-empty field="roleFound">
+            <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
+        </if-empty>
+        <!-- PartyRole check end -->
+
         <if>
             <condition>
                 <and>
