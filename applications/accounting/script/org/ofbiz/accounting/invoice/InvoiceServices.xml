@@ -26,9 +26,10 @@ under the License.
         <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference" auto-field-map="false">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
         </entity-one>
-        <log level="info" message="In getNextInvoiceId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>        
+        <log level="info" message="In getNextInvoiceId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
 
         <if-not-empty field="partyAcctgPreference">
+           <!-- see OFBIZ-3765 beware of OFBIZ-3557 -->
            <get-related-one relation-name="InvoiceCustomMethod" value-field="partyAcctgPreference" to-value-field="customMethod"/>
            <else>
                <log level="warning" message="Acctg preference not defined for partyId [${parameters.partyId}]"/>
@@ -37,14 +38,14 @@ under the License.
 
         <if-not-empty field="customMethod">
             <set field="customMethodName" from-field="customMethod.customMethodName"/>
-            <else><!-- retreive service from deprecated enumeration -->
-                <if-compare operator="equals" value="INVSQ_ENF_SEQ" field="partyAcctgPreference.oldInvoiceSequenceEnumId">
-                    <set field="customMethodName" value="invoiceSequenceEnforced"/>
-                </if-compare>
-                <if-compare operator="equals" value="INVSQ_RESTARTYR" field="partyAcctgPreference.oldInvoiceSequenceEnumId">
-                    <set field="customMethodName" value="invoiceSequenceRestart"/>
-                </if-compare>
-            </else>
+        <else><!-- retrieve service from deprecated enumeration see OFBIZ-3765 beware of OFBIZ-3557 -->
+            <if-compare operator="equals" value="INVSQ_ENF_SEQ" field="partyAcctgPreference.oldInvoiceSequenceEnumId">
+                <set field="customMethodName" value="invoiceSequenceEnforced"/>
+            </if-compare>
+            <if-compare operator="equals" value="INVSQ_RESTARTYR" field="partyAcctgPreference.oldInvoiceSequenceEnumId">
+                <set field="customMethodName" value="invoiceSequenceRestart"/>
+            </if-compare>
+        </else>
         </if-not-empty>
 
         <if-not-empty field="customMethodName">
