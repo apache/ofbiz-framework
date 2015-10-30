@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+2<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Licensed to the Apache Software Foundation (ASF) under one
@@ -2237,7 +2237,7 @@
     <property key="WebtoolsFindRecord">
         <value xml:lang="de">Datensatz suchen</value>
         <value xml:lang="en">Find Record</value>
-        <value xml:lang="fr">Rechercher le disque</value>
+        <value xml:lang="fr">Recherche d'enregistrements</value>
         <value xml:lang="it">Ricerca record</value>
         <value xml:lang="ja">レコードを検索</value>
         <value xml:lang="pt">Bsucar Registro</value>
