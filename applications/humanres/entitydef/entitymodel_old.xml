@@ -44,7 +44,7 @@ under the License.
     <relation type="one" fk-name="EMPL_PSTPRT_PRDTYP" rel-entity-name="PeriodType">
       <key-map field-name="periodTypeId"/>
     </relation>
-    <relation type="one-nofk" fk-name="EMPL_PSTPRT_SSTP" rel-entity-name="SalaryStep">
+    <relation type="one-nofk" fk-name="EMPL_PSTPRT_SSTP" rel-entity-name="OldSalaryStep">
       <key-map field-name="salaryStepSeqId"/>
       <key-map field-name="payGradeId"/>
     </relation>

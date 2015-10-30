@@ -607,7 +607,7 @@ under the License.
       <prim-key field="salaryStepSeqId"/>
       <prim-key field="payGradeId"/>
       <prim-key field="fromDate"/>
-      <relation type="one" fk-name="SLRY_STP_PGRD" rel-entity-name="PayGrade">
+      <relation type="one" fk-name="SLRY_STP_PGRD_NEW" rel-entity-name="PayGrade">
         <key-map field-name="payGradeId"/>
       </relation>
     </entity>
