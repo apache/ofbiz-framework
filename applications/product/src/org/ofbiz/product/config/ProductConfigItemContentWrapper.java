@@ -125,15 +125,17 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
                 return cachedValue;
             }
             Writer outWriter = new StringWriter();
-            getProductConfigItemContentAsText(null, productConfigItem, confItemContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
+            getProductConfigItemContentAsText(null, productConfigItem, confItemContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter, false);
             String outString = outWriter.toString();
-            if (outString.length() > 0) {
-                outString = configItemContentCache.putIfAbsentAndGet(cacheKey, encoder.encode(outString));
-                return encoder.encode(outString);
-            } else {
-                String candidateOut = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
-                return candidateOut == null? "" : encoder.encode(candidateOut);
+            if (UtilValidate.isEmpty(outString)) {
+                outString = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
+                outString = outString == null? "" : outString;
             }
+            outString = encoder.encode(outString);
+            if (configItemContentCache != null) {
+                configItemContentCache.put(cacheKey, outString);
+            }
+            return outString;
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering ProdConfItemContent, inserting empty String", module);
             String candidateOut = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName): "";
@@ -146,6 +148,10 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
     }
 
     public static void getProductConfigItemContentAsText(String configItemId, GenericValue productConfigItem, String confItemContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
+        getProductConfigItemContentAsText(configItemId, productConfigItem, confItemContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter, true);
+    }
+
+    public static void getProductConfigItemContentAsText(String configItemId, GenericValue productConfigItem, String confItemContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, Writer outWriter, boolean cache) throws GeneralException, IOException {
         if (configItemId == null && productConfigItem != null) {
             configItemId = productConfigItem.getString("configItemId");
         }
@@ -177,7 +183,7 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
         GenericValue productConfigItemContent = EntityQuery.use(delegator).from("ProdConfItemContent")
                 .where("configItemId", configItemId, "confItemContentTypeId", confItemContentTypeId)
                 .orderBy("-fromDate")
-                .cache(true)
+                .cache(cache)
                 .filterByDate()
                 .queryFirst();
         if (productConfigItemContent != null) {
@@ -185,7 +191,7 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
             Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("productConfigItem", productConfigItem);
             inContext.put("productConfigItemContent", productConfigItemContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, productConfigItemContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
+            ContentWorker.renderContentAsText(dispatcher, delegator, productConfigItemContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
         }
     }
 }
