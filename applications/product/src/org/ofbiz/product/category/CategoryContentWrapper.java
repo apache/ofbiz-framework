@@ -102,14 +102,17 @@ public class CategoryContentWrapper implements ContentWrapper {
                 return cachedValue;
             }
             Writer outWriter = new StringWriter();
-            getProductCategoryContentAsText(null, productCategory, prodCatContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
+            getProductCategoryContentAsText(null, productCategory, prodCatContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter, false);
             String outString = outWriter.toString();
-            if (outString.length() > 0) {
-                outString = categoryContentCache.putIfAbsentAndGet(cacheKey, encoder.encode(outString));
-                return encoder.encode(outString);
-            } else {
-                return null;
+            if (UtilValidate.isEmpty(outString)) {
+                outString = productCategory.getModelEntity().isField(candidateFieldName) ? productCategory.getString(candidateFieldName): "";
+                outString = outString == null? "" : outString;
             }
+            outString = encoder.encode(outString);
+            if (categoryContentCache != null) {
+                categoryContentCache.put(cacheKey, outString);
+            }
+            return outString;
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering CategoryContent, inserting empty String", module);
             return productCategory.getString(candidateFieldName);
@@ -120,6 +123,10 @@ public class CategoryContentWrapper implements ContentWrapper {
     }
 
     public static void getProductCategoryContentAsText(String productCategoryId, GenericValue productCategory, String prodCatContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
+        getProductCategoryContentAsText(null, productCategory, prodCatContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter, true);
+    }
+
+    public static void getProductCategoryContentAsText(String productCategoryId, GenericValue productCategory, String prodCatContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, Writer outWriter, boolean cache) throws GeneralException, IOException {
         if (productCategoryId == null && productCategory != null) {
             productCategoryId = productCategory.getString("productCategoryId");
         }
@@ -151,7 +158,7 @@ public class CategoryContentWrapper implements ContentWrapper {
             }
         }
 
-        List<GenericValue> categoryContentList = EntityQuery.use(delegator).from("ProductCategoryContent").where("productCategoryId", productCategoryId, "prodCatContentTypeId", prodCatContentTypeId).orderBy("-fromDate").cache(true).queryList();
+        List<GenericValue> categoryContentList = EntityQuery.use(delegator).from("ProductCategoryContent").where("productCategoryId", productCategoryId, "prodCatContentTypeId", prodCatContentTypeId).orderBy("-fromDate").cache(cache).queryList();
         categoryContentList = EntityUtil.filterByDate(categoryContentList);
         
         GenericValue categoryContent = null;
@@ -160,7 +167,7 @@ public class CategoryContentWrapper implements ContentWrapper {
         if ( sessionLocale == null ) sessionLocale = fallbackLocale;
         // look up all content found for locale
         for( GenericValue currentContent: categoryContentList ) {
-            GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", currentContent.getString("contentId")).cache().queryOne();
+            GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", currentContent.getString("contentId")).cache(cache).queryOne();
             if ( sessionLocale.equals(content.getString("localeString")) ) {
               // valid locale found
               categoryContent = currentContent;
@@ -175,7 +182,7 @@ public class CategoryContentWrapper implements ContentWrapper {
             Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("productCategory", productCategory);
             inContext.put("categoryContent", categoryContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, true);
+            ContentWorker.renderContentAsText(dispatcher, delegator, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
         }
     }
 }
