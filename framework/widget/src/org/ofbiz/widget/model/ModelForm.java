@@ -1095,7 +1095,9 @@ public abstract class ModelForm extends ModelWidget {
             String size = this.overrideListSize.expandString(context);
             try {
                 size = size.replaceAll("[^0-9.]", "");
-                listSize = Integer.parseInt(size);
+                if (!size.isEmpty()) { 
+                    listSize = Integer.parseInt(size);
+                }
             } catch (NumberFormatException e) {
                 Debug.logError(e, "Error getting override list size from value " + size, module);
             }
