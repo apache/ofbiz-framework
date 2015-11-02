@@ -3452,7 +3452,9 @@ public class ModelFormField {
             try {
                 ScreenRenderer renderer = (ScreenRenderer)context.get("screens");
                 if (renderer != null) {
-                    ScreenRenderer subRenderer = new ScreenRenderer(writer, (MapStack)UtilGenerics.cast(context), renderer.getScreenStringRenderer());
+                    @SuppressWarnings("unchecked")
+                    MapStack<String> mapStack = (MapStack)UtilGenerics.cast(context);
+                    ScreenRenderer subRenderer = new ScreenRenderer(writer, mapStack, renderer.getScreenStringRenderer());
                     writer.append(subRenderer.render(location, name));
                 }
             } catch (Exception e) {
