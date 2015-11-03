@@ -4404,6 +4404,10 @@
         <value xml:lang="zh">如果没有指定，使用哪个国家的币种。使用Web工具查找非美国的地区代码。</value>
         <value xml:lang="zh-TW">如果沒有指定,使用哪個國家的幣種.使用Web工具尋找非美國的地區代碼.</value>
     </property>
+    <property key="FieldDescription.ProductStore.defaultTimeZoneString">
+        <value xml:lang="en">Which time zone will be used. If none is specified the machine time zone will be used.</value>
+        <value xml:lang="fr">Utilise ce fuseau horaire. Si aucun n'est spécifié le fuseau horaire de la machine sera utilisé.</value>
+    </property>
     <property key="FieldDescription.ProductStore.defaultSalesChannelEnumId">
         <value xml:lang="de">Sofern der Verkaufskanal in der Transaktion nicht spezifiziert ist, wird angenommen, dass der Verkauf über den hier ausgewählten Kanal kommt.</value>
         <value xml:lang="en">Unless the sales channel has been specified in the transaction, it will be assumed that the sale came in through the selected path.</value>

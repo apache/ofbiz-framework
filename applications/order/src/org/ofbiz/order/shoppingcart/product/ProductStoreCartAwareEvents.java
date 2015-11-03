@@ -94,10 +94,11 @@ public class ProductStoreCartAwareEvents {
         // have set the new store, now need to clear out the current catalog so the default for the new store will be used
         session.removeAttribute("CURRENT_CATALOG_ID");
 
-        // if there is no locale or currencyUom in the session, set the defaults from the store, but don't do so through the CommonEvents methods setSessionLocale and setSessionCurrencyUom because we don't want these to be put on the UserLogin entity
+        // if there is no locale, timezone, or currencyUom in the session, set the defaults from the store, but don't do so through the CommonEvents methods setSessionLocale and setSessionCurrencyUom because we don't want these to be put on the UserLogin entity
         // note that this is different from the normal default setting process because these will now override the settings on the UserLogin; this is desired when changing stores and the user should be given a chance to change their personal settings after the store change
         UtilHttp.setCurrencyUomIfNone(session, productStore.getString("defaultCurrencyUomId"));
         UtilHttp.setLocaleIfNone(session, productStore.getString("defaultLocaleString"));
+        UtilHttp.setTimeZoneIfNone(session, productStore.getString("defaultTimeZoneString"));
 
         // if a shoppingCart exists in the session and the productStoreId on it is different,
         // - leave the old cart as-is (don't clear it, want to leave the auto-save list intact)

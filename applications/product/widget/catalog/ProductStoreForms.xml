@@ -39,8 +39,8 @@
     </form>
     <form name="EditProductStore" type="single" target="updateProductStore" title="" default-map-name="productStore"
         header-row-style="header-row" default-table-style="basic-table">
+        
         <alt-target use-when="productStore==null" target="createProductStore"/>
-
         <auto-fields-service service-name="updateProductStore" map-name=""/>
 
         <field use-when="productStore!=null" name="productStoreId" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductStore}"><display/></field>
@@ -381,6 +381,7 @@
             <field-group title="${uiLabelMap.CommonLocalisation}" collapsible="true" initially-collapsed="true">
                 <sort-field name="defaultLocaleString"/>
                 <sort-field name="defaultCurrencyUomId"/>
+                <sort-field name="defaultTimeZoneString"/>
             </field-group>
             <field-group title="${uiLabelMap.ProductOrdersStatus}" collapsible="true" initially-collapsed="true">
                 <sort-field name="headerApprovedStatus"/>
