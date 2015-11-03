@@ -400,7 +400,7 @@ under the License.
         <!-- ************************ -->
         <field name="emptyField0" title=" "><display/></field>
         <field name="newExample" title=" " widget-area-style="smallSubmit" position="1">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ExampleNewExample} (Layered-modal)" target="EditExampleLayer" link-type="layered-modal" size="100" width="100"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.ExampleNewExample} (Layered-modal)" target="EditExampleLayer" link-type="layered-modal"/>
         </field>
     </form>
 </forms>
