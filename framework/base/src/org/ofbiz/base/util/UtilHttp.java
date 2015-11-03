@@ -969,7 +969,7 @@ public class UtilHttp {
             response.setContentType(contentType);
         }
         if (fileName != null) {
-            setContentDisposition(response, fileName);
+            response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
         }
 
         // create the streams
@@ -1018,7 +1018,7 @@ public class UtilHttp {
             response.setContentType(contentType);
         }
         if (fileName != null) {
-            setContentDisposition(response, fileName);
+            response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
         }
 
         // stream the content
@@ -1433,10 +1433,4 @@ public class UtilHttp {
         request.setAttribute("UNIQUE_ID", Integer.valueOf(uniqueIdNumber.intValue() + 1));
         return "autoId_" + uniqueIdNumber;
     }
-
-    public static void setContentDisposition(final HttpServletResponse response, final String filename) {
-        String dispositionType = UtilProperties.getPropertyValue("requestHandler", "content-disposition-type", "attachment");
-        response.setHeader("Content-Disposition", String.format("%s; filename=\"%s\"", dispositionType, filename));
-    }
-
 }
