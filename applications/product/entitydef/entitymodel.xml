@@ -3722,6 +3722,7 @@ under the License.
       <field name="orderNumberPrefix" type="id-long"></field>
       <field name="defaultLocaleString" type="very-short"></field>
       <field name="defaultCurrencyUomId" type="id"></field>
+      <field name="defaultTimeZoneString" type="id-long"></field>
       <field name="defaultSalesChannelEnumId" type="id"></field>
       <field name="allowPassword" type="indicator"></field>
       <field name="defaultPassword" type="long-varchar"></field>

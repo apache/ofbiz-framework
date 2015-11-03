@@ -70,6 +70,8 @@ public class UtilHttp {
     public static final int ROW_SUBMIT_PREFIX_LENGTH = ROW_SUBMIT_PREFIX.length();
     public static final int COMPOSITE_DELIMITER_LENGTH = COMPOSITE_DELIMITER.length();
 
+    public static final String SESSION_KEY_TIMEZONE = "timeZone";
+
     /**
      * Create a combined map from servlet context, session, attributes and parameters
      * @return The resulting Map
@@ -660,12 +662,18 @@ public class UtilHttp {
     }
 
     public static void setTimeZone(HttpSession session, TimeZone timeZone) {
-        session.setAttribute("timeZone", timeZone);
+        session.setAttribute(SESSION_KEY_TIMEZONE, timeZone);
+    }
+
+    public static void setTimeZoneIfNone(HttpSession session, String timeZoneString) {
+        if (UtilValidate.isNotEmpty(timeZoneString) && session.getAttribute(SESSION_KEY_TIMEZONE) == null) {
+            UtilHttp.setTimeZone(session, UtilDateTime.toTimeZone(timeZoneString));
+        }
     }
 
     public static TimeZone getTimeZone(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        TimeZone timeZone = null;
+        TimeZone timeZone = (TimeZone) session.getAttribute(SESSION_KEY_TIMEZONE);
         Map<String, String> userLogin = UtilGenerics.cast(session.getAttribute("userLogin"));
         if (userLogin != null) {
             String tzId = userLogin.get("lastTimeZone");
@@ -676,10 +684,38 @@ public class UtilHttp {
         if (timeZone == null) {
             timeZone = TimeZone.getDefault();
         }
-        session.setAttribute("timeZone", timeZone);
+        session.setAttribute(SESSION_KEY_TIMEZONE, timeZone);
         return timeZone;
     }
 
+    public static TimeZone getTimeZone(HttpServletRequest request, HttpSession session, String appDefaultTimeZoneString) {
+        // check session first, should override all if anything set there
+        TimeZone timeZone = session != null ? (TimeZone) session.getAttribute(SESSION_KEY_TIMEZONE) : null;
+        
+        // next see if the userLogin has a value
+        if (timeZone == null) {
+            Map<String, Object> userLogin = UtilGenerics.checkMap(session.getAttribute("userLogin"), String.class, Object.class);
+            if (userLogin == null) {
+                userLogin = UtilGenerics.checkMap(session.getAttribute("autoUserLogin"), String.class, Object.class);
+            }
+
+            if ((userLogin != null) && (UtilValidate.isNotEmpty(userLogin.get("lastTimeZone")))) {
+                timeZone = UtilDateTime.toTimeZone((String) userLogin.get("lastTimeZone"));
+            }
+        }
+
+        // if there is no user TimeZone, we will got the application default time zone (if provided)
+        if ((timeZone == null) && (UtilValidate.isNotEmpty(appDefaultTimeZoneString))) {
+            timeZone = UtilDateTime.toTimeZone(appDefaultTimeZoneString);
+        }
+
+        // finally request (w/ a fall back to default)
+        if (timeZone == null) {
+            timeZone = TimeZone.getDefault();
+        }
+
+        return timeZone;
+    }
 
     /**
      * Get the currency string from the session.
@@ -717,7 +753,7 @@ public class UtilHttp {
         }
 
 
-        // if still none we will use the default for whatever locale we can get...
+        // if still none we will use the default for whatever currency we can get...
         if (iso == null) {
             Currency cur = Currency.getInstance(getLocale(session));
             iso = cur.getCurrencyCode();
@@ -933,7 +969,7 @@ public class UtilHttp {
             response.setContentType(contentType);
         }
         if (fileName != null) {
-            response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+            setContentDisposition(response, fileName);
         }
 
         // create the streams
@@ -982,7 +1018,7 @@ public class UtilHttp {
             response.setContentType(contentType);
         }
         if (fileName != null) {
-            response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+            setContentDisposition(response, fileName);
         }
 
         // stream the content
@@ -1397,4 +1433,10 @@ public class UtilHttp {
         request.setAttribute("UNIQUE_ID", Integer.valueOf(uniqueIdNumber.intValue() + 1));
         return "autoId_" + uniqueIdNumber;
     }
+
+    public static void setContentDisposition(final HttpServletResponse response, final String filename) {
+        String dispositionType = UtilProperties.getPropertyValue("requestHandler", "content-disposition-type", "attachment");
+        response.setHeader("Content-Disposition", String.format("%s; filename=\"%s\"", dispositionType, filename));
+    }
+
 }

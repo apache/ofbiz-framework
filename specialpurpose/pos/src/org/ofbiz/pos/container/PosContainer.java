@@ -19,9 +19,12 @@
 package org.ofbiz.pos.container;
 
 import java.util.Locale;
+import java.util.TimeZone;
 
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.guiapp.xui.XuiContainer;
@@ -81,6 +84,13 @@ public class PosContainer extends XuiContainer {
         Locale locale = UtilMisc.parseLocale(localeStr);
         session.setAttribute("locale", locale);
 
+        // get the store timezone
+        String timeZoneStr = ContainerConfig.getPropertyValue(cc, "timeZone", null);
+        if (UtilValidate.isEmpty(timeZoneStr)) {
+            timeZoneStr = productStore.getString("defaultTimeZoneString");
+        }
+        session.setAttribute("timeZone", UtilDateTime.toTimeZone(timeZoneStr));    // this will get default is no timeZoneStr is provided
+        
         // get the store currency
         String currencyStr = ContainerConfig.getPropertyValue(cc, "currency", null);
         if (UtilValidate.isEmpty(currencyStr)) {

@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
+import java.util.TimeZone;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -109,6 +110,16 @@ public class ProductStoreWorker {
             return null;
         } else {
             return UtilHttp.getLocale(request, request.getSession(), productStore.getString("defaultLocaleString"));
+        }
+    }
+    
+    public static TimeZone getStoreTimeZone(HttpServletRequest request) {
+        GenericValue productStore = getProductStore(request);
+        if (UtilValidate.isEmpty(productStore)) {
+            Debug.logError("No product store found in request, cannot set timezone!", module);
+            return null;
+        } else {
+            return UtilHttp.getTimeZone(request, request.getSession(), productStore.getString("defaultTimeZoneString"));
         }
     }
 

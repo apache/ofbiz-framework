@@ -4612,6 +4612,10 @@
         <value xml:lang="zh">缺省序号</value>
         <value xml:lang="zh-TW">預設序號</value>
     </property>
+    <property key="FormFieldTitle_defaultTimeZoneString">
+        <value xml:lang="en">Default Time Zone</value>
+        <value xml:lang="fr">Fuseau horaire par défaut</value>
+    </property>
     <property key="FormFieldTitle_deleteCostComponent">
         <value xml:lang="de">Kostenkomponente löschen</value>
         <value xml:lang="en">Delete Cost Component</value>
