@@ -648,6 +648,15 @@ Parameter: tabindex, String, optional - HTML tabindex number.
       <#local showDescription = "false" />
     </#if>
   </#if>
+  <#if (!position?has_content)>
+    <#local position = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.lookup.position", "topleft")>
+  </#if>
+  <#if (!width?has_content)>
+    <#local width = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.lookup.width", "620")>
+  </#if>
+  <#if (!height?has_content)>
+    <#local height = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.lookup.height", "500")>
+  </#if>
   <#if ajaxEnabled?has_content && ajaxEnabled>
     <script type="text/javascript">
       jQuery(document).ready(function(){
