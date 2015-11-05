@@ -102,7 +102,7 @@ public class BirtViewHandler implements ViewHandler {
             // set output file name
             String outputFileName = (String) request.getAttribute(BirtWorker.BIRT_OUTPUT_FILE_NAME);
             if (UtilValidate.isNotEmpty(outputFileName)) {
-                response.setHeader("Content-Disposition", "attachment; filename=" + outputFileName);
+                UtilHttp.setContentDisposition(response, outputFileName);
             }
             
             // set override content type
