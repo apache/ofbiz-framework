@@ -43,9 +43,9 @@ fromPartyId = parameters.fromPartyId;
 if (!orderHeader && orderId) {
     orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
     if (parameters.facilityId) {
-        response.setHeader("Content-Disposition","attachment; filename=\"PickSheet" + orderId + ".pdf" + "\";");
+        UtilHttp.setContentDisposition(response, "PickSheet" + orderId + ".pdf");
     } else {
-        response.setHeader("Content-Disposition","attachment; filename=\"" + orderId + ".pdf" + "\";");
+        UtilHttp.setContentDisposition(response, orderId + ".pdf");
     }
 } else if (shipmentId) {
     shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
@@ -54,7 +54,7 @@ if (!orderHeader && orderId) {
 
 if (!invoice && invoiceId)    {
     invoice = from("Invoice").where("invoiceId", invoiceId).queryOne();
-    response.setHeader("Content-Disposition","attachment; filename=\"" + invoiceId + ".pdf" + "\";");
+    UtilHttp.setContentDisposition(response, invoiceId + ".pdf");
 }
 
 if (!returnHeader && returnId) {

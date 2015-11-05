@@ -20,6 +20,7 @@
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.base.util.UtilHttp;
 
 toPrintOrders = [];
 maxNumberOfOrders = parameters.maxNumberOfOrdersToPrint;
@@ -126,5 +127,5 @@ if (toPrintOrders) {
             }
         }
     }
-    response.setHeader("Content-Disposition","attachment; filename=\"orderPickSheet.pdf" + "\";");
+    UtilHttp.setContentDisposition(response, "orderPickSheet.pdf");
 }

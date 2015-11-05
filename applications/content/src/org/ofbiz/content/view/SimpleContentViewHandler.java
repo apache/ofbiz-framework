@@ -137,7 +137,10 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                     charset = defaultCharset;
                 }
                 if (UtilValidate.isEmpty(mimeTypeId)) {
-                    mimeTypeId = dataResource.getString("mimeTypeId");
+                    mimeTypeId = DataResourceWorker.getMimeType(dataResource);
+                    if ("text/html".equalsIgnoreCase(mimeTypeId)) {
+                        mimeTypeId = "application/octet-stream";
+                    }
                 }
                 // setup content type
                 String contentType2 = UtilValidate.isNotEmpty(mimeTypeId) ? mimeTypeId + "; charset=" +charset : contentType;
