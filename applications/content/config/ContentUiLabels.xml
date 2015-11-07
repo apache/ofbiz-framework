@@ -5897,7 +5897,7 @@
     <property key="FormFieldTitle_updateSurveyResponse">
         <value xml:lang="da">Opdater rundspørge svar</value>
         <value xml:lang="en">Update Survey Response</value>
-        <value xml:lang="fr">Màj de la réponse du sondage</value>
+        <value xml:lang="fr">Actualisation de la réponse du sondage</value>
         <value xml:lang="it">Aggiorna risposta sondaggio</value>
         <value xml:lang="ja">評価の回答を更新</value>
         <value xml:lang="pt">Atualizar resposta de pesquisa</value>
