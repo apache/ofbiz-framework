@@ -2387,7 +2387,7 @@
     </property>
     <property key="HumanResNewPartyReviewEdit">
         <value xml:lang="en">Create/Update PerfReview</value>
-        <value xml:lang="fr">Création/Màj d'une évaluation de performances</value>
+        <value xml:lang="fr">Création/Actualisation d'une évaluation de performances</value>
         <value xml:lang="it">Crea/Aggiorna Rassegna Prestazioni</value>
         <value xml:lang="ja">業績評価を作成/更新</value>
         <value xml:lang="pt-BR">Criar/Atualizar avaliação de desempenho</value>
@@ -2409,7 +2409,7 @@
     </property>
     <property key="HumanResNewPartyReviewItemEdit">
         <value xml:lang="en">Create/Update PerfReviewItem</value>
-        <value xml:lang="fr">Création/Màj d'une ligne d'évaluation de performances</value>
+        <value xml:lang="fr">Création/Actualisation d'une ligne d'évaluation de performances</value>
         <value xml:lang="it">Crea/Aggiorna Riga Rassegna Prestazioni</value>
         <value xml:lang="ja">業績評価アイテムを作成/更新</value>
         <value xml:lang="pt-BR">Criar/Atualizar Item de avaliação de desempenho</value>
