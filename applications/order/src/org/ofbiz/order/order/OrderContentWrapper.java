@@ -109,7 +109,7 @@ public class OrderContentWrapper implements ContentWrapper {
             if (UtilValidate.isEmpty(outString)) {
                 outString = outString == null? "" : outString;
             }
-            outString = encoder.encode(outString);
+            outString = encoder.sanitize(outString);
             if (orderContentCache != null) {
                 orderContentCache.put(cacheKey, outString);
             }
