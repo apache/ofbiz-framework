@@ -114,7 +114,7 @@ under the License.
         <#-- due to https://github.com/openlayers/openlayers/issues/1025 rather use a local version loaded by framework/common/widget/CommonScreens.xml -->
         <#-- script src="//www.openlayers.org/api/OpenLayers.js"></script-->
         <script type="text/javascript">
-          map = new OpenLayers.Map("${id}");           
+          map = new OpenLayers.Map("${id}");
           map.addLayer(new OpenLayers.Layer.OSM());
             var zoom = ${zoom};
             var center= new OpenLayers.LonLat(${center.lon},${center.lat})

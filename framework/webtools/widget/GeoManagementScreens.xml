@@ -46,6 +46,32 @@
             </widgets>
         </section>
     </screen>
+    <screen name="GeoPoint">
+        <section>
+            <actions>
+                <set field="titleProperty" value="WebtoolsGeoPoints"/>
+                <set field="currentUrl" value="geoPoints"/>
+                <set field="headerItem" value="Geos"/>
+                <set field="tabButtonItem" value="GeoPoints"/>
+                <entity-one value-field="geoPoint" entity-name="GeoPoint"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/geo/GetGeoLocation.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonGeoManagementDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.CommonSummary}">
+                            <include-form location="component://webtools/widget/GeoManagementForms.xml" name="GeoPoint"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.CommonMap}">
+                            <platform-specific>
+                                <html><html-template location="component://webtools/webapp/webtools/geo/GeoLocation.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="GeoPoints">
         <section>
             <actions>

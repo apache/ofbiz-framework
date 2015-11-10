@@ -6313,6 +6313,11 @@
         <value xml:lang="zh-CN">多</value>
         <value xml:lang="zh-TW">許多</value>
     </property>
+    <property key="CommonMap">
+        <value xml:lang="en">Map</value>
+        <value xml:lang="fr">Carte</value>
+        <value xml:lang="nl">Kaart</value>
+    </property>
     <property key="CommonMarch">
         <value xml:lang="ar">مارس</value>
         <value xml:lang="cs">Březen</value>
@@ -12111,7 +12116,7 @@
         <value xml:lang="de">aktualisieren</value>
         <value xml:lang="en">Update</value>
         <value xml:lang="es">Actualizar</value>
-        <value xml:lang="fr">Màj</value>
+        <value xml:lang="fr">Actualiser</value>
         <value xml:lang="hi-IN">अद्यतन करे</value>
         <value xml:lang="it">Aggiorna</value>
         <value xml:lang="ja">更新</value>

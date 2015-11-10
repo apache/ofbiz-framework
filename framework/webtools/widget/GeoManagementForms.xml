@@ -39,6 +39,18 @@
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
+    <form name="GeoPoint" type="single" title="" default-map-name="geoPoint"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="geoPointId" title="${uiLabelMap.CommonId}"><display/></field>
+        <field name="dataSourceId" title="${uiLabelMap.Source}"><display/></field>
+        <field name="latitude" title="${uiLabelMap.CommonLatitude}"><display/></field>
+        <field name="longitude" title="${uiLabelMap.CommonLongitude}"><display/></field>
+        <field name="elevation" title="${uiLabelMap.Elevation}"><display/></field>
+        <field name="elevationUomId" title="${uiLabelMap.CommonUom}">
+            <display-entity entity-name="Uom" key-field-name="uomId" description="${abbreviation}"/>
+        </field>
+        <field name="information"><display/></field>
+    </form>
     <form name="ListGeos" extends-resource="component://common/widget/LookupForms.xml" extends="listLookupGeo" paginate-target="${currentUrl}"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true" >
         <field name="geoId"  widget-style="buttontext" title="${uiLabelMap.CommonGeoId}">
@@ -65,7 +77,10 @@
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
-        <field name="geoPointId" widget-style="buttontext" title="${uiLabelMap.CommonId}"><display/>
+        <field name="geoPointId" title="${uiLabelMap.CommonId}">
+            <hyperlink also-hidden="false" target-type="plain" description="${geoPointId}"  target="geoPoint">
+                <parameter param-name="geoPointId"/>
+            </hyperlink>
         </field>
         <field name="dataSourceId" title="${uiLabelMap.Source}"><display/></field>
         <field name="latitude"  title="${uiLabelMap.CommonLatitude}"><display/></field>
