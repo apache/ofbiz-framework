@@ -543,6 +543,7 @@ under the License.
 
     <!-- Geo Management -->
     <request-map uri="FindGeo"><security https="true" auth="true"/><response name="success" type="view" value="FindGeo" save-home-view="true"/></request-map>
+    <request-map uri="geoPoint"><security https="true" auth="true"/><response name="success" type="view" value="geoPoint" save-home-view="true"/></request-map>
     <request-map uri="geoPoints"><security https="true" auth="true"/><response name="success" type="view" value="geoPoints" save-home-view="true"/></request-map>
     <request-map uri="EditGeo"><security https="true" auth="true"/><response name="success" type="view" value="EditGeo"/></request-map>
     <request-map uri="LinkGeos"><security https="true" auth="true"/><response name="success" type="view" value="LinkGeos"/></request-map>
@@ -680,6 +681,7 @@ under the License.
 
     <!-- Geo Management -->
     <view-map name="FindGeo" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#FindGeo"/>
+    <view-map name="geoPoint" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#GeoPoint"/>
     <view-map name="geoPoints" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#GeoPoints"/>
     <view-map name="EditGeo" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#EditGeo"/>
     <view-map name="LinkGeos" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#LinkGeos"/>
