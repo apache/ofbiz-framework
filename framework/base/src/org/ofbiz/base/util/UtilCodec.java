@@ -18,11 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
-import org.owasp.esapi.codecs.Codec;
-import org.owasp.esapi.codecs.HTMLEntityCodec;
-import org.owasp.esapi.codecs.PercentCodec;
-import org.owasp.esapi.codecs.XMLEntityCodec;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -33,6 +28,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.owasp.esapi.codecs.Codec;
+import org.owasp.esapi.codecs.HTMLEntityCodec;
+import org.owasp.esapi.codecs.PercentCodec;
+import org.owasp.esapi.codecs.XMLEntityCodec;
+import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 
 public class UtilCodec {
     private static final String module = UtilCodec.class.getName();
@@ -48,6 +51,7 @@ public class UtilCodec {
         codecs = Collections.unmodifiableList(tmpCodecs);
     }
 
+    @SuppressWarnings("serial")
     public static class IntrusionException extends GeneralRuntimeException {
         public IntrusionException(String message) {
             super(message);
@@ -56,6 +60,7 @@ public class UtilCodec {
 
     public static interface SimpleEncoder {
         public String encode(String original);
+        public String sanitize(String outString); // Only really useful with HTML, else simply calls encode() method 
     }
 
     public static interface SimpleDecoder {
@@ -67,10 +72,30 @@ public class UtilCodec {
         private HTMLEntityCodec htmlCodec = new HTMLEntityCodec();
         public String encode(String original) {
             if (original == null) {
-       	    	return null;
-       	    }
-       	    return htmlCodec.encode(IMMUNE_HTML, original);
+                return null;
+            }
+            return htmlCodec.encode(IMMUNE_HTML, original);
         }
+        public String sanitize(String original) {
+            if (original == null) {
+                return null;
+            }
+            PolicyFactory sanitizer = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.IMAGES).and(Sanitizers.LINKS).and(Sanitizers.STYLES);
+            if (UtilProperties.getPropertyAsBoolean("owasp", "sanitizer.permissive.policy", false)) {
+                sanitizer = sanitizer.and(PERMISSIVE_POLICY);
+            }
+            return sanitizer.sanitize(original);
+        }
+        // Given as an example based on rendering cmssite as it was before using the sanitizer.
+        // To use the PERMISSIVE_POLICY set sanitizer.permissive.policy to true. 
+        // Note that I was unable to render </html> and </body>. I guess because are <html> and <body> are not sanitized in 1st place (else the sanitizer makes some damages I found)
+        // You might even want to adapt the PERMISSIVE_POLICY to your needs... Be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before...
+        public static final PolicyFactory PERMISSIVE_POLICY = new HtmlPolicyBuilder()
+                .allowAttributes("id", "class").globally()
+                .allowElements("html", "body", "div", "center", "span", "table", "td")
+                .allowWithoutAttributes("html", "body", "div", "span", "table", "td")
+                .allowAttributes("width").onElements("table")
+                .toFactory();
     }
 
     public static class XmlEncoder implements SimpleEncoder {
@@ -78,9 +103,12 @@ public class UtilCodec {
         private XMLEntityCodec xmlCodec = new XMLEntityCodec();
         public String encode(String original) {
             if (original == null) {
-       	    	return null;
-       	    }
-       	    return xmlCodec.encode(IMMUNE_XML, original);
+                   return null;
+               }
+               return xmlCodec.encode(IMMUNE_XML, original);
+        }
+        public String sanitize(String original) {
+            return encode(original);
         }
     }
 
@@ -92,6 +120,9 @@ public class UtilCodec {
                 Debug.logError(ee, module);
                 return null;
             }
+        }
+        public String sanitize(String original) {
+            return encode(original);
         }
 
         public String decode(String original) {
@@ -111,6 +142,9 @@ public class UtilCodec {
                 original = original.replace("\"", "\\\"");
             }
             return original;
+        }
+        public String sanitize(String original) {
+            return encode(original);
         }
     }
 

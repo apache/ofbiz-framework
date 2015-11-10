@@ -82,7 +82,7 @@ ${virtualJavaScript!}
                 <img src="<@ofbizContentUrl>${contentPathPrefix!}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br />
                 ${uiLabelMap.ProductProductId}   : ${product.productId!}<br />
                 ${uiLabelMap.ProductProductName} : ${product.productName!}<br />
-                ${uiLabelMap.CommonDescription}  : ${product.description!}
+                ${uiLabelMap.CommonDescription}  : ${productContentWrapper.get("DESCRIPTION", "html")!}
               </td>
             </tr>
           </table>
