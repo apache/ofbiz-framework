@@ -222,7 +222,7 @@ under the License.
         <tstamp>
             <format property="dateTime" pattern="yyyy-MM-dd HH:mm:ss"/>
         </tstamp>
-        <echo message=" - Release-revision : ${releasePath}-r${info.entry.commit(revision)},  ${uiLabelMap.CommonBuiltOn} ${dateTime}" file="runtime/svninfo.ftl"/>
+        <echo message=" - Release-revision : ${releasePath}-r${info.entry.commit(revision)},  ${uiLabelMap.CommonBuiltOn} ${dateTime} ${uiLabelMap.CommonWith} Java ${java.version}" file="runtime/svninfo.ftl"/>
         <delete file="runtime/svninfo_tmp.xml"/>
         <echo message="Done!"/>
     </target>
@@ -249,7 +249,7 @@ under the License.
             <format property="dateTime" pattern="yyyy-MM-dd HH:mm:ss"/>
         </tstamp>        
         <echo message="Found Branch-revision: ${branch}-${revision}"/>
-        <echo message=" - Branch-revision: ${branch}-${revision}, ${uiLabelMap.CommonBuiltOn} ${dateTime}" file="runtime/gitinfo.ftl"/>
+        <echo message=" - Branch-revision: ${branch}-${revision}, ${uiLabelMap.CommonBuiltOn} ${dateTime} ${uiLabelMap.CommonWith} Java ${java.version}" file="runtime/gitinfo.ftl"/>
         <echo message="Done!"/>
     </target>
 
