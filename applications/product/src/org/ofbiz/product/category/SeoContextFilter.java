@@ -295,13 +295,19 @@ public class SeoContextFilter extends ContextFilter {
             // get tenant delegator by domain name
             String serverName = httpRequest.getServerName();
             try {
-                // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
+                // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute                
                 Delegator delegator = getDelegator(config.getServletContext());
-                List<GenericValue> tenants = delegator.findList("Tenant", EntityCondition.makeCondition("domainName", serverName), null, UtilMisc.toList("-createdStamp"), null, false);
+                
+                // to access entity "tenant" we need the default delegator
+                Delegator defaultdelegator = DelegatorFactory.getDelegator("default");
+                
+                // take the tenantId from the current delegator
+                String tenantId = delegator.getDelegatorTenantId();
+                
+                List<GenericValue> tenants = defaultdelegator.findList("Tenant", EntityCondition.makeCondition("tenantId", tenantId), null, UtilMisc.toList("-createdStamp"), null, false);
                 if (UtilValidate.isNotEmpty(tenants)) {
                     GenericValue tenant = EntityUtil.getFirst(tenants);
-                    String tenantId = tenant.getString("tenantId");
-
+                    
                     // if the request path is a root mount then redirect to the initial path
                     if (UtilValidate.isNotEmpty(requestPath) && requestPath.equals(contextUri)) {
                         String initialPath = tenant.getString("initialPath");
