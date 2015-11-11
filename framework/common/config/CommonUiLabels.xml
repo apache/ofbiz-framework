@@ -12913,6 +12913,10 @@
         <value xml:lang="zh-CN">宽度</value>
         <value xml:lang="zh-TW">寬度</value>
     </property>
+    <property key="CommonWith">
+        <value xml:lang="en">with</value>
+        <value xml:lang="fr">avec</value>
+    </property>
     <property key="CommonWorkflowActivityUser">
         <value xml:lang="ar">مهام سيرورة العمل المعينة للمستخدم</value>
         <value xml:lang="cs">Workflow aktivity přiřazené uživateli</value>
