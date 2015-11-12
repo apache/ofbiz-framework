@@ -43,7 +43,7 @@ public class CommonWorkers {
 
     public static List<GenericValue> getCountryList(Delegator delegator) {
         List<GenericValue> geoList = new LinkedList<GenericValue>();
-        String defaultCountry = EntityUtilProperties.getPropertyValue("general.properties", "country.geo.id.default", delegator);
+        String defaultCountry = EntityUtilProperties.getPropertyValue("general", "country.geo.id.default", delegator);
         GenericValue defaultGeo = null;
         if (UtilValidate.isNotEmpty(defaultCountry)) {
             try {
@@ -54,7 +54,7 @@ public class CommonWorkers {
         }
 
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "COUNTRY"));
-        List<String> countriesAvailable = StringUtil.split(EntityUtilProperties.getPropertyValue("general.properties", "countries.geo.id.available", delegator), ",");
+        List<String> countriesAvailable = StringUtil.split(EntityUtilProperties.getPropertyValue("general", "countries.geo.id.available", delegator), ",");
         if (UtilValidate.isNotEmpty(countriesAvailable)) {
             // only available countries (we don't verify the list of geoId in countries.geo.id.available)
             exprs.add(EntityCondition.makeCondition("geoId", EntityOperator.IN, countriesAvailable));
@@ -108,7 +108,7 @@ public class CommonWorkers {
     public static List<GenericValue> getAssociatedStateList(Delegator delegator, String country, String listOrderBy) {
         if (UtilValidate.isEmpty(country)) {
             // Load the system default country
-            country = EntityUtilProperties.getPropertyValue("general.properties", "country.geo.id.default", delegator);
+            country = EntityUtilProperties.getPropertyValue("general", "country.geo.id.default", delegator);
         }
 
         if (UtilValidate.isEmpty(listOrderBy)) {

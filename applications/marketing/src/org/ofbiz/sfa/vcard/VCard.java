@@ -264,7 +264,7 @@ public class VCard {
             }
             ContactIOFactory ciof = Pim.getContactIOFactory();
             ContactMarshaller marshaller = ciof.createContactMarshaller();
-            String saveToDirectory = EntityUtilProperties.getPropertyValue("sfa.properties", "save.outgoing.directory", "", delegator);
+            String saveToDirectory = EntityUtilProperties.getPropertyValue("sfa", "save.outgoing.directory", "", delegator);
             if (UtilValidate.isEmpty(saveToDirectory)) {
                 saveToDirectory = System.getProperty("ofbiz.home");
             }

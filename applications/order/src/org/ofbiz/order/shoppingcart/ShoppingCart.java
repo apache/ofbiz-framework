@@ -261,7 +261,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this.productStoreId = productStoreId;
         this.webSiteId = webSiteId;
         this.locale = (locale != null) ? locale : Locale.getDefault();
-        this.currencyUom = (currencyUom != null) ? currencyUom : EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+        this.currencyUom = (currencyUom != null) ? currencyUom : EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         this.billToCustomerPartyId = billToCustomerPartyId;
         this.billFromVendorPartyId = billFromVendorPartyId;
 

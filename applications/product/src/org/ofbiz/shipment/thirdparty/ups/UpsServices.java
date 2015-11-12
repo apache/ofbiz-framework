@@ -305,7 +305,7 @@ public class UpsServices {
             } else if (UtilValidate.isNotEmpty(shipment.getString("currencyUomId"))) {
                 currencyCode = shipment.getString("currencyUomId");
             } else {
-                currencyCode = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+                currencyCode = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
             }
 
             // Okay, start putting the XML together...

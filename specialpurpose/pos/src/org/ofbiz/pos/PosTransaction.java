@@ -1939,7 +1939,7 @@ public class PosTransaction implements Serializable {
                             String passwordAcceptEncryptedAndPlain = null;
                             try {
                                 
-                                passwordAcceptEncryptedAndPlain = EntityUtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain", delegator);
+                                passwordAcceptEncryptedAndPlain = EntityUtilProperties.getPropertyValue("security", "password.accept.encrypted.and.plain", delegator);
                                 UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", "true");
                                 svcRes = dispatcher.runSync("updatePassword",
                                         UtilMisc.toMap("userLogin", userLogin,

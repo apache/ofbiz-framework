@@ -302,10 +302,10 @@ public class ShippingEvents {
         // invoke the external shipping estimate service
         BigDecimal externalShipAmt = null;
         if (serviceName != null) {
-            String doEstimates = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.doratecheck", "true", delegator);
+            String doEstimates = EntityUtilProperties.getPropertyValue("shipment", "shipment.doratecheck", "true", delegator);
             //If all estimates are not turned off, check for the individual one
             if ("true".equals(doEstimates)) {
-                String dothisEstimate = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.doratecheck." + serviceName, "true", delegator);
+                String dothisEstimate = EntityUtilProperties.getPropertyValue("shipment", "shipment.doratecheck." + serviceName, "true", delegator);
                 if ("false".equals(dothisEstimate))
                  serviceName = null;
             } else {

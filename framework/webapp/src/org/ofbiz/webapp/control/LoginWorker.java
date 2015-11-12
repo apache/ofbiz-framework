@@ -545,7 +545,7 @@ public class LoginWorker {
             if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))) {
                 return "requirePasswordChange";
             }
-            String autoChangePassword = EntityUtilProperties.getPropertyValue("security.properties", "user.auto.change.password.enable", "false", delegator);
+            String autoChangePassword = EntityUtilProperties.getPropertyValue("security", "user.auto.change.password.enable", "false", delegator);
             if ("true".equalsIgnoreCase(autoChangePassword)) {
                 if ("requirePasswordChange".equals(autoChangePassword(request, response))) {
                     return "requirePasswordChange";
@@ -735,7 +735,7 @@ public class LoginWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        String domain = EntityUtilProperties.getPropertyValue("url.properties", "cookie.domain", delegator);
+        String domain = EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator);
         if (userLogin != null) {
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
             autoLoginCookie.setMaxAge(60 * 60 * 24 * 365);
@@ -870,7 +870,7 @@ public class LoginWorker {
     // preprocessor method to login a user from a HTTP request header (configured in security.properties)
     public static String checkRequestHeaderLogin(HttpServletRequest request, HttpServletResponse response) {
     	Delegator delegator = (Delegator) request.getAttribute("delegator");
-        String httpHeader = EntityUtilProperties.getPropertyValue("security.properties", "security.login.http.header", null, delegator);
+        String httpHeader = EntityUtilProperties.getPropertyValue("security", "security.login.http.header", null, delegator);
 
         // make sure the header field is set in security.properties; if not, then this is disabled and just return
         if (UtilValidate.isNotEmpty(httpHeader)) {
@@ -918,7 +918,7 @@ public class LoginWorker {
     // preprocessor method to login a user w/ client certificate see security.properties to configure the pattern of CN
     public static String check509CertLogin(HttpServletRequest request, HttpServletResponse response) {
     	Delegator delegator = (Delegator) request.getAttribute("delegator");
-        boolean doCheck = "true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security.properties", "security.login.cert.allow", "true", delegator));
+        boolean doCheck = "true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "security.login.cert.allow", "true", delegator));
         if (doCheck) {
             HttpSession session = request.getSession();
             GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
@@ -929,7 +929,7 @@ public class LoginWorker {
                 }
             }
 
-            String cnPattern = EntityUtilProperties.getPropertyValue("security.properties", "security.login.cert.pattern", "(.*)", delegator);
+            String cnPattern = EntityUtilProperties.getPropertyValue("security", "security.login.cert.pattern", "(.*)", delegator);
             Pattern pattern = Pattern.compile(cnPattern);
             //Debug.logInfo("CN Pattern: " + cnPattern, module);
 
@@ -1067,7 +1067,7 @@ public class LoginWorker {
     }
 
     public static boolean isFlaggedLoggedOut(GenericValue userLogin, Delegator delegator) {
-        if ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security.properties", "login.disable.global.logout", delegator))) {
+        if ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "login.disable.global.logout", delegator))) {
             return false;
         }
         if (userLogin == null || userLogin.get("userLoginId") == null) {
@@ -1175,8 +1175,8 @@ public class LoginWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String userName = request.getParameter("USERNAME");
         Timestamp now = UtilDateTime.nowTimestamp();
-        Integer reqToChangePwdInDays = Integer.valueOf(EntityUtilProperties.getPropertyValue("security.properties", "user.change.password.days", "0", delegator));
-        Integer passwordNoticePeriod = Integer.valueOf(EntityUtilProperties.getPropertyValue("security.properties", "user.change.password.notification.days", "0", delegator));
+        Integer reqToChangePwdInDays = Integer.valueOf(EntityUtilProperties.getPropertyValue("security", "user.change.password.days", "0", delegator));
+        Integer passwordNoticePeriod = Integer.valueOf(EntityUtilProperties.getPropertyValue("security", "user.change.password.notification.days", "0", delegator));
         if (reqToChangePwdInDays > 0) {
             List<GenericValue> passwordHistories = null;
             try {

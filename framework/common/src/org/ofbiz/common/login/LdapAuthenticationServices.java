@@ -95,7 +95,7 @@ public class LdapAuthenticationServices {
         }
         // Synchronize user's OFBiz password with user's LDAP password
         if (userLogin != null) {
-            boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security.properties", "password.encrypt", delegator));
+            boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
             String currentPassword = userLogin.getString("currentPassword");
             boolean samePassword;
             if (useEncryption) {

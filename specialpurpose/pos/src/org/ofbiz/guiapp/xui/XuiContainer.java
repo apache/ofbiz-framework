@@ -142,7 +142,7 @@ public abstract class XuiContainer implements Container {
             if (args.length > 0) {
                 startupProperties = args[0];
             }
-            String languageSuffix = EntityUtilProperties.getPropertyValue("xui.properties", "languageSuffix", "", delegator);
+            String languageSuffix = EntityUtilProperties.getPropertyValue("xui", "languageSuffix", "", delegator);
             String suffix = null;
             if(UtilValidate.isEmpty(languageSuffix)) {
                 suffix = Locale.getDefault().getLanguage();

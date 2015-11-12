@@ -81,13 +81,13 @@ public class OagisServices {
 
     public static final String resource = "OagisUiLabels";
 
-    public static final boolean debugSaveXmlOut = "true".equals(UtilProperties.getPropertyValue("oagis.properties", "Oagis.Debug.Save.Xml.Out"));
-    public static final boolean debugSaveXmlIn = "true".equals(UtilProperties.getPropertyValue("oagis.properties", "Oagis.Debug.Save.Xml.In"));
+    public static final boolean debugSaveXmlOut = "true".equals(UtilProperties.getPropertyValue("oagis", "Oagis.Debug.Save.Xml.Out"));
+    public static final boolean debugSaveXmlIn = "true".equals(UtilProperties.getPropertyValue("oagis", "Oagis.Debug.Save.Xml.In"));
 
     /** if TRUE then must exist, if FALSE must not exist, if null don't care */
     public static final Boolean requireSerialNumberExist;
     static {
-        String requireSerialNumberExistStr = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.RequireSerialNumberExist");
+        String requireSerialNumberExistStr = UtilProperties.getPropertyValue("oagis", "Oagis.Warehouse.RequireSerialNumberExist");
         if ("true".equals(requireSerialNumberExistStr)) {
             requireSerialNumberExist = Boolean.TRUE;
         } else if ("false".equals(requireSerialNumberExistStr)) {
@@ -106,19 +106,19 @@ public class OagisServices {
         
         String sendToUrl = (String) context.get("sendToUrl");
         if (UtilValidate.isEmpty(sendToUrl)) {
-            sendToUrl = EntityUtilProperties.getPropertyValue("oagis.properties", "url.send.confirmBod", delegator);
+            sendToUrl = EntityUtilProperties.getPropertyValue("oagis", "url.send.confirmBod", delegator);
         }
 
         String saveToFilename = (String) context.get("saveToFilename");
         if (UtilValidate.isEmpty(saveToFilename)) {
-            String saveToFilenameBase = EntityUtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.filename.base", "", delegator);
+            String saveToFilenameBase = EntityUtilProperties.getPropertyValue("oagis", "test.save.outgoing.filename.base", "", delegator);
             if (UtilValidate.isNotEmpty(saveToFilenameBase)) {
                 saveToFilename = saveToFilenameBase + "ConfirmBod" + errorReferenceId + ".xml";
             }
         }
         String saveToDirectory = (String) context.get("saveToDirectory");
         if (UtilValidate.isEmpty(saveToDirectory)) {
-            saveToDirectory = EntityUtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.directory", delegator);
+            saveToDirectory = EntityUtilProperties.getPropertyValue("oagis", "test.save.outgoing.directory", delegator);
         }
 
         OutputStream out = (OutputStream) context.get("outputStream");
@@ -130,8 +130,8 @@ public class OagisServices {
             Debug.logError(e, "Error getting userLogin", module);
         }
 
-        String logicalId = EntityUtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID", delegator);
-        String authId = EntityUtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID", delegator);
+        String logicalId = EntityUtilProperties.getPropertyValue("oagis", "CNTROLAREA.SENDER.LOGICALID", delegator);
+        String authId = EntityUtilProperties.getPropertyValue("oagis", "CNTROLAREA.SENDER.AUTHID", delegator);
 
         MapStack<String> bodyParameters =  MapStack.create();
         bodyParameters.put("logicalId", logicalId);
@@ -185,7 +185,7 @@ public class OagisServices {
         bodyParameters.put("errorReferenceId", errorReferenceId);
         bodyParameters.put("errorMapList", errorMapList);
         bodyParameters.put("origRef", context.get("origRefId"));
-        String bodyScreenUri = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ConfirmBod", delegator);
+        String bodyScreenUri = EntityUtilProperties.getPropertyValue("oagis", "Oagis.Template.ConfirmBod", delegator);
 
         String outText = null;
         try {
@@ -675,9 +675,9 @@ public class OagisServices {
     }
 
     public static Map<String, Object> sendMessageText(String outText, OutputStream out, String sendToUrl, String saveToDirectory, String saveToFilename, Locale locale, Delegator delegator) {
-        final String certAlias = EntityUtilProperties.getPropertyValue("oagis.properties", "auth.client.certificate.alias", delegator);
-        final String basicAuthUsername = EntityUtilProperties.getPropertyValue("oagis.properties", "auth.basic.username", delegator);
-        final String basicAuthPassword = EntityUtilProperties.getPropertyValue("oagis.properties", "auth.basic.password", delegator);
+        final String certAlias = EntityUtilProperties.getPropertyValue("oagis", "auth.client.certificate.alias", delegator);
+        final String basicAuthUsername = EntityUtilProperties.getPropertyValue("oagis", "auth.basic.username", delegator);
+        final String basicAuthPassword = EntityUtilProperties.getPropertyValue("oagis", "auth.basic.password", delegator);
     	if (out != null) {
             Writer outWriter = new OutputStreamWriter(out);
             try {

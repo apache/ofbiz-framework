@@ -279,7 +279,7 @@ public class RequestHandler {
                         }
                     }
                     if (enableHttps == null) {
-                        enableHttps = EntityUtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y", delegator);
+                        enableHttps = EntityUtilProperties.propertyValueEqualsIgnoreCase("url", "port.https.enabled", "Y", delegator);
                     }
 
                     if (Boolean.FALSE.equals(enableHttps)) {
@@ -396,7 +396,7 @@ public class RequestHandler {
                                     if (protectView != null) {
                                         overrideViewUri = protectView;
                                     } else {
-                                        overrideViewUri = EntityUtilProperties.getPropertyValue("security.properties", "default.error.response.view", delegator);
+                                        overrideViewUri = EntityUtilProperties.getPropertyValue("security", "default.error.response.view", delegator);
                                         overrideViewUri = overrideViewUri.replace("view:", "");
                                         if ("none:".equals(overrideViewUri)) {
                                             interruptRequest = true;
@@ -1025,11 +1025,11 @@ public class RequestHandler {
     @Deprecated
     public static String getDefaultServerRootUrl(HttpServletRequest request, boolean secure) {
     	Delegator delegator = (Delegator) request.getAttribute("delegator");
-        String httpsPort = EntityUtilProperties.getPropertyValue("url.properties", "port.https", "443", delegator);
-        String httpsServer = EntityUtilProperties.getPropertyValue("url.properties", "force.https.host", delegator);
-        String httpPort = EntityUtilProperties.getPropertyValue("url.properties", "port.http", "80", delegator);
-        String httpServer = EntityUtilProperties.getPropertyValue("url.properties", "force.http.host", delegator);
-        boolean useHttps = EntityUtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y", delegator);
+        String httpsPort = EntityUtilProperties.getPropertyValue("url", "port.https", "443", delegator);
+        String httpsServer = EntityUtilProperties.getPropertyValue("url", "force.https.host", delegator);
+        String httpPort = EntityUtilProperties.getPropertyValue("url", "port.http", "80", delegator);
+        String httpServer = EntityUtilProperties.getPropertyValue("url", "force.http.host", delegator);
+        boolean useHttps = EntityUtilProperties.propertyValueEqualsIgnoreCase("url", "port.https.enabled", "Y", delegator);
 
         if (Start.getInstance().getConfig().portOffset != 0) {
             Integer httpPortValue = Integer.valueOf(httpPort);

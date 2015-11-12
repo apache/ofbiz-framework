@@ -820,7 +820,7 @@ public class ContactMechWorker {
         String addr2 = postalAddress.getString("address2");
 
         // get the matching string from general.properties
-        String matcher = EntityUtilProperties.getPropertyValue("general.properties", "usps.address.match", postalAddress.getDelegator());
+        String matcher = EntityUtilProperties.getPropertyValue("general", "usps.address.match", postalAddress.getDelegator());
         if (UtilValidate.isNotEmpty(matcher)) {
             if (addr1 != null && addr1.toLowerCase().matches(matcher)) {
                 return true;

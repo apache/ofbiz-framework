@@ -536,7 +536,7 @@ public class IcsPaymentServices {
 
     private static void processAuthResult(Map<String, Object> reply, Map<String, Object> result, Delegator delegator) {
         String decision = getDecision(reply);
-        String checkModeStatus = EntityUtilProperties.getPropertyValue("payment.properties", "payment.cybersource.ignoreStatus", delegator);
+        String checkModeStatus = EntityUtilProperties.getPropertyValue("payment", "payment.cybersource.ignoreStatus", delegator);
         if ("ACCEPT".equalsIgnoreCase(decision)) {
             result.put("authCode", reply.get("ccAuthReply_authorizationCode"));
             result.put("authResult", Boolean.TRUE);

@@ -77,7 +77,7 @@ public class DataEvents {
         }
 
         // get the permission service required for streaming data; default is always the genericContentPermission
-        String permissionService = EntityUtilProperties.getPropertyValue("content.properties", "stream.permission.service", "genericContentPermission", delegator);
+        String permissionService = EntityUtilProperties.getPropertyValue("content", "stream.permission.service", "genericContentPermission", delegator);
 
         // get the content record
         GenericValue content;

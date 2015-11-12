@@ -239,7 +239,7 @@ public class OutputServices {
                 fileName += ".txt";
             }
             if (UtilValidate.isEmpty(filePath)) {
-                filePath = EntityUtilProperties.getPropertyValue("content.properties", "content.output.path", "/output", delegator);
+                filePath = EntityUtilProperties.getPropertyValue("content", "content.output.path", "/output", delegator);
             }
             File file = new File(filePath, fileName);
 
