@@ -180,6 +180,6 @@ if (facility) {
     defaultWeightUomId = facility.defaultWeightUomId;
 }
 if (!defaultWeightUomId) {
-    defaultWeightUomId = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom", "WT_kg", delegator);
+    defaultWeightUomId = EntityUtilProperties.getPropertyValue("shipment", "shipment.default.weight.uom", "WT_kg", delegator);
 }
 context.defaultWeightUomId = defaultWeightUomId;

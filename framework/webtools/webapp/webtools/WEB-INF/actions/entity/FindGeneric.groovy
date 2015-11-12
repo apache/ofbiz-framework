@@ -123,7 +123,7 @@ context.viewIndexNext = viewIndex+1;
 try {
     viewSize = Integer.valueOf((String)parameters.get("VIEW_SIZE")).intValue();
 } catch (NumberFormatException nfe) {
-    viewSize = Integer.valueOf(EntityUtilProperties.getPropertyValue("widget.properties", "widget.form.defaultViewSize", delegator)).intValue();
+    viewSize = Integer.valueOf(EntityUtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", delegator)).intValue();
 }
 
 context.viewSize = viewSize;

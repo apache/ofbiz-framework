@@ -77,7 +77,7 @@ cart = ShoppingCartEvents.getCartObject(request);
 // set currency format
 currencyUomId = null;
 if (cart) currencyUomId = cart.getCurrency();
-if (!currencyUomId) currencyUomId = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+if (!currencyUomId) currencyUomId = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
 
 // get the shopping lists for the user (if logged in)
 if (userLogin) {

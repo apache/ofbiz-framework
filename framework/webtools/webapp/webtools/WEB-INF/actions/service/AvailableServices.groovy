@@ -477,7 +477,7 @@ if (selectedService) {
 
     if (showWsdl?.equals("true")) {
         try {
-            wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:${EntityUtilProperties.getPropertyValue("url.properties", "port.http", "80", delegator)}${parameters._CONTROL_PATH_}/SOAPService");
+            wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:${EntityUtilProperties.getPropertyValue("url", "port.http", "80", delegator)}${parameters._CONTROL_PATH_}/SOAPService");
             curServiceMap.wsdl = UtilXml.writeXmlDocument(wsdl);
         } catch (WSDLException ex) {
             curServiceMap.wsdl = ex.getLocalizedMessage();
