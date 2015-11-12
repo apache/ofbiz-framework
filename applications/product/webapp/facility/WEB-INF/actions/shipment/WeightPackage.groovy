@@ -190,7 +190,7 @@ if (facility) {
     defaultDimensionUomId = facility.defaultDimensionUomId;
 }
 if (!defaultDimensionUomId) {
-    defaultDimensionUomId = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.default.dimension.uom", "LEN_in", delegator);
+    defaultDimensionUomId = EntityUtilProperties.getPropertyValue("shipment", "shipment.default.dimension.uom", "LEN_in", delegator);
 }
 context.defaultDimensionUomId = defaultDimensionUomId;
 
@@ -199,6 +199,6 @@ if (facility) {
     defaultWeightUomId = facility.defaultWeightUomId;
 }
 if (!defaultWeightUomId) {
-    defaultWeightUomId = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom", "WT_kg", delegator);
+    defaultWeightUomId = EntityUtilProperties.getPropertyValue("shipment", "shipment.default.weight.uom", "WT_kg", delegator);
 }
 context.defaultWeightUomId = defaultWeightUomId;

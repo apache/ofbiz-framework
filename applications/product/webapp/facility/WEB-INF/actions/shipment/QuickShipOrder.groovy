@@ -66,7 +66,7 @@ if (shipmentId) {
         context.shipmentId = shipmentId;
 
         weightUoms = from("Uom").where("uomTypeId", "WEIGHT_MEASURE").orderBy("description").queryList();
-        defaultWeightUom = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom", delegator);
+        defaultWeightUom = EntityUtilProperties.getPropertyValue("shipment", "shipment.default.weight.uom", delegator);
         if (defaultWeightUom) {
             defaultWeight = from("Uom").where("uomId", defaultWeightUom).queryOne();
             if (defaultWeight) {
