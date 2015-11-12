@@ -40,9 +40,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.solr.core.NodeConfig;
 import org.apache.solr.common.SolrException;
 import org.apache.solr.core.CoreContainer;
+import org.apache.solr.core.NodeConfig;
 import org.apache.solr.servlet.SolrDispatchFilter;
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.JSONConverters.MapToJSON;
@@ -181,7 +181,7 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
             // check if the request is from an authorized user
             if (UtilValidate.isNotEmpty(servletPath) && (servletPath.startsWith("/admin/") || servletPath.endsWith("/update") 
                     || servletPath.endsWith("/update/json") || servletPath.endsWith("/update/csv") || servletPath.endsWith("/update/extract")
-            		|| servletPath.endsWith("/replication") || servletPath.endsWith("/file") || servletPath.endsWith("/file/"))) {
+                    || servletPath.endsWith("/replication") || servletPath.endsWith("/file") || servletPath.endsWith("/file/"))) {
                 HttpSession session = httpRequest.getSession();
                 GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
                 Security security = (Security) request.getAttribute("security");
@@ -217,9 +217,9 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                     } catch (ConversionException e) {
                         Debug.logError("Error while converting Solr ofbizLogin map to JSON.", module);
                     } finally {
-                    	if (os != null) {
-                    		os.close();
-                    	}
+                        if (os != null) {
+                            os.close();
+                        }
                     }
                     return;
                 } else if (servletPath.endsWith("/update") || servletPath.endsWith("/update/json") || servletPath.endsWith("/update/csv") || servletPath.endsWith("/update/extract")) {
@@ -252,9 +252,9 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                         } catch (ConversionException e) {
                             Debug.logError("Error while converting responseHeader map to JSON.", module);
                         } finally {
-                        	if (os != null) {
-                        		os.close();
-                        	}
+                            if (os != null) {
+                                os.close();
+                            }
                         }
                         return;
                     }
@@ -287,9 +287,9 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                         } catch (ConversionException e) {
                             Debug.logError("Error while converting responseHeader map to JSON.", module);
                         } finally {
-                        	if (os != null) {
-                        		os.close();
-                        	}
+                            if (os != null) {
+                                os.close();
+                            }
                         }
                         return;
                     }
@@ -322,9 +322,9 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                         } catch (ConversionException e) {
                             Debug.logError("Error while converting responseHeader map to JSON.", module);
                         } finally {
-                        	if (os != null) {
-                        		os.close();
-                        	}
+                            if (os != null) {
+                                os.close();
+                            }
                         }
                         return;
                     }
@@ -450,7 +450,6 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
             // get tenant delegator by domain name
             String serverName = httpRequest.getServerName();
             try {
-                
                 // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
                 Delegator delegator = getDelegator(config.getServletContext());
 

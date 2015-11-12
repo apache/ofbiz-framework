@@ -257,7 +257,6 @@ public class ContextFilter implements Filter {
             // get tenant delegator by domain name
             String serverName = httpRequest.getServerName();
             try {
-            	
                 // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
                 Delegator delegator = getDelegator(config.getServletContext());
 
