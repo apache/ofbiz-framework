@@ -1186,7 +1186,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                             }
                         }
                     }
-                    if ("true".equals(EntityUtilProperties.getPropertyValue("catalog.properties", "convertProductPriceCurrency", delegator))){
+                    if ("true".equals(EntityUtilProperties.getPropertyValue("catalog", "convertProductPriceCurrency", delegator))){
                         priceContext.put("currencyUomIdTo", cart.getCurrency());
                     } else {
                         priceContext.put("currencyUomId", cart.getCurrency());

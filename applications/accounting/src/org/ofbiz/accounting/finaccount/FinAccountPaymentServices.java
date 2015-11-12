@@ -537,7 +537,7 @@ public class FinAccountPaymentServices {
         }
         String currencyUom = (String) context.get("currency");
         if (UtilValidate.isEmpty(currencyUom)) {
-            currencyUom = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+            currencyUom = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         // validate the amount
@@ -630,7 +630,7 @@ public class FinAccountPaymentServices {
         }
         String currencyUom = (String) context.get("currency");
         if (UtilValidate.isEmpty(currencyUom)) {
-            currencyUom = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+            currencyUom = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         GenericValue finAccount;

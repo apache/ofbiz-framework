@@ -229,7 +229,7 @@ public class ZipSalesServices {
         List<List<GenericValue>> itemAdjustments = new LinkedList<List<GenericValue>>();
 
         // check for a valid state/province geo
-        String validStates = EntityUtilProperties.getPropertyValue("zipsales.properties", "zipsales.valid.states", delegator);
+        String validStates = EntityUtilProperties.getPropertyValue("zipsales", "zipsales.valid.states", delegator);
         if (UtilValidate.isNotEmpty(validStates)) {
             List<String> stateSplit = StringUtil.split(validStates, "|");
             if (!stateSplit.contains(stateProvince)) {

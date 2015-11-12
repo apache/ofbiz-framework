@@ -132,7 +132,7 @@ public class ServiceEventHandler implements EventHandler {
         Map<String, Object> multiPartMap = new HashMap<String, Object>();
         if (isMultiPart) {
             // get the http upload configuration
-            String maxSizeStr = EntityUtilProperties.getPropertyValue("general.properties", "http.upload.max.size", "-1", dctx.getDelegator());
+            String maxSizeStr = EntityUtilProperties.getPropertyValue("general", "http.upload.max.size", "-1", dctx.getDelegator());
             long maxUploadSize = -1;
             try {
                 maxUploadSize = Long.parseLong(maxSizeStr);
@@ -142,7 +142,7 @@ public class ServiceEventHandler implements EventHandler {
             }
             // get the http size threshold configuration - files bigger than this will be
             // temporarly stored on disk during upload
-            String sizeThresholdStr = EntityUtilProperties.getPropertyValue("general.properties", "http.upload.max.sizethreshold", "10240", dctx.getDelegator());
+            String sizeThresholdStr = EntityUtilProperties.getPropertyValue("general", "http.upload.max.sizethreshold", "10240", dctx.getDelegator());
             int sizeThreshold = 10240; // 10K
             try {
                 sizeThreshold = Integer.parseInt(sizeThresholdStr);
@@ -151,7 +151,7 @@ public class ServiceEventHandler implements EventHandler {
                 sizeThreshold = -1;
             }
             // directory used to temporarily store files that are larger than the configured size threshold
-            String tmpUploadRepository = EntityUtilProperties.getPropertyValue("general.properties", "http.upload.tmprepository", "runtime/tmp", dctx.getDelegator());
+            String tmpUploadRepository = EntityUtilProperties.getPropertyValue("general", "http.upload.tmprepository", "runtime/tmp", dctx.getDelegator());
             String encoding = request.getCharacterEncoding();
             // check for multipart content types which may have uploaded items
 
@@ -410,7 +410,7 @@ public class ServiceEventHandler implements EventHandler {
                 Debug.logError("=============== " + errMsg + "; In session [" + session.getId() + "]; Note that this can be changed using the service.http.parameters.require.encrypted property in the url.properties file", module);
 
                 // the default here is true, so anything but N/n is true
-                boolean requireEncryptedServiceWebParameters = !EntityUtilProperties.propertyValueEqualsIgnoreCase("url.properties", "service.http.parameters.require.encrypted", "N", delegator);
+                boolean requireEncryptedServiceWebParameters = !EntityUtilProperties.propertyValueEqualsIgnoreCase("url", "service.http.parameters.require.encrypted", "N", delegator);
 
                 // NOTE: this forces service call event parameters to be in the body and not in the URL! can be issues with existing links, like Delete links or whatever, and those need to be changed to forms!
                 if (requireEncryptedServiceWebParameters) {

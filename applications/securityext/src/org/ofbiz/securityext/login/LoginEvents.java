@@ -78,10 +78,10 @@ public class LoginEvents {
             String username = request.getParameter("USERNAME");
             String password = request.getParameter("PASSWORD");
 
-            if ((username != null) && ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security.properties", "username.lowercase", delegator)))) {
+            if ((username != null) && ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator)))) {
                 username = username.toLowerCase();
             }
-            if ((password != null) && ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security.properties", "password.lowercase", delegator)))) {
+            if ((password != null) && ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "password.lowercase", delegator)))) {
                 password = password.toLowerCase();
             }
 
@@ -127,7 +127,7 @@ public class LoginEvents {
         String userLoginId = request.getParameter("USERNAME");
         String errMsg = null;
 
-        if ((userLoginId != null) && ("true".equals(EntityUtilProperties.getPropertyValue("security.properties", "username.lowercase", delegator)))) {
+        if ((userLoginId != null) && ("true".equals(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator)))) {
             userLoginId = userLoginId.toLowerCase();
         }
 
@@ -183,11 +183,11 @@ public class LoginEvents {
 
         String errMsg = null;
 
-        boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security.properties", "password.encrypt", delegator));
+        boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
 
         String userLoginId = request.getParameter("USERNAME");
 
-        if ((userLoginId != null) && ("true".equals(EntityUtilProperties.getPropertyValue("security.properties", "username.lowercase", delegator)))) {
+        if ((userLoginId != null) && ("true".equals(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator)))) {
             userLoginId = userLoginId.toLowerCase();
         }
 
@@ -212,12 +212,12 @@ public class LoginEvents {
             if (useEncryption) {
                 // password encrypted, can't send, generate new password and email to user
                 passwordToSend = RandomStringUtils.randomAlphanumeric(Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "password.length.min", "5", delegator)));
-                if ("true".equals(EntityUtilProperties.getPropertyValue("security.properties", "password.lowercase", delegator))){
+                if ("true".equals(EntityUtilProperties.getPropertyValue("security", "password.lowercase", delegator))){
                     passwordToSend=passwordToSend.toLowerCase();
                 }
                 supposedUserLogin.set("currentPassword", HashCrypt.cryptUTF8(LoginServices.getHashType(), null, passwordToSend));
                 supposedUserLogin.set("passwordHint", "Auto-Generated Password");
-                if ("true".equals(EntityUtilProperties.getPropertyValue("security.properties", "password.email_password.require_password_change", delegator))){
+                if ("true".equals(EntityUtilProperties.getPropertyValue("security", "password.email_password.require_password_change", delegator))){
                     supposedUserLogin.set("requirePasswordChange", "Y");
                 }
             } else {
@@ -302,7 +302,7 @@ public class LoginEvents {
                 serviceContext.put("sendFrom", emailTemplateSetting.get("fromAddress"));
             } else {
                 serviceContext.put("subject", UtilProperties.getMessage(resource, "loginservices.password_reminder_subject", UtilMisc.toMap("userLoginId", userLoginId), UtilHttp.getLocale(request)));
-                serviceContext.put("sendFrom", EntityUtilProperties.getPropertyValue("general.properties", "defaultFromEmailAddress", delegator));
+                serviceContext.put("sendFrom", EntityUtilProperties.getPropertyValue("general", "defaultFromEmailAddress", delegator));
             }            
         }
         serviceContext.put("sendTo", emails.toString());
@@ -386,7 +386,7 @@ public class LoginEvents {
     public static void setUsername(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        String domain = EntityUtilProperties.getPropertyValue("url.properties", "cookie.domain", delegator);
+        String domain = EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator);
         // first try to get the username from the cookie
         synchronized (session) {
             if (UtilValidate.isEmpty(getUsername(request))) {

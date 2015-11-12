@@ -72,7 +72,7 @@ public class GiftCertificateServices {
         }
         String currencyUom = (String) context.get("currency");
         if (UtilValidate.isEmpty(currencyUom)) {
-            currencyUom = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+            currencyUom = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         String cardNumber = null;
@@ -175,7 +175,7 @@ public class GiftCertificateServices {
         }
         String currencyUom = (String) context.get("currency");
         if (UtilValidate.isEmpty(currencyUom)) {
-            currencyUom = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+            currencyUom = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         String finAccountId = null;
@@ -265,7 +265,7 @@ public class GiftCertificateServices {
         }
         String currencyUom = (String) context.get("currency");
         if (UtilValidate.isEmpty(currencyUom)) {
-            currencyUom = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+            currencyUom = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         // validate the amount
@@ -354,7 +354,7 @@ public class GiftCertificateServices {
         }
 
         // TODO: get the real currency from context
-        //String currencyUom = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+        //String currencyUom = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         // get the balance
         BigDecimal balance = finAccount.get("availableBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("availableBalance");
 
@@ -374,7 +374,7 @@ public class GiftCertificateServices {
         String currency = (String) context.get("currency");
         // make sure we have a currency
         if (currency == null) {
-            currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+            currency = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         // get the authorizations
@@ -473,7 +473,7 @@ public class GiftCertificateServices {
 
         // make sure we have a currency
         if (currency == null) {
-            currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+            currency = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         // obtain the order information
@@ -653,7 +653,7 @@ public class GiftCertificateServices {
 
         // make sure we have a currency
         if (currency == null) {
-            currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+            currency = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         Map<String, Object> refundCtx = new HashMap<String, Object>();
@@ -720,7 +720,7 @@ public class GiftCertificateServices {
 
         // make sure we have a currency
         if (currency == null) {
-            currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+            currency = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         // get the product store
@@ -969,7 +969,7 @@ public class GiftCertificateServices {
 
         // make sure we have a currency
         if (currency == null) {
-            currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+            currency = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         // get the product store

@@ -246,19 +246,19 @@ public class ProductsExportToEbay {
                 if (listingFormat.equals("FixedPriceItem")) {
                     Element startPriceElem = UtilXml.addChildElementValue(itemElem, "StartPrice", startPrice, itemDocument);
                     if (UtilValidate.isEmpty(startPriceCurrencyUomId)) {
-                        startPriceCurrencyUomId = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+                        startPriceCurrencyUomId = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
                     }
                     startPriceElem.setAttribute("currencyID", startPriceCurrencyUomId);
                 }else{
                     Element startPriceElem = UtilXml.addChildElementValue(itemElem, "StartPrice", startPrice, itemDocument);
                     if (UtilValidate.isEmpty(startPriceCurrencyUomId)) {
-                        startPriceCurrencyUomId = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+                        startPriceCurrencyUomId = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
                     }
                     startPriceElem.setAttribute("currencyID", startPriceCurrencyUomId);
                     if (UtilValidate.isNotEmpty(buyItNowPrice)) {
                         Element buyNowPriceElem = UtilXml.addChildElementValue(itemElem, "BuyItNowPrice", buyItNowPrice, itemDocument);
                     if (UtilValidate.isEmpty(buyItNowCurrencyUomId)) {
-                        buyItNowCurrencyUomId = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
+                        buyItNowCurrencyUomId = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
                     }
                     buyNowPriceElem.setAttribute("currencyID", buyItNowCurrencyUomId);
                     }

@@ -409,7 +409,7 @@ public class ProductionRun {
             taskTime = task.getDouble("estimatedMilliSeconds").doubleValue();
         }
         totalTaskTime = (setupTime + taskTime * quantity.doubleValue());
-
+        
         if (task.get("estimateCalcMethod") != null) {
             String serviceName = null;
             try {

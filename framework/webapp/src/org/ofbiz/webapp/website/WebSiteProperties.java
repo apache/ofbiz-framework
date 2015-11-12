@@ -152,11 +152,11 @@ public final class WebSiteProperties {
     private final boolean enableHttps;
 
     private WebSiteProperties(Delegator delegator) {
-        this.httpPort = EntityUtilProperties.getPropertyValue("url.properties", "port.http", delegator);
-        this.httpHost = EntityUtilProperties.getPropertyValue("url.properties", "force.http.host", delegator);
-        this.httpsPort = EntityUtilProperties.getPropertyValue("url.properties", "port.https", delegator);
-        this.httpsHost = EntityUtilProperties.getPropertyValue("url.properties", "force.https.host", delegator);
-        this.enableHttps = EntityUtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y", delegator);
+        this.httpPort = EntityUtilProperties.getPropertyValue("url", "port.http", delegator);
+        this.httpHost = EntityUtilProperties.getPropertyValue("url", "force.http.host", delegator);
+        this.httpsPort = EntityUtilProperties.getPropertyValue("url", "port.https", delegator);
+        this.httpsHost = EntityUtilProperties.getPropertyValue("url", "force.https.host", delegator);
+        this.enableHttps = EntityUtilProperties.propertyValueEqualsIgnoreCase("url", "port.https.enabled", "Y", delegator);
     }
 
     private WebSiteProperties(String httpPort, String httpHost, String httpsPort, String httpsHost, boolean enableHttps) {

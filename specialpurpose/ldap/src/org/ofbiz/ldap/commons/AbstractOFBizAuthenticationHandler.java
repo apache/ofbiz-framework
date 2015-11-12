@@ -98,7 +98,7 @@ public abstract class AbstractOFBizAuthenticationHandler implements InterfaceOFB
         String visitId = VisitHandler.getVisitId(session);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = dispatcher.getDelegator();
-        boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security.properties", "password.encrypt", delegator));
+        boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
         GenericValue userLoginToCreate = delegator.makeValue("UserLogin", UtilMisc.toMap("userLoginId", username));
         userLoginToCreate.set("passwordHint", "");
         userLoginToCreate.set("enabled", "Y");

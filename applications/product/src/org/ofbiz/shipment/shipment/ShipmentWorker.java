@@ -163,7 +163,7 @@ public class ShipmentWorker {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         BigDecimal totalWeight = BigDecimal.ZERO;
-        String defaultWeightUomId = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom", delegator);
+        String defaultWeightUomId = EntityUtilProperties.getPropertyValue("shipment", "shipment.default.weight.uom", delegator);
 
         for (Map.Entry<String, BigDecimal> entry: packageMap.entrySet()) {
             String productId = entry.getKey();

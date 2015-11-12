@@ -230,7 +230,7 @@ public class ShoppingCartHelper {
 
         // get order item attributes
         Map<String, String> orderItemAttributes = new HashMap<String, String>();
-        String orderItemAttributePrefix = EntityUtilProperties.getPropertyValue("order.properties", "order.item.attr.prefix", delegator);
+        String orderItemAttributePrefix = EntityUtilProperties.getPropertyValue("order", "order.item.attr.prefix", delegator);
         for (Entry<String, ? extends Object> entry : context.entrySet()) {
             if (entry.getKey().toString().contains(orderItemAttributePrefix) && UtilValidate.isNotEmpty(entry.getValue())) {
                 orderItemAttributes.put(entry.getKey().replaceAll(orderItemAttributePrefix, ""), entry.getValue().toString());

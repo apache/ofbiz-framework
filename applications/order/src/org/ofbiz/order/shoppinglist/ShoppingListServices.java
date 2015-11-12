@@ -588,7 +588,7 @@ public class ShoppingListServices {
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(), module);
         }
-        String maxDaysStr = EntityUtilProperties.getPropertyValue("order.properties", "autosave.max.age", "30", delegator);
+        String maxDaysStr = EntityUtilProperties.getPropertyValue("order", "autosave.max.age", "30", delegator);
         int maxDays = 0;
         try {
             maxDays = Integer.parseInt(maxDaysStr);

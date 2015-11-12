@@ -334,7 +334,7 @@ public class OrderReturnServices {
         for (GenericValue returnHeader : returnHeaders) {
             String returnId = returnHeader.getString("returnId");
             Timestamp entryDate = returnHeader.getTimestamp("entryDate");
-            String daysTillCancelStr = EntityUtilProperties.getPropertyValue("order.properties", "daysTillCancelReplacementOrder", "30", delegator);
+            String daysTillCancelStr = EntityUtilProperties.getPropertyValue("order", "daysTillCancelReplacementOrder", "30", delegator);
             int daysTillCancel = 0;
             try {
                 daysTillCancel = Integer.parseInt(daysTillCancelStr);
