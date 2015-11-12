@@ -1069,8 +1069,7 @@ under the License.
         <input addproperty="continueYN" message="Continue Y or N" validargs="N,n,Y,y"/>
 
     </target>
-    <target name="load-tenant-admin-user-login"
-        description="Create the admin login for the tenant with admin privileges, and a temporay password equal to 'ofbiz'. Password must be changed on first login">
+    <target name="load-tenant-admin-user-login">
         <echo>------------------------------------</echo>
         <echo message="Installing the admin for the tenant"/>
         <echo message="Delegator = ${delegatorId}"/>
