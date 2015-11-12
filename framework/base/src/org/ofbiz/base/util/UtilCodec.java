@@ -259,34 +259,6 @@ public class UtilCodec {
             errorMessageList.add("In field [" + valueName + "] less-than (<) and greater-than (>) symbols are not allowed.");
         }
 
-        /* NOTE DEJ 20090311: After playing with this more this doesn't seem to be necessary; the canonicalize will convert all such characters into actual text before this check is done, including other illegal chars like &lt; which will canonicalize to < and then get caught
-        // check for & followed a semicolon within 7 characters, no spaces in-between (and perhaps other things sometime?)
-        int curAmpIndex = value.indexOf("&");
-        while (curAmpIndex > -1) {
-            int semicolonIndex = value.indexOf(";", curAmpIndex + 1);
-            int spaceIndex = value.indexOf(" ", curAmpIndex + 1);
-            if (semicolonIndex > -1 && (semicolonIndex - curAmpIndex <= 7) && (spaceIndex < 0 || (spaceIndex > curAmpIndex && spaceIndex < semicolonIndex))) {
-                errorMessageList.add("In field [" + valueName + "] the ampersand (&) symbol is only allowed if not used as an encoded character: no semicolon (;) within 7 spaces or there is a space between.");
-                // once we find one like this we have the message so no need to check for more
-                break;
-            }
-            curAmpIndex = value.indexOf("&", curAmpIndex + 1);
-        }
-         */
-
-        /* NOTE DEJ 20090311: After playing with this more this doesn't seem to be necessary; the canonicalize will convert all such characters into actual text before this check is done, including other illegal chars like %3C which will canonicalize to < and then get caught
-        // check for % followed by 2 hex characters
-        int curPercIndex = value.indexOf("%");
-        while (curPercIndex >= 0) {
-            if (value.length() > (curPercIndex + 3) && UtilValidate.isHexDigit(value.charAt(curPercIndex + 1)) && UtilValidate.isHexDigit(value.charAt(curPercIndex + 2))) {
-                errorMessageList.add("In field [" + valueName + "] the percent (%) symbol is only allowed if followed by a space.");
-                // once we find one like this we have the message so no need to check for more
-                break;
-            }
-            curPercIndex = value.indexOf("%", curPercIndex + 1);
-        }
-         */
-
         // TODO: anything else to check for that can be used to get HTML or JavaScript going without these characters?
 
         return value;
