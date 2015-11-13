@@ -416,7 +416,7 @@ public class LoginServices {
         }
 
         if (errMsg.length() > 0) {
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
         }
         return result;
