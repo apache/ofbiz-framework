@@ -246,12 +246,3 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
 </xs:schema>
-<!--
-    <entity-eca>
-        <eca entity="Product" operation="create" event="return">
-          <condition field-name="foo" operator="equals" rhs="1"/>
-          <action service="testScv" mode="sync"/>
-          <action service="testScv2" mode="sync"/>
-        </eca>
-    </entity-eca>
--->
