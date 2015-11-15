@@ -286,9 +286,23 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ProjectMgrProjectSummary}" navigation-form-name="ListCurrentProjects">
-                            <include-form name="ListCurrentProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="PROJECTMGR" action="_ADMIN"/>
+                                    <if-has-permission permission="PROJECTMGR" action="_ROLE_ADMIN"/>
+                                    <if-has-permission permission="PROJECTMGR" action="_ROLE_VIEW"/>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ProjectMgrProjectSummary}" navigation-form-name="ListCurrentProjects">
+                                    <include-form name="ListCurrentProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ProjectMgrAdminViewPermissionError}. ${uiLabelMap.CommonAsk}</label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -962,6 +962,10 @@
         <value xml:lang="zh-CN">区域代码</value>
         <value xml:lang="zh-TW">地區代碼</value>
     </property>
+    <property key="CommonAsk">
+        <value xml:lang="en">Ask if you don't understand this message</value>
+        <value xml:lang="fr">Demandez si vous ne comprenez pas ce message</value>
+    </property>
     <property key="CommonAssociate">
         <value xml:lang="ar">شريك</value>
         <value xml:lang="cs">Připojit</value>
