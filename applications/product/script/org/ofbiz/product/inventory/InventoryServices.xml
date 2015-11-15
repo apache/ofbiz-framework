@@ -755,14 +755,19 @@ under the License.
         <entity-one entity-name="Product" value-field="product"/>
         <set field="isMarketingPkgAuto" value="${groovy: org.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG_AUTO')}" type="Boolean"/>
         <if-compare field="isMarketingPkgAuto" operator="equals" value="true" type="Boolean">
-            <set value="MANUF_COMPONENT" field="lookupMktgPkgParams.type"/>
+            <set field="productIdMap.productId" from-field="product.productId"/>
+            <call-service service-name="getProductInventoryAvailable" in-map-name="productIdMap">
+                    <result-to-field result-name="availableToPromiseTotal"/>
+                    <result-to-field result-name="quantityOnHandTotal"/>
+            </call-service>
         <else>
             <set value="PRODUCT_COMPONENT" field="lookupMktgPkgParams.type"/>
+            <call-service service-name="getAssociatedProducts" in-map-name="lookupMktgPkgParams">
+                <result-to-field result-name="assocProducts"/>
+            </call-service>
         </else>
         </if-compare>
-        <call-service service-name="getAssociatedProducts" in-map-name="lookupMktgPkgParams">
-            <result-to-field result-name="assocProducts"/>
-        </call-service>
+
         <!-- if there are any components, then the ATP and QOH are based on the quantities of those component
             products and found with another service -->
         <if-not-empty field="assocProducts">
@@ -774,6 +779,7 @@ under the License.
                 <result-to-field result-name="availableToPromiseTotal"/>
             </call-service>
         </if-not-empty>
+
         <field-to-result field="availableToPromiseTotal"/>
         <field-to-result field="quantityOnHandTotal"/>
     </simple-method>
