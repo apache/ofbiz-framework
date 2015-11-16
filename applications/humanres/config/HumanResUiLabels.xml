@@ -3045,6 +3045,7 @@
     </property>
     <property key="PageTitleAddPublicHoliday">
         <value xml:lang="en">Add Public Holiday</value>
+        <value xml:lang="fr">Ajouter un jour de vacances</value>
         <value xml:lang="ja">祝日を追加</value>
         <value xml:lang="vi">Thêm Kỳ nghỉ công cộng</value>
         <value xml:lang="zh">添加公众假日</value>
@@ -3338,6 +3339,7 @@
     </property>
     <property key="PageTitlePublicHoliday">
         <value xml:lang="en">Public Holiday</value>
+        <value xml:lang="fr">Jour de vacances</value>
         <value xml:lang="ja">祝日</value>
         <value xml:lang="vi">Kỳ nghỉ công cộng</value>
         <value xml:lang="zh">公众假日</value>
@@ -3345,6 +3347,7 @@
     </property>
     <property key="PageTitlePublicHolidayList">
         <value xml:lang="en">Public Holiday List</value>
+        <value xml:lang="fr">Liste de jours de vacances</value>
         <value xml:lang="ja">祝日一覧</value>
         <value xml:lang="vi">Danh sách kỳ nghỉ công cộng</value>
         <value xml:lang="zh">公众假日列表</value>
