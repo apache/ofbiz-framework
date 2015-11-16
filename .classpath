@@ -39,7 +39,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/log4j-api-2.3.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/mail-1.5.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/nekohtml-1.9.16.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/owasp-java-html-sanitizer-r239.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/owasp-java-html-sanitizer-r239.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/resolver-2.9.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/serializer-2.9.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/shiro-core-1.2.3.jar"/>
@@ -59,7 +59,6 @@
 	<classpathentry kind="lib" path="framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-beanutils-core-1.8.3.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-codec-1.10.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-compress-1.9.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-csv-1.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-el-1.0.jar"/>
@@ -198,5 +197,6 @@
 	<classpathentry kind="lib" path="framework/base/lib/httpclient-4.4.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/httpclient-cache-4.4.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/httpcore-4.4.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-collections-3.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
