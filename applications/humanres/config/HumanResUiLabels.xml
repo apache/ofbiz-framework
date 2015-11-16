@@ -3339,7 +3339,7 @@
     </property>
     <property key="PageTitlePublicHoliday">
         <value xml:lang="en">Public Holiday</value>
-        <value xml:lang="fr">Jour de vacances</value>
+        <value xml:lang="fr">Jours de vacances</value>
         <value xml:lang="ja">祝日</value>
         <value xml:lang="vi">Kỳ nghỉ công cộng</value>
         <value xml:lang="zh">公众假日</value>
