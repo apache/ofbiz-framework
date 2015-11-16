@@ -62,7 +62,7 @@ public class MultiTrustManager implements X509TrustManager {
         if (isTrusted(certs)) {
             return;
         }
-        if (!"true".equals(UtilProperties.getPropertyValue("certificate.properties", "client.all-trusted", "true"))) {
+        if (!"true".equals(UtilProperties.getPropertyValue("certificate", "client.all-trusted", "true"))) {
             throw new CertificateException("No trusted certificate found");
         }
     }
@@ -71,7 +71,7 @@ public class MultiTrustManager implements X509TrustManager {
         if (isTrusted(certs)) {
             return;
         }
-        if (!"true".equals(UtilProperties.getPropertyValue("certificate.properties", "server.all-trusted", "true"))) {
+        if (!"true".equals(UtilProperties.getPropertyValue("certificate", "server.all-trusted", "true"))) {
             throw new CertificateException("No trusted certificate found");
         }
     }

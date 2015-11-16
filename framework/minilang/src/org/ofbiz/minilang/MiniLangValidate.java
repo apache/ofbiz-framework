@@ -192,7 +192,7 @@ public final class MiniLangValidate {
      * @return <code>true</code> if <code>validation.level=lenient</code>
      */
     public static boolean lenientOn() {
-        return "lenient".equals(UtilProperties.getPropertyValue("minilang.properties", "validation.level"));
+        return "lenient".equals(UtilProperties.getPropertyValue("minilang", "validation.level"));
     }
 
     /**
@@ -345,7 +345,7 @@ public final class MiniLangValidate {
      * @return <code>true</code> if <code>validation.level=strict</code>
      */
     public static boolean strictOn() {
-        return "strict".equals(UtilProperties.getPropertyValue("minilang.properties", "validation.level"));
+        return "strict".equals(UtilProperties.getPropertyValue("minilang", "validation.level"));
     }
 
     /**
@@ -354,7 +354,7 @@ public final class MiniLangValidate {
      * @return <code>true</code> if <code>validation.level</code> is set to lenient or strict
      */
     public static boolean validationOn() {
-        return !"none".equals(UtilProperties.getPropertyValue("minilang.properties", "validation.level"));
+        return !"none".equals(UtilProperties.getPropertyValue("minilang", "validation.level"));
     }
 
     private MiniLangValidate() {}

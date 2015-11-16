@@ -1305,7 +1305,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append("<@renderFieldTitle ");
             sr.append(" style=\"");
             sr.append(style);
-            String displayHelpText = UtilProperties.getPropertyValue("widget.properties", "widget.form.displayhelpText");
+            String displayHelpText = UtilProperties.getPropertyValue("widget", "widget.form.displayhelpText");
             if ("Y".equals(displayHelpText)) {
                 Delegator delegator = WidgetWorker.getDelegator(context);
                 Locale locale = (Locale) context.get("locale");
@@ -3088,12 +3088,12 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 String uniqueItemName = "Modal_".concat(UUID.randomUUID().toString());
                 String width = (String) this.request.getAttribute("width");
                 if (UtilValidate.isEmpty(width)) {
-                    width = String.valueOf(UtilProperties.getPropertyValue("widget.properties", "widget.link.default.layered-modal.width", "800"));
+                    width = String.valueOf(UtilProperties.getPropertyValue("widget", "widget.link.default.layered-modal.width", "800"));
                     this.request.setAttribute("width", width);
                 }
                 String height = (String) this.request.getAttribute("height");
                 if (UtilValidate.isEmpty(height)) {
-                    height = String.valueOf(UtilProperties.getPropertyValue("widget.properties", "widget.link.default.layered-modal.height", "600"));
+                    height = String.valueOf(UtilProperties.getPropertyValue("widget", "widget.link.default.layered-modal.height", "600"));
                     this.request.setAttribute("height", height);
                 }
                 this.request.setAttribute("uniqueItemName", uniqueItemName);

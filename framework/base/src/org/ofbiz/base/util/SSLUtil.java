@@ -255,10 +255,10 @@ public class SSLUtil {
 
     public static synchronized void loadJsseProperties(boolean debug) {
         if (!loadedProps) {
-            String protocol = UtilProperties.getPropertyValue("jsse.properties", "java.protocol.handler.pkgs", "NONE");
-            String proxyHost = UtilProperties.getPropertyValue("jsse.properties", "https.proxyHost", "NONE");
-            String proxyPort = UtilProperties.getPropertyValue("jsse.properties", "https.proxyPort", "NONE");
-            String cypher = UtilProperties.getPropertyValue("jsse.properties", "https.cipherSuites", "NONE");
+            String protocol = UtilProperties.getPropertyValue("jsse", "java.protocol.handler.pkgs", "NONE");
+            String proxyHost = UtilProperties.getPropertyValue("jsse", "https.proxyHost", "NONE");
+            String proxyPort = UtilProperties.getPropertyValue("jsse", "https.proxyPort", "NONE");
+            String cypher = UtilProperties.getPropertyValue("jsse", "https.cipherSuites", "NONE");
             if (protocol != null && !protocol.equals("NONE")) {
                 System.setProperty("java.protocol.handler.pkgs", protocol);
             }

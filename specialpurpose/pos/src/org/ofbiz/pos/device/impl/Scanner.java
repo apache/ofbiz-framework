@@ -34,7 +34,7 @@ public class Scanner extends GenericDevice {
 
     protected String deviceName = null;
     protected int timeout = -1;
-    private static final boolean MULTI_BARCODES_ALLOWED = UtilProperties.propertyValueEqualsIgnoreCase("jpos.properties", "MultiBarCodesAllowed", "Y");
+    private static final boolean MULTI_BARCODES_ALLOWED = UtilProperties.propertyValueEqualsIgnoreCase("jpos", "MultiBarCodesAllowed", "Y");
 
     public Scanner(String deviceName, int timeout) {
         super(deviceName, timeout);

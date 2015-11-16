@@ -63,21 +63,21 @@ public class TruitionCoReg {
         String domainName = EntityUtilProperties.getPropertyValue("truition", "truition.domain.name", delegator);
         String cookiePath = EntityUtilProperties.getPropertyValue("truition", "truition.cookie.path", delegator);
         String cookieName = EntityUtilProperties.getPropertyValue("truition", "truition.cookie.name", delegator);
-        int time = (int) UtilProperties.getPropertyNumber("truition.properties", "truition.cookie.time");
+        int time = (int) UtilProperties.getPropertyNumber("truition", "truition.cookie.time");
         if (UtilValidate.isEmpty(domainName)) {
             Debug.logError("Truition is not properly configured; domainName missing; see truition.properties", module);
             return "error";
         }
         if (UtilValidate.isEmpty(cookiePath)) {
-            Debug.logError("Truition is not properly configured; cookiePath missing; see truition.properties", module);
+            Debug.logError("Truition is not properly configured; cookiePath missing;see truition.properties", module);
             return "error";
         }
         if (UtilValidate.isEmpty(cookieName)) {
-            Debug.logError("Truition is not properly configured; cookieName missing; see truition.properties", module);
+            Debug.logError("Truition is not properly configured; cookieName missing;see truition.properties", module);
             return "error";
         }
         if (time == 0) {
-            Debug.logError("Truition is not properly configured; cookieTime missing; see trution.properties", module);
+            Debug.logError("Truition is not properly configured; cookieTime missing; see trution", module);
             return "error";
         }
 
@@ -113,7 +113,7 @@ public class TruitionCoReg {
             return "error";
         }
         if (UtilValidate.isEmpty(cookieName)) {
-            Debug.logError("Truition is not properly configured; cookieName missing; see truition.properties", module);
+            Debug.logError("Truition is not properly configured; cookieName missing;see truition.properties", module);
             return "error";
         }
 
@@ -321,6 +321,6 @@ public class TruitionCoReg {
     }
 
     public static boolean truitionEnabled() {
-        return "Y".equalsIgnoreCase(UtilProperties.getPropertyValue("truition.properties", "truition.enabled", "N"));
+        return "Y".equalsIgnoreCase(UtilProperties.getPropertyValue("truition", "truition.enabled", "N"));
     }
 }

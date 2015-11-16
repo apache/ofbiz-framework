@@ -359,7 +359,7 @@ public final class EntityConfig {
             throw new GenericEntityConfException("No jdbc-password or jdbc-password-lookup specified for inline-jdbc element, line: " + inlineJdbcElement.getLineNumber());
         }
         String key = "jdbc-password.".concat(jdbcPasswordLookup);
-        jdbcPassword = UtilProperties.getPropertyValue("passwords.properties", key);
+        jdbcPassword = UtilProperties.getPropertyValue("passwords", key);
         if (jdbcPassword.isEmpty()) {
             throw new GenericEntityConfException("'" + key + "' property not found in passwords.properties file for inline-jdbc element, line: " + inlineJdbcElement.getLineNumber());
         }

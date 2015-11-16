@@ -1940,7 +1940,7 @@ public class PosTransaction implements Serializable {
                             try {
                                 
                                 passwordAcceptEncryptedAndPlain = EntityUtilProperties.getPropertyValue("security", "password.accept.encrypted.and.plain", delegator);
-                                UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", "true");
+                                UtilProperties.setPropertyValueInMemory("security", "password.accept.encrypted.and.plain", "true");
                                 svcRes = dispatcher.runSync("updatePassword",
                                         UtilMisc.toMap("userLogin", userLogin,
                                         "userLoginId", userLogin.getString("userLoginId"),
@@ -1950,11 +1950,11 @@ public class PosTransaction implements Serializable {
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, "Error calling updatePassword service", module);
                                 pos.showDialog("dialog/error/exception", e.getMessage());
-                                UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", passwordAcceptEncryptedAndPlain);
+                                UtilProperties.setPropertyValueInMemory("security", "password.accept.encrypted.and.plain", passwordAcceptEncryptedAndPlain);
                                 return null;
                             } finally {
                                 // Put back passwordAcceptEncryptedAndPlain value in memory
-                                UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", passwordAcceptEncryptedAndPlain);
+                                UtilProperties.setPropertyValueInMemory("security", "password.accept.encrypted.and.plain", passwordAcceptEncryptedAndPlain);
                             }
                             if (ServiceUtil.isError(svcRes)) {
                                 pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));

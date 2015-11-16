@@ -60,7 +60,7 @@ public abstract class SolrUtil {
             solrPort = solrWebappPortOverride;
         }
         else {
-            solrPort = UtilProperties.getPropertyValue("url.properties", ("https".equals(solrWebappProtocol) ? "port.https" : "port.http"));
+            solrPort = UtilProperties.getPropertyValue("url", ("https".equals(solrWebappProtocol) ? "port.https" : "port.http"));
         }
         
         return solrWebappProtocol + "://" + solrWebappDomainName + ":" + solrPort + solrWebappPath;

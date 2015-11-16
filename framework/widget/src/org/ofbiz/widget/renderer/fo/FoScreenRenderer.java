@@ -43,7 +43,7 @@ public class FoScreenRenderer extends HtmlWidgetRenderer implements ScreenString
 
     // This is a util method to get the style from a property file
     public static String getFoStyle(String styleName) {
-        String value = UtilProperties.getPropertyValue("fo-styles.properties", styleName);
+        String value = UtilProperties.getPropertyValue("fo-styles", styleName);
         if (value.equals(styleName)) {
             return "";
         }

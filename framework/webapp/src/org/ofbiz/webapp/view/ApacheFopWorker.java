@@ -63,33 +63,33 @@ public class ApacheFopWorker {
     
     public static final int encryptionLengthBitsDefault = 128;
     
-    public static final String encryptionLengthDefault = UtilProperties.getPropertyValue("fop.properties", "fop.encryption-length.default", String.valueOf(encryptionLengthBitsDefault));
+    public static final String encryptionLengthDefault = UtilProperties.getPropertyValue("fop", "fop.encryption-length.default", String.valueOf(encryptionLengthBitsDefault));
 
-    public static final String userPasswordDefault = UtilProperties.getPropertyValue("fop.properties", "fop.userPassword.default");
+    public static final String userPasswordDefault = UtilProperties.getPropertyValue("fop", "fop.userPassword.default");
 
-    public static final String ownerPasswordDefault = UtilProperties.getPropertyValue("fop.properties", "fop.ownerPassword.default");
+    public static final String ownerPasswordDefault = UtilProperties.getPropertyValue("fop", "fop.ownerPassword.default");
 
-    public static final String allowPrintDefault = UtilProperties.getPropertyValue("fop.properties", "fop.allowPrint.default", "true");
+    public static final String allowPrintDefault = UtilProperties.getPropertyValue("fop", "fop.allowPrint.default", "true");
 
-    public static final String allowCopyContentDefault = UtilProperties.getPropertyValue("fop.properties", "fop.allowCopyContent.default", "true");
+    public static final String allowCopyContentDefault = UtilProperties.getPropertyValue("fop", "fop.allowCopyContent.default", "true");
 
-    public static final String allowEditContentDefault = UtilProperties.getPropertyValue("fop.properties", "fop.allowEditContent.default", "true");
+    public static final String allowEditContentDefault = UtilProperties.getPropertyValue("fop", "fop.allowEditContent.default", "true");
 
-    public static final String allowEditAnnotationsDefault = UtilProperties.getPropertyValue("fop.properties", "fop.allowEditAnnotations.default", "true");
+    public static final String allowEditAnnotationsDefault = UtilProperties.getPropertyValue("fop", "fop.allowEditAnnotations.default", "true");
 
-    public static final String allowFillInFormsDefault = UtilProperties.getPropertyValue("fop.properties", "fop.allowFillInForms.default", "true");
+    public static final String allowFillInFormsDefault = UtilProperties.getPropertyValue("fop", "fop.allowFillInForms.default", "true");
 
-    public static final String allowAccessContentDefault = UtilProperties.getPropertyValue("fop.properties", "fop.allowAccessContent.default", "true");
+    public static final String allowAccessContentDefault = UtilProperties.getPropertyValue("fop", "fop.allowAccessContent.default", "true");
 
-    public static final String allowAssembleDocumentDefault = UtilProperties.getPropertyValue("fop.properties", "fop.allowAssembleDocument.default", "true");
+    public static final String allowAssembleDocumentDefault = UtilProperties.getPropertyValue("fop", "fop.allowAssembleDocument.default", "true");
 
-    public static final String allowPrintHqDefault = UtilProperties.getPropertyValue("fop.properties", "fop.allowPrintHq.default", "true");
+    public static final String allowPrintHqDefault = UtilProperties.getPropertyValue("fop", "fop.allowPrintHq.default", "true");
 
-    public static final String encryptMetadataDefault = UtilProperties.getPropertyValue("fop.properties", "fop.encrypt-metadata.default", "true");
+    public static final String encryptMetadataDefault = UtilProperties.getPropertyValue("fop", "fop.encrypt-metadata.default", "true");
     
-    public static final String fopPath = UtilProperties.getPropertyValue("fop.properties", "fop.path", "/framework/webapp/config");
+    public static final String fopPath = UtilProperties.getPropertyValue("fop", "fop.path", "/framework/webapp/config");
     
-    public static final String fopFontBaseProperty = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url", "/framework/webapp/config/");
+    public static final String fopFontBaseProperty = UtilProperties.getPropertyValue("fop", "fop.font.base.url", "/framework/webapp/config/");
 
 
     /** Returns an instance of the FopFactory class. FOP documentation recommends

@@ -50,7 +50,7 @@ public class GroovyUtil {
     private static final GroovyClassLoader groovyScriptClassLoader;
     static {
         GroovyClassLoader groovyClassLoader = null;
-        String scriptBaseClass = UtilProperties.getPropertyValue("groovy.properties", "scriptBaseClass");
+        String scriptBaseClass = UtilProperties.getPropertyValue("groovy", "scriptBaseClass");
         if (!scriptBaseClass.isEmpty()) {
             CompilerConfiguration conf = new CompilerConfiguration();
             conf.setScriptBaseClass(scriptBaseClass);

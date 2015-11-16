@@ -204,7 +204,7 @@ public abstract class ModelForm extends ModelWidget {
             if (parentModel != null) {
                 defaultViewSizeInt = parentModel.defaultViewSize;
             } else {
-                defaultViewSizeInt = UtilProperties.getPropertyAsInteger("widget.properties", "widget.form.defaultViewSize",
+                defaultViewSizeInt = UtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize",
                         defaultViewSizeInt);
             }
         } else {

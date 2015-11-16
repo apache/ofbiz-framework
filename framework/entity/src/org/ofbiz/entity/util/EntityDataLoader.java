@@ -210,7 +210,7 @@ public class EntityDataLoader {
         for (ReadData readerInfo :  datasourceInfo.getReadDataList()) {
             String readerName = readerInfo.getReaderName();
             // ignore the "tenant" reader if the multitenant property is "N"
-            if ("tenant".equals(readerName) && "N".equals(UtilProperties.getPropertyValue("general.properties", "multitenant"))) {
+            if ("tenant".equals(readerName) && "N".equals(UtilProperties.getPropertyValue("general", "multitenant"))) {
                 continue;
             }
             

@@ -53,7 +53,7 @@ public final class FlexibleLocation {
              * because this class may be initialized before all components
              * are loaded.
              */
-            Properties properties = UtilProperties.createProperties("locationresolvers.properties");
+            Properties properties = UtilProperties.createProperties("locationresolvers");
             if (properties != null) {
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
                 for (Entry<Object, Object> entry : properties.entrySet()) {

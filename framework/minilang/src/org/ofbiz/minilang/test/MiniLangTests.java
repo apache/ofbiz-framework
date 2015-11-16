@@ -39,7 +39,7 @@ public class MiniLangTests extends OFBizTestCase {
 
     public MiniLangTests(String name) {
         super(name);
-        traceEnabled = "true".equals(UtilProperties.getPropertyValue("minilang.properties", "unit.tests.trace.enabled"));
+        traceEnabled = "true".equals(UtilProperties.getPropertyValue("minilang", "unit.tests.trace.enabled"));
     }
 
     private Map<String, Object> createContext() {

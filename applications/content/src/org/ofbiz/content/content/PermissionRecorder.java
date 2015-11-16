@@ -57,7 +57,7 @@ public class PermissionRecorder {
     public static final String [] fieldTitles = { "Purpose", "Operation", "Role", "Status", "Privilege"};
 
     public PermissionRecorder() {
-        isOn = UtilProperties.propertyValueEqualsIgnoreCase("content.properties", "permissionRecorderOn", "true");
+        isOn = UtilProperties.propertyValueEqualsIgnoreCase("content", "permissionRecorderOn", "true");
     }
 
     public void setCheckMode(int val) {

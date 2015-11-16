@@ -62,15 +62,15 @@ public class QRCodeServices {
 
     public static final String module = QRCodeServices.class.getName();
 
-    public static final String QRCODE_DEFAULT_WIDTH = UtilProperties.getPropertyValue("qrcode.properties", "qrcode.default.width", "200");
+    public static final String QRCODE_DEFAULT_WIDTH = UtilProperties.getPropertyValue("qrcode", "qrcode.default.width", "200");
 
-    public static final String QRCODE_DEFAULT_HEIGHT = UtilProperties.getPropertyValue("qrcode.properties", "qrcode.default.height", "200");
+    public static final String QRCODE_DEFAULT_HEIGHT = UtilProperties.getPropertyValue("qrcode", "qrcode.default.height", "200");
 
-    public static final String QRCODE_DEFAULT_FORMAT = UtilProperties.getPropertyValue("qrcode.properties", "qrcode.default.format", "jpg");
+    public static final String QRCODE_DEFAULT_FORMAT = UtilProperties.getPropertyValue("qrcode", "qrcode.default.format", "jpg");
 
-    public static final String QRCODE_FORMAT_SUPPORTED = UtilProperties.getPropertyValue("qrcode.properties", "qrcode.format.supported", "jpg|png|bmp");
+    public static final String QRCODE_FORMAT_SUPPORTED = UtilProperties.getPropertyValue("qrcode", "qrcode.format.supported", "jpg|png|bmp");
     
-    public static final String QRCODE_DEFAULT_LOGOIMAGE = UtilProperties.getPropertyValue("qrcode.properties", "qrcode.default.logoimage");
+    public static final String QRCODE_DEFAULT_LOGOIMAGE = UtilProperties.getPropertyValue("qrcode", "qrcode.default.logoimage");
     
     public static BufferedImage defaultLogoImage;
     
