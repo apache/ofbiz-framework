@@ -1010,7 +1010,7 @@ public class UtilXml {
         public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
             //Debug.logInfo("resolving XML entity with publicId [" + publicId + "], systemId [" + systemId + "]", module);
             hasDTD = false;
-            String dtd = UtilProperties.getSplitPropertyValue(UtilURL.fromResource("localdtds"), publicId);
+            String dtd = UtilProperties.getSplitPropertyValue(UtilURL.fromResource("localdtds.properties"), publicId);
             if (UtilValidate.isNotEmpty(dtd)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] resolving DTD with publicId [" + publicId +
                         "], systemId [" + systemId + "] and the dtd file is [" + dtd + "]", module);
