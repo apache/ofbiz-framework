@@ -94,10 +94,10 @@ public class WebDavUtil {
                 return null;
             }
         }
-        if ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "username.lowercase"))) {
+        if ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security", "username.lowercase"))) {
             username = username.toLowerCase();
         }
-        if ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "password.lowercase"))) {
+        if ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security", "password.lowercase"))) {
             password = password.toLowerCase();
         }
         Map<String, Object> result = new HashMap<String, Object>();

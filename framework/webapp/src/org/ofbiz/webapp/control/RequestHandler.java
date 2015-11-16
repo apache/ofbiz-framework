@@ -70,7 +70,7 @@ import org.ofbiz.webapp.website.WebSiteWorker;
 public class RequestHandler {
 
     public static final String module = RequestHandler.class.getName();
-    private final String defaultStatusCodeString = UtilProperties.getPropertyValue("requestHandler.properties", "status-code", "302");
+    private final String defaultStatusCodeString = UtilProperties.getPropertyValue("requestHandler", "status-code", "302");
     private final ViewFactory viewFactory;
     private final EventFactory eventFactory;
     private final URL controllerConfigURL;

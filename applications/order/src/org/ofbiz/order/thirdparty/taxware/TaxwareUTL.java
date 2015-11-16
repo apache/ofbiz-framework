@@ -198,20 +198,20 @@ public class TaxwareUTL {
 
     private void addStaticData(Record record) {
         // grab a taxware properties file and get static data
-        record.set("COMPANY_ID", UtilProperties.getPropertyValue("taxware.properties", "COMPANY_ID", " "));
-        record.set("AUDIT_FILE_INDICATOR", UtilProperties.getPropertyValue("taxware.properties", "AUDIT_FILE_INDICATOR", "2"));
-        record.set("SF_COUNTRY_CODE", UtilProperties.getPropertyValue("taxware.properties", "SF_COUNTRY_CODE", ""));
-        record.set("SF_STATE_PROVINCE", UtilProperties.getPropertyValue("taxware.properties", "SF_STATE_PROVINCE", " "));
-        record.set("SF_CITY", UtilProperties.getPropertyValue("taxware.properties", "SF_CITY", " "));
-        record.set("SF_POSTAL_CODE", UtilProperties.getPropertyValue("taxware.properties", "SF_POSTAL_CODE", " "));
-        record.set("POO_COUNTRY_CODE", UtilProperties.getPropertyValue("taxware.properties", "POO_COUNTRY_CODE", ""));
-        record.set("POO_STATE_PROVINCE", UtilProperties.getPropertyValue("taxware.properties", "POO_STATE_PROVINCE", " "));
-        record.set("POO_CITY", UtilProperties.getPropertyValue("taxware.properties", "POO_CITY", " "));
-        record.set("POO_POSTAL_CODE", UtilProperties.getPropertyValue("taxware.properties", "POO_POSTAL_CODE", " "));
-        record.set("POA_COUNTRY_CODE", UtilProperties.getPropertyValue("taxware.properties", "POA_COUNTRY_CODE", ""));
-        record.set("POA_STATE_PROVINCE", UtilProperties.getPropertyValue("taxware.properties", "POA_STATE_PROVINCE", " "));
-        record.set("POA_CITY", UtilProperties.getPropertyValue("taxware.properties", "POA_CITY", " "));
-        record.set("POA_POSTAL_CODE", UtilProperties.getPropertyValue("taxware.properties", "POA_POSTAL_CODE", " "));
+        record.set("COMPANY_ID", UtilProperties.getPropertyValue("taxware", "COMPANY_ID", " "));
+        record.set("AUDIT_FILE_INDICATOR", UtilProperties.getPropertyValue("taxware", "AUDIT_FILE_INDICATOR", "2"));
+        record.set("SF_COUNTRY_CODE", UtilProperties.getPropertyValue("taxware", "SF_COUNTRY_CODE", ""));
+        record.set("SF_STATE_PROVINCE", UtilProperties.getPropertyValue("taxware", "SF_STATE_PROVINCE", " "));
+        record.set("SF_CITY", UtilProperties.getPropertyValue("taxware", "SF_CITY", " "));
+        record.set("SF_POSTAL_CODE", UtilProperties.getPropertyValue("taxware", "SF_POSTAL_CODE", " "));
+        record.set("POO_COUNTRY_CODE", UtilProperties.getPropertyValue("taxware", "POO_COUNTRY_CODE", ""));
+        record.set("POO_STATE_PROVINCE", UtilProperties.getPropertyValue("taxware", "POO_STATE_PROVINCE", " "));
+        record.set("POO_CITY", UtilProperties.getPropertyValue("taxware", "POO_CITY", " "));
+        record.set("POO_POSTAL_CODE", UtilProperties.getPropertyValue("taxware", "POO_POSTAL_CODE", " "));
+        record.set("POA_COUNTRY_CODE", UtilProperties.getPropertyValue("taxware", "POA_COUNTRY_CODE", ""));
+        record.set("POA_STATE_PROVINCE", UtilProperties.getPropertyValue("taxware", "POA_STATE_PROVINCE", " "));
+        record.set("POA_CITY", UtilProperties.getPropertyValue("taxware", "POA_CITY", " "));
+        record.set("POA_POSTAL_CODE", UtilProperties.getPropertyValue("taxware", "POA_POSTAL_CODE", " "));
     }
 
     private void addAddresses(Record record) {

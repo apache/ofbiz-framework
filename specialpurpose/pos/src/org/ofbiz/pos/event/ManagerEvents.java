@@ -380,11 +380,11 @@ public class ManagerEvents {
             pos.showDialog("dialog/error/mgrnotloggedin");
         } else {
             String showKeyboardInSaveSale = null;
-            showKeyboardInSaveSale = UtilProperties.getPropertyValue("parameters.properties", "ShowKeyboardInSaveSale");
+            showKeyboardInSaveSale = UtilProperties.getPropertyValue("parameters", "ShowKeyboardInSaveSale");
             if ("N".equalsIgnoreCase(showKeyboardInSaveSale)) {
-                UtilProperties.setPropertyValueInMemory("parameters.properties", "ShowKeyboardInSaveSale", "Y");
+                UtilProperties.setPropertyValueInMemory("parameters", "ShowKeyboardInSaveSale", "Y");
             } else {
-                UtilProperties.setPropertyValueInMemory("parameters.properties", "ShowKeyboardInSaveSale", "N");
+                UtilProperties.setPropertyValueInMemory("parameters", "ShowKeyboardInSaveSale", "N");
             }
         }
     }

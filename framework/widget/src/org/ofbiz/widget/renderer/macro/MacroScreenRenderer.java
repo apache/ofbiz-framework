@@ -235,11 +235,11 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         StringBuilder parameters = new StringBuilder();
         String width = link.getWidth();
         if (UtilValidate.isEmpty(width)) {
-            width = String.valueOf(UtilProperties.getPropertyValue("widget.properties", "widget.link.default.layered-modal.width", "800"));
+            width = String.valueOf(UtilProperties.getPropertyValue("widget", "widget.link.default.layered-modal.width", "800"));
         }
         String height = link.getHeight();
         if (UtilValidate.isEmpty(height)) {
-            height = String.valueOf(UtilProperties.getPropertyValue("widget.properties", "widget.link.default.layered-modal.height", "600"));
+            height = String.valueOf(UtilProperties.getPropertyValue("widget", "widget.link.default.layered-modal.height", "600"));
         }
         if ("hidden-form".equals(linkType) || "layered-modal".equals(linkType)) {
             StringBuilder sb = new StringBuilder();

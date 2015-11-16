@@ -471,8 +471,8 @@ public class DataResourceWorker  implements org.ofbiz.widget.content.DataResourc
     }
 
     public static String getDataResourceContentUploadPath(boolean absolute) {
-        String initialPath = UtilProperties.getPropertyValue("content.properties", "content.upload.path.prefix");
-        double maxFiles = UtilProperties.getPropertyNumber("content.properties", "content.upload.max.files");
+        String initialPath = UtilProperties.getPropertyValue("content", "content.upload.path.prefix");
+        double maxFiles = UtilProperties.getPropertyNumber("content", "content.upload.max.files");
         if (maxFiles < 1) {
             maxFiles = 250;
         }
@@ -482,7 +482,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.content.DataResourc
 
     public static String getDataResourceContentUploadPath(Delegator delegator, boolean absolute) {
         String initialPath = EntityUtilProperties.getPropertyValue("content", "content.upload.path.prefix", delegator);
-        double maxFiles = UtilProperties.getPropertyNumber("content.properties", "content.upload.max.files");
+        double maxFiles = UtilProperties.getPropertyNumber("content", "content.upload.max.files");
         if (maxFiles < 1) {
             maxFiles = 250;
         }

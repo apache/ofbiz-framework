@@ -116,8 +116,8 @@ public class KeyboardAdaptor {
 
     private class KeyboardListener extends Thread {
 
-        public final Long MAX_WAIT_SCANNER = new Long(Long.parseLong(UtilProperties.getPropertyValue("jpos.properties", "MaxWaitScanner", "100")));
-        public final Long MAX_WAIT_KEYBOARD = new Long(Long.parseLong(UtilProperties.getPropertyValue("jpos.properties", "MaxWaitKeyboard", "10")));
+        public final Long MAX_WAIT_SCANNER = new Long(Long.parseLong(UtilProperties.getPropertyValue("jpos", "MaxWaitScanner", "100")));
+        public final Long MAX_WAIT_KEYBOARD = new Long(Long.parseLong(UtilProperties.getPropertyValue("jpos", "MaxWaitKeyboard", "10")));
         // By default keyboard entry (login & password 1st)
         public Long MAX_WAIT = MAX_WAIT_KEYBOARD;
 

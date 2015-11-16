@@ -290,7 +290,7 @@ public class LinkedInEvents {
                 userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
             }
             String password = PassportUtil.randomString();
-            boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
+            boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security", "password.encrypt"));
             userLogin.set("currentPassword", useEncryption ? HashCrypt.digestHash(LoginServices.getHashType(), null, password) : password);
             userLogin.store();
             request.setAttribute("USERNAME", userLogin.getString("userLoginId"));

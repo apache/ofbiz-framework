@@ -388,7 +388,7 @@ public class WeightPackageSession implements Serializable {
 
     protected boolean diffInShipCost(BigDecimal actualShippingCost) throws GeneralException {
         BigDecimal estimatedShipCost = this.getEstimatedShipCost();
-        BigDecimal doEstimates = new BigDecimal(UtilProperties.getPropertyValue("shipment.properties", "shipment.default.cost_actual_over_estimated_percent_allowed", "10"));
+        BigDecimal doEstimates = new BigDecimal(UtilProperties.getPropertyValue("shipment", "shipment.default.cost_actual_over_estimated_percent_allowed", "10"));
         BigDecimal diffInShipCostInPerc = ZERO;
         if (estimatedShipCost.compareTo(ZERO) == 0) {
             diffInShipCostInPerc = actualShippingCost;

@@ -402,7 +402,7 @@ public class CommonEvents {
             final int fontSize = Integer.parseInt(captchaSizeConfigs[0]);
             final int height = Integer.parseInt(captchaSizeConfigs[1]);
             final int width = Integer.parseInt(captchaSizeConfigs[2]);
-            final int charsToPrint = UtilProperties.getPropertyAsInteger("captcha.properties", "captcha.code_length", 6);
+            final int charsToPrint = UtilProperties.getPropertyAsInteger("captcha", "captcha.code_length", 6);
             final char[] availableChars = EntityUtilProperties.getPropertyValue("captcha", "captcha.characters", delegator).toCharArray();
 
             //It is possible to pass the font size, image width and height with the request as well

@@ -708,7 +708,7 @@ public class LoginServices {
         List<String> errorMessageList = new LinkedList<String>();
         Locale locale = (Locale) context.get("locale");
 
-        //boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
+        //boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security", "password.encrypt"));
 
         String userLoginId = (String) context.get("userLoginId");
         String errMsg = null;
