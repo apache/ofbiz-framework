@@ -48,7 +48,7 @@ framework/base/lib/xml-apis-ext-1.3.04.jar
 framework/base/lib/zxing-core-3.2.0.jar
 framework/base/lib/commons/commons-beanutils-core-1.8.3.jar
 framework/base/lib/commons/commons-codec-1.10.jar
-framework/base/lib/commons/commons-collections-3.2.1.jar
+framework/base/lib/commons/commons-collections-3.2.2.jar
 framework/base/lib/commons/commons-compress-1.9.jar
 framework/base/lib/commons/commons-csv-1.1.jar
 framework/base/lib/commons/commons-el-1.0.jar
