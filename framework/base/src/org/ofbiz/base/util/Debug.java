@@ -65,7 +65,7 @@ public final class Debug {
         levelStringMap.put("always", Debug.ALWAYS);
 
         // initialize levelOnCache
-        Properties properties = UtilProperties.createProperties("debug");
+        Properties properties = UtilProperties.createProperties("debug.properties");
         if (properties != null) {
             for (int i = 0; i < levelOnCache.length; i++) {
                 levelOnCache[i] = (i == Debug.ALWAYS || "true".equalsIgnoreCase(properties.getProperty(levelProps[i])));
