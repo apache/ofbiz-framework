@@ -3347,7 +3347,7 @@
     </property>
     <property key="PageTitlePublicHolidayList">
         <value xml:lang="en">Public Holiday List</value>
-        <value xml:lang="fr">Liste de jours de vacances</value>
+        <value xml:lang="fr">Liste des jours de vacances</value>
         <value xml:lang="ja">祝日一覧</value>
         <value xml:lang="vi">Danh sách kỳ nghỉ công cộng</value>
         <value xml:lang="zh">公众假日列表</value>
