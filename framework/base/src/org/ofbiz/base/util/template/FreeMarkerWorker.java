@@ -114,7 +114,7 @@ public class FreeMarkerWorker {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Enumeration<URL> resources;
         try {
-            resources = loader.getResources("freemarkerTransforms");
+            resources = loader.getResources("freemarkerTransforms.properties"); 
         } catch (IOException e) {
             Debug.logError(e, "Could not load list of freemarkerTransforms.properties", module);
             throw UtilMisc.initCause(new InternalError(e.getMessage()), e);
