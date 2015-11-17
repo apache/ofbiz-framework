@@ -1190,6 +1190,7 @@
     <property key="FormFieldTitle_returnItemSeqId">
         <value xml:lang="de">Retourenposition Seq Id</value>
         <value xml:lang="en">Return Item Seq Id</value>
+        <value xml:lang="fr">Ref. ligne de retour</value>
         <value xml:lang="nl">Retour Itemnr Id</value>
         <value xml:lang="zh">退货明细序号</value>
     </property>
@@ -2625,6 +2626,7 @@
     <property key="OrderCancelRemainingPOItems">
         <value xml:lang="de">Übrige Bestellartikel abbestellen</value>
         <value xml:lang="en">Cancel Remaining PO Items</value>
+        <value xml:lang="fr">Suppression des lignes d'OA restantes</value>
         <value xml:lang="it">Cancella righe rimaste ordine acquisto</value>
         <value xml:lang="ja">残りの購買注文アイテムを取消</value>
         <value xml:lang="pt-BR">Cancelar o restante dos itens</value>
@@ -2666,6 +2668,7 @@
         <value xml:lang="ar">طلبات العميل الملغية التابعة لي</value>
         <value xml:lang="de">Meine annullierten Kundenanfragen</value>
         <value xml:lang="en">My Cancelled Customer Requests</value>
+        <value xml:lang="fr">Mes demandes clients supprimées</value>
         <value xml:lang="it">Proprie richieste cliente cancellate</value>
         <value xml:lang="ja">取消した私の顧客リクエスト</value>
         <value xml:lang="pt-BR">Minhas solicitações de clientes canceladas</value>
@@ -3467,6 +3470,7 @@
         <value xml:lang="de">Neue Anmerkung zu Angebot erstellen</value>
         <value xml:lang="de-CH">Neue Anmerkung zu Offerte erstellen</value>
         <value xml:lang="en">Create New Quote Note</value>
+        <value xml:lang="fr">Créer une nouvelle note de devis</value>
         <value xml:lang="zh">新建询价便笺</value>
         <value xml:lang="zh-TW">新建詢價便箋</value>
     </property>
@@ -3644,6 +3648,7 @@
         <value xml:lang="ar">لا يمكن إيجاد ضبط أمر البيع\الشراء ${orderAdjustmentId}</value>
         <value xml:lang="de">Bestellanpassung mit ID ${orderAdjustmentId} nicht gefunden</value>
         <value xml:lang="en">orderAdjustment ${orderAdjustmentId} not found</value>
+        <value xml:lang="fr">La remise ${orderAdjustmentId} non trouvée</value>
         <value xml:lang="it">Aggiustamento ordine ${orderAdjustmentId} non trovato</value>
         <value xml:lang="ja">注文調整 ${orderAdjustmentId} が見つかりません</value>
         <value xml:lang="pt-BR">Ajuste de Pedido ${orderAdjustmentId} não encontrado</value>
@@ -5998,7 +6003,8 @@
     <property key="OrderNoItemsQuote">
        <value xml:lang="de">Keine Artikel im Angebot</value>
        <value xml:lang="en">No Items in quote</value>
-        <value xml:lang="zh">询价中没有明细</value>
+       <value xml:lang="fr">Aucune ligne dans le devis</value>
+       <value xml:lang="zh">询价中没有明细</value>
     </property>
     <property key="OrderNOTEMultipleShipmentsExist">
         <value xml:lang="de">Anmerkung: Mehrere Lieferungen vorhanden, verwenden Sie Lieferung aufteilen.</value>
@@ -8625,6 +8631,7 @@
         <value xml:lang="ar">قائمة ملاحظات عرض السعر</value>
         <value xml:lang="de">Angebotsnotizen Liste</value>
         <value xml:lang="en">Quote Note List</value>
+        <value xml:lang="fr">Liste des notes du devis</value>
         <value xml:lang="ja">見積連絡一覧</value>
         <value xml:lang="vi">Danh sách Ghi chú</value>
         <value xml:lang="zh">询价便笺列表</value>
@@ -8634,6 +8641,7 @@
         <value xml:lang="ar">ملاحظات عرض السعر</value>
         <value xml:lang="de">Angebotsnotizen</value>
         <value xml:lang="en">Quote Notes</value>
+        <value xml:lang="fr">Notes de devis</value>
         <value xml:lang="ja">見積連絡</value>
         <value xml:lang="vi">Ghi chú</value>
         <value xml:lang="zh">询价便笺</value>
@@ -8680,6 +8688,7 @@
         <value xml:lang="de">Angebotspreise</value>
         <value xml:lang="de-CH">Offertpreise</value>
         <value xml:lang="en">Quote Prices</value>
+        <value xml:lang="fr">Prix du devis</value>
         <value xml:lang="es">Precios del presupuesto</value>
         <value xml:lang="fr">Prix du devis</value>
         <value xml:lang="it">Prezzi Preventivo</value>

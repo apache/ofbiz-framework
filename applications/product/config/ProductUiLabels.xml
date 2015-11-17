@@ -10723,6 +10723,7 @@
     <property key="PageTitleEditWebAnalyticsConfig">
         <value xml:lang="de">Web Analytik Konfiguration</value>
         <value xml:lang="en">Edit Web Analytics Configuration</value>
+        <value xml:lang="fr">Modification de la configuration des Web Analytics</value>
         <value xml:lang="it">Aggiorna configurazione analisi Web</value>
         <value xml:lang="ja">Web分析設定を編集</value>
         <value xml:lang="vi">Chỉnh sửa cấu hình web phân tích dữ liệu</value>
@@ -10758,6 +10759,7 @@
     </property>
     <property key="PageTitleFacilityGeoLocation">
         <value xml:lang="en">Facility Geo Location</value>
+        <value xml:lang="fr">Géolocalisation de lieux de stockage</value>
         <value xml:lang="ja">拠点位置情報</value>
         <value xml:lang="vi">Ví trí địa lý Chi nhánh / Cơ sở</value>
         <value xml:lang="zh">场所地理位置</value>
@@ -10766,6 +10768,7 @@
     <property key="PageTitleFindCategory">
         <value xml:lang="de">Kategorie suchen</value>
         <value xml:lang="en">Find Category</value>
+        <value xml:lang="fr">Recherche de catégories</value>
         <value xml:lang="ja">カテゴリを検索</value>
         <value xml:lang="th">ค้นหาหมวดหมู่</value>
         <value xml:lang="vi">Tìm Phân loại Quản lý</value>
@@ -10774,6 +10777,7 @@
     </property>
     <property key="PageTitleFindCatalog">
         <value xml:lang="en">Find Catalog</value>
+        <value xml:lang="fr">Recherche de catalogues</value>
         <value xml:lang="ja">カタログを検索</value>
         <value xml:lang="vi">Tìm Phân loại Trình diễn</value>
         <value xml:lang="zh">查找目录</value>
@@ -10900,6 +10904,7 @@
     </property>
     <property key="PageTitleFindProduct">
         <value xml:lang="en">Find Product</value>
+        <value xml:lang="fr">Recherche d'articles</value>
         <value xml:lang="it">Ricerca prodotti</value>
         <value xml:lang="ja">製品を検索</value>
         <value xml:lang="vi">Tìm sản phẩm</value>
