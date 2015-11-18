@@ -464,16 +464,10 @@
             <entity-one entity-name="UserLogin" value-field="systemUserLogin">
                 <field-map field-name="userLoginId" value="system"/>
             </entity-one>
-            <entity-one value-field="partyRoleMap" entity-name="PartyRole">
-                <field-map field-name="partyId" from-field="timesheet.partyId"/>
-                <field-map field-name="roleTypeId" value="EMPLOYEE"/>
-            </entity-one>
-            <if-empty field="partyRoleMap">
-                <set field="partyRoleMap.partyId" from-field="timesheet.partyId"/>
-                <set field="partyRoleMap.roleTypeId" value="EMPLOYEE"/>
-                <set field="partyRoleMap.userLogin" from-field="systemUserLogin"/>
-                <call-service service-name="createPartyRole" in-map-name="partyRoleMap"/>
-            </if-empty>
+            <set field="partyRoleMap.partyId" from-field="timesheet.partyId"/>
+            <set field="partyRoleMap.roleTypeId" value="EMPLOYEE"/>
+            <set field="partyRoleMap.userLogin" from-field="systemUserLogin"/>
+            <call-service service-name="ensurePartyRole" in-map-name="partyRoleMap"/>
             <loop count="7" field="dayNr">
                 <if>
                     <condition>

@@ -23,15 +23,9 @@
         <set field="parameters.roleTypeId" value="ACCOUNT"/>
         <call-simple-method method-name="createPartyGroupRoleAndContactMechs" xml-resource="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml"/>
         <field-to-result field="partyId"/>
-        <set field="createPartyRoleCtx.partyId" from-field="userLogin.partyId"/>
-        <set field="createPartyRoleCtx.roleTypeId" value="OWNER"/>
-        <entity-one entity-name="PartyRole" value-field="partyRole">
-            <field-map field-name="partyId" from-field="createPartyRoleCtx.partyId"/>
-            <field-map field-name="roleTypeId" from-field="createPartyRoleCtx.roleTypeId"/>
-        </entity-one>
-        <if-empty field="partyRole">
-            <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
-        </if-empty>
+        <set field="ensurePartyRoleCtx.partyId" from-field="userLogin.partyId"/>
+        <set field="ensurePartyRoleCtx.roleTypeId" value="OWNER"/>
+        <call-service service-name="ensurePartyRole" in-map-name="ensurePartyRoleCtx"/>
         <set field="partyRelationshipCtx.partyIdFrom" from-field="userLogin.partyId"/>
         <set field="partyRelationshipCtx.partyIdTo" from-field="partyId"/>
         <set field="partyRelationshipCtx.roleTypeIdFrom" value="OWNER"/>

@@ -1477,7 +1477,7 @@ public class ContentManagementServices {
                 map.put("partyId", partyId);
                 map.put("roleTypeId", roleTypeId);
                 map.put("userLogin", userLogin);
-                dispatcher.runSync("createPartyRole", map);
+                dispatcher.runSync("ensurePartyRole", map);
                 contentRole.create();
             }
         } catch (GenericEntityException e) {
