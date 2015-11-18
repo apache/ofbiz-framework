@@ -51,13 +51,7 @@ under the License.
         <set field="partyRoleCtx.roleTypeId" value="CUSTOMER"/>
         <set field="partyRoleCtx.userLogin" from-field="userLogin"/>
 
-        <entity-one entity-name="PartyRole" value-field="partyRole">
-            <field-map field-name="partyId" from-field="partyRoleCtx.partyId"/>
-            <field-map field-name="roleTypeId" from-field="partyRoleCtx.roleTypeId"/>
-        </entity-one>
-        <if-empty field="partyRole">
-            <call-service service-name="createPartyRole" in-map-name="partyRoleCtx"/>
-        </if-empty>
+        <call-service service-name="ensurePartyRole" in-map-name="partyRoleCtx"/>
 
         <!-- Create Update Shipping address -->
         <set-service-fields service-name="createUpdateShippingAddress" map="parameters" to-map="shipToAddressCtx"/>

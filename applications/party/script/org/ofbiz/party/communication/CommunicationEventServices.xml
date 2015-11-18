@@ -435,12 +435,9 @@ under the License.
                 <field-map field-name="userLoginId" value="system"/>
             </entity-one>
 
-            <entity-one entity-name="PartyRole" value-field="partyRole"/>
-            <if-empty field="partyRole">
-                <set-service-fields service-name="createPartyRole" map="parameters" to-map="partyRole"/>
-                <set field="partyRole.userLogin" from-field="sysUserLogin"/>
-                <call-service service-name="createPartyRole" in-map-name="partyRole" include-user-login="false"/>
-            </if-empty>
+            <set-service-fields service-name="ensurePartyRole" map="parameters" to-map="partyRole"/>
+            <set field="partyRole.userLogin" from-field="sysUserLogin"/>
+            <call-service service-name="ensurePartyRole" in-map-name="partyRole" include-user-login="false"/>
 
             <make-value value-field="newEntity" entity-name="CommunicationEventRole"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>

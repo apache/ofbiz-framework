@@ -148,12 +148,12 @@ public class SubscriptionServices {
                             null, null, updateSubscriptionResult);
                 }
             } else {
-                Map<String, Object> createPartyRoleMap = new HashMap<String, Object>();
+                Map<String, Object> ensurePartyRoleMap = new HashMap<String, Object>();
                 if (UtilValidate.isNotEmpty(roleTypeId)) {
-                    createPartyRoleMap.put("partyId", partyId);
-                    createPartyRoleMap.put("roleTypeId", roleTypeId);
-                    createPartyRoleMap.put("userLogin", userLogin);
-                    Map<String, Object> createPartyRoleResult = dispatcher.runSync("createPartyRole", createPartyRoleMap);
+                    ensurePartyRoleMap.put("partyId", partyId);
+                    ensurePartyRoleMap.put("roleTypeId", roleTypeId);
+                    ensurePartyRoleMap.put("userLogin", userLogin);
+                    Map<String, Object> createPartyRoleResult = dispatcher.runSync("ensurePartyRole", ensurePartyRoleMap);
                     if (ServiceUtil.isError(createPartyRoleResult)) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                                 "ProductSubscriptionPartyRoleCreationError", 

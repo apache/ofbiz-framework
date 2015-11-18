@@ -1252,15 +1252,10 @@
         <if-compare operator="equals" value="SCRUM_STAKEHOLDER" field="parameters.groupId">
             <set field="parameters.roleTypeId" value="STAKEHOLDER"/>
         </if-compare>
-        <entity-and list="partyRoles" entity-name="PartyRole">
-            <field-map field-name="partyId" from-field="parameters.partyId"/>
-            <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
-        </entity-and>
-        <if-empty field="partyRoles">
-            <set-service-fields service-name="createPartyRole" to-map="createPartyRole" map="parameters"/>
-            <set field="createPartyRole.userLogin" from-field="sysUserLogin"/>
-            <call-service service-name="createPartyRole" in-map-name="createPartyRole"/>
-        </if-empty>
+
+        <set-service-fields service-name="ensurePartyRole" to-map="ensurePartyRole" map="parameters"/>
+        <set field="ensurePartyRole.userLogin" from-field="sysUserLogin"/>
+        <call-service service-name="ensurePartyRole" in-map-name="ensurePartyRole"/>
         <entity-one entity-name="UserLogin" value-field="sysUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -1284,18 +1279,12 @@
                 <check-errors/>
             </else>
         </if-empty>
-        <entity-and list="memberRoles" entity-name="PartyRole">
-            <field-map field-name="partyId" from-field="parameters.partyId"/>
-            <field-map field-name="roleTypeId" value="SCRUM_MEMBER"/>
-        </entity-and>
-        <if-empty field="memberRoles">
-            <set field="roleData.partyId" from-field="parameters.partyId"/>
-            <set field="roleData.roleTypeId" value="SCRUM_MEMBER"/>
-            <set field="roleData.userLogin" from-field="sysUserLogin"/>
-            <call-service service-name="createPartyRole" in-map-name="roleData">
-                <default-message resource="CommonUiLabels" property="CommonSuccessfullyCreated"/>
-            </call-service>
-        </if-empty>
+        <set field="roleData.partyId" from-field="parameters.partyId"/>
+        <set field="roleData.roleTypeId" value="SCRUM_MEMBER"/>
+        <set field="roleData.userLogin" from-field="sysUserLogin"/>
+        <call-service service-name="ensurePartyRole" in-map-name="roleData">
+            <default-message resource="CommonUiLabels" property="CommonSuccessfullyCreated"/>
+        </call-service>
     </simple-method>
     
     <simple-method method-name="createSprintBacklogTask" short-description="Create Sprint Backlog Task">
@@ -1538,16 +1527,11 @@
         <entity-one entity-name="UserLogin" value-field="sysUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-        <entity-and entity-name="PartyRole" list="partyRoles">
-            <field-map field-name="partyId" from-field="parameters.userLoginId"/>
-            <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
-        </entity-and>
-        <if-empty field="partyRoles">
-            <set-service-fields service-name="createPartyRole" to-map="createPartyRole" map="parameters"/>
-            <set field="createPartyRole.userLogin" from-field="sysUserLogin"/>
-            <set field="createPartyRole.roleTypeId" from-field="parameters.roleTypeId"/>
-            <call-service service-name="createPartyRole" in-map-name="createPartyRole"/>
-        </if-empty>
+
+        <set-service-fields service-name="ensurePartyRole" to-map="ensurePartyRole" map="parameters"/>
+        <set field="ensurePartyRole.userLogin" from-field="sysUserLogin"/>
+        <set field="ensurePartyRole.roleTypeId" from-field="parameters.roleTypeId"/>
+        <call-service service-name="ensurePartyRole" in-map-name="ensurePartyRole"/>
         <set-service-fields service-name="assignPartyToWorkEffort" to-map="assignPartyToWorkEffort" map="parameters"/>
         <set field="assignPartyToWorkEffort.userLogin" from-field="sysUserLogin"/>
         <call-service service-name="assignPartyToWorkEffort" in-map-name="assignPartyToWorkEffort"/>
