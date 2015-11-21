@@ -27,12 +27,19 @@ exprList = [];
 exprList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.getDayStart(filterDate)));
 exprList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.getDayEnd(filterDate)));
 exprList.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
+exprList.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"));
 
 orderHeaderList = from("OrderHeader").where(exprList).queryList();
 
 orderHeaderList.each { orderHeader ->
-    orderItemList = from("OrderItem").where("orderId", orderHeader.orderId, "orderItemTypeId", "PRODUCT_ORDER_ITEM", "isPromo", "N").queryList();
-    
+    exprList.clear();
+    exprList.add(EntityCondition.makeCondition("orderId", orderHeader.orderId));
+    exprList.add(EntityCondition.makeCondition("orderItemTypeId", "PRODUCT_ORDER_ITEM"));
+    exprList.add(EntityCondition.makeCondition("isPromo", "N"));
+    exprList.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
+
+    orderItemList = from("OrderItem").where(exprList).queryList();
+
     orderItemList.each { orderItem ->
         orderItemDetail = [:];
         qtyOrdered = BigDecimal.ZERO;
