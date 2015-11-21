@@ -83,7 +83,7 @@ under the License.
 <#macro renderFormClose focusFieldName formName containerId hasRequiredField></fo:block></#macro>
 <#macro renderMultiFormClose></#macro>
 
-<#macro renderFormatListWrapperOpen formName style columnStyles><fo:table border="solid black" <@getFoStyle style/>><#list columnStyles as columnStyle><fo:table-column<#if columnStyle?has_content> <@getFoStyle columnStyle/></#if>/></#list></#macro>
+<#macro renderFormatListWrapperOpen formName style columnStyles><fo:table table-layout="fixed" border="solid black" <@getFoStyle style/>><#list columnStyles as columnStyle><fo:table-column<#if columnStyle?has_content> <@getFoStyle columnStyle/></#if>/></#list></#macro>
 <#macro renderFormatListWrapperClose formName></fo:table-body></fo:table></#macro>
 
 <#macro renderFormatHeaderOpen><fo:table-header></#macro>

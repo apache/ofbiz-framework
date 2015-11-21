@@ -81,7 +81,7 @@ under the License.
 
             <#-- Components   -->
             <#if productionRunComponentsData?has_content>
-            <fo:table width="22cm">
+            <fo:table table-layout="fixed" width="22cm">
               <fo:table-column column-width="20%"/>
               <fo:table-column column-width="40%"/>
               <fo:table-column column-width="10%"/>
@@ -126,7 +126,7 @@ under the License.
 
             <#-- Tasks   -->
             <#if productionRunRoutingTasks?has_content>
-            <fo:table width="100%">
+            <fo:table table-layout="fixed" width="100%">
               <fo:table-column column-width="20%"/>
               <fo:table-column column-width="30%"/>
               <fo:table-column column-width="30%"/>

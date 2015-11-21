@@ -92,7 +92,7 @@ under the License.
  </fo:table>
  <fo:block space-after="50pt"/>
  <#if commissionReportList?has_content && totalQuantity?has_content && totalCommissionAmount?has_content && totalNetSales?has_content && totalNumberOfOrders?has_content>
-   <fo:table font-size="14pt">
+   <fo:table table-layout="fixed" font-size="14pt">
      <fo:table-body font-size="10pt">
        <fo:table-row>
          <fo:table-cell>

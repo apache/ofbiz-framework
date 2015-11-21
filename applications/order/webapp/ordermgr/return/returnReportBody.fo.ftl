@@ -38,7 +38,7 @@ under the License.
 
       <#-- Items returned -->
       <fo:block font-size="10pt">
-        <fo:table border-style="solid" border-width="0.2pt" width="7.25in" height="5in">
+        <fo:table table-layout="fixed" border-style="solid" border-width="0.2pt" width="7.25in" height="5in">
           <fo:table-column column-width="0.875in"/>
           <fo:table-column column-width="0.875in"/>
           <fo:table-column column-width="2.25in"/>
@@ -98,7 +98,7 @@ under the License.
       </fo:block>
 
       <#-- total -->
-        <fo:table space-before="5mm" font-size="10pt">
+        <fo:table table-layout="fixed" space-before="5mm" font-size="10pt">
           <fo:table-column column-width="0.875in"/>
           <fo:table-column column-width="0.875in"/>
           <fo:table-column column-width="2.25in"/>

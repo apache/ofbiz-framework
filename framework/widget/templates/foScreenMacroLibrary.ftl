@@ -73,7 +73,7 @@ under the License.
 <#macro renderScreenletPaginateMenu lowIndex actualPageSize ofLabel listSize paginateLastStyle lastLinkUrl paginateLastLabel paginateNextStyle nextLinkUrl paginateNextLabel paginatePreviousStyle paginatePreviousLabel previousLinkUrl paginateFirstStyle paginateFirstLabel firstLinkUrl></#macro>
 
 <#macro renderColumnContainerBegin id style>
-  <fo:table width="100%"<#if id?has_content> id="${id}"</#if><#if style?has_content> <@getFoStyle style/></#if>>
+  <fo:table table-layout="fixed" width="100%"<#if id?has_content> id="${id}"</#if><#if style?has_content> <@getFoStyle style/></#if>>
     <fo:table-body>
       <fo:table-row>
 </#macro>
