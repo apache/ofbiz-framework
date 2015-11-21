@@ -112,7 +112,7 @@ under the License.
         <description>Create a Return Shipment and ShipmentItems with information from ReturnHeader and ReturnItems</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="createShipmentAndItemsForVendorReturn" default-entity-name="Shipment" engine="simple"

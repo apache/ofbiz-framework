@@ -329,6 +329,7 @@ under the License.
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="RENTAL_ORDER_ITEM" returnItemTypeId="RET_FPROD_ITEM" />
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="ASSET_USAGE_OUT_IN" returnItemTypeId="RET_FPROD_ITEM" />
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SERVICE_PRODUCT" returnItemTypeId="RET_SPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SERVICE" returnItemTypeId="RET_SPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="RAW_MATERIAL" returnItemTypeId="RET_MPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="FINISHED_GOOD" returnItemTypeId="RET_FPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MARKETING_PKG_AUTO" returnItemTypeId="RET_FPROD_ITEM"/>

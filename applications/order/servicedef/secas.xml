@@ -251,6 +251,7 @@ under the License.
         <action service="sendReturnCompleteNotification" mode="async" persist="true"/>
         <action service="processSubscriptionReturn" mode="sync"/>
         <action service="createReturnStatus" mode="sync"/>
+        <action service="createInvoiceFromReturn" mode="sync"/>
     </eca>
     <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_CANCELLED"/>

@@ -602,6 +602,7 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_WARRANTY_ADJ" invoiceItemTypeId="CRT_WARRANTY_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_MAN_ADJ" invoiceItemTypeId="CRT_MAN_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_MKTG_PKG_ADJ" invoiceItemTypeId="CRT_MKTG_PKG_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_SPROD_ITEM" invoiceItemTypeId="CRT_SPROD_ITEM"/>
 
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_FPROD_ITEM" invoiceItemTypeId="SRT_FPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_DPROD_ITEM" invoiceItemTypeId="SRT_DPROD_ITEM"/>

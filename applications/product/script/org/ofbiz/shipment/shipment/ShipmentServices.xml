@@ -333,6 +333,25 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createShipmentAndItemsForReturn" short-description="Create Shipment and ShipmentItems based on ReturnHeader and ReturnItems">
+        <entity-condition entity-name="ReturnItem" list="returnItems">
+            <condition-expr field-name="returnId" operator="equals" from-field="parameters.returnId"/>
+        </entity-condition>
+
+       <!-- The return shipment is created if the return contains one or more physical products -->
+        <set field="isPhysicalProductAvailable" value="false" type="Boolean"/>
+        <iterate entry="returnItem" list="returnItems">
+            <get-related-one value-field="returnItem" relation-name="Product" to-value-field="product"/>
+            <if-not-empty field="product">
+                <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="isPhysical" ret-field="isPhysicalProduct">
+                    <field field="product" type="GenericValue"/>
+                </call-class-method>
+                <if-compare field="isPhysicalProduct" operator="equals" value="true" type="Boolean">
+                    <set field="isPhysicalProductAvailable" value="true" type="Boolean"/>
+                </if-compare>
+            </if-not-empty>
+        </iterate>
+
+        <if-compare field="isPhysicalProductAvailable" operator="equals" value="true" type="Boolean">
         <set-service-fields service-name="createShipmentForReturn" map="parameters" to-map="shipmentCtx"/>
         <call-service service-name="createShipmentForReturn" in-map-name="shipmentCtx">
             <result-to-field result-name="shipmentId"/>
@@ -340,10 +359,18 @@ under the License.
         <check-errors/>
         <log level="info" message="Created new shipment ${shipmentId}"/>
 
-        <entity-condition entity-name="ReturnItem" list="returnItems">
-            <condition-expr field-name="returnId" operator="equals" from-field="parameters.returnId"/>
-        </entity-condition>
         <iterate entry="returnItem" list="returnItems">
+
+            <!-- Shipment items are created only for physical products -->
+            <set field="isPhysicalProduct" value="false" type="Boolean"/>
+            <get-related-one value-field="returnItem" relation-name="Product" to-value-field="product"/>
+            <if-not-empty field="product">
+                <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="isPhysical" ret-field="isPhysicalProduct">
+                    <field field="product" type="GenericValue"/>
+                </call-class-method>
+            </if-not-empty>
+
+            <if-compare field="isPhysicalProduct" operator="equals" value="true" type="Boolean">
             <clear-field field="shipItemCtx"/>
             <set from-field="shipmentId" field="shipItemCtx.shipmentId"/>
             <set from-field="returnItem.productId" field="shipItemCtx.productId"/>
@@ -359,9 +386,11 @@ under the License.
             <set from-field="returnItem.returnItemSeqId" field="shipItemCtx.returnItemSeqId"/>
             <set from-field="returnItem.returnQuantity" field="shipItemCtx.quantity"/>
             <call-service service-name="createReturnItemShipment" in-map-name="shipItemCtx"/>
+            </if-compare>
         </iterate>
 
         <field-to-result field="shipmentId"/>
+        </if-compare>
     </simple-method>
 
     <simple-method method-name="createShipmentAndItemsForVendorReturn" short-description="Create Shipment and ShipmentItems based on primaryReturnId for Vendor return">
