@@ -184,7 +184,7 @@ under the License.
             billItems = List of ShipmentReceipts (for sales return) or ItemIssuance (for purchase return) to use for creating the invoice
         </description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
-        <attribute name="billItems" type="List" mode="IN" optional="false"/>
+        <attribute name="billItems" type="List" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createCommissionInvoices" engine="java"

@@ -1905,6 +1905,39 @@ public class InvoiceServices {
                 invoiceTypeId = "PURC_RTN_INVOICE";
                 description = "Return Invoice for Vendor Return #" + returnId;
             }
+
+            List<GenericValue> returnItems = returnHeader.getRelated("ReturnItem", null, null, false);
+            if (!returnItems.isEmpty()) {
+                for (GenericValue returnItem : returnItems) {
+                    if ("RETURN_COMPLETED".equals(returnItem.getString("statusId"))) {
+                        GenericValue product = returnItem.getRelatedOne("Product", false);
+                        if (!ProductWorker.isPhysical(product)) {
+                            boolean isNonPhysicalItemToReturn = false;
+                            List<GenericValue> returnItemBillings = returnItem.getRelated("ReturnItemBilling", null, null, false);
+
+                            if (!returnItemBillings.isEmpty()) {
+                                GenericValue invoice = EntityUtil.getFirst(returnItemBillings).getRelatedOne("Invoice", false);
+                                if ("INVOICE_CANCELLED".equals(invoice.getString("statusId"))) {
+                                    isNonPhysicalItemToReturn = true;
+                                }
+                            } else {
+                                isNonPhysicalItemToReturn = true;
+                            }
+
+                            if (isNonPhysicalItemToReturn) {
+                                if (UtilValidate.isEmpty(billItems)) {
+                                    billItems = new ArrayList();
+                                }
+
+                                billItems.add(returnItem);
+                            }
+                        }
+                    }
+                }
+            }
+
+            Map<String, Object> results = ServiceUtil.returnSuccess();
+            if (UtilValidate.isNotEmpty(billItems)) {
             // set the invoice data
             Map<String, Object> input = UtilMisc.<String, Object>toMap("invoiceTypeId", invoiceTypeId, "statusId", "INVOICE_IN_PROCESS");
             input.put("partyId", returnHeader.get("toPartyId"));
@@ -1933,15 +1966,20 @@ public class InvoiceServices {
             for (GenericValue item : billItems) {
                 boolean shipmentReceiptFound = false;
                 boolean itemIssuanceFound = false;
+                GenericValue returnItem = null;
+                BigDecimal quantity = BigDecimal.ZERO;
+
                 if ("ShipmentReceipt".equals(item.getEntityName())) {
                     shipmentReceiptFound = true;
                 } else if ("ItemIssuance".equals(item.getEntityName())) {
                     itemIssuanceFound = true;
+                } else if ("ReturnItem".equals(item.getEntityName())) {
+                    quantity = item.getBigDecimal("returnQuantity");
+                    returnItem = item;
                 } else {
                     Debug.logError("Unexpected entity " + item + " of type " + item.getEntityName(), module);
                 }
                 // we need the related return item and product
-                GenericValue returnItem = null;
                 if (shipmentReceiptFound) {
                     returnItem = item.getRelatedOne("ReturnItem", true);
                 } else if (itemIssuanceFound) {
@@ -1962,7 +2000,6 @@ public class InvoiceServices {
                             "AccountingNoKnownInvoiceItemTypeReturnItemType",
                             UtilMisc.toMap("returnItemTypeId", returnItem.getString("returnItemTypeId")), locale));
                 }
-                BigDecimal quantity = BigDecimal.ZERO;
                 if (shipmentReceiptFound) {
                     quantity = item.getBigDecimal("quantityAccepted");
                 } else if (itemIssuanceFound) {
@@ -2137,8 +2174,8 @@ public class InvoiceServices {
             }
 
             // return the invoiceId
-            Map<String, Object> results = ServiceUtil.returnSuccess();
             results.put("invoiceId", invoiceId);
+            }
             return results;
         } catch (GenericServiceException e) {
             Debug.logError(e, errorMsg + e.getMessage(), module);
