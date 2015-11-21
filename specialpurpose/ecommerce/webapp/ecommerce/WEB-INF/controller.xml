@@ -437,7 +437,7 @@ under the License.
 
     <request-map uri="processPaymentSettings">
        <security https="true" auth="false"/>
-       <event type="groovy" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+       <event type="groovy" path="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
        <response name="success" type="request" value="reviewOrder"/>
        <response name="error" type="view" value="paymentinformation"/>
    </request-map>
@@ -523,7 +523,7 @@ under the License.
 
     <request-map uri="quickAnonAddCreditCardToCart">
        <security https="true" auth="false"/>
-       <event type="groovy" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+       <event type="groovy" path="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
        <response name="success" type="view" value="quickAnonCcInfo"/>
        <response name="error" type="view" value="quickAnonCcInfo"/>
    </request-map>
@@ -537,21 +537,21 @@ under the License.
 
    <request-map uri="quickAnonAddEftAccountToCart">
        <security https="true" auth="false"/>
-       <event type="groovy" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+       <event type="groovy" path="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
        <response name="success" type="view" value="quickAnonEftInfo"/>
        <response name="error" type="view" value="quickAnonEftInfo"/>
    </request-map>
 
    <request-map uri="quickAnonEnterExtOffline">
         <security https="true" auth="false"/>
-        <event type="groovy" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+        <event type="groovy" path="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
         <response name="success" type="view" value="quickAnonOrderReview"/>
         <response name="error" type="view" value="quickAnonOrderReview"/>
    </request-map>
 
    <request-map uri="quickAnonAddGiftCardToCart">
        <security https="true" auth="false"/>
-       <event type="groovy" invoke="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+       <event type="groovy" path="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
        <response name="success" type="request" value="quickAnonGcInfo"/>
        <response name="error" type="view" value="quickAnonGcInfo"/>
    </request-map>
