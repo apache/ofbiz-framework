@@ -29,7 +29,7 @@ under the License.
           <fo:table-row>
 
             <fo:table-cell>
-            <fo:table border-style="solid" border-width="0.2pt" height="1in">
+            <fo:table table-layout="fixed" border-style="solid" border-width="0.2pt" height="1in">
               <fo:table-column column-width="3.50in"/>
               <fo:table-body>
                 <fo:table-row><fo:table-cell border-style="solid" border-width="0.2pt" padding="1mm"><fo:block font-weight="bold">${uiLabelMap.OrderReturnFromAddress}</fo:block></fo:table-cell></fo:table-row>
@@ -49,7 +49,7 @@ ${postalAddressFrom.city}<#if (postalAddressFrom.stateProvinceGeoId)?has_content
             <fo:table-cell/>
 
             <fo:table-cell>
-            <fo:table border-style="solid" border-width="0.2pt" height="1in">
+            <fo:table table-layout="fixed" border-style="solid" border-width="0.2pt" height="1in">
               <fo:table-column column-width="2.75in"/>
               <fo:table-body>
                 <fo:table-row><fo:table-cell padding="1mm" border-style="solid" border-width="0.2pt"><fo:block font-weight="bold">${uiLabelMap.OrderReturnToAddress}</fo:block></fo:table-cell></fo:table-row>

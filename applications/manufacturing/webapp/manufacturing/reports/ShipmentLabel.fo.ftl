@@ -34,7 +34,7 @@ under the License.
                     <#assign index = 1>
                     <#list records as record>
                         <#if index == 1>
-                               <fo:table border="0.5pt solid black">
+                               <fo:table table-layout="fixed" border="0.5pt solid black">
                                 <fo:table-column column-width="252pt"/>
                                 <fo:table-body>
                                     <fo:table-row>
@@ -119,7 +119,7 @@ under the License.
                            </#if>
                            <#assign index = index + 1>
                     </#list>
-                    <fo:table border="0.5pt solid black">
+                    <fo:table table-layout="fixed" border="0.5pt solid black">
                         <fo:table-column column-width="84pt"/>
                         <fo:table-column column-width="84pt"/>
                         <fo:table-column column-width="84pt"/>

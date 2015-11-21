@@ -18,7 +18,7 @@ under the License.
 -->
 <#escape x as x?xml>
     <#if glAcctgTrialBalanceList?has_content>
-        <fo:table border="1pt solid" border-width=".1mm" width="19cm">
+        <fo:table table-layout="fixed" border="1pt solid" border-width=".1mm" width="19cm">
             <fo:table-column column-number="1" column-width="60%"/>
             <fo:table-column column-number="2" column-width="40%"/>
             <fo:table-header>
@@ -44,7 +44,7 @@ under the License.
                 </fo:table-row>
             </fo:table-body>
         </fo:table>
-        <fo:table border="1pt solid" border-width=".1mm" width="19cm">
+        <fo:table table-layout="fixed" border="1pt solid" border-width=".1mm" width="19cm">
             <fo:table-column/>
             <fo:table-column/>
             <fo:table-column/>

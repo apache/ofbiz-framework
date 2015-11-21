@@ -18,7 +18,7 @@ under the License.
 -->
 <#escape x as x?xml>
 
-        <fo:table border-spacing="3pt">
+        <fo:table table-layout="fixed" border-spacing="3pt">
             <fo:table-column column-width="3.75in"/>
             <fo:table-column column-width="3.75in"/>
             <fo:table-body>
@@ -49,7 +49,7 @@ under the License.
         </fo:table>
 
 
-        <fo:table border-spacing="3pt" space-before="0.5in" space-after="0.5in">
+        <fo:table table-layout="fixed" border-spacing="3pt" space-before="0.5in" space-after="0.5in">
             <fo:table-column column-width="1.5in"/>
             <fo:table-column column-width="3.75in"/>
             <fo:table-body>

@@ -40,7 +40,7 @@ under the License.
                     <fo:block font-size="14pt">${uiLabelMap.ManufacturingOperationRunForShipment}:${shipmentIdPar}</fo:block>
                     <fo:block><fo:leader/></fo:block>
                     <fo:block space-after.optimum="8pt" font-size="8pt"/>
-                    <fo:table font-size="8pt" border="0.5pt solid black">
+                    <fo:table table-layout="fixed" font-size="8pt" border="0.5pt solid black">
                         <fo:table-column column-width="45pt"/>
                         <fo:table-column column-width="45pt"/>
                         <fo:table-column column-width="60pt"/>
@@ -101,7 +101,7 @@ under the License.
                             </#list>
                         </fo:table-body>
                     </fo:table>
-                    <fo:table font-size="8pt">
+                    <fo:table table-layout="fixed" font-size="8pt">
                         <fo:table-column column-width="450pt"/>
                         <fo:table-body>
                             <fo:table-row>

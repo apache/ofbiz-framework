@@ -116,7 +116,7 @@ under the License.
                                           <fo:table-row>
                                              <fo:table-cell></fo:table-cell>
                                              <fo:table-cell padding="2pt">
-                                                 <fo:table border-width="1pt" border-style="solid">
+                                                 <fo:table table-layout="fixed" border-width="1pt" border-style="solid">
                                                      <fo:table-column column-width="150pt"/>
                                                      <fo:table-column column-width="250pt"/>
                                                      <fo:table-body>
@@ -138,7 +138,7 @@ under the License.
                          </#if>
                      </#list>
                      <fo:block space-after.optimum="10pt" font-size="12pt">
-                         <fo:table border-width="1pt" border-style="solid">
+                         <fo:table table-layout="fixed" border-width="1pt" border-style="solid">
                              <fo:table-column column-width="90pt"/>
                              <fo:table-column column-width="90pt"/>
                              <fo:table-column column-width="110pt"/>

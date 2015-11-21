@@ -18,7 +18,7 @@ under the License.
 -->
 <#escape x as x?xml>
         <fo:block>
-            <fo:table font-size="9pt">
+            <fo:table table-layout="fixed" font-size="9pt">
                 <fo:table-column column-width="40pt"/>
                 <fo:table-column column-width="160pt"/>
                 <fo:table-column column-width="58pt"/>

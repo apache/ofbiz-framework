@@ -18,7 +18,7 @@ under the License.
 -->
 <#escape x as x?xml>
     <#if glAcctBalancesByCostCenter?has_content && glAccountCategories?has_content>
-        <fo:table border="1pt solid" border-width=".1mm" width="19cm">
+        <fo:table table-layout="fixed" border="1pt solid" border-width=".1mm" width="19cm">
             <fo:table-header>
                 <fo:table-cell border="1pt solid" border-width=".1mm">
                     <fo:block text-align="center">${uiLabelMap.FormFieldTitle_glAccountId}</fo:block>
