@@ -636,7 +636,7 @@ under the License.
         target="/partymgr/control/createCommEventWorkEffort" target-type="inter-app"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><display/></field>
-        <field name="workEffortId"  use-when="workEffort==null&amp;&amp;workEffortId==null" ><lookup target-form-name="/workeffort/control/LookupWorkEffort"/></field>
+        <field name="workEffortId"  use-when="workEffort==null&amp;&amp;workEffortId==null" ><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/> </field>
         <sort-order>
             <sort-field name="communicationEventId"/>
