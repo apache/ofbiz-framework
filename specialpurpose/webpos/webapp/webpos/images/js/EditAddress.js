@@ -54,7 +54,9 @@ jQuery(document).ready(function() {
         "CommonUiLabels" : ["CommonCreate", "CommonUpdate"],
     };
 
-    uiLabelJsonObjects = getJSONuiLabels(labelObject);
+    getJSONuiLabels(labelObject, function(result){
+    	uiLabelJsonObjects = result.responseJSON;
+    });
 });
 
 function getResultOfCreateUpdateAddress(data) {

@@ -854,24 +854,20 @@ function waitSpinnerHide() {
  * @param requiredLabels JSON Object {resource : [label1, label2 ...], resource2 : [label1, label2, ...]}
  * @return JSON Object
  */
-function getJSONuiLabels(requiredLabels) {
-    var returnVal = {};
-    var requiredLabelsStr = JSON.stringify(requiredLabels)
+function getJSONuiLabels(requiredLabels, callback) {
+	var requiredLabelsStr = JSON.stringify(requiredLabels)
 
-    if (requiredLabels != null && requiredLabels != "") {
-        jQuery.ajax({
-            url: "getJSONuiLabelArray",
-            type: "POST",
-            data: {"requiredLabels" : requiredLabelsStr},
-            success: function(data) {
-                returnVal = data;
-            }
-        });
-    }
-
-    return returnVal;
+	if (requiredLabels != null && requiredLabels != "") {
+		jQuery.ajax({
+	        url: "getJSONuiLabelArray",
+	        type: "POST",
+	        data: {"requiredLabels" : requiredLabelsStr},
+	        complete: function(data) {
+	        	callback(data);
+	        }
+	    });
+	}
 }
-
 /**
  * Read the requiered uiLabel from the uiLabelXml Resource
  * @param uiResource String
@@ -927,7 +923,9 @@ function showErrorAlertLoadUiLabel(errBoxTitleResource, errBoxTitleLabel, uiReso
         labels[uiResource] = [errUiLabel];
     }
     // request the labels
-    labels = getJSONuiLabels(labels);
+    getJSONuiLabels(labels, function(result){
+    	labels = result.responseJSON;
+    });
 
     var errMsgBox = jQuery("#contentarea").after(jQuery("<div id='errorAlertBox'></div>"));
 
