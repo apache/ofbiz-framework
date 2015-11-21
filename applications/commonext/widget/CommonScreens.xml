@@ -71,7 +71,7 @@ under the License.
                             <order-by field-name="-fromDate"/>
                         </entity-and>
                         <set field="orgContentId" from-field="orgPartyContentMap[0].contentId"/>
-                        <set field="orgPartyContent" value="${groovy: orgContentId!=null?'/content/control/stream?contentId=' + orgContentId : ''}"/>
+                        <set field="orgPartyContent" value="${groovy: orgContentId!=null?'/content/control/stream?contentId=' + orgContentId + externalKeyParam : ''}"/>
                         <set field="layoutSettings.organizationLogoLinkUrl" from-field="orgPartyContent" default-value="${orgPartyLogoMap.logoImageUrl}" global="true"/>
                         <set field="defaultOrganizationPartyCurrencyUomId" from-field="orgParty.baseCurrencyUomId" default-value="${defaultCurrencyUomId}" global="true"/>
                         <set field="defaultOrganizationPartyGroupName" from-field="orgParty.groupName" global="true"/>
