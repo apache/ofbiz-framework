@@ -39,7 +39,9 @@ under the License.
                 <a href="<@ofbizCatalogAltUrl productCategoryId=categoryId/>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME", "html")}</a>
               <#elseif catContentWrappers?? && catContentWrappers[category.productCategoryId]?? && catContentWrappers[category.productCategoryId].get("DESCRIPTION", "html")??>
                 <a href="<@ofbizCatalogAltUrl productCategoryId=categoryId/>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("DESCRIPTION", "html")}</a>
-              </#if>
+               <#else>
+                 <a href="<@ofbizCatalogAltUrl productCategoryId=categoryId/>" class="browsecategorybutton">${category.description!}</a>
+                </#if>
             </li>
           </#if>
         </#list>
