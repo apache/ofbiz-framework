@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
@@ -20,54 +19,58 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<web-app>
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <display-name>Apache OFBiz - demostore</display-name>
     <description>Demo Store for the Apache OFBiz Project</description>
 
     <context-param>
+        <description>A unique ID used to look up the WebSite entity</description>
         <param-name>webSiteId</param-name>
         <param-value>WebStore</param-value>
-        <description>A unique ID used to look up the WebSite entity</description>
     </context-param>
     <context-param>
+        <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
         <param-name>localDispatcherName</param-name>
         <param-value>ecommerce</param-value>
-        <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
     </context-param>
     <context-param>
+        <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
         <param-name>entityDelegatorName</param-name>
         <param-value>default</param-value>
-        <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
     </context-param>
     <context-param>
+        <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
         <param-name>mainDecoratorLocation</param-name>
         <param-value>component://ecommerce/widget/CommonScreens.xml</param-value>
-        <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
     </context-param>
     <context-param>
-        <param-name>forceHttpSession</param-name>
-        <param-value>true</param-value>
         <description>
             Forces the JSESSIONID cookie to be sent via http rather https, helps prevent lost sessions in web apps that
             frequently switch between http and https.
         </description>
+        <param-name>forceHttpSession</param-name>
+        <param-value>true</param-value>
     </context-param>
     <context-param>
-        <param-name>defaultPage</param-name>
-        <param-value>/main</param-value>
         <description>Default page uri. Important: please DO add or remove /control to match url-pattern of SeoControlServlet.
         </description>
+        <param-name>defaultPage</param-name>
+        <param-value>/main</param-value>
     </context-param>
 
+    <display-name>SeoCatalogUrlFilter</display-name>
     <filter>
         <filter-name>SeoCatalogUrlFilter</filter-name>
-        <display-name>SeoCatalogUrlFilter</display-name>
         <filter-class>org.ofbiz.product.category.CatalogUrlSeoFilter</filter-class>
         <init-param><param-name>defaultLocaleString</param-name><param-value>en_US</param-value></init-param>
     </filter>
     <filter>
-        <filter-name>SeoContentUrlFilter</filter-name>
         <display-name>SeoContentUrlFilter</display-name>
+        <filter-name>SeoContentUrlFilter</filter-name>
         <filter-class>org.ofbiz.product.category.SeoContentUrlFilter</filter-class>
         <init-param>
             <param-name>defaultLocaleString</param-name>
@@ -76,8 +79,8 @@ under the License.
         <init-param><param-name>viewRequest</param-name><param-value>ViewBlogArticle</param-value></init-param>
     </filter>
     <filter>
-        <filter-name>SeoContextFilter</filter-name>
         <display-name>SeoContextFilter</display-name>
+        <filter-name>SeoContextFilter</filter-name>
         <filter-class>org.ofbiz.product.category.SeoContextFilter</filter-class>
         <init-param>
             <param-name>disableContextSecurity</param-name>
@@ -111,8 +114,8 @@ under the License.
     <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
 
     <servlet>
-        <servlet-name>SeoControlServlet</servlet-name>
         <display-name>SeoControlServlet</display-name>
+        <servlet-name>SeoControlServlet</servlet-name>
         <description>Main SEO Control Servlet</description>
         <servlet-class>org.ofbiz.product.category.SeoControlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
@@ -127,9 +130,9 @@ under the License.
     </servlet>
     -->
     <servlet>
-        <servlet-name>SeoCatalogUrlServlet</servlet-name>
-        <display-name>SeoCatalogUrlServlet</display-name>
         <description>SEO Catalog (Category/Product) URL Servlet</description>
+        <display-name>SeoCatalogUrlServlet</display-name>
+        <servlet-name>SeoCatalogUrlServlet</servlet-name>
         <servlet-class>org.ofbiz.product.category.SeoCatalogUrlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -151,6 +154,11 @@ under the License.
 
     <session-config>
         <session-timeout>60</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
 
     <welcome-file-list>
