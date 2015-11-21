@@ -22,13 +22,12 @@ under the License.
  */
 var uiLabelJsonObject = null;
 jQuery(document).ready(function() {
-
     var labelObject = {
             "CommonUiLabels" : ["CommonUpload", "CommonSave", "CommonCompleted"]
           };
-
-    uiLabelJsonObjects = getJSONuiLabels(labelObject);
-
+    getJSONuiLabels(labelObject, function(result){
+    	uiLabelJsonObjects = result.responseJSON;
+    });
     jQuery("#progress_bar").progressbar({value: 0});
 });
 
