@@ -34,7 +34,7 @@ if (cart.getShipmentMethodTypeId()) {
     trailClassMap.shipOptions = "submenutextright";
 }
 
-if (parameter.paymentMethodType || cart.getPaymentMethodIds() || cart.getPaymentMethodTypeIds()) {
+if (parameters.paymentMethodType || cart.getPaymentMethodIds() || cart.getPaymentMethodTypeIds()) {
     context.billing = "Y";
     trailClassMap.shipOptions = "submenutext";
     trailClassMap.paymentType = "submenutextright";
