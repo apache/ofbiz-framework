@@ -125,7 +125,7 @@ public class CommunicationEventServices {
 
             // check for attachments
             boolean isMultiPart = false;
-            List <GenericValue> comEventContents = communicationEvent.getRelated("CommEventContentAssoc", null, null, false);
+            List <GenericValue> comEventContents = EntityQuery.use(delegator).from("CommEventContentAssoc").where("communicationEventId", communicationEventId).filterByDate().queryList();
             if (UtilValidate.isNotEmpty(comEventContents)) {
                 isMultiPart = true;
                 List<Map<String, ? extends Object>> bodyParts = new LinkedList<Map<String,? extends Object>>();
