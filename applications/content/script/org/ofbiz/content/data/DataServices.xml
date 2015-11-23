@@ -250,27 +250,6 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <!-- Methods for DataResourceAttribute -->
-    <simple-method method-name="createDataResourceAttribute" short-description="Create Data Resource Attribute">
-        <make-value entity-name="DataResourceAttribute" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateDataResourceAttribute" short-description="Update Data Resource Attribute">
-        <make-value entity-name="DataResourceAttribute" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataResourceAttribute" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeDataResourceAttribute" short-description="Remove Data Resource Attribute">
-        <make-value entity-name="DataResourceAttribute" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataResourceAttribute" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- Methods for DataResourceTypeAttr -->
     <simple-method method-name="createDataResourceTypeAttr" short-description="Create Data Resource Type Attribute">
         <make-value entity-name="DataResourceTypeAttr" value-field="newEntity"/>
