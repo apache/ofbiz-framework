@@ -60,6 +60,8 @@ under the License.
 <#macro renderFormatListWrapperOpen formName style columnStyles></#macro>
 <#macro renderFormatListWrapperClose formName></#macro>
 
+<#macro renderFormatHeaderOpen></#macro>
+<#macro renderFormatHeaderClose></#macro>
 <#macro renderFormatHeaderRowOpen style></#macro>
 <#macro renderFormatHeaderRowClose>
 
