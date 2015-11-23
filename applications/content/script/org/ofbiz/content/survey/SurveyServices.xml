@@ -20,156 +20,6 @@
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
-    <!-- Methods for Survey -->
-    <simple-method method-name="createSurvey" short-description="Create Survey">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="Survey" value-field="newEntity"/>
-        <sequenced-id sequence-name="Survey" field="newEntity.surveyId"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <field-to-result result-name="surveyId" field="newEntity.surveyId"/>
-    </simple-method>
-    <simple-method method-name="updateSurvey" short-description="Update Survey">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="Survey" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteSurvey" short-description="Delete Survey">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="Survey" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for SurveyMultiResp -->
-    <simple-method method-name="createSurveyMultiResp" short-description="Create Survey Multi-Response">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="SurveyMultiResp" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.surveyMultiRespId">
-            <make-next-seq-id value-field="newEntity" seq-field-name="surveyMultiRespId" numeric-padding="2"/>
-        </if-empty>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateSurveyMultiResp" short-description="Update Survey Multi-Response">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyMultiResp" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteSurveyMultiResp" short-description="Delete Survey Multi-Response">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyMultiResp" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for SurveyMultiRespColumn -->
-    <simple-method method-name="createSurveyMultiRespColumn" short-description="Create Survey Multi-Response Column/Category">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="SurveyMultiRespColumn" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-field="newEntity" seq-field-name="surveyMultiRespColId" numeric-padding="2"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateSurveyMultiRespColumn" short-description="Update Survey Multi-Response Column/Category">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyMultiRespColumn" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteSurveyMultiRespColumn" short-description="Delete Survey Multi-Response Column/Category">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyMultiRespColumn" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for SurveyPage -->
-    <simple-method method-name="createSurveyPage" short-description="Create Survey Page">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="SurveyPage" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-field="newEntity" seq-field-name="surveyPageSeqId" numeric-padding="2"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateSurveyPage" short-description="Update Survey Page">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyPage" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteSurveyPage" short-description="Delete Survey Page">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyPage" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for SurveyApplType -->
-    <simple-method method-name="createSurveyApplType" short-description="Create SurveyApplType">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="SurveyApplType" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateSurveyApplType" short-description="Update SurveyApplType">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="Survey" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteSurveyApplType" short-description="Delete SurveyApplType">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyApplType" value-field="lookupKeyValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
 
     <!-- Methods for SurveyQuestion -->
     <simple-method method-name="createSurveyQuestion" short-description="Create Survey Question">
@@ -178,7 +28,6 @@
         </check-permission>
         <if>
             <condition>
-
                 <and>
                     <if-compare field="surveyQuestionTypeId" value="ENUMERATION" operator="equals"/>
                     <if-empty field="enumTypeId"/>
@@ -253,165 +102,6 @@
         <entity-one entity-name="SurveyQuestion" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteSurveyQuestion" short-description="Delete Survey Question">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyQuestion" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for SurveyQuestionOption -->
-    <simple-method method-name="createSurveyQuestionOption" short-description="Create Survey Question Option">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeleteCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="SurveyQuestionOption" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-field="newEntity" seq-field-name="surveyOptionSeqId"/>
-        <create-value value-field="newEntity"/>
-        <field-to-result field="newEntity.surveyOptionSeqId" result-name="surveyOptionSeqId"/>
-    </simple-method>
-    <simple-method method-name="updateSurveyQuestionOption" short-description="Update Survey Question Option">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyQuestionOption" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteSurveyQuestionOption" short-description="Delete Survey Question Option">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyQuestionOption" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for SurveyQuestionAppl -->
-    <simple-method method-name="createSurveyQuestionAppl" short-description="Create Survey Question Application">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="SurveyQuestionAppl" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateSurveyQuestionAppl" short-description="Update Survey Question Application">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyQuestionAppl" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteSurveyQuestionAppl" short-description="Delete Survey Question Application">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyQuestionAppl" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for SurveyQuestionCategory -->
-    <simple-method method-name="createSurveyQuestionCategory" short-description="Create Survey QuestionCategory">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="SurveyQuestionCategory" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="SurveyQuestionCategory" field="newEntity.surveyQuestionCategoryId"/>
-        <create-value value-field="newEntity"/>
-        <field-to-result result-name="surveyQuestionCategoryId" field="newEntity.surveyQuestionCategoryId"/>
-    </simple-method>
-    <simple-method method-name="updateSurveyQuestionCategory" short-description="Update Survey QuestionCategory">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyQuestionCategory" value-field="lookupKeyValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteSurveyQuestionCategory" short-description="Delete Survey QuestionCategory">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyQuestionCategory" value-field="lookupKeyValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for SurveyQuestionType -->
-    <simple-method method-name="createSurveyQuestionType" short-description="Create SurveyQuestionType">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="SurveyQuestionType" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateSurveyQuestionType" short-description="Update SurveyQuestionType">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyQuestionType" value-field="lookupKeyValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteSurveyQuestionType" short-description="Delete SurveyQuestionType">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyQuestionType" value-field="lookupKeyValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for SurveyTrigger -->
-    <simple-method method-name="createSurveyTrigger" short-description="Create SurveyTrigger">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="SurveyTrigger" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateSurveyTrigger" short-description="Update SurveyTrigger">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyTrigger" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteSurveyTrigger" short-description="Delete SurveyTrigger">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="SurveyTrigger" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Survey Response Methods -->
@@ -772,32 +462,32 @@
                     <set value="DOCUMENT" field="partyContent.contentTypeId"/>
                     <set value="PERSONAL" field="partyContent.dataCategoryId"/>
                     <set value="CTNT_PUBLISHED" field="partyContent.statusId"/-->
-                    
+
                     <!--  First create the Content record -->
                     <make-value entity-name="Content" value-field="content"/>
                     <sequenced-id field="content.contentId" sequence-name="Content"/>
                     <set field="content.contentTypeId" value="DOCUMENT"/>
                     <set field="content.statusId" value="CTNT_PUBLISHED" />
                     <create-value value-field="content"/>
-                    
+
                     <!-- Create the DataResource record -->
                     <set field="dataResource.dataResourceTypeId" value="IMAGE_OBJECT"/>
                     <set field="dataResource.mimeTypeId" from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_contentType"/>
                     <set field="dataResource.objectInfo" from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_fileName"/>
-                    
+
                     <call-service service-name="createDataResource" in-map-name="dataResource">
                         <result-to-field result-name="dataResourceId"/>
                     </call-service>
-                    
+
                     <!-- Create the ImageDataResource record -->
                     <set field="imageDataResource.dataResourceId" from-field="dataResourceId"/>
                     <set field="imageDataResource.imageData" from-field="answers[&quot;${currentFieldName}&quot;]"/>
                     <call-service service-name="createImageDataResource" in-map-name="imageDataResource"/>                    
-                    
+
                     <!-- Associate the DataResource with the Content record -->
                     <set field="content.dataResourceId" from-field="dataResourceId"/>
                     <store-value value-field="content"/>
-                    
+
                     <set field="partyContent.partyId" from-field="parameters.partyId"/>
                     <set field="partyContent.contentId" from-field="content.contentId"/>
                     <set field="partyContent.partyContentTypeId" value="INTERNAL"/>
