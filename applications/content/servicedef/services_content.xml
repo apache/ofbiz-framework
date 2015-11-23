@@ -286,18 +286,10 @@
         <attribute mode="INOUT" name="contentIdFrom" optional="true" type="String"/>
         <!-- end of deprecated fields -->
     </service>
-    <service name="removeContentAssoc" default-entity-name="ContentAssoc" engine="simple" auth="true"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="removeContentAssoc">
+    <service name="removeContentAssoc" default-entity-name="ContentAssoc" engine="entity-auto" auth="true" invoke="delete">
         <description>Remove ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <!-- deprecated fields to be removed -->
-        <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
-        <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
-        <attribute mode="IN" name="skipPermissionCheck" optional="true" type="String"/>
-        <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
-        <attribute mode="INOUT" name="contentIdFrom" optional="true" type="String"/>
-        <!-- end of deprecated fields -->
     </service>
 
     <!-- content status services -->
@@ -314,13 +306,12 @@
     <service name="createContentRole" engine="simple" default-entity-name="ContentRole" auth="true"
             location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createContentRole">
         <description>Create a ContentRole</description>
-        <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
+        <permission-service service-name="genericContentPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateContentRole" engine="simple" default-entity-name="ContentRole" auth="true"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateContentRole">
+    <service name="updateContentRole" engine="entity-auto" default-entity-name="ContentRole" auth="true" invoke="update">
         <description>Update a ContentRole</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -334,10 +325,9 @@
         <attribute mode="IN" name="roleTypeId" optional="false" type="String"/>
         <attribute mode="IN" name="partyId" optional="false" type="String"/>
     </service>
-    <service name="removeContentRole" engine="simple"  default-entity-name="ContentRole" auth="true"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="removeContentRole">
+    <service name="removeContentRole" engine="entity-auto" default-entity-name="ContentRole" auth="true" invoke="delete">
         <description>Remove ContentRole</description>
-        <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
+        <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <auto-attributes entity-name="ContentRole" include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -350,4 +340,146 @@
         <attribute name="contentsNotUpdated" mode="OUT" type="Integer" optional="true"/>
         <attribute name="contentsUpdated" mode="OUT" type="Integer" optional="true"/>
     </service>
+
+    <!-- ContentMetaData services -->
+    <service name="createContentMetaData" engine="entity-auto" default-entity-name="ContentMetaData" auth="true" invoke="create">
+        <description>Create a ContentMetaData</description>
+        <permission-service service-name="genericContentPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateContentMetaData" engine="entity-auto" default-entity-name="ContentMetaData" auth="true" invoke="update">
+        <description>Update a ContentMetaData</description>
+        <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeContentMetaData" engine="entity-auto" default-entity-name="ContentMetaData" auth="true" invoke="delete">
+        <description>Remove ContentMetaData</description>
+        <permission-service service-name="genericContentPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ContentOperation services -->
+    <service name="createContentOperation" engine="entity-auto" default-entity-name="ContentOperation" auth="true" invoke="create">
+        <description>Create a ContentOperation</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateContentOperation" engine="entity-auto" default-entity-name="ContentOperation" auth="true" invoke="update">
+        <description>Update a ContentOperation</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeContentOperation" engine="entity-auto" default-entity-name="ContentOperation" auth="true" invoke="delete">
+        <description>Remove ContentOperation</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ContentPurpose services -->
+    <service name="createContentPurpose" engine="entity-auto" default-entity-name="ContentPurpose" auth="true" invoke="create">
+        <description>Create a ContentPurpose</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateContentPurpose" engine="entity-auto" default-entity-name="ContentPurpose" auth="true" invoke="update">
+        <description>Update a ContentPurpose</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeContentPurpose" engine="entity-auto" default-entity-name="ContentPurpose" auth="true"
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="delete">
+        <description>Remove ContentPurpose</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="updateSingleContentPurpose" engine="simple" default-entity-name="ContentPurpose" auth="true"
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateSingleContentPurpose">
+        <description>Removes content purposes and creates a new one</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <!-- ContentPurposeOperation services -->
+    <service name="createContentPurposeOperation" engine="entity-auto" default-entity-name="ContentPurposeOperation" auth="true" invoke="create">
+        <description>Create a ContentPurposeOperation</description>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateContentPurposeOperation" engine="entity-auto" default-entity-name="ContentPurposeOperation" auth="true" invoke="update">
+        <description>Update a ContentPurposeOperation</description>
+        <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeContentPurposeOperation" engine="entity-auto" default-entity-name="ContentPurposeOperation" auth="true" invoke="delete">
+        <description>Remove ContentPurposeOperation</description>
+        <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ContentAttribute services -->
+    <service name="createContentAttribute" engine="entity-auto" default-entity-name="ContentAttribute" auth="true" invoke="create">
+        <description>Create a ContentAttribute</description>
+        <permission-service service-name="genericContentPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateContentAttribute" engine="entity-auto" default-entity-name="ContentAttribute" auth="true" invoke="update">
+        <description>Update a ContentAttribute</description>
+        <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeContentAttribute" engine="entity-auto" default-entity-name="ContentAttribute" auth="true" invoke="delete">
+        <description>Remove ContentAttribute</description>
+        <permission-service service-name="genericContentPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Content Keyword Services -->
+    <service name="createContentKeyword" engine="entity-auto" default-entity-name="ContentKeyword" invoke="create" auth="true">
+        <description>Create a ContentKeyword</description>
+        <permission-service service-name="genericContentPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateContentKeyword" engine="entity-auto" default-entity-name="ContentKeyword" invoke="update" auth="true">
+        <description>Update a ContentKeyword</description>
+        <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteContentKeyword" engine="entity-auto" default-entity-name="ContentKeyword"
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="delete" auth="true">
+        <description>Delete a ContentKeyword</description>
+        <permission-service service-name="genericContentPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteContentKeywords" engine="simple"
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="deleteContentKeywords" auth="true">
+        <description>Delete all the keywords of a content</description>
+        <permission-service service-name="genericContentPermission" main-action="DELETE"/>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="indexContentKeywords" engine="simple"
+                location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="indexContentKeywords" auth="false">
+        <description>Index the Keywords for a Content</description>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
+        <attribute name="contentInstance" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+    </service>
+    <service name="forceIndexContentKeywords" engine="simple"
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="forceIndexContentKeywords" auth="true">
+        <description>Induce all the keywords of a content, ignoring the flag in the Content.</description>
+        <permission-service service-name="genericContentPermission" main-action="CREATE"/>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
+    </service>
+
 </services>
