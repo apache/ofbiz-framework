@@ -986,56 +986,33 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductAssociations"/>
                 <set field="tabButtonItem" value="EditProductAssoc"/>
                 <set field="labelTitleProperty" value="ProductAssociations"/>
-
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductAssoc.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
+                        <screenlet title="${uiLabelMap.PageTitleEditProductAssociations}">
+                            <include-form name="EditProductAssoc" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                        <iterate-section entry="assocSection" list="assocSections">
                             <section>
+                                <actions>
+                                    <set field="assocProducts" from-field="assocSection.assocProducts"/>
+                                </actions>
                                 <widgets>
-                                    <platform-specific>
-                                        <html><html-template location="component://product/webapp/catalog/product/EditProductAssoc.ftl"/></html>
-                                    </platform-specific>
+                                    <screenlet title="${assocSection.sectionTitle}">
+                                        <include-form name="ListProductAssocs" location="component://product/widget/catalog/ProductForms.xml"/>
+                                    </screenlet>
+                                    <label style="tooltip">${uiLabelMap.CommonNote} : ${uiLabelMap.ProductHighlightedExplanation}</label>
                                 </widgets>
                             </section>
-                        </container>
+                        </iterate-section>  
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    <!--
-    <screen name="EditProductAssoc">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleEditProductAssociations"/>
-                <set field="tabButtonItem" value="EditProductAssoc"/>
-                <set field="labelTitleProperty" value="EditProductAssoc"/>
 
-                <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-field="product"/>
-                <entity-and entity-name="ProductAssoc" list-name="productAssocs">
-                    <field-map field-name="productId"/>
-                    <order-by field-name="productAssocTypeId"/>
-                </entity-and>
-                <entity-and entity-name="ProductAssoc" list-name="productAssocsTo">
-                    <field-map from-field="productId" field-name="productIdTo"/>
-                    <order-by field-name="productAssocTypeId"/>
-                </entity-and>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-form name="ListProductAssocs" location="component://product/widget/catalog/ProductForms.xml"/>
-                        <include-form name="ListProductAssocsTo" location="component://product/widget/catalog/ProductForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    -->
     <screen name="ApplyFeaturesFromCategory">
         <section>
             <actions>

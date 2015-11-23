@@ -20,69 +20,22 @@
 import org.ofbiz.entity.*
 import org.ofbiz.base.util.*
 
-context.nowDate = UtilDateTime.nowDate();
-context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
+uiLabelMap = UtilProperties.getResourceBundleMap("ProductUiLabels", locale);
 
-useValues = true;
-if (request.getAttribute("_ERROR_MESSAGE_")) {
-    useValues = false;
+product = from("Product").where("productId", parameters.productId).queryOne();
+
+fromDate = UtilDateTime.nowTimestamp();
+if (UtilValidate.isNotEmpty(parameters.fromDate)) {
+    fromDate = ObjectType.simpleTypeConvert(parameters.fromDate, "Timestamp", null, timeZone, locale, false);
 }
 
-productId = parameters.productId;
-if (!productId) {
-    productId = parameters.PRODUCT_ID;
-} else {
-    context.productId = productId;
-}
-
-productIdTo = parameters.PRODUCT_ID_TO;
-if (productIdTo) {
-    context.productIdTo = productIdTo;
-}
-
-productAssocTypeId = parameters.PRODUCT_ASSOC_TYPE_ID;
-if (productAssocTypeId != null) {
-    context.productAssocTypeId = productAssocTypeId;
-}
-
-fromDateStr = parameters.FROM_DATE;
-
-fromDate = null;
-if (UtilValidate.isNotEmpty(fromDateStr)) {
-    fromDate = ObjectType.simpleTypeConvert(fromDateStr, "Timestamp", null, timeZone, locale, false);
-}
-if (!fromDate) {
-    fromDate = request.getAttribute("ProductAssocCreateFromDate");
-} else {
-    context.fromDate = fromDate;
-}
-
-product = from("Product").where("productId", productId).queryOne();
-if (product) {
-    context.product = product;
-}
-
-productAssoc = from("ProductAssoc").where("productId", productId, "productIdTo", productIdTo, "productAssocTypeId", productAssocTypeId, "fromDate", fromDate).queryOne();
-if (productAssoc) {
-    context.productAssoc = productAssoc;
-}
-
-if ("true".equalsIgnoreCase(parameters.useValues)) {
-    useValues = true;
-}
-
-if (!productAssoc) {
-    useValues = false;
-}
-
-context.useValues = useValues;
-context.isCreate = true;
-
-assocTypes = from("ProductAssocType").orderBy("description").queryList();
-context.assocTypes = assocTypes;
+productAssoc = from("ProductAssoc").where("productId", parameters.productId, "productIdTo", parameters.productIdTo, "productAssocTypeId", parameters.productAssocTypeId, "fromDate", fromDate).queryOne();
+context.productAssoc = productAssoc;
 
 if (product) {
-    context.assocFromProducts = product.getRelated("MainProductAssoc", null, ['sequenceNum'], false);
-
-    context.assocToProducts = product.getRelated("AssocProductAssoc", null, null, false);
+    assocFromProducts = product.getRelated("MainProductAssoc", null, ['sequenceNum'], false);
+    assocToProducts = product.getRelated("AssocProductAssoc", null, null, false);
+    assocFromMap = ["assocProducts" : assocFromProducts, "sectionTitle" : uiLabelMap.ProductAssociationsFromProduct];
+    assocToMap = ["assocProducts" : assocToProducts, "sectionTitle" : uiLabelMap.ProductAssociationsToProduct];
+    context.assocSections = [assocFromMap, assocToMap];
 }

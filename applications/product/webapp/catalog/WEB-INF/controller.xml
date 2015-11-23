@@ -822,12 +822,22 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProductAssoc"/>
     </request-map>
-    <request-map uri="UpdateProductAssoc">
+    <request-map uri="createProductAssoc">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="updateProductAssoc"/>
-        <response name="success" type="request-redirect" value="EditProductAssoc">
-            <redirect-parameter name="productId"/>
-        </response>
+        <event type="service" invoke="createProductAssoc"/>
+        <response name="success" type="view" value="EditProductAssoc"/>
+        <response name="error" type="view" value="EditProductAssoc"/>
+    </request-map>
+    <request-map uri="updateProductAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateProductAssoc"/>
+        <response name="success" type="view" value="EditProductAssoc"/>
+        <response name="error" type="view" value="EditProductAssoc"/>
+    </request-map>
+    <request-map uri="deleteProductAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteProductAssoc"/>
+        <response name="success" type="view" value="EditProductAssoc"/>
         <response name="error" type="view" value="EditProductAssoc"/>
     </request-map>
 

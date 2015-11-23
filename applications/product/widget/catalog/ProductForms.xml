@@ -1137,29 +1137,94 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <!-- UNUSED FORMS
-    <form name="ListProductAssocs" type="list" use-row-submit="true"  title="" list-name="productAssocs"
-        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductAssoc">
-        <auto-fields-entity entity-name="ProductAssoc" default-field-type="display"/>
-        <field name="productId"><hidden/></field>
-        <field name="productIdTo" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productIdTo}" target="EditProduct">
-                <parameter param-name="productId" from-field="productIdTo"/>
-            </hyperlink>
+    <form name="EditProductAssoc" type="single" use-row-submit="true"  title="" default-map-name="productAssoc" target="createProductAssoc"
+         default-table-style="basic-table" paginate-target="EditProductAssoc">
+        <alt-target use-when="productAssoc!=null" target="updateProductAssoc"/>
+        <field name="productId" use-when="productAssoc==null" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productId" use-when="productAssoc!=null" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductRecreateAssociation}" ><display/></field>
+        <field name="productIdTo" use-when="productAssoc==null" title="${uiLabelMap.ProductProductIdTo}">
+            <lookup target-form-name="LookupProduct"/>
         </field>
-
+        <field name="productIdTo" use-when="productAssoc!=null" title="${uiLabelMap.ProductProductIdTo}" tooltip="${uiLabelMap.ProductRecreateAssociation}"><display/></field>
+        <field name="productAssocTypeId" use-when="productAssoc==null" title="${uiLabelMap.ProductAssociationType}">
+            <drop-down>
+                <entity-options description="${description}" entity-name="ProductAssocType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productAssocTypeId" use-when="productAssoc!=null" title="${uiLabelMap.ProductAssociationType}" tooltip="${uiLabelMap.ProductRecreateAssociation}"><display/></field>
+        <field name="fromDate" use-when="productAssoc==null" tooltip="${uiLabelMap.CommonSetNowEmpty}"><date-time default-value="${nowTimestamp}"/></field>
+        <field name="fromDate" use-when="productAssoc!=null" tooltip="${uiLabelMap.ProductRecreateAssociation}"><display type="date-time"/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="sequenceNum"><text size="6"/></field>
+        <field name="reason"><text/></field>
+        <field name="instruction"><text/></field>
+        <field name="quantity"><text size="6" default-value="${quantity}"/></field>
+        <field name="scrapFactor"><hidden/></field>
+        <field name="routingWorkEffortId"><hidden/></field>
+        <field name="estimateCalcMethod"><hidden/></field>
+        <field name="recurrenceInfoId"><hidden/></field>
+        <field name="createButton" use-when="productAssoc == null">
+            <submit/>
+        </field>
+        <field name="updateButton" use-when="productAssoc != null">
+            <submit/>
+        </field>
     </form>
-    <form name="ListProductAssocsTo" type="list" use-row-submit="true" title="" list-name="productAssocsTo"
+    <form name="ListProductAssocs" type="list" use-row-submit="true"  title="" list-name="assocProducts"
         odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductAssoc">
-        <auto-fields-entity entity-name="ProductAssoc" default-field-type="display"/>
-        <field name="productIdTo"><hidden/></field>
-        <field name="productId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productId}" target="EditProduct">
+        <actions>
+            <set field="labelFrom" from-field="uiLabelMap.ProductAssociationsFromProduct"/>
+            <set field="labelTo" from-field="uiLabelMap.ProductAssociationsToProduct"/>
+            <set field="sectionTitle" from-field="assocSection.sectionTitle"/>
+        </actions>
+        <row-actions>
+            <entity-one value-field="product" entity-name="Product">
+                <field-map field-name="productId" value="${parameters.productId}"/>
+            </entity-one>
+        </row-actions>
+        <field name="productId" widget-style="buttontext" ignore-when="sectionTitle.equals(labelFrom)" title="${uiLabelMap.ProductProductId}">
+            <display-entity entity-name="Product" description="${internalName}">
+                <sub-hyperlink description="${productId}" link-style="buttontext" target="EditProductAssoc">
+                    <parameter param-name="productId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="productIdTo" widget-style="buttontext" ignore-when="sectionTitle.equals(labelTo)" title="${uiLabelMap.ProductProductId}">
+            <display-entity entity-name="Product" key-field-name="productId" description="${internalName}">
+                <sub-hyperlink description="${productIdTo}" link-style="buttontext" target="EditProductAssoc">
+                    <parameter param-name="productId" value="${productIdTo}"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="productAssocTypeId" title="${uiLabelMap.ProductAssociationType}" >
+            <display-entity entity-name="ProductAssocType"></display-entity>
+        </field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="sequenceNum"><display/></field>
+        <field name="reason"><display/></field>
+        <field name="instruction"><display/></field>
+        <field name="quantity"><display/></field>
+        <field name="editLink" widget-style="buttontext">
+            <hyperlink target="EditProductAssoc" description="${uiLabelMap.CommonEdit}">
                 <parameter param-name="productId"/>
+                <parameter param-name="productIdTo"/>
+                <parameter param-name="productAssocTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+        <field name="deleteButton" widget-style="buttontext">
+            <hyperlink target="deleteProductAssoc" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="productId"/>
+                <parameter param-name="productIdTo"/>
+                <parameter param-name="productAssocTypeId"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="lastProductId" from-field="parameters.productId"/>
             </hyperlink>
         </field>
     </form>
-    -->
 
     <form name="ListProductComponents" type="list" use-row-submit="true" title="" list-name="components"
         odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="ViewProductManufacturing">
