@@ -65,6 +65,8 @@ under the License.
 <#macro renderFormClose focusFieldName formName containerId hasRequiredField></#macro>
 <#macro renderMultiFormClose></#macro>
 
+<#macro renderFormatHeaderOpen></#macro>
+<#macro renderFormatHeaderClose></#macro>
 <#macro renderFormatHeaderRowOpen style></#macro>
 <#macro renderFormatHeaderRowClose>
 </#macro>
