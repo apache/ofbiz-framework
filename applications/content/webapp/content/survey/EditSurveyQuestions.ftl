@@ -65,7 +65,7 @@ under the License.
               <td>${surveyQuestionAndAppl.description!}</td>
               <td><input type="text" name="question" size="30" value="${surveyQuestionAndAppl.question!?html}" />
               <td>
-                <select name="surveyPageId">
+                <select name="surveyPageSeqId">
                   <#if surveyQuestionAndAppl.surveyPageSeqId?has_content>
                     <option value="${surveyQuestionAndAppl.surveyPageSeqId}">${(currentSurveyPage.pageName)!} [${surveyQuestionAndAppl.surveyPageSeqId}]</option>
                     <option value="${surveyQuestionAndAppl.surveyPageSeqId}">----</option>
@@ -171,7 +171,7 @@ under the License.
                 <td>${questionType.get("description",locale)}</td>
                 <td>${question.question!}</td>
               <td>
-                <select name="surveyPageId">
+                <select name="surveyPageSeqId">
                   <option value=""></option>
                   <#list surveyPageList as surveyPage>
                     <option value="${surveyPage.surveyPageSeqId}">${surveyPage.pageName} [${surveyPage.surveyPageSeqId}]</option>

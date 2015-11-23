@@ -24,22 +24,19 @@ under the License.
     <vendor>OFBiz</vendor>
 
     <!-- Survey Services -->
-    <service name="createSurvey" default-entity-name="Survey" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurvey">
+    <service name="createSurvey" default-entity-name="Survey" auth="true" engine="entity-auto" invoke="create">
         <description>Create a Survey</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateSurvey" default-entity-name="Survey" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="updateSurvey">
+    <service name="updateSurvey" default-entity-name="Survey" auth="true" engine="entity-auto" invoke="update">
         <description>Update a Survey</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteSurvey" default-entity-name="Survey" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="deleteSurvey">
+    <service name="deleteSurvey" default-entity-name="Survey" auth="true" engine="entity-auto" invoke="delete">
         <description>Delete Survey</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -56,94 +53,80 @@ under the License.
     -->
 
     <!-- SurveyMultiResp Services -->
-    <service name="createSurveyMultiResp" default-entity-name="SurveyMultiResp" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyMultiResp">
+    <service name="createSurveyMultiResp" default-entity-name="SurveyMultiResp" auth="true" engine="entity-auto" invoke="create">
         <description>Create a SurveyMultiResp; surveyMultiRespId will be auto-sequenced</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false">
-            <exclude field-name="surveyMultiRespId"/>
-        </auto-attributes>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="surveyId" mode="IN" type="String"/>
+        <attribute name="surveyMultiRespId" mode="OUT" type="String"/>
     </service>
-    <service name="updateSurveyMultiResp" default-entity-name="SurveyMultiResp" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="updateSurveyMultiResp">
+    <service name="updateSurveyMultiResp" default-entity-name="SurveyMultiResp" auth="true" engine="entity-auto" invoke="update">
         <description>Update a SurveyMultiResp</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteSurveyMultiResp" default-entity-name="SurveyMultiResp" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="deleteSurveyMultiResp">
+    <service name="deleteSurveyMultiResp" default-entity-name="SurveyMultiResp" auth="true" engine="entity-auto" invoke="delete">
         <description>Delete SurveyMultiResp</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- SurveyMultiRespColumn Services -->
-    <service name="createSurveyMultiRespColumn" default-entity-name="SurveyMultiRespColumn" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyMultiRespColumn">
+    <service name="createSurveyMultiRespColumn" default-entity-name="SurveyMultiRespColumn" auth="true" engine="entity-auto" invoke="create">
         <description>Create a SurveyMultiRespColumn; surveyMultiRespColId will be auto-sequenced</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false">
-            <exclude field-name="surveyMultiRespColId"/>
-        </auto-attributes>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="surveyId" mode="IN" type="String"/>
+        <attribute name="surveyMultiRespId" mode="IN" type="String"/>
+        <attribute name="surveyMultiRespColId" mode="OUT" type="String"/>
     </service>
-    <service name="updateSurveyMultiRespColumn" default-entity-name="SurveyMultiRespColumn" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="updateSurveyMultiRespColumn">
+    <service name="updateSurveyMultiRespColumn" default-entity-name="SurveyMultiRespColumn" auth="true" engine="entity-auto" invoke="update">
         <description>Update a SurveyMultiRespColumn</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteSurveyMultiRespColumn" default-entity-name="SurveyMultiRespColumn" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="deleteSurveyMultiRespColumn">
+    <service name="deleteSurveyMultiRespColumn" default-entity-name="SurveyMultiRespColumn" auth="true" engine="entity-auto" invoke="delete">
         <description>Delete SurveyMultiRespColumn</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- SurveyPage Services -->
-    <service name="createSurveyPage" default-entity-name="SurveyPage" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyPage">
+    <service name="createSurveyPage" default-entity-name="SurveyPage" auth="true" engine="entity-auto" invoke="create">
         <description>Create a SurveyPage; the surveyPageSeqId will be auto-generated</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false">
-            <exclude field-name="surveyPageSeqId"/>
-        </auto-attributes>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="surveyId" mode="IN" type="String"/>
+        <attribute name="surveyPageSeqId" mode="OUT" type="String"/>
     </service>
-    <service name="updateSurveyPage" default-entity-name="SurveyPage" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="updateSurveyPage">
+    <service name="updateSurveyPage" default-entity-name="SurveyPage" auth="true" engine="entity-auto" invoke="update">
         <description>Update a SurveyPage</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteSurveyPage" default-entity-name="SurveyPage" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="deleteSurveyPage">
+    <service name="deleteSurveyPage" default-entity-name="SurveyPage" auth="true" engine="entity-auto" invoke="delete">
         <description>Delete SurveyPage</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- SurveyApplType Services -->
-    <service name="createSurveyApplType" default-entity-name="SurveyApplType" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyApplType">
+    <service name="createSurveyApplType" default-entity-name="SurveyApplType" auth="true" engine="entity-auto" invoke="create">
         <description>Create a SurveyApplType</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateSurveyApplType" default-entity-name="SurveyApplType" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="updateSurveyApplType">
+    <service name="updateSurveyApplType" default-entity-name="SurveyApplType" auth="true" engine="entity-auto" invoke="update">
         <description>Update a SurveyApplType</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteSurveyApplType" default-entity-name="SurveyApplType" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="deleteSurveyApplType">
+    <service name="deleteSurveyApplType" default-entity-name="SurveyApplType" auth="true" engine="entity-auto" invoke="delete">
         <description>Delete SurveyApplType</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -165,122 +148,104 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteSurveyQuestion" default-entity-name="SurveyQuestion" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="deleteSurveyQuestion">
+    <service name="deleteSurveyQuestion" default-entity-name="SurveyQuestion" auth="true" engine="entity-auto" invoke="delete">
         <description>Delete SurveyQuestion</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- SurveyQuestionOption Services -->
-    <service name="createSurveyQuestionOption" default-entity-name="SurveyQuestionOption" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyQuestionOption">
+    <service name="createSurveyQuestionOption" default-entity-name="SurveyQuestionOption" auth="true" engine="entity-auto" invoke="create">
         <description>Create a SurveyQuestionOption</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="all" mode="IN" optional="true">
-            <exclude field-name="surveyOptionSeqId"/>
-        </auto-attributes>
-        <attribute name="surveyOptionSeqId" type="String" mode="OUT" optional="false"/>
-        <override name="surveyQuestionId" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="surveyQuestionId" type="String" mode="IN"/>
+        <attribute name="surveyOptionSeqId" type="String" mode="OUT"/>
     </service>
-    <service name="updateSurveyQuestionOption" default-entity-name="SurveyQuestionOption" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="updateSurveyQuestionOption">
+    <service name="updateSurveyQuestionOption" default-entity-name="SurveyQuestionOption" auth="true" engine="entity-auto" invoke="update">
         <description>Update a SurveyQuestionOption</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteSurveyQuestionOption" default-entity-name="SurveyQuestionOption" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="deleteSurveyQuestionOption">
+    <service name="deleteSurveyQuestionOption" default-entity-name="SurveyQuestionOption" auth="true" engine="entity-auto" invoke="delete">
         <description>Delete SurveyQuestionOption</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- SurveyQuestionAppl Services -->
-    <service name="createSurveyQuestionAppl" default-entity-name="SurveyQuestionAppl" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyQuestionAppl">
+    <service name="createSurveyQuestionAppl" default-entity-name="SurveyQuestionAppl" auth="true" engine="entity-auto" invoke="create">
         <description>Create a SurveyQuestionAppl</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateSurveyQuestionAppl" default-entity-name="SurveyQuestionAppl" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="updateSurveyQuestionAppl">
+    <service name="updateSurveyQuestionAppl" default-entity-name="SurveyQuestionAppl" auth="true" engine="entity-auto" invoke="update">
         <description>Update a SurveyQuestionAppl</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteSurveyQuestionAppl" default-entity-name="SurveyQuestionAppl" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="deleteSurveyQuestionAppl">
+    <service name="deleteSurveyQuestionAppl" default-entity-name="SurveyQuestionAppl" auth="true" engine="entity-auto" invoke="delete">
         <description>Delete SurveyQuestionAppl</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- SurveyQuestionCategory Services -->
-    <service name="createSurveyQuestionCategory" default-entity-name="SurveyQuestionCategory" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyQuestionCategory">
+    <service name="createSurveyQuestionCategory" default-entity-name="SurveyQuestionCategory" auth="true" engine="entity-auto" invoke="create">
         <description>Create a SurveyQuestionCategory</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateSurveyQuestionCategory" default-entity-name="SurveyQuestionCategory" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="updateSurveyQuestionCategory">
+    <service name="updateSurveyQuestionCategory" default-entity-name="SurveyQuestionCategory" auth="true" engine="entity-auto" invoke="update">
         <description>Update a SurveyQuestionCategory</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteSurveyQuestionCategory" default-entity-name="SurveyQuestionCategory" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="deleteSurveyQuestionCategory">
+    <service name="deleteSurveyQuestionCategory" default-entity-name="SurveyQuestionCategory" auth="true" engine="entity-auto" invoke="delete">
         <description>Delete SurveyQuestionCategory</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- SurveyQuestionType Services -->
-    <service name="createSurveyQuestionType" default-entity-name="SurveyQuestionType" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyQuestionType">
+    <service name="createSurveyQuestionType" default-entity-name="SurveyQuestionType" auth="true" engine="entity-auto" invoke="create">
         <description>Create a SurveyQuestionType</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateSurveyQuestionType" default-entity-name="SurveyQuestionType" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="updateSurveyQuestionType">
+    <service name="updateSurveyQuestionType" default-entity-name="SurveyQuestionType" auth="true" engine="entity-auto" invoke="update">
         <description>Update a SurveyQuestionType</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteSurveyQuestionType" default-entity-name="SurveyQuestionType" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="deleteSurveyQuestionType">
+    <service name="deleteSurveyQuestionType" default-entity-name="SurveyQuestionType" auth="true" engine="entity-auto" invoke="delete">
         <description>Delete SurveyQuestionType</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- SurveyTrigger Services -->
-    <service name="createSurveyTrigger" default-entity-name="SurveyTrigger" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyTrigger">
+    <service name="createSurveyTrigger" default-entity-name="SurveyTrigger" auth="true" engine="entity-auto" invoke="create">
         <description>Create a SurveyTrigger</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateSurveyTrigger" default-entity-name="SurveyTrigger" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="updateSurveyQuestionType">
+    <service name="updateSurveyTrigger" default-entity-name="SurveyTrigger" auth="true" engine="entity-auto" invoke="update">
         <description>Update a SurveyTrigger</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteSurveyTrigger" default-entity-name="SurveyTrigger" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="deleteSurveyTrigger">
+    <service name="deleteSurveyTrigger" default-entity-name="SurveyTrigger" auth="true" engine="entity-auto" invoke="delete">
         <description>Delete SurveyTrigger</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
