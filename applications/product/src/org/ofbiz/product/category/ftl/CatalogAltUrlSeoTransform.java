@@ -32,6 +32,7 @@ import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.product.category.CatalogUrlFilter;
 import org.ofbiz.product.category.CategoryContentWrapper;
 import org.ofbiz.product.category.SeoConfigUtil;
@@ -149,7 +150,7 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                         }
                         if (UtilValidate.isNotEmpty(productId)) {
                             GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
-                            ProductContentWrapper wrapper = new ProductContentWrapper(dispatcher, product, locale, "text/html");
+                            ProductContentWrapper wrapper = new ProductContentWrapper(dispatcher, product, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
                             if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
                                 url = CatalogUrlSeoTransform.makeProductUrl(delegator, wrapper, prefixString, contextPath, productCategoryId, previousCategoryId, productId);
                             } else {
@@ -158,7 +159,7 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                             }
                         } else {
                             GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), false);
-                            CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, "text/html");
+                            CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
                             if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
                                 url = CatalogUrlSeoTransform.makeCategoryUrl(delegator, wrapper, prefixString, productCategoryId, previousCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
                             } else {

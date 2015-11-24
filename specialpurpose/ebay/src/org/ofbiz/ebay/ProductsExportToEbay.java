@@ -249,7 +249,7 @@ public class ProductsExportToEbay {
                         startPriceCurrencyUomId = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
                     }
                     startPriceElem.setAttribute("currencyID", startPriceCurrencyUomId);
-                }else{
+                } else {
                     Element startPriceElem = UtilXml.addChildElementValue(itemElem, "StartPrice", startPrice, itemDocument);
                     if (UtilValidate.isEmpty(startPriceCurrencyUomId)) {
                         startPriceCurrencyUomId = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
@@ -264,7 +264,7 @@ public class ProductsExportToEbay {
                     }
                 }
 
-                ProductContentWrapper pcw = new ProductContentWrapper(dctx.getDispatcher(), prod, locale, "text/html");
+                ProductContentWrapper pcw = new ProductContentWrapper(dctx.getDispatcher(), prod, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
                 StringUtil.StringWrapper ebayDescription = pcw.get("EBAY_DESCRIPTION", "html");
                 if (UtilValidate.isNotEmpty(ebayDescription.toString())) {
                     UtilXml.addChildElementCDATAValue(itemElem, "Description", ebayDescription.toString(), itemDocument);
