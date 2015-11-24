@@ -48,22 +48,15 @@
         <attribute name="contentId" type="String" mode="INOUT" optional="false"/>
         <attribute name="templateDataResource" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="updateDataResource" engine="simple" default-entity-name="DataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateDataResource">
+    <service name="updateDataResource" engine="entity-auto" default-entity-name="DataResource" auth="true" invoke="update">
         <description>Update a DataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="dataResourceId" type="String" mode="IN" optional="false"/>
-        <attribute name="targetOperationList" type="List" mode="IN" optional="true"/>
-        <attribute name="contentPurposeList" type="List" mode="IN" optional="true"/>
-        <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
-        <attribute name="dataResourceId" type="String" mode="OUT" optional="false"/>
-        <attribute name="dataResource" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="dataResourceId" type="String" mode="INOUT" optional="false"/>
         <override name="objectInfo" allow-html="any"/>
         <override name="dataResourceName" allow-html="any"/>
     </service>
-    <service name="removeDataResource" engine="simple" default-entity-name="DataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="deleteDataResource">
+    <service name="removeDataResource" engine="entity-auto" default-entity-name="DataResource" auth="true" invoke="delete">
         <description>Remove DataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -142,89 +135,115 @@
     </service>
 
     <!-- Image Data Resource services -->
-    <service name="createImageDataResource" engine="simple" default-entity-name="ImageDataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createImageDataResource">
+    <service name="createImageDataResource" engine="entity-auto" default-entity-name="ImageDataResource" auth="true" invoke="create">
         <description>Create an ImageDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateImageDataResource" engine="simple" default-entity-name="ImageDataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateImageDataResource">
+    <service name="updateImageDataResource" engine="entity-auto" default-entity-name="ImageDataResource" auth="true" invoke="update">
         <description>Update an ImageDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeImageDataResource" engine="simple" default-entity-name="ImageDataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeImageDataResource">
+    <service name="removeImageDataResource" engine="entity-auto" default-entity-name="ImageDataResource" auth="true" invoke="delete">
         <description>Remove an ImageDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Video Data Resource services -->
-    <service name="createVideoDataResource" engine="simple" default-entity-name="VideoDataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createVideoDataResource">
+    <service name="createVideoDataResource" engine="entity-auto" default-entity-name="VideoDataResource" auth="true" invoke="create">
         <description>Create a VideoDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateVideoDataResource" engine="simple" default-entity-name="VideoDataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateVideoDataResource">
+    <service name="updateVideoDataResource" engine="entity-auto" default-entity-name="VideoDataResource" auth="true" invoke="update">
         <description>Update an VideoDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeVideoDataResource" engine="simple" default-entity-name="VideoDataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeVideoDataResource">
+    <service name="removeVideoDataResource" engine="entity-auto" default-entity-name="VideoDataResource" auth="true" invoke="delete">
         <description>Remove an VideoDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Audio Data Resource services -->
-    <service name="createAudioDataResource" engine="simple" default-entity-name="AudioDataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createAudioDataResource">
+    <service name="createAudioDataResource" engine="entity-auto" default-entity-name="AudioDataResource" auth="true" invoke="create">
         <description>Create an AudioDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateAudioDataResource" engine="simple" default-entity-name="AudioDataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateAudioDataResource">
+    <service name="updateAudioDataResource" engine="entity-auto" default-entity-name="AudioDataResource" auth="true" invoke="update">
         <description>Update an AudioDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeAudioDataResource" engine="simple" default-entity-name="AudioDataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeAudioDataResource">
+    <service name="removeAudioDataResource" engine="entity-auto" default-entity-name="AudioDataResource" auth="true" invoke="delete">
         <description>Remove an AudioDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Other Data Resource services -->
-    <service name="createOtherDataResource" engine="simple" default-entity-name="OtherDataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createOtherDataResource">
+    <service name="createOtherDataResource" engine="entity-auto" default-entity-name="OtherDataResource" auth="true" invoke="create">
         <description>Create an OtherDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateOtherDataResource" engine="simple" default-entity-name="OtherDataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateOtherDataResource">
+    <service name="updateOtherDataResource" engine="entity-auto" default-entity-name="OtherDataResource" auth="true" invoke="update">
         <description>Update an OtherDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeOtherDataResource" engine="simple" default-entity-name="OtherDataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeOtherDataResource">
+    <service name="removeOtherDataResource" engine="entity-auto" default-entity-name="OtherDataResource" auth="true" invoke="delete">
         <description>Remove an OtherDataResource</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Data Resource Meta Services -->
+    <service name="createDataResourceMetaData" engine="entity-auto" default-entity-name="DataResourceMetaData" auth="true" invoke="create">
+        <description>Create an DataResourceMetaData</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateDataResourceMetaData" engine="entity-auto" default-entity-name="DataResourceMetaData" auth="true" invoke="update">
+        <description>Update an DataResourceMetaData</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeDataResourceMetaData" engine="entity-auto" default-entity-name="DataResourceMetaData" auth="true" invoke="delete">
+        <description>Remove an DataResourceMetaData</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Data Resource Purpose Services -->
+    <service name="createDataResourcePurpose" engine="entity-auto" default-entity-name="DataResourcePurpose" auth="true" invoke="create">
+        <description>Create an DataResourcePurpose</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateDataResourcePurpose" engine="entity-auto" default-entity-name="DataResourcePurpose" auth="true" invoke="update">
+        <description>Update an DataResourcePurpose</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeDataResourcePurpose" engine="entity-auto" default-entity-name="DataResourcePurpose" auth="true" invoke="delete">
+        <description>Remove an DataResourcePurpose</description>
         <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>

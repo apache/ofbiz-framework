@@ -63,22 +63,6 @@ under the License.
         <field-to-result field="newEntity" result-name="dataResource"/>
     </simple-method>
 
-    <simple-method method-name="updateDataResource" short-description="Update a Data Resource">
-        <entity-one entity-name="DataResource" value-field="lookedUpValue"/>
-        <to-string field="parameters.locale"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <now-timestamp field="nowTimestamp"/>
-        <set field="lookedUpValue.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
-        <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp"/>
-        <store-value value-field="lookedUpValue"/>
-        <field-to-result field="parameters.dataResourceId" result-name="dataResourceId"/>
-    </simple-method>
-
-    <simple-method method-name="deleteDataResource" short-description="Delete a Data Resource">
-        <entity-one entity-name="DataResource" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    
     <simple-method method-name="createDataResourceAndAssocToContent" short-description="Create a Data Resource and return the data resource type">
        <entity-one value-field="content" entity-name="Content"/>
        <if-empty field="content">
@@ -105,78 +89,6 @@ under the License.
        <field-to-result field="parameters.contentId" result-name="contentId"/>       
        <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="ELECTRONIC_TEXT"><return response-code="${dataResource.dataResourceTypeId}"/></if-compare>
        <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="IMAGE_OBJECT"><return response-code="${dataResource.dataResourceTypeId}"/></if-compare>       
-    </simple-method>
-
-  <!-- Methods for DataResourceMetaData -->
-    <simple-method method-name="createDataResourceMetaData" short-description="Create Data Resource Meta Data">
-        <check-permission permission="CONTENTMGR" action="_CREATE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="DataResourceMetaData" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateDataResourceMetaData" short-description="Update Data Resource Meta Data">
-        <check-permission permission="CONTENTMGR" action="_UPDATE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="DataResourceMetaData" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataResourceMetaData" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeDataResourceMetaData" short-description="Remove Data Resource Meta Data">
-        <check-permission permission="CONTENTMGR" action="_DELETE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="DataResourceMetaData" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataResourceMetaData" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-  <!-- Methods for DataResourcePurpose -->
-    <simple-method method-name="createDataResourcePurpose" short-description="Create Data Resource Purpose">
-        <check-permission permission="CONTENTMGR" action="_CREATE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>        
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="DataResourcePurpose" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateDataResourcePurpose" short-description="Update Data Resource Purpose">
-        <check-permission permission="CONTENTMGR" action="_UPDATE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="DataResourcePurpose" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataResourcePurpose" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeDataResourcePurpose" short-description="Remove Data Resource Purpose">
-        <check-permission permission="CONTENTMGR" action="_DELETE">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>    
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="DataResourcePurpose" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataResourcePurpose" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
   <!-- Methods for DataResourceRole -->
@@ -403,91 +315,6 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
 
         <find-by-primary-key entity-name="ElectronicText" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for ImageDataResource -->
-    <simple-method method-name="createImageDataResource" short-description="Create Image Data Resource">
-        <make-value entity-name="ImageDataResource" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateImageDataResource" short-description="Update Image Data Resource">
-        <make-value entity-name="ImageDataResource" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ImageDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeImageDataResource" short-description="Remove Image Data Resource">
-        <make-value entity-name="ImageDataResource" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ImageDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for VideoDataResource -->
-    <simple-method method-name="createVideoDataResource" short-description="Create Video Data Resource">
-        <make-value entity-name="VideoDataResource" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateVideoDataResource" short-description="Update Video Data Resource">
-        <make-value entity-name="VideoDataResource" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="VideoDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeVideoDataResource" short-description="Remove Video Data Resource">
-        <make-value entity-name="VideoDataResource" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="VideoDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for AudioDataResource -->
-    <simple-method method-name="createAudioDataResource" short-description="Create Audio Data Resource">
-        <make-value entity-name="AudioDataResource" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateAudioDataResource" short-description="Update Audio Data Resource">
-        <make-value entity-name="AudioDataResource" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="AudioDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeAudioDataResource" short-description="Remove Audio Data Resource">
-        <make-value entity-name="AudioDataResource" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="AudioDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for OtherDataResource -->
-    <simple-method method-name="createOtherDataResource" short-description="Create Other Data Resource">
-        <make-value entity-name="OtherDataResource" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <log level="always" message="created new OtherDataResource: ${newEntity}"/>
-    </simple-method>
-    <simple-method method-name="updateOtherDataResource" short-description="Update Other Data Resource">
-        <make-value entity-name="OtherDataResource" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="OtherDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeOtherDataResource" short-description="Remove Other Data Resource">
-        <make-value entity-name="OtherDataResource" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="OtherDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
