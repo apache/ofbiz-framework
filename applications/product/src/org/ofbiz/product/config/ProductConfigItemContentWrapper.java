@@ -43,6 +43,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceContainer;
 
@@ -85,7 +86,7 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
         this.delegatorName = delegator.getDelegatorName();
         this.productConfigItem = productConfigItem;
         this.locale = UtilHttp.getLocale(request);
-        this.mimeTypeId = "text/html";
+        this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", this.delegator);
     }
 
     public StringWrapper get(String confItemContentTypeId, String encoderType) {
@@ -108,7 +109,8 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
 
     public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, UtilHttp.getLocale(request), "text/html", productConfigItem.getDelegator(), dispatcher, encoderType);
+        String mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", productConfigItem.getDelegator());
+        return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, UtilHttp.getLocale(request), mimeTypeId, productConfigItem.getDelegator(), dispatcher, encoderType);
     }
 
     public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, Locale locale, LocalDispatcher dispatcher, String encoderType) {
@@ -161,7 +163,7 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
         }
 
         if (UtilValidate.isEmpty(mimeTypeId)) {
-            mimeTypeId = "text/html";
+            mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator);
         }
 
         String candidateFieldName = ModelUtil.dbNameToVarName(confItemContentTypeId);

@@ -21,13 +21,15 @@
  // parameters or use orderId, invoiceId, or returnId to look them up.
  // if none of these parameters are available then fromPartyId is used or "ORGANIZATION_PARTY" from general.properties as fallback
 
+import java.sql.Timestamp;
+
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.order.order.OrderReadHelper;
-import java.sql.Timestamp;
 import org.ofbiz.party.content.PartyContentWrapper;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 orderHeader = parameters.orderHeader;
 orderId = parameters.orderId;
@@ -126,10 +128,10 @@ if (!partyId) {
 // the logo
 partyGroup = from("PartyGroup").where("partyId", partyId).queryOne();
 if (partyGroup) {
-    partyContentWrapper = new PartyContentWrapper(dispatcher, partyGroup, locale, "text/html");
+    partyContentWrapper = new PartyContentWrapper(dispatcher, partyGroup, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
     partyContent = partyContentWrapper.getFirstPartyContentByType(partyGroup.partyId , partyGroup, "LGOIMGURL", delegator);
     if (partyContent) {
-        logoImageUrl = "/content/control/stream?contentId="+partyContent.contentId;
+        logoImageUrl = "/content/control/stream?contentId=" + partyContent.contentId;
     } else {
         if (partyGroup?.logoImageUrl) {
             logoImageUrl = partyGroup.logoImageUrl;

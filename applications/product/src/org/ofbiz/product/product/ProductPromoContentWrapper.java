@@ -48,6 +48,7 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.LocalDispatcher;
 
 /**
@@ -80,7 +81,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.productPromo = productPromo;
         this.locale = UtilHttp.getLocale(request);
-        this.mimeTypeId = "text/html";
+        this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", (Delegator) request.getAttribute("delegator"));
     }
 
     public StringUtil.StringWrapper get(String productPromoContentTypeId, String encoderType) {
@@ -93,7 +94,10 @@ public class ProductPromoContentWrapper implements ContentWrapper {
 
     public static String getProductPromoContentAsText(GenericValue productPromo, String productPromoContentTypeId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        return getProductPromoContentAsText(productPromo, productPromoContentTypeId, UtilHttp.getLocale(request), "text/html", null, null, productPromo.getDelegator(), dispatcher, encoderType);
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        return getProductPromoContentAsText(productPromo, productPromoContentTypeId, UtilHttp.getLocale(request), 
+                EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator), 
+                null, null, productPromo.getDelegator(), dispatcher, encoderType);
     }
 
     public static String getProductContentAsText(GenericValue productPromo, String productPromoContentTypeId, Locale locale, LocalDispatcher dispatcher, String encoderType) {
@@ -154,7 +158,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         }
 
         if (UtilValidate.isEmpty(mimeTypeId)) {
-            mimeTypeId = "text/html";
+            mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator);
         }
 
         if (UtilValidate.isEmpty(delegator)) {

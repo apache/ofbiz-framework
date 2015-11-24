@@ -45,6 +45,7 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.LocalDispatcher;
 
 /**
@@ -76,7 +77,7 @@ public class CategoryContentWrapper implements ContentWrapper {
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.productCategory = productCategory;
         this.locale = UtilHttp.getLocale(request);
-        this.mimeTypeId = "text/html";
+        this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", (Delegator) request.getAttribute("delegator"));
     }
 
     public StringUtil.StringWrapper get(String prodCatContentTypeId, String encoderType) {
@@ -85,7 +86,8 @@ public class CategoryContentWrapper implements ContentWrapper {
 
     public static String getProductCategoryContentAsText(GenericValue productCategory, String prodCatContentTypeId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        return getProductCategoryContentAsText(productCategory, prodCatContentTypeId, UtilHttp.getLocale(request), "text/html", productCategory.getDelegator(), dispatcher, encoderType);
+        String mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", productCategory.getDelegator());
+        return getProductCategoryContentAsText(productCategory, prodCatContentTypeId, UtilHttp.getLocale(request), mimeTypeId, productCategory.getDelegator(), dispatcher, encoderType);
     }
 
     public static String getProductCategoryContentAsText(GenericValue productCategory, String prodCatContentTypeId, Locale locale, LocalDispatcher dispatcher, String encoderType) {
@@ -136,7 +138,7 @@ public class CategoryContentWrapper implements ContentWrapper {
         }
 
         if (UtilValidate.isEmpty(mimeTypeId)) {
-            mimeTypeId = "text/html";
+            mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator);
         }
 
         if (delegator == null) {
