@@ -323,70 +323,6 @@ under the License.
 
     <!-- =============== =============== =============== --><!-- =============== Revision Services =============== --><!-- =============== =============== =============== -->
 
-    <!-- Methods for ContentRevision -->
-    <simple-method method-name="createContentRevision" short-description="Create ContentRevision">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="ContentRevision" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateContentRevision" short-description="Update ContentRevision">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="ContentRevision" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentRevision" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeContentRevision" short-description="Remove ContentRevision">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="ContentRevision" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentRevision" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    <!-- Methods for ContentRevisionItem -->
-    <simple-method method-name="createContentRevisionItem" short-description="Create ContentRevisionItem">
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="ContentRevisionItem" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateContentRevisionItem" short-description="Update ContentRevisionItem">
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="ContentRevisionItem" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentRevisionItem" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeContentRevisionItem" short-description="Remove ContentRevisionItem">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="ContentRevisionItem" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentRevisionItem" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
     <!-- Methods for ContentRevision and ContentRevisionItem -->
     <simple-method method-name="persistContentRevisionAndItem" short-description="Update ContentRevision and ContentRevisionItem">
         <entity-condition entity-name="ContentRevision" list="contentRevisionList">
@@ -479,46 +415,6 @@ under the License.
     </simple-method>
 
     <!-- =============== =============== =============== --><!-- =============== Approval Services =============== --><!-- =============== =============== =============== -->
-
-    <!-- Methods for ContentApproval -->
-    <simple-method method-name="createContentApproval" short-description="Create ContentApproval">
-        <log level="always" message="got into createContentApproval(4)"/>
-        <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="ContentApproval" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.contentApprovalId">
-            <sequenced-id sequence-name="ContentApproval" field="newEntity.contentApprovalId"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-        <check-errors/>
-        <field-to-result result-name="contentApprovalId" field="newEntity.contentApprovalId"/>
-    </simple-method>
-    <simple-method method-name="updateContentApproval" short-description="Update ContentApproval">
-        <log level="always" message="got into updateContentApproval(4)"/>
-        <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="ContentApproval" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentApproval" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeContentApproval" short-description="Remove ContentApproval">
-        <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
-        </check-permission>
-        <check-errors/>
-        <make-value entity-name="ContentApproval" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentApproval" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
 
     <simple-method method-name="getApprovalsWithPermissions" short-description="Get ContentApprovals for approval process">
         <!--  this seems like an awkward way to get the previous ContentApproval entities, but

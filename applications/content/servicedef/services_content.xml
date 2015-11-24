@@ -482,4 +482,61 @@
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
     </service>
 
+    <!-- Content Revision services -->
+    <service name="createContentRevision" engine="entity-auto" default-entity-name="ContentRevision" auth="true" invoke="create">
+        <description>Create a ContentRevision</description>
+        <permission-service service-name="genericContentPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateContentRevision" engine="entity-auto" default-entity-name="ContentRevision" auth="true" invoke="update">
+        <description>Update a ContentRevision</description>
+        <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeContentRevision" engine="entity-auto" default-entity-name="ContentRevision" auth="true" invoke="delete">
+        <description>Remove ContentRevision</description>
+        <permission-service service-name="genericContentPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Content Revision Item services -->
+    <service name="createContentRevisionItem" engine="entity-auto" default-entity-name="ContentRevisionItem" auth="true" invoke="create">
+        <description>Create a ContentRevisionItem</description>
+        <permission-service service-name="genericContentPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateContentRevisionItem" engine="entity-auto" default-entity-name="ContentRevisionItem" auth="true" invoke="update">
+        <description>Update a ContentRevisionItem</description>
+        <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeContentRevisionItem" engine="entity-auto" default-entity-name="ContentRevisionItem" auth="true" invoke="delete">
+        <description>Remove ContentRevisionItem</description>
+        <permission-service service-name="genericContentPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Content Approval services -->
+    <service name="createContentApproval" engine="entity-auto" default-entity-name="ContentApproval" auth="true" invoke="create">
+        <description>Create a ContentApproval</description>
+        <permission-service service-name="genericContentPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateContentApproval" engine="entity-auto" default-entity-name="ContentApproval" auth="true" invoke="update">
+        <description>Update a ContentApproval</description>
+        <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeContentApproval" engine="entity-auto" default-entity-name="ContentApproval" auth="true" invoke="delete">
+        <description>Remove ContentApproval</description>
+        <permission-service service-name="genericContentPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>
