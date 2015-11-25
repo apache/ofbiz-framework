@@ -242,35 +242,7 @@
     </simple-method>
 
     <!-- Methods for ContentRole -->
-    <simple-method method-name="createContentRole" short-description="Create Content Role">
-        <if-empty field="parameters.fromDate">
-            <now-timestamp field="parameters.fromDate"/>
-        </if-empty>
-        <make-value value-field="partyRolePK" entity-name="PartyRole"/>
-        <set-pk-fields value-field="partyRolePK" map="parameters"/>
-        <find-by-primary-key entity-name="PartyRole" map="partyRolePK" value-field="partyRole"/>
-        <if-empty field="partyRole">
-            <check-permission permission="PARTYMGR" action="_CREATE">
-                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
-            </check-permission>
-            <check-permission permission="PARTYMGR" action="_UPDATE">
-                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
-            </check-permission>
-            <check-errors/>
-            <make-value entity-name="PartyRole" map="partyRolePK" value-field="partyRole"/>
-            <create-value value-field="partyRole"/>
-        </if-empty>
-        <check-errors/>
 
-        <make-value entity-name="ContentRole" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <find-by-primary-key entity-name="ContentRole" map="newEntity" value-field="contentRole"/>
-        <if-empty field="contentRole">
-            <set-nonpk-fields map="parameters" value-field="newEntity"/>
-            <create-value value-field="newEntity"/>
-        </if-empty>
-        <check-errors/>
-    </simple-method>
     <simple-method method-name="deactivateAllContentRoles" short-description="Update Content Role">
         <make-value entity-name="ContentRole" value-field="lookupKeyValue"/>
         <set from-field="parameters.contentId" field="lookupKeyValue.contentId"/>
