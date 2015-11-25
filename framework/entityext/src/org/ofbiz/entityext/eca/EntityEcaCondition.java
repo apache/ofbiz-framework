@@ -18,11 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.entityext.eca;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.service.DispatchContext;
@@ -116,4 +118,16 @@ public final class EntityEcaCondition implements java.io.Serializable {
         buf.append("[").append(format).append("]");
         return buf.toString();
     }
+    
+    protected List<String> getFieldNames() {
+        List<String> fieldNameList = new ArrayList<String>();
+        if( UtilValidate.isNotEmpty(lhsValueName) ) {
+            fieldNameList.add(lhsValueName);
+        }
+        if( !constant && UtilValidate.isNotEmpty(rhsValueName)) {
+            fieldNameList.add(rhsValueName);
+        }
+        return fieldNameList;
+    }
+
 }
