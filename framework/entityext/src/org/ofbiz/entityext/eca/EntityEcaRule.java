@@ -27,8 +27,10 @@ import java.util.Set;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.w3c.dom.Element;
 
@@ -47,6 +49,7 @@ public final class EntityEcaRule implements java.io.Serializable {
     private final List<EntityEcaCondition> conditions;
     private final List<Object> actionsAndSets;
     private boolean enabled = true;
+    private final List<String> conditionFieldNames  = new ArrayList<String>();
 
     public EntityEcaRule(Element eca) {
         this.entityName = eca.getAttribute("entity");
@@ -57,9 +60,13 @@ public final class EntityEcaRule implements java.io.Serializable {
         ArrayList<Object> actionsAndSets = new ArrayList<Object>();
         for (Element element: UtilXml.childElementList(eca)) {
             if ("condition".equals(element.getNodeName())) {
-                conditions.add(new EntityEcaCondition(element, true));
+                EntityEcaCondition ecaCond = new EntityEcaCondition(element, true);
+                conditions.add(ecaCond);
+                conditionFieldNames.addAll(ecaCond.getFieldNames());
             } else if ("condition-field".equals(element.getNodeName())) {
-                conditions.add(new EntityEcaCondition(element, false));
+                EntityEcaCondition ecaCond = new EntityEcaCondition(element, false);
+                conditions.add(ecaCond);
+                conditionFieldNames.addAll(ecaCond.getFieldNames());
             } else if ("action".equals(element.getNodeName())) {
                 actionsAndSets.add(new EntityEcaAction(element));
             } else if ("set".equals(element.getNodeName())) {
@@ -116,6 +123,22 @@ public final class EntityEcaRule implements java.io.Serializable {
         if (!"any".equals(this.operationName) && this.operationName.indexOf(currentOperation) == -1) {
             return;
         }
+        // Are fields tested in a condition missing? If so, we need to load them
+        List<String> fieldsToLoad = new ArrayList<String>();
+        for( String conditionFieldName : conditionFieldNames) {
+            if( value.get(conditionFieldName) == null) {
+                fieldsToLoad.add(conditionFieldName);
+            }
+        }
+
+        if( !fieldsToLoad.isEmpty()) {
+            Delegator delegator = dctx.getDelegator();
+            GenericValue oldValue =  delegator.findOne(entityName, value.getPrimaryKey(), false);
+            for( String fieldName : fieldsToLoad) {
+                value.put(fieldName, oldValue.get(fieldName));
+            }
+        }
+
 
         Map<String, Object> context = new HashMap<String, Object>();
         context.putAll(value);
