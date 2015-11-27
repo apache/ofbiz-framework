@@ -75,6 +75,14 @@ under the License.
                 <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
+        <field name="securityQuestion">
+          <drop-down allow-empty="true">
+              <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                 <entity-constraint name="enumTypeId" operator="equals" value="SQ_STANDARD" /> 
+              </entity-options>
+          </drop-down>
+        </field>
+        <field name="securityAnswer" title="${uiLabelMap.SecurityAnswer}"><text /></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
             <hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">

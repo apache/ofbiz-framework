@@ -231,4 +231,17 @@ under the License.
       <prim-key field="viewNameId"/>
       <prim-key field="userLoginId"/>
     </entity>
+    <entity entity-name="UserLoginSecurityQuestion" package-name="org.ofbiz.security.login">
+      <field name="questionEnumId" type="id-ne" />
+      <field name="userLoginId" type="id-vlong-ne" />
+      <field name="securityAnswer" type="description" />
+      <prim-key field="questionEnumId"/>
+      <prim-key field="userLoginId"/>
+      <relation rel-entity-name="Enumeration" type="one" fk-name="SECQ_ENUM">
+        <key-map field-name="questionEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation rel-entity-name="UserLogin" type="one" fk-name="ULGNSECQ_ULGN">
+        <key-map field-name="userLoginId"/>
+      </relation>
+    </entity>
 </entitymodel>

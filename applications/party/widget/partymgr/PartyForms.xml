@@ -652,7 +652,16 @@ under the License.
         <field name="USERNAME" title="${uiLabelMap.CommonUsername}" tooltip="* ${uiLabelMap.PartyTemporaryPassword}" required-field="true"><text size="30" maxlength="250"/></field>
         <!--<field name="RequiredNote" title=" "><display description="${uiLabelMap.PartyRequiredNote}" also-hidden="false"/></field> -->
 
-        <field name="PRODUCT_STORE_ID" title="Product Store" required-field="true">
+        <field name="securityQuestion">
+          <drop-down allow-empty="true">
+              <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                 <entity-constraint name="enumTypeId" operator="equals" value="SQ_STANDARD" /> 
+              </entity-options>
+          </drop-down>
+        </field>
+        <field name="securityAnswer" title="${uiLabelMap.SecurityAnswer}"><text /></field>
+
+        <field name="PRODUCT_STORE_ID" title="Product Store" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down>
                 <entity-options entity-name="ProductStore" key-field-name="productStoreId" description="${storeName} (${productStoreId})">
                     <entity-order-by field-name="productStoreId"/>

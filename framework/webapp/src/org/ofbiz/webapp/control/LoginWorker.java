@@ -56,15 +56,18 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
+import org.ofbiz.entity.EntityCryptoException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityCrypto;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.util.EntityUtilProperties;
@@ -87,7 +90,9 @@ public class LoginWorker {
 
     public static final String EXTERNAL_LOGIN_KEY_ATTR = "externalLoginKey";
     public static final String X509_CERT_ATTR = "SSLx509Cert";
+    public static final String securityProperties = "security.properties";
 
+    private static final String keyValue = UtilProperties.getPropertyValue(securityProperties, "login.secret_key_string");
     /** This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object */
     public static Map<String, GenericValue> externalLoginKeys = new ConcurrentHashMap<String, GenericValue>();
 
@@ -125,7 +130,7 @@ public class LoginWorker {
      * Gets (and creates if necessary) a key to be used for an external login parameter
      */
     public static String getExternalLoginKey(HttpServletRequest request) {
-    	Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         boolean externalLoginKeyEnabled = "true".equals(EntityUtilProperties.getPropertyValue("security", "security.login.externalLoginKey.enabled", "true", delegator));
         if (!externalLoginKeyEnabled) {
             return null;
@@ -364,9 +369,27 @@ public class LoginWorker {
      */
     public static String login(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String username = request.getParameter("USERNAME");
         String password = request.getParameter("PASSWORD");
+        String forgotPwdFlag = request.getParameter("forgotPwdFlag");
+        
+        // password decryption
+        EntityCrypto entityDeCrypto = null;
+        try {
+            entityDeCrypto = new EntityCrypto(delegator, null);
+        } catch (EntityCryptoException e1) {
+            Debug.logError(e1.getMessage(), module);
+        }
+        
+        if(entityDeCrypto != null && "true".equals(forgotPwdFlag)) {
+            try {
+                Object decryptedPwd = entityDeCrypto.decrypt(keyValue, ModelField.EncryptMethod.TRUE, password);
+                password = decryptedPwd.toString();
+            } catch (GeneralException e) {
+                Debug.logError(e, "Current Password Decryption failed", module);
+            }
+        }
 
         if (username == null) username = (String) session.getAttribute("USERNAME");
         if (password == null) password = (String) session.getAttribute("PASSWORD");
@@ -395,7 +418,6 @@ public class LoginWorker {
         boolean setupNewDelegatorEtc = false;
 
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
         ServletContext servletContext = session.getServletContext();
 
         // if a tenantId was passed in, see if the userLoginId is associated with that tenantId (can use any delegator for this, entity is not tenant-specific)
@@ -869,7 +891,7 @@ public class LoginWorker {
 
     // preprocessor method to login a user from a HTTP request header (configured in security.properties)
     public static String checkRequestHeaderLogin(HttpServletRequest request, HttpServletResponse response) {
-    	Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String httpHeader = EntityUtilProperties.getPropertyValue("security", "security.login.http.header", null, delegator);
 
         // make sure the header field is set in security.properties; if not, then this is disabled and just return
@@ -894,7 +916,7 @@ public class LoginWorker {
 
     // preprocessor method to login a user from HttpServletRequest.getRemoteUser() (configured in security.properties)
     public static String checkServletRequestRemoteUserLogin(HttpServletRequest request, HttpServletResponse response) {
-    	Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Boolean allowRemoteUserLogin = "true".equals(EntityUtilProperties.getPropertyValue("security", "security.login.http.servlet.remoteuserlogin.allow", "false", delegator));
         // make sure logging users via remote user is allowed in security.properties; if not just return
         if (allowRemoteUserLogin) {
@@ -917,7 +939,7 @@ public class LoginWorker {
     }
     // preprocessor method to login a user w/ client certificate see security.properties to configure the pattern of CN
     public static String check509CertLogin(HttpServletRequest request, HttpServletResponse response) {
-    	Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         boolean doCheck = "true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "security.login.cert.allow", "true", delegator));
         if (doCheck) {
             HttpSession session = request.getSession();

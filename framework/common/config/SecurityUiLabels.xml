@@ -83,6 +83,10 @@
         <value xml:lang="zh">把用户登录添加到安全组</value>
         <value xml:lang="zh-TW">把使用者登入增加到安全群組</value>
     </property>
+    <property key="AnswerSecurityQuestion">
+        <value xml:lang="en">Answer your Security Question</value>
+        <value xml:lang="en">Répondez à votre question de sécurité</value>
+    </property>
     <property key="CertComponent">
         <value xml:lang="de">Komponente</value>
         <value xml:lang="en">Component</value>
@@ -691,6 +695,14 @@
         <value xml:lang="zh">受保护的视图</value>
         <value xml:lang="zh-TW">受保護的檢視</value>
     </property>
+    <property key="ResetPassword">
+        <value xml:lang="en">Click Here To Reset Password</value>
+        <value xml:lang="fr">Cliquez ici pour créer un nouveau mot de passe</value>
+    </property>
+    <property key="SecurityAnswer">
+        <value xml:lang="en">Security Answer</value>
+        <value xml:lang="en">Réponse de sécurité</value>
+    </property>
     <property key="SecurityGroups">
         <value xml:lang="de">Sicherheitsgruppen</value>
         <value xml:lang="en">Security Groups</value>
@@ -724,6 +736,10 @@
         <value xml:lang="th">รายการกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">安全组列表</value>
         <value xml:lang="zh-TW">安全群組清單</value>
+    </property>
+    <property key="SecurityQuestion">
+        <value xml:lang="en">Security Question</value>
+        <value xml:lang="en">Question de sécurité</value>
     </property>
     <property key="SecurityViewPermissionError">
         <value xml:lang="de">Sicherheitsfehler: Sie haben nicht die Berechtigung diese Seite anzusehen. ("SECURITY_VIEW" oder "SECURITY_ADMIN" benötigt) </value>

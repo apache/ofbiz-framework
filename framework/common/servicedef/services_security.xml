@@ -124,4 +124,20 @@ under the License.
         <attribute name="primaryPermission" type="String" mode="IN" optional="true" default-value="SECURITY"/>
     </service>
     
+    <service name="createUserLoginSecurityQuestion" engine="entity-auto" invoke="create" default-entity-name="UserLoginSecurityQuestion" auth="true">
+        <description>Create a UserLoginSecurityQuestion</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateUserLoginSecurityQuestion" engine="entity-auto" invoke="update" default-entity-name="UserLoginSecurityQuestion" auth="true">
+        <description>Update a UserLoginSecurityQuestion</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeUserLoginSecurityQuestion" engine="entity-auto" invoke="delete" default-entity-name="UserLoginSecurityQuestion" auth="true">
+        <description>Remove UserLoginSecurityQuestion</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
 </services>

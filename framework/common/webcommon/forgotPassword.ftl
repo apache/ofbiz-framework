@@ -23,7 +23,7 @@ under the License.
       <h3>${uiLabelMap.CommonForgotYourPassword}?</h3>
     </div>
     <div class="screenlet-body">
-      <form method="post" action="<@ofbizUrl>forgotPassword${previousParams!}</@ofbizUrl>" name="forgotpassword">
+      <form method="post" action="<@ofbizUrl>forgotPassword_step2</@ofbizUrl>" name="getSecurityQuestion">
         <table class="basic-table" cellspacing="0">
           <tr>
             <td class="label">${uiLabelMap.CommonUsername}</td>
@@ -31,11 +31,15 @@ under the License.
           </tr>
           <tr>
             <td colspan="2" align="center">
-              <input type="submit" name="GET_PASSWORD_HINT" class="smallSubmit" value="${uiLabelMap.CommonGetPasswordHint}"/>&nbsp;<input type="submit" name="EMAIL_PASSWORD" class="smallSubmit" value="${uiLabelMap.CommonEmailPassword}"/>
+              <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonContinue}"/>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center">
+              <a href='<@ofbizUrl>authview</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonGoBack}</a>
             </td>
           </tr>
         </table>
-        <a href='<@ofbizUrl>authview</@ofbizUrl>' class="button">${uiLabelMap.CommonGoBack}</a>
         <input type="hidden" name="JavaScriptEnabled" value="N"/>
       </form>
     </div>

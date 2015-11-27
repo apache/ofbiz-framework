@@ -22,6 +22,8 @@ under the License.
 
 <center>
 <div class="screenlet login-screenlet">
+<#assign forgotPwdFlag = parameters.forgotPwdFlag?has_content />
+<div class="login-screenlet">
   <div class="screenlet-title-bar">
     <h3>${uiLabelMap.CommonPasswordChange}</h3>
   </div>
@@ -29,16 +31,23 @@ under the License.
     <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform">
       <input type="hidden" name="requirePasswordChange" value="Y"/>
       <input type="hidden" name="USERNAME" value="${username}"/>
-      <input type="hidden" name="userTenantId" value="${tenantId!}"/>
+      <input type="hidden" name="userTenantId" value="${tenantId}"/>
+      <input type="hidden" name="forgotPwdFlag" value="${parameters.forgotPwdFlag!}" />
       <table cellspacing="0">
         <tr>
           <td class="label">${uiLabelMap.CommonUsername}</td>
           <td>${username}</td>
         </tr>
-        <tr>
-          <td class="label">${uiLabelMap.CommonCurrentPassword}</td>
-          <td><input type="password" name="PASSWORD" value="" size="20"/></td>
-        </tr>
+        <#if forgotPwdFlag?has_content && forgotPwdFlag?string == "true">
+          <tr>
+            <td><input type="hidden" name="PASSWORD" value="${parameters.password!}" size="20"/></td>
+          </tr>
+        <#else>
+          <tr>
+            <td class="label">${uiLabelMap.CommonCurrentPassword}</td>
+            <td><input type="password" name="PASSWORD" value="" size="20" /></td>
+          </tr>
+        </#if>
         <tr>
           <td class="label">${uiLabelMap.CommonNewPassword}</td>
           <td><input type="password" name="newPassword" value="" size="20"/></td>
@@ -47,6 +56,19 @@ under the License.
           <td class="label">${uiLabelMap.CommonNewPasswordVerify}</td>
           <td><input type="password" name="newPasswordVerify" value="" size="20"/></td>
         </tr>
+        <#if securityQuestion?has_content>
+          <tr>
+            <td class="label">${uiLabelMap.SecurityQuestiom}</td>
+            <td>
+              <input type="hidden" name="securityQuestion" value="${securityQuestion.enumId!}" />
+                ${securityQuestion.description!}
+            </td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.SecurityAnswer}</td>
+            <td><input type="text" class='inputBox' name="securityAnswer" id="SECURITY_ANSWER" value="" maxlength="100" /></td>
+          </tr>
+        </#if>
         <tr>
           <td colspan="2" align="center">
             <input type="submit" value="${uiLabelMap.CommonSubmit}"/>

@@ -574,6 +574,16 @@ under the License.
 
     <screen name="requirePasswordChange">
         <section>
+            <actions>
+                <set field="userLoginId" from-field="parameters.USERNAME"/>
+                <entity-and entity-name="UserLoginSecurityQuestion" list="securityQuestions">
+                    <field-map field-name="userLoginId" />
+                </entity-and>
+                <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
+                <entity-one entity-name="Enumeration" value-field="securityQuestion">
+                    <field-map field-name="enumId" from-field="questionEnumId" />
+                </entity-one>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -586,6 +596,44 @@ under the License.
         </section>
     </screen>
 
+    <screen name="forgotPassword_step1">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://common/webcommon/forgotPassword.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="forgotPassword_step2">
+        <section>
+            <actions>
+                <set field="userLoginId" from-field="parameters.USERNAME"/>
+                <entity-and entity-name="UserLoginSecurityQuestion" list="securityQuestions">
+                    <field-map field-name="userLoginId" />
+                </entity-and>
+                <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
+                <entity-one entity-name="Enumeration" value-field="securityQuestion">
+                    <field-map field-name="enumId" from-field="questionEnumId"/>
+                </entity-one> 
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                           <html><html-template location="component://common/webcommon/getSecurityQuestion.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="forgotPassword">
         <section>
             <widgets>

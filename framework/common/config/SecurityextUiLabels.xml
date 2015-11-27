@@ -241,6 +241,10 @@
         <value xml:lang="zh">配置出错；请与客户服务联系。</value>
         <value xml:lang="zh-TW">設定有問題: 請聯絡客服.</value>
     </property>
+    <property key="loginevents.problem_getting_security_question_record">
+        <value xml:lang="en">Problem getting User Login Security Question record.</value>
+        <value xml:lang="fr">Problème durant la lecture de votre question de sécurité</value>
+    </property>
     <property key="loginevents.unable_to_login_tenant">
         <value xml:lang="en">You cannot login to this tenant</value>
         <value xml:lang="es">No puede conectarse con esta organización</value>
@@ -505,6 +509,10 @@
         <value xml:lang="th">ไม่สามารถใช้การลอกอินเข้าสู่ระบบของผู้ใช้เก่า  (การเขียนช้มเหลว): ${errorMessage}. </value>
         <value xml:lang="zh">无法禁用旧的登录用户(写错误)：${errorMessage}。</value>
         <value xml:lang="zh-TW">無法停用舊有使用者(寫入錯誤): ${errorMessage}.</value>
+    </property>
+    <property key="loginservices.error_setting_security_question">
+        <value xml:lang="en">Exception thrown while setting security question for the UserLogin:</value>
+        <value xml:lang="fr">Problème durant l'écriture de votre question de sécurité</value>
     </property>
     <property key="loginservices.ldap_authentication_failed">
         <value xml:lang="de">LDAP Anmeldung nicht möglich</value>
@@ -788,6 +796,14 @@
         <value xml:lang="ru">Пароль не соответствует шаблону: ${passwordPatternMessage}</value>
         <value xml:lang="zh">密码不符合样式：${passwordPatternMessage} </value>
         <value xml:lang="zh-TW">密碼不符合格式:${passwordPatternMessage} </value>
+    </property>
+    <property key="loginservices.security_answer_empty">
+        <value xml:lang="en">The security answer is missing</value>
+        <value xml:lang="fr">La question de sécurité manque</value>
+    </property>
+    <property key="loginservices.security_answer_not_match">
+        <value xml:lang="en">The answer does not match records, re-enter</value>
+        <value xml:lang="fr">Votre réponse à la question de sécurité ne correspond, essayez à nouveau.</value>
     </property>
     <property key="loginservices.since_datetime">
         <value xml:lang="de">(seit ${disabledDateTime})</value>
