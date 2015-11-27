@@ -24,7 +24,9 @@ under the License.
     <screen name="PasswordEmail">
         <section>
             <actions>
-                <property-map resource="SecurityExtUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="EmailPassword" map-name="uiLabelMap" global="true"/>
+                <property-map resource="SecurityUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://securityext/email/default/passwordemail.ftl"/></html></platform-specific>

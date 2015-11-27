@@ -20,6 +20,7 @@
 package org.ofbiz.common.login;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,6 +53,7 @@ import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
@@ -473,6 +475,7 @@ public class LoginServices {
     public static Map<String, Object> createUserLogin(DispatchContext ctx, Map<String, ?> context) {
         Map<String, Object> result =  new LinkedHashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
         List<String> errorMessageList = new LinkedList<String>();
@@ -490,6 +493,9 @@ public class LoginServices {
         String externalAuthId = (String) context.get("externalAuthId");
         String errMsg = null;
 
+        String questionEnumId = (String) context.get("securityQuestion");
+        String securityAnswer = (String) context.get("securityAnswer");
+        
         // security: don't create a user login if the specified partyId (if not empty) already exists
         // unless the logged in user has permission to do so (same partyId or PARTYMGR_CREATE)
         if (UtilValidate.isNotEmpty(partyId)) {
@@ -560,6 +566,21 @@ public class LoginServices {
             return ServiceUtil.returnError(errMsg);
         }
 
+        try {
+            if (UtilValidate.isNotEmpty(securityAnswer)) {
+                Map<String, Object> resultMap = new HashMap<String, Object>(); 
+                resultMap = dispatcher.runSync("createUserLoginSecurityQuestion",
+                        UtilMisc.toMap("userLogin", loggedInUserLogin, "userLoginId", userLoginId, "questionEnumId", questionEnumId, "securityAnswer", securityAnswer));
+                if (ServiceUtil.isError(resultMap)) {
+                    errMsg = ServiceUtil.getErrorMessage(resultMap);
+                    errorMessageList.add(errMsg);
+                    Debug.logError(errMsg, module);
+                }
+            }
+        } catch (GenericServiceException e1) {
+            errMsg = UtilProperties.getMessage(resource,"loginservices.error_setting_security_question", locale);
+            Debug.logError(e1, errMsg, module);
+        }
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }

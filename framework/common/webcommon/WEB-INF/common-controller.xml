@@ -72,6 +72,20 @@ under the License.
         <response name="success" type="view" value="forgotPassword"/>
         <response name="error" type="view" value="forgotPassword"/>
     </request-map>
+    <request-map uri="forgotPassword_step1">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="forgotPassword_step1"/>
+    </request-map>
+    <request-map uri="forgotPassword_step2">
+        <security auth="false" https="true"></security>
+        <response name="success" type="view" value="forgotPassword_step2" />
+    </request-map>
+    <request-map uri="forgotPassword_step3">
+        <security https="true" auth="false"/>
+         <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="forgotPassword"/>
+        <response name="success" type="view" value="login"/>
+        <response name="error" type="view" value="forgotPassword_step2"/>
+     </request-map>
     <request-map uri="passwordChange">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="requirePasswordChange"/>
@@ -289,4 +303,6 @@ under the License.
     <view-map name="LookupGeo" type="screen" page="component://common/widget/LookupScreens.xml#LookupGeo"/>
     <view-map name="LookupGeoName" type="screen" page="component://common/widget/LookupScreens.xml#LookupGeoName"/>
     <view-map name="LookupLocale" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocale"/>
+    <view-map name="forgotPassword_step1" type="screen" page="component://common/widget/CommonScreens.xml#forgotPassword_step1"/>
+    <view-map name="forgotPassword_step2" type="screen" page="component://common/widget/CommonScreens.xml#forgotPassword_step2"/>
 </site-conf>

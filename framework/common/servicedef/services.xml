@@ -391,6 +391,8 @@ under the License.
         <attribute name="requirePasswordChange" type="String" mode="IN" optional="true"/>
         <attribute name="externalAuthId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="securityQuestion" type="String" mode="IN" optional="true"/>
+        <attribute name="securityAnswer" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updateUserLoginId" engine="java" location="org.ofbiz.common.login.LoginServices" invoke="updateUserLoginId" auth="true">
         <description>Update a UserLoginId by creating a new one and expiring the old one</description>

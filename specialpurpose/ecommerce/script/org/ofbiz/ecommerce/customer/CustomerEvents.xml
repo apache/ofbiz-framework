@@ -415,6 +415,14 @@ under the License.
         <set field="createProductStoreRoleMap.productStoreId" from-field="parameters.emailProductStoreId"/>
         <call-service service-name="createProductStoreRole" in-map-name="createProductStoreRoleMap"/>
 
+        <!--Create User Login Security Question if entered by the user-->
+        <if-not-empty field="parameters.SECURITY_ANSWER">
+            <set field="createULSQCtx.userLoginId" from-field="parameters.USERNAME"/>
+            <set field="createULSQCtx.questionEnumId" from-field="parameters.securityQuestion"/>
+            <set field="createULSQCtx.answer" from-field="parameters.SECURITY_ANSWER"/>
+            <call-service service-name="createUserLoginSecurityQuestion" in-map-name="createULSQCtx" />
+        </if-not-empty>
+
         <!-- send off the registration email -->
         <if-not-empty field="emailContext.emailAddress">
             <set from-field="parameters.emailProductStoreId" field="storeEmailLookup.productStoreId"/>
