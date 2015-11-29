@@ -593,6 +593,16 @@ under the License.
             <arg value="-portoffset=${portoffset}"/>
         </java>
     </target>
+    <target name="start-secure"
+            description="Start OFBiz same than start but pre-loading the contrast-rO0 lib (from OFBiz roo dir) to secure OFBiz from the deserialization issue">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="-javaagent:${ofbiz.home.dir}/contrast-rO0.jar"/>
+            <arg value="start"/>
+            <arg value="-portoffset=${portoffset}"/>
+        </java>
+    </target>
     <target name="start-batch"
             description="Start OFBiz as a separate process. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true" spawn="true">
