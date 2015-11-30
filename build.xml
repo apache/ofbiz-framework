@@ -594,7 +594,7 @@ under the License.
         </java>
     </target>
     <target name="start-secure"
-            description="Start OFBiz same than start but pre-loading the contrast-rO0 lib (from OFBiz roo dir) to secure OFBiz from the deserialization issue">
+            description="Same than start but pre-loading the contrast-rO0 lib (from OFBiz roo dir) to secure OFBiz from the deserialization issue">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -608,6 +608,16 @@ under the License.
         <java jar="ofbiz.jar" fork="true" spawn="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
+            <arg value="start-batch"/>
+            <arg value="-portoffset=${portoffset}"/>
+        </java>
+    </target>
+    <target name="start-batch-secure"
+        description="Same than start-batch but pre-loading the contrast-rO0 lib (from OFBiz roo dir) to secure OFBiz from the deserialization issue">
+        <java jar="ofbiz.jar" fork="true" spawn="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="-javaagent:${ofbiz.home.dir}/contrast-rO0.jar"/>
             <arg value="start-batch"/>
             <arg value="-portoffset=${portoffset}"/>
         </java>
@@ -638,6 +648,16 @@ under the License.
             description="Start OFBiz in both Web and POS (Point of sale) modes. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <arg value="both"/>
+            <arg value="-portoffset=${portoffset}"/>
+        </java>
+    </target>
+    <target name="start-both-secure"
+        description="Same than start-pos but pre-loading the contrast-rO0 lib (from OFBiz roo dir) to secure OFBiz from the deserialization issue">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="-javaagent:${ofbiz.home.dir}/contrast-rO0.jar"/>
             <jvmarg value="${memory.max.param}"/>
             <arg value="both"/>
             <arg value="-portoffset=${portoffset}"/>
