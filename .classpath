@@ -22,6 +22,9 @@
 	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.22.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/guava-14.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/hamcrest-all-1.2.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/httpclient-4.4.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/httpclient-cache-4.4.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/httpcore-4.4.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/httpunit-1.7.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-rc2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/icu4j-52_1.jar"/>
@@ -59,6 +62,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-beanutils-core-1.8.3.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-collections4-4.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-compress-1.9.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-csv-1.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-el-1.0.jar"/>
@@ -194,9 +198,6 @@
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/noggit-0.6.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/org.restlet-2.3.0.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/org.restlet.ext.servlet-2.3.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/httpclient-4.4.1.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/httpclient-cache-4.4.1.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/httpcore-4.4.1.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-collections-3.2.2.jar"/>
+
 	<classpathentry kind="output" path="bin"/>
 </classpath>
