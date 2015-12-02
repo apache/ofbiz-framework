@@ -109,7 +109,7 @@ framework/testtools/lib/org.springframework.test-3.1.0.M2.jar
 applications/content/lib/fontbox-1.8.5.jar
 applications/content/lib/jempbox-1.8.5.jar
 applications/content/lib/pdfbox-1.8.5.jar
-applications/content/lib/poi-3.10.1-20140818.jar
+applications/content/lib/poi-3.13-20150929.jar
 applications/content/lib/tika-core-1.7.jar
 applications/content/lib/tika-parsers-1.7.jar
 applications/product/lib/dozer-4.2.1.jar

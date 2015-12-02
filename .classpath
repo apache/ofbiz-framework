@@ -5,7 +5,7 @@
 	<classpathentry kind="lib" path="applications/content/lib/pdfbox-1.8.5.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/jempbox-1.8.5.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/fontbox-1.8.5.jar"/>
-	<classpathentry kind="lib" path="applications/content/lib/poi-3.10.1-20140818.jar"/>
+	<classpathentry kind="lib" path="applications/content/lib/poi-3.13-20150929.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/tika-core-1.7.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/tika-parsers-1.7.jar"/>
 	<classpathentry kind="lib" path="applications/product/lib/dozer-4.2.1.jar"/>
