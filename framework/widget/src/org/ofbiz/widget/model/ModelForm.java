@@ -575,10 +575,14 @@ public abstract class ModelForm extends ModelWidget {
         }
         this.paginateViewSizeLabel = paginateViewSizeLabel;
         String paginateStyle = formElement.getAttribute("paginate-style");
-        if (paginateStyle.isEmpty() && parentModel != null) {
-            this.paginateStyle = parentModel.paginateStyle;
+        if (paginateStyle.isEmpty()) {
+            if(parentModel != null) {
+                this.paginateStyle = parentModel.paginateStyle;
+            } else {
+                this.paginateStyle = DEFAULT_PAG_STYLE;
+            }
         } else {
-            this.paginateStyle = DEFAULT_PAG_STYLE;
+            this.paginateStyle = paginateStyle;
         }
         FlexibleStringExpander paginate = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate"));
         if (paginate.isEmpty() && parentModel != null) {
