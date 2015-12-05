@@ -37,10 +37,10 @@ specialpurpose/solr/lib/runtime/zookeeper-3.4.6.jar
 specialpurpose/solr/webapp/solr/WEB-INF/lib/commons-cli-1.2.jar
 specialpurpose/solr/webapp/solr/WEB-INF/lib/commons-configuration-1.6.jar
 specialpurpose/solr/webapp/solr/WEB-INF/lib/concurrentlinkedhashmap-lru-1.2.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-annotations-2.2.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-auth-2.2.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-common-2.2.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-hdfs-2.2.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-annotations-2.6.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-auth-2.6.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-common-2.6.0.jar
+specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-hdfs-2.6.0.jar
 specialpurpose/solr/webapp/solr/WEB-INF/lib/hppc-0.5.2.jar
 specialpurpose/solr/webapp/solr/WEB-INF/lib/httpmime-4.3.1.jar
 specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-analyzers-kuromoji-4.9.0.jar
