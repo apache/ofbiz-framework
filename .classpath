@@ -112,8 +112,8 @@
 	<classpathentry kind="lib" path="framework/service/lib/neethi-3.0.2.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/wsdl4j-1.6.2.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/XmlSchema-1.4.3.jar"/>
-	<classpathentry kind="lib" path="framework/testtools/lib/org.springframework.core-3.1.0.M2.jar"/>
-	<classpathentry kind="lib" path="framework/testtools/lib/org.springframework.test-3.1.0.M2.jar"/>
+	<classpathentry kind="lib" path="framework/testtools/lib/spring-core-4.2.3.jar"/>
+	<classpathentry kind="lib" path="framework/testtools/lib/spring-test-4.2.3.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ezmorph-0.9.1.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/iText-2.1.7.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/rome-0.9.jar"/>
