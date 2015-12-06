@@ -12,4 +12,4 @@ sleep 10
 ./ant load-demo
 ./ant svninfo
 sleep 10
-nohup tools/startofbiz.sh &
+nohup tools/startofbiz-secure.sh &

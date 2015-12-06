@@ -35,4 +35,6 @@ old-manual.sh
 
 {checking}
         Type 'exit' to exit the ofbizDemo user and return to your normal user.
-{checking}        
+{checking}
+
+Note: the contrast-rO0.jar librairy is provided as an example, it might not be up to date. Be sure to check https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure

@@ -6,7 +6,7 @@ cd /home/ofbizDemo/trunk
     ./ant clean-all
     ./ant load-demo
     ./ant svninfo
-    ./ant start-batch
+    ./ant start-batch-secure
 
 cd /home/ofbizDemo/branch13.7
     svn up
@@ -14,7 +14,7 @@ cd /home/ofbizDemo/branch13.7
     ./ant clean-all
     ./ant load-demo
     ./ant svninfo
-    ./ant start-batch -Dportoffset=10000
+    ./ant start-batch-secure -Dportoffset=10000
 
 
 cd /home/ofbizDemo/branch12.4
@@ -29,6 +29,6 @@ cd /home/ofbizDemo/branch12.4
     ./ant load-demo
     ./ant svninfo
     sleep 10
-    nohup tools/startofbiz.sh &
+    nohup tools/startofbiz-secure.sh &
 
 cd /home/ofbizDemo
