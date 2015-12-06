@@ -22,9 +22,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import junit.framework.AssertionFailedError;
-import junit.framework.TestResult;
-
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -35,12 +32,13 @@ import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.testtools.OFBizTestCase;
-
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletContext;
-
 import org.w3c.dom.Element;
+
+import junit.framework.AssertionFailedError;
+import junit.framework.TestResult;
 
 public class SimpleMethodTest extends OFBizTestCase {
 
