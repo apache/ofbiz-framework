@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://www.owasp.org/index.php/OWASP_Dependency_Check_Suppression">
+
+    <!-- to check the comments yourself, simply comment out the block/s you are interested in and use Dependency Check to get the related CVE/s -->
+
+    <suppress><!-- OFBiz uses a more recent Tomcat version -->
+        <notes><![CDATA[
+   file name: annotations-api-3.0.jar
+   ]]></notes>
+        <sha1>87925e57a90c75bd60e2fe4c3fdbcef592c00e48</sha1>
+        <cpe>cpe:/a:apache:tomcat:3.0</cpe>
+    </suppress>
+
+    <suppress><!-- OFBiz uses a more recent Tomcat version -->
+        <notes><![CDATA[
+   file name: annotations-api-3.0.jar
+   ]]></notes>
+        <sha1>87925e57a90c75bd60e2fe4c3fdbcef592c00e48</sha1>
+        <cpe>cpe:/a:apache:tomcat:7.0.54</cpe>
+    </suppress>
+
+    <suppress><!-- This concerns Wordpress only-->
+       <notes><![CDATA[
+       file name: fontbox-1.8.5.jar
+       ]]></notes>
+       <sha1>17d32ff4cf06bfaa1ca48a1100108728d72228f0</sha1>
+       <cpe>cpe:/a:font_project:font:1.8.5</cpe>
+    </suppress>
+
+    <suppress><!-- This concerns Wordpress only-->
+       <notes><![CDATA[
+       file name: fontbox-1.8.5.jar
+       ]]></notes>
+       <sha1>17d32ff4cf06bfaa1ca48a1100108728d72228f0</sha1>
+       <cve>CVE-2015-7683</cve>
+    </suppress>
+
+    <suppress><!-- OFBiz uses a more recent Tomcat version -->
+       <notes><![CDATA[
+       file name: el-api-2.2.jar
+       ]]></notes>
+       <sha1>cdaf8fc6a6757f9a9795044cd51fd7c36fa7bc0e</sha1>
+       <cpe>cpe:/a:apache:tomcat:7.0.54</cpe>
+    </suppress>
+
+    <suppress><!-- The classes OFBiz uses are not concerned (no UI) -->
+       <notes><![CDATA[
+       file name: geronimo-j2ee-connector_1.5_spec-2.0.0.jar
+       ]]></notes>
+       <sha1>1da837af8f5bf839ab48352f3dbfd6c4ecedc232</sha1>
+       <cpe>cpe:/a:apache:geronimo:2.0</cpe>
+    </suppress>
+
+    <suppress><!-- OFBiz uses a more recent Tomcat version -->
+       <notes><![CDATA[
+       file name: jsp-api-2.2.jar
+       ]]></notes>
+       <sha1>f563c9d8a674a6de032cea14f5175b128e9d6b3a</sha1>
+       <cpe>cpe:/a:apache:tomcat:7.0.54</cpe>
+    </suppress>
+
+    <suppress><!-- OFBiz uses a more recent Tomcat version -->
+       <notes><![CDATA[
+       file name: servlet-api-3.0.jar
+       ]]></notes>
+       <sha1>0752bd9e92cc3c425b9553e84504111ed03f34bb</sha1>
+       <cpe>cpe:/a:apache:tomcat:3.0</cpe>
+    </suppress>
+
+    <suppress><!-- OFBiz uses a more recent Tomcat version -->
+       <notes><![CDATA[
+       file name: servlet-api-3.0.jar
+       ]]></notes>
+       <sha1>0752bd9e92cc3c425b9553e84504111ed03f34bb</sha1>
+       <cpe>cpe:/a:apache:tomcat:7.0.54</cpe>
+    </suppress>
+
+    <suppress><!-- OFBiz only uses com.sun.mail.smtp.SMTPAddressFailedException: not concerned -->
+       <notes><![CDATA[
+       file name: mail-1.5.1.jar
+       ]]></notes>
+       <sha1>9724dd44f1abbba99c9858aa05fc91d53f59e7a5</sha1>
+       <cpe>cpe:/a:sun:javamail:1.5.1</cpe>
+    </suppress>
+
+    <suppress><!-- Waiting for update but covered, see OFBIZ-6568 -->
+       <notes><![CDATA[
+       file name: groovy-all-2.2.1.jar
+       ]]></notes>
+       <sha1>28213a88c48651a254a21bc807712cb5b8be0baa</sha1>
+       <cpe>cpe:/a:apache:groovy:2.2.1</cpe>
+    </suppress>
+
+    <suppress><!-- This concerns the UI/XSS and init script in whole Geronimo, OFBiz only uses this class => not concerned. Moreover IBM no longer supports Geronimo so I don't see the point of upgrading as long as it works-->
+       <notes><![CDATA[
+       file name: geronimo-jaxr_1.0_spec-1.0.jar
+       ]]></notes>
+       <sha1>f6a3b80feb6badbe12c21c8a51ede7fcd6e91e5f</sha1>
+       <cpe>cpe:/a:apache:geronimo:1.0</cpe>
+    </suppress>
+    <suppress>
+       <notes><![CDATA[
+       file name: geronimo-jms_1.1_spec-1.1.1.jar
+       ]]></notes>
+       <sha1>c872b46c601d8dc03633288b81269f9e42762cea</sha1>
+       <cpe>cpe:/a:apache:geronimo:1.1.1</cpe>
+    </suppress>
+    <suppress>
+       <notes><![CDATA[
+       file name: geronimo-saaj_1.3_spec-1.1.jar
+       ]]></notes>
+       <sha1>be6e6fc49ca84631f7c47a04d5438e193db54d7c</sha1>
+       <cpe>cpe:/a:apache:geronimo:1.1</cpe>
+    </suppress>
+
+    <suppress><!-- This concerns the init script in whole Geronimo, OFBiz only uses this class => not concerned. Moreover IBM no longer supports Geronimo so I don't see the point of upgrading as long as it works-->
+       <notes><![CDATA[
+       file name: geronimo-transaction-3.1.1.jar
+       ]]></notes>
+       <sha1>1cfdfcff3cd6a805be401946ab14213b0bad9cb4</sha1>
+       <cpe>cpe:/a:apache:geronimo:3.1.1</cpe>
+    </suppress>
+    <suppress>
+   <notes><![CDATA[
+   file name: geronimo-jaxrpc_1.1_spec-1.0.jar
+   ]]></notes>
+   <sha1>c581838de2339f61f1965db0ff912ff2ac1c4b30</sha1>
+   <cpe>cpe:/a:apache:geronimo:1.0</cpe>
+</suppress>
+    <suppress>
+       <notes><![CDATA[
+       file name: geronimo-jta_1.1_spec-1.1.1.jar
+       ]]></notes>
+       <sha1>aabab3165b8ea936b9360abbf448459c0d04a5a4</sha1>
+       <cpe>cpe:/a:apache:geronimo:1.1.1</cpe>
+    </suppress>
+    <suppress>
+       <notes><![CDATA[
+       file name: geronimo-activation_1.0.2_spec-1.0.jar
+       ]]></notes>
+       <sha1>6dc4b0c7d3358ae4752cf9cc0f97f98358ea7656</sha1>
+       <cpe>cpe:/a:apache:geronimo:1.0</cpe>
+    </suppress>
+
+    <!-- About Tomcat 7.0.65 vulnerabilities (start with tomcat-7.0.65-jasper.jar): I put not suppress (there are - too much - tons of them) because none of CVE-2009-2696 CVE-2007-5461 CVE-2002-0493 concern OFBIZ .
+            And  CVE-2013-2185 is disputed by the Tomcat team, see OFBIZ-6752 for details -->
+
+    <!-- About Axis 1.6.3 (start with axis2-kernel-1.6.3.jar):1.6.3 is the higher version anyway, so we can't do more here -->
+
+    <suppress><!-- This has been handled with r1557462 for OFBIZ-5409 . Anyway nowaydays modern browsers protect from that-->
+       <notes><![CDATA[
+       file name: package.json
+       ]]></notes>
+       <sha1>cfe99f497ed35573d7dfc291068d742399a0eee0</sha1>
+       <cpe>cpe:/a:jquery:jquery:1.10.0</cpe>
+    </suppress>
+
+    <!-- I tried to update commons-httpclient-3.1 to httpclient-4.5.1 + httpcore-4.4.3 but commons-httpclient-3.1 is needed by Axis2-1.6.3 .
+            The passport component also uses commons-httpclient-3.1. It should should be updated to use httpclient-4.5.1 + httpcore-4.4.3 (while keeping commons-httpclient-3.1 for Axis2-1.6.3)
+            See pending OFBIZ-6755  -->
+
+    <!-- all cpe:/a:apache:axis:1.4 can be neglected because they are related to Birt which with latest version (4.5.0) still uses Axis 1.4. So are neglected  all cpe:/a:eclipse:birt: -->
+
+    <suppress><!-- Not an issue for OFBiz. See http://seclists.org/oss-sec/2014/q2/508:  "This flaw only affects Apache Zookeeper used in conjunction with [redhat] Fuse Fabric". -->
+       <notes><![CDATA[
+       file name: zookeeper-3.4.6.jar
+       ]]></notes>
+       <sha1>01b2502e29da1ebaade2357cd1de35a855fa3755</sha1>
+       <cpe>cpe:/a:apache:zookeeper:3.4.6</cpe>
+    </suppress>
+    <suppress>
+       <notes><![CDATA[
+       file name: zookeeper-3.4.6.jar
+       ]]></notes>
+       <sha1>01b2502e29da1ebaade2357cd1de35a855fa3755</sha1>
+       <cve>CVE-2014-0085</cve>
+    </suppress>
+
+</suppressions>
