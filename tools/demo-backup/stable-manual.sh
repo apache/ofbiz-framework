@@ -6,4 +6,4 @@ svn up
 ./ant clean-all
 ./ant load-demo
 ./ant svninfo
-./ant start-batch -Dportoffset=10000
+./ant start-batch-secure -Dportoffset=10000

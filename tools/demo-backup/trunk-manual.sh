@@ -6,5 +6,5 @@ svn up
 ./ant clean-all
 ./ant load-demo
 ./ant svninfo
-./ant start-batch
+./ant start-batch-secure
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# check trunk for updates finally no longer done, restart all demos each morning at 3
+# check trunk for updates finally no longer done, restart each morning at 3
 
 cd /home/ofbizDemo/trunk
 #svn st -u | grep '*'
@@ -12,7 +12,7 @@ cd /home/ofbizDemo/trunk
     ./ant load-demo
     ./ant svninfo
     #./ant start  > console.log
-    ./ant start-batch
+    ./ant start-batch-secure
 #fi
 
 # check branch for updates
@@ -26,8 +26,8 @@ cd /home/ofbizDemo/branch13.7
     ./ant clean-all
     ./ant load-demo
     ./ant svninfo
-    #./ant start -Dportoffset=10000 > console.log
-    ./ant start-batch -Dportoffset=10000
+#    #./ant start -Dportoffset=10000 > console.log
+    ./ant start-batch-secure -Dportoffset=10000
 #fi
 
 cd /home/ofbizDemo/branch12.4
@@ -45,5 +45,5 @@ cd /home/ofbizDemo/branch12.4
     ./ant load-demo
     ./ant svninfo
     sleep 10
-    nohup tools/startofbiz.sh &
+    nohup tools/startofbiz-secure.sh &
 #fi
