@@ -51,7 +51,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="segmentGroup==null" target="createSegmentGroup"/>
 
-        <field use-when="segmentGroup!=null" name="segmentGroupId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="segmentGroup!=null" name="segmentGroupId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}"><display/></field>
         <field use-when="segmentGroup==null&amp;&amp;segmentGroupId==null" name="segmentGroupId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}"><ignored/></field>
         <field use-when="segmentGroup==null&amp;&amp;segmentGroupId!=null" name="segmentGroupId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${segmentGroupId}]"><display/></field>
 

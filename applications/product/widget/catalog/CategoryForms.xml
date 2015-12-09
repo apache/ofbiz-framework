@@ -189,7 +189,7 @@ under the License.
         <field name="productCategoryId"><hidden/></field>
         <field name="linkSeqId" use-when="productCategoryLink==null"><ignored/></field>
         <field name="linkSeqId" use-when="productCategoryLink!=null"><display/></field>
-        <field use-when="productCategoryLink != null" name="fromDate" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="productCategoryLink != null" name="fromDate"><display/></field>
         <field use-when="productCategoryLink == null" name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="sequenceNum" title="${uiLabelMap.CommonSequence}"><text maxlength="5" size="5"/></field>

@@ -53,7 +53,7 @@ under the License.
         <alt-target use-when="salesForecast==null" target="createSalesForecast"/>
         <auto-fields-service service-name="updateSalesForecast"/>
 
-        <field name="salesForecastId" use-when="salesForecastId!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="salesForecastId" use-when="salesForecastId!=null"><display/></field>
         <field name="salesForecastId" use-when="salesForecast==null&amp;&amp;salesForecastId==null"><ignored/></field>
         <field name="salesForecastId" use-when="salesForecast==null&amp;&amp;salesForecastId!=null" tooltip="${uiLabelMap.CommonCannotBeFound}: [${salesForecastId}]"><display also-hidden="false"/></field>
 

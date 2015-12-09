@@ -28,7 +28,7 @@ under the License.
 
         <auto-fields-service service-name="updateWebSite" map-name=""/>
 
-        <field use-when="webSite!=null" name="webSiteId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="webSite!=null" name="webSiteId"><display/></field>
         <field use-when="webSite==null&amp;&amp;webSiteId!=null" name="webSiteId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${webSiteId}]"><text size="20" maxlength="20"/></field>
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
         <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId"><text size="20" maxlength="20"/></field>

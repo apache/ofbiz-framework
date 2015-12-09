@@ -898,7 +898,7 @@
 
         <field name="workEffortId" map-name="parameters"><hidden/></field>
         <field name="projectId" map-name="parameters"><hidden/></field>
-        <field name="contentId" use-when="workEffortContent!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display-entity entity-name="Content" description="[${contentId}] ${contentName}"/></field>
+        <field name="contentId" use-when="workEffortContent!=null"><display-entity entity-name="Content" description="[${contentId}] ${contentName}"/></field>
         <field name="contentIdTo" use-when="workEffortContent==null" title="${uiLabelMap.FormFieldTitle_existContentId}">
             <lookup target-form-name="LookupTreeContent"/>
         </field>

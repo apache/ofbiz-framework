@@ -24,7 +24,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="contactList==null" target="createContactList"/>
 
-        <field use-when="contactList!=null" name="contactListId" title="${uiLabelMap.MarketingContactListContactListId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="contactList!=null" name="contactListId" title="${uiLabelMap.MarketingContactListContactListId}"><display/></field>
         <field use-when="contactList==null&amp;&amp;contactListId==null" name="contactListId" title="${uiLabelMap.MarketingContactListContactListId}"><ignored/></field>
         <field use-when="contactList==null&amp;&amp;contactListId!=null" name="contactListId" title="${uiLabelMap.MarketingContactListContactListId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${contactListId}]"><display/></field>
 
@@ -150,8 +150,8 @@ under the License.
         <field name="partyId" title="${uiLabelMap.MarketingContactListPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
-        <field use-when="partyId!=null" name="partyId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="fromDate!=null" name="fromDate" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="partyId!=null" name="partyId"><display/></field>
+        <field use-when="fromDate!=null" name="fromDate"><display/></field>
 
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down no-current-selected-key="CLPT_ACCEPTED">

@@ -168,7 +168,7 @@ under the License.
         </actions>
         <alt-target use-when="example==null" target="createExample"/>
         <auto-fields-service service-name="updateExample"/>
-        <field use-when="example!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="example!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><display/></field>
         <field use-when="example==null @and exampleId==null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><ignored/></field>
         <field use-when="example==null @and exampleId!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${exampleId}]" also-hidden="false"/></field>
         <field name="exampleTypeId" title="${uiLabelMap.CommonType}" id-name="exampleTypeId" required-field="true">

@@ -60,7 +60,7 @@ under the License.
 
         <auto-fields-service service-name="updateSurvey"/>
 
-        <field use-when="survey!=null" name="surveyId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="survey!=null" name="surveyId"><display/></field>
         <field use-when="survey==null&amp;&amp;surveyId!=null" name="surveyId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${surveyId}]"><display description="" also-hidden="false"/></field>
         <field use-when="survey==null&amp;&amp;surveyId==null" name="surveyId"><ignored/></field>
 

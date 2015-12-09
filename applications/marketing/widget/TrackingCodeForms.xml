@@ -24,7 +24,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="trackingCode==null" target="createTrackingCode"/>
 
-        <field use-when="trackingCode!=null" name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="trackingCode!=null" name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}"><display/></field>
         <field use-when="trackingCode==null&amp;&amp;trackingCodeId==null" name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}"><text/></field>
         <field use-when="trackingCode==null&amp;&amp;trackingCodeId!=null" name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${trackingCodeId}]"><display/></field>
 
@@ -290,7 +290,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="trackingCodeType==null" target="createTrackingCodeType"/>
 
-        <field use-when="trackingCodeType!=null" name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="trackingCodeType!=null" name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><display/></field>
         <field use-when="trackingCodeType==null&amp;&amp;trackingCodeTypeId==null" name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><text/></field>
         <field use-when="trackingCodeType==null&amp;&amp;trackingCodeTypeId!=null" name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${trackingCodeTypeId}]"><display/></field>
 

@@ -53,7 +53,7 @@
         header-row-style="header-row" default-table-style="basic-table" default-map-name="payGrade">
         <alt-target use-when="payGradeId==null" target="createPayGrade"/>
         <auto-fields-service service-name="updatePayGrade"/>
-        <field use-when="payGrade!=null" name="payGradeId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="payGrade!=null" name="payGradeId"><display/></field>
         <field use-when="payGrade==null" name="payGradeId"><text/></field>
         <field name="payGradeName" required-field="true"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>

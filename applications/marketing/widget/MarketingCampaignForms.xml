@@ -27,7 +27,7 @@ under the License.
         </actions>
         <alt-target use-when="marketingCampaign==null" target="createMarketingCampaign"/>
         <auto-fields-entity entity-name="MarketingCampaign"/>
-        <field use-when="marketingCampaign!=null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="marketingCampaign!=null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}"><display/></field>
         <field use-when="marketingCampaign==null&amp;&amp;marketingCampaignId==null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}"><ignored/></field>
         <field use-when="marketingCampaign==null&amp;&amp;marketingCampaignId!=null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${marketingCampaignId}]"><display/></field>
         <field name="parentCampaignId" title="${uiLabelMap.MarketingParentCampaignId}">
@@ -125,7 +125,7 @@ under the License.
     <form name="EditMarketingCampaignRoles" type="single" target="createMarketingCampaignRole" title="" default-map-name="marketingCampaignRole"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createMarketingCampaignRole"/>
-        <field use-when="marketingCampaign!=null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="marketingCampaign!=null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}"><display/></field>
         <field use-when="marketingCampaign==null&amp;&amp;marketingCampaignId==null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}"><ignored/></field>
         <field use-when="marketingCampaign==null&amp;&amp;marketingCampaignId!=null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${marketingCampaignId}]"><display/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">

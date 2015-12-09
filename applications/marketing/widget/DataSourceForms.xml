@@ -24,7 +24,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="dataSource==null" target="createDataSource"/>
 
-        <field use-when="dataSource!=null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="dataSource!=null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}"><display/></field>
         <field use-when="dataSource==null&amp;&amp;dataSourceId==null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}"><text/></field>
         <field use-when="dataSource==null&amp;&amp;dataSourceId!=null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${dataSourceId}]"><display/></field>
 
@@ -65,7 +65,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="dataSourceType==null" target="createDataSourceType"/>
 
-        <field use-when="dataSourceType!=null" name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="dataSourceType!=null" name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}"><display/></field>
         <field use-when="dataSourceType==null&amp;&amp;dataSourceTypeId==null" name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}"><text/></field>
         <field use-when="dataSourceType==null&amp;&amp;dataSourceTypeId!=null" name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${dataSourceTypeId}]"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>

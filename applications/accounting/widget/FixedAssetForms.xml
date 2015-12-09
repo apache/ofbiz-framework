@@ -74,7 +74,7 @@ under the License.
         <alt-target use-when="fixedAsset==null" target="createFixedAsset"/>
         <auto-fields-service service-name="updateFixedAsset" map-name="fixedAsset"/>
 
-        <field use-when="fixedAsset!=null" name="fixedAssetId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="fixedAsset!=null" name="fixedAssetId"><display/></field>
         <field use-when="fixedAsset==null&amp;&amp;fixedAssetId==null" name="fixedAssetId"><text size="20" maxlength="20"/></field>
         <field use-when="fixedAsset==null&amp;&amp;fixedAssetId!=null" name="fixedAssetId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${fixedAssetId}]"><text size="20" maxlength="20"/></field>
 
