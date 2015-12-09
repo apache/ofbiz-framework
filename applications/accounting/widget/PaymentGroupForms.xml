@@ -79,7 +79,7 @@ under the License.
         </actions>
         <alt-target use-when="paymentGroup==null" target="createPaymentGroup"/>
         <auto-fields-service service-name="updatePaymentGroup"/>
-        <field use-when="paymentGroup!=null" name="paymentGroupId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="paymentGroup!=null" name="paymentGroupId"><display/></field>
         <field use-when="paymentGroup==null @and paymentGroupId==null" name="paymentGroupId"><ignored/></field>
         <field use-when="paymentGroup==null @and paymentGroupId!=null" name="paymentGroupId"><display description="${uiLabelMap.CommonCannotBeFound}: [${paymentGroupId}]" also-hidden="false"/></field>
         <field name="paymentGroupId" use-when="display==true"><display/></field>

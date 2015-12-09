@@ -69,7 +69,7 @@ under the License.
     <form name="EditPartyClassificationGroup" type="single" target="updatePartyClassificationGroup" default-map-name="partyClassificationGroup"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="partyClassificationGroup==null" target="createPartyClassificationGroup"/>
-        <field use-when="partyClassificationGroup!=null" name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="partyClassificationGroup!=null" name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}"><display/></field>
         <field use-when="partyClassificationGroup==null&amp;&amp;partyClassificationGroupId==null" name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}"><ignored/></field>
         <field use-when="partyClassificationGroup==null&amp;&amp;partyClassificationGroupId!=null" name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyClassificationGroupId}]"><display/></field>
         <field name="partyClassificationTypeId">

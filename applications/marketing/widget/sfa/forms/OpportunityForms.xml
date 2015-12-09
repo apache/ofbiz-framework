@@ -96,7 +96,7 @@ under the License.
     <form name="EditSalesOpportunity" type="single" target="updateSalesOpportunity" default-map-name="salesOpportunity"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="salesOpportunity==null" target="createSalesOpportunity"/>
-        <field name="salesOpportunityId" use-when="salesOpportunity!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="salesOpportunityId" use-when="salesOpportunity!=null"><display/></field>
         <field name="salesOpportunityId" use-when="salesOpportunity==null&amp;&amp;salesOpportunityId==null"><text/></field>
         <field name="salesOpportunityId" use-when="salesOpportunity==null&amp;&amp;salesOpportunityId!=null" tooltip="${uiLabelMap.CommonCannotBeFound}: [${salesOpportunityId}]"><display/></field>
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}"><text default-value="${communicationEvent.subject}" size="30"/></field>

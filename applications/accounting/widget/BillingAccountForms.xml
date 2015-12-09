@@ -123,7 +123,7 @@ under the License.
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
         <field name="description"><text size="60"/></field>
         <field use-when="billingAccount==null" name="billingAccountId"><hidden/></field>
-        <field use-when="billingAccount!=null" name="billingAccountId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="billingAccount!=null" name="billingAccountId"><display/></field>
         <field name="partyId" use-when="billingAccount != null" ><display/></field>
         <field name="partyId" use-when="billingAccount == null" title="${uiLabelMap.AccountingPartyBilledTo}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId"><hidden/></field>

@@ -113,7 +113,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="agreement==null" target="createAgreement"/>
         <auto-fields-service service-name="updateAgreement" default-field-type="edit" map-name="agreement"/>
-        <field name="agreementId" use-when="agreementId!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="agreementId" use-when="agreementId!=null"><display/></field>
         <field name="agreementId" use-when="agreement==null&amp;&amp;agreementId==null"><ignored/></field>
         <field name="productId" title="${uiLabelMap.AccountingProductId}">
             <lookup target-form-name="LookupProduct"/>

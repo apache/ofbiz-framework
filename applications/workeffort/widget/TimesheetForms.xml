@@ -98,7 +98,7 @@ under the License.
         <alt-target target="createTimesheet" use-when="timesheet==null"/>
         <auto-fields-service service-name="updateTimesheet"/>
 
-        <field name="timesheetId" use-when="timesheet!=null" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="timesheetId" use-when="timesheet!=null" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}"><display/></field>
         <field name="timesheetId" use-when="timesheet==null&amp;&amp;timesheetId==null" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}"><ignored/></field>
         <field name="timesheetId" use-when="timesheet==null&amp;&amp;timesheetId!=null" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${timesheetId}]"><display also-hidden="false"/></field>
 

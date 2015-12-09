@@ -188,7 +188,7 @@ under the License.
         <alt-target use-when="subscription==null" target="createSubscription"/>
         <auto-fields-service service-name="updateSubscription"/>
 
-        <field use-when="subscription!=null" name="subscriptionId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="subscription!=null" name="subscriptionId"><display/></field>
         <field use-when="subscription==null&amp;&amp;subscriptionId==null" name="subscriptionId"><ignored/></field>
         <field use-when="subscription==null&amp;&amp;subscriptionId!=null" name="subscriptionId"><display description="${uiLabelMap.CommonCannotBeFound}: [${subscriptionId}]" also-hidden="false"/></field>
 
@@ -347,7 +347,7 @@ under the License.
         <alt-target use-when="subscriptionResource==null" target="createSubscriptionResource"/>
         <auto-fields-service service-name="updateSubscriptionResource"/>
 
-        <field use-when="subscriptionResource!=null" name="subscriptionResourceId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="subscriptionResource!=null" name="subscriptionResourceId"><display/></field>
         <field use-when="subscriptionResource==null&amp;&amp;subscriptionResourceId==null" name="subscriptionResourceId"><ignored/></field>
         <field use-when="subscriptionResource==null&amp;&amp;subscriptionResourceId!=null" name="subscriptionResourceId"><display description="${uiLabelMap.CommonCannotBeFound}: [${subscriptionResourceId}]" also-hidden="false"/></field>
 

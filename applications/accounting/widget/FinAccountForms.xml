@@ -90,7 +90,7 @@ under the License.
         <alt-target use-when="finAccount==null" target="createFinAccount"/>
         <auto-fields-service service-name="updateFinAccount"/>
 
-        <field name="finAccountId" use-when="finAccountId!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="finAccountId" use-when="finAccountId!=null"><display/></field>
         <field name="finAccountId" use-when="finAccount==null&amp;&amp;finAccountId==null"><ignored/></field>
         <field name="finAccountId" use-when="finAccount==null&amp;&amp;finAccountId!=null" tooltip="${uiLabelMap.CommonCannotBeFound}: [${finAccountId}]"><display also-hidden="false"/></field>
 

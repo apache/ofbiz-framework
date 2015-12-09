@@ -186,7 +186,7 @@ under the License.
         focus-field-name="salutation" header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="personInfo==null" target="createPerson"/>
         <auto-fields-service service-name="updatePerson"/>
-        <field use-when="personInfo!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="personInfo!=null" name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
         <field use-when="personInfo==null&amp;&amp;partyId==null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonIdGeneratedIfEmpty}"><text/></field>
         <field use-when="personInfo==null&amp;&amp;partyId!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyId}]"><display also-hidden="false"/></field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}" required-field="true"><text size="40" maxlength="60"/></field>
@@ -262,7 +262,7 @@ under the License.
         focus-field-name="groupName" header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="partyGroup==null" target="createPartyGroup"/>
         <auto-fields-service service-name="updatePartyGroup"/>
-        <field use-when="partyGroup!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="partyGroup!=null" name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
         <field use-when="partyGroup==null&amp;&amp;partyId==null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonIdGeneratedIfEmpty}"><text/></field>
         <field use-when="partyGroup==null&amp;&amp;partyId!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyId}]"><display also-hidden="false"/></field>
         <field name="groupName" required-field="true"></field>
@@ -749,7 +749,7 @@ under the License.
 
         <field name="partyId" map-name="parameters"><hidden/></field>
         <field name="dataResourceId" map-name="dataResource" use-when="content!=null"><hidden/></field>
-        <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="content!=null" name="contentId"><display/></field>
         <field name="partyContentTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PartyContentType"/>

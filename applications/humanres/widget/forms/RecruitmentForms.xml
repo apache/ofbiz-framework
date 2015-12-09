@@ -99,7 +99,7 @@ under the License.
     <form name="EditJobRequisition" type="single" target="updateJobRequisition" default-map-name="jobRequisition">
         <alt-target use-when="jobRequisition==null" target="createJobRequisition"/>
         <field name="jobRequisitionId" use-when="jobRequisition==null"><ignored/></field>
-        <field use-when="jobRequisition!=null" name="jobRequisitionId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="jobRequisition!=null" name="jobRequisitionId"><display/></field>
         <field name="jobDescription" title="${uiLabelMap.CommonDescription}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="jobLocation" required-field="true"><text/></field>
         <field name="age"><text/></field>
@@ -296,7 +296,7 @@ under the License.
         </actions>
         <alt-target use-when="JobInterview==null" target="createJobInterview"/>
         <auto-fields-service service-name="updateJobInterview" map-name="JobInterview"/>
-        <field use-when="JobInterview!=null" name="jobInterviewId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="JobInterview!=null" name="jobInterviewId"><display/></field>
         <field name="jobInterviewId" use-when="JobInterview==null"><ignored/></field>
         <field name="jobIntervieweePartyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="jobRequisitionId" required-field="true"><lookup target-form-name="LookupJobRequisition"/></field>
@@ -381,7 +381,7 @@ under the License.
     </form>
     <form name="EditApprovalStatus" type="single" target="updateApprovalStatus" default-map-name="employmentApp">
         <auto-fields-service service-name="updateApprovalStatus" map-name="employmentApp"/>
-        <field name="applicationId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="applicationId"><display/></field>
         <field name="applicationId"><display/></field>
         <field name="applyingPartyId"><display/></field>
         <field name="jobRequisitionId"><display/></field>

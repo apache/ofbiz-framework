@@ -56,7 +56,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="webAnalyticsConfig==null" target="createWebAnalyticsConfig"/>
         <auto-fields-service service-name="updateWebAnalyticsConfig" map-name="webAnalyticsConfig"/>
-        <field use-when="webAnalyticsConfig!=null" name="webAnalyticsTypeId" tooltip="${uiLabelMap.CommonNotModifRecreat}" title="${uiLabelMap.CatalogWebAnalyticsType}">
+        <field use-when="webAnalyticsConfig!=null" name="webAnalyticsTypeId" title="${uiLabelMap.CatalogWebAnalyticsType}">
             <display-entity entity-name="WebAnalyticsType"/>
         </field>
         <field use-when="webAnalyticsConfig==null&amp;&amp;webAnalyticsTypeId==null" name="webAnalyticsTypeId" title="${uiLabelMap.CatalogWebAnalyticsType}">
