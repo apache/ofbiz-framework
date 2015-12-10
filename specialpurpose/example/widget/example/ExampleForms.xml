@@ -165,6 +165,7 @@ under the License.
             <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" from-field="example.statusId"/>
             </entity-one>
+            <set field="anotherText" from-field="example.anotherText"/>
         </actions>
         <alt-target use-when="example==null" target="createExample"/>
         <auto-fields-service service-name="updateExample"/>
@@ -202,7 +203,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="displayAnotherText" use-when="example!=null @and example.get(&quot;anotherText&quot;)!=null">
+        <field name="displayAnotherText" use-when="anotherText!=null">
             <display description="${example.anotherText}"/>
         </field>
         <field name="submitButton" use-when="example==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
@@ -212,8 +213,8 @@ under the License.
     <!-- Typically, this extended form wouldn't be necessary. The parent form (EditExample) would
         have these settings. -->
     <form name="EditExampleBackgroundSubmit" type="single" extends="EditExample" target="updateExampleAjax">
-        <alt-target use-when="example==null" target="createExampleAjax"/>
-        <field name="statusId" use-when="example==null" title="${uiLabelMap.CommonStatus}" id-name="statusId">
+        <alt-target use-when="ajaxExample==null" target="createExampleAjax"/>
+        <field name="statusId" use-when="ajaxExample==null" title="${uiLabelMap.CommonStatus}" id-name="statusId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ExampleStatusItem"/>
             </drop-down>
