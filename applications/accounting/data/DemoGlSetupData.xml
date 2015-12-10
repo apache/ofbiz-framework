@@ -86,6 +86,7 @@ under the License.
     <InvoiceItemType invoiceItemTypeId="PINV_DPROD_ITEM" defaultGlAccountId="500000"/>
     <InvoiceItemType invoiceItemTypeId="PINV_FDPROD_ITEM" defaultGlAccountId="214000"/>
     <InvoiceItemType invoiceItemTypeId="PINV_PROD_FEATR_ITEM" defaultGlAccountId="214000"/>
+    <InvoiceItemType invoiceItemTypeId="PINV_RPROD_ITEM" defaultGlAccountId="214000"/>
     <InvoiceItemType invoiceItemTypeId="PINV_SPROD_ITEM" defaultGlAccountId="500000"/>
 
     <InvoiceItemType invoiceItemTypeId="PINV_INVPRD_ITEM" defaultGlAccountId="650000"/>
