@@ -463,6 +463,7 @@ under the License.
     <InvoiceItemType description="Invoice Digital Good Item(Purchase)" hasTable="N" invoiceItemTypeId="PINV_DPROD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
     <InvoiceItemType description="Invoice Finished/Digital Good Item(Purchase)" hasTable="N" invoiceItemTypeId="PINV_FDPROD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
     <InvoiceItemType description="Invoice Product-Feature Item(Purchase)" hasTable="N" invoiceItemTypeId="PINV_PROD_FEATR_ITEM" parentTypeId="PINV_PROD_ITEM"/>
+    <InvoiceItemType description="Invoice Raw Material(Purchase)" hasTable="N" invoiceItemTypeId="PINV_RPROD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
     <InvoiceItemType description="Invoice Service Product Item(Purchase)" hasTable="N" invoiceItemTypeId="PINV_SPROD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
 
     <InvoiceItemType description="Invoice Inventory Product Item" hasTable="N" invoiceItemTypeId="PINV_INVPRD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
@@ -570,7 +571,8 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="DIGITAL_GOOD" invoiceItemTypeId="PINV_DPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="FINDIG_GOOD" invoiceItemTypeId="PINV_FDPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="SERVICE" invoiceItemTypeId="PINV_SPROD_ITEM"/>
-
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="RAW_MATERIAL" invoiceItemTypeId="PINV_RPROD_ITEM"/>
+    
     <!-- orderAdjustmentTypeId -->
     <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="PROMOTION_ADJUSTMENT" invoiceItemTypeId="PITM_PROMOTION_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="REPLACE_ADJUSTMENT" invoiceItemTypeId="PITM_REPLACE_ADJ"/>
