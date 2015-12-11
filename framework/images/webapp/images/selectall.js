@@ -368,7 +368,7 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
           } else {
               jQuery('#content-messages' ).html(data._ERROR_MESSAGE_);
           }
-          jQuery('#content-messages').fadeIn('fast');
+          showjGrowl();
        } else {
            if (jQuery('#content-messages').length) {
                jQuery('#content-messages').html('');
