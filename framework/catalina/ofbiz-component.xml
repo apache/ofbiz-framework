@@ -74,7 +74,7 @@ under the License.
             <property name="scheme" value="http"/>
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
-            <property name="xpoweredBy" value="true"/>
+            <property name="xpoweredBy" value="false"/>
             <!-- AJP/13 connector attributes -->
             <!-- commented out because the values match the Tomcat defaults:
             <property name="tomcatAuthentication" value="true"/>
@@ -103,7 +103,7 @@ under the License.
             <property name="scheme" value="http"/>
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
-            <property name="xpoweredBy" value="true"/>
+            <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
             <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
             <!-- commented out because the values match the Tomcat defaults:
@@ -133,7 +133,7 @@ under the License.
             <property name="secure" value="true"/>
             <property name="SSLEnabled" value="true"/>
             <property name="URIEncoding" value="UTF-8"/>
-            <property name="xpoweredBy" value="true"/>
+            <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
             <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
             <!-- SSL connector attributes -->
@@ -180,7 +180,7 @@ under the License.
             <property name="scheme" value="http"/>
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
-            <property name="xpoweredBy" value="true"/>
+            <property name="xpoweredBy" value="false"/>
         </property>
         <property name="http-connector" value="connector">
             <!--<property name="address" value=""/>-->
@@ -189,7 +189,7 @@ under the License.
             <property name="scheme" value="http"/>
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
-            <property name="xpoweredBy" value="true"/>
+            <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
             <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
         </property>
@@ -201,7 +201,7 @@ under the License.
             <property name="secure" value="true"/>
             <property name="SSLEnabled" value="true"/>
             <property name="URIEncoding" value="UTF-8"/>
-            <property name="xpoweredBy" value="true"/>
+            <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
             <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
             <property name="sslImplementationName" value="org.ofbiz.catalina.container.SSLImpl"/>
