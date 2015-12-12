@@ -1007,7 +1007,7 @@ public class RequestHandler {
         
         //The only x-vontent-type-options defined value, "nosniff", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type. 
         // This also applies to Google Chrome, when downloading extensions.
-        resp.addHeader("x-vontent-type-options", "nosniff"); 
+        resp.addHeader("x-content-type-options", "nosniff"); 
 
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", module);
