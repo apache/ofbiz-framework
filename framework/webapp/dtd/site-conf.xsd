@@ -774,5 +774,38 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="x-frame-option" default="sameorigin">
+            <xs:annotation>
+                <xs:documentation>
+                    Provides clickjacking protection by instructing browsers that this page should not be placed within a frame. 
+                    Possible values are: 
+                    deny - no rendering within a frame, 
+                    sameorigin - no rendering if origin mismatch, and 
+                    allow-from: - allow rendering if framing page is within the specified URI domain. 
+                    Allow from is supported by IE and Firefox, but not Chrome or Safari. 
+                    It will also interfere with In Page Google Analytics since it requires your page to be framed by Google.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="deny"/>
+                    <xs:enumeration value="sameorigin"/>
+                    <xs:enumeration value="allow-from"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="strict-transport-security">
+            <xs:annotation>
+                <xs:documentation>
+                    HTTP Strict-Transport-Security (HSTS) enforces secure (HTTP over SSL/TLS) connections to the server. 
+                    This reduces impact of bugs in web applications leaking session data through cookies and external links and defends against Man-in-the-middle attacks. 
+                    HSTS also disables the ability for users to ignore SSL negotiation warnings.
+                    If the security of the connection cannot be ensured (e.g. the server's TLS certificate is not trusted), 
+                    it shows an error message and do not allow the user to access the web application.
+                    As recommended by OWASP, by default "max-age=31536000; includeSubDomains" is used except if the server is localhost or 127.0.0.1.
+                    If the strict-transport-security is "none" then it will not be used. 
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
 </xs:schema>
