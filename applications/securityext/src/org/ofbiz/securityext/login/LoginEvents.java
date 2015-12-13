@@ -430,6 +430,8 @@ public class LoginEvents {
                 cookie.setMaxAge(60 * 60 * 24 * 365);
                 cookie.setPath("/");
                 cookie.setDomain(domain);
+                cookie.setSecure(true);
+                cookie.setHttpOnly(true);
                 response.addCookie(cookie);
             }
         }
