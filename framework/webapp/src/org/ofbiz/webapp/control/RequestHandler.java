@@ -1000,25 +1000,14 @@ public class RequestHandler {
                 resp.addHeader("strict-transport-security", strictTransportSecurity);
             }
         } else {
-            if (EntityUtilProperties.getPropertyAsBoolean("requestHandler", "strict-transport-security", true)) {
+            if (EntityUtilProperties.getPropertyAsBoolean("requestHandler", "strict-transport-security", true)) { // FIXME later pass req.getAttribute("delegator") as last argument
                 resp.addHeader("strict-transport-security", "max-age=31536000; includeSubDomains");
             }
         }
         
         //The only x-vontent-type-options defined value, "nosniff", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type. 
         // This also applies to Google Chrome, when downloading extensions.
-        resp.addHeader("x-content-type-options", "nosniff");
-        
-        String setCookie = resp.getHeader("set-cookie");
-        if (UtilValidate.isNotEmpty(setCookie)) {
-            setCookie = setCookie.toLowerCase();
-            if (!setCookie.contains("secure")) {
-            resp.setHeader("set-cookie", setCookie + "; secure;"); // Adds a ";" trail to be sure to separate things
-            }
-            if (!setCookie.contains("httponly")) {
-                resp.setHeader("set-cookie", setCookie + "; httponly;"); // Adds a ";" trail to be sure to separate things
-            }
-        }
+        resp.addHeader("x-content-type-options", "nosniff"); 
 
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", module);
