@@ -31,14 +31,14 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.webapp.stats.VisitHandler;
-import org.ofbiz.webapp.website.WebSiteWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.product.category.CategoryWorker;
+import org.ofbiz.webapp.stats.VisitHandler;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * Events used for maintaining TrackingCode related information
@@ -228,6 +228,8 @@ public class TrackingCodeEvents {
             if (trackableLifetime.longValue() > 0) trackableCookie.setMaxAge(trackableLifetime.intValue());
             trackableCookie.setPath("/");
             if (cookieDomain.length() > 0) trackableCookie.setDomain(cookieDomain);
+            trackableCookie.setSecure(true);
+            trackableCookie.setHttpOnly(true);
             response.addCookie(trackableCookie);
         }
 
@@ -238,6 +240,8 @@ public class TrackingCodeEvents {
             if (billableLifetime.longValue() > 0) billableCookie.setMaxAge(billableLifetime.intValue());
             billableCookie.setPath("/");
             if (cookieDomain.length() > 0) billableCookie.setDomain(cookieDomain);
+            billableCookie.setSecure(true);
+            billableCookie.setHttpOnly(true);
             response.addCookie(billableCookie);
         }
 
@@ -264,13 +268,17 @@ public class TrackingCodeEvents {
                 siteIdCookie.setMaxAge(siteIdCookieAge);
                 siteIdCookie.setPath("/");
                 if (cookieDomain.length() > 0) siteIdCookie.setDomain(cookieDomain);
-                    response.addCookie(siteIdCookie);
+                siteIdCookie.setSecure(true);
+                siteIdCookie.setHttpOnly(true);
+                response.addCookie(siteIdCookie);
                 // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
                 Cookie updatedTimeStampCookie = new Cookie("Ofbiz.TKCD.UpdatedTimeStamp" ,UtilDateTime.nowTimestamp().toString());
                 updatedTimeStampCookie.setMaxAge(siteIdCookieAge);
                 updatedTimeStampCookie.setPath("/");
                 if (cookieDomain.length() > 0) updatedTimeStampCookie.setDomain(cookieDomain);
-                    response.addCookie(updatedTimeStampCookie);
+                updatedTimeStampCookie.setSecure(true);
+                updatedTimeStampCookie.setHttpOnly(true);
+                response.addCookie(updatedTimeStampCookie);
             }
         }
 
