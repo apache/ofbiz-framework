@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
@@ -20,28 +19,32 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<web-app>
-  <display-name>Apache OFBiz - iCalendar Server</display-name>
-  <description>iCalendar Server Module of the Apache OFBiz Project</description>
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>Apache OFBiz - iCalendar Server</display-name>
+    <description>iCalendar Server Module of the Apache OFBiz Project</description>
 
-  <context-param>
-    <param-name>entityDelegatorName</param-name>
-    <param-value>default</param-value>
-    <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
-  </context-param>
-  <context-param>
-    <param-name>localDispatcherName</param-name>
-    <param-value>ical</param-value>
-    <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
-  </context-param>
-  <context-param>
-    <param-name>requestHandlerFactoryClass</param-name>
-    <param-value>org.ofbiz.workeffort.workeffort.ICalHandlerFactory</param-value>
-  </context-param>
+    <context-param>
+        <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
+        <param-name>entityDelegatorName</param-name>
+        <param-value>default</param-value>
+    </context-param>
+    <context-param>
+        <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
+        <param-name>localDispatcherName</param-name>
+        <param-value>ical</param-value>
+    </context-param>
+    <context-param>
+        <param-name>requestHandlerFactoryClass</param-name>
+        <param-value>org.ofbiz.workeffort.workeffort.ICalHandlerFactory</param-value>
+    </context-param>
 
     <filter>
-        <filter-name>ContextFilter</filter-name>
         <display-name>ContextFilter</display-name>
+        <filter-name>ContextFilter</filter-name>
         <filter-class>org.ofbiz.webapp.control.ContextFilter</filter-class>
         <init-param>
             <param-name>disableContextSecurity</param-name>
@@ -49,7 +52,9 @@ under the License.
         </init-param>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css</param-value>
+            <param-value>
+                /error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css
+            </param-value>
         </init-param>
         <init-param>
             <param-name>errorCode</param-name>
@@ -62,30 +67,40 @@ under the License.
     </filter>
     <filter-mapping>
         <filter-name>ContextFilter</filter-name>
-            <url-pattern>/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
-  <listener><listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
-  <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
-  <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
-  <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
+    <listener>
+        <listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class>
+    </listener>
+    <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
+    <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
 
-  <servlet>
-    <servlet-name>iCalendarServlet</servlet-name>
-    <display-name>iCalendarServlet</display-name>
-    <description>iCalendar WebDAV Servlet</description>
-    <servlet-class>org.ofbiz.webapp.webdav.WebDavServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>iCalendarServlet</servlet-name>
-    <url-pattern>/*</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <description>iCalendar WebDAV Servlet</description>
+        <display-name>iCalendarServlet</display-name>
+        <servlet-name>iCalendarServlet</servlet-name>
+        <servlet-class>org.ofbiz.webapp.webdav.WebDavServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>iCalendarServlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
 
-  <session-config>
-    <session-timeout>60</session-timeout>    <!-- in minutes -->
-  </session-config>
+    <session-config>
+        <session-timeout>60</session-timeout>
+        <!-- in minutes -->
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
 
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
