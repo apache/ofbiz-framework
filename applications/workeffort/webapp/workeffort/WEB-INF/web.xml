@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
@@ -20,34 +19,40 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<web-app>
-  <display-name>Apache OFBiz - Work Manager</display-name>
-  <description>Work Manager Module of the Apache OFBiz Project</description>
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>Apache OFBiz - Work Manager</display-name>
+    <description>Work Manager Module of the Apache OFBiz Project</description>
 
-  <context-param>
-    <param-name>entityDelegatorName</param-name>
-    <param-value>default</param-value>
-    <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
-  </context-param>
-  <context-param>
-    <param-name>localDispatcherName</param-name>
-    <param-value>workeffort</param-value>
-    <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
-  </context-param>
-  <context-param>
-    <param-name>scriptLocationPath</param-name>
-    <param-value>/WEB-INF/bsh</param-value>
-    <description>BeanShell Script Location</description>
-  </context-param>
-  <context-param>
-      <param-name>mainDecoratorLocation</param-name>
-      <param-value>component://workeffort/widget/CommonScreens.xml</param-value>
-      <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
-  </context-param>
+    <context-param>
+        <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
+        <param-name>entityDelegatorName</param-name>
+        <param-value>default</param-value>
+    </context-param>
+    <context-param>
+        <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
+        <param-name>localDispatcherName</param-name>
+        <param-value>workeffort</param-value>
+    </context-param>
+    <context-param>
+        <description>BeanShell Script Location</description>
+        <param-name>scriptLocationPath</param-name>
+        <param-value>/WEB-INF/bsh</param-value>
+    </context-param>
+    <context-param>
+        <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable
+            in screen def XML files.
+        </description>
+        <param-name>mainDecoratorLocation</param-name>
+        <param-value>component://workeffort/widget/CommonScreens.xml</param-value>
+    </context-param>
 
     <filter>
-        <filter-name>ContextFilter</filter-name>
         <display-name>ContextFilter</display-name>
+        <filter-name>ContextFilter</filter-name>
         <filter-class>org.ofbiz.webapp.control.ContextFilter</filter-class>
         <init-param>
             <param-name>disableContextSecurity</param-name>
@@ -55,7 +60,9 @@ under the License.
         </init-param>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css</param-value>
+            <param-value>
+                /error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css
+            </param-value>
         </init-param>
         <init-param>
             <param-name>errorCode</param-name>
@@ -68,90 +75,100 @@ under the License.
     </filter>
     <filter-mapping>
         <filter-name>ContextFilter</filter-name>
-            <url-pattern>/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-  <listener><listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
-  <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
-  <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
-  <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
+    <listener>
+        <listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class>
+    </listener>
+    <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
+    <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
 
-  <servlet>
-    <servlet-name>ControlServlet</servlet-name>
-    <display-name>ControlServlet</display-name>
-    <description>Main Control Servlet</description>
-    <servlet-class>org.ofbiz.webapp.control.ControlServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ControlServlet</servlet-name>
-    <url-pattern>/control/*</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <description>Main Control Servlet</description>
+        <display-name>ControlServlet</display-name>
+        <servlet-name>ControlServlet</servlet-name>
+        <servlet-class>org.ofbiz.webapp.control.ControlServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControlServlet</servlet-name>
+        <url-pattern>/control/*</url-pattern>
+    </servlet-mapping>
 
-  <session-config>
-    <session-timeout>60</session-timeout>    <!-- in minutes -->
-  </session-config>
+    <session-config>
+        <session-timeout>60</session-timeout>
+        <!-- in minutes -->
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
 
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-<!--
-  <error-page>
-    <error-code>403</error-code>
-    <location>/error/error403.jsp</location>
-  </error-page>
-  <error-page>
-    <error-code>404</error-code>
-    <location>/error/error404.jsp</location>
-  </error-page>
-  <error-page>
-    <error-code>410</error-code>
-    <location>/error/error.jsp</location>
-  </error-page>
-  <error-page>
-    <error-code>500</error-code>
-    <location>/error/error.jsp</location>
-  </error-page>
--->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <!--
+      <error-page>
+        <error-code>403</error-code>
+        <location>/error/error403.jsp</location>
+      </error-page>
+      <error-page>
+        <error-code>404</error-code>
+        <location>/error/error404.jsp</location>
+      </error-page>
+      <error-page>
+        <error-code>410</error-code>
+        <location>/error/error.jsp</location>
+      </error-page>
+      <error-page>
+        <error-code>500</error-code>
+        <location>/error/error.jsp</location>
+      </error-page>
+    -->
 
-<!-- HTTP Response Code definitions:
-| "400"   ; Bad Request
-| "401"   ; Unauthorized
-| "402"   ; Payment Required
-| "403"   ; Forbidden
-| "404"   ; Not Found
-| "405"   ; Method Not Allowed
-| "406"   ; Not Acceptable
-| "407"   ; Proxy Authentication Required
-| "408"   ; Request Time-out
-| "409"   ; Conflict
-| "410"   ; Gone
-| "411"   ; Length Required
-| "412"   ; Precondition Failed
-| "413"   ; Request Entity Too Large
-| "414"   ; Request-URI Too Large
-| "415"   ; Unsupported Media Type
-| "500"   ; Internal Server Error
-| "501"   ; Not Implemented
-| "502"   ; Bad Gateway
-| "503"   ; Service Unavailable
-| "504"   ; Gateway Time-out
-| "505"   ; HTTP Version not supported
--->
+    <!-- HTTP Response Code definitions:
+    | "400"   ; Bad Request
+    | "401"   ; Unauthorized
+    | "402"   ; Payment Required
+    | "403"   ; Forbidden
+    | "404"   ; Not Found
+    | "405"   ; Method Not Allowed
+    | "406"   ; Not Acceptable
+    | "407"   ; Proxy Authentication Required
+    | "408"   ; Request Time-out
+    | "409"   ; Conflict
+    | "410"   ; Gone
+    | "411"   ; Length Required
+    | "412"   ; Precondition Failed
+    | "413"   ; Request Entity Too Large
+    | "414"   ; Request-URI Too Large
+    | "415"   ; Unsupported Media Type
+    | "500"   ; Internal Server Error
+    | "501"   ; Not Implemented
+    | "502"   ; Bad Gateway
+    | "503"   ; Service Unavailable
+    | "504"   ; Gateway Time-out
+    | "505"   ; HTTP Version not supported
+    -->
 
-<!--
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>Entire Site</web-resource-name>
-      <description>Entire Site</description>
-      <url-pattern>/*</url-pattern>
-    </web-resource-collection>
--->
+    <!--
+      <security-constraint>
+        <web-resource-collection>
+          <web-resource-name>Entire Site</web-resource-name>
+          <description>Entire Site</description>
+          <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+    -->
     <!-- For enabling SSL, specify CONFIDENTIAL or INTEGRAL. -->
-<!--
-    <user-data-constraint>
-      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-    </user-data-constraint>
-  </security-constraint>
--->
+    <!--
+        <user-data-constraint>
+          <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+      </security-constraint>
+    -->
 </web-app>
