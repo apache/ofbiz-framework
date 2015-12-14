@@ -876,7 +876,7 @@ Parameter: tabindex, String, optional - HTML tabindex number.
         <#if style?has_content>class="${style}"</#if>>
         <#if description?has_content>${description}</#if></a>
         <script type="text/javascript">
-            function getRequestData () {
+            function ${uniqueItemName}_data () {
                 var data =  {
                     <#--list parameterList as parameter>
                         "${parameter.name}": "${parameter.value}",
@@ -899,7 +899,7 @@ Parameter: tabindex, String, optional - HTML tabindex number.
                          jQuery.ajax({
                              url: "${linkUrl}",
                              type: "POST",
-                             data: getRequestData(),
+                             data: ${uniqueItemName}_data(),
                              success: function(data) {jQuery("#${uniqueItemName}").html(data);}
                          });
                  }
