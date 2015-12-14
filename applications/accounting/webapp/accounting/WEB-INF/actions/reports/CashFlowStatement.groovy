@@ -193,7 +193,7 @@ if (transactionTotals) {
                     transactionTotalsMap.(transactionTotal.glAccountId).balance = totalDebitBalance.subtract(totalCreditBalance);
                 }
             } else {
-                transactionTotalsMap.(transactionTotal.glAccountId) = transactionTotal as LinkedList;
+                transactionTotalsMap.(transactionTotal.glAccountId) = transactionTotal;
             }
             accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
         }
