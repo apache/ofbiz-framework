@@ -60,7 +60,7 @@ under the License.
     <#if style?has_content>class="${style}"</#if>>
     <#if text?has_content>${text}</#if></a>
 <script type="text/javascript">
-    function getRequestData () {
+    function ${uniqueItemName}_data() {
         var data =  {
                    <#--list parameterList as parameter>
                         "${parameter.name}": "${parameter.value}",
@@ -83,7 +83,7 @@ under the License.
                          jQuery.ajax({
                              url: "${linkUrl}",
                              type: "POST",
-                             data: getRequestData(),
+                             data: ${uniqueItemName}_data(),
                              success: function(data) {jQuery("#${uniqueItemName}").html(data);}
                          });
                  }
