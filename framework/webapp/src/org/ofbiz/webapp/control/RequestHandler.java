@@ -1005,9 +1005,17 @@ public class RequestHandler {
             }
         }
         
-        //The only x-vontent-type-options defined value, "nosniff", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type. 
+        //The only x-content-type-options defined value, "nosniff", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type. 
         // This also applies to Google Chrome, when downloading extensions.
         resp.addHeader("x-content-type-options", "nosniff");
+        
+        // This header enables the Cross-site scripting (XSS) filter built into most recent web browsers. 
+        // It's usually enabled by default anyway, so the role of this header is to re-enable the filter for this particular website if it was disabled by the user. 
+        // This header is supported in IE 8+, and in Chrome (not sure which versions). The anti-XSS filter was added in Chrome 4. Its unknown if that version honored this header.
+        // FireFox has still an open bug entry and "offers" only the noscript plugin
+        // https://wiki.mozilla.org/Security/Features/XSS_Filter 
+        // https://bugzilla.mozilla.org/show_bug.cgi?id=528661
+        resp.addHeader("X-XSS-Protection","1; mode=block"); 
         
         String setCookie = resp.getHeader("set-cookie");
         if (UtilValidate.isNotEmpty(setCookie)) {
