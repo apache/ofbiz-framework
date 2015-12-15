@@ -39,7 +39,6 @@ import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.content.ContentManagementWorker;
@@ -338,7 +337,7 @@ public class ContentWorker implements org.ofbiz.widget.content.ContentWorkerInte
         renderContentAsText(dispatcher, delegator, contentId, writer, templateContext, locale, mimeTypeId, null, null, cache);
         String rendered = writer.toString();
         // According to https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet#XSS_Prevention_Rules_Summary
-        // Normally head should be protected by X-XSS-Protection Response Header by default (not Firefox)
+        // Normally head should be protected by X-XSS-Protection Response Header by default
         if ((rendered.contains("<script>")
                 || rendered.contains("<!--")
                 || rendered.contains("<div")
@@ -347,8 +346,7 @@ public class ContentWorker implements org.ofbiz.widget.content.ContentWorkerInte
                 || rendered.contains("<input")
                 || rendered.contains("<input")
                 || rendered.contains("<iframe")
-                || rendered.contains("<a"))
-                && !UtilProperties.getPropertyAsBoolean("owasp", "sanitizer.permissive.policy", false)) {
+                || rendered.contains("<a"))) {
             rendered = encoder.sanitize(rendered);
         }
         return rendered; 
