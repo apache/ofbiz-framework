@@ -26,10 +26,8 @@ under the License.
     <classpath type="jar" location="build/lib/*"/>
     <classpath type="jar" location="lib/*"/>
 
-    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_view.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_old.xml"/>
-    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_shipment.xml"/>
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/ProductScheduledServices.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductTypeData.xml"/>
