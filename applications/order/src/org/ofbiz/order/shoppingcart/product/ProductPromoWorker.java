@@ -986,9 +986,10 @@ public class ProductPromoWorker {
                 compareBase = Integer.valueOf(amountAvailable.compareTo(amountNeeded));
             }
         } else if ("PPIP_PRODUCT_QUANT".equals(inputParamEnumId)) {
-            // for this type of promo force the operatorEnumId = PPC_EQ, effectively ignore that setting because the comparison is implied in the code
-            operatorEnumId = "PPC_EQ";
-
+            if (operatorEnumId == null) {
+                // if the operator is not specified in the condition, then assume as default PPC_EQ (for backward compatibility)
+                operatorEnumId = "PPC_EQ";
+            }
             BigDecimal quantityNeeded = BigDecimal.ONE;
             if (UtilValidate.isNotEmpty(condValue)) {
                 quantityNeeded = new BigDecimal(condValue);
@@ -1008,7 +1009,7 @@ public class ProductPromoWorker {
                         (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
                         (product == null || !"N".equals(product.getString("includeInPromotions")))) {
                     // reduce quantity still needed to qualify for promo (quantityNeeded)
-                    quantityNeeded = quantityNeeded.subtract(cartItem.addPromoQuantityCandidateUse(quantityNeeded, productPromoCond, false));
+                    quantityNeeded = quantityNeeded.subtract(cartItem.addPromoQuantityCandidateUse(quantityNeeded, productPromoCond, !"PPC_EQ".equals(operatorEnumId)));
                 }
             }
 
@@ -1743,7 +1744,13 @@ public class ProductPromoWorker {
             }
         } else if ("PROMO_ORDER_PERCENT".equals(productPromoActionEnumId)) {
             BigDecimal percentage = (productPromoAction.get("amount") == null ? BigDecimal.ZERO : (productPromoAction.getBigDecimal("amount").movePointLeft(2))).negate();
-            BigDecimal amount = cart.getSubTotalForPromotions().multiply(percentage);
+            Set<String> productIds = ProductPromoWorker.getPromoRuleActionProductIds(productPromoAction, delegator, nowTimestamp);
+            BigDecimal amount;
+            if (productIds.isEmpty()) {
+                amount = cart.getSubTotalForPromotions().multiply(percentage);
+            } else {
+                amount = cart.getSubTotalForPromotions(productIds).multiply(percentage);
+            }
             if (amount.compareTo(BigDecimal.ZERO) != 0) {
                 doOrderPromoAction(productPromoAction, cart, amount, "amount", delegator);
                 actionResultInfo.ranAction = true;
@@ -1969,7 +1976,6 @@ public class ProductPromoWorker {
         List<GenericValue> productPromoCategoriesAll = EntityQuery.use(delegator).from("ProductPromoCategory").where("productPromoId", productPromoCond.get("productPromoId")).cache(true).queryList();
         List<GenericValue> productPromoCategories = EntityUtil.filterByAnd(productPromoCategoriesAll, UtilMisc.toMap("productPromoRuleId", "_NA_", "productPromoCondSeqId", "_NA_"));
         productPromoCategories.addAll(EntityUtil.filterByAnd(productPromoCategoriesAll, UtilMisc.toMap("productPromoRuleId", productPromoCond.get("productPromoRuleId"), "productPromoCondSeqId", productPromoCond.get("productPromoCondSeqId"))));
-
         List<GenericValue> productPromoProductsAll = EntityQuery.use(delegator).from("ProductPromoProduct").where("productPromoId", productPromoCond.get("productPromoId")).cache(true).queryList();
         List<GenericValue> productPromoProducts = EntityUtil.filterByAnd(productPromoProductsAll, UtilMisc.toMap("productPromoRuleId", "_NA_", "productPromoCondSeqId", "_NA_"));
         productPromoProducts.addAll(EntityUtil.filterByAnd(productPromoProductsAll, UtilMisc.toMap("productPromoRuleId", productPromoCond.get("productPromoRuleId"), "productPromoCondSeqId", productPromoCond.get("productPromoCondSeqId"))));

@@ -2759,6 +2759,18 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         return itemsTotal.add(this.getOrderOtherAdjustmentTotal());
     }
+    public BigDecimal getSubTotalForPromotions(Set<String> productIds) {
+        BigDecimal itemsTotal = BigDecimal.ZERO;
+        for (ShoppingCartItem cartItem : this.cartLines) {
+            GenericValue product = cartItem.getProduct();
+            if (product == null || "N".equals(product.getString("includeInPromotions")) || !productIds.contains(cartItem.getProductId())) {
+                // don't include in total if this is the case...
+                continue;
+            }
+            itemsTotal = itemsTotal.add(cartItem.getItemSubTotal());
+        }
+        return itemsTotal;
+    }
 
     /**
      * Get the total payment amount by payment type.  Specify null to get amount
