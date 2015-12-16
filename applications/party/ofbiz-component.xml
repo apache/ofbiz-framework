@@ -25,8 +25,7 @@ under the License.
     <classpath type="jar" location="build/lib/*"/>
     <classpath type="dir" location="config"/>
 
-    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
-    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_old.xml"/>    
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_old.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/PartyTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/PartySecurityPermissionSeedData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/PartySecurityGroupDemoData.xml"/>

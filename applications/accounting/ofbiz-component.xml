@@ -26,7 +26,6 @@ under the License.
     <classpath type="dir" location="config"/>
     <classpath type="jar" location="lib/*"/>
 
-    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_reports.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_old.xml"/>
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
