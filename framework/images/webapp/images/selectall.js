@@ -766,6 +766,8 @@ function showjGrowl() {
             },
             speed:1000
         });
+		
+		contentMessages.remove();
     }
 }
 
