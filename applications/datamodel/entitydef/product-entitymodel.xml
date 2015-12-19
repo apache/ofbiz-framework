@@ -2724,7 +2724,7 @@ under the License.
       <field name="fixedAmount" type="currency-amount"><description>Use this for products which are sold in fixed denominations, such as gift certificates or calling cards.</description></field>
       <field name="amountUomTypeId" type="id"></field>
       <field name="weightUomId" type="id"></field>
-      <field name="weight" type="fixed-point"><description>The shipping weight of the product.</description></field>
+      <field name="shippingWeight" type="fixed-point"><description>The shipping weight of the product.</description></field>
       <field name="productWeight" type="fixed-point"></field>
       <field name="heightUomId" type="id"></field>
       <field name="productHeight" type="fixed-point"></field>

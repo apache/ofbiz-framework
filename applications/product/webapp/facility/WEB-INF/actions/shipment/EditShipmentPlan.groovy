@@ -153,8 +153,8 @@ if (shipmentPlans) {
         if (shipmentPlan.getDouble("quantity")) {
             quantity = shipmentPlan.getDouble("quantity");
         }
-        if (product.getDouble("weight")) {
-            weight = product.getDouble("weight") * quantity;
+        if (product.getDouble("productWeight")) {
+            weight = product.getDouble("productWeight") * quantity;
         }
         oneRow.weight = weight;
         if (product.weightUomId) {
@@ -251,8 +251,8 @@ if (orderItemShipGroupAssocs) {
         // Planned (unitary) Weight and Volume
         weight = new Double(0);
         product = orderItem.getRelatedOne("Product", false);
-        if (product.getDouble("weight")) {
-            weight = product.getDouble("weight");
+        if (product.getDouble("productWeight")) {
+            weight = product.getDouble("productWeight");
         }
         oneRow.weight = weight;
 

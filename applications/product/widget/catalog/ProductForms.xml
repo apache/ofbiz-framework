@@ -203,7 +203,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="3" name="weight" title="${uiLabelMap.ProductWeight}"><text size="10" maxlength="20"/></field>
+        <field position="3" name="shippingWeight" title="${uiLabelMap.ProductShippingWeight}"><text size="10" maxlength="20"/></field>
 
         <field position="1" name="quantityIncluded" title="${uiLabelMap.ProductQuantityIncluded}"><text size="10" maxlength="20"/></field>
         <field position="2" name="quantityUomId" title="${uiLabelMap.ProductQuantityUomId}">
@@ -322,7 +322,7 @@ under the License.
                 <sort-field name="diameterUomId"/>
                 <sort-field name="productWeight"/>
                 <sort-field name="weightUomId"/>
-                <sort-field name="weight"/>
+                <sort-field name="shippingWeight"/>
                 <sort-field name="quantityIncluded"/>
                 <sort-field name="quantityUomId"/>
                 <sort-field name="quantityIncluded"/>

@@ -92,7 +92,7 @@ under the License.
                 </calculate>
             </if-compare>
             <if-compare field="fromUom.uomTypeId" operator="equals" value="WEIGHT_MEASURE">
-                <set field="fromVal" from-field="product.weight"/>
+                <set field="fromVal" from-field="product.productWeight"/>
             </if-compare>
             <log level="verbose" message="From product-based conversion factor: ${fromVal}"/>
 
@@ -121,7 +121,7 @@ under the License.
                 </calculate>
             </if-compare>
             <if-compare field="toUom.uomTypeId" operator="equals" value="WEIGHT_MEASURE">
-                <set field="toVal" from-field="product.weight"/>
+                <set field="toVal" from-field="product.productWeight"/>
             </if-compare>
             <log level="verbose" message="To product-based conversion factor: ${toVal}"/>
 

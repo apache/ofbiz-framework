@@ -500,10 +500,10 @@ $(function(){
             </div>
           </#if>
     
-          <#if (product.weight?? && product.weight != 0) || product.weightUomId?has_content>
+          <#if (product.productWeight?? && product.productWeight != 0) || product.weightUomId?has_content>
             <#assign weightUom = product.getRelatedOne("WeightUom", true)! />
             <div>
-              ${uiLabelMap.CommonWeight}: ${product.weight!} ${((weightUom.abbreviation)?default(product.weightUomId))!}
+              ${uiLabelMap.CommonWeight}: ${product.productWeight!} ${((weightUom.abbreviation)?default(product.weightUomId))!}
             </div>
           </#if>
           <#if (product.productHeight?? && product.productHeight != 0) || product.heightUomId?has_content>

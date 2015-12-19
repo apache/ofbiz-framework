@@ -79,7 +79,7 @@ public abstract class ProductUtil {
                 if (largeImage != null)
                     dispatchContext.put("largeImage", largeImage);                
                 
-                // if(product.get("weight") != null) dispatchContext.put("weight", "");
+                // if(product.get("productWeight") != null) dispatchContext.put("weight", "");
 
                 // Trying to set a correctand trail
                 List<GenericValue> category = delegator.findList("ProductCategoryMember", EntityCondition.makeCondition(UtilMisc.toMap("productId", productId)), null, null, null, false);

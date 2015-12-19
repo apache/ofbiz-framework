@@ -141,9 +141,9 @@ under the License.
                 <#assign quantityUom = product.getRelatedOne("QuantityUom", true)!/>
                   [${uiLabelMap.CommonQuantity}: ${product.quantityIncluded!} ${((quantityUom.abbreviation)?default(product.quantityUomId))!}]
               </#if>
-              <#if (product.weight?? && product.weight != 0) || product.weightUomId?has_content>
+              <#if (product.productWeight?? && product.productWeight != 0) || product.weightUomId?has_content>
                 <#assign weightUom = product.getRelatedOne("WeightUom", true)!/>
-                  [${uiLabelMap.CommonWeight}: ${product.weight!} ${((weightUom.abbreviation)?default(product.weightUomId))!}]
+                  [${uiLabelMap.CommonWeight}: ${product.productWeight!} ${((weightUom.abbreviation)?default(product.weightUomId))!}]
               </#if>
               <#if (product.productHeight?? && product.productHeight != 0) || product.heightUomId?has_content>
                 <#assign heightUom = product.getRelatedOne("HeightUom", true)!/>

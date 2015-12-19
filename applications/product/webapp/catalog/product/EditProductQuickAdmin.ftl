@@ -235,7 +235,7 @@ function doPublish() {
                     <td><input type="text" name="productHeight${idx}" size="6" maxlength="20" value="${assocProduct.productHeight!}"/></td>
                     <td><input type="text" name="productWidth${idx}" size="6" maxlength="20" value="${assocProduct.productWidth!}"/></td>
                     <td><input type="text" name="productDepth${idx}" size="6" maxlength="20" value="${assocProduct.productDepth!}"/></td>
-                    <td><input type="text" name="weight${idx}" size="6" maxlength="20" value="${assocProduct.weight!}"/></td>
+                    <td><input type="text" name="weight${idx}" size="6" maxlength="20" value="${assocProduct.productWeight!}"/></td>
                     <td><input type="text" name="~floz${idx}" size="6" maxlength="20" value="${featureFloz.get(assocProduct.productId)!}"/></td>
                     <td><input type="text" name="~ml${idx}" size="6" maxlength="20" value="${featureMl.get(assocProduct.productId)!}"/></td>
                     <td><input type="text" name="~ntwt${idx}" size="6" maxlength="20" value="${featureNtwt.get(assocProduct.productId)!}"/></td>
@@ -261,7 +261,7 @@ function doPublish() {
                     <td><input type="text" name="productHeight" size="6" maxlength="20" value="${product.productHeight!}" /></td>
                     <td><input type="text" name="productWidth" size="6" maxlength="20" value="${product.productWidth!}" /></td>
                     <td><input type="text" name="productDepth" size="6" maxlength="20" value="${product.productDepth!}" /></td>
-                    <td><input type="text" name="weight" size="6" maxlength="20" value="${product.weight!}" /></td>
+                    <td><input type="text" name="weight" size="6" maxlength="20" value="${product.productWeight!}" /></td>
                     <td><input type="text" name="~floz" size="6" maxlength="20" value="${floz!}" /></td>
                     <td><input type="text" name="~ml" size="6" maxlength="20" value="${ml!}" /></td>
                     <td><input type="text" name="~ntwt" size="6" maxlength="20" value="${ntwt!}" /></td>

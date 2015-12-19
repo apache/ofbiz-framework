@@ -441,7 +441,7 @@ public class ProductEvents {
                         product.set("productHeight", parseBigDecimalForEntity(request.getParameter("productHeight")));
                         product.set("productWidth", parseBigDecimalForEntity(request.getParameter("productWidth")));
                         product.set("productDepth", parseBigDecimalForEntity(request.getParameter("productDepth")));
-                        product.set("weight", parseBigDecimalForEntity(request.getParameter("weight")));
+                        product.set("productWeight", parseBigDecimalForEntity(request.getParameter("weight")));
 
                         // default unit settings for shipping parameters
                         product.set("heightUomId", "LEN_in");
@@ -478,7 +478,7 @@ public class ProductEvents {
                             product.set("productHeight", parseBigDecimalForEntity(request.getParameter("productHeight" + attribIdx)));
                             product.set("productWidth", parseBigDecimalForEntity(request.getParameter("productWidth" + attribIdx)));
                             product.set("productDepth", parseBigDecimalForEntity(request.getParameter("productDepth" + attribIdx)));
-                            product.set("weight", parseBigDecimalForEntity(request.getParameter("weight" + attribIdx)));
+                            product.set("productWeight", parseBigDecimalForEntity(request.getParameter("weight" + attribIdx)));
                             BigDecimal floz = parseBigDecimalForEntity(request.getParameter("~floz" + attribIdx));
                             BigDecimal ml = parseBigDecimalForEntity(request.getParameter("~ml" + attribIdx));
                             BigDecimal ntwt = parseBigDecimalForEntity(request.getParameter("~ntwt" + attribIdx));

@@ -1805,12 +1805,12 @@ public class ShoppingCartItem implements java.io.Serializable {
     public BigDecimal getWeight() {
         GenericValue product = getProduct();
         if (product != null) {
-            BigDecimal weight = product.getBigDecimal("weight");
+            BigDecimal weight = product.getBigDecimal("productWeight");
 
             // if the weight is null, see if there is an associated virtual product and get the weight of that product
             if (weight == null) {
                 GenericValue parentProduct = this.getParentProduct();
-                if (parentProduct != null) weight = parentProduct.getBigDecimal("weight");
+                if (parentProduct != null) weight = parentProduct.getBigDecimal("productWeight");
             }
 
             if (weight == null) {
