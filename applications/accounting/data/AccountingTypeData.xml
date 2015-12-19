@@ -548,6 +548,7 @@ under the License.
     <!-- maps line items such as order items to invoice item types.  separate mapping for sales and purchase invoices -->
     <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="FINISHED_GOOD" invoiceItemTypeId="INV_FPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="SERVICE_PRODUCT" invoiceItemTypeId="INV_SPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="SERVICE" invoiceItemTypeId="INV_SPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="DIGITAL_GOOD" invoiceItemTypeId="INV_DPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="FINDIG_GOOD" invoiceItemTypeId="INV_FDPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="PROMOTION_ADJUSTMENT" invoiceItemTypeId="ITM_PROMOTION_ADJ"/>
