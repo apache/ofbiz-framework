@@ -991,7 +991,7 @@ public class OrderReadHelper {
         }
         if (product != null) {
             if (ProductWorker.shippingApplies(product)) {
-                BigDecimal weight = product.getBigDecimal("weight");
+                BigDecimal weight = product.getBigDecimal("shippingWeight");
                 String isVariant = product.getString("isVariant");
                 if (weight == null && "Y".equals(isVariant)) {
                     // get the virtual product and check its weight
@@ -1000,7 +1000,7 @@ public class OrderReadHelper {
                         if (UtilValidate.isNotEmpty(virtualId)) {
                             GenericValue virtual = EntityQuery.use(delegator).from("Product").where("productId", virtualId).cache().queryOne();
                             if (virtual != null) {
-                                weight = virtual.getBigDecimal("weight");
+                                weight = virtual.getBigDecimal("shippingWeight");
                             }
                         }
                     } catch (GenericEntityException e) {

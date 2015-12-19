@@ -168,7 +168,7 @@ public class ShipmentWorker {
         for (Map.Entry<String, BigDecimal> entry: packageMap.entrySet()) {
             String productId = entry.getKey();
             Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
-            BigDecimal productWeight = (BigDecimal) productInfo.get("weight");
+            BigDecimal productWeight = (BigDecimal) productInfo.get("productWeight");
             BigDecimal quantity = packageMap.get(productId);
 
             String weightUomId = (String) productInfo.get("weightUomId");

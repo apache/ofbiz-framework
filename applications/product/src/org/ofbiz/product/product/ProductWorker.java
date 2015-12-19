@@ -815,13 +815,13 @@ public class ProductWorker {
      * convert the value otherwise the weight is returned as is.
      */
     public static BigDecimal getProductWeight(GenericValue product, String desiredUomId, Delegator delegator, LocalDispatcher dispatcher) {
-        BigDecimal weight = product.getBigDecimal("weight");
+        BigDecimal weight = product.getBigDecimal("productWeight");
         String weightUomId = product.getString("weightUomId");
 
         if (weight == null) {
             GenericValue parentProduct = getParentProduct(product.getString("productId"), delegator);
             if (parentProduct != null) {
-                weight = parentProduct.getBigDecimal("weight");
+                weight = parentProduct.getBigDecimal("productWeight");
                 weightUomId = parentProduct.getString("weightUomId");
             }
         }

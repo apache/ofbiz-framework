@@ -115,8 +115,8 @@ if (shipmentPlans) {
         if (shipmentPlan.quantity) {
             quantity = shipmentPlan.quantity;
         }
-        if (product.weight) {
-            weight = product.weight * quantity;
+        if (product.productWeight) {
+            weight = product.productWeight * quantity;
         }
         oneRow.weight = weight;
         if (product.weightUomId) {

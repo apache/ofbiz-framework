@@ -774,9 +774,9 @@ public class ProductsExportToGoogle {
             //Add Online Only
             UtilXml.addChildElementNSValue(entryElem, "g:online_only", "y", feedDocument, googleBaseNSUrl);
             //Add shipping weight
-            if (UtilValidate.isNotEmpty(product.getString("weight")) && UtilValidate.isNotEmpty(product.getString("weightUomId"))) {
+            if (UtilValidate.isNotEmpty(product.getBigDecimal("shippingWeight")) && UtilValidate.isNotEmpty(product.getString("weightUomId"))) {
                 GenericValue uom = EntityQuery.use(delegator).from("Uom").where("uomId", product.getString("weightUomId")).queryOne();
-                String shippingWeight = product.getString("weight") + " " + uom.getString("description");
+                String shippingWeight = product.getBigDecimal("shippingWeight") + " " + uom.getString("description");
                 UtilXml.addChildElementNSValue(entryElem, "g:shipping_weight", shippingWeight, feedDocument, googleBaseNSUrl);
             }
             List<GenericValue> productFeatureAndAppls = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", product.getString("productId")).queryList();
