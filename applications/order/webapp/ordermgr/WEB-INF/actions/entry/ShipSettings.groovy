@@ -37,6 +37,11 @@ if ("Y".equals(createNewShipGroup)) {
 orderPartyId = cart.getPartyId();
 shipToPartyId = parameters.shipToPartyId;
 context.cart = cart;
+if(shipToPartyId) {
+    context.shipToPartyId = shipToPartyId;
+} else {
+    context.shipToPartyId = cart.getShipToCustomerPartyId();
+}
 
 // nuke the event messages
 request.removeAttribute("_EVENT_MESSAGE_");
@@ -53,10 +58,9 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
         }
     }
     // Ship to another party
-    if (shipToPartyId) {
-        shipToParty = from("Party").where("partyId", shipToPartyId).queryOne();
+    if (!context.shipToPartyId.equals(orderPartyId)) {
+        shipToParty = from("Party").where("partyId", context.shipToPartyId).queryOne();
         if (shipToParty) {
-            context.shipToParty = shipToParty;
             shipToPartyShippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
             context.shipToPartyShippingContactMechList = shipToPartyShippingContactMechList;
         }
@@ -102,11 +106,10 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
         context.facilityMaps = facilityMaps;
     }
     // Ship to another party
-    if (shipToPartyId) {
-        shipToParty = from("Party").where("partyId", shipToPartyId).queryOne();
+    if (!context.shipToPartyId.equals(orderPartyId)) {
+        shipToParty = from("Party").where("partyId", context.shipToPartyId).queryOne();
         if (shipToParty)
         {
-            context.shipToParty = shipToParty;
             shipToPartyShippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
             context.shipToPartyShippingContactMechList = shipToPartyShippingContactMechList;
         }
