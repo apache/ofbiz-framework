@@ -296,10 +296,14 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         Map<String, Object> parameters = new HashMap<String, Object>();
         String style = menuItem.getWidgetStyle();
         if (menuItem.isSelected(context)) {
-            style = menuItem.getSelectedStyle();
-            if (UtilValidate.isEmpty(style)) {
-                style = "selected";
+            String selectedStyle = menuItem.getSelectedStyle();
+            if (UtilValidate.isEmpty(selectedStyle)) {
+                selectedStyle = "selected";
             }
+            if (UtilValidate.isNotEmpty(style)) {
+                style += " " ;
+            }
+            style += selectedStyle ;
         }
         if (this.isDisableIfEmpty(menuItem, context)) {
             style = menuItem.getDisabledTitleStyle();
