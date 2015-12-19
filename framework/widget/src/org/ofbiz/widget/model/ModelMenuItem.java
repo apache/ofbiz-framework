@@ -524,9 +524,6 @@ public class ModelMenuItem extends ModelWidget {
             if (linkElement.getAttribute("text").isEmpty()) {
                 linkElement.setAttribute("text", parentMenuItem.getTitle().getOriginal());
             }
-            if (linkElement.getAttribute("style").isEmpty()) {
-                linkElement.setAttribute("style", parentMenuItem.getWidgetStyle());
-            }
             this.link = new Link(linkElement);
         }
 
