@@ -202,7 +202,7 @@ public class ImageManagementServices {
                 
                 Map<String, Object> resultResize = new HashMap<String, Object>();
                 try {
-                    resultResize.putAll(ImageManagementServices.scaleImageMangementInAllSize(context, imageName, sizeType, productId));
+                    resultResize.putAll(scaleImageMangementInAllSize(dctx, context, imageName, sizeType, productId));
                 } catch (IOException e) {
                     String errMsg = "Scale additional image in all different sizes is impossible : " + e.toString();
                     Debug.logError(e, errMsg, module);
@@ -296,7 +296,7 @@ public class ImageManagementServices {
         return ServiceUtil.returnSuccess();
     }
     
-    public static Map<String, Object> scaleImageMangementInAllSize(Map<String, ? extends Object> context, String filenameToUse, String resizeType, String productId)
+    private static Map<String, Object> scaleImageMangementInAllSize(DispatchContext dctx, Map<String, ? extends Object> context, String filenameToUse, String resizeType, String productId)
         throws IllegalArgumentException, ImagingOpException, IOException, JDOMException {
         
         /* VARIABLES */
@@ -577,7 +577,7 @@ public class ImageManagementServices {
         
         Map<String, Object> resultResizeThumb = new HashMap<String, Object>();
         try {
-            resultResizeThumb.putAll(ImageManagementServices.scaleImageMangementInAllSize(context, filenameToUseThumb, "thumbnail", productId));
+            resultResizeThumb.putAll(scaleImageMangementInAllSize(dctx, context, filenameToUseThumb, "thumbnail", productId));
         } catch (IOException e) {
             String errMsg = "Scale additional image in all different sizes is impossible : " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -721,7 +721,7 @@ public class ImageManagementServices {
             
             if (dataResourceName.length() > 3) {
                 String mimeType = dataResourceName.substring(dataResourceName.length() - 3, dataResourceName.length());
-                Map<String, Object> resultResize = ImageManagementServices.resizeImage(bufImg, imgHeight, imgWidth, resizeHeight, resizeWidth);
+                Map<String, Object> resultResize = resizeImage(bufImg, imgHeight, imgWidth, resizeHeight, resizeWidth);
                 ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
                 
                 Map<String, Object> contentThumb = new HashMap<String, Object>();
@@ -737,7 +737,7 @@ public class ImageManagementServices {
                 
                 String contentIdThumb = (String) contentThumbResult.get("contentId");
                 String imageUrlThumb = imageServerUrl + "/" + productId + "/" + filenameToUse;
-                ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameToUse, imageUrlThumb, contentIdThumb, "image/jpeg");
+                createContentAndDataResource(dctx, userLogin, filenameToUse, imageUrlThumb, contentIdThumb, "image/jpeg");
                 
                 Map<String, Object> createContentAssocMap = new HashMap<String, Object>();
                 createContentAssocMap.put("contentAssocTypeId", "IMAGE_THUMBNAIL");
@@ -761,7 +761,7 @@ public class ImageManagementServices {
     }
     
     public static Map<String, Object> resizeImageOfProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
-    	Delegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
         String productId = (String) context.get("productId");
         String dataResourceName = (String) context.get("dataResourceName");
@@ -775,7 +775,7 @@ public class ImageManagementServices {
             double imgWidth = bufImg.getWidth();
             String filenameToUse = dataResourceName;
             String mimeType = dataResourceName.substring(dataResourceName.length() - 3, dataResourceName.length());
-            Map<String, Object> resultResize = ImageManagementServices.resizeImage(bufImg, imgHeight, imgWidth, resizeHeight, resizeWidth);
+            Map<String, Object> resultResize = resizeImage(bufImg, imgHeight, imgWidth, resizeHeight, resizeWidth);
             ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
         } catch (Exception e) {
             Debug.logError(e, module);
