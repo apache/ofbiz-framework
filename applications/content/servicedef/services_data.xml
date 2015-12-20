@@ -52,7 +52,7 @@
         <description>Update a DataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="dataResourceId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="dataResourceId" type="String" mode="IN" optional="false"/>
         <override name="objectInfo" allow-html="any"/>
         <override name="dataResourceName" allow-html="any"/>
     </service>
