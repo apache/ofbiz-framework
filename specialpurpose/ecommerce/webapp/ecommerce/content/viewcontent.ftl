@@ -35,7 +35,7 @@ under the License.
 </#if>
 
 <#if lastContent?has_content>
-    <h1>[${lastContent.contentId}] ${lastContent.description}</h1>
+    <h1>[${lastContent.contentId}] ${lastContent.description!}</h1>
 </#if>
 <#--
 <#assign globalNodeTrail=[]/>
