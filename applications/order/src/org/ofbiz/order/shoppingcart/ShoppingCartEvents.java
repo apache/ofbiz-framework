@@ -1451,11 +1451,12 @@ public class ShoppingCartEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         String orderId = request.getParameter("orderId");
+        String createAsNewOrder = request.getParameter("createAsNewOrder");
 
         ShoppingCart cart = null;
         try {
             Map<String, Object> outMap = dispatcher.runSync("loadCartFromOrder",
-                                                UtilMisc.<String, Object>toMap("orderId", orderId,
+                                                UtilMisc.<String, Object>toMap("orderId", orderId, "createAsNewOrder", createAsNewOrder,
                                                         "skipProductChecks", Boolean.TRUE, // the products have already been checked in the order, no need to check their validity again
                                                         "userLogin", userLogin));
             if (!ServiceUtil.isSuccess(outMap)) {

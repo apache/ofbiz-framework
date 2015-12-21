@@ -112,6 +112,7 @@ under the License.
             location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="loadCartFromOrder">
         <description>Create a ShoppingCart Object based on an existing order</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="createAsNewOrder" type="String" mode="IN" default-value="N"/>
         <attribute name="skipInventoryChecks" type="Boolean" mode="IN" optional="true"/>
         <attribute name="skipProductChecks" type="Boolean" mode="IN" optional="true"/>
         <attribute name="includePromoItems" type="Boolean" mode="IN" optional="true"/>

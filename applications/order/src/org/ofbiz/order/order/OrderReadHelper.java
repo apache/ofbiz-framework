@@ -3025,4 +3025,27 @@ public class OrderReadHelper {
         }
         return shippableSizes;
     }
+    public BigDecimal getItemReceivedQuantity(GenericValue orderItem) {
+        BigDecimal totalReceived = BigDecimal.ZERO;
+        try {
+            if (UtilValidate.isNotEmpty(orderItem)) {
+                EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("orderId", orderItem.getString("orderId")),
+                        EntityCondition.makeCondition("quantityAccepted", EntityOperator.GREATER_THAN, BigDecimal.ZERO),
+                        EntityCondition.makeCondition("orderItemSeqId", orderItem.getString("orderItemSeqId"))));
+                Delegator delegator = orderItem.getDelegator();
+                List<GenericValue> shipmentReceipts = EntityQuery.use(delegator).select("quantityAccepted", "quantityRejected").from("ShipmentReceiptAndItem").where(cond).queryList();
+                for (GenericValue shipmentReceipt : shipmentReceipts) {
+                    if (shipmentReceipt.getBigDecimal("quantityAccepted") != null)
+                        totalReceived = totalReceived.add(shipmentReceipt.getBigDecimal("quantityAccepted"));
+                    if (shipmentReceipt.getBigDecimal("quantityRejected") != null)
+                        totalReceived = totalReceived.add(shipmentReceipt.getBigDecimal("quantityRejected"));
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return totalReceived;
+    }
+
 }

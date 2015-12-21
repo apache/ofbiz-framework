@@ -166,6 +166,8 @@ public class ShoppingCartServices {
         Boolean skipProductChecks = (Boolean) context.get("skipProductChecks");
         boolean includePromoItems = Boolean.TRUE.equals(context.get("includePromoItems"));
         Locale locale = (Locale) context.get("locale");
+        //FIXME: deepak:Personally I don't like the idea of passing flag but for orderItem quantity calculation we need this flag.
+        String createAsNewOrder = (String) context.get("createAsNewOrder");
 
         if (UtilValidate.isEmpty(skipInventoryChecks)) {
             skipInventoryChecks = Boolean.FALSE;
@@ -395,7 +397,13 @@ public class ShoppingCartServices {
                 if (amount == null) {
                     amount = BigDecimal.ZERO;
                 }
-                BigDecimal quantity = item.getBigDecimal("quantity");
+                //BigDecimal quantity = item.getBigDecimal("quantity");
+                BigDecimal quantity = BigDecimal.ZERO;
+                if("ITEM_COMPLETED".equals(item.getString("statusId")) && "N".equals(createAsNewOrder)) {
+                    quantity = item.getBigDecimal("quantity");
+                } else {
+                    quantity = OrderReadHelper.getOrderItemQuantity(item);
+                }
                 if (quantity == null) {
                     quantity = BigDecimal.ZERO;
                 }
