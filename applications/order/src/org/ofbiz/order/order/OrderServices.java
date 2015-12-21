@@ -2066,6 +2066,7 @@ public class OrderServices {
             fields.put("shipGroupSeqId", shipGroupSeqId);
         }
 
+        OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         List<GenericValue> orderItemShipGroupAssocs = null;
         try {
             orderItemShipGroupAssocs = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where(fields).queryList();
@@ -2078,6 +2079,7 @@ public class OrderServices {
         if (orderItemShipGroupAssocs != null) {
             for (GenericValue orderItemShipGroupAssoc : orderItemShipGroupAssocs) {
                 GenericValue orderItem = null;
+                String itemStatus = "ITEM_CANCELLED";
                 try {
                     orderItem = orderItemShipGroupAssoc.getRelatedOne("OrderItem", false);
                 } catch (GenericEntityException e) {
@@ -2103,11 +2105,23 @@ public class OrderServices {
                 if (availableQuantity == null) availableQuantity = BigDecimal.ZERO;
                 if (itemQuantity == null) itemQuantity = BigDecimal.ZERO;
 
+                if ("PURCHASE_ORDER".equals(orh.getOrderTypeId())) {
+                    BigDecimal receivedQty = orh.getItemReceivedQuantity(orderItem);
+                    if (receivedQty.compareTo(BigDecimal.ZERO) > 0)
+                        itemStatus = "ITEM_COMPLETED";
+                    itemQuantity = itemQuantity.subtract(receivedQty);
+                } else {
+                    BigDecimal shippedQty = orh.getItemShippedQuantity(orderItem);
+                    if (shippedQty.compareTo(BigDecimal.ZERO) > 0 )
+                        itemStatus = "ITEM_COMPLETED";
+                    itemQuantity = itemQuantity.subtract(shippedQty);
+                }
+
                 BigDecimal thisCancelQty = null;
                 if (cancelQuantity != null) {
                     thisCancelQty = cancelQuantity;
                 } else {
-                    thisCancelQty = availableQuantity;
+                    thisCancelQty = itemQuantity;
                 }
 
                 if (availableQuantity.compareTo(thisCancelQty) >= 0) {
@@ -2179,8 +2193,19 @@ public class OrderServices {
                     }
 
                     if (thisCancelQty.compareTo(itemQuantity) >= 0) {
+                        if ("ITEM_COMPLETED".equals(itemStatus) && "SALES_ORDER".equals(orh.getOrderTypeId())) {
+                            //If partial item shipped then release remaining inventory of SO item and marked SO item as completed.
+                            Map<String, Object> cancelOrderItemInvResCtx = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId"), "shipGroupSeqId",
+                                    shipGroupSeqId, "cancelQuantity", thisCancelQty, "userLogin", userLogin);
+                            try {
+                                dispatcher.runSyncIgnore("cancelOrderItemInvResQty", cancelOrderItemInvResCtx);
+                            } catch (GenericServiceException e) {
+                                Debug.logError(e, module);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToUpdateInventoryReservations", UtilMisc.toMap("itemMsgInfo",itemMsgInfo), locale));
+                            }
+                        }
                         // all items are cancelled -- mark the item as cancelled
-                        Map<String, Object> statusCtx = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId"), "statusId", "ITEM_CANCELLED", "userLogin", userLogin);
+                        Map<String, Object> statusCtx = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId"), "statusId", itemStatus, "userLogin", userLogin);
                         try {
                             dispatcher.runSyncIgnore("changeOrderItemStatus", statusCtx);
                         } catch (GenericServiceException e) {

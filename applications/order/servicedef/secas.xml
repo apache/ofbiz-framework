@@ -150,7 +150,7 @@ under the License.
     </eca>
 
     <!-- cancel order items -->
-    <eca service="cancelOrderItem" event="commit">
+    <eca service="cancelOrderItem" event="global-commit-post-run">
         <action service="recreateOrderAdjustments" mode="sync"/>
         <action service="resetGrandTotal" mode="sync"/>
         <action service="sendOrderChangeNotification" mode="async" persist="true"/>
