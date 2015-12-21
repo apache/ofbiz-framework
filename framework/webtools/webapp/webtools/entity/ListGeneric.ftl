@@ -34,7 +34,7 @@ under the License.
                         <td class="button-col">
                             <a href='<@ofbizUrl>ViewGeneric?${record.findString}</@ofbizUrl>'>${uiLabelMap.CommonView}</a>
                         <#if hasDeletePermission == 'Y'>
-                            <a href='<@ofbizUrl>UpdateGeneric?${record.findString}&amp;UPDATE_MODE=DELETE</@ofbizUrl>'>${uiLabelMap.CommonDelete}</a>
+                            <a onclick="return confirm ('${uiLabelMap.WebtoolsConfirmDelete}')" href='<@ofbizUrl>UpdateGeneric?${record.findString}&amp;UPDATE_MODE=DELETE</@ofbizUrl>'>${uiLabelMap.CommonDelete}</a>
                         </#if>
                         </td>
                         <#list fieldList as field>
