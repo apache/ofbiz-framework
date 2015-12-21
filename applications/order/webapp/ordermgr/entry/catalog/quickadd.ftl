@@ -18,12 +18,7 @@ under the License.
 -->
 
 <#if productCategory?has_content>
-  <table border='0'  cellpadding='3' cellspacing='0'>
-    <tr>
-      <td>
         <h2>${productCategory.categoryName!}</h2>
-      </td>
-      <td align="right">
         <form name="choosequickaddform" method="post" action="<@ofbizUrl>quickadd</@ofbizUrl>" style='margin: 0;'>
           <select name='category_id'>
             <option value='${productCategory.productCategoryId}'>${productCategory.categoryName!}</option>
@@ -37,54 +32,38 @@ under the License.
           </select>
           <div><a href="javascript:document.choosequickaddform.submit()" class="buttontext">${uiLabelMap.ProductChooseQuickAddCategory}</a></div>
         </form>
-      </td>
-    </tr>
     <#if productCategory.categoryImageUrl?? || productCategory.longDescription??>
-      <tr><td colspan='2'><hr class='sepbar'/></td></tr>
-      <tr>
-        <td valign="top" width="0" colspan='2'>
           <div>
             <#if productCategory.categoryImageUrl??>
               <img src="<@ofbizContentUrl>${productCategory.categoryImageUrl}</@ofbizContentUrl>" vspace="5" hspace="5" class="cssImgLarge" alt="" />
             </#if>
             ${productCategory.longDescription!}
           </div>
-        </td>
-      </tr>
     </#if>
-  </table>
 </#if>
 
 <#if productCategoryMembers?? && 0 < productCategoryMembers?size>
-  <br />
-  <center>
-  <form method="post" action="<@ofbizUrl>addtocartbulk</@ofbizUrl>" name="bulkaddform" style='margin: 0;'>
-    <input type='hidden' name='category_id' value='${categoryId}' />
-    <div class="quickaddall">
-      <a href="javascript:document.bulkaddform.submit()" class="buttontext">${uiLabelMap.OrderAddAllToCart}</a>
-    </div>
-    <div class="quickaddtable">
-      <#list productCategoryMembers as productCategoryMember>
-        <#assign product = productCategoryMember.getRelatedOne("Product", true)>
-        <p>
-            ${setRequestAttribute("optProductId", productCategoryMember.productId)}
-            ${screens.render(quickaddsummaryScreen)}
-        </p>
-      </#list>
-    </div>
-    <div class="quickaddall">
-      <a href="javascript:document.bulkaddform.submit()" class="buttontext">${uiLabelMap.OrderAddAllToCart}</a>
-    </div>
+  <form method="post" action="<@ofbizUrl>addtocartbulk</@ofbizUrl>" name="bulkaddform">
+    <fieldset>
+      <input type='hidden' name='category_id' value='${categoryId}' />
+      <div class="quickaddall">
+        <a href="javascript:document.bulkaddform.submit()" class="buttontext">${uiLabelMap.OrderAddAllToCart}</a>
+      </div>
+      <div class="quickaddtable">
+        <#list productCategoryMembers as productCategoryMember>
+          <#assign product = productCategoryMember.getRelatedOne("Product", true)>
+          <p>
+              ${setRequestAttribute("optProductId", productCategoryMember.productId)}
+              ${screens.render(quickaddsummaryScreen)}
+          </p>
+        </#list>
+      </div>
+      <div class="quickaddall">
+        <a href="javascript:document.bulkaddform.submit()" class="buttontext">${uiLabelMap.OrderAddAllToCart}</a>
+      </div>
+  </fieldset>
   </form>
-  </center>
 <#else>
-  <table border="0" cellpadding="2">
-    <tr><td colspan="2"><hr class='sepbar'/></td></tr>
-    <tr>
-      <td>
-        <div class='tabletext'>${uiLabelMap.ProductNoProductsInThisCategory}.</div>
-      </td>
-    </tr>
-  </table>
+  <label>${uiLabelMap.ProductNoProductsInThisCategory}.</label>
 </#if>
 

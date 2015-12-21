@@ -24,18 +24,14 @@ under the License.
     </div>
   </span>
   <span class="name">
-    <div>
       <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="buttontext">${productContentWrapper.get("PRODUCT_NAME", "html")!}</a>
-    </div>
   </span>
   <span class="listPrice">
-    <div>
       <#if price.listPrice?? && price.price?? && price.price?double < price.listPrice?double>
         ${uiLabelMap.ProductListPrice}: <@ofbizCurrency amount=price.listPrice isoCode=price.currencyUsed/>
       <#else>
         &nbsp;
       </#if>
-    </div>
   </span>
   <span class="totalPrice">
     <#if totalPrice??>
@@ -49,19 +45,15 @@ under the License.
   <span class="qty">
     <#-- check to see if introductionDate hasn't passed yet -->
     <#if product.introductionDate?? && nowTimestamp.before(product.introductionDate)>
-      <div style="color: red;">${uiLabelMap.ProductNotYetAvailable}</div>
+      ${uiLabelMap.ProductNotYetAvailable}
     <#-- check to see if salesDiscontinuationDate has passed -->
     <#elseif product.salesDiscontinuationDate?? && nowTimestamp.before(product.salesDiscontinuationDate)>
-      <div style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>
+      ${uiLabelMap.ProductNoLongerAvailable}
     <#-- check to see if the product is a virtual product -->
     <#elseif product.isVirtual?default("N") == "Y">
-      <div>
         <a href="<@ofbizUrl>product?<#if categoryId??>category_id=${categoryId}&amp;</#if>product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderChooseVariations}...</a>
-      </div>
     <#else>
-      <div>
         <input type="text" size="5" name="quantity_${product.productId}" value="" />
-      </div>
     </#if>
   </span>
 <#else>
