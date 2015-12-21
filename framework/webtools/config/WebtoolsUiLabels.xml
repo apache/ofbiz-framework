@@ -1266,6 +1266,9 @@
         <value xml:lang="zh">配置</value>
         <value xml:lang="zh-TW">配置</value>
     </property>
+    <property key="WebtoolsConfirmDelete">
+        <value xml:lang="en">Are you sure you want to delete?</value>
+    </property>
     <property key="WebtoolsCount">
         <value xml:lang="de">Anzahl</value>
         <value xml:lang="en">Count</value>
