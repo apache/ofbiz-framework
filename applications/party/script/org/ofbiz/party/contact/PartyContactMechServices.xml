@@ -272,7 +272,7 @@ under the License.
         <entity-condition list="partyAndContactMechs" entity-name="PartyAndContactMech">
             <condition-list combine="and">
                 <condition-expr field-name="partyId" from-field="parameters.partyId"/>
-                <condition-expr field-name="contactMechTypeId" from-field="EMAIL_ADDRESS"/>
+                <condition-expr field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
                 <condition-expr field-name="infoString" from-field="parameters.emailAddress" ignore-case="true"/>
             </condition-list>
         </entity-condition>
