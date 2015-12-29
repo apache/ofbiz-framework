@@ -1268,6 +1268,7 @@
     </property>
     <property key="WebtoolsConfirmDelete">
         <value xml:lang="en">Are you sure you want to delete?</value>
+        <value xml:lang="fr">Êtes-vous sûr de vouloir supprimer l'élément ?</value>
     </property>
     <property key="WebtoolsCount">
         <value xml:lang="de">Anzahl</value>
