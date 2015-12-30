@@ -271,8 +271,6 @@ public class VisitHandler {
                             Cookie visitorCookie = new Cookie(visitorCookieName, visitor.getString("visitorId"));
                             visitorCookie.setMaxAge(60 * 60 * 24 * 365);
                             visitorCookie.setPath("/");
-                            visitorCookie.setSecure(true);
-                            visitorCookie.setHttpOnly(true);
                             response.addCookie(visitorCookie);
                         }
                     }
