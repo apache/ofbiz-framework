@@ -1000,7 +1000,7 @@ public class RequestHandler {
                 resp.addHeader("strict-transport-security", strictTransportSecurity);
             }
         } else {
-            if (EntityUtilProperties.getPropertyAsBoolean("requestHandler", "strict-transport-security", true)) {
+            if (EntityUtilProperties.getPropertyAsBoolean("requestHandler", "strict-transport-security", true)) { // FIXME later pass req.getAttribute("delegator") as last argument
                 resp.addHeader("strict-transport-security", "max-age=31536000; includeSubDomains");
             }
         }
@@ -1016,17 +1016,6 @@ public class RequestHandler {
         // https://wiki.mozilla.org/Security/Features/XSS_Filter 
         // https://bugzilla.mozilla.org/show_bug.cgi?id=528661
         resp.addHeader("X-XSS-Protection","1; mode=block"); 
-        
-        String setCookie = resp.getHeader("set-cookie");
-        if (UtilValidate.isNotEmpty(setCookie)) {
-            setCookie = setCookie.toLowerCase();
-            if (!setCookie.contains("secure")) {
-            resp.setHeader("set-cookie", setCookie + "; secure;"); // Adds a ";" trail to be sure to separate things
-            }
-            if (!setCookie.contains("httponly")) {
-                resp.setHeader("set-cookie", setCookie + "; httponly;"); // Adds a ";" trail to be sure to separate things
-            }
-        }
 
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", module);
