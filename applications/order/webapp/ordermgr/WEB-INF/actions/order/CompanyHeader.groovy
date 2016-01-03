@@ -252,7 +252,7 @@ partyTaxAuthInfoList = from("PartyTaxAuthInfo").where("partyId", partyId)
                         .filterByDate(nowTimestamp, "fromDate", "thruDate")
                         .queryList();
 if (partyTaxAuthInfoList) {
-    if (address.countryGeoId) {
+    if (address?.countryGeoId) {
         // if we have an address with country filter by that
         partyTaxAuthInfoList.eachWithIndex { partyTaxAuthInfo, i ->
             if (partyTaxAuthInfo.taxAuthGeoId.equals(address.countryGeoId)) {
