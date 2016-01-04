@@ -300,7 +300,7 @@ public final class JobManager {
             Timestamp now = UtilDateTime.nowTimestamp();
             for (GenericValue job : crashed) {
                 try {
-                    Debug.logInfo("Scheduling Job : " + job, module);
+                    if (Debug.infoOn()) Debug.logInfo("Scheduling Job : " + job, module);
                     String pJobId = job.getString("parentJobId");
                     if (pJobId == null) {
                         pJobId = job.getString("jobId");
@@ -312,6 +312,9 @@ public final class JobManager {
                     newJob.set("parentJobId", pJobId);
                     newJob.set("startDateTime", null);
                     newJob.set("runByInstanceId", null);
+                    //don't set a recurrent schedule on the new job, run it just one time
+                    newJob.set("tempExprId", null);
+                    newJob.set("recurrenceInfoId", null);
                     delegator.createSetNextSeqId(newJob);
                     // set the cancel time on the old job to the same as the re-schedule time
                     job.set("statusId", "SERVICE_CRASHED");
