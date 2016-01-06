@@ -143,13 +143,11 @@ This file contains basic services for SalesOpportunity and SalesForecast.
             </if-not-empty>
             <!-- Check party role for create Account Role -->
             <if-not-empty field="parameters.accountPartyId">
-                <set field="roleMap.roleTypeId" value="ACCOUNT"/>
-                <set field="roleMap.partyId" from-field="parameters.accountPartyId"/>
-                <call-service service-name="ensurePartyRole" in-map-name="roleMap"/>
-            </if-not-empty>
             <set field="salesOpportunityRole.roleTypeId" value="ACCOUNT"/>
-            <set field="salesOpportunityRole.salesOpportunityId" from-field="parameters.salesOpportunityId"/>
             <set field="salesOpportunityRole.partyId" from-field="parameters.accountPartyId"/>
+                <call-service service-name="ensurePartyRole" in-map-name="salesOpportunityRole"/>
+            </if-not-empty>
+            <set field="salesOpportunityRole.salesOpportunityId" from-field="parameters.salesOpportunityId"/>
             <call-service service-name="createSalesOpportunityRole" in-map-name="salesOpportunityRole"/>
         </if-compare-field>
     </simple-method>
@@ -164,12 +162,10 @@ This file contains basic services for SalesOpportunity and SalesForecast.
                 <remove-value value-field="lookedUpValue"/>
             </if-not-empty>
             <!-- Check party role for create Lead Role -->
-            <if-not-empty field="parameters.leadPartyId">
-                <call-service service-name="ensurePartyRole" in-map-name="roleMap"/>
-            </if-not-empty>
             <set field="salesOpportunityRole.roleTypeId" value="LEAD"/>
-            <set field="salesOpportunityRole.salesOpportunityId" from-field="parameters.salesOpportunityId"/>
             <set field="salesOpportunityRole.partyId" from-field="parameters.leadPartyId"/>
+            <call-service service-name="ensurePartyRole" in-map-name="salesOpportunityRole"/>
+            <set field="salesOpportunityRole.salesOpportunityId" from-field="parameters.salesOpportunityId"/>
             <call-service service-name="createSalesOpportunityRole" in-map-name="salesOpportunityRole"/>
         </if-compare-field>
     </simple-method>

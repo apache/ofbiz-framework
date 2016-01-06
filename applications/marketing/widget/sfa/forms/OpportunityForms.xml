@@ -64,7 +64,6 @@ under the License.
             </service>
         </actions>
         <row-actions>
-            <set field="isDateAfterNow" value="${groovy:org.ofbiz.base.util.UtilValidate.isDateAfterNow(estimatedCloseDate)}" type="Boolean"/>
             <entity-one entity-name="SalesOpportunity" value-field="salesOpportunity"/>
         </row-actions>
         <field name="salesOpportunityId"><hidden/></field>
@@ -85,7 +84,7 @@ under the License.
         <field name="estimatedAmount" title="${uiLabelMap.SfaEstimatedAmount}"><display/></field>
         <field name="nextStepDate" position="1" title="${uiLabelMap.SfaNextStepDate}" sort-field="true"><display/></field>
         <field name="estimatedCloseDate" title="${uiLabelMap.SfaCloseDate}"><display/></field>
-        <field name="editButton" title="${uiLabelMap.CommonClose}" use-when="${groovy: estimatedCloseDate == null || isDateAfterNow == true || opportunityStageId != &quot;SOSTG_CLOSED&quot;}" widget-style="buttontext">
+        <field name="editButton" title="${uiLabelMap.CommonClose}" use-when="estimatedCloseDate == void || estimatedCloseDate == null || org.ofbiz.base.util.UtilValidate.isDateAfterNow(estimatedCloseDate) || opportunityStageId != &quot;SOSTG_CLOSED&quot;" widget-style="buttontext">
             <hyperlink target="closeSalesOpportunity" description="${uiLabelMap.CommonClose}">
                 <parameter param-name="salesOpportunityId"/>
                 <parameter param-name="opportunityStageId" value="SOSTG_CLOSED"/>
@@ -151,10 +150,10 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="accountPartyId" use-when="communicationEvent==null" title="${uiLabelMap.SfaInitialAccount}" ><lookup target-form-name="LookupPartyGroup" default-value="${accountPartyId}"/></field>
-        <field name="accountPartyId" use-when="communicationEvent!=null" title="${uiLabelMap.SfaInitialAccount}" ><lookup target-form-name="LookupPartyGroup" default-value="${accountPartyId}"/></field>
-        <field name="leadPartyId" use-when="communicationEvent==null" title="${uiLabelMap.SfaLead}"><lookup target-form-name="LookupPerson" default-value="${leadPartyId}"/></field>
-        <field name="leadPartyId" use-when="communicationEvent!=null" title="${uiLabelMap.SfaLead}"><lookup target-form-name="LookupPerson" default-value="${communicationEvent.partyIdFrom}"/></field>
+        <field name="accountPartyId" use-when="communicationEvent==null" title="${uiLabelMap.SfaInitialAccount}" ><lookup target-form-name="LookupAccount" default-value="${accountPartyId}"/></field>
+        <field name="accountPartyId" use-when="communicationEvent!=null" title="${uiLabelMap.SfaInitialAccount}" ><lookup target-form-name="LookupAccount" default-value="${accountPartyId}"/></field>
+        <field name="leadPartyId" use-when="communicationEvent==null" title="${uiLabelMap.SfaLead}"><lookup target-form-name="LookupLead" default-value="${leadPartyId}"/></field>
+        <field name="leadPartyId" use-when="communicationEvent!=null" title="${uiLabelMap.SfaLead}"><lookup target-form-name="LookupLead" default-value="${communicationEvent.partyIdFrom}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" use-when="salesOpportunity==null"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="salesOpportunity!=null"><submit button-type="button"/></field>
     </form>
