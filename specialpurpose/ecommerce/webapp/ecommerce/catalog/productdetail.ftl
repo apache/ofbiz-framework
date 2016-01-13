@@ -862,7 +862,7 @@ $(function(){
     </div>
     
     <#-- special cross/up-sell area using commonFeatureResultIds (from common feature product search) -->
-    <#if comsmonFeatureResultIds?has_content>
+    <#if commonFeatureResultIds?has_content>
         <h2>${uiLabelMap.ProductSimilarProducts}</h2>
     
         <div class="productsummary-container">
