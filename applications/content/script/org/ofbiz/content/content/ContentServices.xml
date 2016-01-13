@@ -259,7 +259,7 @@
     <simple-method method-name="updateSingleContentPurpose" short-description="Updates the purpose making sure there is only one">
         <set field="toRemove.contentId" from-field="parameters.contentId"/>
         <remove-by-and entity-name="ContentPurpose" map="toRemove"/>
-        <call-simple-method method-name="createContentPurpose"/>
+        <call-service service-name="createContentPurpose" in-map-name="parameters"/>
     </simple-method>
 
     <!-- combined text + uploaded file service -->
