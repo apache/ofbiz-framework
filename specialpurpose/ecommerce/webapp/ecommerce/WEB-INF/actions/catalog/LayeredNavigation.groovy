@@ -59,7 +59,7 @@ if (searchCategoryId) {
     productCategoryRollups = from("ProductCategoryRollup").where("productCategoryId", searchCategoryId).filterByDate().queryList();
     previousCategoryId = null;
     if (productCategoryRollups) {
-        for (GenericValue categoryRollup : productCategoryRollups) {
+        for (categoryRollup in productCategoryRollups) {
             categoryConstraint = new ProductSearch.CategoryConstraint(categoryRollup.parentProductCategoryId, true, false);
             if (searchConstraintList.contains(categoryConstraint)) {
                 previousCategoryId = categoryRollup.parentProductCategoryId;
