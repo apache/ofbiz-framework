@@ -270,14 +270,14 @@ under the License.
                 <sort-field name="partyIdFrom"/>
                 <sort-field name="partyIdTo"/>
                 <sort-field name="statusId"/>
-                <sort-field name="lastUpdatedStamp"/>                
+                <sort-field name="lastUpdatedStamp"/>
                 <sort-field name="datetimeStarted"/>
                 <sort-field name="datetimeEnded"/>
                 <sort-field name="subject"/>
             </field-group>
-            <field-group title="${uiLabelMap.CommonContent}" collapsible="true" initially-collapsed="false">                               
+            <field-group title="${uiLabelMap.CommonContent}" collapsible="true" initially-collapsed="false">
                 <sort-field name="content"/>
-                <sort-field name="note"/>                
+                <sort-field name="note"/>
             </field-group>
         </sort-order>
     </form>
@@ -335,10 +335,10 @@ under the License.
                 <sort-field name="datetimeEnded"/>
                 <sort-field name="subject"/>
             </field-group>
-            <field-group title="${uiLabelMap.CommonContent}" collapsible="true" initially-collapsed="false">               
+            <field-group title="${uiLabelMap.CommonContent}" collapsible="true" initially-collapsed="false">
                 <sort-field name="contentMimeTypeId"/>
                 <sort-field name="content"/>
-                <sort-field name="note"/>                
+                <sort-field name="note"/>
             </field-group>
         </sort-order>
     </form>
@@ -637,7 +637,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><display/></field>
         <field name="workEffortId"  use-when="workEffort==null&amp;&amp;workEffortId==null" ><lookup target-form-name="LookupWorkEffort"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/> </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <sort-order>
             <sort-field name="communicationEventId"/>
             <banner left-text="${uiLabelMap.WorkEffortBannerAddWorkEffortAndAssoc1}"/>
@@ -819,8 +819,8 @@ under the License.
                 <entity-options entity-name="DataResourceType"/>
             </drop-down>
         </field>
-        <!-- <field name="mimeTypeId" map-name="dataResource" title="Document Type"><display/></field> -->
-        <!-- <field name="contentTypeId" map-name="content" title="Content Type"><display/></field> -->
+        <!-- <field name="mimeTypeId" map-name="dataResource" title="Document Type"><display/></field>-->
+        <!-- <field name="contentTypeId" map-name="content" title="Content Type"><display/></field>-->
         <!-- add these back if it looks like Surveys need to be added to CommEvents
         <field name="relatedDetailId" map-name="dataResource" title="Survey ID"
             use-when="dataResource!=null &amp;&amp; &quot;SURVEY&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">
@@ -863,7 +863,7 @@ under the License.
         <field name="communicationEventId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="drObjectInfo"><text/></field>
-        <!-- would show previous file name... doesn't make too much sense <field name="objectInfo" title="File Name" map-name="dataResource"><display also-hidden="false"/></field> -->
+        <!-- would show previous file name... doesn't make too much sense <field name="objectInfo" title="File Name" map-name="dataResource"><display also-hidden="false"/></field>-->
         <field name="imageData" map-name="empty"><file/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit/></field>
     </form>
@@ -886,7 +886,7 @@ under the License.
         <field name="my"><hidden value="${my}"/></field>
         <field name="contentId" title="${uiLabelMap.FormFieldTitle_existContentId}"><lookup target-form-name="LookupTreeContent"/></field>
         <field name="uploadedFile"><file/></field>
-        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>        
+        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>
         <field name="send" title=" ">
             <hyperlink also-hidden="true"
                 target-type="plain" description="${uiLabelMap.CommonUpload}"
@@ -896,7 +896,7 @@ under the License.
     <form name="uploadContent1" type="upload" extends="uploadContent" target="uploadAttachFile">
         <field name="send"><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit/></field>
-    </form>      
+    </form>
 
     <form name="editCommTextContent" type="single" target="uploadCommEventContent" default-map-name="commEventContentDataResource"
         header-row-style="header-row" default-table-style="basic-table">
