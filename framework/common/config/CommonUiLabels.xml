@@ -2353,6 +2353,7 @@
     </property>
     <property key="CommonCost">
         <value xml:lang="en">Cost</value>
+        <value xml:lang="fr">Coût</value>
         <value xml:lang="nl">Kosten</value>
         <value xml:lang="zh">成本</value>
     </property>
