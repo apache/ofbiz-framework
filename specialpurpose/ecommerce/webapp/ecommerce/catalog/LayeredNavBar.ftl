@@ -46,7 +46,7 @@ under the License.
           <#list subCategoryList as category>
             <#assign subCategoryContentWrapper = category.categoryContentWrapper />
             <#assign categoryName = subCategoryContentWrapper.get("CATEGORY_NAME", "html")!?string />
-            <li><a href="<@ofbizUrl>category/~category_id=${productCategoryId}?SEARCH_CATEGORY_ID${index}=${category.productCategoryId}&amp;searchCategoryId=${category.productCategoryId}&amp;clearSearch=N</@ofbizUrl>">${categoryName!} (${category.count})</li>
+            <li><a href="<@ofbizUrl>category/~category_id=${productCategoryId}?SEARCH_CATEGORY_ID${index}=${category.productCategoryId}&amp;searchCategoryId=${category.productCategoryId}&amp;clearSearch=N</@ofbizUrl>">${categoryName!} (${category.count})</a></li>
           </#list>
         </ul>
       </div>
@@ -56,7 +56,7 @@ under the License.
         <strong>${colorFeatureType.description}</strong>
         <ul>
           <#list colors as color>
-            <li><a href="<@ofbizUrl>category/~category_id=${productCategoryId}?pft_${color.productFeatureTypeId}=${color.productFeatureId}&amp;clearSearch=N<#if currentSearchCategory??>&amp;searchCategoryId=${currentSearchCategory.productCategoryId}</#if></@ofbizUrl>">${color.description} (${color.featureCount})</li>
+            <li><a href="<@ofbizUrl>category/~category_id=${productCategoryId}?pft_${color.productFeatureTypeId}=${color.productFeatureId}&amp;clearSearch=N<#if currentSearchCategory??>&amp;searchCategoryId=${currentSearchCategory.productCategoryId}</#if></@ofbizUrl>">${color.description} (${color.featureCount})</a></li>
           </#list>
         </ul>
       </div>
