@@ -3185,6 +3185,18 @@
         <value xml:lang="zh">导入线索</value>
         <value xml:lang="zh-TW">匯入線索</value>
     </property>
+   <property key="SfaImportVcardDuplicatedVcardError">
+        <value xml:lang="en">All parties in this vcard are duplicated.</value>
+        <value xml:lang="fr">Tous les acteurs de cette vcard sont dupliqués.</value>
+    </property>
+    <property key="SfaImportVCardEmailFormatError">
+        <value xml:lang="en">incorrect email format.</value>
+        <value xml:lang="fr">Format de l'addresse courriel incorrect.</value>
+    </property>
+    <property key="SfaImportVcardNameMissingError">
+        <value xml:lang="en">first name or last name missing.</value>
+        <value xml:lang="fr">Prénom ou nom manquant.</value>
+    </property>
     <property key="SfaImportVCardError">
         <value xml:lang="de">Fehler beim importieren von VCard: ${errorString}</value>
         <value xml:lang="en">Error during import data from VCard: ${errorString}</value>
