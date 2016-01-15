@@ -3085,7 +3085,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
         } else {
             if ("layered-modal".equals(realLinkType)) {
-                String uniqueItemName = "Modal_".concat(UUID.randomUUID().toString());
+                String uniqueItemName = "Modal_".concat(UUID.randomUUID().toString().replace("-", "_"));
                 String width = (String) this.request.getAttribute("width");
                 if (UtilValidate.isEmpty(width)) {
                     width = String.valueOf(UtilProperties.getPropertyValue("widget", "widget.link.default.layered-modal.width", "800"));
@@ -3111,7 +3111,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             String targetWindow) throws IOException {
         if (description != null || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             StringBuilder linkUrl = new StringBuilder();
-            WidgetWorker.buildHyperlinkUrl(linkUrl, target, targetType, parameterMap, null, false, false, true, request, response, context);
+            WidgetWorker.buildHyperlinkUrl(linkUrl, target, targetType, UtilValidate.isEmpty(request.getAttribute("uniqueItemName"))?parameterMap:null, null, false, false, true, request, response, context);
             String event = "";
             String action = "";
             String imgSrc = "";
@@ -3154,6 +3154,21 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 width = request.getAttribute("width").toString();
                 height = request.getAttribute("height").toString();
             }
+            StringBuilder targetParameters = new StringBuilder();
+            if (UtilValidate.isNotEmpty(parameterMap) ) {
+                targetParameters.append("{");
+                for (Map.Entry<String, String> parameter : parameterMap.entrySet()) {
+                    if (targetParameters.length() > 1) {
+                        targetParameters.append(",");
+                    }
+                    targetParameters.append("'");
+                    targetParameters.append(parameter.getKey());
+                    targetParameters.append("':'");
+                    targetParameters.append(parameter.getValue());
+                    targetParameters.append("'");
+                }
+                targetParameters.append("}");
+            }
             StringWriter sr = new StringWriter();
             sr.append("<@makeHyperlinkString ");
             sr.append("linkStyle=\"");
@@ -3170,6 +3185,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append(imgTitle);
             sr.append("\" alternate=\"");
             sr.append(alt);
+            sr.append("\" targetParameters=\"");
+            sr.append(targetParameters.toString());
             sr.append("\" linkUrl=\"");
             sr.append(linkUrl.toString());
             sr.append("\" targetWindow=\"");
