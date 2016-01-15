@@ -28,25 +28,12 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import net.wimpi.pim.Pim;
-import net.wimpi.pim.contact.basicimpl.AddressImpl;
-import net.wimpi.pim.contact.basicimpl.EmailAddressImpl;
-import net.wimpi.pim.contact.basicimpl.PhoneNumberImpl;
-import net.wimpi.pim.contact.io.ContactMarshaller;
-import net.wimpi.pim.contact.io.ContactUnmarshaller;
-import net.wimpi.pim.contact.model.Address;
-import net.wimpi.pim.contact.model.Communications;
-import net.wimpi.pim.contact.model.Contact;
-import net.wimpi.pim.contact.model.EmailAddress;
-import net.wimpi.pim.contact.model.Organization;
-import net.wimpi.pim.contact.model.OrganizationalIdentity;
-import net.wimpi.pim.contact.model.PersonalIdentity;
-import net.wimpi.pim.contact.model.PhoneNumber;
-import net.wimpi.pim.factory.ContactIOFactory;
-import net.wimpi.pim.factory.ContactModelFactory;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
@@ -67,6 +54,23 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
+
+import net.wimpi.pim.Pim;
+import net.wimpi.pim.contact.basicimpl.AddressImpl;
+import net.wimpi.pim.contact.basicimpl.EmailAddressImpl;
+import net.wimpi.pim.contact.basicimpl.PhoneNumberImpl;
+import net.wimpi.pim.contact.io.ContactMarshaller;
+import net.wimpi.pim.contact.io.ContactUnmarshaller;
+import net.wimpi.pim.contact.model.Address;
+import net.wimpi.pim.contact.model.Communications;
+import net.wimpi.pim.contact.model.Contact;
+import net.wimpi.pim.contact.model.EmailAddress;
+import net.wimpi.pim.contact.model.Organization;
+import net.wimpi.pim.contact.model.OrganizationalIdentity;
+import net.wimpi.pim.contact.model.PersonalIdentity;
+import net.wimpi.pim.contact.model.PhoneNumber;
+import net.wimpi.pim.factory.ContactIOFactory;
+import net.wimpi.pim.factory.ContactModelFactory;
 
 public class VCard {
     public static final String module = VCard.class.getName();
@@ -90,8 +94,10 @@ public class VCard {
         try {
             ContactIOFactory ciof = Pim.getContactIOFactory();
             ContactUnmarshaller unmarshaller = ciof.createContactUnmarshaller();
+            unmarshaller.setStrict(false);
             Contact[] contacts = unmarshaller.unmarshallContacts(in);
 
+            int contactsCount = 1;
             for (Contact contact: contacts) {
                 PersonalIdentity pid = contact.getPersonalIdentity();
                 if (!isGroup) {
@@ -146,6 +152,14 @@ public class VCard {
                             }
                         }
                         if (UtilValidate.isNotEmpty(email)) {
+                                  InternetAddress emailAddr;
+                                try {
+                                    emailAddr = new InternetAddress(email);
+                                    emailAddr.validate();
+                                } catch (AddressException e) {
+                                    String emailFOrmatErrMsg = UtilProperties.getMessage(resourceError, "SfaImportVCardEmailFormatError", locale);
+                                    return ServiceUtil.returnError(pid.getFirstname() + " " + pid.getLastname() + " has " + emailFOrmatErrMsg);
+                                }
                             serviceCtx.put("emailAddress", email);
                         }
                         for (Iterator<?> iter = communications.getPhoneNumbers(); iter.hasNext();) {
@@ -175,8 +189,12 @@ public class VCard {
                 }
                 OrganizationalIdentity  oid = contact.getOrganizationalIdentity();
                 // Useful when creating a contact with more than OOTB
-                if (!isGroup) {
-                    serviceCtx.put("personalTitle", oid.getTitle());
+                if (!isGroup && oid != null && oid.getTitle() != null) {
+                    String personalTitle = oid.getTitle().replace("\\","").replaceAll("\uFFFD", " ");
+                    if (personalTitle.length() > 100) {
+                        personalTitle = oid.getTitle().replace("\\", "").replaceAll("\uFFFD", " ").substring(0, 100);
+                    }
+                    serviceCtx.put("personalTitle", personalTitle);
                 }
 
                 // Needed when creating an account (a PartyGroup)
@@ -184,7 +202,7 @@ public class VCard {
                     //serviceCtx.put("partyRole", oid.getRole()); // not used yet,maybe useful later
                     if (oid.hasOrganization()) {
                         Organization org = oid.getOrganization();
-                        serviceCtx.put("groupName", org.getName());
+                        serviceCtx.put("groupName", org.getName().replace("\\", ""));
                     }
                 }
 
@@ -197,8 +215,34 @@ public class VCard {
                         serviceCtx.put(entry.getKey(), entry.getValue());
                     }
                 }
-                Map<String, Object> resp = dispatcher.runSync(serviceName, serviceCtx);
-                result.put("partyId", resp.get("partyId"));
+                List<GenericValue> persons = EntityQuery.use(delegator).from("Person").where(
+                        "firstName", serviceCtx.get("firstName"),
+                        "lastName", serviceCtx.get("lastName")
+                        ).queryList();
+                boolean blockPerson = false;
+                for (GenericValue person: persons) {
+                    GenericValue partyStatus = EntityQuery.use(delegator).from("PartyStatus").where(
+                            "partyId", person.get("partyId")).orderBy("-statusDate").queryFirst();
+                    if (!partyStatus.get("statusId").equals("PARTY_DISABLED")) {
+                        blockPerson = true;
+                    }
+                }
+                if (!blockPerson) {
+                    String nameMissingErrMsg = UtilProperties.getMessage(resourceError, "SfaImportVcardNameMissingError", locale);
+                    if (!isGroup && serviceCtx.get("lastName") == null) {
+                        return ServiceUtil.returnError(serviceCtx.get("firstName") + " " + nameMissingErrMsg);
+                    }
+                    if (!isGroup && serviceCtx.get("firstName") == null) {
+                        return ServiceUtil.returnError(serviceCtx.get("lastName") + " " + nameMissingErrMsg);
+                    }
+                    Map<String, Object> resp = dispatcher.runSync(serviceName, serviceCtx);
+                    result.put("partyId", resp.get("partyId"));
+                }
+                if (result.get("partyId") == null && contactsCount == contacts.length) {
+                    String duplicatedErrMsg = UtilProperties.getMessage(resourceError, "SfaImportVcardDuplicatedVcardError", locale);
+                    return ServiceUtil.returnError(duplicatedErrMsg);
+                }
+                contactsCount++;
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);

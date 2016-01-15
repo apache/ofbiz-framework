@@ -515,7 +515,7 @@ under the License.
     </service>
 
     <!-- VCard services -->
-    <service name="importVCard" engine="java" location="org.ofbiz.sfa.vcard.VCard" invoke="importVCard">
+    <service name="importVCard" engine="java" location="org.ofbiz.sfa.vcard.VCard" invoke="importVCard" transaction-timeout="7200">
         <attribute name="infile" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="OUT" optional="false"/>
         <attribute name="partyType" type="String" mode="IN" optional="true"/>
