@@ -937,12 +937,13 @@ public class ShoppingCartEvents {
     /** Totally wipe out the cart, removes all stored info. */
     public static String destroyCart(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        clearCart(request, response);
         session.removeAttribute("shoppingCart");
         session.removeAttribute("orderPartyId");
         session.removeAttribute("orderMode");
         session.removeAttribute("productStoreId");
         session.removeAttribute("CURRENT_CATALOG_ID");
+        // Call clearCart at the end as if user is anonymous then it will throw session already invalidated error on removeAttribute method.
+        clearCart(request, response);
         return "success";
     }
 
