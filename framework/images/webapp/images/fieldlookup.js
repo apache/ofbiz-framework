@@ -50,7 +50,7 @@ function lookup_popup1(view_name, form_name, viewWidth, viewheight) {
 
 function lookup_popup2(view_name) {
     var argString = "";
-    if (this.args !== null) {
+    if (this.args != null) {
         if (this.args.length > 2) {
             var i;
             for (i = 2; i < this.args.length; i++) {
