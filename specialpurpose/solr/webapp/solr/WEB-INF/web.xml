@@ -15,7 +15,12 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<web-app>
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
 
     <display-name>Apache OFBiz - Solr Component</display-name>
     <description>Solr Component of the Apache OFBiz Project</description>
@@ -172,6 +177,11 @@
   
     <session-config>
         <session-timeout>2</session-timeout>
+        <cookie-config>
+          <http-only>true</http-only>
+          <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
 
     <mime-mapping>

@@ -74,9 +74,9 @@ under the License.
     <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
 
     <servlet>
+        <description>Main Control Servlet</description>
         <display-name>ControlServlet</display-name>
         <servlet-name>ControlServlet</servlet-name>
-        <description>Main Control Servlet</description>
         <servlet-class>org.ofbiz.webapp.control.ControlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>

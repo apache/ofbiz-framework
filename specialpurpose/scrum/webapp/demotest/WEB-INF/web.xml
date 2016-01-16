@@ -17,48 +17,52 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-    <web-app>
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
     <display-name>Apache OFBiz - scrum Component</display-name>
     <description>scrum Component of the Apache OFBiz Project
     </description>
 
     <context-param>
-        <param-name>localDispatcherName</param-name>
-        <param-value>scrum</param-value>
         <description>A unique name used to identify/recognize the local
             dispatcher for the Service Engine</description>
+        <param-name>localDispatcherName</param-name>
+        <param-value>scrum</param-value>
     </context-param>
     <context-param>
-        <param-name>entityDelegatorName</param-name>
-        <param-value>default</param-value>
         <description>The Name of the Entity Delegator to use, defined in
             entityengine.xml</description>
+        <param-name>entityDelegatorName</param-name>
+        <param-value>default</param-value>
     </context-param>
     <context-param>
-        <param-name>mainDecoratorLocation</param-name>
-        <param-value>component://scrum/widget/demotest/DemotestScreen.xml
-        </param-value>
         <description>The location of the main-decorator screen to use for this
             webapp; referred to as a context variable in screen def XML files.
         </description>
+        <param-name>mainDecoratorLocation</param-name>
+        <param-value>component://scrum/widget/demotest/DemotestScreen.xml
+        </param-value>
     </context-param>
     <context-param>
-        <param-name>widgetVerbose</param-name>
-        <param-value>false</param-value>
         <description>Enable widget boundary comments. See
             org.ofbiz.widget.model.ModelWidget.widgetBoundaryCommentsEnabled().
         </description>
+        <param-name>widgetVerbose</param-name>
+        <param-value>false</param-value>
     </context-param>
     <context-param>
+        <description>Remove unnecessary whitespace from HTML output.</description>
         <param-name>compressHTML</param-name>
         <param-value>false</param-value>
-        <description>Remove unnecessary whitespace from HTML output.
-        </description>
     </context-param>
 
     <filter>
-        <filter-name>ContextFilter</filter-name>
         <display-name>ContextFilter</display-name>
+        <filter-name>ContextFilter</filter-name>
         <filter-class>org.ofbiz.webapp.control.ContextFilter</filter-class>
         <init-param>
             <param-name>disableContextSecurity</param-name>
@@ -100,9 +104,9 @@ under the License.
     -->
 
     <servlet>
-        <servlet-name>ControlServlet</servlet-name>
-        <display-name>ControlServlet</display-name>
         <description>Main Control Servlet</description>
+        <display-name>ControlServlet</display-name>
+        <servlet-name>ControlServlet</servlet-name>
         <servlet-class>org.ofbiz.webapp.control.ControlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -113,6 +117,11 @@ under the License.
 
     <session-config>
         <session-timeout>60</session-timeout><!-- in minutes -->
+        <cookie-config>
+          <http-only>true</http-only>
+          <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
 
     <welcome-file-list>
@@ -120,4 +129,4 @@ under the License.
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.htm</welcome-file>
     </welcome-file-list>
-    </web-app>
+</web-app>
