@@ -39,5 +39,9 @@
     
     <!-- exception for SUPER user and group shoul be loaded as seed-->
     <SecurityGroupPermission groupId="SUPER" permissionId="COMMON_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="PORTALPAGE_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="VISUALTHEME_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="USERPREF_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="TEMPEXPR_ADMIN"/>
     
 </entity-engine-xml>
