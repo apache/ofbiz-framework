@@ -27,7 +27,7 @@ under the License.
         </fo:layout-master-set>
         <fo:page-sequence master-reference="11x17-landscape">
             <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
-                <fo:block align="center">${screens.render("component://order/widget/ordermgr/OrderPrintScreens.xml#CompanyLogo")}</fo:block>
+                <fo:block text-align="center">${screens.render("component://order/widget/ordermgr/OrderPrintScreens.xml#CompanyLogo")}</fo:block>
                 <#if acctgTransEntryList?has_content>
                     <fo:block>${uiLabelMap.AccountingAcctgTransEntriesFor}
                         <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false))!>

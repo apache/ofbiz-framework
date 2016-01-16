@@ -26,7 +26,7 @@ under the License.
         </fo:layout-master-set>
         <fo:page-sequence master-reference="main">
             <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
-                <fo:block align="center">${screens.render("component://order/widget/ordermgr/OrderPrintScreens.xml#CompanyLogo")}</fo:block>
+                <fo:block text-align="center">${screens.render("component://order/widget/ordermgr/OrderPrintScreens.xml#CompanyLogo")}</fo:block>
                 <#if acctgTransList?has_content>
                     <fo:block>${uiLabelMap.AccountingAcctgTransFor}
                         <#if (organizationPartyId)??>
