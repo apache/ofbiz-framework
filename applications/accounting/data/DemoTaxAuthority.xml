@@ -71,7 +71,7 @@
     
     <!-- USA TaxAuthority defs -->
     <TaxAuthority taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" taxIdFormatPattern="\d{2}\-\d{7}|\d{3}\-\d{2}\-\d{4}" includeTaxInPrice="N"/>
-    <TaxAuthorityGlAccount taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" organizationPartyId="Company" glAccountId="224106"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" organizationPartyId="Company" glAccountId="224100"/>
     
     <TaxAuthority taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" includeTaxInPrice="N"/>
     <TaxAuthorityGlAccount taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" organizationPartyId="Company" glAccountId="224106"/>
