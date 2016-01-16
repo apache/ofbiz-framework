@@ -490,8 +490,12 @@ public class InvoiceServices {
                 }
 
                 if ("ItemIssuance".equals(currentValue.getEntityName())) {
+                    /* Find ShipmentItemBilling based on shipmentId, shipmentItemSeqId, invoiceId, invoiceItemSeqId as
+                       because if any order item has multiple quantity and reserved by multiple inventories then there will be multiple invoice items.
+                       In that case ShipmentItemBilling was creating only for one invoice item. Fixed under OFBIZ-6806.
+                    */
                     List<GenericValue> shipmentItemBillings = EntityQuery.use(delegator).from("ShipmentItemBilling")
-                            .where("shipmentId", currentValue.get("shipmentId"), "shipmentItemSeqId", currentValue.get("shipmentItemSeqId"))
+                            .where("shipmentId", currentValue.get("shipmentId"), "shipmentItemSeqId", currentValue.get("shipmentItemSeqId"), "invoiceId", invoiceId, "invoiceItemSeqId", invoiceItemSeqId)
                             .queryList();
                     if (UtilValidate.isEmpty(shipmentItemBillings)) {
 
