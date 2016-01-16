@@ -49,8 +49,7 @@ under the License.
                             <fo:table-column column-width="25mm"/>
                             <fo:table-column column-width="35mm"/>
                             <fo:table-column column-width="30mm"/>
-                            <fo:table-column column-width="15mm"/>
-                            <fo:table-column column-width="15mm"/>
+                            <fo:table-column column-width="30mm"/>
                             <fo:table-header>
                                 <fo:table-cell border="1pt solid" border-width=".1mm">
                                     <fo:block text-align="center" font-size="6pt">${uiLabelMap.FormFieldTitle_glAccountId}</fo:block>
@@ -81,9 +80,6 @@ under the License.
                                 </fo:table-cell>
                                 <fo:table-cell border="1pt solid" border-width=".1mm">
                                     <fo:block text-align="center" font-size="6pt">${uiLabelMap.AccountingProductId}</fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell border="1pt solid" border-width=".1mm">
-                                    <fo:block text-align="center" font-size="6pt">${uiLabelMap.FormFieldTitle_postedBalance}</fo:block>
                                 </fo:table-cell>
                             </fo:table-header>
                             <fo:table-body>
@@ -138,9 +134,6 @@ under the License.
                                         </fo:table-cell>
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
                                             <fo:block text-align="center" font-size="5pt">${(glAccountOrgAndClass.productId)!}</fo:block>        
-                                        </fo:table-cell>
-                                        <fo:table-cell border="1pt solid" border-width=".1mm">
-                                            <fo:block text-align="center" font-size="5pt">${(glAccountOrgAndClass.postedBalance)!}</fo:block>        
                                         </fo:table-cell>
                                     </fo:table-row>
                                 </#list>
