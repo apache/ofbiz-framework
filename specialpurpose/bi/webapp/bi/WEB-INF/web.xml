@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -19,29 +18,34 @@
     under the License.
 -->
 
-<web-app>
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
     <display-name>Apache OFBiz - Business Intelligence</display-name>
     <description>Business Intelligence component of the Apache OFBiz Project</description>
 
     <context-param>
+        <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
         <param-name>entityDelegatorName</param-name>
         <param-value>default</param-value>
-        <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
     </context-param>
     <context-param>
+        <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
         <param-name>localDispatcherName</param-name>
         <param-value>bi</param-value>
-        <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
     </context-param>
     <context-param>
+        <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
         <param-name>mainDecoratorLocation</param-name>
         <param-value>component://bi/widget/BiScreens.xml</param-value>
-        <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
     </context-param>
 
     <filter>
-        <filter-name>ContextFilter</filter-name>
         <display-name>ContextFilter</display-name>
+        <filter-name>ContextFilter</filter-name>
         <filter-class>org.ofbiz.webapp.control.ContextFilter</filter-class>
         <init-param>
             <param-name>disableContextSecurity</param-name>
@@ -71,9 +75,9 @@
     <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
 
     <servlet>
-        <servlet-name>ControlServlet</servlet-name>
-        <display-name>ControlServlet</display-name>
         <description>Main Control Servlet</description>
+        <display-name>ControlServlet</display-name>
+        <servlet-name>ControlServlet</servlet-name>
         <servlet-class>org.ofbiz.webapp.control.ControlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -84,6 +88,11 @@
 
     <session-config>
         <session-timeout>60</session-timeout> <!-- in minutes -->
+        <cookie-config>
+          <http-only>true</http-only>
+          <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
 
     <welcome-file-list>
