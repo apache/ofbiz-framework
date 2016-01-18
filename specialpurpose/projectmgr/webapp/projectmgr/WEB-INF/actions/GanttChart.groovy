@@ -123,8 +123,17 @@ if (phases) {
                     wf = preTask.getRelatedOne("FromWorkEffort", false);
                     latestTaskIds.add(wf.workEffortId);
                 }
+                count = 0;
                 if (UtilValidate.isNotEmpty(latestTaskIds)) {
-                    taskInfo.preDecessor = latestTaskIds;
+                    taskInfo.preDecessor = "";
+                    for (i in latestTaskIds) {
+                        if (count > 0) {
+                            taskInfo.preDecessor = taskInfo.preDecessor +", " + i; 
+                        } else {
+                            taskInfo.preDecessor = taskInfo.preDecessor + i;
+                        }
+                        count ++;
+                    }
                 }
                 ganttList.add(taskInfo);
             }
