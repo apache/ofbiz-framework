@@ -421,6 +421,7 @@ under the License.
         <action service="createSalesOpportunityAccountRole" mode="sync"/>
     </eca>
     <eca service="createSalesOpportunity" event="commit">
+    <condition field-name="leadPartyId" operator="is-not-empty"/>
         <action service="createSalesOpportunityLeadRole" mode="sync"/>
     </eca>
     <eca service="updateSalesOpportunity" event="commit">
