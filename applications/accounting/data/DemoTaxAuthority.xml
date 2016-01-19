@@ -141,7 +141,7 @@
     <Party partyId="BGR_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="BGN" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
     <PartyGroup partyId="BGR_TA" groupName="Tax Authority of Bulgaria"/>
     <PartyRole partyId="BGR_TA" roleTypeId="TAX_AUTHORITY"/>
-    <TaxAuthority taxAuthPartyId="BGR_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="BEL" taxIdFormatPattern="^(BE-?)\d{10}$"/>
+    <TaxAuthority taxAuthPartyId="BGR_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="BGR" taxIdFormatPattern="^(BG-?)\d{10}$"/>
     
     <Party partyId="DEU_BZSt" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
     <PartyGroup partyId="DEU_BZSt" groupName="Bundeszentralamt für Steuern"/>
