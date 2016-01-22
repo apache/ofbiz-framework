@@ -266,10 +266,8 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removePaymentContent" default-entity-name="PaymentContent" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="removePaymentContent" auth="true">
+    <service name="removePaymentContent" default-entity-name="PaymentContent" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Content From Payment</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 </services>

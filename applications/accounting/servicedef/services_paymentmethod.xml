@@ -781,32 +781,28 @@ under the License.
     </service>
 
     <!-- CreditCardTypeGlAccount Services -->
-    <service name="createCreditCardTypeGlAccount" default-entity-name="CreditCardTypeGlAccount" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="createCreditCardTypeGlAccount" auth="true">
+    <service name="createCreditCardTypeGlAccount" default-entity-name="CreditCardTypeGlAccount" engine="entity-auto" invoke="create" auth="true">
         <description>create a Credit Card Gl Account</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="updateCreditCardTypeGlAccount" default-entity-name="CreditCardTypeGlAccount" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="updateCreditCardTypeGlAccount" auth="true">
+    <service name="updateCreditCardTypeGlAccount" default-entity-name="CreditCardTypeGlAccount" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Credit Card Gl Account </description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteCreditCardTypeGlAccount" default-entity-name="CreditCardTypeGlAccount" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="deleteCreditCardTypeGlAccount" auth="true">
+    <service name="deleteCreditCardTypeGlAccount" default-entity-name="CreditCardTypeGlAccount" engine="entity-auto" invoke="delete" auth="true">
         <description>delete a Credit Card Gl Account</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Update updatePaymentMethodType -->
-    <service name="updatePaymentMethodType" default-entity-name="PaymentMethodType" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="updatePaymentMethodType" auth="true">
+    <service name="updatePaymentMethodType" default-entity-name="PaymentMethodType" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Payment Method Type</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
+
     <!-- Payment Group -->
     <service name="createPaymentGroup" default-entity-name="PaymentGroup" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Payment Group</description>
