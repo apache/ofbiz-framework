@@ -68,110 +68,107 @@ under the License.
     </service>
 
     <!-- TaxAuthority -->
-    <service name="createTaxAuthority" default-entity-name="TaxAuthority" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthority">
+    <service name="createTaxAuthority" default-entity-name="TaxAuthority" engine="entity-auto" invoke="create" auth="true">
         <description>Create TaxAuthority</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateTaxAuthority" default-entity-name="TaxAuthority" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthority">
+    <service name="updateTaxAuthority" default-entity-name="TaxAuthority" engine="entity-auto" invoke="update" auth="true">
         <description>Update TaxAuthority</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteTaxAuthority" default-entity-name="TaxAuthority" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthority">
+    <service name="deleteTaxAuthority" default-entity-name="TaxAuthority" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete TaxAuthority</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- TaxAuthorityAssoc -->
-    <service name="createTaxAuthorityAssoc" default-entity-name="TaxAuthorityAssoc" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityAssoc">
+    <service name="createTaxAuthorityAssoc" default-entity-name="TaxAuthorityAssoc" engine="entity-auto" invoke="create" auth="true">
         <description>Create TaxAuthorityAssoc</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateTaxAuthorityAssoc" default-entity-name="TaxAuthorityAssoc" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityAssoc">
+    <service name="updateTaxAuthorityAssoc" default-entity-name="TaxAuthorityAssoc" engine="entity-auto" invoke="update" auth="true">
         <description>Update TaxAuthorityAssoc</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteTaxAuthorityAssoc" default-entity-name="TaxAuthorityAssoc" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityAssoc">
+    <service name="deleteTaxAuthorityAssoc" default-entity-name="TaxAuthorityAssoc" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete TaxAuthorityAssoc</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- TaxAuthorityCategory -->
-    <service name="createTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityCategory">
+    <service name="createTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="entity-auto" invoke="create" auth="true">
         <description>Create TaxAuthorityCategory</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityCategory">
+    <service name="updateTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="entity-auto" invoke="update" auth="true">
         <description>Update TaxAuthorityCategory</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="simple" auth="true"
         location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityCategory">
         <description>Delete TaxAuthorityCategory</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- TaxAuthorityGlAccount -->
-    <service name="createTaxAuthorityGlAccount" default-entity-name="TaxAuthorityGlAccount" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityGlAccount">
+    <service name="createTaxAuthorityGlAccount" default-entity-name="TaxAuthorityGlAccount" engine="entity-auto" invoke="create" auth="true">
         <description>Create TaxAuthorityGlAccount</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateTaxAuthorityGlAccount" default-entity-name="TaxAuthorityGlAccount" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityGlAccount">
+    <service name="updateTaxAuthorityGlAccount" default-entity-name="TaxAuthorityGlAccount" engine="entity-auto" invoke="update" auth="true">
         <description>Update TaxAuthorityGlAccount</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteTaxAuthorityGlAccount" default-entity-name="TaxAuthorityGlAccount" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityGlAccount">
+    <service name="deleteTaxAuthorityGlAccount" default-entity-name="TaxAuthorityGlAccount" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete TaxAuthorityGlAccount</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- TaxAuthorityRateProduct -->
-    <service name="createTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityRateProduct">
+    <service name="createTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="entity-auto" invoke="create" auth="true">
         <description>Create TaxAuthorityRateProduct</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityRateProduct">
+    <service name="updateTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="entity-auto" invoke="update" auth="true">
         <description>Update TaxAuthorityRateProduct</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityRateProduct">
+    <service name="deleteTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete TaxAuthorityRateProduct</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- PartyTaxAuthInfo -->
     <service name="createPartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
         location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createPartyTaxAuthInfo">
         <description>Create PartyTaxAuthInfo</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
@@ -179,14 +176,14 @@ under the License.
     <service name="updatePartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
         location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updatePartyTaxAuthInfo">
         <description>Update PartyTaxAuthInfo</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deletePartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deletePartyTaxAuthInfo">
+    <service name="deletePartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete PartyTaxAuthInfo</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <service name="createCustomerTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"

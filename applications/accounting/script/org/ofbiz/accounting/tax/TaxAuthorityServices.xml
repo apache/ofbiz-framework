@@ -21,108 +21,8 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
 
-    <!-- TaxAuthority methods -->
-    <simple-method method-name="createTaxAuthority" short-description="create a TaxAuthority">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="TaxAuthority" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateTaxAuthority" short-description="update a TaxAuthority">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="TaxAuthority" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteTaxAuthority" short-description="delete a TaxAuthority">
-        <set value="_DELETE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="TaxAuthority" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- TaxAuthorityAssoc methods -->
-    <simple-method method-name="createTaxAuthorityAssoc" short-description="create a TaxAuthorityAssoc">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="TaxAuthorityAssoc" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateTaxAuthorityAssoc" short-description="update a TaxAuthorityAssoc">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="TaxAuthorityAssoc" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteTaxAuthorityAssoc" short-description="delete a TaxAuthorityAssoc">
-        <set value="_DELETE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="TaxAuthorityAssoc" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- TaxAuthorityCategory methods -->
-    <simple-method method-name="createTaxAuthorityCategory" short-description="create a TaxAuthorityCategory">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="TaxAuthorityCategory" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateTaxAuthorityCategory" short-description="update a TaxAuthorityCategory">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="TaxAuthorityCategory" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="deleteTaxAuthorityCategory" short-description="delete a TaxAuthorityCategory">
-        <set value="_DELETE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <set field="taxAuthorityRateProductMap.taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
         <set field="taxAuthorityRateProductMap.taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
         <set field="taxAuthorityRateProductMap.productCategoryId" from-field="parameters.productCategoryId"/>
@@ -139,89 +39,8 @@ under the License.
         <check-errors/>
     </simple-method>
 
-    <!-- TaxAuthorityGlAccount methods -->
-    <simple-method method-name="createTaxAuthorityGlAccount" short-description="create a TaxAuthorityGlAccount">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="TaxAuthorityGlAccount" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateTaxAuthorityGlAccount" short-description="update a TaxAuthorityGlAccount">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="TaxAuthorityGlAccount" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteTaxAuthorityGlAccount" short-description="delete a TaxAuthorityGlAccount">
-        <set value="_DELETE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="TaxAuthorityGlAccount" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- TaxAuthorityRateProduct methods -->
-    <simple-method method-name="createTaxAuthorityRateProduct" short-description="create a TaxAuthorityRateProduct">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="TaxAuthorityRateProduct" value-field="newEntity"/>
-        <sequenced-id sequence-name="TaxAuthorityRateProduct" field="newEntity.taxAuthorityRateSeqId"/>
-        <field-to-result field="newEntity.taxAuthorityRateSeqId" result-name="taxAuthorityRateSeqId"/>
-
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateTaxAuthorityRateProduct" short-description="update a TaxAuthorityRateProduct">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="TaxAuthorityRateProduct" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteTaxAuthorityRateProduct" short-description="delete a TaxAuthorityRateProduct">
-        <set value="_DELETE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="TaxAuthorityRateProduct" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-
     <!-- PartyTaxAuthInfo methods -->
     <simple-method method-name="createPartyTaxAuthInfo" short-description="create a PartyTaxAuthInfo">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-
         <call-simple-method method-name="validatePartyTaxIdInline"/>
 
         <!-- done checking preliminary constraints, see if there are any errors -->
@@ -235,11 +54,6 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePartyTaxAuthInfo" short-description="update a PartyTaxAuthInfo">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-
         <call-simple-method method-name="validatePartyTaxIdInline"/>
 
         <!-- done checking preliminary constraints, see if there are any errors -->
@@ -267,17 +81,6 @@ under the License.
                 </add-error>
             </then>
         </if>
-    </simple-method>
-
-    <simple-method method-name="deletePartyTaxAuthInfo" short-description="delete a PartyTaxAuthInfo">
-        <set value="_DELETE" field="securityAction"/>
-        <check-permission permission="ACCOUNTING" action="${securityAction}">
-            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="PartyTaxAuthInfo" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="createCustomerTaxAuthInfo" short-description="Create a Customer PartyTaxAuthInfo">
