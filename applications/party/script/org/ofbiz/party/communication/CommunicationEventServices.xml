@@ -413,19 +413,7 @@ under the License.
         <!-- delete the event itself -->
         <call-service service-name="deleteCommunicationEvent" in-map-name="parameters"/>
     </simple-method>
-    <!-- since these ancillary operations on communication event cause them to be updated,
-        they will all use the CME_UPDATE permission -->
-    <simple-method method-name="createCommunicationEventPurpose" short-description="Create a CommunicationEventPurpose">
 
-        <make-value value-field="newEntity" entity-name="CommunicationEventPurpose"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="removeCommunicationEventPurpose" short-description="Remove a CommunicationEventPurpose">
-        <entity-one entity-name="CommunicationEventPurpose" value-field="eventPurpose"/>
-        <remove-value value-field="eventPurpose"/>
-    </simple-method>
     <simple-method method-name="createCommunicationEventRole"
         short-description="Create a CommunicationEventRole">
         <!-- check if role already exist, then ignore -->
@@ -445,7 +433,7 @@ under the License.
             <if-empty field="newEntity.statusId">
                 <set field="newEntity.statusId" value="COM_ROLE_CREATED"/>
             </if-empty>
-            
+
             <!-- if not provided get the latest contact mech id -->
             <if-empty field="newEntity.contactMechId">
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
@@ -460,7 +448,6 @@ under the License.
                     <set field="newEntity.contactMechId" from-field="contactMech.contactMechId"/>
                 </if-not-empty>
             </if-empty>
-            
             <create-value value-field="newEntity"/>
         </if-empty>
     </simple-method>
@@ -486,7 +473,6 @@ under the License.
             </if-compare>
         </if-not-empty>
     </simple-method>
-
 
     <simple-method method-name="sendEmailDated"
         short-description="Checks for email communication events with the status COM_IN_PROGRESS and a startdate which is expired, then send the email">
@@ -535,12 +521,6 @@ under the License.
             <set field="updCommEventStatus.statusId" value="COM_COMPLETE"/>
             <call-service service-name="setCommunicationEventStatus" in-map-name="updCommEventStatus"/>
         </iterate>
-    </simple-method>
-
-    <simple-method method-name="createCustRequestCommEvent" short-description="Create CustRequestCommEvent" >
-        <make-value value-field="newEntity" entity-name="CustRequestCommEvent"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
     </simple-method>
 
     <simple-method method-name="setCommunicationEventStatus" short-description="Set The Communication Event Status">
@@ -647,18 +627,18 @@ under the License.
         <entity-one entity-name="UserLogin" value-field="systemUserLogin" auto-field-map="false">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-        
+
         <set-service-fields service-name="createCommunicationEventWithoutPermission" map="parameters" to-map="contactUsMap"/>
         <set field="contactUsMap.userLogin" from-field="systemUserLogin"/>
         <call-service service-name="createCommunicationEventWithoutPermission" in-map-name="contactUsMap"/>
-        
+
         <!-- Get party email address -->
         <set field="getPartyEmailMap.partyId" from-field="parameters.partyIdTo"/>
         <set field="getPartyEmailMap.userLogin" from-field="systemUserLogin"/>
         <call-service service-name="getPartyEmail" in-map-name="getPartyEmailMap">
             <result-to-field result-name="emailAddress"/>
         </call-service>
-        
+
         <entity-one entity-name="ProductStoreEmailSetting" value-field="productStoreEmailSetting"/>
         <set field="bodyParameters.partyId" from-field="parameters.partyIdTo"/>
         <set field="bodyParameters.email" from-field="parameters.emailAddress"/>

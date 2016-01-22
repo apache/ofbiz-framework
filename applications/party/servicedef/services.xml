@@ -795,24 +795,21 @@ under the License.
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="IN" optional="false"/>
         <attribute name="delContentDataResource" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="createCommunicationEventPurpose" engine="simple"
-            location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventPurpose" auth="true">
+    <service name="createCommunicationEventPurpose" default-entity-name="CommunicationEventPurpose" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Communication Event Purpose</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
-        <auto-attributes entity-name="CommunicationEventPurpose" include="pk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="CommunicationEventPurpose" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="createCustRequestCommEvent" engine="simple"
-            location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCustRequestCommEvent" auth="true">
-        <description>Create a CustRequestCommEvent</description>
-        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
-        <auto-attributes entity-name="CustRequestCommEvent" include="pk" mode="IN" optional="false"/>
-    </service>
-    <service name="removeCommunicationEventPurpose" engine="simple"
-            location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="removeCommunicationEventPurpose" auth="true">
+    <service name="removeCommunicationEventPurpose" default-entity-name="CommunicationEventPurpose" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a Communication Event Purpose</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="DELETE"/>
-        <auto-attributes entity-name="CommunicationEventPurpose" include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createCustRequestCommEvent" default-entity-name="CustRequestCommEvent" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a CustRequestCommEvent</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createCommunicationEventRoleInterface" engine="interface" location="" invoke="">
         <description>Create a Communication Event Role with or w/o permission check</description>
@@ -929,49 +926,18 @@ under the License.
 
 
     <!-- party content services -->
-    <!-- old services
-    <service name="createPartyContent" engine="simple" default-entity-name="Content"
-        location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyContent" auth="false">
-        <description>Create Party Associated Content</description>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
-        <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="true"/>
-        <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
-        <attribute name="dataCategoryId" type="String" mode="IN" optional="true"/>
-        <attribute name="statusId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="contentId" type="String" mode="OUT" optional="false"/>
-        <override name="contentTypeId" optional="false"/>
-    </service>
-    <service name="updatePartyContent" engine="simple" default-entity-name="Content"
-        location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyContent" auth="false">
-        <description>Update a Party Content</description>
-        <auto-attributes include="pk" mode="INOUT" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
-        <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="true"/>
-        <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
-        <attribute mode="IN" name="partyId" optional="true" type="String"/>
-        <attribute mode="IN" name="dataCategoryId" optional="true" type="String"/>
-    </service>
-    -->
-    <service name="createPartyContent" engine="simple" default-entity-name="PartyContent"
-            location="component://party/script/org/ofbiz/party/content/PartyContentServices.xml" invoke="createPartyContent" auth="true">
+    <service name="createPartyContent" default-entity-name="PartyContent" engine="entity-auto" invoke="create" auth="true">
         <description>Create a PartyContent record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-
-    <service name="updatePartyContent" engine="simple" default-entity-name="PartyContent"
-            location="component://party/script/org/ofbiz/party/content/PartyContentServices.xml" invoke="updatePartyContent" auth="true">
+    <service name="updatePartyContent" default-entity-name="PartyContent" engine="entity-auto" invoke="update" auth="true">
         <description>Update a PartyContent record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-
-    <service name="removePartyContent" engine="simple" default-entity-name="PartyContent"
-            location="component://party/script/org/ofbiz/party/content/PartyContentServices.xml" invoke="removePartyContent" auth="true">
+    <service name="removePartyContent" default-entity-name="PartyContent" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a PartyContent record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
