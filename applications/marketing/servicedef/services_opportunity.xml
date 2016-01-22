@@ -49,41 +49,34 @@ under the License.
     </service>
 
      <!-- Sales Forecast Detail -->
-    <service name="createSalesForecastDetail" engine="simple" auth="true" default-entity-name="SalesForecastDetail"
-            location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesForecastDetail">
+    <service name="createSalesForecastDetail" default-entity-name="SalesForecastDetail" engine="entity-auto" invoke="create" auth="true">
         <description>Creates a Sales Forecast Detail</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="salesForecastDetailId" mode="OUT"/>
     </service>
-    <service name="updateSalesForecastDetail" engine="simple" auth="true" default-entity-name="SalesForecastDetail"
-            location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="updateSalesForecastDetail">
+    <service name="updateSalesForecastDetail" default-entity-name="SalesForecastDetail" engine="entity-auto" invoke="update" auth="true">
         <description>Updates a Sales Forecast Detail</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="deleteSalesForecastDetail" engine="simple" default-entity-name="SalesForecastDetail"
-            location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="deleteSalesForecastDetail">
+    <service name="deleteSalesForecastDetail" default-entity-name="SalesForecastDetail" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Sales Forecast Detail</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    
-        <!-- opportunity service -->
-    <service name="createSalesOpportunity" engine="simple" default-entity-name="SalesOpportunity"
-        location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesOpportunity">
+
+    <!-- opportunity service -->
+    <service name="createSalesOpportunity" default-entity-name="SalesOpportunity" engine="entity-auto" invoke="create">
         <description>Create an sales opportunity</description>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true">
-            <exclude field-name="createdByUserLogin"/>
-        </auto-attributes>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="accountPartyId" mode="IN" type="String" optional="true"/>
         <attribute name="leadPartyId" mode="IN" type="String" optional="true"/>
         <override name="opportunityName" allow-html="any"/>
         <override name="description" allow-html="any"/>
         <override name="nextStep" allow-html="any"/>
     </service>
-    <service name="updateSalesOpportunity" engine="simple" default-entity-name="SalesOpportunity"
-        location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="updateSalesOpportunity">
+    <service name="updateSalesOpportunity" default-entity-name="SalesOpportunity" engine="entity-auto" invoke="update">
         <description>Update an sales opportunity</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -93,10 +86,9 @@ under the License.
         <override name="description" allow-html="any"/>
         <override name="nextStep" allow-html="any"/>
     </service>
-    <service name="createSalesOpportunityRole" engine="simple" default-entity-name="SalesOpportunityRole" 
-        location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityRole">
+    <service name="createSalesOpportunityRole" default-entity-name="SalesOpportunityRole" engine="entity-auto" invoke="create">
         <description>Create sales opportunity role</description>
-        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="pk" optional="true"/>
     </service>
     <service name="createSalesOpportunityAccountRole" engine="simple" default-entity-name="SalesOpportunityRole" 
         location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityAccountRole">
@@ -118,5 +110,4 @@ under the License.
         <attribute name="partyId" mode="OUT" type="String" optional="true"/>
     </service>
 
-    
 </services>
