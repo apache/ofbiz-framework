@@ -82,36 +82,6 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <create-value value-field="salesForecastHistory"/>
     </simple-method>
 
-    <!-- Sales Forecast Detail -->
-    <simple-method method-name="createSalesForecastDetail" short-description="Creates a sales forecast detail">
-        <make-value entity-name="SalesForecastDetail" value-field="newEntity"/>
-        <sequenced-id sequence-name="SalesForecastDetail" field="newEntity.salesForecastDetailId"/>
-        <field-to-result field="newEntity.salesForecastDetailId" result-name="salesForecastDetailId"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateSalesForecastDetail" short-description="Updates a sales forecast detail">
-        <entity-one entity-name="SalesForecastDetail" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteSalesForecastDetail" short-description="Delete a Sales Forecast Detail">
-        <entity-one entity-name="SalesForecastDetail" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="createSalesOpportunity" short-description="Create Sales Opportunity">
-        <make-value entity-name="SalesOpportunity" value-field="newEntity"/>
-        <if-empty field="parameters.salesOpportunityId">
-            <sequenced-id sequence-name="SalesOpportunity" field="parameters.salesOpportunityId"/>
-        </if-empty>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
-        <field-to-result field="parameters.salesOpportunityId" result-name="salesOpportunityId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
     <simple-method method-name="updateSalesOpportunity" short-description="Update an Sales opportunity">
         <entity-one entity-name="SalesOpportunity" value-field="lookedUpValue"/>
         <if-compare field="parameters.opportunityStageId" operator="equals" value="SOSTG_CLOSED">
@@ -124,12 +94,6 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         </if-compare>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="createSalesOpportunityRole" short-description="Create Sales Opportunity Role">
-        <make-value value-field="newEntity" entity-name="SalesOpportunityRole"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="createSalesOpportunityAccountRole" short-description="Create Sales Opportunity Account Role">
         <entity-and list="salesOpportunityRoles" entity-name="SalesOpportunityRole">
@@ -177,5 +141,4 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <first-from-list entry="lookedUpValue" list="salesOpportunityRoles"/>
         <field-to-result field="lookedUpValue.partyId" result-name="partyId"/>
     </simple-method>
-    
 </simple-methods>
