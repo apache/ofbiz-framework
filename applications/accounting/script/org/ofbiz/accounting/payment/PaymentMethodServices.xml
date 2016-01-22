@@ -70,41 +70,17 @@ under the License.
                 <set field="ueaMap.partyId" from-field="parameters.partyId"/>
                 <!-- use the service so it will expire the old account and create a new one; don't break on error since this is a background process, just get whatever we can done... -->
                 <call-service service-name="updateEftAccount" in-map-name="ueaMap" break-on-error="false"/>
-            </if-empty>            
+            </if-empty>
         </iterate>
     </simple-method>
-    <!--CreateCreditCardTypeGlAccount methods -->
-    <simple-method method-name="createCreditCardTypeGlAccount" short-description="Create a Credit Card Gl Account">
-        <make-value entity-name="CreditCardTypeGlAccount" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
 
-    <simple-method method-name="updateCreditCardTypeGlAccount" short-description="Update a Credit Card Gl Account">
-        <entity-one entity-name="CreditCardTypeGlAccount" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteCreditCardTypeGlAccount" short-description="Delete a Credit Card Gl Account">
-        <entity-one entity-name="CreditCardTypeGlAccount" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Updates a Payment Method Type default glAccountId -->
-    <simple-method method-name="updatePaymentMethodType" short-description="Updates a Payment Method Type default glAccountId">
-        <entity-one entity-name="PaymentMethodType" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="expirePaymentGroupMember" short-description="expire a Payment Group Member">
         <entity-one entity-name="PaymentGroupMember" value-field="paymentGroupMember"/>
         <set-service-fields service-name="updatePaymentGroupMember" map="paymentGroupMember" to-map="updatePaymentGroupMemberMap"/>
         <now-timestamp field="updatePaymentGroupMemberMap.thruDate"/>
         <call-service service-name="updatePaymentGroupMember" in-map-name="updatePaymentGroupMemberMap"/>
     </simple-method>
-    
+
     <simple-method method-name="createPayPalPaymentMethod" short-description="Create a PayPal Payment Method">
         <make-value value-field="newPaymentMethod" entity-name="PaymentMethod"/>
         <set-pk-fields value-field="newPaymentMethod" map="parameters"/>
