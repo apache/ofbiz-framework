@@ -22,11 +22,14 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -505,5 +508,39 @@ public class EntityQuery {
             }
         }
         return EntityCondition.makeCondition(conditions);
+    }
+
+    public <T> List<T> getFieldList(final String fieldName) throws GenericEntityException {select(fieldName);
+        EntityListIterator genericValueEli = null;
+        try {
+            genericValueEli = queryIterator();
+            if (this.distinct) {
+                Set<T> distinctSet = new HashSet<T>();
+                GenericValue value = null;
+                while ((value = genericValueEli.next()) != null) {
+                    T fieldValue = UtilGenerics.<T>cast(value.get(fieldName));
+                    if (fieldValue != null) {
+                        distinctSet.add(fieldValue);
+                    }
+                }
+                return new ArrayList<T>(distinctSet);
+            }
+            else {
+                List<T> fieldList = new LinkedList<T>();
+                GenericValue value = null;
+                while ((value = genericValueEli.next()) != null) {
+                    T fieldValue = UtilGenerics.<T>cast(value.get(fieldName));
+                    if (fieldValue != null) {
+                        fieldList.add(fieldValue);
+                    }
+                }
+                return fieldList;
+            }
+        }
+        finally {
+            if (genericValueEli != null) {
+                genericValueEli.close();
+            }
+        }
     }
 }
