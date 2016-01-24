@@ -76,8 +76,7 @@ under the License.
         <attribute name="assignedRoleTypeId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createOrderNotificationLog" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="createNotificationLog">
+    <service name="createOrderNotificationLog" engine="entity-auto" default-entity-name="OrderNotification" invoke="create">
         <description>Logs when a notification was sent</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="emailType" type="String" mode="IN" optional="false"/>
@@ -164,17 +163,10 @@ under the License.
         <attribute name="orderId" type="String" mode="OUT" optional="false"/>
     </service>
 
-    <service name="createOrderItemBilling" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="createOrderItemBilling">
+    <service name="createOrderItemBilling" default-entity-name="OrderItemBilling" engine="entity-auto" invoke="create">
         <description>Create a new order item billing record</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
-        <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="itemIssuanceId" type="String" mode="IN" optional="true"/>
-        <attribute name="shipmentReceiptId" type="String" mode="IN" optional="true"/>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
 
     <service name="orderAdjustmentPermissionCheck" engine="simple"
@@ -183,8 +175,7 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
 
-    <service name="createOrderAdjustment" default-entity-name="OrderAdjustment" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="createOrderAdjustment">
+    <service name="createOrderAdjustment" default-entity-name="OrderAdjustment" engine="entity-auto" invoke="create">
         <description>Creates a new order adjustment record</description>
         <permission-service service-name="orderAdjustmentPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
@@ -192,9 +183,9 @@ under the License.
         <override name="orderAdjustmentTypeId" optional="false"/>
         <override name="orderId" optional="false"/>
     </service>
-    <service name="updateOrderAdjustment" default-entity-name="OrderAdjustment" engine="simple"
-        location="component://order/script/org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="updateOrderAdjustment">
+    <service name="updateOrderAdjustment" default-entity-name="OrderAdjustment" engine="entity-auto" invoke="update">
         <description>Update an order adjustment record</description>
+        <permission-service service-name="orderAdjustmentPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="orderId" optional="false"/>
@@ -207,13 +198,10 @@ under the License.
         <attribute name="productPromoCodeId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createOrderAdjustmentBilling" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="createOrderAdjustmentBilling">
+    <service name="createOrderAdjustmentBilling" default-entity-name="OrderAdjustmentBilling" engine="entity-auto" invoke="create">
         <description>Create a new order adjustment billing record</description>
-        <attribute name="orderAdjustmentId" type="String" mode="IN" optional="false"/>
-        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
-        <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
 
     <service name="createPaymentFromPreference" engine="java"
@@ -435,15 +423,10 @@ under the License.
         <attribute name="roleTypeId" type="String" mode="IN"/>
     </service>
 
-    <service name="createOrderPaymentPreference" engine="java"
-            location="org.ofbiz.order.order.OrderServices" invoke="createPaymentPreference">
+    <service name="createOrderPaymentPreference" default-entity-name="OrderPaymentPreference" engine="entity-auto" invoke="create">
         <description>Creates an order payment preference</description>
-        <attribute name="orderId" type="String" mode="IN"/>
-        <attribute name="paymentMethodTypeId" type="String" mode="IN"/>
-        <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
-        <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <attribute name="maxAmount" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="orderPaymentPreferenceId" type="String" mode="OUT"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="OUT"/>
     </service>
 
     <service name="createOrderNote" engine="java"
@@ -568,20 +551,17 @@ under the License.
     </service>
 
     <!-- OrderShipment Services -->
-    <service name="createOrderShipment" default-entity-name="OrderShipment" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createOrderShipment" auth="true">
+    <service name="createOrderShipment" engine="entity-auto" default-entity-name="OrderShipment" invoke="create" auth="true">
         <description>Create OrderShipment</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateOrderShipment" default-entity-name="OrderShipment" engine="simple"
-        location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderShipment" auth="true">
+    <service name="updateOrderShipment" engine="entity-auto" default-entity-name="OrderShipment" invoke="update" auth="true">
         <description>Update OrderShipment</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteOrderShipment" default-entity-name="OrderShipment" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="deleteOrderShipment" auth="true">
+    <service name="deleteOrderShipment" engine="entity-auto" default-entity-name="OrderShipment" invoke="delete" auth="true">
         <description>Delete OrderShipment</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -667,21 +647,27 @@ under the License.
     </service>
 
     <!-- CommunicationEvents related to orders -->
-    <service name="createCommunicationEventOrder" engine="simple"
-            location="component://order/script/org/ofbiz/order/communication/CommunicationEventServices.xml" invoke="createCommunicationEventOrder" auth="true">
+    <service name="createCommunicationEventOrder" default-entity-name="CommunicationEventOrder" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Communication Event Order</description>
-        <auto-attributes entity-name="CommunicationEventOrder" include="pk" mode="IN" optional="false"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="CREATE"/>
+        </required-permissions>
+        <auto-attributes entity-name="CommunicationEventOrder" include="pk" mode="IN"/>
     </service>
-    <service name="removeCommunicationEventOrder" engine="simple"
-            location="component://order/script/org/ofbiz/order/communication/CommunicationEventServices.xml" invoke="removeCommunicationEventOrder" auth="true">
+    <service name="removeCommunicationEventOrder" default-entity-name="CommunicationEventOrder" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a Communication Event Order</description>
-        <auto-attributes entity-name="CommunicationEventOrder" include="pk" mode="IN" optional="false"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="DELETE"/>
+        </required-permissions>
+        <auto-attributes entity-name="CommunicationEventOrder" include="pk" mode="IN"/>
     </service>
 
     <!-- Order Shipping and Contacts -->
-    <service name="createOrderItemShipGroup" default-entity-name="OrderItemShipGroup" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createOrderItemShipGroup" auth="true">
+    <service name="createOrderItemShipGroup" default-entity-name="OrderItemShipGroup" engine="entity-auto" invoke="create" auth="true">
         <description>Creates a new OrderItemShipGroup.</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="CREATE"/>
+        </required-permissions>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="INOUT" optional="true"/>
@@ -696,42 +682,52 @@ under the License.
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createOrderContactMech" default-entity-name="OrderContactMech" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createOrderContactMech" auth="true">
+    <service name="createOrderContactMech" default-entity-name="OrderContactMech" engine="entity-auto" invoke="create" auth="true">
         <description>Create Order Contact Mech</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="CREATE"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="updateOrderContactMech" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderContactMech" auth="true" default-entity-name="OrderContactMech">
+    <service name="updateOrderContactMech" default-entity-name="OrderContactMech" engine="simple"
+            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderContactMech" auth="true">
         <description>Update Order Contact Mech</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="oldContactMechId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="removeOrderContactMech" default-entity-name="OrderContactMech" engine="simple"
-        location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="removeOrderContactMech" auth="true">
+    <service name="removeOrderContactMech" default-entity-name="OrderContactMech" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Order Contact Mech</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="DELETE"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- OrderTerms -->
-    <service name="createOrderTerm" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createOrderTerm" auth="true">
+    <service name="createOrderTerm" default-entity-name="OrderTerm" engine="entity-auto" invoke="create" auth="true">
         <description>Create an Order Term</description>
-        <auto-attributes entity-name="OrderTerm" include="pk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="OrderTerm" include="nonpk" mode="IN" optional="true"/>
-        <override name="orderItemSeqId" optional="true"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="CREATE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="orderItemSeqId" optional="true" default-value="_NA_"/>
     </service>
-    <service name="updateOrderTerm" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderTerm" auth="true">
+    <service name="updateOrderTerm" default-entity-name="OrderTerm" engine="entity-auto" invoke="update" auth="true">
         <description>Update an Order Term</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="UPDATE"/>
+        </required-permissions>
         <auto-attributes entity-name="OrderTerm" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderTerm" include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeOrderTerm" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="removeOrderTerm" auth="true">
+    <service name="removeOrderTerm" default-entity-name="OrderTerm" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove an Order Term</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="DELETE"/>
+        </required-permissions>
         <auto-attributes entity-name="OrderTerm" include="pk" mode="IN" optional="false"/>
     </service>
 
