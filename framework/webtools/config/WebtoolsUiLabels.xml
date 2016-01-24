@@ -21,6 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="ConnectionPoolStatus">
         <value xml:lang="en">Connection Pool Status</value>
+        <value xml:lang="fr">État de la connexion du pool</value>
         <value xml:lang="ja">接続プールステータス</value>
         <value xml:lang="vi">Trạng thái chia sẻ kết nối cơ sở dữ liệu</value>
         <value xml:lang="zh">连接池状态</value>
@@ -28,6 +29,7 @@
     </property>
     <property key="EntityImportDeletFile">
         <value xml:lang="en">Deleting ${fileName}</value>
+        <value xml:lang="fr">Suppression de ${fileName}</value>
         <value xml:lang="it">Stò cancellando il file ${fileName}</value>
         <value xml:lang="ja">${fileName} を削除しています</value>
         <value xml:lang="vi">Đang xóa ${fileName}</value>
@@ -36,6 +38,7 @@
     </property>
     <property key="EntityImportErrorRetrievingEntityNames">
         <value xml:lang="en">Error retrieving entity names.</value>
+        <value xml:lang="fr">Erreur dans la récupération des noms d'entités.</value>
         <value xml:lang="it">Errore nell'ottenere i nome delle entità.</value>
         <value xml:lang="ja">エンティティ名取得中にエラー</value>
         <value xml:lang="vi">Lỗi khi lấy tên Thực thể.</value>
@@ -44,6 +47,7 @@
     </property>
     <property key="EntityImportFailedFile">
         <value xml:lang="en">Failed ${fileName} adding to retry list for next pass</value>
+        <value xml:lang="fr">Échec sur ${fileName}, ajout dans la liste pour la prochaine passe</value>
         <value xml:lang="it">Fallita ${fileName} aggiunta alla lista di riprova al successivo passaggio</value>
         <value xml:lang="ja">${fileName} を次のパスのリトライリストに追加中に失敗</value>
         <value xml:lang="vi">Tập tin ${fileName} không thành công đã được thêm vào Danh sách để Xử lý tiếp sau</value>
@@ -52,6 +56,7 @@
     </property>
     <property key="EntityImportFailedFileList">
         <value xml:lang="en">Failed Files:</value>
+        <value xml:lang="fr">Fichiers en échec :</value>
         <value xml:lang="it">Lista file che hanno avuto fallimento:</value>
         <value xml:lang="ja">失敗したファイル: </value>
         <value xml:lang="vi">Tập tin không thành công:</value>
@@ -60,6 +65,7 @@
     </property>
     <property key="EntityImportFailedNumberFile">
         <value xml:lang="en">Failed: ${failed} of ${total}</value>
+        <value xml:lang="fr">Échec : ${failed} sur ${total}</value>
         <value xml:lang="it">Failed: ${failed} di ${total}</value>
         <value xml:lang="ja">失敗: ${failed} / ${total}</value>
         <value xml:lang="vi">Không thành công: ${failed} của tổng ${total}</value>
@@ -68,6 +74,7 @@
     </property>
     <property key="EntityImportNoDataSourceSpecified">
         <value xml:lang="en">Unable to locate the datasource helper for the group ${groupNameToUse}</value>
+        <value xml:lang="fr">Impossible de localisé la source de donnée pour le groupe ${groupNameToUse}</value>
         <value xml:lang="it">Non è possibile localizzare la sorgente dati per il gruppo ${groupNameToUse}</value>
         <value xml:lang="ja">グループ ${groupNameToUse} に対するデータソースヘルパーの確立ができません</value>
         <value xml:lang="vi">Không thể tìm thấy 'datasource helper' cho nhóm ${groupNameToUse}</value>
@@ -76,6 +83,7 @@
     </property>
     <property key="EntityImportNoXmlFileOrTextSpecified">
         <value xml:lang="en">No entity xml file or text specified</value>
+        <value xml:lang="fr">Aucun fichier xml ou texte fournit</value>
         <value xml:lang="it">Nessun file xml entità o testo specificato</value>
         <value xml:lang="ja">エンティティXMLファイルまたはテキストが指定されていません</value>
         <value xml:lang="vi">Không XML hoặc Văn bản nào của Thực thể được xác định</value>
@@ -84,6 +92,7 @@
     </property>
     <property key="EntityImportNoXmlFileSpecified">
         <value xml:lang="en">No filename/URL or complete XML document specified, doing nothing.</value>
+        <value xml:lang="fr">Pas de fichier, URL ou flux XML fournit, aucune action réalisée.</value>
         <value xml:lang="it">Nessun nome file/URL o documento XML completo specificato, nientre verrà fatto.</value>
         <value xml:lang="ja">ファイル名/URLまたは完全なXML文書が指定されていません。処理を行いません。</value>
         <value xml:lang="vi">Không Tập tin/URL hoặc tài liệu XML hoàn chỉnh nào được xác định nên hệ thống sẽ không làm gì cả.</value>
@@ -92,6 +101,7 @@
     </property>
     <property key="EntityImportNumberOfEntityToBeProcessed">
         <value xml:lang="en">Got ${numberRead} entities from ${fileName}</value>
+        <value xml:lang="fr">Chargement de ${numberRead} entités depuis ${fileName}</value>
         <value xml:lang="it">Ottenute ${numberRead} entità da ${fileName}</value>
         <value xml:lang="ja">${fileName} から ${numberRead} エンティティ取得しました</value>
         <value xml:lang="vi">Nhận ${numberRead} Thực thể từ Tập tin ${fileName}</value>
@@ -100,6 +110,7 @@
     </property>
     <property key="EntityImportParsingError">
         <value xml:lang="en">ERROR parsing Entity Xml file: ${errorString}</value>
+        <value xml:lang="fr">ERREUR dans l'analyse de l'XML : ${errorString}</value>
         <value xml:lang="it">ERRORE di parsing file entità XML: ${errorString}</value>
         <value xml:lang="ja">エンティティXMLファイルパース時にエラー: ${errorString}</value>
         <value xml:lang="vi">LỖI khi phân tích tập tin XML Thực thể: ${errorString}</value>
@@ -108,6 +119,7 @@
     </property>
     <property key="EntityImportPassedFile">
         <value xml:lang="en">Pass ${passes} complete</value>
+        <value xml:lang="fr">Passe ${passes} complete</value>
         <value xml:lang="it">Passati ${passes} completati</value>
         <value xml:lang="ja">パス ${passes} 完了しました</value>
         <value xml:lang="vi">Xử lý ${passes} hoàn thành</value>
@@ -116,6 +128,7 @@
     </property>
     <property key="EntityImportPathNotFound">
         <value xml:lang="en">path not found or can't be read</value>
+        <value xml:lang="fr">Chemin non trouvé ou non accessible</value>
         <value xml:lang="it">path non trovato o non può essere letto</value>
         <value xml:lang="ja">パスが見つからないか読み込みできません</value>
         <value xml:lang="vi">đường dẫn không tìm thấy hoặc không thể đọc nội dung</value>
@@ -124,6 +137,7 @@
     </property>
     <property key="EntityImportPathNotSpecified">
         <value xml:lang="en">No path specified, doing nothing.</value>
+        <value xml:lang="fr">Pas de chemin indiqué, aucun action réalisée.</value>
         <value xml:lang="it">Nessun path specificato, non verrà fatto niente.</value>
         <value xml:lang="ja">パスが指定されていません。処理を行いません。</value>
         <value xml:lang="vi">Không xác định Đường dẫn nên hệ thống không làm gì cả.</value>
@@ -132,6 +146,7 @@
     </property>
     <property key="EntityImportRowProcessed">
         <value xml:lang="en">Got ${numberRead} entities to write to the datasource.</value>
+        <value xml:lang="fr">Écriture de ${numberRead} entités dans la source de donnée.</value>
         <value xml:lang="it">Ottenute ${numberRead} entità da scrivere sulla sorgente dati.</value>
         <value xml:lang="ja">エンティティデータソースに書き込むため ${numberRead} 取得しました</value>
         <value xml:lang="vi">Nhận ${numberRead} Thực thể để ghi đến Kết nối dữ liệu (datasource).</value>
@@ -140,6 +155,7 @@
     </property>
     <property key="EntityImportSucceededNumberFile">
         <value xml:lang="en">Succeeded: ${succeeded} of ${total}</value>
+        <value xml:lang="fr">Succès : ${succeeded} sur ${total}</value>
         <value xml:lang="it">Successo: ${succeeded} di ${total}</value>
         <value xml:lang="ja">成功: ${succeeded} / ${total}</value>
         <value xml:lang="vi">Thành công: ${succeeded} trên tổng số ${total}</value>
@@ -456,6 +472,7 @@
     <property key="PageTitleEntityEoModelBundle">
         <value xml:lang="de">Entity Eo Modell-Bundle</value>
         <value xml:lang="en">Entity Eo Model Bundle</value>
+        <value xml:lang="fr">Ensemble des modèles d'entité</value>
         <value xml:lang="it">Entità Eo Model Bundle</value>
         <value xml:lang="ja">EoModelバンドルエンティティ</value>
         <value xml:lang="vi">Thực thể Eo Model Bundle</value>
@@ -606,6 +623,7 @@
     </property>
     <property key="PageTitleJobDetails">
         <value xml:lang="en">Job Details</value>
+        <value xml:lang="fr">Détails du job</value>
         <value xml:lang="zh">任务详情</value>
         <value xml:lang="zh-TW">任務詳情</value>
     </property>
@@ -637,6 +655,7 @@
     </property>
     <property key="PageTitleProgramExport">
         <value xml:lang="en">Programmable Export</value>
+        <value xml:lang="fr">Export programmable</value>
         <value xml:lang="zh">可编程导出</value>
     </property>
     <property key="PageTitleRunService">
