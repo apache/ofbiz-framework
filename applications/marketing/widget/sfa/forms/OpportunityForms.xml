@@ -49,14 +49,14 @@ under the License.
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
             <set field="opportunityStageId" from-field="parameters.opportunityStageId"/>
-            <set field="parameters.opportunityStageId" value="${groovy:opportunityStageId==null?&quot;SOSTG_CLOSED&quot;:opportunityStageId}"/>
-            <set field="parameters.opportunityStageId_op" value="${groovy:opportunityStageId==null?&quot;notEqual&quot;:&quot;equals&quot;}"/>
-            <set field="parameters.roleTypeId" value="LEAD"/>
-            <set field="fieldList" value="${groovy:[&quot;partyId&quot;,&quot;salesOpportunityId&quot;,&quot;opportunityStageId&quot;,&quot;typeEnumId&quot;]}" type="List"/>
+            <set field="parameters.opportunityStageId" value="${groovy:opportunityStageId==null?'SOSTG_CLOSED':opportunityStageId}"/>
+            <set field="parameters.opportunityStageId_op" value="${groovy:opportunityStageId==null?'notEqual':'equals'}"/>
+            <set field="fieldList" value="${groovy:['partyId','salesOpportunityId','opportunityStageId','typeEnumId', 'roleTypeId']}" type="List"/>
+            <set field="sortField" from-field="parameters.sortField" default-value="salesOpportunityId"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="SalesOpportunityAndRole"/>
-                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="orderBy" value="${sortField}"/>
                 <field-map field-name="fieldList" from-field="fieldList"/>
                 <field-map field-name="distinct" value="Y"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
@@ -68,18 +68,19 @@ under the License.
         </row-actions>
         <field name="salesOpportunityId"><hidden/></field>
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}">
-            <hyperlink target="ViewSalesOpportunity" description="${opportunityName}[${salesOpportunityId}]">
+            <hyperlink target="EditSalesOpportunity" description="${opportunityName}[${salesOpportunityId}] ${roleTypeId}">
                 <parameter param-name="salesOpportunityId"/>
             </hyperlink>
         </field>
         <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}"><display-entity entity-name="SalesOpportunityStage"/></field>
-        <field name="partyId" title="${uiLabelMap.SfaLead}">
+        <field name="partyId" title="${uiLabelMap.SfaLead}/${uiLabelMap.Account}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${middleName} ${groupName}" key-field-name="partyId">
                 <sub-hyperlink target="viewprofile" description=" [${partyId}]">
                     <parameter param-name="partyId" from-field="partyId"/>
                 </sub-hyperlink>
             </display-entity> 
         </field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
         <field name="nextStep"><display/></field>
         <field name="estimatedAmount" title="${uiLabelMap.SfaEstimatedAmount}"><display/></field>
         <field name="nextStepDate" position="1" title="${uiLabelMap.SfaNextStepDate}" sort-field="true"><display/></field>
