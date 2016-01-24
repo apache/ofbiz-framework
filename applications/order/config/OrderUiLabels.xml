@@ -2375,6 +2375,7 @@
         <value xml:lang="ar">AVS</value>
         <value xml:lang="de">AVS</value>
         <value xml:lang="en">AVS</value>
+        <value xml:lang="fr">AVS</value>
         <value xml:lang="zh">地址验证服务</value>
         <value xml:lang="zh-TW">位址驗證服務</value>
     </property>
@@ -8688,7 +8689,6 @@
         <value xml:lang="de">Angebotspreise</value>
         <value xml:lang="de-CH">Offertpreise</value>
         <value xml:lang="en">Quote Prices</value>
-        <value xml:lang="fr">Prix du devis</value>
         <value xml:lang="es">Precios del presupuesto</value>
         <value xml:lang="fr">Prix du devis</value>
         <value xml:lang="it">Prezzi Preventivo</value>
@@ -11685,6 +11685,7 @@
     <property key="OrderRequirementDoesNotExists">
         <value xml:lang="ar">المتطلب ذو الدليل ${requirementId} غير موجود</value>
         <value xml:lang="de">Bedarf mit ID ${requirementId} existiert nicht.</value>
+        <value xml:lang="fr">Le besoin en réf ${requirementId} n'existe pas".</value>
         <value xml:lang="en">Requirement with id ${requirementId} doesn't exist.</value>
         <value xml:lang="it">Fabbisogno ${requirementId} non esiste</value>
         <value xml:lang="ja">ID ${requirementId} の要求は存在しません。</value>
@@ -15898,6 +15899,7 @@
         <value xml:lang="ar">بند قائمة التسوق</value>
         <value xml:lang="de">Einkaufliste Artikel</value>
         <value xml:lang="en">Shopping List Item</value>
+        <value xml:lang="fr">Ligne du panier</value>
         <value xml:lang="it">Riga lista d'acquisto</value>
         <value xml:lang="ja">買い物リストアイテム</value>
         <value xml:lang="pt-BR">Item da lista de compras</value>
@@ -15980,6 +15982,7 @@
         <value xml:lang="ar">تحديث الملاحظة</value>
         <value xml:lang="de">Anmerkung bearbeiten</value>
         <value xml:lang="en">Update Note</value>
+        <value xml:lang="fr">Màj Note</value>
         <value xml:lang="ja">連絡を更新</value>
         <value xml:lang="vi">Cập nhật ghi chú</value>
         <value xml:lang="zh">更新便笺</value>
@@ -15989,6 +15992,7 @@
         <value xml:lang="ar">إيجار</value>
         <value xml:lang="de">Miete</value>
         <value xml:lang="en">Rent</value>
+        <value xml:lang="fr">Loyer</value>
         <value xml:lang="ja">賃貸</value>
         <value xml:lang="vi">Thuê</value>
         <value xml:lang="zh">租赁</value>
