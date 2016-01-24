@@ -135,7 +135,7 @@ public class WebToolsServices {
             } catch (MalformedURLException mue) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsInvalidFileName", UtilMisc.toMap("filename", filename, "errorString", mue.getMessage()), locale));
             } catch (Exception exc) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrrorReadingFileName", UtilMisc.toMap("filename", filename, "errorString", exc.getMessage()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorReadingFileName", UtilMisc.toMap("filename", filename, "errorString", exc.getMessage()), locale));
             }
         }
 
@@ -147,7 +147,7 @@ public class WebToolsServices {
             try {
                 templateReader = new FileReader(fmfilename);
             } catch (FileNotFoundException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrrorReadingTemplateFile", UtilMisc.toMap("filename", fmfilename, "errorString", e.getMessage()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorReadingTemplateFile", UtilMisc.toMap("filename", fmfilename, "errorString", e.getMessage()), locale));
             }
 
             StringWriter outWriter = new StringWriter();
@@ -177,7 +177,7 @@ public class WebToolsServices {
                 template.process(fmcontext, outWriter);
                 fulltext = outWriter.toString();
             } catch (Exception ex) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrrorProcessingTemplateFile", UtilMisc.toMap("filename", fmfilename, "errorString", ex.getMessage()), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorProcessingTemplateFile", UtilMisc.toMap("filename", fmfilename, "errorString", ex.getMessage()), locale));
             }
         }
 
@@ -199,7 +199,7 @@ public class WebToolsServices {
                 }
                 Map<String, Object> outputMap = dispatcher.runSync("parseEntityXmlFile", inputMap);
                 if (ServiceUtil.isError(outputMap)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrrorParsingFile", UtilMisc.toMap("errorString", ServiceUtil.getErrorMessage(outputMap)), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorParsingFile", UtilMisc.toMap("errorString", ServiceUtil.getErrorMessage(outputMap)), locale));
                 } else {
                     Long numberRead = (Long)outputMap.get("rowProcessed");
                     messages.add(UtilProperties.getMessage(resource, "EntityImportRowProcessed", UtilMisc.toMap("numberRead", numberRead.toString()), locale));
