@@ -909,7 +909,7 @@
         <value xml:lang="zh">键盘快捷键</value>
         <value xml:lang="zh-TW">鍵盤快速鍵</value>
     </property>
-    <property key="WebPosProductSearch">
+    <property key="WebPosShortcutF1">
         <value xml:lang="en">PRODUCT SEARCH</value>
         <value xml:lang="it">RICERCA PRODOTTO</value>
         <value xml:lang="ja">製品検索</value>
@@ -917,7 +917,7 @@
         <value xml:lang="zh">产品搜索</value>
         <value xml:lang="zh-TW">產品搜尋</value>
     </property>
-    <property key="WebPosPartySearch">
+    <property key="WebPosShortcutF2">
         <value xml:lang="en">PARTY SEARCH</value>
         <value xml:lang="it">RICERCA SOGGETTO</value>
         <value xml:lang="ja">取引先検索</value>
@@ -925,7 +925,7 @@
         <value xml:lang="zh">会员搜索</value>
         <value xml:lang="zh-TW">團體搜尋</value>
     </property>
-    <property key="WebPosPayCash">
+    <property key="WebPosShortcutF3">
         <value xml:lang="en">PAY CASH</value>
         <value xml:lang="it">PAGA IN CONTANTI</value>
         <value xml:lang="ja">現金支払</value>
@@ -933,7 +933,7 @@
         <value xml:lang="zh">付现金</value>
         <value xml:lang="zh-TW">付現金</value>
     </property>
-    <property key="WebPosPayCheck">
+    <property key="WebPosShortcutF4">
         <value xml:lang="en">PAY CHECK</value>
         <value xml:lang="it">PAGA CON ASSEGNO</value>
         <value xml:lang="ja">小切手支払</value>
@@ -941,12 +941,12 @@
         <value xml:lang="zh">付支票</value>
         <value xml:lang="zh-TW">付支票</value>
     </property>
-    <property key="WebPosPayPin">
+    <property key="WebPosShortcutF5">
         <value xml:lang="en">Pay Pin</value>
         <value xml:lang="nl">PIN / CHIP</value>
         <value xml:lang="zh">付芯片卡</value>
     </property>
-    <property key="WebPosPayGiftCard">
+    <property key="WebPosShortcutF6">
         <value xml:lang="en">PAY GIFT CARD</value>
         <value xml:lang="it">PAGA C.REGALO</value>
         <value xml:lang="ja">ｷﾞﾌﾄｶｰﾄﾞ支払</value>
@@ -954,7 +954,7 @@
         <value xml:lang="zh">付礼品卡</value>
         <value xml:lang="zh-TW">付禮物卡</value>
     </property>
-    <property key="WebPosPayByCC">
+    <property key="WebPosShortcutF7">
         <value xml:lang="en">PAY BY CC</value>
         <value xml:lang="it">PAGA C.CREDITO</value>
         <value xml:lang="ja">ｶｰﾄﾞ支払</value>
@@ -962,35 +962,35 @@
         <value xml:lang="zh">付信用卡</value>
         <value xml:lang="zh-TW">付信用卡</value>
     </property>
-    <property key="WebPosCheckout">
+    <property key="WebPosShortcutF8">
         <value xml:lang="en">CHECKOUT</value>
         <value xml:lang="it">CHECKOUT</value>
         <value xml:lang="ja">ﾁｪｯｸｱｳﾄ</value>
         <value xml:lang="zh">结账</value>
         <value xml:lang="zh-TW">結帳</value>
     </property>
-    <property key="WebPosChangeQuantity">
+    <property key="WebPosShortcutF9">
         <value xml:lang="en">CHANGE QUANTITY</value>
         <value xml:lang="it">CAMBIA QUANTITA'</value>
         <value xml:lang="ja">数量変更</value>
         <value xml:lang="zh">修改数量</value>
         <value xml:lang="zh-TW">修改數量</value>
     </property>
-    <property key="WebPosAddQuantity">
+    <property key="WebPosShortcutF10">
         <value xml:lang="en">ADD QUANTITY</value>
         <value xml:lang="it">AGGIUNGI QUANTITA'</value>
         <value xml:lang="ja">数量加算</value>
         <value xml:lang="zh">增加数量</value>
         <value xml:lang="zh-TW">增加數量</value>
     </property>
-    <property key="WebPosSubstractQuantity">
+    <property key="WebPosShortcutF11">
         <value xml:lang="en">SUBTRACT QUANTITY</value>
         <value xml:lang="it">SOTTRAI QUANTITA'</value>
         <value xml:lang="ja">数量減算</value>
         <value xml:lang="zh">减少数量</value>
         <value xml:lang="zh-TW">減少數量</value>
     </property>
-    <property key="WebPosEmptyCart">
+    <property key="WebPosShortcutF12">
         <value xml:lang="en">EMPTY CART</value>
         <value xml:lang="it">SVUOTA CARRELLO</value>
         <value xml:lang="ja">空の買い物かご</value>
