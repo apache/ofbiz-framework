@@ -85,7 +85,7 @@
     </property>
     <property key="AnswerSecurityQuestion">
         <value xml:lang="en">Answer your Security Question</value>
-        <value xml:lang="en">Répondez à votre question de sécurité</value>
+        <value xml:lang="fr">Répondez à votre question de sécurité</value>
     </property>
     <property key="CertComponent">
         <value xml:lang="de">Komponente</value>
@@ -701,7 +701,7 @@
     </property>
     <property key="SecurityAnswer">
         <value xml:lang="en">Security Answer</value>
-        <value xml:lang="en">Réponse de sécurité</value>
+        <value xml:lang="fr">Réponse de sécurité</value>
     </property>
     <property key="SecurityGroups">
         <value xml:lang="de">Sicherheitsgruppen</value>
@@ -739,7 +739,7 @@
     </property>
     <property key="SecurityQuestion">
         <value xml:lang="en">Security Question</value>
-        <value xml:lang="en">Question de sécurité</value>
+        <value xml:lang="fr">Question de sécurité</value>
     </property>
     <property key="SecurityViewPermissionError">
         <value xml:lang="de">Sicherheitsfehler: Sie haben nicht die Berechtigung diese Seite anzusehen. ("SECURITY_VIEW" oder "SECURITY_ADMIN" benötigt) </value>
