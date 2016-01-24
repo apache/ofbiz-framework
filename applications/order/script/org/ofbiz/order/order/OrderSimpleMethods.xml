@@ -44,63 +44,18 @@ under the License.
             </else>
         </if-compare>
     </simple-method>
-
-    <simple-method method-name="createOrderAdjustment" short-description="Create an OrderAdjustment">
-
-        <make-value entity-name="OrderAdjustment" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <sequenced-id sequence-name="OrderAdjustment" field="newEntity.orderAdjustmentId"/>
-        <field-to-result field="newEntity.orderAdjustmentId" result-name="orderAdjustmentId"/>
-
-        <now-timestamp field="newEntity.createdDate"/>
-        <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateOrderAdjustment" short-description="Update an OrderAdjustment">
-        <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderAdjustement"/></check-permission>
-        <check-errors/>
-        <entity-one entity-name="OrderAdjustment" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="deleteOrderAdjustment" short-description="Delete an OrderAdjustment">
         <check-permission permission="ORDERMGR" action="_DELETE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunDeleteOrderAdjustement"/></check-permission>
         <check-errors/>
         <entity-one entity-name="OrderAdjustment" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
-        
+
         <if-not-empty field="parameters.productPromoCodeId">
             <entity-one entity-name="OrderProductPromoCode" value-field="lookedUpValue"/>
             <if-not-empty field="lookedUpValue">
                 <remove-value value-field="lookedUpValue"/>
             </if-not-empty>
         </if-not-empty>
-    </simple-method>
-
-    <simple-method method-name="createOrderAdjustmentBilling" short-description="Create an OrderAdjustmentBilling">
-        <make-value entity-name="OrderAdjustmentBilling" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="createOrderItemBilling" short-description="Create an OrderItemBilling">
-        <make-value entity-name="OrderItemBilling" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="createNotificationLog" short-description="Log an order notification" login-required="false">
-        <make-value entity-name="OrderNotification" value-field="orderNotification"/>
-        <sequenced-id sequence-name="OrderNotification" field="orderNotification.orderNotificationId"/>
-        <set from-field="parameters.orderId" field="orderNotification.orderId"/>
-        <set from-field="parameters.emailType" field="orderNotification.emailType"/>
-        <set from-field="parameters.comments" field="orderNotification.comments"/>
-        <now-timestamp field="orderNotification.notificationDate"/>
-        <create-value value-field="orderNotification"/>
     </simple-method>
 
     <simple-method method-name="updateOrderStatusFromReceipt" short-description="Update Order Status From ShipmentReceipt">

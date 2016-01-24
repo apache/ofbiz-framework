@@ -105,8 +105,7 @@ under the License.
         <attribute mode="OUT" name="quantityTotal" type="BigDecimal" optional="true"/>
         <attribute mode="OUT" name="amountTotal" type="BigDecimal" optional="true"/>
     </service>
-    <service name="createOrderRequirementCommitment" engine="simple" auth="true"
-        location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createOrderRequirementCommitment">
+    <service name="createOrderRequirementCommitment" engine="entity-auto" auth="true" default-entity-name="OrderRequirementCommitment" invoke="create">
         <auto-attributes entity-name="OrderRequirementCommitment" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderRequirementCommitment" include="nonpk" mode="IN" optional="true"/>
     </service>

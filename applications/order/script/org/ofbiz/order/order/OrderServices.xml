@@ -88,56 +88,8 @@ under the License.
             <field-to-result field="orderInfo.totalOrders" result-name="totalOrders"/>
         </if-not-empty>
     </simple-method>
-    <simple-method method-name="createOrderShipment" short-description="Create OrderShipment">
-        <set value="Create OrderShipment" field="operationName"/>
-        <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderShipment"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value value-field="newEntity" entity-name="OrderShipment"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateOrderShipment" short-description="Update OrderShipment">
-        <set value="Update OrderShipment" field="operationName"/>
-        <check-permission permission="ORDERMGR" action="_UPDATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunDeleteOrderShipment"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="OrderShipment" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteOrderShipment" short-description="Delete OrderShipment">
-        <set value="Delete OrderShipment" field="operationName"/>
-        <check-permission permission="ORDERMGR" action="_DELETE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunDeleteOrderShipment"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="OrderShipment" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
 
     <!-- order requirement methods -->
-    <simple-method method-name="createOrderRequirementCommitment" short-description="Create OrderRequirementCommitment">
-        <!-- The permission checking is commented out to make this service work also when triggered from ecommerce orders -->
-        <!--
-        <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCheckCreateOrderRequirementCommitment"/>
-        </check-permission>
-        <check-errors/>
-        -->
-        <make-value value-field="newEntity" entity-name="OrderRequirementCommitment"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
     <simple-method method-name="createRequirementAndCommitment" short-description="create a requirement and commitment for it">
         <set value="PRODUCT_REQUIREMENT" field="inputMap.requirementTypeId"/>
 
@@ -759,20 +711,6 @@ under the License.
      </simple-method>
 
     <!-- OrderItemShipGroup -->
-    <simple-method method-name="createOrderItemShipGroup" short-description="Create OrderItemShipGroup">
-        <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderItemShipGroup"/>
-        </check-permission>
-        <check-errors/>
-        <make-value value-field="newEntity" entity-name="OrderItemShipGroup"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.shipGroupSeqId">
-            <make-next-seq-id value-field="newEntity" seq-field-name="shipGroupSeqId"/> <!-- this finds the next sub-sequence ID -->
-            <field-to-result field="newEntity.shipGroupSeqId" result-name="shipGroupSeqId"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
     <simple-method method-name="updateOrderItemShipGroup" short-description="Update OrderItemShipGroup">
         <check-permission permission="ORDERMGR" action="_UPDATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderItemShipGroup"/>
@@ -832,16 +770,6 @@ under the License.
         <field-to-result field="orderItemShipGroupInvRes.promisedDatetime" result-name="estimatedShipDate"/>
     </simple-method>
 
-    <simple-method method-name="createOrderContactMech" short-description="Create OrderContactMech">
-        <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderContactMech"/>
-        </check-permission>
-        <check-errors/>
-        <make-value value-field="newEntity" entity-name="OrderContactMech"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
     <simple-method method-name="removeOrderContactMech" short-description="Remove OrderContactMech">
         <check-permission permission="ORDERMGR" action="_DELETE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveOrderContactMech"/>
@@ -859,39 +787,6 @@ under the License.
         <entity-one entity-name="OrderHeaderNote" value-field="orderHeaderNote"/>
         <set-nonpk-fields value-field="orderHeaderNote" map="parameters"/>
         <store-value value-field="orderHeaderNote"/>
-    </simple-method>
-
-    <simple-method method-name="createOrderTerm" short-description="Create an OrderTerm">
-        <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderTerm"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value value-field="newEntity" entity-name="OrderTerm"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set value="_NA_" set-if-empty="true" field="newEntity.orderItemSeqId"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateOrderTerm" short-description="Update OrderTerm">
-        <check-permission permission="ORDERMGR" action="_DELETE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderTerm"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="OrderTerm" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeOrderTerm" short-description="Remove OrderTerm">
-        <check-permission permission="ORDERMGR" action="_DELETE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveOrderTerm"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="OrderTerm" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="addPaymentMethodToOrder" short-description="Create an PaymentMethodToOrder">
@@ -1373,7 +1268,7 @@ under the License.
             </iterate>
         </iterate>
     </simple-method>
-    
+
     <simple-method  method-name="updateShippingMethodAndCharges" short-description="Updates shipping method and shipping charges from Order View page when Shipment is in picked status and items of Order are packed">
          <!-- splitting shipmentMethodAndAmount request parameter value that contains "*" symbol
              into "shipmentMethod" and "newAmount".
@@ -1424,6 +1319,7 @@ under the License.
         </else>
         </if-compare-field>
     </simple-method>
+
     <simple-method method-name="productAvailabalityByFacility" short-description="Calculate ATP and Qoh According For each facility">
         <set field="facilityMap.ownerPartyId" from-field="parameters.ownerPartyId"/>
         <find-by-and map="facilityMap" list="facilityList" entity-name="Facility"/>
@@ -1442,7 +1338,7 @@ under the License.
         </iterate>
         <field-to-result field="availabalityList"/>
     </simple-method>
-    
+
     <simple-method method-name="createOrderPaymentApplication" short-description="Create Order Payment Application">
         <entity-one value-field="paymentMap" entity-name="Payment"/>
         <set field="createCtx.amountApplied" from-field="paymentMap.amount" type="BigDecimal"/>
@@ -1459,7 +1355,7 @@ under the License.
             <call-service service-name="createPaymentApplication" in-map-name="createCtx"/>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="MoveItemBetweenShipGroups" short-description="Move order items between ship groups">
         <entity-one entity-name="OrderItemShipGroupAssoc" value-field="orderItemShipGroupAssoc">
             <field-map field-name="orderId" from-field="parameters.orderId"/>
@@ -1483,7 +1379,7 @@ under the License.
         <set field="map.shipGroupSeqId" from-field="parameters.toGroupIndex"/>
         <set field="map.quantity" value="${orderItemShipGroupAssoc.quantity + parameters.quantity}" type="BigDecimal"/>
         <call-service service-name="updateOrderItemShipGroupAssoc" in-map-name="map"/>
-        
+
         <entity-one entity-name="OrderItemShipGroupAssoc" value-field="orderItemShipGroupAssoc">
             <field-map field-name="orderId" from-field="parameters.orderId"/>
             <field-map field-name="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
@@ -1495,7 +1391,7 @@ under the License.
             </add-error>
         </if-empty>
         <check-errors/>
-        
+
         <clear-field field="map"/>
         <set field="map.orderId" from-field="parameters.orderId"/>
         <set field="map.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
@@ -1503,5 +1399,5 @@ under the License.
         <set field="map.quantity" value="${orderItemShipGroupAssoc.quantity - parameters.quantity}" type="BigDecimal"/>
         <call-service service-name="updateOrderItemShipGroupAssoc" in-map-name="map"/>
     </simple-method>
-    
+
 </simple-methods>

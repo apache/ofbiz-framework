@@ -2824,52 +2824,6 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
-    /** Service to create an order payment preference */
-    public static Map<String, Object> createPaymentPreference(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = new HashMap<String, Object>();
-        Delegator delegator = ctx.getDelegator();
-        String orderId = (String) context.get("orderId");
-        String statusId = (String) context.get("statusId");
-        String paymentMethodTypeId = (String) context.get("paymentMethodTypeId");
-        String paymentMethodId = (String) context.get("paymentMethodId");
-        BigDecimal maxAmount = (BigDecimal) context.get("maxAmount");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Locale locale = (Locale) context.get("locale");
-
-        String prefId = null;
-
-        try {
-            prefId = delegator.getNextSeqId("OrderPaymentPreference");
-        } catch (IllegalArgumentException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
-                    "OrderErrorCouldNotCreateOrderPaymentPreferenceIdGenerationFailure", locale));
-        }
-
-        Map<String, Object> fields = UtilMisc.<String, Object>toMap("orderPaymentPreferenceId", prefId, "orderId", orderId, "paymentMethodTypeId",
-                paymentMethodTypeId, "paymentMethodId", paymentMethodId, "maxAmount", maxAmount);
-
-        if (statusId != null) {
-            fields.put("statusId", statusId);
-        }
-
-        try {
-            GenericValue v = delegator.makeValue("OrderPaymentPreference", fields);
-            v.set("createdDate", UtilDateTime.nowTimestamp());
-            if (userLogin != null) {
-                v.set("createdByUserLogin", userLogin.getString("userLoginId"));
-            }
-            delegator.create(v);
-        } catch (GenericEntityException e) {
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, 
-                    "OrderOrderPaymentPreferencesCannotBeCreated", UtilMisc.toMap("errorString", e.getMessage()), locale));
-            return ServiceUtil.returnFailure();
-        }
-        result.put("orderPaymentPreferenceId", prefId);
-        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-        return result;
-    }
-
     /** Service to get order header information as standard results. */
     public static Map<String, Object> getOrderHeaderInformation(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
