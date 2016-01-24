@@ -743,7 +743,7 @@ under the License.
       <alias-all entity-alias="SO"/>
       <alias name="partyId" entity-alias="SR"/>
       <alias name="roleTypeId" entity-alias="SR"/>
-      <view-link entity-alias="SO" rel-entity-alias="SR">
+      <view-link entity-alias="SO" rel-entity-alias="SR" rel-optional="true">
         <key-map field-name="salesOpportunityId"/>
       </view-link>
     </view-entity>
