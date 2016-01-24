@@ -124,7 +124,7 @@ function ShowTab(lname) {
                     </#list>
                   </#if>
                 <#else>
-                  ${uiLabelMap.WebtoolsEntityCretePermissionError} ${entityName} ${plainTableName}
+                  ${uiLabelMap.WebtoolsEntityCreatePermissionError} ${entityName} ${plainTableName}
                   <#assign showFields = false>
                 </#if>
               <#else>
@@ -165,7 +165,7 @@ function ShowTab(lname) {
                     </#list>
                   </#if>
                 <#else>
-                  <p>${uiLabelMap.WebtoolsEntityCretePermissionError} ${entityName} ${plainTableName}</p>
+                  <p>${uiLabelMap.WebtoolsEntityCreatePermissionError} ${entityName} ${plainTableName}</p>
                   <#assign showFields = false>
                 </#if>
               </#if>

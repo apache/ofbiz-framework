@@ -165,6 +165,7 @@
     <property key="FormFieldTitle_date1">
         <value xml:lang="de">Datum1</value>
         <value xml:lang="en">date1</value>
+        <value xml:lang="fr">date 1</value>
         <value xml:lang="it">data 1</value>
         <value xml:lang="ja">日付1</value>
         <value xml:lang="pt">data1</value>
@@ -175,6 +176,7 @@
     <property key="FormFieldTitle_date2">
         <value xml:lang="de">Datum2</value>
         <value xml:lang="en">date2</value>
+        <value xml:lang="fr">date 2</value>
         <value xml:lang="it">data 2</value>
         <value xml:lang="ja">日付2</value>
         <value xml:lang="pt">data2</value>
@@ -185,6 +187,7 @@
     <property key="FormFieldTitle_entityGroupId">
         <value xml:lang="de">Entität Gruppen ID</value>
         <value xml:lang="en">Entity Group Id</value>
+        <value xml:lang="fr">Réf du groupe d'entité</value>
         <value xml:lang="it">Gruppo entità</value>
         <value xml:lang="ja">エンティテイグループID</value>
         <value xml:lang="pt">ID do Grupo da Entity</value>
@@ -208,6 +211,7 @@
     <property key="FormFieldTitle_eomodeldFullPath">
         <value xml:lang="de">EoModell abs. Pfad</value>
         <value xml:lang="en">EoModel Full Path</value>
+        <value xml:lang="fr">Chemin absolue du EoModel</value>
         <value xml:lang="it">Path completo EoModel</value>
         <value xml:lang="ja">EoModelフルパス</value>
         <value xml:lang="pt">Caminho completo EoModel</value>
@@ -218,6 +222,7 @@
     <property key="FormFieldTitle_exprAssocType">
         <value xml:lang="de">Ausdruck Verknüpfungstyp</value>
         <value xml:lang="en">Expr Assoc Type</value>
+        <value xml:lang="fr">Type d'association d'expresion</value>
         <value xml:lang="it">Tipo associazione espressione</value>
         <value xml:lang="ja">表現割当種類</value>
         <value xml:lang="pt">Tipo de associaÃ§Ã£o da expressÃ£o</value>
@@ -254,6 +259,7 @@
     <property key="FormFieldTitle_integer1">
         <value xml:lang="de">Integer1</value>
         <value xml:lang="en">integer1</value>
+        <value xml:lang="fr">entier 1</value>
         <value xml:lang="it">intero 1</value>
         <value xml:lang="ja">整数1</value>
         <value xml:lang="pt">INTEIRO1</value>
@@ -264,6 +270,7 @@
     <property key="FormFieldTitle_integer2">
         <value xml:lang="de">Integer2</value>
         <value xml:lang="en">integer2</value>
+        <value xml:lang="fr">entier 2</value>
         <value xml:lang="it">intero 2</value>
         <value xml:lang="ja">整数2</value>
         <value xml:lang="vi">Số nguyên2</value>
@@ -362,6 +369,7 @@
     <property key="FormFieldTitle_string1">
         <value xml:lang="de">String1</value>
         <value xml:lang="en">string1</value>
+        <value xml:lang="fr">Chaîne de caractère 1</value>
         <value xml:lang="it">stringa 1</value>
         <value xml:lang="ja">文字列1</value>
         <value xml:lang="pt">string1</value>
@@ -372,6 +380,7 @@
     <property key="FormFieldTitle_string2">
         <value xml:lang="de">String2</value>
         <value xml:lang="en">string2</value>
+        <value xml:lang="fr">Chaîne de caractère 2</value>
         <value xml:lang="it">stringa 2</value>
         <value xml:lang="ja">文字列2</value>
         <value xml:lang="pt">string2</value>
@@ -958,6 +967,7 @@
     </property>
     <property key="WebtoolsCacheMemory">
         <value xml:lang="en">Cache Memory</value>
+        <value xml:lang="fr">Mémoire cache</value>
         <value xml:lang="zh">缓存内存</value>
         <value xml:lang="zh-TW">快取記憶體</value>
     </property>
@@ -1278,6 +1288,7 @@
     <property key="WebtoolsConfiguration">
         <value xml:lang="de">Konfiguration</value>
         <value xml:lang="en">Configuration</value>
+        <value xml:lang="fr">Configuration</value>
         <value xml:lang="it">Configurazione</value>
         <value xml:lang="ja">設定</value>
         <value xml:lang="pt">ConfiguraÃ§Ã£o</value>
@@ -1572,6 +1583,7 @@
     </property>
     <property key="WebtoolsDefinitionLocation">
         <value xml:lang="en">Definition Location</value>
+        <value xml:lang="fr">Emplacement de la définition</value>
         <value xml:lang="zh">定义位置</value>
         <value xml:lang="zh-TW">定義位置</value>
     </property>
@@ -1699,9 +1711,10 @@
         <value xml:lang="zh">实体</value>
         <value xml:lang="zh-TW">資料實體</value>
     </property>
-    <property key="WebtoolsEntityCretePermissionError">
+    <property key="WebtoolsEntityCreatePermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung, eine Entität zu erstellen</value>
         <value xml:lang="en">You do not have permission to create a entity</value>
+        <value xml:lang="fr">Vous n'avez pas les authorisations nécessaire pour créer une entrée</value>
         <value xml:lang="it">Non hai il permesso di creare un'entità</value>
         <value xml:lang="ja">エンティティを作成する権限がありません</value>
         <value xml:lang="pt">VocÃª nÃ£o tem permissÃ£o para criar uma entidade</value>
@@ -1945,6 +1958,7 @@
     <property key="WebtoolsEntityXMLRepresentation">
         <value xml:lang="de">XML Repräsentation der Entität</value>
         <value xml:lang="en">Entity XML Representation</value>
+        <value xml:lang="fr">Représentation XML de l'entité</value>
         <value xml:lang="ja">エンティティのXML表現</value>
         <value xml:lang="vi">Trình diễn XML Thực thể</value>
         <value xml:lang="zh">实体XML表述</value>
@@ -1974,6 +1988,7 @@
     </property>
     <property key="WebtoolsEomodelErrorGettingEntityNames">
         <value xml:lang="en">ERROR: getting entity names: ${errorString}</value>
+        <value xml:lang="fr">ERREUR: Lors de l'optention des noms d'entité ({errorString})</value>
         <value xml:lang="it">ERRORE: ottenendo i nomi delle entità: ${errorString}</value>
         <value xml:lang="ja">エラー: エンティティ名の取得中: ${errorString}</value>
         <value xml:lang="vi">Lỗi: lấy tên Thực thể: ${errorString}</value>
@@ -1982,6 +1997,7 @@
     </property>
     <property key="WebtoolsEomodelExported">
         <value xml:lang="en">Exported eomodeld file for ${entityNamesSize} entities to: ${eomodeldFullPath}</value>
+        <value xml:lang="fr">Fichier EoModel exporté avec ${entityNamesSize} entités vers ${eomodeldFullPath}</value>
         <value xml:lang="it">Esportato file eomodeld per ${entityNamesSize} entità in: ${eomodeldFullPath}</value>
         <value xml:lang="ja">${entityNamesSize} エンティティに対するEOMODELDファイルをエクスポートしました: ${eomodeldFullPath}</value>
         <value xml:lang="vi">Đã kết xuất eomodeld tập tin cho ${entityNamesSize} Thực thể tới: ${eomodeldFullPath}</value>
@@ -1990,6 +2006,7 @@
     </property>
     <property key="WebtoolsEomodelFileOrDirectoryNotFound">
         <value xml:lang="en">ERROR: file/directory not found: ${errorString}</value>
+        <value xml:lang="fr">ERREUR: ficher/dossier non trouvé (${errorString})</value>
         <value xml:lang="it">ERRORE: file/directory non trovata: ${errorString}</value>
         <value xml:lang="ja">エラー: ファイル/ディレクトリが見つかりません: ${errorString}</value>
         <value xml:lang="vi">Lỗi: Tập tin / Thư mục không tìm thấy: ${errorString}</value>
@@ -1998,6 +2015,7 @@
     </property>
     <property key="WebtoolsEomodelFullPathIsNotADirectory">
         <value xml:lang="en">eomodel Full Path is not a directory: ${eomodeldFullPath}</value>
+        <value xml:lang="fr">Le chemin absolu donnée (${eomodeldFullPath}) n'est pas un dossier</value>
         <value xml:lang="it">eomodel path completo non è una directory: ${eomodeldFullPath}</value>
         <value xml:lang="ja">EOMODELのフルパスがディレクトリではありません: ${eomodeldFullPath}</value>
         <value xml:lang="vi">Đường dẫn đầy đủ eomodel không phải là thư mục: ${eomodeldFullPath}</value>
@@ -2006,6 +2024,7 @@
     </property>
     <property key="WebtoolsEomodelFullPathIsNotWriteable">
         <value xml:lang="en">eomodel Full Path is not write-able: ${eomodeldFullPath}</value>
+        <value xml:lang="fr">Le chemin absolu donnée (${eomodeldFullPath}) n'est pas ouvert en écriture</value>
         <value xml:lang="it">eomodel path completo non è scrivibile: ${eomodeldFullPath}</value>
         <value xml:lang="ja">EOMODELのフルパスが書き込み可能ではありません: ${eomodeldFullPath}</value>
         <value xml:lang="zh">eomodel完整路径不可写：${eomodeldFullPath}</value>
@@ -2013,6 +2032,7 @@
     </property>
     <property key="WebtoolsEomodelSavingFileError">
         <value xml:lang="en">ERROR saving file: ${errorString}</value>
+        <value xml:lang="fr">ERREUR lors de la sauvegarde du fichier (${eomodeldFullPath})</value>
         <value xml:lang="it">ERRORE durante il salvataggio del file: ${errorString}</value>
         <value xml:lang="ja">ファイルの保存中にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi lưu tập tin: ${errorString}</value>
@@ -2045,32 +2065,36 @@
         <value xml:lang="zh">错误级别会指出那些仍然允许应用程序继续执行的错误事件。</value>
         <value xml:lang="zh-TW">錯誤級別會指出那些仍然允許應用程式繼續執行的錯誤事件.</value>
     </property>
-    <property key="WebtoolsErrrorParsingFile">
+    <property key="WebtoolsErrorParsingFile">
         <value xml:lang="en">ERROR: parsing file: ${errorString}</value>
+        <value xml:lang="fr">ERREUR : Lors de l'analyse du fichier (${errorString})</value>
         <value xml:lang="it">ERRORE: errore di parsing file: ${errorString}</value>
         <value xml:lang="ja">エラー: ファイルパース中: ${errorString}</value>
         <value xml:lang="vi">Lỗi: phân tícf tập tin: ${errorString}</value>
         <value xml:lang="zh">错误：解析文件：${errorString}</value>
         <value xml:lang="zh-TW">錯誤:解析檔:${errorString}</value>
     </property>
-    <property key="WebtoolsErrrorProcessingTemplateFile">
+    <property key="WebtoolsErrorProcessingTemplateFile">
         <value xml:lang="en">ERROR: processing template file ${filename}: ${errorString}</value>
+        <value xml:lang="fr">ERREUR : lors du traitement du fichier modèle ${filename}, une exception c'est levée (${errorString})</value>
         <value xml:lang="it">ERRORE: errore di esecuzione template file ${filename}: ${errorString}</value>
         <value xml:lang="ja">エラー: テンプレートファイル ${filename} の処理中: ${errorString}</value>
         <value xml:lang="vi">Lỗi: xử lý tập tin biểu mẫu ${filename}: ${errorString}</value>
         <value xml:lang="zh">错误：处理模板文件 ${filename}：${errorString}</value>
         <value xml:lang="zh-TW">錯誤:處理模板檔 ${filename}:${errorString}</value>
     </property>
-    <property key="WebtoolsErrrorReadingFileName">
+    <property key="WebtoolsErrorReadingFileName">
         <value xml:lang="en">ERROR: reading file name ${filename}: ${errorString}</value>
+        <value xml:lang="fr">ERREUR : lors de la lecture du fichier ${filename}, une exception c'est levée (${errorString})</value>
         <value xml:lang="it">ERRORE: errore di lettura file ${filename}: ${errorString}</value>
         <value xml:lang="ja">エラー: ファイル名 ${filename} の読み込み中: ${errorString}</value>
         <value xml:lang="vi">Lỗi: đọc tập tin với tên ${filename}: ${errorString}</value>
         <value xml:lang="zh">错误：读取文件名 ${filename}：${errorString}</value>
         <value xml:lang="zh-TW">錯誤:讀取檔案名 ${filename}:${errorString}</value>
     </property>
-    <property key="WebtoolsErrrorReadingTemplateFile">
+    <property key="WebtoolsErrorReadingTemplateFile">
         <value xml:lang="en">ERROR: reading template file ${filename}: ${errorString}</value>
+        <value xml:lang="fr">ERREUR : lors de la lecture du fichier modèle ${filename}, une exception c'est levée (${errorString})</value>
         <value xml:lang="it">ERRORE: errore di lettura template file ${filename}: ${errorString}</value>
         <value xml:lang="ja">エラー: テンプレートファイル ${filename} の読み込み中: ${errorString}</value>
         <value xml:lang="vi">Lỗi: đọc tập tin biểu mẫu ${filename}: ${errorString}</value>
@@ -2472,6 +2496,7 @@
     </property>
     <property key="WebtoolsGeoPoints">
         <value xml:lang="en">GEO Points</value>
+        <value xml:lang="fr">Points GEO</value>
         <value xml:lang="zh">地理点</value>
     </property>
     <property key="WebtoolsGeosSelect">
@@ -2544,6 +2569,7 @@
     </property>
     <property key="WebtoolsImportExport">
         <value xml:lang="en">Import/Export</value>
+        <value xml:lang="fr">Importer/Exporter</value>
         <value xml:lang="it">Importazione / Esportazione</value>
         <value xml:lang="ja">インポート/エクスポート</value>
         <value xml:lang="pt">Importar/Exportar</value>
@@ -2707,6 +2733,7 @@
     </property>
     <property key="WebtoolsInvalidFileName">
         <value xml:lang="en">ERROR: invalid file name ${filename}: ${errorString}</value>
+        <value xml:lang="fr">ERREUR : nom de fichier ${filename} invalide, (trace d'erreur : ${errorString})</value>
         <value xml:lang="it">ERRORE: nome file invalido ${filename}: ${errorString}</value>
         <value xml:lang="ja">エラー: ファイル名 ${filename} が正しくありません: ${errorString}</value>
         <value xml:lang="vi">Lỗi: tên tập tin ${filename} không đúng định dạng: ${errorString}</value>
@@ -2979,6 +3006,7 @@
     <property key="WebtoolsLabelManagerHardcoded">
         <value xml:lang="de">Fest kodierte Label</value>
         <value xml:lang="en">Hardcoded labels</value>
+        <value xml:lang="fr">Labels codés en dure</value>
         <value xml:lang="it">Label non traducibili</value>
         <value xml:lang="ja">ハードコードされたラベル</value>
         <value xml:lang="pt">Labels Hardcoded</value>
@@ -3055,6 +3083,7 @@
     <property key="WebtoolsLabelManagerOnlyMissingTranslations">
         <value xml:lang="de">Nur fehlende Übersetzungen</value>
         <value xml:lang="en">Only Missing Translations</value>
+        <value xml:lang="fr">Seulement les traductions manquantes</value>
         <value xml:lang="it">Solo traduzioni mancanti</value>
         <value xml:lang="ja">翻訳漏れのみ</value>
         <value xml:lang="pt">SÃ³ TraduÃ§Ãµes ausentes</value>
@@ -3065,6 +3094,7 @@
     <property key="WebtoolsLabelManagerOnlyNotUsedLabels">
         <value xml:lang="de">Nur ungenutzte Labels</value>
         <value xml:lang="en">Only Not Used Labels</value>
+        <value xml:lang="fr">Seulement les labels non utilisés</value>
         <value xml:lang="it">Solo traduzioni non usate</value>
         <value xml:lang="ja">使用されていないラベルのみ</value>
         <value xml:lang="pt">SÃ³ nÃ£o labels nÃ£o utilizados</value>
@@ -3075,6 +3105,7 @@
     <property key="WebtoolsLabelManagerReferences">
         <value xml:lang="de">Referenzen</value>
         <value xml:lang="en">References</value>
+        <value xml:lang="fr">Références</value>
         <value xml:lang="it">Referenze</value>
         <value xml:lang="ja">参照</value>
         <value xml:lang="pt">ReferÃªncias</value>
@@ -3096,6 +3127,7 @@
     <property key="WebtoolsLabelManagerRow">
         <value xml:lang="de">Zeile N</value>
         <value xml:lang="en">Row n.</value>
+        <value xml:lang="fr">Ligne n.</value>
         <value xml:lang="it">N.riga</value>
         <value xml:lang="ja">行No</value>
         <value xml:lang="pt">Linha nÂº</value>
@@ -3166,6 +3198,7 @@
     </property>
     <property key="WebtoolsLabelManagerViewFile">
         <value xml:lang="en">View file</value>
+        <value xml:lang="fr">Voir le fichier</value>
         <value xml:lang="it">Mostra file</value>
         <value xml:lang="ja">ファイルを表示</value>
         <value xml:lang="vi">Xem tập tin</value>
@@ -3175,6 +3208,7 @@
     <property key="WebtoolsLabelManagerViewReferences">
         <value xml:lang="de">Labelreferenzen ansehen</value>
         <value xml:lang="en">View Labels References</value>
+        <value xml:lang="fr">Voir les références des labels</value>
         <value xml:lang="it">Mostra referenze labels</value>
         <value xml:lang="ja">ラベルの参照を表示</value>
         <value xml:lang="pt">Visualizar referÃªncias de labels</value>
@@ -3196,6 +3230,7 @@
     <property key="WebtoolsLabelStatsExist">
         <value xml:lang="de">Vorhandene Labels in Locale</value>
         <value xml:lang="en">Existing labels in locale</value>
+        <value xml:lang="fr">Tradutions existantes dans la langue</value>
         <value xml:lang="it">Label definite per la lingua</value>
         <value xml:lang="ja">地域のラベルが存在</value>
         <value xml:lang="vi">Đã tồn tại Nhãn ở cùng Ngôn ngữ</value>
@@ -3205,6 +3240,7 @@
     <property key="WebtoolsLabelStatsMissing">
         <value xml:lang="de">Fehlende Labels in Locale</value>
         <value xml:lang="en">Missing labels in locale</value>
+        <value xml:lang="fr">Traductions manquantes dans la langue</value>
         <value xml:lang="it">Label mancanti per la lingua</value>
         <value xml:lang="ja">地域のラベル漏れ</value>
         <value xml:lang="vi">Thiếu Nhãn ở Ngôn ngữ</value>
@@ -3214,6 +3250,7 @@
     <property key="WebtoolsLabelStatsTotal">
         <value xml:lang="de">Gesamtzahl der Labels</value>
         <value xml:lang="en">Total labels count</value>
+        <value xml:lang="fr">Total des traductions</value>
         <value xml:lang="it">Numero totale label</value>
         <value xml:lang="ja">ラベル件数合計</value>
         <value xml:lang="vi">Tổng số Nhãn</value>
@@ -3394,6 +3431,7 @@
     </property>
     <property key="WebtoolsMaxInMemory">
         <value xml:lang="en">Max In Memory</value>
+        <value xml:lang="fr">Max en mémoire</value>
         <value xml:lang="ja">メモリ中最大</value>
         <value xml:lang="vi">Tối đa trong bộ nhớ</value>
         <value xml:lang="zh">最大内存</value>
@@ -4526,6 +4564,7 @@
     </property>
     <property key="WebtoolsRunTimeDataInfo">
         <value xml:lang="en">Run Time Data Info</value>
+        <value xml:lang="fr">Information sur le moment de l'exécution </value>
         <value xml:lang="zh">运行时间数据信息</value>
         <value xml:lang="zh-TW">執行時間資料資訊</value>
     </property>
@@ -5481,6 +5520,7 @@
     <property key="WebtoolsThreadId">
         <value xml:lang="de">ThreadID</value>
         <value xml:lang="en">ID</value>
+        <value xml:lang="fr">Réf</value>
         <value xml:lang="th">รหัส</value>
         <value xml:lang="vi">Id</value>
         <value xml:lang="zh">标识</value>
@@ -5753,6 +5793,7 @@
     </property>
     <property key="WebtoolsViewMetrics">
         <value xml:lang="en">View Metrics</value>
+        <value xml:lang="fr">Voir les mesures</value>
         <value xml:lang="zh">浏览度量</value>
         <value xml:lang="zh-TW">檢視度量</value>
     </property>
