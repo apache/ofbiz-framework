@@ -287,26 +287,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="checkoutpayment">
-        <section>
-            <actions>
-                <set field="rightbarScreenName" value="rightbar"/>
-                <set field="MainColumnStyle" value="rightonly"/>
-
-                <set field="titleProperty" value="PageTitleCheckoutOptions"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/CheckoutPayment.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/StorePaymentOptions.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/checkoutpayment.ftl"/></html></platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="splitship">
         <section>
             <actions>
