@@ -51,7 +51,7 @@ if (!orderHeader && orderId) {
             UtilHttp.setContentDisposition(response, orderId + ".pdf");
         }
     } catch (MissingPropertyException e) {
-        // This hack for OFBIZ-6792 to avoid "groovy.lang.MissingPropertyException: No such property: response for class: CompanyHeader" when response does exist (in sendOrderConfirmation service)
+        // This hack for OFBIZ-6792 to avoid "groovy.lang.MissingPropertyException: No such property: response for class: CompanyHeader" when response does not exist (in sendOrderConfirmation service)
     }    
 } else if (shipmentId) {
     shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
@@ -63,7 +63,7 @@ if (!invoice && invoiceId)    {
     try {
         UtilHttp.setContentDisposition(response, invoiceId + ".pdf");
     } catch (MissingPropertyException e) {
-        // This hack for OFBIZ-6792 to avoid "groovy.lang.MissingPropertyException: No such property: response for class: CompanyHeader" when response does exist (in sendOrderConfirmation service)
+        // This hack for OFBIZ-6792 to avoid "groovy.lang.MissingPropertyException: No such property: response for class: CompanyHeader" when response does not exist (in sendOrderConfirmation service)
     }    
 }
 
