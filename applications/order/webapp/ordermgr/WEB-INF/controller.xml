@@ -1954,6 +1954,7 @@ under the License.
     <view-map name="editcontactmech" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#editcontactmech"/>
     <view-map name="editcreditcard" type="screen" page="component://party/widget/partymgr/PaymentMethodScreens.xml#editcreditcard"/>
     <view-map name="editeftaccount" type="screen" page="component://party/widget/partymgr/PaymentMethodScreens.xml#editeftaccount"/>
+    <view-map name="checkoutpayment" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#checkoutpayment"/>
 
     <view-map name="category" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#category"/>
     <view-map name="product" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#product"/>

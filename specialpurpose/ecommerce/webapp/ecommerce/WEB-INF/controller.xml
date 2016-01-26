@@ -2058,7 +2058,7 @@ under the License.
     <view-map name="quickcheckout" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutoptions"/>
     <view-map name="checkoutshippingaddress" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutshippingaddress"/>
     <view-map name="checkoutshippingoptions" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutshippingoptions"/>
-    <view-map name="checkoutpayment" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutpayment"/>
+    <view-map name="checkoutpayment" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#checkoutpayment"/>
     <view-map name="splitship" type="screen" page="component://ecommerce/widget/OrderScreens.xml#splitship"/>
 
     <view-map name="checkoutreview" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutreview"/>
