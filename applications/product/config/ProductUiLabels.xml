@@ -21573,7 +21573,7 @@
     </property>
     <property key="ProductNewContactMech">
         <value xml:lang="de">Neuer Kontaktmechanismus</value>
-        <value xml:lang="en">New Contact Mech</value>
+        <value xml:lang="en">New Contact Information</value>
         <value xml:lang="es">Nuevo contacto</value>
         <value xml:lang="fr">Nouveau Contact</value>
         <value xml:lang="it">Nuovo Contatto</value>

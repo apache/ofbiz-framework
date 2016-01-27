@@ -5042,7 +5042,7 @@
     <property key="PartyContactMechs">
         <value xml:lang="ar">وسائل الإتصال</value>
         <value xml:lang="de">Kontaktmechanismus</value>
-        <value xml:lang="en">ContactMechs</value>
+        <value xml:lang="en">Contact Information</value>
         <value xml:lang="es">Mecanismos de Contacto</value>
         <value xml:lang="fr">Coordonnées</value>
         <value xml:lang="hi-IN">संपर्क यांत्रिक</value>
