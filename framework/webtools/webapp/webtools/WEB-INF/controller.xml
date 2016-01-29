@@ -327,6 +327,20 @@ under the License.
         <response name="success" type="view" value="runService"/>
         <response name="error" type="view" value="error"/>
     </request-map>
+    <request-map uri="AddJobManagerLock"><security https="true" auth="true"/><response name="success" type="view" value="AddJobManagerLock"/></request-map>
+    <request-map uri="FindJobManagerLock"><security https="true" auth="true"/><response name="success" type="view" save-current-view="false" value="FindJobManagerLock"/></request-map>
+    <request-map uri="createJobManagerLock">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createJobManagerLock"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    <request-map uri="updateJobManagerLock">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateJobManagerLock"/>
+        <response name="success" type="view" value="FindJobManagerLock"/>
+        <response name="error" type="view" value="FindJobManagerLock"/>
+    </request-map>
 
     <!-- Available services requests -->
     <request-map uri="serviceEcaDetail">
@@ -648,6 +662,8 @@ under the License.
     <view-map name="setServiceParameters" type="screen" page="component://webtools/widget/ServiceScreens.xml#setServiceParameters"/>
     <view-map name="setSyncServiceParameters" type="screen" page="component://webtools/widget/ServiceScreens.xml#setSyncServiceParameters"/>
     <view-map name="serviceEcaDetail" type="screen" page="component://webtools/widget/AvailableServicesScreens.xml#ServiceEcaDetail"/>
+    <view-map name="AddJobManagerLock" type="screen" page="component://webtools/widget/ServiceScreens.xml#AddJobManagerLock"/>
+    <view-map name="FindJobManagerLock" type="screen" page="component://webtools/widget/ServiceScreens.xml#FindJobManagerLock"/>
 
     <view-map name="printStart" type="screen" page="component://webtools/widget/CommonScreens.xml#printStart"/>
     <view-map name="printDone" type="screen" page="component://webtools/widget/CommonScreens.xml#printDone"/>

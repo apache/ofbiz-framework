@@ -40,6 +40,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.serialize.SerializeException;
 import org.ofbiz.entity.serialize.XmlSerializer;
@@ -133,6 +134,28 @@ public final class JobManager {
      */
     public Map<String, Object> getPoolState() {
         return JobPoller.getInstance().getPoolState();
+    }
+
+    /**
+     * Return true if the jobManager can run job.
+     * 
+     * @return boolean.
+     */
+    public boolean isAvailable() {
+        try {
+            //check if a lock is enable for the period on entity JobManagerLock
+            EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
+                    EntityCondition.makeConditionDate("fromDate", "thruDate"),
+                    EntityCondition.makeCondition(UtilMisc.toList(
+                            EntityCondition.makeCondition("instanceId", instanceId),
+                            EntityCondition.makeCondition("instanceId", "_NA_"))
+                            , EntityJoinOperator.OR)
+                    ), EntityJoinOperator.AND);
+            return delegator.findCountByCondition("JobManagerLock", condition, null, null) == 0;
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Exception thrown while check lock on JobManager : " + instanceId, module);
+            return false;
+        }
     }
 
     private static List<String> getRunPools() throws GenericConfigException {

@@ -108,6 +108,20 @@ under the License.
         </section>
     </screen>
 
+    <screen name="PopUpDecorator">
+        <section>
+            <actions>
+                <property-map resource="TemporalExpressionUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="SecurityUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="CommonEntityDecorator">
         <section>
             <actions>

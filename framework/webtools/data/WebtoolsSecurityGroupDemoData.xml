@@ -44,7 +44,9 @@ under the License.
 
     <!-- Service Maintenance security -->
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="SERVICE_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SERVICE_JM_LOCK"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SERVICE_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SERVICE_JM_LOCK"/>
 
     <!-- Period Maintenance security -->
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="PERIOD_MAINT"/>

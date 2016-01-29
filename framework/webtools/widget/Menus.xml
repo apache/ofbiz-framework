@@ -111,6 +111,9 @@ under the License.
         <menu-item name="threadList" title="${uiLabelMap.WebtoolsThreadList}">
             <link target="threadList"/>
         </menu-item>
+        <menu-item name="FindJobManagerLock" title="${uiLabelMap.WebtoolsJobManagerLockList}">
+            <link target="FindJobManagerLock"/>
+        </menu-item>
         <menu-item name="scheduleJob" title="${uiLabelMap.WebtoolsScheduleJob}">
             <link target="scheduleJob"/>
         </menu-item>

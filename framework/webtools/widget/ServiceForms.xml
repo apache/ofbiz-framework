@@ -138,4 +138,92 @@ under the License.
         <field name="startTime" title="${uiLabelMap.CommonStartDateTime}" sort-field="true"><display/></field>
         <field name="endTime" title="${uiLabelMap.CommonEndDateTime}" sort-field="true"><display default-value="${uiLabelMap.WebtoolsStatusRunning}"/></field>
     </form>
+    <form name="FindJobManagerLock" type="single" target="FindJobManagerLock" default-entity-name="JobManagerLock">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="instanceId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumCode" description="${enumCode} - ${description}">
+                   <entity-constraint name="enumTypeId" value="JM_OFBIZ_INSTANCE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-find/></field>
+        <field name="thruDate"><date-find/></field>
+        <field name="reasonEnumId" title="${uiLabelMap.CommonReason}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="[${enumCode}] - ${description}">
+                   <entity-constraint name="enumTypeId" value="JS_LOCK_REASON"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="searchButton"><submit/></field>
+    </form>
+    <form name="ListJobManagerLock" type="list" list-name="listIt" paginate-target="FindJobManagerLock" default-entity-name="JobManagerLock" separate-columns="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="JobManagerLock"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+            </service>
+        </actions>
+        <row-actions>
+            <set field="editable" value="${groovy: security.hasPermission('SERVICE_JM_LOCK', userLogin) }" type="Boolean"/>
+            <set field="cancelable" value="${groovy: thruDate == null || thruDate.compareTo(nowTimestamp) > 0}" type="Boolean"/>
+        </row-actions>
+        <field name="instanceId" sort-field="true"><display/></field>
+        <field name="fromDate" sort-field="true"><display/></field>
+        <field name="thruDate" sort-field="true"><display/></field>
+        <field name="createdDate" sort-field="true"><display/></field>
+        <field name="createdByUserLogin" sort-field="true"><display/></field>
+        <field name="reasonEnumId" sort-field="true" title="${uiLabelMap.CommonReason}"><display-entity entity-name="Enumeration" key-field-name="enumId" description="[${enumCode}] ${description}"/></field>
+        <field name="comments"><display/></field>
+        <field name="cancelButton" title=" " use-when="editable &amp;&amp; cancelable" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCancel}" target="updateJobManagerLock">
+                <parameter param-name="instanceId"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="thruDate" value="${nowTimestamp}"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="AddJobManagerLock" type="single" target="createJobManagerLock" default-entity-name="JobManagerLock">
+        <field name="instanceId">
+            <drop-down>
+                <entity-options entity-name="Enumeration" key-field-name="enumCode" description="${enumCode} - ${description}">
+                   <entity-constraint name="enumTypeId" value="JM_OFBIZ_INSTANCE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="reasonEnumId" title="${uiLabelMap.CommonReason}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="[${enumCode}] - ${description}">
+                   <entity-constraint name="enumTypeId" value="JS_LOCK_REASON"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="comments"><text/></field>
+        <field name="addButton"><submit/></field>
+        <on-event-update-area area-target="FindJobManagerLock" event-type="submit" area-id="window"/>
+    </form>
+    <grid name="JobManagerLockEnable" list-name="jobManagerLocks"
+          odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <set field="editable" value="${groovy: security.hasPermission('SERVICE_JM_LOCK', userLogin) }" type="Boolean"/>
+            <set field="cancelable" value="${groovy: thruDate == null || thruDate.compareTo(nowTimestamp) > 0}" type="Boolean"/>
+        </row-actions>
+        <field name="instanceId"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}" red-when="never"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}" red-when="never"><display type="date-time"/></field>
+        <field name="createdByUserLogin" title="${uiLabelMap.CommonBy}"><display/></field>
+        <field name="reasonEnumId" title="${uiLabelMap.CommonReason}"><display-entity entity-name="Enumeration" key-field-name="enumId" description="[${enumCode}] ${description}"/></field>
+        <field name="cancelButton" title=" " use-when="editable &amp;&amp; cancelable" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCancel}" target="updateJobManagerLock">
+                <parameter param-name="instanceId"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="thruDate" value="${nowTimestamp}"/>
+            </hyperlink>
+        </field>
+    </grid>
 </forms>

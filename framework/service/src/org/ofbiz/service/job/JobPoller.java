@@ -220,6 +220,10 @@ public final class JobPoller implements ServiceConfigListener {
                         Collection<JobManager> jmCollection = jobManagers.values();
                         List<Iterator<Job>> pollResults = new ArrayList<Iterator<Job>>();
                         for (JobManager jm : jmCollection) {
+                            if (!jm.isAvailable()) {
+                                if (Debug.infoOn()) Debug.logInfo("The job manager is locked.", module);
+                                continue;
+                            }
                             jm.reloadCrashedJobs();
                             pollResults.add(jm.poll(remainingCapacity).iterator());
                         }

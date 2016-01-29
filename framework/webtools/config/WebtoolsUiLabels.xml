@@ -679,6 +679,10 @@
         <value xml:lang="zh">运行服务</value>
         <value xml:lang="zh-TW">執行服務</value>
     </property>
+    <property key="PageTitleJobManagerLockList">
+        <value xml:lang="en">Job manager locks list</value>
+        <value xml:lang="fr">Blocage du gestionnaire de service</value>
+    </property>
     <property key="PageTitleScheduleJob">
         <value xml:lang="de">Job anlegen</value>
         <value xml:lang="en">Schedule Job</value>
@@ -1398,6 +1402,10 @@
         <value xml:lang="vi">Tạo/Gỡ bỏ Khóa chính</value>
         <value xml:lang="zh">创建/删除主键</value>
         <value xml:lang="zh-TW">新建/刪除主鍵</value>
+    </property>
+    <property key="WebtoolsCurrentJobManagerLock">
+        <value xml:lang="en">Current job manager locks</value>
+        <value xml:lang="fr">Blocages actuels du gestionnaire de service</value>
     </property>
     <property key="WebtoolsDaemon">
         <value xml:lang="de">Daemon</value>
@@ -2878,6 +2886,10 @@
         <value xml:lang="zh">日志文件</value>
         <value xml:lang="zh-TW">日誌檔</value>
     </property>
+    <property key="WebtoolsJobManagerLockEnable">
+        <value xml:lang="en">Job manager locks enabled</value>
+        <value xml:lang="fr">Blocages actifs sur le gestionnaire de service</value>
+    </property>
     <property key="WebtoolsLHSMapName">
         <value xml:lang="de">Name der LHS-Map</value>
         <value xml:lang="en">LHS map name</value>
@@ -3667,6 +3679,10 @@
         <value xml:lang="vi">Tên hoặc Vai trò</value>
         <value xml:lang="zh">名称或角色</value>
         <value xml:lang="zh-TW">名稱或角色</value>
+    </property>
+    <property key="WebtoolsNextJobManagerLock">
+        <value xml:lang="en">Next job manager locks</value>
+        <value xml:lang="fr">Prochains blocages du gestionnaire de service</value>
     </property>
     <property key="WebtoolsNoEntitiesRead">
         <value xml:lang="de">Keine Entität eingelesen</value>
@@ -4690,6 +4706,10 @@
         <value xml:lang="vi">Chọn Điều hướng</value>
         <value xml:lang="zh">选择执行程序</value>
         <value xml:lang="zh-TW">選擇執行程式</value>
+    </property>
+    <property key="WebtoolsJobManagerLockList">
+        <value xml:lang="en">Job manager locks List</value>
+        <value xml:lang="fr">Liste des blocages du gest. service</value>
     </property>
     <property key="WebtoolsServerHitStatisticsTools">
         <value xml:lang="de">Statistik-Tools für Server-Besuche</value>

@@ -55,6 +55,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-screen name="JobManagerLockEnable"/>
                         <section>
                             <widgets>
                                 <platform-specific><html><html-template location="component://common/webcommon/includes/ServerHour24HourFormatJs.ftl"/></html></platform-specific>
@@ -130,6 +131,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-screen name="JobManagerLockEnable"/>
                         <screenlet title="${uiLabelMap.WebtoolsStep1ServiceAndRecurrenceInfo}">
                             <include-form name="scheduleJob" location="component://webtools/widget/ServiceForms.xml"/>
                         </screenlet>
@@ -217,6 +219,109 @@ under the License.
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="FindJobManagerLock">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleJobManagerLockList"/>
+                <set field="tabButtonItem" value="FindJobManagerLock"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="page-title"><label text="${uiLabelMap[titleProperty]}"></label></container>
+                        <section>
+                            <condition><if-has-permission permission="SERVICE_JM_LOCK"/></condition>
+                            <widgets>
+                                <container style="button-bar">
+                                     <link target="AddJobManagerLock" text="${uiLabelMap.CommonAdd}" style="buttontext create" link-type="layered-modal"/>
+                                </container>
+                            </widgets>
+                        </section>
+                        <screenlet id="searchOptions" name="findScreenlet" collapsible="true" title="${uiLabelMap.CommonSearchOptions}">
+                            <container id="search-options">
+                                <include-form name="FindJobManagerLock" location="component://webtools/widget/ServiceForms.xml"/>
+                            </container>
+                        </screenlet>
+                        <screenlet padded="false">
+                            <label style="h3" text="${uiLabelMap.CommonSearchResults}"/>
+                            <container id="search-results">
+                                <include-form name="ListJobManagerLock" location="component://webtools/widget/ServiceForms.xml"/>
+                            </container>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddJobManagerLock">
+        <section>
+            <widgets>
+                <decorator-screen name="PopUpDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="AddJobManagerLock" location="component://webtools/widget/ServiceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="JobManagerLockEnable">
+        <section>
+            <actions>
+                <entity-condition list="currentJobManagerLocks" entity-name="JobManagerLock" filter-by-date="true">
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
+                <entity-condition list="nextJobManagerLocks" entity-name="JobManagerLock" filter-by-date="false">
+                    <condition-list>
+                        <condition-expr field-name="fromDate" operator="greater" from-field="nowTimestamp"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="thruDate" operator="greater" from-field="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <or>
+                            <not><if-empty field="currentJobManagerLocks"/></not>
+                            <not><if-empty field="nextJobManagerLocks"/></not>
+                        </or>
+                    </condition>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.WebtoolsJobManagerLockEnable}">
+                            <section>
+                                 <condition>
+                                     <not><if-empty field="currentJobManagerLocks"/></not>
+                                 </condition>
+                                 <actions>
+                                     <set field="jobManagerLocks" from-field="currentJobManagerLocks"/>
+                                 </actions>
+                                 <widgets>
+                                     <label style="h3">${uiLabelMap.WebtoolsCurrentJobManagerLock}</label>
+                                     <include-grid location="component://webtools/widget/ServiceForms.xml" name="JobManagerLockEnable"/>
+                                 </widgets>
+                             </section>
+                             <section>
+                                 <condition>
+                                     <not><if-empty field="nextJobManagerLocks"/></not>
+                                 </condition>
+                                 <actions>
+                                     <set field="jobManagerLocks" from-field="nextJobManagerLocks"/>
+                                 </actions>
+                                 <widgets>
+                                     <label style="h3">${uiLabelMap.WebtoolsNextJobManagerLock}</label>
+                                     <include-grid location="component://webtools/widget/ServiceForms.xml" name="JobManagerLockEnable"/>
+                                 </widgets>
+                             </section>
+                         </screenlet>
+                    </widgets>
+                </section>
             </widgets>
         </section>
     </screen>

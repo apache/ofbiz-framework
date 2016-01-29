@@ -186,6 +186,23 @@ under the License.
       </view-link>
     </view-entity>
 
+    <entity entity-name="JobManagerLock" package-name="org.ofbiz.service.schedule" title="Lock Job Manager Scheduler">
+        <field name="instanceId" type="id"/>
+        <field name="fromDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
+        <field name="reasonEnumId" type="id"/>
+        <field name="comments" type="comment"/>
+        <field name="createdDate" type="date-time"/>
+        <field name="createdByUserLogin" type="id-vlong"/>
+        <field name="lastModifiedDate" type="date-time"/>
+        <field name="lastModifiedByUserLogin" type="id-vlong"/>
+        <prim-key field="instanceId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="JOBLK_ENUM_REAS" rel-entity-name="Enumeration" title="Reason">
+            <key-map field-name="reasonEnumId" rel-field-name="enumId"/>
+        </relation>
+    </entity>
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.service.semaphore -->
   <!-- ========================================================= -->
