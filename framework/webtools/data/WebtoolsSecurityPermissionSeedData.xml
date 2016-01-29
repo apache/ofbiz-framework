@@ -35,6 +35,7 @@ under the License.
 
     <!-- Service Maintenance security -->
     <SecurityPermission description="Use the Service Maintenance pages." permissionId="SERVICE_MAINT"/>
+    <SecurityPermission description="Edit the job manager lock on the Service Maintenance pages." permissionId="SERVICE_JM_LOCK"/>
 
     <!-- Period Maintenance security -->
     <SecurityPermission description="Use the Period Maintenance pages." permissionId="PERIOD_MAINT"/>
@@ -64,6 +65,7 @@ under the License.
     <SecurityGroupPermission groupId="SUPER" permissionId="DATAFILE_MAINT"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="DATAFILE_MAINT"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="SERVICE_MAINT"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="SERVICE_JM_LOCK"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="PERIOD_MAINT"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="ENUM_STATUS_MAINT"/>
     <SecurityGroupPermission groupId="SUPER" permissionId="ENTITY_MAINT"/>

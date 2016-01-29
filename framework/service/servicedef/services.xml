@@ -128,4 +128,20 @@ under the License.
         <attribute name="fromDate" mode="IN" type="java.sql.Timestamp" optional="true"/>
         <attribute name="thruDate" mode="IN" type="java.sql.Timestamp" optional="true"/>
     </service>
+
+    <!-- JobManagerLock Services -->
+    <service name="createJobManagerLock" default-entity-name="JobManagerLock" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Job Manager Lock</description>
+        <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="updateJobManagerLock" default-entity-name="JobManagerLock" engine="entity-auto" invoke="update" auth="true">
+        <description>Cancel a Job Sandbox Lock</description>
+        <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
 </services>

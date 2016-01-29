@@ -198,4 +198,10 @@ under the License.
         [9] Integer: 0 to 59
     -->
 
+    <!-- JobSandbox lock reason Enum -->
+    <EnumerationType enumTypeId="JS_LOCK_REASON" hasTable="N" description="JobSandbox lock reason"/>
+    <Enumeration enumId="JS_LOCK_REASON_0" enumTypeId="JS_LOCK_REASON" enumCode="0" sequenceId="00" description="Instance updating"/>
+    <Enumeration enumId="JS_LOCK_REASON_1" enumTypeId="JS_LOCK_REASON" enumCode="1" sequenceId="01" description="Instance surcharge"/>
+    <Enumeration enumId="JS_LOCK_REASON_2" enumTypeId="JS_LOCK_REASON" enumCode="2" sequenceId="02" description="Instance maintenance"/>
+
 </entity-engine-xml>

@@ -138,4 +138,8 @@ under the License.
     <StatusValidChange statusId="KW_PENDING" statusIdTo="KW_APPROVED" transitionName="Review Approved"/>
     <StatusValidChange statusId="KW_PENDING" statusIdTo="KW_DISAPPROVED" transitionName="Review Disapproved"/>
 
+    <!-- OFBiz Instance -->
+    <EnumerationType enumTypeId="JM_OFBIZ_INSTANCE" hasTable="N" description="OFBiz Instance"/>
+    <Enumeration enumId="JM_OFBIZ_INS_0" enumTypeId="JM_OFBIZ_INSTANCE" enumCode="_NA_" sequenceId="00" description="ALL instance"/>
+    <Enumeration enumId="JM_OFBIZ_INS_1" enumTypeId="JM_OFBIZ_INSTANCE" enumCode="ofbiz1" sequenceId="01" description="OFBiz instance 1"/>
 </entity-engine-xml>
