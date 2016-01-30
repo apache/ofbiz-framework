@@ -970,11 +970,10 @@ under the License.
             <param name="delegatorId" value="default#${tenantId}"/>
         </antcall>
     </target>
-    <!-- description="Creates tenant data and instance. Don't forget and already created DBs in function of the entityengine.xml datasource-names"
+    <!-- description="Creates tenant data and instance. Don't forget db driver(s) and already created DBs in function of the entityengine.xml datasource-names"
         sub-target of create-tenant, can't used alone => no description, to not clutter "ant -p" -->
     <target name="create-tenant-on-MySQL" depends="get-tenant-data" if="isMySQL">
         <echo message="Installing on MySQL"/>
-        <antcall target="download-mySQL-JDBC"/>
         <!-- Below code will handle the case of optional domain name. It will remove the TenantDomainName entry from tmpTenantData.xml file
             if domain name is empty, so that record would not get created. -->
         <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-MySQL.xml" tofile="runtime/tmp/tmpTenantData.xml"/>
@@ -1008,7 +1007,7 @@ under the License.
             <param name="delegatorId" value="default#${tenantId}"/>
         </antcall>
     </target>
-    <!-- description="Creates tenant data and instance. Don't forget already created DBs in function of the entityengine.xml datasource-names"
+    <!-- description="Creates tenant data and instance. Don't forget db driver(s) and already created DBs in function of the entityengine.xml datasource-names"
         sub-target of create-tenant, can't used alone => no description, to not clutter "ant -p" -->
     <target name="create-tenant-on-Oracle" depends="get-tenant-data" if="isOracle">
         <echo message="Installing on Oracle"/>
@@ -1049,7 +1048,6 @@ under the License.
         sub-target of create-tenant, can't used alone => no description, to not clutter "ant -p" -->
     <target name="create-tenant-on-PostgreSQL" depends="get-tenant-data" if="isPostgreSQL">
         <echo message="Installing on PostgreSQL"/>
-        <antcall target="download-PG-JDBC"/>
         <!-- Below code will handle the case of optional domain name. It will remove the TenantDomainName entry from tmpTenantData.xml file
             if domain name is empty, so that record would not get created. -->
         <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-PostgreSQL.xml" tofile="runtime/tmp/tmpTenantData.xml"/>
