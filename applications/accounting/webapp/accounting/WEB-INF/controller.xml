@@ -233,7 +233,8 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="invoiceStatus"/>
     </request-map>
-
+    
+    <!-- re Invoice Roles -->
     <request-map uri="invoiceRoles">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="invoiceRoles"/>
@@ -250,13 +251,26 @@ under the License.
         <response name="success" type="view" value="invoiceRoles"/>
         <response name="error" type="view" value="invoiceRoles"/>
     </request-map>
+    
     <request-map uri="setInvoiceStatus">
         <security https="true" auth="true"/>
         <event type="service" invoke="setInvoiceStatus"/>
         <response name="success" type="view" value="invoiceOverview"/>
         <response name="error" type="view" value="invoiceOverview"/>
     </request-map>
-
+    
+    <!-- re Invoice Terms -->
+    <request-map uri="invoiceTerms">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="invoiceTerms"/>
+    </request-map>
+    <request-map uri="createInvoiceTerm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createInvoiceTerm"/>
+        <response name="success" type="view" value="invoiceTerms"/>
+        <response name="error" type="view" value="invoiceTerms"/>
+    </request-map>
+    
     <request-map uri="sendPerEmail">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="sendPerEmail"/>
@@ -2696,6 +2710,7 @@ under the License.
     <view-map name="invoiceStatus" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceStatus"/>
     <view-map name="editInvoiceApplications" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoiceApplications"/>
     <view-map name="invoiceRoles" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceRoles"/>
+    <view-map name="invoiceTerms" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceTerms"/>
     <view-map name="sendPerEmail" type="screen" page="component://accounting/widget/InvoiceScreens.xml#SendPerEmail"/>
     <view-map name="EditInvoiceItemType" type="screen" page="component://accounting/widget/InvoiceItemTypeScreens.xml#EditInvoiceItemType"/>
 
