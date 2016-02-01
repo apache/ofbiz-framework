@@ -442,12 +442,30 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InvoiceTerm" default-field-type="display"/>
         <field name="invoiceId"><hidden/></field>
-        <field name="invoiceTermId"><hidden/></field>
+        <field name="invoiceTermId"><display/></field>
         <field name="termTypeId">
             <display-entity entity-name="TermType"/>
         </field>
+        <field name="termDays" widget-area-style="align-right" title-area-style="align-right">
+            <display/>
+        </field>
     </form>
-
+    
+    <form name="EditInvoiceTerm" type="single" target="createInvoiceTerm" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="InvoiceTerm"/>
+        <field name="invoiceId"><hidden/></field>
+        <field name="termTypeId">
+            <drop-down>
+                <entity-options entity-name="TermType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="description"><textarea/></field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
     <form name="EditInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="InvoiceItem" use-row-submit="true" target="updateInvoiceApplication" title="Apply payments to invoices" separate-columns="false"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="statusId"><hidden/></field>
@@ -528,6 +546,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
+    
     <form name="EditInvoiceRole" type="single" target="createInvoiceRole" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="InvoiceRole"/>
@@ -542,6 +561,7 @@ under the License.
         </field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    
     <form name="SendPerEmail" type="single" target="executeSendPerEmail" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <actions>

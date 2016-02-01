@@ -242,6 +242,11 @@ under the License.
                                         <include-form name="invoiceRoles" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.PartyTerms}">
+                                        <container>
+                                            <link target="invoiceTerms" text="${uiLabelMap.CommonUpdate}" style="buttontext">
+                                                <parameter param-name="invoiceId"/>
+                                            </link>
+                                        </container>
                                         <include-form name="ListInvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
                                         <include-form name="ListInvoicePaymentInfo" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </screenlet>
@@ -524,6 +529,31 @@ under the License.
                             <include-form name="EditInvoiceRole" location="component://accounting/widget/InvoiceForms.xml"/>
                         </screenlet>
                         <include-form name="ListInvoiceRoles" location="component://accounting/widget/InvoiceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="InvoiceTerms">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListInvoiceTerms"/>
+                <set field="tabButtonItem" value="invoiceTerms"/>
+                <set field="invoiceId" from-field="parameters.invoiceId"/>
+                <entity-one entity-name="Invoice" value-field="invoice"/>
+                <entity-and entity-name="InvoiceTerm" list="invoiceTerms">
+                    <field-map from-field="invoiceId" field-name="invoiceId"/>
+                    <order-by field-name="invoiceTermId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="PartyInvoiceTermPanel" title="${uiLabelMap.AccountingPartyRoleAdd}" collapsible="true">
+                            <include-form name="EditInvoiceTerm" location="component://accounting/widget/InvoiceForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListInvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
