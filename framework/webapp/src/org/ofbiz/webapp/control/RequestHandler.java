@@ -1230,7 +1230,6 @@ public class RequestHandler {
 
         String encodedUrl;
         if (encode) {
-            boolean forceManualJsessionid = !cookies;
             boolean isSpider = false;
 
             // if the current request comes from a spider, we will not add the jsessionid to the link
@@ -1238,17 +1237,7 @@ public class RequestHandler {
                 isSpider = true;
             }
 
-            // if this isn't a secure page, but we made a secure URL, make sure we manually add the jsessionid since the response.encodeURL won't do that
-            if (!request.isSecure() && didFullSecure) {
-                forceManualJsessionid = true;
-            }
-
-            // if this is a secure page, but we made a standard URL, make sure we manually add the jsessionid since the response.encodeURL won't do that
-            if (request.isSecure() && didFullStandard) {
-                forceManualJsessionid = true;
-            }
-
-            if (response != null && !forceManualJsessionid && !isSpider) {
+            if (response != null && !isSpider) {
                 encodedUrl = response.encodeURL(newURL.toString());
             } else {
                 if (!isSpider) {
