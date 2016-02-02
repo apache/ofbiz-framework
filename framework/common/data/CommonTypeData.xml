@@ -109,6 +109,10 @@ under the License.
     <Enumeration enumId="VT_FORM_MACRO_LIB" description="Theme Form Macro Library Location" enumTypeId="VT_RES_TYPE" sequenceId="18"/>
     <Enumeration enumId="VT_TREE_MACRO_LIB" description="Theme Tree Macro Library Location" enumTypeId="VT_RES_TYPE" sequenceId="19"/>
     <Enumeration enumId="VT_MENU_MACRO_LIB" description="Theme Menu Macro Library Location" enumTypeId="VT_RES_TYPE" sequenceId="20"/>
+    <Enumeration enumId="VT_LOGIN_TMPLT_LOC" description="Login Template Location" enumTypeId="VT_RES_TYPE" sequenceId="21"/>
+    <Enumeration enumId="VT_CHPWD_TMPLT_LOC" description="Change Password Template Location" enumTypeId="VT_RES_TYPE" sequenceId="22"/>
+    <Enumeration enumId="VT_FGPWD_TMPLT_LOC" description="Forget Password Template Location" enumTypeId="VT_RES_TYPE" sequenceId="23"/>
+    <Enumeration enumId="VT_GSQUE_TMPLT_LOC" description="Security Question Template Location" enumTypeId="VT_RES_TYPE" sequenceId="24"/>
 
     <VisualThemeSet visualThemeSetId="BACKOFFICE" description="Themes to be used for backoffice applications"/>
     <VisualThemeSet visualThemeSetId="ECOMMERCE"  description="Themes to be used for ECommerce applications"/>
