@@ -551,8 +551,14 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="loginTemplateLocation" from-field="layoutSettings.VT_LOGIN_TMPLT_LOC[0]" default-value="component://common/webcommon/login.ftl"/>
+                            </actions>
+                            <widgets />
+                        </section>
                         <platform-specific>
-                            <html><html-template location="component://common/webcommon/login.ftl"/></html>
+                            <html><html-template location="${loginTemplateLocation}"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -587,8 +593,14 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="changePasswordTemplateLocation" from-field="layoutSettings.VT_CHPWD_TMPLT_LOC[0]" default-value="component://common/webcommon/changePassword.ftl"/>
+                            </actions>
+                            <widgets />
+                        </section>
                         <platform-specific>
-                            <html><html-template location="component://common/webcommon/changePassword.ftl"/></html>
+                            <html><html-template location="${changePasswordTemplateLocation}"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -601,8 +613,14 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common/webcommon/forgotPassword.ftl"/>
+                            </actions>
+                            <widgets />
+                        </section>
                         <platform-specific>
-                            <html><html-template location="component://common/webcommon/forgotPassword.ftl"/></html>
+                            <html><html-template location="${forgotPasswordTemplateLocation}"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -625,22 +643,34 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="getSecurityQuestionTemplateLocation" from-field="layoutSettings.VT_GSQUE_TMPLT_LOC[0]" default-value="component://common/webcommon/getSecurityQuestion.ftl"/>
+                            </actions>
+                            <widgets />
+                        </section>
                         <platform-specific>
-                           <html><html-template location="component://common/webcommon/getSecurityQuestion.ftl"/></html>
+                            <html><html-template location="${getSecurityQuestionTemplateLocation}"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="forgotPassword">
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://common/webcommon/forgotPassword.ftl"/></html>
+                        <section>
+                            <actions>
+                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common/webcommon/forgotPassword.ftl"/>
+                            </actions>
+                            <widgets />
+                         </section>
+                         <platform-specific>
+                            <html><html-template location="${forgotPasswordTemplateLocation}"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
