@@ -733,41 +733,45 @@ function submitFormDisableSubmits(form) {
 }
 
 
-function showjGrowl() {
+function showjGrowl(showAllLabel, collapseLabel) {
     var contentMessages = jQuery("#content-messages");
-    if (contentMessages.length) { 
-       jQuery("#content-messages").hide();
-       var errMessage = jQuery("#content-messages").html();
-       var classeEvent = "";
-       var classList = jQuery("#content-messages").attr('class').split(/\s+/);
-       var stickyValue = false;
-       jQuery(classList).each(function(index){
+    if (contentMessages.length) {
+        jQuery("#content-messages").hide();
+        var errMessage = jQuery("#content-messages").html();
+        var classEvent = "";
+        var classList = jQuery("#content-messages").attr('class').split(/\s+/);
+        var stickyValue = false;
+        jQuery(classList).each(function(index) {
             var localClass = classList[index];
             if(localClass == "eventMessage" || localClass == "errorMessage" ){
-            classEvent = localClass + "JGrowl";
+                classEvent = localClass + "JGrowl";
             }
-       });
-       if(classEvent == "errorMessageJGrowl"){
-           stickyValue = true;
-       }
-       
+        });
+        if (classEvent == "errorMessageJGrowl") {
+            stickyValue = true;
+        }
+
         if (errMessage == null || errMessage == "" || errMessage == undefined ) {
             // No Error Message Information is set, Error Msg Box can't be created
             return;
         }
         $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">Hide All Notifications</div>';
+        $.jGrowl.defaults.position = 'center';
         $.jGrowl(errMessage, { theme: classEvent, sticky: stickyValue,
-           afterOpen: function(e,m) {
-               jQuery(".jGrowl-message").readmore({
-                   moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">Show All</a>',
-                   lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">Show Less</a>',
-                   maxHeight: 75
-                   });
+            beforeOpen: function(e,m,o){
+                $(e).width( "600px" );
             },
-            speed:1000
+            afterOpen: function(e,m) {
+                jQuery(".jGrowl-message").readmore({
+                    moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">'+showAllLabel+'</a>',
+                    lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">'+collapseLabel+'</a>',
+
+                    maxHeight: 75
+                });
+            },
+            speed:100
         });
-		
-		contentMessages.remove();
+        contentMessages.remove();
     }
 }
 
