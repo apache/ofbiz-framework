@@ -44,14 +44,6 @@ under the License.
         <param-name>mainDecoratorLocation</param-name>
         <param-value>component://ecommerce/widget/CommonScreens.xml</param-value>
     </context-param>
-    <context-param>
-        <description>
-            Forces the JSESSIONID cookie to be sent via http rather https, helps prevent lost sessions in web apps that
-            frequently switch between http and https.
-        </description>
-        <param-name>forceHttpSession</param-name>
-        <param-value>true</param-value>
-    </context-param>
 
     <filter>
         <display-name>CatalogUrlFilter</display-name>
