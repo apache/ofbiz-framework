@@ -173,17 +173,8 @@ under the License.
         </if>
     </simple-method>
 
+    <!-- TODO NMA convert to entity auto when changed fileds are managed -->
     <simple-method method-name="saveProductPriceChange" short-description="Save History of ProductPrice Change">
-        <check-permission permission="CATALOG" action="_UPDATE">
-            <alt-permission permission="CATALOG" action="_CREATE"/>
-            <alt-permission permission="CATALOG" action="_DELETE"/>
-            <alt-permission permission="CATALOG_ROLE" action="_CREATE"/>
-            <alt-permission permission="CATALOG_ROLE" action="_UPDATE"/>
-            <alt-permission permission="CATALOG_ROLE" action="_DELETE"/>
-            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <!-- Note that this is kept pretty simple: if a price is specific but no oldPrice, then it is generally a create, if both are specified it is generally an update, if only the oldPrice is specified it is generally a delete -->
         <make-value value-field="newEntity" entity-name="ProductPriceChange"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -195,86 +186,6 @@ under the License.
         <set field="newEntity.changedByUserLogin" from-field="userLogin.userLoginId"/>
 
         <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <!-- ProductPaymentMethodType methods -->
-    <simple-method method-name="createProductPaymentMethodType" short-description="create a ProductPaymentMethodType">
-        <set field="callingMethodName" value="createProductPaymentMethodType"/>
-        <set field="checkAction" value="CREATE"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
-        <check-errors/>
-        <make-value entity-name="ProductPaymentMethodType" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductPaymentMethodType" short-description="update a ProductPaymentMethodType">
-        <set field="callingMethodName" value="updateProductPaymentMethodType"/>
-        <set field="checkAction" value="UPDATE"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
-        <check-errors/>
-        <entity-one entity-name="ProductPaymentMethodType" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteProductPaymentMethodType" short-description="delete a ProductPaymentMethodType">
-        <set field="callingMethodName" value="deleteProductPaymentMethodType"/>
-        <set field="checkAction" value="DELETE"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
-        <check-errors/>
-        <entity-one entity-name="ProductPaymentMethodType" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- ProductPriceRule methods -->
-    <simple-method method-name="createProductPriceRule" short-description="Create an ProductPriceRule">
-        <check-permission permission="CATALOG" action="_CREATE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
-        </check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT">
-            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value value-field="newEntity" entity-name="ProductPriceRule"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="parameters.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
-        </if-empty>
-        <sequenced-id sequence-name="ProductPriceRule" field="newEntity.productPriceRuleId"/>
-        <field-to-result field="newEntity.productPriceRuleId" result-name="productPriceRuleId"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductPriceRule" short-description="Update an ProductPriceRule">
-        <check-permission permission="CATALOG" action="_UPDATE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
-        </check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT">
-            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="ProductPriceRule" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductPriceRule" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteProductPriceRule" short-description="Delete an ProductPriceRule">
-        <check-permission permission="CATALOG" action="_DELETE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
-        </check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT">
-            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="ProductPriceRule" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductPriceRule" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ProductPriceCond methods -->
@@ -319,69 +230,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="deleteProductPriceCond" short-description="Delete an ProductPriceCond">
-        <check-permission permission="CATALOG" action="_DELETE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
-        </check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT">
-            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
-        </check-permission>
-        <check-errors/>
 
-        <make-value entity-name="ProductPriceCond" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductPriceCond" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- ProductPriceAction methods -->
-    <simple-method method-name="createProductPriceAction" short-description="Create an ProductPriceAction">
-        <check-permission permission="CATALOG" action="_CREATE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
-        </check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT">
-            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value value-field="newEntity" entity-name="ProductPriceAction"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-field="newEntity" seq-field-name="productPriceActionSeqId" numeric-padding="2"/>
-        <field-to-result field="newEntity.productPriceActionSeqId" result-name="productPriceActionSeqId"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductPriceAction" short-description="Update an ProductPriceAction">
-        <check-permission permission="CATALOG" action="_UPDATE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
-        </check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT">
-            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="ProductPriceAction" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductPriceAction" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteProductPriceAction" short-description="Delete an ProductPriceAction">
-        <check-permission permission="CATALOG" action="_DELETE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
-        </check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT">
-            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value entity-name="ProductPriceAction" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductPriceAction" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    
     <simple-method method-name="getAssociatedPriceRulesConds" short-description="Set the Value options for selected Price Rule Condition Input" login-required="false">
         <if>
             <condition>
@@ -394,7 +243,7 @@ under the License.
                 <return/>
             </then>
         </if>
-        
+
         <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_PRODUCT_ID">
             <entity-condition entity-name="Product" list="condValues">
                 <!-- May prove more useful rather than an entity-and in custom cases-->
@@ -454,7 +303,7 @@ under the License.
                 <set field="option" value="${condValue.description}: ${condValue.roleTypeId}"/>
                 <field-to-list list="productPriceRulesCondValues" field="option"/>
             </iterate>
-        </if-compare>        
+        </if-compare>
         <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_WEBSITE_ID">
             <entity-condition entity-name="WebSite" list="condValues"/>
             <iterate list="condValues" entry="condValue">
@@ -485,12 +334,12 @@ under the License.
                 <field-to-list list="productPriceRulesCondValues" field="option"/>
             </iterate>
         </if-compare> 
-        
+
         <if-empty field="productPriceRulesCondValues">
             <property-to-field resource="CommonUiLabels" property="CommonNoOptions" field="noOptions"/>
             <field-to-list list="productPriceRulesCondValues" field="noOptions"/>
         </if-empty>
         <field-to-result field="productPriceRulesCondValues"/>
     </simple-method>
-    
+
 </simple-methods>

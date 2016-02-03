@@ -50,12 +50,6 @@ under the License.
         <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>
         <call-service service-name="updateContent" in-map-name="updateContent"/>
     </simple-method>
-    <simple-method method-name="removeProductConfigItemContent" short-description="Remove Content From ProductConfigItem">
-        <make-value value-field="lookupPKMap" entity-name="ProdConfItemContent"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
 
     <!-- Specialized -->
     <simple-method method-name="createSimpleTextContentForProductConfigItem" short-description="Create Simple Text Content For Product">

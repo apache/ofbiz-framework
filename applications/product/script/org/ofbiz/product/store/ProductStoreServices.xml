@@ -25,7 +25,7 @@ under the License.
             <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>
-        
+
         <if-compare field="parameters.oneInventoryFacility" operator="equals" value="Y">
             <if-empty field="parameters.inventoryFacilityId">
                 <add-error>

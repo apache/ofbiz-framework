@@ -232,22 +232,22 @@ under the License.
     </service>
 
     <!-- ProductStorePromoAppl Services -->
-    <service name="createProductStorePromoAppl" default-entity-name="ProductStorePromoAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductStorePromoAppl" auth="true">
+    <service name="createProductStorePromoAppl" default-entity-name="ProductStorePromoAppl" engine="entity-auto" invoke="create" auth="true">
         <description>Create ProductStorePromoAppl</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateProductStorePromoAppl" default-entity-name="ProductStorePromoAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductStorePromoAppl" auth="true">
+    <service name="updateProductStorePromoAppl" default-entity-name="ProductStorePromoAppl" engine="entity-auto" invoke="update" auth="true">
         <description>Update ProductStorePromoAppl</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductStorePromoAppl" default-entity-name="ProductStorePromoAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductStorePromoAppl" auth="true">
+    <service name="deleteProductStorePromoAppl" default-entity-name="ProductStorePromoAppl" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete ProductStorePromoAppl</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 

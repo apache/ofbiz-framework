@@ -282,7 +282,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateInventoryItem" short-description="Update an InventoryItem">
-
         <make-value entity-name="InventoryItem" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
@@ -489,7 +488,7 @@ under the License.
                             <set field="product.salesDiscWhenNotAvail" from-field="virtProduct.salesDiscWhenNotAvail"/>
                         </if-empty>
                     </if-not-empty>
-                </if-not-empty>    
+                </if-not-empty>
             </if-compare>
         </if-not-empty>
 
@@ -563,24 +562,7 @@ under the License.
         <!-- TODO: (possibly a big deal?) check to see if any reserved inventory needs to be changed because of a change in availableToPromise -->
         <!-- TODO: make sure availableToPromise is never greater than the quantityOnHand? -->
     </simple-method>
-    <simple-method method-name="createPhysicalInventory" short-description="Create a PhysicalInventory">
 
-        <make-value value-field="newEntity" entity-name="PhysicalInventory"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <if-empty field="newEntity.physicalInventoryDate">
-            <now-timestamp field="newEntity.physicalInventoryDate"/>
-        </if-empty>
-        <if-empty field="newEntity.partyId">
-            <set from-field="userLogin.partyId" field="newEntity.partyId"/>
-        </if-empty>
-
-        <sequenced-id sequence-name="PhysicalInventory" field="physicalInventoryId"/>
-        <set from-field="physicalInventoryId" field="newEntity.physicalInventoryId"/>
-        <field-to-result field="physicalInventoryId" result-name="physicalInventoryId"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
     <simple-method method-name="createPhysicalInventoryAndVariance" short-description="Create a PhysicalInventory and an InventoryItemVariance">
         <set-service-fields service-name="createPhysicalInventory" map="parameters" to-map="createPhysicalInventoryMap"/>
         <call-service service-name="createPhysicalInventory" in-map-name="createPhysicalInventoryMap">
@@ -589,54 +571,6 @@ under the License.
         </call-service>
         <set-service-fields service-name="createInventoryItemVariance" map="parameters" to-map="createInventoryItemVarianceMap"/>
         <call-service service-name="createInventoryItemVariance" in-map-name="createInventoryItemVarianceMap"/>
-    </simple-method>
-
-    <!-- ProductFacility methods -->
-    <simple-method method-name="createProductFacility" short-description="Create a ProductFacility">
-
-        <make-value value-field="newEntity" entity-name="ProductFacility"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductFacility" short-description="Update a ProductFacility">
-
-        <make-value entity-name="ProductFacility" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteProductFacility" short-description="Delete a ProductFacility">
-
-        <make-value entity-name="ProductFacility" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- ProductFacilityLocation methods -->
-    <simple-method method-name="createProductFacilityLocation" short-description="Create a ProductFacilityLocation">
-
-        <make-value value-field="newEntity" entity-name="ProductFacilityLocation"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductFacilityLocation" short-description="Update a ProductFacilityLocation">
-
-        <make-value entity-name="ProductFacilityLocation" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteProductFacilityLocation" short-description="Delete a ProductFacilityLocation">
-
-        <make-value entity-name="ProductFacilityLocation" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ================================================================ -->
@@ -1153,55 +1087,6 @@ under the License.
         <field-to-result field="quantityNotTransferred"/>
     </simple-method>
 
-    <!-- Inventory Label Services -->
-    <simple-method method-name="createInventoryItemLabelType" short-description="Create an InventoryItemLabelType">
-        <make-value entity-name="InventoryItemLabelType" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateInventoryItemLabelType" short-description="Update an InventoryItemLabelType">
-        <entity-one entity-name="InventoryItemLabelType" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteInventoryItemLabelType" short-description="Delete an InventoryItemLabelType">
-        <entity-one entity-name="InventoryItemLabelType" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="createInventoryItemLabel" short-description="Create an InventoryItemLabel">
-        <make-value entity-name="InventoryItemLabel" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateInventoryItemLabel" short-description="Update an InventoryItemLabel">
-        <entity-one entity-name="InventoryItemLabel" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteInventoryItemLabel" short-description="Delete an InventoryItemLabel">
-        <entity-one entity-name="InventoryItemLabel" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="createInventoryItemLabelAppl" short-description="Create an InventoryItemLabelAppl">
-        <make-value entity-name="InventoryItemLabelAppl" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <entity-one entity-name="InventoryItemLabel" value-field="inventoryItemLabel"/>
-        <set field="newEntity.inventoryItemLabelTypeId" from-field="inventoryItemLabel.inventoryItemLabelTypeId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateInventoryItemLabelAppl" short-description="Update an InventoryItemLabel">
-        <entity-one entity-name="InventoryItemLabelAppl" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteInventoryItemLabelAppl" short-description="Delete an InventoryItemLabel">
-        <entity-one entity-name="InventoryItemLabelAppl" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <simple-method method-name="changeOwnerUponIssuance" short-description="If product store setOwnerUponIssuance is Y or empty, set the inventory item owner upon issuance.">
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <get-related-one value-field="itemIssuance" relation-name="InventoryItem" to-value-field="inventoryItem"/>
@@ -1314,4 +1199,14 @@ under the License.
             </else>
         </if-empty>
     </simple-method>
+
+    <simple-method method-name="createInventoryItemLabelAppl" short-description="Create an InventoryItemLabelAppl">
+        <make-value entity-name="InventoryItemLabelAppl" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <entity-one entity-name="InventoryItemLabel" value-field="inventoryItemLabel"/>
+        <set field="newEntity.inventoryItemLabelTypeId" from-field="inventoryItemLabel.inventoryItemLabelTypeId"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+
 </simple-methods>

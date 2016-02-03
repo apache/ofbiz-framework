@@ -117,7 +117,7 @@ under the License.
         <condition field-name="orderIdList" operator="is-not-empty"/>
         <action service="convertPickOrderIdListToHeaders" mode="sync"/>
     </eca>
-    
+
     <eca service="receiveInventoryProduct" event="commit">
         <condition field-name="facilityId" operator="is-not-empty"/>
         <condition field-name="orderId" operator="is-not-empty"/>
@@ -128,7 +128,7 @@ under the License.
     <eca service="receiveInventoryProduct" event="commit">
         <action service="updateProductAverageCostOnReceiveInventory" mode="sync"/>
     </eca>
-    
+
     <!-- Remove party content of image  -->
     <eca service="deletePartyRole" event="commit">
         <condition field-name="roleTypeId" operator="equals" value="IMAGEAPPROVER"/>

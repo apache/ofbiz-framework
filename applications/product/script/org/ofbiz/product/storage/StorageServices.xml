@@ -20,42 +20,6 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
-    <!-- Facility Services -->
-    <simple-method method-name="createFacility" short-description="Create a Facility">
-        <make-value value-field="newEntity" entity-name="Facility"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <sequenced-id sequence-name="Facility" field="facilityId"/>
-        <to-string field="facilityId"/>
-        <set field="newEntity.facilityId" from-field="facilityId"/>
-        <field-to-result field="facilityId" result-name="facilityId"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateFacility" short-description="Update a Facility">
-        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId"/>
-        <find-by-primary-key entity-name="Facility" map="lookupPKMap" value-field="facility"/>
-        <set-nonpk-fields map="parameters" value-field="facility"/>
-        <store-value value-field="facility"/>
-    </simple-method>
-    <simple-method method-name="deleteFacility" short-description="Delete a Facility">
-        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId"/>
-        <find-by-primary-key entity-name="Facility" map="lookupPKMap" value-field="facility"/>
-        <remove-value value-field="facility"/>
-    </simple-method>
-
-    <!-- Facility ContactMech Services -->
-    <simple-method method-name="addContactMechToFacility" short-description="Add ContactMech To Facility">
-        <make-value value-field="newEntity" entity-name="FacilityContactMech"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="removeContactMechFromFacility" short-description="Remove ContactMech From Facility">
-        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId"/>
-        <set field="lookupPKMap.contactMechId" from-field="parameters.contactMechId"/>
-        <find-by-primary-key entity-name="FacilityContactMech" map="lookupPKMap" value-field="facilityContactMech"/>
-        <remove-value value-field="facilityContactMech"/>
-    </simple-method>
 
     <!-- Facility Location Services -->
     <simple-method method-name="createFacilityLocation" short-description="Create a Facility Location">
@@ -89,124 +53,8 @@ under the License.
 
         <create-value value-field="newEntity"/>
     </simple-method>
-    <simple-method method-name="updateFacilityLocation" short-description="Update a Facility Location">
-        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId"/>
-        <set field="lookupPKMap.locationSeqId" from-field="parameters.locationSeqId"/>
-        <find-by-primary-key entity-name="FacilityLocation" map="lookupPKMap" value-field="facilityLocation"/>
-        <set-nonpk-fields map="parameters" value-field="facilityLocation"/>
-        <store-value value-field="facilityLocation"/>
-    </simple-method>
-    <simple-method method-name="deleteFacilityLocation" short-description="Delete a Facility Location">
-        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId"/>
-        <set field="lookupPKMap.locationSeqId" from-field="parameters.locationSeqId"/>
-        <find-by-primary-key entity-name="FacilityLocation" map="lookupPKMap" value-field="facilityLocation"/>
-        <remove-value value-field="facilityLocation"/>
-    </simple-method>
 
-    <!-- Facility Group Services -->
-    <simple-method method-name="createFacilityGroup" short-description="Create an Facility Group">
-        <make-value value-field="newEntity" entity-name="FacilityGroup"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <sequenced-id sequence-name="FacilityGroup" field="facilityGroupId"/>
-        <to-string field="facilityGroupId"/>
-        <set field="newEntity.facilityGroupId" from-field="facilityGroupId"/>
-        <field-to-result field="facilityGroupId" result-name="facilityGroupId"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateFacilityGroup" short-description="Update an Facility Group">
-        <set field="lookupPKMap.facilityGroupId" from-field="parameters.facilityGroupId"/>
-        <find-by-primary-key entity-name="FacilityGroup" map="lookupPKMap" value-field="facilityGroup"/>
-        <set-nonpk-fields map="parameters" value-field="facilityGroup"/>
-        <store-value value-field="facilityGroup"/>
-    </simple-method>
-    <simple-method method-name="deleteFacilityGroup" short-description="Delete an Facility Group">
-        <set field="lookupPKMap.facilityGroupId" from-field="parameters.facilityGroupId"/>
-        <find-by-primary-key entity-name="FacilityGroup" map="lookupPKMap" value-field="facilityGroup"/>
-        <remove-value value-field="facilityGroup"/>
-    </simple-method>
-
-    <!-- Facility Member Services -->
-    <simple-method method-name="addFacilityToGroup" short-description="Add Facility to FacilityGroup">
-        <make-value value-field="newEntity" entity-name="FacilityGroupMember"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
-        </if-empty>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateFacilityToGroup" short-description="Update Facility to FacilityGroup Application">
-        <make-value value-field="lookupPKMap" entity-name="FacilityGroupMember"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="FacilityGroupMember" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeFacilityFromGroup" short-description="Remove Facility From FacilityGroup">
-        <make-value value-field="lookupPKMap" entity-name="FacilityGroupMember"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="FacilityGroupMember" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Facility Group Rollup Services -->
-    <simple-method method-name="addFacilityGroupToGroup" short-description="Add FacilityGroup to FacilityGroup">
-        <make-value value-field="newEntity" entity-name="FacilityGroupRollup"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
-        </if-empty>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateFacilityGroupToGroup" short-description="Update FacilityGroup to FacilityGroup Rollup">
-        <make-value value-field="lookupPKMap" entity-name="FacilityGroupRollup"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="FacilityGroupRollup" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeFacilityGroupFromGroup" short-description="Remove FacilityGroup From FacilityGroup">
-        <make-value value-field="lookupPKMap" entity-name="FacilityGroupRollup"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="FacilityGroupRollup" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Facility Role / Facility Group Role Services -->
-    <simple-method method-name="addPartyToFacility" short-description="Add Party to Facility">
-        <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
-        <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
-        <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="partyRole"/>
-        <if-empty field="partyRole">
-            <make-value value-field="partyRole" entity-name="PartyRole"/>
-            <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
-            <create-value value-field="partyRole"/>
-        </if-empty>
-        <make-value value-field="newEntity" entity-name="FacilityParty"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-             <if-empty field="newEntity.fromDate">
-                 <now-timestamp field="newEntity.fromDate"/>
-             </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="addPartyToFacilityGroup" short-description="Add Party to FacilityGroup">
-        <make-value value-field="newEntity" entity-name="FacilityGroupRole"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
+    <!-- Facility Role Services -->
     <simple-method method-name="removePartyFromFacility" short-description="Remove Party From Facility">
         <entity-one entity-name="FacilityParty" value-field="lookedUpValue"/>
         <now-timestamp field="thruDate"/>
@@ -219,16 +67,6 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="FacilityGroupRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createFacilityContent" short-description="Create Facility Content"> 
-        <make-value entity-name="FacilityContent" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
     </simple-method>
 
     <simple-method method-name="deleteFacilityContent" short-description="Delete Content From Facility">
