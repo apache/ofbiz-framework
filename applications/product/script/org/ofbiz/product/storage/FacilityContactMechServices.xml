@@ -51,7 +51,7 @@ under the License.
         <create-value value-field="newValue"/>
         
         <!-- now create the FacilityContactMechPurpose record -->
-        <if-not-empty field="parameters.contactMechPurposeTypeId">        
+        <if-not-empty field="parameters.contactMechPurposeTypeId">
             <make-value value-field="facilityContactMechPurpose" entity-name="FacilityContactMechPurpose"/>
             <set-pk-fields map="newValue" value-field="facilityContactMechPurpose"/>
             <set field="facilityContactMechPurpose.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
@@ -153,7 +153,6 @@ under the License.
         </if-empty>
         <now-timestamp field="facilityContactMech.thruDate"/>
         <store-value value-field="facilityContactMech"/>
-
     </simple-method>
 
     <simple-method method-name="createFacilityPostalAddress" short-description="Create a PostalAddress for facility">
@@ -254,7 +253,6 @@ under the License.
         <log level="info" message="Setting result id: ${newFacilityContactMech.contactMechId}"/>
         <field-to-request field="newFacilityContactMech.contactMechId" request-name="contactMechId"/>
         <field-to-result field="newFacilityContactMech.contactMechId" result-name="contactMechId"/>
-
     </simple-method>
 
     <simple-method method-name="createFacilityEmailAddress" short-description="Create an email address for facility">

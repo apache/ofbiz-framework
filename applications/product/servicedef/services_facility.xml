@@ -125,8 +125,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="createPhysicalInventory" default-entity-name="PhysicalInventory" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createPhysicalInventory" auth="true">
+    <service name="createPhysicalInventory" default-entity-name="PhysicalInventory" engine="entity-auto" invoke="create" auth="true">
         <description>Create an PhysicalInventory</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -495,51 +494,44 @@ under the License.
         <attribute name="productStore" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
 
-    <service name="createProductFacility" default-entity-name="ProductFacility" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createProductFacility" auth="true">
+    <service name="createProductFacility" default-entity-name="ProductFacility" engine="entity-auto" invoke="create" auth="true">
         <description>Create an ProductFacility</description>
         <permission-service service-name="checkProductFacilityRelatedPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateProductFacility" default-entity-name="ProductFacility" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateProductFacility" auth="true">
+    <service name="updateProductFacility" default-entity-name="ProductFacility" engine="entity-auto" invoke="update" auth="true">
         <description>Update an ProductFacility</description>
         <permission-service service-name="checkProductFacilityRelatedPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductFacility" default-entity-name="ProductFacility" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteProductFacility" auth="true">
+    <service name="deleteProductFacility" default-entity-name="ProductFacility" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an ProductFacility</description>
         <permission-service service-name="checkProductFacilityRelatedPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createProductFacilityLocation" default-entity-name="ProductFacilityLocation" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createProductFacilityLocation" auth="true">
+    <service name="createProductFacilityLocation" default-entity-name="ProductFacilityLocation" engine="entity-auto" invoke="create" auth="true">
         <description>Create an ProductFacilityLocation</description>
         <permission-service service-name="checkProductFacilityRelatedPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateProductFacilityLocation" default-entity-name="ProductFacilityLocation" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateProductFacilityLocation" auth="true">
+    <service name="updateProductFacilityLocation" default-entity-name="ProductFacilityLocation" engine="entity-auto" invoke="update" auth="true">
         <description>Update an ProductFacilityLocation</description>
         <permission-service service-name="checkProductFacilityRelatedPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductFacilityLocation" default-entity-name="ProductFacilityLocation" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteProductFacilityLocation" auth="true">
+    <service name="deleteProductFacilityLocation" default-entity-name="ProductFacilityLocation" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an ProductFacilityLocation</description>
         <permission-service service-name="checkProductFacilityRelatedPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Product Storage Services -->
-    <service name="createFacility" default-entity-name="Facility" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="createFacility" auth="true">
+    <service name="createFacility" default-entity-name="Facility" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -548,32 +540,30 @@ under the License.
         <override name="facilityName" optional="false"/>
         <override name="ownerPartyId" optional="false"/>
     </service>
-    <service name="updateFacility" default-entity-name="Facility" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacility" auth="true">
+    <service name="updateFacility" default-entity-name="Facility" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteFacility" default-entity-name="Facility" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="deleteFacility" auth="true">
+    <service name="deleteFacility" default-entity-name="Facility" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Facility Attribute -->
-    <service name="createFacilityAttribute" engine="entity-auto" default-entity-name="FacilityAttribute" invoke="create" auth="true">
+    <service name="createFacilityAttribute" default-entity-name="FacilityAttribute" engine="entity-auto" invoke="create" auth="true">
         <description>Create Facility Attribute</description>
         <auto-attributes mode="IN" entity-name="FacilityAttribute" include="pk" optional="false"/>
         <auto-attributes mode="IN" entity-name="FacilityAttribute" include="nonpk" optional="true"/>
     </service>
-    <service name="updateFacilityAttribute" engine="entity-auto" default-entity-name="FacilityAttribute" invoke="update" auth="true">
+    <service name="updateFacilityAttribute" default-entity-name="FacilityAttribute" engine="entity-auto" invoke="update" auth="true">
         <description>Update Facility Attribute</description>
         <auto-attributes mode="IN" entity-name="FacilityAttribute" include="pk" optional="false"/>
         <auto-attributes mode="IN" entity-name="FacilityAttribute" include="nonpk" optional="true"/>
     </service>
-    <service name="deleteFacilityAttribute" engine="entity-auto" default-entity-name="FacilityAttribute" invoke="delete" auth="true">
+    <service name="deleteFacilityAttribute" default-entity-name="FacilityAttribute" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete Facility Attribute</description>
         <auto-attributes mode="IN" entity-name="FacilityAttribute" include="pk" optional="false"/>
     </service>
@@ -586,22 +576,19 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="locationSeqId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="updateFacilityLocation" default-entity-name="FacilityLocation" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacilityLocation" auth="true">
+    <service name="updateFacilityLocation" default-entity-name="FacilityLocation" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Facility Location</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteFacilityLocation" default-entity-name="FacilityLocation" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="deleteFacilityLocation" auth="true">
+    <service name="deleteFacilityLocation" default-entity-name="FacilityLocation" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Facility Location</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createFacilityGroup" default-entity-name="FacilityGroup" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="createFacilityGroup" auth="true">
+    <service name="createFacilityGroup" default-entity-name="FacilityGroup" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Facility Group</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -609,15 +596,13 @@ under the License.
         <override name="facilityGroupName" optional="false"/>
         <override name="facilityGroupTypeId" optional="false"/>
     </service>
-    <service name="updateFacilityGroup" default-entity-name="FacilityGroup" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacilityGroup" auth="true">
+    <service name="updateFacilityGroup" default-entity-name="FacilityGroup" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Facility Group</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteFacilityGroup" default-entity-name="FacilityGroup" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="deleteFacilityGroup" auth="true">
+    <service name="deleteFacilityGroup" default-entity-name="FacilityGroup" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Facility Group</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -712,124 +697,89 @@ under the License.
         <description>Delete a purpose for facility contact mech</description>
         <auto-attributes entity-name="FacilityContactMechPurpose" include="pk" mode="IN" optional="false"/>
     </service>
-
 <!-- end cm -->
-    <service name="addContactMechToFacility" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="addContactMechToFacility" auth="true">
+
+    <service name="addContactMechToFacility" default-entity-name="FacilityContactMech" engine="entity-auto" invoke="create" auth="true">
         <description>Add ContactMech To Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
-        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
-    <service name="removeContactMechFromFacility" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="removeContactMechFromFacility" auth="true">
+    <service name="removeContactMechFromFacility" default-entity-name="FacilityContactMech" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove ContactMech From Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
-        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
 
-    <service name="addFacilityToGroup" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="addFacilityToGroup" auth="true">
+    <service name="addFacilityToGroup" default-entity-name="FacilityGroupMember" engine="entity-auto" invoke="create" auth="true">
         <description>Add Facility To FacilityGroup</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateFacilityToGroup" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacilityToGroup" auth="true">
+    <service name="updateFacilityToGroup" default-entity-name="FacilityGroupMember" engine="entity-auto" invoke="update" auth="true">
         <description>Update Facility -> Group Member</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
-        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
-        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeFacilityFromGroup" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="removeFacilityFromGroup" auth="true">
+    <service name="removeFacilityFromGroup" default-entity-name="FacilityGroupMember" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Facility From FacilityGroup</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
-        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
 
-    <service name="addFacilityGroupToGroup" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="addFacilityGroupToGroup" auth="true">
+    <service name="addFacilityGroupToGroup" default-entity-name="FacilityGroupRollup" engine="entity-auto" invoke="create" auth="true">
         <description>Add FacilityGroup To FacilityGroup</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="parentFacilityGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateFacilityGroupToGroup" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacilityGroupToGroup" auth="true">
+    <service name="updateFacilityGroupToGroup" default-entity-name="FacilityGroupRollup" engine="entity-auto" invoke="update" auth="true">
         <description>Update FacilityGroup To FacilityGroup Rollup</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
-        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="parentFacilityGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
-        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeFacilityGroupFromGroup" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="removeFacilityGroupFromGroup" auth="true">
+    <service name="removeFacilityGroupFromGroup" default-entity-name="FacilityGroupRollup" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove FacilityGroup From FacilityGroup</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
-        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="parentFacilityGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
 
-    <service name="addPartyToFacility" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="addPartyToFacility" auth="true" default-entity-name="FacilityParty">
+    <service name="addPartyToFacility" default-entity-name="FacilityParty" engine="entity-auto" invoke="create" auth="true">
         <description>Create a FacilityParty record</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-
-    <service name="addPartyToFacilityGroup" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="addPartyToFacilityGroup" auth="true">
-        <description>Add Party To FacilityGroup</description>
-        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
-    </service>
-
-    <service name="removePartyFromFacility" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="removePartyFromFacility" auth="true" default-entity-name="FacilityParty">
+    <service name="removePartyFromFacility" default-entity-name="FacilityParty" engine="simple"
+                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="removePartyFromFacility" auth="true">
         <description>Remove Party From Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="removePartyFromFacilityGroup" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="removePartyFromFacilityGroup" auth="true">
+    <service name="addPartyToFacilityGroup" default-entity-name="FacilityParty" engine="entity-auto" invoke="create" auth="true">
+        <description>Add Party To FacilityGroup</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="removePartyFromFacilityGroup" default-entity-name="FacilityParty" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Party From FacilityGroup</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
-        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createFacilityContent" engine="simple" default-entity-name="FacilityContent"
-        location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="createFacilityContent" auth="true">
+    <service name="createFacilityContent" default-entity-name="FacilityContent" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Facility Content</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-
-    <service name="deleteFacilityContent" engine="simple" default-entity-name="FacilityContent"
+    <service name="deleteFacilityContent" default-entity-name="FacilityContent" engine="simple"
                 location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="deleteFacilityContent" auth="true">
         <description>Delete Content From Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
@@ -875,36 +825,31 @@ under the License.
         <attribute name="warningMessageList" type="List" mode="INOUT" optional="true"/>
     </service>
     <!-- Inventory Label Services -->
-    <service name="createInventoryItemLabelType" default-entity-name="InventoryItemLabelType" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemLabelType" auth="true">
+    <service name="createInventoryItemLabelType" default-entity-name="InventoryItemLabelType" engine="entity-auto" invoke="create" auth="true">
         <description>Create an InventoryItemLabelType</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateInventoryItemLabelType" default-entity-name="InventoryItemLabelType" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryItemLabelType" auth="true">
+    <service name="updateInventoryItemLabelType" default-entity-name="InventoryItemLabelType" engine="entity-auto" invoke="update" auth="true">
         <description>Update an InventoryItemLabelType</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteInventoryItemLabelType" default-entity-name="InventoryItemLabelType" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteInventoryItemLabelType" auth="true">
+    <service name="deleteInventoryItemLabelType" default-entity-name="InventoryItemLabelType" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an InventoryItemLabelType</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="createInventoryItemLabel" default-entity-name="InventoryItemLabel" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemLabel" auth="true">
+    <service name="createInventoryItemLabel" default-entity-name="InventoryItemLabel" engine="entity-auto" invoke="create" auth="true">
         <description>Create an InventoryItemLabel</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="inventoryItemLabelTypeId" optional="false"/>
     </service>
-    <service name="updateInventoryItemLabel" default-entity-name="InventoryItemLabel" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryItemLabel" auth="true">
+    <service name="updateInventoryItemLabel" default-entity-name="InventoryItemLabel" engine="entity-auto" invoke="update" auth="true">
         <description>Update an InventoryItemLabel</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -912,8 +857,7 @@ under the License.
             <exclude field-name="inventoryItemLabelTypeId"/>
         </auto-attributes>
     </service>
-    <service name="deleteInventoryItemLabel" default-entity-name="InventoryItemLabel" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteInventoryItemLabel" auth="true">
+    <service name="deleteInventoryItemLabel" default-entity-name="InventoryItemLabel" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an InventoryItemLabel</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -928,8 +872,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="inventoryItemLabelId" optional="false"/>
     </service>
-    <service name="updateInventoryItemLabelAppl" default-entity-name="InventoryItemLabelAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryItemLabelAppl" auth="true">
+    <service name="updateInventoryItemLabelAppl" default-entity-name="InventoryItemLabelAppl" engine="entity-auto" invoke="update" auth="true">
         <description>Update an InventoryItemLabelAppl</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -937,8 +880,7 @@ under the License.
             <exclude field-name="inventoryItemId"/>
         </auto-attributes>
     </service>
-    <service name="deleteInventoryItemLabelAppl" default-entity-name="InventoryItemLabelAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteInventoryItemLabelAppl" auth="true">
+    <service name="deleteInventoryItemLabelAppl" default-entity-name="InventoryItemLabelAppl" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an InventoryItemLabelAppl</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

@@ -67,22 +67,22 @@ under the License.
         <attribute name="optimizeForLargeRuleSet" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createProductPriceRule" default-entity-name="ProductPriceRule" engine="simple"
-                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="createProductPriceRule" auth="true">
+    <service name="createProductPriceRule" default-entity-name="ProductPriceRule" engine="entity-auto" invoke="create" auth="true">
         <description>Create an ProductPriceRule</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="ruleName" optional="false"/>
     </service>
-    <service name="updateProductPriceRule" default-entity-name="ProductPriceRule" engine="simple"
-                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="updateProductPriceRule" auth="true">
+    <service name="updateProductPriceRule" default-entity-name="ProductPriceRule" engine="entity-auto" invoke="update" auth="true">
         <description>Update an ProductPriceRule</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductPriceRule" default-entity-name="ProductPriceRule" engine="simple"
-                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="deleteProductPriceRule" auth="true">
+    <service name="deleteProductPriceRule" default-entity-name="ProductPriceRule" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an ProductPriceRule</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -101,125 +101,101 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="condValueInput" type="String" mode="IN" optional="true"></attribute>
     </service>
-    <service name="deleteProductPriceCond" default-entity-name="ProductPriceCond" engine="simple"
-                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="deleteProductPriceCond" auth="true">
+    <service name="deleteProductPriceCond" default-entity-name="ProductPriceCond" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an ProductPriceCond</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createProductPriceAction" default-entity-name="ProductPriceAction" engine="simple"
-                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="createProductPriceAction" auth="true">
+    <service name="createProductPriceAction" default-entity-name="ProductPriceAction" engine="entity-auto" invoke="create" auth="true">
         <description>Create an ProductPriceAction</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productPriceActionSeqId" mode="OUT"/>
     </service>
-    <service name="updateProductPriceAction" default-entity-name="ProductPriceAction" engine="simple"
-                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="updateProductPriceAction" auth="true">
+    <service name="updateProductPriceAction" default-entity-name="ProductPriceAction" engine="entity-auto" invoke="update" auth="true">
         <description>Update an ProductPriceAction</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductPriceAction" default-entity-name="ProductPriceAction" engine="simple"
-                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="deleteProductPriceAction" auth="true">
+    <service name="deleteProductPriceAction" default-entity-name="ProductPriceAction" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an ProductPriceAction</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Product Promotion Services -->
-    <service name="createProductPromo" default-entity-name="ProductPromo" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromo" auth="true">
+    <service name="createProductPromo" default-entity-name="ProductPromo" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true">
-            <exclude field-name="createdDate"/>
-            <exclude field-name="createdByUserLogin"/>
-            <exclude field-name="lastModifiedDate"/>
-            <exclude field-name="lastModifiedByUserLogin"/>
-        </auto-attributes>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="promoName" optional="false"/>
         <override name="promoText" allow-html="any"/>
+        <override name="userEntered" default-value="Y"/>
     </service>
-    <service name="updateProductPromo" default-entity-name="ProductPromo" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromo" auth="true">
+    <service name="updateProductPromo" default-entity-name="ProductPromo" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true">
-            <exclude field-name="createdDate"/>
-            <exclude field-name="createdByUserLogin"/>
-            <exclude field-name="lastModifiedDate"/>
-            <exclude field-name="lastModifiedByUserLogin"/>
-        </auto-attributes>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="promoText" allow-html="any"/>
+        <override name="userEntered" default-value="Y"/>
     </service>
-    <service name="deleteProductPromo" default-entity-name="ProductPromo" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromo" auth="true">
+    <service name="deleteProductPromo" default-entity-name="ProductPromo" engine="entity-auto" invoke="delete" auth="true">
+        <!-- TODO: if a force remove flag is passed, remove related info first, maybe just rules, store assocs, etc -->
         <description>Delete a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createProductPromoAction" default-entity-name="ProductPromoAction" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoAction" auth="true">
+    <service name="createProductPromoAction" default-entity-name="ProductPromoAction" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productPromoActionSeqId" mode="OUT"/>
         <override name="productPromoActionEnumId" optional="false"/>
     </service>
-    <service name="updateProductPromoAction" default-entity-name="ProductPromoAction" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoAction" auth="true">
+    <service name="updateProductPromoAction" default-entity-name="ProductPromoAction" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductPromoAction" default-entity-name="ProductPromoAction" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoAction" auth="true">
+    <service name="deleteProductPromoAction" default-entity-name="ProductPromoAction" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createProductPromoCategory" default-entity-name="ProductPromoCategory" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCategory" auth="true">
+    <service name="createProductPromoCategory" default-entity-name="ProductPromoCategory" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductPromoCategory</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateProductPromoCategory" default-entity-name="ProductPromoCategory" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoCategory" auth="true">
+    <service name="updateProductPromoCategory" default-entity-name="ProductPromoCategory" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductPromoCategory</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductPromoCategory" default-entity-name="ProductPromoCategory" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCategory" auth="true">
+    <service name="deleteProductPromoCategory" default-entity-name="ProductPromoCategory" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ProductPromoCategory</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createProductPromoCode" default-entity-name="ProductPromoCode" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCode" auth="true">
+    <service name="createProductPromoCode" default-entity-name="ProductPromoCode" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductPromoCode</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true">
-            <exclude field-name="createdDate"/>
-            <exclude field-name="createdByUserLogin"/>
-            <exclude field-name="lastModifiedDate"/>
-            <exclude field-name="lastModifiedByUserLogin"/>
-        </auto-attributes>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateProductPromoCode" default-entity-name="ProductPromoCode" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoCode" auth="true">
+    <service name="updateProductPromoCode" default-entity-name="ProductPromoCode" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductPromoCode</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true">
-            <exclude field-name="createdDate"/>
-            <exclude field-name="createdByUserLogin"/>
-            <exclude field-name="lastModifiedDate"/>
-            <exclude field-name="lastModifiedByUserLogin"/>
-        </auto-attributes>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductPromoCode" default-entity-name="ProductPromoCode" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCode" auth="true">
+    <service name="deleteProductPromoCode" default-entity-name="ProductPromoCode" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ProductPromoCode</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -230,15 +206,15 @@ under the License.
         <auto-attributes mode="IN" entity-name="ProductPromoCode" include="nonpk" optional="true"/>
     </service>
 
-    <service name="createProductPromoCodeEmail" default-entity-name="ProductPromoCodeEmail" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCodeEmail" auth="true">
+    <service name="createProductPromoCodeEmail" default-entity-name="ProductPromoCodeEmail" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductPromoCodeEmail</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductPromoCodeEmail" default-entity-name="ProductPromoCodeEmail" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCodeEmail" auth="true">
+    <service name="deleteProductPromoCodeEmail" default-entity-name="ProductPromoCodeEmail" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ProductPromoCodeEmail</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createBulkProductPromoCodeEmail" engine="java"
@@ -248,15 +224,15 @@ under the License.
         <attribute name="productPromoCodeId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="createProductPromoCodeParty" default-entity-name="ProductPromoCodeParty" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCodeParty" auth="true">
+    <service name="createProductPromoCodeParty" default-entity-name="ProductPromoCodeParty" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductPromoCodeParty</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductPromoCodeParty" default-entity-name="ProductPromoCodeParty" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCodeParty" auth="true">
+    <service name="deleteProductPromoCodeParty" default-entity-name="ProductPromoCodeParty" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ProductPromoCodeParty</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -277,6 +253,7 @@ under the License.
     <service name="createProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
                 location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCond" auth="true">
         <description>Create a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="carrierShipmentMethod" type="String" mode="IN" optional="true"/>
@@ -285,50 +262,51 @@ under the License.
     <service name="updateProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
                 location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoCond" auth="true">
         <description>Update a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="carrierShipmentMethod" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoCond" auth="true">
+    <service name="deleteProductPromoCond" default-entity-name="ProductPromoCond" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createProductPromoProduct" default-entity-name="ProductPromoProduct" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoProduct" auth="true">
+    <service name="createProductPromoProduct" default-entity-name="ProductPromoProduct" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductPromoProduct</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateProductPromoProduct" default-entity-name="ProductPromoProduct" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoProduct" auth="true">
+    <service name="updateProductPromoProduct" default-entity-name="ProductPromoProduct" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductPromoProduct</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductPromoProduct" default-entity-name="ProductPromoProduct" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoProduct" auth="true">
+    <service name="deleteProductPromoProduct" default-entity-name="ProductPromoProduct" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ProductPromoProduct</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createProductPromoRule" default-entity-name="ProductPromoRule" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoRule" auth="true">
+    <service name="createProductPromoRule" default-entity-name="ProductPromoRule" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
         <override name="productPromoRuleId" mode="OUT"/>
     </service>
-    <service name="updateProductPromoRule" default-entity-name="ProductPromoRule" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoRule" auth="true">
+    <service name="updateProductPromoRule" default-entity-name="ProductPromoRule" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteProductPromoRule" default-entity-name="ProductPromoRule" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductPromoRule" auth="true">
+    <service name="deleteProductPromoRule" default-entity-name="ProductPromoRule" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="calculatePurchasePrice" engine="java"
@@ -344,11 +322,11 @@ under the License.
         <attribute name="validPriceFound" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="orderItemPriceInfos" type="java.util.List" mode="OUT" optional="false"/>
     </service>
-    
+
     <service name="getAssociatedPriceRulesConds" engine="simple" auth="false"
         location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="getAssociatedPriceRulesConds">
         <description>Set the Value options for selected Price Rule Condition Input</description>
         <attribute name="inputParamEnumId" mode="IN" type="String"/>
         <attribute name="productPriceRulesCondValues" mode="OUT" type="java.util.List" optional="true"/><!-- optional="true" because of quantity or other kind of fiels needing an input -->
-    </service>    
+    </service>
 </services>

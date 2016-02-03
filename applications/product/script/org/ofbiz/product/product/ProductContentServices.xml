@@ -116,19 +116,6 @@ under the License.
         <call-service service-name="createContentAssoc" in-map-name="createContentAssocMap"/>
     </simple-method>
 
-    <!-- ProductFeatureDataResource -->
-    <simple-method method-name="createProductFeatureDataResource" short-description="Create ProductFeature-DataResource">
-        <make-value value-field="newEntity" entity-name="ProductFeatureDataResource"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="removeProductFeatureDataResource" short-description="Remove ProductFeature-DataResource">
-        <make-value value-field="lookupPKMap" entity-name="ProductFeatureDataResource"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    
     <simple-method method-name="uploadProductAdditionalViewImages" short-description="Method to upload multiple Additional View images for product">
         <set-service-fields service-name="addAdditionalViewForProduct" map="parameters" to-map="addAdditionalViewForProductMap"/>
         <if-not-empty field="parameters.additionalImageOne">
@@ -171,38 +158,12 @@ under the License.
     </simple-method>
 
     <!-- ProductPromoContent -->
-    <simple-method method-name="createProductPromoContent" short-description="Create Content For Product Promo">
-        <make-value value-field="newEntity" entity-name="ProductPromoContent"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-        <field-to-result field="newEntity.contentId" result-name="contentId"/>
-        <field-to-result field="newEntity.productPromoId" result-name="productPromoId"/>
-        <field-to-result field="newEntity.productPromoContentTypeId" result-name="productPromoContentTypeId"/>
-    </simple-method>
-
-    <simple-method method-name="updateProductPromoContent" short-description="Update Content For Product Promo">
-        <make-value value-field="lookupPKMap" entity-name="ProductPromoContent"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <simple-method method-name="removeProductPromoContent" short-description="Remove Content From Product Promo">
-        <make-value value-field="lookupPKMap" entity-name="ProductPromoContent"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <if-empty field="lookedUpValue.thruDate">
-            <now-timestamp field="nowTimestamp"/>
-            <set from-field="nowTimestamp" field="lookedUpValue.thruDate"/>
+        <set-service-fields service-name="updateProductPromoContent" to-map="updateProductPromoContentMap" map="parameters"/>
+        <if-empty field="updateProductPromoContentMap.thruDate">
+            <now-timestamp field="updateProductPromoContentMap.thruDate"/>
         </if-empty>
-        <store-value value-field="lookedUpValue"/>
+        <call-service service-name="updateProductPromoContent" in-map-name="updateProductPromoContentMap"/>
     </simple-method>
 
     <!-- Product Content SEO -->

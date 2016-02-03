@@ -20,78 +20,7 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
-    <simple-method method-name="createSupplierProduct" short-description="Create a Supplier Product record">
-        <check-permission permission="CATALOG" action="_CREATE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
-        </check-permission>
-        <check-errors/>
 
-        <make-value value-field="newEntity" entity-name="SupplierProduct"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateSupplierProduct" short-description="Update a Supplier Product record">
-        <check-permission permission="CATALOG" action="_UPDATE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value value-field="lookupPKMap" entity-name="SupplierProduct"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-
-        <find-by-primary-key entity-name="SupplierProduct" map="lookupPKMap" value-field="sprod"/>
-        <set-nonpk-fields map="parameters" value-field="sprod"/>
-        <store-value value-field="sprod"/>
-    </simple-method>
-
-    <simple-method method-name="removeSupplierProduct" short-description="Remove a Supplier Product record">
-        <check-permission permission="CATALOG" action="_DELETE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value value-field="lookupPKMap" entity-name="SupplierProduct"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-
-        <find-by-primary-key entity-name="SupplierProduct" map="lookupPKMap" value-field="sprod"/>
-        <remove-value value-field="sprod"/>
-    </simple-method>
-
-    <!-- services for supplier product features -->
-    <simple-method method-name="createSupplierProductFeature" short-description="Create a Supplier Product Feature record">
-        <check-permission permission="CATALOG" action="_CREATE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <make-value value-field="newEntity" entity-name="SupplierProductFeature"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateSupplierProductFeature" short-description="Update a Supplier Product Feature record">
-        <check-permission permission="CATALOG" action="_UPDATE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="SupplierProductFeature" value-field="sprod"/>
-        <set-nonpk-fields map="parameters" value-field="sprod"/>
-        <store-value value-field="sprod"/>
-    </simple-method>
-    <simple-method method-name="removeSupplierProductFeature" short-description="Remove a Supplier Product record">
-        <check-permission permission="CATALOG" action="_DELETE">
-            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="SupplierProductFeature" value-field="sprod"/>
-        <remove-value value-field="sprod"/>
-    </simple-method>
     <simple-method method-name="getSupplierProductFeatures" short-description="Get all supplier information for a product feature" login-required="false">
         <entity-and entity-name="SupplierProductFeature" list="supplierProductFeatures">
             <field-map field-name="partyId" from-field="parameters.partyId"/>

@@ -106,49 +106,12 @@ under the License.
     <!-- ProductCategoryMember Services -->
     <!-- ================================================================ -->
 
-    <simple-method method-name="addProductToCategory" short-description="Add Product to Category">
-        <!-- note that the security semantics require the user to have the general admin permission,
-            or the role limited permission and association with the category, not the product -->
-            <!--
-        <set value="addProductToCategory" field="callingMethodName"/>
-        <set value="CREATE" field="checkAction"/>
-        <call-simple-method method-name="checkCategoryRelatedPermission"/>
-        <check-errors/>
-        -->
-        <make-value value-field="newEntity" entity-name="ProductCategoryMember"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
-        </if-empty>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
     <simple-method method-name="addProductToCategories" short-description="Add Product to Multiple Categories">
+        <set-service-fields service-name="addProductToCategory" to-map="addProductToCategoryMap" map="parameters"/>
         <if-instance-of field="parameters.categories" class="java.util.List">
             <iterate entry="category" list="parameters.categories">
-                <!-- note that the security semantics require the user to have the general admin permission,
-                    or the role limited permission and association with the category, not the product -->
-                <!--
-                <set field="productCategoryIdToCheck" from-field="category"/>
-                <set field="callingMethodName" value="addProductToCategories"/>
-                <set field="checkAction" value="CREATE"/>
-                <call-simple-method method-name="checkCategoryRelatedPermission"/>
-                <check-errors/>
-                 -->
-
-                <make-value value-field="newEntity" entity-name="ProductCategoryMember"/>
-                <set field="newEntity.productCategoryId" from-field="category"/>
-                <set-pk-fields map="parameters" value-field="newEntity"/>
-                <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-                <if-empty field="newEntity.fromDate">
-                    <now-timestamp field="newEntity.fromDate"/>
-                </if-empty>
-
-                <create-value value-field="newEntity"/>
+                <set field="addProductToCategoryMap.productCategoryId" from-field="category"/>
+                <call-service service-name="addProductToCategory" in-map-name="addProductToCategoryMap"/>
             </iterate>
             <else>
                 <!-- note that the security semantics require the user to have the general admin permission,
@@ -159,36 +122,12 @@ under the License.
                 <call-simple-method method-name="checkCategoryRelatedPermission"/>
                 <check-errors/>
 
-                <make-value value-field="newEntity" entity-name="ProductCategoryMember"/>
-                <set field="newEntity.productCategoryId" from-field="parameters.categories"/>
-                <set-pk-fields map="parameters" value-field="newEntity"/>
-                <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-                <if-empty field="newEntity.fromDate">
-                    <now-timestamp field="newEntity.fromDate"/>
-                </if-empty>
-
-                <create-value value-field="newEntity"/>
+                <set field="addProductToCategoryMap.productCategoryId" from-field="productCategoryIdToCheck"/>
+                <call-service service-name="addProductToCategory" in-map-name="addProductToCategoryMap"/>
             </else>
         </if-instance-of>
     </simple-method>
 
-    <simple-method method-name="updateProductToCategory" short-description="Update Product to Category Application">
-        <!-- note that the security semantics require the user to have the general admin permission,
-            or the role limited permission and association with the category, not the product -->
-        <!--
-        <set value="updateProductToCategory" field="callingMethodName"/>
-        <set value="UPDATE" field="checkAction"/>
-        <call-simple-method method-name="checkCategoryRelatedPermission"/>
-        <check-errors/>
-         -->
-
-        <make-value value-field="lookupPKMap" entity-name="ProductCategoryMember"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductCategoryMember" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="removeProductFromCategory" short-description="Remove Product From Category">
         <!-- note that the security semantics require the user to have the general admin permission,
             or the role limited permission and association with the category, not the product -->

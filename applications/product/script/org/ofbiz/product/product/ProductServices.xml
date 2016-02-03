@@ -711,6 +711,29 @@ under the License.
             </else>
         </if-empty>
     </simple-method>
+    <simple-method method-name="productPriceGenericPermission" short-description="product price permission logic">
+        <set field="mainAction" from-field="parameters.mainAction"/>
+        <if-empty field="mainAction">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductMissingMainActionInPermissionService"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
+        <if-empty field="error_list">
+            <set field="hasPermission" type="Boolean" value="true"/>
+            <field-to-result field="hasPermission"/>
+            <else>
+                <property-to-field resource="ProductUiLabels" property="ProductPermissionError" field="failMessage"/>
+                <set field="hasPermission" type="Boolean" value="false"/>
+                <field-to-result field="hasPermission"/>
+                <field-to-result field="failMessage"/>
+            </else>
+        </if-empty>
+    </simple-method>
 
     <!-- ================================================================ -->
     <!-- ProductRole Services -->
