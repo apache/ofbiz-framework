@@ -2263,18 +2263,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
-    protected String appendExternalLoginKey(String target) {
-        String result = target;
-        String sessionId = ";jsessionid=" + request.getSession().getId();
-        int questionIndex = target.indexOf("?");
-        if (questionIndex == -1) {
-            result += sessionId;
-        } else {
-            result = result.replace("?", sessionId + "?");
-        }
-        return result;
-    }
-
     public void renderNextPrev(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         boolean ajaxEnabled = false;
         List<ModelForm.UpdateArea> updateAreas = modelForm.getOnPaginateUpdateAreas();

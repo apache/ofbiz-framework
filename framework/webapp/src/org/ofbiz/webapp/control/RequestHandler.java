@@ -582,10 +582,6 @@ public class RequestHandler {
                 }
                 
                 callRedirect(makeLink(request, response, redirectTarget), response, request, statusCodeString);
-
-                // the old/uglier way: doRequest(request, response, previousRequest, userLogin, delegator);
-
-                // this is needed as the request handled will be taking care of the view, etc
                 return;
             }
         }
@@ -1230,42 +1226,10 @@ public class RequestHandler {
 
         String encodedUrl;
         if (encode) {
-            boolean isSpider = false;
-
-            // if the current request comes from a spider, we will not add the jsessionid to the link
-            if (UtilHttp.checkURLforSpiders(request)) {
-                isSpider = true;
-            }
-
-            if (response != null && !isSpider) {
-                encodedUrl = response.encodeURL(newURL.toString());
-            } else {
-                if (!isSpider) {
-                    String sessionId = ";jsessionid=" + request.getSession().getId();
-                    // this should be inserted just after the "?" for the parameters, if there is one, or at the end of the string
-                    int questionIndex = newURL.indexOf("?");
-                    if (questionIndex == -1) {
-                        newURL.append(sessionId);
-                    } else {
-                        newURL.insert(questionIndex, sessionId);
-                    }
-                }
-                if (response != null) {
-                    encodedUrl = response.encodeURL(newURL.toString());
-                } else {
-                    encodedUrl = newURL.toString();
-                }
-            }
+            encodedUrl = response.encodeURL(newURL.toString());
         } else {
             encodedUrl = newURL.toString();
         }
-        //if (encodedUrl.indexOf("null") > 0) {
-            //Debug.logError("in makeLink, controlPath:" + controlPath + " url:" + url, "");
-            //throw new RuntimeException("in makeLink, controlPath:" + controlPath + " url:" + url);
-        //}
-
-        //Debug.logInfo("Making URL, encode=" + encode + " for URL: " + newURL + "\n encodedUrl: " + encodedUrl, module);
-
         return encodedUrl;
     }
 

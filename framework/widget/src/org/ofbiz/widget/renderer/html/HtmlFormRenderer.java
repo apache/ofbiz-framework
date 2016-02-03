@@ -2121,7 +2121,6 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(modelFormField.getParameterName(context));
             writer.append(",'");
         }
-        writer.append(appendExternalLoginKey(lookupField.getFormName(context)));
         writer.append("'");
         List<String> targetParameterList = lookupField.getTargetParameterList();
         for (String targetParameter: targetParameterList) {
@@ -2153,18 +2152,6 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         appendWhitespace(writer);
 
         //appendWhitespace(writer);
-    }
-
-    protected String appendExternalLoginKey(String target) {
-        String result = target;
-        String sessionId = ";jsessionid=" + request.getSession().getId();
-        int questionIndex = target.indexOf("?");
-        if (questionIndex == -1) {
-            result += sessionId;
-        } else {
-            result = result.replace("?", sessionId + "?");
-        }
-        return result;
     }
 
     private int getActualPageSize(Map<String, Object> context) {
