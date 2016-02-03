@@ -1,0 +1,400 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/* This CSS file is used to reverse the style direction for rtl languages. */
+/* It is intended to be cascaded with maincss.css. */
+
+/* ===== Resets/Browser Normalization ===== */
+
+body, caption, th {
+text-align: right;
+}
+
+/* ===== Legacy Styles ===== */
+
+.boxlink {
+float: left;
+}
+
+DIV.boxhead-left {
+float: right;
+}
+
+DIV.boxhead-right {
+float: left;
+}
+
+.submenutextinfo {
+border-right: none;
+border-left: 0.1em solid #5886C6;
+}
+
+.submenutext, A.submenutext, A.submenutext:visited,
+.submenutextdisabled, A.submenutextdisabled {
+border-right: none;
+border-left: 0.1em solid #5886C6;
+padding-left: 0.5em;
+padding-right: 0.2em;
+}
+
+.submenutextinforight, .submenutextright, A.submenutextright,
+.submenutextrightdisabled, A.submenutextrightdisabled {
+padding-left: none;
+padding-right: 0.2em;
+}
+
+/* ===== Product Summary Styles ===== */
+.product-prevnext {
+text-align: left;
+}
+
+.productsummary .smallimage {
+float: right;
+margin: 0 0 0.5em 0.5em;
+}
+.productsummary .productbuy {
+float: left;
+text-align: left;
+}
+
+.productsummary .productinfo {
+text-align: right;
+}
+
+.treeWrapper {
+border-left: none;
+border-right: 0.1em solid #000000;
+margin-left: 0;
+margin-right: 1.2em;
+text-align: right;
+}
+
+.lefthalf{
+float: right;
+left: auto;
+right: 0;
+margin: 0 0 1% 1%;
+}
+
+.righthalf {
+float: left;
+margin: 0 1% 1% 0;
+right: auto;
+left: 0;
+}
+
+.leftclear{
+clear: right;
+}
+
+/* ==== Styles Copied From tabstyles.css === */
+
+.treewrapper {
+margin-left: 0;
+margin-right: 1em;
+}
+
+DIV.col {
+float: right;
+}
+
+DIV.col-right {
+float: left;
+}
+
+DIV.simple-right-small, DIV.simple-right-half {
+float: left;
+text-align: left;
+}
+
+#column-container .left {
+float: right;
+margin-right: 0;
+margin-left: 1em;
+}
+
+.left-border {
+float: right;
+margin-right: 0;
+margin-left: 1em;
+border-right: none;
+border-left: 0.5px dotted #ccc;
+}
+
+#column-container .right {
+float: left;
+margin-left: 0;
+margin-right: 1em;
+}
+
+#column-container .leftonly {
+margin-left: 0;
+margin-right: 23em;
+}
+
+#column-container .rightonly {
+margin-right: 0;
+margin-left: 23em;
+}
+
+DIV.column-left-wide {
+float: right;
+}
+
+/* ===== New Styles ===== */
+
+.label {
+padding-right: 0;
+padding-left: 1.1em;
+text-align: left;
+}
+
+/* ================================== */
+/* ===== Used to align elements ===== */
+/* ================================== */
+
+.align-float {
+float: left;
+}
+
+.align-text {
+text-align: left;
+}
+
+/* ==================================== */
+/* ===== Masthead (Header) Styles ===== */
+/* ==================================== */
+
+#masthead ul li {
+float: right;
+}
+
+#masthead ul .opposed,
+#masthead ul .control-area {
+float: left;
+text-align: left;
+}
+
+/* ---------------------- */
+/*      Footer Style      */
+/* ---------------------- */
+
+#footer {
+padding: 0.5em 0.5em 0.5em 0;
+}
+
+#footer ul {
+float: right;
+}
+
+#footer ul li {
+float: right;
+}
+
+#footer ul .first {
+border-right: none;
+border-left: 0.1em solid #444;
+}
+
+#footer ul .last {
+border-left: none;
+border-right: 0.1em solid #222;
+}
+
+#footer p {
+clear: right;
+}
+
+/* ================================================== */
+/* ===== Main Navigation (App Menu) Styles ========== */
+/* ================================================== */
+
+#main-navigation ul li {
+float: right;
+padding:0 0.5em 0 1em;
+}
+
+#main-navigation ul .first {
+border-right: none;
+border-left: 0.1em solid #5c809c;
+}
+
+#main-navigation ul .last {
+border-left: none;
+border-right: 0.1em solid #3e5a71;
+}
+
+/* ========================================================= */
+/* ===== Component Navigation (App Header) Styles ========== */
+/* ========================================================= */
+
+#app-navigation ul li ul li {
+float: right;
+margin: 0.1em 0 0.1em 0.3em;
+}
+
+/* ================================================= */
+/* ===== Screenlet Title Bar/Navigation Styles ===== */
+/* ================================================= */
+
+.screenlet-title-bar ul li {
+border-left: none;
+border-right: 0.1em solid #dedede;
+float: left;
+}
+
+.screenlet-title-bar ul .h1,
+.screenlet-title-bar ul .h2,
+.screenlet-title-bar ul .h3 {
+border-right: none;
+float: right;
+}
+
+
+/* login screenlet decorator */
+.login-screenlet {
+margin-left: 0;
+margin-right: 38%;
+}
+
+/* ======================================================= */
+/* ===== Basic Navigation (Vertical Menu) Style ========== */
+/* ======================================================= */
+
+.basic-nav {
+padding-left: 0;
+padding-right: 1em;
+}
+
+/* ======================================== */
+/* ===== Button Bar Navigation Styles ===== */
+/* ======================================== */
+
+.button-bar ul li {
+float: right;
+}
+
+.button-bar ul .opposed {
+float: left;
+}
+
+/* ===== Button bar decorators ===== */
+
+.tab-bar ul li ul li {
+margin-right: 0;
+margin-left: 0.5em;
+}
+/* ======================== */
+/* ===== Table Styles ===== */
+/* ======================== */
+
+.basic-table tr .label,
+.basic-table tr .group-label {
+/* field labels for forms */
+text-align: left;
+padding-right: 0;
+padding-left: 1.5em;
+}
+
+.basic-table tr .group-label {
+padding: 2em 0 0 1.5em;
+}
+
+.basic-table tr th,
+.basic-table .header-row {
+text-align: right;
+}
+
+.basic-table tr .button-col a {
+float: right;
+}
+
+/* ======================= */
+/* ===== Tree Styles ===== */
+/* ======================= */
+
+.basic-tree ul, .basic-tree li {
+padding-left: 0;
+padding-right: 1em;
+}
+
+.basic-tree li .expanded {
+background: url(/images/collapse.gif) no-repeat right center;
+padding-right: 0;
+padding-left: 1em;
+}
+
+.basic-tree li .collapsed {
+background: url(/images/expand.gif) no-repeat right center;
+padding-right: 0;
+padding-left: 1em;
+}
+
+/* ======================== */
+/* ===== Form Styles ===== */
+/* ======================== */
+
+.basic-form table tr .label,
+.basic-form table tr .group-label {
+text-align: left;
+padding-right: 0;
+padding-left: 1.5em;
+}
+
+.basic-form table tr .group-label {
+/* "header" for field label groups */
+font-size: 1.2em;
+padding: 2em 0 0 1.5em ;
+}
+
+.basic-form table tr th,
+.basic-form table .header-row {
+text-align: right;
+}
+
+/* ------------------------------- */
+/*      List Navigation Style      */
+/* ------------------------------- */
+
+.nav-pager ul li {
+float: right;
+}
+
+.nav-pager ul .nav-displaying {
+border-left: none;
+border-right: solid #222 0.1em;
+}
+
+
+/* From http://jqueryui.com/demos/autocomplete/maxheight.html */
+/* When displaying a long list of options, you can simply set the max-height for the autocomplete menu to prevent the menu from growing too large */
+.ui-autocomplete {
+    max-height: 250px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    /* add padding to account for vertical scrollbar */
+    padding-right: 20px;
+}
+/* IE 6 doesn't support max-height
+ * we use height instead, but this forces the menu to always be this tall
+ */
+* html .ui-autocomplete {
+    height: 250px;
+}
