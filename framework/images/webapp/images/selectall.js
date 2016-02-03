@@ -732,8 +732,8 @@ function submitFormDisableSubmits(form) {
     }
 }
 
+function showjGrowl(showAllLabel, collapseLabel, hideAllLabel, jGrowlPosition, jGrowlWidth, jGrowlHeight, jGrowlSpeed) {
 
-function showjGrowl(showAllLabel, collapseLabel) {
     var contentMessages = jQuery("#content-messages");
     if (contentMessages.length) {
         jQuery("#content-messages").hide();
@@ -755,11 +755,12 @@ function showjGrowl(showAllLabel, collapseLabel) {
             // No Error Message Information is set, Error Msg Box can't be created
             return;
         }
-        $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">Hide All Notifications</div>';
-        $.jGrowl.defaults.position = 'center';
+        $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">'+hideAllLabel+'</div>';
+        if (jGrowlPosition !== null && jGrowlPosition !== undefined) $.jGrowl.defaults.position = jGrowlPosition;
         $.jGrowl(errMessage, { theme: classEvent, sticky: stickyValue,
             beforeOpen: function(e,m,o){
-                $(e).width( "600px" );
+                if (jGrowlWidth !== null && jGrowlWidth !== undefined) $(e).width( jGrowlWidth+'px' );
+                if (jGrowlHeight !== null  && jGrowlHeight !== undefined) $(e).height( jGrowlHeight+'px' );
             },
             afterOpen: function(e,m) {
                 jQuery(".jGrowl-message").readmore({
@@ -769,7 +770,7 @@ function showjGrowl(showAllLabel, collapseLabel) {
                     maxHeight: 75
                 });
             },
-            speed:100
+            speed:jGrowlSpeed
         });
         contentMessages.remove();
     }

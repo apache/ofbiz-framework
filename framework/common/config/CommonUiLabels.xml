@@ -5181,6 +5181,14 @@
         <value xml:lang="zh">没有找到帮助文件或网址</value>
         <value xml:lang="zh-TW">沒有找到說明檔或網址</value>
     </property>
+    <property key="CommonHideAllNotifications">
+        <value xml:lang="de">Alle Bekanntgaben ausblenden</value>
+        <value xml:lang="en">Hide all the notifications</value>
+        <value xml:lang="es">Ocultar todas las notificaciones</value>
+        <value xml:lang="fr">Cacher toutes les notifications</value>
+        <value xml:lang="it">Nascondere tutte le notificazioni</value>
+        <value xml:lang="nl">Verbergen alle kennisgevingen</value>
+    </property>
     <property key="CommonHideFields">
         <value xml:lang="ar">اخفاء الحقول</value>
         <value xml:lang="cs">Skrýt pole</value>
