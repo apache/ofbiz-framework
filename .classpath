@@ -98,9 +98,9 @@
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.65-jasper.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.65-tomcat-api.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.65-tomcat-coyote.jar"/>
-	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.65-tomcat-util.jar"/>
+	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.65-tomcat-juli-adapters.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.65-tomcat-juli.jar"/>
-	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.65-tomcat-juli-adapters.jar"/>
+	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.65-tomcat-util.jar"/>
 	<classpathentry kind="lib" path="framework/entity/lib/commons-dbcp2-2.1.jar"/>
 	<classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-3.1.1.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/axiom-api-1.2.14.jar"/>
