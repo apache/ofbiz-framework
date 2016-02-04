@@ -5403,7 +5403,7 @@
         <value xml:lang="en">Average Pay Rate</value>
         <value xml:lang="fr">Prix moyen</value>
         <value xml:lang="ja">平均支払レート</value>
-        <value xml:lang="nl">Gem. tarief</value>
+        <value xml:lang="nl">Tarief - gemiddeld</value>
         <value xml:lang="vi">Tỷ lệ thanh toán trung bình</value>
         <value xml:lang="zh">平均支付费率</value>
         <value xml:lang="zh-TW">平均支付費率</value>
@@ -5414,6 +5414,7 @@
         <value xml:lang="en">Discounted Rate</value>
         <value xml:lang="fr">Réduit</value>
         <value xml:lang="ja">割引レート</value>
+        <value xml:lang="nl">Tarief - met korting</value>
         <value xml:lang="vi">Tỷ lệ giảm giá</value>
         <value xml:lang="zh">贴现率</value>
         <value xml:lang="zh-TW">貼現率</value>
@@ -5424,6 +5425,7 @@
         <value xml:lang="en">Highest Pay Rate</value>
         <value xml:lang="fr">Prix haut</value>
         <value xml:lang="ja">最高支払レート</value>
+        <value xlm:lang="nl">Tarief - hoogste</value>
         <value xml:lang="vi">Tỷ lệ thanh toán cao nhất</value>
         <value xml:lang="zh">最高支付费率</value>
         <value xml:lang="zh-TW">最高支付費率</value>
@@ -5434,6 +5436,7 @@
         <value xml:lang="en">Lowest Pay Rate</value>
         <value xml:lang="fr">Prix bas</value>
         <value xml:lang="ja">最低支払レート</value>
+        <value xml:lang="nl">Tarief - laagste</value>
         <value xml:lang="vi">Tỷ lệ thanh toán thấp nhất</value>
         <value xml:lang="zh">最低支付费率</value>
         <value xml:lang="zh-TW">最低支付費率</value>
