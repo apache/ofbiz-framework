@@ -331,7 +331,7 @@
         <value xml:lang="hi-IN">अनुबंध कार्य प्रयास अनुप्रयोग(AgreementWorkEffortApplic) बनाएँ</value>
         <value xml:lang="it">Aggiungi Applicazione Termine Impegno di Lavoro</value>
         <value xml:lang="ja">契約作業成果適用を追加</value>
-        <value xml:lang="nl">Voeg Werkinzettoepassing van overeenkomt toe</value>
+        <value xml:lang="nl">Voeg Werkinzettoepassing van overeenkomst toe</value>
         <value xml:lang="pt">Adicionar acordo esforço de trabalho ao aplicativo</value>
         <value xml:lang="vi">Thêm Ứng dụng Lượng giá nguồn lực</value>
         <value xml:lang="zh">添加协议人工服务用途</value>
@@ -604,7 +604,7 @@
         <value xml:lang="en">Add Tax</value>
         <value xml:lang="fr">Ajouter les taxes</value>
         <value xml:lang="ja">税を追加</value>
-        <value xml:lang="nl">Belastingen toevoegen</value>
+        <value xml:lang="nl">Belasting toevoegen</value>
         <value xml:lang="vi">Thêm Thuế</value>
         <value xml:lang="zh">添加税项</value>
         <value xml:lang="zh-TW">增加稅項</value>
@@ -909,6 +909,7 @@
         <value xml:lang="hi-IN">अनुबंध की भूमिकाए</value>
         <value xml:lang="it">Ruoli Contratto</value>
         <value xml:lang="ja">契約ロール</value>
+        <value xml:lang="nl">Rollen contract</value>
         <value xml:lang="pt">Papéis do Acordo</value>
         <value xml:lang="vi">Vai trò</value>
         <value xml:lang="zh">合同角色</value>
@@ -1161,7 +1162,7 @@
         <value xml:lang="ar">أوفبيز: مدير ذمم دائنة</value>
         <value xml:lang="de">OFBiz: Kreditorenbuchhaltung</value>
         <value xml:lang="en">OFBiz: AP Manager</value>
-        <value xml:lang="fr">OFBiz : gestion des comptes fourn.</value>
+        <value xml:lang="fr">OFBiz: gestion des comptes fourn.</value>
         <value xml:lang="hi-IN">OFBiz: खाता देय प्रबंधक</value>
         <value xml:lang="it">OFBiz: Gestione conti debitori</value>
         <value xml:lang="ja">OFBiz: 買掛管理</value>
@@ -1469,6 +1470,7 @@
         <value xml:lang="fr">Montant total approuvé</value>
         <value xml:lang="hi-IN">स्वीकृत कुल योग</value>
         <value xml:lang="ja">総合計を承認</value>
+        <value xml:lang="nl">Goedgekeurd Grand Totaal</value>
         <value xml:lang="pt">Total Final Aprovado</value>
         <value xml:lang="vi">Đã duyệt Tổng chung</value>
         <value xml:lang="zh">已批准的合计</value>
@@ -1492,7 +1494,7 @@
         <value xml:lang="ar">أوفبيز: مدير الذمم المدينة</value>
         <value xml:lang="de">OFBiz: Debitorenbuchhaltung</value>
         <value xml:lang="en">OFBiz: AR Manager</value>
-        <value xml:lang="fr">OFBiz : gestion des comptes clients</value>
+        <value xml:lang="fr">OFBiz: gestion des comptes clients</value>
         <value xml:lang="hi-IN">OFBiz: खाता प्राप्य प्रबंधक</value>
         <value xml:lang="it">OFBiz: Gestione conti creditori</value>
         <value xml:lang="ja">OFBiz: 売掛管理</value>
@@ -1550,7 +1552,7 @@
         <value xml:lang="en">AR Payment Groups</value>
         <value xml:lang="fr">Groupes de paiement</value>
         <value xml:lang="ja">売掛支払グループ</value>
-        <value xml:lang="nl">AP Betalingsgroepen</value>
+        <value xml:lang="nl">AR Betalingsgroepen</value>
         <value xml:lang="pt">Grupos de Pagamento do Contas a receber</value>
         <value xml:lang="vi">Nhóm thanh toán</value>
         <value xml:lang="zh">应收支付组</value>
@@ -1650,6 +1652,7 @@
         <value xml:lang="fr">Associer au rapprochement</value>
         <value xml:lang="hi-IN">पुनर्मिलन के लिए निर्दिष्ट करे</value>
         <value xml:lang="ja">照合に割当</value>
+        <value xml:lang="nl">Toewijzen aan afstemming</value>
         <value xml:lang="pt">Atribuir para Reconciliação</value>
         <value xml:lang="vi">Gán tới Đối ứng</value>
         <value xml:lang="zh">指定到对账</value>
@@ -1664,7 +1667,7 @@
         <value xml:lang="hi-IN">अधिकृत</value>
         <value xml:lang="it">Autorizza</value>
         <value xml:lang="ja">認証</value>
-        <value xml:lang="nl">Machtig</value>
+        <value xml:lang="nl">Machtigen</value>
         <value xml:lang="pt">Autorizar</value>
         <value xml:lang="ro">Autorizeaza</value>
         <value xml:lang="ru">Авторизировать</value>
@@ -1681,6 +1684,7 @@
         <value xml:lang="hi-IN">अधिकृत Dot Net API संस्करणः</value>
         <value xml:lang="it">Versione API Authorize Dot Net</value>
         <value xml:lang="ja">認証 .Net API バージョン</value>
+        <value xml:lang="nl">Authorize Dot Net API versie</value>
         <value xml:lang="pt">Autorizar Versão da API Dot Net</value>
         <value xml:lang="vi">Phiên bản API .Net để Chứng nhận</value>
         <value xml:lang="zh">授权.NET API版本</value>
@@ -3701,6 +3705,7 @@
         <value xml:lang="fr">Créer un groupe de paiement</value>
         <value xml:lang="hi-IN">नया  भुगतान समूह बनाएँ</value>
         <value xml:lang="ja">新規支払グループを作成</value>
+        <value xml:lang="nl">Nieuwe betalingsgroep</value>
         <value xml:lang="pt">Criar um novo grupo de pagamento</value>
         <value xml:lang="vi">Tạo mới nhóm thanh toán</value>
         <value xml:lang="zh">新建支付组</value>
@@ -5049,6 +5054,7 @@
         <value xml:lang="fr">Modifier un groupe de paiement</value>
         <value xml:lang="hi-IN">भुगतान समूह सम्पादित करें</value>
         <value xml:lang="ja">支払グループを編集</value>
+        <value xml:lang="nl">Betalingsgroep wijzigen</value>
         <value xml:lang="pt">Editar Grupo de Pagamento</value>
         <value xml:lang="vi">Cập nhật nhóm thanh toán</value>
         <value xml:lang="zh">编辑支付组</value>
@@ -5246,7 +5252,7 @@
         <value xml:lang="hi-IN">आदेश मदो से चालान बनाने में इकाई/डाटा समस्या :${reason}</value>
         <value xml:lang="it">Entità/data problemi creazione fattura da righe ordine: ${reason} </value>
         <value xml:lang="ja">注文アイテムから請求書を作成中に、エンティティ/データの問題があります: ${reason}</value>
-        <value xml:lang="nl">Entiteit-/gegevensprobleem bij het maken van facturen voor een bestelling: ${reason}</value>
+        <value xml:lang="nl">Entiteit-/gegevensprobleem bij het maken van facturen voor een order: ${reason}</value>
         <value xml:lang="pt">Entidade/erro ao criar fatura a partir dos itens do pedido: ${reason}</value>
         <value xml:lang="ro">Entitati/date probleme la crearea Facturii nr.inreg: ${reason} </value>
         <value xml:lang="ru">Проблема объекта/данных в процессе создания накладной из позиций заказа: ${reason} </value>
@@ -6802,7 +6808,7 @@
         <value xml:lang="hi-IN">अचल संपत्ति के उत्पाद का प्रकार</value>
         <value xml:lang="it">Tipo di prodotto associato al cespite</value>
         <value xml:lang="ja">固定資産製品種類</value>
-        <value xml:lang="nl">Produkttype Vaste activa </value>
+        <value xml:lang="nl">Producttype Vaste activa </value>
         <value xml:lang="pt">Tipo de produto de Ativo Fixo</value>
         <value xml:lang="ro">Tip Produs Mijloc Fix</value>
         <value xml:lang="ru">Тип продукта ОС</value>
@@ -6855,7 +6861,7 @@
         <value xml:lang="hi-IN">उत्पाद</value>
         <value xml:lang="it">Prodotti</value>
         <value xml:lang="ja">製品</value>
-        <value xml:lang="nl">Produkten</value>
+        <value xml:lang="nl">Producten</value>
         <value xml:lang="pt">Produtos</value>
         <value xml:lang="ro">Produs</value>
         <value xml:lang="ru">Продукты</value>
@@ -8281,7 +8287,7 @@
         <value xml:lang="hi-IN">वस्तुएं</value>
         <value xml:lang="it">Righe</value>
         <value xml:lang="ja">アイテム</value>
-        <value xml:lang="nl">regels</value>
+        <value xml:lang="nl">Regels</value>
         <value xml:lang="pt">Itens</value>
         <value xml:lang="ro">Linii</value>
         <value xml:lang="ru">Спецификация</value>
@@ -8455,6 +8461,7 @@
         <value xml:lang="fr">Facturation pour chaque expédition</value>
         <value xml:lang="en">Invoice Per Shipment</value>
         <value xml:lang="ja">発送ごとの請求書</value>
+        <value xml:lang="nl">Factuur per zending</value>
         <value xml:lang="vi">Hóa đơn với mỗi Chuyển vận</value>
         <value xml:lang="zh">每次运输的发票</value>
         <value xml:lang="zh-TW">每次運輸的發票</value>
@@ -9745,6 +9752,7 @@
         <value xml:lang="fr">Nouv. grp. de paiement</value>
         <value xml:lang="hi-IN">नया भुगतान समूह</value>
         <value xml:lang="ja">新規支払グループ</value>
+        <value xml:lang="nl">Nieuwe betalingsgroep</value>
         <value xml:lang="pt">Novo grupo de Pagamento</value>
         <value xml:lang="vi">Thêm Nhóm thanh toán</value>
         <value xml:lang="zh">新建支付组</value>
@@ -11818,6 +11826,7 @@
         <value xml:lang="fr">Groupe de paiement</value>
         <value xml:lang="hi-IN">भुगतान समूह</value>
         <value xml:lang="ja">支払グループ</value>
+        <value xml:lang="nl">Betalingsgroep(en)</value>
         <value xml:lang="pt">Grupo de Pagamento</value>
         <value xml:lang="vi">Nhóm thanh toán</value>
         <value xml:lang="zh">支付组</value>
@@ -13477,7 +13486,7 @@
         <value xml:lang="hi-IN">OrderItemBilling अभिलेखों में ${billFields} के लिए समस्या हो रही</value>
         <value xml:lang="it">Problemi ricercando OrderItemBilling records per ${billFields}</value>
         <value xml:lang="ja">${billFields} に対する注文アイテム請求レコードの検索時に問題があります</value>
-        <value xml:lang="nl">Problemen met het opzoeken van bestellingsfacturen voor ${billFields}</value>
+        <value xml:lang="nl">Problemen met het opzoeken van orderfacturen voor ${billFields}</value>
         <value xml:lang="pt">Problema ao procurar registros OrderItemBilling para ${billFields}</value>
         <value xml:lang="ro">Probleme la numararea inregistrarilor OrderItemBilling pentru ${billFields}</value>
         <value xml:lang="ru">Проблема поиска записей OrderItemBilling для ${billFields}</value>
@@ -13511,7 +13520,7 @@
         <value xml:lang="hi-IN">उत्पाद</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="ja">製品</value>
-        <value xml:lang="nl">Produkt</value>
+        <value xml:lang="nl">Product</value>
         <value xml:lang="pt">Produto</value>
         <value xml:lang="ro">Produs</value>
         <value xml:lang="ru">Продукт</value>
@@ -17669,7 +17678,7 @@
         <value xml:lang="hi-IN">माल बिक्री विधि की लागत (COGS)</value>
         <value xml:lang="it">Metodo Costo dei Beni Venduti (COGS)</value>
         <value xml:lang="ja">売上原価法(COGS)</value>
-        <value xml:lang="nl">Cost Of Goods Sold (COGS) Methode</value>
+        <value xml:lang="nl">Methode Kostprijs Verkopen (COGS)</value>
         <value xml:lang="pt">Método de Custo dos Produtos Vendidos (CPV)</value>
         <value xml:lang="ro">Metoda Costui Bunurilor Vandute (COGS)</value>
         <value xml:lang="ru">Метод списания</value>
@@ -22573,7 +22582,7 @@
         <value xml:lang="hi-IN">टैक्स प्राधिकरण उत्पाद मूल्य संपादित करें</value>
         <value xml:lang="it">Aggiorna Autorità Tasse Percentuali Prodotto</value>
         <value xml:lang="ja">税務機関製品税率を編集</value>
-        <value xml:lang="nl">Producttarief Belastingsinstantie produkt aanpassen</value>
+        <value xml:lang="nl">Producttarief Belastingsinstantie product aanpassen</value>
         <value xml:lang="pt">Editar Taxas sobre Produto Autoridade Tributária</value>
         <value xml:lang="ro">Actualizeaza Autoritati Taxe Procente Produs</value>
         <value xml:lang="ru">Изменить ставки продукта налог. органа</value>
@@ -23582,6 +23591,9 @@
         <value xml:lang="vi">Gửi Hóa đơn theo mỗi Thư điện tử</value>
         <value xml:lang="zh">通过电子邮件发送发票</value>
         <value xml:lang="zh-TW">通過電子郵件發送發票</value>
+    </property>
+    <property key="PageTitleTaxAuthorityReport">
+        <value xml:lang="en">Tax Report</value>
     </property>
     <property key="PageTitleUnpostedTransactions">
         <value xml:lang="ar">عمليات محاسبية غير مرصدة</value>
