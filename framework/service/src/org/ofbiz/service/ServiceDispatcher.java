@@ -265,7 +265,7 @@ public class ServiceDispatcher {
         boolean isError = false;
         boolean beganTrans = false;
         try {
-            // check for semaphore and aquire a lock
+            // check for semaphore and acquire a lock
             if ("wait".equals(modelService.semaphore) || "fail".equals(modelService.semaphore)) {
                 lock = new ServiceSemaphore(delegator, modelService);
                 lock.acquire();
