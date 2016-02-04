@@ -1,19 +1,19 @@
 <div id="user-avatar" onclick="showHideUserPref()">
-<#if avatarDetail?exists>
+<#if avatarDetail??>
     <img src="/content/control/stream?contentId=${avatarDetail.contentId}" alt="user">
 <#else>
     <img src="/rainbowstone/images/avatar.svg" alt="user">
 </#if>
     <div id="user-details" style="display:none;">
         <div id="user-row1">
-        <#if avatarDetail?exists>
+        <#if avatarDetail??>
             <img src="/content/control/stream?contentId=${avatarDetail.contentId}" alt="user">
         <#else>
             <img src="/rainbowstone/images/avatar.svg" alt="user">
         </#if>
-            <div id="user-name" onclick="javascript:location.href='/partymgr/control/viewprofile?partyId=${userLogin.partyId}'">
+            <div id="user-name" <#if userLogin.partyId??>onclick="javascript:location.href='/partymgr/control/viewprofile?partyId=${userLogin.partyId}'"</#if>>
                 <#if person?exists>
-                    <#if person.firstName?exists>
+                    <#if person.firstName??>
                 <span>${person.firstName}</span>
                 <span>${person.lastName?upper_case}</span>
                     <#else>
