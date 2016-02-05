@@ -76,7 +76,6 @@ public class RequestHandler {
     private final URL controllerConfigURL;
     private final boolean trackServerHit;
     private final boolean trackVisit;
-    private final boolean cookies;
     private final String charset;
 
     public static RequestHandler getRequestHandler(ServletContext servletContext) {
@@ -102,7 +101,6 @@ public class RequestHandler {
 
         this.trackServerHit = !"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"));
         this.trackVisit = !"false".equalsIgnoreCase(context.getInitParameter("track-visit"));
-        this.cookies = !"false".equalsIgnoreCase(context.getInitParameter("cookies"));
         this.charset = context.getInitParameter("charset");
     }
 
