@@ -367,6 +367,7 @@ under the License.
 
                         <property-map resource="general" map-name="generalProperties" global="true"/>
                         <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" global="true"/>
+                        <set field="defaultOrganizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" global="true"/>
                         <service service-name="getVisualThemeResources">
                             <field-map field-name="visualThemeId"/>
                             <field-map field-name="themeResources" from-field="layoutSettings"/>

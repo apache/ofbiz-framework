@@ -129,7 +129,7 @@ if (!partyId) {
     if (fromPartyId) {
         partyId = fromPartyId;
     } else {
-        partyId = EntityUtilProperties.getPropertyValue("general", "ORGANIZATION_PARTY", delegator);
+        partyId = parameters.get('ApplicationDecorator|organizationPartyId') ? parameters.get('ApplicationDecorator|organizationPartyId') : context.defaultOrganizationPartyId;
     }
 }
 

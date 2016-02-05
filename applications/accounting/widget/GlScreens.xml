@@ -26,7 +26,7 @@ under the License.
             <actions>
                 <set field="tabButtonItemTop" value="PartyAccounts"/>
                 <entity-one entity-name="PartyNameView" value-field="currentOrganization" auto-field-map="false">
-                    <field-map field-name="partyId" from-field="organizationPartyId"/>
+                    <field-map field-name="partyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -47,7 +47,6 @@ under the License.
                 <set field="titleProperty" value="AccountingPartyAccountsSummary"/>
                 <set field="tabButtonItem" value="PartyAccountsSummary"/>
                 <set field="labelTitleProperty" value="AccountingPartyAccountsSummary"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <!-- entity-condition entity-name="GlAccountOrganization" list="entityList" use-cache="true" >
                     <condition-expr field-name="glAccountId" operator="greater" value="0"/>
                 </entity-condition -->
@@ -74,7 +73,6 @@ under the License.
                 <set field="titleProperty" value="AccountingAcctgTrans"/>
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
                 <set field="labelTitleProperty" value="AccountingAcctgTrans"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
@@ -144,7 +142,6 @@ under the License.
                 <set field="titleProperty" value="AccountingAcctgTransEntries"/>
                 <set field="tabButtonItem" value="FindAcctgTransEntries"/>
                 <set field="labelTitleProperty" value="AccountingAcctgTransEntries"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
@@ -274,7 +271,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingCreateAcctgTransAndEntries"/>
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="labelTitleProperty" value="AccountingCreateAcctgTransAndEntries"/>
             </actions>
             <widgets>
@@ -295,7 +291,6 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleEditTransaction"/>
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="acctgTransId" from-field="parameters.acctgTransId"/>
 
                 <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
@@ -355,9 +350,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleUnpostedTransactions"/>
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.PageTitleUnpostedTransactions}"/>
-                <set field="partyId" from-field="parameters.organizationPartyId"/>
                 <entity-condition entity-name="AcctgTrans" list="transactions">
                     <condition-expr field-name="isPosted" operator="not-equals" value="Y"/>
                     <order-by field-name="transactionDate"/>
@@ -383,12 +376,11 @@ under the License.
                 <set field="tabButtonItem" value="ChecksTabButton"/>
                 <set field="tabButtonItem2" value="PrintChecksTabButton"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingPrintChecks}"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
 
                 <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
                 <entity-condition entity-name="Payment" list="payments">
                     <condition-list combine="and">
-                        <condition-expr field-name="partyIdFrom" operator="equals" from-field="organizationPartyId"/>
+                        <condition-expr field-name="partyIdFrom" operator="equals" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                         <condition-expr field-name="statusId" operator="equals" value="PMNT_NOT_PAID"/>
                         <condition-list combine="or">
                             <condition-expr field-name="paymentMethodTypeId" operator="equals" value="PERSONAL_CHECK"/>
@@ -425,12 +417,11 @@ under the License.
                 <set field="titleProperty" value="AccountingSendChecks"/>
                 <set field="tabButtonItem" value="ChecksTabButton"/>
                 <set field="tabButtonItem2" value="SendChecksTabButton"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
 
                 <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
                 <entity-condition entity-name="Payment" list="payments">
                     <condition-list combine="and">
-                        <condition-expr field-name="partyIdFrom" operator="equals" from-field="organizationPartyId"/>
+                        <condition-expr field-name="partyIdFrom" operator="equals" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                         <condition-expr field-name="statusId" operator="equals" value="PMNT_NOT_PAID"/>
                         <condition-list combine="or">
                             <condition-expr field-name="paymentMethodTypeId" operator="equals" value="PERSONAL_CHECK"/>
@@ -470,7 +461,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingCreateAnAccountingTransaction"/>
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="labelTitleProperty" value="AccountingCreateAnAccountingTransaction"/>
             </actions>
             <widgets>
@@ -491,7 +481,6 @@ under the License.
                 <set field="titleProperty" value="AccountingAcctRecon"/>
                 <set field="tabButtonItem" value="AccountReconciliation"/>
                 <set field="labelTitleProperty" value="AccountingAcctRecon"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="glAccountId" from-field="parameters.glAccountId"/>
             </actions>
             <widgets>
@@ -520,7 +509,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingEditAcctRecon"/>
                 <set field="tabButtonItem" from-field="parameters.tabButtonItem" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="glReconciliationId" from-field="parameters.glReconciliationId" global="true"/>
                 <entity-one entity-name="GlReconciliation" value-field="glReconciliation"/>
             </actions>
@@ -544,7 +532,6 @@ under the License.
                 <set field="titleProperty" value="AccountingAcctRecons"/>
                 <set field="tabButtonItem" value="AccountReconciliations"/>
                 <set field="labelTitleProperty" value="AccountingAcctRecons"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="glAccountId" from-field="parameters.glAccountId"/>
             </actions>
             <widgets>
@@ -573,7 +560,6 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
                 <container>
@@ -587,7 +573,6 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
                 <container>
@@ -603,10 +588,9 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransEntryList">
                     <condition-list>
-                        <condition-expr field-name="organizationPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                        <condition-expr field-name="organizationPartyId" operator="equals" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                         <condition-expr field-name="glAccountId" operator="equals" from-field="parameters.glAccountId" ignore-if-empty="true"/>
                         <condition-expr field-name="acctgTransTypeId" operator="equals" from-field="parameters.acctgTransTypeId" ignore-if-empty="true"/>
                         <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId" ignore-if-empty="true"/>
@@ -640,10 +624,9 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransList" distinct="true" >
                     <condition-list>
-                        <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
+                        <condition-expr field-name="organizationPartyId" operator="equals" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                         <condition-expr field-name="acctgTransTypeId" operator="equals" from-field="parameters.acctgTransTypeId" ignore-if-empty="true"/>
                         <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId" ignore-if-empty="true"/>
                         <condition-expr field-name="glJournalId" operator="equals" from-field="parameters.glJournalId" ignore-if-empty="true"/>

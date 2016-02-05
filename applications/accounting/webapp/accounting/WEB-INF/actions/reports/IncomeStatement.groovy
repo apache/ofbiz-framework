@@ -36,8 +36,8 @@ if (!glFiscalTypeId) {
 }
 
 // Setup the divisions for which the report is executed
-List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP');
-partyIds.add(organizationPartyId);
+List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP');
+partyIds.add(parameters.get('ApplicationDecorator|organizationPartyId'));
 
 // Get the group of account classes that will be used to position accounts in the proper section of the financial statement
 GenericValue revenueGlAccountClass = from("GlAccountClass").where("glAccountClassId", "REVENUE").cache(true).queryOne();

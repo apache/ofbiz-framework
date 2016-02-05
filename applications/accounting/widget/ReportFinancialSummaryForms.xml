@@ -508,7 +508,7 @@ under the License.
         <actions>
             <entity-condition entity-name="InventoryItemDetailForSum" list="inventoryValuationList" use-cache="false">
                 <condition-list>
-                    <condition-expr field-name="ownerPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                    <condition-expr field-name="ownerPartyId" operator="equals" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                     <condition-expr field-name="accountingQuantityDiff" operator="not-equals" value="0.0"/>
                     <condition-expr field-name="effectiveDate" operator="less-equals" from-field="parameters.thruDate"/>
                     <condition-expr field-name="facilityId" operator="equals" from-field="parameters.facilityId" ignore-if-empty="true"/>

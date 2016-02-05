@@ -156,7 +156,7 @@ under the License.
         </actions>
         <alt-target use-when="partyAcctgPreference!=null" target="updatePartyAcctgPreference"/>
         <auto-fields-service service-name="createPartyAcctgPreference"/>
-        <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
+        <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <!-- the partyId is always displayed -->
         <field name="partyId" title="${uiLabelMap.AccountingOrganizationPartyId}"><display/></field>
         <!-- if there is no partyAcctgPreference yet, then we show drop-downs for the fields and a submit button -->
@@ -1092,7 +1092,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate="false">
         <actions>
             <entity-condition entity-name="GlAccountOrganizationAndClass">
-                <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
+                <condition-expr field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <order-by field-name="glAccountId"/>
             </entity-condition>
         </actions>

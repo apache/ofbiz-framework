@@ -115,11 +115,21 @@ under the License.
         <response name="error" type="request" value="main"/>
     </request-map>
 
+    <!-- Common Mappings used for Set user organization -->
+    <request-map uri="ListSetCompanies"><security https="true" auth="false"/><response name="success" type="view" value="ListSetCompanies" save-last-view="true"/></request-map>
+
     <!-- User preference mapping -->
     <request-map uri="setUserPreference">
         <security https="true" auth="true"/>
         <event type="service" invoke="setUserPreference"/>
         <response name="success" type="view-last" value="main"/>
+        <response name="error" type="request" value="main"/>
+    </request-map>
+
+    <request-map uri="setCompany">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setUserPreference"/>
+        <response name="success" type="view-last-noparam" value="main"/>
         <response name="error" type="request" value="main"/>
     </request-map>
 
@@ -288,6 +298,7 @@ under the License.
     <view-map name="EventMessages" type="screen" page="component://common/widget/CommonScreens.xml#EventMessages"/>
 
     <view-map name="ListLocales" type="screen" page="component://common/widget/LookupScreens.xml#ListLocales"/>
+    <view-map name="ListSetCompanies" type="screen" page="component://common/widget/LookupScreens.xml#ListSetCompanies"/>
     <view-map name="LookupTimeDuration" type="screen" page="component://common/widget/LookupScreens.xml#TimeDuration"/>
     <view-map name="ListTimezones" type="screen" page="component://common/widget/LookupScreens.xml#ListTimezones"/>
     <view-map name="ListVisualThemes" type="screen" page="component://common/widget/LookupScreens.xml#ListVisualThemes"/>

@@ -41,7 +41,7 @@ if (!glFiscalTypeId) {
 }
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
-Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId": organizationPartyId, "findDate": new Date(fromDate.getTime()),"userLogin": userLogin]);
+Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId": parameters.get('ApplicationDecorator|organizationPartyId'), "findDate": new Date(fromDate.getTime()),"userLogin": userLogin]);
 Timestamp lastClosedDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate;
 GenericValue lastClosedTimePeriod = null; 
 if (lastClosedDate) {
@@ -71,7 +71,7 @@ if (postedTransactionTotals) {
                 // Get the opening balances at the end of the last closed time period
                 if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount) || UtilAccounting.isEquityAccount(glAccount)) {
                     if (lastClosedTimePeriod) {
-                        lastTimePeriodHistory = from("GlAccountAndHistory").where("organizationPartyId", organizationPartyId, "glAccountId", postedTransactionTotal.glAccountId, "customTimePeriodId", lastClosedTimePeriod.customTimePeriodId).queryFirst();
+                        lastTimePeriodHistory = from("GlAccountAndHistory").where("organizationPartyId", parameters.get('ApplicationDecorator|organizationPartyId'), "glAccountId", postedTransactionTotal.glAccountId, "customTimePeriodId", lastClosedTimePeriod.customTimePeriodId).queryFirst();
                         if (lastTimePeriodHistory) {
                             accountMap = UtilMisc.toMap("glAccountId", lastTimePeriodHistory.glAccountId, "accountCode", lastTimePeriodHistory.accountCode, "accountName", lastTimePeriodHistory.accountName, "balance", lastTimePeriodHistory.getBigDecimal("endingBalance"), "openingD", lastTimePeriodHistory.getBigDecimal("postedDebits"), "openingC", lastTimePeriodHistory.getBigDecimal("postedCredits"), "D", BigDecimal.ZERO, "C", BigDecimal.ZERO);
                         }
@@ -162,7 +162,7 @@ if (unpostedTransactionTotals) {
                 // Get the opening balances at the end of the last closed time period
                 if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount) || UtilAccounting.isEquityAccount(glAccount)) {
                     if (lastClosedTimePeriod) {
-                        lastTimePeriodHistory = from("GlAccountAndHistory").where("organizationPartyId", organizationPartyId, "glAccountId", unpostedTransactionTotal.glAccountId, "customTimePeriodId", lastClosedTimePeriod.customTimePeriodId).queryFirst();
+                        lastTimePeriodHistory = from("GlAccountAndHistory").where("organizationPartyId", parameters.get('ApplicationDecorator|organizationPartyId'), "glAccountId", unpostedTransactionTotal.glAccountId, "customTimePeriodId", lastClosedTimePeriod.customTimePeriodId).queryFirst();
                         if (lastTimePeriodHistory) {
                             accountMap = UtilMisc.toMap("glAccountId", lastTimePeriodHistory.glAccountId, "accountCode", lastTimePeriodHistory.accountCode, "accountName", lastTimePeriodHistory.accountName, "balance", lastTimePeriodHistory.getBigDecimal("endingBalance"), "openingD", lastTimePeriodHistory.getBigDecimal("postedDebits"), "openingC", lastTimePeriodHistory.getBigDecimal("postedCredits"), "D", BigDecimal.ZERO, "C", BigDecimal.ZERO);
                         }
@@ -254,7 +254,7 @@ if (allTransactionTotals) {
                 if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount) || UtilAccounting.isEquityAccount(glAccount)) {
                     if (lastClosedTimePeriod) {
                         List timePeriodAndExprs = [];
-                        timePeriodAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId));
+                        timePeriodAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, parameters.get('ApplicationDecorator|organizationPartyId')));
                         timePeriodAndExprs.add(EntityCondition.makeCondition("glAccountId", EntityOperator.EQUALS, allTransactionTotal.glAccountId));
                         timePeriodAndExprs.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId));
                         lastTimePeriodHistory = from("GlAccountAndHistory").where(timePeriodAndExprs).queryFirst();

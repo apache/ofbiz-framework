@@ -82,13 +82,19 @@ under the License.
     <#else>
       <li><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
     </#if>
-    <li class="first"><a href="<@ofbizUrl>ListLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle}</a></li>
-    <#if userLogin??>
-      <#if orgName?has_content>
-        <li class="org">${orgName}</li>
-      </#if>
-      <#if userLogin.partyId??>
-        <li class="user"><a href="<@ofbizUrl>passwordChange</@ofbizUrl>">${userName}</a></li>
+    <li <#if companyListSize?default(0) &lt;= 1>class="language"</#if>><a href="<@ofbizUrl>ListLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle}</a></li>
+    <#if userLogin?exists>
+      <#if userLogin.partyId?exists>
+        <li class="user"><a href="<@ofbizUrl>viewprofile?partyId=${userLogin.partyId}</@ofbizUrl>">${userName}</a>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        <#assign size = companyListSize?default(0)>
+        <#if size &gt; 1>
+            <#assign currentCompany = delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false)>
+            <#if currentCompany?exists>
+                <li class="user">
+                    <a href="<@ofbizUrl>ListSetCompanies</@ofbizUrl>">${currentCompany.groupName} &nbsp;- </a>
+                </li>
+            </#if>
+        </#if>
       <#else>
         <li class="user">${userName}</li>
       </#if>

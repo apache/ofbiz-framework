@@ -215,17 +215,16 @@ under the License.
                 <set field="titleProperty" value="AccountingTrialBalance"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TrialBalance"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
                 <entity-condition entity-name="Party" list="parties">
                     <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
-                <set field="partyIds[]" from-field="organizationPartyId"/>
+                <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TrialBalance.groovy"/>
             </actions>
             <widgets>
@@ -242,12 +241,12 @@ under the License.
                             <widgets>
                                 <screenlet title="${uiLabelMap.AccountingTrialBalance}">
                                     <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="TrialBalanceSearchResultsCsv.csv">
-                                        <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
                                         <parameter param-name="customTimePeriodId" from-field="parameters.customTimePeriodId"/>
+                                        <parameter param-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                                     </link>
                                     <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="TrialBalanceSearchResultsPdf.pdf" target-window="_BLANK">
-                                        <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
                                         <parameter param-name="customTimePeriodId" from-field="parameters.customTimePeriodId"/>
+                                        <parameter param-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}">
                                     </link>
                                     <include-form name="TrialBalanceReport" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                                     <container style="h3">
@@ -270,17 +269,16 @@ under the License.
             <actions>
                 <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
                 <entity-condition entity-name="Party" list="parties">
                     <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
-                <set field="partyIds[]" from-field="organizationPartyId"/>
+                <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TrialBalance.groovy"/>
             </actions>
             <widgets>
@@ -296,17 +294,16 @@ under the License.
             <actions>
                 <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId')}, 'GROUP_ROLLUP')}" type="List"/>
                 <entity-condition entity-name="Party" list="parties">
                     <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
-                <set field="partyIds[]" from-field="organizationPartyId"/>
+                <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TrialBalance.groovy"/>
             </actions>
             <widgets>
@@ -339,9 +336,8 @@ under the License.
                 <set field="titleProperty" value="AccountingBalanceSheet"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="BalanceSheet"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
@@ -373,7 +369,7 @@ under the License.
                             <label style="h3" text="${uiLabelMap.AccountingEquities}"/>
                             <include-form name="BalanceSheetEquities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.CommonTotal}"/>
-                            <include-form name="BalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>                            
+                            <include-form name="BalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>   
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -385,9 +381,8 @@ under the License.
             <actions>
                 <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
@@ -420,9 +415,8 @@ under the License.
             <actions>
                 <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
@@ -448,9 +442,8 @@ under the License.
                 <set field="titleProperty" value="AccountingComparativeBalanceSheet"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeBalanceSheet"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
@@ -536,9 +529,8 @@ under the License.
                 <set field="titleProperty" value="AccountingComparativeBalanceSheet"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeBalanceSheet"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
@@ -608,9 +600,8 @@ under the License.
                 <set field="titleProperty" value="AccountingComparativeBalanceSheet"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeBalanceSheet"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
@@ -673,15 +664,16 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingTransactionTotals"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TransactionTotals"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
-                <set field="partyIds[]" from-field="organizationPartyId"/>
-                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true">
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"></field-map>
+                </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <!-- Get a default fromDate -->
                 <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
-                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
@@ -742,10 +734,11 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingTransactionTotals"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TransactionTotals"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
-                <set field="partyIds[]" from-field="organizationPartyId"/>
-                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true">
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"></field-map>
+                </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${nowTimestamp}"/>
@@ -780,10 +773,11 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingTransactionTotals"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TransactionTotals"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
-                <set field="partyIds[]" from-field="organizationPartyId"/>
-                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true">
+                    <field-map field-name="organizationPartyId" value="parameters.get('ApplicationDecorator|organizationPartyId')"/>
+                </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${nowTimestamp}"/>
@@ -809,15 +803,14 @@ under the License.
                 <set field="titleProperty" value="AccountingIncomeStatement"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="IncomeStatement"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <!-- Get a default fromDate -->
                 <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
-                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
@@ -835,13 +828,13 @@ under the License.
                             <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="IncomeStatementListCsv.csv">
                                 <parameter param-name="fromDate" from-field="fromDate"/>
                                 <parameter param-name="thruDate" from-field="thruDate"/>
-                                <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                <parameter param-name="organizationPartyId"/>
                                 <parameter param-name="glFiscalTypeId" from-field="glFiscalTypeId"/>
                             </link>
                             <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="IncomeStatementListPdf.pdf" target-window="_BLANK">
                                 <parameter param-name="fromDate" from-field="fromDate"/>
                                 <parameter param-name="thruDate" from-field="thruDate"/>
-                                <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                <parameter param-name="organizationPartyId"/>
                                 <parameter param-name="glFiscalTypeId" from-field="glFiscalTypeId"/>
                             </link>
                             <label style="h3" text="${uiLabelMap.AccountingRevenues}"/>
@@ -864,7 +857,6 @@ under the License.
             <actions>
                 <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
@@ -896,7 +888,6 @@ under the License.
             <actions>
                 <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
@@ -922,16 +913,15 @@ under the License.
                 <set field="titleProperty" value="AccountingComparativeIncomeStatement"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeIncomeStatement"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
 
                 <!-- Get a default fromDate -->
                 <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
-                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
 
                 <set field="period1FromDate" from-field="parameters.period1FromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
@@ -1024,16 +1014,15 @@ under the License.
                 <set field="titleProperty" value="AccountingComparativeIncomeStatement"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeIncomeStatement"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
 
                 <!-- Get a default fromDate -->
                 <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
-                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
 
                 <set field="period1FromDate" from-field="parameters.period1FromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
@@ -1106,16 +1095,15 @@ under the License.
                 <set field="titleProperty" value="AccountingComparativeIncomeStatement"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeIncomeStatement"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
 
                 <!-- Get a default fromDate -->
                 <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
-                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
 
                 <set field="period1FromDate" from-field="parameters.period1FromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
@@ -1179,7 +1167,6 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingGlAccountTrialBalance"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="GlAccountTrialBalance"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/GlAccountTrialBalance.groovy"/>
             </actions>
             <widgets>
@@ -1218,7 +1205,6 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/GlAccountTrialBalance.groovy"/>
             </actions>
             <widgets>
@@ -1243,15 +1229,16 @@ under the License.
                 <set field="labelTitleProperty" value="FormFieldTitle_costCenters"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="GlAccountBalanceByCostCenter"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
-                <set field="partyIds[]" from-field="organizationPartyId"/>
-                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true">
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
+                </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <!-- Get a default fromDate -->
                 <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
-                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
@@ -1300,9 +1287,8 @@ under the License.
                 <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
-                <set field="partyIds[]" from-field="organizationPartyId"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CostCenters.groovy"/>
@@ -1342,13 +1328,13 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="InventoryValuation.pdf" target-window="_BLANK">
-                                            <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                            <parameter param-name="organizationPartyId"/>
                                             <parameter param-name="facilityId" from-field="parameters.facilityId"/>
                                             <parameter param-name="productId" from-field="parameters.productId"/>
                                             <parameter param-name="thruDate" from-field="parameters.thruDate"/>
                                         </link>
                                         <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="InventoryValuation.csv">
-                                            <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                            <parameter param-name="organizationPartyId"/>
                                             <parameter param-name="facilityId" from-field="parameters.facilityId"/>
                                             <parameter param-name="productId" from-field="parameters.productId"/>
                                             <parameter param-name="thruDate" from-field="parameters.thruDate"/>
@@ -1408,19 +1394,18 @@ under the License.
                 <set field="titleProperty" value="AccountingCashFlowStatement"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="CashFlowStatement"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <!-- Get a default fromDate -->
                 <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
-                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
-                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>                                
+                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthSelection.groovy"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CashFlowStatement.groovy"/>
             </actions>
@@ -1434,13 +1419,13 @@ under the License.
                             <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="CashFlowStatementListCsv.csv">
                                 <parameter param-name="fromDate" from-field="fromDate"/>
                                 <parameter param-name="thruDate" from-field="thruDate"/>
-                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                <parameter param-name="organizationPartyId"/>
                                 <parameter param-name="glFiscalTypeId" from-field="glFiscalTypeId"/>
                             </link>
                             <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="CashFlowStatementListPdf.pdf" target-window="_BLANK">
                                 <parameter param-name="fromDate" from-field="fromDate"/>
                                 <parameter param-name="thruDate" from-field="thruDate"/>
-                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                <parameter param-name="organizationPartyId"/>
                                 <parameter param-name="glFiscalTypeId" from-field="glFiscalTypeId"/>
                             </link>
                             <label style="h3" text="${uiLabelMap.AccountingOpeningCashBalance}"/>
@@ -1462,7 +1447,6 @@ under the License.
             <actions>
                 <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
@@ -1493,7 +1477,6 @@ under the License.
             <actions>
                 <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
@@ -1518,16 +1501,15 @@ under the License.
                 <set field="titleProperty" value="AccountingComparativeCashFlowStatement"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeCashFlowStatement"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
 
                 <!-- Get a default fromDate -->
                 <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
-                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
 
                 <set field="period1FromDate" from-field="parameters.period1FromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
@@ -1604,16 +1586,15 @@ under the License.
                 <set field="titleProperty" value="AccountingComparativeCashFlowStatement"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeCashFlowStatement"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
 
                 <!-- Get a default fromDate -->
                 <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
-                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
 
                 <set field="period1FromDate" from-field="parameters.period1FromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
@@ -1669,16 +1650,15 @@ under the License.
                 <set field="titleProperty" value="AccountingComparativeCashFlowStatement"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeCashFlowStatement"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
 
                 <!-- Get a default fromDate -->
                 <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
-                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
 
                 <set field="period1FromDate" from-field="parameters.period1FromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>

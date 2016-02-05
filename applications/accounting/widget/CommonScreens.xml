@@ -196,7 +196,6 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="companies"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -230,7 +229,7 @@ under the License.
             <actions>
                 <set field="tabButtonItemTop" value="PartyAccounts"/>
                 <entity-one entity-name="PartyNameView" value-field="currentOrganization" auto-field-map="false">
-                    <field-map field-name="partyId" from-field="organizationPartyId"/>
+                    <field-map field-name="partyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -251,7 +250,7 @@ under the License.
             <actions>
                 <set field="tabButtonItemTop" value="PartyAccounts"/>
                 <entity-one entity-name="PartyNameView" value-field="currentOrganization" auto-field-map="false">
-                    <field-map field-name="partyId" from-field="organizationPartyId"/>
+                    <field-map field-name="partyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </entity-one>
             </actions>
             <widgets>

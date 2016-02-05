@@ -134,6 +134,17 @@ under the License.
                     <a href="<@ofbizUrl>ListLocales</@ofbizUrl>" id="language">${uiLabelMap.CommonLanguageTitle} - ${locale.getDisplayName(locale)}</a>
                     <a href="<@ofbizUrl>ListTimezones</@ofbizUrl>" id="timezone">${nowTimestamp?datetime?string.short} - ${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a>
                     <a href="<@ofbizUrl>ListVisualThemes</@ofbizUrl>" id="theme">${uiLabelMap.CommonVisualThemes}</a>
+                    <#if userLogin?exists>
+                        <#if userLogin.partyId?exists>
+                            <#assign size = companyListSize?default(0)>
+                            <#if size &gt; 1>
+                                <#assign currentCompany = delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false)>
+                                <#if currentCompany?exists>
+                                    <a href="<@ofbizUrl>ListSetCompanies</@ofbizUrl>" id="company">${uiLabelMap.CommonCompany}</a>
+                                </#if>
+                            </#if>
+                        </#if>
+                    </#if>
                 </span>
             </span>
             <span>
@@ -143,6 +154,17 @@ under the License.
               ${uiLabelMap.CommonWelcome},  ${partyGroup.groupName!} ( ${userLogin.userLoginId} )
             <#else>
               ${uiLabelMap.CommonWelcome}
+            </#if>
+            <#if userLogin?exists>
+                <#if userLogin.partyId?exists>
+                <#assign size = companyListSize?default(0)>
+                <#if size &gt; 1>
+                    <#assign currentCompany = delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false)>
+                    <#if currentCompany?exists>
+                        &nbsp;- ${currentCompany.groupName}
+                    </#if>
+                </#if>
+              </#if>
             </#if>
             </span>
             <span><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></span>

@@ -65,6 +65,12 @@ under the License.
         <attribute type="String" mode="IN" name="organizationPartyId" optional="false"/>
         <attribute name="partyAccountingPreference" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
+    <service name="setAcctgCompany" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="setAcctgCompany" auth="true">
+        <description>Set Accounting Company when select</description>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
+        <attribute type="String" mode="INOUT" name="organizationPartyId" optional="true"/>
+    </service>
 
     <service name="updateFXConversion" engine="simple"
         location="component://accounting/script/org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="updateFXConversion">

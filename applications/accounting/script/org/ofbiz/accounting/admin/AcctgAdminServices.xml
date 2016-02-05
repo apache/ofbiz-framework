@@ -101,6 +101,20 @@ under the License.
         </if-not-empty>
     </simple-method>
 
+    <simple-method method-name="setAcctgCompany" short-description="Set Accounting Company when select or create an accounting company">
+        <!-- set user preference -->
+        <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference">
+            <field-map field-name="partyId" from-field="parameters.organizationPartyId"/>
+        </entity-one>
+        <if-not-empty field="partyAcctgPreference">
+            <set field="setUserPref.userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
+            <set field="setUserPref.userPrefTypeId" value="ORGANIZATION_PARTY"/>
+            <set field="setUserPref.userPrefValue" from-field="parameters.organizationPartyId"/>
+            <call-service service-name="setUserPreference" in-map-name="setUserPref"/>
+        </if-not-empty>
+        <field-to-result field="parameters.organizationPartyId" result-name="organizationPartyId"/>
+    </simple-method>
+
     <!-- update currency conversion rates in the UomConversionDated entity -->
     <simple-method method-name="updateFXConversion" short-description="Update Foreign Exchange conversion rate">
         <!-- set the FX rate changes as of now -->

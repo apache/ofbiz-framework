@@ -118,6 +118,31 @@ under the License.
         </section>
     </screen>
 
+    <!-- Companies Lookup Screen -->
+    <screen name="ListSetCompanies">
+        <section>
+            <actions>
+                <set field="titleProperty" value="CommonCompany"/>
+                <entity-condition entity-name="PartyAcctgPrefAndGroup" list="companyList" distinct="true">
+                    <condition-list>
+                        <condition-expr field-name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+                    </condition-list>
+                    <select-field field-name="partyId"/>
+                    <select-field field-name="groupName"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://common/webcommon/includes/listCompanies.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <!-- Timezones Lookup Screen -->
     <screen name="ListTimezones">
         <section>

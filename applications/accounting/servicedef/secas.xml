@@ -158,4 +158,10 @@ under the License.
         <condition field-name="productTypeId" operator="equals" value="ASSET_USAGE"/>
         <action service="createFixedAssetAndLinkToProduct" mode="sync"/>
     </eca>
+
+    <!-- automatically set company to user when create an accounting company -->
+    <eca service="createPartyAcctgPreference" event="return">
+        <set field-name="organizationPartyId" env-name="partyId"/>
+        <action service="setAcctgCompany" mode="sync"/>
+    </eca>
 </service-eca>
