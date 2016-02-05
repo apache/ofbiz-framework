@@ -1935,6 +1935,32 @@
         <value xml:lang="zh-CN">评论</value>
         <value xml:lang="zh-TW">評論</value>
     </property>
+    <property key="CommonCompany">
+        <value xml:lang="ar">شركة</value>
+        <value xml:lang="cs">Společnost</value>
+        <value xml:lang="de">Gesellschaft</value>
+        <value xml:lang="en">Company</value>
+        <value xml:lang="es">Compañía</value>
+        <value xml:lang="fr">Entreprise</value>
+        <value xml:lang="hi-IN">कंपनी(Company)</value>
+        <value xml:lang="it">Azienda</value>
+        <value xml:lang="ja">会社</value>
+        <value xml:lang="nl">Vennootschap</value>
+        <value xml:lang="pt-BR">Companhia</value>
+        <value xml:lang="ru">Компания</value>
+        <value xml:lang="vi">Công ty</value>
+        <value xml:lang="zh">公司</value>
+        <value xml:lang="zh-TW">公司</value>
+    </property>
+    <property key="CommonCompanyNoLogo">
+        <value xml:lang="en">No Logo</value>
+    </property>
+    <property key="CommonCompanySelected">
+        <value xml:lang="en">Selected Company</value>
+    </property>
+    <property key="CommonCompanyUsage">
+        <value xml:lang="en">Click on a link to select a company, and then on Done to validate your choice</value>
+    </property>
     <property key="CommonCompleted">
         <value xml:lang="ar">تمت</value>
         <value xml:lang="cs">Dokončeno</value>

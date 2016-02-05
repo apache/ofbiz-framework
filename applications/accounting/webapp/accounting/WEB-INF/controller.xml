@@ -629,6 +629,7 @@ under the License.
     <!-- Party Accounts requests -->
     <request-map uri="PartyAccountsSummary">
         <security https="true" auth="true"/>
+        <event type="service" invoke="setAcctgCompany"/>
         <response name="success" type="view" value="PartyAccountsSummary"/>
     </request-map>
     <request-map uri="quickCreateAcctgTransAndEntries">
@@ -777,6 +778,7 @@ under the License.
     <!-- Import export -->
     <request-map uri="ImportExport">
         <security https="true" auth="true"/>
+        <event type="service" invoke="setAcctgCompany"/>
         <response name="success" type="view" value="ImportExport"/>
     </request-map>
     <request-map uri="ExportInvoiceCsv.csv">
@@ -1598,6 +1600,7 @@ under the License.
     </request-map>
     <request-map uri="AdminMain">
         <security https="true" auth="true"/>
+        <event type="service" invoke="setAcctgCompany"/>
         <response name="success" type="view" value="PartyAcctgPreference"/>
     </request-map>
     <request-map uri="TimePeriods">
@@ -1618,6 +1621,7 @@ under the License.
     </request-map>
     <request-map uri="PartyAcctgPreference">
         <security https="true" auth="true"/>
+        <event type="service" invoke="setAcctgCompany"/>
         <response name="success" type="view" value="PartyAcctgPreference"/>
     </request-map>
     <request-map uri="createPartyAcctgPreference">

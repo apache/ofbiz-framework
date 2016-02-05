@@ -23,17 +23,17 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.accounting.util.UtilAccounting;
 import com.ibm.icu.util.Calendar;
 
-if (organizationPartyId) {
+if (parameters.get('ApplicationDecorator|organizationPartyId')) {
     onlyIncludePeriodTypeIdList = [];
     onlyIncludePeriodTypeIdList.add("FISCAL_YEAR");
-    customTimePeriodResults = runService('findCustomTimePeriods', [findDate : UtilDateTime.nowTimestamp(), organizationPartyId : organizationPartyId, onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin]);
+    customTimePeriodResults = runService('findCustomTimePeriods', [findDate : UtilDateTime.nowTimestamp(), organizationPartyId : parameters.get('ApplicationDecorator|organizationPartyId'), onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin]);
     customTimePeriodList = customTimePeriodResults.customTimePeriodList;
     if (UtilValidate.isNotEmpty(customTimePeriodList)) {
         context.timePeriod = customTimePeriodList.first().customTimePeriodId;
     }
     decimals = UtilNumber.getBigDecimalScale("ledger.decimals");
     rounding = UtilNumber.getBigDecimalRoundingMode("ledger.rounding");
-    context.currentOrganization = from("PartyNameView").where("partyId", organizationPartyId).queryOne();
+    context.currentOrganization = from("PartyNameView").where("partyId", parameters.get('ApplicationDecorator|organizationPartyId')).queryOne();
     if (parameters.glAccountId) {
         glAccount = from("GlAccount").where("glAccountId", parameters.glAccountId).queryOne();
         isDebitAccount = UtilAccounting.isDebitAccount(glAccount);
@@ -49,7 +49,7 @@ if (organizationPartyId) {
         previousTimePeriodResult = runService('getPreviousTimePeriod', [customTimePeriodId : parameters.timePeriod, userLogin : userLogin]);
         previousTimePeriod = previousTimePeriodResult.previousTimePeriod;
         if (UtilValidate.isNotEmpty(previousTimePeriod)) {
-            glAccountHistory = from("GlAccountHistory").where("customTimePeriodId", previousTimePeriod.customTimePeriodId, "glAccountId", parameters.glAccountId, "organizationPartyId", organizationPartyId).queryOne();
+            glAccountHistory = from("GlAccountHistory").where("customTimePeriodId", previousTimePeriod.customTimePeriodId, "glAccountId", parameters.glAccountId, "organizationPartyId", parameters.get('ApplicationDecorator|organizationPartyId')).queryOne();
             if (glAccountHistory && glAccountHistory.endingBalance != null) {
                 context.openingBalance = glAccountHistory.endingBalance;
                 balanceOfTheAcctgForYear = glAccountHistory.endingBalance;
@@ -75,7 +75,7 @@ if (organizationPartyId) {
                 isPosted = "";
             }
             acctgTransEntriesAndTransTotal = runService('getAcctgTransEntriesAndTransTotal', 
-                    [customTimePeriodStartDate : customTimePeriodStartDate, customTimePeriodEndDate : customTimePeriodEndDate, organizationPartyId : organizationPartyId, glAccountId : parameters.glAccountId, isPosted : isPosted, userLogin : userLogin]);
+                    [customTimePeriodStartDate : customTimePeriodStartDate, customTimePeriodEndDate : customTimePeriodEndDate, organizationPartyId : parameters.get('ApplicationDecorator|organizationPartyId'), glAccountId : parameters.glAccountId, isPosted : isPosted, userLogin : userLogin]);
             totalOfYearToDateDebit = totalOfYearToDateDebit + acctgTransEntriesAndTransTotal.debitTotal;
             acctgTransEntriesAndTransTotal.totalOfYearToDateDebit = totalOfYearToDateDebit.setScale(decimals, rounding);
             totalOfYearToDateCredit = totalOfYearToDateCredit + acctgTransEntriesAndTransTotal.creditTotal;

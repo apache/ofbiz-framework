@@ -162,6 +162,15 @@ under the License.
           <ul id="preferences-menu">
             <#if userLogin??>
               <#if userLogin.partyId??>
+                <#assign size = companyListSize?default(0)>
+                <#if size &gt; 1>
+                    <#assign currentCompany = delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false)>
+                    <#if currentCompany?exists>
+                        <li class="user">
+                            <a href="<@ofbizUrl>ListSetCompanies</@ofbizUrl>">${currentCompany.groupName} &nbsp;- </a>
+                        </li>
+                    </#if>
+                </#if>
                 <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}${externalKeyParam!}">${userName}</a></li>
               <#else>
                 <li class="user">${userName}</li>

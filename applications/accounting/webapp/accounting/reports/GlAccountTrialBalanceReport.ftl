@@ -21,7 +21,7 @@ under the License.
         <div>
             <form name="glAccountTrialBalanceReport" id="glAccountTrialBalanceReport">
                 <div>
-                    <a href="<@ofbizUrl>GlAccountTrialBalanceReportPdf.pdf?organizationPartyId=${organizationPartyId}&amp;timePeriod=${parameters.timePeriod}&amp;isPosted=${parameters.isPosted}&amp;glAccountId=${parameters.glAccountId}</@ofbizUrl>" target="_BLANK" class="buttontext">${uiLabelMap.AccountingInvoicePDF}</a>
+                    <a href="<@ofbizUrl>GlAccountTrialBalanceReportPdf.pdf?timePeriod=${parameters.timePeriod}&amp;isPosted=${parameters.isPosted}&amp;glAccountId=${parameters.glAccountId}</@ofbizUrl>" target="_BLANK" class="buttontext">${uiLabelMap.AccountingInvoicePDF}</a>
                 </div>
                 <h3>${uiLabelMap.AccountingSubsidiaryLedger}</h3>
                 <h3>${uiLabelMap.FormFieldTitle_companyName} : ${(currentOrganization.groupName)!}</h3>

@@ -28,6 +28,7 @@ while (iter.hasNext()) {
    partyAcctgPrefAndGroupList.add(["key":group.partyId,"value":group.groupName]);
 }
 globalContext.PartyAcctgPrefAndGroupList = partyAcctgPrefAndGroupList;
+globalContext.companyListSize = partyAcctgPrefAndGroupList.size();
 //hiddenFileds
 hiddenFields = [];
 hiddenFields.add([name : "userPrefTypeId", value : "ORGANIZATION_PARTY"]);

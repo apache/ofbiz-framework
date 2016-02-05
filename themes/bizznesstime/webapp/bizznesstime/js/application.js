@@ -201,6 +201,11 @@ jQuery('document').ready (function () {
         this.href = "javascript:void(0);"
             ModalWindow.openModalWindow(url, 'listTimezone', 430, 400);  
     });
+    jQuery("#company").click (function(e) {
+        var url = this.href;
+        this.href = "javascript:void(0);"
+            ModalWindow.openModalWindow(url, 'listSetCompanies', 430, 400);  
+    });
 });
 
 /**************************************************
@@ -212,6 +217,3 @@ jQuery('document').ready(function () {
     OFBIZ.initExpansion();
     humanMsg.setup();
 });
-
-
-

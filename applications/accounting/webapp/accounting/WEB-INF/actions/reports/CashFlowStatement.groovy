@@ -43,8 +43,8 @@ uiLabelMap = UtilProperties.getResourceBundleMap("AccountingUiLabels", locale);
 parametersFromDate = fromDate;
 
 // Setup the divisions for which the report is executed
-List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP');
-partyIds.add(organizationPartyId);
+List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP');
+partyIds.add(parameters.get('ApplicationDecorator|organizationPartyId'));
 
 // Get the group of account classes that will be used to position accounts in the proper section of the  Cash Flow statement
 GenericValue glAccountClass = from("GlAccountClass").where("glAccountClassId", "CASH_EQUIVALENT").cache(true).queryOne();
@@ -53,7 +53,7 @@ List glAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(glAccount
 List cashFlowBalanceTotalList = [];
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period 
-Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId":organizationPartyId, "findDate":new Date(parametersFromDate.getTime()),"userLogin":userLogin]);
+Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId":parameters.get('ApplicationDecorator|organizationPartyId'), "findDate":new Date(parametersFromDate.getTime()),"userLogin":userLogin]);
 Timestamp periodClosingFromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate;
 if (!periodClosingFromDate) {
     return;
