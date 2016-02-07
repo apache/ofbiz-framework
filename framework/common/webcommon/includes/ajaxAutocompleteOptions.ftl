@@ -36,7 +36,7 @@ under the License.
 var autocomp = [
     <#if autocompleteOptions?has_content>
         <#if !displayReturnField??>
-            <#assign displayReturnField = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.displayReturnField")>
+            <#assign displayReturnField = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.autocompleter.displayReturnField", delegator)>
         </#if>
         <#list autocompleteOptions as autocompleteOption>
             {
