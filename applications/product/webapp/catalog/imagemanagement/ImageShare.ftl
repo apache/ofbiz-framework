@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign contentURL = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("url.properties", "content.url.prefix.standard")>
+<#assign contentURL = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("url", "content.url.prefix.standard", delegator)>
 <script type="text/javascript">
 $(document).ready(function(){
     var form = document.ImageShare;

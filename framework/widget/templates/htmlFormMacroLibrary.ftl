@@ -69,8 +69,8 @@ under the License.
     require
   /><#t/>
   <#if ajaxEnabled?has_content && ajaxEnabled>
-    <#assign defaultMinLength = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.defaultMinLength")>
-    <#assign defaultDelay = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.defaultDelay")>
+    <#assign defaultMinLength = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.autocompleter.defaultMinLength", delegator)>
+    <#assign defaultDelay = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.autocompleter.defaultDelay", delegator)>
     <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
   </#if>
 </#macro>
@@ -640,7 +640,7 @@ Parameter: tabindex, String, optional - HTML tabindex number.
     <#local ajaxUrl = id + "," + ajaxUrl + ",ajaxLookup=Y" />
   </#if>
   <#if (!showDescription?has_content)>
-    <#local showDescriptionProp = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.lookup.showDescription", "N")>
+    <#local showDescriptionProp = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.lookup.showDescription", "N", delegator)>
     <#if "Y" == showDescriptionProp>
       <#local showDescription = "true" />
     <#else>
@@ -648,13 +648,13 @@ Parameter: tabindex, String, optional - HTML tabindex number.
     </#if>
   </#if>
   <#if (!position?has_content)>
-    <#local position = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.lookup.position", "topleft")>
+    <#local position = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.lookup.position", "topleft", delegator)>
   </#if>
   <#if (!width?has_content)>
-    <#local width = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.lookup.width", "620")>
+    <#local width = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.lookup.width", "620", delegator)>
   </#if>
   <#if (!height?has_content)>
-    <#local height = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.lookup.height", "500")>
+    <#local height = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.lookup.height", "500", delegator)>
   </#if>
   <#if ajaxEnabled?has_content && ajaxEnabled>
     <script type="text/javascript">
@@ -691,8 +691,8 @@ Parameter: tabindex, String, optional - HTML tabindex number.
       );"></a><#rt>
     <#else>
       <#if ajaxEnabled?has_content && ajaxEnabled>
-        <#assign defaultMinLength = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.defaultMinLength")>
-        <#assign defaultDelay = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.defaultDelay")>
+        <#assign defaultMinLength = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.autocompleter.defaultMinLength", delegator)>
+        <#assign defaultDelay = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.autocompleter.defaultDelay", delegator)>
         <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
         <#if !ajaxUrl?contains("searchValueFieldName=")>
           <#if descriptionFieldName?has_content && showDescription == "true">
