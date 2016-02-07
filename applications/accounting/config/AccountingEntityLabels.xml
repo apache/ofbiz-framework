@@ -5425,7 +5425,7 @@
         <value xml:lang="en">Highest Pay Rate</value>
         <value xml:lang="fr">Prix haut</value>
         <value xml:lang="ja">最高支払レート</value>
-        <value xlm:lang="nl">Tarief - hoogste</value>
+        <value xml:lang="nl">Tarief - hoogste</value>
         <value xml:lang="vi">Tỷ lệ thanh toán cao nhất</value>
         <value xml:lang="zh">最高支付费率</value>
         <value xml:lang="zh-TW">最高支付費率</value>
