@@ -551,9 +551,9 @@ $(function(){
           <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="addform"  style="margin: 0;">
           <fieldset>
             <#assign inStock = true />
-            <#assign commentEnable = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("order.properties", "order.item.comment.enable")>
+            <#assign commentEnable = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("order.properties", "order.item.comment.enable")>
             <#if commentEnable.equals("Y")>
-                <#assign orderItemAttr = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("order.properties", "order.item.attr.prefix")>
+                <#assign orderItemAttr = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("order.properties", "order.item.attr.prefix")>
                 ${uiLabelMap.CommonComment}&nbsp;<input type="text" name="${orderItemAttr}comment"/>
             </#if>
             <#-- Variant Selection -->
