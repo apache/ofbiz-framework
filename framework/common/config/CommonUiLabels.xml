@@ -2216,6 +2216,7 @@
     </property>
     <property key="CommonCopyright">
         <value xml:lang="ar">حقوق الطبع</value>
+        <value xml:lang="cs">Copyright</value>
         <value xml:lang="en">Copyright</value>
         <value xml:lang="fr">Droit d'auteur</value>
         <value xml:lang="hi-IN">कॉपीराइट</value>
@@ -5318,6 +5319,7 @@
     </property>
     <property key="CommonId">
         <value xml:lang="ar">دليل</value>
+        <value xml:lang="cs">ID</value>
         <value xml:lang="en">ID</value>
         <value xml:lang="es">Código</value>
         <value xml:lang="fr">Réf.</value>
@@ -6937,6 +6939,7 @@
     </property>
     <property key="CommonN">
         <value xml:lang="ar">ل</value>
+        <value xml:lang="cs">N</value>
         <value xml:lang="en">N</value>
         <value xml:lang="hi-IN">ना</value>
         <value xml:lang="vi">Không</value>
@@ -11309,6 +11312,7 @@
     </property>
     <property key="CommonTelephoneAbbr">
         <value xml:lang="ar">هاتف</value>
+        <value xml:lang="cs">Tel.</value>
         <value xml:lang="en">Tel</value>
         <value xml:lang="es">Tel.</value>
         <value xml:lang="fr">Tél.</value>
@@ -11424,6 +11428,7 @@
         <value xml:lang="zh-TW">本文</value>
     </property>
     <property key="CommonThe">
+        <value xml:lang="cs"></value>
         <value xml:lang="de">Der</value>
         <value xml:lang="en">The</value>
         <value xml:lang="es">El/La</value>
@@ -11458,7 +11463,7 @@
     </property>
     <property key="CommonTheOpenForBusinessProject">
         <value xml:lang="ar">مشروع اوفبيز</value>
-        <value xml:lang="cs">Projkekt Apache OFBiz</value>
+        <value xml:lang="cs">Projekt Apache OFBiz</value>
         <value xml:lang="de">Das Apache OFBiz Projekt</value>
         <value xml:lang="en">The Apache OFBiz Project</value>
         <value xml:lang="es">El proyecto Apache OFBiz</value>
@@ -14394,7 +14399,7 @@
     </property>
     <property key="FormFieldTitle_updateButton">
         <value xml:lang="ar">تحديث</value>
-        <value xml:lang="cs">Obnovit</value>
+        <value xml:lang="cs">Aktualizovat</value>
         <value xml:lang="de">Aktualisieren</value>
         <value xml:lang="en">Update</value>
         <value xml:lang="es">Actualizar</value>

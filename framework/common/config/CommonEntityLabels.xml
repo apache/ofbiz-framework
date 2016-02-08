@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="CustomMethod.description.6000">
+        <value xml:lang="cs">Příklad vzorce pro splnění úkolu (qty * estimatedMilliSeconds * 10)</value>
         <value xml:lang="de">Beispiel Formel für Aufgabe (qty * estimatedMilliSeconds * 10)</value>
         <value xml:lang="en">Example task formula (qty * estimatedMilliSeconds * 10)</value>
         <value xml:lang="es">Ejemplo de fórmula de tarea (cant * milisegundosEstimados * 10)</value>
@@ -36,6 +37,7 @@
         <value xml:lang="zh-TW">任務公式範例 (數量 * 預計毫秒數值 * 10)</value>
     </property>
     <property key="CustomMethod.description.6001">
+        <value xml:lang="cs">Příklad vzorce pro kusovník (qty * k)</value>
         <value xml:lang="de">Beispiel Formel für Stückliste (qty * k)</value>
         <value xml:lang="en">Example bom formula (qty * k)</value>
         <value xml:lang="es">Ejemplo de fórmula (cant * k)</value>
@@ -52,6 +54,7 @@
         <value xml:lang="zh-TW">範例材料清單公式 (qty * k)</value>
     </property>
     <property key="CustomMethod.description.6002">
+        <value xml:lang="cs">Vzorec kusovníku pro lineární komponenty</value>
         <value xml:lang="de">Stücklisten Formel für lineare Komponenten</value>
         <value xml:lang="en">Bom formula for linear components</value>
         <value xml:lang="es">Ejemplo de fórmula para componentes lineales</value>
@@ -69,6 +72,7 @@
     </property>
     <property key="CustomMethod.description.DBL_DECL_DEP_FORMULA">
         <value xml:lang="ar">الإهلاك المزدوج التراجع للأصول الثابنة (صافي القيمة الدفترية - قيمة الخردة) * 2 / الحياة المتبقية بالسنوات</value>
+        <value xml:lang="cs">Metoda zrychlených odpisů DDB (Double Declined Balanced) pro majetek ((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
         <value xml:lang="en">Double decline depreciation algorithm for fixed asset((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
         <value xml:lang="fr">Algorithme de dépréciation d'immobilisation ((valeur - coût déjà déprécié)*2/ années restantes)</value>
         <value xml:lang="it">Declina algoritmo doppio svalutazione per cespiti((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
@@ -81,6 +85,7 @@
     </property>
     <property key="CustomMethod.description.STR_LINE_DEP_FORMULA">
         <value xml:lang="ar">الإهلاك الخطي التراجع للأصول الثابنة (تكلفة الشراء - قيمة الخردة) / الحياة المتبقية بالسنوات</value>
+        <value xml:lang="cs">Lineární odpisová metoda majetku ((purchaseCost - salvageCost)/expectedLifeInYears)</value>
         <value xml:lang="en">Straight Line depreciatiion algorithm for fixed asset((purchaseCost - salvageCost)/expectedLifeInYears)</value>
         <value xml:lang="fr">Dépréciation linéaire d'immmobilisation (valeur d'achat - coût déjà déprécié) / années d'utilisation)</value>
         <value xml:lang="it">Riga semplice algoritmo svalutazione per cespiti((purchaseCost - salvageCost)/expectedLifeInYears)</value>
@@ -92,6 +97,7 @@
         <value xml:lang="zh-TW">固定資產直線折舊演算法((purchaseCost - salvageCost)/expectedLifeInYears)</value>
     </property>
     <property key="DataSource.description.ECOMMERCE_SITE">
+        <value xml:lang="cs">eShop</value>
         <value xml:lang="en">ECOMMERCE_SITE</value>
         <value xml:lang="es">Tienda online</value>
         <value xml:lang="fr">Site de commerce électronique</value>
@@ -105,6 +111,7 @@
         <value xml:lang="zh-TW">商業網站形象維護</value>
     </property>
     <property key="DataSource.description.GENERAL_MAILING">
+        <value xml:lang="cs">Pošta (obecně)</value>
         <value xml:lang="en">GENERAL_MAILING</value>
         <value xml:lang="es">Mailing</value>
         <value xml:lang="fr">Mailing</value>
@@ -118,6 +125,7 @@
         <value xml:lang="zh-TW">郵件清單登記</value>
     </property>
     <property key="DataSource.description.LEAD_COLDCALL">
+        <value xml:lang="cs">Telemarketing</value>
         <value xml:lang="en">LEAD_COLDCALL</value>
         <value xml:lang="es">Telemárketing</value>
         <value xml:lang="fr">Télémarketing</value>
@@ -131,6 +139,7 @@
         <value xml:lang="zh-TW">電話促銷</value>
     </property>
     <property key="DataSource.description.LEAD_CONFERENCE">
+        <value xml:lang="cs">Konference</value>
         <value xml:lang="en">LEAD_CONFERENCE</value>
         <value xml:lang="es">Conferencia</value>
         <value xml:lang="fr">Conférence</value>
@@ -144,6 +153,7 @@
         <value xml:lang="zh-TW">會議</value>
     </property>
     <property key="DataSource.description.LEAD_DIRECTMAIL">
+        <value xml:lang="cs">Direct marketing</value>
         <value xml:lang="en">LEAD_DIRECTMAIL</value>
         <value xml:lang="es">Correo directo</value>
         <value xml:lang="fr">Courriel</value>
@@ -157,6 +167,7 @@
         <value xml:lang="zh-TW">郵件</value>
     </property>
     <property key="DataSource.description.LEAD_EMPLOYEE">
+        <value xml:lang="cs">Zaměstnanec</value>
         <value xml:lang="en">LEAD_EMPLOYEE</value>
         <value xml:lang="es">Empleado</value>
         <value xml:lang="fr">Employé</value>
@@ -170,6 +181,7 @@
         <value xml:lang="zh-TW">員工</value>
     </property>
     <property key="DataSource.description.LEAD_EXISTCUST">
+        <value xml:lang="cs">Stávající zákazník</value>
         <value xml:lang="en">LEAD_EXISTCUST</value>
         <value xml:lang="es">Cliente existente</value>
         <value xml:lang="fr">Client existant</value>
@@ -183,6 +195,7 @@
         <value xml:lang="zh-TW">現有客戶</value>
     </property>
     <property key="DataSource.description.LEAD_OTHER">
+        <value xml:lang="cs">Jiný</value>
         <value xml:lang="en">LEAD_OTHER</value>
         <value xml:lang="es">Otro</value>
         <value xml:lang="fr">Autre</value>
@@ -196,6 +209,7 @@
         <value xml:lang="zh-TW">其他</value>
     </property>
     <property key="DataSource.description.LEAD_PARTNER">
+        <value xml:lang="cs">Partner</value>
         <value xml:lang="en">LEAD_PARTNER</value>
         <value xml:lang="es">Partner</value>
         <value xml:lang="fr">Partenaire</value>
@@ -209,6 +223,7 @@
         <value xml:lang="zh-TW">商業合作團體</value>
     </property>
     <property key="DataSource.description.LEAD_PR">
+        <value xml:lang="cs">Reklama</value>
         <value xml:lang="en">LEAD_PR</value>
         <value xml:lang="es">Relaciones públicas</value>
         <value xml:lang="fr">Relations publiques</value>
@@ -222,6 +237,7 @@
         <value xml:lang="zh-TW">公關</value>
     </property>
     <property key="DataSource.description.LEAD_SELFGEN">
+        <value xml:lang="cs">Interní</value>
         <value xml:lang="en">LEAD_SELFGEN</value>
         <value xml:lang="es">Interno</value>
         <value xml:lang="fr">Généré en interne</value>
@@ -235,6 +251,7 @@
         <value xml:lang="zh-TW">自己開發</value>
     </property>
     <property key="DataSource.description.LEAD_TRADESHOW">
+        <value xml:lang="cs">Předváděcí akce</value>
         <value xml:lang="en">LEAD_TRADESHOW</value>
         <value xml:lang="es">Demostración</value>
         <value xml:lang="fr">Démo commerciale</value>
@@ -248,6 +265,7 @@
         <value xml:lang="zh-TW">商展</value>
     </property>
     <property key="DataSource.description.LEAD_WEBSITE">
+        <value xml:lang="cs">Webové stránky</value>
         <value xml:lang="en">LEAD_WEBSITE</value>
         <value xml:lang="es">Página web</value>
         <value xml:lang="fr">Site Web</value>
@@ -261,6 +279,7 @@
         <value xml:lang="zh-TW">網站</value>
     </property>
     <property key="DataSource.description.LEAD_WORDOFMOUTH">
+        <value xml:lang="cs">Slovní reference</value>
         <value xml:lang="en">LEAD_WORDOFMOUTH</value>
         <value xml:lang="es">Boca a oreja</value>
         <value xml:lang="fr">Bouche à oreille</value>
@@ -274,6 +293,7 @@
     </property>
     <property key="Enumeration.description.AFFIL_SALES_CHANNEL">
         <value xml:lang="ar">قناة تابعة</value>
+        <value xml:lang="cs">Partnerský kanál</value>
         <value xml:lang="de">Verkaufskanal: Mitglieder</value>
         <value xml:lang="en">Affiliate Channel</value>
         <value xml:lang="es">Canal de afiliados</value>
@@ -291,6 +311,7 @@
     </property>
     <property key="Enumeration.description.BANKING_IN_REASON">
         <value xml:lang="ar">مصرفية خلال اليوم</value>
+        <value xml:lang="cs">Motivace v bance</value>
         <value xml:lang="en">Banking during the day</value>
         <value xml:lang="es">Cobro por banco</value>
         <value xml:lang="fr">Opération banquaire</value>
@@ -317,6 +338,7 @@
     </property>
     <property key="Enumeration.description.CASH_IN_REASON">
         <value xml:lang="ar">مبلغ نقدي صغير مستلم للصندوق</value>
+        <value xml:lang="cs">Vložení drobné hotovosti</value>
         <value xml:lang="en">Petty Cash Paid into Till</value>
         <value xml:lang="es">Cobro por caja</value>
         <value xml:lang="fr">Entrée d'espèces dans la caisse</value>
@@ -331,6 +353,7 @@
     </property>
     <property key="Enumeration.description.CASH_OUT_REASON">
         <value xml:lang="ar">مبلغ نقدي صغير مدفوع</value>
+        <value xml:lang="cs">Výběr drobné hotovosti</value>
         <value xml:lang="en">Petty Cash out</value>
         <value xml:lang="es">Pago por caja</value>
         <value xml:lang="fr">Sortie d'espèces de la caisse</value>
@@ -357,6 +380,7 @@
         <value xml:lang="zh-TW">增加到帳戶的零錢</value>
     </property>
     <property key="Enumeration.description.CNT_PRV_BRONZE">
+        <value xml:lang="cs">Bronzová úroveň</value>
         <value xml:lang="en">CNT_PRV_BRONZE</value>
         <value xml:lang="es">Bronce</value>
         <value xml:lang="fr">Niveau Bronze</value>
@@ -371,6 +395,7 @@
         <value xml:lang="zh-TW">銅</value>
     </property>
     <property key="Enumeration.description.CNT_PRV_GOLD">
+        <value xml:lang="cs">Zlatá úroveň</value>
         <value xml:lang="en">CNT_PRV_GOLD</value>
         <value xml:lang="es">Oro</value>
         <value xml:lang="fr">Niveau Or</value>
@@ -385,6 +410,7 @@
         <value xml:lang="zh-TW">金</value>
     </property>
     <property key="Enumeration.description.CNT_PRV_NA_">
+        <value xml:lang="cs">Neuplatní se</value>
         <value xml:lang="en">CNT_PRV_NA_</value>
         <value xml:lang="es">No aplica</value>
         <value xml:lang="fr">Non applicable</value>
@@ -399,6 +425,7 @@
         <value xml:lang="zh-TW">不適用</value>
     </property>
     <property key="Enumeration.description.CNT_PRV_SILVER">
+        <value xml:lang="cs">Stříbrná úroveň</value>
         <value xml:lang="en">CNT_PRV_SILVER</value>
         <value xml:lang="es">Plata</value>
         <value xml:lang="fr">Niveau argent</value>
@@ -414,6 +441,7 @@
     </property>
     <property key="Enumeration.description.COGS_AVG_COST">
         <value xml:lang="ar">التكلفة المتوسطة</value>
+        <value xml:lang="cs">Průměrné náklady</value>
         <value xml:lang="de">Durchschnittliche Kosten</value>
         <value xml:lang="en">Average Cost</value>
         <value xml:lang="es">Coste medio</value>
@@ -430,6 +458,7 @@
         <value xml:lang="zh-TW">平均費用</value>
     </property>
     <property key="Enumeration.description.COGS_FIFO">
+        <value xml:lang="cs">FIFO (první dovnitř - první ven)</value>
         <value xml:lang="de">FIFO (erster rein - erster raus)</value>
         <value xml:lang="en">FIFO</value>
         <value xml:lang="es">FIFO</value>
@@ -447,6 +476,7 @@
         <value xml:lang="zh-TW">先進先出法</value>
     </property>
     <property key="Enumeration.description.COGS_LIFO">
+        <value xml:lang="cs">LIFO (poslední dovnitř - první ven)</value>
         <value xml:lang="de">LIFO (zuletzt herein - zuerst hinaus)</value>
         <value xml:lang="en">LIFO</value>
         <value xml:lang="es">LIFO</value>
@@ -464,6 +494,7 @@
         <value xml:lang="zh-TW">後進先出法</value>
     </property>
     <property key="Enumeration.description.EBAY_SALES_CHANNEL">
+        <value xml:lang="cs">eBay</value>
         <value xml:lang="de">Verkaufskanal: eBay</value>
         <value xml:lang="en">eBay Channel</value>
         <value xml:lang="es">eBay</value>
@@ -479,6 +510,7 @@
     </property>
     <property key="Enumeration.description.EMAIL_SALES_CHANNEL">
         <value xml:lang="ar">قناة البريد الالكتروني</value>
+        <value xml:lang="cs">Elektronická pošta</value>
         <value xml:lang="de">Verkaufskanal: E-Mail</value>
         <value xml:lang="en">E-Mail Channel</value>
         <value xml:lang="es">Correo electrónico</value>
@@ -495,6 +527,7 @@
         <value xml:lang="zh-TW">電子郵件通路</value>
     </property>
     <property key="Enumeration.description.ESIA_ALWAYS">
+        <value xml:lang="cs">Vždy je</value>
         <value xml:lang="en">ESIA_ALWAYS</value>
         <value xml:lang="es">Incluir siempre</value>
         <value xml:lang="fr">Toujours inclure</value>
@@ -508,6 +541,7 @@
         <value xml:lang="zh-TW">總是</value>
     </property>
     <property key="Enumeration.description.ESIA_EXCLUDE">
+        <value xml:lang="cs">Vyjma</value>
         <value xml:lang="en">ESIA_EXCLUDE</value>
         <value xml:lang="es">Excluir</value>
         <value xml:lang="fr">Exclure</value>
@@ -521,6 +555,7 @@
         <value xml:lang="zh-TW">排除</value>
     </property>
     <property key="Enumeration.description.ESIA_INCLUDE">
+        <value xml:lang="cs">Včetně</value>
         <value xml:lang="en">ESIA_INCLUDE</value>
         <value xml:lang="es">Incluido</value>
         <value xml:lang="fr">Inclure</value>
@@ -534,6 +569,7 @@
         <value xml:lang="zh-TW">包含</value>
     </property>
     <property key="Enumeration.description.FAC_BOAT">
+        <value xml:lang="cs">Loď</value>
         <value xml:lang="de">Boot</value>
         <value xml:lang="en">Boat</value>
         <value xml:lang="es">Barco</value>
@@ -551,6 +587,7 @@
         <value xml:lang="zh-TW">船</value>
     </property>
     <property key="Enumeration.description.FAC_COMPRESSOR">
+        <value xml:lang="cs">Kompresor</value>
         <value xml:lang="de">Kompressor</value>
         <value xml:lang="en">Compressor</value>
         <value xml:lang="es">Compresor</value>
@@ -567,6 +604,7 @@
         <value xml:lang="zh-TW">壓縮機</value>
     </property>
     <property key="Enumeration.description.FAC_DIGGER">
+        <value xml:lang="cs">Bagr</value>
         <value xml:lang="de">Bagger</value>
         <value xml:lang="en">Digger</value>
         <value xml:lang="es">Excavadora</value>
@@ -584,6 +622,7 @@
         <value xml:lang="zh-TW">挖掘機</value>
     </property>
     <property key="Enumeration.description.FAC_FORKLIFT">
+        <value xml:lang="cs">Vysokozdvižný vozík</value>
         <value xml:lang="de">Gabelstapler</value>
         <value xml:lang="en">Forklift</value>
         <value xml:lang="es">Carretilla elevadora</value>
@@ -601,6 +640,7 @@
         <value xml:lang="zh-TW">鏟車</value>
     </property>
     <property key="Enumeration.description.FAC_MANLIFT">
+        <value xml:lang="cs">Plošina</value>
         <value xml:lang="de">Hubarbeitsbühne</value>
         <value xml:lang="en">Manlift</value>
         <value xml:lang="es">Ascensor</value>
@@ -617,6 +657,7 @@
         <value xml:lang="zh-TW">載人電梯</value>
     </property>
     <property key="Enumeration.description.FAC_MOBILE">
+        <value xml:lang="cs">Mobilní telefon</value>
         <value xml:lang="de">Mobil</value>
         <value xml:lang="en">Mobile</value>
         <value xml:lang="es">Móvil</value>
@@ -633,6 +674,7 @@
         <value xml:lang="zh-TW">機動車</value>
     </property>
     <property key="Enumeration.description.FAC_PASSENGER">
+        <value xml:lang="cs">Osobní vozidlo</value>
         <value xml:lang="de">Personenfahrzeug</value>
         <value xml:lang="en">Passenger Vehicle</value>
         <value xml:lang="es">Vehículo de pasajeros</value>
@@ -650,6 +692,7 @@
         <value xml:lang="zh-TW">客車</value>
     </property>
     <property key="Enumeration.description.FAC_PULLER">
+        <value xml:lang="cs">Stahovák</value>
         <value xml:lang="en">Puller</value>
         <value xml:lang="es">Extractor</value>
         <value xml:lang="fr">Extracteur</value>
@@ -666,6 +709,7 @@
         <value xml:lang="zh-TW">拆卸器</value>
     </property>
     <property key="Enumeration.description.FAC_REEL_STAND">
+        <value xml:lang="cs">Naviják</value>
         <value xml:lang="en">Reel Stand</value>
         <value xml:lang="es">Bobina</value>
         <value xml:lang="fr">Dérouleur</value>
@@ -681,6 +725,7 @@
         <value xml:lang="zh-TW">繃架托腳</value>
     </property>
     <property key="Enumeration.description.FAC_SERVICE_BODY">
+        <value xml:lang="cs">Servisní zařízení</value>
         <value xml:lang="en">Service Body</value>
         <value xml:lang="es">Cuerpo de servicio</value>
         <value xml:lang="fr">Organisme de services</value>
@@ -697,6 +742,7 @@
         <value xml:lang="zh-TW">服務吊艙</value>
     </property>
     <property key="Enumeration.description.FAC_TANKER">
+        <value xml:lang="cs">Cisterna</value>
         <value xml:lang="de">Tankwagen</value>
         <value xml:lang="en">Tanker</value>
         <value xml:lang="es">Camión cisterna</value>
@@ -714,6 +760,7 @@
         <value xml:lang="zh-TW">油罐</value>
     </property>
     <property key="Enumeration.description.FAC_TRACTOR">
+        <value xml:lang="cs">Traktor</value>
         <value xml:lang="de">Traktor</value>
         <value xml:lang="en">Tractor</value>
         <value xml:lang="es">Tractor</value>
@@ -731,6 +778,7 @@
         <value xml:lang="zh-TW">牽引車</value>
     </property>
     <property key="Enumeration.description.FAC_TRENCHER">
+        <value xml:lang="cs">Příkopové rýpadlo</value>
         <value xml:lang="de">Grabenzieher</value>
         <value xml:lang="en">Trencher</value>
         <value xml:lang="es">Triturador</value>
@@ -749,6 +797,7 @@
     </property>
     <property key="Enumeration.description.FAX_SALES_CHANNEL">
         <value xml:lang="ar">قناة الفاكس</value>
+        <value xml:lang="cs">Fax</value>
         <value xml:lang="de">Verkaufskanal: Fax</value>
         <value xml:lang="en">Fax Channel</value>
         <value xml:lang="es">Fax</value>
@@ -766,6 +815,7 @@
         <value xml:lang="zh-TW">傳真通路</value>
     </property>
     <property key="Enumeration.description.FLT_BULK">
+        <value xml:lang="cs">Množství</value>
         <value xml:lang="de">Masse (oder Volumen)</value>
         <value xml:lang="en">Bulk</value>
         <value xml:lang="es">Granel</value>
@@ -783,6 +833,7 @@
         <value xml:lang="zh-TW">大宗</value>
     </property>
     <property key="Enumeration.description.FLT_PICKLOC">
+        <value xml:lang="cs">Výběr/První</value>
         <value xml:lang="de">Auswahl/Erste</value>
         <value xml:lang="en">Pick/Primary</value>
         <value xml:lang="es">Picking</value>
@@ -800,6 +851,7 @@
         <value xml:lang="zh-TW">揀貨/初級</value>
     </property>
     <property key="Enumeration.description.GC_ACTIVATE">
+        <value xml:lang="cs">Aktivovat</value>
         <value xml:lang="en">GC_ACTIVATE</value>
         <value xml:lang="es">Activar</value>
         <value xml:lang="fr">Activer</value>
@@ -813,6 +865,7 @@
         <value xml:lang="zh-TW">啟動</value>
     </property>
     <property key="Enumeration.description.GC_RELOAD">
+        <value xml:lang="cs">Aktualizovat</value>
         <value xml:lang="en">GC_RELOAD</value>
         <value xml:lang="es">Recargar</value>
         <value xml:lang="fr">Recharger</value>
@@ -826,6 +879,7 @@
         <value xml:lang="zh-TW">重新載入</value>
     </property>
     <property key="Enumeration.description.IND_AEROSPACE">
+        <value xml:lang="cs">Letectví</value>
         <value xml:lang="en">IND_AEROSPACE</value>
         <value xml:lang="es">Indutria aeroespacial</value>
         <value xml:lang="fr">AEROSPACIATIALE</value>
@@ -840,6 +894,7 @@
         <value xml:lang="zh-TW">航空業</value>
     </property>
     <property key="Enumeration.description.IND_DISTRIBUTION">
+        <value xml:lang="cs">Distribuce</value>
         <value xml:lang="en">IND_DISTRIBUTION</value>
         <value xml:lang="es">Distribución</value>
         <value xml:lang="fr">DISTRIBUTION</value>
@@ -854,6 +909,7 @@
         <value xml:lang="zh-TW">物流</value>
     </property>
     <property key="Enumeration.description.IND_FINANCE">
+        <value xml:lang="cs">Finance</value>
         <value xml:lang="en">IND_FINANCE</value>
         <value xml:lang="es">Finanzas</value>
         <value xml:lang="fr">FINANCE</value>
@@ -868,6 +924,7 @@
         <value xml:lang="zh-TW">貿易</value>
     </property>
     <property key="Enumeration.description.IND_GEN_SERVICES">
+        <value xml:lang="cs">Služby</value>
         <value xml:lang="en">IND_GEN_SERVICES</value>
         <value xml:lang="es">Servicios generales</value>
         <value xml:lang="fr">SERVICES GENERAUX</value>
@@ -882,6 +939,7 @@
         <value xml:lang="zh-TW">服務業</value>
     </property>
     <property key="Enumeration.description.IND_HARDWARE">
+        <value xml:lang="cs">Hardware</value>
         <value xml:lang="en">IND_HARDWARE</value>
         <value xml:lang="es">Material</value>
         <value xml:lang="fr">MATERIEL</value>
@@ -896,6 +954,7 @@
         <value xml:lang="zh-TW">電腦硬體</value>
     </property>
     <property key="Enumeration.description.IND_HEALTH_CARE">
+        <value xml:lang="cs">Zdravotnictví</value>
         <value xml:lang="en">IND_HEALTH_CARE</value>
         <value xml:lang="es">Salud</value>
         <value xml:lang="fr">SANTE</value>
@@ -910,6 +969,7 @@
         <value xml:lang="zh-TW">保健業</value>
     </property>
     <property key="Enumeration.description.IND_INSURANCE">
+        <value xml:lang="cs">Pojišťovnictví</value>
         <value xml:lang="en">IND_INSURANCE</value>
         <value xml:lang="es">Seguros</value>
         <value xml:lang="fr">ASSURANCE</value>
@@ -924,6 +984,7 @@
         <value xml:lang="zh-TW">保險業</value>
     </property>
     <property key="Enumeration.description.IND_MANUFACTURING">
+        <value xml:lang="cs">Výroba</value>
         <value xml:lang="en">IND_MANUFACTURING</value>
         <value xml:lang="es">Manufactura</value>
         <value xml:lang="fr">FABRICATION</value>
@@ -938,6 +999,7 @@
         <value xml:lang="zh-TW">加工業</value>
     </property>
     <property key="Enumeration.description.IND_MEDIA">
+        <value xml:lang="cs">Média</value>
         <value xml:lang="en">IND_MEDIA</value>
         <value xml:lang="es">Media</value>
         <value xml:lang="fr">MEDIA</value>
@@ -951,6 +1013,7 @@
         <value xml:lang="zh-TW">傳媒業</value>
     </property>
     <property key="Enumeration.description.IND_NON_PROFIT">
+        <value xml:lang="cs">Neziskový sektor</value>
         <value xml:lang="en">IND_NON_PROFIT</value>
         <value xml:lang="es">Sin ánimo de lucro</value>
         <value xml:lang="fr">NON LUCRATIF</value>
@@ -965,6 +1028,7 @@
         <value xml:lang="zh-TW">非盈利性組織</value>
     </property>
     <property key="Enumeration.description.IND_REAL_ESTATE">
+        <value xml:lang="cs">Nemovitosti</value>
         <value xml:lang="en">IND_REAL_ESTATE</value>
         <value xml:lang="es">Inmobiliaria</value>
         <value xml:lang="fr">IMMOBILIER</value>
@@ -979,6 +1043,7 @@
         <value xml:lang="zh-TW">房地產</value>
     </property>
     <property key="Enumeration.description.IND_RETAIL">
+        <value xml:lang="cs">Prodej</value>
         <value xml:lang="en">IND_RETAIL</value>
         <value xml:lang="es">Venta al por menor</value>
         <value xml:lang="fr">VENTE AU DETAIL</value>
@@ -993,6 +1058,7 @@
         <value xml:lang="zh-TW">零售業</value>
     </property>
     <property key="Enumeration.description.IND_SOFTWARE">
+        <value xml:lang="cs">Software</value>
         <value xml:lang="en">IND_SOFTWARE</value>
         <value xml:lang="es">Software</value>
         <value xml:lang="fr">LOGICIEL</value>
@@ -1007,6 +1073,7 @@
         <value xml:lang="zh-TW">電腦軟體</value>
     </property>
     <property key="Enumeration.description.IND_TELECOM">
+        <value xml:lang="cs">Telekomunikace</value>
         <value xml:lang="en">IND_TELECOM</value>
         <value xml:lang="es">Telecomunicaciones</value>
         <value xml:lang="fr">TELECOM</value>
@@ -5460,6 +5527,7 @@
     </property>
     <property key="Geo.geoName.CZE">
         <value xml:lang="ar">جمهورية التشيك</value>
+        <value xml:lang="cs">Česká republika</value>
         <value xml:lang="de">Tschechische Republik</value>
         <value xml:lang="en">Czech Republic</value>
         <value xml:lang="es">República Checa</value>
@@ -5477,6 +5545,7 @@
     </property>
     <property key="Geo.geoName.DEU">
         <value xml:lang="ar">ألمانيا</value>
+        <value xml:lang="cs">Německo</value>
         <value xml:lang="de">Deutschland</value>
         <value xml:lang="en">Germany</value>
         <value xml:lang="es">Alemania</value>
@@ -5495,6 +5564,7 @@
     </property>
     <property key="Geo.geoName.DJI">
         <value xml:lang="ar">جيبوتي</value>
+        <value xml:lang="cs">Džibutsko</value>
         <value xml:lang="de">Djibouti</value>
         <value xml:lang="en">Djibouti</value>
         <value xml:lang="es">Yibuti</value>
@@ -5512,6 +5582,7 @@
     </property>
     <property key="Geo.geoName.DMA">
         <value xml:lang="ar">دومينيكا</value>
+        <value xml:lang="cs">Dominica</value>
         <value xml:lang="de">Dominica</value>
         <value xml:lang="en">Dominica</value>
         <value xml:lang="es">Dominica</value>
@@ -5528,6 +5599,7 @@
     </property>
     <property key="Geo.geoName.DNK">
         <value xml:lang="ar">الدنمارك</value>
+        <value xml:lang="cs">Dánsko</value>
         <value xml:lang="de">Dänemark</value>
         <value xml:lang="en">Denmark</value>
         <value xml:lang="es">Dinamarca</value>
@@ -5545,6 +5617,7 @@
     </property>
     <property key="Geo.geoName.DOM">
         <value xml:lang="ar">جمهورية الدومينيكان</value>
+        <value xml:lang="cs">Dominikánská republika</value>
         <value xml:lang="de">Dominikanische Republik</value>
         <value xml:lang="en">Dominican Republic</value>
         <value xml:lang="es">República Dominicana</value>
@@ -7876,6 +7949,7 @@
     </property>
     <property key="Geo.geoName.SLB">
         <value xml:lang="ar">جزر سليمان</value>
+        <value xml:lang="cs">Šalamounovi ostrovy</value>
         <value xml:lang="de">Salomonen</value>
         <value xml:lang="en">Solomon Islands</value>
         <value xml:lang="es">Islas Salomón</value>
@@ -7892,6 +7966,7 @@
     </property>
     <property key="Geo.geoName.SLE">
         <value xml:lang="ar">سيراليون</value>
+        <value xml:lang="cs">Sierra Leone</value>
         <value xml:lang="de">Sierra Leone</value>
         <value xml:lang="en">Sierra Leone</value>
         <value xml:lang="es">Sierra Leona</value>
@@ -7908,6 +7983,7 @@
     </property>
     <property key="Geo.geoName.SLV">
         <value xml:lang="ar">السلفادور</value>
+        <value xml:lang="cs">El Salvador</value>
         <value xml:lang="de">El Salvador</value>
         <value xml:lang="en">El Salvador</value>
         <value xml:lang="es">El Salvador</value>
@@ -7923,6 +7999,7 @@
     </property>
     <property key="Geo.geoName.SMR">
         <value xml:lang="ar">سان مارينو</value>
+        <value xml:lang="cs">San Marino</value>
         <value xml:lang="de">San Marino</value>
         <value xml:lang="en">San Marino</value>
         <value xml:lang="es">San Marino</value>
@@ -7939,6 +8016,7 @@
     </property>
     <property key="Geo.geoName.SOM">
         <value xml:lang="ar">الصومال</value>
+        <value xml:lang="cs">Somálsko</value>
         <value xml:lang="de">Somalia</value>
         <value xml:lang="en">Somalia</value>
         <value xml:lang="es">Somalia</value>
@@ -7987,6 +8065,7 @@
     </property>
     <property key="Geo.geoName.SUR">
         <value xml:lang="ar">سورينام</value>
+        <value xml:lang="cs">Surinam</value>
         <value xml:lang="de">Suriname</value>
         <value xml:lang="en">Suriname</value>
         <value xml:lang="es">Surinam</value>
@@ -8003,6 +8082,7 @@
     </property>
     <property key="Geo.geoName.SVK">
         <value xml:lang="ar">جمهورية سلوفاكيا</value>
+        <value xml:lang="cs">Slovensko</value>
         <value xml:lang="de">Slovakei</value>
         <value xml:lang="en">Slovakia (slovak Republic)</value>
         <value xml:lang="es">Eslovaquia</value>
@@ -8019,6 +8099,7 @@
     </property>
     <property key="Geo.geoName.SVN">
         <value xml:lang="ar">سلوفينيا</value>
+        <value xml:lang="cs">Slovinsko</value>
         <value xml:lang="de">Slowenien</value>
         <value xml:lang="en">Slovenia</value>
         <value xml:lang="es">Eslovenia</value>
@@ -8035,6 +8116,7 @@
     </property>
     <property key="Geo.geoName.SWE">
         <value xml:lang="ar">السويد</value>
+        <value xml:lang="cs">Švédsko</value>
         <value xml:lang="de">Schweden</value>
         <value xml:lang="en">Sweden</value>
         <value xml:lang="es">Suecia</value>
@@ -8917,6 +8999,7 @@
     </property>
     <property key="StatusItem.description.AES_NOT_RECONCILED">
         <value xml:lang="ar">لم يتم تسويتها</value>
+        <value xml:lang="cs">Bez narovnání</value>
         <value xml:lang="de">Nicht geregelt</value>
         <value xml:lang="en">Not Reconciled</value>
         <value xml:lang="es">No reconciliado</value>
@@ -8933,6 +9016,7 @@
     </property>
     <property key="StatusItem.description.AES_PARTLY_RECON">
         <value xml:lang="ar">تمت التسوية جزئيا</value>
+        <value xml:lang="cs">Částečně narovnáno</value>
         <value xml:lang="de">Teilweise geregelt</value>
         <value xml:lang="en">Partially Reconciled</value>
         <value xml:lang="es">Parcialmente reconciliado</value>
@@ -8949,6 +9033,7 @@
     </property>
     <property key="StatusItem.description.AES_RECONCILED">
         <value xml:lang="ar">تمت التسوية</value>
+        <value xml:lang="cs">Narovnáno</value>
         <value xml:lang="de">Geregelt</value>
         <value xml:lang="en">Reconciled</value>
         <value xml:lang="es">Reconciliado</value>
@@ -8964,6 +9049,7 @@
         <value xml:lang="zh-TW">已調節</value>
     </property>
     <property key="StatusItem.description.BLOG_DRAFT">
+        <value xml:lang="cs">Návrh</value>
         <value xml:lang="en">BLOG_DRAFT</value>
         <value xml:lang="es">Esbozo</value>
         <value xml:lang="fr">Ébauche</value>
@@ -8977,6 +9063,7 @@
         <value xml:lang="zh-TW">草稿</value>
     </property>
     <property key="StatusItem.description.BLOG_PUBLISHED">
+        <value xml:lang="cs">Publikováno</value>
         <value xml:lang="en">BLOG_PUBLISHED</value>
         <value xml:lang="es">Publicado</value>
         <value xml:lang="fr">Publié</value>
@@ -8990,6 +9077,7 @@
         <value xml:lang="zh-TW">已發行</value>
     </property>
     <property key="StatusItem.description.BLOG_REJECTED">
+        <value xml:lang="cs">Zamítnuto</value>
         <value xml:lang="en">BLOG_REJECTED</value>
         <value xml:lang="es">Desechado</value>
         <value xml:lang="fr">Rejeté</value>
@@ -9003,6 +9091,7 @@
         <value xml:lang="zh-TW">已拒絕</value>
     </property>
     <property key="StatusItem.description.BLOG_SUBMITTED">
+        <value xml:lang="cs">Odesláno</value>
         <value xml:lang="en">BLOG_SUBMITTED</value>
         <value xml:lang="es">Enviado</value>
         <value xml:lang="fr">Soumis</value>
@@ -9017,6 +9106,7 @@
     </property>
     <property key="StatusItem.description.CAL_ACCEPTED">
         <value xml:lang="ar">مقبولة</value>
+        <value xml:lang="cs">Přijato</value>
         <value xml:lang="de">Angenommen</value>
         <value xml:lang="en">Accepted</value>
         <value xml:lang="es">Aceptado</value>
@@ -9035,6 +9125,7 @@
     </property>
     <property key="StatusItem.description.CAL_CANCELLED">
         <value xml:lang="ar">ملغاة</value>
+        <value xml:lang="cs">Stornováno</value>
         <value xml:lang="de">Annulliert</value>
         <value xml:lang="en">Cancelled</value>
         <value xml:lang="es">Cancelado</value>
@@ -9052,6 +9143,7 @@
     </property>
     <property key="StatusItem.description.CAL_COMPLETED">
         <value xml:lang="ar">منتهية</value>
+        <value xml:lang="cs">Dokončeno</value>
         <value xml:lang="de">Abgeschlossen</value>
         <value xml:lang="en">Completed</value>
         <value xml:lang="es">Completado</value>
@@ -9070,6 +9162,7 @@
     </property>
     <property key="StatusItem.description.CAL_CONFIRMED">
         <value xml:lang="ar">مؤكدة</value>
+        <value xml:lang="cs">Potvrzeno</value>
         <value xml:lang="de">Bestätigt</value>
         <value xml:lang="en">Confirmed</value>
         <value xml:lang="es">Confirmado</value>
@@ -9088,6 +9181,7 @@
     </property>
     <property key="StatusItem.description.CAL_DECLINED">
         <value xml:lang="ar">مرفوضة</value>
+        <value xml:lang="cs">Odmítnuto</value>
         <value xml:lang="de">Abgelehnt</value>
         <value xml:lang="en">Declined</value>
         <value xml:lang="es">Rechazado</value>
@@ -9106,6 +9200,7 @@
     </property>
     <property key="StatusItem.description.CAL_DELEGATED">
         <value xml:lang="ar">مفوضة</value>
+        <value xml:lang="cs">Předáno</value>
         <value xml:lang="de">Delegiert</value>
         <value xml:lang="en">Delegated</value>
         <value xml:lang="es">Delegado</value>
@@ -9124,6 +9219,7 @@
     </property>
     <property key="StatusItem.description.CAL_IN_PLANNING">
         <value xml:lang="ar">قيد التخطيط</value>
+        <value xml:lang="cs">V přípravě</value>
         <value xml:lang="en">In Planning</value>
         <value xml:lang="es">En planificación</value>
         <value xml:lang="fr">Planifié</value>
@@ -9138,6 +9234,7 @@
     </property>
     <property key="StatusItem.description.CAL_NEEDS_ACTION">
         <value xml:lang="ar">بحاجة الى نشاط</value>
+        <value xml:lang="cs">Vyžaduje akci</value>
         <value xml:lang="de">Benötigt Massnahmen</value>
         <value xml:lang="en">Needs Action</value>
         <value xml:lang="es">Requiere acción</value>
@@ -9156,6 +9253,7 @@
     </property>
     <property key="StatusItem.description.CAL_PLANNED">
         <value xml:lang="ar">مخططة</value>
+        <value xml:lang="cs">Naplánováno</value>
         <value xml:lang="en">Planned</value>
         <value xml:lang="es">Planificado</value>
         <value xml:lang="fr">Planifié</value>
@@ -9170,6 +9268,7 @@
     </property>
     <property key="StatusItem.description.CAL_SENT">
         <value xml:lang="ar">مرسلة</value>
+        <value xml:lang="cs">Odesláno</value>
         <value xml:lang="de">Übermittelt</value>
         <value xml:lang="en">Sent</value>
         <value xml:lang="es">Enviado</value>
@@ -9187,6 +9286,7 @@
     </property>
     <property key="StatusItem.description.CAL_TENTATIVE">
         <value xml:lang="ar">متقطعة</value>
+        <value xml:lang="cs">Předběžný</value>
         <value xml:lang="de">Provisorisch</value>
         <value xml:lang="en">Tentative</value>
         <value xml:lang="es">Tentativo</value>
@@ -9204,6 +9304,7 @@
     </property>
     <property key="StatusItem.description.CLPT_ACCEPTED">
         <value xml:lang="ar">مقبولة</value>
+        <value xml:lang="cs">Přijato</value>
         <value xml:lang="de">Angenommen</value>
         <value xml:lang="en">Accepted</value>
         <value xml:lang="es">Aceptado</value>
@@ -9221,6 +9322,7 @@
     </property>
     <property key="StatusItem.description.CLPT_IN_USE">
         <value xml:lang="ar">قيد الإستخدام</value>
+        <value xml:lang="cs">Používáno</value>
         <value xml:lang="en">In Use</value>
         <value xml:lang="es">En uso</value>
         <value xml:lang="fr">En cours d'utilisation</value>
@@ -9235,6 +9337,7 @@
     </property>
     <property key="StatusItem.description.CLPT_PENDING">
         <value xml:lang="ar">بإنتظار القبول</value>
+        <value xml:lang="cs">Čeká na přijetí</value>
         <value xml:lang="de">Wartend auf Annahme</value>
         <value xml:lang="en">Pending Acceptance</value>
         <value xml:lang="es">Pendiente de aceptar</value>
@@ -9253,6 +9356,7 @@
     </property>
     <property key="StatusItem.description.CLPT_REJECTED">
         <value xml:lang="ar">مرفوضة</value>
+        <value xml:lang="cs">Odmítnuto</value>
         <value xml:lang="de">Abgelehnt</value>
         <value xml:lang="en">Rejected</value>
         <value xml:lang="es">Rechazado</value>
@@ -9271,6 +9375,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_APPROVED">
         <value xml:lang="ar">موافق عليها</value>
+        <value xml:lang="cs">Schváleno</value>  
         <value xml:lang="en">Approved</value>
         <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Approuvé</value>
@@ -9285,6 +9390,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_IN_PROCESS">
         <value xml:lang="ar">الموافقة قيد التنفيذ</value>
+        <value xml:lang="cs">Probíhá schvalování</value>
         <value xml:lang="en">Approval In Process</value>
         <value xml:lang="es">Aprobación en curso</value>
         <value xml:lang="fr">Approbation en cours</value>
@@ -9299,6 +9405,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_NOT_READY">
         <value xml:lang="ar">غير جاهزة للموافقة</value>
+        <value xml:lang="cs">Nepřipraveno na schválení</value>
         <value xml:lang="en">Not Ready for Approval</value>
         <value xml:lang="es">No preparado para aprobación</value>
         <value xml:lang="fr">Non prêt pour approbation</value>
@@ -9313,6 +9420,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_READY">
         <value xml:lang="ar">جاهزة للموافقة</value>
+        <value xml:lang="cs">Připraveno ke schválení</value>
         <value xml:lang="en">Ready for Approval</value>
         <value xml:lang="es">Preparado para aprobación</value>
         <value xml:lang="fr">Prêt pour approbation</value>
@@ -9327,6 +9435,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_REJECTED">
         <value xml:lang="ar">مرفوضة</value>
+        <value xml:lang="cs">Odmítnuto</value>
         <value xml:lang="en">Rejected</value>
         <value xml:lang="es">Rechazado</value>
         <value xml:lang="fr">Refusé</value>
@@ -9341,6 +9450,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_SOFT_REJ">
         <value xml:lang="ar">مرفوضة سوفت</value>
+        <value xml:lang="cs">Dočasně odmítnuto</value>
         <value xml:lang="en">Soft Rejected</value>
         <value xml:lang="es">Rechazado (admite mejoras)</value>
         <value xml:lang="fr">Support rejetée</value>
@@ -9354,6 +9464,7 @@
     </property>
     <property key="StatusItem.description.COM_CANCELLED">
         <value xml:lang="ar">ملغاة</value>
+        <value xml:lang="cs">Stornováno</value>
         <value xml:lang="de">Annulliert</value>
         <value xml:lang="en">Cancelled</value>
         <value xml:lang="es">Cancelado</value>
@@ -9371,6 +9482,7 @@
     </property>
     <property key="StatusItem.description.COM_COMPLETE">
         <value xml:lang="ar">منتهية</value>
+        <value xml:lang="cs">Dokončit</value>
         <value xml:lang="de">Abgeschlossen</value>
         <value xml:lang="en">Complete</value>
         <value xml:lang="es">Completado</value>
@@ -9388,6 +9500,7 @@
     </property>
     <property key="StatusItem.description.COM_ENTERED">
         <value xml:lang="ar">مدخلة</value>
+        <value xml:lang="cs">Vloženo</value>
         <value xml:lang="de">Eingetragen</value>
         <value xml:lang="en">Entered</value>
         <value xml:lang="es">Introducido</value>
@@ -9424,6 +9537,7 @@
     </property>
     <property key="StatusItem.description.COM_PENDING">
         <value xml:lang="ar">معلقة</value>
+        <value xml:lang="cs">Čekající</value>
         <value xml:lang="de">Wartend</value>
         <value xml:lang="en">Pending</value>
         <value xml:lang="es">Pendiente</value>
@@ -9441,6 +9555,7 @@
     </property>
     <property key="StatusItem.description.COM_REFERRED">
         <value xml:lang="ar">محولة</value>
+        <value xml:lang="cs">Předáno</value>
         <value xml:lang="de">Weitergeleitet</value>
         <value xml:lang="en">Referred</value>
         <value xml:lang="es">Remitido</value>
@@ -9457,6 +9572,7 @@
     </property>
     <property key="StatusItem.description.COM_RESOLVED">
         <value xml:lang="ar">محلولة</value>
+        <value xml:lang="cs">Vyřešeno</value>
         <value xml:lang="de">Beigelegt/Geklärt</value>
         <value xml:lang="en">Resolved</value>
         <value xml:lang="es">Resuelto</value>
@@ -9475,6 +9591,7 @@
     </property>
     <property key="StatusItem.description.COM_ROLE_COMPLETED">
         <value xml:lang="ar">مقفلة</value>
+        <value xml:lang="cs">Uzavřeno</value>
         <value xml:lang="en">Closed</value>
         <value xml:lang="es">Cerrado</value>
         <value xml:lang="fr">Fermé</value>
@@ -9489,6 +9606,7 @@
     </property>
     <property key="StatusItem.description.COM_ROLE_CREATED">
         <value xml:lang="ar">مخلقة</value>
+        <value xml:lang="cs">Vytvořeno</value>
         <value xml:lang="en">Created</value>
         <value xml:lang="es">Creado</value>
         <value xml:lang="fr">Créé</value>
@@ -10271,6 +10389,7 @@
     </property>
     <property key="StatusItem.description.INVOICE_APPROVED">
         <value xml:lang="ar">موافق عليها</value>
+        <value xml:lang="cs">Schválená</value>
         <value xml:lang="de">Genehmigt</value>
         <value xml:lang="en">Approved</value>
         <value xml:lang="es">Aprobado</value>
@@ -10289,6 +10408,7 @@
     </property>
     <property key="StatusItem.description.INVOICE_CANCELLED">
         <value xml:lang="ar">ملغاة</value>
+        <value xml:lang="cs">Stornovaná</value>
         <value xml:lang="de">Annulliert</value>
         <value xml:lang="en">Cancelled</value>
         <value xml:lang="es">Anulado</value>
@@ -10307,6 +10427,7 @@
     </property>
     <property key="StatusItem.description.INVOICE_IN_PROCESS">
         <value xml:lang="ar">قيد التنفيذ</value>
+        <value xml:lang="cs">Připravovaná</value>
         <value xml:lang="de">In arbeit</value>
         <value xml:lang="en">In-Process</value>
         <value xml:lang="es">En preparación</value>
@@ -10325,6 +10446,7 @@
     </property>
     <property key="StatusItem.description.INVOICE_PAID">
         <value xml:lang="ar">مدفوعة</value>
+        <value xml:lang="cs">Zaplacená</value>
         <value xml:lang="de">Bezahlt</value>
         <value xml:lang="en">Paid</value>
         <value xml:lang="es">Pagado</value>
@@ -10343,6 +10465,7 @@
     </property>
     <property key="StatusItem.description.INVOICE_READY">
         <value xml:lang="ar">جاهزة للإرسال</value>
+        <value xml:lang="cs">Připravená</value>
         <value xml:lang="de">Bereit für Buchung</value>
         <value xml:lang="en">Ready for Posting</value>
         <value xml:lang="es">Listo para publicar</value>
@@ -10361,6 +10484,7 @@
     </property>
     <property key="StatusItem.description.INVOICE_RECEIVED">
         <value xml:lang="ar">مستلمة</value>
+        <value xml:lang="cs">Přijatá</value>
         <value xml:lang="de">Erhalten</value>
         <value xml:lang="en">Received</value>
         <value xml:lang="es">Recibido</value>
@@ -10379,6 +10503,7 @@
     </property>
     <property key="StatusItem.description.INVOICE_SENT">
         <value xml:lang="ar">مرسلة</value>
+        <value xml:lang="cs">Odeslaná</value>
         <value xml:lang="de">Übermittelt</value>
         <value xml:lang="en">Sent</value>
         <value xml:lang="es">Enviado</value>
@@ -10397,6 +10522,7 @@
     </property>
     <property key="StatusItem.description.INVOICE_WRITEOFF">
         <value xml:lang="ar">مشطوبة</value>
+        <value xml:lang="cs">Anulovaná</value>
         <value xml:lang="de">Abschreiben</value>
         <value xml:lang="en">Write Off</value>
         <value xml:lang="es">Pérdida</value>
@@ -10415,6 +10541,7 @@
     </property>
     <property key="StatusItem.description.INV_ACTIVATED">
         <value xml:lang="ar">مفعلة</value>
+        <value xml:lang="cs">Activovaná</value>
         <value xml:lang="en">Activated</value>
         <value xml:lang="es">Activado</value>
         <value xml:lang="fr">Activé</value>
@@ -10429,6 +10556,7 @@
     </property>
     <property key="StatusItem.description.INV_AVAILABLE">
         <value xml:lang="ar">موجودة</value>
+        <value xml:lang="cs">Dostupná</value>
         <value xml:lang="de">Verfügbar</value>
         <value xml:lang="en">Available</value>
         <value xml:lang="es">Disponible</value>
@@ -17144,6 +17272,7 @@
     </property>
     <property key="Uom.description.ADP">
         <value xml:lang="ar">البيزيتا الاندورية</value>
+        <value xml:lang="cs">Andorská peseta</value>
         <value xml:lang="de">Peseta Andorra</value>
         <value xml:lang="en">Andoran peseta</value>
         <value xml:lang="es">Peseta Andorra</value>
@@ -17161,6 +17290,7 @@
     </property>
     <property key="Uom.description.AED">
         <value xml:lang="ar">درهم أماراتي</value>
+        <value xml:lang="cs">Emirátský dirham</value>
         <value xml:lang="de">Dirham Vereinigte Arabische Emirate</value>
         <value xml:lang="en">United Arab Emirates Dirham</value>
         <value xml:lang="fr">Dirham des Emirats Arabes Unis</value>
@@ -17176,6 +17306,7 @@
     </property>
     <property key="Uom.description.AFA">
         <value xml:lang="ar">أفغاني</value>
+        <value xml:lang="cs">Afghánský afghání</value>
         <value xml:lang="de">Afghani</value>
         <value xml:lang="en">Afghani</value>
         <value xml:lang="fr">Afghani</value>
@@ -17191,6 +17322,7 @@
     </property>
     <property key="Uom.description.ALL">
         <value xml:lang="ar">ليك ألباني</value>
+        <value xml:lang="cs">Albánský lek</value>
         <value xml:lang="de">Lek Albanien</value>
         <value xml:lang="en">Albanian Lek</value>
         <value xml:lang="fr">Lek d'Albanie</value>
@@ -17206,6 +17338,7 @@
     </property>
     <property key="Uom.description.AMD">
         <value xml:lang="ar">درهم أرميني</value>
+        <value xml:lang="cs">Arménský dram</value>
         <value xml:lang="de">Dram Armenien</value>
         <value xml:lang="en">Armenian Dram</value>
         <value xml:lang="fr">Dram d'Arménie</value>
@@ -17221,6 +17354,7 @@
     </property>
     <property key="Uom.description.ANG">
         <value xml:lang="ar">غيلدر غرب هندي</value>
+        <value xml:lang="cs">Zlatý Nizozemských Antil</value>
         <value xml:lang="de">Gulden Niederländische Antillen</value>
         <value xml:lang="en">West Indian Guilder</value>
         <value xml:lang="fr">Florin indien occidental</value>
@@ -17236,6 +17370,7 @@
     </property>
     <property key="Uom.description.AOK">
         <value xml:lang="ar">كوانزا أنغولية</value>
+        <value xml:lang="cs">Angolská kwanza</value>
         <value xml:lang="de">Kwanza Angola</value>
         <value xml:lang="en">Angolan Kwanza</value>
         <value xml:lang="fr">Kwanza d'Angola</value>
@@ -17251,6 +17386,7 @@
     </property>
     <property key="Uom.description.ARA">
         <value xml:lang="ar">اوسترال ارجنتيني</value>
+        <value xml:lang="cs">Argentinské peso</value>
         <value xml:lang="de">Austral Argentinien</value>
         <value xml:lang="en">Argentinian Austral</value>
         <value xml:lang="fr">Argentin austral</value>
@@ -17266,6 +17402,7 @@
     </property>
     <property key="Uom.description.AREA_A">
         <value xml:lang="ar">فدان</value>
+        <value xml:lang="cs">Akr</value>
         <value xml:lang="de">Morgen (Fläche)</value>
         <value xml:lang="en">Acre</value>
         <value xml:lang="es">Acre</value>
@@ -17283,6 +17420,7 @@
     </property>
     <property key="Uom.description.AREA_a">
         <value xml:lang="ar">100 متر مربع</value>
+        <value xml:lang="cs">Ar</value>
         <value xml:lang="de">Ar (Fläche)</value>
         <value xml:lang="en">Are</value>
         <value xml:lang="es">Área (100m2)</value>
@@ -17300,6 +17438,7 @@
     </property>
     <property key="Uom.description.AREA_cm2">
         <value xml:lang="ar">سنتيمتر مربع</value>
+        <value xml:lang="cs">Čtvereční centimetr</value>
         <value xml:lang="de">Quadratzentimeter</value>
         <value xml:lang="en">Square Centimeter</value>
         <value xml:lang="es">Centímetro cuadrado</value>
@@ -17317,6 +17456,7 @@
     </property>
     <property key="Uom.description.AREA_ft2">
         <value xml:lang="ar">قدم مربع</value>
+        <value xml:lang="cs">Čtvereční stopa</value>
         <value xml:lang="de">Quadratfuss</value>
         <value xml:lang="en">Square Foot</value>
         <value xml:lang="es">Pie cuadrado</value>
@@ -17334,6 +17474,7 @@
     </property>
     <property key="Uom.description.AREA_ha">
         <value xml:lang="ar">هكتار</value>
+        <value xml:lang="cs">Hektar</value>
         <value xml:lang="de">Hektare</value>
         <value xml:lang="en">Hectare</value>
         <value xml:lang="es">Hectárea</value>
@@ -17351,6 +17492,7 @@
     </property>
     <property key="Uom.description.AREA_in2">
         <value xml:lang="ar">بوصة مربعة</value>
+        <value xml:lang="cs">Čtvereční palec</value>
         <value xml:lang="de">Quadratzoll</value>
         <value xml:lang="en">Square Inch</value>
         <value xml:lang="es">Pulgada cuadrada</value>
@@ -17368,6 +17510,7 @@
     </property>
     <property key="Uom.description.AREA_km2">
         <value xml:lang="ar">كيلومتر مربع</value>
+        <value xml:lang="cs">Čtvereční kilometr</value>
         <value xml:lang="de">Quadratkilometer</value>
         <value xml:lang="en">Square Kilometer</value>
         <value xml:lang="es">Kilómetro cuadrado</value>
@@ -17386,6 +17529,7 @@
     </property>
     <property key="Uom.description.AREA_m2">
         <value xml:lang="ar">متر مربع</value>
+        <value xml:lang="cs">Čtvereční metr</value>
         <value xml:lang="de">Quadratmeter</value>
         <value xml:lang="en">Square Meter</value>
         <value xml:lang="es">Metro cuadrado</value>
@@ -17403,6 +17547,7 @@
     </property>
     <property key="Uom.description.AREA_mi2">
         <value xml:lang="ar">ميل مربع</value>
+        <value xml:lang="cs">Čtvereční míle</value>
         <value xml:lang="de">Quadratmeile</value>
         <value xml:lang="en">Square Mile</value>
         <value xml:lang="es">Milla cuadrada</value>
@@ -17420,6 +17565,7 @@
     </property>
     <property key="Uom.description.AREA_mm2">
         <value xml:lang="ar">مليمتر مربع</value>
+        <value xml:lang="cs">Čtvereční milimetr</value>
         <value xml:lang="de">Quadratmillimeter</value>
         <value xml:lang="en">Square Millimeter</value>
         <value xml:lang="es">Milímetro cuadrado</value>
@@ -17437,6 +17583,7 @@
     </property>
     <property key="Uom.description.AREA_rd2">
         <value xml:lang="ar">مربع رود</value>
+        <value xml:lang="cs">Čtvereční rod</value>
         <value xml:lang="en">Square Rod</value>
         <value xml:lang="es">Rod cuadrado</value>
         <value xml:lang="fr">Rod carré (1/160 acre = 25,29285 m²)</value>
@@ -17453,6 +17600,7 @@
     </property>
     <property key="Uom.description.AREA_yd2">
         <value xml:lang="ar">ياردة مربعة</value>
+        <value xml:lang="cs">Čtvereční yard</value>
         <value xml:lang="de">Quadratyard (Fläche)</value>
         <value xml:lang="en">Square Yard</value>
         <value xml:lang="es">Yarda cuadrada</value>
@@ -17470,6 +17618,7 @@
     </property>
     <property key="Uom.description.ARS">
         <value xml:lang="ar">البيسو الارجنتينية</value>
+        <value xml:lang="cs">Argentinské peso</value>
         <value xml:lang="de">Peso Argentinien</value>
         <value xml:lang="en">Argentina Peso</value>
         <value xml:lang="fr">Peso argentin</value>
@@ -17486,6 +17635,7 @@
     </property>
     <property key="Uom.description.ATS">
         <value xml:lang="ar">الشلن النمساوي</value>
+        <value xml:lang="cs">Rakouský šilink</value>
         <value xml:lang="de">Schilling Östereich</value>
         <value xml:lang="en">Austrian Schilling</value>
         <value xml:lang="fr">Schilling autrichien</value>
@@ -17501,6 +17651,7 @@
     </property>
     <property key="Uom.description.AUD">
         <value xml:lang="ar">الدولار الاسترالي</value>
+        <value xml:lang="cs">Australský dolar</value>
         <value xml:lang="de">Dollar Australien</value>
         <value xml:lang="en">Australian Dollar</value>
         <value xml:lang="fr">Dollar australien</value>
@@ -17516,6 +17667,7 @@
     </property>
     <property key="Uom.description.AWG">
         <value xml:lang="ar">غيلدر اروبي</value>
+        <value xml:lang="cs">Arubský florin</value>
         <value xml:lang="de">Florin Aruba</value>
         <value xml:lang="en">Aruban Guilder</value>
         <value xml:lang="fr">Florin aruban</value>
@@ -17531,6 +17683,7 @@
     </property>
     <property key="Uom.description.AZM">
         <value xml:lang="ar">أذربيجان مانات</value>
+        <value xml:lang="cs">Ázerbájdžánský manat</value>
         <value xml:lang="de">Manat Aserbaidschan</value>
         <value xml:lang="en">Azerbaijan Manat</value>
         <value xml:lang="fr">Manat d'Azerbaïdjan</value>
@@ -17546,6 +17699,7 @@
     </property>
     <property key="Uom.description.BAD">
         <value xml:lang="ar">دينار البوسنة والهرسك</value>
+        <value xml:lang="cs">Dinár (Bosna a Herzegovina)</value>
         <value xml:lang="de">Dinar Bonsien-Herzegovina</value>
         <value xml:lang="en">Bosnia-Herzogovinian Dinar</value>
         <value xml:lang="fr">Dinar de Bosnie-Herzégovine</value>
@@ -17561,6 +17715,7 @@
     </property>
     <property key="Uom.description.BBD">
         <value xml:lang="ar">دولار بربادوس</value>
+        <value xml:lang="cs">Barbadoský dolar</value>
         <value xml:lang="de">Dollar Barbados</value>
         <value xml:lang="en">Barbados Dollar</value>
         <value xml:lang="fr">Dollar de la Barbade</value>
@@ -17576,6 +17731,7 @@
     </property>
     <property key="Uom.description.BDT">
         <value xml:lang="ar">بنغلاديش تاكا</value>
+        <value xml:lang="cs">Bangladéšská taka</value>
         <value xml:lang="de">Taka Bangladesch</value>
         <value xml:lang="en">Bangladesh Taka</value>
         <value xml:lang="fr">Taka du Bengladesh</value>
@@ -17591,6 +17747,7 @@
     </property>
     <property key="Uom.description.BEF">
         <value xml:lang="ar">فرنك بلجيكي</value>
+        <value xml:lang="cs">Belgický frank</value>
         <value xml:lang="de">Franc Belgien</value>
         <value xml:lang="en">Belgian Franc</value>
         <value xml:lang="fr">Franc belge</value>
@@ -17606,6 +17763,7 @@
     </property>
     <property key="Uom.description.BGN">
         <value xml:lang="ar">ليف بلغاري</value>
+        <value xml:lang="cs">Bulharský lev</value>
         <value xml:lang="de">Lev Bulgarien</value>
         <value xml:lang="en">Bulgarian Lev</value>
         <value xml:lang="fr">Lev bulgare</value>
@@ -17621,6 +17779,7 @@
     </property>
     <property key="Uom.description.BHD">
         <value xml:lang="ar">دينار بحريني</value>
+        <value xml:lang="cs">Bahrajnský dinár</value>
         <value xml:lang="de">Dinar Bahrain</value>
         <value xml:lang="en">Bahrain Dinar</value>
         <value xml:lang="fr">Dinar de Bahrain</value>
@@ -17636,6 +17795,7 @@
     </property>
     <property key="Uom.description.BIF">
         <value xml:lang="ar">فرانك بوروندي</value>
+        <value xml:lang="cs">Burundský frank</value>
         <value xml:lang="de">Franc Burundi</value>
         <value xml:lang="en">Burundi Franc</value>
         <value xml:lang="fr">Franc du Burundi</value>
@@ -17651,6 +17811,7 @@
     </property>
     <property key="Uom.description.BMD">
         <value xml:lang="ar">دولار برمودي</value>
+        <value xml:lang="cs">Bermudský dolar</value>
         <value xml:lang="de">Dollar Bermuda</value>
         <value xml:lang="en">Bermudan Dollar</value>
         <value xml:lang="fr">Dollar des Bermudes</value>
@@ -17666,6 +17827,7 @@
     </property>
     <property key="Uom.description.BND">
         <value xml:lang="ar">دولار بروناي</value>
+        <value xml:lang="cs">Brunejský dolar</value>
         <value xml:lang="de">Dollar Brunei</value>
         <value xml:lang="en">Brunei Dollar</value>
         <value xml:lang="fr">Dollar de Brunei</value>
@@ -17681,6 +17843,7 @@
     </property>
     <property key="Uom.description.BOB">
         <value xml:lang="ar">بوليفيانو بوليفي</value>
+        <value xml:lang="cs">Boliviano</value>
         <value xml:lang="de">Boliviano</value>
         <value xml:lang="en">Bolivian Boliviano</value>
         <value xml:lang="fr">Boliviano bolivien</value>
@@ -17696,6 +17859,7 @@
     </property>
     <property key="Uom.description.BRL">
         <value xml:lang="ar">ريال برازيلي</value>
+        <value xml:lang="cs">Brazilský real</value>
         <value xml:lang="de">Real Brasilien</value>
         <value xml:lang="en">Brazilian Real</value>
         <value xml:lang="fr">Réal brésilien</value>
@@ -17711,6 +17875,7 @@
     </property>
     <property key="Uom.description.BRR">
         <value xml:lang="ar">برازيل</value>
+        <value xml:lang="cs">Brazil</value>
         <value xml:lang="en">Brazil</value>
         <value xml:lang="es">Brazil</value>
         <value xml:lang="fr">Brésil</value>
@@ -17726,6 +17891,7 @@
     </property>
     <property key="Uom.description.BSD">
         <value xml:lang="ar">دولار باهامي</value>
+        <value xml:lang="cs">Bahamský dolar</value>
         <value xml:lang="de">Dollar Bahamas</value>
         <value xml:lang="en">Bahaman Dollar</value>
         <value xml:lang="fr">Dollar des Bahamas</value>
@@ -17741,6 +17907,7 @@
     </property>
     <property key="Uom.description.BWP">
         <value xml:lang="ar">بولا بوتسوانية</value>
+        <value xml:lang="cs">Botswanská pula</value>
         <value xml:lang="de">Pula Botswana</value>
         <value xml:lang="en">Botswana Pula</value>
         <value xml:lang="fr">Pulla du Botswana</value>
@@ -17756,6 +17923,7 @@
     </property>
     <property key="Uom.description.BYR">
         <value xml:lang="ar">روبل بيلاروسية</value>
+        <value xml:lang="cs">Běloruský rubl</value>
         <value xml:lang="de">Rubel Weissrussland</value>
         <value xml:lang="en">Belorussian Ruble</value>
         <value xml:lang="fr">Rouble de Biélorussie</value>
@@ -17771,6 +17939,7 @@
     </property>
     <property key="Uom.description.BZD">
         <value xml:lang="ar">دولار بليزي</value>
+        <value xml:lang="cs">Belizský dolar</value>
         <value xml:lang="de">Dollar Belize</value>
         <value xml:lang="en">Belize Dollar</value>
         <value xml:lang="fr">Dollar de Bélize</value>
@@ -17935,6 +18104,7 @@
     </property>
     <property key="Uom.description.CZK">
         <value xml:lang="ar">الكرونا التشيكية</value>
+        <value xml:lang="cs">Česká koruna</value>
         <value xml:lang="de">Krone Tschechien</value>
         <value xml:lang="en">Czech Krona</value>
         <value xml:lang="fr">Krona tchèque</value>
@@ -18512,6 +18682,7 @@
     </property>
     <property key="Uom.description.EUR">
         <value xml:lang="ar">يورو</value>
+        <value xml:lang="cs">Euro</value>
         <value xml:lang="de">Euro</value>
         <value xml:lang="en">Euro</value>
         <value xml:lang="es">Euro</value>
@@ -20623,6 +20794,7 @@
     </property>
     <property key="Uom.description.TEMP_C">
         <value xml:lang="ar">درجة مئوية</value>
+        <value xml:lang="cs">Stupeň Celsia</value>
         <value xml:lang="de">Grad Celsius</value>
         <value xml:lang="en">Degrees Celsius</value>
         <value xml:lang="es">Grados Celsius</value>
@@ -20639,6 +20811,7 @@
     </property>
     <property key="Uom.description.TEMP_F">
         <value xml:lang="ar">درجة فهرنهايت</value>
+        <value xml:lang="cs">Stupeň Fahrenheita</value>
         <value xml:lang="de">Grad Fahrenheit</value>
         <value xml:lang="en">Degrees Fahrenheit</value>
         <value xml:lang="es">Grados Fahrenheit</value>
@@ -20655,6 +20828,7 @@
     </property>
     <property key="Uom.description.TEMP_K">
         <value xml:lang="ar">كلفن</value>
+        <value xml:lang="cs">Kelvin</value>
         <value xml:lang="de">Kelvin</value>
         <value xml:lang="en">Kelvin</value>
         <value xml:lang="es">Kelvin</value>
@@ -20671,6 +20845,7 @@
     </property>
     <property key="Uom.description.TF_century">
         <value xml:lang="ar">الوقت بالقرون</value>
+        <value xml:lang="cs">Čas ve stoletích</value>
         <value xml:lang="de">Zeit in Jahrhunderten</value>
         <value xml:lang="en">Time in Centuries</value>
         <value xml:lang="es">Tiempo en siglos</value>
@@ -20687,6 +20862,7 @@
     </property>
     <property key="Uom.description.TF_day">
         <value xml:lang="ar">الوقت بالأيام</value>
+        <value xml:lang="cs">Čas ve dnech</value>
         <value xml:lang="de">Zeit in Tagen</value>
         <value xml:lang="en">Time in Days</value>
         <value xml:lang="es">Tiempo en días</value>
@@ -20703,6 +20879,7 @@
     </property>
     <property key="Uom.description.TF_decade">
         <value xml:lang="ar">الوقت بالعقود</value>
+        <value xml:lang="cs">Čas v dekádách</value>
         <value xml:lang="de">Zeit in Jahrzenten</value>
         <value xml:lang="en">Time in Decades</value>
         <value xml:lang="es">Tiempo en décadas</value>
@@ -20718,6 +20895,7 @@
     </property>
     <property key="Uom.description.TF_hr">
         <value xml:lang="ar">الوقت بالساعات</value>
+        <value xml:lang="cs">Čas v hodinách</value>
         <value xml:lang="de">Zeit in Stunden</value>
         <value xml:lang="en">Time in Hours</value>
         <value xml:lang="es">Tiempo en horas</value>
@@ -20734,6 +20912,7 @@
     </property>
     <property key="Uom.description.TF_millenium">
         <value xml:lang="ar">الوقت بآلاف السنين</value>
+        <value xml:lang="cs">Čas v tisíciletích</value>
         <value xml:lang="de">Zeit in Jahrtausenden</value>
         <value xml:lang="en">Time in Millenia</value>
         <value xml:lang="es">Tiempo en milenios</value>
@@ -20750,6 +20929,7 @@
     </property>
     <property key="Uom.description.TF_min">
         <value xml:lang="ar">الوقت بالدقائق</value>
+        <value xml:lang="cs">Čas v minutách</value>
         <value xml:lang="de">Zeit in Minuten</value>
         <value xml:lang="en">Time in Minutes</value>
         <value xml:lang="es">Tiempo en minutos</value>
@@ -20765,6 +20945,7 @@
     </property>
     <property key="Uom.description.TF_mon">
         <value xml:lang="ar">الوقت بالأشهر</value>
+        <value xml:lang="cs">Čas v měsících</value>
         <value xml:lang="de">Zeit in Monaten</value>
         <value xml:lang="en">Time in Months</value>
         <value xml:lang="es">Tiempo en meses</value>
@@ -20781,6 +20962,7 @@
     </property>
     <property key="Uom.description.TF_ms">
         <value xml:lang="ar">الوقت بالملي ثانية</value>
+        <value xml:lang="cs">Čas v milisekundách</value>
         <value xml:lang="de">Zeit in Millisekunden</value>
         <value xml:lang="en">Time in Milli-Seconds</value>
         <value xml:lang="es">Tiempo en milisegundos</value>
@@ -20796,6 +20978,7 @@
     </property>
     <property key="Uom.description.TF_s">
         <value xml:lang="ar">الوقت بالثواني</value>
+        <value xml:lang="cs">Čas v sekundách</value>
         <value xml:lang="de">Zeit in Sekunden</value>
         <value xml:lang="en">Time in Seconds</value>
         <value xml:lang="es">Tiempo en segundos</value>
@@ -20810,6 +20993,7 @@
         <value xml:lang="zh-TW">秒</value>
     </property>
     <property key="Uom.description.TF_score">
+        <value xml:lang="cs">Čas ve dvacetiletích</value>
         <value xml:lang="en">Time in Scores</value>
         <value xml:lang="es">Tiempo en notas</value>
         <value xml:lang="fr">Temps en double-décade (ou 4 lustres)</value>
@@ -20825,6 +21009,7 @@
     </property>
     <property key="Uom.description.TF_wk">
         <value xml:lang="ar">الوقت بالأسابيع</value>
+        <value xml:lang="cs">Čas v týdnech</value>
         <value xml:lang="de">Zeit in Wochen</value>
         <value xml:lang="en">Time in Weeks</value>
         <value xml:lang="es">Tiempo en semanas</value>
@@ -20840,6 +21025,7 @@
     </property>
     <property key="Uom.description.TF_yr">
         <value xml:lang="ar">الوقت بالسنوات</value>
+        <value xml:lang="cs">Čas v rocích</value>
         <value xml:lang="de">Zeit in Jahren</value>
         <value xml:lang="en">Time in Years</value>
         <value xml:lang="es">Tiempo en años</value>
@@ -20855,6 +21041,7 @@
     </property>
     <property key="Uom.description.THB">
         <value xml:lang="ar">باهت تايلاندي</value>
+        <value xml:lang="cs">Thajský baht</value>
         <value xml:lang="de">Baht Thailand</value>
         <value xml:lang="en">Thailand Baht</value>
         <value xml:lang="fr">Baht de Thaïlande</value>
@@ -20871,6 +21058,7 @@
     </property>
     <property key="Uom.description.TJR">
         <value xml:lang="ar">روبل طاجيكي</value>
+        <value xml:lang="cs">Tádžický rubl</value>
         <value xml:lang="de">Rubel Tadschikistan</value>
         <value xml:lang="en">Tadzhikistani Ruble</value>
         <value xml:lang="fr">Rouble de Tadzhikistan</value>
@@ -20886,6 +21074,7 @@
     </property>
     <property key="Uom.description.TMM">
         <value xml:lang="ar">مانات تركمنستاني</value>
+        <value xml:lang="cs">Turkmenský manat</value>
         <value xml:lang="de">Manat Turkmenistan</value>
         <value xml:lang="en">Turkmenistani Manat</value>
         <value xml:lang="fr">Manat de Turkmenistan</value>
@@ -20901,6 +21090,7 @@
     </property>
     <property key="Uom.description.TND">
         <value xml:lang="ar">دينار تونسي</value>
+        <value xml:lang="cs">Tuniský dinár</value>
         <value xml:lang="de">Dinar Tunesien</value>
         <value xml:lang="en">Tunisian Dinar</value>
         <value xml:lang="fr">Dinar tunisien</value>
@@ -20945,6 +21135,7 @@
     </property>
     <property key="Uom.description.TRY">
         <value xml:lang="ar">ليرة تركية</value>
+        <value xml:lang="cs">Turecká lira</value>
         <value xml:lang="de">Lire Türkei</value>
         <value xml:lang="en">Turkish Lira</value>
         <value xml:lang="fr">Lire Turque</value>
@@ -20960,6 +21151,7 @@
     </property>
     <property key="Uom.description.TTD">
         <value xml:lang="ar">دولار ترينداد و توباجو</value>
+        <value xml:lang="cs">Trinidadsko-tobagský dolar</value>
         <value xml:lang="de">Dollar Trinidad und Tobago</value>
         <value xml:lang="en">Trinidad and Tobago Dollar</value>
         <value xml:lang="fr">Dollar de Trinité-et-Tobago</value>
@@ -20975,6 +21167,7 @@
     </property>
     <property key="Uom.description.TWD">
         <value xml:lang="ar">دولار تايواني (جديد)</value>
+        <value xml:lang="cs">Tchajwanský dolar</value>
         <value xml:lang="de">Doller Taiwan (Neuer)</value>
         <value xml:lang="en">New Taiwan Dollar</value>
         <value xml:lang="fr">Nouveau dollar Taïwanais</value>
@@ -20990,6 +21183,7 @@
     </property>
     <property key="Uom.description.TZS">
         <value xml:lang="ar">شلن تنزاني</value>
+        <value xml:lang="cs">Tanzanský šilink</value>
         <value xml:lang="de">Schilling Tansania</value>
         <value xml:lang="en">Tanzanian Shilling</value>
         <value xml:lang="fr">Shilling tanzanien</value>
@@ -21005,6 +21199,7 @@
     </property>
     <property key="Uom.description.UAH">
         <value xml:lang="ar">هريفنيا أوكرانية</value>
+        <value xml:lang="cs">Ukrajinská hřivna</value>
         <value xml:lang="de">Hyrwnja Ukraine</value>
         <value xml:lang="en">Ukrainian Hryvnia</value>
         <value xml:lang="fr">Hryvnia ukrainien</value>
@@ -21018,6 +21213,7 @@
         <value xml:lang="zh-TW">烏克蘭格裡夫那</value>
     </property>
     <property key="Uom.description.UAK">
+        <value xml:lang="cs">Ukrajinská hřivna</value>
         <value xml:lang="en">UAK</value>
         <value xml:lang="fr">Hryvnia ukrainienne</value>
         <value xml:lang="it">Karbowanez Ucraina</value>
@@ -21031,6 +21227,7 @@
     </property>
     <property key="Uom.description.UGS">
         <value xml:lang="ar">شلن اوغندي</value>
+        <value xml:lang="cs">Ugandský šilink</value>
         <value xml:lang="de">Schilling Uganda</value>
         <value xml:lang="en">Ugandan Shilling</value>
         <value xml:lang="fr">Shilling d'Uganda</value>
@@ -21046,6 +21243,7 @@
     </property>
     <property key="Uom.description.USD">
         <value xml:lang="ar">دولار أمريكي</value>
+        <value xml:lang="cs">Americký dolar</value>
         <value xml:lang="de">Dollar Amerika</value>
         <value xml:lang="en">American Dollar</value>
         <value xml:lang="es">Dolar EE.UU.</value>
@@ -21063,6 +21261,7 @@
     </property>
     <property key="Uom.description.UYP">
         <value xml:lang="ar">بيزو اوروغواي الجديد</value>
+        <value xml:lang="cs">Nové uruguayské peso</value>
         <value xml:lang="en">Uruguayan New Peso</value>
         <value xml:lang="es">Nuevo Peso Uruguayo</value>
         <value xml:lang="fr">Nouveau peso d'Uruguay</value>
@@ -21078,6 +21277,7 @@
     </property>
     <property key="Uom.description.UYU">
         <value xml:lang="ar">بيزو اوروغواي</value>
+        <value xml:lang="cs">Uruguayské peso</value>
         <value xml:lang="en">Uruguay</value>
         <value xml:lang="es">Uruguay</value>
         <value xml:lang="fr">Peso uruguayen</value>
@@ -21093,6 +21293,7 @@
     </property>
     <property key="Uom.description.VDRY_ST">
         <value xml:lang="ar">إستير (متر مكعب)</value>
+        <value xml:lang="cs">Stéra (krychlový metr)</value>
         <value xml:lang="de">Raummeter</value>
         <value xml:lang="en">Stere (cubic meter)</value>
         <value xml:lang="es">Stere (metro cúbico)</value>
@@ -21108,6 +21309,7 @@
     </property>
     <property key="Uom.description.VDRY_cm3">
         <value xml:lang="ar">سنتيمتر مكعب</value>
+        <value xml:lang="cs">Krychlový centimetr</value>
         <value xml:lang="de">Kubikzentimeter</value>
         <value xml:lang="en">Cubic centimeter</value>
         <value xml:lang="es">Centímetro cúbico</value>
@@ -21123,6 +21325,7 @@
     </property>
     <property key="Uom.description.VDRY_ft3">
         <value xml:lang="ar">قدم مكعب</value>
+        <value xml:lang="cs">Krychlová stopa</value>
         <value xml:lang="de">Kubikfuss</value>
         <value xml:lang="en">Cubic foot</value>
         <value xml:lang="es">Pie cúbico</value>
@@ -21138,6 +21341,7 @@
     </property>
     <property key="Uom.description.VDRY_in3">
         <value xml:lang="ar">بوصة مكعبة</value>
+        <value xml:lang="cs">Krychlový palec</value>
         <value xml:lang="de">Kubikzoll</value>
         <value xml:lang="en">Cubic inch</value>
         <value xml:lang="es">Pulgada cúbica</value>
@@ -21153,6 +21357,7 @@
     </property>
     <property key="Uom.description.VDRY_m3">
         <value xml:lang="ar">متر مكعب</value>
+        <value xml:lang="cs">Krychlový metr</value>
         <value xml:lang="de">Kubikmeter</value>
         <value xml:lang="en">Cubic meter</value>
         <value xml:lang="es">Metro cúbico</value>
@@ -21168,6 +21373,7 @@
     </property>
     <property key="Uom.description.VDRY_mm3">
         <value xml:lang="ar">مليمتر مكعب</value>
+        <value xml:lang="cs">Krychlový milimetr</value>
         <value xml:lang="de">Kubikmillimeter</value>
         <value xml:lang="en">Cubic millimeter</value>
         <value xml:lang="es">Milímetro cúbico</value>
@@ -21183,6 +21389,7 @@
     </property>
     <property key="Uom.description.VDRY_yd3">
         <value xml:lang="ar">ياردة مكعبة</value>
+        <value xml:lang="cs">Krychlový yard</value>
         <value xml:lang="de">Kubikyard</value>
         <value xml:lang="en">Cubic yard</value>
         <value xml:lang="es">Yarda cúbica</value>
@@ -21198,6 +21405,7 @@
     </property>
     <property key="Uom.description.VEB">
         <value xml:lang="ar">بوليفار بنزويلي</value>
+        <value xml:lang="cs">Venezuelský bolívar</value>
         <value xml:lang="de">Bolivar Venezuela</value>
         <value xml:lang="en">Venezuelan Bolivar</value>
         <value xml:lang="fr">Bolivar du Vénézuela</value>
@@ -21213,6 +21421,7 @@
     </property>
     <property key="Uom.description.VLIQ_L">
         <value xml:lang="ar">لتر</value>
+        <value xml:lang="cs">Litr</value>
         <value xml:lang="de">Liter</value>
         <value xml:lang="en">Liter</value>
         <value xml:lang="es">Litro</value>
@@ -21229,6 +21438,7 @@
     </property>
     <property key="Uom.description.VLIQ_Tbs">
         <value xml:lang="ar">ملعقة كبيرة</value>
+        <value xml:lang="cs">Polévková lžíce</value>
         <value xml:lang="de">Esslöffel</value>
         <value xml:lang="en">Tablespoon</value>
         <value xml:lang="es">Cuchara</value>
@@ -21245,6 +21455,7 @@
     </property>
     <property key="Uom.description.VLIQ_bbl">
         <value xml:lang="ar">برميل (أمريكي)</value>
+        <value xml:lang="cs">Barel (US)</value>
         <value xml:lang="de">Barrel (US)</value>
         <value xml:lang="en">Barrel (US)</value>
         <value xml:lang="es">Barril (EE.UU.)</value>
@@ -21261,6 +21472,7 @@
     </property>
     <property key="Uom.description.VLIQ_cup">
         <value xml:lang="ar">كوب</value>
+        <value xml:lang="cs">Šálek</value>
         <value xml:lang="de">Tasse</value>
         <value xml:lang="en">Cup</value>
         <value xml:lang="es">Taza</value>
@@ -21279,6 +21491,7 @@
     </property>
     <property key="Uom.description.VLIQ_dr">
         <value xml:lang="ar">درهم أمريكي</value>
+        <value xml:lang="cs">Dram (US)</value>
         <value xml:lang="de">Dram (US)</value>
         <value xml:lang="en">Dram (US)</value>
         <value xml:lang="es">Dram (EE.UU.)</value>
@@ -21296,6 +21509,7 @@
     </property>
     <property key="Uom.description.VLIQ_galUK">
         <value xml:lang="ar">غالون بريطاني</value>
+        <value xml:lang="cs">Galón (UK)</value>
         <value xml:lang="de">Gallone (UK)</value>
         <value xml:lang="en">Gallon (UK)</value>
         <value xml:lang="es">Galón (UK)</value>
@@ -21312,6 +21526,7 @@
     </property>
     <property key="Uom.description.VLIQ_galUS">
         <value xml:lang="ar">غالون أمريكي</value>
+        <value xml:lang="cs">Galón (US)</value>
         <value xml:lang="de">Gallone (US)</value>
         <value xml:lang="en">Gallon (US)</value>
         <value xml:lang="es">Galón (EE.UU.)</value>
@@ -21329,6 +21544,7 @@
     </property>
     <property key="Uom.description.VLIQ_gi">
         <value xml:lang="ar">الجل (ربع نصف لتر بريطاني)</value>
+        <value xml:lang="cs">Gill (1/4 UK Pinty)</value>
         <value xml:lang="de">Gill (1/4 UK Pinte)</value>
         <value xml:lang="en">Gill (1/4 UK pint)</value>
         <value xml:lang="es">Gill (1/4 pinta UK)</value>
@@ -21346,6 +21562,7 @@
     </property>
     <property key="Uom.description.VLIQ_ml">
         <value xml:lang="ar">مليلتر</value>
+        <value xml:lang="cs">Mililitr</value>
         <value xml:lang="de">Milliliter</value>
         <value xml:lang="en">Milliliter</value>
         <value xml:lang="es">Milímetro</value>
@@ -21363,6 +21580,7 @@
     </property>
     <property key="Uom.description.VLIQ_ozUK">
         <value xml:lang="ar">أونصة سائل (بريطاني)</value>
+        <value xml:lang="cs">Unce, tekutina (UK)</value>
         <value xml:lang="de">Unze, Flüssigkeit (UK)</value>
         <value xml:lang="en">Ounce, fluid (UK)</value>
         <value xml:lang="es">Onza, líquido (UK)</value>
@@ -21380,6 +21598,7 @@
     </property>
     <property key="Uom.description.VLIQ_ozUS">
         <value xml:lang="ar">أونصة سائل (أمريكي)</value>
+        <value xml:lang="cs">Unce, tekutina (US)</value>
         <value xml:lang="de">Unze, Flüssigkeit (US)</value>
         <value xml:lang="en">Ounce, fluid (US)</value>
         <value xml:lang="es">Onza, líquido (EE.UU.)</value>
@@ -21397,6 +21616,7 @@
     </property>
     <property key="Uom.description.VLIQ_ptUK">
         <value xml:lang="ar">نصف لتر (بريطاني)</value>
+        <value xml:lang="cs">Pinte (UK)</value>
         <value xml:lang="de">Pinte (UK)</value>
         <value xml:lang="en">Pint (UK)</value>
         <value xml:lang="es">Pinta (UK)</value>
@@ -21414,6 +21634,7 @@
     </property>
     <property key="Uom.description.VLIQ_ptUS">
         <value xml:lang="ar">نصف لتر (أمريكي)</value>
+        <value xml:lang="cs">Pinta (US)</value>
         <value xml:lang="de">Pinte (US)</value>
         <value xml:lang="en">Pint (US)</value>
         <value xml:lang="es">Pinta (EE.UU.)</value>
@@ -21431,6 +21652,7 @@
     </property>
     <property key="Uom.description.VLIQ_qt">
         <value xml:lang="ar">ربع</value>
+        <value xml:lang="cs">Quart</value>
         <value xml:lang="de">Quart</value>
         <value xml:lang="en">Quart</value>
         <value xml:lang="es">Cuarto</value>
@@ -21447,6 +21669,7 @@
     </property>
     <property key="Uom.description.VLIQ_tsp">
         <value xml:lang="ar">ملعقة صغيرة</value>
+        <value xml:lang="cs">Čajová lžička</value>
         <value xml:lang="de">Teelöffel</value>
         <value xml:lang="en">Teaspoon</value>
         <value xml:lang="es">Cucharadita</value>
@@ -21463,6 +21686,7 @@
     </property>
     <property key="Uom.description.VND">
         <value xml:lang="ar">دونج فيتنامي</value>
+        <value xml:lang="cs">Vietnamský dong</value>
         <value xml:lang="de">Dong Vietnam</value>
         <value xml:lang="en">Vietnamese Dong</value>
         <value xml:lang="fr">Dong vietnamien</value>
@@ -21479,6 +21703,7 @@
     </property>
     <property key="Uom.description.VUV">
         <value xml:lang="ar">فاتو فانواتو</value>
+        <value xml:lang="cs">Vanuatský vatu</value>
         <value xml:lang="de">Vatu Vanuatu</value>
         <value xml:lang="en">Vanuatu Vatu</value>
         <value xml:lang="fr">Vatu de Vanuatu</value>
@@ -21494,6 +21719,7 @@
     </property>
     <property key="Uom.description.WST">
         <value xml:lang="ar">تالا ساموا</value>
+        <value xml:lang="cs">Samojská tala</value>
         <value xml:lang="de">Tala Samoa</value>
         <value xml:lang="en">Samoan Tala</value>
         <value xml:lang="es">Tala samoana</value>
@@ -21541,6 +21767,7 @@
     </property>
     <property key="Uom.description.WT_g">
         <value xml:lang="ar">غرام</value>
+        <value xml:lang="cs">Gram</value>
         <value xml:lang="de">Gramm</value>
         <value xml:lang="en">Gram</value>
         <value xml:lang="es">Gramo</value>
@@ -21574,6 +21801,7 @@
     </property>
     <property key="Uom.description.WT_kg">
         <value xml:lang="ar">كيلوغرام</value>
+        <value xml:lang="cs">Kilogram</value>
         <value xml:lang="de">Kilogramm</value>
         <value xml:lang="en">Kilogram</value>
         <value xml:lang="es">Kilogramo</value>
@@ -21591,6 +21819,7 @@
     </property>
     <property key="Uom.description.WT_lb">
         <value xml:lang="ar">رطل (avdp)</value>
+        <value xml:lang="cs">Libra (hmotnost)</value>
         <value xml:lang="de">Pfund (avdp)</value>
         <value xml:lang="en">Pound (avdp)</value>
         <value xml:lang="es">Libra (avdp)</value>
@@ -21607,6 +21836,7 @@
     </property>
     <property key="Uom.description.WT_lt">
         <value xml:lang="ar">طن (بريطاني)</value>
+        <value xml:lang="cs">Long ton (britská = 1,016kg)</value>
         <value xml:lang="de">Tonne (britisch)</value>
         <value xml:lang="en">Ton (long or British)</value>
         <value xml:lang="es">Tonelada (larga)</value>
@@ -21624,6 +21854,7 @@
     </property>
     <property key="Uom.description.WT_mg">
         <value xml:lang="ar">مليغرام</value>
+        <value xml:lang="cs">Miligram</value>
         <value xml:lang="de">Milligramm</value>
         <value xml:lang="en">Milligram</value>
         <value xml:lang="es">Miligramo</value>
@@ -21640,6 +21871,7 @@
     </property>
     <property key="Uom.description.WT_mt">
         <value xml:lang="ar">طن متري</value>
+        <value xml:lang="cs">Tuna (metrická)</value>
         <value xml:lang="de">Tonne (metrisch)</value>
         <value xml:lang="en">Ton (metric)</value>
         <value xml:lang="es">Tonelada (métrica)</value>
@@ -21657,6 +21889,7 @@
     </property>
     <property key="Uom.description.WT_oz">
         <value xml:lang="ar">أونصة (avdp)</value>
+        <value xml:lang="cs">Unce</value>
         <value xml:lang="de">Unze (avdp)</value>
         <value xml:lang="en">Ounce (avdp)</value>
         <value xml:lang="es">Onza (avdp)</value>
@@ -21673,6 +21906,7 @@
     </property>
     <property key="Uom.description.WT_oz_tr">
         <value xml:lang="ar">أونصة (troy)</value>
+        <value xml:lang="cs">Trojská unce</value>
         <value xml:lang="de">Unze (troy)</value>
         <value xml:lang="en">Ounce (troy)</value>
         <value xml:lang="es">Onza (troy)</value>
@@ -21689,6 +21923,7 @@
     </property>
     <property key="Uom.description.WT_sh_t">
         <value xml:lang="ar">طن قصير</value>
+        <value xml:lang="cs">Short Ton (907 kg)</value>
         <value xml:lang="de">Tonne (amerikanisch)</value>
         <value xml:lang="en">Ton (short)</value>
         <value xml:lang="es">Tonelada (corta)</value>
@@ -21706,6 +21941,7 @@
     </property>
     <property key="Uom.description.WT_st">
         <value xml:lang="ar">حجر (وحدة قياس)</value>
+        <value xml:lang="cs">Stone (6,35 kg)</value>
         <value xml:lang="de">Stone</value>
         <value xml:lang="en">Stone</value>
         <value xml:lang="es">Piedra</value>
@@ -21723,6 +21959,7 @@
     </property>
     <property key="Uom.description.XAF">
         <value xml:lang="ar">فرنك غابون C.f.A</value>
+        <value xml:lang="cs">Gabonský CFA Frank</value>
         <value xml:lang="de">CFA-Franc Zentralafrika</value>
         <value xml:lang="en">Gabon C.f.A Franc</value>
         <value xml:lang="fr">Franc CFA du Gabon</value>
@@ -21738,6 +21975,7 @@
     </property>
     <property key="Uom.description.XCD">
         <value xml:lang="ar">دولار شرق الكاريبي</value>
+        <value xml:lang="cs">Východokaribský dolar</value>
         <value xml:lang="de">Dollar Ostkaribik</value>
         <value xml:lang="en">East Carribean Dollar</value>
         <value xml:lang="fr">Dollar des Caraïbes Orientales</value>
@@ -21753,6 +21991,7 @@
     </property>
     <property key="Uom.description.XOF">
         <value xml:lang="ar">دولار بنين C.f.A</value>
+        <value xml:lang="cs">CFA frank</value>
         <value xml:lang="de">CFA-Franc Westafrika</value>
         <value xml:lang="en">Benin C.f.A. Franc</value>
         <value xml:lang="fr">Franc CFA du Bénin</value>
@@ -21768,6 +22007,7 @@
     </property>
     <property key="Uom.description.YER">
         <value xml:lang="ar">ريال يمني</value>
+        <value xml:lang="cs">Jemenský rial</value>
         <value xml:lang="de">Ryal Yemen</value>
         <value xml:lang="en">Yemeni Ryal</value>
         <value xml:lang="fr">Ryal du Yémen</value>
@@ -21783,6 +22023,7 @@
     </property>
     <property key="Uom.description.ZAR">
         <value xml:lang="ar">راند جنوب أفريقي</value>
+        <value xml:lang="cs">Jihoafrický rand</value>
         <value xml:lang="de">Rand Südafrika</value>
         <value xml:lang="en">South African Rand</value>
         <value xml:lang="fr">Rand d'Afrique du Sud</value>
@@ -21798,6 +22039,7 @@
     </property>
     <property key="Uom.description.ZMK">
         <value xml:lang="ar">كواشا زامبية</value>
+        <value xml:lang="cs">Zambijská kwacha</value>
         <value xml:lang="de">Kwacha Sambia</value>
         <value xml:lang="en">Zambian Kwacha</value>
         <value xml:lang="fr">Kwacha de Zambie</value>
@@ -21813,6 +22055,7 @@
     </property>
     <property key="Uom.description.ZRZ">
         <value xml:lang="ar">زائير</value>
+        <value xml:lang="cs">Zaire</value>
         <value xml:lang="de">Zaire</value>
         <value xml:lang="en">Zaire</value>
         <value xml:lang="fr">Zaïre</value>
@@ -21827,6 +22070,7 @@
     </property>
     <property key="Uom.description.ZWD">
         <value xml:lang="ar">دولار زمبابوي</value>
+        <value xml:lang="cs">Zimbavský dolar</value>
         <value xml:lang="de">Dollar Simbabwe</value>
         <value xml:lang="en">Zimbabwean Dollar</value>
         <value xml:lang="fr">Dollar de Zimbabwe</value>
@@ -21842,6 +22086,7 @@
     </property>
     <property key="UomType.description.AREA_MEASURE">
         <value xml:lang="ar">منطقة</value>
+        <value xml:lang="cs">Plocha</value>
         <value xml:lang="de">Fläche</value>
         <value xml:lang="en">Area</value>
         <value xml:lang="es">Área</value>
@@ -21859,6 +22104,7 @@
     </property>
     <property key="UomType.description.CURRENCY_MEASURE">
         <value xml:lang="ar">عملة</value>
+        <value xml:lang="cs">Měna</value>
         <value xml:lang="de">Währung</value>
         <value xml:lang="en">Currency</value>
         <value xml:lang="es">Moneda</value>
@@ -21876,6 +22122,7 @@
     </property>
     <property key="UomType.description.DATASPD_MEASURE">
         <value xml:lang="ar">سرعة البيانات</value>
+        <value xml:lang="cs">Rychlost přenosu dat</value>
         <value xml:lang="de">Daten Geschwindigkeit</value>
         <value xml:lang="en">Data Speed</value>
         <value xml:lang="es">Velocidad de datos</value>
@@ -21894,6 +22141,7 @@
     </property>
     <property key="UomType.description.DATA_MEASURE">
         <value xml:lang="ar">حجم البيانات</value>
+        <value xml:lang="cs">Objem dat</value>
         <value xml:lang="de">Daten Grösse</value>
         <value xml:lang="en">Data Size</value>
         <value xml:lang="es">Tamaño de datos</value>
@@ -21911,6 +22159,7 @@
     </property>
     <property key="UomType.description.ENERGY_MEASURE">
         <value xml:lang="ar">طاقة</value>
+        <value xml:lang="cs">Energie</value>
         <value xml:lang="de">Energie</value>
         <value xml:lang="en">Energy</value>
         <value xml:lang="es">Energía</value>
@@ -21928,6 +22177,7 @@
     </property>
     <property key="UomType.description.LENGTH_MEASURE">
         <value xml:lang="ar">طول</value>
+        <value xml:lang="cs">Délka</value>
         <value xml:lang="de">Länge</value>
         <value xml:lang="en">Length</value>
         <value xml:lang="es">Longitud</value>
@@ -21946,6 +22196,7 @@
     </property>
     <property key="UomType.description.OTHER_MEASURE">
         <value xml:lang="ar">أخرى</value>
+        <value xml:lang="cs">Jiné</value>
         <value xml:lang="de">Andere</value>
         <value xml:lang="en">Other</value>
         <value xml:lang="es">Otro</value>
@@ -21963,6 +22214,7 @@
     </property>
     <property key="UomType.description.TEMP_MEASURE">
         <value xml:lang="ar">حرارة</value>
+        <value xml:lang="cs">Teplota</value>
         <value xml:lang="de">Temperatur</value>
         <value xml:lang="en">Temperature</value>
         <value xml:lang="es">Temperatura</value>
@@ -21980,6 +22232,7 @@
     </property>
     <property key="UomType.description.TIME_FREQ_MEASURE">
         <value xml:lang="ar">وقت/تردد</value>
+        <value xml:lang="cs">Čas/frekvence</value>
         <value xml:lang="de">Zeit/Frequenz</value>
         <value xml:lang="en">Time/Frequency</value>
         <value xml:lang="es">Tiempo/frecuencia</value>
@@ -21998,6 +22251,7 @@
     </property>
     <property key="UomType.description.VOLUME_DRY_MEASURE">
         <value xml:lang="ar">حجم جاف</value>
+        <value xml:lang="cs">Objem (suchý)</value>
         <value xml:lang="de">Volumen (trocken)</value>
         <value xml:lang="en">Dry Volume</value>
         <value xml:lang="es">Volumen seco</value>
@@ -22015,6 +22269,7 @@
     </property>
     <property key="UomType.description.VOLUME_LIQ_MEASURE">
         <value xml:lang="ar">حجم سائل</value>
+        <value xml:lang="cs">Objem tekutiny</value>
         <value xml:lang="de">Volumen (flüssig)</value>
         <value xml:lang="en">Liquid Volume</value>
         <value xml:lang="es">Volumen líquido</value>
@@ -22033,6 +22288,7 @@
     </property>
     <property key="UomType.description.WEIGHT_MEASURE">
         <value xml:lang="ar">وزن</value>
+        <value xml:lang="cs">Váha</value>
         <value xml:lang="de">Gewicht</value>
         <value xml:lang="en">Weight</value>
         <value xml:lang="es">Peso</value>
@@ -22049,6 +22305,7 @@
         <value xml:lang="zh-TW">重量</value>
     </property>
     <property key="VisualTheme.description.BIZZNESS_TIME">
+        <value xml:lang="cs">Bizzness : vertikální menu</value>
         <value xml:lang="en">It's bizzness, it's bizzness time.  I couldn't have said it better myself. This theme gets down</value>
         <value xml:lang="es">Bizzness, es hora de bizzness.  No lo podría haber dicho mejor. Este tema lo consigue</value>
         <value xml:lang="fr">Bizzness : menu principal vertical</value>
@@ -22060,6 +22317,7 @@
         <value xml:lang="zh-TW">商務時代.我不能自己說它是最好的.本風格搞定</value>
     </property>
     <property key="VisualTheme.description.BLUELIGHT">
+        <value xml:lang="cs">BlueLight Theme: navigační řádek, menu a zakulacené rohy</value>
         <value xml:lang="en">BlueLight Theme: Breadcrumbs, drop-down menus and rounded corners</value>
         <value xml:lang="es">BlueLight: Migas de pan, menús desplegables y las esquinas redondeadas</value>
         <value xml:lang="fr">BlueLight Theme: fil d'ariane, menus déroulants et coins arrondis</value>
@@ -22071,6 +22329,7 @@
         <value xml:lang="zh-TW">淺藍風格:自動的多級導航,下拉式選單,以及圓角</value>
     </property>
     <property key="VisualTheme.description.DROPPINGCRUMBS">
+        <value xml:lang="cs">Dropping Crumbs: Pokročilejší varianta Blue-Light, menu integrované s navigací</value>
         <value xml:lang="en">Dropping Crumbs: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
         <value xml:lang="es">Dropping Crumbs: Evolución de BlueLight, incluye un menú desplegable incrustado en la barra de migas de pan</value>
         <value xml:lang="fr">Dropping Crumbs: déclinaison de Bluelight, plus sobre, menu déroulant intégré dans la barre du fil d'ariane</value>
@@ -22082,6 +22341,7 @@
         <value xml:lang="zh-TW">下拉多級:淺藍風格的演化版,包括一個嵌入多級導航條的下拉式選單</value>
     </property>
     <property key="VisualTheme.description.FLAT_GREY">
+        <value xml:lang="cs">Flat Grey - Plovoucí rozložení, podpora obousměrného textu</value>
         <value xml:lang="en">Flat Grey - Floating Layout, Sight-Impaired Accessible, Bidirectional</value>
         <value xml:lang="es">Flat Grey - Diseño flotante, accesible para personas con discapacidad visual, bidireccional</value>
         <value xml:lang="fr">Flat Grey : mise en page dynamique, accessibilité, support de texte bidirectionnel</value>
@@ -22093,6 +22353,7 @@
         <value xml:lang="zh-TW">淺灰－浮動式,視障殘疾人專用,雙向</value>
     </property>
     <property key="VisualTheme.description.MULTIFLEX">
+        <value xml:lang="cs">Alternativní téma pro eShop</value>
         <value xml:lang="en">Alternative VisualTheme for Ecommerce</value>
         <value xml:lang="es">Tema visual alternativo para comercio electrónico</value>
         <value xml:lang="fr">Une alternative pour le theme de base du module de commerce électronique</value>
@@ -22104,6 +22365,7 @@
         <value xml:lang="zh-TW">電子商務的替代視覺風格</value>
     </property>
     <property key="VisualTheme.description.TOMAHAWK">
+        <value xml:lang="cs">Tomahawk: evoluční verze Dropping Crumbs</value>
         <value xml:lang="en">Tomahawk: the evolution of the Dropping Crumbs theme</value>
         <value xml:lang="es">Tomahawk: la evolución del tema Dropping Crumbs</value>
         <value xml:lang="fr">Tomahawk: évolution de Dropping Crumbs dans les tons noir et orange</value>

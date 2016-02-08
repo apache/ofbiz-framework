@@ -6570,6 +6570,7 @@
         <value xml:lang="zh-TW">產品地理列舉識別</value>
     </property>
     <property key="FormFieldTitle_productId">
+        <value xml:lang="cs">ID produktu</value>
         <value xml:lang="de">Produkt ID</value>
         <value xml:lang="en">Product Id</value>
         <value xml:lang="es">Código de producto</value>
@@ -13829,6 +13830,7 @@
         <value xml:lang="zh-TW">盒子</value>
     </property>
     <property key="ProductBrandName">
+        <value xml:lang="cs">Název produktu</value>
         <value xml:lang="de">Markenname</value>
         <value xml:lang="en">Brand Name</value>
         <value xml:lang="es">Nombre de la Marca</value>
@@ -19365,6 +19367,7 @@
         <value xml:lang="zh-TW">說明</value>
     </property>
     <property key="ProductInternalName">
+        <value xml:lang="cs">Interní označení</value>
         <value xml:lang="de">Interner Name</value>
         <value xml:lang="en">Internal Name</value>
         <value xml:lang="es">Nombre interno</value>
@@ -24708,6 +24711,7 @@
         <value xml:lang="zh-TW">要讓價格計算工作,你需要至少為採購/初始類型設置一個預設價格</value>
     </property>
     <property key="ProductPrimaryCategory">
+        <value xml:lang="cs">Primární kategorie</value>
         <value xml:lang="de">Primäre Kategorie</value>
         <value xml:lang="en">Primary Category</value>
         <value xml:lang="es">Categoría primaria</value>
@@ -25052,6 +25056,7 @@
         <value xml:lang="zh-TW">產品高度</value>
     </property>
     <property key="ProductProductId">
+        <value xml:lang="cs">ID produktu</value>
         <value xml:lang="de">Produkt ID</value>
         <value xml:lang="en">Product ID</value>
         <value xml:lang="es">Código de Producto</value>
@@ -25066,6 +25071,7 @@
         <value xml:lang="zh-TW">產品識別</value>
     </property>
     <property key="ProductProductIdMissing">
+        <value xml:lang="cs">ID produktu je povinné</value>
         <value xml:lang="de">Produkt ID ist erforderlich</value>
         <value xml:lang="en">Product Id is mandatory</value>
         <value xml:lang="es">Código del producto es obligatorio</value>
@@ -25602,6 +25608,7 @@
         <value xml:lang="zh-TW">產品標籤為</value>
     </property>
     <property key="ProductProductType">
+        <value xml:lang="cs">Typ produktu</value>
         <value xml:lang="de">Produkttyp</value>
         <value xml:lang="en">Product Type</value>
         <value xml:lang="es">Tipo de productos</value>

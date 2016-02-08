@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="commeventservices.communication_event_from_contact_mech_must_be_email">
+        <value xml:lang="cs">Chyba: Komunikační událost musí mít jako odesílatele uvedenu emailovou adresu.</value>
         <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus von" besitzen das ein E-Mail als Kommunikationereignis ID ist</value>
         <value xml:lang="en">ERROR: Communication event must have a from contact mech that is an email for comm event Id</value>
         <value xml:lang="es">Error: Los eventos de comunicación deben tener un e-mail asociado</value>
