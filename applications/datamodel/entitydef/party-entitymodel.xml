@@ -1186,13 +1186,17 @@ under the License.
       <field name="attnName" type="name"></field>
       <field name="address1" type="long-varchar"></field>
       <field name="address2" type="long-varchar"></field>
+      <field name="houseNumber" type="numeric"></field>
+      <field name="houseNumberExt" type="short-varchar"></field>
       <field name="directions" type="long-varchar"></field>
       <field name="city" type="name"></field>
+      <field name="cityGeoId" type="id"></field>
       <field name="postalCode" type="short-varchar"></field>
       <field name="postalCodeExt" type="short-varchar"></field>
       <field name="countryGeoId" type="id"></field>
       <field name="stateProvinceGeoId" type="id"></field>
       <field name="countyGeoId" type="id"></field>
+      <field name="municipalityGeoId" type="id"></field>
       <field name="postalCodeGeoId" type="id"></field>
       <field name="geoPointId" type="id"></field>
       <prim-key field="contactMechId"/>
@@ -1207,6 +1211,12 @@ under the License.
       </relation>
       <relation type="one" fk-name="POST_ADDR_CNTG" title="County" rel-entity-name="Geo">
         <key-map field-name="countyGeoId" rel-field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="POST_ADDR_MNCP" title="Municipality" rel-entity-name="Geo">
+        <key-map field-name="municipalityGeoId" rel-field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="POST_ADDR_CITY" title="City" rel-entity-name="Geo">
+        <key-map field-name="cityGeoId" rel-field-name="geoId"/>
       </relation>
       <relation type="one" fk-name="POST_ADDR_PCGEO" title="PostalCode" rel-entity-name="Geo">
         <key-map field-name="postalCodeGeoId" rel-field-name="geoId"/>
