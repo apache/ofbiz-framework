@@ -411,6 +411,7 @@
     </property>
     <property key="AcctgTransType.description.SALES_INVOICE">
         <value xml:lang="ar">فاتورة المبيعات</value>
+        <value xml:lang="cs">Vystavená faktura</value>
         <value xml:lang="de">Rechnung</value>
         <value xml:lang="en">Sales Invoice</value>
         <value xml:lang="fr">Facture de vente</value>
@@ -4781,6 +4782,7 @@
     </property>
     <property key="InvoiceType.description.SALES_INVOICE">
         <value xml:lang="ar">فاتورة المبيعات</value>
+        <value xml:lang="cs">Faktura - daňový doklad</value>
         <value xml:lang="de">Verkaufsrechnung</value>
         <value xml:lang="en">Sales Invoice</value>
         <value xml:lang="fr">Facture de vente</value>
@@ -4798,6 +4800,7 @@
     </property>
     <property key="InvoiceType.description.SALES_INV_TEMPLATE">
         <value xml:lang="ar">قالب فاتورة المبيعات</value>
+        <value xml:lang="cs">Vzor faktury</value>
         <value xml:lang="de">Vorlage Verkaufsrechnung</value>
         <value xml:lang="en">Sales Invoice Template</value>
         <value xml:lang="fr">Modèle de facture de vente</value>
@@ -4826,6 +4829,7 @@
     </property>
     <property key="PaymentMethodType.description.CASH">
         <value xml:lang="ar">النقد</value>
+        <value xml:lang="cs">Hotově</value>
         <value xml:lang="de">Bargeld</value>
         <value xml:lang="en">Cash</value>
         <value xml:lang="fr">Espèces</value>
@@ -4911,6 +4915,7 @@
     </property>
     <property key="PaymentMethodType.description.EFT_ACCOUNT">
         <value xml:lang="ar">تحويل أموال إلكتروني</value>
+        <value xml:lang="cs">Bankovní převod</value>
         <value xml:lang="de">Elektronische Bezahlung</value>
         <value xml:lang="en">Electronic Funds Transfer</value>
         <value xml:lang="fr">Transfert de fonds électronique</value>
@@ -5495,6 +5500,7 @@
     </property>
     <property key="TaxAuthorityRateType.description.EXPORT_TAX">
         <value xml:lang="ar">ضرائب تصدير</value>
+        <value xml:lang="cs">Exportní clo</value>
         <value xml:lang="de">Ausfuhrsteuer</value>
         <value xml:lang="en">Export Tax</value>
         <value xml:lang="fr">Taxes à l'exportation</value>
@@ -5512,6 +5518,7 @@
     </property>
     <property key="TaxAuthorityRateType.description.IMPORT_TAX">
         <value xml:lang="ar">ضرائب توريد</value>
+        <value xml:lang="cs">Dovozní clo</value>
         <value xml:lang="de">Einfuhrzoll</value>
         <value xml:lang="en">Import Tax</value>
         <value xml:lang="fr">Taxes à l'importation</value>
@@ -5529,6 +5536,7 @@
     </property>
     <property key="TaxAuthorityRateType.description.INCOME_TAX">
         <value xml:lang="ar">ضريبة الدخل</value>
+        <value xml:lang="cs">Daň z příjmu</value>
         <value xml:lang="de">Einkommensteuer</value>
         <value xml:lang="en">Income Tax</value>
         <value xml:lang="fr">Impôt sur le revenu</value>
@@ -5546,6 +5554,7 @@
     </property>
     <property key="TaxAuthorityRateType.description.SALES_TAX">
         <value xml:lang="ar">ضريبة المبيعات</value>
+        <value xml:lang="cs">Sales Tax (US)</value>
         <value xml:lang="de">MwSt.</value>
         <value xml:lang="en">Sales Tax</value>
         <value xml:lang="es">Impuesto de ventas</value>
@@ -5564,6 +5573,7 @@
     </property>
     <property key="TaxAuthorityRateType.description.USE_TAX">
         <value xml:lang="ar">ضريبة الإستخدام</value>
+        <value xml:lang="cs">Use Tax (US)</value>
         <value xml:lang="de">Gebrauchssteuer</value>
         <value xml:lang="en">Use Tax</value>
         <value xml:lang="es">Impuesto de uso</value>

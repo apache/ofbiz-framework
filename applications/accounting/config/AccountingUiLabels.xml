@@ -21,6 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="AccountingAHCElectronicCheck">
         <value xml:lang="ar">حساب EFT: AHC/شيك الكتروني</value>
+        <value xml:lang="cs">Bankovní převod</value>
         <value xml:lang="de">Bankverbindung: elektronische Überweisung</value>
         <value xml:lang="en">EFT Account: AHC/Electronic Check</value>
         <value xml:lang="es">Cuenta EFT (transferencia electrónica)</value>
@@ -59,6 +60,7 @@
     </property>
     <property key="AccountingAccountId">
         <value xml:lang="ar">دليل الحساب</value>
+        <value xml:lang="cs">Číslo účtu</value>
         <value xml:lang="de">Konto-Nr</value>
         <value xml:lang="en">Account ID</value>
         <value xml:lang="es">Id cuenta</value>
@@ -78,6 +80,7 @@
     </property>
     <property key="AccountingAccountLimit">
         <value xml:lang="ar">حدود الحساب</value>
+        <value xml:lang="cs">Kreditní limit</value>
         <value xml:lang="de">Kontolimit</value>
         <value xml:lang="en">Account Limit</value>
         <value xml:lang="es">Límite de cuenta</value>
@@ -117,6 +120,7 @@
     </property>
     <property key="AccountingAccountNumberMissing">
         <value xml:lang="ar">رقم الحساب مفقود</value>
+        <value xml:lang="cs">Chyní číslo účtu</value>
         <value xml:lang="de">Kontonummer fehlt</value>
         <value xml:lang="en">Account Number is missing</value>
         <value xml:lang="fr">Numéro de compte manquant</value>
@@ -129,6 +133,7 @@
     </property>
     <property key="AccountingAccountTransactionId">
         <value xml:lang="ar">دليل العملية الحسابية</value>
+        <value xml:lang="cs">ID transakčního účtu</value>
         <value xml:lang="de">Buchungs-Id</value>
         <value xml:lang="en">Account Transaction Id</value>
         <value xml:lang="fr">Réf transaction</value>
@@ -533,6 +538,7 @@
     </property>
     <property key="AccountingAddNewEftAccount">
         <value xml:lang="ar">إضافة حساب EFT  جديد</value>
+        <value xml:lang="cs">Přidat bankovní účet</value>
         <value xml:lang="de">Neue Bankverbindung hinzufügen</value>
         <value xml:lang="en">Add New EFT Account</value>
         <value xml:lang="en-GB">Add New Bank Transfer</value>
@@ -1091,6 +1097,7 @@
     </property>
     <property key="AccountingAnyInvoiceStatus">
         <value xml:lang="ar">أي حالة للفاتورة</value>
+        <value xml:lang="cs">Libovolný stav faktury</value>
         <value xml:lang="de">Beliebiger Rechnungstatus</value>
         <value xml:lang="en">Any Invoice Status</value>
         <value xml:lang="es">Cualquier status de factura</value>
@@ -1306,6 +1313,7 @@
     </property>
     <property key="AccountingApplicationToInvoice">
         <value xml:lang="ar">إلى الفاتورة [${invoiceId}]</value>
+        <value xml:lang="cs">k faktuře [${invoiceId}]</value>
         <value xml:lang="de">zu Rechnung [${billingAccountId}]</value>
         <value xml:lang="en">to invoice [${invoiceId}]</value>
         <value xml:lang="es">a factura [${invoiceId}]</value>
@@ -1614,6 +1622,7 @@
     </property>
     <property key="AccountingAssignPurchaseInvoiceToRevenue">
         <value xml:lang="ar">تعيين نوع فاتورة الشراء إلى رقم حساب العائدات</value>
+        <value xml:lang="cs">Přiřazení nákupní faktury k příjmovému účtu v hlavní knize účetnictví</value>
         <value xml:lang="de">Einkaufsrechnungs-Art zu Ertragskonto zuweisen</value>
         <value xml:lang="en">Assign Purchase Invoice type to Revenue GL Account Number</value>
         <value xml:lang="fr">Assigner le type facture d'achat au n° du compte de produit</value>
@@ -1629,6 +1638,7 @@
     </property>
     <property key="AccountingAssignSalesInvoiceToRevenue">
         <value xml:lang="ar">تعيين نوع فاتورة البيع إلى رقم حساب العائدات</value>
+        <value xml:lang="cs">Přiřazení prodejní faktury k příjmovému účtu v hlavní knize účetnictví</value>
         <value xml:lang="de">Kundenrechnungsart zu Ertragskonto zuweisen</value>
         <value xml:lang="en">Assign Sales Invoice type to Revenue GL Account Number</value>
         <value xml:lang="es">Asignar tipo de factura de venta a ingresos número de cuenta de LM de ingresos</value>
@@ -1972,6 +1982,7 @@
     </property>
     <property key="AccountingBankAccount">
         <value xml:lang="ar">حساب مصرفي</value>
+        <value xml:lang="cs">Bankovní účet</value>
         <value xml:lang="de">Bankkonto</value>
         <value xml:lang="en">Bank Account</value>
         <value xml:lang="fr">Relevé d'identité bancaire</value>
@@ -2081,6 +2092,7 @@
     </property>
     <property key="AccountingBilling">
         <value xml:lang="ar">الفوترة</value>
+        <value xml:lang="cs">Zúčtování</value>
         <value xml:lang="de">Fakturierung</value>
         <value xml:lang="en">Billing</value>
         <value xml:lang="es">Facturación</value>
@@ -2912,6 +2924,7 @@
     </property>
     <property key="AccountingChartOfAcctsFor">
         <value xml:lang="ar">شجرة الحسابات ل</value>
+        <value xml:lang="cs">Účtová osnova pro</value>
         <value xml:lang="de">Kontenrahmen für</value>
         <value xml:lang="en">Chart of accounts for</value>
         <value xml:lang="fr">Plan comptable pour</value>
@@ -2925,6 +2938,7 @@
     </property>
     <property key="AccountingChartOfAcctsMenu">
         <value xml:lang="ar">شجرة الحسابات</value>
+        <value xml:lang="cs">Účtová osnova</value>
         <value xml:lang="de">Kontenübersicht</value>
         <value xml:lang="en">Chart of Accounts</value>
         <value xml:lang="es">Carta de cuentas</value>
@@ -3685,6 +3699,7 @@
     </property>
     <property key="AccountingCreateNewInvoice">
         <value xml:lang="ar">خلق فاتورة جديدة</value>
+        <value xml:lang="cs">Nová faktura</value>
         <value xml:lang="de">Neue Rechnung erstellen</value>
         <value xml:lang="en">Create New Invoice</value>
         <value xml:lang="fr">Créer une nouvelle facture</value>
@@ -3700,6 +3715,7 @@
     </property>
     <property key="AccountingCreateNewPaymentGroup">
         <value xml:lang="ar">خلق مجموعة دفعات جديدة</value>
+        <value xml:lang="cs">Nová platební skupina</value>
         <value xml:lang="de">Neue Zahlungsgruppe erstellen</value>
         <value xml:lang="en">Create New Payment Group</value>
         <value xml:lang="fr">Créer un groupe de paiement</value>
@@ -3713,6 +3729,7 @@
     </property>
     <property key="AccountingCreateNewPurchaseInvoice">
         <value xml:lang="ar">فاتورة شراء جديدة</value>
+        <value xml:lang="cs">Nová nákupní faktura</value>
         <value xml:lang="de">Neue Einkaufsrechnung</value>
         <value xml:lang="en">New Purchase Invoice</value>
         <value xml:lang="fr">Nouvelle facture d'achat</value>
@@ -3729,6 +3746,7 @@
     </property>
     <property key="AccountingCreateNewSalesInvoice">
         <value xml:lang="ar">فاتورة مبيعات جديدة</value>
+        <value xml:lang="cs">Nová prodejní faktura</value>
         <value xml:lang="de">Neue Verkaufsrechnung</value>
         <value xml:lang="en">New Sales Invoice</value>
         <value xml:lang="fr">Nouvelle facture de ventes</value>
@@ -3769,6 +3787,7 @@
     </property>
     <property key="AccountingCreatePayment">
         <value xml:lang="ar">خلق دفعة</value>
+        <value xml:lang="cs">Vložení platby</value>
         <value xml:lang="de">Zahlung durchführen</value>
         <value xml:lang="en">Create Payment</value>
         <value xml:lang="es">Crear Pago</value>
@@ -3878,6 +3897,7 @@
     </property>
     <property key="AccountingCreditAmount">
         <value xml:lang="ar">مبلغ دائن</value>
+        <value xml:lang="cs">Výše kreditu</value>
         <value xml:lang="de">Habenbetrag</value>
         <value xml:lang="en">Credit Amount</value>
         <value xml:lang="fr">Montant en crédit</value>
@@ -4164,6 +4184,7 @@
     </property>
     <property key="AccountingCurrency">
         <value xml:lang="ar">عملة</value>
+        <value xml:lang="cs">Měna</value>
         <value xml:lang="de">Währung</value>
         <value xml:lang="en">Currency</value>
         <value xml:lang="es">Moneda</value>
@@ -4275,6 +4296,7 @@
     </property>
     <property key="AccountingCustNr">
         <value xml:lang="ar">عميل</value>
+        <value xml:lang="cs">Zák.č.</value>
         <value xml:lang="de">Kunden-Nr.</value>
         <value xml:lang="en">Cust.Nr</value>
         <value xml:lang="es">Nr Cliente</value>
@@ -4293,6 +4315,7 @@
     </property>
     <property key="AccountingCustomer">
         <value xml:lang="ar">تبادل البيانات</value>
+        <value xml:lang="cs">Zákazník</value>
         <value xml:lang="de">Kunde</value>
         <value xml:lang="en">Customer</value>
         <value xml:lang="es">Cliente</value>
@@ -4770,6 +4793,7 @@
     </property>
     <property key="AccountingDueDate">
         <value xml:lang="ar">تعديل الدفعة</value>
+        <value xml:lang="cs">Datum splatnosti</value>
         <value xml:lang="de">Fälligkeit</value>
         <value xml:lang="en">Due Date</value>
         <value xml:lang="es">Fecha Debito</value>
@@ -4834,6 +4858,7 @@
     </property>
     <property key="AccountingEFTAccountInformation">
         <value xml:lang="ar">معلومات حساب EFT</value>
+        <value xml:lang="cs">Informace k bankovnímu účtu</value>
         <value xml:lang="de">Bankkonto Information</value>
         <value xml:lang="en">EFT Account Information</value>
         <value xml:lang="es">Información de cuenta EFT</value>
@@ -5031,6 +5056,7 @@
     </property>
     <property key="AccountingEditPayment">
         <value xml:lang="ar">فعال</value>
+        <value xml:lang="cs">Upravit způsob platby</value>
         <value xml:lang="de">Zahlung bearbeiten</value>
         <value xml:lang="en">Edit Payment</value>
         <value xml:lang="es">Editar Pago</value>
@@ -5546,6 +5572,7 @@
     </property>
     <property key="AccountingExportAsPdf">
         <value xml:lang="ar">اصدار كـ PDF</value>
+        <value xml:lang="cs">Export do PDF</value>
         <value xml:lang="de">Als PDF exportieren</value>
         <value xml:lang="en">Export as PDF</value>
         <value xml:lang="fr">Exporter en PDF</value>
@@ -5605,6 +5632,7 @@
     </property>
     <property key="AccountingFinAccount">
         <value xml:lang="ar">الحساب المالي</value>
+        <value xml:lang="cs">Finanční účet</value>
         <value xml:lang="de">Finanzkonto</value>
         <value xml:lang="en">Financial Account</value>
         <value xml:lang="fr">Compte financier</value>
@@ -5661,6 +5689,7 @@
     </property>
     <property key="AccountingFinAccountTransations">
         <value xml:lang="ar">العمليات</value>
+        <value xml:lang="cs">Transakce</value>
         <value xml:lang="de">Transaktionen</value>
         <value xml:lang="en">Transactions</value>
         <value xml:lang="fr">Transactions</value>
@@ -5691,6 +5720,7 @@
     </property>
     <property key="AccountingFinAccounts">
         <value xml:lang="ar">الحسابات المالية</value>
+        <value xml:lang="cs">Finanční účty</value>
         <value xml:lang="de">Finanzkonten</value>
         <value xml:lang="en">Financial Accounts</value>
         <value xml:lang="es">Cuentas financieras</value>
@@ -5839,6 +5869,7 @@
     </property>
     <property key="AccountingFindInvoices">
         <value xml:lang="ar">إيجاد الفواتير</value>
+        <value xml:lang="cs">Vyhledání faktur</value>
         <value xml:lang="de">Suche Rechnungen</value>
         <value xml:lang="en">Find Invoices</value>
         <value xml:lang="es">Encontrar Facturas</value>
@@ -5884,6 +5915,7 @@
     </property>
     <property key="AccountingFindPurchaseInvoicesByDueDate">
         <value xml:lang="ar">إيجاد فواتير الشراء بتاريخ الاستحقاق</value>
+        <value xml:lang="cs">Vyhledat nákupní faktury podle data splatnosti</value>
         <value xml:lang="de">Suche Einkaufsrechnungen über Fälligkeit</value>
         <value xml:lang="en">Find Purchase Invoices By Due Date</value>
         <value xml:lang="fr">Chercher les factures d'achat à échéance</value>
@@ -5899,6 +5931,7 @@
     </property>
     <property key="AccountingFindSalesInvoicesByDueDate">
         <value xml:lang="ar">إيجاد فواتير البيع بتاريخ الاستحقاق</value>
+        <value xml:lang="cs">Vyhledat prodejní faktury podle data splatnosti</value>
         <value xml:lang="de">Suche Verkaufsrechnungen über Fälligkeit</value>
         <value xml:lang="en">Find Sales Invoices By Due Date</value>
         <value xml:lang="fr">Chercher les factures de ventes à échéance</value>
@@ -5958,6 +5991,7 @@
     </property>
     <property key="AccountingFiscalMonth01">
         <value xml:lang="ar">01-يناير</value>
+        <value xml:lang="cs">01-Led</value>
         <value xml:lang="de">01-Jan</value>
         <value xml:lang="en">01-Jan</value>
         <value xml:lang="es">01-Ene</value>
@@ -5976,6 +6010,7 @@
     </property>
     <property key="AccountingFiscalMonth02">
         <value xml:lang="ar">02-فبراير</value>
+        <value xml:lang="cs">02-Úno</value>
         <value xml:lang="de">02-Feb</value>
         <value xml:lang="en">02-Feb</value>
         <value xml:lang="es">02-Feb</value>
@@ -5994,6 +6029,7 @@
     </property>
     <property key="AccountingFiscalMonth03">
         <value xml:lang="ar">03-مارس</value>
+        <value xml:lang="cs">03-Bře</value>
         <value xml:lang="de">03-Mär</value>
         <value xml:lang="en">03-Mar</value>
         <value xml:lang="es">03-Mar</value>
@@ -6012,6 +6048,7 @@
     </property>
     <property key="AccountingFiscalMonth04">
         <value xml:lang="ar">05-مايو</value>
+        <value xml:lang="cs">04-Dub</value>
         <value xml:lang="de">04-Apr</value>
         <value xml:lang="en">04-Apr</value>
         <value xml:lang="es">04-Abr</value>
@@ -6030,6 +6067,7 @@
     </property>
     <property key="AccountingFiscalMonth05">
         <value xml:lang="ar">06-يونيو</value>
+        <value xml:lang="cs">05-Kvě</value>
         <value xml:lang="de">05-Mai</value>
         <value xml:lang="en">05-May</value>
         <value xml:lang="es">05-May</value>
@@ -6048,6 +6086,7 @@
     </property>
     <property key="AccountingFiscalMonth06">
         <value xml:lang="ar">07-يوليو</value>
+        <value xml:lang="cs">06-Čer</value>
         <value xml:lang="de">06-Jun</value>
         <value xml:lang="en">06-Jun</value>
         <value xml:lang="es">06-Jun</value>
@@ -6066,6 +6105,7 @@
     </property>
     <property key="AccountingFiscalMonth07">
         <value xml:lang="ar">08-أغسطس</value>
+        <value xml:lang="cs">07-Čer</value>
         <value xml:lang="de">07-Jul</value>
         <value xml:lang="en">07-Jul</value>
         <value xml:lang="es">07-Jul</value>
@@ -6084,6 +6124,7 @@
     </property>
     <property key="AccountingFiscalMonth08">
         <value xml:lang="ar">الرزنامة</value>
+        <value xml:lang="cs">08-Srp</value>
         <value xml:lang="de">08-Aug</value>
         <value xml:lang="en">08-Aug</value>
         <value xml:lang="es">08-Ago</value>
@@ -6102,6 +6143,7 @@
     </property>
     <property key="AccountingFiscalMonth09">
         <value xml:lang="ar">09-سبتمبر</value>
+        <value xml:lang="cs">09-Zář</value>
         <value xml:lang="de">09-Sep</value>
         <value xml:lang="en">09-Sep</value>
         <value xml:lang="es">09-Sep</value>
@@ -6120,6 +6162,7 @@
     </property>
     <property key="AccountingFiscalMonth10">
         <value xml:lang="ar">10-أكتوبر</value>
+        <value xml:lang="cs">10-Říj</value>
         <value xml:lang="de">10-Okt</value>
         <value xml:lang="en">10-Oct</value>
         <value xml:lang="es">10-Oct</value>
@@ -6138,6 +6181,7 @@
     </property>
     <property key="AccountingFiscalMonth11">
         <value xml:lang="ar">11-نوفمبر</value>
+        <value xml:lang="cs">11-Lis</value>
         <value xml:lang="de">11-Nov</value>
         <value xml:lang="en">11-Nov</value>
         <value xml:lang="es">11-Nov</value>
@@ -6156,6 +6200,7 @@
     </property>
     <property key="AccountingFiscalMonth12">
         <value xml:lang="ar">12-ديسمبر</value>
+        <value xml:lang="cs">12-Pro</value>
         <value xml:lang="de">12-Dez</value>
         <value xml:lang="en">12-Dec</value>
         <value xml:lang="es">12-Dic</value>
@@ -6174,6 +6219,7 @@
     </property>
     <property key="AccountingFixedAsset">
         <value xml:lang="ar">أصل ثابت</value>
+        <value xml:lang="cs">Dlouhodobý majetek</value>
         <value xml:lang="de">Anlage</value>
         <value xml:lang="en">Fixed Asset</value>
         <value xml:lang="es">Activo Fijo</value>
@@ -6192,6 +6238,7 @@
     </property>
     <property key="AccountingFixedAssetCalendar">
         <value xml:lang="ar">خلق/تحديث أصل ثابت</value>
+        <value xml:lang="cs">Kalendář</value>
         <value xml:lang="de">Kalender</value>
         <value xml:lang="en">Calendar</value>
         <value xml:lang="es">Calendario</value>
@@ -6270,6 +6317,7 @@
     </property>
     <property key="AccountingFixedAssetGovAgencyPartyId">
         <value xml:lang="ar">وكالة حكومية</value>
+        <value xml:lang="cs">Státní úřad</value>
         <value xml:lang="de">Behörde</value>
         <value xml:lang="en">Government Agency</value>
         <value xml:lang="es">Agencia de Gobierno</value>
@@ -6288,6 +6336,7 @@
     </property>
     <property key="AccountingFixedAssetId">
         <value xml:lang="ar">دليل أصل ثابت</value>
+        <value xml:lang="cs">Kód dlouhodobého majetku</value>
         <value xml:lang="de">Anlage ID</value>
         <value xml:lang="en">Fixed Asset Id</value>
         <value xml:lang="es">Id Activo Fijo</value>
@@ -6322,6 +6371,7 @@
     </property>
     <property key="AccountingFixedAssetIdentIdValue">
         <value xml:lang="ar">القيمة</value>
+        <value xml:lang="cs">Hodnota</value>
         <value xml:lang="de">Wert</value>
         <value xml:lang="en">Value</value>
         <value xml:lang="es">Valor</value>
@@ -6391,6 +6441,7 @@
     </property>
     <property key="AccountingFixedAssetLicenseNumber">
         <value xml:lang="ar">رقم الترخيص</value>
+        <value xml:lang="cs">Licenční číslo</value>
         <value xml:lang="de">Lizenznummer</value>
         <value xml:lang="en">License Number</value>
         <value xml:lang="es">License Number</value>
@@ -6533,6 +6584,7 @@
     </property>
     <property key="AccountingFixedAssetMaintName">
         <value xml:lang="ar">اسم الصيانة</value>
+        <value xml:lang="cs">Název údržby</value>
         <value xml:lang="de">Wartungsname</value>
         <value xml:lang="en">Maintenance Name</value>
         <value xml:lang="es">Nombre de mantenimiento</value>
@@ -6580,6 +6632,7 @@
     </property>
     <property key="AccountingFixedAssetMaintType">
         <value xml:lang="ar">نوع الصيانة</value>
+        <value xml:lang="cs">Druh údržby</value>
         <value xml:lang="de">Wartungsart</value>
         <value xml:lang="en">Maintenance Type</value>
         <value xml:lang="es">Tipo de mantenimiento</value>
@@ -6612,6 +6665,7 @@
     </property>
     <property key="AccountingFixedAssetMaintenanceTemplate">
         <value xml:lang="ar">نموذج الصيانة</value>
+        <value xml:lang="cs">Šablona údržby</value>
         <value xml:lang="de">Wartungsvorlage</value>
         <value xml:lang="en">Maintenance Template</value>
         <value xml:lang="fr">Schéma de maintenance</value>
@@ -6627,6 +6681,7 @@
     </property>
     <property key="AccountingFixedAssetMaints">
         <value xml:lang="ar">الصيانات</value>
+        <value xml:lang="cs">Údržba</value>
         <value xml:lang="de">Wartungen</value>
         <value xml:lang="en">Maintenances</value>
         <value xml:lang="es">Mantenimientos</value>
@@ -6712,6 +6767,7 @@
     </property>
     <property key="AccountingFixedAssetName">
         <value xml:lang="ar">اسم الأصل الثابت</value>
+        <value xml:lang="cs">Název dlouhodobého majetku</value>
         <value xml:lang="de">Anlagename</value>
         <value xml:lang="en">Fixed Asset Name</value>
         <value xml:lang="es">Nombre de Activo Fijo</value>
@@ -7476,6 +7532,7 @@
     </property>
     <property key="AccountingGlobalGLSettings">
         <value xml:lang="ar">إعدادات GL العمومية</value>
+        <value xml:lang="cs">Nastavení hlavní knihy</value>
         <value xml:lang="de">Hauptbuch-Einstellungen, global</value>
         <value xml:lang="en">Global GL Settings</value>
         <value xml:lang="fr">Configurations globales du GL</value>
@@ -7682,6 +7739,7 @@
     </property>
     <property key="AccountingInvNr">
         <value xml:lang="ar">رقم الفاتورة</value>
+        <value xml:lang="cs">Číslo faktury</value>
         <value xml:lang="de">Inv.Nr</value>
         <value xml:lang="en">Inv.Nr</value>
         <value xml:lang="es">Nr.Fact</value>
@@ -7748,6 +7806,7 @@
     </property>
     <property key="AccountingInvoice">
         <value xml:lang="ar">فاتورة</value>
+        <value xml:lang="cs">Faktura</value>
         <value xml:lang="de">Rechnung</value>
         <value xml:lang="en">Invoice</value>
         <value xml:lang="es">Factura</value>
@@ -8022,6 +8081,7 @@
     </property>
     <property key="AccountingInvoiceDate">
         <value xml:lang="ar">تاريخ الفاتورة</value>
+        <value xml:lang="cs">Datum vystavení</value>
         <value xml:lang="de">Rechnungs-Datum</value>
         <value xml:lang="en">Invoice Date</value>
         <value xml:lang="es">Fecha Factura</value>
@@ -8041,6 +8101,7 @@
     </property>
     <property key="AccountingInvoiceDateAbbr">
         <value xml:lang="ar">تاريخ الفاتورة</value>
+        <value xml:lang="cs">Vystaveno</value>
         <value xml:lang="de">Rg-Datum</value>
         <value xml:lang="en">Inv. Date</value>
         <value xml:lang="es">F. Fact</value>
@@ -8071,6 +8132,7 @@
     </property>
     <property key="AccountingInvoiceHeader">
         <value xml:lang="ar">رأس الصفحة</value>
+        <value xml:lang="cs">Hlavička</value>
         <value xml:lang="de">Kopfzeile</value>
         <value xml:lang="en">Header</value>
         <value xml:lang="es">Cabecera</value>
@@ -8089,6 +8151,7 @@
     </property>
     <property key="AccountingInvoiceHeaderDetailedInformation">
         <value xml:lang="ar">المعلومات التفصيلية لرأس الصفحة</value>
+        <value xml:lang="cs">Detail hlavičky</value>
         <value xml:lang="de">Kopfzeile Detailinformation</value>
         <value xml:lang="en">Header Detailed Information</value>
         <value xml:lang="es">Información detallada de cabecera</value>
@@ -8107,6 +8170,7 @@
     </property>
     <property key="AccountingInvoiceID">
         <value xml:lang="ar">دليل الفاتورة</value>
+        <value xml:lang="cs">Číslo faktury</value>
         <value xml:lang="de">Rechnungsnummer</value>
         <value xml:lang="en">InvoiceID</value>
         <value xml:lang="es">IdFactura</value>
@@ -8126,6 +8190,7 @@
     </property>
     <property key="AccountingInvoiceItem">
         <value xml:lang="ar">بند الفاتورة</value>
+        <value xml:lang="cs">Položka faktury</value>
         <value xml:lang="de">Rechnungsposition</value>
         <value xml:lang="en">Invoice Item</value>
         <value xml:lang="es">Elemento de factura</value>
@@ -8145,6 +8210,7 @@
     </property>
     <property key="AccountingInvoiceItemAdd">
         <value xml:lang="ar">إضافة بند فاتورة جديد</value>
+        <value xml:lang="cs">Přidat položku faktury</value>
         <value xml:lang="de">Weitere Rechnungsposition hinzufügen</value>
         <value xml:lang="en">Add a new invoice Item</value>
         <value xml:lang="es">Agregar un nuevo elemento de factura</value>
@@ -8163,6 +8229,7 @@
     </property>
     <property key="AccountingInvoiceItemDoesNotExists">
         <value xml:lang="ar">بند الفاتورة ذو الدليل ${parameters.invoiceItemSeqId} غير موجود</value>
+        <value xml:lang="cs">Položka faktury s id ${parameters.invoiceItemSeqId} neexistuje.</value>
         <value xml:lang="de">Die Rechnungsposition mit id ${parameters.invoiceItemSeqId} existiert nicht.</value>
         <value xml:lang="en">The Invoice Item with id ${parameters.invoiceItemSeqId} doesn't exist.</value>
         <value xml:lang="fr">La ligne de facture ${parameters.invoiceItemSeqId} n'existe pas</value>
@@ -8175,6 +8242,7 @@
     </property>
     <property key="AccountingInvoiceItemLessRequested">
         <value xml:lang="ar">بند [${invoiceItemSeqId} الفاتورة [${invoiceId} به ${invoiceItemApplyAvailable?currency(${isoCode})} ليطبق ولكن ${amountApplied?currency(${isoCode})} مطلوب</value>
+        <value xml:lang="cs">Položka [${invoiceItemSeqId}] faktury [${invoiceId}] vyžaduje ${invoiceItemApplyAvailable?currency(${isoCode})}, ale ${amountApplied?currency(${isoCode})} je požadováno</value>
         <value xml:lang="de">Rechnung [${invoiceId} Position [${invoiceItemSeqId} hat ${invoiceItemApplyAvailable?currency(${isoCode})} zugewiesen aber  ${amountApplied?currency(${isoCode})} wird erwartet</value>
         <value xml:lang="en">Invoice [${invoiceId} Item [${invoiceItemSeqId} has ${invoiceItemApplyAvailable?currency(${isoCode})} to apply but  ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Factura [${invoiceId} Elemento [${invoiceItemSeqId} tiene ${invoiceItemApplyAvailable?currency(${isoCode})} para aplicar pero   ${amountApplied?currency(${isoCode})} es requerio</value>
@@ -8193,6 +8261,7 @@
     </property>
     <property key="AccountingInvoiceItemNotEnough">
         <value xml:lang="ar">البلغ المطلوب ${tooMuch?currency(${isoCode})} هو كثير جدا لبند [${invoiceItemSeqId}] الفاتورة [${invoiceId}]</value>
+        <value xml:lang="cs">Požadovaná částka ${tooMuch?currency(${isoCode})} je příliš mnoho pro fakturu [${invoiceId}] a položku [${invoiceItemSeqId}]</value>
         <value xml:lang="de">Angeforderte Menge ist um ${tooMuch?currency(${isoCode})} zu hoch für die Rechnung [${invoiceId}] Position [${invoiceItemSeqId}]</value>
         <value xml:lang="en">Requested Amount is ${tooMuch?currency(${isoCode})} too much for this Invoice [${invoiceId}] Item [${invoiceItemSeqId}]</value>
         <value xml:lang="es">Cantidad requerida es ${tooMuch?currency(${isoCode})} demasiado para esta factura [${invoiceId}] elemento [${invoiceItemSeqId}]</value>
@@ -8211,6 +8280,7 @@
     </property>
     <property key="AccountingInvoiceItemNotFound">
         <value xml:lang="ar">سجل بند [${invoiceItemSeqId}] الفاتورة [${invoiceId}] غير موجود</value>
+        <value xml:lang="cs">Nenalezena položka [${invoiceItemSeqId}] faktury [${invoiceId}]</value>
         <value xml:lang="de">Rechnung [${invoiceId}] Position [${invoiceItemSeqId}] Datensatz nicht gefunden</value>
         <value xml:lang="en">Invoice [${invoiceId}] item [${invoiceItemSeqId}] record not found</value>
         <value xml:lang="es">Factura[${invoiceId}] elemento [${invoiceItemSeqId}] registro no encontrado</value>
@@ -8229,6 +8299,7 @@
     </property>
     <property key="AccountingInvoiceItemPaymentCurrencyProblem">
         <value xml:lang="ar">عملة الدفعة [${paymentCurrencyId}] وعملة بند الفاتورة [${itemCurrency}] غير متطابقة</value>
+        <value xml:lang="cs">Měna platby [${paymentCurrencyId}] a měna položky faktury [${itemCurrency}] jsou odlišné</value>
         <value xml:lang="de">Zahlungswährung [${paymentCurrencyId}] und Rechnungswährung [${itemCurrency}] ungleich</value>
         <value xml:lang="en">Payment currency [${paymentCurrencyId}] and invoice Item currency [${itemCurrency}] not the same</value>
         <value xml:lang="es">Moneda de pago [${paymentCurrencyId}] y moneda de elemento de factura [${itemCurrency}] no son las mismas</value>
@@ -8266,6 +8337,7 @@
     <property key="AccountingInvoiceItemType">
         <value xml:lang="ar">نوع بند الفاتورة</value>
         <value xml:lang="de">Rechnungsposition Typ</value>
+        <value xml:lang="cs">Druh položky faktury</value>
         <value xml:lang="en">Invoice Item Type</value>
         <value xml:lang="fr">Type de ligne de facture</value>
         <value xml:lang="hi-IN">चालान मद के प्रकार</value>
@@ -8280,6 +8352,7 @@
     </property>
     <property key="AccountingInvoiceItems">
         <value xml:lang="ar">البنود</value>
+        <value xml:lang="cs">Položky</value>
         <value xml:lang="de">Positionen</value>
         <value xml:lang="en">Items</value>
         <value xml:lang="es">Elementos</value>
@@ -8316,6 +8389,7 @@
     </property>
     <property key="AccountingInvoiceNotEnough">
         <value xml:lang="ar">المبلغ المطلوب ${tooMuch?currency(${isoCode})} هو كثير جدا لهذه الفاتورة [${invoiceId}]</value>
+        <value xml:lang="cs">Požadovaná částka ${tooMuch?currency(${isoCode})} je příliš vysoká pro fakturu [${invoiceId}]</value>
         <value xml:lang="de">Angeforderte Menge ist um ${tooMuch?currency(${isoCode})} zu hoch für diese Rechnung [${invoiceId}]</value>
         <value xml:lang="en">Requested Amount is ${tooMuch?currency(${isoCode})} to much for this Invoice [${invoiceId}]</value>
         <value xml:lang="es">Cantidad requerida es ${tooMuch?currency(${isoCode})} demasiado para esta factura [${invoiceId}]</value>
@@ -8334,6 +8408,7 @@
     </property>
     <property key="AccountingInvoiceNotFound">
         <value xml:lang="ar">سجل الفاتورة ${invoiceId} غير موجود</value>
+        <value xml:lang="cs">Faktura ${invoiceId} nebyla nalezena</value>
         <value xml:lang="de">Rechnung ${invoiceId} Datensatz nicht gefunden</value>
         <value xml:lang="en">Invoice ${invoiceId} record not found</value>
         <value xml:lang="es">Factura ${invoiceId} registro no encontrado</value>
@@ -8352,6 +8427,7 @@
     </property>
     <property key="AccountingInvoiceOverrideExpenseGlAccountId">
         <value xml:lang="ar">الفاتورة تتجاوز دليل مصروف حساب GL</value>
+        <value xml:lang="cs">Změna nákladového účtu faktury</value>
         <value xml:lang="de">Aufwandskonto für Rechnung überschreiben</value>
         <value xml:lang="en">Invoice Override Expense Gl Account Id</value>
         <value xml:lang="fr">Remplace la réf. de compte de frais pour la facture</value>
@@ -8365,6 +8441,7 @@
     </property>
     <property key="AccountingInvoiceOverview">
         <value xml:lang="ar">نبذة</value>
+        <value xml:lang="cs">Souhrn</value>
         <value xml:lang="de">Übersicht</value>
         <value xml:lang="en">Overview</value>
         <value xml:lang="es">Visión general</value>
@@ -8390,6 +8467,7 @@
     </property>
     <property key="AccountingInvoicePDFDefaultCur">
         <value xml:lang="ar">عملة PDF الافتراضية</value>
+        <value xml:lang="cs">PDF výchozí měna</value>
         <value xml:lang="de">PDF Standardwährung</value>
         <value xml:lang="en">PDF default Currency</value>
         <value xml:lang="fr">PDF : monnaie par défaut </value>
@@ -8403,6 +8481,7 @@
     </property>
     <property key="AccountingInvoicePaid">
         <value xml:lang="ar">مدفوع</value>
+        <value xml:lang="cs">Zaplacená</value>
         <value xml:lang="de">Bezahlt</value>
         <value xml:lang="en">Paid</value>
         <value xml:lang="es">Pagado</value>
@@ -8421,6 +8500,7 @@
     </property>
     <property key="AccountingInvoicePaymentCurrencyProblem">
         <value xml:lang="ar">عملة الدفعة [${paymentCurrencyId}] وعملة الفاتورة [${invoiceCurrency}] غير متطابقة</value>
+        <value xml:lang="cs">Měna platby [${paymentCurrencyId}] a měna faktury [${invoiceCurrency}] se neshodují</value>
         <value xml:lang="de">Zahlungswährung [${paymentCurrencyId}] and Rechnungswährung [${invoiceCurrency}] sind unterschiedlich</value>
         <value xml:lang="en">Payment currency [${paymentCurrencyId}] and invoice currency [${invoiceCurrency}] not the same</value>
         <value xml:lang="es">Moneda de pago [${paymentCurrencyId}] y moneda de factura [${invoiceCurrency}] no son iguales</value>
@@ -8439,6 +8519,7 @@
     </property>
     <property key="AccountingInvoicePayments">
         <value xml:lang="ar">الدفعات</value>
+        <value xml:lang="cs">Platby</value>
         <value xml:lang="de">Zahlungen</value>
         <value xml:lang="en">Payments</value>
         <value xml:lang="es">Pagos</value>
@@ -8457,6 +8538,7 @@
     </property>
     <property key="AccountingInvoicePerShipment">
         <value xml:lang="ar">فاتورة لكل شحنة</value>
+        <value xml:lang="cs">Faktura pro každou dodávku</value>
         <value xml:lang="de">Rechnung pro Lieferung</value>
         <value xml:lang="fr">Facturation pour chaque expédition</value>
         <value xml:lang="en">Invoice Per Shipment</value>
@@ -8468,6 +8550,7 @@
     </property>
     <property key="AccountingInvoicePurchase">
         <value xml:lang="ar">فاتورة الشراء</value>
+        <value xml:lang="cs">Přijatá faktura</value>
         <value xml:lang="de">Einkaufsrechnung</value>
         <value xml:lang="en">Purchase Invoice</value>
         <value xml:lang="es">Factura de compra</value>
@@ -8486,6 +8569,7 @@
     </property>
     <property key="AccountingInvoicePurchaseItemType">
         <value xml:lang="ar">فاتورة نوع بند الشراء</value>
+        <value xml:lang="cs">Typ položky přijaté faktury</value>
         <value xml:lang="de">Einkaufsrechnungpositionsart</value>
         <value xml:lang="en">Invoice Purchase Item Type</value>
         <value xml:lang="fr">Type de ligne de facture d'achat</value>
@@ -8499,6 +8583,7 @@
     </property>
     <property key="AccountingInvoiceRoles">
         <value xml:lang="ar">الأدوار</value>
+        <value xml:lang="cs">Role</value>
         <value xml:lang="de">Rollen</value>
         <value xml:lang="en">Roles</value>
         <value xml:lang="es">Roles</value>
@@ -8517,6 +8602,7 @@
     </property>
     <property key="AccountingInvoiceSales">
         <value xml:lang="ar">فاتورة المبيعات</value>
+        <value xml:lang="cs">Vydaná faktura</value>
         <value xml:lang="de">Verkaufsrechnung</value>
         <value xml:lang="en">Sales Invoice</value>
         <value xml:lang="es">Factura de venta</value>
@@ -8535,6 +8621,7 @@
     </property>
     <property key="AccountingInvoiceSaveAsTemplate">
         <value xml:lang="ar">حفظ الفاتورة كقالب</value>
+        <value xml:lang="cs">Uložit jako šablonu</value>
         <value xml:lang="de">Rechnungs als Vorlage speichern</value>
         <value xml:lang="en">Save Invoice As Template</value>
         <value xml:lang="fr">Sauvegarder comme modèle</value>
@@ -8546,6 +8633,7 @@
     </property>
     <property key="AccountingInvoiceStatusHistory">
         <value xml:lang="ar">الحالات السابقة</value>
+        <value xml:lang="cs">Historie změny stavů</value>
         <value xml:lang="de">Statusverlauf</value>
         <value xml:lang="en">Status History</value>
         <value xml:lang="es">Historial de Status</value>
@@ -8564,6 +8652,7 @@
     </property>
     <property key="AccountingInvoiceStatusToApproved">
         <value xml:lang="ar">الحالة إلى "مقبول"</value>
+        <value xml:lang="cs">Stav na 'Schválená'</value>
         <value xml:lang="de">Status auf 'Genehmigt'</value>
         <value xml:lang="en">Status to 'Approved'</value>
         <value xml:lang="es">Status a 'Aprovado'</value>
@@ -8582,6 +8671,7 @@
     </property>
     <property key="AccountingInvoiceStatusToCancelled">
         <value xml:lang="ar">الحالة إلى "ملغي"</value>
+        <value xml:lang="cs">Stav na 'Stornovaná'</value>
         <value xml:lang="de">Status auf 'Annulliert'</value>
         <value xml:lang="en">Status to 'Cancelled'</value>
         <value xml:lang="es">Status a 'Cancelado'</value>
@@ -8600,6 +8690,7 @@
     </property>
     <property key="AccountingInvoiceStatusToInProcess">
         <value xml:lang="ar">الحالة إلى "قيد الإنجاز"</value>
+        <value xml:lang="cs">Stav na 'V přípravě'</value>
         <value xml:lang="de">Status auf 'In Bearbeitung'</value>
         <value xml:lang="en">Status to 'In Process'</value>
         <value xml:lang="es">Status a 'En Proceso'</value>
@@ -8618,6 +8709,7 @@
     </property>
     <property key="AccountingInvoiceStatusToPaid">
         <value xml:lang="ar">الحالة إلى "مدفوع"</value>
+        <value xml:lang="cs">Stav na 'Zaplacená'</value>
         <value xml:lang="de">Status auf 'Bezahlt'</value>
         <value xml:lang="en">Status to 'Paid'</value>
         <value xml:lang="es">Status a 'Pagado'</value>
@@ -8636,6 +8728,7 @@
     </property>
     <property key="AccountingInvoiceStatusToReady">
         <value xml:lang="ar">الحالة إلى "جاهز"</value>
+        <value xml:lang="cs">Stav na 'Dokončená'</value>
         <value xml:lang="de">Status auf 'Erledigt'</value>
         <value xml:lang="en">Status to 'Ready'</value>
         <value xml:lang="es">Status a 'Listo'</value>
@@ -8654,6 +8747,7 @@
     </property>
     <property key="AccountingInvoiceStatusToReceived">
         <value xml:lang="ar">الحالة إلى "مستلم"</value>
+        <value xml:lang="cs">Stav na 'Přijatá'</value>
         <value xml:lang="de">Status auf 'Erhalten'</value>
         <value xml:lang="en">Status to 'Received'</value>
         <value xml:lang="es">Status a 'Recibido'</value>
@@ -8672,6 +8766,7 @@
     </property>
     <property key="AccountingInvoiceStatusToSent">
         <value xml:lang="ar">الحالة إلى "مرسل"</value>
+        <value xml:lang="cs">Stav na 'Odeslaná'</value>
         <value xml:lang="de">Status auf 'Gesendet'</value>
         <value xml:lang="en">Status to 'Sent'</value>
         <value xml:lang="es">Status a 'Enviado'</value>
@@ -8690,6 +8785,7 @@
     </property>
     <property key="AccountingInvoiceStatusToWriteoff">
         <value xml:lang="ar">الحلة إلى "مشطوب"</value>
+        <value xml:lang="cs">Stav na 'Anulovaná'</value>
         <value xml:lang="de">Status auf 'Abgeschrieben'</value>
         <value xml:lang="en">Status to 'Writeoff'</value>
         <value xml:lang="es">Status to 'Anulado'</value>
@@ -8708,6 +8804,7 @@
     </property>
     <property key="AccountingInvoiceTimeEntries">
         <value xml:lang="ar">قيود وقتية</value>
+        <value xml:lang="cs">Časová evidence</value>
         <value xml:lang="de">Zeiteinträge</value>
         <value xml:lang="en">Time Entries</value>
         <value xml:lang="fr">Ecritures d'horaire</value>
@@ -8723,6 +8820,7 @@
     </property>
     <property key="AccountingInvoiceTotal">
         <value xml:lang="ar">إجمالي القاتورة</value>
+        <value xml:lang="cs">Celkový součet</value>
         <value xml:lang="de">Gesamtsumme Rechnung</value>
         <value xml:lang="en">Invoice Total</value>
         <value xml:lang="es">Factura Total</value>
@@ -8772,6 +8870,7 @@
     </property>
     <property key="AccountingInvoices">
         <value xml:lang="ar">الفواتير</value>
+        <value xml:lang="cs">Faktury</value>
         <value xml:lang="de">Rechnungen</value>
         <value xml:lang="en">Invoices</value>
         <value xml:lang="es">Facturas</value>
@@ -8834,6 +8933,7 @@
     </property>
     <property key="AccountingInvoicesMenu">
         <value xml:lang="ar">الفواتير</value>
+        <value xml:lang="cs">Faktury</value>
         <value xml:lang="de">Rechnungen</value>
         <value xml:lang="en">Invoices</value>
         <value xml:lang="es">Facturas</value>
@@ -9018,6 +9118,7 @@
     </property>
     <property key="AccountingListInvoices">
         <value xml:lang="ar">قائمة الفواتير</value>
+        <value xml:lang="cs">Seznam faktur</value>
         <value xml:lang="de">Rechnungen auflisten</value>
         <value xml:lang="en">List Invoices</value>
         <value xml:lang="fr">Liste des factures</value>
@@ -10756,6 +10857,7 @@
     </property>
     <property key="AccountingOrganizationPartyId">
         <value xml:lang="ar">دليل طرف المنظمة</value>
+        <value xml:lang="cs">Organizační složka</value>
         <value xml:lang="de">Akteur ID (Org.)</value>
         <value xml:lang="en">Organization Party Id</value>
         <value xml:lang="es">Id Grupo de Organización</value>
@@ -11021,6 +11123,7 @@
     </property>
     <property key="AccountingPartyIdTo">
         <value xml:lang="ar">دليل الطرف (إلى)</value>
+        <value xml:lang="cs">Příjemce</value>
         <value xml:lang="de">Akteur-Nr zu</value>
         <value xml:lang="en">Party Id To</value>
         <value xml:lang="es">Id Grupo destino</value>
@@ -13597,6 +13700,7 @@
     </property>
     <property key="AccountingPurchaseInvoiceToRevenue">
         <value xml:lang="ar">قائمة مهام فواتير الشراء إلى رقم حساب GL المبيعات</value>
+        <value xml:lang="cs">Seznam typů nákupních faktur přiřazených k příjmovému účtu v hlavní knize</value>
         <value xml:lang="de">Zuweisungen von Einkaufsrechnungsarten zu Ertragskonten</value>
         <value xml:lang="en">Purchase Invoice type to Revenue GL Account Number assignment list</value>
         <value xml:lang="fr">Liste d'affectation du type facture d'achat au n° de compte de produit</value>
@@ -14306,6 +14410,7 @@
     </property>
     <property key="AccountingSalesAgents">
         <value xml:lang="ar">وكلاء المبيعات</value>
+        <value xml:lang="cs">Dealeři</value>
         <value xml:lang="de">Vertreter</value>
         <value xml:lang="en">Sales Agents</value>
         <value xml:lang="fr">Agents de vente</value>
@@ -14319,6 +14424,7 @@
     </property>
     <property key="AccountingSalesInvoiceToRevenue">
         <value xml:lang="ar">قائمة تعيينات نوع فاتورة البيع إلى رقم حساب GL المبيعات</value>
+        <value xml:lang="cs">Seznam typů prodejních faktur přiřazených k příjmovému účtu v hlavní knize</value>
         <value xml:lang="de">Zuweisungen von Einkaufsrechnungsarten zu Ertragskonten</value>
         <value xml:lang="en">Sales Invoice type to Revenue GL Account Number assignment list</value>
         <value xml:lang="es">Lista de asignación tipo de factura de venta a número de cuenta de LM</value>
@@ -15888,6 +15994,7 @@
     </property>
     <property key="AccountingUnitPrice">
         <value xml:lang="ar">سعر الوحدة</value>
+        <value xml:lang="cs">Jednotková cena</value>
         <value xml:lang="de">Stückpreis</value>
         <value xml:lang="en">Unit Price</value>
         <value xml:lang="es">Precio por unidad</value>
@@ -15906,6 +16013,7 @@
     </property>
     <property key="AccountingUpdateAvailability">
         <value xml:lang="ar">تحديث التوفر</value>
+        <value xml:lang="cs">Aktualizovat dostupnost</value>
         <value xml:lang="de">Verfügbarkeit aktualisieren</value>
         <value xml:lang="en">Update the availability</value>
         <value xml:lang="es">Actualizar la disponibilidad</value>
@@ -15924,6 +16032,7 @@
     </property>
     <property key="AccountingUpdateBillingAccount">
         <value xml:lang="ar">تحديث حساب الفوترة</value>
+        <value xml:lang="cs">Aktualizovat zúčtovací účet</value>
         <value xml:lang="de">Abrechnungskonto aktualisieren</value>
         <value xml:lang="en">Update Billing Account</value>
         <value xml:lang="es">Actualizar cuenta de facturación</value>
@@ -15943,6 +16052,7 @@
     </property>
     <property key="AccountingUpdateFX">
         <value xml:lang="ar">تحديث  نسب الصرف الأجنبي</value>
+        <value xml:lang="cs">Aktualizovat měnové kurzy</value>
         <value xml:lang="de">Wechselkurse aktualisieren</value>
         <value xml:lang="en">Update Foreign Exchange Rates</value>
         <value xml:lang="es">Actualizar tipo de cambio extranjero</value>
@@ -15961,6 +16071,7 @@
     </property>
     <property key="AccountingUpdatePaymentPermissionError">
         <value xml:lang="ar">خطأ أمني: لتحديث الدفعة يجب أن تكوم طرف من أو إلى العملية, أو أن يكون لديك تصريح PAY_INFO_UPDATE أو PAY_INFO_ADMIN</value>
+        <value xml:lang="cs">Bezpečnostní chyba : Pro aktualizace plateb musíte být jedním z aktérů a mít oprávnění PAY_INFO_UPDATE nebo PAY_INFO_ADMIN.</value>
         <value xml:lang="de">Sicherheitsfehler : Um eine Zahlung zu aktualisieren müssen Sie Zahlungsempfänger oder Zahlender sein oder die Berechtigung PAY_INFO_UPDATE oder PAY_INFO_ADMIN besitzen.</value>
         <value xml:lang="en">Security Error : To Update a Payment you must either be the to or from party or have the PAY_INFO_UPDATE or PAY_INFO_ADMIN permissions.</value>
         <value xml:lang="es">Error de seguridad : Para actualizar un paga debe ser cualquiera el grupo destino u origen o tener el permiso PAY_INFO_UPDATE or PAY_INFO_ADMIN.</value>
@@ -15992,6 +16103,7 @@
     </property>
     <property key="AccountingUpdateRateAmount">
         <value xml:lang="ar">تحديث مبلغ النسبة</value>
+        <value xml:lang="cs">Aktualizovat sazbu</value>
         <value xml:lang="de">Ratenmenge aktualisieren</value>
         <value xml:lang="en">Update Rate amount</value>
         <value xml:lang="fr">Mise à jour d'une valeur de taux</value>
@@ -16645,6 +16757,7 @@
     </property>
     <property key="AcctgChartOfAcctsTabMenu">
         <value xml:lang="ar">شجرة الحسابات</value>
+        <value xml:lang="cs">Účtová osnova</value>
         <value xml:lang="de">Kontenübersicht</value>
         <value xml:lang="en">Chart of Accounts</value>
         <value xml:lang="es">Carta de cuentas</value>
@@ -18013,6 +18126,7 @@
     </property>
     <property key="FormFieldTitle_dueDate">
         <value xml:lang="ar">تاريخ الإستحقاق</value>
+        <value xml:lang="cs">Datum splatnosti</value>
         <value xml:lang="de">Fälligkeit</value>
         <value xml:lang="en">Due Date</value>
         <value xml:lang="es">Fecha de adeudo</value>
@@ -18457,6 +18571,7 @@
     </property>
     <property key="FormFieldTitle_fromDueDate">
         <value xml:lang="ar">من تاريخ الإستحقاق</value>
+        <value xml:lang="cs">Od data splatnosti</value>
         <value xml:lang="de">Aus Fälligkeitsdatum</value>
         <value xml:lang="en">From Due Date</value>
         <value xml:lang="fr">Depuis la date d'échéance</value>
@@ -18469,6 +18584,7 @@
     </property>
     <property key="FormFieldTitle_fromInvoiceDate">
         <value xml:lang="ar">من تاريخ الفاتورة</value>
+        <value xml:lang="cs">Od data vystavení</value>
         <value xml:lang="de">Aus Rechnungsdatum</value>
         <value xml:lang="en">From Invoice Date</value>
         <value xml:lang="fr">Facture depuis la date</value>
@@ -18948,6 +19064,7 @@
     </property>
     <property key="FormFieldTitle_invoiceAmount">
         <value xml:lang="ar">قيمة الفاتورة</value>
+        <value xml:lang="cs">Fakturovaná částka</value>
         <value xml:lang="de">Rechnungsbetrag</value>
         <value xml:lang="en">Invoice Amount</value>
         <value xml:lang="fr">Montant</value>
@@ -18961,6 +19078,7 @@
     </property>
     <property key="FormFieldTitle_invoiceDate">
         <value xml:lang="ar">تاريخ الفاتورة</value>
+        <value xml:lang="cs">Datum vystavení</value>
         <value xml:lang="de">Rechnungs-Datum</value>
         <value xml:lang="en">Invoice Date</value>
         <value xml:lang="es">Fecha Factura</value>
@@ -19142,6 +19260,7 @@
     </property>
     <property key="FormFieldTitle_invoiceTypeId">
         <value xml:lang="ar">نوع الفاتورة</value>
+        <value xml:lang="cs">Typ faktury</value>
         <value xml:lang="de">Rechnungs-Art</value>
         <value xml:lang="en">Invoice Type</value>
         <value xml:lang="es">Tipo Factura</value>
@@ -19679,6 +19798,7 @@
         <value xml:lang="zh-TW">訂單序號</value>
     </property>
     <property key="FormFieldTitle_organizationPartyId">
+        <value xml:lang="cs">Organizační složka</value>
         <value xml:lang="de">Organisation Akteur Id</value>
         <value xml:lang="en">Organization Party Id</value>
         <value xml:lang="es">Id Grupo de Organización</value>
@@ -20892,6 +21012,7 @@
     </property>
     <property key="FormFieldTitle_requireTaxIdForExemption">
         <value xml:lang="ar">مطلوب دليل الضريبة للإعفاء</value>
+        <value xml:lang="cs">Pro osvobození je nutné DIČ</value>
         <value xml:lang="de">benötigt Steuer-Nr. für Befreiung</value>
         <value xml:lang="en">Require Tax Id For Exemption</value>
         <value xml:lang="es">Requerir Id de impuesto para excepción</value>
@@ -21188,6 +21309,7 @@
     </property>
     <property key="FormFieldTitle_taxIdFormatPattern">
         <value xml:lang="ar">نمط تنسيق دليل الضرائب</value>
+        <value xml:lang="cs">Vzor formátu DIČ</value>
         <value xml:lang="de">Steuer-Nr. Format-Pattern</value>
         <value xml:lang="en">Tax Id Format Pattern</value>
         <value xml:lang="es">Id Impuesto Formato Patrón</value>
@@ -21206,6 +21328,7 @@
     </property>
     <property key="FormFieldTitle_taxPercentage">
         <value xml:lang="ar">نسبة الضرائب</value>
+        <value xml:lang="cs">Daňová sazba</value>
         <value xml:lang="de">Steuerprozent</value>
         <value xml:lang="en">Tax Percentage</value>
         <value xml:lang="es">Procentaje Impuesto</value>
@@ -21255,6 +21378,7 @@
     </property>
     <property key="FormFieldTitle_taxableFlag">
         <value xml:lang="ar">علامة قابلة للضريبة</value>
+        <value xml:lang="cs">Příznak zdanění</value>
         <value xml:lang="de">versteuerbar</value>
         <value xml:lang="en">Taxable Flag</value>
         <value xml:lang="es">Bandera Aplica Impuesto</value>
@@ -21371,6 +21495,7 @@
     </property>
     <property key="FormFieldTitle_thruDueDate">
         <value xml:lang="ar">خلال تاريخ الإستحقاق</value>
+        <value xml:lang="cs">Do data splatnosti</value>
         <value xml:lang="de">bis Fälligkeitsdatum</value>
         <value xml:lang="en">Through Due Date</value>
         <value xml:lang="fr">Jusqu'à la date d'échéance</value>
@@ -21384,6 +21509,7 @@
     </property>
     <property key="FormFieldTitle_thruInvoiceDate">
         <value xml:lang="ar">خلال تاريخ الفاتورة</value>
+        <value xml:lang="cs">Do data vystavení</value>
         <value xml:lang="de">bis Rechnungsdatum</value>
         <value xml:lang="en">Through Invoice Date</value>
         <value xml:lang="fr">Jusqu'à la date de facture</value>
@@ -21779,6 +21905,7 @@
     </property>
     <property key="PageTitleAddGlAccount">
         <value xml:lang="ar">إضافة حساب GL</value>
+        <value xml:lang="cs">Přidat účet do hlavní knihy</value>
         <value xml:lang="de">Hauptbuchkonto hinzufügen</value>
         <value xml:lang="en">Add Gl Account</value>
         <value xml:lang="es">Agregar Cuenta de LM</value>
@@ -22383,6 +22510,7 @@
     </property>
     <property key="PageTitleEditGlAccount">
         <value xml:lang="ar">تعديل حساب GL</value>
+        <value xml:lang="cs">Úprava účtu v hlavní knize</value>
         <value xml:lang="de">HB-Konto bearbeiten</value>
         <value xml:lang="en">Edit GL Account</value>
         <value xml:lang="es">Editar Cuenta de LM</value>
@@ -22402,6 +22530,7 @@
     </property>
     <property key="PageTitleEditGlobalGlAccount">
         <value xml:lang="ar">تعديل حساب GL العالمي</value>
+        <value xml:lang="cs">Úprava globálního účtu hlavní knihy</value>
         <value xml:lang="de">Globales HB-Konto bearbeiten</value>
         <value xml:lang="en">Edit Global GL Account</value>
         <value xml:lang="es">Editar Cuenta Global de LM</value>
@@ -22420,6 +22549,7 @@
     </property>
     <property key="PageTitleEditInvoice">
         <value xml:lang="ar">تعديل الفاتورة</value>
+        <value xml:lang="cs">Upravit fakturu</value>
         <value xml:lang="de">Rechnung bearbeiten</value>
         <value xml:lang="en">Edit Invoice</value>
         <value xml:lang="es">Editar Factura</value>
@@ -22685,6 +22815,7 @@
     </property>
     <property key="PageTitleFindBillingAccount">
         <value xml:lang="ar">إيجاد حساب/حسابات الفوترة</value>
+        <value xml:lang="cs">Vyhledání zúčtovacího účtu</value>
         <value xml:lang="de">Rechnungskonto suchen</value>
         <value xml:lang="en">Find Billing Account(s)</value>
         <value xml:lang="es">Encontrar Cuenta(s) de Facturación</value>
@@ -22704,6 +22835,7 @@
     </property>
     <property key="PageTitleFindFinAccount">
         <value xml:lang="ar">إيجاد حساب مالي</value>
+        <value xml:lang="cs">Vyhledání finančního účtu</value>
         <value xml:lang="de">Finanzkonto suchen</value>
         <value xml:lang="en">Find Financial Account</value>
         <value xml:lang="fr">Rechercher un compte financier</value>
@@ -22743,6 +22875,7 @@
     </property>
     <property key="PageTitleFindGatewayResponses">
         <value xml:lang="ar">إيجاد استجابات البوابة</value>
+        <value xml:lang="cs">Vyhledání odpovědí brány</value>
         <value xml:lang="de">Schnittstellen-Antworten suchen</value>
         <value xml:lang="en">Find Gateway Responses</value>
         <value xml:lang="es">Encontrar Respuestas de Gateway</value>
@@ -22761,6 +22894,7 @@
     </property>
     <property key="PageTitleFindGlAccount">
         <value xml:lang="ar">إيجاد حساب مالي</value>
+        <value xml:lang="cs">Vyhledání účtu</value>
         <value xml:lang="de">Hauptbuchkonto suchen</value>
         <value xml:lang="en">Find Gl Account</value>
         <value xml:lang="fr">Chercher un compte</value>
@@ -22776,6 +22910,7 @@
     </property>
     <property key="PageTitleFindGlobalGlAccount">
         <value xml:lang="ar">إيجاد حساب مالي عالمي</value>
+        <value xml:lang="cs">Vyhledání účtu v hlavní knize</value>
         <value xml:lang="de">HB-Konto suchen</value>
         <value xml:lang="en">Find Global GL Account</value>
         <value xml:lang="es">Encontrar Cuenta Global de LM</value>
@@ -22794,6 +22929,7 @@
     </property>
     <property key="PageTitleFindInvoice">
         <value xml:lang="ar">إيجاد فاتورة</value>
+        <value xml:lang="cs">Vyhledání faktury</value>
         <value xml:lang="de">Rechnungen suchen</value>
         <value xml:lang="en">Find Invoice</value>
         <value xml:lang="es">Encontrar Factura</value>
@@ -22854,6 +22990,7 @@
     </property>
     <property key="PageTitleFindTaxAuthority">
         <value xml:lang="ar">إيجاد المصلحة الضريبية</value>
+        <value xml:lang="cs">Vyhledání finančního úřadu</value>
         <value xml:lang="de">Steuerbehörde suchen</value>
         <value xml:lang="en">Find Tax Authority</value>
         <value xml:lang="es">Encontrar Autoridad Fiscal</value>
@@ -22948,6 +23085,7 @@
     </property>
     <property key="PageTitleInvoiceOverview">
         <value xml:lang="ar">نبذة الفاتورة</value>
+        <value xml:lang="cs">Přehled faktur</value>
         <value xml:lang="de">Rechnungsübersicht</value>
         <value xml:lang="en">Invoice Overview</value>
         <value xml:lang="es">Vista general de factura</value>
@@ -22966,6 +23104,7 @@
     </property>
     <property key="PageTitleListAccounts">
         <value xml:lang="ar">قائمة الحسابات</value>
+        <value xml:lang="cs">Seznam účtů</value>
         <value xml:lang="de">Konten auflisten</value>
         <value xml:lang="en">List Accounts</value>
         <value xml:lang="es">Lista de Cuentas</value>
@@ -23335,6 +23474,7 @@
     </property>
     <property key="PageTitleListFixedAssets">
         <value xml:lang="ar">قائمة الأصول الثابتة</value>
+        <value xml:lang="cs">Seznam dlouhodobého majetku</value>
         <value xml:lang="de">Anlagegüter auflisten</value>
         <value xml:lang="en">List Fixed Assets</value>
         <value xml:lang="es">Lista Activos Fijos</value>
@@ -23384,6 +23524,7 @@
     </property>
     <property key="PageTitleListInvoices">
         <value xml:lang="ar">قائمة الفواتير</value>
+        <value xml:lang="cs">Seznam faktur</value>
         <value xml:lang="de">Rechnungen auflisten</value>
         <value xml:lang="en">List Invoices</value>
         <value xml:lang="es">Lista de Facturas</value>
@@ -23433,6 +23574,7 @@
     </property>
     <property key="PageTitleListTaxAuthorityParties">
         <value xml:lang="ar">قائمة أطراف المصلحة الضريبية</value>
+        <value xml:lang="cs">Seznam finančních úřadů</value>
         <value xml:lang="de">Steuerbehörde Akteure auflisten</value>
         <value xml:lang="en">List Tax Authority Parties</value>
         <value xml:lang="es">Lista Grupos de Autoridad Fiscal</value>
@@ -23451,6 +23593,7 @@
     </property>
     <property key="PageTitleLookupBillingAccount">
         <value xml:lang="ar">بحث الحساب المالي بالأسم</value>
+        <value xml:lang="cs">Vyhledání zúčtovacího účtu podle jména</value>
         <value xml:lang="de">Abrechnungskonto nach Name suchen</value>
         <value xml:lang="en">Lookup Billing Account by Name</value>
         <value xml:lang="es">Buscar Cuenta de Facturación por Nombre</value>
@@ -23474,6 +23617,7 @@
     </property>
     <property key="PageTitleLookupFixedAsset">
         <value xml:lang="ar">بحث الأصل الثابت</value>
+        <value xml:lang="cs">Vyhledání dlouhodobého majetku</value>
         <value xml:lang="de">Anlagegut suchen</value>
         <value xml:lang="en">Lookup Fixed Asset</value>
         <value xml:lang="es">Buscar Activo Fijo</value>
@@ -23492,6 +23636,7 @@
     </property>
     <property key="PageTitleLookupGlAccount">
         <value xml:lang="ar">بحث حساب GL</value>
+        <value xml:lang="cs">Vyhledání účtu v hlavní knize</value>
         <value xml:lang="de">HB-Konto suchen</value>
         <value xml:lang="en">Lookup GL Account</value>
         <value xml:lang="es">Buscar Cuenta de LM</value>
@@ -23510,6 +23655,7 @@
     </property>
     <property key="PageTitlePaymentByMethodSummary">
         <value xml:lang="ar">ملخص الدفعات بالطريقة</value>
+        <value xml:lang="cs">Souhnr plateb podle způsobu úhrady</value>
         <value xml:lang="de">Überblick Zahlungen nach Zahlungsmethode</value>
         <value xml:lang="en">Payments By Method Summary</value>
         <value xml:lang="fr">Résumé des paiements par de méthode</value>
@@ -23526,6 +23672,7 @@
     </property>
     <property key="PageTitlePaymentOverview">
         <value xml:lang="ar">نبذة الدفعة</value>
+        <value xml:lang="cs">Přehled plateb</value>
         <value xml:lang="de">Überblick Zahlungen</value>
         <value xml:lang="en">Payment Overview</value>
         <value xml:lang="es">Vista general de pago</value>
@@ -23544,6 +23691,7 @@
     </property>
     <property key="PageTitleSalesInvoiceByProductCategorySummary">
         <value xml:lang="ar">ملخص فواتير المبيعات بفئة السلعة</value>
+        <value xml:lang="cs">Souhrn prodejních faktur podle kategorií produktů</value>
         <value xml:lang="de">Überblick Verkaufsrechnungen nach Produktkategorie</value>
         <value xml:lang="en">Sales Invoice By Product Category Summary</value>
         <value xml:lang="fr">Résumé des factures de vente par catégorie de produits</value>
@@ -23560,6 +23708,7 @@
     </property>
     <property key="PageTitleSalesInvoiceByProductGlAccountSummary">
         <value xml:lang="ar">ملخص فواتير المبيعات بحساب GL السلعة</value>
+        <value xml:lang="cs">Souhrn prodejních faktur podle účtů v hlavní knize</value>
         <value xml:lang="de">Überblick Verkaufsrechnungen nach Hauptbuchkonto</value>
         <value xml:lang="en">Sales Invoice By Product GL Account Summary</value>
         <value xml:lang="fr">Résumé des factures de vente par compte de produit</value>
@@ -23576,6 +23725,7 @@
     </property>
     <property key="PageTitleSendInvoicePerEmail">
         <value xml:lang="ar">ارسال الفاتورة عن طريق البريد الإلكتروني</value>
+        <value xml:lang="cs">Odeslat fakturu emailem</value>
         <value xml:lang="de">Rechnung per Email versenden</value>
         <value xml:lang="en">Send Invoice per email</value>
         <value xml:lang="es">Envíar factura por correo electrónico</value>
@@ -23743,6 +23893,7 @@
     </property>
     <property key="PageTitleViewAccountingTransaction">
         <value xml:lang="ar">عرض العملية المحاسبية</value>
+        <value xml:lang="cs">Zobrazení účetní transakce</value>
         <value xml:lang="de">Buchung ansehen</value>
         <value xml:lang="en">View Accounting Transaction</value>
         <value xml:lang="es">Ver Tansacción de Contabilidad</value>
@@ -23774,6 +23925,7 @@
     </property>
     <property key="PageTitleViewGlAccountEntries">
         <value xml:lang="ar">عرض قيود حساب GL</value>
+        <value xml:lang="cs">Zobrazení záznamů v hlavní knize</value>
         <value xml:lang="de">Hauptbuchkonteneinträge ansehen</value>
         <value xml:lang="en">View Gl Account Entries</value>
         <value xml:lang="es">Ver entradas de Cuentas de LM</value>
@@ -23792,6 +23944,7 @@
     </property>
     <property key="PageTitleViewTransaction">
         <value xml:lang="ar">عرض العملية</value>
+        <value xml:lang="cs">Prohlédnout transakce</value>
         <value xml:lang="de">Buchung ansehen</value>
         <value xml:lang="en">View Transaction</value>
         <value xml:lang="fr">Voir la transaction</value>
@@ -23806,6 +23959,7 @@
     </property>
     <property key="PageTitleViewTransactionEntries">
         <value xml:lang="ar">عرض قيود العملية</value>
+        <value xml:lang="cs">Prohlédnout položky transakce</value>
         <value xml:lang="de">Buchungen ansehen</value>
         <value xml:lang="en">View Transaction Entries</value>
         <value xml:lang="fr">Voir les écritures de la transaction</value>

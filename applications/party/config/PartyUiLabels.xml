@@ -36,6 +36,7 @@
     </property>
     <property key="FormFieldTitle_birthDate">
         <value xml:lang="ar">تاريخ الميلاد</value>
+        <value xml:lang="cs">Datum narození</value>
         <value xml:lang="de">Geburtsdatum</value>
         <value xml:lang="en">Birth Date</value>
         <value xml:lang="es">Fecha de nacimiento</value>
@@ -84,6 +85,7 @@
         <value xml:lang="zh-TW">憑證字串</value>
     </property>
     <property key="FormFieldTitle_cityLocality">
+        <value xml:lang="cs">Poloha města</value>
         <value xml:lang="de">Stadt Örtlichkeit </value>
         <value xml:lang="en">City Locality</value>
         <value xml:lang="es">Localidad Ciudad</value>
@@ -291,6 +293,7 @@
     </property>
     <property key="FormFieldTitle_country">
         <value xml:lang="ar">الدولة</value>
+        <value xml:lang="cs">Stát</value>
         <value xml:lang="de">Land</value>
         <value xml:lang="en">Country</value>
         <value xml:lang="es">País</value>
@@ -321,6 +324,7 @@
     </property>
     <property key="FormFieldTitle_defaultRate">
         <value xml:lang="ar">التسعير الإعتيادي</value>
+        <value xml:lang="cs">Výchozí sazba</value>
         <value xml:lang="de">Standard Ansatz</value>
         <value xml:lang="en">Default Rate</value>
         <value xml:lang="es">Tasa por defecto</value>
@@ -337,6 +341,7 @@
     </property>
     <property key="FormFieldTitle_deleteEmail">
         <value xml:lang="ar">حذف البريد الالكتروني</value>
+        <value xml:lang="cs">Smazat e-mail</value>
         <value xml:lang="de">Email löschen</value>
         <value xml:lang="en">Delete email</value>
         <value xml:lang="fr">Supprimer mél</value>
@@ -350,6 +355,7 @@
     </property>
     <property key="FormFieldTitle_destinationFacilityId">
         <value xml:lang="ar">دليل منشأة الوجهة</value>
+        <value xml:lang="cs">ID polohy zařízení</value>
         <value xml:lang="de">Zieleinrichtung</value>
         <value xml:lang="en">Destination Facility Id</value>
         <value xml:lang="fr">Lieu de stockage de destination</value>
@@ -364,6 +370,7 @@
     </property>
     <property key="FormFieldTitle_disabledDateTime">
         <value xml:lang="ar">تاريخ/وقت معطل</value>
+        <value xml:lang="cs">Datum a čas zákazu</value>
         <value xml:lang="de">Ausgeschaltet Zeitpunkt</value>
         <value xml:lang="en">Disabled Date Time</value>
         <value xml:lang="es">Fecha/hora deshabilitado</value>
@@ -382,6 +389,7 @@
     </property>
     <property key="FormFieldTitle_editContent">
         <value xml:lang="ar">تحرير المحتوى</value>
+        <value xml:lang="cs">Upravit obsah</value>
         <value xml:lang="de">Inhalt bearbeiten</value>
         <value xml:lang="en">Edit Content</value>
         <value xml:lang="es">Editar contenido</value>
@@ -468,6 +476,7 @@
     </property>
     <property key="FormFieldTitle_firstName">
         <value xml:lang="ar">الإسم الأول</value>
+        <value xml:lang="cs">Jméno</value>
         <value xml:lang="de">Vorname</value>
         <value xml:lang="en">First Name</value>
         <value xml:lang="es">Primer nombre</value>
@@ -522,6 +531,7 @@
     </property>
     <property key="FormFieldTitle_gender">
         <value xml:lang="ar">الجنس</value>
+        <value xml:lang="cs">Pohlaví</value>
         <value xml:lang="de">Geschlecht</value>
         <value xml:lang="en">Gender</value>
         <value xml:lang="es">Sexo</value>
@@ -540,6 +550,7 @@
     </property>
     <property key="FormFieldTitle_groupName">
         <value xml:lang="ar">إسم المجموعة</value>
+        <value xml:lang="cs">Název skupiny</value>
         <value xml:lang="de">Gruppenname</value>
         <value xml:lang="en">Group Name</value>
         <value xml:lang="es">Nombre del grupo</value>
@@ -558,6 +569,7 @@
     </property>
     <property key="FormFieldTitle_groupNameLocal">
         <value xml:lang="ar">إسم المجموعة المحلي</value>
+        <value xml:lang="cs">Lokalizovaný název organizace</value>
         <value xml:lang="de">Gruppenname lokal</value>
         <value xml:lang="en">Group Name Local</value>
         <value xml:lang="es">Nombre local del grupo</value>
@@ -576,6 +588,7 @@
     </property>
     <property key="FormFieldTitle_height">
         <value xml:lang="ar">الطول</value>
+        <value xml:lang="cs">Výška</value>
         <value xml:lang="de">Grösse</value>
         <value xml:lang="en">Height</value>
         <value xml:lang="es">Altura</value>
@@ -662,6 +675,7 @@
     </property>
     <property key="FormFieldTitle_lastName">
         <value xml:lang="ar">إسم العائلة</value>
+        <value xml:lang="cs">Příjmení</value>
         <value xml:lang="de">Nachname</value>
         <value xml:lang="en">Last Name</value>
         <value xml:lang="es">Apellido</value>
@@ -1093,6 +1107,7 @@
     </property>
     <property key="FormFieldTitle_paPostalCode">
         <value xml:lang="ar">الرمز البريدي</value>
+        <value xml:lang="cs">Poštovní kód</value>
         <value xml:lang="de">Postleitzahl</value>
         <value xml:lang="en">Postal Code</value>
         <value xml:lang="es">Código postal</value>
@@ -1109,6 +1124,7 @@
     </property>
     <property key="FormFieldTitle_parentCommEventId">
         <value xml:lang="ar">دليل الإتصال الأم</value>
+        <value xml:lang="cs">Id rodičovské události</value>
         <value xml:lang="de">Übergeordnetes Kommunikationsereignis ID</value>
         <value xml:lang="en">Parent Comm Event Id</value>
         <value xml:lang="es">Codigo Precursor del evento de comunicación</value>
@@ -1125,6 +1141,7 @@
     </property>
     <property key="FormFieldTitle_parentGroupId">
         <value xml:lang="ar">دليل المجموعة الأم</value>
+        <value xml:lang="cs">ID rodičovského partnera</value>
         <value xml:lang="de">Übergeordnete Gruppe ID</value>
         <value xml:lang="en">Parent Group Id</value>
         <value xml:lang="es">Código Precursos de grupo</value>
@@ -1143,6 +1160,7 @@
     </property>
     <property key="FormFieldTitle_parentTypeId">
         <value xml:lang="ar">دليل نوع الوالد</value>
+        <value xml:lang="cs">ID typu rodiče</value>
         <value xml:lang="de">Übergeordneter Typ ID</value>
         <value xml:lang="en">Parent Type Id</value>
         <value xml:lang="es">Código Precursos de tipo</value>
@@ -1161,6 +1179,7 @@
     </property>
     <property key="FormFieldTitle_partyClassificationGroupId">
         <value xml:lang="ar">دليل مجموعة التصنيف للطرف</value>
+        <value xml:lang="cs">Id klasifikační skupiny partnera</value>
         <value xml:lang="de">Akteur Klassifizierungsgruppe ID</value>
         <value xml:lang="en">Party Classification Group Id</value>
         <value xml:lang="es">Código Grupo de clasificación</value>
@@ -1210,6 +1229,7 @@
     </property>
     <property key="FormFieldTitle_partyId">
         <value xml:lang="ar">دليل الطرف</value>
+        <value xml:lang="cs">ID partnera</value>
         <value xml:lang="de">Akteur ID</value>
         <value xml:lang="en">Party Id</value>
         <value xml:lang="es">Id Grupo</value>
@@ -1228,6 +1248,7 @@
     </property>
     <property key="FormFieldTitle_partyIdFrom">
         <value xml:lang="ar">من دليل الطرف</value>
+        <value xml:lang="cs">Od partnera ID</value>
         <value xml:lang="de">Akteur ID von</value>
         <value xml:lang="en">From Party ID</value>
         <value xml:lang="es">Id Grupo Origen</value>
@@ -1246,6 +1267,7 @@
     </property>
     <property key="FormFieldTitle_partyIdTo">
         <value xml:lang="ar">إلى دليل الطرف</value>
+        <value xml:lang="cs">Partnerovi ID</value>
         <value xml:lang="de">Akteur ID zu</value>
         <value xml:lang="en">To Party ID</value>
         <value xml:lang="es">Id Grupo Destino</value>
@@ -1340,6 +1362,7 @@
     </property>
     <property key="FormFieldTitle_partyTaxId">
         <value xml:lang="ar">دليل ضريبة الطرف</value>
+        <value xml:lang="cs">DIČ</value>
         <value xml:lang="de">Akteur Steuer ID</value>
         <value xml:lang="en">Party Tax Id</value>
         <value xml:lang="es">CIF/NIF</value>
@@ -1358,6 +1381,7 @@
     </property>
     <property key="FormFieldTitle_partyTypeId">
         <value xml:lang="ar">دليل نوع الطرف</value>
+        <value xml:lang="cs">Typ partnera ID</value>
         <value xml:lang="de">Gruppen Typ ID</value>
         <value xml:lang="en">Party Type Id</value>
         <value xml:lang="hi-IN">पार्टी के प्रकार का क्रमांक</value>
@@ -1388,6 +1412,7 @@
     </property>
     <property key="FormFieldTitle_passportNumber">
         <value xml:lang="ar">رقم جواز السفر</value>
+        <value xml:lang="cs">Číslo pasu</value>
         <value xml:lang="de">Passnummer</value>
         <value xml:lang="en">Passport Number</value>
         <value xml:lang="es">Número de pasaporte</value>
@@ -1455,6 +1480,7 @@
     </property>
     <property key="FormFieldTitle_personalTitle">
         <value xml:lang="ar">اللقب الشخصي</value>
+        <value xml:lang="cs">Titul</value>
         <value xml:lang="de">Titel</value>
         <value xml:lang="en">Personal Title</value>
         <value xml:lang="es">Título personal</value>
@@ -1473,6 +1499,7 @@
     </property>
     <property key="FormFieldTitle_personalImage">
         <value xml:lang="ar">الصورة الشخصية</value>
+        <value xml:lang="cs">Fotografie</value>
         <value xml:lang="de">Persönliches Bild</value>
         <value xml:lang="en">Personal Image</value>
         <value xml:lang="ja">個人画像</value>
@@ -1482,6 +1509,7 @@
     </property>
     <property key="FormFieldTitle_preferredContactMechId">
         <value xml:lang="ar">دليل وسيلة الإتصال المفضلة</value>
+        <value xml:lang="cs">Preferovaný způsob kontaktu</value>
         <value xml:lang="de">Bevorzugter Kontaktmechanismus ID</value>
         <value xml:lang="en">Preferred Contact Mech Id</value>
         <value xml:lang="es">Código Mecanismo de Contacto preferido</value>
@@ -1500,6 +1528,7 @@
     </property>
     <property key="FormFieldTitle_preferredCurrencyUomId">
         <value xml:lang="ar">دليل العملة المفضلة</value>
+        <value xml:lang="cs">ID preferované měny</value>
         <value xml:lang="de">Bevorzugte Währungseinheit ID</value>
         <value xml:lang="en">Preferred Currency Uom Id</value>
         <value xml:lang="es">Código de moneda preferida</value>
@@ -1805,6 +1834,7 @@
     </property>
     <property key="FormFieldTitle_toPartyId">
         <value xml:lang="ar">إلى دليل الطرف</value>
+        <value xml:lang="cs">K partnerovi s ID</value>
         <value xml:lang="de">Empfänger ID</value>
         <value xml:lang="en">To Party Id</value>
         <value xml:lang="fr">Acteur destinataire</value>
@@ -2491,6 +2521,7 @@
     </property>
     <property key="PageTitleFindParty">
         <value xml:lang="ar">إيجاد الطرف/الأطراف</value>
+        <value xml:lang="cs">Vyhledat partnera</value>
         <value xml:lang="de">Akteur(e) suchen</value>
         <value xml:lang="en">Find Party(s)</value>
         <value xml:lang="es">Buscar participante(s)</value>
@@ -3352,6 +3383,7 @@
     </property>
     <property key="PartyAddrToName">
         <value xml:lang="ar">إلى</value>
+        <value xml:lang="cs">Komu</value>
         <value xml:lang="de">An</value>
         <value xml:lang="en">To</value>
         <value xml:lang="es">Para</value>
@@ -3371,7 +3403,7 @@
     </property>
     <property key="PartyAddressLine1">
         <value xml:lang="ar">سطر عنوان الطرف 1</value>
-        <value xml:lang="cs">Adresa 1. Řádek</value>
+        <value xml:lang="cs">Adresa 1. řádek</value>
         <value xml:lang="de">Adresse 1. Zeile</value>
         <value xml:lang="en">Address Line 1</value>
         <value xml:lang="es">Linea de Dirección 1</value>
@@ -3391,6 +3423,7 @@
     </property>
     <property key="PartyAddressLine1Missing">
         <value xml:lang="ar">سطر عنوان الطرف 1 مفقود</value>
+        <value xml:lang="cs">Chybí první řádek adresy</value>
         <value xml:lang="de">Adresszeile 1 fehlt</value>
         <value xml:lang="en">Address Line 1 is missing</value>
         <value xml:lang="es">Falta ingresar dirección línea 1</value>
@@ -3410,7 +3443,7 @@
     </property>
     <property key="PartyAddressLine1MissingError">
         <value xml:lang="ar">سطر عنوان الطرف 1 مفقود</value>
-        <value xml:lang="cs">1. Řádek adresy chybí</value>
+        <value xml:lang="cs">1. řádek adresy chybí</value>
         <value xml:lang="de">Adresszeile 1 fehlt</value>
         <value xml:lang="en">Address Line 1 is missing</value>
         <value xml:lang="es">Falta Linea de Dirección 1</value>
@@ -3430,7 +3463,7 @@
     </property>
     <property key="PartyAddressLine2">
         <value xml:lang="ar">سطر عنوان الطرف 2</value>
-        <value xml:lang="cs">Adresa 2. Řádek</value>
+        <value xml:lang="cs">Adresa 2. řádek</value>
         <value xml:lang="de">Adresse 2. Zeile</value>
         <value xml:lang="en">Address Line 2</value>
         <value xml:lang="es">Linea de Dirección 2</value>
@@ -3450,6 +3483,7 @@
     </property>
     <property key="PartyAddressMailingShipping">
         <value xml:lang="ar">عنوان المراسلة / الشحن</value>
+        <value xml:lang="cs">Poštovní/zasílací adresa</value>
         <value xml:lang="de">Versandadresse</value>
         <value xml:lang="en">Mailing/Shipping Address</value>
         <value xml:lang="es">Dirección de envío</value>
@@ -3611,6 +3645,7 @@
     </property>
     <property key="PartyAllEvents">
         <value xml:lang="ar">جميع الإتصالات</value>
+        <value xml:lang="cs">celá komunikace</value>
         <value xml:lang="de">Alle Ereignisse</value>
         <value xml:lang="en">All Communications</value>
         <value xml:lang="fr">Toutes les communications</value>
@@ -3707,6 +3742,7 @@
     </property>
     <property key="PartyAnyRole">
         <value xml:lang="ar">(أي دور)</value>
+        <value xml:lang="cs">(Nějaká role)</value>
         <value xml:lang="de">(Alle Rollen)</value>
         <value xml:lang="en">(Any Role)</value>
         <value xml:lang="hi-IN">(कोई भूमिका)</value>
@@ -3753,6 +3789,7 @@
     </property>
     <property key="PartyAreaCodeMissingError">
         <value xml:lang="ar">رمز المنطقة مفقود</value>
+        <value xml:lang="cs">Chybí kód oblasti</value>
         <value xml:lang="de">Ortsvorwahl fehlt</value>
         <value xml:lang="en">Area code is missing</value>
         <value xml:lang="fr">Le code régional manque</value>
@@ -3783,6 +3820,7 @@
     </property>
     <property key="PartyAttachFile">
         <value xml:lang="ar">إرفاق ملف</value>
+        <value xml:lang="cs">Připojit soubor</value>
         <value xml:lang="de">Datei anfügen</value>
         <value xml:lang="en">Attach File</value>
         <value xml:lang="hi-IN">फाइल संलग्न करे</value>
@@ -3795,7 +3833,7 @@
     </property>
     <property key="PartyAttentionName">
         <value xml:lang="ar">عناية الإسم</value>
-        <value xml:lang="cs">Jméno</value>
+        <value xml:lang="cs">K rukám</value>
         <value xml:lang="de">Zu Händen von</value>
         <value xml:lang="en">Attention Name</value>
         <value xml:lang="es">A la Atención de</value>
@@ -3815,6 +3853,7 @@
     </property>
     <property key="PartyAttribute">
         <value xml:lang="ar">سمة الطرف</value>
+        <value xml:lang="cs">Atribut partnera</value>
         <value xml:lang="de">Akteur Attribut</value>
         <value xml:lang="en">Party Attribute</value>
         <value xml:lang="es">Atributo</value>
@@ -3833,6 +3872,7 @@
     </property>
     <property key="PartyAttributes">
         <value xml:lang="ar">سمة/سمات الطرف</value>
+        <value xml:lang="cs">Attributy partnera</value>
         <value xml:lang="de">Akteur Attribute</value>
         <value xml:lang="en">Party Attribute(s)</value>
         <value xml:lang="es">Atributo(s)</value>
@@ -3885,6 +3925,7 @@
     </property>
     <property key="PartyBank">
         <value xml:lang="ar">البنك</value>
+        <value xml:lang="cs">Banka</value>
         <value xml:lang="de">Bank</value>
         <value xml:lang="en">Bank</value>
         <value xml:lang="es">Banco</value>
@@ -5007,6 +5048,7 @@
     </property>
     <property key="PartyContactMechanismSuccessfullyCreated">
         <value xml:lang="ar">تم خلق وسيلة الإتصال بنجاح</value>
+        <value xml:lang="cs">Kontakt byl úspěšně vytvořen.</value>
         <value xml:lang="de">Kontaktmechanismus erfolgreich erstellt.</value>
         <value xml:lang="en">Contact Mechanism successfully created.</value>
         <value xml:lang="es">El mecanismo de conacto se ha creado con éxito.</value>
@@ -5024,6 +5066,7 @@
     </property>
     <property key="PartyContactMechanismSuccessfullyUpdated">
         <value xml:lang="ar">تم تحديث وسيلة الإتصال بنجاح</value>
+        <value xml:lang="cs">Kontakt byl úspěšně aktualizován.</value>
         <value xml:lang="de">Kontaktmechanismus erfolgreich aktualisiert.</value>
         <value xml:lang="en">Contact Mechanism successfully updated.</value>
         <value xml:lang="es">El mecanismo de contacto se ha actualizado con éxito.</value>
@@ -5058,6 +5101,7 @@
     </property>
     <property key="PartyContactMobilePhoneNumber">
         <value xml:lang="ar">رقم الهاتف النقال</value>
+        <value xml:lang="cs">Mobilní telefonní číslo</value>
         <value xml:lang="de">Mobiltelefonnummer</value>
         <value xml:lang="en">Mobile Phone Number</value>
         <value xml:lang="es">Número de teléfono móvil</value>
@@ -5453,6 +5497,7 @@
     </property>
     <property key="PartyCreateNewContact">
         <value xml:lang="ar">خلق معلومات جديدة للصلة</value>
+        <value xml:lang="cs">Vytvořit nový kontakt</value>
         <value xml:lang="de">Neue Kontaktinformation erstellen</value>
         <value xml:lang="en">Create New Contact Information</value>
         <value xml:lang="es">Crear nuevo contacto</value>
@@ -6214,6 +6259,7 @@
     </property>
     <property key="PartyEditContactInformation">
         <value xml:lang="ar">تعديل معلومات الصلة</value>
+        <value xml:lang="cs">Upravit kontaktní informaci</value>
         <value xml:lang="de">Kontaktinformationen bearbeiten</value>
         <value xml:lang="en">Edit Contact Information</value>
         <value xml:lang="es">Editar información de contacto</value>
@@ -6409,6 +6455,7 @@
     </property>
     <property key="PartyEmailAddressSuccessfullyCreated">
         <value xml:lang="ar">تم خلق البريد الإلكتروني بنجاح</value>
+        <value xml:lang="cs">E-mailová adresa byla úspěšně vytvořena.</value>
         <value xml:lang="de">E-Mail Adresse erfolgreich erstellt.</value>
         <value xml:lang="en">Email Address successfully created.</value>
         <value xml:lang="es">La dirección de correo electrónico se ha creado con éxito.</value>
@@ -6426,6 +6473,7 @@
     </property>
     <property key="PartyEmailAddressSuccessfullyUpdated">
         <value xml:lang="ar">تم تحديث البريد الإلكتروني بنجاح</value>
+        <value xml:lang="cs">E-mailová adresa byla úspěšně aktualizována.</value>
         <value xml:lang="de">E-Mail Adresse erfolgreich aktualisiert.</value>
         <value xml:lang="en">Email Address successfully updated.</value>
         <value xml:lang="es">La dirección de correo electrónico se ha actualizado con éxito.</value>
@@ -7045,6 +7093,7 @@
     </property>
     <property key="PartyGroupName">
         <value xml:lang="ar">إسم المجموعة</value>
+        <value xml:lang="cs">Název organizace</value>
         <value xml:lang="de">Gruppenname</value>
         <value xml:lang="en">Group Name</value>
         <value xml:lang="es">Nombre del grupo</value>
@@ -7063,6 +7112,7 @@
     </property>
     <property key="PartyGroupNameMissing">
         <value xml:lang="ar">إسم المجموعة مفقود</value>
+        <value xml:lang="cs">Chybí název organizace</value>
         <value xml:lang="de">Gruppenname fehlt</value>
         <value xml:lang="en">Group Name is missing</value>
         <value xml:lang="es">Falta nombre del grupo</value>
@@ -7503,6 +7553,7 @@
     </property>
     <property key="PartyInvitationGroupAssocPartyIdTo">
         <value xml:lang="ar">إلى الطرف</value>
+        <value xml:lang="cs">Příjemce</value>
         <value xml:lang="de">Akteur ID an</value>
         <value xml:lang="en">Party Id To</value>
         <value xml:lang="es">Codigo Participante a</value>
@@ -7640,6 +7691,7 @@
     </property>
     <property key="PartyIpAddressSuccessfullyCreated">
         <value xml:lang="ar">تم خلق عنوان IP بنجاح</value>
+        <value xml:lang="cs">IP adresa byla úspěšně vytvořena.</value>
         <value xml:lang="de">Web IP-Adresse erfolgreich erstellt.</value>
         <value xml:lang="en">Web IP Address successfully created.</value>
         <value xml:lang="es">Dirección IP creada con éxito.</value>
@@ -7657,6 +7709,7 @@
     </property>
     <property key="PartyIpAddressSuccessfullyUpdated">
         <value xml:lang="ar">تم خلق عنوان IP بنجاح</value>
+        <value xml:lang="cs">IP adresa byla úspěšně aktualizována.</value>
         <value xml:lang="de">Web IP-Adresse erfolgreich aktualisiert.</value>
         <value xml:lang="en">Web IP Address successfully updated.</value>
         <value xml:lang="es">Direccion IP actualizada con éxito.</value>
@@ -8131,6 +8184,7 @@
     </property>
     <property key="PartyLookupPartyByName">
         <value xml:lang="ar">إيجاد طرف بالإسم</value>
+        <value xml:lang="cs">Vyhledat partnera podle jména</value>
         <value xml:lang="de">Akteur mit Name suchen</value>
         <value xml:lang="en">Lookup Party by Name</value>
         <value xml:lang="es">Buscar participante por nombre</value>
@@ -8316,6 +8370,7 @@
     </property>
     <property key="PartyMainRole">
         <value xml:lang="ar">الدور الرئيسي</value>
+        <value xml:lang="cs">Hlavní role</value>
         <value xml:lang="de">Haupt Rolle</value>
         <value xml:lang="en">Main Role</value>
         <value xml:lang="fr">Rôle principal</value>
@@ -9374,6 +9429,7 @@
     </property>
     <property key="PartyNoPartiesFound">
         <value xml:lang="ar">تعذر العثور على أطراف</value>
+        <value xml:lang="cs">Nenalezen žádný partner.</value>
         <value xml:lang="de">Keine Akteure gefunden.</value>
         <value xml:lang="en">No parties found.</value>
         <value xml:lang="es">No se encontraron participantes</value>
@@ -10082,6 +10138,7 @@
     </property>
     <property key="PartyPartyGroupInformation">
         <value xml:lang="ar">معلومات مجموعة الأطراف</value>
+        <value xml:lang="cs">Informace o skupině</value>
         <value xml:lang="de">Akteurgruppe Information</value>
         <value xml:lang="en">Party Group Information</value>
         <value xml:lang="es">Información del grupo</value>
@@ -10101,6 +10158,7 @@
     </property>
     <property key="PartyPartyGroupName">
         <value xml:lang="ar">إسم مجموعة الأطراف</value>
+        <value xml:lang="cs">Název organizace partnera</value>
         <value xml:lang="de">Akteurgruppe Namen</value>
         <value xml:lang="en">Party Group Name</value>
         <value xml:lang="es">Nombre del grupo</value>
@@ -10120,6 +10178,7 @@
     </property>
     <property key="PartyPartyGroupSuccessfullyCreated">
         <value xml:lang="ar">تم خلق مجموعة الأطراف بنجاح</value>
+        <value xml:lang="cs">Partner pro organizaci úspěšně vytvořen.</value>
         <value xml:lang="de">Akteurgruppe erfolgreich erstellt.</value>
         <value xml:lang="en">Party Group successfully created.</value>
         <value xml:lang="es">EL grupo se ha creado con exito.</value>
@@ -10137,6 +10196,7 @@
     </property>
     <property key="PartyPartyGroupSuccessfullyUpdated">
         <value xml:lang="ar">تم تحديث مجموعة الأطراف بنجاح</value>
+        <value xml:lang="cs">Partner pro organizaci byl aktualizován.</value>
         <value xml:lang="de">Akteurgruppe erfolgreich aktualisiert.</value>
         <value xml:lang="en">Party Group successfully updated.</value>
         <value xml:lang="es">El grupo se ha actualizado con éxito.</value>
@@ -10173,6 +10233,7 @@
     </property>
     <property key="PartyPartyId">
         <value xml:lang="ar">دليل الطرف</value>
+        <value xml:lang="cs">Id partnera</value>
         <value xml:lang="de">Akteur ID</value>
         <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Código de participante</value>
@@ -10761,6 +10822,7 @@
     </property>
     <property key="PartyPersonalTitle">
         <value xml:lang="ar">اللقب الشخصي</value>
+        <value xml:lang="cs">Titul</value>
         <value xml:lang="de">Titel</value>
         <value xml:lang="en">Personal Title</value>
         <value xml:lang="es">Título</value>
@@ -10819,6 +10881,7 @@
     </property>
     <property key="PartyPhoneNumberRequired">
         <value xml:lang="ar">مطلوب على الأقل إدخال رقم واحد أدناه</value>
+        <value xml:lang="cs">Je požadováné alespoň jedno telefonní číslo</value>
         <value xml:lang="de">Mindestens eine Telefonnummer wird im folgenden benötigt</value>
         <value xml:lang="en">At least one phone number is required below</value>
         <value xml:lang="es">Se requiere al menos un número de teléfono debajo</value>
@@ -10873,6 +10936,7 @@
     </property>
     <property key="PartyPostal">
         <value xml:lang="ar">بريدي</value>
+        <value xml:lang="cs">Poštovní</value>
         <value xml:lang="de">Post</value>
         <value xml:lang="en">Postal</value>
         <value xml:lang="es">Postal</value>
@@ -10891,6 +10955,7 @@
     </property>
     <property key="PartyPostalAddressSuccessfullyCreated">
         <value xml:lang="ar">تم خلق عنوان صندوق البريد</value>
+        <value xml:lang="cs">Poštovní adresa úspěšně vytvořena.</value>
         <value xml:lang="de">Postadresse erfolgreich erstellt.</value>
         <value xml:lang="en">Postal Address successfully created.</value>
         <value xml:lang="es">Direccion postal creada con éxito.</value>
@@ -10908,6 +10973,7 @@
     </property>
     <property key="PartyPostalAddressSuccessfullyUpdated">
         <value xml:lang="ar">تم تحديث عنوان صندوق البريد</value>
+        <value xml:lang="cs">Poštovní adresa úspěšně aktualizována.</value>
         <value xml:lang="de">Postadresse erfolgreich aktualisisert.</value>
         <value xml:lang="en">Postal Address successfully updated.</value>
         <value xml:lang="es">Dirección postal actualizada con éxito.</value>
@@ -10925,6 +10991,7 @@
     </property>
     <property key="PartyPostalCode">
         <value xml:lang="ar">الرمز البريدي</value>
+        <value xml:lang="cs">Poštovní směrovací číslo</value>
         <value xml:lang="de">Postleitzahl</value>
         <value xml:lang="en">Postal Code</value>
         <value xml:lang="es">Código postal</value>
@@ -10942,6 +11009,7 @@
     </property>
     <property key="PartyPostalCodeMissing">
         <value xml:lang="ar">الرمز البريدي مفقود</value>
+        <value xml:lang="cs">Chybí PSČ</value>
         <value xml:lang="de">Postleitzahl fehlt</value>
         <value xml:lang="en">Zip/Postal Code is missing</value>
         <value xml:lang="es">Falta código postal</value>
@@ -10996,6 +11064,7 @@
     </property>
     <property key="PartyPrice">
         <value xml:lang="ar">السعر</value>
+        <value xml:lang="cs">Cena</value>
         <value xml:lang="de">Preis</value>
         <value xml:lang="en">Price</value>
         <value xml:lang="es">Precio</value>
@@ -11014,6 +11083,7 @@
     </property>
     <property key="PartyPrimaryPhone">
         <value xml:lang="ar">رقم الهاتف الرئيسي</value>
+        <value xml:lang="cs">Primární telefoní číslo</value>
         <value xml:lang="de">Haupttelefonnummer</value>
         <value xml:lang="en">Primary Phone Number</value>
         <value xml:lang="es">Teléfono principal</value>
@@ -11032,6 +11102,7 @@
     </property>
     <property key="PartyProduct">
         <value xml:lang="ar">المنتج</value>
+        <value xml:lang="cs">Produkt</value>
         <value xml:lang="de">Produkt</value>
         <value xml:lang="en">Product</value>
         <value xml:lang="es">Producto</value>
@@ -11050,6 +11121,7 @@
     </property>
     <property key="PartyProductAdd">
         <value xml:lang="ar">إضافة منتج</value>
+        <value xml:lang="cs">Přidat produkt</value>
         <value xml:lang="de">Produkt hinzufügen</value>
         <value xml:lang="en">Product Add</value>
         <value xml:lang="hi-IN">उत्पाद जोड़ें</value>
@@ -11062,6 +11134,7 @@
     </property>
     <property key="PartyProductId">
         <value xml:lang="ar">دليل المنتج</value>
+        <value xml:lang="cs">ID produktu</value>
         <value xml:lang="de">Produkt ID</value>
         <value xml:lang="en">Product Id</value>
         <value xml:lang="es">Código de producto</value>
@@ -11152,6 +11225,7 @@
     </property>
     <property key="PartyPublic">
         <value xml:lang="ar">عامة</value>
+        <value xml:lang="cs">Veřejný</value>
         <value xml:lang="de">Öffentlich</value>
         <value xml:lang="en">Public</value>
         <value xml:lang="es">Público</value>
@@ -11247,6 +11321,7 @@
     </property>
     <property key="PartyQuantity">
         <value xml:lang="ar">الكمية</value>
+        <value xml:lang="cs">Množství</value>
         <value xml:lang="de">Menge</value>
         <value xml:lang="en">Quantity</value>
         <value xml:lang="es">Cantidad</value>
@@ -11334,6 +11409,7 @@
     </property>
     <property key="PartyRelatedCompany">
         <value xml:lang="ar">الشركة المرتبطة</value>
+        <value xml:lang="cs">Společnost</value>
         <value xml:lang="de">Zugehöriges Unternehmen</value>
         <value xml:lang="en">Related Company</value>
         <value xml:lang="fr">Société associée</value>
@@ -11347,6 +11423,7 @@
     </property>
     <property key="PartyRelationSecurity">
         <value xml:lang="ar">أمن علاقة الطرف</value>
+        <value xml:lang="cs">Vztah partnera k zabezpečení</value>
         <value xml:lang="de">Akteur Beziehung Sicherheit</value>
         <value xml:lang="en">Party Relationship Security</value>
         <value xml:lang="es">Relación de seguridad del participante</value>
@@ -11431,6 +11508,7 @@
     </property>
     <property key="PartyRelationships">
         <value xml:lang="ar">العلاقات</value>
+        <value xml:lang="cs">Vztahy</value>
         <value xml:lang="de">Beziehungen</value>
         <value xml:lang="en">Relationships</value>
         <value xml:lang="es">Relaciones</value>
@@ -11615,6 +11693,7 @@
     </property>
     <property key="PartyReply">
         <value xml:lang="ar">الرد</value>
+        <value xml:lang="cs">Odpovědět</value>
         <value xml:lang="de">Antworten</value>
         <value xml:lang="en">Reply</value>
         <value xml:lang="es">Responder</value>
@@ -11633,6 +11712,7 @@
     </property>
     <property key="PartyReplyAll">
         <value xml:lang="ar">الرد على الجميع</value>
+        <value xml:lang="cs">Odpovědět všem</value>
         <value xml:lang="de">Allen antworten</value>
         <value xml:lang="en">Reply All</value>
         <value xml:lang="fr">Répondre à tous</value>
@@ -11646,6 +11726,7 @@
     </property>
     <property key="PartyReplyPrefix">
         <value xml:lang="ar">رد:</value>
+        <value xml:lang="cs">RE:</value>
         <value xml:lang="de">AW:</value>
         <value xml:lang="en">RE:</value>
         <value xml:lang="es">RE:</value>
@@ -11702,6 +11783,7 @@
     </property>
     <property key="PartyRole">
         <value xml:lang="ar">دور</value>
+        <value xml:lang="cs">Role</value>
         <value xml:lang="de">Rolle</value>
         <value xml:lang="en">Role</value>
         <value xml:lang="es">Rol</value>
@@ -11720,6 +11802,7 @@
     </property>
     <property key="PartyRoleType">
         <value xml:lang="ar">نوع الدور</value>
+        <value xml:lang="cs">Typ role</value>
         <value xml:lang="de">Rolle Typ</value>
         <value xml:lang="en">Role Type</value>
         <value xml:lang="es">Tipo de rol</value>
@@ -11852,6 +11935,7 @@
     </property>
     <property key="PartyRoles">
         <value xml:lang="ar">الأدوار</value>
+        <value xml:lang="cs">Role</value>
         <value xml:lang="de">Rolle(n)</value>
         <value xml:lang="en">Role(s)</value>
         <value xml:lang="es">Rol(es)</value>
@@ -12008,6 +12092,7 @@
     </property>
     <property key="PartySelectContactType">
         <value xml:lang="ar">أختر نوع الصلة</value>
+        <value xml:lang="cs">Vyberte typ kontaktu</value>
         <value xml:lang="de">Kontakttyp auswählen</value>
         <value xml:lang="en">Select Contact Type</value>
         <value xml:lang="es">Seleccionar tipo de contacto</value>
@@ -12133,6 +12218,7 @@
     </property>
     <property key="PartyServer">
         <value xml:lang="ar">السيرفر</value>
+        <value xml:lang="cs">Server</value>
         <value xml:lang="de">Server</value>
         <value xml:lang="en">Server</value>
         <value xml:lang="es">Servidor</value>
@@ -12645,6 +12731,7 @@
     </property>
     <property key="PartyTaxId">
         <value xml:lang="ar">دليل الضريبة</value>
+        <value xml:lang="cs">DIČ</value>
         <value xml:lang="de">Steuer ID</value>
         <value xml:lang="en">Tax ID</value>
         <value xml:lang="en-IN">TIN</value>
@@ -12664,6 +12751,7 @@
     </property>
     <property key="PartyTaxIdentification">
         <value xml:lang="ar">تعريف وإستثناء الضرائب</value>
+        <value xml:lang="cs">DIČ and osvobození od daně</value>
         <value xml:lang="de">Steuernummer und Befreiung</value>
         <value xml:lang="en">Tax Identification and Exemption</value>
         <value xml:lang="es">Identificación tributaria y extempción</value>
@@ -12682,6 +12770,7 @@
     </property>
     <property key="PartyTaxIsExempt">
         <value xml:lang="ar">هو معفي؟</value>
+        <value xml:lang="cs">Je osvobozeno?</value>
         <value xml:lang="de">Befreit?</value>
         <value xml:lang="en">Is Exempt?</value>
         <value xml:lang="es">es extempto</value>
@@ -12700,6 +12789,7 @@
     </property>
     <property key="PartyTelecom">
         <value xml:lang="ar">الهاتف</value>
+        <value xml:lang="cs">Telefonický kontakt</value>
         <value xml:lang="de">Telekom</value>
         <value xml:lang="en">Telecom</value>
         <value xml:lang="es">Teléfono</value>
@@ -12718,6 +12808,7 @@
     </property>
     <property key="PartyTelecomNumberSuccessfullyCreated">
         <value xml:lang="ar">تم خلق رقم الهاتف بنجاح</value>
+        <value xml:lang="cs">Telefonní číslo úspěšně vloženo.</value>
         <value xml:lang="de">Telefonnummer erfolgreich erstellt.</value>
         <value xml:lang="en">Telecom Number successfully created.</value>
         <value xml:lang="es">Telefono creado con éxito.</value>
@@ -12735,6 +12826,7 @@
     </property>
     <property key="PartyTelecomNumberSuccessfullyUpdated">
         <value xml:lang="ar">تم تحديث رقم الهاتف بنجاح</value>
+        <value xml:lang="cs">Telefonní číslo bylo úspěšně aktualizováno.</value>
         <value xml:lang="de">Telefonnummer erfolgreich aktualisiert.</value>
         <value xml:lang="en">Telecom Number successfully updated.</value>
         <value xml:lang="es">Teléfono actualizado con éxito.</value>
@@ -12752,6 +12844,7 @@
     </property>
     <property key="PartyTerm">
         <value xml:lang="ar">بند</value>
+        <value xml:lang="cs">Podmínky</value>
         <value xml:lang="de">Bedingung</value>
         <value xml:lang="en">Term</value>
         <value xml:lang="es">Condición</value>
@@ -12771,6 +12864,7 @@
     </property>
     <property key="PartyTermType">
         <value xml:lang="ar">نوع البند</value>
+        <value xml:lang="cs">Druh podmínky</value>
         <value xml:lang="de">Bedingung Typ</value>
         <value xml:lang="en">Term Type</value>
         <value xml:lang="es">Tipo de condición</value>
@@ -12790,6 +12884,7 @@
     </property>
     <property key="PartyTermValue">
         <value xml:lang="ar">قيمة البند</value>
+        <value xml:lang="cs">Hodnota smluvní podmínky</value>
         <value xml:lang="de">Bedingung Wert</value>
         <value xml:lang="en">Term Value</value>
         <value xml:lang="es">Condiciones</value>
@@ -12809,6 +12904,7 @@
     </property>
     <property key="PartyTerms">
         <value xml:lang="ar">بنود</value>
+        <value xml:lang="cs">Podmínky</value>
         <value xml:lang="de">Bedingungen</value>
         <value xml:lang="en">Terms</value>
         <value xml:lang="es">Condiciones</value>
@@ -12848,6 +12944,7 @@
     </property>
     <property key="PartyTime">
         <value xml:lang="ar">وقت</value>
+        <value xml:lang="cs">Čas</value>
         <value xml:lang="de">Zeit</value>
         <value xml:lang="en">Time</value>
         <value xml:lang="es">Tiempo</value>
@@ -12867,6 +12964,7 @@
     </property>
     <property key="PartyToBePaidTo">
         <value xml:lang="ar">يتم الدفع ل:</value>
+        <value xml:lang="cs">Komu má být vyplaceno:</value>
         <value xml:lang="de">Zahlbar an:</value>
         <value xml:lang="en">To be paid to:</value>
         <value xml:lang="fr">A payer à :</value>
@@ -12880,6 +12978,7 @@
     </property>
     <property key="PartyToBeReceivedFrom">
         <value xml:lang="ar">يتم الإستلام من:</value>
+        <value xml:lang="cs">Kdo bude plátcem:</value>
         <value xml:lang="de">Empfangen von:</value>
         <value xml:lang="en">To be received from:</value>
         <value xml:lang="fr">A recevoir de :</value>
@@ -12893,6 +12992,7 @@
     </property>
     <property key="PartyToCart">
         <value xml:lang="ar">إلى السلة</value>
+        <value xml:lang="cs">Do košíku</value>
         <value xml:lang="de">Zum Warenkorb</value>
         <value xml:lang="en">To Cart</value>
         <value xml:lang="es">Al carro</value>
@@ -12981,6 +13081,7 @@
     </property>
     <property key="PartyTotal">
         <value xml:lang="ar">الإجمالي</value>
+        <value xml:lang="cs">Celkem</value>
         <value xml:lang="de">Gesamt</value>
         <value xml:lang="en">Total</value>
         <value xml:lang="es">Total</value>
@@ -13037,6 +13138,7 @@
     </property>
     <property key="PartyType">
         <value xml:lang="ar">النوع</value>
+        <value xml:lang="cs">Typ</value>
         <value xml:lang="de">Typ</value>
         <value xml:lang="en">Type</value>
         <value xml:lang="es">Tipo</value>
@@ -13056,6 +13158,7 @@
     </property>
     <property key="PartyTypeId">
         <value xml:lang="ar">دليل النوع</value>
+        <value xml:lang="cs">Typ partnera</value>
         <value xml:lang="de">Akteur Typ ID</value>
         <value xml:lang="en">Party Type Id</value>
         <value xml:lang="es">Código Tipo de participante</value>
@@ -13084,12 +13187,14 @@
     </property>
     <property key="PartyURI">
         <value xml:lang="ar">الرابط</value>
+        <value xml:lang="cs">URI</value>
         <value xml:lang="en">URI</value>
         <value xml:lang="hi-IN">यूआरआइ(URI)</value>
         <value xml:lang="zh">URI</value>
     </property>
     <property key="PartyUnknown">
         <value xml:lang="ar">مجهول</value>
+        <value xml:lang="cs">Neznámý</value>
         <value xml:lang="de">Unbekannt</value>
         <value xml:lang="en">Unknown</value>
         <value xml:lang="es">Desconocido</value>
@@ -13236,6 +13341,7 @@
     </property>
     <property key="PartyUserCreated">
         <value xml:lang="ar">تم خلق المستخدم</value>
+        <value xml:lang="cs">Uživatel vytvořen</value>
         <value xml:lang="de">Benutzer erstellt</value>
         <value xml:lang="en">User Created</value>
         <value xml:lang="es">Usuario creado</value>
@@ -13255,6 +13361,7 @@
     </property>
     <property key="PartyUserLogin">
         <value xml:lang="ar">المستخدم</value>
+        <value xml:lang="cs">Uživatelské jméno</value>
         <value xml:lang="de">Benutzeranmeldung</value>
         <value xml:lang="en">User Login</value>
         <value xml:lang="es">Usuario</value>
@@ -13294,6 +13401,7 @@
     </property>
     <property key="PartyUserLoginsForSecurityGroup">
         <value xml:lang="ar">المستخدمين لمجموعة الأمن ذات الدليل</value>
+        <value xml:lang="cs">Uživatelská jména pro skupinu s ID</value>
         <value xml:lang="de">Benutzeranmeldungen für Sicherheitsgruppe mit der ID</value>
         <value xml:lang="en">UserLogins for SecurityGroup with ID</value>
         <value xml:lang="es">Usuarios para el grupo de seguridad con código</value>
@@ -13313,6 +13421,7 @@
     </property>
     <property key="PartyUserName">
         <value xml:lang="ar">إسم المستخدم/المستخدمين</value>
+        <value xml:lang="cs">Uživatelské jméno/jména</value>
         <value xml:lang="de">Benutzername(n)</value>
         <value xml:lang="en">User Name(s)</value>
         <value xml:lang="es">Usuario(s)</value>
@@ -13332,6 +13441,7 @@
     </property>
     <property key="PartyUserNameInUse">
         <value xml:lang="ar">إسم المستخدم مأخوذ, يرجى إختيار إسم آخر</value>
+        <value xml:lang="cs">Uživatelské jméno již existuje, prosím zvolte jiné.</value>
         <value xml:lang="de">Benutzername vergeben, bitte anderen auswählen.</value>
         <value xml:lang="en">Username in use, please choose another.</value>
         <value xml:lang="fr">Identifiant de connexion déjà utilisé, choisissez en un autre SVP.</value>
@@ -13401,6 +13511,7 @@
     </property>
     <property key="PartyVendor">
         <value xml:lang="ar">المورد</value>
+        <value xml:lang="cs">Poskytovatel</value>
         <value xml:lang="de">Verkäufer</value>
         <value xml:lang="en">Vendor</value>
         <value xml:lang="es">Proveedor</value>
@@ -13463,6 +13574,7 @@
     </property>
     <property key="PartyViewCommunicationEvent">
         <value xml:lang="ar">إستعراض الإتصال</value>
+        <value xml:lang="cs">Zobrazit komunikační událost</value>
         <value xml:lang="de">Kommunikationsereignis anzeigen</value>
         <value xml:lang="en">View Communication Event</value>
         <value xml:lang="es">Ver evento de comunicación</value>
@@ -13481,6 +13593,7 @@
     </property>
     <property key="PartyViewImage">
         <value xml:lang="ar">مشاهدة الصورة</value>
+        <value xml:lang="cs">Zobrazit obrázek</value>
         <value xml:lang="de">Bild anzeigen</value>
         <value xml:lang="en">View Image</value>
         <value xml:lang="es">Ver imagen</value>
@@ -13499,6 +13612,7 @@
     </property>
     <property key="PartyViewPostalAddressBoundaryPermissionError">
         <value xml:lang="ar">خطأ أمني: لتشغيل خدمة getPostalAddressBoundary يجب أن يكون لديك صلاحية PARTY_VIEW أو PARTY_ADMIN</value>
+        <value xml:lang="cs">Chyba zabezpečení: pro spuštění getPostalAddressBoundary musíte mít oprávnění PARTY_VIEW nebo PARTY_ADMIN</value>
         <value xml:lang="de">Sicherheitsfehler: um getPostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_VIEW oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run getPostalAddressBoundary you must have the PARTY_VIEW or PARTY_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar esta funcionalidad necesita los permisos PARTY_VIEW o PARTY_ADMIN</value>
@@ -13517,6 +13631,7 @@
     </property>
     <property key="PartyViewSegmentRoles">
         <value xml:lang="ar">إستعراض أدوار شريحة الطرف</value>
+        <value xml:lang="cs">Zobrazení segmentu rolí partnera</value>
         <value xml:lang="de">Akteur Segment Rolle anzeigen</value>
         <value xml:lang="en">View Party Segment Roles</value>
         <value xml:lang="es">Ver roles de segmento</value>
@@ -13535,6 +13650,7 @@
     </property>
     <property key="PartyVisitDetail">
         <value xml:lang="ar">زيارة التفاصيل</value>
+        <value xml:lang="cs">Detail návštěvy</value>
         <value xml:lang="de">Webseite Besuchsdetails</value>
         <value xml:lang="en">Visit Detail</value>
         <value xml:lang="es">Detalle de visita</value>
@@ -13553,6 +13669,7 @@
     </property>
     <property key="PartyVisitIDSessionID">
         <value xml:lang="ar">دليل الزيارة/الجلسة</value>
+        <value xml:lang="cs">ID návštěvy/ SessionID</value>
         <value xml:lang="de">Besuchs ID / Session ID</value>
         <value xml:lang="en">VisitID / SessionID</value>
         <value xml:lang="es">Código de visita / código de sesión</value>
@@ -13571,6 +13688,7 @@
     </property>
     <property key="PartyVisitId">
         <value xml:lang="ar">دليل الزيارة</value>
+        <value xml:lang="cs">Id návštěvy</value>
         <value xml:lang="de">Besuchs Id</value>
         <value xml:lang="en">Visit Id</value>
         <value xml:lang="es">Código de visita</value>
@@ -13589,6 +13707,7 @@
     </property>
     <property key="PartyVisitListing">
         <value xml:lang="ar">سرد الزيارة</value>
+        <value xml:lang="cs">Seznam návštěv</value>
         <value xml:lang="de">Liste der Webseitenbesuche</value>
         <value xml:lang="en">Visit Listing</value>
         <value xml:lang="es">Lista de visitas</value>
@@ -13607,6 +13726,7 @@
     </property>
     <property key="PartyVisitorId">
         <value xml:lang="ar">دليل الزائر</value>
+        <value xml:lang="cs">ID návštěvníka</value>
         <value xml:lang="de">Besucher ID</value>
         <value xml:lang="en">Visitor ID</value>
         <value xml:lang="es">Código Visitante</value>
@@ -13625,6 +13745,7 @@
     </property>
     <property key="PartyVisits">
         <value xml:lang="ar">الزيارات</value>
+        <value xml:lang="cs">Návštěvy</value>
         <value xml:lang="de">Webseiten Besuche</value>
         <value xml:lang="en">Visits</value>
         <value xml:lang="es">Visitas</value>
@@ -13644,6 +13765,7 @@
     </property>
     <property key="PartyWebAddressSuccessfullyCreated">
         <value xml:lang="ar">تم خلق عنوان الويب بنجاح</value>
+        <value xml:lang="cs">Webová adresa úspěšně vytvořena.</value>
         <value xml:lang="de">Web Adresse erfolgreich erstellt.</value>
         <value xml:lang="en">Web Address Successfully created.</value>
         <value xml:lang="es">Direccion web creada con éxito.</value>
@@ -13661,6 +13783,7 @@
     </property>
     <property key="PartyWebAddressSuccessfullyUpdated">
         <value xml:lang="ar">تم تحديث عنوان الويب بنجاح</value>
+        <value xml:lang="cs">Webová adresa úspěšně aktualizována.</value>
         <value xml:lang="de">Web Adresse erfolgreich aktualisiert.</value>
         <value xml:lang="en">Web Address successfully updated.</value>
         <value xml:lang="es">Dirección web actualizada con éxito.</value>
@@ -13678,6 +13801,7 @@
     </property>
     <property key="PartyWebApp">
         <value xml:lang="ar">تطبيق الويب</value>
+        <value xml:lang="cs">Webová aplikace</value>
         <value xml:lang="de">Webanwendung</value>
         <value xml:lang="en">WebApp</value>
         <value xml:lang="es">Aplicación web</value>
@@ -13717,6 +13841,7 @@
     </property>
     <property key="PartyWeightNotValidNumber">
         <value xml:lang="ar">الوزن ليس رقم صالح</value>
+        <value xml:lang="cs">Váha není platné číslo</value>
         <value xml:lang="de">Gewicht ist keine gültige Zahl</value>
         <value xml:lang="en">Weight is not a valid number</value>
         <value xml:lang="es">El peso no es un número válido</value>
@@ -13735,6 +13860,7 @@
     </property>
     <property key="PartyYearsWork">
         <value xml:lang="ar">سنوات العمل</value>
+        <value xml:lang="cs">Odpracovaných let</value>
         <value xml:lang="de">Arbeitsjahre</value>
         <value xml:lang="en">Years Work</value>
         <value xml:lang="es">Años de experiencia</value>
@@ -13754,6 +13880,7 @@
     </property>
     <property key="PartyYouHave">
         <value xml:lang="ar">لديك</value>
+        <value xml:lang="cs">Máte</value>
         <value xml:lang="de">Sie haben</value>
         <value xml:lang="en">You have</value>
         <value xml:lang="es">Usted tiene</value>
