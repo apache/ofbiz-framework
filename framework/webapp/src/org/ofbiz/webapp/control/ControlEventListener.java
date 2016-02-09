@@ -63,7 +63,7 @@ public class ControlEventListener implements HttpSessionListener {
             session.setAttribute("org.ofbiz.log.session.stats", "Y");
         }
 
-        Debug.logInfo("Creating session: " + session.getId(), module);
+        Debug.logInfo("Creating session: " + ControlActivationEventListener.showSessionId(session), module);
     }
 
     public void sessionDestroyed(HttpSessionEvent event) {
@@ -84,7 +84,7 @@ public class ControlEventListener implements HttpSessionListener {
                     visit.store();
                 }
             } else {
-                Debug.logWarning("Could not find visit value object in session [" + session.getId() + "] that is being destroyed", module);
+                Debug.logWarning("Could not find visit value object in session [" + ControlActivationEventListener.showSessionId(session) + "] that is being destroyed", module);
             }
 
             // Store the UserLoginSession
@@ -105,7 +105,7 @@ public class ControlEventListener implements HttpSessionListener {
             }
 
             countDestroySession();
-            Debug.logInfo("Destroying session: " + session.getId(), module);
+            Debug.logInfo("Destroying session: " + ControlActivationEventListener.showSessionId(session), module);
             this.logStats(session, visit);
         } catch (GenericEntityException e) {
             try {
@@ -129,7 +129,7 @@ public class ControlEventListener implements HttpSessionListener {
     public void logStats(HttpSession session, GenericValue visit) {
         if (Debug.verboseOn() || session.getAttribute("org.ofbiz.log.session.stats") != null) {
             Debug.logInfo("<===================================================================>", module);
-            Debug.logInfo("Session ID     : " + session.getId(), module);
+            Debug.logInfo("Session ID     : " + ControlActivationEventListener.showSessionId(session), module);
             Debug.logInfo("Created Time   : " + session.getCreationTime(), module);
             Debug.logInfo("Last Access    : " + session.getLastAccessedTime(), module);
             Debug.logInfo("Max Inactive   : " + session.getMaxInactiveInterval(), module);
