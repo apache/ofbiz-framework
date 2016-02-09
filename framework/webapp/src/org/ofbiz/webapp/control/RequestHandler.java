@@ -1303,6 +1303,6 @@ public class RequestHandler {
         if (showSessionIdInLog) {
             return " sessionId=" + UtilHttp.getSessionId(request); 
         }
-        return " hidden sessionId by default.";
+        return " Hidden sessionId by default.";
     }
 }
