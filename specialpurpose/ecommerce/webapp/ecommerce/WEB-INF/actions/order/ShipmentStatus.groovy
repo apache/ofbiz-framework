@@ -17,6 +17,8 @@
  * under the License.
  */
 
+@BaseScript(org.ofbiz.service.engine.GroovyBaseScript)
+import groovy.transform.BaseScript
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.*;
