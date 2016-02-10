@@ -48,7 +48,7 @@ under the License.
  <patternset id="src.exc.set"/>
 
  <path id="groovy.class.path">
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/groovy-all-2.2.1.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/groovy-all-2.4.5.jar"/>
  </path>
  <path id="rhino.class.path">
   <pathelement location="${ofbiz.home.dir}/extension/rhino/lib/js-1.7.R1.jar"/>

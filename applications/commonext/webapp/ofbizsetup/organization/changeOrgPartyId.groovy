@@ -17,6 +17,8 @@
  * under the License.
  */
 
+@BaseScript(org.ofbiz.service.engine.GroovyBaseScript)
+import groovy.transform.BaseScript
 import org.ofbiz.base.util.*;
 
 //partyAcctgPrefAndGroupList
