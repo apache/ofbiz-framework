@@ -57,6 +57,16 @@ public class GroovyUtil {
             groovyClassLoader = new GroovyClassLoader(GroovyUtil.class.getClassLoader(), conf);
         }
         groovyScriptClassLoader = groovyClassLoader;
+        /*
+         *  With the implementation of @BaseScript annotations (introduced with Groovy 2.3.0) something was broken
+         *  in the CompilerConfiguration.setScriptBaseClass method and an error is thrown when our scripts are executed;
+         *  the workaround is to execute at startup a script containing the @BaseScript annotation.
+         */
+        try {
+            GroovyUtil.runScriptAtLocation("component://base/config/GroovyInit.groovy", null, null);
+        } catch(Exception e) {
+            Debug.logWarning("The following error occurred during the initialization of Groovy: " + e.getMessage(), module);
+        }
     }
 
     /**
