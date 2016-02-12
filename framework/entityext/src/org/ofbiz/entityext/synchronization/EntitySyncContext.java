@@ -894,7 +894,7 @@ public class EntitySyncContext {
                 EntityListIterator eli = EntityQuery.use(delegator)
                                                     .select(fieldsToSelect)
                                                     .from(modelEntity.getEntityName())
-                                                    .where(ModelEntity.STAMP_TX_FIELD, EntityOperator.NOT_EQUAL, null)
+                                                    .where(EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.NOT_EQUAL, null))
                                                     .orderBy(ModelEntity.STAMP_TX_FIELD)
                                                     .queryIterator();
                 GenericValue nextValue = eli.next();
