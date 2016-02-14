@@ -198,6 +198,7 @@
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/noggit-0.6.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/org.restlet-2.3.0.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/org.restlet.ext.servlet-2.3.0.jar"/>
-
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/httpmime-4.4.1.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-misc-5.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
