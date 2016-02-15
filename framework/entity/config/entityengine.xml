@@ -484,8 +484,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="jdbc/localpostgres" isolation-level="ReadCommitted"/> --> <!-- JRun4 Style JNDI name -->
         <!-- <tyrex-dataSource dataSource-name="localpostgres" isolation-level="ReadCommitted"/> -->
     </datasource>
-
-    
     <datasource name="localpostolap"
             helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
             schema-name="public"
@@ -522,7 +520,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="jdbc/localpostgres" isolation-level="ReadCommitted"/> --> <!-- JRun4 Style JNDI name -->
         <!-- <tyrex-dataSource dataSource-name="localpostgres" isolation-level="ReadCommitted"/> -->
     </datasource>
-    
     <datasource name="localposttenant"
             helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
             schema-name="public"
@@ -785,5 +782,38 @@ access. For a detailed description see the core/docs/entityconfig.html file.
                 pool-minsize="2"
                 pool-maxsize="250"
                 time-between-eviction-runs-millis="600000"/>
+    </datasource>
+    
+    <!-- According to http://markmail.org/message/s75sf6zhtizzkqbv Since version V6R1 (AS/400, db2) there is no need for an own fieldtype.xml - just use the derby-fieldtypes like this: -->
+    <!-- Beware use-indices-unique="false" is needed because of Derby bug with null values in a unique index, not sure it's needed with DB2 -->
+    <datasource name="DB2"
+            helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
+            schema-name="OFBIZ"
+            field-type-name="derby"
+            check-on-start="true"
+            add-missing-on-start="true"
+            use-pk-constraint-names="false"
+            use-indices-unique="false"
+            alias-view-columns="false"
+            use-order-by-nulls="true"
+            offset-style="fetch">
+        <read-data reader-name="tenant"/>
+        <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
+        <read-data reader-name="demo"/>
+        <read-data reader-name="ext"/>
+        <read-data reader-name="ext-test"/>
+        <read-data reader-name="ext-demo"/>
+            
+            <!--   There is an open source version of the jdbc driver at sourceforge: http://sourceforge.net/projects/jt400/ -->
+        <inline-jdbc
+            jdbc-driver="com.ibm.as400.access.AS400JDBCDriver"
+            jdbc-uri="jdbc:as400:192.168.1.10;prompt=false;libraries=ofbiz;lazyclose=true;translate binary=true"
+            jdbc-username="ofbiz"
+            jdbc-password="ofbiz"
+            isolation-level="ReadCommitted"
+            pool-minsize="2"
+            pool-maxsize="250"
+            time-between-eviction-runs-millis="600000"/>
     </datasource>
 </entity-config>
