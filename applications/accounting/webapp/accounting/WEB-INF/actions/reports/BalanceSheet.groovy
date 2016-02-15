@@ -238,7 +238,7 @@ transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
 List longtermAssetAndExprs = mainAndExprs as LinkedList;
 longtermAssetAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, longtermAssetAccountClassIds));
-transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").orderBy("glAccountId").queryList();
+transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(longtermAssetAndExprs).orderBy("glAccountId").queryList();
 transactionTotalsMap = [:];
 transactionTotalsMap.putAll(longtermAssetOpeningBalances);
 transactionTotals.each { transactionTotal ->
