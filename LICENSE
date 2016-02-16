@@ -116,6 +116,7 @@ applications/product/lib/dozer-4.2.1.jar
 applications/product/lib/watermarker-0.0.4.jar
 framework/images/webapp/images/date/timezones*
 framework/resources/fonts/NotoSans/*
+tools/security/notsoserial/notsoserial-1.0-SNAPSHOT.jar
 =========================================================================
                                  Apache License
                            Version 2.0, January 2004
