@@ -84,7 +84,7 @@ public final class SolrUtil {
         // empty constructor
     }
 
-	public static String makeSolrWebappUrl() {
+    public static String makeSolrWebappUrl() {
         final String solrWebappProtocol = UtilProperties.getPropertyValue(solrConfigName, "solr.webapp.protocol");
         final String solrWebappDomainName = UtilProperties.getPropertyValue(solrConfigName, "solr.webapp.domainName");
         final String solrWebappPath = UtilProperties.getPropertyValue(solrConfigName, "solr.webapp.path");
@@ -101,33 +101,33 @@ public final class SolrUtil {
     }
     
     private static Integer getSocketTimeout() {
-		if (UtilValidate.isNotEmpty(socketTimeoutString)) {
-			try {
-				return Integer.parseInt(socketTimeoutString);
+        if (UtilValidate.isNotEmpty(socketTimeoutString)) {
+            try {
+                return Integer.parseInt(socketTimeoutString);
             } catch (Exception e) {
                 return null;
             }
-		}
-		return null;
-	}
+        }
+        return null;
+    }
 
-	private static Integer getConnectionTimeout() {
-		if (UtilValidate.isNotEmpty(connectionTimeoutString)) {
-			try {
-				return Integer.parseInt(connectionTimeoutString);
+    private static Integer getConnectionTimeout() {
+        if (UtilValidate.isNotEmpty(connectionTimeoutString)) {
+            try {
+                return Integer.parseInt(connectionTimeoutString);
             } catch (Exception e) {
                 return null;
             }
-		}
-		return null;
-	}
+        }
+        return null;
+    }
 
-	private static boolean getTrustSelfSignedCert() {
-		if ("true".equals(trustSelfSignedCertString)) {
-			return true;
-		}
-		return false;
-	}
+    private static boolean getTrustSelfSignedCert() {
+        if ("true".equals(trustSelfSignedCertString)) {
+            return true;
+        }
+        return false;
+    }
 
     public static boolean isSolrEcaEnabled() {
         Boolean ecaEnabled = null;
@@ -327,30 +327,30 @@ public final class SolrUtil {
         
         CloseableHttpClient httpClient = null;
         if (trustSelfSignedCert) {
-        	httpClient = getAllowAllHttpClient();
+            httpClient = getAllowAllHttpClient();
         } else {
-        	httpClient = HttpClients.createDefault();
+            httpClient = HttpClients.createDefault();
         }
         
         RequestConfig requestConfig = null;
         if (UtilValidate.isNotEmpty(socketTimeout) && UtilValidate.isNotEmpty(connectionTimeout)) {
-        	requestConfig = RequestConfig.custom()
+            requestConfig = RequestConfig.custom()
                   .setSocketTimeout(socketTimeout)
                   .setConnectTimeout(connectionTimeout)
                   .setRedirectsEnabled(true)
                   .build();
         } else if (UtilValidate.isNotEmpty(socketTimeout)) {
-        	requestConfig = RequestConfig.custom()
+            requestConfig = RequestConfig.custom()
                     .setSocketTimeout(socketTimeout)
                     .setRedirectsEnabled(true)
                     .build();
         } else if (UtilValidate.isNotEmpty(connectionTimeout)) {
-        	requestConfig = RequestConfig.custom()
+            requestConfig = RequestConfig.custom()
                     .setConnectTimeout(connectionTimeout)
                     .setRedirectsEnabled(true)
                     .build();
         } else {
-        	requestConfig = RequestConfig.custom()
+            requestConfig = RequestConfig.custom()
                     .setRedirectsEnabled(true)
                     .build();
         }
