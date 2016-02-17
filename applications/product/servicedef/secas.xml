@@ -96,9 +96,17 @@ under the License.
         <condition field-name="roleTypeId" operator="equals" value="_NA_"/>
         <action service="ensureNaPartyRole" mode="sync"/>
     </eca>
+    <eca service="addPartyToFacility" event="invoke">
+        <condition field-name="roleTypeId" operator="not-equals" value="_NA_"/>
+        <action service="ensurePartyRole" mode="sync"/>
+    </eca>
     <eca service="addPartyToFacilityGroup" event="invoke">
         <condition field-name="roleTypeId" operator="equals" value="_NA_"/>
         <action service="ensureNaPartyRole" mode="sync"/>
+    </eca>
+    <eca service="addPartyToFacilityGroup" event="invoke">
+        <condition field-name="roleTypeId" operator="not-equals" value="_NA_"/>
+        <action service="ensurePartyRole" mode="sync"/>
     </eca>
     <eca service="addProdCatalogToParty" event="invoke">
         <condition field-name="roleTypeId" operator="equals" value="_NA_"/>
