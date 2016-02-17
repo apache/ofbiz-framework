@@ -45,7 +45,7 @@
     that avoids logging every request
 -->
 
-<schema name="products" version="1.5">
+<schema name="example" version="1.5">
   <!-- attribute "name" is the name of this schema and is only used for display purposes.
        version="x.y" is Solr's version number for the schema syntax and 
        semantics.  It should not normally be changed by applications.
@@ -127,27 +127,20 @@
      in a compatible way. Any analysis applied to the <uniqueKey> should _not_ produce multiple
      tokens
    -->   
-   <!-- <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" /> -->
+   <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" /> 
         
-   <field name="productId" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-
-   <field name="sku" type="text_general" indexed="true" stored="true"/>
-   <field name="internalName" type="text_general" indexed="true" stored="true" multiValued="true"/>
-   <field name="alphaNameSort" type="alphaOnlySort" indexed="true" stored="false"/>
+   <field name="sku" type="text_en_splitting_tight" indexed="true" stored="true" omitNorms="true"/>
+   <field name="name" type="text_general" indexed="true" stored="true"/>
    <field name="manu" type="text_general" indexed="true" stored="true" omitNorms="true"/>
    <field name="cat" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="catalog" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="features" type="text_general" indexed="true" stored="true" multiValued="true"/>
-   <field name="attributes" type="text_general" indexed="true" stored="true" multiValued="true"/>
+   <field name="includes" type="text_general" indexed="true" stored="true" termVectors="true" termPositions="true" termOffsets="true" />
+
    <field name="weight" type="float" indexed="true" stored="true"/>
-   <field name="listPrice"  type="float" indexed="true" stored="true"/>
-   <field name="defaultPrice"  type="float" indexed="true" stored="true"/>
+   <field name="price"  type="float" indexed="true" stored="true"/>
    <field name="popularity" type="int" indexed="true" stored="true" />
-   <field name="inStock" type="int" indexed="true" stored="true" />
-   <field name="isVirtual" type="boolean" indexed="true" stored="true" />
-   <field name="isDigital" type="boolean" indexed="true" stored="true" />
-   <field name="isPhysical" type="boolean" indexed="true" stored="true" />
-  
+   <field name="inStock" type="boolean" indexed="true" stored="true" />
+
    <field name="store" type="location" indexed="true" stored="true"/>
 
    <!-- Common metadata fields, named specifically to match up with
@@ -159,27 +152,18 @@
        "resourcename": From SolrCell request param resource.name
    -->
    <field name="title" type="text_general" indexed="true" stored="true" multiValued="true"/>
-   <field name="title_i18n_en" type="text_general" indexed="true" stored="true" multiValued="true"/>
-   <field name="title_i18n_de" type="text_general" indexed="true" stored="true" multiValued="true"/>
-   <field name="title_i18n_fr" type="text_general" indexed="true" stored="true" multiValued="true"/>
    <field name="subject" type="text_general" indexed="true" stored="true"/>
    <field name="description" type="text_general" indexed="true" stored="true"/>
-   <field name="description_i18n_en" type="text_general" indexed="true" stored="true"/>
-   <field name="description_i18n_de" type="text_general" indexed="true" stored="true"/>
-   <field name="description_i18n_fr" type="text_general" indexed="true" stored="true"/>
-   <field name="longdescription" type="text_general" indexed="true" stored="true"/>
-   <field name="longdescription_i18n_en" type="text_general" indexed="true" stored="true"/>
-   <field name="longdescription_i18n_de" type="text_general" indexed="true" stored="true"/>
-   <field name="longdescription_i18n_fr" type="text_general" indexed="true" stored="true"/>
    <field name="comments" type="text_general" indexed="true" stored="true"/>
    <field name="author" type="text_general" indexed="true" stored="true"/>
    <field name="keywords" type="text_general" indexed="true" stored="true"/>
+   <field name="category" type="text_general" indexed="true" stored="true"/>
+   <field name="resourcename" type="text_general" indexed="true" stored="true"/>
+   <field name="url" type="text_general" indexed="true" stored="true"/>
    <field name="content_type" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="last_modified" type="date" indexed="true" stored="true"/>
    <field name="links" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="smallImage" type="text_general" indexed="true" stored="true"/>
-   <field name="mediumImage" type="text_general" indexed="true" stored="true"/>
-   <field name="largeImage" type="text_general" indexed="true" stored="true"/>
+   <field name="_src_" type="string" indexed="false" stored="true"/>
 
    <!-- Main body of document extracted by SolrCell.
         NOTE: This field is not indexed by default, since it is also copied to "text"
@@ -271,7 +255,7 @@
  <!-- Field to use to determine and enforce document uniqueness. 
       Unless this field is marked with required="false", it will be a required field
    -->
- <uniqueKey>productId</uniqueKey>
+ <uniqueKey>id</uniqueKey>
 
  <!-- DEPRECATED: The defaultSearchField is consulted by various query parsers when
   parsing a query string that isn't explicit about the field.  Machine (non-user)
@@ -293,15 +277,28 @@
         or to add multiple fields to the same field for easier/faster searching.  -->
 
    <copyField source="cat" dest="text"/>
-   <copyField source="internalName" dest="text"/>
+   <copyField source="name" dest="text"/>
    <copyField source="manu" dest="text"/>
    <copyField source="features" dest="text"/>
-   <copyField source="attributes" dest="text"/>
-   <copyField source="*_i18n_en"  dest="text" />
-   <copyField source="*_i18n_de"  dest="text" />
-   <copyField source="*_i18n_fr"  dest="text" />
+   <copyField source="includes" dest="text"/>
    <copyField source="manu" dest="manu_exact"/>
 
+   <!-- Copy the price into a currency enabled field (default USD) -->
+   <copyField source="price" dest="price_c"/>
+
+   <!-- Text fields from SolrCell to search by default in our catch-all field -->
+   <copyField source="title" dest="text"/>
+   <copyField source="author" dest="text"/>
+   <copyField source="description" dest="text"/>
+   <copyField source="keywords" dest="text"/>
+   <copyField source="content" dest="text"/>
+   <copyField source="content_type" dest="text"/>
+   <copyField source="resourcename" dest="text"/>
+   <copyField source="url" dest="text"/>
+
+   <!-- Create a string version of author for faceting -->
+   <copyField source="author" dest="author_s"/>
+	
    <!-- Above, multiple source fields are copied to the [text] field. 
       Another way to map multiple source fields to the same 
       destination field is to use the dynamic field syntax. 

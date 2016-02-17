@@ -62,6 +62,7 @@ public abstract class SolrProductSearch {
 
     public static final String module = SolrProductSearch.class.getName();
     
+
     /**
      * Adds product to solr, with product denoted by productId field in instance attribute
      * - intended for use with ECAs/SECAs.
@@ -72,7 +73,6 @@ public abstract class SolrProductSearch {
         Delegator delegator = dctx.getDelegator();
         GenericValue productInstance = (GenericValue) context.get("instance");
         String productId = (String) productInstance.get("productId");
-        String solrIndexName = (String) context.get("indexName");
         
         if (SolrUtil.isSolrEcaEnabled()) {
             // Debug.logVerbose("Solr: addToSolr: Running indexing for productId '" + productId + "'", module);
@@ -80,7 +80,6 @@ public abstract class SolrProductSearch {
                 GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
                 Map<String, Object> dispatchContext = ProductUtil.getProductContent(product, dctx, context);
                 dispatchContext.put("treatConnectErrorNonFatal", SolrUtil.isEcaTreatConnectErrorNonFatal());
-                dispatchContext.put("indexName", solrIndexName);
                 Map<String, Object> runResult = dispatcher.runSync("addToSolrIndex", dispatchContext);
                 String runMsg = ServiceUtil.getErrorMessage(runResult);
                 if (UtilValidate.isEmpty(runMsg)) {
@@ -115,14 +114,13 @@ public abstract class SolrProductSearch {
         HttpSolrClient client = null;
         Map<String, Object> result;
         String productId = (String) context.get("productId");
-        String solrIndexName = (String) context.get("indexName");
         // connectErrorNonFatal is a necessary option because in some cases it may be considered normal that solr server is unavailable;
         // don't want to return error and abort transactions in these cases.
         Boolean treatConnectErrorNonFatal = (Boolean) context.get("treatConnectErrorNonFatal");
         try {
             Debug.logInfo("Solr: Generating and indexing document for productId '" + productId + "'", module);
             
-            client = SolrUtil.getInstance().getHttpSolrClient(solrIndexName);
+            client = new HttpSolrClient(SolrUtil.solrUrl);
             //Debug.log(server.ping().toString());
 
             // Construct Documents
@@ -187,7 +185,6 @@ public abstract class SolrProductSearch {
      * This is faster than reflushing the index each time.
      */
     public static Map<String, Object> addListToSolrIndex(DispatchContext dctx, Map<String, Object> context) throws GenericEntityException {
-        String solrIndexName = (String) context.get("indexName");
         HttpSolrClient client = null;
         Map<String, Object> result;
         Boolean treatConnectErrorNonFatal = (Boolean) context.get("treatConnectErrorNonFatal");
@@ -207,7 +204,7 @@ public abstract class SolrProductSearch {
                 docs.add(doc1);
             }
             // push Documents to server
-            client = SolrUtil.getInstance().getHttpSolrClient(solrIndexName);
+            client = new HttpSolrClient(SolrUtil.solrUrl);
             client.add(docs);
             client.commit();
             
@@ -261,10 +258,9 @@ public abstract class SolrProductSearch {
     public static Map<String, Object> runSolrQuery(DispatchContext dctx, Map<String, Object> context) {
         // get Connection
         HttpSolrClient client = null;
-        String solrIndexName = (String) context.get("indexName");
         Map<String, Object> result;
         try {
-            client = SolrUtil.getInstance().getHttpSolrClient(solrIndexName);
+            client = new HttpSolrClient(SolrUtil.solrUrl);
             // create Query Object
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setQuery((String) context.get("query"));
@@ -367,7 +363,6 @@ public abstract class SolrProductSearch {
     public static Map<String, Object> productsSearch(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result;
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        String solrIndexName = (String) context.get("indexName");
 
         try {
             Map<String, Object> dispatchMap = new HashMap<String, Object>();
@@ -386,7 +381,6 @@ public abstract class SolrProductSearch {
             dispatchMap.put("facet", false);
             dispatchMap.put("spellcheck", true);
             dispatchMap.put("highlight", true);
-            dispatchMap.put("indexName", solrIndexName);
             Map<String, Object> searchResult = dispatcher.runSync("runSolrQuery", dispatchMap);
             QueryResponse queryResult = (QueryResponse) searchResult.get("queryResult");
             result = ServiceUtil.returnSuccess();
@@ -409,7 +403,6 @@ public abstract class SolrProductSearch {
     public static Map<String, Object> keywordSearch(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result;
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        String solrIndexName = (String) context.get("indexName");
 
         try {
             if (context.get("query") == null || context.get("query").equals(""))
@@ -425,8 +418,6 @@ public abstract class SolrProductSearch {
             if (context.get("queryFilter") != null)
                 dispatchMap.put("queryFilter", context.get("queryFilter"));
             dispatchMap.put("spellcheck", true);
-            dispatchMap.put("indexName", solrIndexName);
-
             Map<String, Object> searchResult = dispatcher.runSync("runSolrQuery", dispatchMap);
             QueryResponse queryResult = (QueryResponse) searchResult.get("queryResult");
 
@@ -488,7 +479,6 @@ public abstract class SolrProductSearch {
      */
     public static Map<String, Object> getAvailableCategories(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result;
-        String solrIndexName = (String) context.get("indexName");
         try {
             boolean displayProducts = false;
             if (UtilValidate.isNotEmpty(context.get("displayProducts")))
@@ -504,9 +494,10 @@ public abstract class SolrProductSearch {
             if (UtilValidate.isNotEmpty(context.get("catalogId")))
                 catalogId = (String) context.get("catalogId");
             
+            //String productCategoryId = (String) context.get("productCategoryId") != null ? CategoryUtil.getCategoryNameWithTrail((String) context.get("productCategoryId"), dctx): null;
             String productCategoryId = (String) context.get("productCategoryId") != null ? CategoryUtil.getCategoryNameWithTrail((String) context.get("productCategoryId"),dctx) : null;
-            Debug.logInfo("productCategoryId " + productCategoryId, module);
-            Map<String, Object> query = SolrUtil.categoriesAvailable(catalogId, productCategoryId, (String) context.get("productId"), displayProducts, viewIndex, viewSize, solrIndexName);
+            Debug.logInfo("productCategoryId "+productCategoryId, module);
+            Map<String, Object> query = SolrUtil.categoriesAvailable(catalogId, productCategoryId, (String) context.get("productId"), displayProducts, viewIndex, viewSize);
 
             QueryResponse cat = (QueryResponse) query.get("rows");
             result = ServiceUtil.returnSuccess();
@@ -517,7 +508,7 @@ public abstract class SolrProductSearch {
                 FacetField field = (FacetField) catIterator.next();
                 List<Count> catL = (List<Count>) field.getValues();
                 if (catL != null) {
-                    // Debug.logInfo("FacetFields = " + catL, module);
+                    // log.info("FacetFields = "+catL);
                     for (Iterator<Count> catIter = catL.iterator(); catIter.hasNext();) {
                         FacetField.Count f = (FacetField.Count) catIter.next();
                         if (f.getCount() > 0) {
@@ -526,7 +517,7 @@ public abstract class SolrProductSearch {
                     }
                     result.put("categories", categories);
                     result.put("numFound", cat.getResults().getNumFound());
-                    // Debug.logInfo("The returned map is this:" + result, module);
+                    // log.info("The returned map is this:"+result);
                 }
             }
         } catch (Exception e) {
@@ -542,7 +533,6 @@ public abstract class SolrProductSearch {
      */
     public static Map<String, Object> getSideDeepCategories(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result;
-        String solrIndexName = (String) context.get("indexName");
         try {
             String catalogId = null;
             if (UtilValidate.isNotEmpty(context.get("catalogId")))
@@ -566,7 +556,7 @@ public abstract class SolrProductSearch {
                 int level = Integer.parseInt(categoryPathArray[0]);
                 String facetQuery = CategoryUtil.getFacetFilterForCategory(categoryPath, dctx);
                 //Debug.logInfo("categoryPath: "+categoryPath + " facetQuery: "+facetQuery,module);
-                Map<String, Object> query = SolrUtil.categoriesAvailable(catalogId, categoryPath, null, facetQuery, false, 0, 0, solrIndexName);
+                Map<String, Object> query = SolrUtil.categoriesAvailable(catalogId, categoryPath, null, facetQuery,false, 0, 0);
                 QueryResponse cat = (QueryResponse) query.get("rows");
                 List<Map<String, Object>> categories = new ArrayList<Map<String, Object>>();
                 
@@ -622,13 +612,12 @@ public abstract class SolrProductSearch {
         GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Locale locale = (Locale) context.get("locale");
-        String solrIndexName = (String) context.get("indexName");
+        Locale locale = new Locale("de_DE");
         
         Boolean treatConnectErrorNonFatal = (Boolean) context.get("treatConnectErrorNonFatal");
         
         try {
-            client = SolrUtil.getInstance().getHttpSolrClient(solrIndexName);
+            client = new HttpSolrClient(SolrUtil.solrUrl);
 
             // now lets fetch all products
             List<Map<String, Object>> solrDocs = new ArrayList<Map<String, Object>>();
@@ -653,7 +642,7 @@ public abstract class SolrProductSearch {
 
             // THis adds all products to the Index (instantly)
             Map<String, Object> runResult = dispatcher.runSync("addListToSolrIndex", UtilMisc.toMap("fieldList", solrDocs, "userLogin", userLogin, 
-                    "locale", locale, "indexName", solrIndexName, "treatConnectErrorNonFatal", treatConnectErrorNonFatal));
+                    "locale", locale, "treatConnectErrorNonFatal", treatConnectErrorNonFatal));
             
             String runMsg = ServiceUtil.getErrorMessage(runResult);
             if (UtilValidate.isEmpty(runMsg)) {
