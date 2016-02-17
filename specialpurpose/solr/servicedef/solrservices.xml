@@ -41,7 +41,7 @@ under the License.
         invoke="addToSolr" debug="true" validate="true">
         <description>Adds product to solr, with product denoted by productId field in instance attribute
             - intended for use with ECAs/SECAs</description>
-        <attribute mode="IN" name="indexName" optional="false" type="String"/>
+        <attribute mode="IN" name="indexName" optional="false" type="String" default-value="solrdefault"/>
         <attribute mode="IN" name="instance" optional="false" type="org.ofbiz.entity.GenericValue" />
     </service>
 

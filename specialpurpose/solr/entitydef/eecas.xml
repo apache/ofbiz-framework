@@ -29,7 +29,7 @@ xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
         See documentation for issues regarding implementation and context-specific issues
         (such as data loading/install).
     -->
-    
+    <!-- 
     <eca entity="Product" operation="create-store" event="return">
         <action service="addToSolr" mode="sync" value-attr="instance"/>
     </eca>
@@ -48,7 +48,7 @@ xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
         <condition operator="equals" field-name="productPriceTypeId" value="DEFAULT_PRICE"/>
         <action service="addToSolr" mode="sync" value-attr="instance"/>
     </eca>
-    
+     -->
     <!-- (Insert any needed additional ECAs here) -->
     
 </entity-eca>
