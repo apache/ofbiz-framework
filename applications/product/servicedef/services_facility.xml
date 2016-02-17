@@ -762,12 +762,12 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="addPartyToFacilityGroup" default-entity-name="FacilityParty" engine="entity-auto" invoke="create" auth="true">
+    <service name="addPartyToFacilityGroup" default-entity-name="FacilityGroupRole" engine="entity-auto" invoke="create" auth="true">
         <description>Add Party To FacilityGroup</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="removePartyFromFacilityGroup" default-entity-name="FacilityParty" engine="entity-auto" invoke="delete" auth="true">
+    <service name="removePartyFromFacilityGroup" default-entity-name="FacilityGroupRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Party From FacilityGroup</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
