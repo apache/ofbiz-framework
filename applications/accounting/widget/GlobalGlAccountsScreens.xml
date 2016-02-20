@@ -254,7 +254,7 @@ under the License.
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ListGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                        <include-form name="ListGlAccountPdf" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

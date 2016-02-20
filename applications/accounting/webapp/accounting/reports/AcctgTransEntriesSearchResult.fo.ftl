@@ -30,7 +30,7 @@ under the License.
                 <fo:block text-align="center">${screens.render("component://order/widget/ordermgr/OrderPrintScreens.xml#CompanyLogo")}</fo:block>
                 <#if acctgTransEntryList?has_content>
                     <fo:block>${uiLabelMap.AccountingAcctgTransEntriesFor}
-                        <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false))!>
+                        <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : parameters.get('ApplicationDecorator|organizationPartyId')}, false))!>
                         <#if partyName.partyTypeId == "PERSON">
                             ${(partyName.firstName)!} ${(partyName.lastName)!}
                         <#elseif (partyName.partyTypeId)! == "PARTY_GROUP">

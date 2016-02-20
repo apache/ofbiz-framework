@@ -246,7 +246,7 @@ under the License.
                                     </link>
                                     <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="TrialBalanceSearchResultsPdf.pdf" target-window="_BLANK">
                                         <parameter param-name="customTimePeriodId" from-field="parameters.customTimePeriodId"/>
-                                        <parameter param-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}">
+                                        <parameter param-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                                     </link>
                                     <include-form name="TrialBalanceReport" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                                     <container style="h3">
@@ -299,7 +299,7 @@ under the License.
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId')}, 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
                 <entity-condition entity-name="Party" list="parties">
                     <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
@@ -579,11 +579,11 @@ under the License.
                             <label style="h1" text="${uiLabelMap.AccountingComparativeBalanceSheet}"/>
                             <include-form name="ComparativeBalanceSheetParametersOneColumn" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.AccountingAssets}"/>
-                            <include-form name="ComparativeBalanceSheetAssets" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="ComparativeBalanceSheetAssetsPdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.AccountingLiabilities}"/>
-                            <include-form name="ComparativeBalanceSheetLiabilities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="ComparativeBalanceSheetLiabilitiesPdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.AccountingEquities}"/>
-                            <include-form name="ComparativeBalanceSheetEquities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="ComparativeBalanceSheetEquitiesPdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.CommonTotal}"/>
                             <include-form name="ComparativeBalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </container>
@@ -752,7 +752,7 @@ under the License.
                         <container>
                             <include-form name="FindTransactionTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
-                            <include-form name="PostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="PostedTransactionTotalListPdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label text="${uiLabelMap.AccountingUnPostedTransactionTotals}"/>
                             <include-form name="UnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label text="${uiLabelMap.AccountingPostedAndUnpostedTransactionTotals}"/>
@@ -776,7 +776,7 @@ under the License.
                 <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
                 <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true">
-                    <field-map field-name="organizationPartyId" value="parameters.get('ApplicationDecorator|organizationPartyId')"/>
+                    <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
@@ -1073,11 +1073,11 @@ under the License.
                             <label style="h1" text="${uiLabelMap.AccountingComparativeIncomeStatement}"/>
                             <include-form name="ComparativeIncomeStatementParametersOneColumn" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.AccountingRevenues}"/>
-                            <include-form name="ComparativeIncomeStatementRevenues" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="ComparativeIncomeStatementRevenuesPdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.AccountingExpenses}"/>
-                            <include-form name="ComparativeIncomeStatementExpenses" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="ComparativeIncomeStatementExpensesPdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.AccountingIncome}"/>
-                            <include-form name="ComparativeIncomeStatementIncome" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="ComparativeIncomeStatementIncomePdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.CommonTotal}"/>
                             <include-form name="ComparativeBalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </container>
@@ -1459,11 +1459,11 @@ under the License.
                             <label style="h1" text="${uiLabelMap.AccountingCashFlowStatement}"/>
                             <include-form name="FindCashFlowTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.AccountingOpeningCashBalance}"/>
-                            <include-form name="CashFlowStatementOpeningCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="CashFlowStatementOpeningCashBalancePdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.AccountingPeriodCashBalance}"/>
-                            <include-form name="CashFlowStatementPeriodCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="CashFlowStatementPeriodCashBalancePdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.AccountingClosingCashBalance}"/>
-                            <include-form name="CashFlowStatementClosingCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="CashFlowStatementClosingCashBalancePdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.CommonTotal}"/>
                             <include-form name="CashFlowBalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </container>
@@ -1629,11 +1629,11 @@ under the License.
                             <label style="h1" text="${uiLabelMap.AccountingComparativeCashFlowStatement}"/>
                             <include-form name="ComparativeCashFlowStatementParametersOneColumn" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.AccountingOpeningCashBalance}"/>
-                            <include-form name="ComparativeCashFlowStatementOpeningCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="ComparativeCashFlowStatementOpeningCashBalancePdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.AccountingPeriodCashBalance}"/>
-                            <include-form name="ComparativeCashFlowStatementPeriodCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="ComparativeCashFlowStatementPeriodCashBalancePdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.AccountingClosingCashBalance}"/>
-                            <include-form name="ComparativeCashFlowStatementClosingCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="ComparativeCashFlowStatementClosingCashBalancePdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.CommonTotal}"/>
                             <include-form name="ComparativeCashFlowBalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </container>
