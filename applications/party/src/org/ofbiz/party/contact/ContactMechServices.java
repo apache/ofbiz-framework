@@ -958,7 +958,7 @@ public class ContactMechServices {
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
 
-        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "PartyContactMechanismSuccessfullyDeleted", locale));
         return result;
     }
 
