@@ -73,12 +73,14 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.mail.MimeMessageWrapper;
 import org.ofbiz.webapp.view.ApacheFopWorker;
-import org.ofbiz.widget.renderer.fo.FoScreenRenderer;
-import org.ofbiz.widget.renderer.html.HtmlScreenRenderer;
+import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 import org.ofbiz.widget.renderer.ScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.xml.sax.SAXException;
 
 import com.sun.mail.smtp.SMTPAddressFailedException;
+
+import freemarker.template.TemplateException;
 
 /**
  * Email Services
@@ -87,8 +89,6 @@ public class EmailServices {
 
     public final static String module = EmailServices.class.getName();
 
-    protected static final HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
-    protected static final FoScreenRenderer foScreenRenderer = new FoScreenRenderer();
     public static final String resource = "CommonUiLabels";
 
     /**
@@ -461,7 +461,19 @@ public class EmailServices {
 
         MapStack<String> screenContext = MapStack.create();
         screenContext.put("locale", locale);
-        ScreenRenderer screens = new ScreenRenderer(bodyWriter, screenContext, htmlScreenRenderer);
+
+        ScreenStringRenderer screenStringRenderer = null;
+        try {
+            screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", dctx.getDelegator()), 
+                    EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", dctx.getDelegator()));
+        } catch (TemplateException e) {
+            Debug.logError(e, "Error rendering screen for email: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
+        } catch (IOException e) {
+            Debug.logError(e, "Error rendering screen for email: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenEmailError", UtilMisc.toMap("errorString", e.toString()), locale));
+        }
+        ScreenRenderer screens = new ScreenRenderer(bodyWriter, screenContext, screenStringRenderer);
         screens.populateContextForService(dctx, bodyParameters);
         screenContext.putAll(bodyParameters);
 
@@ -507,7 +519,9 @@ public class EmailServices {
                     Writer writer = new StringWriter();
                     MapStack<String> screenContextAtt = MapStack.create();
                     // substitute the freemarker variables...
-                    ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContext, foScreenRenderer);
+                    ScreenStringRenderer foScreenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screenfop.name", dctx.getDelegator()),
+                            EntityUtilProperties.getPropertyValue("widget", "screenfop.screenrenderer", dctx.getDelegator()));
+                    ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContext, foScreenStringRenderer);
                     screensAtt.populateContextForService(dctx, bodyParameters);
                     screenContextAtt.putAll(bodyParameters);
                     screensAtt.render(xslfoAttachScreenLocation);
