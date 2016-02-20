@@ -186,13 +186,14 @@ public class LoginServices {
                     boolean hasLoggedOut = userLogin.get("hasLoggedOut") != null ?
                             "Y".equalsIgnoreCase(userLogin.getString("hasLoggedOut")) : false;
 
-                    if (UtilValidate.isEmpty(userLogin.getString("enabled")) || "Y".equals(userLogin.getString("enabled")) ||
-                        (reEnableTime != null && reEnableTime.before(UtilDateTime.nowTimestamp())) || (isSystem)) {
+                    if ((UtilValidate.isEmpty(userLogin.getString("enabled")) || "Y".equals(userLogin.getString("enabled")) ||
+                            (reEnableTime != null && reEnableTime.before(UtilDateTime.nowTimestamp())) || (isSystem)) && UtilValidate.isEmpty(userLogin.getString("disabledBy"))) {
 
                         String successfulLogin;
 
                         if (!isSystem) {
                             userLogin.set("enabled", "Y");
+                            userLogin.set("disabledBy", null);
                         }
 
                         // attempt to authenticate with Authenticator class(es)
@@ -895,6 +896,11 @@ public class LoginServices {
         // if was disabled and we are enabling it, clear disabledDateTime
         if (!wasEnabled && "Y".equals(context.get("enabled"))) {
             userLoginToUpdate.set("disabledDateTime", null);
+            userLoginToUpdate.set("disabledBy", null);
+        }
+
+        if ("N".equals(context.get("enabled"))) {
+            userLoginToUpdate.set("disabledBy", loggedInUserLogin.getString("userLoginId"));
         }
 
         try {
