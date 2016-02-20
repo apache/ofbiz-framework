@@ -143,8 +143,8 @@ under the License.
         <#if orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_CANCELLED">
           <li><a href="<@ofbizUrl>OrderDeliveryScheduleInfo?orderId=${orderId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewEditDeliveryScheduleInfo}</a></li>
         </#if>
-        <#if security.hasEntityPermission("ORDERMGR", "_RETURN", session) && orderHeader.statusId == "ORDER_COMPLETED">
-          <#if returnableItems?has_content>
+        <#if security.hasEntityPermission("ORDERMGR", "_RETURN", session)>
+          <#if orderHeader.statusId == "ORDER_COMPLETED" && returnableItems?has_content>
             <li>
             <form name="quickRefundOrder" method="post" action="<@ofbizUrl>quickRefundOrder</@ofbizUrl>">
               <input type="hidden" name="orderId" value="${orderId}"/>
@@ -153,6 +153,8 @@ under the License.
             </form>
             <a href="javascript:document.quickRefundOrder.submit()" class="buttontext">${uiLabelMap.OrderQuickRefundEntireOrder}</a>
             </li>
+          </#if>
+          <#if returnableItems?has_content>
             <li>
             <form name="quickreturn" method="post" action="<@ofbizUrl>quickreturn</@ofbizUrl>">
               <input type="hidden" name="orderId" value="${orderId}"/>
