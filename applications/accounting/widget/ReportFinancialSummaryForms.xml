@@ -187,6 +187,9 @@ under the License.
         <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+    <form name="ComparativeIncomeStatementRevenuesPdf" extends="ComparativeIncomeStatementRevenues">
+        <field name="accountCode"><display/></field>
+    </form>
     <form name="ComparativeIncomeStatementExpenses" type="list" list-name="expenseAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
@@ -199,6 +202,9 @@ under the License.
         <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+    <form name="ComparativeIncomeStatementExpensesPdf" extends="ComparativeIncomeStatementExpenses">
+        <field name="accountCode"><display/></field>
+    </form>
     <form name="ComparativeIncomeStatementIncome" type="list" list-name="incomeAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
@@ -210,6 +216,9 @@ under the License.
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
         <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+    <form name="ComparativeIncomeStatementIncomePdf" extends="ComparativeIncomeStatementIncome">
+        <field name="accountCode"><display/></field>
     </form>
 
     <form name="BalanceSheetParameters" type="single" target="BalanceSheet"
@@ -321,6 +330,9 @@ under the License.
         <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+    <form name="ComparativeBalanceSheetAssetsPdf" extends="ComparativeBalanceSheetAssets">
+        <field name="accountCode"><display/></field>
+    </form>
     <form name="ComparativeBalanceSheetLiabilities" type="list" list-name="liabilityAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
@@ -333,6 +345,9 @@ under the License.
         <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+    <form name="ComparativeBalanceSheetLiabilitiesPdf" extends="ComparativeBalanceSheetLiabilities">
+        <field name="accountCode"><display/></field>
+    </form>
     <form name="ComparativeBalanceSheetEquities" type="list" list-name="equityAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
@@ -344,6 +359,9 @@ under the License.
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
         <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+    <form name="ComparativeBalanceSheetEquitiesPdf" extends="ComparativeBalanceSheetEquities">
+        <field name="accountCode"><display/></field>
     </form>
     <form name="ComparativeBalanceTotals" type="list" list-name="balanceTotalList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -402,11 +420,16 @@ under the License.
         <field name="closingD" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="closingC" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+    <form name="PostedTransactionTotalListPdf" extends="PostedTransactionTotalList">
+        <field name="accountCode"><display/></field>
+    </form>
     <form name="UnpostedTransactionTotalList" type="list" list-name="unpostedTransactionTotals"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" extends="PostedTransactionTotalList">
+        <field name="accountCode"><display/></field>
     </form>
     <form name="PostedAndUnpostedTransactionTotalList" type="list" list-name="allTransactionTotals"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" extends="PostedTransactionTotalList">
+        <field name="accountCode"><display/></field>
     </form>
 
     <form name="IncomeStatementListCsv" type="list" list-name="glAccountIncomeList" view-size="99999">
@@ -586,6 +609,9 @@ under the License.
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
         <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+    <form name="CashFlowStatementOpeningCashBalancePdf" extends="CashFlowStatementOpeningCashBalance">
+        <field name="accountCode"><display/></field>
+    </form>
     <form name="CashFlowStatementPeriodCashBalance" type="list" list-name="periodCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
@@ -599,6 +625,9 @@ under the License.
         <field name="C" widget-style="tabletextright" title="${uiLabelMap.AccountingTotalCredit_Disbursement}"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+    <form name="CashFlowStatementPeriodCashBalancePdf" extends="CashFlowStatementPeriodCashBalance">
+        <field name="accountCode"><display/></field>
+    </form>
     <form name="CashFlowStatementClosingCashBalance" type="list" list-name="closingCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
@@ -609,6 +638,9 @@ under the License.
         </field>
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
         <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+    <form name="CashFlowStatementClosingCashBalancePdf" extends="CashFlowStatementClosingCashBalance">
+        <field name="accountCode"><display/></field>
     </form>
     <form name="CashFlowBalanceTotals" type="list" list-name="cashFlowBalanceTotalList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -666,6 +698,9 @@ under the License.
         <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+    <form name="ComparativeCashFlowStatementOpeningCashBalancePdf" extends="ComparativeCashFlowStatementOpeningCashBalance">
+        <field name="accountCode"><display/></field>
+    </form>
     <form name="ComparativeCashFlowStatementPeriodCashBalance" type="list" list-name="periodCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
@@ -682,6 +717,9 @@ under the License.
         <field name="C2" widget-style="tabletextright" title="${uiLabelMap.AccountingPeriod2Credit_Disbursement}"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+    <form name="ComparativeCashFlowStatementPeriodCashBalancePdf" extends="ComparativeCashFlowStatementPeriodCashBalance">
+        <field name="accountCode"><display/></field>
+    </form>
     <form name="ComparativeCashFlowStatementClosingCashBalance" type="list" list-name="closingCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
@@ -693,6 +731,9 @@ under the License.
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
         <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+    <form name="ComparativeCashFlowStatementClosingCashBalancePdf" extends="ComparativeCashFlowStatementClosingCashBalance">
+        <field name="accountCode"><display/></field>
     </form>
     <form name="ComparativeCashFlowBalanceTotals" type="list" list-name="cashFlowBalanceTotalList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">

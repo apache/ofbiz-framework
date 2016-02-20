@@ -100,6 +100,9 @@ under the License.
         <field name="productId"><display-entity entity-name="Product"/></field>
         <field name="externalId"><display/></field>
     </form>
+    <form name="ListGlAccountPdf" extends="ListGlAccount">
+        <field name="accountCode" title="${uiLabelMap.CommonCode}" widget-style="buttontext"><display/></field>
+    </form>
 
     <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount"
         header-row-style="header-row" default-table-style="basic-table">
