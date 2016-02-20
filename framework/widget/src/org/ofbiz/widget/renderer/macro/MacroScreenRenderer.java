@@ -45,6 +45,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
@@ -62,7 +63,6 @@ import org.ofbiz.widget.renderer.FormStringRenderer;
 import org.ofbiz.widget.renderer.MenuStringRenderer;
 import org.ofbiz.widget.renderer.Paginator;
 import org.ofbiz.widget.renderer.ScreenStringRenderer;
-import org.ofbiz.widget.renderer.html.HtmlScreenRenderer.ScreenletMenuRenderer;
 import org.xml.sax.SAXException;
 
 import freemarker.core.Environment;
@@ -620,10 +620,16 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             StringWriter sb = new StringWriter();
             if (navMenu != null) {
                 MenuStringRenderer savedRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
-                MenuStringRenderer renderer = new ScreenletMenuRenderer(request, response);
-                context.put("menuStringRenderer", renderer);
-                navMenu.renderWidgetString(sb, context, this);
-                context.put("menuStringRenderer", savedRenderer);
+                MenuStringRenderer renderer;
+                try {
+                    renderer = new MacroMenuRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.menurenderer", (Delegator) request.getAttribute("delegator")),
+                            request, response);
+                    context.put("menuStringRenderer", renderer);
+                    navMenu.renderWidgetString(sb, context, this);
+                    context.put("menuStringRenderer", savedRenderer);
+                } catch (TemplateException e) {
+                    Debug.logError(e, module); 
+                }
             } else if (navForm != null) {
                 renderScreenletPaginateMenu(sb, context, navForm);
             }
