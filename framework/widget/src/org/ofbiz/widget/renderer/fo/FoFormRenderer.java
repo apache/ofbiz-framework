@@ -62,6 +62,7 @@ import org.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
  * Widget Library - FO Form Renderer implementation
  *
  */
+@Deprecated
 public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRenderer {
 
     public static final String module = FoFormRenderer.class.getName();

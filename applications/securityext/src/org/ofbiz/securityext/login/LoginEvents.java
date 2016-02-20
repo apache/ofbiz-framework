@@ -43,6 +43,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.model.ModelField.EncryptMethod;
 import org.ofbiz.entity.util.EntityCrypto;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtilProperties;
@@ -246,7 +247,7 @@ public class LoginEvents {
                 autoPassword = RandomStringUtils.randomAlphanumeric(Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "password.length.min", "5", delegator)));
                 EntityCrypto entityCrypto = new EntityCrypto(delegator,null); 
                 try {
-                    passwordToSend = entityCrypto.encrypt(keyValue, (Object) autoPassword);
+                    passwordToSend = entityCrypto.encrypt(keyValue, EncryptMethod.TRUE, (Object) autoPassword);
                 } catch (GeneralException e) {
                     Debug.logWarning(e, "Problem in encryption", module);
                 }
