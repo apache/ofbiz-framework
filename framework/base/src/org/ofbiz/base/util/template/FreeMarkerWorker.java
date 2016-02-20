@@ -88,8 +88,12 @@ public class FreeMarkerWorker {
         return defaultOfbizWrapper;
     }
 
+    public static Configuration newConfiguration() {
+        return new Configuration(version);
+    }
+
     public static Configuration makeConfiguration(BeansWrapper wrapper) {
-        Configuration newConfig = new Configuration(version);
+        Configuration newConfig = newConfiguration();
 
         newConfig.setObjectWrapper(wrapper);
         TemplateHashModel staticModels = wrapper.getStaticModels();

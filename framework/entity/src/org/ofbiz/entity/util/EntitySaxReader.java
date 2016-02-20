@@ -376,7 +376,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
                     Reader templateReader = new InputStreamReader(templateUrl.openStream());
 
                     StringWriter outWriter = new StringWriter();
-                    Configuration config = new Configuration(FreeMarkerWorker.version);
+                    Configuration config = FreeMarkerWorker.newConfiguration();
                     config.setObjectWrapper(FreeMarkerWorker.getDefaultOfbizWrapper());
                     config.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
 
