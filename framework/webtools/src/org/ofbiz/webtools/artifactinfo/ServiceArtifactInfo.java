@@ -41,6 +41,7 @@ import org.ofbiz.base.util.UtilPlist;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.eca.ServiceEcaRule;
@@ -93,8 +94,10 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                 return;
             }
 
-            Set<String> allEntityNameSet = simpleMethodToCall.getAllEntityNamesUsed();
-            populateEntitiesFromNameSet(allEntityNameSet);
+            ArtifactInfoContext aic = new ArtifactInfoContext();
+            simpleMethodToCall.gatherArtifactInfo(aic);
+            populateEntitiesFromNameSet(aic.getEntityNames());
+
         } else if ("java".equals(this.modelService.engineName)) {
             String fullClassPathAndFile = UtilJavaParse.findRealPathAndFileForClass(this.modelService.location);
             if (fullClassPathAndFile != null) {
@@ -153,8 +156,10 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                 return;
             }
 
-            Set<String> allServiceNameSet = simpleMethodToCall.getAllServiceNamesCalled();
-            populateServicesFromNameSet(allServiceNameSet);
+            ArtifactInfoContext aic = new ArtifactInfoContext();
+            simpleMethodToCall.gatherArtifactInfo(aic);
+            populateServicesFromNameSet(aic.getServiceNames());
+
         } else if ("java".equals(this.modelService.engineName)) {
             String fullClassPathAndFile = UtilJavaParse.findRealPathAndFileForClass(this.modelService.location);
             if (fullClassPathAndFile != null) {
