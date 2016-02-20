@@ -181,7 +181,7 @@ under the License.
         <description>Create a ProductFeatureType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="productFeatureTypeId" mode="IN" optional="true" />
+        <override name="productFeatureTypeId" mode="INOUT" optional="true" />
     </service>
     <service name="updateProductFeatureType" default-entity-name="ProductFeatureType" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductFeatureType</description>

@@ -80,6 +80,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-field="newEntity"/>
+        <field-to-result field="newEntity.productFeatureTypeId" result-name="productFeatureTypeId"/>
     </simple-method>
     <!-- create a new ProductFeatureApplAttr -->
     <simple-method method-name="createProductFeatureApplAttr" short-description="Create a ProductFeatureApplAttr">
