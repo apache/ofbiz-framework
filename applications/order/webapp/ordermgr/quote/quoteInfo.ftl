@@ -60,11 +60,20 @@ under the License.
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%" class="label">
-                    &nbsp;${uiLabelMap.PartyPartyId}
+                    &nbsp;${uiLabelMap.PartyParty}
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${quote.partyId!}
+                    <#-- Party name, as a convenience. -->
+                    <#if toParty?has_content>
+                        <#if toParty.groupName?has_content>
+                            ${toParty.groupName}
+                        <#elseif toParty.firstName?has_content && toParty.lastName?has_content>
+                            ${toParty.firstName} ${toParty.lastName}
+                        </#if>
+                    </#if>
+                    <#-- Link to the party in Party Manager -->
+                    <a href="/partymgr/control/viewprofile?partyId=${quote.partyId}" class="buttontext">(${quote.partyId?if_exists})</a>
                 </td>
             </tr>
             <#-- quote name -->

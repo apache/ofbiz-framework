@@ -684,6 +684,11 @@ under the License.
     </screen>
     <screen name="quoteInfo">
         <section>
+            <actions>
+                <entity-one entity-name="PartyNameView" value-field="toParty">
+                    <field-map field-name="partyId"  from-field="quote.partyId"/>
+                </entity-one>
+            </actions>
             <widgets>
                 <platform-specific>
                     <html><html-template location="component://order/webapp/ordermgr/quote/quoteInfo.ftl"/></html>
