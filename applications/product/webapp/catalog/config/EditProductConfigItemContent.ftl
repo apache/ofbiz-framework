@@ -59,7 +59,14 @@ function insertImageName(size,nameValue) {
             <td>${productContentType.description?default(productContent.confItemContentTypeId)}</td>
             <td>${productContent.fromDate?default("N/A")}</td>
             <td>${productContent.thruDate?default("N/A")}</td>
-            <td><a href="<@ofbizUrl>removeContentFromProductConfigItem?configItemId=${productContent.configItemId}&amp;contentId=${productContent.contentId}&amp;confItemContentTypeId=${productContent.confItemContentTypeId}&amp;fromDate=${productContent.fromDate}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
+            <td>
+            <form name="removeContentFromProductConfigItem_${productContent.contentId}_${entry_index}" method="post" action="<@ofbizUrl>removeContentFromProductConfigItem</@ofbizUrl>">
+              <input name="configItemId" type="hidden" value="${productContent.configItemId}"/>
+              <input name="contentId" type="hidden" value="${productContent.contentId}"/>
+              <input name="confItemContentTypeId" type="hidden" value="${productContent.confItemContentTypeId}"/>
+              <input name="fromDate" type="hidden" value="${productContent.fromDate}"/>
+              <input type="submit" value="${uiLabelMap.CommonDelete}"/>
+            </form>
             <td><a href="/content/control/EditContent?contentId=${productContent.contentId}&amp;externalLoginKey=${requestAttributes.externalLoginKey!}" class="buttontext">${uiLabelMap.ProductEditContent} ${entry.content.contentId}</td>
          </tr>
          <#-- toggle the row color -->
