@@ -45,17 +45,19 @@ import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.MimeConstants;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.view.ApacheFopWorker;
 import org.ofbiz.widget.renderer.ScreenRenderer;
-import org.ofbiz.widget.renderer.html.HtmlScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 import org.xml.sax.SAXException;
+
+import freemarker.template.TemplateException;
 
 public class ExamplePrintServices {
     public static final String module = ExamplePrintServices.class.getName();
-
-    private static HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
 
     public static Map<String, Object> printReportPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         String screenLocation = "component://example/widget/example/ExampleReportScreens.xml";
@@ -65,7 +67,21 @@ public class ExamplePrintServices {
 
         // render a screen to get the XML document
         Writer reportWriter = new StringWriter();
-        ScreenRenderer reportScreenRenderer = new ScreenRenderer(reportWriter, null, htmlScreenRenderer);
+        ScreenStringRenderer screenStringRenderer = null;
+        try {
+            screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", dctx.getDelegator()),
+                    EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", dctx.getDelegator()));
+        } catch (TemplateException e) {
+            String errMsg = "General error rendering screen [" + screenLocation + "]: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        } catch (IOException e) {
+            String errMsg = "IO error rendering screen [" + screenLocation + "]: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        ScreenRenderer reportScreenRenderer = new ScreenRenderer(reportWriter, null, screenStringRenderer);
         reportScreenRenderer.populateContextForService(dctx, workContext);
 
         // put the exampleId in the screen context, is a parameter coming into the service
