@@ -36,7 +36,7 @@ public class JNDIConfigUtil {
 
     private static Element getXmlRootElement() throws GenericConfigException {
         try {
-            return ResourceLoader.getXmlRootElement(JNDIConfigUtil.JNDI_CONFIG_XML_FILENAME);
+            return ResourceLoader.readXmlRootElement(JNDIConfigUtil.JNDI_CONFIG_XML_FILENAME);
         } catch (GenericConfigException e) {
             throw new GenericConfigException("Could not get JNDI XML root element", e);
         }
