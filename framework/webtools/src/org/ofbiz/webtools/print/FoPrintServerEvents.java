@@ -35,9 +35,11 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.widget.renderer.ScreenRenderer;
-import org.ofbiz.widget.renderer.html.HtmlScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 
 /**
  * FoPrintServerEvents
@@ -46,7 +48,6 @@ import org.ofbiz.widget.renderer.html.HtmlScreenRenderer;
 public class FoPrintServerEvents {
 
     public static final String module = FoPrintServerEvents.class.getName();
-    private static HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
 
     public static String getXslFo(HttpServletRequest req, HttpServletResponse resp) {
         LocalDispatcher dispatcher = (LocalDispatcher) req.getAttribute("dispatcher");
@@ -100,7 +101,9 @@ public class FoPrintServerEvents {
         // render and obtain the XSL-FO
         Writer writer = new StringWriter();
         try {
-            ScreenRenderer screens = new ScreenRenderer(writer, null, htmlScreenRenderer);
+            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", dctx.getDelegator()),
+                    EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", dctx.getDelegator()));
+            ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
             screens.populateContextForService(dctx, parameters);
             screens.render(screen);
         } catch (Throwable t) {
