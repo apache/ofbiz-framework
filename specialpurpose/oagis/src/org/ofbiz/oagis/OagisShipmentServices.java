@@ -61,8 +61,8 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.widget.renderer.ScreenRenderer;
-import org.ofbiz.widget.renderer.fo.FoFormRenderer;
-import org.ofbiz.widget.renderer.html.HtmlScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -70,9 +70,6 @@ import org.w3c.dom.Element;
 public class OagisShipmentServices {
 
     public static final String module = OagisShipmentServices.class.getName();
-
-    protected static final HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
-    protected static final FoFormRenderer foFormRenderer = new FoFormRenderer();
 
     public static final Set<String> invalidShipmentStatusSet = UtilMisc.toSet("SHIPMENT_CANCELLED", "SHIPMENT_PICKED", "SHIPMENT_PACKED",
             "SHIPMENT_SHIPPED", "SHIPMENT_DELIVERED");
@@ -880,7 +877,9 @@ public class OagisShipmentServices {
             String bodyScreenUri = EntityUtilProperties.getPropertyValue("oagis", "Oagis.Template.ProcessShipment", delegator);
             String outText = null;
             Writer writer = new StringWriter();
-            ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, htmlScreenRenderer);
+            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", delegator),
+                    EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", delegator));
+            ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, screenStringRenderer);
             screens.render(bodyScreenUri);
             writer.close();
             outText = writer.toString();
@@ -1125,7 +1124,9 @@ public class OagisShipmentServices {
 
             String bodyScreenUri = EntityUtilProperties.getPropertyValue("oagis", "Oagis.Template.ReceiveDelivery", delegator);
             Writer writer = new StringWriter();
-            ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, htmlScreenRenderer);
+            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", delegator),
+                    EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", delegator));
+            ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, screenStringRenderer);
             screens.render(bodyScreenUri);
             writer.close();
             String outText = writer.toString();
