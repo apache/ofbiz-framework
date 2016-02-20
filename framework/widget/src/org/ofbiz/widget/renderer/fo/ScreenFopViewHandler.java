@@ -47,7 +47,6 @@ import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.widget.renderer.FormStringRenderer;
 import org.ofbiz.widget.renderer.ScreenRenderer;
 import org.ofbiz.widget.renderer.ScreenStringRenderer;
-import org.ofbiz.widget.renderer.html.HtmlScreenRenderer;
 import org.ofbiz.widget.renderer.macro.MacroFormRenderer;
 import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 
@@ -170,8 +169,12 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
     protected void renderError(String msg, Exception e, String screenOutString, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         Debug.logError(msg + ": " + e + "; Screen XSL:FO text was:\n" + screenOutString, module);
         try {
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
             Writer writer = new StringWriter();
-            ScreenRenderer screens = new ScreenRenderer(writer, null, new HtmlScreenRenderer());
+            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", delegator),
+                    EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", delegator));
+
+            ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
             screens.populateContextForRequest(request, response, servletContext);
             screens.getContext().put("errorMessage", msg + ": " + e);
             screens.render(DEFAULT_ERROR_TEMPLATE);
