@@ -80,11 +80,23 @@ public abstract class ResourceLoader {
         return loader;
     }
 
-    // This method should be avoided. DOM object trees take a lot of memory and they are not
-    // thread-safe, so they should not be cached.
+    /** This method should be avoided. DOM object trees take a lot of memory and they are not
+     * thread-safe, so they should not be cached.
+     * @deprecated use {@link #readXmlRootElement(String)}
+     */
     @Deprecated
     public static Element getXmlRootElement(String xmlFilename) throws GenericConfigException {
         Document document = ResourceLoader.getXmlDocument(xmlFilename);
+
+        if (document != null) {
+            return document.getDocumentElement();
+        } else {
+            return null;
+        }
+    }
+
+    public static Element readXmlRootElement(String xmlFilename) throws GenericConfigException {
+        Document document = ResourceLoader.readXmlDocument(xmlFilename);
 
         if (document != null) {
             return document.getDocumentElement();
@@ -97,34 +109,40 @@ public abstract class ResourceLoader {
         UtilCache.clearCachesThatStartWith(xmlFilename);
     }
 
-    // This method should be avoided. DOM object trees take a lot of memory and they are not
-    // thread-safe, so they should not be cached.
+    /** This method should be avoided. DOM object trees take a lot of memory and they are not
+     * thread-safe, so they should not be cached.
+     * @deprecated use {@link #readXmlDocument(String)}
+     */
     @Deprecated
     public static Document getXmlDocument(String xmlFilename) throws GenericConfigException {
         Document document = domCache.get(xmlFilename);
 
         if (document == null) {
-            URL confUrl = UtilURL.fromResource(xmlFilename);
-
-            if (confUrl == null) {
-                throw new GenericConfigException("ERROR: could not find the [" + xmlFilename + "] XML file on the classpath");
-            }
-
-            try {
-                document = UtilXml.readXmlDocument(confUrl, true, true);
-            } catch (org.xml.sax.SAXException e) {
-                throw new GenericConfigException("Error reading " + xmlFilename + "", e);
-            } catch (javax.xml.parsers.ParserConfigurationException e) {
-                throw new GenericConfigException("Error reading " + xmlFilename + "", e);
-            } catch (java.io.IOException e) {
-                throw new GenericConfigException("Error reading " + xmlFilename + "", e);
-            }
+            document = readXmlDocument(xmlFilename);
 
             if (document != null) {
                 document = (Document) domCache.putIfAbsentAndGet(xmlFilename, document);
             }
         }
         return document;
+    }
+
+    public static Document readXmlDocument(String xmlFilename) throws GenericConfigException {
+        URL confUrl = UtilURL.fromResource(xmlFilename);
+
+        if (confUrl == null) {
+            throw new GenericConfigException("ERROR: could not find the [" + xmlFilename + "] XML file on the classpath");
+        }
+
+        try {
+            return UtilXml.readXmlDocument(confUrl, true, true);
+        } catch (org.xml.sax.SAXException e) {
+            throw new GenericConfigException("Error reading " + xmlFilename + "", e);
+        } catch (javax.xml.parsers.ParserConfigurationException e) {
+            throw new GenericConfigException("Error reading " + xmlFilename + "", e);
+        } catch (java.io.IOException e) {
+            throw new GenericConfigException("Error reading " + xmlFilename + "", e);
+        }
     }
 
     private static ResourceLoader makeLoader(Element loaderElement) throws GenericConfigException {

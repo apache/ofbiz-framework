@@ -52,7 +52,7 @@ public class ButtonEventConfig implements java.io.Serializable {
     protected boolean disableLock = false;
 
     public static void loadButtonConfig() throws GenericConfigException {
-        Element root = ResourceLoader.getXmlRootElement(ButtonEventConfig.BUTTON_EVENT_CONFIG);
+        Element root = ResourceLoader.readXmlRootElement(ButtonEventConfig.BUTTON_EVENT_CONFIG);
         List<?> buttonEvents = UtilXml.childElementList(root, "event");
         if (!UtilValidate.isEmpty(buttonEvents)) {
             Iterator<?> i = buttonEvents.iterator();
