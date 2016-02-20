@@ -46,19 +46,21 @@ import org.ofbiz.birt.BirtFactory;
 import org.ofbiz.birt.BirtWorker;
 import org.ofbiz.common.email.NotificationServices;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.widget.renderer.ScreenRenderer;
-import org.ofbiz.widget.renderer.html.HtmlScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 import org.xml.sax.SAXException;
+
+import freemarker.template.TemplateException;
 
 public class BirtEmailServices {
 
     public static final String module = BirtEmailServices.class.getName();
-
-    protected static final HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
 
     /**
      * send birt mail
@@ -105,7 +107,20 @@ public class BirtEmailServices {
 
         MapStack<String> screenContext = MapStack.create();
         screenContext.put("locale", locale);
-        ScreenRenderer screens = new ScreenRenderer(bodyWriter, screenContext, htmlScreenRenderer);
+        ScreenStringRenderer screenStringRenderer = null;
+        try {
+            screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", delegator),
+                    EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", delegator));
+        } catch (TemplateException e) {
+            String errMsg = "Error rendering screen for email: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        } catch (IOException e) {
+            String errMsg = "Error rendering screen for email: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+        ScreenRenderer screens = new ScreenRenderer(bodyWriter, screenContext, screenStringRenderer);
         screens.populateContextForService(ctx, bodyParameters);
         screenContext.putAll(bodyParameters);
 
