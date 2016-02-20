@@ -419,6 +419,7 @@ under the License.
         <attribute name="externalAuthId" type="String" mode="IN" optional="true"/>
         <attribute name="userLdapDn" type="String" mode="IN" optional="true"/>
         <attribute name="requirePasswordChange" type="String" mode="IN" optional="true"/>
+        <attribute name="disabledBy" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- common permission services -->

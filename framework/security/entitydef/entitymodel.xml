@@ -79,6 +79,7 @@ under the License.
       <field name="userLdapDn" type="id-vlong-ne">
           <description>The user's LDAP Distinguished Name - used for LDAP authentication</description>
       </field>
+      <field name="disabledBy" type="id-vlong"></field>
       <prim-key field="userLoginId"/>
     </entity>
     <entity entity-name="UserLoginPasswordHistory"
