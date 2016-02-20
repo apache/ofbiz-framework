@@ -530,9 +530,9 @@ under the License.
             <display-entity entity-name="TermType"/>
         </field>
         <field name="dueDate"><display/></field>
-        <field name="amount"><display/></field>
-        <field name="paidAmount"><display/></field>
-        <field name="outstandingAmount"><display/></field>
+        <field name="amount" position="1"><display type="currency" currency="${payment.currencyUomId}"/></field>
+        <field name="paidAmount"><display type="currency" currency="${payment.currencyUomId}"/></field>
+        <field name="outstandingAmount"><display type="currency" currency="${payment.currencyUomId}"/></field>
     </form>
     <form name="FinAccountTransAssociatedWithPayment" type="single" default-map-name="finAccountTrans" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="finAccountTransId" position="1"><display/></field>
