@@ -63,8 +63,8 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.widget.renderer.ScreenRenderer;
-import org.ofbiz.widget.renderer.fo.FoFormRenderer;
-import org.ofbiz.widget.renderer.html.HtmlScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -72,9 +72,6 @@ import org.xml.sax.SAXException;
 public class OagisServices {
 
     public static final String module = OagisServices.class.getName();
-
-    protected static final HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
-    protected static final FoFormRenderer foFormRenderer = new FoFormRenderer();
 
     public static final SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'Z");
     public static final SimpleDateFormat isoDateFormatNoTzValue = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'");
@@ -190,7 +187,9 @@ public class OagisServices {
         String outText = null;
         try {
             Writer writer = new StringWriter();
-            ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, new HtmlScreenRenderer());
+            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", delegator),
+                    EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", delegator));
+            ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, screenStringRenderer);
             screens.render(bodyScreenUri);
             writer.close();
             outText = writer.toString();
