@@ -62,9 +62,10 @@ import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.view.ApacheFopWorker;
-import org.ofbiz.widget.renderer.fo.FoFormRenderer;
-import org.ofbiz.widget.renderer.fo.FoScreenRenderer;
 import org.ofbiz.widget.renderer.ScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.ofbiz.widget.renderer.fo.FoFormRenderer;
+import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 
 
 /**
@@ -74,7 +75,6 @@ public class OutputServices {
 
     public final static String module = OutputServices.class.getName();
 
-    protected static final FoScreenRenderer foScreenRenderer = new FoScreenRenderer();
     protected static final FoFormRenderer foFormRenderer = new FoFormRenderer();
     public static final String resource = "ContentUiLabels";
 
@@ -103,7 +103,10 @@ public class OutputServices {
 
             Writer writer = new StringWriter();
             // substitute the freemarker variables...
-            ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContextTmp, foScreenRenderer);
+            ScreenStringRenderer foScreenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screenfop.name", dctx.getDelegator()),
+                            EntityUtilProperties.getPropertyValue("widget", "screenfop.screenrenderer", dctx.getDelegator()));
+
+            ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContextTmp, foScreenStringRenderer);
             screensAtt.populateContextForService(dctx, screenContext);
             screenContextTmp.putAll(screenContext);
             screensAtt.getContext().put("formStringRenderer", foFormRenderer);
@@ -212,7 +215,9 @@ public class OutputServices {
 
             Writer writer = new StringWriter();
             // substitute the freemarker variables...
-            ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContextTmp, foScreenRenderer);
+            ScreenStringRenderer foScreenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screenfop.name", dctx.getDelegator()),
+                    EntityUtilProperties.getPropertyValue("widget", "screenfop.screenrenderer", dctx.getDelegator()));
+            ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContextTmp, foScreenStringRenderer);
             screensAtt.populateContextForService(dctx, screenContext);
             screenContextTmp.putAll(screenContext);
             screensAtt.getContext().put("formStringRenderer", foFormRenderer);
