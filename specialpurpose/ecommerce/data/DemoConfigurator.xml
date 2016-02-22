@@ -19,6 +19,13 @@ under the License.
 -->
 
 <entity-engine-xml>
+	<FixedAsset fixedAssetId="DEMO_BOOK_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Book Group"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_BOOK_GROUP" geoPointId="9000" fromDate="2011-08-02 00:00:00.000"/>
+    <FixedAsset fixedAssetId="DEMO_MACHINE_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Machine Group"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_MACHINE_GROUP" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FixedAsset fixedAssetId="DEMO_FOOD_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Food Group"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_FOOD_GROUP" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    
     <Product productId="PC001" productTypeId="AGGREGATED" productName="Configurable PC" internalName="Configurable PC" description="Configurable PC" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:49:13.418" createdByUserLogin="admin"/>
     <Product productId="RAM1GB_BRAND" productTypeId="FINISHED_GOOD" productName="RAM1GB" internalName="RAM 1 GB DDR2" description="1 GB Dual Channel DDR2 SDRAM" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
     <Product productId="HD250GB_BRAND" productTypeId="FINISHED_GOOD" productName="HD250GB" internalName="HD 250 GB" description="250 GB Hard Drive" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
