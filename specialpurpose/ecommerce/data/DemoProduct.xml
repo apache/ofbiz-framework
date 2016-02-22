@@ -19,6 +19,9 @@ under the License.
 -->
 
 <entity-engine-xml>
+	<FixedAsset fixedAssetId="DEMO_BOOK_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Book Group"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_BOOK_GROUP" geoPointId="9000" fromDate="2011-08-02 00:00:00.000"/>
+    
     <Facility facilityId="WebStoreWarehouse" facilityTypeId="WAREHOUSE" facilityName="Web Store Warehouse" description="Warehouse exclusively for the Web Store " ownerPartyId="Company" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" defaultWeightUomId="WT_lb" defaultDaysToShip="25" geoPointId="9000"/>
 
     <ContactMech contactMechId="9200" contactMechTypeId="POSTAL_ADDRESS"/>
