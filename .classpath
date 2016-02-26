@@ -49,12 +49,13 @@
 	<classpathentry kind="lib" path="framework/base/lib/slf4j-api-1.6.4.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ws-commons-java5-1.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ws-commons-util-1.0.2.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/xercesImpl-2.9.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/xalan-2.7.2.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/xercesImpl-2.11.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xmlgraphics-commons-2.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xmlrpc-client-3.1.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xmlrpc-common-3.1.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xmlrpc-server-3.1.2.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/xml-apis-2.9.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xml-apis-ext-1.3.04.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xpp3-1.1.4c.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xstream-1.4.6.jar"/>
