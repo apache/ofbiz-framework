@@ -62,6 +62,7 @@ under the License.
                         <property-to-field resource="general" property="currency.uom.id.default" field="defaultCurrencyUomId"/>
                         <entity-one entity-name="PartyAcctgPrefAndGroup" value-field="orgParty">
                             <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
+                            <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
                         </entity-one>
                         <entity-one value-field="orgPartyLogoMap" entity-name="PartyGroup">
                             <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
