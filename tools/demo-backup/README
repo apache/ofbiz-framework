@@ -11,7 +11,8 @@ old: the previous stable version (currently 12.04)
 
         sudo -s -u ofbizDemo -H
 
-        then you can start/stop as required.
+        sudo uses OTP (One Time Password), so you not only need to be registered as a sudoer (ask Infra) but also to use a tool like Donkey on Ubuntu (jleroux: I use that) to generate the OTP
+        Then you can start/stop as required.
 
         To check if the demos are being run as the ofbizDemo user:
 
@@ -29,12 +30,12 @@ a problem.
 
 If you want to tackle only a single instance you can respectively use
 
-trunk-manual.sh
-stable-manual.sh
-old-manual.sh
+trunk-manual-nicely.sh
+stable-manual-nicely.sh
+old-manual-nicely.sh
 
 {checking}
         Type 'exit' to exit the ofbizDemo user and return to your normal user.
 {checking}
 
-Note: the contrast-rO0.jar librairy is provided as an example, it might not be up to date. Be sure to check https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure
+Note: the notsoserial-1.0-SNAPSHOT.jar library is provided as an example, it might not be up to date. Be sure to check https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure
