@@ -26,7 +26,7 @@ IF DEFINED JAVA_HOME (
 
 SET TOP=%~dp0
 SET LAUNCHER_JAR=
-SET BASE_LIB=%TOP%\framework\base\lib
+SET BASE_LIB=%TOP%framework\base\lib
 SET ANT_LIB=%BASE_LIB%\ant
 FOR %%G IN (%BASE_LIB%\ant-*-ant-launcher.jar) DO SET LAUNCHER_JAR=%%G
 REM ECHO %LAUNCHER_JAR%
