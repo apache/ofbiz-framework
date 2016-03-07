@@ -89,12 +89,12 @@ under the License.
     </service>
 
     <service name="testRemoteSoap" engine="soap" export="true" 
-        location="http://demo-trunk.ofbiz.apache.org:8080/webtools/control/SOAPService"
+        location="http://ofbiz-vm.apache.org:8080/webtools/control/SOAPService"
         invoke="testSoapSimple">
         <attribute name="defaultValue" type="Double" mode="IN" default-value="999.9999"/>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
-    </service>    
+    </service>
 
     <!-- FIXME For now, not sure why, the 4 remote SOAP services below don't work -->
     
@@ -112,7 +112,7 @@ under the License.
         <attribute name="ZipCode" type="String" mode="IN"/>
         <attribute name="invoke" type="String" mode="IN" />
         <attribute name="result" type="String" mode="OUT"/>
-    </service>    
+    </service>
     
     <!-- the location = endpoint = SOAP action -->
     <!-- invoke parameter is the name of the operation to invoke, for example LatLonListCityNames -->
@@ -128,7 +128,7 @@ under the License.
         <attribute name="CityName" type="String" mode="IN"/>
         <attribute name="invoke" type="String" mode="IN" />
         <attribute name="result" type="String" mode="OUT"/>
-    </service>    
+    </service>
 
     <!-- FIXME For now, not sure why, this remote SOAP service does not work -->
     <service name="testRemoteSoap3" engine="soap" export="true"
@@ -137,7 +137,7 @@ under the License.
         <attribute name="ZipCode" type="String" mode="IN"/>
         <attribute name="invoke" type="String" mode="IN" />
         <attribute name="result" type="String" mode="OUT"/>
-    </service>    
+    </service>
     
     <!-- FIXME For now, not sure why, this remote SOAP service does not work -->
     <service name="testRemoteSoap4" engine="soap" export="true"
