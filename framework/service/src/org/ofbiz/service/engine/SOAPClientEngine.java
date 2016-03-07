@@ -30,11 +30,14 @@ import javax.xml.stream.XMLStreamReader;
 import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.OMFactory;
-import org.apache.axiom.om.impl.builder.StAXOMBuilder;
+import org.apache.axiom.om.OMXMLBuilderFactory;
+import org.apache.axiom.om.OMXMLParserWrapper;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.addressing.EndpointReference;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
+import org.apache.axis2.context.ConfigurationContext;
+import org.apache.axis2.context.ConfigurationContextFactory;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
@@ -83,9 +86,14 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
 
         ServiceClient client = null;
         QName serviceName = null;
+        String axis2Repo = "/framework/service/config/axis2";
+        String axis2RepoLocation = System.getProperty("ofbiz.home") + axis2Repo;
+        String axis2XmlFile = "/framework/service/config/axis2/conf/axis2.xml";
+        String axis2XmlFileLocation = System.getProperty("ofbiz.home") + axis2XmlFile;
 
         try {
-            client = new ServiceClient();
+            ConfigurationContext configContext = ConfigurationContextFactory.createConfigurationContextFromFileSystem(axis2RepoLocation, axis2XmlFileLocation);
+            client = new ServiceClient(configContext, null);
             Options options = new Options();
             EndpointReference endPoint = new EndpointReference(this.getLocation(modelService));
             options.setTo(endPoint);
@@ -122,7 +130,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         try {
             String xmlParameters = SoapSerializer.serialize(parameterMap);
             XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlParameters));
-            StAXOMBuilder builder = new StAXOMBuilder(reader);
+            OMXMLParserWrapper builder = OMXMLBuilderFactory.createStAXOMBuilder(reader);
             parameterSer = builder.getDocumentElement();
         } catch (Exception e) {
             Debug.logError(e, module);
