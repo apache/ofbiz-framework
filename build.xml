@@ -190,7 +190,6 @@ under the License.
     </target>
 
     <target name="clean">
-        <ivy:cleancache/>
         <hotdeployant target="clean"/>
         <antcall target="clean-specialpurpose"/>
         <antcall target="clean-applications"/>
@@ -1577,7 +1576,7 @@ under the License.
             <filterset refid="replacePlaceholders"/>
         </copy>
         <echo>Component successfully created in folder ${basedir}/hot-deploy/${component-name}.
-              Restart OFBiz and then visit the URL: http://localhost:8080/${webapp-name}
+            Restart OFBiz and then visit the URL: https://localhost:8443/${webapp-name}
         </echo>
     </target>
 
