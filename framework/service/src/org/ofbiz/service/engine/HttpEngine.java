@@ -182,10 +182,10 @@ public class HttpEngine extends GenericAsyncEngine {
             response.setContentType("plain/text");
 
             if (errorMessage.length() > 0) {
-                response.setContentLength(errorMessage.length());
+                response.setContentLength(errorMessage.toString().getBytes().length);
                 out.write(errorMessage.toString());
             } else {
-                response.setContentLength(resultString.length());
+                response.setContentLength(resultString.getBytes().length);
                 out.write(resultString);
             }
 
