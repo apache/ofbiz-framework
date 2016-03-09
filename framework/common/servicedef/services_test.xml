@@ -88,6 +88,10 @@ under the License.
         <implements service="testScv"/>
     </service>
 
+    <!--  test service for local loopback testing (OFBiz Client SOAP -> OFBiz Server SOAP)  
+        http://ofbiz-vm.apache.org:8080/webtools/control/SOAPService is the ultimate location for the testRemoteSoap 
+        (it's redirected from http://demo-trunk-ofbiz.apache.org/webtools/control/SOAPService by the SSL ASF proxy)
+        So this can be used only against trunk demo and is not in the tests set to avoid a dependency on Internet -->
     <service name="testRemoteSoap" engine="soap" export="true" 
         location="http://ofbiz-vm.apache.org:8080/webtools/control/SOAPService"
         invoke="testSoapSimple">
