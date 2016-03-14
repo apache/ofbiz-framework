@@ -7463,7 +7463,7 @@
         <value xml:lang="ar">علاقة تحويل وحدات القياس غير موجودة</value>
         <value xml:lang="cs">Nenalezena vhodná konverze jednotek</value>
         <value xml:lang="de">Die Beziehung der Einheit für die Konversion wurde nicht gefunden</value>
-        <value xml:lang="en">UOM Conversion Relationship Not Found</value>
+        <value xml:lang="en">UOM Conversion Relationship Not Found: from: ${parameters.uomId} To: ${parameters.uomIdTo}</value>
         <value xml:lang="es">No se encontró la relación de conversión de UDM</value>
         <value xml:lang="fr">La relation de conversion des unités de mesure n'a pas été trouvée</value>
         <value xml:lang="hi-IN">माप की इकाई का रूपांतरण रिश्ता नहीं मिला</value>
