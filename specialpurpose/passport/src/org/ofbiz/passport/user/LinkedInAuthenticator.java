@@ -28,13 +28,14 @@ import java.sql.Timestamp;
 import javax.transaction.Transaction;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.ofbiz.passport.event.LinkedInEvents;
+import org.ofbiz.passport.util.PassportUtil;
 import org.ofbiz.common.authentication.api.Authenticator;
 import org.ofbiz.common.authentication.api.AuthenticatorException;
 import org.ofbiz.service.LocalDispatcher;
@@ -99,7 +100,7 @@ public class LinkedInAuthenticator implements Authenticator {
      */
     public boolean authenticate(String userLoginId, String password, boolean isServiceAuth) throws AuthenticatorException {
         Document user = null;
-        GetMethod getMethod = null;
+        HttpGet getMethod = null;
         try {
             GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
             String externalAuthId = userLogin.getString("externalAuthId");
@@ -107,13 +108,11 @@ public class LinkedInAuthenticator implements Authenticator {
             if (UtilValidate.isNotEmpty(linkedInUser)) {
                 String accessToken = linkedInUser.getString("accessToken");
                 if (UtilValidate.isNotEmpty(accessToken)) {
-                    getMethod = new GetMethod(LinkedInEvents.TokenEndpoint + LinkedInEvents.UserApiUri  + "?oauth2_access_token=" + accessToken);
+                    getMethod = new HttpGet(LinkedInEvents.TokenEndpoint + LinkedInEvents.UserApiUri  + "?oauth2_access_token=" + accessToken);
                     user = LinkedInAuthenticator.getUserInfo(getMethod, Locale.getDefault());
                 }
             }
         } catch (GenericEntityException e) {
-            throw new AuthenticatorException(e.getMessage(), e);
-        } catch (HttpException e) {
             throw new AuthenticatorException(e.getMessage(), e);
         } catch (IOException e) {
             throw new AuthenticatorException(e.getMessage(), e);
@@ -213,7 +212,7 @@ public class LinkedInAuthenticator implements Authenticator {
 
     private Document getLinkedInUserinfo(String userLoginId) throws AuthenticatorException {
         Document user = null;
-        GetMethod getMethod = null;
+        HttpGet getMethod = null;
         try {
             GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
             String externalAuthId = userLogin.getString("externalAuthId");
@@ -221,13 +220,11 @@ public class LinkedInAuthenticator implements Authenticator {
             if (UtilValidate.isNotEmpty(linkedInUser)) {
                 String accessToken = linkedInUser.getString("accessToken");
                 if (UtilValidate.isNotEmpty(accessToken)) {
-                    getMethod = new GetMethod(LinkedInEvents.TokenEndpoint + LinkedInEvents.UserApiUri + "?oauth2_access_token=" + accessToken);
+                    getMethod = new HttpGet(LinkedInEvents.TokenEndpoint + LinkedInEvents.UserApiUri + "?oauth2_access_token=" + accessToken);
                     user = getUserInfo(getMethod, Locale.getDefault());
                 }
             }
         } catch (GenericEntityException e) {
-            throw new AuthenticatorException(e.getMessage(), e);
-        } catch (HttpException e) {
             throw new AuthenticatorException(e.getMessage(), e);
         } catch (IOException e) {
             throw new AuthenticatorException(e.getMessage(), e);
@@ -399,18 +396,17 @@ public class LinkedInAuthenticator implements Authenticator {
         return "true".equalsIgnoreCase(UtilProperties.getPropertyValue(props, "linked.authenticator.enabled", "true"));
     }
 
-    public static Document getUserInfo(GetMethod getMethod, Locale locale) throws HttpException, IOException, AuthenticatorException, SAXException, ParserConfigurationException {
+    public static Document getUserInfo(HttpGet httpGet, Locale locale) throws IOException, AuthenticatorException, SAXException, ParserConfigurationException {
         Document userInfo = null;
-        HttpClient jsonClient = new HttpClient();
-        HttpMethodParams params = new HttpMethodParams();
-        params.setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-        getMethod.setParams(params);
-        jsonClient.executeMethod(getMethod);
-        if (getMethod.getStatusCode() == HttpStatus.SC_OK) {
-            Debug.logInfo("Json Response from LinkedIn: " + getMethod.getResponseBodyAsString(), module);
-            userInfo = UtilXml.readXmlDocument(getMethod.getResponseBodyAsString());
+        httpGet.setConfig(PassportUtil.StandardRequestConfig);
+        CloseableHttpClient jsonClient = HttpClients.custom().build();
+        CloseableHttpResponse getResponse = jsonClient.execute(httpGet);
+        String responseString = new BasicResponseHandler().handleResponse(getResponse);
+        if (getResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            // Debug.logInfo("Json Response from LinkedIn: " + responseString, module);
+            userInfo = UtilXml.readXmlDocument(responseString);
         } else {
-            String errMsg = UtilProperties.getMessage(resource, "GetOAuth2AccessTokenError", UtilMisc.toMap("error", getMethod.getResponseBodyAsString()), locale);
+            String errMsg = UtilProperties.getMessage(resource, "GetOAuth2AccessTokenError", UtilMisc.toMap("error", responseString), locale);
             throw new AuthenticatorException(errMsg);
         }
         return userInfo;

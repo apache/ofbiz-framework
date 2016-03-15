@@ -18,27 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.passport.util;
 
-import java.io.IOException;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.net.UnknownHostException;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.ssl.SSLContextBuilder;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.client.config.CookieSpecs;
+import org.apache.http.client.config.RequestConfig;
 import org.ofbiz.base.util.Debug;
 
 public class PassportUtil {
@@ -105,6 +90,10 @@ public class PassportUtil {
 
     public static final String COMMON_APP_SECRET = "AppSecret";
     
+    public static final RequestConfig StandardRequestConfig = RequestConfig.custom()
+                                                                           .setCookieSpec(CookieSpecs.STANDARD)
+                                                                           .build();
+    
     protected PassportUtil() {
         // empty constructor
     }
@@ -128,69 +117,4 @@ public class PassportUtil {
         }
         return prefix;
     }
-
-    private static String randomString(int lo, int hi) {
-        int n = rand(lo, hi);
-        byte b[] = new byte[n];
-        for (int i = 0; i < n; i++) {
-            b[i] = (byte)rand('a', 'z');
-        }
-        return new String(b);
-    }
-
-    private static int rand(int lo, int hi) {
-        java.util.Random rn = new java.util.Random();
-        int n = hi - lo + 1;
-        int i = rn.nextInt() % n;
-        if (i < 0)
-                i = -i;
-        return lo + i;
-    }
-
-    public static String randomString() {
-        return randomString(8, 15);
-    }
-
-    public CloseableHttpClient getAllowAllHttpClient() {
-        try {
-            SSLContextBuilder builder = new SSLContextBuilder();
-            builder.loadTrustMaterial(null, new TrustSelfSignedStrategy());
-            SSLConnectionSocketFactory sf = new AllowAllSSLSocketFactory(builder.build());
-            CloseableHttpClient httpclient = HttpClients.custom().setSSLSocketFactory(sf).build();
-            return httpclient;
-        } catch (Exception e) {
-            return HttpClients.createDefault();
-        }
-    }
-
-    public class AllowAllSSLSocketFactory extends SSLConnectionSocketFactory {
-        SSLContext sslContext = SSLContext.getInstance("TLS");
-
-        public AllowAllSSLSocketFactory(SSLContext sslContext) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
-            super(sslContext);
-
-            TrustManager tm = new X509TrustManager() {
-                public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                }
-
-                public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                }
-
-                public X509Certificate[] getAcceptedIssuers() {
-                    return null;
-                }
-            };
-
-            sslContext.init(null, new TrustManager[] { tm }, null);
-        }
-
-        public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException, UnknownHostException {
-            return sslContext.getSocketFactory().createSocket(socket, host, port, autoClose);
-        }
-
-        public Socket createSocket() throws IOException {
-            return sslContext.getSocketFactory().createSocket();
-        }
-    }
-
 }

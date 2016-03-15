@@ -20,6 +20,8 @@ package org.ofbiz.passport.event;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -29,13 +31,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.ofbiz.passport.user.LinkedInAuthenticator;
 import org.ofbiz.passport.util.PassportUtil;
 import org.ofbiz.base.conversion.ConversionException;
@@ -53,6 +57,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.LocalDispatcher;
 import org.w3c.dom.Document;
@@ -164,38 +169,37 @@ public class LinkedInEvents {
         // Use the authorization code to obtain an access token
         String accessToken = null;
         
-        HttpClient jsonClient = new HttpClient();
-        PostMethod postMethod = new PostMethod(TokenEndpoint + TokenServiceUri);
         try {
-            HttpMethodParams params = new HttpMethodParams();
-            String queryString = "client_id=" + clientId
-                    + "&client_secret=" + secret
-                    + "&grant_type=authorization_code"
-                    + "&code=" + authorizationCode
-                    + "&redirect_uri=" + URLEncoder.encode(returnURI, "UTF-8");
-            // Debug.logInfo("LinkedIn get access token query string: " + queryString, module);
-            postMethod.setQueryString(queryString);
-            params.setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-            postMethod.setParams(params);
-            jsonClient.executeMethod(postMethod);
-            // Debug.logInfo("LinkedIn get access token response code: " + postMethod.getStatusCode(), module);
-            // Debug.logInfo("LinkedIn get access token response content: " + postMethod.getResponseBodyAsString(1024), module);
-            if (postMethod.getStatusCode() == HttpStatus.SC_OK) {
-                // Debug.logInfo("Json Response from LinkedIn: " + postMethod.getResponseBodyAsString(1024), module);
-                JSON jsonObject = JSON.from(postMethod.getResponseBodyAsString(1024));
+            URI uri = new URIBuilder()
+                    .setHost(TokenEndpoint)
+                    .setPath(TokenServiceUri)
+                    .setParameter("client_id", clientId)
+                    .setParameter("client_secret", secret)
+                    .setParameter("grant_type", "authorization_code")
+                    .setParameter("code", authorizationCode)
+                    .setParameter("redirect_uri", URLEncoder.encode(returnURI, "UTF-8"))
+                    .build();
+            HttpPost postMethod = new HttpPost(uri);
+            CloseableHttpClient jsonClient = HttpClients.custom().build();
+            // Debug.logInfo("LinkedIn get access token query string: " + postMethod.getURI(), module);
+            postMethod.setConfig(PassportUtil.StandardRequestConfig);
+            CloseableHttpResponse postResponse = jsonClient.execute(postMethod);
+            String responseString = new BasicResponseHandler().handleResponse(postResponse);
+            // Debug.logInfo("LinkedIn get access token response code: " + postResponse.getStatusLine().getStatusCode(), module);
+            // Debug.logInfo("LinkedIn get access token response content: " + responseString, module);
+            if (postResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                // Debug.logInfo("Json Response from LinkedIn: " + responseString, module);
+                JSON jsonObject = JSON.from(responseString);
                 JSONToMap jsonMap = new JSONToMap();
                 Map<String, Object> userMap = jsonMap.convert(jsonObject);
                 accessToken = (String) userMap.get("access_token");
                 // Debug.logInfo("Generated Access Token : " + accessToken, module);
             } else {
-                String errMsg = UtilProperties.getMessage(resource, "GetOAuth2LinkedInAccessTokenError", UtilMisc.toMap("error", postMethod.getResponseBodyAsString()), UtilHttp.getLocale(request));
+                String errMsg = UtilProperties.getMessage(resource, "GetOAuth2LinkedInAccessTokenError", UtilMisc.toMap("error", responseString), UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
         } catch (UnsupportedEncodingException e) {
-            request.setAttribute("_ERROR_MESSAGE_", e.toString());
-            return "error";
-        } catch (HttpException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
         } catch (IOException e) {
@@ -204,18 +208,16 @@ public class LinkedInEvents {
         } catch (ConversionException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
-        } finally {
-            postMethod.releaseConnection();
-        }
+        } catch (URISyntaxException e) {
+            request.setAttribute("_ERROR_MESSAGE_", e.toString());
+            return "error";
+		}
         
         // Get User Profile
-        GetMethod getMethod = new GetMethod(TokenEndpoint + UserApiUri + "?oauth2_access_token=" + accessToken);
+        HttpGet getMethod = new HttpGet(TokenEndpoint + UserApiUri + "?oauth2_access_token=" + accessToken);
         Document userInfo = null;
         try {
             userInfo = LinkedInAuthenticator.getUserInfo(getMethod, UtilHttp.getLocale(request));
-        } catch (HttpException e) {
-            request.setAttribute("_ERROR_MESSAGE_", e.toString());
-            return "error";
         } catch (IOException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
@@ -289,12 +291,12 @@ public class LinkedInEvents {
                 String userLoginId = authn.createUser(userInfo);
                 userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
             }
-            String password = PassportUtil.randomString();
+            String autoPassword = RandomStringUtils.randomAlphanumeric(Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "password.length.min", "5", delegator)));
             boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security", "password.encrypt"));
-            userLogin.set("currentPassword", useEncryption ? HashCrypt.digestHash(LoginServices.getHashType(), null, password) : password);
+            userLogin.set("currentPassword", useEncryption ? HashCrypt.digestHash(LoginServices.getHashType(), null, autoPassword) : autoPassword);
             userLogin.store();
             request.setAttribute("USERNAME", userLogin.getString("userLoginId"));
-            request.setAttribute("PASSWORD", password);
+            request.setAttribute("PASSWORD", autoPassword);
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(), module);
             request.setAttribute("_ERROR_MESSAGE_", e.toString());

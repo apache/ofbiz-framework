@@ -27,12 +27,6 @@ import java.sql.Timestamp;
 
 import javax.transaction.Transaction;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.ofbiz.passport.event.GitHubEvents;
 import org.ofbiz.passport.user.GitHubUserGroupMapper;
 import org.ofbiz.passport.util.PassportUtil;
@@ -47,6 +41,13 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.util.EntityUtil;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.JSONConverters.JSONToMap;
 import org.ofbiz.base.lang.JSON;
@@ -98,7 +99,7 @@ public class GitHubAuthenticator implements Authenticator {
      */
     public boolean authenticate(String userLoginId, String password, boolean isServiceAuth) throws AuthenticatorException {
         Map<String, Object> user = null;
-        GetMethod getMethod = null;
+        HttpGet getMethod = null;
         try {
             GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
             String externalAuthId = userLogin.getString("externalAuthId");
@@ -107,15 +108,11 @@ public class GitHubAuthenticator implements Authenticator {
                 String accessToken = gitHubUser.getString("accessToken");
                 String tokenType = gitHubUser.getString("tokenType");
                 if (UtilValidate.isNotEmpty(accessToken)) {
-                    getMethod = new GetMethod(GitHubEvents.ApiEndpoint + GitHubEvents.UserApiUri);
+                    getMethod = new HttpGet(GitHubEvents.ApiEndpoint + GitHubEvents.UserApiUri);
                     user = GitHubAuthenticator.getUserInfo(getMethod, accessToken, tokenType, Locale.getDefault());
                 }
             }
         } catch (GenericEntityException e) {
-            throw new AuthenticatorException(e.getMessage(), e);
-        } catch (HttpException e) {
-            throw new AuthenticatorException(e.getMessage(), e);
-        } catch (IOException e) {
             throw new AuthenticatorException(e.getMessage(), e);
         } catch (AuthenticatorException e) {
             throw new AuthenticatorException(e.getMessage(), e);
@@ -208,7 +205,7 @@ public class GitHubAuthenticator implements Authenticator {
 
     private Map<String, Object> getGitHubUserinfo(String userLoginId) throws AuthenticatorException {
         Map<String, Object> user = null;
-        GetMethod getMethod = null;
+        HttpGet getMethod = null;
         try {
             GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
             String externalAuthId = userLogin.getString("externalAuthId");
@@ -217,22 +214,14 @@ public class GitHubAuthenticator implements Authenticator {
                 String accessToken = gitHubUser.getString("accessToken");
                 String tokenType = gitHubUser.getString("tokenType");
                 if (UtilValidate.isNotEmpty(accessToken)) {
-                    getMethod = new GetMethod(GitHubEvents.ApiEndpoint + GitHubEvents.UserApiUri);
+                    getMethod = new HttpGet(GitHubEvents.ApiEndpoint + GitHubEvents.UserApiUri);
                     user = getUserInfo(getMethod, accessToken, tokenType, Locale.getDefault());
                 }
             }
         } catch (GenericEntityException e) {
             throw new AuthenticatorException(e.getMessage(), e);
-        } catch (HttpException e) {
-            throw new AuthenticatorException(e.getMessage(), e);
-        } catch (IOException e) {
-            throw new AuthenticatorException(e.getMessage(), e);
         } catch (AuthenticatorException e) {
             throw new AuthenticatorException(e.getMessage(), e);
-        } finally {
-            if (getMethod != null) {
-                getMethod.releaseConnection();
-            }
         }
         return user;
     }
@@ -387,22 +376,36 @@ public class GitHubAuthenticator implements Authenticator {
         return "true".equalsIgnoreCase(UtilProperties.getPropertyValue(props, "github.authenticator.enabled", "true"));
     }
 
-    public static Map<String, Object> getUserInfo(GetMethod getMethod, String accessToken, String tokenType, Locale locale) throws HttpException, IOException, AuthenticatorException {
+    public static Map<String, Object> getUserInfo(HttpGet httpGet, String accessToken, String tokenType, Locale locale) throws AuthenticatorException {
         JSON userInfo = null;
-        HttpClient jsonClient = new HttpClient();
-        HttpMethodParams params = new HttpMethodParams();
-        params.setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-        getMethod.setParams(params);
-        getMethod.setRequestHeader(PassportUtil.AUTHORIZATION_HEADER, tokenType + " " + accessToken);
-        getMethod.setRequestHeader(PassportUtil.ACCEPT_HEADER, "application/json");
-        jsonClient.executeMethod(getMethod);
-        if (getMethod.getStatusCode() == HttpStatus.SC_OK) {
-            Debug.logInfo("Json Response from GitHub: " + getMethod.getResponseBodyAsString(), module);
-            userInfo = JSON.from(getMethod.getResponseBodyAsString());
-        } else {
-            String errMsg = UtilProperties.getMessage(resource, "GetOAuth2AccessTokenError", UtilMisc.toMap("error", getMethod.getResponseBodyAsString()), locale);
-            throw new AuthenticatorException(errMsg);
-        }
+        httpGet.setConfig(PassportUtil.StandardRequestConfig);
+        CloseableHttpClient jsonClient = HttpClients.custom().build();
+        httpGet.setHeader(PassportUtil.AUTHORIZATION_HEADER, tokenType + " " + accessToken);
+        httpGet.setHeader(PassportUtil.ACCEPT_HEADER, "application/json");
+        CloseableHttpResponse getResponse = null;
+		try {
+			getResponse = jsonClient.execute(httpGet);
+            String responseString = new BasicResponseHandler().handleResponse(getResponse);
+	        if (getResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+	            // Debug.logInfo("Json Response from GitHub: " + responseString, module);
+	            userInfo = JSON.from(responseString);
+	        } else {
+	            String errMsg = UtilProperties.getMessage(resource, "GetOAuth2AccessTokenError", UtilMisc.toMap("error", responseString), locale);
+	            throw new AuthenticatorException(errMsg);
+	        }
+		} catch (ClientProtocolException e) {
+            throw new AuthenticatorException(e.getMessage());
+		} catch (IOException e) {
+            throw new AuthenticatorException(e.getMessage());
+		} finally {
+			if (getResponse != null) {
+	            try {
+					getResponse.close();
+				} catch (IOException e) {
+					// do nothing
+				}
+			}
+		}
         JSONToMap jsonMap = new JSONToMap();
         Map<String, Object> userMap;
         try {
