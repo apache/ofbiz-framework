@@ -25,17 +25,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.net.ssl.SSLContext;
-
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.ssl.SSLContexts;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -47,8 +41,8 @@ import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.ofbiz.base.component.ComponentException;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
@@ -80,10 +74,6 @@ public final class SolrUtil {
     
     protected static final boolean trustSelfSignedCert = getTrustSelfSignedCert();
     
-    protected SolrUtil() {
-        // empty constructor
-    }
-
     public static String makeSolrWebappUrl() {
         final String solrWebappProtocol = UtilProperties.getPropertyValue(solrConfigName, "solr.webapp.protocol");
         final String solrWebappDomainName = UtilProperties.getPropertyValue(solrConfigName, "solr.webapp.domainName");
@@ -255,7 +245,7 @@ public final class SolrUtil {
         QueryResponse returnMap = new QueryResponse();
         try {
             // do the basic query
-            client = getInstance().getHttpSolrClient(solrIndexName);
+            client = getHttpSolrClient(solrIndexName);
             // create Query Object
             String query = "inStock[1 TO *]";
             if (categoryId != null)
@@ -298,36 +288,16 @@ public final class SolrUtil {
         return result;
     }
 
-    private CloseableHttpClient getAllowAllHttpClient() {
-        try {
-            // Trust own CA and all self-signed certs
-            SSLContext sslContext = SSLContexts.custom()
-                    .loadTrustMaterial(FileUtil.getFile("component://base/config/ofbizssl.jks"), "changeit".toCharArray(),
-                            new TrustSelfSignedStrategy())
-                    .build();
-            // No host name verifier
-            SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
-                    sslContext,
-                    NoopHostnameVerifier.INSTANCE);
-            CloseableHttpClient httpClient = HttpClients.custom()
-                    .setSSLSocketFactory(sslsf)
-                    .build();
-            return httpClient;
-        } catch (Exception e) {
-            return HttpClients.createDefault();
-        }
-    }
-
     public static SolrUtil getInstance() {
         return new SolrUtil();
     }
 
-    public HttpSolrClient getHttpSolrClient(String solrIndexName) throws ClientProtocolException, IOException {
+    public static HttpSolrClient getHttpSolrClient(String solrIndexName) throws ClientProtocolException, IOException {
         HttpClientContext httpContext = HttpClientContext.create();
         
         CloseableHttpClient httpClient = null;
         if (trustSelfSignedCert) {
-            httpClient = getAllowAllHttpClient();
+            httpClient = UtilHttp.getAllowAllHttpClient();
         } else {
             httpClient = HttpClients.createDefault();
         }

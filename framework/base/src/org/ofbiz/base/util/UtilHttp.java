@@ -43,12 +43,19 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 
+import javax.net.ssl.SSLContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContexts;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternMatcher;
@@ -1437,6 +1444,30 @@ public class UtilHttp {
     public static void setContentDisposition(final HttpServletResponse response, final String filename) {
         String dispositionType = UtilProperties.getPropertyValue("requestHandler", "content-disposition-type", "attachment");
         response.setHeader("Content-Disposition", String.format("%s; filename=\"%s\"", dispositionType, filename));
+    }
+
+    public static CloseableHttpClient getAllowAllHttpClient() {
+        return getAllowAllHttpClient("component://base/config/ofbizssl.jks", "changeit");
+    }
+
+    public static CloseableHttpClient getAllowAllHttpClient(String jksStoreFileName, String jksStorePassword) {
+        try {
+            // Trust own CA and all self-signed certs
+            SSLContext sslContext = SSLContexts.custom()
+                    .loadTrustMaterial(FileUtil.getFile(jksStoreFileName), jksStorePassword.toCharArray(),
+                            new TrustSelfSignedStrategy())
+                    .build();
+            // No host name verifier
+            SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
+                    sslContext,
+                    NoopHostnameVerifier.INSTANCE);
+            CloseableHttpClient httpClient = HttpClients.custom()
+                    .setSSLSocketFactory(sslsf)
+                    .build();
+            return httpClient;
+        } catch (Exception e) {
+            return HttpClients.createDefault();
+        }
     }
 
 }
