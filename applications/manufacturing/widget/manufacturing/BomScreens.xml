@@ -23,7 +23,7 @@ under the License.
     <screen name="CommonBomDecorator">
         <section>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for MANUFACTURING, _VIEW permission -->

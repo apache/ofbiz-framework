@@ -29,7 +29,7 @@ under the License.
                 <set field="mrpName" from-field="parameters.mrpName"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ManufacturingReports}">
                             <include-form name="SelectMrpName" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>

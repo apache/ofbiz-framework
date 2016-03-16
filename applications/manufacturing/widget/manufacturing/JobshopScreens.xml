@@ -23,13 +23,9 @@ under the License.
     <screen name="CommonJobshopDecorator">
         <section>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for MANUFACTURING, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="MANUFACTURING" action="_VIEW"/>
-                            </condition>
                             <widgets>
                                 <section>
                                     <condition>
@@ -47,9 +43,6 @@ under the License.
                                 </container>
                                 <decorator-section-include name="body"/>
                             </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.ManufacturingViewPermissionError}</label>
-                            </fail-widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
@@ -63,7 +56,7 @@ under the License.
                 <set field="headerItem" value="jobshop"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ManufacturingCreateProductionRun}">
                             <include-form name="CreateProductionRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
@@ -657,7 +650,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -699,7 +692,7 @@ under the License.
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/WorkWithShipmentPlans.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ManufacturingWorkWithShipmentPlans}">
                             <include-form name="listShipmentPlans" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
