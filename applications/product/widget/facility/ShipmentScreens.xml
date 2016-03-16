@@ -28,7 +28,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/FindShipment.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
