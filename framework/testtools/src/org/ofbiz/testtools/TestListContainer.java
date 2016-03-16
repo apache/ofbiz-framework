@@ -102,7 +102,7 @@ public class TestListContainer implements Container {
                 }
                 pout.println("\"/>\n");
                 for (FoundTest foundTest : foundTests) {
-                    pout.format(" <target name=\"%1$s:%2$s\">\n  <ant antfile=\"build.xml\" target=\"run-single-test-suite\">\n   <property name=\"test.component\" value=\"%1$s\"/>\n   <property name=\"test.suiteName\" value=\"%2$s\"/>\n  </ant>\n </target>\n", foundTest.componentName, foundTest.suiteName);
+                    pout.format(" <target name=\"%1$s:%2$s\">\n  <ant antfile=\"build.xml\" target=\"run-test-suite\">\n   <property name=\"test.component\" value=\"%1$s\"/>\n   <property name=\"test.suiteName\" value=\"%2$s\"/>\n  </ant>\n </target>\n", foundTest.componentName, foundTest.suiteName);
                 }
                 pout.println("</project>");
             }
