@@ -38,6 +38,11 @@ under the License.
         <param-name>mainDecoratorLocation</param-name>
         <param-value>component://manufacturing/widget/manufacturing/CommonScreens.xml</param-value>
     </context-param>
+    <context-param>
+        <description>The location of the CommonManufacturingDecorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
+        <param-name>commonManufacturingDecoratorLocation</param-name>
+        <param-value>component://manufacturing/widget/manufacturing/CommonScreens.xml</param-value>
+    </context-param>
     <filter>
         <display-name>ContextFilter</display-name>
         <filter-name>ContextFilter</filter-name>

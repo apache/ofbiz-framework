@@ -20,6 +20,33 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="CommonShipmentMainDecorator">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductFindShipment"/>
+                <set field="headerItem" value="shipment"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/FindShipment.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="FACILITY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="FindShipment">
         <section>
             <actions>
@@ -28,7 +55,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/FindShipment.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/FindShipment.ftl"/></html>
@@ -48,7 +75,7 @@ under the License.
                 <get-related-one value-field="shipment" to-value-field="facility" relation-name="DestinationFacility"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -140,7 +167,7 @@ under the License.
                         </not>
                     </condition>
                     <widgets>
-                        <decorator-screen name="CommonShipmentDecorator">
+                        <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                             <decorator-section name="body">
                                 <platform-specific>
                                     <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentInfo.ftl"/></html>
@@ -185,7 +212,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipment.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonShipmentDecorator">
+                <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="EditShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
                     </decorator-section>
@@ -203,7 +230,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentItems.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonShipmentDecorator">
+                <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/EditShipmentItems.ftl"/></html>
@@ -223,7 +250,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPlan.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonShipmentDecorator">
+                <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductShipmentPlan}">
                             <include-form name="findOrderItems" location="component://product/widget/facility//ShipmentForms.xml"/>
@@ -268,7 +295,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPackages.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonShipmentDecorator">
+                <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/EditShipmentPackages.ftl"/></html>
@@ -288,7 +315,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonShipmentDecorator">
+                <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/EditShipmentRouteSegments.ftl"/></html>
@@ -308,7 +335,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/AddItemsFromOrder.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonShipmentDecorator">
+                <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/AddItemsFromOrder.ftl"/></html>
@@ -326,7 +353,7 @@ under the License.
                 <set field="tabButtonItem" value="ViewShipmentReceipts"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonShipmentDecorator">
+                <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="ShipmentReceipts" location="component://product/widget/facility/ShipmentForms.xml"/>
                     </decorator-section>
@@ -346,7 +373,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/QuickShipOrder.ftl"/></html>
@@ -366,7 +393,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/VerifyPick.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/VerifyPick.ftl"/></html>
@@ -385,7 +412,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/PackOrder.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/PackOrder.ftl"/></html>
@@ -404,7 +431,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/WeightPackage.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/WeightPackage.ftl"/></html>
@@ -534,7 +561,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ReceiveInventoryAgainstPurchaseOrder.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonShipmentDecorator">
+                <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/ReceiveInventoryAgainstPurchaseOrder.ftl"/></html>
@@ -556,7 +583,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/AddItemsFromInventory.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonShipmentDecorator">
+                <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/AddItemsFromInventory.ftl"/></html>

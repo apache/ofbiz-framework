@@ -23,20 +23,13 @@ under the License.
     <screen name="CommonMrpDecorator">
         <section>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for MANUFACTURING, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="MANUFACTURING" action="_VIEW"/>
-                            </condition>
                             <widgets>
                                 <include-menu name="MrpTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.ManufacturingViewPermissionError}</label>
-                            </fail-widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
