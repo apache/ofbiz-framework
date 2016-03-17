@@ -18,11 +18,7 @@
 
 
 <web-app version="3.0">
-    <display-name> version="3.0"
-      xmlns="http://java.sun.com/xml/ns/javaee"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"Empty placeholder</display-name>
+    <display-name>Apache OFBiz - Content Empty placeholder</display-name>
     <description>Empty placeholder, see http://svn.apache.org/viewvc?view=revision&amp;revision=1658621 </description>
     <session-config>
       <session-timeout>60</session-timeout> <!-- in minutes -->
