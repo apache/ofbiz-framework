@@ -54,12 +54,45 @@ under the License.
     <process field="expYear"><not-empty><fail-property resource="AccountingUiLabels" property="AccountingExpirationYearMissing"/></not-empty></process>
     <process field="expireDate">
         <copy/>
-        <validate-method method="isDateAfterToday"><fail-property resource="AccountingUiLabels" property="AccountingExpirationDateIsBeforeToday"/></validate-method></process>
+        <validate-method method="isDateAfterToday"><fail-property resource="AccountingUiLabels" property="AccountingExpirationDateIsBeforeToday"/></validate-method>
+    </process>
   </simple-map-processor>
+
   <simple-map-processor name="updateCreditCard">
+    <make-in-string field="expireDate">
+      <in-field field="expMonth"/>
+      <constant>/</constant>
+      <in-field field="expYear"/>
+    </make-in-string>
     <process field="paymentMethodId"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingCreditCardPaymentMethodIdMissing"/></not-empty></process>
+    <process field="partyId"><copy/></process>
+    <process field="companyNameOnCard"><copy/></process>
+    <process field="titleOnCard"><copy/></process>
+    <process field="firstNameOnCard"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingFirstNameOnCardMissing"/></not-empty></process>
+    <process field="middleNameOnCard"><copy/></process>
+    <process field="lastNameOnCard"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingLastNameOnCardMissing"/></not-empty></process>
+    <process field="suffixOnCard"><copy/></process>
+    <process field="cardType"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingCardTypeMissing"/></not-empty></process>
+    <process field="cardNumber">
+        <copy/>
+        <not-empty>
+            <fail-property resource="AccountingUiLabels" property="AccountingCardNumberMissing"/>
+        </not-empty>
+        <!-- FIXME Commented out because of OFBIZ-6920, a better solution would be do encrypt the card number when showing screen and decrypt when validating data
+             Anyway the only reason of changing a card number while this card is still valid 
+             is because the number have been wrongly entered. Then better to delete and create a new one -->
+        <!-- <validate-method method="isAnyCard" class="org.ofbiz.base.util.UtilValidate">
+            <fail-property resource="AccountingUiLabels" property="AccountingCardNumberIncorrect"/>
+        </validate-method> -->
+    </process>
+    <process field="contactMechId"><copy/></process>
     <process field="description"><copy/></process>
-    <!-- also call createCreditCard after calling updateCreditCard -->
+    <process field="expMonth"><not-empty><fail-property resource="AccountingUiLabels" property="AccountingExpirationMonthMissing"/></not-empty></process>
+    <process field="expYear"><not-empty><fail-property resource="AccountingUiLabels" property="AccountingExpirationYearMissing"/></not-empty></process>
+    <process field="expireDate">
+        <copy/>
+        <validate-method method="isDateAfterToday"><fail-property resource="AccountingUiLabels" property="AccountingExpirationDateIsBeforeToday"/></validate-method>
+    </process>
   </simple-map-processor>
 
   <!-- EftAccount map procs -->
