@@ -56,7 +56,7 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductProductStore}">
-                            <include-form name="EditProductStore" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="EditProductStore" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
