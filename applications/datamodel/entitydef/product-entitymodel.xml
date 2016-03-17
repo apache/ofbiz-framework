@@ -3777,12 +3777,14 @@ under the License.
       <field name="managedByLot" type="indicator"><description>If Y, the preparator can choose the InventoryItem by this lotId when he makes the picklist.</description></field>
       <field name="showOutOfStockProducts" type="indicator"><description>Default Y. If N then out of stock products will not be displayed on site</description></field>
       <field name="orderDecimalQuantity" type="indicator"><description>use to indicate if decimal quantity can be ordered for this producStore. Default value is Y</description></field>
+      <field name="allowComment" type="indicator"><description>Allow comments for order line items per store</description></field>
         
         <!-- old fields, deprecated -->
         <field name="oldStyleSheet" col-name="STYLE_SHEET" type="url"></field>
         <field name="oldHeaderLogo" col-name="HEADER_LOGO" type="url"></field>
         <field name="oldHeaderMiddleBackground" col-name="HEADER_MIDDLE_BACKGROUND" type="url"></field>
         <field name="oldHeaderRightBackground" col-name="HEADER_RIGHT_BACKGROUND" type="url"></field>
+        
       <prim-key field="productStoreId"/>
       <relation type="one" fk-name="PROD_STR_PRSTRGP" title="Primary" rel-entity-name="ProductStoreGroup">
         <key-map field-name="primaryStoreGroupId" rel-field-name="productStoreGroupId"/>
