@@ -52,9 +52,10 @@ under the License.
         <call-map-processor xml-resource="component://accounting/script/org/ofbiz/accounting/payment/PaymentMapProcs.xml"
                 processor-name="updateCreditCard" in-map-name="parameters" out-map-name="context"/>
         <!-- before check-errors also call createCreditCard, which completes the checking, etc for updateCreditCard -->
-        <call-map-processor xml-resource="component://accounting/script/org/ofbiz/accounting/payment/PaymentMapProcs.xml"
+        <!-- FIXME Commented out because of OFBIZ-6920, a better solution would be do encrypt the card number when showing screen and decrypt when validating data -->
+        <!-- <call-map-processor xml-resource="component://accounting/script/org/ofbiz/accounting/payment/PaymentMapProcs.xml"
                 processor-name="createCreditCard" in-map-name="parameters" out-map-name="context"/>
-        <check-errors/>
+        <check-errors/> -->
         <call-service service-name="updateCreditCard" in-map-name="context">
             <default-message resource="AccountingUiLabels" property="AccountingCreditCardUpdatedSuccessfully"/>
             <result-to-request result-name="paymentMethodId" request-name="paymentMethodId"/>
