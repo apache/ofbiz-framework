@@ -52,7 +52,9 @@ under the License.
         <call-map-processor xml-resource="component://accounting/script/org/ofbiz/accounting/payment/PaymentMapProcs.xml"
                 processor-name="updateCreditCard" in-map-name="parameters" out-map-name="context"/>
         <!-- before check-errors also call createCreditCard, which completes the checking, etc for updateCreditCard -->
-        <!-- FIXME Commented out because of OFBIZ-6920, a better solution would be do encrypt the card number when showing screen and decrypt when validating data -->
+        <!-- FIXME Commented out because of OFBIZ-6920, a better solution would be do encrypt the card number when showing screen and decrypt when validating data
+             Anyway the only reason of changing a card number while this card is still valid 
+             is because the number have been wrongly entered. Then better to delete and create a new one -->
         <!-- <call-map-processor xml-resource="component://accounting/script/org/ofbiz/accounting/payment/PaymentMapProcs.xml"
                 processor-name="createCreditCard" in-map-name="parameters" out-map-name="context"/>
         <check-errors/> -->
