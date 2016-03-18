@@ -47,15 +47,17 @@ under the License.
     <service name="testError" engine="java" export="true" validate="false" require-new-transaction="true" max-retry="1"
             location="org.ofbiz.common.CommonServices" invoke="returnErrorService">
     </service>
+    <!-- Because of the danger of Java deserialization when using RMI, we (PMC) have decided to comment out main RMI related code entries.
+         If you need RMI you just need to uncomment those places - See OFBIZ-6942 for details -->
     <!-- see serviceengine.xml to configure the rmi location alias -->
-    <service name="testRmi" engine="rmi" validate="false"
+    <!-- <service name="testRmi" engine="rmi" validate="false"
             location="main-rmi" invoke="testScv">
         <implements service="testScv"/>
     </service>
     <service name="testRmiFail" engine="rmi" validate="false"
             location="main-rmi" invoke="testBsh">
         <implements service="testScv"/>
-    </service>
+    </service> -->
 
     <service name="testRollback" engine="java" export="true" validate="false"
             location="org.ofbiz.common.CommonServices" invoke="testRollbackListener">
