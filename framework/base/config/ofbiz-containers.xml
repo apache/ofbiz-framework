@@ -21,8 +21,11 @@ under the License.
 <ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd">
 
+    <!-- Because of the danger of Java deserialization when using RMI, we (PMC) have decided to comment out main RMI related code entries.
+         If you need RMI you just need to uncomment those places - See OFBIZ-6942 for details -->
     <!-- load the ofbiz component container (always first) -->
-    <container name="component-container" loaders="main,rmi,pos,load-data" class="org.ofbiz.base.container.ComponentContainer"/>
+    <!-- <container name="component-container" loaders="main,rmi,pos,load-data" class="org.ofbiz.base.container.ComponentContainer"/> -->
+    <container name="component-container" loaders="main,pos,load-data" class="org.ofbiz.base.container.ComponentContainer"/>
 
     <container name="component-container-test" loaders="test" class="org.ofbiz.base.container.ComponentContainer">
         <property name="ofbiz.instrumenterClassName" value="org.ofbiz.base.config.CoberturaInstrumenter"/>
