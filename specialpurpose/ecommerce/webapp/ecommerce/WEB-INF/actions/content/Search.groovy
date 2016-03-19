@@ -52,14 +52,14 @@ featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(paramMap);
 //Debug.logInfo("in search, featureIdByType:" + featureIdByType, "");
 
 combQuery = new BooleanQuery();
-Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath("content")));
+Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath("content")).toPath());
 DirectoryReader reader = DirectoryReader.open(directory);
 IndexSearcher searcher = null;
 Analyzer analyzer = null;
 
 try {
     searcher = new IndexSearcher(reader);
-    analyzer = new StandardAnalyzer(SearchWorker.LUCENE_VERSION);
+    analyzer = new StandardAnalyzer();
 } catch (java.io.FileNotFoundException e) {
     Debug.logError(e, "Search.groovy");
     request.setAttribute("errorMsgReq", "No index file exists.");
@@ -71,7 +71,7 @@ combQuery.add(termQuery, BooleanClause.Occur.MUST);
 //Debug.logInfo("in search, combQuery(1):" + combQuery, "");
 if (queryLine && analyzer) {
     Query query = null;
-    QueryParser parser = new QueryParser(SearchWorker.LUCENE_VERSION, "content", analyzer);
+    QueryParser parser = new QueryParser("content", analyzer);
     query = parser.parse(queryLine);
     combQuery.add(query, BooleanClause.Occur.MUST);
 }
@@ -95,7 +95,7 @@ if (featureIdByType) {
 
 if (searcher) {
     Debug.logInfo("in search searchFeature3, combQuery:" + combQuery.toString(), "");
-    TopScoreDocCollector collector = TopScoreDocCollector.create(100, false); //defaulting to 100 results
+    TopScoreDocCollector collector = TopScoreDocCollector.create(100); //defaulting to 100 results
     searcher.search(combQuery, collector);
     ScoreDoc[] hits = collector.topDocs().scoreDocs;
     Debug.logInfo("in search, hits:" + collector.getTotalHits(), "");
