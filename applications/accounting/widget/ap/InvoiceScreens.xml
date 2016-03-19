@@ -111,6 +111,7 @@ under the License.
                 <set field="paymentPartyId" from-field="parameters.partyIdFrom" default-value="${parameters.organizationPartyId}"/>
                 <entity-and entity-name="PaymentMethod" list="paymentMethods">
                     <field-map field-name="partyId" from-field="paymentPartyId"/>
+                    <field-map field-name="paymentMethodTypeId" value="COMPANY_CHECK"/>
                 </entity-and>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
