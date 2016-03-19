@@ -522,6 +522,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="TransferInventoryItem"/>
     </request-map>
+    <request-map uri="createInventoryTransfersForProduct">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createInventoryTransfersForProduct"/>
+        <response name="success" type="view" value="FindFacilityTransfers"/>
+        <response name="error" type="view" value="FindFacilityTransfers"/>
+    </request-map>
     <request-map uri="CreateInventoryTransfer">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createInventoryTransfer"/>

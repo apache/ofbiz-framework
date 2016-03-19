@@ -918,10 +918,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createInventoryTransfersForProduct" short-description="Create inventory transfers for the given product and quantity. Return the units not available for transfers.">
-
-        <set from-field="parameters.productId" field="lookupFieldMap.productId"/>
-        <set from-field="parameters.facilityId" field="lookupFieldMap.facilityId"/>
-        <set from-field="parameters.containerId" field="lookupFieldMap.containerId"/>
         <now-timestamp field="nowTimestamp"/>
 
         <!-- check the product; make sure its a physical item -->
@@ -963,128 +959,74 @@ under the License.
                     </if-compare>
                 </else>
                 </if-compare>
-                <set field="orderByList[]" from-field="orderByString"/>
 
                 <set from-field="parameters.quantity" field="quantityNotTransferred"/>
-
-                <!-- first transfer InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
-                <find-by-and entity-name="InventoryItemAndLocation" map="lookupFieldMap" list="inventoryItemAndLocations" use-iterator="true" order-by-list="orderByList"/>
-                <iterate entry="inventoryItemAndLocation" list="inventoryItemAndLocations">
-                    <if>
-                        <condition>
-                            <and>
-                                <if-compare field="inventoryItemAndLocation.locationTypeEnumId" operator="equals" value="FLT_PICKLOC"/>
-                                <if-compare field="quantityNotTransferred" value="0.0" operator="greater" type="BigDecimal"/>
-                                <if-compare field="inventoryItemAndLocation.availableToPromiseTotal" value="0.0" operator="greater" type="BigDecimal"/>
-                            </and>
-                        </condition>
-                        <then>
-                            <clear-field field="inputMap"/>
-                            <set field="inputMap.inventoryItemId" from-field="inventoryItemAndLocation.inventoryItemId"/>
-                            <set field="inputMap.statusId" value="IXF_REQUESTED"/>
-                            <set field="inputMap.facilityId" from-field="parameters.facilityId"/>
-                            <set field="inputMap.facilityIdTo" from-field="parameters.facilityIdTo"/>
-                            <set field="inputMap.sendDate" from-field="parameters.sendDate"/>
-                            <!-- TODO: inventory transfers for serialized items are not yet implemented -->
-                            <if-compare field="inventoryItemAndLocation.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
-                                <if-compare-field field="quantityNotTransferred" to-field="inventoryItemAndLocation.availableToPromiseTotal" operator="greater" type="BigDecimal">
-                                    <set field="inputMap.xferQty" from-field="inventoryItemAndLocation.availableToPromiseTotal"/>
-                                <else>
-                                    <set field="inputMap.xferQty" from-field="quantityNotTransferred"/>
-                                </else>
-                                </if-compare-field>
-                                <call-service service-name="createInventoryTransfer" in-map-name="inputMap"/>
-                                <calculate field="quantityNotTransferred">
-                                    <calcop operator="subtract" field="quantityNotTransferred">
-                                        <calcop operator="get" field="inputMap.xferQty"/>
-                                    </calcop>
-                                </calculate>
-                            </if-compare>
-                        </then>
-                    </if>
+                
+                <set field="locationTypeEnumIds" value="${groovy: ['FLT_PICKLOC', 'FLT_BULK', null]}"/>
+                <iterate entry="locationTypeEnumId" list="locationTypeEnumIds">
+                    <find-by-and entity-name="InventoryItemAndLocation" map="lookupFieldMap" list="inventoryItemAndLocations" use-iterator="true" order-by-list="orderByList"/> 
+                    <entity-condition list="inventoryItemAndLocations" entity-name="InventoryItemAndLocation">
+                        <condition-list>
+                            <condition-expr field-name="locationTypeEnumId" value="${locationTypeEnumId}" ignore-if-empty="true" ignore-if-null="true"/>
+                            <condition-expr field-name="productId" value="${parameters.productId}"/>
+                            <condition-expr field-name="containerId" value="${parameters.containerId}" ignore-if-empty="true" ignore-if-null="true"/>
+                            <condition-expr field-name="facilityId" value="${parameters.facilityId}"/>
+                            <condition-expr field-name="availableToPromiseTotal" operator="greater" value="0"/>
+                        </condition-list>
+                        <order-by field-name="${orderByString}"/>
+                    </entity-condition>
+	                <!-- first transfer InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
+	                <iterate entry="inventoryItemAndLocation" list="inventoryItemAndLocations">
+	                    <clear-field field="inputMap"/>
+	                    <set field="inputMap.inventoryItemId" from-field="inventoryItemAndLocation.inventoryItemId"/>
+	                    <if-empty field="parameters.statusId">
+	                       <set field="inputMap.statusId" value="IXF_REQUESTED"/>
+	                    <else>
+	                       <set field="inputMap.statusId" value="${parameters.statusId}"/>
+	                    </else>
+	                    </if-empty>
+	                    <set field="inputMap.facilityId" from-field="parameters.facilityId"/>
+	                    <set field="inputMap.facilityIdTo" from-field="parameters.facilityIdTo"/>
+	                    <set field="inputMap.sendDate" from-field="parameters.sendDate"/>
+	                    <!-- TODO: inventory transfers for serialized items are not yet implemented -->
+	                    <if-compare field="inventoryItemAndLocation.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
+	                        <if-compare-field field="quantityNotTransferred" to-field="inventoryItemAndLocation.availableToPromiseTotal" operator="greater" type="BigDecimal">
+	                            <set field="inputMap.xferQty" from-field="inventoryItemAndLocation.availableToPromiseTotal"/>
+	                        <else>
+	                            <set field="inputMap.xferQty" from-field="quantityNotTransferred"/>
+	                        </else>
+	                        </if-compare-field>
+	                        <add-error>
+	                           <fail-message message="inputMap = ${inputMap}"/>
+	                        </add-error>
+	                        <call-service service-name="createInventoryTransfer" in-map-name="inputMap"/>
+	                        <add-error>
+	                           <fail-message message="quantityNotTransferred = ${quantityNotTransferred}"/>
+	                        </add-error>
+	                        <calculate field="quantityNotTransferred">
+	                            <calcop operator="subtract" field="quantityNotTransferred">
+	                                <calcop operator="get" field="inputMap.xferQty"/>
+	                            </calcop>
+	                        </calculate>
+	                    </if-compare>
+	                    <if-compare operator="equals" value="0" field="quantityNotTransferred">
+	                       <break/>
+	                    </if-compare>
+	                </iterate>
                 </iterate>
-
-                <!-- still some left? try the FLT_BULK locations -->
-                <if-compare field="quantityNotTransferred" operator="greater" value="0" type="BigDecimal">
-                    <find-by-and entity-name="InventoryItemAndLocation" map="lookupFieldMap" list="inventoryItemAndLocations" use-iterator="true" order-by-list="orderByList"/>
-                    <iterate entry="inventoryItemAndLocation" list="inventoryItemAndLocations">
-                        <if>
-                            <condition>
-                                <and>
-                                    <if-compare field="inventoryItemAndLocation.locationTypeEnumId" operator="equals" value="FLT_BULK"/>
-                                    <if-compare field="quantityNotTransferred" value="0.0" operator="greater" type="BigDecimal"/>
-                                    <if-compare field="inventoryItemAndLocation.availableToPromiseTotal" value="0.0" operator="greater" type="BigDecimal"/>
-                                </and>
-                            </condition>
-                            <then>
-                                <clear-field field="inputMap"/>
-                                <set field="inputMap.inventoryItemId" from-field="inventoryItemAndLocation.inventoryItemId"/>
-                                <set field="inputMap.statusId" value="IXF_REQUESTED"/>
-                                <set field="inputMap.facilityId" from-field="parameters.facilityId"/>
-                                <set field="inputMap.facilityIdTo" from-field="parameters.facilityIdTo"/>
-                                <set field="inputMap.sendDate" from-field="parameters.sendDate"/>
-                                <!-- TODO: inventory transfers for serialized items are not yet implemented -->
-                                <if-compare field="inventoryItemAndLocation.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
-                                    <if-compare-field field="quantityNotTransferred" to-field="inventoryItemAndLocation.availableToPromiseTotal" operator="greater" type="BigDecimal">
-                                        <set field="inputMap.xferQty" from-field="inventoryItemAndLocation.availableToPromiseTotal"/>
-                                    <else>
-                                        <set field="inputMap.xferQty" from-field="quantityNotTransferred"/>
-                                    </else>
-                                    </if-compare-field>
-                                    <call-service service-name="createInventoryTransfer" in-map-name="inputMap"/>
-                                    <calculate field="quantityNotTransferred">
-                                        <calcop operator="subtract" field="quantityNotTransferred">
-                                            <calcop operator="get" field="inputMap.xferQty"/>
-                                        </calcop>
-                                    </calculate>
-                                </if-compare>
-                            </then>
-                        </if>
-                    </iterate>
-                </if-compare>
-
-                <!-- last of all transfer InventoryItems that have no locationSeqId, ie are not in any particular location -->
-                <if-compare field="quantityNotTransferred" operator="greater" value="0" type="BigDecimal">
-                    <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list="inventoryItems" use-iterator="true" order-by-list="orderByList"/>
-                    <iterate entry="inventoryItem" list="inventoryItems">
-                        <if>
-                            <condition>
-                                <and>
-                                    <if-empty field="inventoryItem.locationSeqId"/>
-                                    <if-compare field="quantityNotTransferred" value="0.0" operator="greater" type="BigDecimal"/>
-                                    <if-compare field="inventoryItem.availableToPromiseTotal" value="0.0" operator="greater" type="BigDecimal"/>
-                                </and>
-                            </condition>
-                            <then>
-                                <clear-field field="inputMap"/>
-                                <set field="inputMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
-                                <set field="inputMap.statusId" value="IXF_REQUESTED"/>
-                                <set field="inputMap.facilityId" from-field="parameters.facilityId"/>
-                                <set field="inputMap.facilityIdTo" from-field="parameters.facilityIdTo"/>
-                                <set field="inputMap.sendDate" from-field="parameters.sendDate"/>
-                                <!-- TODO: inventory transfers for serialized items are not yet implemented -->
-                                <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
-                                    <if-compare-field field="quantityNotTransferred" to-field="inventoryItem.availableToPromiseTotal" operator="greater" type="BigDecimal">
-                                        <set field="inputMap.xferQty" from-field="inventoryItem.availableToPromiseTotal"/>
-                                    <else>
-                                        <set field="inputMap.xferQty" from-field="quantityNotTransferred"/>
-                                    </else>
-                                    </if-compare-field>
-                                    <call-service service-name="createInventoryTransfer" in-map-name="inputMap"/>
-                                    <calculate field="quantityNotTransferred">
-                                        <calcop operator="subtract" field="quantityNotTransferred">
-                                            <calcop operator="get" field="inputMap.xferQty"/>
-                                        </calcop>
-                                    </calculate>
-                                </if-compare>
-                            </then>
-                        </if>
-                    </iterate>
-                </if-compare>
             </else>
         </if-compare>
 
         <field-to-result field="quantityNotTransferred"/>
+        <if-compare operator="greater" value="0" field="quantityNotTransferred">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="FormFieldTitle_quantityNotAvailable"/>
+            </add-error>
+            <add-error> 
+                <fail-message message="${quantityNotTransferred}"/>
+            </add-error>
+            <check-errors/>
+        </if-compare>
     </simple-method>
 
     <simple-method method-name="changeOwnerUponIssuance" short-description="If product store setOwnerUponIssuance is Y or empty, set the inventory item owner upon issuance.">

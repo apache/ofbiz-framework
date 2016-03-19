@@ -445,7 +445,8 @@ under the License.
     <service name="prepareInventoryTransfer" engine="java"
             location="org.ofbiz.product.inventory.InventoryServices" invoke="prepareInventoryTransfer">
         <description>Prepares inventory item for transfer.  If the xferQty is less than quantityOnHandTotal of the inventory item, then the inventory
-                item is "split," and an new inventory item will be created with xferQty and used for the inventory transfer.</description> <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false"/>
+                item is "split," and an new inventory item will be created with xferQty and used for the inventory transfer.</description> 
+        <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false"/>
         <attribute name="xferQty" type="BigDecimal" mode="IN" optional="false"/>
     </service>
     <service name="completeInventoryTransfer" engine="java"
@@ -472,6 +473,7 @@ under the License.
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityNotTransferred" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="issueImmediatelyFulfilledOrder" engine="simple"
