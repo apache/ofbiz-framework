@@ -38,15 +38,15 @@ if (parameters.luceneQuery) {
     IndexSearcher searcher;
     WhitespaceAnalyzer analyzer;
     try {
-        DirectoryReader reader = DirectoryReader.open(FSDirectory.open(new File(SearchWorker.getIndexPath("products"))));
+        DirectoryReader reader = DirectoryReader.open(FSDirectory.open(new File(SearchWorker.getIndexPath("products")).toPath()));
         searcher = new IndexSearcher(reader);
-        analyzer = new WhitespaceAnalyzer(SearchWorker.LUCENE_VERSION);
+        analyzer = new WhitespaceAnalyzer();
     } catch (FileNotFoundException e) {
         context.errorMessageList.add(e.getMessage());
         return;
     }
 
-    QueryParser parser = new QueryParser(SearchWorker.LUCENE_VERSION, "fullText", analyzer);
+    QueryParser parser = new QueryParser("fullText", analyzer);
     parser.setLocale(locale);
     Query query;
     try {
@@ -57,7 +57,7 @@ if (parameters.luceneQuery) {
     }
     combQuery.add(query, BooleanClause.Occur.MUST);
 
-    TopScoreDocCollector collector = TopScoreDocCollector.create(100, false); // defaulting to 100 results
+    TopScoreDocCollector collector = TopScoreDocCollector.create(100); // defaulting to 100 results
     searcher.search(combQuery, collector);
     ScoreDoc[] hits = collector.topDocs().scoreDocs;
     productList = []
