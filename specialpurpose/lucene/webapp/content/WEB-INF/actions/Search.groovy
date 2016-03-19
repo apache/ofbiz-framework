@@ -41,9 +41,9 @@ featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(UtilHttp.getParameterM
 combQuery = new BooleanQuery();
 
 try {
-    DirectoryReader reader = DirectoryReader.open(FSDirectory.open(new File(SearchWorker.getIndexPath("content"))));
+    DirectoryReader reader = DirectoryReader.open(FSDirectory.open(new File(SearchWorker.getIndexPath("content")).toPath()));
     searcher = new IndexSearcher(reader);
-    analyzer = new StandardAnalyzer(SearchWorker.LUCENE_VERSION);
+    analyzer = new StandardAnalyzer();
 } catch (java.io.FileNotFoundException e) {
     context.errorMessageList.add(e.getMessage());
     return;
@@ -52,7 +52,7 @@ try {
 if (queryLine || siteId) {
     Query query = null;
     if (queryLine) {
-        QueryParser parser = new QueryParser(SearchWorker.LUCENE_VERSION, "content", analyzer);
+        QueryParser parser = new QueryParser("content", analyzer);
         query = parser.parse(queryLine);
         combQuery.add(query, BooleanClause.Occur.MUST);
     }
@@ -93,7 +93,7 @@ if (searchFeature1 || searchFeature2 || searchFeature3 || !featureIdByType.isEmp
     }
 }
 if (searcher) {
-    TopScoreDocCollector collector = TopScoreDocCollector.create(100, false); //defaulting to 100 results
+    TopScoreDocCollector collector = TopScoreDocCollector.create(100); //defaulting to 100 results
     searcher.search(combQuery, collector);
     ScoreDoc[] hits = collector.topDocs().scoreDocs;
 
