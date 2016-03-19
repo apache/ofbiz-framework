@@ -217,10 +217,7 @@ under the License.
 
         <menu-item name="ViewQuoteProfit" title="${uiLabelMap.OrderViewQuoteProfit}">
             <condition>
-                <and>
-                    <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
-                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
-                </and>
+                <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
             </condition>
             <link target="ViewQuoteProfit">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
