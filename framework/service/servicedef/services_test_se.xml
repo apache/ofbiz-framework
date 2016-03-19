@@ -91,6 +91,15 @@ under the License.
         engine="entity-auto" default-entity-name="Testing" invoke="delete">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="testEntityAutoExpireTestingNodeMember" auth="false"
+        engine="entity-auto" default-entity-name="TestingNodeMember" invoke="expire">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="testEntityAutoExpireTestFieldType" auth="false"
+        engine="entity-auto" default-entity-name="TestFieldType" invoke="expire">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="dateTimeField" mode="IN" type="Timestamp" optional="true"/>
+    </service>
 
     <!-- lock wait timeout retry testing services - a scenario that we can't do automatically with the single service because the parent owns the tx we have to have end before it will succeed -->
     <service name="testServiceLockWaitTimeoutRetryCantRecover" engine="java" auth="false" transaction-timeout="2"

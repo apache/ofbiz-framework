@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.service.test;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -153,4 +154,43 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         assertTrue(ServiceUtil.isError(results));
         assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFoundForRemove", Locale.ENGLISH), ServiceUtil.getErrorMessage(results));
     }
+
+    public void testEntityAutoExpireEntity() throws Exception {
+        Timestamp now = UtilDateTime.nowTimestamp();
+        delegator.create("Testing", "testingId", "TESTING_6");
+        delegator.create("TestingNode", "testingNodeId", "TESTNODE_6");
+        Map<String, Object> testingNodeMemberPkMap = UtilMisc.toMap("testingId", "TESTING_6", "testingNodeId", "TESTNODE_6", "fromDate", now);
+        delegator.create("TestingNodeMember", testingNodeMemberPkMap);
+ 
+        //test expire the thruDate
+        Map<String, Object> results = dispatcher.runSync("testEntityAutoExpireTestingNodeMember", testingNodeMemberPkMap);
+        assertTrue(ServiceUtil.isSuccess(results));
+        GenericValue testingNodeMember = EntityQuery.use(delegator).from("TestingNodeMember").where(testingNodeMemberPkMap).queryOne();
+        Timestamp expireDate = testingNodeMember.getTimestamp("thruDate");
+        assertNotNull("Expire thruDate set ", expireDate);
+
+        //test expire to ensure the thruDate isn't update but extendThruDate is
+        results = dispatcher.runSync("testEntityAutoExpireTestingNodeMember", testingNodeMemberPkMap);
+        assertTrue(ServiceUtil.isSuccess(results));
+        testingNodeMember = EntityQuery.use(delegator).from("TestingNodeMember").where(testingNodeMemberPkMap).queryOne();
+        assertTrue(expireDate.compareTo(testingNodeMember.getTimestamp("thruDate")) == 0);
+        assertNotNull("Expire extendThruDate set ", testingNodeMember.getTimestamp("extendThruDate"));
+
+        //test expire a specific field
+        delegator.create("TestFieldType", "testFieldTypeId", "TESTING_6");
+        Map<String, Object> testingExpireMap = UtilMisc.toMap("testFieldTypeId", "TESTING_6");
+        results = dispatcher.runSync("testEntityAutoExpireTestFieldType", testingExpireMap);
+        assertTrue(ServiceUtil.isSuccess(results));
+        GenericValue testFieldType = EntityQuery.use(delegator).from("TestFieldType").where("testFieldTypeId", "TESTING_6").queryOne();
+        assertNotNull("Expire dateTimeField set", testFieldType.getTimestamp("dateTimeField"));
+
+        //test expire a specific field with in value
+        delegator.create("TestFieldType", "testFieldTypeId", "TESTING_6bis");
+        testingExpireMap = UtilMisc.toMap("testFieldTypeId", "TESTING_6bis", "dateTimeField", now);
+        results = dispatcher.runSync("testEntityAutoExpireTestFieldType", testingExpireMap);
+        assertTrue(ServiceUtil.isSuccess(results));
+        testFieldType = EntityQuery.use(delegator).from("TestFieldType").where("testFieldTypeId", "TESTING_6bis").queryOne();
+        assertTrue(now.compareTo(testFieldType.getTimestamp("dateTimeField")) == 0);
+    }
+
 }
