@@ -733,7 +733,7 @@ under the License.
         <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="createOrder"/>
         <response name="sales_order" type="request" value="checkBlacklist"/>
         <response name="work_order" type="request" value="checkBlacklist"/>
-        <response name="error" type="view" value="checkoutreview"/>
+        <response name="error" type="view" value="quickAnonOrderReview"/>
     </request-map>
     <request-map uri="processpayment">
         <security https="true" direct-request="false"/>
