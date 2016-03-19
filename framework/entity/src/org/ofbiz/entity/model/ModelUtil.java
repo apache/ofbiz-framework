@@ -19,8 +19,16 @@
 package org.ofbiz.entity.model;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 
 /**
  * Generic Entity - General Utilities
@@ -290,6 +298,45 @@ public class ModelUtil {
             return "indicator";
         } else {
             return "invalid-" + sqlTypeName + ":" + length + ":" + precision;
+        }
+    }
+
+    /**
+     * Check is a ModelEntity have a default resource associate to resolve localized value
+     * When the ModelEntity is a ModelViewEntity, check with the field to resolve the related entity
+     * @param modelEntity
+     * @param fieldName
+     * @return
+     */
+    public static boolean isPotentialLocalizedField(ModelEntity modelEntity, String fieldName) {
+        return isPotentialLocalizedFields(modelEntity, UtilMisc.toList(fieldName));
+    }
+
+    /**
+     * Check is a ModelEntity have a default resource associate to resolve localized value
+     * When the ModelEntity is a ModelViewEntity, check with the list fields to resolve these related entities
+     * @param modelEntity
+     * @param fieldName
+     * @return
+     */
+    public static boolean isPotentialLocalizedFields(ModelEntity modelEntity, List<String> fieldNames) {
+        if (modelEntity == null) return false;
+        if (modelEntity instanceof ModelViewEntity) {
+            //  now try to retrieve with the field heading from the real entity linked to the view
+            ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
+            Iterator<ModelAlias> it = modelViewEntity.getAliasesIterator();
+            while (it.hasNext()) {
+                ModelAlias modelAlias = it.next();
+                if (fieldNames.contains(modelAlias.getName())) {
+                    ModelEntity memberModelEntity = modelViewEntity.getMemberModelEntity(modelAlias.getEntityAlias());
+                    if (UtilValidate.isNotEmpty(memberModelEntity.getDefaultResourceName())) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        } else {
+            return UtilValidate.isNotEmpty(modelEntity.getDefaultResourceName());
         }
     }
 }

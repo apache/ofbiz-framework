@@ -62,6 +62,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.finder.EntityFinderUtil;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.model.CommonWidgetModels.AutoEntityParameters;
@@ -1904,16 +1905,24 @@ public class ModelFormField {
 
             try {
                 Locale locale = UtilMisc.ensureLocale(context.get("locale"));
+                ModelEntity modelEntity = delegator.getModelEntity(this.entityName);
+                Boolean localizedOrderBy = UtilValidate.isNotEmpty(this.orderByList)
+                        && ModelUtil.isPotentialLocalizedFields(modelEntity, this.orderByList);
 
                 List<GenericValue> values = null;
-                values = delegator.findList(this.entityName, findCondition, null, this.orderByList, null, this.cache);
+                if (!localizedOrderBy) {
+                    values = delegator.findList(this.entityName, findCondition, null, this.orderByList, null, this.cache);
+                } else {
+                    //if entity has localized label 
+                    values = delegator.findList(this.entityName, findCondition, null, null, null, this.cache);
+                    values = EntityUtil.localizedOrderBy(values, this.orderByList, locale);
+                }
 
                 // filter-by-date if requested
                 if ("true".equals(this.filterByDate)) {
                     values = EntityUtil.filterByDate(values, true);
                 } else if (!"false".equals(this.filterByDate)) {
                     // not explicitly true or false, check to see if has fromDate and thruDate, if so do the filter
-                    ModelEntity modelEntity = delegator.getModelEntity(this.entityName);
                     if (modelEntity != null && modelEntity.isField("fromDate") && modelEntity.isField("thruDate")) {
                         values = EntityUtil.filterByDate(values, true);
                     }

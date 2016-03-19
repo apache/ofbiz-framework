@@ -21,6 +21,7 @@ package org.ofbiz.entity.util;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -333,6 +335,30 @@ public class EntityUtil {
         }
         return result;
     }
+    
+    /**
+     *returns the values in the order specified after with localized value 
+     *
+     *@param values List of GenericValues
+     *@param orderBy The fields of the named entity to order the query by;
+     *      optionally add a " ASC" for ascending or " DESC" for descending
+     *@param locale Locale use to retreive localized value
+     *@return List of GenericValue's in the proper order
+     */
+    public static <T extends GenericEntity> List<T> localizedOrderBy(Collection<T> values, List<String> orderBy, Locale locale) {
+        if (values == null) return null;
+        if (values.isEmpty()) return new ArrayList<>();
+        //force check entity label before order by
+        List<T> localizedValues = new ArrayList<T>();
+        for (T value : values) {
+            T newValue = (T) value.clone();
+            for (String orderByField : orderBy) {
+                newValue.put(orderByField, value.get(orderByField, locale));
+            }
+            localizedValues.add(newValue);
+        }
+        return orderBy(localizedValues, orderBy);
+    }
 
     /**
      *returns the values in the order specified
@@ -344,14 +370,14 @@ public class EntityUtil {
      */
     public static <T extends GenericEntity> List<T> orderBy(Collection<T> values, List<String> orderBy) {
         if (values == null) return null;
-        if (values.size() == 0) return new LinkedList<T>();
+        if (values.isEmpty()) return new ArrayList<T>();
         if (UtilValidate.isEmpty(orderBy)) {
-            List<T> newList = new LinkedList<T>();
+            List<T> newList = new ArrayList<T>();
             newList.addAll(values);
             return newList;
         }
 
-        List<T> result = new LinkedList<T>();
+        List<T> result = new ArrayList<T>();
         result.addAll(values);
         if (Debug.verboseOn()) Debug.logVerbose("Sorting " + values.size() + " values, orderBy=" + orderBy.toString(), module);
         Collections.sort(result, new OrderByList(orderBy));
