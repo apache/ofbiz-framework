@@ -1071,13 +1071,47 @@ under the License.
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleTransferInventoryItem}"/>
+                
+                <entity-one value-field="inventoryItem" entity-name="InventoryItem"/>
+                <entity-one value-field="inventoryItemType" entity-name="InventoryItemType">
+                    <field-map field-name="inventoryItemTypeId" value="${inventoryItem.inventoryItemTypeId}"/>
+                </entity-one>
+                <entity-one value-field="statusItem" entity-name="StatusItem">
+                    <field-map field-name="statusId" value="${inventoryItem.statusId}"/>
+                </entity-one>
+                <entity-one value-field="inventoryTransfer" entity-name="InventoryTransfer"/>
+                <entity-one value-field="product" entity-name="Product"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/inventory/TransferInventoryItem.ftl"/></html>
-                        </platform-specific>
+                        <label text="${title}" style="h1"/>
+                        <container style="button-bar">
+                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
+                            <link target="PickMoveStockSimple" text="${uiLabelMap.CommonPrint}" style="buttontext  ">
+                                <parameter param-name="facilityId" from-field="facilityId"/>
+                            </link>
+                        </container>
+                        <screenlet title="${uiLabelMap.ProductInventoryTransfersFor} ${uiLabelMap.FormFieldTitle_inventoryItemId}">
+                            <include-form name="CreateInventoryTransferForItem" location="component://product/widget/facility/FacilityForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductInventoryTransfersFor} ${uiLabelMap.FormFieldTitle_productId}">
+                            <include-form name="CreateInventoryTransferForProduct" location="component://product/widget/facility/FacilityForms.xml"/>
+                        </screenlet>
+                        <section>
+                            <condition>
+                                <or>
+                                    <not><if-empty field="inventoryTransfer"/></not>
+                                    <not><if-empty field="product"/></not>
+                                    <not><if-empty field="inventoryItem"/></not>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ProductInventoryTransfer}">
+                                    <include-form name="CreateInventoryTransfer" location="component://product/widget/facility/FacilityForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

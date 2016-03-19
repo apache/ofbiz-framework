@@ -943,4 +943,75 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
     </form>
+    
+    <form name="CreateInventoryTransferForItem" type="single" default-table-style="basic-table" target="TransferInventoryItem">
+        <field name="inventoryItemId" widget-style="buttontext" title="${uiLabelMap.FormFieldTitle_inventoryItemId}"><text/></field>
+        <field name="facilityId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
+            <submit/>
+        </field>
+    </form>
+    <form name="CreateInventoryTransferForProduct" type="single" default-table-style="basic-table" target="TransferInventoryItem">
+        <actions>
+            <set field="productId" value="${groovy: if(inventoryItem != null)inventoryItem.productId}"/>
+        </actions>
+        <field name="productId" widget-style="buttontext" title="${uiLabelMap.FormFieldTitle_productId}">
+            <lookup target-form-name="LookupProduct"></lookup>
+        </field>
+        <field name="facilityId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
+            <submit/>
+        </field>
+    </form>
+    <form name="CreateInventoryTransfer" type="single" default-table-style="basic-table" target="CreateInventoryTransfer">
+        <alt-target use-when="${groovy: inventoryItem==null}" target="createInventoryTransfersForProduct"/>
+        <alt-target use-when="${groovy: inventoryTransferId!=null}" target="UpdateInventoryTransfer"/>
+        <field name="inventoryItemId" widget-style="buttontext" use-when="${groovy: inventoryItem != null}">
+            <hyperlink target="/catalog/control/EditInventoryItem" target-type="inter-app" description="${inventoryItemId}">
+                <parameter param-name="inventoryItemId"/>
+            </hyperlink>
+        </field>
+        <field name="inventoryItemTypeId" use-when="${groovy: inventoryItem != null}"><display description="${inventoryItemType.description}"/></field>
+        <field name="productId" widget-style="buttontext">
+            <hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${groovy: if(inventoryItem) inventoryItem.productId else parameters.productId}">
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
+        <field name="inventoryStatusId" use-when="${groovy: inventoryItem != null}"><display description="${statusItem.description}"/></field>
+        <field name="inventoryComments" use-when="${groovy: inventoryItem != null}"><display description="${inventoryItem.comments}"/></field>
+        <field name="atpQoh" title="${uiLabelMap.ProductSerialAtpQoh}" use-when="${groovy: inventoryItem != null}"><display description="${inventoryItem.availableToPromiseTotal} / ${inventoryItem.quantityOnHandTotal}"/></field>
+        <field name="statusId" title="${uiLabelMap.ProductTransferStatus}" entry-name="inventoryTransfer.statusId">
+            <drop-down>
+                <entity-options description="${description}" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" value="INVENTORY_XFER_STTS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="sendDate" title="${uiLabelMap.ProductTransferSendDate}"><date-time type="timestamp" default-value="${inventoryTransfer.sendDate}"/></field>
+        <field name="receiveDate" title="${uiLabelMap.ProductTransferReceiveDate}" use-when="${groovy: inventoryTransfer!=null}"><date-time type="timestamp" default-value="${inventoryTransfer.receiveDate}"/></field>
+        <field name="facilityIdTo" use-when="${groovy: inventoryTransfer==null}">
+            <drop-down>
+                <entity-options description="${facilityName} [${facilityId}]" entity-name="Facility" key-field-name="facilityId">
+                    <entity-order-by field-name="facilityName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="facilityIdTo" use-when="${groovy: inventoryTransfer!=null}" widget-style="buttontext">
+            <hyperlink target="EditFacility" description="${inventoryTransfer.facilityIdTo}" also-hidden="false">
+                <parameter param-name="facilityIdTo" value="${inventoryTransfer.facilityIdTo}"/>
+            </hyperlink>
+        </field>
+        <field name="containerIdTo" title="${uiLabelMap.FormFieldTitle_containerId}" use-when="${groovy: inventoryTransfer==null}"><text default-value="${inventoryTransfer.containerIdTo}"/></field>
+        <field name="containerIdTo" title="${uiLabelMap.FormFieldTitle_containerId}" use-when="${groovy: inventoryTransfer!=null}"><display/></field>
+        <field name="locationSeqIdTo" title="${uiLabelMap.ProductToLocation}"><lookup target-form-name="LookupFacilityLocation" default-value="${inventoryTransfer.locationSeqIdTo}"/></field>
+        <field name="comments" title="${uiLabelMap.ProductComments}"><textarea default-value="${inventoryTransfer.comments}"/></field>
+        <field name="xferQty" use-when="${groovy: inventoryItem != null &amp;&amp; inventoryTransfer == null}" title="${uiLabelMap.ProductQuantityToTransfer}"><text size="6"/></field>
+        <field name="quantity" use-when="${groovy: product != null &amp;&amp; inventoryTransfer == null}" title="${uiLabelMap.ProductQuantityToTransfer}"><text size="6"/></field>
+        <field name="facilityId"><hidden/></field>
+        <field name="inventoryTransferId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
+            <submit/>
+        </field>
+    </form>
 </forms>
