@@ -726,9 +726,9 @@ under the License.
 
     <entity entity-name="AudioDataResource"
             package-name="org.ofbiz.content.data"
-            title="Other Data Object Entity">
+            title="Audio Data Object Entity">
       <field name="dataResourceId" type="id-ne"></field>
-      <field name="audioData" type="object"></field>
+      <field name="audioData" type="byte-array"></field>
       <prim-key field="dataResourceId"/>
       <relation type="one" fk-name="DATA_REC_AUDIO" rel-entity-name="DataResource">
         <key-map field-name="dataResourceId"/>
@@ -1039,7 +1039,7 @@ under the License.
             package-name="org.ofbiz.content.data"
             title="Other Data Object Entity">
       <field name="dataResourceId" type="id-ne"></field>
-      <field name="dataResourceContent" type="object"></field>
+      <field name="dataResourceContent" type="byte-array"></field>
       <prim-key field="dataResourceId"/>
       <relation type="one" fk-name="DATA_REC_OTHER" rel-entity-name="DataResource">
         <key-map field-name="dataResourceId"/>
@@ -1047,9 +1047,9 @@ under the License.
     </entity>
     <entity entity-name="VideoDataResource"
             package-name="org.ofbiz.content.data"
-            title="Other Data Object Entity">
+            title="Video Data Object Entity">
       <field name="dataResourceId" type="id-ne"></field>
-      <field name="videoData" type="object"></field>
+      <field name="videoData" type="byte-array"></field>
       <prim-key field="dataResourceId"/>
       <relation type="one" fk-name="DATA_REC_VIDEO" rel-entity-name="DataResource">
         <key-map field-name="dataResourceId"/>
