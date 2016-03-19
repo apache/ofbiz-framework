@@ -771,7 +771,7 @@ public class ShoppingCartHelper {
                         quantity = (BigDecimal) ObjectType.simpleTypeConvert(quantString, "BigDecimal", null, locale);
                         //For quantity we should test if we allow to add decimal quantity for this product an productStore : 
                         // if not and if quantity is in decimal format then return error.
-                        if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, item.getProductId(), cart.getProductStoreId())){
+                        if (!ProductWorker.isDecimalQuantityOrderAllowed(delegator, item.getProductId(), cart.getProductStoreId()) && parameterName.startsWith("update")) {
                             BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
                             if (remainder.compareTo(BigDecimal.ZERO) != 0) {
                                 String errMsg = UtilProperties.getMessage(resource_error, "cart.addToCart.quantityInDecimalNotAllowed", this.cart.getLocale());
