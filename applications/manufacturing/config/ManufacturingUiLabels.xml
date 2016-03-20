@@ -30,6 +30,7 @@
         <value xml:lang="fr">Coût alloué</value>
         <value xml:lang="it">Costo allocato</value>
         <value xml:lang="ja">割当原価</value>
+        <value xml:lang="nl">Toegewezen kosten</value>
         <value xml:lang="pt-BR">Custo alocado</value>
         <value xml:lang="th">ส่วนแบ่งราคา</value>
         <value xml:lang="vi">Chi phí phân bổ</value>
@@ -55,6 +56,7 @@
         <value xml:lang="fr">Réf. du calendrier par semaine</value>
         <value xml:lang="it">Calendario settmanale</value>
         <value xml:lang="ja">カレンダ週ID</value>
+        <value xml:lang="nl">Week ID</value>
         <value xml:lang="pt-BR">Id da semana no calendário</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์</value>
         <value xml:lang="vi">Id tuần</value>
@@ -68,6 +70,7 @@
         <value xml:lang="fr">Date et heure d'annulation</value>
         <value xml:lang="it">Data/ora di annullamento</value>
         <value xml:lang="ja">取消日時</value>
+        <value xml:lang="nl">Datum/tijd annulering</value>
         <value xml:lang="pt-BR">Data e hora de cancelamento</value>
         <value xml:lang="th">ยกเลิกวัน เวลา</value>
         <value xml:lang="vi">Ngày giờ hủy bỏ</value>
@@ -81,6 +84,7 @@
         <value xml:lang="fr">Réf. de méthode de coût personnalisée</value>
         <value xml:lang="it">Metodo costo personalizzato</value>
         <value xml:lang="ja">原価カスタム方法ID</value>
+        <value xml:lang="nl">Kosten methodiek ID</value>
         <value xml:lang="pt-BR">Id do método de cálculo</value>
         <value xml:lang="ro">Metoda Cost Personalizat</value>
         <value xml:lang="th">รหัสวิธีการคำนวณเงินลูกค้า</value>
@@ -95,6 +99,7 @@
         <value xml:lang="fr">Réf. de type de compte de coût (GL)</value>
         <value xml:lang="it">Tipo conto contabilità generale</value>
         <value xml:lang="ja">原価勘定科目種類ID</value>
+        <value xml:lang="nl">Grootboek rek. ID kosten</value>
         <value xml:lang="pt-BR">Id de tipo de balanço</value>
         <value xml:lang="ro">Tip Cont Contabil General</value>
         <value xml:lang="th">รหัสประเภทบัญชีค่าใช้จ่าย GI</value>
@@ -106,6 +111,7 @@
         <value xml:lang="en">Creation Date</value>
         <value xml:lang="it">Data creazione</value>
         <value xml:lang="ja">作成日</value>
+        <value xml:lang="nl">Datum aanmaak</value>
         <value xml:lang="pt-BR">Data de criação</value>
         <value xml:lang="vi">Ngày tạo</value>
         <value xml:lang="zh">创建日期</value>
@@ -131,6 +137,7 @@
         <value xml:lang="fr">Durée estimée</value>
         <value xml:lang="it">Durata Stimata</value>
         <value xml:lang="ja">見積期間</value>
+        <value xml:lang="nl">Geschattee doorlooptijd</value>
         <value xml:lang="pt-BR">Duração estimada</value>
         <value xml:lang="th">ประมาณเวลา</value>
         <value xml:lang="vi">Khoảng thời gian ước tính</value>
@@ -144,6 +151,7 @@
         <value xml:lang="fr">Echec si les articles ne sont pas disponibles</value>
         <value xml:lang="it">Fallisce se i prodotti non sono disponibili</value>
         <value xml:lang="ja">アイテムが有効でない場合は失敗</value>
+        <value xml:lang="nl">Falen als componenten niet voorhanden zijn</value>
         <value xml:lang="pt-BR">Falha se os itens não estão disponíveis</value>
         <value xml:lang="th">เกิดความผิดพลาดถ้าไม่มีสินค้าอยู่</value>
         <value xml:lang="vi">Hủy bỏ nếu hàng hóa không sẵn có</value>
@@ -157,6 +165,7 @@
         <value xml:lang="fr">Coût fixe</value>
         <value xml:lang="it">Costo fisso</value>
         <value xml:lang="ja">固定原価</value>
+        <value xml:lang="nl">Vaste kosten</value>
         <value xml:lang="pt-BR">Custo fixo</value>
         <value xml:lang="ro">Cost Fix</value>
         <value xml:lang="th">เปลี่ยนแปลงราคา</value>
@@ -171,6 +180,7 @@
         <value xml:lang="fr">Capacité du vendredi</value>
         <value xml:lang="it">Venerdì  Capacità</value>
         <value xml:lang="ja">金曜日能力</value>
+        <value xml:lang="nl">Capaciteit - vrijdag</value>
         <value xml:lang="pt-BR">Capacidade para Sexta-feira</value>
         <value xml:lang="th">การปฎิบัติหน้าที่ในวันศุกร์</value>
         <value xml:lang="vi">Công suất thứ sáu</value>
@@ -184,6 +194,7 @@
         <value xml:lang="fr">Heure de début du vendredi</value>
         <value xml:lang="it">Venerdì Tempo Inizio</value>
         <value xml:lang="ja">金曜日開始時間</value>
+        <value xml:lang="nl">Starttijd - vrijdag</value>
         <value xml:lang="pt-BR">Hora de início para sexta-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันศุกร์</value>
         <value xml:lang="vi">Thời gian bắt đầu Thứ sáu</value>
@@ -197,6 +208,7 @@
         <value xml:lang="fr">Quantité prélevée</value>
         <value xml:lang="it">Quantità prelevata</value>
         <value xml:lang="ja">発行数量</value>
+        <value xml:lang="nl">Vrijgegeven hoeveelheid</value>
         <value xml:lang="pt-BR">Quantidade emitida</value>
         <value xml:lang="ro">Cantitate Preluat</value>
         <value xml:lang="th">จำนวน</value>
@@ -211,6 +223,7 @@
         <value xml:lang="fr">Réf. du job</value>
         <value xml:lang="it">Numero lavoro</value>
         <value xml:lang="ja">ジョブID</value>
+        <value xml:lang="nl">Taak ID</value>
         <value xml:lang="pt-BR">Id de emprego</value>
         <value xml:lang="th">รหัสงาน</value>
         <value xml:lang="vi">Id công việc</value>
@@ -224,6 +237,7 @@
         <value xml:lang="fr">Nom du job</value>
         <value xml:lang="it">Nome lavoro</value>
         <value xml:lang="ja">ジョブ名称</value>
+        <value xml:lang="nl">Naam taak</value>
         <value xml:lang="pt-BR">Nome do trabalho</value>
         <value xml:lang="th">ชื่องาน</value>
         <value xml:lang="vi">Tên công việc</value>
@@ -235,6 +249,7 @@
         <value xml:lang="fr">Réf. de lot</value>
         <value xml:lang="it">Numero lotto</value>
         <value xml:lang="ja">ロットID</value>
+        <value xml:lang="nl">Lot ID</value>
         <value xml:lang="pt-BR">Id do lote</value>
         <value xml:lang="vi">Lô</value>
         <value xml:lang="zh">批次标识</value>
@@ -247,6 +262,7 @@
         <value xml:lang="fr">Opération de fabrication</value>
         <value xml:lang="it">Operazione</value>
         <value xml:lang="ja">生産タスク</value>
+        <value xml:lang="nl">Fabricage taak</value>
         <value xml:lang="pt-BR">Tarefa de produção</value>
         <value xml:lang="th">การสร้างงาน</value>
         <value xml:lang="vi">Tác vụ - Đầu việc sản xuất</value>
@@ -260,6 +276,7 @@
         <value xml:lang="fr">Nb de tentatives max</value>
         <value xml:lang="it">Tentativi massimi</value>
         <value xml:lang="ja">最大再試行</value>
+        <value xml:lang="nl">Max. aantal herhalingen</value>
         <value xml:lang="pt-BR">Número máximo de tentativas</value>
         <value xml:lang="th">ทดสอบใหม่มากสุด</value>
         <value xml:lang="vi">Số lần thử lại tối đa</value>
@@ -273,6 +290,7 @@
         <value xml:lang="fr">Capacité du lundi</value>
         <value xml:lang="it">Lunedì Capacità</value>
         <value xml:lang="ja">月曜日能力</value>
+        <value xml:lang="nl">Capaciteit - maandag</value>
         <value xml:lang="pt-BR">Capacidade de segunda-feira</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันจันทร์</value>
         <value xml:lang="vi">Công suất thứ hai</value>
@@ -286,6 +304,7 @@
         <value xml:lang="fr">Heure de début du lundi</value>
         <value xml:lang="it">Lunedì Tempo Inizio</value>
         <value xml:lang="ja">月曜日開始時間</value>
+        <value xml:lang="nl">Starttijd - maandag</value>
         <value xml:lang="pt-BR">Hora de início de segunda-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันจันทร์</value>
         <value xml:lang="vi">Ngày giờ bắt đầu Thứ hai</value>
@@ -313,26 +332,13 @@
         <value xml:lang="fr">Par millisecondes</value>
         <value xml:lang="it">Per millisecondi</value>
         <value xml:lang="ja">ミリ秒毎</value>
+        <value xml:lang="nl">Per miliseconde</value>
         <value xml:lang="pt-BR">Por milissegundo</value>
         <value xml:lang="ro">Pe Milisecunde</value>
         <value xml:lang="th">ต่อพันวินาที</value>
         <value xml:lang="vi">Với mỗi mi li giây</value>
         <value xml:lang="zh">每毫秒</value>
         <value xml:lang="zh-TW">每毫秒</value>
-    </property>
-    <property key="FormFieldTitle_productFeature">
-        <value xml:lang="de">Produkt-Merkmal</value>
-        <value xml:lang="en">Product Feature</value>
-        <value xml:lang="es">Characterística de producto</value>
-        <value xml:lang="fr">Caractéristique de l'article</value>
-        <value xml:lang="it">Caratteristica prodotto</value>
-        <value xml:lang="ja">製品機能</value>
-        <value xml:lang="pt-BR">Característica do produto</value>
-        <value xml:lang="ro">Caratteristica Produs</value>
-        <value xml:lang="th">ลักษณะสินค้า</value>
-        <value xml:lang="vi">Đặc điểm sản phẩm</value>
-        <value xml:lang="zh">产品特性</value>
-        <value xml:lang="zh-TW">產品特性</value>
     </property>
     <property key="FormFieldTitle_productIdFor">
         <value xml:lang="de">Produkt-Nr. für</value>
@@ -341,6 +347,7 @@
         <value xml:lang="fr">Réf. de l'article pour</value>
         <value xml:lang="it">Codice prodotto da</value>
         <value xml:lang="ja">製品ID</value>
+        <value xml:lang="nl">Product ID voor</value>
         <value xml:lang="pt-BR">Id do produto para</value>
         <value xml:lang="ro">Cod Produs De la</value>
         <value xml:lang="th">รหัสสินค้าสำหรับ</value>
@@ -355,6 +362,7 @@
         <value xml:lang="fr">Réf. de l'article dans</value>
         <value xml:lang="it">Codice prodotto in</value>
         <value xml:lang="ja">製品ID</value>
+        <value xml:lang="nl">Product ID in</value>
         <value xml:lang="pt-BR">Id de produto em</value>
         <value xml:lang="ro">Cod Produs In</value>
         <value xml:lang="th">รหัสสินค้าใน</value>
@@ -368,6 +376,7 @@
         <value xml:lang="fr">Réf. de l'article dans subst.</value>
         <value xml:lang="it">Codice prodotto in sostituzione</value>
         <value xml:lang="ja">代用製品ID</value>
+        <value xml:lang="nl">Product ID in vervanging</value>
         <value xml:lang="pt-BR">Id de produto em substituição</value>
         <value xml:lang="ro">Cod Produs In Substitutie</value>
         <value xml:lang="th">รหัสสินค้าในที่มีอยู่จริง</value>
@@ -382,6 +391,7 @@
         <value xml:lang="fr">Cadences de production</value>
         <value xml:lang="it">Ordini di produzione</value>
         <value xml:lang="ja">生産実行</value>
+        <value xml:lang="nl">Productieruns</value>
         <value xml:lang="pt-BR">Ritmos de produção</value>
         <value xml:lang="ro">Comenzi de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
@@ -396,6 +406,7 @@
         <value xml:lang="fr">Gamme</value>
         <value xml:lang="it">Id ciclo</value>
         <value xml:lang="ja">経路制御ID</value>
+        <value xml:lang="nl">Routing ID</value>
         <value xml:lang="pt-BR">Id de período</value>
         <value xml:lang="ro">Id Ciclu</value>
         <value xml:lang="th">รหัส routing</value>
@@ -410,6 +421,7 @@
         <value xml:lang="fr">Réf. de règle</value>
         <value xml:lang="it">Codice regola</value>
         <value xml:lang="ja">ルールID</value>
+        <value xml:lang="nl">Regel ID</value>
         <value xml:lang="pt-BR">Id de regra</value>
         <value xml:lang="ro">Cod Regula</value>
         <value xml:lang="th">รหัสข้อบังคับ</value>
@@ -424,6 +436,7 @@
         <value xml:lang="fr">Opérateur de règle</value>
         <value xml:lang="it">Operatore della regola</value>
         <value xml:lang="ja">ルール操作</value>
+        <value xml:lang="nl">Regel operator</value>
         <value xml:lang="pt-BR">Operador de regra</value>
         <value xml:lang="ro">Regula Operator</value>
         <value xml:lang="th">ผู้ออกกฎระเบียบ</value>
@@ -438,6 +451,7 @@
         <value xml:lang="fr">Réf. séq. de règle </value>
         <value xml:lang="it">Numero seq. regola</value>
         <value xml:lang="ja">ルール連番ID</value>
+        <value xml:lang="nl">Regel volgnummer ID</value>
         <value xml:lang="pt-BR">Id de sequência de regra</value>
         <value xml:lang="ro">Cod Regula Secventa</value>
         <value xml:lang="th">รหัสลำดับข้อบังคับ</value>
@@ -452,6 +466,7 @@
         <value xml:lang="fr">Moment d'exécution</value>
         <value xml:lang="it">Orario di esecuzione</value>
         <value xml:lang="ja">実行時間</value>
+        <value xml:lang="nl">Doorlooptijd</value>
         <value xml:lang="pt-BR">Tempo de execução</value>
         <value xml:lang="th">ระยะเวลาดำเนินงาน</value>
         <value xml:lang="vi">Thời gian thực thi</value>
@@ -465,6 +480,7 @@
         <value xml:lang="fr">Capacité du samedi</value>
         <value xml:lang="it">Sabato Capacità</value>
         <value xml:lang="ja">土曜日能力</value>
+        <value xml:lang="ja">Capaciteit - zaterdag</value>
         <value xml:lang="pt-BR">Capacidade de sábado</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันเสาร์</value>
         <value xml:lang="vi">Công suất thứ bảy</value>
@@ -478,6 +494,7 @@
         <value xml:lang="fr">Heure de début du samedi</value>
         <value xml:lang="it">Sabato Tempo Inizio</value>
         <value xml:lang="ja">土曜日開始時間</value>
+        <value xml:lang="nl">Starttijd - zaterdag</value>
         <value xml:lang="pt-BR">Hora de início do sábados</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันเสาร์</value>
         <value xml:lang="vi">Giờ bắt đầu Thứ bảy</value>
@@ -491,6 +508,7 @@
         <value xml:lang="fr">Ref. séq. d'emplacement secondaire</value>
         <value xml:lang="it">Locazione secondaria</value>
         <value xml:lang="ja">補助位置連番ID</value>
+        <value xml:lang="nl">Secundaire locatie volgnummer ID</value>
         <value xml:lang="pt-BR">Id de sequência do local secundário</value>
         <value xml:lang="th">รหัสสถานที่ตั้งที่สอง</value>
         <value xml:lang="vi">Thứ tự của vị trí sau (thứ hai - secondary)</value>
@@ -504,6 +522,7 @@
         <value xml:lang="fr">Heure de date de début</value>
         <value xml:lang="it">Data/Ora di inizio</value>
         <value xml:lang="ja">開始日時</value>
+        <value xml:lang="nl">Starttijd</value>
         <value xml:lang="pt-BR">Data e hora de início</value>
         <value xml:lang="th">วันเวลาเริ่มต้น</value>
         <value xml:lang="vi">Ngày giờ bắt đầu</value>
@@ -517,6 +536,7 @@
         <value xml:lang="fr">Capacité du dimanche</value>
         <value xml:lang="it">Domenica Capacità</value>
         <value xml:lang="ja">日曜日能力</value>
+        <value xml:lang="nl">Capaciteit -zondag</value>
         <value xml:lang="pt-BR">Capacidade de domingo</value>
         <value xml:lang="th">การปฏิบัติงานในวันอาทิตย์</value>
         <value xml:lang="vi">Công suất chủ nhật</value>
@@ -530,6 +550,7 @@
         <value xml:lang="fr">Heure de début du dimanche</value>
         <value xml:lang="it">Domenica Tempo Inizio</value>
         <value xml:lang="ja">日曜日開始時間</value>
+        <value xml:lang="nl">Starttijd - zondag</value>
         <value xml:lang="pt-BR">Hora de início do domingo</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันอาทิตย์</value>
         <value xml:lang="vi">Thời gian bắt đầu Chủ nhật</value>
@@ -543,6 +564,7 @@
         <value xml:lang="fr">Capacité du jeudi</value>
         <value xml:lang="it">Giovedì Capacità</value>
         <value xml:lang="ja">木曜日能力</value>
+        <value xml:lang="nl">Capaciteit - donderdag</value>
         <value xml:lang="pt-BR">Capacidade de quinta-feira</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันพฤหัสบดี</value>
         <value xml:lang="vi">Công suất thứ năm</value>
@@ -556,6 +578,7 @@
         <value xml:lang="fr">Heure de début du jeudi</value>
         <value xml:lang="it">Giovedì Tempo Inizio</value>
         <value xml:lang="ja">木曜日開始時間</value>
+        <value xml:lang="nl">Starttijd - donderdag</value>
         <value xml:lang="pt-BR">Hora de início da quinta-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันพฤหัสบดี</value>
         <value xml:lang="vi">Thời gian bắt đầu Thứ năm</value>
@@ -569,6 +592,7 @@
         <value xml:lang="fr">Quantité totale prélevée</value>
         <value xml:lang="it">Totale quantità prelevata</value>
         <value xml:lang="ja">発行数量合計</value>
+        <value xml:lang="nl">Totaal vrijgegeven hoeveelheid</value>
         <value xml:lang="pt-BR">Quantidade total emitida</value>
         <value xml:lang="ro">Total Cantitate Preluata</value>
         <value xml:lang="th">รวมจำนวนประเด็น</value>
@@ -583,6 +607,7 @@
         <value xml:lang="fr">Quantité totale commandée</value>
         <value xml:lang="it">Totale quantità ordinata</value>
         <value xml:lang="ja">注文数量合計</value>
+        <value xml:lang="nl">Totaal bestelde hoeveelheid</value>
         <value xml:lang="pt-BR">Quantidade total encomendada</value>
         <value xml:lang="ro">Total Cantitate Comandata</value>
         <value xml:lang="th">รวมจำนวนที่สั่งซื้อ</value>
@@ -597,6 +622,7 @@
         <value xml:lang="fr">Quantité totale planifiée</value>
         <value xml:lang="it">Totale quantità pianificata</value>
         <value xml:lang="ja">計画数量合計</value>
+        <value xml:lang="nl">Totaal geplande hoeveelheid</value>
         <value xml:lang="pt-BR">Quantidade planejada total</value>
         <value xml:lang="ro">Total Cantitate Planificata</value>
         <value xml:lang="th">ผลรวมจำนวนที่คาดไว้</value>
@@ -611,6 +637,7 @@
         <value xml:lang="fr">Capacité du mardi</value>
         <value xml:lang="it">Martedì Capacità</value>
         <value xml:lang="ja">火曜日能力</value>
+        <value xml:lang="nl">Capaciteit - dinsdag</value>
         <value xml:lang="pt-BR">Capacidade de terça-feira</value>
         <value xml:lang="th">การปฏิบัติงานในวันอังคาร</value>
         <value xml:lang="vi">Công suất Thứ ba</value>
@@ -624,25 +651,12 @@
         <value xml:lang="fr">Heure de début du mardi</value>
         <value xml:lang="it">Martedì Tempo Inizio</value>
         <value xml:lang="ja">火曜日開始時間</value>
+        <value xml:lang="nl">Starttijd - dinsdag</value>
         <value xml:lang="pt-BR">Hora de início da terça-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันอังคาร</value>
         <value xml:lang="vi">Ngày giờ bắt đầu Thứ ba</value>
         <value xml:lang="zh">星期二开始时间</value>
         <value xml:lang="zh-TW">週二開始時間</value>
-    </property>
-    <property key="FormFieldTitle_type">
-        <value xml:lang="de">Art</value>
-        <value xml:lang="en">Type</value>
-        <value xml:lang="es">Tipo</value>
-        <value xml:lang="fr">Type</value>
-        <value xml:lang="it">Tipo</value>
-        <value xml:lang="ja">種類</value>
-        <value xml:lang="pt-BR">Tipo</value>
-        <value xml:lang="ro">Tip</value>
-        <value xml:lang="th">ประเภท</value>
-        <value xml:lang="vi">Kiểu</value>
-        <value xml:lang="zh">类型</value>
-        <value xml:lang="zh-TW">類型</value>
     </property>
     <property key="FormFieldTitle_variableCost">
         <value xml:lang="de">Variable Kosten</value>
@@ -651,6 +665,7 @@
         <value xml:lang="fr">Coût variable</value>
         <value xml:lang="it">Costo variabile</value>
         <value xml:lang="ja">変動原価</value>
+        <value xml:lang="nl">Variabele kosten</value>
         <value xml:lang="pt-BR">Custo variável</value>
         <value xml:lang="ro">Cost Variabil</value>
         <value xml:lang="th">ราคาเปลี่ยนแปลงได้</value>
@@ -665,6 +680,7 @@
         <value xml:lang="fr">Capacité du mercredi</value>
         <value xml:lang="it">Mercoledì Capacità</value>
         <value xml:lang="ja">水曜日能力</value>
+        <value xml:lang="nl">Capaciteit - woensdag</value>
         <value xml:lang="pt-BR">Capacidade de quarta-feira</value>
         <value xml:lang="th">กรปฏิบัติงานในวันพุธ</value>
         <value xml:lang="vi">Công suất Thứ tư</value>
@@ -678,6 +694,7 @@
         <value xml:lang="fr">Heure de début du mercredi</value>
         <value xml:lang="it">Mercoledì Tempo Inizio</value>
         <value xml:lang="ja">水曜日開始時間</value>
+        <value xml:lang="nl">Starttijd - woensdag</value>
         <value xml:lang="pt-BR">Hora de início de quarta-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันพุธ</value>
         <value xml:lang="vi">Thời gian bắt đầu Thứ tư</value>
@@ -691,6 +708,7 @@
         <value xml:lang="fr">Date ATP</value>
         <value xml:lang="it">Data ATP</value>
         <value xml:lang="ja">納品日(ATP)</value>
+        <value xml:lang="nl">Datum - AtP</value>
         <value xml:lang="pt-BR">Data de ATP</value>
         <value xml:lang="ro">Data ATP</value>
         <value xml:lang="th">วัน ATP</value>
@@ -705,6 +723,7 @@
         <value xml:lang="fr">Date d'achèvement</value>
         <value xml:lang="it">Data completamento</value>
         <value xml:lang="ja">完了日</value>
+        <value xml:lang="nl">Werkelijke datum gereed</value>
         <value xml:lang="pt-BR">Data de encerramento</value>
         <value xml:lang="ro">Data Completament</value>
         <value xml:lang="th">วันที่ทำเสร็จ</value>
@@ -719,6 +738,7 @@
         <value xml:lang="fr">Coûts actuels</value>
         <value xml:lang="it">Costi attuali</value>
         <value xml:lang="ja">実績原価</value>
+        <value xml:lang="nl">Werkelijke kosten</value>
         <value xml:lang="pt-BR">Custos reais</value>
         <value xml:lang="ro">Costuri Actuali</value>
         <value xml:lang="th">ราคาจริง</value>
@@ -733,6 +753,7 @@
         <value xml:lang="fr">Date/heure de fin actuelle</value>
         <value xml:lang="it">Data/Ora fine attuale</value>
         <value xml:lang="ja">実績終了日時</value>
+        <value xml:lang="nl">Werkelijke datum-tijd eind</value>
         <value xml:lang="pt-BR">Data/hora de encerramento real</value>
         <value xml:lang="ro">Data/Ora Sfarsit</value>
         <value xml:lang="th">วัน/เวลา ที่เสร็จจริง</value>
@@ -747,6 +768,7 @@
         <value xml:lang="fr">Matériels rééls</value>
         <value xml:lang="it">Materiali attuali</value>
         <value xml:lang="ja">実績部品</value>
+        <value xml:lang="nl">Werkelijke materialen</value>
         <value xml:lang="pt-BR">Materiais reais</value>
         <value xml:lang="th">ข้อเท็จจริง</value>
         <value xml:lang="vi">Vật liệu thực tế</value>
@@ -760,6 +782,7 @@
         <value xml:lang="fr">Date/heure de début réelle</value>
         <value xml:lang="it">Data/Ora inizio attuale</value>
         <value xml:lang="ja">実績開始日時</value>
+        <value xml:lang="nl">Werkelijke datum-tijd start</value>
         <value xml:lang="pt-BR">Data e hora real para início</value>
         <value xml:lang="ro">Data/Ora Initiere</value>
         <value xml:lang="th">วัน/เวลา เริ่มต้นจริง</value>
@@ -774,6 +797,7 @@
         <value xml:lang="fr">Ajouter une opération existante</value>
         <value xml:lang="it">Aggiungi una operazione esistente</value>
         <value xml:lang="ja">既存経路制御タスクを追加</value>
+        <value xml:lang="nl">Bestaande taak toevoegen</value>
         <value xml:lang="pt-BR">Adicionar tarefa de roteamento já existente</value>
         <value xml:lang="ro">Adauga o Operatie existenta</value>
         <value xml:lang="th">เพิ่มการทำงานที่มีอยู่</value>
