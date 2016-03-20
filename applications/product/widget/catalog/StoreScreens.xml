@@ -32,7 +32,7 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductProductStoreList}">
-                            <include-form name="ListProductStore" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="ListProductStore" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -149,10 +149,10 @@ under the License.
                                     </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleEditProductStorePromos}">
-                            <include-form name="ListProductStorePromos" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="ListProductStorePromos" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAddStorePromo}">
-                            <include-form name="CreateProductStorePromo" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="CreateProductStorePromo" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -180,10 +180,10 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductStoreCatalogs}">
-                            <include-form name="UpdateProductStoreCatalog" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="UpdateProductStoreCatalog" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddProductStoreCatalogs}">
-                            <include-form name="CreateProductStoreCatalog" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="CreateProductStoreCatalog" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -245,7 +245,7 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductStoreShipSetup}">
-                            <include-form name="ListProductStoreShipmentMeths" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="ListProductStoreShipmentMeths" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <section>
                             <condition>
@@ -263,7 +263,7 @@ under the License.
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.PageTitleAddProductStoreShipSetup}">
-                                    <include-form name="EditProductStoreShipmentMeth" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                                    <include-form name="EditProductStoreShipmentMeth" location="component://product/widget/catalog/StoreForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
@@ -294,7 +294,7 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductStoreShipmentCostEstimates}">
-                            <include-form name="ListShipmentCostEstimates" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="ListShipmentCostEstimates" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <section>
                             <condition>
@@ -302,12 +302,12 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ProductNewShipmentEstimate}">
-                                    <include-form name="AddShipmentCostEstimate" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                                    <include-form name="AddShipmentCostEstimate" location="component://product/widget/catalog/StoreForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.ProductViewEstimates}">
-                                    <include-form name="ViewShipmentCostEstimate" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                                    <include-form name="ViewShipmentCostEstimate" location="component://product/widget/catalog/StoreForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
@@ -336,7 +336,7 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListProductStorePaySetup}">
-                            <include-form name="ListProductStorePaymentSettings" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="ListProductStorePaymentSettings" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditProductStorePaySetup}">
                             <section>
@@ -344,7 +344,7 @@ under the License.
                                     <if-has-permission permission="CATALOG" action="_CREATE"/>
                                 </condition>
                                 <widgets>
-                                    <include-form name="EditProductStorePaymentSetting" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                                    <include-form name="EditProductStorePaymentSetting" location="component://product/widget/catalog/StoreForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
@@ -373,10 +373,10 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductStoreEmailSetup}">
-                            <include-form name="updateProductStoreEmail" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="updateProductStoreEmail" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddProductStoreEmailSetup}">
-                            <include-form name="createProductStoreEmail" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="createProductStoreEmail" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -426,10 +426,10 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductStoreKeywordOvrd}">
-                            <include-form name="UpdateproductStorekeywordOvrdForm" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="UpdateproductStorekeywordOvrdForm" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddProductStoreKeywordOvrd}">
-                            <include-form name="CreateproductStorekeywordOvrdForm" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="CreateproductStorekeywordOvrdForm" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -459,7 +459,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleViewProductStoreSegments}">
-                            <include-form name="ViewProductStoreSegments" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="ViewProductStoreSegments" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -487,10 +487,10 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListProductStoreFinAccountSettings}">
-                            <include-form name="ListProductStoreFinAccountSettings" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="ListProductStoreFinAccountSettings" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditProductStoreFinAccountSettings}">
-                            <include-form name="EditProductStoreFinAccountSettings" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="EditProductStoreFinAccountSettings" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -517,10 +517,10 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListProductStoreVendorPayments}">
-                            <include-form name="ListProductStoreVendorPayments" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="ListProductStoreVendorPayments" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditProductStoreVendorPayments}">
-                            <include-form name="EditProductStoreVendorPayment" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="EditProductStoreVendorPayment" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -546,10 +546,10 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListProductStoreVendorShipments}">
-                            <include-form name="ListProductStoreVendorShipments" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="ListProductStoreVendorShipments" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditProductStoreVendorShipments}">
-                            <include-form name="EditProductStoreVendorShipment" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="EditProductStoreVendorShipment" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
