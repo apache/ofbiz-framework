@@ -6699,10 +6699,4 @@
         <value xml:lang="vi">Bạn không thể thêm sản phẩm ảo ('Virtual' product) tại đây, bạn hãy chọn trong các hàng hóa liên quan (related variants).</value>
         <value xml:lang="zh">在这里你不能添加一个虚拟产品，请选择一个相关的变型。</value>
     </property>
-    <property key="OrderNoPaymentMethodSelected">
-        <value xml:lang="en">No Payment Method selected </value>
-    </property>
-    <property key="OrderNoShipmentMethodSelected">
-        <value xml:lang="en">No Shipment Method selected</value>
-    </property>
 </resource>
