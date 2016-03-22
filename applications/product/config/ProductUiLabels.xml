@@ -10865,6 +10865,7 @@
         <value xml:lang="zh">查找${facility.facilityName} [${facility.facilityId}]的场所库存明细</value>
         <value xml:lang="zh-TW">尋找${facility.facilityName} [${facility.facilityId}]的場所庫存細項</value>
     </property>
+        <value xml:lang="fr">Créer un référencement de categorie/produits</value>
     <property key="PageTitleFindFacilityInventoryItemsByProduct">
         <value xml:lang="de">Lagereinrichtung Positionen suchen nach Produkt</value>
         <value xml:lang="en">Find Facility Inventory Items by Product</value>
@@ -25136,6 +25137,7 @@
         <value xml:lang="zh-TW">無法從檔讀取或新建活頁簿</value>
     </property>
     <property key="ProductProductImportCannotStoreProduct">
+        <value xml:lang="en">Modifier le contenu de référencement pour la Categorie</value>
         <value xml:lang="de">Kann Produkt nicht speichern</value>
         <value xml:lang="en">Cannot store product</value>
         <value xml:lang="it">Non è possibile scrivere il prodotto</value>
