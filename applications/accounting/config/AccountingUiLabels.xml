@@ -350,7 +350,7 @@
         <value xml:lang="hi-IN">श्रेणी सामान्य बही खाता जोड़ें</value>
         <value xml:lang="it">Aggiungi una Categoria Conto GL</value>
         <value xml:lang="ja">カテゴリGL勘定を追加</value>
-        <value xml:lang="nl">Voeg categorie van GB-rekening toe</value>
+        <value xml:lang="nl">Voeg categorie van Gb-rekening toe</value>
         <value xml:lang="pt">Adicionar Categoria de Conta da contabilidade</value>
         <value xml:lang="th">เพิ่มหมวดหมู่บัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Thêm chuyên mục tài khoản Sổ cái</value>
@@ -392,7 +392,7 @@
         <value xml:lang="hi-IN">वित्तीय खाता प्रकार का सामान्य खाता जोड़ें</value>
         <value xml:lang="it">Aggiungi Tipo Conto Finanziario Gl</value>
         <value xml:lang="ja">金融アカウント種類GL勘定を追加</value>
-        <value xml:lang="nl">Voeg Fin. rekening type GB-rekening toe</value>
+        <value xml:lang="nl">Voeg Fin. rekening type Gb-rekening toe</value>
         <value xml:lang="pt">Adicionar Conta Tipo de FinAccount à contabilidade</value>
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Thêm loại tài khoản sổ cái</value>
@@ -584,7 +584,7 @@
         <value xml:lang="hi-IN">सामान्य खाता बही खाते में जोड़ने के लिए पार्टी</value>
         <value xml:lang="it">Aggiungi Conto Gl Soggetto</value>
         <value xml:lang="ja">取引先GL勘定を追加</value>
-        <value xml:lang="nl">Voeg nieuwe GB-rekening van relatie toe</value>
+        <value xml:lang="nl">Voeg nieuwe Gb-rekening van relatie toe</value>
         <value xml:lang="pt">Adicionar Conta do participante à contabilidade</value>
         <value xml:lang="th">เพิ่มกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Thêm tài khoản sổ cái</value>
@@ -623,7 +623,7 @@
         <value xml:lang="hi-IN">सामान्य बही खातों कर अधिकारियों को जोड़ने के लिए</value>
         <value xml:lang="it">Aggiungi Conto Gl Autorità Tasse</value>
         <value xml:lang="ja">税務機関GL勘定を追加</value>
-        <value xml:lang="nl">Voeg nieuwe GB-rekening van belastinginstantie toe</value>
+        <value xml:lang="nl">Voeg nieuwe Gb-rekening van belastinginstantie toe</value>
         <value xml:lang="pt">Adicionar Conta do  entidade tributária (TaxAuthority)</value>
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Thêm tài khoản cục thuế</value>
@@ -1629,7 +1629,7 @@
         <value xml:lang="hi-IN">राजस्व सामान्य बही खाता निरुपित करने के लिए खरीद चालान प्रकार संख्या</value>
         <value xml:lang="it">Assegna Tipo Fattura Acquisto al Numero Conto Profitti Gl</value>
         <value xml:lang="ja">収入GL勘定に購買請求種類を割当</value>
-        <value xml:lang="nl">wijs inkoopfactuurtype toe aan GB-rekeningnr</value>
+        <value xml:lang="nl">wijs inkoopfactuurtype toe aan Gb-rekeningnr</value>
         <value xml:lang="pt">Atribuir fatura de compra do tipo de Receita para Número de Conta de contabilidade</value>
         <value xml:lang="th">กำหนดประเภทใบกำกับสินค้าการสั่งซื้อไปยังหมายเลขบัญชีประเภททั่วไป</value>
         <value xml:lang="vi">Gán kiểu Hóa đơn mua cho Số tài khoản sổ cái lợi nhuận</value>
@@ -1646,7 +1646,7 @@
         <value xml:lang="hi-IN">राजस्व सामान्य बही खाता निरुपित करने के लिए बिक्री चालान प्रकार संख्या</value>
         <value xml:lang="it">Assegna Tipo Fattura Vendita al Numero Conto Profitti Gl</value>
         <value xml:lang="ja">収入GL勘定に販売請求種類を割当</value>
-        <value xml:lang="nl">Wijs verkoopfactuur to aan GB-rekeningnr</value>
+        <value xml:lang="nl">Wijs verkoopfactuur to aan Gb-rekeningnr</value>
         <value xml:lang="pt">Atribuir fatura de venda do tipo de Receita para Número de Conta de contabilidade</value>
         <value xml:lang="ro">Anexeaza Tipul Facturii de Vanzare la Nr.Cont Profituri Gl</value>
         <value xml:lang="ru">Назначить тип расходной накладной на номер доходного счета ГК</value>
@@ -3846,7 +3846,7 @@
         <value xml:lang="hi-IN">सुरक्षा त्रुटि: createGlAccount चलाने के लिए आप को ACCOUNTING_CREATE या ACCOUNTING_ADMIN अनुमति होना चाहिए</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createGlAccount tu devi avere il permesso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: GL勘定の作成は ACCOUNTING_CREATE または ACCOUNTING_ADMIN 権限が必要です</value>
-        <value xml:lang="nl">Toegangfout: om GB-rekeningen aan te maken heb je ACCOUNTING_CREATE- of ACCOUNTING_ADMIN-permissie nodig</value>
+        <value xml:lang="nl">Toegangfout: om Gb-rekeningen aan te maken heb je ACCOUNTING_CREATE- of ACCOUNTING_ADMIN-permissie nodig</value>
         <value xml:lang="pt-BR">Erro de Segurança: para "Criar Conta de contabilidade" deverá obter permissões para  ACCOUNTING_CREATE ou ACCOUNTING_ADMIN </value>
         <value xml:lang="pt-PT">&gt;Erro de Segurança: para correr "Criar Conta GL" deverá obter permissões para  ACCOUNTING_CREATE ou ACCOUNTING_ADMIN </value>
         <value xml:lang="ro">Eroare de Siguranta: pentru a executa createGlAccount tu trebuie sa ai permisul ACCOUNTING_CREATE sau ACCOUNTING_ADMIN</value>
@@ -4070,7 +4070,7 @@
         <value xml:lang="hi-IN">क्रेडिट कार्ड प्रकार का GlAccount</value>
         <value xml:lang="it">Conto Gl Tipo Carta di Credito</value>
         <value xml:lang="ja">クレジットカード種類GL勘定</value>
-        <value xml:lang="nl">Kredietkaarttype GB-rekening</value>
+        <value xml:lang="nl">Kredietkaarttype Gb-rekening</value>
         <value xml:lang="pt">Tipo de cartão de crédito conta razão</value>
         <value xml:lang="th">บัตรเครดิตประเภทบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Loại tài khoản sổ cái</value>
@@ -5130,7 +5130,7 @@
         <value xml:lang="hi-IN">टैक्स प्राधिकरण जीएल(GL) लेखा कोसम्पादित करें</value>
         <value xml:lang="it">Aggiorna conti Gl autorità tasse</value>
         <value xml:lang="ja">税務機関GL勘定を編集</value>
-        <value xml:lang="nl">Wijzig GB-rekeningen belastinginstantie</value>
+        <value xml:lang="nl">Wijzig Gb-rekeningen belastinginstantie</value>
         <value xml:lang="pt">Editar contas financeiras da autoridade tributária</value>
         <value xml:lang="th">แก้ไขภาษีบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Sửa đổi tài khoản sổ cái Cục thuế</value>
@@ -5711,7 +5711,7 @@
         <value xml:lang="hi-IN">जीएल(GL) में वित्तीय खाता प्रकार</value>
         <value xml:lang="it">Conto Gl Tipo Conto Finanaziario</value>
         <value xml:lang="ja">金融アカウント種類GL勘定</value>
-        <value xml:lang="nl">Financiele rekening type GB-rekening</value>
+        <value xml:lang="nl">Financiele rekening type Gb-rekening</value>
         <value xml:lang="pt">Conta financeira do tipo FinAccount</value>
         <value xml:lang="th">งบกำไรสะสมประเภทบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Tài khoản sổ cái</value>
@@ -7052,7 +7052,7 @@
         <value xml:lang="hi-IN">संपत्ति प्रकार</value>
         <value xml:lang="it">Tipo cespite</value>
         <value xml:lang="ja">資産種類</value>
-        <value xml:lang="nl">Activatype</value>
+        <value xml:lang="nl">Activa type</value>
         <value xml:lang="pt">Tipo de Ativo</value>
         <value xml:lang="ro">Tip Mijloace </value>
         <value xml:lang="ru">Тип активов</value>
@@ -7300,7 +7300,7 @@
         <value xml:lang="hi-IN">जीएल(GL) खाता</value>
         <value xml:lang="it">Conto Contabilità Generale</value>
         <value xml:lang="ja">GL勘定</value>
-        <value xml:lang="nl">GB-rekening</value>
+        <value xml:lang="nl">Gb-rekening</value>
         <value xml:lang="pt">Conta razão</value>
         <value xml:lang="ro">Cont Contabilitate Generala</value>
         <value xml:lang="ru">Счет ГК</value>
@@ -7330,7 +7330,7 @@
         <value xml:lang="hi-IN">जीएल(GL) खाता नियत कार्य</value>
         <value xml:lang="it">Assegnazione Conti Gl</value>
         <value xml:lang="ja">GL勘定割当</value>
-        <value xml:lang="nl">Toewijzingen GB-rekening</value>
+        <value xml:lang="nl">Toewijzingen Gb-rekening</value>
         <value xml:lang="pt">Atribuições de Contas Razão</value>
         <value xml:lang="ro">Alocare Conturi Gl</value>
         <value xml:lang="ru">Назначения счета ГК</value>
@@ -7348,7 +7348,7 @@
         <value xml:lang="hi-IN">जीएल(GL) खाता वर्ग</value>
         <value xml:lang="it">Classe Conto Contabilità Generale</value>
         <value xml:lang="ja">GL勘定分類</value>
-        <value xml:lang="nl">Klasse GB-rekening</value>
+        <value xml:lang="nl">Klasse Gb-rekening</value>
         <value xml:lang="pt">Classe da conta Razão</value>
         <value xml:lang="ro">Clasa Cont Contabilitate Generala</value>
         <value xml:lang="ru">Класс счета ГК</value>
@@ -7366,7 +7366,7 @@
         <value xml:lang="hi-IN">जीएल(GL) खाता डिफ़ॉल्ट्स</value>
         <value xml:lang="it">Defaults Conto Contabilità Generale</value>
         <value xml:lang="ja">GL勘定デフォルト</value>
-        <value xml:lang="nl">Standaardwaarden GB-rekening</value>
+        <value xml:lang="nl">Standaardwaarden Gb-rekening</value>
         <value xml:lang="pt">Contas Razão padrão</value>
         <value xml:lang="ro">Default Cont Contabilitate Generala</value>
         <value xml:lang="ru">Обычн. знач. счета ГК</value>
@@ -7384,7 +7384,7 @@
         <value xml:lang="hi-IN">जीएल(GL) खाता क्रमांक</value>
         <value xml:lang="it">Codice Conto Contabilità Generale</value>
         <value xml:lang="ja">GL勘定ID</value>
-        <value xml:lang="nl">ID GB-rekening</value>
+        <value xml:lang="nl">ID Gb-rekening</value>
         <value xml:lang="pt">ID da conta Razão</value>
         <value xml:lang="ro">Cod Cont Contabilitate Generala</value>
         <value xml:lang="ru">Код счета ГК</value>
@@ -7450,7 +7450,7 @@
         <value xml:lang="hi-IN">जीएल(GL) खाता  प्रकार डिफ़ॉल्ट्स</value>
         <value xml:lang="it">Default Tipo Conto Contabilità Generale</value>
         <value xml:lang="ja">GL勘定種類デフォルト</value>
-        <value xml:lang="nl">Standaardwaarden GB-rekeningtype</value>
+        <value xml:lang="nl">Standaardwaarden Gb-rekeningtype</value>
         <value xml:lang="pt">Tipo Padrão de Conta Razão</value>
         <value xml:lang="th">ค่าเริ่มต้นอัตโนมัติของประเภทบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Loại tài khoản mặc định</value>
@@ -10895,7 +10895,7 @@
         <value xml:lang="hi-IN">राजस्व जीएल(Gl) खाता क्रमांक को अधिरोहण</value>
         <value xml:lang="it">Sostituzione Conto Profitti Gl</value>
         <value xml:lang="ja">上書収入GL勘定ID</value>
-        <value xml:lang="nl">Verander Revenue GB-rekening Id</value>
+        <value xml:lang="nl">Verander Revenue Gb-rekening Id</value>
         <value xml:lang="pt">Sobrescrever ID da receira na conta razão</value>
         <value xml:lang="ro">Substituire Cont Profit Gl</value>
         <value xml:lang="ru">Основной счет доходов</value>
@@ -11096,7 +11096,7 @@
         <value xml:lang="hi-IN">पार्टी जीएल(Gl) खाता</value>
         <value xml:lang="it">Conti Gl Soggetto</value>
         <value xml:lang="ja">取引先GL勘定</value>
-        <value xml:lang="nl">GB-rekeningen relatie</value>
+        <value xml:lang="nl">Gb-rekeningen relatie</value>
         <value xml:lang="pt">Contas razão do participante</value>
         <value xml:lang="th">กลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Tài khoản sổ cái của tác nhân</value>
@@ -11604,7 +11604,7 @@
         <value xml:lang="hi-IN">PaymentApplication के लिए या तो एक invoiceId, एक billingAccountId, एक taxAuthGeoId या एक glAccountId आवश्यक है</value>
         <value xml:lang="it">Applicazione pagamento richiede entrambi un fattura, un conto fatturazione, o una autorità tasse geografia</value>
         <value xml:lang="ja">支払申請は請求ID、請求先アカウントID、税務機関位置ID、またはGL勘定IDのいずれかが必要です</value>
-        <value xml:lang="nl">Betalingstoewijzing vereist tenminste een factuurnummer of een factuurrekeningnr, een belasting instantie of GB-rekening</value>
+        <value xml:lang="nl">Betalingstoewijzing vereist tenminste een factuurnummer of een factuurrekeningnr, een belasting instantie of Gb-rekening</value>
         <value xml:lang="pt">Pedido de pagamento exige ou um InvoiceID, um billingAccountId, um taxAuthGeoId ou glAccountId</value>
         <value xml:lang="ro">Pentru Aplicatia Plata sunt necesare o factura, un cont facturare, sau o TaxAuthGeold??</value>
         <value xml:lang="ru">Платежное приложение требует указания кода накладной, кода кредитного счета, код территории налогового органа или код счета ГК</value>
@@ -13640,7 +13640,7 @@
         <value xml:lang="hi-IN">उत्पाद श्रेणी जीएल(Gl) खाता</value>
         <value xml:lang="it">Conto Gl Categoria Prodotto</value>
         <value xml:lang="ja">製品カテゴリGL勘定</value>
-        <value xml:lang="nl">GB-rekening Productcategorie</value>
+        <value xml:lang="nl">Gb-rekening Productcategorie</value>
         <value xml:lang="pt">Conta financeira da Categoria de Produto</value>
         <value xml:lang="th">หมวดหมู่สินค้าบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Tài khoản Chuyên mục sản phẩm trong sổ cái</value>
@@ -13655,7 +13655,7 @@
         <value xml:lang="hi-IN">उत्पाद जीएल(Gl) खाता</value>
         <value xml:lang="it">Conti Gl Prodotto</value>
         <value xml:lang="ja">製品GL勘定</value>
-        <value xml:lang="nl">GB-rekeningen Product</value>
+        <value xml:lang="nl">Gb-rekeningen Product</value>
         <value xml:lang="pt">Contas financeiras do produto</value>
         <value xml:lang="th">สินค้าบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Tài khoản sản phẩm trong sổ cái</value>
@@ -15045,7 +15045,7 @@
         <value xml:lang="hi-IN">टैक्स प्राधिकरण जीएल(Gl) लेखा</value>
         <value xml:lang="it">Conti Gl Autorità Tasse</value>
         <value xml:lang="ja">税務機関GL勘定</value>
-        <value xml:lang="nl">GB-rekeningen belastinginstantie(s)</value>
+        <value xml:lang="nl">Gb-rekeningen belastinginstantie(s)</value>
         <value xml:lang="pt">Contas financeiras da autoridade tributária</value>
         <value xml:lang="th">ภาษีบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Tài khoản thuế sổ cái</value>
@@ -15317,7 +15317,7 @@
         <value xml:lang="en">Total Accumulated Depreciation</value>
         <value xml:lang="fr">Montant cumulé de la dépréciation</value>
         <value xml:lang="ja">減価償却累計額</value>
-        <value xml:lang="nl">Geaccumuleerde afschrijvingen totaal</value>
+        <value xml:lang="nl">Geaccumuleerde afschrijvingen</value>
         <value xml:lang="pt">Depreciação Acumulada Total</value>
         <value xml:lang="vi">Tổng khấu hao lũy kế</value>
         <value xml:lang="zh">累积折旧合计</value>
@@ -16439,7 +16439,7 @@
         <value xml:lang="hi-IN">वेरिएंस रीज़न जीएल(Gl) लेखा</value>
         <value xml:lang="it">Motivazione Varianza Conti Gl</value>
         <value xml:lang="ja">差異理由GL勘定</value>
-        <value xml:lang="nl">Reden afwijking GB-rekening</value>
+        <value xml:lang="nl">Reden afwijking Gb-rekening</value>
         <value xml:lang="pt">Razão de variação das contas razão</value>
         <value xml:lang="vi">Nguyên nhân vênh giá trị</value>
         <value xml:lang="zh">总账不平原因</value>
@@ -16816,7 +16816,7 @@
         <value xml:lang="hi-IN">जीएल(Gl) खाता :</value>
         <value xml:lang="it">Conti Contabilità Generale: </value>
         <value xml:lang="ja">GL勘定 :</value>
-        <value xml:lang="nl">GB-rekening:</value>
+        <value xml:lang="nl">Gb-rekening:</value>
         <value xml:lang="pt">Conta razão:</value>
         <value xml:lang="ro">Conturi Contabilitate Generala: </value>
         <value xml:lang="ru">Счет ГК: </value>
@@ -17002,6 +17002,7 @@
         <value xml:lang="en">Accumulated depreciation GL account</value>
         <value xml:lang="fr">Compte d'amortissement dégressif</value>
         <value xml:lang="ja">減価償却累計額GL勘定</value>
+        <value xml:lang="nl">Gb-rek. afschrijving</value>
         <value xml:lang="pt">Conta razão de depreciação acumulada</value>
         <value xml:lang="vi">Tài khoản khấu hao lũy kế</value>
         <value xml:lang="zh">累计折旧总账账目</value>
@@ -17517,6 +17518,7 @@
         <value xml:lang="en">Asset GL account</value>
         <value xml:lang="fr">Compte d'actif immobilisé</value>
         <value xml:lang="ja">資産GL勘定</value>
+        <value xml:lang="nl">Gb-rek. Activa</value>
         <value xml:lang="pt">Conta razão de ativo</value>
         <value xml:lang="vi">Tài khoản của tài sản</value>
         <value xml:lang="zh">资产总账账目</value>
@@ -17878,7 +17880,7 @@
         <value xml:lang="hi-IN">जमा जीएल(Gl) खाता क्रमांक</value>
         <value xml:lang="it">Codice Conto Credito Gl</value>
         <value xml:lang="ja">貸方GL勘定ID</value>
-        <value xml:lang="nl">Credit GB-rekening ID</value>
+        <value xml:lang="nl">Credit Gb-rekening ID</value>
         <value xml:lang="pt">ID de conta razão de crédito</value>
         <value xml:lang="ro">Cod Cont Credit Gl</value>
         <value xml:lang="ru">Кредит счета ГК</value>
@@ -18062,7 +18064,7 @@
         <value xml:lang="hi-IN">नामे जीएल(Gl) खाता क्रमांक</value>
         <value xml:lang="it">Codice Conto Debito Gl</value>
         <value xml:lang="ja">借方GL勘定ID</value>
-        <value xml:lang="nl">Debit GB-rekening</value>
+        <value xml:lang="nl">Debit Gb-rekening</value>
         <value xml:lang="pt">ID de conta razão de débito</value>
         <value xml:lang="ro">Cod Cont Debit Gl</value>
         <value xml:lang="ru">Дебет счета ГК</value>
@@ -18080,7 +18082,7 @@
         <value xml:lang="hi-IN">डिफ़ॉल्ट जीएल(Gl) खाता क्रमांक</value>
         <value xml:lang="it">Default Conto Gl</value>
         <value xml:lang="ja">標準GL勘定ID</value>
-        <value xml:lang="nl">Standaard GB-rekening</value>
+        <value xml:lang="nl">Standaard Gb-rekening</value>
         <value xml:lang="pt">ID da conta razão padrão</value>
         <value xml:lang="ro">Default Cont Gl</value>
         <value xml:lang="ru">Код счета ГК по умолчанию</value>
@@ -18095,6 +18097,7 @@
         <value xml:lang="en">Depreciation GL account</value>
         <value xml:lang="fr">Compte d'amortissment</value>
         <value xml:lang="ja">減価償却GL勘定</value>
+        <value xml:lang="nl">Gb-rek. afschrijvingskosten</value>
         <value xml:lang="pt">Conta razão de depreciação</value>
         <value xml:lang="vi">Tài khoản khấu hao</value>
         <value xml:lang="zh">折旧总账账户</value>
@@ -18783,7 +18786,7 @@
         <value xml:lang="hi-IN">जीएल(Gl)खाता क्रमांक</value>
         <value xml:lang="it">Codice Conto Gl</value>
         <value xml:lang="ja">GL勘定ID</value>
-        <value xml:lang="nl">ID GB-rekening</value>
+        <value xml:lang="nl">ID Gb-rekening</value>
         <value xml:lang="pt">ID da conta razão</value>
         <value xml:lang="ro">Cod Cont Gl</value>
         <value xml:lang="ru">Код счета ГК</value>
@@ -18813,7 +18816,7 @@
         <value xml:lang="hi-IN">जीएल(Gl)खाता प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Conto Gl</value>
         <value xml:lang="ja">GL勘定種類ID</value>
-        <value xml:lang="nl">ID type GB-rekening</value>
+        <value xml:lang="nl">ID type Gb-rekening</value>
         <value xml:lang="pt">ID do tipo da conta razão</value>
         <value xml:lang="ro">Tip Cont Gl</value>
         <value xml:lang="ru">Код типа счета ГК</value>
@@ -18843,7 +18846,7 @@
         <value xml:lang="hi-IN">वित्तीय जीएल(Gl)प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Fiscale Gl</value>
         <value xml:lang="ja">会計GL種類ID</value>
-        <value xml:lang="nl">ID type fiscale GB-rekening</value>
+        <value xml:lang="nl">ID type fiscale Gb-rekening</value>
         <value xml:lang="pt">ID de Tipo de Contabilidade Fiscal</value>
         <value xml:lang="ro">Tip Fiscal Gl</value>
         <value xml:lang="ru">Фискал. тип ГК</value>
@@ -19488,6 +19491,7 @@
         <value xml:lang="en">Loss GL account</value>
         <value xml:lang="fr">Compte de charges</value>
         <value xml:lang="ja">損失GL勘定</value>
+        <value xml:lang="nl">Gb-rek. verlies</value>
         <value xml:lang="pt">Conta razão de perdas</value>
         <value xml:lang="vi">Tài khoản hao tổn</value>
         <value xml:lang="zh">遗失总账账目</value>
@@ -19880,7 +19884,7 @@
         <value xml:lang="hi-IN">जीएल(Gl) खाता क्रमांक को अधिरोहणकरे</value>
         <value xml:lang="it">Sostituisci Codice Conto Gl</value>
         <value xml:lang="ja">上書GL勘定ID</value>
-        <value xml:lang="nl">ID GB-rekening overschrijven</value>
+        <value xml:lang="nl">Gb-rek. overschrijven</value>
         <value xml:lang="pt">Substituir ID de conta razão</value>
         <value xml:lang="ro">Substituie Cod Cont Gl</value>
         <value xml:lang="ru">Основной счет ГК</value>
@@ -19965,7 +19969,7 @@
         <value xml:lang="hi-IN">पेरेंट जीएल(Gl) खाता क्रमांक</value>
         <value xml:lang="it">Codice Conto Padre Gl</value>
         <value xml:lang="ja">上位(親)のGL勘定ID</value>
-        <value xml:lang="nl">Ouder-ID GB-rekening</value>
+        <value xml:lang="nl">Ouder-ID Gb-rek.</value>
         <value xml:lang="pt">ID da conta razão superior</value>
         <value xml:lang="ro">Cod Cont Parinte Gl</value>
         <value xml:lang="ru">Код родительского счета ГК</value>
@@ -20444,7 +20448,7 @@
         <value xml:lang="hi-IN">जीएल(Gl) खाता क्रमांक में पोस्ट करे</value>
         <value xml:lang="it">Contabilizza su Conto Gl</value>
         <value xml:lang="ja">転記先GL勘定ID</value>
-        <value xml:lang="nl">Boeken op GB-rekening</value>
+        <value xml:lang="nl">Boeken op Gb-rekening</value>
         <value xml:lang="pt">Enviar para conta razão de ID</value>
         <value xml:lang="ru">На счет ГК с кодом</value>
         <value xml:lang="th">ประกาศถึงรหัสบัญชีแยกประเภททั่วไป</value>
@@ -20599,6 +20603,7 @@
         <value xml:lang="en">Profit GL account</value>
         <value xml:lang="fr">Compte de produits</value>
         <value xml:lang="ja">利益GL勘定</value>
+        <value xml:lang="nl">Gb-rek. winsten</value>
         <value xml:lang="pt">Lucro da conta razão</value>
         <value xml:lang="vi">Tài khoản lợi nhuận</value>
         <value xml:lang="zh">利润总账账户</value>
@@ -21913,7 +21918,7 @@
         <value xml:lang="hi-IN">जीएल(Gl) खाता जोड़ें</value>
         <value xml:lang="it">Aggiungi Conto Gl</value>
         <value xml:lang="ja">GL勘定を追加</value>
-        <value xml:lang="nl">GB-rekening toevoegen</value>
+        <value xml:lang="nl">Gb-rekening toevoegen</value>
         <value xml:lang="pt">Adicionar Conta razão</value>
         <value xml:lang="ro">Adauga Cont Gl</value>
         <value xml:lang="ru">Добавить счет ГК</value>
@@ -21966,7 +21971,7 @@
         <value xml:lang="hi-IN">टैक्स प्राधिकरण जीएल(Gl) खाता बनाएँ</value>
         <value xml:lang="it">Aggiungi Autorità Tasse Conto Contabilità Generale</value>
         <value xml:lang="ja">税務機関GL勘定を追加</value>
-        <value xml:lang="nl">Nieuw GB-rekening voor belastingsinstantie</value>
+        <value xml:lang="nl">Nieuw Gb-rekening voor belastingsinstantie</value>
         <value xml:lang="pt">Adicionar conta razão da Autoridade Tributária</value>
         <value xml:lang="ro">Adauga Autoritati Taxe Cont Contabilitate Generale</value>
         <value xml:lang="ru">Добавить счет ГК налог. органа</value>
@@ -22518,7 +22523,7 @@
         <value xml:lang="hi-IN">जीएल(Gl) खाता संपादित करें</value>
         <value xml:lang="it">Aggiorna Conto Contabilità Generale</value>
         <value xml:lang="ja">GL勘定を編集</value>
-        <value xml:lang="nl">GB-rekening aanpassen</value>
+        <value xml:lang="nl">Gb-rekening aanpassen</value>
         <value xml:lang="pt-BR">Editar Conta razão</value>
         <value xml:lang="pt-PT">&gt;Editar Conta GL</value>
         <value xml:lang="ro">Actualizeaza Cont Contabilitate Generala</value>
@@ -22538,7 +22543,7 @@
         <value xml:lang="hi-IN">ग्लोबल जीएल(Gl) खाता संपादित करें</value>
         <value xml:lang="it">Aggiorna Conto Contabilità Generale Globale</value>
         <value xml:lang="ja">グローバルGL勘定を編集</value>
-        <value xml:lang="nl">Globale GB-rekening aanpassen</value>
+        <value xml:lang="nl">Globale Gb-rekening aanpassen</value>
         <value xml:lang="pt">Editar conta razão Global</value>
         <value xml:lang="ro">Actualizeaza Cont Contabilitate Generala Globala</value>
         <value xml:lang="ru">Изменить глобальный счет ГК</value>
@@ -22676,7 +22681,7 @@
         <value xml:lang="hi-IN">टैक्स प्राधिकरण जीएल(Gl) खाता संपादित करें</value>
         <value xml:lang="it">Aggiorna Autorità Tasse Conti Contabilità Generale</value>
         <value xml:lang="ja">税務機関GL勘定を編集</value>
-        <value xml:lang="nl">GB-rekening(en) belastingsinstantie aanpassen</value>
+        <value xml:lang="nl">Gb-rekening(en) belastingsinstantie aanpassen</value>
         <value xml:lang="pt">Editar contas razão da autoridade tributária</value>
         <value xml:lang="ro">Actualizeaza Autoritati Taxe Conturi Contabile Generale</value>
         <value xml:lang="ru">Изменить счета ГК налог. органа</value>
@@ -22901,7 +22906,7 @@
         <value xml:lang="hi-IN">जीएल(Gl) खाता खोजें</value>
         <value xml:lang="it">Ricerca conto Gl</value>
         <value xml:lang="ja">GL勘定を検索</value>
-        <value xml:lang="nl">Vind GB-rekening(en)</value>
+        <value xml:lang="nl">Vind Gb-rekening(en)</value>
         <value xml:lang="pt">Bsucar conta razão</value>
         <value xml:lang="th">ค้นหาบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="vi">Tìm tài khoản</value>
@@ -22918,7 +22923,7 @@
         <value xml:lang="hi-IN">ग्लोबल जीएल(Gl) खाता खोजें</value>
         <value xml:lang="it">Ricerca Conto Contabilità Generale Globale</value>
         <value xml:lang="ja">グローバルGL勘定を検索</value>
-        <value xml:lang="nl">Vind globaal GB-rekening(en)</value>
+        <value xml:lang="nl">Vind globaal Gb-rekening(en)</value>
         <value xml:lang="pt">Bsucar Conta razão global</value>
         <value xml:lang="ro">Cauta Cont Contabilitate Generala Globala</value>
         <value xml:lang="ru">Найти глобальный счет ГК</value>
@@ -23715,7 +23720,7 @@
         <value xml:lang="hi-IN">उत्पाद जीएल(Gl) खातें से बिक्री चालान सारांश</value>
         <value xml:lang="it">Sommario fatture di vendita per conto GL prodotto</value>
         <value xml:lang="ja">製品GL勘定別販売請求サマリ</value>
-        <value xml:lang="nl">Samenvatting verkoopfacturen per product-GB-rekening</value>
+        <value xml:lang="nl">Samenvatting verkoopfacturen per product-Gb-rekening</value>
         <value xml:lang="pt">Fatura de vendas por Resumo de produto da conta razão</value>
         <value xml:lang="ru">Резюме Расходные накладные по продуктовым счетам</value>
         <value xml:lang="th">ใบเสร็จการขายโดยสรุปสินค้าบัญชีแยกประเภททั่วไป</value>
@@ -23933,7 +23938,7 @@
         <value xml:lang="hi-IN">जीएल(Gl) खातें की प्रविष्टियां देखें</value>
         <value xml:lang="it">Mostra Voci Conto Gl</value>
         <value xml:lang="ja">GL勘定エントリを表示</value>
-        <value xml:lang="nl">Boekingen GB-rekening bekijken</value>
+        <value xml:lang="nl">Boekingen Gb-rekening bekijken</value>
         <value xml:lang="pt">Visualizar registros de conta razão</value>
         <value xml:lang="ro">Afiseaza Date Cont Gl</value>
         <value xml:lang="ru">Просмотреть значения счета ГК</value>
