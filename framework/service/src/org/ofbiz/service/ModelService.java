@@ -954,7 +954,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     /**
      * Evaluates permission-service for this service.
      * @param dctx DispatchContext from the invoked service
-     * @param context Map containing userLogin and context infromation
+     * @param context Map containing userLogin and context information
      * @return result of permission service invocation
      */
     public Map<String, Object> evalPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
