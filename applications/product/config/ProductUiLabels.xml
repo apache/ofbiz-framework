@@ -23,6 +23,7 @@
         <value xml:lang="de">Neues Merkmal für dieses Produkt erstellen</value>
         <value xml:lang="en">Add new Product Feature to current product</value>
         <value xml:lang="ja">現在の製品に新規製品機能を追加</value>
+        <value xml:lang="nl">Nieuw kenmerk toevoegen</value>
         <value xml:lang="vi">Thêm Đặc tính SP gia tăng này</value>
         <value xml:lang="zh">为当前产品添加新的产品特征</value>
         <value xml:lang="zh-TW">為當前產品增加新的產品特色</value>
@@ -33,6 +34,7 @@
         <value xml:lang="es">Añadir componente</value>
         <value xml:lang="fr">Ajouter un composant</value>
         <value xml:lang="it">Aggiungi componente</value>
+        <value xml:lang="nl">Component toevoegen</value>
         <value xml:lang="pt-BR">Adicionar componente de produto</value>
         <value xml:lang="ro">Adauga Componente Produs</value>
         <value xml:lang="zh">添加产品组件</value>
@@ -77,6 +79,7 @@
         <value xml:lang="en">Actual shipping charges</value>
         <value xml:lang="it">Ricarico di spedizione attuale</value>
         <value xml:lang="ja">実績配送料</value>
+        <value xml:lang="nl">Werk. verzendkosten</value>
         <value xml:lang="vi">Chi phí vận chuyển thực tế</value>
         <value xml:lang="zh">实际送货费</value>
         <value xml:lang="zh-TW">實際送貨費</value>
@@ -161,6 +164,7 @@
         <value xml:lang="en">Group by number of order items</value>
         <value xml:lang="it">Raggruppa per numero di righe ordine</value>
         <value xml:lang="ja">注文アイテム数別グループ</value>
+        <value xml:lang="nl">Grouperen op aantal orderitems</value>
         <value xml:lang="vi">Nhóm theo số lượng của hàng hóa trên đơn đặt hàng</value>
         <value xml:lang="zh">按订单明细数量分组</value>
         <value xml:lang="zh-TW">按訂單細項數量分群組</value>
@@ -170,6 +174,7 @@
         <value xml:lang="en">Group by shipping method</value>
         <value xml:lang="it">Raggruppa per metodo di spedizione</value>
         <value xml:lang="ja">配送方法別グループ</value>
+        <value xml:lang="nl">Grouperen op verzendmethode</value>
         <value xml:lang="vi">Nhóm theo phương thức giao hàng</value>
         <value xml:lang="zh">按运输方式分组</value>
         <value xml:lang="zh-TW">按運輸方式分群組</value>
@@ -179,6 +184,7 @@
         <value xml:lang="en">Group by warehouse area</value>
         <value xml:lang="it">Raggruppa per area di magazzino</value>
         <value xml:lang="ja">拠点地域別グループ</value>
+        <value xml:lang="nl">Grouperen op locatie</value>
         <value xml:lang="vi">Nhóm theo khu vực kho hàng</value>
         <value xml:lang="zh">按库房区域分组</value>
         <value xml:lang="zh-TW">按庫房區域分群組</value>
@@ -186,6 +192,7 @@
     <property key="FacilityGroupFirst">
         <value xml:lang="de">Group First</value>
         <value xml:lang="en">Group First</value>
+        <value xml:lang="nl">Eerst grouperen</value>
         <value xml:lang="zh">分组首批</value>
     </property>
     <property key="FacilityGroupName">
@@ -193,6 +200,7 @@
         <value xml:lang="en">Group Name</value>
         <value xml:lang="it">Nome gruppo</value>
         <value xml:lang="ja">グループ名称</value>
+        <value xml:lang="nl">Naam groep</value>
         <value xml:lang="vi">Tên nhóm</value>
         <value xml:lang="zh">组名称</value>
         <value xml:lang="zh-TW">群組名稱</value>
@@ -208,6 +216,7 @@
         <value xml:lang="en">${returnHeader.returnHeaderTypeId} is not supported</value>
         <value xml:lang="it">${returnHeader.returnHeaderTypeId} non è supportata</value>
         <value xml:lang="ja">${returnHeader.returnHeaderTypeId} はサポートされていません</value>
+        <value xml:lang="nl">${returnHeader.returnHeaderTypeId} wordt niet ondersteund</value>
         <value xml:lang="vi">${returnHeader.returnHeaderTypeId} không được hỗ trợ</value>
         <value xml:lang="zh">不支持${returnHeader.returnHeaderTypeId}</value>
     </property>
@@ -216,6 +225,7 @@
         <value xml:lang="en">Hold Shipment</value>
         <value xml:lang="it">Congela spedizione</value>
         <value xml:lang="ja">発送を保留</value>
+        <value xml:lang="nl">Zending vasthouden</value>
         <value xml:lang="vi">Giao hàng bị giữ lại</value>
         <value xml:lang="zh">暂停送货</value>
         <value xml:lang="zh-TW">暫停出貨</value>
@@ -225,6 +235,7 @@
         <value xml:lang="en">Error: you cannot create inventory items with no currencyUomId; you can set a default currency in the PartyAcctgPreference for the party ${inventoryItem.ownerPartyId}, or in the general.properties file under the key currency.uom.id.default.</value>
         <value xml:lang="it">Errore: tu non puoi creare una riga di inventario senza indicare la valuta; puoi imposta la valuta di default attraverso le preferenze del soggetto proprietario ${inventoryItem.ownerPartyId}, o nel file general.properties alla chiave currency.uom.id.default.</value>
         <value xml:lang="ja">エラー: 通貨単位IDを指定しないと在庫アイテムの作成ができません。取引先 ${inventoryItem.ownerPartyId} の取引先会計設定、または、general.properties ファイルのキー currency.uom.id.default でデフォルトの通貨を設定することができます。</value>
+        <value xml:lang="nl">Error: Items zonder valuta kunnen niet aangemaakt worden. Definieer de standaard valuta in de PartyActPreference voor de partij ${inventoryItem.ownerPartyId}</value>
         <value xml:lang="vi">Báo lỗi: Bạn không thể tạo hàng hóa trong kho chứa thiếu mã tiền tệ; bạn có thể đặt mã tiền tệ mặc địc trong phần ${inventoryItem.ownerPartyId}, hoặc trong tệp tin general.properties với từ khóa là currency.uom.id.default.</value>
         <value xml:lang="zh">错误：没有货币单位标识（currencyUomId），你不能创建库存明细；你能在会员账户设置（PartyAcctgPreference）中为会员 ${inventoryItem.ownerPartyId} 或在 general.properties 文件的键 currency.uom.id.default 下设置缺省币种。</value>
         <value xml:lang="zh-TW">錯誤:沒有貨幣單位標識(currencyUomId),你不能新建庫存細項;你能在團體帳戶偏好(PartyAcctgPreference)中為團體 ${inventoryItem.ownerPartyId} 或在 general.properties 檔的鍵 currency.uom.id.default 下偏好預設幣種.</value>
@@ -234,6 +245,7 @@
         <value xml:lang="en">Error: you cannot create inventory items with no facility id.</value>
         <value xml:lang="it">Errore: tu non puoi creare una riga di inventario senza il codice stabilimento.</value>
         <value xml:lang="ja">エラー: 拠点IDを指定しないと在庫アイテムの作成ができません。</value>
+        <value xml:lang="nl">Error: Voorraad regels zonder Magazijn ID kunnen niet worden aangemaakt.</value>
         <value xml:lang="vi">Báo lỗi: Bạn không thể tạo hàng hóa trong kho chứa thiếu mã Chi nhánh / Cơ sở</value>
         <value xml:lang="zh">错误：没有场所标识，你不能创建库存明细。</value>
         <value xml:lang="zh-TW">錯誤:沒有場所標識,你不能新建庫存細項.</value>
@@ -243,6 +255,7 @@
         <value xml:lang="en">Error: you cannot create inventory items with no ownerPartyId.</value>
         <value xml:lang="it">Errore: tu non puoi creare una riga di inventario senza il soggetto proprietario.</value>
         <value xml:lang="ja">エラー: 所有者取引先IDを指定しないと在庫アイテムの作成ができません。</value>
+        <value xml:lang="nl">Error: Voorraad regels zonder eigenaar kunnen niet worden aangemaakt</value>
         <value xml:lang="vi">Báo lỗi: Bạn không thể tạo hàng hóa trong kho chứa thiếu mã Chủ sở hữu</value>
         <value xml:lang="zh">错误：没有拥有者会员标识（ownerPartyId），你不能创建库存明细。</value>
         <value xml:lang="zh-TW">錯誤:沒有擁有者團體標識(ownerPartyId),你不能新建庫存細項.</value>
@@ -252,6 +265,7 @@
         <value xml:lang="en">Error: you cannot create inventory items with no unitCost.</value>
         <value xml:lang="it">Errore: tu non puoi creare una riga di inventario senza nessun costo unitario.</value>
         <value xml:lang="ja">エラー: 単位原価を指定しないと在庫アイテムの作成ができません。</value>
+        <value xml:lang="nl">Error: Voorraad regels zonder prijs kunnen niet worden aangemaakt</value>
         <value xml:lang="vi">Báo lỗi: Bạn không thể tạo hàng hóa trong kho chứa thiếu mã Đơn vị tính</value>
         <value xml:lang="zh">错误：没有单位成本，你不能创建库存明细。</value>
         <value xml:lang="zh-TW">錯誤:沒有單位成本,你不能新建庫存細項.</value>
@@ -261,6 +275,7 @@
         <value xml:lang="en">Error: you cannot create inventory items with a negative unitCost.</value>
         <value xml:lang="it">Errore: tu non puoi creare una riga di inventario con un costo unitario negativo.</value>
         <value xml:lang="ja">エラー: マイナスの単位原価では在庫アイテムの作成ができません。</value>
+        <value xml:lang="nl">Error: Voorraad regels met een negatieve prijs kunnen niet worden aangemaakt.</value>
         <value xml:lang="vi">Báo lỗi: Bạn không thể tạo hàng hóa trong kho chứa với mã đơn vị tính bị cấm</value>
         <value xml:lang="zh">错误：你不能按负的单位成本创建库存明细。</value>
         <value xml:lang="zh-TW">錯誤:你不能按負的單位成本新建庫存細項.</value>
@@ -270,6 +285,7 @@
         <value xml:lang="en">Unit cost for inventory item ${lookupPKMap.inventoryItemId} cannot be negative.</value>
         <value xml:lang="it">Costo unitario per la riga di inventario ${lookupPKMap.inventoryItemId} non può essere negativo.</value>
         <value xml:lang="ja">在庫アイテム ${lookupPKMap.inventoryItemId} の単位原価はマイナスにできません。</value>
+        <value xml:lang="nl">De prijs voor voorraad regel ${lookupPKMap.inventoryItemId} mag niet negatief zijn.</value>
         <value xml:lang="vi">Đơn vị tính của sản phẩm trong kho chứa ${lookupPKMap.inventoryItemId} không thể bị cấm.</value>
         <value xml:lang="zh">库存明细 ${lookupPKMap.inventoryItemId} 的单位成本不能是负的。</value>
         <value xml:lang="zh-TW">庫存細項 ${lookupPKMap.inventoryItemId} 的單位成本不能是負的.</value>
@@ -279,6 +295,7 @@
         <value xml:lang="en">Multiple Locations</value>
         <value xml:lang="it">Posizioni multiple</value>
         <value xml:lang="ja">複数地域</value>
+        <value xml:lang="nl">Meerdere locaties</value>
         <value xml:lang="vi">Đa địa điểm</value>
         <value xml:lang="zh">多个地点</value>
         <value xml:lang="zh-TW">多個地點</value>
@@ -304,6 +321,7 @@
         <value xml:lang="en">No items available to ship</value>
         <value xml:lang="it">Nessun prodotto disponibile da spedire</value>
         <value xml:lang="ja">発送できるアイテムはありません</value>
+        <value xml:lang="nl">Geen producten beschikbaar voor verzending</value>
         <value xml:lang="vi">Không hàng hóa nào có sẵn để chuyển đi</value>
         <value xml:lang="zh">没有要送货的明细</value>
         <value xml:lang="zh-TW">沒有要送貨的細項</value>
@@ -322,6 +340,7 @@
         <value xml:lang="en">No Grouping</value>
         <value xml:lang="it">Nessun raggruppamento</value>
         <value xml:lang="ja">グループはありません</value>
+        <value xml:lang="nl">Geen groupering</value>
         <value xml:lang="vi">Không phân nhóm</value>
         <value xml:lang="zh">没有分组</value>
         <value xml:lang="zh-TW">沒有分群組</value>
@@ -331,6 +350,7 @@
         <value xml:lang="en">No orders ready to pick, not creating picklist.</value>
         <value xml:lang="it">Nessun ordine pronto da prelevare.</value>
         <value xml:lang="ja">ピッキングできる注文はありません。ピッキング一覧は作成できません。</value>
+        <value xml:lang="nl">Geen orders klaar om te picken. Picklijst niet aangemaakt</value>
         <value xml:lang="vi">Không đặt hàng nào sẵn sàng được bốc xếp, không tạo danh sách bốc xếp</value>
         <value xml:lang="zh">没有订单要分拣，没有创建分拣列表。</value>
         <value xml:lang="zh-TW">沒有訂單要揀貨,沒有新建揀貨清單.</value>
@@ -356,6 +376,7 @@
         <value xml:lang="en">Items less than 3</value>
         <value xml:lang="it">Meno di 3 righe</value>
         <value xml:lang="ja">アイテムは3未満</value>
+        <value xml:lang="nl">Minder dan 3 artikelen</value>
         <value xml:lang="vi">Phân loại Quản lý ít hơn 3</value>
         <value xml:lang="zh">明细小于3</value>
         <value xml:lang="zh-TW">細項數量少於3</value>
@@ -365,6 +386,7 @@
         <value xml:lang="en">Items 3 or more</value>
         <value xml:lang="it">3 righe o più</value>
         <value xml:lang="ja">アイテムは3以上</value>
+        <value xml:lang="nl">3 of meer artikelen</value>
         <value xml:lang="vi">Phân loại Quản lý 3 sản phẩm hoặc nhiều hơn</value>
         <value xml:lang="zh">明细大于等于3</value>
         <value xml:lang="zh-TW">細項數量大於3</value>
@@ -374,6 +396,7 @@
         <value xml:lang="en">No ProductStore associated with order; cannot use Quick Ship</value>
         <value xml:lang="it">Nessun negozio associato con l'ordine; non puoi usare spedizione veloce</value>
         <value xml:lang="ja">注文と関連付けられた製品店舗がありません。クイック発送は使用できません</value>
+        <value xml:lang="nl">Geen winkel gekoppeld aan de order; Quick Ship niet mogelijk.</value>
         <value xml:lang="vi">Không kho hàng nào liên kết với đặt hàng, không thể sử dụng tính năng Vận chuyển nhanh</value>
         <value xml:lang="zh">没有产品店铺（ProductStore）与订单关联；无法使用快速送货</value>
         <value xml:lang="zh-TW">沒有產品商店(ProductStore)與訂單結合;無法使用快速送貨</value>
@@ -429,6 +452,7 @@
         <value xml:lang="fr">Choix du lieu de stockage</value>
         <value xml:lang="it">Seleziona stabilimento</value>
         <value xml:lang="ja">拠点選択</value>
+        <value xml:lang="nl">Magazijn selectie</value>
         <value xml:lang="vi">Lựa chọn Chi nhánh / Cơ sở</value>
         <value xml:lang="zh">选择场所</value>
         <value xml:lang="zh-TW">場所選擇</value>
@@ -438,6 +462,7 @@
         <value xml:lang="en">Ship</value>
         <value xml:lang="it">Spedisci</value>
         <value xml:lang="ja">発送</value>
+        <value xml:lang="nl">Verzenden</value>
         <value xml:lang="vi">Vận chuyển</value>
         <value xml:lang="zh">送货</value>
         <value xml:lang="zh-TW">運送</value>
@@ -449,7 +474,7 @@
         <value xml:lang="fr">Livrer les articles dès qu'ils sont disponibles (peut occasionner des frais additionnels d'expédition)</value>
         <value xml:lang="it">Prego spedire gli articoli ordinati appena diventano disponibili (potresti incorrere in spese di spedizione aggiuntive).</value>
         <value xml:lang="ja">準備ができしだい品物を発送してください(追加の配送料がかかることがあります)</value>
-        <value xml:lang="nl">Verstuur items wanneer ze beschikbaar komen (extra verzendkosten mogen worden aangerekend).</value>
+        <value xml:lang="nl">Verzend items wanneer ze beschikbaar komen (extra verzendkosten mogen worden aangerekend).</value>
         <value xml:lang="ro">Va rugam expediati liniile pe care le-am comandat  ordinato imediat ce devin disponibile (s-ar putea sa ti se adauge cheltuieli de expediere).</value>
         <value xml:lang="ru">Пожалуйста поставляйте заказанные мной позиции по мере доступности (можно учитывать дополнительные расходы на доставку).</value>
         <value xml:lang="th">Please ship items I ordered as they become available (you may incur additional shipping charges).</value>
@@ -488,6 +513,7 @@
         <value xml:lang="en">Shipment #${shipmentId} created and marked as packed</value>
         <value xml:lang="it">Spedizione #${shipmentId} creata e marcata come imballata</value>
         <value xml:lang="ja">発送 #${shipmentId} が作成および梱包済にマークされました</value>
+        <value xml:lang="nl">Levering #${shipmentId} aangemaakt en als gepakt aangemerkt.</value>
         <value xml:lang="vi">Vận chuyển cho mã #${shipmentId} đã được tạo và đánh dấu là đã đóng gói</value>
         <value xml:lang="zh">送货 #${shipmentId} 已被创建并被标志为已打包</value>
         <value xml:lang="zh-TW">出貨 #${shipmentId} 已被新建並被標誌為已打包</value>
@@ -497,6 +523,7 @@
         <value xml:lang="en">Shipment Custom Method</value>
         <value xml:lang="it">Metodo personalizzato spedizione</value>
         <value xml:lang="ja">指定方法での発送</value>
+        <value xml:lang="nl">Verzend methode</value>
         <value xml:lang="vi">Phương thức vận chuyển tùy chọn</value>
         <value xml:lang="zh">送货定制方法</value>
         <value xml:lang="zh-TW">出貨客製方法</value>
@@ -25666,6 +25693,7 @@
         <value xml:lang="fr">Articles</value>
         <value xml:lang="it">Prodotti</value>
         <value xml:lang="ja">製品</value>
+        <value xml:lang="nl">Producten</value>
         <value xml:lang="ro">Produse </value>
         <value xml:lang="ru">Продукты</value>
         <value xml:lang="th">สินค้า</value>
@@ -26654,7 +26682,7 @@
         <value xml:lang="hi-IN">जल्द दुबारा आर्डर</value>
         <value xml:lang="it">Nuovo ordine veloce</value>
         <value xml:lang="ja">クイック再注文</value>
-        <value xml:lang="nl">Snel opnieu Bestellen</value>
+        <value xml:lang="nl">Opnieuw bestellen</value>
         <value xml:lang="pt-PT">Reordenação Rápida</value>
         <value xml:lang="ro">Reordoneaza Rapid</value>
         <value xml:lang="ru">Быстрая пересортировка(?)</value>
