@@ -152,7 +152,9 @@ under the License.
     <WorkEffortPurposeType description="Development" workEffortPurposeTypeId="WEPT_DEVELOPMENT"/>
     <WorkEffortPurposeType description="Support" workEffortPurposeTypeId="WEPT_SUPPORT"/>
     <WorkEffortPurposeType description="Deployment" workEffortPurposeTypeId="WEPT_DEPLOYMENT"/>
-
+    
+    <WorkEffortPurposeType description="Warehousing" workEffortPurposeTypeId="WEPT_WAREHOUSING"/>
+    
     <WorkEffortPurposeType description="Manufacturing" workEffortPurposeTypeId="ROU_MANUFACTURING"/>
     <WorkEffortPurposeType description="Assembling" workEffortPurposeTypeId="ROU_ASSEMBLING"/>
     <WorkEffortPurposeType description="Sub-contracting" workEffortPurposeTypeId="ROU_SUBCONTRACTING"/>
@@ -181,7 +183,10 @@ under the License.
     <WorkEffortType description="Training" hasTable="N" parentTypeId="EVENT" workEffortTypeId="TRAINING"/>
     <WorkEffortType description="Personal Time Off" hasTable="N" parentTypeId="EVENT" workEffortTypeId="PERSONAL_TIMEOFF"/>
     <WorkEffortType description="Publish Properties" hasTable="N" workEffortTypeId="PUBLISH_PROPS"/>
-
+    
+    <WorkEffortType description="Inbound Shipment" hasTable="N" parentTypeId="EVENT" workEffortTypeId="SHIPMENT_INBOUND"/>
+    <WorkEffortType description="Outbound Shipment" hasTable="N" parentTypeId="EVENT" workEffortTypeId="SHIPMENT_OUTBOUND"/>
+    
     <!-- Routing status, (workEffort Template) -->
     <StatusType description="Manufacturing Task and Routing status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="ROUTING_STATUS"/>
 
