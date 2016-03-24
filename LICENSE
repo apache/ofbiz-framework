@@ -450,7 +450,7 @@ framework/base/lib/httpunit-1.7.jar
 framework/base/lib/ical4j-1.0-rc2.jar
 framework/base/lib/javolution-5.4.3.jar
 framework/base/lib/xpp3-1.1.4c.jar
-framework/base/lib/xstream-1.4.6.jar
+framework/base/lib/xstream-1.4.9.jar
 framework/base/lib/esapi-2.1.0.jar
 framework/base/lib/scripting/antlr-2.7.6.jar
 framework/base/lib/scripting/asm-3.2.jar
