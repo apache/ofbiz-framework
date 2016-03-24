@@ -58,7 +58,6 @@
 	<classpathentry kind="lib" path="framework/base/lib/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xml-apis-ext-1.3.04.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xpp3-1.1.4c.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/xstream-1.4.6.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/zxing-core-3.2.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-beanutils-core-1.8.3.jar"/>
@@ -203,5 +202,6 @@
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.68-tomcat-util.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.68-tomcat-juli-adapters.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.68-tomcat-juli.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/xstream-1.4.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
