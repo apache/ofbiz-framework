@@ -318,7 +318,7 @@ public class ProductionRunServices {
 
                 serviceContext.clear();
                 serviceContext.put("priority", routingTaskAssoc.get("sequenceNum"));
-                serviceContext.put("workEffortPurposeTypeId", routingTask.get("workEffortPurposeTypeId"));
+                serviceContext.put("workEffortPurposeTypeId", "WEPT_PRODUCTION_RUN");
                 serviceContext.put("workEffortName",routingTask.get("workEffortName"));
                 serviceContext.put("description",routingTask.get("description"));
                 serviceContext.put("fixedAssetId",routingTask.get("fixedAssetId"));
