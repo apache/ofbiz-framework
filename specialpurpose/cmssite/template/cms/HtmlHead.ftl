@@ -33,7 +33,7 @@ under the License.
     <script language="javascript" src="/images/selectall.js" type="text/javascript"></script>
     <link rel="stylesheet" href="/images/ecommain.css" type="text/css"/>
     <link rel="stylesheet" href="/ecommerce/images/blog.css" type="text/css"/>
-    <link rel="stylesheet" href="/contentimages/contentForum.css" type="text/css"/>
+    <link rel="stylesheet" href="/content/contentForum.css" type="text/css"/>
 
     <meta name="description" content="${(decoratedContent.subcontent.metaDescription.render)!}"/>
     <meta name="keywords" content="${(decoratedContent.subcontent.metaKeywords.render)!}"/>
