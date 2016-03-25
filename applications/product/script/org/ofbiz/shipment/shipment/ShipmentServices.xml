@@ -32,21 +32,30 @@ under the License.
         </else>
         </if-not-empty>
         <field-to-result field="newEntity.shipmentId" result-name="shipmentId"/>
-
+        <set field="shipmentTypeId" from-field="parameters.shipmentTypeId"/>
         <!-- set the created and lastModified info -->
         <now-timestamp field="newEntity.createdDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
         <now-timestamp field="newEntity.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
-
         <!-- if needed create some WorkEfforts and remember their IDs:
             estimatedShipDate: estimatedShipWorkEffId
             estimatedArrivalDate: estimatedArrivalWorkEffId
         -->
         <if-not-empty field="parameters.estimatedShipDate">
-            <set value="Shipment #${newEntity.shipmentId} ${newEntity.primaryOrderId} Ship" field="shipWorkEffortMap.workEffortName"/>
-            <set value="EVENT" field="shipWorkEffortMap.workEffortTypeId"/>
+            <set field="shipWorkEffortMap.workEffortName" value="Shipment #${newEntity.shipmentId} ${newEntity.primaryOrderId} Ship"/>
+            <if>
+                <condition>
+                    <or>
+                        <if-compare field="shipmentTypeId" operator="equals" value="OUTGOING_SHIPMENT"/>
+                        <if-compare field="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
+                        <if-compare field="shipmentTypeId" operator="equals" value="PURCHASE_RETURN"/>
+                    </or>
+                </condition>
+                <then><set field="shipWorkEffortMap.workEffortTypeId" value="SHIPMENT_OUTBOUND"/></then>
+            </if>
             <set value="CAL_TENTATIVE" field="shipWorkEffortMap.currentStatusId"/>
+            <set value="WEPT_WAREHOUSING" field="shipWorkEffortMap.workEffortPurposeTypeId"/>
             <set from-field="parameters.estimatedShipDate" field="shipWorkEffortMap.estimatedStartDate"/>
             <set from-field="parameters.estimatedShipDate" field="shipWorkEffortMap.estimatedCompletionDate"/>
             <set from-field="parameters.originFacilityId" field="shipWorkEffortMap.facilityId"/>
@@ -63,9 +72,19 @@ under the License.
             </if-not-empty>
         </if-not-empty>
         <if-not-empty field="parameters.estimatedArrivalDate">
-            <set value="Shipment #${newEntity.shipmentId} ${newEntity.primaryOrderId} Arrival" field="arrivalWorkEffortMap.workEffortName"/>
-            <set value="EVENT" field="arrivalWorkEffortMap.workEffortTypeId"/>
-            <set value="CAL_TENTATIVE" field="arrivalWorkEffortMap.currentStatusId"/>
+            <set field="arrivalWorkEffortMap.workEffortName" value="Shipment #${newEntity.shipmentId} ${newEntity.primaryOrderId} Arrival" />
+            <if>
+                <condition>
+                    <or>
+                        <if-compare field="shipmentTypeId" operator="equals" value="INGOING_SHIPMENT"/>
+                        <if-compare field="shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT"/>
+                        <if-compare field="shipmentTypeId" operator="equals" value="SALES_RETURN"/>
+                    </or>
+                </condition>
+                <then><set field="shipWorkEffortMap.workEffortTypeId" value="SHIPMENT_INBOUND"/></then>
+            </if>
+            <set value="CAL_TENTATIVE" field="shipWorkEffortMap.currentStatusId"/>
+            <set value="WEPT_WAREHOUSING" field="shipWorkEffortMap.workEffortPurposeTypeId"/>
             <set from-field="parameters.estimatedArrivalDate" field="arrivalWorkEffortMap.estimatedStartDate"/>
             <set from-field="parameters.estimatedArrivalDate" field="arrivalWorkEffortMap.estimatedCompletionDate"/>
             <set from-field="parameters.destinationFacilityId" field="arrivalWorkEffortMap.facilityId"/>
@@ -93,6 +112,7 @@ under the License.
             <create-value value-field="newStatusValue"/>
         </if-not-empty>
     </simple-method>
+    
     <simple-method method-name="updateShipment" short-description="Update Shipment">
         <set value="Update Shipment" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusDelivered"/>
