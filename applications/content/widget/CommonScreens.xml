@@ -32,7 +32,7 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ContentCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ContentCompanySubtitle" global="true"/>
-                <set field="layoutSettings.styleSheets[]" value="/contentimages/contentForum.css" global="true"/>
+                <set field="layoutSettings.styleSheets[]" value="/content/contentForum.css" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="activeApp" value="contentmgr" global="true"/>
                 <set field="applicationMenuName" value="ContentAppBar" global="true"/>
