@@ -2322,7 +2322,6 @@
         <value xml:lang="de">Blog Autor</value>
         <value xml:lang="en">Blog Author</value>
         <value xml:lang="es">Autor de blog</value>
-        <value xml:lang="fr">Gestionnaire des immobilisations</value>
         <value xml:lang="fr">Auteur du blog</value>
         <value xml:lang="hi-IN">ब्लॉग लेखक</value>
         <value xml:lang="it">Autore blog</value>
@@ -2948,6 +2947,7 @@
     <property key="RoleType.description.FAM_ASSIGNEE">
         <value xml:lang="de">Anlagen Manager Beauftragter</value>
         <value xml:lang="en">Fixed Asset Maint Assignee</value>
+        <value xml:lang="fr">Gestionnaire des immobilisations</value>
         <value xml:lang="hi-IN">अचल संपत्ति रखरखाव अनुदिष्ट</value>
         <value xml:lang="it">Assegna manutenzione cespite</value>
         <value xml:lang="ja">固定資産メンテナンス受託者</value>
