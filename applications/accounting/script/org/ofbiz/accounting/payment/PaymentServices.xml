@@ -888,7 +888,7 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="createPaymentFromOrder" short-description="Service auto create Payment from Order when payment does exist yet and not diabled by accountingconfig">
+    <simple-method method-name="createPaymentFromOrder" short-description="Service auto create Payment from Order when payment does exist yet and not disabled by accounting config">
         <entity-one value-field="orderHeader" entity-name="OrderHeader"/>
 
         <if-compare operator="equals" value="PURCHASE_ORDER" field="orderHeader.orderTypeId">

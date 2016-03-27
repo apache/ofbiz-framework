@@ -235,7 +235,7 @@ under the License.
 
     <service name="createPaymentFromOrder" engine="simple"
         location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentFromOrder" auth="true">
-        <description>Create Payment from Order when payment does exist yet and not disabled by accountingconfig</description>
+        <description>Create Payment from Order when payment does exist yet and not disabled by accounting config</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
