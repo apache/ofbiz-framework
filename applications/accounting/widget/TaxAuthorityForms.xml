@@ -405,6 +405,60 @@ under the License.
         <field use-when="partyTaxAuthInfo!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field use-when="partyTaxAuthInfo==null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
+
+    <!-- Tax Authority Tax Reports forms -->
+    <!--form name="TaxAuthorityVATReport" type="list" target="" title="VAT report for a tax authority, my month, quater or other period"
+        list-name="listIt" target="" default-entity-name="InvoiceItem" paginate-target="findInvoices"-->
+
+    <form name="FindTaxAuthorityVATReport" type="single" target="findTaxAuthorityVATReport"
+        title="Find and list VAT report for a tax authority, my month, quater or other period"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="hideSearch"><hidden value="Y"/></field>
+        <field name="taxAuthPartyId"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="fromDate"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="ThruDate"><text-find default-option="contains" ignore-case="true"/></field>
+    </form>
+
+    <form name="TaxAuthorityVATReport" type="list" separate-columns="true" title="Invoice List" list-name="listIt" target="" default-entity-name="Invoice" paginate-target="findInvoices"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="Invoice"/>
+                <field-map field-name="orderBy" value="invoiceDate DESC"/>
+            </service>
+        </actions>
+        <row-actions>
+            <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
+                <field-map field-name="partyId" from-field="partyIdFrom"/>
+                <field-map field-name="compareDate" from-field="invoiceDate"/>
+                <field-map field-name="lastNameFirst" value="Y"/>
+            </service>
+            <service service-name="getPartyNameForDate" result-map="partyNameResultTo">
+                <field-map field-name="partyId" from-field="partyId"/>
+                <field-map field-name="compareDate" from-field="invoiceDate"/>
+                <field-map field-name="lastNameFirst" value="Y"/>
+            </service>
+            <set field="amountToApply" value="${bsh:return(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId));}" type="BigDecimal"/>
+            <set field="total" value="${bsh:return(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId));}" type="BigDecimal"/>
+        </row-actions>
+
+        <field name="invoiceId" widget-style="buttontext">
+            <hyperlink description="${invoiceId}" target="invoiceOverview">
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+            </hyperlink>
+        </field>
+        <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
+        <field name="invoiceDate"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="description"><display/></field>
+        <field name="partyIdFrom"><display description="${partyNameResultFrom.fullName} [${partyIdFrom}]"/></field>
+        <field name="partyIdTo" parameter-name="partyId"><display description="${partyNameResultTo.fullName} [${partyId}]"/></field>
+        <field name="invoiceDate"><display description="${bsh:invoiceDate.toString().substring(0,10)}"/></field>
+        <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
     
     
     <!-- Tax Authority Tax Reports forms -->
