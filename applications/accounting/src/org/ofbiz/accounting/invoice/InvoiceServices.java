@@ -1121,7 +1121,7 @@ public class InvoiceServices {
         // Either no orderShipment exists, or there's a null invoicePerShipment in the OrderHeader.
         // In either case, use the default value from the properties
         if (invoicePerShipment == null) {
-            invoicePerShipment = EntityUtilProperties.getPropertyValue("AccountingConfig","create.invoice.per.shipment", delegator);
+            invoicePerShipment = EntityUtilProperties.getPropertyValue("accounting","create.invoice.per.shipment", delegator);
         }
 
         if ("Y".equals(invoicePerShipment)) {
@@ -2486,7 +2486,7 @@ public class InvoiceServices {
             context.put("useHighestAmount","Y");
         }
 
-        String defaultInvoiceProcessing = EntityUtilProperties.getPropertyValue("AccountingConfig","invoiceProcessing", delegator);
+        String defaultInvoiceProcessing = EntityUtilProperties.getPropertyValue("accounting","invoiceProcessing", delegator);
 
         boolean debug = true; // show processing messages in the log..or not....
 

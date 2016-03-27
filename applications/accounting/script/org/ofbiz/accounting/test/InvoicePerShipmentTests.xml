@@ -23,7 +23,7 @@ under the License.
 
     <simple-method method-name="testInvoicePerShipmentSetFalse" short-description="Test Invoice Per Shipment Set False" login-required="false">
         <!-- Test Invoice Per Shipment
-             Step 1) Set create.invoice.per.shipment=N in AccountingConfig.properties file.
+             Step 1) Set create.invoice.per.shipment=N in accounting.properties file.
              Step 2) Create order and approve order.
              Step 3) Pack Shipment For Ship Group.
              Step 4) Check invoice should not created.
@@ -31,7 +31,7 @@ under the License.
         <!-- Step 1 -->
         <call-bsh><![CDATA[
             import org.ofbiz.base.util.UtilProperties;
-            UtilProperties.setPropertyValueInMemory("AccountingConfig", "create.invoice.per.shipment", "N");
+            UtilProperties.setPropertyValueInMemory("accounting", "create.invoice.per.shipment", "N");
         ]]></call-bsh>
         <log level="info" message="===== >>> Set Accounting.properties / create.invoice.per.shipment = N"/>
         <!-- Step 2 -->
@@ -150,7 +150,7 @@ under the License.
     </simple-method>
     <simple-method method-name="testInvoicePerShipmentSetTrue" short-description="Test Invoice Per Shipment Set True" login-required="false">
         <!-- Test Invoice Per Shipment
-             Step 1) Set create.invoice.per.shipment=N in AccountingConfig.properties file.
+             Step 1) Set create.invoice.per.shipment=N in accounting.properties file.
              Step 2) Create order and approve order.
              Step 3) Pack Shipment For Ship Group.
              Step 4) Check invoice should created.
@@ -158,7 +158,7 @@ under the License.
         <!-- Step 1 -->
         <call-bsh><![CDATA[
             import org.ofbiz.base.util.UtilProperties;
-            UtilProperties.setPropertyValueInMemory("AccountingConfig", "create.invoice.per.shipment", "Y");
+            UtilProperties.setPropertyValueInMemory("accounting", "create.invoice.per.shipment", "Y");
         ]]></call-bsh>
         <log level="info" message="===== >>> Set Accounting.properties / create.invoice.per.shipment = Y"/>
         <!-- Step 2 -->
