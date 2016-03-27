@@ -918,7 +918,7 @@ under the License.
         </entity-one>
         <set field="invoicePerShipment" from-field="orderHeader.invoicePerShipment"/>
         <if-empty field="invoicePerShipment">
-            <property-to-field resource="AccountingConfig" property="create.invoice.per.shipment" field="invoicePerShipment"/>
+            <property-to-field resource="accounting" property="create.invoice.per.shipment" field="invoicePerShipment"/>
         </if-empty>
         <if-compare operator="equals" value="N" field="invoicePerShipment">
             <entity-and list="orderItemBilling" entity-name="OrderItemBilling">

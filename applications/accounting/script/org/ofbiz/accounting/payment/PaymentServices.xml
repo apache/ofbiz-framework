@@ -892,17 +892,17 @@ under the License.
         <entity-one value-field="orderHeader" entity-name="OrderHeader"/>
 
         <if-compare operator="equals" value="PURCHASE_ORDER" field="orderHeader.orderTypeId">
-            <property-to-field resource="AccountingConfig" property="accounting.payment.purchaseorder.autocreate" field="purchaseAutoCreate" default="Y"/>
+            <property-to-field resource="accounting" property="accounting.payment.purchaseorder.autocreate" field="purchaseAutoCreate" default="Y"/>
             <if-compare operator="not-equals" value="Y" field="purchaseAutoCreate">
-                <log level="info" message="payment not created from approved order because config (accounting.payment.purchaseorder.autocreate) is not set to Y (AccountingConfig.properties)"/>
+                <log level="info" message="payment not created from approved order because config (accounting.payment.purchaseorder.autocreate) is not set to Y (accounting.properties)"/>
                 <return/>
             </if-compare>
         </if-compare>
 
         <if-compare operator="equals" value="SALES_ORDER" field="orderHeader.orderTypeId">
-            <property-to-field resource="AccountingConfig" property="accounting.payment.salesorder.autocreate" field="salesAutoCreate" default="Y"/>
+            <property-to-field resource="accounting" property="accounting.payment.salesorder.autocreate" field="salesAutoCreate" default="Y"/>
             <if-compare operator="not-equals" value="Y" field="salesAutoCreate">
-                <log level="info" message="payment not created from approved order because config (accounting.payment.salesorder.autocreate) is not set to Y (AccountingConfig.properties)"/>
+                <log level="info" message="payment not created from approved order because config (accounting.payment.salesorder.autocreate) is not set to Y (accounting.properties)"/>
                 <return/>
             </if-compare>
         </if-compare>
@@ -1029,11 +1029,11 @@ under the License.
         <set-service-fields service-name="updatePayment" to-map="updatePayment" map="parameters"/>
         <call-service service-name="updatePayment" in-map-name="updatePayment"/>
         <field-to-result field="parameters.paymentId" result-name="paymentId"/>
-        <log level="info" message="payment ${parameters.paymentId} with the not-paid status automatically created from order: ${parameters.orderId} (can be disabled in AccountingConfig.properties)"/>
+        <log level="info" message="payment ${parameters.paymentId} with the not-paid status automatically created from order: ${parameters.orderId} (can be disabled in accounting.properties)"/>
     </simple-method>
 
     <simple-method method-name="createMatchingPaymentApplication" short-description="Create a payment application if either the invoice of payment could be found">
-        <property-to-field resource="AccountingConfig" property="accounting.payment.application.autocreate" field="autoCreate" default="Y"/>
+        <property-to-field resource="accounting" property="accounting.payment.application.autocreate" field="autoCreate" default="Y"/>
         <if-compare operator="not-equals" value="Y" field="autoCreate">
             <log level="info" message="payment application not automatically created because config is not set to Y"/>
             <return/>
@@ -1151,7 +1151,7 @@ under the License.
         <if-not-empty field="createAppl.paymentId">
             <if-not-empty field="createAppl.invoiceId">
                 <call-service service-name="createPaymentApplication" in-map-name="createAppl"/>
-                <log level="info" message="payment application automatically created between invoiceId: ${createAppl.invoiceId} and paymentId: ${createAppl.paymentId} for the amount: ${createAppl.appliedAmount} (can be disabled in AccountingConfig.properties)"/>
+                <log level="info" message="payment application automatically created between invoiceId: ${createAppl.invoiceId} and paymentId: ${createAppl.paymentId} for the amount: ${createAppl.appliedAmount} (can be disabled in accounting.properties)"/>
             </if-not-empty>
         </if-not-empty>
     </simple-method>
