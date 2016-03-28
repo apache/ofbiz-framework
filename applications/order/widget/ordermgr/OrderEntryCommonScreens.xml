@@ -33,7 +33,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/entry/OrderEntryTabBar.ftl"/></html>
+                                    <html><html-template location="component://order/template/entry/OrderEntryTabBar.ftl"/></html>
                                 </platform-specific>
                                 <decorator-section-include name="body"/>
                             </widgets>
@@ -59,7 +59,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <platform-specific>
-                                        <html><html-template location="component://order/webapp/ordermgr/entry/OrderEntryCatalogTabBar.ftl"/></html>
+                                        <html><html-template location="component://order/template/entry/OrderEntryCatalogTabBar.ftl"/></html>
                                     </platform-specific>
                                     <container style="screenlet-body">
                                         <decorator-section-include name="body"/>

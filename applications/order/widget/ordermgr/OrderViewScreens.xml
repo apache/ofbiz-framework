@@ -64,13 +64,13 @@ under the License.
                         <include-screen name="orderHeader"/>
                         <container style="clear"/>
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/orderitems.ftl"/></html>
+                            <html><html-template location="component://order/template/order/orderitems.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/ordernotes.ftl"/></html>
+                            <html><html-template location="component://order/template/order/ordernotes.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/transitions.ftl"/></html>
+                            <html><html-template location="component://order/template/order/transitions.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -107,7 +107,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/order/orderinfo.ftl"/></html>
+                    <html><html-template location="component://order/template/order/orderinfo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -116,7 +116,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/order/orderterms.ftl"/></html>
+                    <html><html-template location="component://order/template/order/orderterms.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -125,7 +125,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/order/orderpaymentinfo.ftl"/></html>
+                    <html><html-template location="component://order/template/order/orderpaymentinfo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -164,7 +164,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/order/ordercontactinfo.ftl"/></html>
+                    <html><html-template location="component://order/template/order/ordercontactinfo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -182,7 +182,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/order/ordershippinginfo.ftl"/></html>
+                    <html><html-template location="component://order/template/order/ordershippinginfo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -191,7 +191,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/order/OrderSalesReps.ftl"/></html>
+                    <html><html-template location="component://order/template/order/OrderSalesReps.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -209,7 +209,7 @@ under the License.
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/orderlist.ftl"/></html>
+                            <html><html-template location="component://order/template/order/orderlist.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -230,10 +230,10 @@ under the License.
                         <include-screen name="orderHeader"/>
                         <container style="clear"/>
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/editorderitems.ftl"/></html>
+                            <html><html-template location="component://order/template/order/editorderitems.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/appendorderitem.ftl"/></html>
+                            <html><html-template location="component://order/template/order/appendorderitem.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -262,7 +262,7 @@ under the License.
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://common/webcommon/includes/setMultipleSelectJs.ftl"/></html></platform-specific>                        
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/findOrders.ftl"/></html>
+                            <html><html-template location="component://order/template/order/findOrders.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -311,7 +311,7 @@ under the License.
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/OrderDeliveryScheduleInfo.ftl"/></html>
+                            <html><html-template location="component://order/template/order/OrderDeliveryScheduleInfo.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -329,7 +329,7 @@ under the License.
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/orderstats.ftl"/></html>
+                            <html><html-template location="component://order/template/order/orderstats.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -354,7 +354,7 @@ under the License.
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/receivepayment.ftl"/></html>
+                            <html><html-template location="component://order/template/order/receivepayment.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -368,7 +368,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/ViewImage.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/webapp/ordermgr/order/viewimage.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/order/viewimage.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -384,7 +384,7 @@ under the License.
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/sendconfirmationemail.ftl"/></html>
+                            <html><html-template location="component://order/template/order/sendconfirmationemail.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -403,7 +403,7 @@ under the License.
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/sendconfirmationemail.ftl"/></html>
+                            <html><html-template location="component://order/template/order/sendconfirmationemail.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -548,7 +548,7 @@ under the License.
                     </condition>
                     <widgets>
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/OrderListByDate.ftl"/></html>
+                            <html><html-template location="component://order/template/order/OrderListByDate.ftl"/></html>
                         </platform-specific>
                     </widgets>
                     <fail-widgets>

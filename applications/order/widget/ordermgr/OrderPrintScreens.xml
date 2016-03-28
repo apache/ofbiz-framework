@@ -49,7 +49,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/order/orderReportHeaderInfo.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/order/orderReportHeaderInfo.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -59,15 +59,15 @@ under the License.
                             <widgets>
                                 <!-- the contach mechanisms, terms, payment and shipping methods are shown in the first page -->
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/order/orderReportContactMechs.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/order/orderReportContactMechs.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                                 <!-- order items and totals -->
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/order/orderReportBody.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/order/orderReportBody.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                                 <!-- return policies and notes are shown in the last page -->
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/order/orderReportConditions.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/order/orderReportConditions.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -82,7 +82,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/CompanyHeader.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><xsl-fo><html-template location="component://order/webapp/ordermgr/order/companyHeader.fo.ftl"/></xsl-fo></platform-specific>
+                <platform-specific><xsl-fo><html-template location="component://order/template/order/companyHeader.fo.ftl"/></xsl-fo></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -111,7 +111,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/return/returnReportHeaderInfo.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/return/returnReportHeaderInfo.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -121,15 +121,15 @@ under the License.
                             <widgets>
                                 <!-- the contach mechanisms, terms, payment and shipping methods are shown in the first page -->
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/return/returnReportContactMechs.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/return/returnReportContactMechs.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                                 <!-- order items and totals -->
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/return/returnReportBody.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/return/returnReportBody.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                                 <!-- return policies and notes are shown in the last page -->
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/return/returnReportConditions.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/return/returnReportConditions.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -160,7 +160,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/order/shipGroups.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/order/shipGroups.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>

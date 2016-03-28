@@ -116,7 +116,7 @@ under the License.
                         <include-screen name="ViewQuoteTemplate"/>
                         <screenlet title="${uiLabelMap.OrderCopyQuote}">
                             <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/quote/CopyQuote.ftl"/></html>
+                                <html><html-template location="component://order/template/quote/CopyQuote.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -194,7 +194,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/quote/quoteReportHeaderInfo.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/quote/quoteReportHeaderInfo.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -204,11 +204,11 @@ under the License.
                             <widgets>
                                 <!-- the contach mechanisms, terms, payment and shipping methods are shown in the first page -->
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/quote/quoteReportContactMechs.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/quote/quoteReportContactMechs.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                                 <!-- quote items and totals -->
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/quote/quoteReportBody.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/quote/quoteReportBody.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -506,13 +506,13 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuotePrices}">
                             <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/quote/ManageQuotePrices.ftl"/></html>
+                                <html><html-template location="component://order/template/quote/ManageQuotePrices.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                         <screenlet title="${uiLabelMap.OrderOrderQuotePrices}">
                             <include-form name="ManageQuotePrices" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                             <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/quote/ManageQuotePricesTotals.ftl"/></html>
+                                <html><html-template location="component://order/template/quote/ManageQuotePricesTotals.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -610,7 +610,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteViewProfit}">
                             <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/quote/ViewQuoteProfit.ftl"/></html>
+                                <html><html-template location="component://order/template/quote/ViewQuoteProfit.ftl"/></html>
                             </platform-specific>
                             <include-form name="ViewQuoteProfit" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
@@ -691,7 +691,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/quote/quoteInfo.ftl"/></html>
+                    <html><html-template location="component://order/template/quote/quoteInfo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -724,7 +724,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/quote/quoteDate.ftl"/></html>
+                    <html><html-template location="component://order/template/quote/quoteDate.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -733,7 +733,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/quote/quoteRoles.ftl"/></html>
+                    <html><html-template location="component://order/template/quote/quoteRoles.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -754,7 +754,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/quote/ViewQuoteItemInfo.ftl"/></html>
+                    <html><html-template location="component://order/template/quote/ViewQuoteItemInfo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

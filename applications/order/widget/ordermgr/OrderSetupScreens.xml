@@ -44,7 +44,7 @@ under the License.
                 <decorator-screen name="CommonOrderTaskDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/setup/paymentsetup.ftl"/></html>
+                            <html><html-template location="component://order/template/setup/paymentsetup.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
