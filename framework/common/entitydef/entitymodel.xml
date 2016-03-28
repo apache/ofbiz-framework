@@ -818,6 +818,7 @@ under the License.
         <field name="portletSeqId" type="id-ne"></field>
         <field name="attrName" type="id-long-ne"></field>
         <field name="attrValue" type="value"></field>
+        <field name="attrDescription" type="description"></field>
         <field name="attrType" type="value"></field>
         <prim-key field="portalPageId"/>
         <prim-key field="portalPortletId"/>

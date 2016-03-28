@@ -165,6 +165,7 @@ under the License.
       <field name="orderAdjustmentId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="orderAdjustmentId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="ORDER_ADJ_ATTR" rel-entity-name="OrderAdjustment">
@@ -232,6 +233,7 @@ under the License.
       <field name="orderId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="orderId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="ORDER_ATTR_HDR" rel-entity-name="OrderHeader">
@@ -649,6 +651,7 @@ under the License.
       <field name="orderItemSeqId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
       <prim-key field="attrName"/>
@@ -1267,6 +1270,7 @@ under the License.
       <field name="orderItemSeqId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="termTypeId"/>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
@@ -1415,6 +1419,7 @@ under the License.
       <field name="quoteId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="quoteId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="QUOTE_ATTR" rel-entity-name="Quote">
@@ -1563,6 +1568,7 @@ under the License.
       <field name="quoteItemSeqId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="termTypeId"/>
       <prim-key field="quoteId"/>
       <prim-key field="quoteItemSeqId"/>
@@ -1789,6 +1795,7 @@ under the License.
       <field name="custRequestId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="custRequestId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="CUST_REQ_ATTR" rel-entity-name="CustRequest">
@@ -2146,6 +2153,7 @@ under the License.
       <field name="requirementId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="requirementId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="REQ_ATTR" rel-entity-name="Requirement">

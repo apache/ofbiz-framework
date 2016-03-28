@@ -234,6 +234,7 @@ under the License.
       <field name="productCategoryId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="productCategoryId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="PROD_CTGRY_ATTR" rel-entity-name="ProductCategory">
@@ -836,6 +837,7 @@ under the License.
       <field name="costComponentId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="costComponentId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="COST_COMP_ATTR" rel-entity-name="CostComponent">
@@ -1060,6 +1062,7 @@ under the License.
         <field name="facilityId" type="id-ne"></field>
         <field name="attrName" type="id-long-ne"></field>
         <field name="attrValue" type="value"></field>
+        <field name="attrDescription" type="description"></field>
         <prim-key field="facilityId"/>
         <prim-key field="attrName"/>
         <relation type="one" fk-name="FACILITY_ATTR" rel-entity-name="Facility">
@@ -1973,6 +1976,7 @@ under the License.
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="inventoryItemId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="INV_ITEM_ATTR" rel-entity-name="InventoryItem">
@@ -2926,6 +2930,7 @@ under the License.
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
       <field name="attrType" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="productId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="PROD_ATTR" rel-entity-name="Product">
@@ -4545,6 +4550,7 @@ under the License.
         <field name="subscriptionId" type="id-ne"></field>
         <field name="attrName" type="id-long-ne"></field>
         <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
         <prim-key field="subscriptionId"/>
         <prim-key field="attrName"/>
         <relation type="one" fk-name="SUBSC_ATTR" rel-entity-name="Subscription">
