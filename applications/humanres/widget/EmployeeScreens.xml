@@ -41,7 +41,7 @@ under the License.
                                 <section>
                                     <widgets>
                                         <platform-specific>
-                                            <html><html-template location="component://humanres/webapp/humanres/humanres/findEmployee.ftl"/></html>
+                                            <html><html-template location="component://humanres/template/findEmployee.ftl"/></html>
                                         </platform-specific>
                                     </widgets>
                                 </section>
