@@ -112,7 +112,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://manufacturing/webapp/manufacturing/mrp/findInventoryEventPlan.ftl"/></html>
+                                    <html><html-template location="component://manufacturing/template/mrp/findInventoryEventPlan.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>

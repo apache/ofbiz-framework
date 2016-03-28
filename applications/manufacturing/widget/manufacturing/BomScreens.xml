@@ -58,7 +58,7 @@ under the License.
                 <decorator-screen name="CommonBomDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://manufacturing/webapp/manufacturing/bom/EditProductBom.ftl"/></html>
+                            <html><html-template location="component://manufacturing/template/bom/EditProductBom.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -122,7 +122,7 @@ under the License.
                             <include-form name="RunBomSimulation" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                         </screenlet>
                         <platform-specific>
-                            <html><html-template location="component://manufacturing/webapp/manufacturing/bom/BomSimulation.ftl"/></html>
+                            <html><html-template location="component://manufacturing/template/bom/BomSimulation.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
