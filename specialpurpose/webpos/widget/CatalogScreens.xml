@@ -41,7 +41,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/catalog/SideDeepCategory.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/catalog/SideDeepCategory.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>
@@ -68,7 +68,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/catalog/CategoryDetail.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/catalog/CategoryDetail.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>

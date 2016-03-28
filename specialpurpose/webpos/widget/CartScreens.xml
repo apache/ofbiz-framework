@@ -47,7 +47,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/cart/ShowCart.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/cart/ShowCart.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>
@@ -79,7 +79,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/cart/ShowCartItemSelected.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/cart/ShowCartItemSelected.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>
@@ -91,7 +91,7 @@ under the License.
                 <set field="titleProperty" value="WebPosPageTitleChooseVariant"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://webpos/webapp/webpos/cart/ChooseVariant.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://webpos/template/cart/ChooseVariant.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

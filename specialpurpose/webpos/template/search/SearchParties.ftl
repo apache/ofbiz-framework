@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<#--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
 distributed with this work for additional information
@@ -17,21 +16,19 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
-    <screen name="PromoCode">
-        <section>
-            <actions>
-                <set field="titleProperty" value="WebPosPageTitlePromoCode"/>
-                <set field="headerItem" value="Promo"/>
-            </actions>
-            <widgets>
-                <container>
-                    <platform-specific><html><html-template location="component://webpos/template/promo/PromoCode.ftl"/></html></platform-specific>
-                </container>
-            </widgets>
-        </section>
-    </screen>
-</screens>
+<div>
+  <input type="hidden" id="partyIdentificationTypeId" name="partyIdentificationTypeId" value="">
+  <label for="searchPartyBy"><b>&nbsp;${uiLabelMap.WebPosSearchBy}</b></label>
+  <select id="searchPartyBy" name="searchPartyBy">
+    <option value="lastName" selected>${uiLabelMap.PartyLastName}</option>
+    <option value="firstName">${uiLabelMap.PartyFirstName}</option>
+    <option value="idValue">${uiLabelMap.PartyPartyIdentification}</option>
+  </select>
+  <br/>
+  <input type="text" id="partyToSearch" name="partyToSearch" size="30" maxlength="100">
+  <input type="submit" value="${uiLabelMap.CommonSearch}" id="partySearchConfirm"/>
+  <br/>
+</div>
+<script language="JavaScript" type="text/javascript">
+  partyKeyEvents();
+</script>

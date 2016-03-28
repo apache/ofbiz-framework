@@ -45,7 +45,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/customer/EditAddress.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/customer/EditAddress.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>

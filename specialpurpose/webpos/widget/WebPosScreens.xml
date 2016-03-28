@@ -68,7 +68,7 @@ under the License.
         <section>
             <widgets>
                 <container id="Messages">
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/includes/Messages.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/includes/Messages.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>
