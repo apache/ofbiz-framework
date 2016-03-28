@@ -78,7 +78,7 @@ under the License.
                 <screenlet title="${uiLabelMap.FormFieldTitle_company}">
                     <section>
                         <widgets>
-                            <platform-specific><html><html-template location="component://humanres/webapp/humanres/humanres/category/CategoryTree.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template location="component://humanres/template/category/CategoryTree.ftl"/></html></platform-specific>
                         </widgets>
                     </section>
                 </screenlet>
