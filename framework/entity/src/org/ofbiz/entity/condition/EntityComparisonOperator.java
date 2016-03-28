@@ -126,6 +126,9 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
     protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sql, ModelField field, R rhs, Datasource datasourceInfo) {
         if (rhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) rhs;
+            if (ecv.getModelField(entity) == null) {
+                ecv.setModelField(field);
+            }
             ecv.addSqlValue(sql, entity, entityConditionParams, false, datasourceInfo);
         } else {
             addValue(sql, field, rhs, entityConditionParams);

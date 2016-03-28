@@ -122,6 +122,12 @@ public class EntityFieldValue extends EntityConditionValue {
         return getField(modelEntity, fieldName);
     }
 
+
+    @Override
+    public void setModelField(ModelField field) {
+        // do nothing
+    }
+
     @Override
     public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceInfo) {
         if (this.modelViewEntity != null) {

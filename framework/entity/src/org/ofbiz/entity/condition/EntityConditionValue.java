@@ -65,6 +65,11 @@ public abstract class EntityConditionValue extends EntityConditionBase {
         }
 
         @Override
+        public void setModelField(ModelField field) {
+            // Do nothing;
+        }
+
+        @Override
         public Object getValue(Delegator delegator, Map<String, ? extends Object> map) {
             return value;
         }
@@ -80,6 +85,8 @@ public abstract class EntityConditionValue extends EntityConditionBase {
     }
 
     public abstract ModelField getModelField(ModelEntity modelEntity);
+
+    public abstract void setModelField(ModelField modelEntity);
 
     public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix,
             Datasource datasourceinfo) {
