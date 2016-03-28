@@ -158,7 +158,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://myportal/widget/login.ftl"/></html>
+                            <html><html-template location="component://myportal/template/login.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -190,7 +190,7 @@ under the License.
                                     <section>
                                         <widgets>
                                             <platform-specific>
-                                                <html><html-template location="component://myportal/widget/RegisterPerson.ftl"/></html>
+                                                <html><html-template location="component://myportal/template/RegisterPerson.ftl"/></html>
                                             </platform-specific> 
                                         </widgets>
                                     </section>
