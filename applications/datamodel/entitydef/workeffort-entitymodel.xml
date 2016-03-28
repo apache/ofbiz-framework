@@ -320,6 +320,7 @@ under the License.
       <field name="fromDate" type="date-time"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="workEffortIdFrom"/>
       <prim-key field="workEffortIdTo"/>
       <prim-key field="workEffortAssocTypeId"/>
@@ -371,6 +372,7 @@ under the License.
       <field name="workEffortId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="workEffortId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="WK_EFFRT_ATTR_WE" rel-entity-name="WorkEffort">

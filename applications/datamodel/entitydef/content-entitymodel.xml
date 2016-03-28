@@ -464,6 +464,7 @@ under the License.
       <field name="contentId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="contentId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="CONTENT_ATTR" rel-entity-name="Content">
@@ -824,6 +825,7 @@ under the License.
       <field name="dataResourceId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="dataResourceId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="DATA_REC_ATTR" rel-entity-name="DataResource">
@@ -1084,6 +1086,7 @@ under the License.
       <field name="documentId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="documentId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="DOCUMENT_ATTR" rel-entity-name="Document">

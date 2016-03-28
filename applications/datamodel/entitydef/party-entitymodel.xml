@@ -118,6 +118,7 @@ under the License.
       <field name="agreementId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="agreementId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="AGRMNT_ATTR" rel-entity-name="Agreement">
@@ -175,6 +176,7 @@ under the License.
       <field name="agreementItemSeqId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="agreementId"/>
       <prim-key field="agreementItemSeqId"/>
       <prim-key field="attrName"/>
@@ -361,6 +363,7 @@ under the License.
       <field name="agreementTermId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="agreementTermId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="AGRMNT_TERM_ATTR" rel-entity-name="AgreementTerm">
@@ -961,6 +964,7 @@ under the License.
       <field name="contactMechId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="contactMechId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="CONT_MECH_ATTR" rel-entity-name="ContactMech">
@@ -1824,6 +1828,7 @@ under the License.
       <field name="partyId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="partyId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="PARTY_ATTR" rel-entity-name="Party">

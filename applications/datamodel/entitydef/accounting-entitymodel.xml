@@ -69,6 +69,7 @@ under the License.
       <field name="budgetId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="budgetId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="BUDGET_ATTR_BDGT" rel-entity-name="Budget">
@@ -106,6 +107,7 @@ under the License.
       <field name="budgetItemSeqId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="budgetId"/>
       <prim-key field="budgetItemSeqId"/>
       <prim-key field="attrName"/>
@@ -385,6 +387,7 @@ under the License.
         <field name="finAccountId" type="id-ne"></field>
         <field name="attrName" type="id-long-ne"></field>
         <field name="attrValue" type="value"></field>
+        <field name="attrDescription" type="description"></field>
         <prim-key field="finAccountId"/>
         <prim-key field="attrName"/>
         <relation type="one" fk-name="FINACCT_ATTR" rel-entity-name="FinAccount">
@@ -499,6 +502,7 @@ under the License.
         <field name="finAccountTransId" type="id-ne"></field>
         <field name="attrName" type="id-long-ne"></field>
         <field name="attrValue" type="value"></field>
+        <field name="attrDescription" type="description"></field>
         <prim-key field="finAccountTransId"/>
         <prim-key field="attrName"/>
         <relation type="one" fk-name="FINACCT_TX_ATTR" rel-entity-name="FinAccountTrans">
@@ -690,6 +694,7 @@ under the License.
       <field name="fixedAssetId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="fixedAssetId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="FIXEDAST_ATTR" rel-entity-name="FixedAsset">
@@ -1217,6 +1222,7 @@ under the License.
       <field name="invoiceId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="invoiceId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="INVOICE_ATTR" rel-entity-name="Invoice">
@@ -1412,6 +1418,7 @@ under the License.
       <field name="invoiceItemSeqId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="invoiceId"/>
       <prim-key field="invoiceItemSeqId"/>
       <prim-key field="attrName"/>
@@ -1563,6 +1570,7 @@ under the License.
       <field name="invoiceTermId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="invoiceTermId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="INVOICE_TRM_ATTR" rel-entity-name="InvoiceTerm">
@@ -1829,6 +1837,7 @@ under the License.
       <field name="acctgTransId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="acctgTransId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="ACCTTX_ATTR" rel-entity-name="AcctgTrans">
@@ -3069,6 +3078,7 @@ under the License.
       <field name="paymentId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="paymentId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="PAYMENT_ATTR" rel-entity-name="Payment">

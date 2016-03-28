@@ -705,6 +705,7 @@ under the License.
       <field name="shipmentId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="shipmentId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="SHPMNT_ATTR" rel-entity-name="Shipment">
