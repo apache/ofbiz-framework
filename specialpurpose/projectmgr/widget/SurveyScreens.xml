@@ -31,7 +31,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://projectmgr/webapp/projectmgr/survey/TestWorkEffortSurvey.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://projectmgr/template/survey/TestWorkEffortSurvey.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

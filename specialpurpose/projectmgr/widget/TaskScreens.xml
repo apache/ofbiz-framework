@@ -403,7 +403,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/summary/noteinfo.ftl"/></html>
+                    <html><html-template location="component://projectmgr/template/project/summary/noteinfo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -580,7 +580,7 @@ under the License.
                     </condition>
                     <widgets>
                         <platform-specific>
-                            <html><html-template location="component://projectmgr/webapp/projectmgr/survey/ListSurveys.ftl"/></html>
+                            <html><html-template location="component://projectmgr/template/survey/ListSurveys.ftl"/></html>
                         </platform-specific>
                     </widgets>
                 </section>
