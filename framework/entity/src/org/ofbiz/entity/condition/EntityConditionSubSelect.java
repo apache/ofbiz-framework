@@ -132,6 +132,11 @@ public class EntityConditionSubSelect extends EntityConditionValue {
     }
 
     @Override
+    public void setModelField(ModelField modelEntity) {
+        // do nothing for now
+    }
+
+    @Override
     public Comparable<?> getValue(Delegator delegator, Map<String, ? extends Object> map) {
         // do nothing for now
         return null;
