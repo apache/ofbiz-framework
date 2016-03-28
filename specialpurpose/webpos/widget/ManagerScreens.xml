@@ -29,7 +29,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/manager/OpenTerminal.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/manager/OpenTerminal.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>
@@ -43,7 +43,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/manager/CloseTerminal.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/manager/CloseTerminal.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>
@@ -58,7 +58,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/manager/PaidOutAndIn.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/manager/PaidOutAndIn.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>
@@ -72,7 +72,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/manager/VoidOrder.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/manager/VoidOrder.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>

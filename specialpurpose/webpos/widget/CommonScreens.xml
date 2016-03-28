@@ -224,7 +224,7 @@ under the License.
     <screen name="Header">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://webpos/webapp/webpos/includes/Header.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://webpos/template/includes/Header.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -241,7 +241,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://webpos/webapp/webpos/Login.ftl"/></html>
+                            <html><html-template location="component://webpos/template/Login.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -260,7 +260,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://webpos/webapp/webpos/RequirePasswordChange.ftl"/></html>
+                            <html><html-template location="component://webpos/template/RequirePasswordChange.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

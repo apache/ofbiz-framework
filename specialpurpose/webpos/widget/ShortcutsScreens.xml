@@ -46,7 +46,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/shortcuts/Shortcuts.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/shortcuts/Shortcuts.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>

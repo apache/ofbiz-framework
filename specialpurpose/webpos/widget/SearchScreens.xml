@@ -26,7 +26,7 @@ under the License.
             <widgets>
                 <screenlet title="${uiLabelMap.ProductProductSearch}">
                     <container id="SearchProducts">
-                        <platform-specific><html><html-template location="component://webpos/webapp/webpos/search/SearchProducts.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://webpos/template/search/SearchProducts.ftl"/></html></platform-specific>
                     </container>
                 </screenlet>
             </widgets>
@@ -36,7 +36,7 @@ under the License.
     <screen name="SearchProductsResults">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://webpos/webapp/webpos/search/SearchProductsResults.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://webpos/template/search/SearchProductsResults.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -65,7 +65,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/search/CustomerAddress.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/search/CustomerAddress.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>
@@ -74,7 +74,7 @@ under the License.
     <screen name="Parties">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://webpos/webapp/webpos/search/SearchParties.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://webpos/template/search/SearchParties.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -82,7 +82,7 @@ under the License.
     <screen name="SearchPartiesResults">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://webpos/webapp/webpos/search/SearchPartiesResults.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://webpos/template/search/SearchPartiesResults.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -113,7 +113,7 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/search/SearchSalesReps.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://webpos/template/search/SearchSalesReps.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>
