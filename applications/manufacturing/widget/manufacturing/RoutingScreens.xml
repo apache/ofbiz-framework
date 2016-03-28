@@ -325,7 +325,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditRoutingTaskAssoc}">
                             <platform-specific>
-                                <html><html-template location="component://manufacturing/webapp/manufacturing/routing/EditRoutingTaskAssoc.ftl"/></html>
+                                <html><html-template location="component://manufacturing/template/routing/EditRoutingTaskAssoc.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleListRoutingTaskAssoc}">

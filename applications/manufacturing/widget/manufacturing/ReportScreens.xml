@@ -34,7 +34,7 @@ under the License.
                         <screenlet title="${uiLabelMap.ManufacturingReports}">
                             <include-form name="SelectMrpName" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                             <platform-specific>
-                                <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/MrpReports.ftl"/></html>
+                                <html><html-template location="component://manufacturing/template/jobshopmgt/MrpReports.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -56,7 +56,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/CuttingListReport.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://manufacturing/template/jobshopmgt/CuttingListReport.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -80,7 +80,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsByFeature.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://manufacturing/template/reports/PRunsProductsByFeature.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -107,7 +107,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsByFeature.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://manufacturing/template/reports/PRunsProductsByFeature.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -132,7 +132,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsComponentsByFeature.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://manufacturing/template/reports/PRunsComponentsByFeature.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -161,7 +161,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsComponentsByFeature.fo.ftl"/></html>
+                    <html><html-template location="component://manufacturing/template/reports/PRunsComponentsByFeature.fo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -186,7 +186,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsStacks.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://manufacturing/template/reports/PRunsProductsStacks.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -213,7 +213,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PackageContentsAndOrder.fo.ftl"/></html>
+                    <html><html-template location="component://manufacturing/template/reports/PackageContentsAndOrder.fo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -238,7 +238,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsAndOrder.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://manufacturing/template/reports/PRunsProductsAndOrder.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -263,7 +263,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsInfoAndOrder.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://manufacturing/template/reports/PRunsInfoAndOrder.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -282,7 +282,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentPlanStockReport.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://manufacturing/template/reports/ShipmentPlanStockReport.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -303,7 +303,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentLabel.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://manufacturing/template/reports/ShipmentLabel.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -323,7 +323,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentWorkEffortTasks.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://manufacturing/template/reports/ShipmentWorkEffortTasks.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>

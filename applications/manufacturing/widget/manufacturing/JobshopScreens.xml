@@ -295,7 +295,7 @@ under the License.
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
-                            <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRun.fo.ftl"/></xsl-fo>
+                            <xsl-fo><html-template location="component://manufacturing/template/jobshopmgt/ProductionRun.fo.ftl"/></xsl-fo>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -487,7 +487,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunTasksInfo.ftl"/></html>
+                                    <html><html-template location="component://manufacturing/template/jobshopmgt/ProductionRunTasksInfo.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -519,7 +519,7 @@ under the License.
                             <include-form name="IssueProductionRunComponent" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <platform-specific>
-                            <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunTasksInfo.ftl"/></html>
+                            <html><html-template location="component://manufacturing/template/jobshopmgt/ProductionRunTasksInfo.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -551,7 +551,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunTasksInfo.ftl"/></html>
+                                    <html><html-template location="component://manufacturing/template/jobshopmgt/ProductionRunTasksInfo.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -579,7 +579,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunCosts.ftl"/></html>
+                                    <html><html-template location="component://manufacturing/template/jobshopmgt/ProductionRunCosts.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                         </section>

@@ -52,7 +52,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://manufacturing/webapp/manufacturing/routing/EditCalendar.ftl"/></html>
+                                    <html><html-template location="component://manufacturing/template/routing/EditCalendar.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -152,7 +152,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://manufacturing/webapp/manufacturing/routing/EditCalendarExceptionWeek.ftl"/></html>
+                                    <html><html-template location="component://manufacturing/template/routing/EditCalendarExceptionWeek.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -177,7 +177,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://manufacturing/webapp/manufacturing/routing/EditCalendarExceptionDay.ftl"/></html>
+                                    <html><html-template location="component://manufacturing/template/routing/EditCalendarExceptionDay.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                         </section>
