@@ -33,7 +33,7 @@
     </context-param>
     <context-param>
         <param-name>mainDecoratorLocation</param-name>
-        <param-value>component://content/widget/CommonScreens.xml</param-value>
+        <param-value>component://solr/widget/CommonScreens.xml</param-value>
         <!-- The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files. -->
     </context-param>
     <context-param>

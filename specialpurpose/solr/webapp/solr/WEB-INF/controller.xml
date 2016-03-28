@@ -40,9 +40,15 @@
     </request-map>
     <request-map uri="main">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.solr.control.OFBizSolrLoginWorker" invoke="extensionCheckLogin"/>
-        <response name="success" type="none"/>
-        <response name="error" type="view" value="login"/>
+        <response name="success" type="view" value="main"/>
     </request-map>
-
+    <request-map uri="newquery">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="newquery"/>
+    </request-map>
+    
+    <!-- view-maps -->
+    <view-map name="main" type="screen" page="component://solr/widget/SolrScreens.xml#Main"/>
+    <view-map name="newquery" type="screen" page="component://solr/widget/SolrScreens.xml#NewQuery"/>
+    
 </site-conf>
