@@ -29,7 +29,7 @@ under the License.
               <set field="hidebottomlinks" value="Y"/>
           </actions>
           <widgets>
-              <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/minicart.ftl"/></html></platform-specific>
+              <platform-specific><html><html-template location="component://order/template/entry/cart/minicart.ftl"/></html></platform-specific>
           </widgets>
         </section>
     </screen>
@@ -37,14 +37,14 @@ under the License.
     <screen name="promoUseDetailsInline">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promoUseDetailsInline.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/cart/promoUseDetailsInline.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     <screen name="orderHeaderInfo">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/orderHeaderInfo.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/orderHeaderInfo.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -54,7 +54,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShoppingList.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/orderShortcuts.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/orderShortcuts.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -80,15 +80,15 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/javascript.ftl"/></html></platform-specific>
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/showcart.ftl"/></html></platform-specific>
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/addItemsToShoppingList.ftl"/></html></platform-specific>
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/showcartitems.ftl"/></html></platform-specific>
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promoCodes.ftl"/></html></platform-specific>
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/manualPromotions.ftl"/></html></platform-specific>
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promoText.ftl"/></html></platform-specific>
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/associatedProducts.ftl"/></html></platform-specific>
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promotionsApplied.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/cart/javascript.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/cart/showcart.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/cart/addItemsToShoppingList.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/cart/showcartitems.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/cart/promoCodes.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/cart/manualPromotions.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/cart/promoText.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/cart/associatedProducts.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/cart/promotionsApplied.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -106,7 +106,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/survey.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/survey.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -123,7 +123,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/showAllPromotions.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/cart/showAllPromotions.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -151,9 +151,9 @@ under the License.
                 <not><if-empty field="productPromo"/></not>
             </condition>
             <widgets>
-                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promotiondetails.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promotioncategories.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promotionproducts.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/cart/promotiondetails.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/cart/promotioncategories.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/cart/promotionproducts.ftl"/></html></platform-specific>
             </widgets>
             <fail-widgets>
                 <label text="${uiLabelMap.OrderErrorNoPromotionFoundWithID} [${productPromoId?if_exists}]" style="h2"/>
@@ -203,7 +203,7 @@ under the License.
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific><html>
-                            <html-template location="component://order/webapp/ordermgr/order/GiftCertificates.ftl"/></html>
+                            <html-template location="component://order/template/order/GiftCertificates.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

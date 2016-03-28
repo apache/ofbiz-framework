@@ -143,7 +143,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://order/webapp/ordermgr/reports/OrderPurchaseReportPayment.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://order/template/reports/OrderPurchaseReportPayment.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -182,7 +182,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://order/webapp/ordermgr/reports/OrderPurchaseReportProduct.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://order/template/reports/OrderPurchaseReportProduct.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -223,7 +223,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://order/webapp/ordermgr/reports/SalesByStoreReport.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://order/template/reports/SalesByStoreReport.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -288,7 +288,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://order/webapp/ordermgr/reports/PurchasesByOrganizationReport.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://order/template/reports/PurchasesByOrganizationReport.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>

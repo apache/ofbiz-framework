@@ -123,7 +123,7 @@ under the License.
                         <include-form name="ViewRequestStatus" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                     </screenlet>
                     <platform-specific>
-                        <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
+                        <html><html-template location="component://order/template/request/requestContactMech.ftl"/></html>
                     </platform-specific>
                     <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequest">
                         <include-form name="ViewRequestCommunicationEvents" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
@@ -296,7 +296,7 @@ under the License.
                             </container>
                             <include-form name="EditCustRequestItem" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/request/CopyRequestItem.ftl"/></html>
+                                <html><html-template location="component://order/template/request/CopyRequestItem.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -322,7 +322,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}">
                             <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/request/requestitemnotes.ftl"/></html>
+                                <html><html-template location="component://order/template/request/requestitemnotes.ftl"/></html>
                             </platform-specific>
                             <include-form name="ListRequestItemNotes" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             <include-form name="EditRequestItemNote" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
@@ -385,7 +385,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}">
                             <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/request/QuoteLinks.ftl"/></html>
+                                <html><html-template location="component://order/template/request/QuoteLinks.ftl"/></html>
                             </platform-specific>
                             <include-form name="ListRequestQuoteItems" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
@@ -492,7 +492,7 @@ under the License.
             </condition>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/request/ViewRequestItemInfo.ftl"/></html>
+                    <html><html-template location="component://order/template/request/ViewRequestItemInfo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -690,7 +690,7 @@ under the License.
                 <set field="parameters.subject" value="You request has been received and is registered as Customer request: ${custRequest.custRequestName}[${custRequest.custRequestId}]"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/webapp/ordermgr/request/CreateCustRequestNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/request/CreateCustRequestNotification.ftl"/></html></platform-specific>
             </widgets>
             <fail-widgets>
                 <label text="Customer requestId is required: ${parameters.custRequestId} value: ${custRequestId}"></label>
@@ -708,7 +708,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.OrderCustRequestNotificationMailCompleted} #${custRequestId}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/webapp/ordermgr/request/CompletedCustRequestNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/request/CompletedCustRequestNotification.ftl"/></html></platform-specific>
             </widgets>
             <fail-widgets>
                 <label text="Customer requestId is required: ${parameters.custRequestId} value: ${custRequestId}"></label>
