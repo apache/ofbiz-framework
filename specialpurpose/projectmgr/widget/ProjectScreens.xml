@@ -244,7 +244,7 @@ under the License.
                             <widgets>
                                 <label style="h1">${uiLabelMap.PageTitleEditTask}</label>
                                 <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittask.ftl"/></html>
+                                    <html><html-template location="component://projectmgr/template/project/edittask.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>
@@ -257,7 +257,7 @@ under the License.
                                     <!-- Edit an existing Task -->
                                     <widgets>
                                         <platform-specific>
-                                            <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittaskandassoc.ftl"/></html>
+                                            <html><html-template location="component://projectmgr/template/project/edittaskandassoc.ftl"/></html>
                                         </platform-specific>
                                     </widgets>
                                     <!-- Edit an existing SubTask -->
@@ -271,7 +271,7 @@ under the License.
                                         <label style="h1">${uiLabelMap.ProjectMgrSubTaskName}: ${task.workEffortName}</label>
                                         <container><label style="h1">${uiLabelMap.PageTitleEditSubTask}</label></container>
                                         <platform-specific>
-                                            <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittaskandassoc.ftl"/></html>
+                                            <html><html-template location="component://projectmgr/template/project/edittaskandassoc.ftl"/></html>
                                         </platform-specific>
                                     </fail-widgets>
                                 </section>
@@ -423,7 +423,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleProjectGanttChart}">
                             <platform-specific>
-                                <html><html-template location="component://projectmgr/webapp/projectmgr/project/ganttChart.ftl"/></html>
+                                <html><html-template location="component://projectmgr/template/project/ganttChart.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -569,7 +569,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/summary/noteinfo.ftl"/></html>
+                    <html><html-template location="component://projectmgr/template/project/summary/noteinfo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -1032,7 +1032,7 @@ under the License.
                             <container style="clear"/>
                             <screenlet title="${uiLabelMap.PageTitleProjectGanttChart}">
                                 <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/ganttChart.ftl"/></html>
+                                    <html><html-template location="component://projectmgr/template/project/ganttChart.ftl"/></html>
                                 </platform-specific>
                             </screenlet>
                         </widgets>
