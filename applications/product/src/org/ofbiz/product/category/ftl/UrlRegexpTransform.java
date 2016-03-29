@@ -100,7 +100,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
                         }
 
                         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
-                        out.write(seoUrl(rh.makeLink(request, response, buf.toString(), fullPath, secure, encode), userLogin == null));
+                        out.write(seoUrl(rh.makeLink(request, response, buf.toString(), fullPath, secure || request.isSecure() , encode), userLogin == null));
                     } else if (prefix != null) {
                         if (prefix instanceof TemplateScalarModel) {
                             TemplateScalarModel s = (TemplateScalarModel) prefix;
