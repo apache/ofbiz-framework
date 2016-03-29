@@ -65,7 +65,7 @@
                     <para>Choose the product store, you can fill in any search option.</para>
                     <para>Click 'Find'.</para>
                     <para>Select any products, then click 'Export to Google Base'.</para>
-                    <para>Fill in the configurations including "Country Code", "Web Site Url". For example; Country Code = "US", Web Site Url = "http://ofbizdemo2.antwebsystems.com", Web Site Mount Point = "ecommerce", Action Type = "insert", Status ID = "Publish Draft", Test Mode = "No".</para>
+                    <para>Fill in the configurations including "Country Code", "Web Site Url". For example; Country Code = "US", Web Site Url = "http://ofbizdemo2.example.com", Web Site Mount Point = "ecommerce", Action Type = "insert", Status ID = "Publish Draft", Test Mode = "No".</para>
                     <para>You can select 'GoogleBaseRecommended' for add more detail of google base feed elements.</para>
                     <para>Click 'Export to Google Base', the system will exports product feed to Google Base.</para>
                 </listitem>
