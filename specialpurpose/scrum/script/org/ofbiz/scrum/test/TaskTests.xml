@@ -27,7 +27,7 @@ under the License.
             </entity-one>
             <set-current-user-login value-field="userLogin"/>
             <set field="serviceCtx.userLogin" from-field="userLogin"/>
-            <set field="serviceCtx.repository" value="https://www.antwebsystems.com/svn/"/>
+            <set field="serviceCtx.repository" value="https://www.example.com/svn/"/>
             <set field="serviceCtx.revision" value="7"/>
             <call-service service-name="viewScrumRevision" in-map-name="serviceCtx">
                     <results-to-map map-name="result"/>
@@ -46,7 +46,7 @@ under the License.
             </entity-one>
             <set-current-user-login value-field="userLogin"/>
             <set field="serviceCtx.userLogin" from-field="userLogin"/>
-            <set field="serviceCtx.repositoryRoot" value="https://www.antwebsystems.com/svn/scrum"/>
+            <set field="serviceCtx.repositoryRoot" value="https://www.example.com/svn/scrum"/>
             <set field="serviceCtx.latestRevision" value="7"/>
             <call-service service-name="retrieveMissingScrumRevision" in-map-name="serviceCtx">
                     <results-to-map map-name="result"/>
@@ -64,7 +64,7 @@ under the License.
             </entity-one>
             <set-current-user-login value-field="userLogin"/>
             <set field="serviceCtx.userLogin" from-field="userLogin"/>
-            <set field="serviceCtx.repositoryRoot" value="https://www.antwebsystems.com/svn/scrum"/>
+            <set field="serviceCtx.repositoryRoot" value="https://www.example.com/svn/scrum"/>
             <call-service service-name="removeDuplicateScrumRevision" in-map-name="serviceCtx">
                     <results-to-map map-name="result"/>
             </call-service>
