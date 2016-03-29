@@ -1143,7 +1143,7 @@ public class RequestHandler {
     }
 
     public String makeLink(HttpServletRequest request, HttpServletResponse response, String url) {
-        return makeLink(request, response, url, false, false, true);
+        return makeLink(request, response, url, false, request.isSecure(), true);
     }
 
     public String makeLink(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode) {
