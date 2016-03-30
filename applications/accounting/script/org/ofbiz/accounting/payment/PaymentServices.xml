@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+ xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createPayment" short-description="Create a Payment">
         <if>
