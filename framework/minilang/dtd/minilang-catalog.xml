@@ -26,7 +26,6 @@ under the License.
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <!-- <public publicId="-//W3C//DTD SVG 1.0//EN" uri="svg10.dtd"/> -->
 
-    <system systemId="http://ofbiz.apache.org/dtds/simple-methods.xsd" uri="simple-methods.xsd" />
     <system systemId="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd" uri="simple-methods-v2.xsd" />
 
 </catalog>
