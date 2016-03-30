@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-map-processor name="updatePassword">
         <process field="currentPassword"><copy/><not-empty><fail-property resource="SecurityextUiLabels" property="loginmapprocs.old_password_missing"/></not-empty></process>

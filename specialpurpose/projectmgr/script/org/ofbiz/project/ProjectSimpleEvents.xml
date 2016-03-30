@@ -18,7 +18,7 @@
     under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="CreateCustRequestAndAssignTaskToPerson" short-description="">
         <set field="parameters.statusId" value="CRQ_ACCEPTED"/><!-- entered by employee, should only enter accepted customer requests -->
         <if-not-empty field="parameters.communicationEventId">

@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="updateAVSOverride" short-description="Create/Update The AVS Override String">
         <make-value value-field="lookupPKMap" entity-name="PartyIcsAvsOverride"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>

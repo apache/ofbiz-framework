@@ -18,7 +18,7 @@
   -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="humanResManagerPermission" short-description="Check user has Humanres Manager permission">
         <set field="primaryPermission" value="HUMANRES"/>
