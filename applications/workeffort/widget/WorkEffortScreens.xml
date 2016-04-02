@@ -74,7 +74,7 @@ under the License.
                                 <if-service-permission service-name="workEffortGenericPermission" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific><html><html-template location="component://workeffort/webapp/workeffort/task/mytasks.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://workeffort/template/task/mytasks.ftl"/></html></platform-specific>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.WorkEffortViewPermissionError}</label>
@@ -122,7 +122,7 @@ under the License.
                         </section>
                         <screenlet title="${uiLabelMap.WorkEffortDuplicateWorkEffort}">
                             <platform-specific>
-                                <html><html-template location="component://workeffort/webapp/workeffort/workeffort/EditWorkEffortDupForm.ftl"/></html>
+                                <html><html-template location="component://workeffort/template/workeffort/EditWorkEffortDupForm.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -680,7 +680,7 @@ under the License.
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                          <platform-specific>
-                              <html><html-template location="component://workeffort/webapp/workeffort/find/WorkEffortSearchResults.ftl"/></html>
+                              <html><html-template location="component://workeffort/template/find/WorkEffortSearchResults.ftl"/></html>
                          </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -698,7 +698,7 @@ under the License.
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                          <platform-specific>
-                              <html><html-template location="component://workeffort/webapp/workeffort/find/WorkEffortSearchOptions.ftl"/></html>
+                              <html><html-template location="component://workeffort/template/find/WorkEffortSearchOptions.ftl"/></html>
                          </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -767,7 +767,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://workeffort/webapp/workeffort/workeffort/EventReminderEmail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://workeffort/template/workeffort/EventReminderEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -1009,7 +1009,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://workeffort/webapp/workeffort/workeffort/ICalendarHelp.ftl"/></html>
+                                    <html><html-template location="component://workeffort/template/workeffort/ICalendarHelp.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                         </section>

@@ -186,7 +186,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://workeffort/webapp/workeffort/main.ftl"/></html>
+                            <html><html-template location="component://workeffort/template/main.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
