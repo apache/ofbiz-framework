@@ -40,7 +40,7 @@
                             <include-menu name="Day" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <include-screen name="trainingCalendarDetail"/>
                             <platform-specific>
-                                <html><html-template location="component://workeffort/webapp/workeffort/calendar/day.ftl"/></html>
+                                <html><html-template location="component://workeffort/template/calendar/day.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </widgets>
@@ -60,7 +60,7 @@
                             <include-menu name="Week" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <include-screen name="trainingCalendarDetail"/>
                             <platform-specific>
-                                <html><html-template location="component://workeffort/webapp/workeffort/calendar/week.ftl"/></html>
+                                <html><html-template location="component://workeffort/template/calendar/week.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </widgets>
@@ -77,7 +77,7 @@
                             <include-menu name="Month" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <include-screen name="trainingCalendarDetail"/>
                             <platform-specific>
-                                <html><html-template location="component://workeffort/webapp/workeffort/calendar/month.ftl"/></html>
+                                <html><html-template location="component://workeffort/template/calendar/month.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </widgets>
@@ -93,7 +93,7 @@
                         <screenlet title="${uiLabelMap.WorkEffortCalendarUpComingEventsView}" navigation-menu-name="Upcoming">
                             <include-menu name="Upcoming" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <platform-specific>
-                                <html><html-template location="component://workeffort/webapp/workeffort/calendar/upcoming.ftl"/></html>
+                                <html><html-template location="component://workeffort/template/calendar/upcoming.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </widgets>
