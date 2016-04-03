@@ -39,7 +39,7 @@ under the License.
               <set field="hidebottomlinks" value="N"/>
           </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/minicart.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/cart/minicart.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -57,7 +57,7 @@ under the License.
     <screen name="promoUseDetailsInline">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promoUseDetailsInline.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/cart/promoUseDetailsInline.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -101,7 +101,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/showAllPromotions.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/cart/showAllPromotions.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
