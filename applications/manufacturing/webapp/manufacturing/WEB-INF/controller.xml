@@ -454,7 +454,7 @@ under the License.
     </request-map>
     <request-map uri="ShowProductionRun">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://manufacturing/webapp/manufacturing/jobshopmgt/ShowProductionRun.groovy"/>
+        <event type="groovy" path="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ShowProductionRun.groovy"/>
         <response name="docs_not_printed" type="view" value="EditProductionRun"/>
         <response name="docs_printed" type="view" value="ProductionRunDeclaration"/>
         <response name="error" type="view" value="FindProductionRun"/>
