@@ -136,7 +136,6 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/template/entry/catalog/productsummary.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/productsummary.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
