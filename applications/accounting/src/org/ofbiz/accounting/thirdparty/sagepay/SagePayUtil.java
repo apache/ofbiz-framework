@@ -35,13 +35,11 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
 import org.ofbiz.base.util.Debug;
 
 
@@ -161,9 +159,6 @@ public class SagePayUtil
         httpPost.addHeader("Content-type", "application/x-www-form-urlencoded");
         //postMethod.addHeader("Content-Length", "0");
 
-        HttpParams params = new BasicHttpParams();
-        httpPost.setParams(params);
-
         List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
         Set<String> keys = parameters.keySet();
         for (String key : keys) {
@@ -178,8 +173,8 @@ public class SagePayUtil
         return httpPost;
     }
 
-    public static HttpClient getHttpClient() {
-        HttpClient  httpClient = new DefaultHttpClient();
+    public static CloseableHttpClient getHttpClient() {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
         return httpClient;
     }
 }
