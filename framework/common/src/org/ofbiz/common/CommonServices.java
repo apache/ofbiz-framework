@@ -363,16 +363,24 @@ public class CommonServices {
         String ofbizHome = System.getProperty("ofbiz.home");
         String outputPath1 = ofbizHome + (fileName1.startsWith("/") ? fileName1 : "/" + fileName1);
         String outputPath2 = ofbizHome + (fileName2.startsWith("/") ? fileName2 : "/" + fileName2);
-
+        RandomAccessFile file1 = null, file2 = null;
+        
         try {
-            RandomAccessFile file1 = new RandomAccessFile(outputPath1, "rw");
-            RandomAccessFile file2 = new RandomAccessFile(outputPath2, "rw");
+            file1 = new RandomAccessFile(outputPath1, "rw");
+            file2 = new RandomAccessFile(outputPath2, "rw");
             file1.write(buffer1.array());
             file2.write(buffer2.array());
         } catch (FileNotFoundException e) {
             Debug.logError(e, module);
         } catch (IOException e) {
             Debug.logError(e, module);
+        } finally {
+            try {
+                file1.close();
+                file2.close();
+            } catch (Exception e) {
+                Debug.logError(e, module);
+            }
         }
 
         return ServiceUtil.returnSuccess();
