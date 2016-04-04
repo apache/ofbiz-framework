@@ -20,7 +20,6 @@
 package org.ofbiz.order.order;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;

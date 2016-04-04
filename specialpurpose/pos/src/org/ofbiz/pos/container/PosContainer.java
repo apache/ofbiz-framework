@@ -19,12 +19,9 @@
 package org.ofbiz.pos.container;
 
 import java.util.Locale;
-import java.util.TimeZone;
-
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.guiapp.xui.XuiContainer;
