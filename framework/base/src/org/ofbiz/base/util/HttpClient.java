@@ -33,6 +33,7 @@ import java.util.Map;
 
 /**
  * Send HTTP GET/POST requests.
+ * The main problem with current implementation is that it does not handle connections release. You must rely on the SO to release them (timeout).
  *
  */
 public class HttpClient {
