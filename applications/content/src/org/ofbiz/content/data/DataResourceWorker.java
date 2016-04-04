@@ -83,7 +83,6 @@ import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 /**
