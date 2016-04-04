@@ -63,7 +63,9 @@ ${virtualJavaScript!}
         <#assign prodCatMem = requestAttributes.productCategoryMember>
     </#if>
     <#assign smallImageUrl = productContentWrapper.get("SMALL_IMAGE_URL", "url")!>
+    <#assign largeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL", "url")!>
     <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
+    <#if !largeImageUrl?string?has_content><#assign largeImageUrl = "/images/defaultImage.jpg"></#if>
     <#-- end variable setup -->
     <#assign productInfoLinkId = "productInfoLink">
     <#assign productInfoLinkId = productInfoLinkId + product.productId/>
@@ -76,14 +78,18 @@ ${virtualJavaScript!}
             </a>
         </div>
         <div id="${productDetailId}" class="popup" style="display:none;">
-          <table>
-            <tr valign="top">
-              <td>
-                <img src="<@ofbizContentUrl>${contentPathPrefix!}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br />
-                ${uiLabelMap.ProductProductId}   : ${product.productId!}<br />
-                ${uiLabelMap.ProductProductName} : ${product.productName!}<br />
-                ${uiLabelMap.CommonDescription}  : ${productContentWrapper.get("DESCRIPTION", "html")!}
-              </td>
+          <table class="ui-widget">
+            <tr>
+              <th><img src="<@ofbizContentUrl>${contentPathPrefix!}${largeImageUrl}</@ofbizContentUrl>" alt="Large Image"/></th><td>&nbsp;</td>
+            </tr>
+            <tr>
+              <th>${uiLabelMap.ProductProductId}</th><td>${product.productId!}</td>
+            </tr>
+            <tr>
+              <th>${uiLabelMap.ProductProductName}</th><td>${productContentWrapper.get("PRODUCT_NAME", "html")!}</td>
+            </tr>
+            <tr>
+              <th>${uiLabelMap.CommonDescription}</th><td>${productContentWrapper.get("DESCRIPTION", "html")!}</td>
             </tr>
           </table>
         </div>
@@ -93,7 +99,8 @@ ${virtualJavaScript!}
               content: function(){
                   return this.getAttribute("title");
               },
-              tooltipClass: "popup",   
+              tooltipClass: "popup",
+              track: true
           }); 
         </script>
         <div class="productbuy">
