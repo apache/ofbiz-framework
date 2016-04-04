@@ -75,7 +75,8 @@ under the License.
   <default-javac compiler="javac1.8" target="1.8" source="1.8" encoding="UTF-8" includeantruntime="false">
    <compilerarg value="-Xlint:-path"/>
    <!--
-   Please leave this line here.  It makes it easier to enable/disable it.
+   Please leave these lines here.  It makes it easier to enable/disable it.
+   <compilerarg value="-Xlint:deprecation"/>
    <compilerarg value="-Xlint:unchecked"/>
    -->
   </default-javac>
