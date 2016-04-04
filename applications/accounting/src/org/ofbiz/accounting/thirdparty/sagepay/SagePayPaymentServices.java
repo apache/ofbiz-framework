@@ -33,7 +33,6 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -293,7 +292,6 @@ public class SagePayPaymentServices {
         Debug.logInfo("SagePay - Entered ccRefund", module);
         Debug.logInfo("SagePay ccRefund context : " + context, module);
         Locale locale = (Locale) context.get("locale");
-        Delegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue captureTransaction = PaymentGatewayServices.getCaptureTransaction(orderPaymentPreference);
         if (captureTransaction == null) {
