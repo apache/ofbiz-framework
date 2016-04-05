@@ -30,6 +30,7 @@ import org.ofbiz.widget.model.ModelScreenWidget.ColumnContainer;
 import org.ofbiz.widget.model.ModelWidget;
 import org.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
+import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 
 /**
  * Widget Library - HTML Form Renderer implementation
@@ -77,7 +78,7 @@ public class FoScreenRenderer extends HtmlWidgetRenderer implements ScreenString
         String style = container.getStyle(context);
         if (UtilValidate.isNotEmpty(style)) {
             writer.append(" ");
-            writer.append(FoScreenRenderer.getFoStyle(style));
+            writer.append(MacroScreenRenderer.getFoStyle(style));
         }
         writer.append(">");
         appendWhitespace(writer);
@@ -97,7 +98,7 @@ public class FoScreenRenderer extends HtmlWidgetRenderer implements ScreenString
         String style = label.getStyle(context);
         if (UtilValidate.isNotEmpty(style)) {
             writer.append("<fo:inline ");
-            writer.append(FoScreenRenderer.getFoStyle(style));
+            writer.append(MacroScreenRenderer.getFoStyle(style));
             writer.append(">");
             // the text
             writer.append(labelText);

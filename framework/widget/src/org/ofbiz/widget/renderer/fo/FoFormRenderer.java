@@ -56,6 +56,7 @@ import org.ofbiz.widget.model.ModelFormField.TextareaField;
 import org.ofbiz.widget.model.ModelWidget;
 import org.ofbiz.widget.renderer.FormStringRenderer;
 import org.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
+import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 
 
 /**
@@ -80,7 +81,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
         writer.append("<fo:block");
         if (UtilValidate.isNotEmpty(widgetStyle)) {
             writer.append(" ");
-            writer.append(FoScreenRenderer.getFoStyle(widgetStyle));
+            writer.append(MacroScreenRenderer.getFoStyle(widgetStyle));
         }
         writer.append(">");
         writer.append(UtilFormatOut.encodeXmlValue(text));
@@ -210,7 +211,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
             String areaStyle = childField.getTitleAreaStyle();
             if (UtilValidate.isNotEmpty(areaStyle)) {
                 writer.append(" ");
-                writer.append(FoScreenRenderer.getFoStyle(areaStyle));
+                writer.append(MacroScreenRenderer.getFoStyle(areaStyle));
             }
             writer.append("/>");
             appendWhitespace(writer);
@@ -300,7 +301,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
         if (UtilValidate.isEmpty(areaStyle)) {
             areaStyle = "tabletext";
         }
-        writer.append(FoScreenRenderer.getFoStyle(areaStyle));
+        writer.append(MacroScreenRenderer.getFoStyle(areaStyle));
         writer.append(">");
         appendWhitespace(writer);
     }

@@ -1055,4 +1055,13 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
         executeMacro(writer, "<@renderColumnContainerEnd />");
     }
+    
+    // This is a util method to get the style from a property file
+    public static String getFoStyle(String styleName) {
+        String value = UtilProperties.getPropertyValue("fo-styles", styleName);
+        if (value.equals(styleName)) {
+            return "";
+        }
+        return value;
+    }
 }
