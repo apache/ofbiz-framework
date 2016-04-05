@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
@@ -37,6 +38,9 @@ import org.ofbiz.widget.model.ModelWidget;
 import org.ofbiz.widget.renderer.ScreenRenderer;
 import org.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.ofbiz.widget.renderer.TreeStringRenderer;
+import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
+
+import freemarker.template.TemplateException;
 
 
 /**
@@ -334,7 +338,12 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             screenStringRenderer = screenRenderer.getScreenStringRenderer();
         } else {
             if (screenStringRenderer == null) {
-                screenStringRenderer = new HtmlScreenRenderer();
+                try {
+                    screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", "screen.name"), 
+                            UtilProperties.getPropertyValue("widget", "screen.screenrenderer"));
+                } catch (TemplateException | IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return screenStringRenderer;
