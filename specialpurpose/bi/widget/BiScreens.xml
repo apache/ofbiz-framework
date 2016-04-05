@@ -68,7 +68,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.BusinessIntelligenceReportBuilderSelectStarSchemaFields}">
                             <platform-specific>
-                                <html><html-template location="component://bi/webapp/bi/reportbuilder/SelectStarSchemaFields.ftl"/></html>
+                                <html><html-template location="component://bi/template/reportbuilder/SelectStarSchemaFields.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -88,7 +88,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.BusinessIntelligenceReportBuilderRenderStarSchemaReport}">
                             <platform-specific>
-                                <html><html-template location="component://bi/webapp/bi/reportbuilder/RenderStarSchemaReport.ftl"/></html>
+                                <html><html-template location="component://bi/template/reportbuilder/RenderStarSchemaReport.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -113,7 +113,7 @@ under the License.
                         <screenlet>
                             <container>
                                 <platform-specific>
-                                    <html><html-template location="component://bi/webapp/bi/main.ftl"/></html>
+                                    <html><html-template location="component://bi/template/main.ftl"/></html>
                                 </platform-specific>
                             </container>
                             <container>
