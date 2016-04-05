@@ -122,7 +122,7 @@ under the License.
                                 <screenlet title="Using report tag">
                                     <platform-specific>
                                         <html>
-                                            <html-template location="component://birt/webapp/birt/birt/report.ftl"/>
+                                            <html-template location="component://birt/template/report.ftl"/>
                                         </html>
                                     </platform-specific>
                                 </screenlet>
@@ -167,7 +167,7 @@ under the License.
                             <widgets>
                                 <screenlet title="Using report tag">
                                     <platform-specific>
-                                        <html><html-template location="component://birt/webapp/birt/birt/chartReport.ftl"/></html>
+                                        <html><html-template location="component://birt/template/chartReport.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </widgets>
