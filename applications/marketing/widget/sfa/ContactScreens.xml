@@ -113,7 +113,7 @@ under the License.
                                 </condition>
                                 <widgets>
                                     <platform-specific>
-                                        <html><html-template location="component://marketing/webapp/sfa/contact/mergeContacts.ftl"/></html>
+                                        <html><html-template location="component://marketing/template/contact/mergeContacts.ftl"/></html>
                                     </platform-specific>
                                 </widgets>
                                 <fail-widgets>
