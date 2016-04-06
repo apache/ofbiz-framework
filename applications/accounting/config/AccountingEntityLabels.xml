@@ -108,7 +108,7 @@
         <value xml:lang="ar">الإنفاق</value>
         <value xml:lang="de">Auszahlung</value>
         <value xml:lang="en">Disbursement</value>
-        <value xml:lang="fr">Débours</value>
+        <value xml:lang="fr">Décaissement</value>
         <value xml:lang="hi-IN">अदायगी</value>
         <value xml:lang="it">Esborso</value>
         <value xml:lang="ja">支払金</value>
@@ -5162,7 +5162,7 @@
         <value xml:lang="ar">إنفاق العميل</value>
         <value xml:lang="de">Auszahlung</value>
         <value xml:lang="en">Disbursement</value>
-        <value xml:lang="fr">Débours</value>
+        <value xml:lang="fr">Décaissement</value>
         <value xml:lang="hi-IN">अदायगी</value>
         <value xml:lang="it">Rimborsati</value>
         <value xml:lang="ja">支払</value>
