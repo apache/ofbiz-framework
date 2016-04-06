@@ -439,7 +439,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://marketing/webapp/marketing/contact/ContactCommunicationPreview.ftl"/>
+                        <html-template location="component://marketing/template/contact/ContactCommunicationPreview.ftl"/>
                     </html>
                 </platform-specific>                
             </widgets>
