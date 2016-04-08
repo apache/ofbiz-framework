@@ -391,7 +391,7 @@
 
     <service name="findContentParents" engine="java"
         transaction-timeout="7200"
-            location="org.ofbiz.content.ContentManagementServices" invoke="findContentParents" auth="true">
+            location="org.ofbiz.content.ContentServices" invoke="findContentParents" auth="true">
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
         <attribute mode="IN" name="contentAssocTypeId" optional="false" type="String"/>
         <attribute mode="IN" name="direction" optional="true" type="String"/>
