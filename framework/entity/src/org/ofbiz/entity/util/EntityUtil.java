@@ -342,17 +342,25 @@ public class EntityUtil {
      *@param values List of GenericValues
      *@param orderBy The fields of the named entity to order the query by;
      *      optionally add a " ASC" for ascending or " DESC" for descending
-     *@param locale Locale use to retreive localized value
+     *@param locale Locale use to retrieve localized value
      *@return List of GenericValue's in the proper order
      */
     public static <T extends GenericEntity> List<T> localizedOrderBy(Collection<T> values, List<String> orderBy, Locale locale) {
         if (values == null) return null;
-        if (values.isEmpty()) return new ArrayList<>();
+        if (values.isEmpty()) return new ArrayList<T>();
         //force check entity label before order by
         List<T> localizedValues = new ArrayList<T>();
         for (T value : values) {
             T newValue = (T) value.clone();
             for (String orderByField : orderBy) {
+                if (orderByField.endsWith(" DESC")) {
+                    orderByField= orderByField.substring(0, orderByField.length() - 5);
+                } else if (orderByField.endsWith(" ASC")) {
+                    orderByField= orderByField.substring(0, orderByField.length() - 4);
+                } else if (orderByField.startsWith("-")
+                        || orderByField.startsWith("+")) {
+                    orderByField= orderByField.substring(1, orderByField.length());
+                }
                 newValue.put(orderByField, value.get(orderByField, locale));
             }
             localizedValues.add(newValue);
