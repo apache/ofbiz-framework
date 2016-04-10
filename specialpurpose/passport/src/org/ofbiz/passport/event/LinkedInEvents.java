@@ -171,13 +171,14 @@ public class LinkedInEvents {
         
         try {
             URI uri = new URIBuilder()
-                    .setHost(TokenEndpoint)
+                    .setScheme(TokenEndpoint.substring(0, TokenEndpoint.indexOf(":")))
+                    .setHost(TokenEndpoint.substring(TokenEndpoint.indexOf(":") + 3))
                     .setPath(TokenServiceUri)
                     .setParameter("client_id", clientId)
                     .setParameter("client_secret", secret)
                     .setParameter("grant_type", "authorization_code")
                     .setParameter("code", authorizationCode)
-                    .setParameter("redirect_uri", URLEncoder.encode(returnURI, "UTF-8"))
+                    .setParameter("redirect_uri", returnURI)
                     .build();
             HttpPost postMethod = new HttpPost(uri);
             CloseableHttpClient jsonClient = HttpClients.custom().build();
