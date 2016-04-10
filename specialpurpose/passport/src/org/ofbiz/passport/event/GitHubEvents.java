@@ -171,12 +171,13 @@ public class GitHubEvents {
         
         try {
             URI uri = new URIBuilder()
-                    .setHost(TokenEndpoint)
+                    .setScheme(TokenEndpoint.substring(0, TokenEndpoint.indexOf(":")))
+                    .setHost(TokenEndpoint.substring(TokenEndpoint.indexOf(":") + 3))
                     .setPath(TokenServiceUri)
                     .setParameter("client_id", clientId)
                     .setParameter("client_secret", secret)
                     .setParameter("code", authorizationCode)
-                    .setParameter("redirect_uri", URLEncoder.encode(returnURI, "UTF-8"))
+                    .setParameter("redirect_uri", returnURI)
                     .build();
             HttpPost postMethod = new HttpPost(uri);
             CloseableHttpClient jsonClient = HttpClients.custom().build();
@@ -188,7 +189,7 @@ public class GitHubEvents {
             // Debug.logInfo("GitHub get access token response code: " + postResponse.getStatusLine().getStatusCode(), module);
             // Debug.logInfo("GitHub get access token response content: " + responseString, module);
             if (postResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                // Debug.logInfo("Json Response from GitHub: " + responseString, module);
+                Debug.logInfo("Json Response from GitHub: " + responseString, module);
                 JSON jsonObject = JSON.from(responseString);
                 JSONToMap jsonMap = new JSONToMap();
                 Map<String, Object> userMap = jsonMap.convert(jsonObject);

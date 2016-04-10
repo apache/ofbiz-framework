@@ -16,7 +16,7 @@ Here are the steps for a quick start in OFBiz trunk:
 
 2. Login GitHub.
 
-3. Visit Settings->Applications->Developer applications, click "Register new application" button.
+3. Visit Settings->OAuth applications->Developer applications, click "Register new application" button.
 
 4. In "Register a new OAuth application", fill in your OFBiz website information. Here the 
 Authorization callback URL: https://YourWebSiteOrInternetIp:8443/ecomseo/githubResponse
