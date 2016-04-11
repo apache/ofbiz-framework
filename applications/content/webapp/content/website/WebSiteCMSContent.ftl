@@ -352,12 +352,13 @@
             </tr>
           <#elseif (dataResourceTypeId == 'ELECTRONIC_TEXT')>
             <tr>
-              <td colspan="2"><h1 style="margin-top:20px">${uiLabelMap.ContentText}</h1></td>
-            </tr>
-            <tr>
               <td colspan="2">
                 <div id="editorcontainer" class="nocolumns">
-                   <textarea style="height: 350px; width: 99%; display: inline-block; " name="textData"><#if (dataText?has_content)>${dataText.textData!}</#if></textarea>
+                    <div id="cmseditor" style="margin: 0; width: 100%; border: 1px solid black;">
+                    <#if (dataText?has_content)>
+                      ${StringUtil.wrapString(dataText.textData!)} 
+                    </#if>
+                    </div>
                 </div>
               </td>
             </tr>
