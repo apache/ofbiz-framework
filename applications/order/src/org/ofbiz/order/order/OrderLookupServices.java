@@ -35,7 +35,6 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.collections.PagedList;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -46,13 +45,13 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
+import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.widget.renderer.Paginator;
 
 /**
  * OrderLookupServices
@@ -67,9 +66,10 @@ public class OrderLookupServices {
         Security security = dctx.getSecurity();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Integer viewIndex = Paginator.getViewIndex(context, "viewIndex", 1);
-        Integer viewSize = Paginator.getViewSize(context, "viewSize");
-
+        Integer viewIndex = (Integer) context.get("viewIndex");
+        if (viewIndex == null) viewIndex = 1;
+        Integer viewSize = (Integer) context.get("viewSize");
+        if (viewSize == null) viewSize = UtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20);
         String showAll = (String) context.get("showAll");
         String useEntryDate = (String) context.get("useEntryDate");
         Locale locale = (Locale) context.get("locale");
@@ -582,29 +582,47 @@ public class OrderLookupServices {
         int orderCount = 0;
 
         // get the index for the partial list
-        int lowIndex = 0;
-        int highIndex = 0;
+        int lowIndex = (((viewIndex.intValue() - 1) * viewSize.intValue()) + 1);
+        int highIndex = viewIndex.intValue() * viewSize.intValue();
 
         if (cond != null) {
-            PagedList<GenericValue> pagedOrderList = null;
+            EntityListIterator eli = null;
             try {
                 // do the lookup
-                pagedOrderList = EntityQuery.use(delegator)
+                eli = EntityQuery.use(delegator)
                         .select(fieldsToSelect)
                         .from(dve)
                         .where(cond)
                         .orderBy(orderBy)
                         .distinct() // set distinct on so we only get one row per order
+                        .maxRows(highIndex)
                         .cursorScrollInsensitive()
-                        .queryPagedList(viewIndex - 1, viewSize);
+                        .queryIterator();
 
-                orderCount = pagedOrderList.getSize();
-                lowIndex = pagedOrderList.getStartIndex();
-                highIndex = pagedOrderList.getEndIndex();
-                orderList = pagedOrderList.getData();
+                orderCount = eli.getResultsSizeAfterPartialList();
+
+                // get the partial list for this page
+                eli.beforeFirst();
+                if (orderCount > viewSize.intValue()) {
+                    orderList = eli.getPartialList(lowIndex, viewSize.intValue());
+                } else if (orderCount > 0) {
+                    orderList = eli.getCompleteList();
+                }
+
+                if (highIndex > orderCount) {
+                    highIndex = orderCount;
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
+            } finally {
+                if (eli != null) {
+                    try {
+                        eli.close();
+                    } catch (GenericEntityException e) {
+                        Debug.logWarning(e, e.getMessage(), module);
+                    }
+                }
             }
         }
 
