@@ -29,6 +29,11 @@
         <value xml:lang="zh">无法找到cmsform！</value>
         <value xml:lang="zh-TW">無法找到cmsform！</value>
     </property>
+    <property key="ConfirmDeleteContent">
+        <value xml:lang="de">Wollen Sie den Inhalt wirklich löschen?</value>
+        <value xml:lang="en">Do you really want to delete this content?</value>
+        <value xml:lang="fr">Voulez-vous vraiment supprimer ce document ?</value>
+    </property>
     <property key="ContenCommEventContentAssocNotFoundForDelete">
         <value xml:lang="en">CommEventContentAssoc entity not found for delete, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}</value>
         <value xml:lang="fr">L'association avec la communication ${parameters.communicationEventId} et le document ${parameters.contentId} pour la suppression n'a pas été trouvée</value>
@@ -3721,6 +3726,15 @@
         <value xml:lang="zh">网站内容</value>
         <value xml:lang="zh-TW">網站內容</value>
     </property>
+    <property key="ContentWebSiteErrors">
+        <value xml:lang="en">Web Site Errors</value>
+    </property>
+    <property key="ContentWebSiteAddNewErrors">
+        <value xml:lang="en">Web Site Add New Errors</value>
+    </property>
+    <property key="ContentWebSiteAddError">
+        <value xml:lang="en">Web Site Add Error</value>
+    </property>
     <property key="ContentWebSiteGenerateMissingSeoUrl">
         <value xml:lang="en">Generate missing seo url's</value>
         <value xml:lang="ja">SEO URLの生成に失敗しました</value>
@@ -3772,7 +3786,7 @@
         <value xml:lang="zh-TW">歡迎使用內容管理程式！</value>
     </property>
     <property key="ErrorLoadingContent">
-        <value xml:lang="de">Ein Fehler beim Laden des Inhaltes ist aufgetrete!</value>
+        <value xml:lang="de">Ein Fehler beim Laden des Inhaltes ist aufgetreten!</value>
         <value xml:lang="en">An error occurred loading content!</value>
         <value xml:lang="fr">Erreur dans le chargement du document !</value>
         <value xml:lang="ja">コンテンツのロード中にエラーが発生しました!</value>
@@ -3780,6 +3794,11 @@
         <value xml:lang="vi">Lỗi khi tải nội dung !</value>
         <value xml:lang="zh">载入内容时发生错误！</value>
         <value xml:lang="zh-TW">載入內容時發生錯誤！</value>
+    </property>
+    <property key="ErrorMovingContent">
+        <value xml:lang="de">Ein Fehler beim Verschieben des Inhaltes ist aufgetreten!</value>
+        <value xml:lang="en">An error occured moving content!</value>
+        <value xml:lang="fr">Erreur durant le déplacement du document !</value>
     </property>
     <property key="FormFieldTitle_acroFormContentId">
         <value xml:lang="ar">AcroForm (PDF) Content ID</value>

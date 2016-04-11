@@ -39,6 +39,16 @@ under the License.
     </postprocessor>
     -->
 
+    <!-- workaround for use of @ofbizContentUrl tags in WYSIWYG editor image tags
+     * prevents errors from showing up in the log
+     * shows the actual images in the editor by redirecting to the actual url
+    -->
+    <request-map uri="&lt;@ofbizContentUrl&gt;">
+        <security https="true" auth="true"/>
+        <event type="groovy" invoke="component://content/webapp/content/WEB-INF/events/OfbizContentUrlEvent.groovy"/>
+        <response name="success" type="none" />
+    </request-map>
+
     <request-map uri="chain">
         <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
         <response name="success" type="request" value="/view"/>
@@ -442,6 +452,24 @@ under the License.
         <event type="service" invoke="removeWebSitePathAlias"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="getContentAssocsJson">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.content.cms.ContentJsonEvents" invoke="getContentAssocs"/>
+        <response name="success" type="none" />
+    </request-map>
+
+    <request-map uri="moveContentJson">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.content.cms.ContentJsonEvents" invoke="moveContent"/>
+        <response name="success" type="none" />
+    </request-map>
+
+    <request-map uri="deleteContentJson">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.content.cms.ContentJsonEvents" invoke="deleteContent"/>
+        <response name="success" type="none" />
     </request-map>
 
     <!-- ================ ContentType Requests ================= -->
@@ -1819,6 +1847,12 @@ under the License.
     <request-map uri="showContentPdf">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="showContentPdf"/>
+    </request-map>
+    
+    <request-map uri="WebSiteCmsPreview">
+        <security auth="true" https="true"/>
+        <event invoke="execute" path="org.ofbiz.content.content.WebSiteCmsPreviewEvent" type="java"/>
+        <response name="success" type="none"/>
     </request-map>
     
     <!-- ================ Content keyword Search Requests ================= -->

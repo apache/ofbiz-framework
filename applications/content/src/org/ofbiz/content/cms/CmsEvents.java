@@ -142,7 +142,7 @@ public class CmsEvents {
 
             GenericValue pathAlias = null;
             try {
-                pathAlias = EntityQuery.use(delegator).from("WebSitePathAlias").where("webSiteId", webSiteId, "pathAlias", pathInfo).cache().queryOne();
+                pathAlias = EntityQuery.use(delegator).from("WebSitePathAlias").where("webSiteId", webSiteId, "pathAlias", pathInfo).orderBy("-fromDate").cache().filterByDate().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -173,6 +173,8 @@ public class CmsEvents {
             Locale locale = UtilHttp.getLocale(request);
 
             // get the contentId/mapKey from URL
+            /* We use path aliases for everything anyway, so don't interpret the pathInfo as contentId.
+             * This makes 404 pages much faster.
             if (contentId == null) {
                 if (Debug.verboseOn()) Debug.logVerbose("Current PathInfo: " + pathInfo, module);
                 String[] pathSplit = pathInfo.split("/");
@@ -182,16 +184,21 @@ public class CmsEvents {
                     mapKey = pathSplit[1];
                 }
             }
+            */
 
             // verify the request content is associated with the current website
             int statusCode = -1;
             boolean hasErrorPage = false;
 
-            try {
-                statusCode = verifyContentToWebSite(delegator, webSiteId, contentId);
-            } catch (GeneralException e) {
-                Debug.logError(e, module);
-                throw new GeneralRuntimeException(e.getMessage(), e);
+            if (contentId != null) {
+	            try {
+	                statusCode = verifyContentToWebSite(delegator, webSiteId, contentId);
+	            } catch (GeneralException e) {
+	                Debug.logError(e, module);
+	                throw new GeneralRuntimeException(e.getMessage(), e);
+	            }
+            } else {
+            	statusCode = HttpServletResponse.SC_NOT_FOUND;
             }
 
             // We try to find a specific Error page for this website concerning the status code
@@ -281,11 +288,11 @@ public class CmsEvents {
                     }
 
                 } catch (TemplateException e) {
-                    throw new GeneralRuntimeException("Error creating form renderer", e);
+                	throw new GeneralRuntimeException(String.format("Error creating form renderer while rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
                 } catch (IOException e) {
-                    throw new GeneralRuntimeException("Error in the response writer/output stream: " + e.toString(), e);
+                	throw new GeneralRuntimeException(String.format("Error in the response writer/output stream while rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
                 } catch (GeneralException e) {
-                    throw new GeneralRuntimeException("Error rendering content: " + e.toString(), e);
+                	throw new GeneralRuntimeException(String.format("Error rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
                 }
 
                 return "success";
