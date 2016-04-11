@@ -33,7 +33,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://webtools/webapp/webtools/artifactinfo/ArtifactInfo.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://webtools/template/artifactinfo/ArtifactInfo.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

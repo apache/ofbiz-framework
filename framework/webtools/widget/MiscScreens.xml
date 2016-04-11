@@ -33,7 +33,7 @@ under the License.
                 <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
-                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/datafile/viewdatafile.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template location="component://webtools/template/datafile/viewdatafile.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

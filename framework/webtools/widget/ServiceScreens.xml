@@ -33,7 +33,7 @@ under the License.
                     <decorator-section name="body">
                         <platform-specific>
                             <html>
-                                <html-template location="component://webtools/webapp/webtools/service/availableservices.ftl"/>
+                                <html-template location="component://webtools/template/service/availableservices.ftl"/>
                             </html>
                         </platform-specific>
                     </decorator-section>
@@ -112,7 +112,7 @@ under the License.
                         </screenlet>
                         <screenlet title="${uiLabelMap.WebtoolsGeneralJavaThreads}">
                             <platform-specific>
-                                <html><html-template location="component://webtools/webapp/webtools/service/threads.ftl"/></html>
+                                <html><html-template location="component://webtools/template/service/threads.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -172,7 +172,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.WebtoolsStep2ServiceParameters}">
                             <platform-specific>
-                                <html><html-template location="component://webtools/webapp/webtools/service/setServiceParameter.ftl"/></html>
+                                <html><html-template location="component://webtools/template/service/setServiceParameter.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -194,7 +194,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleScheduleJob}">
                             <platform-specific>
-                                <html><html-template location="component://webtools/webapp/webtools/service/setServiceParameterSync.ftl"/></html>
+                                <html><html-template location="component://webtools/template/service/setServiceParameterSync.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -215,7 +215,7 @@ under the License.
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://webtools/webapp/webtools/service/serviceResult.ftl"/></html>
+                            <html><html-template location="component://webtools/template/service/serviceResult.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

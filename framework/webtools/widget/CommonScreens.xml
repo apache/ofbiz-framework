@@ -23,6 +23,7 @@ under the License.
     <screen name="main-decorator">
         <section>
             <actions>
+                <set field="activeApp" value="webtools" global="true"/>
                 <!-- base/top/specific map first, then more common map added for shared labels -->
                 <property-map resource="TemporalExpressionUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
@@ -35,8 +36,6 @@ under the License.
                 <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.gif" global="true"/>-->
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
-                <set field="activeApp" value="webtools" global="true"/>
-                <!-- <set field="appheaderTemplate" value="component://webtools/webapp/webtools/includes/appheader.ftl" global="true"/> -->
                 <!-- Help link actions -->
                 <set field="helpTopic" value="${groovy: webappName.toUpperCase() + '_' + requestAttributes._CURRENT_VIEW_}"/>
                 <set field="applicationMenuLocation" value="component://webtools/widget/Menus.xml" global="true"/>
@@ -58,7 +57,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://webtools/webapp/webtools/main.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://webtools/template/main.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -67,14 +66,14 @@ under the License.
     <screen name="printStart">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://webtools/webapp/webtools/print/printStart.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://webtools/template/printStart.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     <screen name="printDone">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://webtools/webapp/webtools/print/printDone.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://webtools/template/printDone.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -87,7 +86,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonConfigurationDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://webtools/webapp/webtools/cert/viewbrowsercerts.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://webtools/template/cert/viewbrowsercerts.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
