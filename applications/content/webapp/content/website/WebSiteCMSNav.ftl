@@ -38,9 +38,6 @@
     };
 
     jQuery(document).ready(loadTrees);
-    <#--
-    jQuery(document).ready(createEditor);
-    -->
 
     var contentRoot = '${contentRoot!}';
     var menuRoot = '${menuRoot!}';
@@ -441,11 +438,7 @@ var contextmenu = { 'items': {
             },
             success: function(msg) {
                 jQuery('#cmscontent').html(msg);
-
-<#--
-                // CREATE / LOAD Editor
                 createEditor();
--->
             }
         });
      }
@@ -617,7 +610,7 @@ function callMetaInfo(contentId) {
     ${uiLabelMap.ContentWebSiteAddNewErrors}
 </div>
 <div>&nbsp;</div>
-<#if (errors?has_content)>
+<#if (errorRoot?has_content)>
     <div id="${errorRoot}"></div>
 <#else>
     <a href="javascript:void(0);" class="buttontext">${uiLabelMap.ContentWebSiteAddError}</a>
