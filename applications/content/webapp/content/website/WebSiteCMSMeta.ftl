@@ -29,9 +29,9 @@
 <#-- cms menu bar -->
 <div id="cmsmenu" style="margin-bottom: 8px;">
     <#if (content?has_content)>
-        <a href="javascript:void(0);" onclick="javascript:callDocument(true, '${content.contentId}', '', 'ELECTRONIC_TEXT');" class="tabButton">Quick Sub-Content</a>
-        <a href="javascript:void(0);" onclick="javascript:callPathAlias('${content.contentId}');" class="tabButton">Path Alias</a>
-        <a href="javascript:void(0);" onclick="javascript:callMetaInfo('${content.contentId}');" class="selected">Meta Tags</a>
+        <a href="javascript:void(0);" onclick="javascript:callDocument(true, '${content.contentId}', '', '', '', 'ELECTRONIC_TEXT');" class="tabButton">${uiLabelMap.ContentQuickSubContent}</a>
+        <a href="javascript:void(0);" onclick="javascript:callPathAlias('${content.contentId}');" class="tabButton">${uiLabelMap.ContentPathAlias}</a>
+        <a href="javascript:void(0);" onclick="javascript:callMetaInfo('${content.contentId}');" class="selected">${uiLabelMap.ContentMetaTags}</a>
     </#if>
 </div>
 

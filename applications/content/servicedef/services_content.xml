@@ -45,7 +45,7 @@
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="mapKey" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
         <override name="contentTypeId" default-value="DOCUMENT"/>
         <override name="contentName" allow-html="any"/>

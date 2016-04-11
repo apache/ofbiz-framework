@@ -181,13 +181,6 @@ under the License.
 
     <screen name="WebSiteCMSNav">
         <section>
-            <actions>
-                <set field="webSiteId" from-field="parameters.webSiteId"/>
-                <entity-one entity-name="WebSite" value-field="webSite"/>
-
-                <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.groovy"/>
-                <set field="language" from-field="userLogin.lastLocale" default-value="en"/>
-            </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.PageTitleWebSiteCMSNav}">
                     <platform-specific><html><html-template location="component://content/webapp/content/website/WebSiteCMSNav.ftl"/></html></platform-specific>
@@ -203,8 +196,8 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
                 <set field="dataResourceTypeId" from-field="parameters.dataResourceTypeId"/>
+                <set field="newContentId" from-field="contentId" />
                 <set field="contentIdFrom" from-field="parameters.contentIdFrom"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <set field="contentId" from-field="parameters.contentId"/>
@@ -217,7 +210,6 @@ under the License.
                 <entity-one entity-name="ElectronicText" value-field="dataText">
                     <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
                 </entity-one>
-                
                 <set field="parameters.fromDate" type="Timestamp" from-field="parameters.fromDate"/>
                 <entity-condition list="assocs" entity-name="ContentAssoc">
                     <condition-list>

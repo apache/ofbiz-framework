@@ -18,22 +18,12 @@
   -->
 
 <script type="text/javascript">
-    jQuery(document).ready(function() {
-        // override elRTE save action to make "save" toolbar button work
-        elRTE.prototype.save = function() {
-            this.beforeSave();
-            cmsSave();
-        }
-    });
+    // save new content id to JS scope so it can be used by the jstree in
+    // the WebSiteCmsNav view where the newContentId is not available
+    var newContentId = ${contentId?default("'a'")};
 
     function cmsSave() {
         var simpleFormAction = '<@ofbizUrl>/updateContentCms</@ofbizUrl>';
-        var editor = jQuery("#cmseditor");
-        if (editor.length) {
-            var cmsdata = jQuery("#cmsdata");
-            var data = editor.elrte('val');
-            cmsdata.val(data);
-        }
 
         // get the cmsform
         var form = document.cmsform;
@@ -80,7 +70,7 @@
 <#-- cms menu bar -->
 <div id="cmsmenu" style="margin-bottom: 8px;">
     <#if (content?has_content)>
-        <a href="javascript:void(0);" onclick="javascript:callDocument(true, '${content.contentId}', '', 'ELECTRONIC_TEXT');" class="tabButton">${uiLabelMap.ContentQuickSubContent}</a>
+        <a href="javascript:void(0);" onclick="javascript:callDocument(true, '${content.contentId}', '', '', '', 'ELECTRONIC_TEXT');" class="tabButton">${uiLabelMap.ContentQuickSubContent}</a>
         <a href="javascript:void(0);" onclick="javascript:callPathAlias('${content.contentId}');" class="tabButton">${uiLabelMap.ContentPathAlias}</a>
         <a href="javascript:void(0);" onclick="javascript:callMetaInfo('${content.contentId}');" class="tabButton">${uiLabelMap.ContentMetaTags}</a>
     </#if>
@@ -327,15 +317,6 @@
                 </select>
             </td>
           </tr>
-          <tr>
-            <td colspan="2">
-              <textarea id="cmsdata" name="textData" cols="40" rows="6" style="display: none;">
-                <#if (dataText?has_content)>
-                    ${StringUtil.wrapString(dataText.textData!)}
-                </#if>
-              </textarea>
-            </td>
-          </tr>
 
           <#-- this all depends on the dataResourceTypeId which was selected -->
           <#if (dataResourceTypeId == 'IMAGE_OBJECT' || dataResourceTypeId == 'OTHER_OBJECT' || dataResourceTypeId == 'LOCAL_FILE' ||
@@ -371,13 +352,12 @@
             </tr>
           <#elseif (dataResourceTypeId == 'ELECTRONIC_TEXT')>
             <tr>
+              <td colspan="2"><h1 style="margin-top:20px">${uiLabelMap.ContentText}</h1></td>
+            </tr>
+            <tr>
               <td colspan="2">
                 <div id="editorcontainer" class="nocolumns">
-                    <div id="cmseditor" style="margin: 0; width: 100%; border: 1px solid black;">
-                    <#if (dataText?has_content)>
-                      ${StringUtil.wrapString(dataText.textData!)} 
-                    </#if>
-                    </div>
+                   <textarea style="height: 350px; width: 99%; display: inline-block; " name="textData"><#if (dataText?has_content)>${dataText.textData!}</#if></textarea>
                 </div>
               </td>
             </tr>

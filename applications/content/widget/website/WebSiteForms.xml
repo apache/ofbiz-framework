@@ -96,7 +96,6 @@ under the License.
             <hyperlink target="EditWebSitePathAlias?webSiteId=${webSiteId}&amp;pathAlias=${pathAlias}" description="${pathAlias}"></hyperlink>
         </field>        
         <field name="aliasTo" sort-field="true"><display/></field>
-        <field name="mapKey" sort-field="true"><display/></field>
         <field name="contentId" sort-field="true">
             <display-entity entity-name="Content" description="${contentName}">
                 <sub-hyperlink target="EditContent" description=" [${contentId}]">
@@ -104,6 +103,9 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
+        <field name="mapKey" sort-field="true"><display/></field>
+        <field name="fromDate" sort-field="true"><display/></field>
+        <field name="thruDate" sort-field="true"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeWebSitePathAlias" description="${uiLabelMap.CommonDelete}" also-hidden="false">
               <parameter param-name="webSiteId"/>

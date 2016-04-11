@@ -20,38 +20,26 @@
 import org.ofbiz.entity.condition.*
 import org.ofbiz.entity.util.*
 
-webSiteContent = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT").orderBy("-fromDate").filterByDate().queryFirst();
+webSiteContent = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT").orderBy("-fromDate").cache().filterByDate().queryFirst();
 if (webSiteContent) {
     content = webSiteContent.getRelatedOne("Content", false);
     contentRoot = content.contentId;
     context.content = content;
     context.contentRoot = contentRoot;
-
-    // get all sub content for the publish point
-    subsites = from("ContentAssoc").where("contentId", contentRoot).queryList();
-    context.subsites = subsites;
 }
 
-webSiteMenu = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "MENU_ROOT").orderBy("-fromDate").queryFirst();
+webSiteMenu = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "MENU_ROOT").orderBy("-fromDate").cache().queryFirst();
 if (webSiteMenu) {
     menu = webSiteMenu.getRelatedOne("Content", false);
     menuRoot = menu.contentId;
     context.menu = menu;
     context.menuRoot = menuRoot;
-
-    // get all sub content for the menu root
-    menus = from("ContentAssoc").where("contentId", menuRoot).queryList();
-    context.menus = menus;
 }
 
-webSiteError = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "ERROR_ROOT").orderBy("-fromDate").queryFirst();
+webSiteError = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "ERROR_ROOT").orderBy("-fromDate").cache().queryFirst();
 if (webSiteError) {
     error = webSiteError.getRelatedOne("Content", false);
     errorRoot = error.contentId;
     context.error = error;
     context.errorRoot = errorRoot;
-
-    // get all sub content for the error root
-    errors = from("ContentAssoc").where("contentId", errorRoot).queryList();
-    context.errors = errors;
 }

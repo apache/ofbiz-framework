@@ -1561,11 +1561,14 @@ under the License.
         title="Web Site Path Alias">
         <field name="webSiteId" type="id-ne"></field>
         <field name="pathAlias" type="id-vlong"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
         <field name="aliasTo" type="long-varchar"></field>
         <field name="contentId" type="id"></field>
         <field name="mapKey" type="name"></field>
         <prim-key field="webSiteId"/>
         <prim-key field="pathAlias"/>
+        <prim-key field="fromDate"/>
         <relation type="one" fk-name="WSPATH_WEBSITE" rel-entity-name="WebSite">
             <key-map field-name="webSiteId"/>
         </relation>
