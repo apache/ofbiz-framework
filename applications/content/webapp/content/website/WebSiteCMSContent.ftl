@@ -363,7 +363,6 @@
               </td>
             </tr>
           </#if>
-
           <tr>
             <td align="center" colspan="2">
                 <a href="javascript:void(0);" onclick="javascript:cmsSave();" class="buttontext">${uiLabelMap.CommonSave}</a>
