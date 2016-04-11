@@ -64,7 +64,7 @@
                         </screenlet>
                         <screenlet title="${uiLabelMap.CommonMap}">
                             <platform-specific>
-                                <html><html-template location="component://webtools/webapp/webtools/geo/GeoLocation.ftl"/></html>
+                                <html><html-template location="component://webtools/template/geo/GeoLocation.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>

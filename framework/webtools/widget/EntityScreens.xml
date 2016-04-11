@@ -39,7 +39,7 @@ under the License.
                     <decorator-section name="body">
                         <include-form name="EntitySQLCommand" location="component://webtools/widget/EntityForms.xml"/>
                         <platform-specific>
-                            <html><html-template location="component://webtools/webapp/webtools/entity/EntitySQLProcessor.ftl"/></html>
+                            <html><html-template location="component://webtools/template/entity/EntitySQLProcessor.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -59,7 +59,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific>
-                                <html><html-template location="component://webtools/webapp/webtools/entity/EntityExportAll.ftl"/></html>
+                                <html><html-template location="component://webtools/webapp/template/EntityExportAll.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -82,7 +82,7 @@ under the License.
                         </screenlet>
                         <screenlet>
                             <platform-specific>
-                                <html><html-template location="component://webtools/webapp/webtools/entity/ProgramExport.ftl"/></html>
+                                <html><html-template location="component://webtools/template/entity/ProgramExport.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -104,7 +104,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific>
-                                <html><html-template location="component://webtools/webapp/webtools/entity/EntityImportDir.ftl"/></html>
+                                <html><html-template location="component://webtools/template/entity/EntityImportDir.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -126,7 +126,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific>
-                                <html><html-template location="component://webtools/webapp/webtools/entity/EntityImport.ftl"/></html>
+                                <html><html-template location="component://webtools/template/entity/EntityImport.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -148,7 +148,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific>
-                                <html><html-template location="component://webtools/webapp/webtools/entity/EntityImportReaders.ftl"/></html>
+                                <html><html-template location="component://webtools/template/entity/EntityImportReaders.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -219,12 +219,12 @@ under the License.
                             </decorator-section>
                             <decorator-section name="search-options">
                                 <platform-specific>
-                                    <html><html-template location="component://webtools/webapp/webtools/entity/FindGeneric.ftl"/></html>
+                                    <html><html-template location="component://webtools/template/entity/FindGeneric.ftl"/></html>
                                 </platform-specific>
                             </decorator-section>
                             <decorator-section name="search-results">
                                 <platform-specific>
-                                    <html><html-template location="component://webtools/webapp/webtools/entity/ListGeneric.ftl"/></html>
+                                    <html><html-template location="component://webtools/template/entity/ListGeneric.ftl"/></html>
                                 </platform-specific>
                             </decorator-section>
                         </decorator-screen>
@@ -251,7 +251,7 @@ under the License.
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://webtools/webapp/webtools/entity/ViewGeneric.ftl"/></html>
+                            <html><html-template location="component://webtools/template/entity/ViewGeneric.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -276,7 +276,7 @@ under the License.
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://webtools/webapp/webtools/entity/ViewRelations.ftl"/></html>
+                            <html><html-template location="component://webtools/template/entity/ViewRelations.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -301,7 +301,7 @@ under the License.
                     <widgets>
                         <platform-specific>
                             <html>
-                                <html-template location="component://webtools/webapp/webtools/entity/EntityRef.ftl"/>
+                                <html-template location="component://webtools/template/entity/EntityRef.ftl"/>
                             </html>
                         </platform-specific>
                     </widgets>
@@ -329,7 +329,7 @@ under the License.
                     <widgets>
                         <platform-specific>
                             <html>
-                                <html-template location="component://webtools/webapp/webtools/entity/EntityRefMain.ftl"/>
+                                <html-template location="component://webtools/template/entity/EntityRefMain.ftl"/>
                             </html>
                         </platform-specific>
                     </widgets>
@@ -355,7 +355,7 @@ under the License.
                     <widgets>
                         <platform-specific>
                             <html>
-                                <html-template location="component://webtools/webapp/webtools/entity/EntityRefList.ftl"/>
+                                <html-template location="component://webtools/template/entity/EntityRefList.ftl"/>
                             </html>
                         </platform-specific>
                     </widgets>
@@ -379,7 +379,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <xsl-fo>
-                        <html-template location="component://webtools/webapp/webtools/entity/EntityRefReport.fo.ftl"/>
+                        <html-template location="component://webtools/template/entity/EntityRefReport.fo.ftl"/>
                     </xsl-fo>
                 </platform-specific>
             </widgets>
@@ -418,7 +418,7 @@ under the License.
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
-                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/CheckDb.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template location="component://webtools/template/entity/CheckDb.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -465,7 +465,7 @@ under the License.
                 <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
-                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/xmldsdump.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template location="component://webtools/template/entity/xmldsdump.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -484,7 +484,7 @@ under the License.
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://webtools/webapp/webtools/entity/ConnectionPoolStatus.ftl"/></html>
+                            <html><html-template location="component://webtools/template/entity/ConnectionPoolStatus.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

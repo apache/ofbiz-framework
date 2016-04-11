@@ -36,15 +36,15 @@ under the License.
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-options">
-                               <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/SearchLabels.ftl"/></html></platform-specific>
+                               <platform-specific><html><html-template location="component://webtools/template/labelmanager/SearchLabels.ftl"/></html></platform-specific>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewLabels.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://webtools/template/labelmanager/ViewLabels.ftl"/></html></platform-specific>
                             </decorator-section>
                         </decorator-screen>
                         <!--
                         <screenlet id="ViewHardcodedLabelsPanel" title="${uiLabelMap.WebtoolsLabelManagerHardcoded}" collapsible="false">
-                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewHardcodedLabels.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template location="component://webtools/template/labelmanager/ViewHardcodedLabels.ftl"/></html></platform-specific>
                         </screenlet>
                         -->
                     </decorator-section>
@@ -71,7 +71,7 @@ under the License.
                         <container style="h1">
                             <label text="${uiLabelMap.WebtoolsLabelManagerAddNew}"/>
                         </container>
-                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/UpdateLabel.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template location="component://webtools/template/labelmanager/UpdateLabel.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -93,7 +93,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewReferences.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://webtools/template/labelmanager/ViewReferences.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -116,7 +116,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="ViewFilePanel" title="${uiLabelMap.WebtoolsLabelManagerViewFile}">
-                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewFile.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template location="component://webtools/template/labelmanager/ViewFile.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

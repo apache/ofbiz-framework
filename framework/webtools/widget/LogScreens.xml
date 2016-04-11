@@ -115,7 +115,7 @@ under the License.
                                  <label>${logFileName}</label>
                              </container>
                              <platform-specific>
-                                 <html><html-template location="component://webtools/webapp/webtools/log/logContent.ftl"/></html>
+                                 <html><html-template location="component://webtools/template/log/logContent.ftl"/></html>
                              </platform-specific>
                          </screenlet>
                      </decorator-section>
