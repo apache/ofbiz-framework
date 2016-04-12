@@ -148,7 +148,7 @@ under the License.
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
-                            <xsl-fo><html-template location="component://accounting/webapp/accounting/reports/DepositSlip.fo.ftl"/></xsl-fo>
+                            <xsl-fo><html-template location="component://accounting/template/reports/DepositSlip.fo.ftl"/></xsl-fo>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

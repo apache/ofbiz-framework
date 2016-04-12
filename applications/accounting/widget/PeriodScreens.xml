@@ -31,7 +31,7 @@ under the License.
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://accounting/webapp/accounting/period/EditCustomTimePeriod.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://accounting/template/period/EditCustomTimePeriod.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

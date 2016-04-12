@@ -143,7 +143,7 @@ under the License.
                             <include-form name="EditAgreement" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                         <platform-specific>
-                            <html><html-template location="component://accounting/webapp/accounting/agreement/CopyAgreement.ftl"/></html>
+                            <html><html-template location="component://accounting/template/agreement/CopyAgreement.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

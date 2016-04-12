@@ -560,7 +560,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <xsl-fo>
-                        <html-template location="component://accounting/webapp/accounting/reports/ChartOfAccount.fo.ftl"/>
+                        <html-template location="component://accounting/template/reports/ChartOfAccount.fo.ftl"/>
                     </xsl-fo>
                 </platform-specific>
             </widgets>

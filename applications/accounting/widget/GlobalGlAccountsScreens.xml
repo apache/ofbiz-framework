@@ -367,7 +367,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.FormFieldTitle_costCenters}">
                                     <platform-specific>
                                         <html>
-                                            <html-template location="component://accounting/webapp/accounting/ledger/CostCenters.ftl"/>
+                                            <html-template location="component://accounting/template/ledger/CostCenters.ftl"/>
                                         </html>
                                     </platform-specific>
                                 </screenlet>

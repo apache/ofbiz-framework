@@ -86,7 +86,7 @@ under the License.
                                     </decorator-section>
                                     <decorator-section name="search-results">
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/webapp/ar/invoice/ListInvoices.ftl"/></html>
+                                            <html><html-template location="component://accounting/template/ar/invoice/ListInvoices.ftl"/></html>
                                         </platform-specific>
                                     </decorator-section>
                                 </decorator-screen>

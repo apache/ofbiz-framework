@@ -445,7 +445,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingManualTransaction}">
                             <platform-specific>
-                                <html><html-template location="component://accounting/webapp/accounting/payment/manualTx.ftl"/></html>
+                                <html><html-template location="component://accounting/template/payment/manualTx.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -457,7 +457,7 @@ under the License.
          <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://accounting/webapp/accounting/payment/manualCCTx.ftl"/></html>
+                    <html><html-template location="component://accounting/template/payment/manualCCTx.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -467,7 +467,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <!-- TODO: problem here: the original manualTx file referred to manualGCTx, but no such ftl files seems to exist, so this will blow up -->
-                    <html><html-template location="component://accounting/webapp/accounting/payment/manualGCTx.ftl"/></html>
+                    <html><html-template location="component://accounting/template/payment/manualGCTx.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -487,7 +487,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://accounting/webapp/accounting/payment/PrintChecks.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://accounting/template/payment/PrintChecks.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
