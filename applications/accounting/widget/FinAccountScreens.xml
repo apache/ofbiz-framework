@@ -252,7 +252,7 @@ under the License.
                                     </decorator-section> 
                                     <decorator-section name="search-results">
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/webapp/accounting/payment/depositWithdrawPayments.ftl"/></html>
+                                            <html><html-template location="component://accounting/template/payment/depositWithdrawPayments.ftl"/></html>
                                         </platform-specific>
                                     </decorator-section>
                                 </decorator-screen>  
@@ -457,7 +457,7 @@ under the License.
                             </decorator-section> 
                             <decorator-section name="search-results">
                                 <platform-specific>
-                                    <html><html-template location="component://accounting/webapp/accounting/finaccounttrans/FinAccountTrans.ftl"/></html>
+                                    <html><html-template location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
                                 </platform-specific>
                             </decorator-section>
                         </decorator-screen>
@@ -508,7 +508,7 @@ under the License.
                                             <include-form name="FindBankReconciliationFinAcctTrans" location="component://accounting/widget/FinAccountForms.xml"/>
                                         </screenlet>
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/webapp/accounting/finaccounttrans/FinAccountTrans.ftl"/></html>
+                                            <html><html-template location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
                                         </platform-specific>
                                     </widgets>
                                 </section>
@@ -518,7 +518,7 @@ under the License.
                                     <include-form name="FindBankReconciliationFinAcctTrans" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
                                 <platform-specific>
-                                    <html><html-template location="component://accounting/webapp/accounting/finaccounttrans/FinAccountTrans.ftl"/></html>
+                                    <html><html-template location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
                                 </platform-specific>
                             </fail-widgets>
                         </section>
@@ -653,7 +653,7 @@ under the License.
                     <decorator-section name="body">
                         <label style="h1" text="${uiLabelMap.AccountingGlReconciliationFor}"></label>
                         <platform-specific>
-                            <html><html-template location="component://accounting/webapp/accounting/finaccounttrans/GlReconciledFinAccountTrans.ftl"/></html>
+                            <html><html-template location="component://accounting/template/finaccounttrans/GlReconciledFinAccountTrans.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

@@ -474,7 +474,7 @@ under the License.
                                     <include-form name="EditInvoiceItem" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </widgets>
                                 <fail-widgets>
-                                    <platform-specific><html><html-template location="component://accounting/webapp/accounting/invoice/InvoiceItemsPayrol.ftl"/></html></platform-specific>
+                                    <platform-specific><html><html-template location="component://accounting/template/invoice/InvoiceItemsPayrol.ftl"/></html></platform-specific>
                                 </fail-widgets>
                             </section>
                         </screenlet>
@@ -583,7 +583,7 @@ under the License.
     <screen name="sendPerEmailBody">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://accounting/webapp/accounting/invoice/sendPerEmail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://accounting/template/invoice/sendPerEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

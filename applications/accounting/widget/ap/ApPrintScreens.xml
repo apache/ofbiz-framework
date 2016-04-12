@@ -36,7 +36,7 @@ under the License.
                     </decorator-section>
                     <decorator-section name="body">
                         <platform-specific>
-                            <xsl-fo><html-template location="component://accounting/webapp/ap/reports/CommissionReport.fo.ftl"/></xsl-fo>
+                            <xsl-fo><html-template location="component://accounting/template/ap/reports/CommissionReport.fo.ftl"/></xsl-fo>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

@@ -612,7 +612,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <xsl-fo>
-                        <html-template location="component://accounting/webapp/accounting/reports/AcctgTransEntriesSearchResult.fo.ftl"/>
+                        <html-template location="component://accounting/template/reports/AcctgTransEntriesSearchResult.fo.ftl"/>
                     </xsl-fo>
                 </platform-specific>
             </widgets>
@@ -656,7 +656,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <xsl-fo>
-                        <html-template location="component://accounting/webapp/accounting/reports/AcctgTransSearchResult.fo.ftl"/>
+                        <html-template location="component://accounting/template/reports/AcctgTransSearchResult.fo.ftl"/>
                     </xsl-fo>
                 </platform-specific>
             </widgets>

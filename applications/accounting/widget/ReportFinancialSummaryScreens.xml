@@ -96,7 +96,7 @@ under the License.
                             <decorator-section name="body">
                                 <screenlet title="${uiLabelMap.PageTitleSalesInvoiceByProductCategorySummary}">
                                     <platform-specific>
-                                        <html><html-template location="component://accounting/webapp/accounting/reports/SalesInvoiceByProductCategorySummary.ftl"/></html>
+                                        <html><html-template location="component://accounting/template/reports/SalesInvoiceByProductCategorySummary.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </decorator-section>
@@ -121,7 +121,7 @@ under the License.
                             <decorator-section name="body">
                                 <screenlet title="${uiLabelMap.PageTitleSalesInvoiceByProductGlAccountSummary}">
                                     <platform-specific>
-                                        <html><html-template location="component://accounting/webapp/accounting/reports/SalesInvoiceByProductGlAccountSummary.ftl"/></html>
+                                        <html><html-template location="component://accounting/template/reports/SalesInvoiceByProductGlAccountSummary.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </decorator-section>
@@ -147,7 +147,7 @@ under the License.
                             <decorator-section name="body">
                                 <screenlet title="${uiLabelMap.PageTitlePaymentByMethodSummary}">
                                     <platform-specific>
-                                        <html><html-template location="component://accounting/webapp/accounting/reports/PaymentByMethodSummary.ftl"/></html>
+                                        <html><html-template location="component://accounting/template/reports/PaymentByMethodSummary.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </decorator-section>
@@ -172,7 +172,7 @@ under the License.
                             <decorator-section name="body">
                                 <screenlet title="${uiLabelMap.PageTitleInventoryIssueSummary}">
                                     <platform-specific>
-                                        <html><html-template location="component://accounting/webapp/accounting/reports/InventoryIssueSummary.ftl"/></html>
+                                        <html><html-template location="component://accounting/template/reports/InventoryIssueSummary.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </decorator-section>
@@ -197,7 +197,7 @@ under the License.
                             <decorator-section name="body">
                                 <screenlet title="${uiLabelMap.PageTitleFinancialAccountSummary}">
                                     <platform-specific>
-                                        <html><html-template location="component://accounting/webapp/accounting/reports/FinancialAccountSummary.ftl"/></html>
+                                        <html><html-template location="component://accounting/template/reports/FinancialAccountSummary.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </decorator-section>
@@ -1187,7 +1187,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.AccountingGlAccountTrialBalance}">
                                    <platform-specific>
                                        <html>
-                                           <html-template location="component://accounting/webapp/accounting/reports/GlAccountTrialBalanceReport.ftl"/>
+                                           <html-template location="component://accounting/template/reports/GlAccountTrialBalanceReport.ftl"/>
                                        </html>
                                    </platform-specific>
                                 </screenlet>
@@ -1212,7 +1212,7 @@ under the License.
                     <decorator-section name="body">
                         <platform-specific>
                             <xsl-fo>
-                                <html-template location="component://accounting/webapp/accounting/reports/GlAccountTrialBalanceReport.fo.ftl"/>
+                                <html-template location="component://accounting/template/reports/GlAccountTrialBalanceReport.fo.ftl"/>
                             </xsl-fo>
                         </platform-specific>
                     </decorator-section>
@@ -1267,7 +1267,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.FormFieldTitle_costCenters}">
                                     <platform-specific>
                                         <html>
-                                            <html-template location="component://accounting/webapp/accounting/reports/CostCentersReport.ftl"/>
+                                            <html-template location="component://accounting/template/reports/CostCentersReport.ftl"/>
                                         </html>
                                     </platform-specific>
                                 </screenlet>
@@ -1298,7 +1298,7 @@ under the License.
                     <decorator-section name="body">
                         <platform-specific>
                             <xsl-fo>
-                                <html-template location="component://accounting/webapp/accounting/reports/CostCentersReport.fo.ftl"/>
+                                <html-template location="component://accounting/template/reports/CostCentersReport.fo.ftl"/>
                             </xsl-fo>
                         </platform-specific>
                     </decorator-section>

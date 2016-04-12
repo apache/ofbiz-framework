@@ -55,15 +55,15 @@ under the License.
                             </decorator-section>
                             <decorator-section name="topRight">
                                <platform-specific>
-                                    <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportHeaderInfo.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://accounting/template/invoice/invoiceReportHeaderInfo.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </decorator-section>
                             <decorator-section name="body">
                                <platform-specific>
-                                   <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportContactMechs.fo.ftl"/></xsl-fo>
+                                   <xsl-fo><html-template location="component://accounting/template/invoice/invoiceReportContactMechs.fo.ftl"/></xsl-fo>
                               </platform-specific>
                                <platform-specific>
-                                   <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportItems.fo.ftl"/></xsl-fo>
+                                   <xsl-fo><html-template location="component://accounting/template/invoice/invoiceReportItems.fo.ftl"/></xsl-fo>
                                </platform-specific>
                             </decorator-section>
                         </decorator-screen>
@@ -72,7 +72,7 @@ under the License.
                         <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="body">
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/NoAccountingView.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://accounting/template/invoice/NoAccountingView.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </decorator-section>
                         </decorator-screen>
@@ -92,7 +92,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://accounting/webapp/accounting/payment/printCheck.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://accounting/template/payment/printCheck.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
             <fail-widgets>
@@ -112,7 +112,7 @@ under the License.
             </actions>
             <widgets>
                <platform-specific>
-                    <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/PrintInvoices.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://accounting/template/invoice/PrintInvoices.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>

@@ -126,7 +126,7 @@ under the License.
                                     </decorator-section>
                                     <decorator-section name="search-results">
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/webapp/ap/invoices/PurchaseInvoices.ftl"/></html>
+                                            <html><html-template location="component://accounting/template/ap/invoices/PurchaseInvoices.ftl"/></html>
                                         </platform-specific>
                                     </decorator-section>
                                 </decorator-screen>
@@ -190,7 +190,7 @@ under the License.
                                     </decorator-section>
                                     <decorator-section name="search-results">
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/webapp/ap/invoices/CommissionRun.ftl"/></html>
+                                            <html><html-template location="component://accounting/template/ap/invoices/CommissionRun.ftl"/></html>
                                         </platform-specific>
                                     </decorator-section>
                                 </decorator-screen>
@@ -220,7 +220,7 @@ under the License.
                                     </decorator-section>
                                     <decorator-section name="search-results">
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/webapp/ap/invoices/CommissionReport.ftl"/></html>
+                                            <html><html-template location="component://accounting/template/ap/invoices/CommissionReport.ftl"/></html>
                                         </platform-specific>
                                     </decorator-section>
                                 </decorator-screen>
