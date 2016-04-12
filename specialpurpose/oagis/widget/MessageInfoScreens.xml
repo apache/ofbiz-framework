@@ -119,7 +119,7 @@
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://oagis/webapp/oagis/message/ProcessShipment.ftl"/></html>
+                    <html><html-template location="component://oagis/template/message/ProcessShipment.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -129,7 +129,7 @@
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://oagis/webapp/oagis/message/ConfirmBod.ftl"/></html>
+                    <html><html-template location="component://oagis/template/message/ConfirmBod.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -139,7 +139,7 @@
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://oagis/webapp/oagis/message/ReceiveDelivery.ftl"/></html>
+                    <html><html-template location="component://oagis/template/message/ReceiveDelivery.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
