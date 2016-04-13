@@ -32,6 +32,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.PagedList;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -543,4 +544,25 @@ public class EntityQuery {
             }
         }
     }
+
+    /**
+     * @param viewIndex
+     * @param viewSize
+     * @return PagedList object with a subset of data items
+     * @throws GenericEntityException
+     * @see EntityUtil#getPagedList
+     */
+    public PagedList<GenericValue> queryPagedList(final int viewIndex, final int viewSize) throws GenericEntityException {
+        EntityListIterator genericValueEli = null;
+        try {
+            genericValueEli = queryIterator();
+            return EntityUtil.getPagedList(genericValueEli, viewIndex, viewSize);
+        }
+        finally {
+            if (genericValueEli != null) {
+                genericValueEli.close();
+            }
+        }
+    }
+
 }

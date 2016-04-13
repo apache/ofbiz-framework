@@ -23,9 +23,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import org.apache.commons.collections4.MapUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.PagedList;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.widget.WidgetWorker;
@@ -74,6 +77,9 @@ public final class Paginator {
                     listSize = (int)resultMap.get("listSize");
                 }
             }
+        } else if (entryList instanceof PagedList) {
+            PagedList<?> pagedList = (PagedList<?>) entryList;
+            listSize = pagedList.getSize();
         }
         if (modelForm.getPaginate(context)) {
             viewIndex = getViewIndex(modelForm, context);
@@ -187,6 +193,8 @@ public final class Paginator {
             iter = (Iterator<?>) obj;
         } else if (obj instanceof List<?>) {
             iter = ((List<?>) obj).listIterator();
+        } else if (obj instanceof PagedList<?>) {
+            iter = ((PagedList<?>) obj).iterator();
         }
 
         // set low and high index
@@ -240,4 +248,38 @@ public final class Paginator {
             return null;
         }
     }
+
+    /**
+     * @param context Map
+     * @param viewIndexName
+     * @return value of viewIndexName in context map (as an int) or return 0 as default
+     */
+    public static Integer getViewIndex(final Map<String, ? extends Object> context, final String viewIndexName) {
+        return getViewIndex(context, viewIndexName, 0);
+    }
+
+    /**
+     * @param context
+     * @param viewIndexName
+     * @param defaultValue
+     * @return value of viewIndexName in context map (as an int) or return defaultValue
+     */
+    public static Integer getViewIndex(final Map<String, ? extends Object> context, final String viewIndexName, final int defaultValue) {
+        return MapUtils.getInteger(context, viewIndexName, defaultValue);
+    }
+
+    /**
+     * @param context
+     * @param viewSizeName
+     * @return value of viewSizeName in context map (as an int) or return 
+     *         default value from widget.properties
+     */
+    public static Integer getViewSize(Map<String, ? extends Object> context, String viewSizeName) {
+        int defaultSize = UtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20);
+        if (context.containsKey(viewSizeName)) {
+            return MapUtils.getInteger(context, viewSizeName, defaultSize);
+        }
+        return defaultSize;
+    }
+
 }
