@@ -45,8 +45,6 @@ import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.core.StandardEngine;
 import org.apache.catalina.core.StandardHost;
 import org.apache.catalina.core.StandardServer;
-import org.apache.catalina.deploy.FilterDef;
-import org.apache.catalina.deploy.FilterMap;
 import org.apache.catalina.filters.RequestDumperFilter;
 import org.apache.catalina.ha.tcp.ReplicationValve;
 import org.apache.catalina.ha.tcp.SimpleTcpCluster;
@@ -60,10 +58,12 @@ import org.apache.catalina.tribes.transport.ReplicationTransmitter;
 import org.apache.catalina.tribes.transport.nio.NioReceiver;
 import org.apache.catalina.util.ServerInfo;
 import org.apache.catalina.valves.AccessLogValve;
+import org.apache.catalina.webresources.StandardRoot;
 import org.apache.tomcat.JarScanner;
 import org.apache.tomcat.util.IntrospectionUtils;
+import org.apache.tomcat.util.descriptor.web.FilterDef;
+import org.apache.tomcat.util.descriptor.web.FilterMap;
 import org.apache.tomcat.util.scan.StandardJarScanner;
-
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.container.Container;
@@ -569,7 +569,10 @@ public class CatalinaContainer implements Container {
 
         context.setDisplayName(appInfo.name);
         context.setDocBase(location);
-        context.setAllowLinking(true);
+        
+        StandardRoot resources = new StandardRoot(context);
+        resources.setAllowLinking(true);
+        context.setResources(resources);
 
         context.setReloadable(contextReloadable);
 
