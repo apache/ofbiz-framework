@@ -24,11 +24,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map.Entry;
 
-import org.apache.catalina.deploy.ServletDef;
-import org.apache.catalina.deploy.WebXml;
-import org.apache.catalina.startup.WebRuleSet;
 import org.apache.tomcat.util.digester.Digester;
 import org.apache.tomcat.util.descriptor.DigesterFactory;
+import org.apache.tomcat.util.descriptor.web.ServletDef;
+import org.apache.tomcat.util.descriptor.web.WebRuleSet;
+import org.apache.tomcat.util.descriptor.web.WebXml;
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.ofbiz.base.util.Assert;

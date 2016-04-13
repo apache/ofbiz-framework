@@ -67,9 +67,9 @@ framework/base/lib/j2eespecs/geronimo-jms_1.1_spec-1.1.1.jar
 framework/base/lib/j2eespecs/geronimo-jta_1.1_spec-1.1.1.jar
 framework/base/lib/j2eespecs/geronimo-saaj_1.3_spec-1.1.jar
 framework/base/lib/j2eespecs/annotations-api-3.0.jar
-framework/base/lib/j2eespecs/el-api-2.2.jar
-framework/base/lib/j2eespecs/jsp-api-2.2.jar
-framework/base/lib/j2eespecs/servlet-api-3.0.jar
+framework/base/lib/j2eespecs/el-api-3.0.jar
+framework/base/lib/j2eespecs/jsp-api-2.3.jar
+framework/base/lib/j2eespecs/servlet-api-3.1.jar
 framework/base/lib/owasp-java-html-sanitizer-r239.jar
 framework/base/lib/scripting/bsf-2.4.0.jar
 framework/base/lib/scripting/jakarta-oro-2.0.8.jar
@@ -78,15 +78,17 @@ framework/base/lib/scripting/jansi-1.2.1.jar
 framework/base/lib/xmlrpc-client-3.1.2.jar
 framework/base/lib/xmlrpc-common-3.1.2.jar
 framework/base/lib/xmlrpc-server-3.1.2.jar
-framework/catalina/lib/tomcat-7.0.68-catalina-ha.jar
-framework/catalina/lib/tomcat-7.0.68-catalina-tribes.jar
-framework/catalina/lib/tomcat-7.0.68-catalina.jar
-framework/catalina/lib/tomcat-7.0.68-jasper.jar
-framework/catalina/lib/tomcat-7.0.68-tomcat-api.jar
-framework/catalina/lib/tomcat-7.0.68-tomcat-coyote.jar
-framework/catalina/lib/tomcat-7.0.68-tomcat-util.jar
-framework/catalina/lib/tomcat-extras-7.0.68-tomcat-juli.jar
-framework/catalina/lib/tomcat-extras-7.0.68-tomcat-juli-adapters.jar
+framework/catalina/lib/tomcat-8.0.33-catalina-ha.jar
+framework/catalina/lib/tomcat-8.0.33-catalina-tribes.jar
+framework/catalina/lib/tomcat-8.0.33-catalina.jar
+framework/catalina/lib/tomcat-8.0.33-jasper.jar
+framework/catalina/lib/tomcat-8.0.33-tomcat-api.jar
+framework/catalina/lib/tomcat-8.0.33-tomcat-coyote.jar
+framework/catalina/lib/tomcat-8.0.33-tomcat-jni.jar
+framework/catalina/lib/tomcat-8.0.33-tomcat-util-scan.jar
+framework/catalina/lib/tomcat-8.0.33-tomcat-util.jar
+framework/catalina/lib/tomcat-extras-8.0.33-tomcat-juli.jar
+framework/catalina/lib/tomcat-extras-8.0.33-tomcat-juli-adapters.jar
 framework/entity/lib/commons-dbcp2-2.1.jar
 framework/entity/lib/jdbc/derby-10.11.1.1.jar
 framework/geronimo/lib/geronimo-transaction-3.1.1.jar
@@ -2182,7 +2184,7 @@ of California, with venue lying in Santa Clara County, California.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Eclipse Public License - v 1.0:
-framework/catalina/lib/ecj-4.4.2.jar
+framework/catalina/lib/ecj-4.5.jar
 =========================================================================
 Eclipse Public License - v 1.0
 

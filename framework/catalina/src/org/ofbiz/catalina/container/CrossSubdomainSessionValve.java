@@ -29,7 +29,6 @@ import org.apache.catalina.util.SessionConfig;
 import org.apache.catalina.valves.ValveBase;
 import org.apache.tomcat.util.buf.MessageBytes;
 import org.apache.tomcat.util.http.MimeHeaders;
-import org.apache.tomcat.util.http.ServerCookie;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -113,12 +112,10 @@ public class CrossSubdomainSessionValve extends ValveBase {
                 if (mimeHeaders.getName(i).equals("Set-Cookie")) {
                     MessageBytes value = mimeHeaders.getValue(i);
                     if (value.indexOf(cookie.getName()) >= 0) {
-                        StringBuffer buffer = new StringBuffer();
-                        ServerCookie.appendCookieValue(buffer, newCookie.getVersion(), newCookie.getName(), newCookie.getValue(), newCookie.getPath(),
-                                newCookie.getDomain(), newCookie.getComment(), newCookie.getMaxAge(), newCookie.getSecure(), true);
+                        String newCookieValue = request.getContext().getCookieProcessor().generateHeader(newCookie);
                         Debug.logVerbose("CrossSubdomainSessionValve: old Set-Cookie value: " + value.toString(), module);
-                        Debug.logVerbose("CrossSubdomainSessionValve: new Set-Cookie value: " + buffer, module);
-                        value.setString(buffer.toString());
+                        Debug.logVerbose("CrossSubdomainSessionValve: new Set-Cookie value: " + newCookieValue, module);
+                        value.setString(newCookieValue);
                     }
                 }
             }
