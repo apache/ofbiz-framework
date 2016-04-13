@@ -137,6 +137,10 @@
         <value xml:lang="fr">Graphes</value>
         <value xml:lang="zh">绘图样例</value>
     </property>
+    <property key="ExampleCompoundWidgets">
+        <value xml:lang="en">Compound Screen Widget</value>
+        <value xml:lang="fr">Screen Widget composé</value>
+    </property>
     <property key="ExampleDashboard">
         <value xml:lang="en">Dashboard</value>
         <value xml:lang="fr">Personnalisation des pages</value>

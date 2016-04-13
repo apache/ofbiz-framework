@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/compound-widgets.xsd">
+
+    <site-conf xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+        <request-map uri="CompoundWidgets1">
+            <security https="true" auth="true"/>
+            <event type="simple" invoke="CompoundWidgetsFunc" path="component://example/widget/example/ExampleCompoundWidgets.xml"/>
+            <response name="success" type="view" value="CompoundWidgets1"/>
+        </request-map>
+        <request-map uri="CompoundWidgets2"><security https="true" auth="true"/><response name="success" type="view" value="CompoundWidgets2"/></request-map>
+        
+        <view-map name="CompoundWidgets1" type="screen" page="component://example/widget/example/ExampleCompoundWidgets.xml#CompoundWidgets1"/>
+        <view-map name="CompoundWidgets2" type="screen" page="component://example/widget/example/ExampleCompoundWidgets.xml#CompoundWidgets2"/>
+    </site-conf>
+
+    <menus xmlns="http://ofbiz.apache.org/Widget-Menu" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
+        <menu name="CompoundWidgetsMenu" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <menu-item name="Example1" title="${uiLabelMap.ExampleExample} 1">
+                <link target="CompoundWidgets1"/>
+            </menu-item>
+            <menu-item name="Example2" title="${uiLabelMap.ExampleExample} 2">
+                <link target="CompoundWidgets2"/>
+            </menu-item>
+        </menu>
+    </menus>
+
+    <screens xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+        <screen name="CompoundWidgets1">
+            <section>
+                <actions>
+                    <set field="headerItem" value="ExampleCompoundWidgets" />
+                    <set field="tabButtonItem" value="Example1"/>
+                </actions>
+                <widgets>
+                    <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                        <decorator-section name="pre-body">
+                            <include-menu name="CompoundWidgetsMenu" location="component://example/widget/example/ExampleCompoundWidgets.xml" />
+                        </decorator-section>
+                        <decorator-section name="body">
+                            <section>
+                                <widgets>
+                                    <container style="clear" />
+                                    <label>Demo For Compound Screen Widget</label>
+                                    <include-form location="component://example/widget/example/ExampleCompoundWidgets.xml" name="CompoundWidgetsForm1"/>
+                                </widgets>
+                            </section>
+                        </decorator-section>
+                    </decorator-screen>
+                </widgets>
+            </section>
+        </screen>
+        
+        <screen name="CompoundWidgets2">
+            <section>
+                <actions>
+                    <set field="headerItem" value="ExampleCompoundWidgets" />
+                    <set field="tabButtonItem" value="Example2"/>
+                </actions>
+                <widgets>
+                    <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                        <decorator-section name="pre-body">
+                            <include-menu name="CompoundWidgetsMenu" location="component://example/widget/example/ExampleCompoundWidgets.xml" />
+                        </decorator-section>
+                        <decorator-section name="body">
+                            <section>
+                                <widgets>
+                                    <container style="clear" />
+                                    <label>Demo For Compound Screen Widget</label>
+                                    <include-form location="component://example/widget/example/ExampleCompoundWidgets.xml" name="CompoundWidgetsForm2"/>
+                                </widgets>
+                            </section>
+                        </decorator-section>
+                    </decorator-screen>
+                </widgets>
+            </section>
+        </screen>
+    </screens>
+
+    <forms xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+        <form name="CompoundWidgetsForm1">
+            <field name="exampleName" title="${uiLabelMap.FormFieldTitle_exampleName} 1" required-field="true"><text /></field>
+        </form>
+        
+        <form name="CompoundWidgetsForm2">
+            <field name="exampleName" title="${uiLabelMap.FormFieldTitle_exampleName} 2" required-field="true"><text /></field>
+        </form>
+    </forms>
+
+    <simple-methods xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+        <simple-method method-name="CompoundWidgetsFunc">
+            <log message="CompoundWidgetsFunc runs" level="info"/>
+        </simple-method>
+    </simple-methods>
+
+</compound-widgets>

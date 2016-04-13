@@ -166,6 +166,9 @@ public class ScreenFactory {
         if (screenFileDoc != null) {
             // read document and construct ModelScreen for each screen element
             Element rootElement = screenFileDoc.getDocumentElement();
+            if (!"screens".equalsIgnoreCase(rootElement.getTagName())) {
+                rootElement = UtilXml.firstChildElement(rootElement, "screens");
+            }
             List<? extends Element> screenElements = UtilXml.childElementList(rootElement, "screen");
             for (Element screenElement: screenElements) {
                 ModelScreen modelScreen = new ModelScreen(screenElement, modelScreenMap, sourceLocation);

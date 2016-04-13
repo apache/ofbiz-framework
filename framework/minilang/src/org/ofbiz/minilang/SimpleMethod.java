@@ -142,7 +142,12 @@ public final class SimpleMethod extends MiniLangElement {
         } catch (Exception e) {
             throw new MiniLangException("Could not read SimpleMethod XML document [" + xmlURL + "]: ", e);
         }
-        compileAllSimpleMethods(document.getDocumentElement(), simpleMethods, xmlURL.toString());
+        Element rootElement = document.getDocumentElement();
+        if (!"simple-methods".equalsIgnoreCase(rootElement.getTagName())) {
+            rootElement = UtilXml.firstChildElement(rootElement, "simple-methods");
+        }
+        
+        compileAllSimpleMethods(rootElement, simpleMethods, xmlURL.toString());
         if (MiniLangUtil.isDocumentAutoCorrected(document)) {
             MiniLangUtil.writeMiniLangDocument(xmlURL, document);
         }
