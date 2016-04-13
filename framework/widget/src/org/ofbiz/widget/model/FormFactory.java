@@ -103,6 +103,9 @@ public class FormFactory {
         if (formFileDoc != null) {
             // read document and construct ModelForm for each form element
             Element rootElement = formFileDoc.getDocumentElement();
+            if (!"forms".equalsIgnoreCase(rootElement.getTagName())) {
+                rootElement = UtilXml.firstChildElement(rootElement, "forms");
+            }
             List<? extends Element> formElements = UtilXml.childElementList(rootElement, "form");
             for (Element formElement : formElements) {
                 String formName = formElement.getAttribute("name");
@@ -119,7 +122,11 @@ public class FormFactory {
     }
 
     public static ModelForm createModelForm(Document formFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation, String formName) {
-        Element formElement = UtilXml.firstChildElement(formFileDoc.getDocumentElement(), "form", "name", formName);
+        Element rootElement = formFileDoc.getDocumentElement();
+        if (!"forms".equalsIgnoreCase(rootElement.getTagName())) {
+            rootElement = UtilXml.firstChildElement(rootElement, "forms");
+        }
+        Element formElement = UtilXml.firstChildElement(rootElement, "form", "name", formName);
         return createModelForm(formElement, entityModelReader, dispatchContext, formLocation, formName);
     }
 

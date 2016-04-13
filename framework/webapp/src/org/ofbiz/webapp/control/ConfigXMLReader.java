@@ -159,6 +159,9 @@ public class ConfigXMLReader {
         try {
             Document document = UtilXml.readXmlDocument(location, true);
             Element rootElement = document.getDocumentElement();
+            if (!"site-conf".equalsIgnoreCase(rootElement.getTagName())) {
+                rootElement = UtilXml.firstChildElement(rootElement, "site-conf");
+            }
             if (Debug.verboseOn())
                 Debug.logVerbose("Loaded XML Config - " + location, module);
             return rootElement;

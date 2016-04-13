@@ -25,6 +25,7 @@ under the License.
          elements found in the common-controller.xml file. -->
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>
+    <include location="component://example/widget/example/ExampleCompoundWidgets.xml"/>
 
     <description>Example Component Site Configuration File</description>
 

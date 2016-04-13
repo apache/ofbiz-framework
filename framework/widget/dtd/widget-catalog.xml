@@ -31,4 +31,5 @@ under the License.
   <system systemId="http://ofbiz.apache.org/dtds/widget-menu.xsd" uri="widget-menu.xsd"/>
   <system systemId="http://ofbiz.apache.org/dtds/widget-screen.xsd" uri="widget-screen.xsd"/>
   <system systemId="http://ofbiz.apache.org/dtds/widget-tree.xsd" uri="widget-tree.xsd"/>
+  <system systemId="http://ofbiz.apache.org/dtds/compound-widgets.xsd" uri="compound-widgets.xsd"/>
 </catalog>
