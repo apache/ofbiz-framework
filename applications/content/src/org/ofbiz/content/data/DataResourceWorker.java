@@ -26,7 +26,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
@@ -49,6 +48,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.tika.Tika;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
@@ -1039,7 +1040,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.content.DataResourc
             String objectInfo = dataResource.getString("objectInfo");
             if (UtilValidate.isNotEmpty(objectInfo)) {
                 File file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, contextRoot);
-                return UtilMisc.toMap("stream", new FileInputStream(file), "length", Long.valueOf(file.length()));
+                return UtilMisc.toMap("stream", new ByteArrayInputStream(FileUtils.readFileToByteArray(file)), "length", Long.valueOf(file.length()));
             } else {
                 throw new GeneralException("No objectInfo found for FILE type [" + dataResourceTypeId + "]; cannot stream");
             }
@@ -1069,69 +1070,11 @@ public class DataResourceWorker  implements org.ofbiz.widget.content.DataResourc
         throw new GeneralException("The dataResourceTypeId [" + dataResourceTypeId + "] is not supported in getDataResourceStream");
     }
 
-    // TODO: remove this method in favor of getDataResourceStream
-    public static void streamDataResource(OutputStream os, Delegator delegator, String dataResourceId, String https, String webSiteId, Locale locale, String rootDir) throws IOException, GeneralException {
-        try {
-            GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
-            if (dataResource == null) {
-                throw new GeneralException("Error in streamDataResource: DataResource with ID [" + dataResourceId + "] was not found.");
-            }
-            String dataResourceTypeId = dataResource.getString("dataResourceTypeId");
-            if (UtilValidate.isEmpty(dataResourceTypeId)) {
-                dataResourceTypeId = "SHORT_TEXT";
-            }
-            String mimeTypeId = dataResource.getString("mimeTypeId");
-            if (UtilValidate.isEmpty(mimeTypeId)) {
-                mimeTypeId = "text/html";
-            }
-
-            if (dataResourceTypeId.equals("SHORT_TEXT")) {
-                String text = dataResource.getString("objectInfo");
-                os.write(text.getBytes());
-            } else if (dataResourceTypeId.equals("ELECTRONIC_TEXT")) {
-                GenericValue electronicText = EntityQuery.use(delegator).from("ElectronicText").where("dataResourceId", dataResourceId).cache().queryOne();
-                if (electronicText != null) {
-                    String text = electronicText.getString("textData");
-                    if (text != null) os.write(text.getBytes());
-                }
-            } else if (dataResourceTypeId.equals("IMAGE_OBJECT")) {
-                byte[] imageBytes = acquireImage(delegator, dataResource);
-                if (imageBytes != null) os.write(imageBytes);
-            } else if (dataResourceTypeId.equals("LINK")) {
-                String text = dataResource.getString("objectInfo");
-                os.write(text.getBytes());
-            } else if (dataResourceTypeId.equals("URL_RESOURCE")) {
-                URL url = new URL(dataResource.getString("objectInfo"));
-                if (url.getHost() == null) { // is relative
-                    String prefix = buildRequestPrefix(delegator, locale, webSiteId, https);
-                    String sep = "";
-                    //String s = "";
-                    if (url.toString().indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
-                        sep = "/";
-                    }
-                    String s2 = prefix + sep + url.toString();
-                    url = new URL(s2);
-                }
-                InputStream in = url.openStream();
-                UtilIO.copy(in, true, os, false);
-            } else if (dataResourceTypeId.indexOf("_FILE") >= 0) {
-                String objectInfo = dataResource.getString("objectInfo");
-                File inputFile = getContentFile(dataResourceTypeId, objectInfo, rootDir);
-                //long fileSize = inputFile.length();
-                FileInputStream fis = new FileInputStream(inputFile);
-                UtilIO.copy(fis, true, os, false);
-            } else {
-                throw new GeneralException("The dataResourceTypeId [" + dataResourceTypeId + "] is not supported in streamDataResource");
-            }
-        } catch (GenericEntityException e) {
-            throw new GeneralException("Error in streamDataResource", e);
-        }
-    }
-
     public static ByteBuffer getContentAsByteBuffer(Delegator delegator, String dataResourceId, String https, String webSiteId, Locale locale, String rootDir) throws IOException, GeneralException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        streamDataResource(baos, delegator, dataResourceId, https, webSiteId, locale, rootDir);
-        ByteBuffer byteBuffer = ByteBuffer.wrap(baos.toByteArray());
+        GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne(); 
+        Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, https, webSiteId, locale, rootDir, false);
+        ByteArrayInputStream stream = (ByteArrayInputStream) resourceData.get("stream");
+        ByteBuffer byteBuffer = ByteBuffer.wrap(IOUtils.toByteArray(stream));
         return byteBuffer;
     }
 

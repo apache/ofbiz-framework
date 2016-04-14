@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.order.order;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -30,9 +31,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -41,7 +44,6 @@ import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * Order Events
@@ -78,7 +80,9 @@ public class OrderEvents {
                 response.setContentType(orderRoleAndProductContentInfo.getString("mimeTypeId"));
             }
             OutputStream os = response.getOutputStream();
-            DataResourceWorker.streamDataResource(os, delegator, dataResourceId, "", WebSiteWorker.getWebSiteId(request), UtilHttp.getLocale(request), application.getRealPath("/"));
+            GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne(); 
+            Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, "", application.getInitParameter("webSiteId"), UtilHttp.getLocale(request), application.getRealPath("/"), false);
+            os.write(IOUtils.toByteArray((ByteArrayInputStream) resourceData.get("stream")));
             os.flush();
         } catch (GenericEntityException e) {
             String errMsg = "Error downloading digital product content: " + e.toString();
