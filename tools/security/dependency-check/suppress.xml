@@ -176,7 +176,7 @@
        <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
     </suppress>
 
-<suppress><!-- This concerns Wordpress only-->
+    <suppress><!-- This concerns Wordpress only-->
        <notes><![CDATA[
        file name: fontbox-1.8.5.jar
        ]]></notes>
