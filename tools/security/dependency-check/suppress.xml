@@ -27,7 +27,7 @@
        <cpe>cpe:/a:apache:tomcat:3.0</cpe>
     </suppress>
 
-    <!-- About Tomcat 8.0.33 vulnerabilities (start with jsp-api-2.3.jar): I put not suppress (there are - too much - tons of them) because none concern OFBIZ .
+    <!-- About Tomcat 8.0.33 vulnerabilities (start with jsp-api-2.3.jar): I will ask why we have to put all those suppressions :/
             Note that CVE-2013-2185 is disputed by the Tomcat team, see OFBIZ-6752 for details -->
 
     <suppress>
