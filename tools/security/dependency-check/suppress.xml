@@ -19,7 +19,164 @@
         <cpe>cpe:/a:apache:tomcat:7.0.54</cpe>
     </suppress>
 
-    <suppress><!-- This concerns Wordpress only-->
+    <suppress><!-- OFBiz uses a more recent Tomcat version -->
+       <notes><![CDATA[
+       file name: el-api-3.0.jar
+       ]]></notes>
+       <sha1>794cf8e8d615c6ac136835867aef2fee125bc74b</sha1>
+       <cpe>cpe:/a:apache:tomcat:3.0</cpe>
+    </suppress>
+
+    <!-- About Tomcat 8.0.33 vulnerabilities (start with jsp-api-2.3.jar): I put not suppress (there are - too much - tons of them) because none concern OFBIZ .
+            Note that CVE-2013-2185 is disputed by the Tomcat team, see OFBIZ-6752 for details -->
+
+    <suppress>
+       <notes><![CDATA[
+       file name: jsp-api-2.3.jar
+       ]]></notes>
+       <sha1>896e782956999c2632b3caa0caeb711720f28d7a</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress><!-- OFBiz uses a more recent Tomcat version -->
+       <notes><![CDATA[
+       file name: servlet-api-3.1.jar
+       ]]></notes>
+       <sha1>cc2becc4bf29a7bfd0d7a4055552683d421859c5</sha1>
+       <cpe>cpe:/a:apache:tomcat:3.1</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-jasper.jar
+       ]]></notes>
+       <sha1>30525359ecc82c313a71e056adc917f952580f5e</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-catalina.jar
+       ]]></notes>
+       <sha1>585795d972f59b19ed5a1ed94446b5a8750669c2</sha1>
+       <cpe>cpe:/a:apache_tomcat:apache_tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-catalina.jar
+       ]]></notes>
+       <sha1>585795d972f59b19ed5a1ed94446b5a8750669c2</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-catalina.jar
+       ]]></notes>
+       <sha1>585795d972f59b19ed5a1ed94446b5a8750669c2</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-tomcat-api.jar
+       ]]></notes>
+       <sha1>062142702a1ee607dff38f95a7a1d9c976f510f0</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-tomcat-api.jar
+       ]]></notes>
+       <sha1>062142702a1ee607dff38f95a7a1d9c976f510f0</sha1>
+       <cpe>cpe:/a:apache_tomcat:apache_tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-tomcat-jni.jar
+       ]]></notes>
+       <sha1>99057ad36cbb2c54e02347142348b15b4fec6673</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-tomcat-jni.jar
+       ]]></notes>
+       <sha1>99057ad36cbb2c54e02347142348b15b4fec6673</sha1>
+       <cpe>cpe:/a:apache_tomcat:apache_tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-catalina-ha.jar
+       ]]></notes>
+       <sha1>850454212c5971327d29d27e3ad4787bc526f399</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-catalina-ha.jar
+       ]]></notes>
+       <sha1>850454212c5971327d29d27e3ad4787bc526f399</sha1>
+       <cpe>cpe:/a:apache_tomcat:apache_tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-tomcat-util.jar
+       ]]></notes>
+       <sha1>43e398ba63953add8d93e3806bfd686fec02d8dc</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-tomcat-coyote.jar
+       ]]></notes>
+       <sha1>4430c9a8d27d4025a5f5e4795d5755e0d3522844</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-catalina-tribes.jar
+       ]]></notes>
+       <sha1>5eea23acedd7e14fe5d4c10bc1653d203b434c02</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-8.0.33-tomcat-util-scan.jar
+       ]]></notes>
+       <sha1>fe6f5cb85c3c13a84f38474cae0b674b3e6f3c6e</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-extras-8.0.33-tomcat-juli.jar
+       ]]></notes>
+       <sha1>03ef654197732568e2568962d1b0ac6aef8a6bf7</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+       file name: tomcat-extras-8.0.33-tomcat-juli-adapters.jar
+       ]]></notes>
+       <sha1>76c82071b5dec0b9a2891da07e04596780243933</sha1>
+       <cpe>cpe:/a:apache:tomcat:8.0.33</cpe>
+    </suppress>
+
+<suppress><!-- This concerns Wordpress only-->
        <notes><![CDATA[
        file name: fontbox-1.8.5.jar
        ]]></notes>
@@ -35,14 +192,6 @@
        <cve>CVE-2015-7683</cve>
     </suppress>
 
-    <suppress><!-- OFBiz uses a more recent Tomcat version -->
-       <notes><![CDATA[
-       file name: el-api-2.2.jar
-       ]]></notes>
-       <sha1>cdaf8fc6a6757f9a9795044cd51fd7c36fa7bc0e</sha1>
-       <cpe>cpe:/a:apache:tomcat:7.0.54</cpe>
-    </suppress>
-
     <suppress><!-- The classes OFBiz uses are not concerned (no UI) -->
        <notes><![CDATA[
        file name: geronimo-j2ee-connector_1.5_spec-2.0.0.jar
@@ -51,44 +200,12 @@
        <cpe>cpe:/a:apache:geronimo:2.0</cpe>
     </suppress>
 
-    <suppress><!-- OFBiz uses a more recent Tomcat version -->
-       <notes><![CDATA[
-       file name: jsp-api-2.2.jar
-       ]]></notes>
-       <sha1>f563c9d8a674a6de032cea14f5175b128e9d6b3a</sha1>
-       <cpe>cpe:/a:apache:tomcat:7.0.54</cpe>
-    </suppress>
-
-    <suppress><!-- OFBiz uses a more recent Tomcat version -->
-       <notes><![CDATA[
-       file name: servlet-api-3.0.jar
-       ]]></notes>
-       <sha1>0752bd9e92cc3c425b9553e84504111ed03f34bb</sha1>
-       <cpe>cpe:/a:apache:tomcat:3.0</cpe>
-    </suppress>
-
-    <suppress><!-- OFBiz uses a more recent Tomcat version -->
-       <notes><![CDATA[
-       file name: servlet-api-3.0.jar
-       ]]></notes>
-       <sha1>0752bd9e92cc3c425b9553e84504111ed03f34bb</sha1>
-       <cpe>cpe:/a:apache:tomcat:7.0.54</cpe>
-    </suppress>
-
     <suppress><!-- OFBiz only uses com.sun.mail.smtp.SMTPAddressFailedException: not concerned -->
        <notes><![CDATA[
        file name: mail-1.5.1.jar
        ]]></notes>
        <sha1>9724dd44f1abbba99c9858aa05fc91d53f59e7a5</sha1>
        <cpe>cpe:/a:sun:javamail:1.5.1</cpe>
-    </suppress>
-
-    <suppress><!-- Waiting for update but covered, see OFBIZ-6568 -->
-       <notes><![CDATA[
-       file name: groovy-all-2.2.1.jar
-       ]]></notes>
-       <sha1>28213a88c48651a254a21bc807712cb5b8be0baa</sha1>
-       <cpe>cpe:/a:apache:groovy:2.2.1</cpe>
     </suppress>
 
     <suppress><!-- This concerns the UI/XSS and init script in whole Geronimo, OFBiz only uses this class => not concerned. Moreover IBM no longer supports Geronimo so I don't see the point of upgrading as long as it works-->
@@ -142,9 +259,6 @@
        <cpe>cpe:/a:apache:geronimo:1.0</cpe>
     </suppress>
 
-    <!-- About Tomcat 7.0.65 vulnerabilities (start with tomcat-7.0.65-jasper.jar): I put not suppress (there are - too much - tons of them) because none of CVE-2009-2696 CVE-2007-5461 CVE-2002-0493 concern OFBIZ .
-            And  CVE-2013-2185 is disputed by the Tomcat team, see OFBIZ-6752 for details -->
-
     <!-- About Axis 1.6.3 (start with axis2-kernel-1.6.3.jar):1.6.3 is the higher version anyway, so we can't do more here -->
 
     <suppress><!-- This has been handled with r1557462 for OFBIZ-5409 . Anyway nowaydays modern browsers protect from that-->
@@ -154,10 +268,6 @@
        <sha1>cfe99f497ed35573d7dfc291068d742399a0eee0</sha1>
        <cpe>cpe:/a:jquery:jquery:1.10.0</cpe>
     </suppress>
-
-    <!-- I tried to update commons-httpclient-3.1 to httpclient-4.5.1 + httpcore-4.4.3 but commons-httpclient-3.1 is needed by Axis2-1.6.3 .
-            The passport component also uses commons-httpclient-3.1. It should should be updated to use httpclient-4.5.1 + httpcore-4.4.3 (while keeping commons-httpclient-3.1 for Axis2-1.6.3)
-            See pending OFBIZ-6755  -->
 
     <!-- all cpe:/a:apache:axis:1.4 can be neglected because they are related to Birt which with latest version (4.5.0) still uses Axis 1.4. So are neglected  all cpe:/a:eclipse:birt: -->
 
