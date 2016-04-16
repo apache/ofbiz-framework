@@ -85,7 +85,7 @@ under the License.
     <li <#if companyListSize?default(0) &lt;= 1>class="language"</#if>><a href="<@ofbizUrl>ListLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle}</a></li>
     <#if userLogin?exists>
       <#if userLogin.partyId?exists>
-        <li class="user"><a href="<@ofbizUrl>viewprofile?partyId=${userLogin.partyId}</@ofbizUrl>">${userName}</a>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}&externalLoginKey=${externalLoginKey}">${userName}</a>&nbsp;&nbsp;&nbsp;&nbsp;</li>
         <#assign size = companyListSize?default(0)>
         <#if size &gt; 1>
             <#assign currentCompany = delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false)>
