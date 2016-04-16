@@ -274,7 +274,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="FindCache" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+    <menu name="FindCache" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="refresh" title="${uiLabelMap.CommonRefresh}" widget-style="buttontext refresh">
             <link target="FindUtilCache"/>
         </menu-item>
