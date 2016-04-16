@@ -410,6 +410,7 @@ under the License.
     <Enumeration description="List Price minus Unit Price (Percent)" enumCode="LPMUP_PER" enumId="PPIP_LPMUP_PER" sequenceId="15" enumTypeId="PROD_PROMO_IN_PARAM"/>
     <Enumeration description="Shipping Total" enumCode="ORDER_SHIP_TOTAL" enumId="PPIP_ORDER_SHIPTOTAL" sequenceId="16" enumTypeId="PROD_PROMO_IN_PARAM"/>
     <Enumeration description="Call Service" enumCode="SERVICE" enumId="PPIP_SERVICE" sequenceId="17" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Shipping Destination" enumCode="GEO_ID" enumId="PPIP_GEO_ID" sequenceId="18" enumTypeId="PROD_PROMO_IN_PARAM"/>
 
     <EnumerationType description="Product Promotion Condition" enumTypeId="PROD_PROMO_COND" hasTable="N" parentTypeId="PROD_PROMO"/>
     <!-- old style very technical ...
