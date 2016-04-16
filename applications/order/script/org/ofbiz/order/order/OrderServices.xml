@@ -577,7 +577,10 @@ under the License.
         <iterate list="orderAdjustments" entry="orderAdjustment">
             <if>
                 <condition>
-                    <not><if-empty field="orderAdjustment.productPromoId"/></not>
+                    <and>
+                        <not><if-empty field="orderAdjustment.orderAdjustmentTypeId"/></not>
+                        <if-compare operator="equals" value="PROMOTION_ADJUSTMENT" field="orderAdjustment.orderAdjustmentTypeId"></if-compare>
+                    </and>
                 </condition>
                 <then>
                     <calculate field="existingOrderAdjustmentTotal" decimal-scale="3">
@@ -633,7 +636,10 @@ under the License.
         <iterate list="adjustments" entry="adjustment">
             <if>
                 <condition>
-                    <not><if-empty field="adjustment.productPromoId"/></not>
+                    <and>
+                        <not><if-empty field="adjustment.productPromoId"/></not>
+                        <if-empty field="adjustment.orderAdjustmentId"/>
+                    </and>
                 </condition>
                 <then>
                     <calculate field="newOrderAdjustmentTotal" decimal-scale="3">
