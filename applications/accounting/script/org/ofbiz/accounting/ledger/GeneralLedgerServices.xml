@@ -54,6 +54,9 @@ under the License.
     <!-- ========= GlAccountOrganization methods ========= -->
     <simple-method method-name="createGlAccountOrganization" short-description="Create GlAccountOrganization">
         <make-value entity-name="GlAccountOrganization" value-field="newEntity"/>
+        <if-empty field="parameters.fromDate">
+            <now-timestamp field="parameters.fromDate"/>
+        </if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
