@@ -107,6 +107,10 @@ under the License.
                   <input type="text" size="25" name="condValue" value="${(productPromoCond.condValue)!}" />
       <#assign otherValue = productPromoCond.otherValue!>
                   <label>${uiLabelMap.CommonOther}:</label><input type="text" size="10" name="otherValue" <#if otherValue?has_content && !otherValue.contains("@")> value="${(productPromoCond.otherValue)!}"</#if> />
+
+      <#-- Reseting the values of carrierParty and carrierShippingMethod assigned in previous iteration of productPromoConds -->
+      <#assign carrierShippingMethod = ""/>
+      <#assign carrierParty = ""/>
       <#if otherValue?has_content && otherValue.contains("@")>
         <#assign carrierShippingMethod = productPromoCond.otherValue!>
       </#if>
