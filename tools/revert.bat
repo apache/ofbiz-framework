@@ -20,4 +20,4 @@ rem #####################################################################
 
 rem to revert back a revision in local copy.
 echo on
-svn merge -c -%1 https://svn.apache.org/repos/asf/ofbiz/trunk
+svn up && svn merge -c -%1 https://svn.apache.org/repos/asf/ofbiz/trunk
