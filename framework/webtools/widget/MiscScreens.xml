@@ -73,6 +73,7 @@ under the License.
                 <set field="headerStyle" value="header-row-1"/>
                 <set field="tableStyle" value="basic-table light-grid"/>
                 <set field="mainDecoratorName" from-field="mainDecoratorName" default-value="main-decorator"/>
+                <set field="webtoolsLayoutDemoLabelTitle" from-field="webtoolsLayoutDemoLabelTitle" default-value="WebtoolsLayoutDemo"/>
             </actions>
             <widgets>
                 <decorator-screen name="${mainDecoratorName}" location="${parameters.mainDecoratorLocation}">
@@ -97,7 +98,7 @@ under the License.
                                 <section name="Standard Page Start">
                                     <widgets>
                                         <container style="page-title">
-                                            <label text="${uiLabelMap.WebtoolsLayoutDemo}"/>
+                                            <label style="h1" text="${uiLabelMap.${webtoolsLayoutDemoLabelTitle}}"/>
                                         </container>
                                         <container style="button-bar button-style-1">
                                             <!-- Typically used for intra-app links -->
@@ -242,10 +243,10 @@ under the License.
         <section>
             <actions>
                 <set field="mainDecoratorName" value="SimpleDecorator"/>
+                <set field="webtoolsLayoutDemoLabelTitle" value="WebtoolsViewAsPdfTheHtmlLayoutDemo"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <label style="h1">${uiLabelMap.WebtoolsViewAsPdfTheHtmlLayoutDemo}</label>
                 <include-screen name="WebtoolsLayoutDemo"/>
             </widgets>
         </section>
@@ -255,10 +256,10 @@ under the License.
         <section>
             <actions>
                 <set field="mainDecoratorName" value="SimpleDecorator"/>
+                <set field="webtoolsLayoutDemoLabelTitle" value="WebtoolsViewAsTextTheHtmlLayoutDemo"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <label style="h1">${uiLabelMap.WebtoolsViewAsTextTheHtmlLayoutDemo}</label>
                 <include-screen name="WebtoolsLayoutDemo"/>
             </widgets>
         </section>

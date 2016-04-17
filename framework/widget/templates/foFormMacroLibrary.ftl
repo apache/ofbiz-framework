@@ -49,7 +49,7 @@ under the License.
 <#macro renderDisplayField type imageLocation idName description title class alert inPlaceEditorUrl="" inPlaceEditorParams="">
 <@makeBlock class description />
 </#macro>
-<#macro renderHyperlinkField></#macro>
+<#macro renderHyperlinkField><!--hyper--></#macro>
 
 <#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex readonly placeholder=""><@makeBlock className value /></#macro>
 
@@ -73,14 +73,14 @@ under the License.
 <#macro renderSubmitField buttonType className alert formName title name event action imgSrc confirmation containerId ajaxUrl tabindex><@makeBlock "" "" /></#macro>
 <#macro renderResetField className alert name title><@makeBlock "" "" /></#macro>
 
-<#macro renderHiddenField name value id event action></#macro>
-<#macro renderIgnoredField></#macro>
+<#macro renderHiddenField name value id event action><!--hidden--></#macro>
+<#macro renderIgnoredField><!--ignore--></#macro>
 
 <#macro renderFieldTitle style title id fieldHelpText="" for=""><fo:block <@getFoStyle style/>>${title?default("")?replace("&nbsp;", " ")}</fo:block></#macro>
-<#macro renderSingleFormFieldTitle></#macro>
+<#macro renderSingleFormFieldTitle><!--title form--></#macro>
 
-<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit><fo:block <@getFoStyle containerStyle/>></#macro>
-<#macro renderFormClose focusFieldName formName containerId hasRequiredField></fo:block></#macro>
+<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name viewIndexField viewSizeField viewIndex viewSize useRowSubmit></#macro>
+<#macro renderFormClose focusFieldName formName containerId hasRequiredField></#macro>
 <#macro renderMultiFormClose></#macro>
 
 <#macro renderFormatListWrapperOpen formName style columnStyles><fo:table table-layout="fixed" border="solid black" <@getFoStyle style/>><#list columnStyles as columnStyle><fo:table-column<#if columnStyle?has_content> <@getFoStyle columnStyle/></#if>/></#list></#macro>
@@ -97,16 +97,16 @@ under the License.
 <#macro renderFormatHeaderRowCellOpen style positionSpan><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle "${style}"/><#else><@getFoStyle "listtitlestyle"/></#if>><fo:block></#macro>
 <#macro renderFormatHeaderRowCellClose></fo:block></fo:table-cell></#macro>
 
-<#macro renderFormatHeaderRowFormCellOpen style><fo:table-cell></#macro>
-<#macro renderFormatHeaderRowFormCellClose></fo:table-cell></#macro>
+<#macro renderFormatHeaderRowFormCellOpen style></#macro>
+<#macro renderFormatHeaderRowFormCellClose></#macro>
 <#macro renderFormatHeaderRowFormCellTitleSeparator style isLast></#macro>
 
 <#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle><fo:table-row <@getFoStyle "${altRowStyles}"/>></#macro>
 <#macro renderFormatItemRowClose formName></fo:table-row></#macro>
 <#macro renderFormatItemRowCellOpen fieldName style positionSpan><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle style/><#else><@getFoStyle "tabletext"/></#if>></#macro>
 <#macro renderFormatItemRowCellClose fieldName></fo:table-cell></#macro>
-<#macro renderFormatItemRowFormCellOpen style><fo:table-cell></#macro>
-<#macro renderFormatItemRowFormCellClose></fo:table-cell></#macro>
+<#macro renderFormatItemRowFormCellOpen style></#macro>
+<#macro renderFormatItemRowFormCellClose></#macro>
 
 <#macro renderFormatSingleWrapperOpen formName style><fo:table><fo:table-column column-width="1.75in"/><fo:table-column column-width="1.75in"/><fo:table-column column-width="1.75in"/><fo:table-column column-width="1.75in"/><fo:table-body></#macro>
 <#macro renderFormatSingleWrapperClose formName></fo:table-body></fo:table></#macro>
@@ -119,7 +119,7 @@ under the License.
 <#macro renderFormatFieldRowWidgetCellOpen positionSpan style><fo:table-cell text-align="left" padding="2pt" padding-left="5pt" <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if>></#macro>
 <#macro renderFormatFieldRowWidgetCellClose></fo:table-cell></#macro>
 
-<#macro renderFormatEmptySpace> </#macro>
+<#macro renderFormatEmptySpace> <@makeBlock "" " " /><!--space--></#macro>
 
 <#macro renderTextFindField name value defaultOption opEquals opBeginsWith opContains opIsEmpty opNotEqual className alert size maxlength autocomplete titleStyle hideIgnoreCase ignCase ignoreCase><@makeBlock className value tabindex/></#macro>
 
@@ -145,7 +145,7 @@ under the License.
 <#macro formatBoundaryComment boundaryType widgetType widgetName></#macro>
 <#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow></#macro>
 <#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description><@renderField description /></#macro>
-<#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc title targetParameters alternate linkUrl targetWindow description confirmation uniqueItemName="" height="" width="" id=""></#macro>
+<#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc title targetParameters alternate linkUrl targetWindow description confirmation uniqueItemName="" height="" width="" id=""><fo:block/><!--link--></#macro>
 <#macro renderTooltip tooltip tooltipStyle></#macro>
 <#macro renderAsterisks requiredField requiredStyle></#macro>
 </#escape>
