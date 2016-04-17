@@ -1134,6 +1134,7 @@ public class ProductPromoWorker {
             if (partyId != null && UtilValidate.isNotEmpty(condValue)) {
                 // if a PartyRole exists for this partyId and the specified roleTypeId
                 GenericValue partyRole = EntityQuery.use(delegator).from("PartyRole").where("partyId", partyId, "roleTypeId", condValue).cache(true).queryOne();
+
                 // then 0 (equals), otherwise 1 (not equals)
                 if (partyRole != null) {
                     compareBase = Integer.valueOf(0);
@@ -1142,24 +1143,6 @@ public class ProductPromoWorker {
                 }
             } else {
                 compareBase = Integer.valueOf(1);
-            }
-        } else if ("PPIP_GEO_ID".equals(inputParamEnumId)) {
-            compareBase = Integer.valueOf(1);
-            GenericValue shippingAddress = cart.getShippingAddress();
-            if (UtilValidate.isNotEmpty(condValue) && UtilValidate.isNotEmpty(shippingAddress)) {
-                if(condValue.equals(shippingAddress.getString("countryGeoId")) || condValue.equals(shippingAddress.getString("countyGeoId")) 
-                        || condValue.equals(shippingAddress.getString("postalCodeGeoId")) || condValue.equals(shippingAddress.getString("stateProvinceGeoId"))) {
-                    compareBase = Integer.valueOf(0);
-                } else {
-                    List<GenericValue> geoAssocList = EntityQuery.use(delegator).from("GeoAssoc").where("geoIdTo", condValue).queryList();
-                    for (GenericValue geo : geoAssocList) {
-                        if(geo.get("geoId").equals(shippingAddress.getString("countryGeoId")) || geo.get("geoId").equals(shippingAddress.getString("countyGeoId")) || geo.get("geoId").equals(shippingAddress.getString("postalCodeGeoId"))
-                            || condValue.equals(shippingAddress.getString("stateProvinceGeoId"))) {
-                            compareBase = Integer.valueOf(0);
-                            break;
-                        }
-                    }
-                }
             }
         } else if ("PPIP_ORDER_TOTAL".equals(inputParamEnumId)) {
             if (UtilValidate.isNotEmpty(condValue)) {

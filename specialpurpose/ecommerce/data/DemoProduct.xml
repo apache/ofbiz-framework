@@ -1168,8 +1168,6 @@ under the License.
         <promoText><![CDATA[Spend more than $1000 in any 12 months on our fabulous Widgets and Gizmos and get a 5% discount.]]></promoText>
     </ProductPromo>
     <ProductPromo productPromoId="9020" promoName="Test Promotion Recurrence - Happy hour" promoText="Get 1 Free [WG-1111], between 15:00 - 18:00 at weekdays" userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerOrder="1" createdDate="2008-01-01 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2008-01-01 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPromo productPromoId="10001" promoName=“Test Promotion - Free Shipping in Utah" promoText="Free Shipping in Utah" requireCode="N" showToCustomer="Y" useLimitPerOrder="1" userEntered="Y"/>
-
     <ProductPromoRule productPromoId="9000" productPromoRuleId="01" ruleName="Rule 1: Free Widget"/>
     <ProductPromoRule productPromoId="9010" productPromoRuleId="01" ruleName="Test Percent off rule"/>
     <ProductPromoRule productPromoId="9011" productPromoRuleId="01" ruleName="Test percent off order"/>
@@ -1182,8 +1180,6 @@ under the License.
     <ProductPromoRule productPromoId="9018" productPromoRuleId="01" ruleName="GWP for Gizmos Only Not Counted"/>
     <ProductPromoRule productPromoId="9019" productPromoRuleId="01" ruleName="Percent off for Ordered Sub-Total History"/>
     <ProductPromoRule productPromoId="9020" productPromoRuleId="01" ruleName="Test Promotion Recurrence"/>
-    <ProductPromoRule productPromoId="10001" productPromoRuleId="00001" ruleName=“Test Promotion - Free Shipping in Utah"/>
-
     <ProductPromoAction productPromoId="9000" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_GWP" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" productId="WG-1111"/>
     <ProductPromoAction productPromoId="9010" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_PROD_DISC" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" amount="20.0"/>
     <ProductPromoAction productPromoId="9011" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_ORDER_PERCENT" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" amount="10.0"/>
@@ -1196,8 +1192,6 @@ under the License.
     <ProductPromoAction productPromoId="9018" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_GWP" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" productId="GZ-1006"/>
     <ProductPromoAction productPromoId="9019" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_ORDER_PERCENT" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" amount="5.0"/>
     <ProductPromoAction productPromoId="9020" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_GWP" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" productId="WG-1111"/>
-    <ProductPromoAction amount="100.000000" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" productPromoActionEnumId="PROMO_SHIP_CHARGE" productPromoActionSeqId="10000" productPromoId="10001" productPromoRuleId="00001" useCartQuantity="N"/>
-
     <ProductPromoCond productPromoId="9000" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_ORDER_TOTAL" operatorEnumId="PPC_GT" condValue="100"/>
     <ProductPromoCond productPromoId="9012" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_ORDER_TOTAL" operatorEnumId="PPC_GTE" condValue="50"/>
     <ProductPromoCond productPromoId="9013" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_PRODUCT_QUANT" operatorEnumId="PPC_EQ" condValue="3"/>
@@ -1206,8 +1200,6 @@ under the License.
     <ProductPromoCond productPromoId="9018" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_PRODUCT_TOTAL" operatorEnumId="PPC_GTE" condValue="150"/>
     <ProductPromoCond productPromoId="9019" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_ORST_HIST" operatorEnumId="PPC_GTE" condValue="1000" otherValue="12"/>
     <ProductPromoCond productPromoId="9020" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_RECURRENCE" operatorEnumId="PPC_EQ" condValue="205"/>
-    <ProductPromoCond productPromoId="10001" productPromoRuleId="01" productPromoCondSeqId="01" condValue="UT" inputParamEnumId="PPIP_GEO_ID" operatorEnumId="PPC_EQ" />
-
     <ProductPromoCategory productPromoId="9013" productPromoRuleId="_NA_" productPromoActionSeqId="_NA_" productPromoCondSeqId="_NA_" productCategoryId="200" andGroupId="_NA_" productPromoApplEnumId="PPPA_INCLUDE" includeSubCategories="Y"/>
     <ProductPromoCategory productPromoId="9013" productPromoRuleId="_NA_" productPromoActionSeqId="_NA_" productPromoCondSeqId="_NA_" productCategoryId="201" andGroupId="_NA_" productPromoApplEnumId="PPPA_EXCLUDE" includeSubCategories="Y"/>
     <ProductPromoCategory productPromoId="9013" productPromoRuleId="_NA_" productPromoActionSeqId="_NA_" productPromoCondSeqId="_NA_" productCategoryId="20111" andGroupId="_NA_" productPromoApplEnumId="PPPA_ALWAYS" includeSubCategories="N"/>
@@ -1237,7 +1229,6 @@ under the License.
     <ProductStorePromoAppl productStoreId="9000" productPromoId="9018" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
     <ProductStorePromoAppl productStoreId="9000" productPromoId="9019" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
     <ProductStorePromoAppl productStoreId="9000" productPromoId="9020" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
-    <ProductStorePromoAppl productStoreId="9000" productPromoId="10001" fromDate="2016-04-16 13:59:19.748" sequenceNum="1"/>
 
     <ProductPromo productPromoId="9021" promoName="Test Products for Special Promo Price" promoText="With special code [9021] get products in the Featured Products category for their special promotion price." userEntered="Y" showToCustomer="Y" requireCode="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPromoCode productPromoCodeId="9021" productPromoId="9021" userEntered="Y" requireEmailOrParty="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
