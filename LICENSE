@@ -18,6 +18,7 @@ framework/base/lib/avalon-framework-4.2.0.jar
 framework/base/lib/batik-all-1.8.jar
 framework/base/lib/barcode4j-2.1-barcode4j-fop-ext-complete.jar
 framework/base/lib/clhm-release-1.0-lru.jar
+framework/base/lib/fontbox-1.8.11.jar
 framework/base/lib/freemarker-2.3.22.jar
 framework/base/lib/guava-14.0.1.jar
 framework/base/lib/httpclient-4.3.6.jar
@@ -28,6 +29,7 @@ framework/base/lib/jackson-annotations-2.4.0.jar
 framework/base/lib/jackson-core-2.4.2.jar
 framework/base/lib/jackson-databind-2.4.2.jar
 framework/base/lib/jakarta-regexp-1.5.jar
+framework/base/lib/jempbox-1.8.11.jar
 framework/base/lib/jpim-0.1.jar
 framework/base/lib/juel-impl-2.2.7.jar
 framework/base/lib/juel-spi-2.2.7.jar
@@ -37,9 +39,12 @@ framework/base/lib/log4j-core-2.3.jar
 framework/base/lib/log4j-nosql-2.3.jar
 framework/base/lib/log4j-slf4j-impl-2.3.jar
 framework/base/lib/nekohtml-1.9.16.jar
+framework/base/lib/pdfbox-1.8.11.jar
 framework/base/lib/resolver-2.9.1.jar
 framework/base/lib/serializer-2.9.1.jar
 framework/base/lib/shiro-core-1.2.3.jar
+framework/base/lib/tika-core-1.12.jar
+framework/base/lib/tika-parsers-1.12.jar
 framework/base/lib/ws-commons-java5-1.0.1.jar
 framework/base/lib/ws-commons-util-1.0.2.jar
 framework/base/lib/xercesImpl-2.9.1.jar
@@ -49,7 +54,7 @@ framework/base/lib/zxing-core-3.2.0.jar
 framework/base/lib/commons/commons-beanutils-core-1.8.3.jar
 framework/base/lib/commons/commons-codec-1.10.jar
 framework/base/lib/commons/commons-collections4-4.1.jar
-framework/base/lib/commons/commons-compress-1.9.jar
+framework/base/lib/commons/commons-compress-1.11.jar
 framework/base/lib/commons/commons-csv-1.1.jar
 framework/base/lib/commons/commons-el-1.0.jar
 framework/base/lib/commons/commons-fileupload-1.3.1.jar
@@ -110,12 +115,7 @@ framework/webapp/lib/ezmorph-0.9.1.jar
 framework/webapp/lib/rome-0.9.jar
 framework/webapp/lib/serializer-2.7.0.jar
 framework/webapp/lib/xalan-2.7.1.jar
-applications/content/lib/fontbox-1.8.5.jar
-applications/content/lib/jempbox-1.8.5.jar
-applications/content/lib/pdfbox-1.8.5.jar
 applications/content/lib/poi-3.13-20150929.jar
-applications/content/lib/tika-core-1.7.jar
-applications/content/lib/tika-parsers-1.7.jar
 applications/product/lib/dozer-4.2.1.jar
 applications/product/lib/watermarker-0.0.4.jar
 tools/security/notsoserial/notsoserial-1.0-SNAPSHOT.jar
@@ -451,6 +451,7 @@ framework/base/lib/hamcrest-all-1.2.jar
 framework/base/lib/httpunit-1.7.jar
 framework/base/lib/ical4j-1.0-rc2.jar
 framework/base/lib/javolution-5.4.3.jar
+framework/base/lib/jce-jdk13-154.jar
 framework/base/lib/xpp3-1.1.4c.jar
 framework/base/lib/xstream-1.4.9.jar
 framework/base/lib/esapi-2.1.0.jar
