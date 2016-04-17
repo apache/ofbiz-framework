@@ -19,7 +19,15 @@
 
 package org.ofbiz.widget.test;
 
-//import org.apache.tika.Tika;
+import java.io.InputStream;
+import java.net.ContentHandler;
+
+import org.apache.tika.Tika;
+import org.apache.tika.config.TikaConfig;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.pdf.PDFParser;
+import org.apache.tika.sax.BodyContentHandler;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
 import org.ofbiz.base.util.SSLUtil;
@@ -93,7 +101,6 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         assertFalse("Csv Screen contains Macro on error : see " + screencsvUrl + " for more detail", screenOutString.contains("FreeMarker template error:"));
     }
 
-    /*TODO the fop render failed to generate the screen : correction needed before enable this test 
     public void testFopMacroLibrary() throws Exception {
         String screentextUrl = screenUrl.concat("Fop");
         HttpClient http = initHttpClient();
@@ -103,14 +110,16 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         assertNotNull("Response failed from ofbiz", screenInputStream);
         assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "application/pdf;charset=UTF-8", http.getResponseContentType());
 
-        Tika tika = new Tika();
-        String screenOutString = null;
+        String screenOutString = "";
         try {
-            screenOutString = tika.parseToString(screenInputStream);
+            BodyContentHandler handler = new BodyContentHandler(Integer.MAX_VALUE);
+            Metadata metadata = new Metadata();
+            new PDFParser().parse(screenInputStream, handler, metadata, new ParseContext());
+            screenOutString = handler.toString();
         } finally {
             screenInputStream.close();
         }
         //Test if a ftl macro error is present
         assertFalse("Fop Screen contains Macro on error : see " + screentextUrl + " for more detail", screenOutString.contains("FreeMarker template error:"));
-    }*/
+    }
 }
