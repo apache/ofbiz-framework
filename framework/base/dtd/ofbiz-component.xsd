@@ -184,15 +184,22 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.webapp">
         <xs:attribute type="xs:string" name="name" use="required"/>
-        <xs:attribute type="xs:string" name="title"/>
+        <xs:attribute type="xs:string" name="title">
+            <xs:annotation>
+                <xs:documentation>
+                    This value is shown in the application menu, when no uiLabelMap is available.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute type="xs:string" name="description"/>
-        <xs:attribute name="menu-name" default="main">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="main"/>
-                    <xs:enumeration value="secondary"/>
-                </xs:restriction>
-            </xs:simpleType>
+        <xs:attribute name="menu-name" use="optional" default="main">
+            <xs:annotation>
+                <xs:documentation>
+                    This value determines in which application menu the application is shown. 
+                    For instance "secondary" is used by specialpurpose and webtools webapps to put their menu-names in the second menu.
+                    Note that not all OOTB themes use this "secondary" option, for instance Flat-Grey does not.
+                </xs:documentation>
+            </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="position"/>
         <xs:attribute type="xs:string" name="server" use="required"/>
