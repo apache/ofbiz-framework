@@ -29,17 +29,21 @@ under the License.
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_view.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_old.xml"/>
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
-    <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/ProductScheduledServices.xml"/>
+    
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ShipmentTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductSecurityPermissionSeedData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/ProductSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/FacilitySecurityPermissionSeedData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/FacilitySecurityGroupDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/ProductDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ApiSchemaDhl.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductPortletData.xml"/>
+    
+    <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/ProductScheduledServices.xml"/>
+    <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/CatalogSystemPropertyData.xml"/>
+    
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/ProductSecurityGroupDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/FacilitySecurityGroupDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/ProductDemoData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_facility.xml"/>
