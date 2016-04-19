@@ -52,12 +52,13 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilPlist;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilProperties.UtilResourceBundle;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilProperties.UtilResourceBundle;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
@@ -118,9 +119,9 @@ public class WebToolsServices {
         String maintainTimeStamps = (String)context.get("maintainTimeStamps");
         String createDummyFks = (String)context.get("createDummyFks");
         String checkDataOnly = (String) context.get("checkDataOnly");
+        Map<String, Object> placeholderValues = UtilGenerics.checkMap(context.get("placeholderValues"));
 
         Integer txTimeout = (Integer)context.get("txTimeout");
-
         if (txTimeout == null) {
             txTimeout = Integer.valueOf(7200);
         }
@@ -191,6 +192,7 @@ public class WebToolsServices {
                                               "checkDataOnly", checkDataOnly,
                                               "maintainTimeStamps", maintainTimeStamps,
                                               "txTimeout", txTimeout,
+                                              "placeholderValues", placeholderValues,
                                               "userLogin", userLogin);
                 if (fulltext != null) {
                     inputMap.put("xmltext", fulltext);
@@ -228,6 +230,7 @@ public class WebToolsServices {
         String createDummyFks = (String) context.get("createDummyFks");
         boolean deleteFiles = (String) context.get("deleteFiles") != null;
         String checkDataOnly = (String) context.get("checkDataOnly");
+        Map<String, Object> placeholderValues = UtilGenerics.checkMap(context.get("placeholderValues"));
 
         Integer txTimeout = (Integer)context.get("txTimeout");
         Long filePause = (Long)context.get("filePause");
@@ -266,6 +269,7 @@ public class WebToolsServices {
                                 "checkDataOnly", checkDataOnly,
                                 "maintainTimeStamps", maintainTimeStamps,
                                 "txTimeout", txTimeout,
+                                "placeholderValues", placeholderValues,
                                 "userLogin", userLogin);
 
                         try {
@@ -442,6 +446,7 @@ public class WebToolsServices {
         boolean createDummyFks = (String) context.get("createDummyFks") != null;
         boolean checkDataOnly = (String) context.get("checkDataOnly") != null;
         Integer txTimeout = (Integer) context.get("txTimeout");
+        Map<String, Object> placeholderValues = UtilGenerics.checkMap(context.get("placeholderValues"));
 
         if (txTimeout == null) {
             txTimeout = Integer.valueOf(7200);
@@ -455,6 +460,7 @@ public class WebToolsServices {
             reader.setTransactionTimeout(txTimeout.intValue());
             reader.setCreateDummyFks(createDummyFks);
             reader.setCheckDataOnly(checkDataOnly);
+            reader.setPlaceholderValues(placeholderValues);
 
             long numberRead = (url != null ? reader.parse(url) : reader.parse(xmltext));
             rowProcessed = numberRead;

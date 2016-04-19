@@ -32,17 +32,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javolution.text.CharArray;
-import javolution.text.Text;
-import javolution.xml.sax.Attributes;
-import javolution.xml.sax.XMLReaderImpl;
-
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -65,6 +61,10 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateHashModel;
+import javolution.text.CharArray;
+import javolution.text.Text;
+import javolution.xml.sax.Attributes;
+import javolution.xml.sax.XMLReaderImpl;
 
 /**
  * SAX XML Parser Content Handler for Entity Engine XML files
@@ -110,6 +110,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
     protected Node rootNodeForTemplate = null;
     protected Node currentNodeForTemplate = null;
     protected Document documentForTemplate = null;
+    protected Map<String, Object> placeholderValues = null; //contains map of values for corresponding placeholders (eg. ${key}) in the entity xml data file.
 
     protected EntitySaxReader() {}
 
@@ -176,6 +177,10 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
 
     public void setCheckDataOnly(boolean checkDataOnly) {
         this.checkDataOnly = checkDataOnly;
+    }
+    
+    public void setPlaceholderValues(Map<String,Object> placeholderValues) {
+        this.placeholderValues = placeholderValues;
     }
 
     @Deprecated
@@ -658,7 +663,10 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
                 for (int i = 0; i < length; i++) {
                     CharSequence name = attributes.getLocalName(i);
                     CharSequence value = attributes.getValue(i);
-
+                    if (UtilValidate.isNotEmpty(value)) {
+                        String tmp = FlexibleStringExpander.expandString(value.toString(), placeholderValues);
+                        value = tmp.subSequence(0, tmp.length());
+                    }
                     if (UtilValidate.isEmpty(name)) {
                         name = attributes.getQName(i);
                     }

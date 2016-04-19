@@ -318,14 +318,13 @@
         </if-empty>
 
         <!-- create General Ledger Setup -->
-        <set field="pathFileString" value="file:${sys:getProperty('ofbiz.home')}/applications/commonext/data/GlAccountData.xml"/>
-        <set field="tempFileName" value="tempGlAccountData.xml"/>
-        <set field="topic" value="GlAccount"/>
         <now-timestamp field="nowTimestamp"/>
-        <set field="nowString" value="${groovy:nowTimestamp.toString()}"/>
-        <set field="ORGPARTYID" from-field="partyId"/>
-        <set field="FROMDATE" from-field="nowString"/>
-        <call-simple-method method-name="importTempDataFile"/>
+        <set field="placeholderValues.orgPartyId" from="partyId"/>
+        <set field="placeholderValues.fromDate" value="${groovy:nowTimestamp.toString()}"/>
+        <set field="importFileCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/GlAccountData.xml"/>
+        <set field="importFileCtx.placeholderValues" from="placeholderValues"/>
+        <call-service service-name="entityImport" in-map-name="importFileCtx"/>
+        <check-errors/>
     </simple-method>
 
     <simple-method method-name="createCustomer" short-description="Create Customer" login-required="false">
@@ -415,7 +414,7 @@
         <set field="newEntity.daysToCancelNonPay"  value="30" type="Long"/>
 
         <if-empty field="parameters.productStoreId">
-            <sequenced-id sequence-name="Facility" field="productStoreId"/>
+            <sequenced-id sequence-name="ProductStore" field="productStoreId"/>
             <to-string field="productStoreId"/>
             <set field="newEntity.productStoreId" from-field="productStoreId"/>
             <else>
@@ -450,12 +449,12 @@
         </if-empty>
 
         <!-- Import Default ProductStore & Shipment data -->
-        <set field="pathFileString" value="file:${sys:getProperty('ofbiz.home')}/applications/commonext/data/ProductStoreData.xml"/>
-        <set field="tempFileName" value="tempProductStore.xml"/>
-        <set field="topic" value="ProductStore"/>
-        <set field="ORGPARTYID" from-field="organizationPartyId"/>
-        <set field="PRODUCTSTOREID" from-field="productStoreId"/>
-        <call-simple-method method-name="importTempDataFile"/>
+        <set field="placeholderValues.orgPartyId" from="organizationPartyId"/>
+        <set field="placeholderValues.productStoreId" from="productStoreId"/>
+        <set field="importFileCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/ProductStoreData.xml"/>
+        <set field="importFileCtx.placeholderValues" from="placeholderValues"/>
+        <call-service service-name="entityImport" in-map-name="importFileCtx"/>
+        <check-errors/>
     </simple-method>
 
     <simple-method method-name="createProdCatalogAndProductStoreCatalog" short-description="create ProdCatalog And ProductStoreCatalog">
@@ -653,78 +652,6 @@
         </if-not-empty>
     </simple-method>
 
-    <simple-method method-name="importTempDataFile" short-description="replace value and import a temporary data file">
-        <create-object class-name="java.net.URL" field="templateUrl">
-            <field field="pathFileString"/>
-        </create-object>
-        
-        <call-bsh><![CDATA[
-        try {
-            InputStream templateStream = templateUrl.openStream();
-            templateReader = new InputStreamReader(templateStream);
-        } catch (IOException ex) {
-            org.ofbiz.base.util.Debug.log(ex + "Unable to get template from URL : "+templateUrl.toExternalForm());
-        }
-        return org.ofbiz.base.util.UtilMisc.toMap("templateReader", templateReader);
-        ]]></call-bsh>
-
-        <create-object class-name="java.io.BufferedReader" field="reader">
-            <field field="templateReader" type="java.io.Reader"/>
-        </create-object>
-        
-        <set field="tempDir" value="${sys:getProperty('ofbiz.home')}/runtime/tmp"/>
-
-        <call-bsh><![CDATA[
-        sfileOut = new File(tempDir);
-        if (!sfileOut.exists()) {
-            sfileOut.mkdir();
-        }
-        fos = new FileOutputStream(new File(sfileOut, tempFileName));
-        sWriter = new OutputStreamWriter(fos);
-        return org.ofbiz.base.util.UtilMisc.toMap("sWriter", sWriter);
-        ]]></call-bsh>
-
-        <create-object class-name="java.io.BufferedWriter" field="writer">
-            <field field="sWriter" type="java.io.Writer"/>
-        </create-object>
-
-        <!-- replace value and write to a temporary data file -->
-        <call-bsh><![CDATA[
-        String line = null;
-        
-        while (null != (line = reader.readLine())) {
-            if("GlAccount".equals(topic)){
-                line = line.replaceAll("ORGPARTYID", ORGPARTYID);
-                line = line.replaceAll("FROMDATE", FROMDATE);
-            }else if("ProductStore".equals(topic)){
-                line = line.replaceAll("ORGPARTYID", ORGPARTYID);
-                line = line.replaceAll("PRODUCTSTOREID", PRODUCTSTOREID);
-            }
-            writer.write(line);
-        }
-        writer.close();
-        return org.ofbiz.base.util.UtilMisc.toMap("writer", writer);
-        ]]></call-bsh>
-        
-        <!-- Import a temporary data file -->
-        <set field="outputPathString" value="file:${tempDir}/${tempFileName}"/>
-        <create-object class-name="java.net.URL" field="outputPath">
-            <field field="outputPathString"/>
-        </create-object>
-        
-        <set field="inputMap.url" from-field="outputPath"/>
-        <session-to-field field="inputMap.userLogin" session-name="userLogin"/>
-        <call-service service-name="parseEntityXmlFile" in-map-name="inputMap"/>
-        
-        <!-- Delete a temporary data file -->
-        <call-bsh><![CDATA[ 
-            tmpPathFile = new File(tempDir, tempFileName);
-            if(tmpPathFile != null){
-                tmpPathFile.delete(); 
-            }
-        ]]></call-bsh>
-    </simple-method>
-    
     <simple-method method-name="createDefaultWebSite" short-description="Create a WebSite, default webSiteId is WebStore.">
         <set field="parameters.webSiteId" value="WebStore"/>
         <call-service service-name="createWebSite" in-map-name="parameters"/>
