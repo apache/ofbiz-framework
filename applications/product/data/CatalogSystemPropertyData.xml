@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+
+# ==== Catalog Application Properties ====
+<!-- 
+# Image upload path on the server
+catalog.properties setting is: image.server.path=${sys:getProperty('ofbiz.home')}/framework/images/webapp/images/${tenantId}
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="image.server.path" systemPropertyValue="${sys:getProperty('ofbiz.home')}/framework/images/webapp/images/${tenantId}"
+    description="Image upload path on the server."
+    />
+    
+<!-- 
+# The prefix to put on auto-generated image urls (can be relative or absolute, whatever you want)
+catalog.properties setting is: image.url.prefix=/images/${tenantId}
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="image.url.prefix" systemPropertyValue="/images/${tenantId}"
+    description="The prefix to put on auto-generated image urls. This can be relative or absolute."
+    />
+    
+<!-- 
+# The format of the image filename
+catalog.properties setting is: image.filename.format=${location}/${id}/${type}
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="image.filename.format" systemPropertyValue="${location}/${id}/${type}"
+    description="The format of the image filename."
+    />
+    
+<!-- 
+#Format of the Additional View Size 
+catalog.properties setting is: image.filename.additionalviewsize.format=${location}/${id}/${viewtype}/${sizetype}
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="image.filename.additionalviewsize.format" systemPropertyValue="${location}/${id}/${viewtype}/${sizetype}"
+    description="Format of the Additional View Size."
+    />
+    
+<!-- 
+# The default top category to display
+catalog.properties setting is: top.category.default=CATALOG1
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="top.category.default" systemPropertyValue="CATALOG1"
+    description="The default top category to display."
+    />
+    
+<!-- 
+# The category that has all products
+catalog.properties setting is: all.product.category=CATALOG1
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="all.product.category" systemPropertyValue="CATALOG1"
+    description="The category that has all products."
+    />
+    
+<!-- 
+# Flag to re-active products when they are received
+catalog.properties setting is: reactivate.product.from.receipt=Y
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="reactivate.product.from.receipt" systemPropertyValue="Y"
+    description="Flag to re-active products when they are received. Choices are Y or N."
+    />
+    
+<!-- 
+# Image upload path on the image management
+catalog.properties setting is: image.management.path=${sys:getProperty('ofbiz.home')}/framework/images/webapp/images/products/management
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="image.management.path" systemPropertyValue="${sys:getProperty('ofbiz.home')}/framework/images/webapp/images/products/management"
+    description="Image upload path for image management."
+    />
+    
+<!-- 
+# Image management url path
+catalog.properties setting is: image.management.url=/images/products/management
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="image.management.url" systemPropertyValue="/images/products/management"
+    description="Image management url path."
+    />
+    
+<!-- 
+# Image management Thumbnail Name
+catalog.properties setting is: image.management.nameofthumbnail=-100
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="image.management.nameofthumbnail" systemPropertyValue="-100"
+    description="Image management Thumbnail Name."
+    />
+    
+<!-- 
+# Auto approve image
+catalog.properties setting is: image.management.autoApproveImage=Y
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="image.management.autoApproveImage" systemPropertyValue="Y"
+    description="Auto approve image. Choices are Y or N."
+    />
+    
+<!-- 
+# Auto approve multiple images
+catalog.properties setting is: image.management.multipleApproval=N
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="image.management.multipleApproval" systemPropertyValue="N"
+    description="Auto approve multiple images. Choices are Y or N."
+    />
+    
+<!-- 
+# Automatic product price currency conversion
+catalog.properties setting is: convertProductPriceCurrency=false
+-->
+    <SystemProperty systemResourceId="catalog" systemPropertyId="convertProductPriceCurrency" systemPropertyValue="false"
+    description="Automatic product price currency conversion. Choices are boolean."
+    />
+    
+</entity-engine-xml>
