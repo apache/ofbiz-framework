@@ -28,12 +28,16 @@ under the License.
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_old.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_view.xml"/>
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
+    
     <entity-resource type="data" reader-name="seed" loader="main" location="data/OrderTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/OrderPortletData.xml"/>
-    <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/OrderScheduledServices.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/OrderSecurityPermissionSeedData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/OrderHelpData.xml"/>
+    
+    <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/OrderScheduledServices.xml"/>
+    <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/OrderSystemPropertyData.xml"/>
+    
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderDemoUser.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderQuoteDemoData.xml"/>
