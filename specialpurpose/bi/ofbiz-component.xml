@@ -27,9 +27,15 @@ under the License.
 
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup.xml"/>
-
+    
+    <!-- seed data -->
     <entity-resource type="data" reader-name="seed" loader="main" location="data/BiTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/BiSecurityPermissionSeedData.xml"/>
+    
+    <!-- seed-initial data -->
+    <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/BiSystemPropertyData.xm"/>
+    
+    <!-- demo data -->
     <entity-resource type="data" reader-name="demo" loader="main" location="data/BiSecurityGroupDemoData.xml"/>
 
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
