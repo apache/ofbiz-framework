@@ -30,7 +30,7 @@ under the License.
         </actions>
         <field name="statusId"><hidden value="PARTY_ENABLED"/></field>
         <field name="noConditionFind"><hidden value="Y"/></field>
-        <field name="extInfo" event="onClick" action="javascript:$('#ListParty' + this.value +'_body').toggle(true);" title="${uiLabelMap.PartyContactInformation}">
+        <field name="extInfo" event="onClick" action="javascript:$('#ListParty' + this.value +'_body').toggle(true);collapseFindPartyOptions('ListParty' + this.value +'_body');" title="${uiLabelMap.PartyContactInformation}">
             <radio>
                 <option key="N" description="${uiLabelMap.CommonNone}"/>
                 <option key="P" description="${uiLabelMap.PartyPostal}"/>
