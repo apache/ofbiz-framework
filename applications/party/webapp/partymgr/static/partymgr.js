@@ -31,3 +31,13 @@ function refreshInfo() {
     document.lookupparty.hideFields.value = "N";
     document.lookupparty.submit();
 }
+
+function collapseFindPartyOptions(currentOption) {
+    jQuery('.fieldgroup').each(function() {
+        var titleBar = jQuery(this).children('.fieldgroup-title-bar'), body = jQuery(this).children('.fieldgroup-body');
+        if (titleBar.children().length > 0 && body.is(':visible') != false && body.attr('id') != currentOption) {
+            toggleCollapsiblePanel(titleBar.find('a'), body.attr('id'), 'Expand', 'Collapse');
+        }
+    });
+}
+
