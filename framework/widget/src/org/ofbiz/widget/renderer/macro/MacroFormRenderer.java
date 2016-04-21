@@ -316,7 +316,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request.setAttribute("id", hyperlinkField.getId(context));
         this.request.setAttribute("width", hyperlinkField.getWidth());
         this.request.setAttribute("height", hyperlinkField.getHeight());
-        makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getUrlMode(), hyperlinkField.getTarget(context), hyperlinkField.getParameterMap(context), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context),
+        makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getUrlMode(), hyperlinkField.getTarget(context),
+                hyperlinkField.getParameterMap(context, modelFormField.getEntityName(), modelFormField.getServiceName()), 
+                hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context),
                 hyperlinkField.getConfirmation(context), modelFormField, this.request, this.response, context);
         this.appendTooltip(writer, context, modelFormField);
         this.request.removeAttribute("image");
@@ -3007,7 +3009,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             if (UtilValidate.isNotEmpty(subHyperlink.getHeight())) this.request.setAttribute("height", subHyperlink.getHeight());
             writer.append(' ');
             makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getStyle(context), subHyperlink.getUrlMode(),
-                    subHyperlink.getTarget(context), subHyperlink.getParameterMap(context), subHyperlink.getDescription(context),
+                    subHyperlink.getTarget(context), subHyperlink.getParameterMap(context, subHyperlink.getModelFormField().getEntityName(), subHyperlink.getModelFormField().getServiceName()), subHyperlink.getDescription(context),
                     subHyperlink.getTargetWindow(context), "", subHyperlink.getModelFormField(), this.request, this.response,
                     context);
         }
