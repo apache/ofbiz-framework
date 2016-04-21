@@ -852,20 +852,14 @@
         <field name="contentId" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
                 <sub-hyperlink target="EditProjectContents" description="${contentId}" link-style="buttontext" target-type="inter-app">
-                    <parameter param-name="contentId" from-field="contentId"/>
-                    <parameter param-name="workEffortId" from-field="workEffortId"/>
-                    <parameter param-name="fromDate" from-field="fromDate"/>
-                    <parameter param-name="workEffortContentTypeId" from-field="workEffortContentTypeId"/>
+                    <auto-parameters-entity/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="contentId" use-when="headerItem.equals(&quot;EditTaskContents&quot;)">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
                 <sub-hyperlink target="EditTaskContents" description="${contentId}" link-style="buttontext" target-type="inter-app">
-                    <parameter param-name="contentId" from-field="contentId"/>
-                    <parameter param-name="workEffortId" from-field="workEffortId"/>
-                    <parameter param-name="fromDate" from-field="fromDate"/>
-                    <parameter param-name="workEffortContentTypeId" from-field="workEffortContentTypeId"/>
+                    <auto-parameters-entity/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -873,10 +867,7 @@
         <field name="submitButton"><ignored/></field>
         <field name="deleteLink" title=" " widget-style="buttontext" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProjectContent">
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
-                <parameter param-name="workEffortContentTypeId" from-field="workEffortContentTypeId"/>
+                <auto-parameters-entity/>
             </hyperlink>
         </field>
         <field name="downloadLink" title=" " widget-style="buttontext">
@@ -884,10 +875,7 @@
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext" use-when="headerItem.equals(&quot;EditTaskContents&quot;)">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTaskContent">
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
-                <parameter param-name="workEffortContentTypeId" from-field="workEffortContentTypeId"/>
+                <auto-parameters-entity/>
             </hyperlink>
         </field>
     </form>
