@@ -25,7 +25,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/httpcore-4.4.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/httpunit-1.7.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-rc2.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/icu4j-52_1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/icu4j-57_1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ivy-2.2.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jackson-annotations-2.4.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jackson-core-2.4.2.jar"/>
