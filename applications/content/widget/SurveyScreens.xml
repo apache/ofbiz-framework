@@ -185,7 +185,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://content/webapp/content/survey/EditSurveyQuestions.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://content/template/survey/EditSurveyQuestions.ftl"/></html></platform-specific>
 
                         <!-- This page is a bit of a mess, so will cleanup/modernize later...
                         <include-form name="ListSurveyQuestions" location="component://content/widget/survey/SurveyForms.xml"/>
@@ -270,7 +270,7 @@ under the License.
                                     </container>
                                 </widgets>
                             </section>
-                            <platform-specific><html><html-template location="component://content/webapp/content/survey/ViewSurveyResponses.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template location="component://content/template/survey/ViewSurveyResponses.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -295,7 +295,7 @@ under the License.
                 <decorator-screen name="CommonSurveyDecorator">
                     <decorator-section name="body">
                         <container><label style="h1">${uiLabelMap.PageTitleEditSurveyResponse}, ${uiLabelMap.ContentSurveyResponse}: ${parameters.surveyResponseId}, ${uiLabelMap.ContentSurveySurveyId}: ${surveyId}</label></container>
-                        <platform-specific><html><html-template location="component://content/webapp/content/survey/EditSurveyResponse.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://content/template/survey/EditSurveyResponse.ftl"/></html></platform-specific>
                         <include-form name="BuildSurveyResponseFromPdf" location="component://content/widget/survey/SurveyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>

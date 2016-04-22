@@ -107,7 +107,7 @@ under the License.
                                 <parameter param-name="contentId" from-field="currentValue.contentId"/>
                             </link>
                             <platform-specific>
-                                <html><html-template location="component://content/webapp/content/layout/renderSubContent.ftl"/></html>
+                                <html><html-template location="component://content/template/layout/renderSubContent.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>

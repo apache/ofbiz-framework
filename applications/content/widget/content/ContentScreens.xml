@@ -124,7 +124,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://content/webapp/content/content/ContentNav.ftl"/>
+                        <html-template location="component://content/template/content/ContentNav.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -162,7 +162,7 @@ under the License.
 <!--                <include-form name="ListDocument" location="component://content/widget/content/ContentForms.xml"/>-->
                 <platform-specific>
                     <html>
-                        <html-template location="component://content/webapp/content/lookup/ContentTreeLookupList.ftl"/>
+                        <html-template location="component://content/template/lookup/ContentTreeLookupList.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -202,7 +202,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://content/webapp/content/content/EditContentTree.ftl"/>
+                        <html-template location="component://content/template/content/EditContentTree.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -481,7 +481,7 @@ under the License.
                 <container id="Document">
                     <platform-specific>
                         <html>
-                            <html-template location="component://content/webapp/content/lookup/ContentTreeLookupList.ftl"/>
+                            <html-template location="component://content/template/lookup/ContentTreeLookupList.ftl"/>
                         </html>
                     </platform-specific>
                 </container>
@@ -511,7 +511,7 @@ under the License.
                                     <container style="left-border">
                                         <platform-specific>
                                             <html>
-                                                <html-template location="component://content/webapp/content/content/ContentNav.ftl"/>
+                                                <html-template location="component://content/template/content/ContentNav.ftl"/>
                                             </html>
                                         </platform-specific>
                                     </container>
@@ -549,7 +549,7 @@ under the License.
                                     <container style="left-border">
                                         <platform-specific>
                                             <html>
-                                                <html-template location="component://content/webapp/content/content/ContentNav.ftl"/>
+                                                <html-template location="component://content/template/content/ContentNav.ftl"/>
                                             </html>
                                         </platform-specific>
                                     </container>
@@ -608,7 +608,7 @@ under the License.
                 <decorator-screen name="contentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                          <platform-specific>
-                              <html><html-template location="component://content/webapp/content/content/ContentSearchOptions.ftl"/></html>
+                              <html><html-template location="component://content/template/content/ContentSearchOptions.ftl"/></html>
                          </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -626,7 +626,7 @@ under the License.
                 <decorator-screen name="contentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                          <platform-specific>
-                              <html><html-template location="component://content/webapp/content/content/ContentSearchResults.ftl"/></html>
+                              <html><html-template location="component://content/template/content/ContentSearchResults.ftl"/></html>
                          </platform-specific>
                     </decorator-section>
                 </decorator-screen>
