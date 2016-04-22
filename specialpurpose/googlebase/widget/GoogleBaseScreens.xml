@@ -56,7 +56,7 @@ under the License.
                 <decorator-screen name="CommonFindDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/find/keywordsearch.ftl"/></html>
+                            <html><html-template location="component://product/template/find/keywordsearch.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
                             <html><html-template location="component://googlebase/webapp/googlebase/find/googleExportLink.ftl"/></html>
