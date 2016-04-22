@@ -36,7 +36,7 @@ under the License.
                 <decorator-screen name="CommonFindDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://googlebase/webapp/googlebase/find/GoogleBaseAdvancedSearch.ftl"/></html>
+                            <html><html-template location="component://googlebase/template/find/GoogleBaseAdvancedSearch.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -59,7 +59,7 @@ under the License.
                             <html><html-template location="component://product/template/find/keywordsearch.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://googlebase/webapp/googlebase/find/googleExportLink.ftl"/></html>
+                            <html><html-template location="component://googlebase/template/find/googleExportLink.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
