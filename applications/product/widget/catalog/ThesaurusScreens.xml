@@ -58,7 +58,7 @@ under the License.
                 <decorator-screen name="CommonThesaurusDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/thesaurus/EditKeywordThesaurus.ftl"/></html>
+                            <html><html-template location="component://product/template/thesaurus/EditKeywordThesaurus.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

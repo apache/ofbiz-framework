@@ -224,7 +224,7 @@ under the License.
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/config/EditProductConfigItemContent.ftl"/></html>
+                            <html><html-template location="component://product/template/config/EditProductConfigItemContent.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -250,7 +250,7 @@ under the License.
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/config/EditProductConfigItemContentContent.ftl"/></html>
+                            <html><html-template location="component://product/template/config/EditProductConfigItemContentContent.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

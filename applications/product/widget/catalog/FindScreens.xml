@@ -64,7 +64,7 @@ under the License.
                 <decorator-screen name="CommonFindDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/find/advancedsearch.ftl"/></html>
+                            <html><html-template location="component://product/template/find/advancedsearch.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -81,10 +81,10 @@ under the License.
                 <decorator-screen name="CommonFindDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/find/keywordsearch.ftl"/></html>
+                            <html><html-template location="component://product/template/find/keywordsearch.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/find/keywordsearchactions.ftl"/></html>
+                            <html><html-template location="component://product/template/find/keywordsearchactions.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -101,7 +101,7 @@ under the License.
                 <decorator-screen name="CommonFindDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/find/exportproducts.ftl"/></html>
+                            <html><html-template location="component://product/template/find/exportproducts.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>                
@@ -130,7 +130,7 @@ under the License.
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://product/webapp/catalog/find/FindProductById.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://product/template/find/FindProductById.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

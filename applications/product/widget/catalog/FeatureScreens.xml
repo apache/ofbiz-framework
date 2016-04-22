@@ -261,7 +261,7 @@
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/feature/EditFeatureCategoryFeatures.ftl"/></html>
+                            <html><html-template location="component://product/template/feature/EditFeatureCategoryFeatures.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -281,7 +281,7 @@
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/feature/EditFeatureGroups.ftl"/></html>
+                            <html><html-template location="component://product/template/feature/EditFeatureGroups.ftl"/></html>
                         </platform-specific>                    </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -342,7 +342,7 @@
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/feature/BulkAddFeature.ftl"/></html>
+                            <html><html-template location="component://product/template/feature/BulkAddFeature.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

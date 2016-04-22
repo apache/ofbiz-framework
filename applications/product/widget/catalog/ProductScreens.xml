@@ -521,7 +521,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductQuickAdmin}">
                             <platform-specific>
-                                <html><html-template location="component://product/webapp/catalog/product/QuickAddVariants.ftl"/></html>
+                                <html><html-template location="component://product/template/product/QuickAddVariants.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -544,7 +544,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/catalog/product/EditProductQuickAdmin.ftl"/></html>
+                                    <html><html-template location="component://product/template/product/EditProductQuickAdmin.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -677,18 +677,18 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/catalog/product/EditVirtualProductInventory.ftl"/></html>
+                                    <html><html-template location="component://product/template/product/EditVirtualProductInventory.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/catalog/product/ProductInventorySummary.ftl"/></html>
+                                    <html><html-template location="component://product/template/product/ProductInventorySummary.ftl"/></html>
                                 </platform-specific>
                                 <screenlet title="${uiLabelMap.ProductOutstandingPurchaseOrders}">
                                     <include-form name="OutstandingPurchaseOrders" location="component://product/widget/catalog/ProductForms.xml"/>
                                 </screenlet>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/catalog/product/EditProductInventoryItems.ftl"/></html>
+                                    <html><html-template location="component://product/template/product/EditProductInventoryItems.ftl"/></html>
                                 </platform-specific>
                             </fail-widgets>
                         </section>
@@ -823,7 +823,7 @@ under the License.
                             <section>
                                 <widgets>
                                     <platform-specific>
-                                        <html><html-template location="component://product/webapp/catalog/product/EditProductFeatures.ftl"/></html>
+                                        <html><html-template location="component://product/template/product/EditProductFeatures.ftl"/></html>
                                     </platform-specific>
                                 </widgets>
                             </section>
@@ -910,12 +910,12 @@ under the License.
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductOverrideSimpleFields}">
                             <platform-specific>
-                                <html><html-template location="component://product/webapp/catalog/product/EditProductContent.ftl"/></html>
+                                <html><html-template location="component://product/template/product/EditProductContent.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAddAdditionalImages}">
                             <platform-specific>
-                                <html><html-template location="component://product/webapp/catalog/product/AddAdditionalImages.ftl"/></html>
+                                <html><html-template location="component://product/template/product/AddAdditionalImages.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -1033,7 +1033,7 @@ under the License.
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/product/ApplyFeaturesFromCategory.ftl"/></html>
+                            <html><html-template location="component://product/template/product/ApplyFeaturesFromCategory.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1061,7 +1061,7 @@ under the License.
             <widgets>
                 <screenlet title="${uiLabelMap.PageTitleCreateVirtualWithVariants}">
                     <platform-specific>
-                        <html><html-template location="component://product/webapp/catalog/product/CreateVirtualWithVariantsForm.ftl"/></html>
+                        <html><html-template location="component://product/template/product/CreateVirtualWithVariantsForm.ftl"/></html>
                     </platform-specific>
                 </screenlet>
             </widgets>
@@ -1188,7 +1188,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://product/webapp/catalog/product/ProductBarCode.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://product/template/product/ProductBarCode.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -1289,7 +1289,7 @@ under the License.
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/product/ViewProductOrders.ftl"/></html>
+                            <html><html-template location="component://product/template/product/ViewProductOrders.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

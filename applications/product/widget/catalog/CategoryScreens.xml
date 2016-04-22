@@ -124,7 +124,7 @@ under the License.
                  <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/category/EditCategory.ftl"/></html>
+                            <html><html-template location="component://product/template/category/EditCategory.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -191,7 +191,7 @@ under the License.
                             </fail-widgets>
                         </section>
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/category/EditCategory.ftl"/></html>
+                            <html><html-template location="component://product/template/category/EditCategory.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -226,7 +226,7 @@ under the License.
                             <include-form name="AddCategoryContentAssoc" location="component://product/widget/catalog/CategoryForms.xml"/>
                         </screenlet>
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/category/EditCategoryContent.ftl"/></html>
+                            <html><html-template location="component://product/template/category/EditCategoryContent.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -301,7 +301,7 @@ under the License.
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/category/EditCategoryRollup.ftl"/></html>
+                            <html><html-template location="component://product/template/category/EditCategoryRollup.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -323,7 +323,7 @@ under the License.
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/category/EditCategoryProducts.ftl"/></html>
+                            <html><html-template location="component://product/template/category/EditCategoryProducts.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -358,7 +358,7 @@ under the License.
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/category/EditCategoryProdCatalogs.ftl"/></html>
+                            <html><html-template location="component://product/template/category/EditCategoryProdCatalogs.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -396,7 +396,7 @@ under the License.
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/category/EditCategoryFeatureCats.ftl"/></html>
+                            <html><html-template location="component://product/template/category/EditCategoryFeatureCats.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -427,7 +427,7 @@ under the License.
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/category/EditCategoryParties.ftl"/></html>
+                            <html><html-template location="component://product/template/category/EditCategoryParties.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -475,7 +475,7 @@ under the License.
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/category/createProductInCategoryStart.ftl"/></html>
+                            <html><html-template location="component://product/template/category/createProductInCategoryStart.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -497,7 +497,7 @@ under the License.
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/category/createProductInCategoryCheckExisting.ftl"/></html>
+                            <html><html-template location="component://product/template/category/createProductInCategoryCheckExisting.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

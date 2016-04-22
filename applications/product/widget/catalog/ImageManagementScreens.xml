@@ -106,7 +106,7 @@ under the License.
                                         <label style="h1">${uiLabelMap.Product} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]</label>
                                         <screenlet title="${uiLabelMap.ImageManagementGallery}">
                                             <platform-specific>
-                                                <html><html-template location="component://product/webapp/catalog/imagemanagement/ImageGallery.ftl"/></html>
+                                                <html><html-template location="component://product/template/imagemanagement/ImageGallery.ftl"/></html>
                                             </platform-specific>
                                         </screenlet>
                                     </decorator-section>
@@ -171,7 +171,7 @@ under the License.
                             <widgets>
                                 <screenlet title="${uiLabelMap.CommonUpload}">
                                     <platform-specific>
-                                        <html><html-template location="component://product/webapp/catalog/imagemanagement/AddMultipleImages.ftl"/></html>
+                                        <html><html-template location="component://product/template/imagemanagement/AddMultipleImages.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.ImageManagementImageUploadList}">
@@ -220,7 +220,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/catalog/imagemanagement/showPeopleApprove.ftl"/></html>
+                                    <html><html-template location="component://product/template/imagemanagement/showPeopleApprove.ftl"/></html>
                                 </platform-specific>
                                 <screenlet title="${uiLabelMap.ImageManagementApprove}">
                                     <include-form name="ImageApprove" location="component://product/widget/catalog/ImageManagementForms.xml"/>
@@ -271,7 +271,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/catalog/imagemanagement/showPeopleApprove.ftl"/></html>
+                                    <html><html-template location="component://product/template/imagemanagement/showPeopleApprove.ftl"/></html>
                                 </platform-specific>
                                 <screenlet title="${uiLabelMap.CommonApproved}">
                                     <include-form name="ListPeopleApproved" location="component://product/widget/catalog/ImageManagementForms.xml"/>
@@ -364,7 +364,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/catalog/imagemanagement/showPeopleApprove.ftl"/></html>
+                                    <html><html-template location="component://product/template/imagemanagement/showPeopleApprove.ftl"/></html>
                                 </platform-specific>
                                 <screenlet title="${uiLabelMap.CommonRejected}">
                                     <include-form name="ListPeopleRejected" location="component://product/widget/catalog/ImageManagementForms.xml"/>    
@@ -498,7 +498,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.ImageManagementImageFrames}">
                                     <include-form name="ImageFrames" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                     <platform-specific>
-                                        <html><html-template location="component://product/webapp/catalog/imagemanagement/ImageFrame.ftl"/></html>
+                                        <html><html-template location="component://product/template/imagemanagement/ImageFrame.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </widgets>
@@ -536,7 +536,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.ImageManagementImageWatermarking}">
                                     <include-form name="ImageWatermarking" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                     <platform-specific>
-                                        <html><html-template location="component://product/webapp/catalog/imagemanagement/ImageWatermark.ftl"/></html>
+                                        <html><html-template location="component://product/template/imagemanagement/ImageWatermark.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </widgets>
@@ -568,7 +568,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.ImageManagementImageCropping}">
                                     <include-form name="ImageCropping" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                     <platform-specific>
-                                        <html><html-template location="component://product/webapp/catalog/imagemanagement/ImageCrop.ftl"/></html>
+                                        <html><html-template location="component://product/template/imagemanagement/ImageCrop.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </widgets>
@@ -599,11 +599,11 @@ under the License.
                             <widgets>
                                 <screenlet title="${uiLabelMap.ImageManagementImageRotating}">
                                     <platform-specific>
-                                        <html><html-template location="component://product/webapp/catalog/imagemanagement/ImageRotateButton.ftl"/></html>
+                                        <html><html-template location="component://product/template/imagemanagement/ImageRotateButton.ftl"/></html>
                                     </platform-specific>
                                     <include-form name="ImageRotating" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                     <platform-specific>
-                                        <html><html-template location="component://product/webapp/catalog/imagemanagement/ImageRotating.ftl"/></html>
+                                        <html><html-template location="component://product/template/imagemanagement/ImageRotating.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </widgets>
@@ -632,7 +632,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.ImageManagementShareImage}">
                                     <include-form name="ImageShare" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                     <platform-specific>
-                                        <html><html-template location="component://product/webapp/catalog/imagemanagement/ImageShare.ftl"/></html>
+                                        <html><html-template location="component://product/template/imagemanagement/ImageShare.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </widgets>
@@ -758,7 +758,7 @@ under the License.
             <widgets>
                 <image src="${parameters.drObjectInfo}"/>
                 <platform-specific>
-                    <html><html-template location="component://product/webapp/catalog/imagemanagement/ResizeImage.ftl"/></html>
+                    <html><html-template location="component://product/template/imagemanagement/ResizeImage.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -806,7 +806,7 @@ under the License.
                             <widgets>
                                 <screenlet title="${uiLabelMap.ImageManagementRecentlyApproved}">
                                     <platform-specific>
-                                        <html><html-template location="component://product/webapp/catalog/imagemanagement/ImageRecentlyApproved.ftl"/></html>
+                                        <html><html-template location="component://product/template/imagemanagement/ImageRecentlyApproved.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </widgets>

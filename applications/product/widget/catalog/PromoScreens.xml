@@ -192,7 +192,7 @@ under the License.
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/promo/EditProductPromoRules.ftl"/></html>
+                            <html><html-template location="component://product/template/promo/EditProductPromoRules.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -223,7 +223,7 @@ under the License.
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/promo/EditProductPromoStores.ftl"/></html>
+                            <html><html-template location="component://product/template/promo/EditProductPromoStores.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -283,7 +283,7 @@ under the License.
                             <include-form name="ListProductPromoCodes" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/promo/FindProductPromoCode.ftl"/></html>
+                            <html><html-template location="component://product/template/promo/FindProductPromoCode.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -311,7 +311,7 @@ under the License.
                             <include-form name="EditProductPromoCode" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/promo/EditProductPromoCode.ftl"/></html>
+                            <html><html-template location="component://product/template/promo/EditProductPromoCode.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
