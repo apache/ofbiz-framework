@@ -142,7 +142,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Contact.ftl"/>
+                        <html-template location="component://party/template/party/profileblocks/Contact.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -174,7 +174,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/PaymentMethods.ftl"/>
+                        <html-template location="component://party/template/party/profileblocks/PaymentMethods.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -194,7 +194,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Attributes.ftl"/>
+                        <html-template location="component://party/template/party/profileblocks/Attributes.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -214,7 +214,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/AvsSettings.ftl"/>
+                        <html-template location="component://party/template/party/profileblocks/AvsSettings.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -229,7 +229,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Cart.ftl"/>
+                        <html-template location="component://party/template/party/profileblocks/Cart.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -245,7 +245,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/LoyaltyPoints.ftl"/>
+                        <html-template location="component://party/template/party/profileblocks/LoyaltyPoints.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -265,7 +265,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/UserLogin.ftl"/>
+                        <html-template location="component://party/template/party/profileblocks/UserLogin.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -286,7 +286,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Visits.ftl"/>
+                        <html-template location="component://party/template/party/profileblocks/Visits.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -338,7 +338,7 @@
                                     <widgets>
                                         <platform-specific>
                                             <html>
-                                                <html-template location="component://party/webapp/partymgr/party/profileblocks/FinAccounts.ftl"/>
+                                                <html-template location="component://party/template/party/profileblocks/FinAccounts.ftl"/>
                                             </html>
                                         </platform-specific>
                                     </widgets>
@@ -379,7 +379,7 @@
                     <widgets>
                         <platform-specific>
                             <html>
-                                <html-template location="component://party/webapp/partymgr/party/profileblocks/SerializedInventory.ftl"/>
+                                <html-template location="component://party/template/party/profileblocks/SerializedInventory.ftl"/>
                             </html>
                         </platform-specific>
                     </widgets>
@@ -436,7 +436,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Content.ftl"/>
+                        <html-template location="component://party/template/party/profileblocks/Content.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -456,7 +456,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/ContentList.ftl"/>
+                        <html-template location="component://party/template/party/profileblocks/ContentList.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -476,7 +476,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Notes.ftl"/>
+                        <html-template location="component://party/template/party/profileblocks/Notes.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -590,7 +590,7 @@
                 <service service-name="getWorkEffortAssignedTasks"/>
             </actions>
             <widgets><!-- can always view your own tasks -->
-                <platform-specific><html><html-template location="component://party/webapp/partymgr/party/profileblocks/mytasks.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://party/template/party/profileblocks/mytasks.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -626,7 +626,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/ProductStores.ftl"/>
+                        <html-template location="component://party/template/party/profileblocks/ProductStores.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>

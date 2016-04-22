@@ -27,7 +27,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PartyNotificationMailCreate}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://party/templates/email/CreatePartyNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://party/template/email/CreatePartyNotification.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -38,7 +38,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PartyNotificationMailChange}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://party/templates/email/ChangePersonalInfoNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://party/template/email/ChangePersonalInfoNotification.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -49,7 +49,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PartyNotificationMailVerification}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://party/templates/email/VerifyEmailAddressNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://party/template/email/VerifyEmailAddressNotification.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -60,7 +60,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PartyNotificationMailActivated}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://party/templates/email/AccountActivatedNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://party/template/email/AccountActivatedNotification.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
