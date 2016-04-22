@@ -235,10 +235,10 @@ under the License.
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://ebay/webapp/ebay/find/EbayKeywordSearch.ftl"/></html>
+                            <html><html-template location="component://ebay/webapp/template/EbayKeywordSearch.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://ebay/webapp/ebay/find/ebayExportLink.ftl"/></html>
+                            <html><html-template location="component://ebay/webapp/template/ebayExportLink.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
