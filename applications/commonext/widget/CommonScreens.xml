@@ -31,7 +31,7 @@ under the License.
                 <set field="line.urlText" value="[${userLogin.userLoginId}]"/>
                 <set field="line.url" value="/partymgr/control/viewprofile?partyId=${userLogin.partyId}"/>
                 <set field="layoutSettings.topLines[]" from-field="line" global="true"/>
-                <script location="component://commonext/webapp/ofbizsetup/organization/changeOrgPartyId.groovy"/><!-- to see ofbizsetup needs to be displayed -->
+                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/changeOrgPartyId.groovy"/><!-- to see ofbizsetup needs to be displayed -->
                 <!-- system info notes -->
                 <service service-name="getLastSystemInfoNote" result-map="resultNote"/>
                 <set field="lastSystemInfoNote1" from-field="resultNote.lastSystemInfoNote1"/>
