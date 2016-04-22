@@ -27,7 +27,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                     <html><html-template location="component://common/webcommon/includes/flotCharts/${chartType}.ftl"/></html>
+                     <html><html-template location="component://common/template/includes/flotCharts/${chartType}.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

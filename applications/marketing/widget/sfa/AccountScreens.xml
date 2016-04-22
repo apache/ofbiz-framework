@@ -100,7 +100,7 @@ under the License.
                             <screenlet title="${uiLabelMap.PageTitleCreateAccount}">
                                 <platform-specific>
                                 <html>
-                                <html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/>
+                                <html-template location="component://common/template/includes/setDependentDropdownValuesJs.ftl"/>
                                 </html>
                                 </platform-specific>   
                                 <include-form name="NewAccount" location="component://marketing/widget/sfa/forms/AccountForms.xml"/>

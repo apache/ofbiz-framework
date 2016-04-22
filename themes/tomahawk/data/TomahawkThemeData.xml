@@ -63,5 +63,5 @@ under the License.
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://tomahawk/includes/footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://tomahawk/includes/appbarOpen.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://tomahawk/includes/appbarClose.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/webcommon/includes/messages.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>
 </entity-engine-xml>

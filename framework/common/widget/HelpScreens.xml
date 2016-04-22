@@ -37,10 +37,10 @@ under the License.
                     <field-map field-name="themeResources" from-field="layoutSettings"/>
                 </service>
                 <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
-                <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/messages.ftl"/>
+                <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/template/includes/messages.ftl"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/lookup.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/lookup.ftl"/></html></platform-specific>
                 <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
                 <container style="contentarea">
                     <container id="column-container">
@@ -53,7 +53,7 @@ under the License.
                 </container>
                 <container style="clear"></container>
                 
-                <platform-specific><html><html-template location="component://common/webcommon/includes/lookupFooter.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/lookupFooter.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

@@ -58,7 +58,7 @@ under the License.
                         <include-screen name="JobManagerLockEnable"/>
                         <section>
                             <widgets>
-                                <platform-specific><html><html-template location="component://common/webcommon/includes/ServerHour24HourFormatJs.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://common/template/includes/ServerHour24HourFormatJs.ftl"/></html></platform-specific>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
                                         <include-form name="FindJobs" location="component://webtools/widget/ServiceForms.xml"/>

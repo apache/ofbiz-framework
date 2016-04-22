@@ -25,7 +25,7 @@ under the License.
     <screen name="states">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/states.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/states.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -35,7 +35,7 @@ under the License.
                 <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/countries.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/countries.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -46,14 +46,14 @@ under the License.
                 <script location="component://common/webcommon/WEB-INF/actions/includes/CcTypes.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/cctypes.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/cctypes.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     <screen name="ccmonths">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/ccmonths.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/ccmonths.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -63,7 +63,7 @@ under the License.
                 <set field="thisDate" from-field="nowTimestamp"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/ccyears.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/ccyears.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -89,7 +89,7 @@ under the License.
     <screen name="genericLink">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/genericLink.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/genericLink.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -102,13 +102,13 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://common/webcommon/includes/htmlheader-for-ajax.ftl" />
+                        <html-template location="component://common/template/includes/htmlheader-for-ajax.ftl" />
                     </html>
                 </platform-specific>
                 <decorator-section-include name="body" />
                 <platform-specific>
                     <html>
-                        <html-template location="component://common/webcommon/includes/htmlfooter-for-ajax.ftl" />
+                        <html-template location="component://common/template/includes/htmlfooter-for-ajax.ftl" />
                     </html>
                 </platform-specific>
             </widgets>
@@ -126,7 +126,7 @@ under the License.
                 <decorator-screen name="AjaxGlobalDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://common/webcommon/includes/ajaxAutocompleteOptions.ftl" /></html>
+                            <html><html-template location="component://common/template/includes/ajaxAutocompleteOptions.ftl" /></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -375,7 +375,7 @@ under the License.
 
                         <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
 
-                        <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/messages.ftl"/>
+                        <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/template/includes/messages.ftl"/>
                     </actions>
                     <widgets>
                         <section>
@@ -383,7 +383,7 @@ under the License.
                                 <if-compare value="layer" operator="not-equals" field="parameters.presentation"/>
                         </condition>
                             <widgets>
-                                <platform-specific><html><html-template location="component://common/webcommon/includes/lookup.ftl" /></html></platform-specific>
+                                <platform-specific><html><html-template location="component://common/template/includes/lookup.ftl" /></html></platform-specific>
                             </widgets>
                         </section>
                         <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
@@ -412,7 +412,7 @@ under the License.
                             <if-compare value="layer" operator="not-equals" field="parameters.presentation"/>
                         </condition>
                             <widgets>
-                                <platform-specific><html><html-template location="component://common/webcommon/includes/lookupFooter.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://common/template/includes/lookupFooter.ftl"/></html></platform-specific>
                             </widgets>
                         </section>
                     </widgets>
@@ -430,7 +430,7 @@ under the License.
                             <decorator-section name="body">
                                 <platform-specific>
                                     <html>
-                                        <html-template location="component://common/webcommon/includes/ajaxAutocompleteOptions.ftl" />
+                                        <html-template location="component://common/template/includes/ajaxAutocompleteOptions.ftl" />
                                     </html>
                                 </platform-specific>
                             </decorator-section>
@@ -483,11 +483,11 @@ under the License.
             <widgets>
                 <!-- render header -->
                 <platform-specific>
-                    <html><html-template location="component://common/webcommon/includes/simple.ftl"/></html>
-                    <xsl-fo><html-template location="component://common/webcommon/includes/simple.fo.ftl"/></xsl-fo>
-                    <xml><html-template location="component://common/webcommon/includes/minimal-decorator.ftl"/></xml>
-                    <text><html-template location="component://common/webcommon/includes/minimal-decorator.ftl"/></text>
-                    <csv><html-template location="component://common/webcommon/includes/minimal-decorator.ftl"/></csv>
+                    <html><html-template location="component://common/template/includes/simple.ftl"/></html>
+                    <xsl-fo><html-template location="component://common/template/includes/simple.fo.ftl"/></xsl-fo>
+                    <xml><html-template location="component://common/template/includes/minimal-decorator.ftl"/></xml>
+                    <text><html-template location="component://common/template/includes/minimal-decorator.ftl"/></text>
+                    <csv><html-template location="component://common/template/includes/minimal-decorator.ftl"/></csv>
                 </platform-specific>
             </widgets>
         </section>
@@ -502,7 +502,7 @@ under the License.
                 <property-to-field resource="fop.properties" field="defaultFontFamily" property="fop.font.family" default="NotoSans"/>
             </actions>
             <widgets>
-                <platform-specific><xsl-fo><html-template location="component://common/webcommon/includes/reportTemplate.fo.ftl"/></xsl-fo></platform-specific>
+                <platform-specific><xsl-fo><html-template location="component://common/template/includes/reportTemplate.fo.ftl"/></xsl-fo></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -516,13 +516,13 @@ under the License.
             <widgets>
                 <platform-specific>
                     <xsl-fo>
-                        <html-template location="component://common/webcommon/includes/fo/start.fo.ftl"/>
-                        <html-template location="component://common/webcommon/includes/fo/basic-header.fo.ftl"/>
-                        <html-template location="component://common/webcommon/includes/fo/basic-footer.fo.ftl"/>
+                        <html-template location="component://common/template/includes/fo/start.fo.ftl"/>
+                        <html-template location="component://common/template/includes/fo/basic-header.fo.ftl"/>
+                        <html-template location="component://common/template/includes/fo/basic-footer.fo.ftl"/>
                     </xsl-fo>
                 </platform-specific>
                 <decorator-section-include name="body"/>
-                <platform-specific><xsl-fo><html-template location="component://common/webcommon/includes/fo/end.fo.ftl"/></xsl-fo></platform-specific>
+                <platform-specific><xsl-fo><html-template location="component://common/template/includes/fo/end.fo.ftl"/></xsl-fo></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -537,7 +537,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-<!--                <platform-specific><xsl-fo><html-template location="component://common/webcommon/error.fo.ftl"/></xsl-fo></platform-specific> -->
+<!--                <platform-specific><xsl-fo><html-template location="component://common/template/error.fo.ftl"/></xsl-fo></platform-specific> -->
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -554,7 +554,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="loginTemplateLocation" from-field="layoutSettings.VT_LOGIN_TMPLT_LOC[0]" default-value="component://common/webcommon/login.ftl"/>
+                                <set field="loginTemplateLocation" from-field="layoutSettings.VT_LOGIN_TMPLT_LOC[0]" default-value="component://common/template/login.ftl"/>
                             </actions>
                             <widgets />
                         </section>
@@ -596,7 +596,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="changePasswordTemplateLocation" from-field="layoutSettings.VT_CHPWD_TMPLT_LOC[0]" default-value="component://common/webcommon/changePassword.ftl"/>
+                                <set field="changePasswordTemplateLocation" from-field="layoutSettings.VT_CHPWD_TMPLT_LOC[0]" default-value="component://common/template/changePassword.ftl"/>
                             </actions>
                             <widgets />
                         </section>
@@ -616,7 +616,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common/webcommon/forgotPassword.ftl"/>
+                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common/template/forgotPassword.ftl"/>
                             </actions>
                             <widgets />
                         </section>
@@ -646,7 +646,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="getSecurityQuestionTemplateLocation" from-field="layoutSettings.VT_GSQUE_TMPLT_LOC[0]" default-value="component://common/webcommon/getSecurityQuestion.ftl"/>
+                                <set field="getSecurityQuestionTemplateLocation" from-field="layoutSettings.VT_GSQUE_TMPLT_LOC[0]" default-value="component://common/template/getSecurityQuestion.ftl"/>
                             </actions>
                             <widgets />
                         </section>
@@ -666,7 +666,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <actions>
-                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common/webcommon/forgotPassword.ftl"/>
+                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common/template/forgotPassword.ftl"/>
                             </actions>
                             <widgets />
                          </section>
@@ -685,7 +685,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/messages.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -746,8 +746,8 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/viewBlocked.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/viewBlocked.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/messages.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -759,7 +759,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://common/webcommon/includes/geolocation.ftl"/></html>
+                    <html><html-template location="component://common/template/includes/geolocation.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

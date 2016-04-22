@@ -35,7 +35,7 @@ under the License.
                         -->
                         <platform-specific>
                             <html>
-                                <html-template location="component://common/webcommon/portal/showPortlet.ftl" />
+                                <html-template location="component://common/template/portal/showPortlet.ftl" />
                             </html>
                         </platform-specific>
                     </widgets>
@@ -137,7 +137,7 @@ under the License.
                         <screenlet title="${uiLabelMap.CommonPortalCategoryPage}: ${parameters.parentPortalPageId}">
                             <include-form name="PortletCategoryAndPortlet" location="component://common/widget/PortalPageForms.xml"/>
                         </screenlet>
-                        <platform-specific><html><html-template location="component://common/webcommon/portal/listPortalPortlets.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://common/template/portal/listPortalPortlets.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

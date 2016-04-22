@@ -32,7 +32,7 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/rainbowstone/images/ofbiz_logo.gif" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/header.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/webcommon/includes/messages.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://rainbowstone/includes/topappbar.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/rainbowstone/images/themeSaphir.png" sequenceId="01"/>
@@ -80,7 +80,7 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/rainbowstone/images/ofbiz_logo.gif" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/header.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/webcommon/includes/messages.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://rainbowstone/includes/topappbar.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/rainbowstone/images/themeRuby.png" sequenceId="01"/>
@@ -124,7 +124,7 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/rainbowstone/images/ofbiz_logo.gif" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/header.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/webcommon/includes/messages.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://rainbowstone/includes/topappbar.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/rainbowstone/images/themeEmerald.png" sequenceId="01"/>
@@ -167,7 +167,7 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/rainbowstone/images/ofbiz_logo.gif" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/header.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/webcommon/includes/messages.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://rainbowstone/includes/topappbar.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/rainbowstone/images/themeAmber.png" sequenceId="01"/>

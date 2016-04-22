@@ -109,7 +109,7 @@ under the License.
                 <decorator-section name="body">
                     <platform-specific>
                         <html>
-                            <html-template location="component://common/webcommon/includes/listLocales.ftl"/>
+                            <html-template location="component://common/template/includes/listLocales.ftl"/>
                         </html>
                     </platform-specific>
                 </decorator-section>
@@ -135,7 +135,7 @@ under the License.
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://common/webcommon/includes/listCompanies.ftl"/></html>
+                            <html><html-template location="component://common/template/includes/listCompanies.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -155,7 +155,7 @@ under the License.
                 <decorator-section name="body">
                     <platform-specific>
                         <html>
-                            <html-template location="component://common/webcommon/includes/listTimezones.ftl"/>
+                            <html-template location="component://common/template/includes/listTimezones.ftl"/>
                         </html>
                     </platform-specific>
                 </decorator-section>
@@ -181,7 +181,7 @@ under the License.
                 <decorator-section name="body">
                     <platform-specific>
                         <html>
-                            <html-template location="component://common/webcommon/includes/listVisualThemes.ftl"/>
+                            <html-template location="component://common/template/includes/listVisualThemes.ftl"/>
                         </html>
                     </platform-specific>
                 </decorator-section>
@@ -202,7 +202,7 @@ under the License.
                 <decorator-section name="body">
                     <platform-specific>
                         <html>
-                            <html-template location="component://common/webcommon/includes/timeDuration.ftl"/>
+                            <html-template location="component://common/template/includes/timeDuration.ftl"/>
                         </html>
                     </platform-specific>
                 </decorator-section>

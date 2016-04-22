@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#include "component://common/webcommon/includes/GoogleGeoLocation.ftl"/>
+<#include "component://common/template/includes/GoogleGeoLocation.ftl"/>
 
 <body onload="load()">
     <center>

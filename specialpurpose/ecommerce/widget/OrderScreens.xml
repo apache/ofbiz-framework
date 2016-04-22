@@ -522,7 +522,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/QuickAnonPaymentInformation.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/messages.ftl"/></html></platform-specific>
                 <platform-specific><html><html-template location="component://ecommerce/template/order/ccinfo.ftl"/></html></platform-specific>
             </widgets>
         </section>
@@ -542,7 +542,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/QuickAnonPaymentInformation.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/messages.ftl"/></html></platform-specific>
                 <platform-specific><html><html-template location="component://ecommerce/template/order/eftinfo.ftl"/></html></platform-specific>
             </widgets>
         </section>
@@ -562,7 +562,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/QuickAnonPaymentInformation.groovy"/>
             </actions>
             <widgets>
-              <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+              <platform-specific><html><html-template location="component://common/template/includes/messages.ftl"/></html></platform-specific>
               <platform-specific><html><html-template location="component://ecommerce/template/order/gcinfo.ftl"/></html></platform-specific>
             </widgets>
         </section>

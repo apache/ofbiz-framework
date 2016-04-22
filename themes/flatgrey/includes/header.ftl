@@ -136,7 +136,7 @@ under the License.
                 <#if topLine.text??>
                   <li>${topLine.text}<a href="${StringUtil.wrapString(topLine.url!)}${StringUtil.wrapString(externalKeyParam)}">${topLine.urlText!}</a></li>
                 <#elseif topLine.dropDownList??>
-                  <li><#include "component://common/webcommon/includes/insertDropDown.ftl"/></li>
+                  <li><#include "component://common/template/includes/insertDropDown.ftl"/></li>
                 <#else>
                   <li>${topLine!}</li>
                 </#if>
@@ -150,7 +150,7 @@ under the License.
           </#if>
           <#---if webSiteId?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??-->
           <#if parameters.componentName?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??>
-            <#include "component://common/webcommon/includes/helplink.ftl" />
+            <#include "component://common/template/includes/helplink.ftl" />
             <li><a <#if pageAvail?has_content>class="alert"</#if> href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId!}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></li>
           </#if>
           </ul>

@@ -343,7 +343,7 @@ under the License.
                         <container style="widget-container">
                             <platform-specific>
                                 <html>
-                                    <html-template location="component://common/webcommon/includes/ViewCertificate.ftl"/>
+                                    <html-template location="component://common/template/includes/ViewCertificate.ftl"/>
                                 </html>
                             </platform-specific>
                         </container>
