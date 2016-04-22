@@ -76,8 +76,8 @@ under the License.
                                             <set field="asm_sortable" value="false"/>
                                         </actions>
                                         <widgets>
-                                            <platform-specific><html><html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
-                                            <platform-specific><html><html-template location="component://common/webcommon/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
+                                            <platform-specific><html><html-template location="component://common/template/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
+                                            <platform-specific><html><html-template location="component://common/template/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
                                             <include-form name="DropDownFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                             <include-form name="DropDownMultipleFieldExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                         </widgets>

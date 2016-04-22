@@ -20,10 +20,10 @@ under the License.
 <#--
 To use these macros in your template, insert the following line in
 your template file:
-<#include "component://common/webcommon/includes/tempExprMacros.ftl"/>
+<#include "component://common/template/includes/tempExprMacros.ftl"/>
 -->
 
-<#include "component://common/webcommon/includes/commonMacros.ftl"/>
+<#include "component://common/template/includes/commonMacros.ftl"/>
 
 <#assign
   occurrenceList = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getOccurrenceList()

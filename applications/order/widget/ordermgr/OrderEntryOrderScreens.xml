@@ -196,7 +196,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://common/webcommon/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://common/template/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
                         <platform-specific>
                             <html><html-template location="component://order/template/entry/setAdditionalParty.ftl"/></html>
                         </platform-specific>

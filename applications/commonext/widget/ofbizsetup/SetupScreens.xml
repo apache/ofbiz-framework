@@ -57,7 +57,7 @@
                                 <set field="selectedDependentOption" value="_none_"/>
                             </actions>
                             <widgets>
-                                <platform-specific><html><html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://common/template/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
                                 <screenlet title="${uiLabelMap.SetupCreateNewOrganization}">
                                     <include-form name="NewOrganization" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
                                 </screenlet>

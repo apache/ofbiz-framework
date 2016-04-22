@@ -19,6 +19,6 @@ under the License.
 
 <#if (errorMessage?has_content || errorMessageList?has_content || eventMessage?has_content || eventMessageList?has_content)>
 <div id="messages-container">
-<#include "component://common/webcommon/includes/messages.ftl" />
+<#include "component://common/template/includes/messages.ftl" />
 </div>
 </#if>
