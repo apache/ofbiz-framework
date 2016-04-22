@@ -109,7 +109,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://content/webapp/content/content/nav.ftl"/>
+                        <html-template location="component://content/template/content/nav.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>

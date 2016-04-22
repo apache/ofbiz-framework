@@ -51,7 +51,7 @@ under the License.
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.EcommerceSurveyResults}">
-                            <platform-specific><html><html-template location="component://content/webapp/content/survey/ViewSurveyResponses.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template location="˙template/survey/ViewSurveyResponses.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

@@ -196,7 +196,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.PageTitleNavigateContent}" >
                                     <container style="left-border">
                                         <container id="EditDocumentTree"/>
-                                        <platform-specific><html><html-template location="component://content/webapp/content/content/DisplayContentNav.ftl"/></html></platform-specific>
+                                        <platform-specific><html><html-template location="component://content/template/content/DisplayContentNav.ftl"/></html></platform-specific>
                                     </container>
                                     <container style="leftonly">
                                         <include-screen name="showDocument"/>

@@ -81,7 +81,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditCMSContent}">
                             <platform-specific>
-                                <html><html-template location="component://content/webapp/content/cms/CMSContentEdit.ftl"/></html>
+                                <html><html-template location="component://content/template/cms/CMSContentEdit.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -185,7 +185,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCMSSearchPage}">
                             <platform-specific>
-                                <html><html-template location="component://content/webapp/content/cms/CMSSites.ftl"/></html>
+                                <html><html-template location="component://content/template/cms/CMSSites.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -205,7 +205,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleSearchContent}">
                             <platform-specific>
-                                <html><html-template location="component://content/webapp/content/cms/addSubSite.ftl"/></html>
+                                <html><html-template location="component://content/template/cms/addSubSite.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>

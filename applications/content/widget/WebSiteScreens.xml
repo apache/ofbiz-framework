@@ -183,7 +183,7 @@ under the License.
         <section>
             <widgets>
                 <screenlet title="${uiLabelMap.PageTitleWebSiteCMSNav}">
-                    <platform-specific><html><html-template location="component://content/webapp/content/website/WebSiteCMSNav.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://content/template/website/WebSiteCMSNav.ftl"/></html></platform-specific>
                 </screenlet>
             </widgets>
         </section>
@@ -245,7 +245,7 @@ under the License.
                     <screenlet title="${uiLabelMap.PageTitleWebSiteCMSContent}">
                         <platform-specific>
                             <html>
-                                <html-template location="component://content/webapp/content/website/WebSiteCMSContent.ftl"/>
+                                <html-template location="component://content/template/website/WebSiteCMSContent.ftl"/>
                             </html>
                         </platform-specific>
                     </screenlet>
@@ -272,7 +272,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://content/webapp/content/website/WebSiteCMSEditor.ftl"/>
+                        <html-template location="component://content/template/website/WebSiteCMSEditor.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -294,7 +294,7 @@ under the License.
                     <screenlet title="${uiLabelMap.PageTitleWebSiteCMSContent}">
                         <platform-specific>
                             <html>
-                                <html-template location="component://content/webapp/content/website/WebSiteCMSMeta.ftl"/>
+                                <html-template location="component://content/template/website/WebSiteCMSMeta.ftl"/>
                             </html>
                         </platform-specific>
                     </screenlet>
@@ -321,7 +321,7 @@ under the License.
                     <screenlet title="${uiLabelMap.PageTitleWebSiteCMSContent}">
                         <platform-specific>
                             <html>
-                                <html-template location="component://content/webapp/content/website/WebSiteCMSPathAlias.ftl"/>
+                                <html-template location="component://content/template/website/WebSiteCMSPathAlias.ftl"/>
                             </html>
                         </platform-specific>
                     </screenlet>

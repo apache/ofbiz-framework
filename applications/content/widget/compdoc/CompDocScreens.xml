@@ -1231,7 +1231,7 @@ under the License.
                     <decorator-section name="body">
                         <platform-specific>
                             <html>
-                                <html-template location="component://content/webapp/content/dummy.ftl"/>
+                                <html-template location="component://content/template/dummy.ftl"/>
                             </html>
                         </platform-specific>
                     </decorator-section>
