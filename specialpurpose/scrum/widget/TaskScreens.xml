@@ -189,7 +189,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://scrum/webapp/scrum/includes/revision.ftl"/>
+                        <html-template location="component://scrum/template/includes/revision.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>

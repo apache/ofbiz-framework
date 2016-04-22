@@ -53,7 +53,7 @@
                             <widgets>
                                 <screenlet title="${uiLabelMap.ScrumDemoUser}">
                                     <platform-specific>
-                                        <html><html-template location="component://scrum/webapp/scrum/includes/demotest.ftl"/></html>
+                                        <html><html-template location="component://scrum/template/includes/demotest.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </widgets>
