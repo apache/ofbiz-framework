@@ -406,7 +406,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://party/webapp/partymgr/party/editShoppingList.ftl"/></html>
+                            <html><html-template location="component://party/template/party/editShoppingList.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -453,7 +453,7 @@ under the License.
                                 <platform-specific>
                                     <html>
                                         <html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/>
-                                        <html-template location="component://party/webapp/partymgr/party/editcontactmech.ftl"/>
+                                        <html-template location="component://party/template/party/editcontactmech.ftl"/>
                                     </html>
                                 </platform-specific>
                             </widgets>
@@ -813,7 +813,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://party/webapp/partymgr/party/addressMatchMap.ftl"/></html>
+                            <html><html-template location="component://party/template/party/addressMatchMap.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -832,7 +832,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://party/webapp/partymgr/party/findMatches.ftl"/></html>
+                            <html><html-template location="component://party/template/party/findMatches.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1184,7 +1184,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://party/webapp/partymgr/party/editGeoLocation.ftl"/></html>
+                            <html><html-template location="component://party/template/party/editGeoLocation.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1197,7 +1197,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.MyPortalCustRequestNotificationMailCreation}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://party/templates/email/CreatePartyNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://party/template/email/CreatePartyNotification.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -1272,7 +1272,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://party/webapp/partymgr/party/contactmechtemplates/${postalAddressTemplate}"/>
+                        <html-template location="component://party/template/party/contactmechtemplates/${postalAddressTemplate}"/>
                     </html>
                 </platform-specific>
             </widgets>
@@ -1283,13 +1283,13 @@ under the License.
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="postalAddressTemplateSuffix" value=".fo.ftl"/>
-                <set field="addressTemplatePath" value="${sys:getProperty('ofbiz.home')}/applications/party/webapp/partymgr/party/contactmechtemplates/"/>
+                <set field="addressTemplatePath" value="${sys:getProperty('ofbiz.home')}/applications/party/template/party/contactmechtemplates/"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetPostalAddressTemplate.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
                     <xsl-fo>
-                        <html-template location="component://party/webapp/partymgr/party/contactmechtemplates/${postalAddressTemplate}"/>
+                        <html-template location="component://party/template/party/contactmechtemplates/${postalAddressTemplate}"/>
                     </xsl-fo>
                 </platform-specific>
             </widgets>
