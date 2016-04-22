@@ -45,7 +45,7 @@ under the License.
                 <set field="title" value="Sprint Notification SprintId# ${sprintId}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://scrum/templates/ActiveSprintNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://scrum/template/ActiveSprintNotification.ftl"/></html></platform-specific>
             </widgets>
             <fail-widgets>
                 <label text="SprintId is required or PartyId is required"></label>
@@ -77,7 +77,7 @@ under the License.
                 <set field="title" value="Sprint Notification SprintId# ${sprintId}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://scrum/templates/ClosedSprintNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://scrum/template/ClosedSprintNotification.ftl"/></html></platform-specific>
             </widgets>
             <fail-widgets>
                 <label text="SprintId is required or PartyIdTo is required"></label>
@@ -96,7 +96,7 @@ under the License.
                 <set field="title" value="Backlog Notification backlog item# ${custRequestId}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://scrum/templates/AcceptedBacklogNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://scrum/template/AcceptedBacklogNotification.ftl"/></html></platform-specific>
             </widgets>
             <fail-widgets>
                 <label text="Backlog Id is required."></label>
@@ -118,7 +118,7 @@ under the License.
                 <set field="title" value="Backlog Notification backlog item# ${custRequestId}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://scrum/templates/ReviewedBacklogNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://scrum/template/ReviewedBacklogNotification.ftl"/></html></platform-specific>
             </widgets>
             <fail-widgets>
                 <label text="Backlog Id is required."></label>
@@ -137,7 +137,7 @@ under the License.
                 <set field="title" value="Backlog Notification backlog item# ${custRequestId}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://scrum/templates/CompletedBacklogNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://scrum/template/CompletedBacklogNotification.ftl"/></html></platform-specific>
             </widgets>
             <fail-widgets>
                 <label text="Backlog Id is required."></label>
@@ -159,7 +159,7 @@ under the License.
                 <set field="title" value="Backlog Notification backlog item# ${custRequestId}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://scrum/templates/CancelledBacklogNotification.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://scrum/template/CancelledBacklogNotification.ftl"/></html></platform-specific>
             </widgets>
             <fail-widgets>
                 <label text="Backlog Id is required."></label>
