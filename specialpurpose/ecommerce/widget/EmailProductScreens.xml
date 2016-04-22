@@ -27,7 +27,7 @@ under the License.
                 <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/tellafriend.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/tellafriend.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

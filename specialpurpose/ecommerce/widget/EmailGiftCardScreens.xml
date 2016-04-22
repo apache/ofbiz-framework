@@ -29,7 +29,7 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/giftcardpurchase.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/giftcardpurchase.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -40,7 +40,7 @@ under the License.
                 <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/giftcardreload.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/giftcardreload.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
