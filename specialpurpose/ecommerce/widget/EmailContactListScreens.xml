@@ -32,7 +32,7 @@ under the License.
                 </entity-one>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListVerifyEmail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/ContactListVerifyEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -57,7 +57,7 @@ under the License.
                 <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactUsEmail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/ContactUsEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -71,7 +71,7 @@ under the License.
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${baseLocation}/control"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListSubscribeEmail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/ContactListSubscribeEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -85,7 +85,7 @@ under the License.
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${baseLocation}/control"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListUnsubscribeVerifyEmail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/ContactListUnsubscribeVerifyEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -99,7 +99,7 @@ under the License.
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${baseLocation}/control"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListUnsubscribeEmail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/ContactListUnsubscribeEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -113,7 +113,7 @@ under the License.
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${baseLocation}/control"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListEmailTemplate.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/ContactListEmailTemplate.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

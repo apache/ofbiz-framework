@@ -90,7 +90,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/OrderNoticeEmail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/OrderNoticeEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -109,7 +109,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/OrderNoticeEmail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/OrderNoticeEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -124,7 +124,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/OrderNoticeEmail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/OrderNoticeEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -139,7 +139,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/OrderNoticeEmail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/OrderNoticeEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -154,7 +154,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/emailpayretry.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/emailpayretry.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -169,7 +169,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/ShipmentStatus.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/templates/email/ShipmentNotificationEmail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/ShipmentNotificationEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
