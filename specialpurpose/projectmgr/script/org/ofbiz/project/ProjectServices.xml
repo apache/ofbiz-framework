@@ -126,7 +126,7 @@
                             input map: updProjectRole.newPartyId, updProjectRole.roleTypeId">
         <entity-and entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments" filter-by-date="true">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
-            <field-map field-name="roleTypeId" value="updProjectRole.roleTypeId"/>
+            <field-map field-name="roleTypeId" from-field="updProjectRole.roleTypeId"/>
         </entity-and>
         <!-- end current record if required -->
         <if-not-empty field="workEffortPartyAssignments">
