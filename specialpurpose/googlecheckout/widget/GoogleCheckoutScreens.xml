@@ -24,28 +24,28 @@
     <screen name="CheckoutShoppingCart">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://googlecheckout/webapp/googlecheckout/templates/CheckoutShoppingCart.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://googlecheckout/template/CheckoutShoppingCart.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     <screen name="shoppingCart">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://googlecheckout/webapp/googlecheckout/templates/shoppingCart.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://googlecheckout/template/shoppingCart.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     <screen name="checkoutFlowSupport">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://googlecheckout/webapp/googlecheckout/templates/checkoutFlowSupport.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://googlecheckout/template/checkoutFlowSupport.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     <screen name="orderProcessingSupport">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://googlecheckout/webapp/googlecheckout/templates/orderProcessingSupport.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://googlecheckout/template/orderProcessingSupport.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -53,7 +53,7 @@
     <screen name="items">
         <section>
             <widgets>
-                 <platform-specific><html><html-template location="component://googlecheckout/webapp/googlecheckout/templates/shoppingCart/items.ftl"/></html></platform-specific>
+                 <platform-specific><html><html-template location="component://googlecheckout/template/shoppingCart/items.ftl"/></html></platform-specific>
              </widgets>
         </section>
     </screen>
@@ -63,7 +63,7 @@
                 <not><if-empty field="googleCart.cartExpiration"/></not>
             </condition>
             <widgets>
-                <platform-specific><html><html-template location="component://googlecheckout/webapp/googlecheckout/templates/shoppingCart/expiration.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://googlecheckout/template/shoppingCart/expiration.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -73,7 +73,7 @@
                 <not><if-empty field="googleCart.merchantPrivateData"/></not>
             </condition>
             <widgets>
-                <platform-specific><html><html-template location="component://googlecheckout/webapp/googlecheckout/templates/shoppingCart/privateData.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://googlecheckout/template/shoppingCart/privateData.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -83,7 +83,7 @@
                 <not><if-empty field="merchantCalculations"/></not>
             </condition>
             <widgets>
-                <platform-specific><html><html-template location="component://googlecheckout/webapp/googlecheckout/templates/checkoutFlowSupport/merchantCaluclations.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://googlecheckout/template/checkoutFlowSupport/merchantCaluclations.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -93,14 +93,14 @@
                 <not><if-empty field="shippingMethods"/></not>
             </condition>
             <widgets>
-                <platform-specific><html><html-template location="component://googlecheckout/webapp/googlecheckout/templates/checkoutFlowSupport/shippingMethods.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://googlecheckout/template/checkoutFlowSupport/shippingMethods.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     <screen name="simpleFlow">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://googlecheckout/webapp/googlecheckout/templates/checkoutFlowSupport/simpleFlow.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://googlecheckout/template/checkoutFlowSupport/simpleFlow.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -110,7 +110,7 @@
                 <not><if-empty field="flowSupport.taxTables"/></not>
             </condition>
             <widgets>
-                <platform-specific><html><html-template location="component://googlecheckout/webapp/googlecheckout/templates/checkoutFlowSupport/taxTables.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://googlecheckout/template/checkoutFlowSupport/taxTables.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -120,7 +120,7 @@
                 <not><if-empty field="flowSupport.requestPhone"/></not>
             </condition>
             <widgets>
-                <platform-specific><html><html-template location="component://googlecheckout/webapp/googlecheckout/templates/checkoutFlowSupport/requestPhone.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://googlecheckout/template/checkoutFlowSupport/requestPhone.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -128,7 +128,7 @@
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://googlecheckout/webapp/googlecheckout/redirect/redirectHeader.ftl"/></html>
+                    <html><html-template location="component://googlecheckout/template/redirect/redirectHeader.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
