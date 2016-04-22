@@ -52,7 +52,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://ecommerce/webapp/ecommerce/request/RequestList.ftl"/></html>
+                            <html><html-template location="component://ecommerce/template/request/RequestList.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -88,7 +88,7 @@ under the License.
                             <widgets>
                                 <container style="lefthalf">
                                     <platform-specific>
-                                        <html><html-template location="component://ecommerce/webapp/ecommerce/request/requestInfo.ftl"/></html>
+                                        <html><html-template location="component://ecommerce/template/request/requestInfo.ftl"/></html>
                                     </platform-specific>
                                     <platform-specific>
                                         <html><html-template location="component://order/webapp/ordermgr/request/ViewRequestItemInfo.ftl"/></html>
@@ -102,7 +102,7 @@ under the License.
                                         <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
                                     </platform-specific>
                                     <platform-specific>
-                                        <html><html-template location="component://ecommerce/webapp/ecommerce/request/requestRoles.ftl"/></html>
+                                        <html><html-template location="component://ecommerce/template/request/requestRoles.ftl"/></html>
                                     </platform-specific>
                                 </container>
                             </widgets>
