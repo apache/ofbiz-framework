@@ -40,7 +40,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://ecommerce/webapp/ecommerce/quote/QuoteList.ftl"/></html>
+                            <html><html-template location="component://ecommerce/template/quote/QuoteList.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -76,7 +76,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://ecommerce/webapp/ecommerce/quote/CreateOrderQuote.ftl"/></html>
+                                    <html><html-template location="component://ecommerce/template/quote/CreateOrderQuote.ftl"/></html>
                                 </platform-specific>
                                 <include-screen name="ViewQuoteTemplate" location="component://order/widget/ordermgr/QuoteScreens.xml"/>
                             </widgets>

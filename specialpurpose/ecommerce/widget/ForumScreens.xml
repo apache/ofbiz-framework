@@ -41,7 +41,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets><platform-specific><html>
-                <html-template location="component://ecommerce/webapp/ecommerce/forum/forums.ftl"/>
+                <html-template location="component://ecommerce/template/forum/forums.ftl"/>
             </html></platform-specific>
             </widgets>
         </section>
@@ -98,9 +98,9 @@ under the License.
                                           </link>
                                     </widgets>
                                 </section>
-                                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/forumPaging.ftl"/></html></platform-specific>
-                                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/showforum.ftl"/></html></platform-specific>
-                                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/forumPaging.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://ecommerce/template/forum/forumPaging.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://ecommerce/template/forum/showforum.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://ecommerce/template/forum/forumPaging.ftl"/></html></platform-specific>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -197,7 +197,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/createforumarticle.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/forum/createforumarticle.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -244,7 +244,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/editforumarticle.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/forum/editforumarticle.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -290,7 +290,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/editforumarticle.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/forum/editforumarticle.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -341,7 +341,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/createforumresponse.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/forum/createforumresponse.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -382,7 +382,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/editforuminfo.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/forum/editforuminfo.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -435,7 +435,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/editaddforumdata.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/forum/editaddforumdata.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -481,7 +481,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/editaddimage.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/forum/editaddimage.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
