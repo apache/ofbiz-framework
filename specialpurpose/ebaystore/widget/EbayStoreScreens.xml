@@ -51,7 +51,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.EbayStoreSetting}">
                             <platform-specific>
-                                <html><html-template location="component://ebaystore/webapp/ebaystore/store/StoreSetting.ftl"/></html>
+                                <html><html-template location="component://ebaystore/template/store/StoreSetting.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -214,7 +214,7 @@ under the License.
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://ebaystore/webapp/ebaystore/store/ebayApiKeywordSearch.ftl"/></html>
+                            <html><html-template location="component://ebaystore/template/store/ebayApiKeywordSearch.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -268,7 +268,7 @@ under the License.
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                             <platform-specific>
-                            <html><html-template location="component://ebaystore/webapp/ebaystore/store/productsearchExport.ftl"/></html>
+                            <html><html-template location="component://ebaystore/template/store/productsearchExport.ftl"/></html>
                             </platform-specific>
                     </decorator-section>
                 </decorator-screen>

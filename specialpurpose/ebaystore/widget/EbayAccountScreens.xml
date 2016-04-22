@@ -118,7 +118,7 @@
                             <screenlet title="${uiLabelMap.EbayLeaveFeedback}">
                                 <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayFeedbackSubTabBar"/>
                                 <platform-specific>
-                                    <html><html-template location="component://ebaystore/webapp/ebaystore/feedback/LeaveFeedback.ftl"/></html>
+                                    <html><html-template location="component://ebaystore/template/feedback/LeaveFeedback.ftl"/></html>
                                 </platform-specific>
                             </screenlet>
                         </screenlet>
@@ -206,7 +206,7 @@
                             <screenlet title="${uiLabelMap.EbayLeaveFeedback}">
                                 <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayFeedbackSubTabBar"/>
                                 <platform-specific>
-                                    <html><html-template location="component://ebaystore/webapp/ebaystore/feedback/LeaveFeedback.ftl"/></html>
+                                    <html><html-template location="component://ebaystore/template/feedback/LeaveFeedback.ftl"/></html>
                                 </platform-specific>
                             </screenlet>
                         </screenlet>
