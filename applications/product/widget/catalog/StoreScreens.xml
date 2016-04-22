@@ -211,7 +211,7 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/store/EditProductStoreWebSites.ftl"/></html>
+                            <html><html-template location="component://product/template/store/EditProductStoreWebSites.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -257,7 +257,7 @@ under the License.
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleAddProductStoreShipSetup}">
                                     <platform-specific>
-                                        <html><html-template location="component://product/webapp/catalog/store/EditProductStoreShipSetup.ftl"/></html>
+                                        <html><html-template location="component://product/template/store/EditProductStoreShipSetup.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </widgets>
@@ -400,7 +400,7 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/store/EditProductStoreSurveys.ftl"/></html>
+                            <html><html-template location="component://product/template/store/EditProductStoreSurveys.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

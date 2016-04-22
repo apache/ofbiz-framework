@@ -112,7 +112,7 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-results">
-                        <platform-specific><html><html-template location="component://product/webapp/facility/lookup/LookupInventoryItems.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://product/template/lookup/LookupInventoryItems.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

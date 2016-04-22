@@ -63,11 +63,11 @@ under the License.
                                                             </link>
                                                         </container>
                                                         <label style="h1">${uiLabelMap.ProductEditFacility} ${facility.facilityName} [${facilityId}]</label>
-                                                        <platform-specific><html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html></platform-specific>
+                                                        <platform-specific><html><html-template location="component://product/template/facility/EditFacility.ftl"/></html></platform-specific>
                                                     </widgets>
                                                     <fail-widgets>
                                                         <label style="h1">${uiLabelMap.ProductNewFacility}"</label>
-                                                        <platform-specific><html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html></platform-specific>
+                                                        <platform-specific><html><html-template location="component://product/template/facility/EditFacility.ftl"/></html></platform-specific>
                                                     </fail-widgets>
                                                 </section>
                                             </widgets>
@@ -186,7 +186,7 @@ under the License.
                                                         <parameter param-name="externalLoginKey" from-field="parameters.externalLoginKey"/>
                                                     </link>
                                                 </container>
-                                                <platform-specific><html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html></platform-specific>
+                                                <platform-specific><html><html-template location="component://product/template/facility/EditFacility.ftl"/></html></platform-specific>
                                             </widgets>
                                         </section>
                                     </widgets>
@@ -206,7 +206,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <label style="h1">${uiLabelMap.ProductNewFacility}</label>
-                                        <platform-specific><html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html></platform-specific>
+                                        <platform-specific><html><html-template location="component://product/template/facility/EditFacility.ftl"/></html></platform-specific>
                                     </widgets>
                                     <fail-widgets>
                                         <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
@@ -310,7 +310,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${title}">
                             <platform-specific>
-                                <html><html-template location="component://product/webapp/facility/facility/FindFacilityLocation.ftl"/></html>
+                                <html><html-template location="component://product/template/facility/FindFacilityLocation.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -341,7 +341,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/EditFacilityLocation.ftl"/></html>
+                            <html><html-template location="component://product/template/facility/EditFacilityLocation.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -419,7 +419,7 @@ under the License.
                         </container>
                         <screenlet title="${uiLabelMap.ProductSearchInventoryItemsByLabels}">
                             <platform-specific>
-                                <html><html-template location="component://product/webapp/facility/facility/searchInventoryItemsByLabelsForm.ftl"/></html>
+                                <html><html-template location="component://product/template/facility/searchInventoryItemsByLabelsForm.ftl"/></html>
                             </platform-specific>
                             <include-form name="ListFacilityInventoryItemsNoLocations" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
@@ -827,7 +827,7 @@ under the License.
                             </section>
                         </container>
                         <screenlet title="${uiLabelMap.PartyContactInformation}">
-                            <platform-specific><html><html-template location="component://product/webapp/facility/facility/ViewContactMechs.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template location="component://product/template/facility/ViewContactMechs.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -871,7 +871,7 @@ under the License.
                         <platform-specific>
                             <html>
                                 <html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/>
-                                <html-template location="component://product/webapp/facility/facility/EditContactMech.ftl"/>
+                                <html-template location="component://product/template/facility/EditContactMech.ftl"/>
                             </html>
                         </platform-specific>
                     </decorator-section>
@@ -1133,7 +1133,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/inventory/receiveInventory.ftl"/></html>
+                            <html><html-template location="component://product/template/inventory/receiveInventory.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1153,7 +1153,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/returns/receiveReturn.ftl"/></html>
+                            <html><html-template location="component://product/template/returns/receiveReturn.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1168,7 +1168,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://product/webapp/facility/returns/UpdatedInventoryItemStatus.ftl"/></html>
+                    <html><html-template location="component://product/template/returns/UpdatedInventoryItemStatus.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -1206,7 +1206,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/PicklistOptions.ftl"/></html>
+                            <html><html-template location="component://product/template/facility/PicklistOptions.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1238,19 +1238,19 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://product/webapp/facility/facility/PrintPickSheets.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://product/template/facility/PrintPickSheets.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://product/webapp/facility/facility/NotReadyToPick.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://product/template/facility/NotReadyToPick.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </fail-widgets>
                         </section>
                     </widgets>
                     <fail-widgets>
                         <platform-specific>
-                            <xsl-fo><html-template location="component://product/webapp/facility/facility/NotReadyToPick.fo.ftl"/></xsl-fo>
+                            <xsl-fo><html-template location="component://product/template/facility/NotReadyToPick.fo.ftl"/></xsl-fo>
                         </platform-specific>
                     </fail-widgets>
                 </section>
@@ -1266,7 +1266,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/ReviewOrdersNotPickedOrPacked.ftl"/></html>
+                            <html><html-template location="component://product/template/facility/ReviewOrdersNotPickedOrPacked.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1304,7 +1304,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/PicklistManage.ftl"/></html>
+                            <html><html-template location="component://product/template/facility/PicklistManage.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1333,7 +1333,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/PickMoveStock.ftl"/></html>
+                            <html><html-template location="component://product/template/facility/PickMoveStock.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1367,7 +1367,7 @@ under the License.
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
-                            <xsl-fo><html-template location="component://product/webapp/facility/facility/PickMoveStockSimple.fo.ftl"/></xsl-fo>
+                            <xsl-fo><html-template location="component://product/template/facility/PickMoveStockSimple.fo.ftl"/></xsl-fo>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1390,7 +1390,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://product/webapp/facility/facility/Picklist.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://product/template/facility/Picklist.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -1405,7 +1405,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/facility/facility/FacilityScheduleTabBar.ftl"/></html>
+                                    <html><html-template location="component://product/template/facility/FacilityScheduleTabBar.ftl"/></html>
                                 </platform-specific>
                                 <decorator-section-include name="schedule-body"/>
                             </widgets>
@@ -1478,7 +1478,7 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleLabelPrinting}">
                             <include-form name="Labels" location="component://product/widget/facility/FacilityForms.xml"/>
                             <platform-specific>
-                                <html><html-template location="component://product/webapp/facility/facility/batchPrintMarkAsAccepted.ftl"/></html>
+                                <html><html-template location="component://product/template/facility/batchPrintMarkAsAccepted.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -1492,7 +1492,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://product/webapp/facility/facility/batchPrintShippingLabels.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://product/template/facility/batchPrintShippingLabels.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>

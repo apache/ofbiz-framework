@@ -88,7 +88,7 @@ under the License.
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-results">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/lookup/LookupVariantProduct.ftl"/></html>
+                            <html><html-template location="component://product/template/lookup/LookupVariantProduct.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
