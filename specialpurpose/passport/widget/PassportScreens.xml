@@ -32,7 +32,7 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html>
-                       <html-template location="component://passport/webapp/passport/login/thirdPartyLogins.ftl"/>
+                       <html-template location="component://passport/template/login/thirdPartyLogins.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>
