@@ -71,7 +71,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCMSSearchPage}">
                             <platform-specific>
-                                <html><html-template location="component://lucene/webapp/content/AdminSearch.ftl"/></html>
+                                <html><html-template location="component://lucene/template/AdminSearch.ftl"/></html>
                             </platform-specific>
                             <include-form name="searchList" location="component://lucene/widget/LuceneForms.xml"/>
                         </screenlet>
