@@ -40,6 +40,8 @@ import org.ofbiz.base.util.ScriptUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.transaction.GenericTransactionException;
+import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
@@ -70,7 +72,10 @@ public class GroovyEventHandler implements EventHandler {
     }
 
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+        boolean beganTransaction = false;
         try {
+            beganTransaction = TransactionUtil.begin();
+
             Map<String, Object> context = new HashMap<String, Object>();
             context.put("request", request);
             context.put("response", response);
@@ -123,6 +128,12 @@ public class GroovyEventHandler implements EventHandler {
             return (String) result;
         } catch (Exception e) {
             throw new EventHandlerException("Groovy Event Error", e);
+        } finally {
+            try {
+                TransactionUtil.commit(beganTransaction);
+            } catch (GenericTransactionException e) {
+                Debug.logError(e, module);
+            }
         }
     }
 }
