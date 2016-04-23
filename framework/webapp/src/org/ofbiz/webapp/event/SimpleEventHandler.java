@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.entity.transaction.GenericTransactionException;
+import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.webapp.control.ConfigXMLReader;
@@ -52,6 +54,8 @@ public class SimpleEventHandler implements EventHandler {
      * @see org.ofbiz.webapp.event.EventHandler#invoke(ConfigXMLReader.Event, ConfigXMLReader.RequestMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+        boolean beganTransaction = false;
+
         String xmlResource = event.path;
         String eventName = event.invoke;
         Locale locale = UtilHttp.getLocale(request);
@@ -67,6 +71,7 @@ public class SimpleEventHandler implements EventHandler {
 
         Debug.logVerbose("[Processing]: SIMPLE Event", module);
         try {
+            beganTransaction = TransactionUtil.begin();
             String eventReturn = SimpleMethod.runSimpleEvent(xmlResource, eventName, request, response);
             if (Debug.verboseOn()) Debug.logVerbose("[Event Return]: " + eventReturn, module);
             return eventReturn;
@@ -75,6 +80,15 @@ public class SimpleEventHandler implements EventHandler {
             String errMsg = UtilProperties.getMessage(SimpleEventHandler.err_resource, "simpleEventHandler.event_not_completed", (locale != null ? locale : Locale.getDefault())) + ": ";
             request.setAttribute("_ERROR_MESSAGE_", errMsg + e.getMessage());
             return "error";
+        } catch (GenericTransactionException e) {
+            Debug.logError(e, module);
+            return "error";
+        } finally {
+            try {
+                TransactionUtil.commit(beganTransaction);
+            } catch (GenericTransactionException e) {
+                Debug.logError(e, module);
+            }
         }
     }
 }
