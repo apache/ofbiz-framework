@@ -91,7 +91,7 @@ under the License.
         </div> <!-- main-nav-bar-left -->
         <div id="main-nav-bar-right">
             <div id="company-logo"></div>
-            <#include "component://rainbowstone/includes/avatar.ftl"/>
+            <#include "component://rainbowstone/template/includes/avatar.ftl"/>
         </div>  <!-- main-nav-bar-right -->
     </div> <!-- main navigation bar -->
     <div id="nav-bar-offset"></div>

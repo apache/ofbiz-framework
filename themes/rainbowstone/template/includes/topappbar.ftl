@@ -217,7 +217,7 @@ under the License.
                 <a class="dark-color" href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId!}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a>
             </#if>
 
-            <#include "component://rainbowstone/includes/avatar.ftl"/>
+            <#include "component://rainbowstone/template/includes/avatar.ftl"/>
         </div>
     </div> <!-- main navigation bar -->
     <div id="app-bar-line"></div>
