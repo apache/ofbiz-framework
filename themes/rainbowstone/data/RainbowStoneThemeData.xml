@@ -31,16 +31,16 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_FTR_JAVASCRIPT" resourceValue="/rainbowstone/js/rainbowstone.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/rainbowstone/images/ofbiz_logo.gif" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/header.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://rainbowstone/template/includes/header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/footer.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://rainbowstone/includes/topappbar.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://rainbowstone/template/includes/footer.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://rainbowstone/template/includes/topappbar.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/rainbowstone/images/themeSaphir.png" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_MENU_MACRO_LIB" resourceValue="component://rainbowstone/includes/templates/htmlMenuMacroLibrary.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_CHPWD_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/changePassword.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_FGPWD_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/forgotPassword.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_GSQUE_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/getSecurityQuestion.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_LOGIN_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/login.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_MENU_MACRO_LIB" resourceValue="component://rainbowstone/template/htmlMenuMacroLibrary.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_CHPWD_TMPLT_LOC" resourceValue="component://rainbowstone/template/changePassword.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_FGPWD_TMPLT_LOC" resourceValue="component://rainbowstone/template/forgotPassword.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_GSQUE_TMPLT_LOC" resourceValue="component://rainbowstone/template/getSecurityQuestion.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_LOGIN_TMPLT_LOC" resourceValue="component://rainbowstone/template/login.ftl" sequenceId="01"/>
 
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/rainbowstone/js/less.min.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-1.11.0.min.js" sequenceId="02"/>
@@ -79,16 +79,16 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_FTR_JAVASCRIPT" resourceValue="/rainbowstone/js/rainbowstone.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/rainbowstone/images/ofbiz_logo.gif" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/header.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://rainbowstone/template/includes/header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/footer.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://rainbowstone/includes/topappbar.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://rainbowstone/template/includes/footer.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://rainbowstone/template/includes/topappbar.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/rainbowstone/images/themeRuby.png" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_MENU_MACRO_LIB" resourceValue="component://rainbowstone/includes/templates/htmlMenuMacroLibrary.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_CHPWD_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/changePassword.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_FGPWD_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/forgotPassword.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_GSQUE_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/getSecurityQuestion.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_LOGIN_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/login.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_MENU_MACRO_LIB" resourceValue="component://rainbowstone/template/htmlMenuMacroLibrary.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_CHPWD_TMPLT_LOC" resourceValue="component://rainbowstone/template/changePassword.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_FGPWD_TMPLT_LOC" resourceValue="component://rainbowstone/template/forgotPassword.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_GSQUE_TMPLT_LOC" resourceValue="component://rainbowstone/template/getSecurityQuestion.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_LOGIN_TMPLT_LOC" resourceValue="component://rainbowstone/template/login.ftl" sequenceId="01"/>
 
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-1.11.0.min.js" sequenceId="02"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-migrate-1.2.1.js" sequenceId="03"/>
@@ -123,16 +123,16 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_FTR_JAVASCRIPT" resourceValue="/rainbowstone/js/rainbowstone.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/rainbowstone/images/ofbiz_logo.gif" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/header.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://rainbowstone/template/includes/header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/footer.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://rainbowstone/includes/topappbar.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://rainbowstone/template/includes/footer.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://rainbowstone/template/includes/topappbar.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/rainbowstone/images/themeEmerald.png" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_MENU_MACRO_LIB" resourceValue="component://rainbowstone/includes/templates/htmlMenuMacroLibrary.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_CHPWD_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/changePassword.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_FGPWD_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/forgotPassword.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_GSQUE_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/getSecurityQuestion.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_LOGIN_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/login.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_MENU_MACRO_LIB" resourceValue="component://rainbowstone/template/htmlMenuMacroLibrary.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_CHPWD_TMPLT_LOC" resourceValue="component://rainbowstone/template/changePassword.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_FGPWD_TMPLT_LOC" resourceValue="component://rainbowstone/template/forgotPassword.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_GSQUE_TMPLT_LOC" resourceValue="component://rainbowstone/template/getSecurityQuestion.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_LOGIN_TMPLT_LOC" resourceValue="component://rainbowstone/template/login.ftl" sequenceId="01"/>
 
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-1.11.0.min.js" sequenceId="02"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-migrate-1.2.1.js" sequenceId="03"/>
@@ -166,16 +166,16 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_FTR_JAVASCRIPT" resourceValue="/rainbowstone/js/rainbowstone.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/rainbowstone/images/ofbiz_logo.gif" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/header.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://rainbowstone/template/includes/header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://rainbowstone/includes/footer.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://rainbowstone/includes/topappbar.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://rainbowstone/template/includes/footer.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://rainbowstone/template/includes/topappbar.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/rainbowstone/images/themeAmber.png" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_MENU_MACRO_LIB" resourceValue="component://rainbowstone/includes/templates/htmlMenuMacroLibrary.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_CHPWD_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/changePassword.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_FGPWD_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/forgotPassword.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_GSQUE_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/getSecurityQuestion.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_LOGIN_TMPLT_LOC" resourceValue="component://rainbowstone/includes/templates/login.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_MENU_MACRO_LIB" resourceValue="component://rainbowstone/template/htmlMenuMacroLibrary.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_CHPWD_TMPLT_LOC" resourceValue="component://rainbowstone/template/changePassword.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_FGPWD_TMPLT_LOC" resourceValue="component://rainbowstone/template/forgotPassword.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_GSQUE_TMPLT_LOC" resourceValue="component://rainbowstone/template/getSecurityQuestion.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_LOGIN_TMPLT_LOC" resourceValue="component://rainbowstone/template/login.ftl" sequenceId="01"/>
 
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-1.11.0.min.js" sequenceId="02"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-migrate-1.2.1.js" sequenceId="03"/>

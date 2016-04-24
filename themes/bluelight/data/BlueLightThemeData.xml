@@ -59,10 +59,10 @@ under the License.
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/bluelight/dropdown.js" sequenceId="30"/>
     
     <!-- ftl references -->
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://bluelight/includes/header.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://bluelight/includes/footer.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://bluelight/includes/appbarOpen.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://bluelight/includes/appbarClose.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://bluelight/includes/messages.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://bluelight/template/header.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://bluelight/template/footer.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://bluelight/template/appbarOpen.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://bluelight/template/appbarClose.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://bluelight/template/messages.ftl" sequenceId="01"/>
     
 </entity-engine-xml>
