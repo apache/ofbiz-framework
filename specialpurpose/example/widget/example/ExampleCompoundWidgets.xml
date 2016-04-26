@@ -21,7 +21,7 @@ under the License.
 <!-- This document serves as an example for Compound Screen Widget feature -->
 <compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/compound-widgets.xsd">
 
-    <site-conf xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
         <request-map uri="CompoundWidgets1">
             <security https="true" auth="true"/>
             <event type="simple" invoke="CompoundWidgetsFunc" path="component://example/widget/example/ExampleCompoundWidgets.xml"/>
@@ -33,7 +33,7 @@ under the License.
         <view-map name="CompoundWidgets2" type="screen" page="component://example/widget/example/ExampleCompoundWidgets.xml#CompoundWidgets2"/>
     </site-conf>
 
-    <menus xmlns="http://ofbiz.apache.org/Widget-Menu" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
+    <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
         <menu name="CompoundWidgetsMenu" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
             <menu-item name="Example1" title="${uiLabelMap.ExampleExample} 1">
                 <link target="CompoundWidgets1"/>
@@ -44,7 +44,7 @@ under the License.
         </menu>
     </menus>
 
-    <screens xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
         <screen name="CompoundWidgets1">
             <section>
                 <actions>
@@ -96,7 +96,7 @@ under the License.
         </screen>
     </screens>
 
-    <forms xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
         <form name="CompoundWidgetsForm1">
             <field name="exampleName" title="${uiLabelMap.FormFieldTitle_exampleName} 1" required-field="true"><text /></field>
         </form>
@@ -106,7 +106,7 @@ under the License.
         </form>
     </forms>
 
-    <simple-methods xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
         <simple-method method-name="CompoundWidgetsFunc">
             <log message="CompoundWidgetsFunc runs" level="info"/>
         </simple-method>
