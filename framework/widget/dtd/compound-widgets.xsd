@@ -4,9 +4,9 @@
         <xs:complexType>
             <xs:all minOccurs="0" maxOccurs="1">
                 <xs:element name="site-conf"/>
-                <xs:element name="menus"/>
+                <xs:element name="menus" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="screens"/>
-                <xs:element name="trees"/>
+                <xs:element name="trees" minOccurs="0" maxOccurs="1"/>
                 <xs:element name="forms"/>
                 <xs:element name="simple-methods"/>
             </xs:all>
