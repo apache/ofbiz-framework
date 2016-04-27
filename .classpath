@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="applications/content/lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="applications/content/lib/pdfbox-1.8.5.jar"/>
-	<classpathentry kind="lib" path="applications/content/lib/jempbox-1.8.5.jar"/>
-	<classpathentry kind="lib" path="applications/content/lib/fontbox-1.8.5.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/pdfbox-1.8.11.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/jempbox-1.8.11.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/fontbox-1.8.11.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/poi-3.13-20150929.jar"/>
 	<classpathentry kind="lib" path="applications/product/lib/dozer-4.2.1.jar"/>
 	<classpathentry kind="lib" path="applications/product/lib/watermarker-0.0.4.jar"/>
@@ -63,7 +63,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-beanutils-core-1.8.3.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-collections4-4.1.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-compress-1.9.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-compress-1.11.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-csv-1.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-el-1.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-fileupload-1.3.1.jar"/>
