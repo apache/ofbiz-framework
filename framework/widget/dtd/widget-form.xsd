@@ -1621,6 +1621,11 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
+            <xs:attribute name="placeholder" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Specifies a short hint that describes the expected value of an input field.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="textarea" substitutionGroup="AllFields">
