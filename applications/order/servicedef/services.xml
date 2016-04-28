@@ -78,6 +78,7 @@ under the License.
 
     <service name="createOrderNotificationLog" engine="entity-auto" default-entity-name="OrderNotification" invoke="create">
         <description>Logs when a notification was sent</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="emailType" type="String" mode="IN" optional="false"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
