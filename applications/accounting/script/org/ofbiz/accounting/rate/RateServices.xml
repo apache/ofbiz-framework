@@ -127,7 +127,7 @@ under the License.
                3. for specific rateTypeId, emplPositionTypeId (emplPositionType)
                4. for specific rateTypeId (rateType)
 
-               Then will be checked if the requested periodTypeId and currency can be found, if not isue an error message
+               Then will be checked if the requested periodTypeId and currency can be found, if not issue an error message
         -->
         <if-empty field="parameters.rateCurrencyUomId">
             <property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
