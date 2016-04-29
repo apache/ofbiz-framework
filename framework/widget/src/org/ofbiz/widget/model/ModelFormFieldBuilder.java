@@ -71,7 +71,7 @@ public class ModelFormFieldBuilder {
 
     public static final String module = ModelFormFieldBuilder.class.getName();
 
-    private FlexibleStringExpander action = FlexibleStringExpander.getInstance("");;
+    private FlexibleStringExpander action = FlexibleStringExpander.getInstance("");
     private String attributeName = "";
     private boolean encodeOutput = true;
     private String entityName = "";
@@ -100,12 +100,12 @@ public class ModelFormFieldBuilder {
     private String sortFieldDescStyle = "";
     private String sortFieldHelpText = "";
     private String sortFieldStyle = "";
-    private FlexibleStringExpander title = FlexibleStringExpander.getInstance("");;
+    private FlexibleStringExpander title = FlexibleStringExpander.getInstance("");
     private String titleAreaStyle = "";
     private String titleStyle = "";
-    private FlexibleStringExpander tooltip = FlexibleStringExpander.getInstance("");;
+    private FlexibleStringExpander tooltip = FlexibleStringExpander.getInstance("");
     private String tooltipStyle = "";
-    private FlexibleStringExpander useWhen = FlexibleStringExpander.getInstance("");;
+    private FlexibleStringExpander useWhen = FlexibleStringExpander.getInstance("");
     private FlexibleStringExpander ignoreWhen = FlexibleStringExpander.getInstance("");
     private String widgetAreaStyle = "";
     private String widgetStyle = "";
