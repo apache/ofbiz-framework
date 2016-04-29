@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public final class Observable {
 
-    private final AtomicBoolean changed = new AtomicBoolean();;
+    private final AtomicBoolean changed = new AtomicBoolean();
     private final CopyOnWriteArrayList<Observer> observers = new CopyOnWriteArrayList<Observer>();
 
     public Observable() {}

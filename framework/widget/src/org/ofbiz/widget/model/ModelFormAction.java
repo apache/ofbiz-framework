@@ -77,7 +77,7 @@ public abstract class ModelFormAction {
      */
     @SuppressWarnings("serial")
     public static class CallParentActions extends AbstractModelAction {
-        private final ActionsKind kind;;
+        private final ActionsKind kind;
         private final ModelForm modelForm;
 
         public CallParentActions(ModelForm modelForm, Element callParentActionsElement) {

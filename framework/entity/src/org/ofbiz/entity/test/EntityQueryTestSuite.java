@@ -255,7 +255,7 @@ public class EntityQueryTestSuite extends EntityTestCase {
         delegator.storeAll(testingTypes);
         
         EntityFindOptions findOptions = new EntityFindOptions();
-        findOptions.setFetchSize(2);;
+        findOptions.setFetchSize(2);
         List<GenericValue> fetchSizeByEntityEngine = delegator.findList("TestingType", null, null, UtilMisc.toList("description"), findOptions, false);
         List<GenericValue> fetchSizeByEntityQuery = EntityQuery.use(delegator).from("TestingType").fetchSize(2).orderBy("description").queryList();
         
