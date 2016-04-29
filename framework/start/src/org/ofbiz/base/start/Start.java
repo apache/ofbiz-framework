@@ -36,87 +36,40 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * OFBiz startup class.
- * 
+ *
+ * This class implements a thread-safe state machine. The design is critical
+ * for reliable starting and stopping of the server.
+ *
+ * The machine's current state and state changes must be encapsulated in this
+ * class. Client code may query the current state, but it may not change it.
+ *
+ * This class uses a singleton pattern to guarantee that only one server instance
+ * is running in the VM. Client code retrieves the instance by using the getInstance()
+ * static method.
+ *
  */
 public final class Start {
 
-    /*
-     * This class implements a thread-safe state machine. The design is critical
-     * for reliable starting and stopping of the server.
-     * 
-     * The machine's current state and state changes must be encapsulated in this
-     * class. Client code may query the current state, but it may not change it.
-     * 
-     * This class uses a singleton pattern to guarantee that only one server instance
-     * is running in the VM. Client code retrieves the instance by using the getInstance()
-     * static method.
-     * 
-     */
+    private Config config = null;
+    private final List<String> loaderArgs = new ArrayList<String>();
+    private final ArrayList<StartupLoader> loaders = new ArrayList<StartupLoader>();
+    private final AtomicReference<ServerState> serverState = new AtomicReference<ServerState>(ServerState.STARTING);
+    private Thread adminPortThread = null;
 
+    // Singleton, do not change
     private static final Start instance = new Start();
-
-    private static Command checkCommand(Command command, Command wanted) {
-        if (wanted == Command.HELP || wanted.equals(command)) {
-            return wanted;
-        } else if (command == null) {
-            return wanted;
-        } else {
-            System.err.println("Duplicate command detected(was " + command + ", wanted " + wanted);
-            return Command.HELP_ERROR;
-        }
+    private Start() {
     }
 
     /**
-     * Returns the <code>Start</code> instance.
+     * main is the entry point to execute high level ofbiz commands 
+     * such as starting, stopping or checking the status of the server.
+     * 
+     * @param args: The commands for ofbiz
+     * @throws StartupException: propagates to the servlet container
      */
-    public static Start getInstance() {
-        return instance;
-    }
-
-    private static void help(PrintStream out) {
-        // Currently some commands have no dash, see OFBIZ-5872
-        out.println("");
-        out.println("Usage: java -jar ofbiz.jar [command] [arguments]");
-        out.println("both    -----> Runs simultaneously the POS (Point of Sales) application and OFBiz standard");
-        out.println("-help, -? ----> This screen");
-        out.println("load-data -----> Creates tables/load data, eg: load-data -readers=seed,demo,ext -timeout=7200 -delegator=default -group=org.ofbiz. Or: load-data -file=/tmp/dataload.xml");
-        out.println("pos     -----> Runs the POS (Point of Sales) application");
-        out.println("start -------> Starts the server");
-        out.println("-status ------> Gives the status of the server");
-        out.println("-shutdown ----> Shutdowns the server");
-        out.println("test --------> Runs the JUnit test script");
-        out.println("[no config] --> Uses default config");
-        out.println("[no command] -> Starts the server with default config");
-    }
-
     public static void main(String[] args) throws StartupException {
-        Command command = null;
-        List<String> loaderArgs = new ArrayList<String>(args.length);
-        for (String arg : args) {
-            if (arg.equals("-help") || arg.equals("-?")) {
-                command = checkCommand(command, Command.HELP);
-            } else if (arg.equals("-status")) {
-                command = checkCommand(command, Command.STATUS);
-            } else if (arg.equals("-shutdown")) {
-                command = checkCommand(command, Command.SHUTDOWN);
-            } else if (arg.startsWith("-")) {
-                if (!arg.contains("portoffset")) {
-                    command = checkCommand(command, Command.COMMAND);
-                }
-                loaderArgs.add(arg.substring(1));
-            } else {
-                command = checkCommand(command, Command.COMMAND);
-                if (command == Command.COMMAND) {
-                    loaderArgs.add(arg);
-                } else {
-                    command = Command.HELP_ERROR;
-                }
-            }
-        }
-        if (command == null) {
-            command = Command.COMMAND;
-            loaderArgs.add("start");
-        }
+        Command command = evaluateOfbizCommand(args);
         if (command == Command.HELP) {
             help(System.out);
             return;
@@ -135,39 +88,22 @@ public final class Start {
                 instance.start();
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(99);
+            throw new StartupException(e);
         }
     }
 
-    // ---------------------------------------------- //
-
-    private Config config = null;
-    private final List<String> loaderArgs = new ArrayList<String>();
-    private final ArrayList<StartupLoader> loaders = new ArrayList<StartupLoader>();
-    private final AtomicReference<ServerState> serverState = new AtomicReference<ServerState>(ServerState.STARTING);
-    private Thread adminPortThread = null;
-
-    // DO NOT CHANGE THIS!
-    private Start() {
+    /**
+     * Returns the <code>Start</code> instance.
+     */
+    public static Start getInstance() {
+        return instance;
     }
 
-    private void createListenerThread() throws StartupException {
-        if (config.adminPort > 0) {
-            this.adminPortThread = new AdminPortThread();
-            this.adminPortThread.start();
-        } else {
-            System.out.println("Admin socket not configured; set to port 0");
-        }
-    }
-
-    private void createLogDirectory() {
-        File logDir = new File(config.logDir);
-        if (!logDir.exists()) {
-            if (logDir.mkdir()) {
-                System.out.println("Created OFBiz log dir [" + logDir.getAbsolutePath() + "]");
-            }
-        }
+    /**
+     * Returns the server's main configuration.
+     */
+    public Config getConfig() {
+        return this.config;
     }
 
     /**
@@ -175,6 +111,18 @@ public final class Start {
      */
     public ServerState getCurrentState() {
         return serverState.get();
+    }
+
+    /**
+     * This enum contains the possible OFBiz server states.
+     */
+    public enum ServerState {
+        STARTING, RUNNING, STOPPING;
+
+        @Override
+        public String toString() {
+            return name().charAt(0) + name().substring(1).toLowerCase();
+        }
     }
 
     void init(String[] args, boolean fullInit) throws StartupException {
@@ -239,9 +187,125 @@ public final class Start {
         initStartLoaders();
     }
 
+    void start() throws Exception {
+        if (!startStartLoaders()) {
+            if (this.serverState.get() == ServerState.STOPPING) {
+                return;
+            } else {
+                throw new Exception("Error during start.");
+            }
+        }
+        if (config.shutdownAfterLoad) {
+            stopServer();
+        }
+    }
+
+    void shutdownServer() {
+        ServerState currentState;
+        do {
+            currentState = this.serverState.get();
+            if (currentState == ServerState.STOPPING) {
+                return;
+            }
+        } while (!this.serverState.compareAndSet(currentState, ServerState.STOPPING));
+        // The current thread was the one that successfully changed the state;
+        // continue with further processing.
+        synchronized (this.loaders) {
+            // Unload in reverse order
+            for (int i = this.loaders.size(); i > 0; i--) {
+                StartupLoader loader = this.loaders.get(i - 1);
+                try {
+                    loader.unload();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (this.adminPortThread != null && this.adminPortThread.isAlive()) {
+            this.adminPortThread.interrupt();
+        }
+    }
+
+    void stopServer() {
+        shutdownServer();
+        System.exit(0);
+    }
+
+    private static Command evaluateOfbizCommand(String[] args) {
+        Command command = null;
+        for (String arg : args) {
+            if (arg.equals("-help") || arg.equals("-?")) {
+                command = checkCommand(command, Command.HELP);
+            } else if (arg.equals("-status")) {
+                command = checkCommand(command, Command.STATUS);
+            } else if (arg.equals("-shutdown")) {
+                command = checkCommand(command, Command.SHUTDOWN);
+            } else if (arg.startsWith("-")) {
+                if (!arg.contains("portoffset")) {
+                    command = checkCommand(command, Command.COMMAND);
+                }
+            } else {
+                command = checkCommand(command, Command.COMMAND);
+                if (command == Command.COMMAND) {
+                } else {
+                    command = Command.HELP_ERROR;
+                }
+            }
+        }
+        if (command == null) {
+            command = Command.COMMAND;
+        }
+        return command;
+    }
+
+    private static Command checkCommand(Command command, Command wanted) {
+        if (wanted == Command.HELP || wanted.equals(command)) {
+            return wanted;
+        } else if (command == null) {
+            return wanted;
+        } else {
+            System.err.println("Duplicate command detected(was " + command + ", wanted " + wanted);
+            return Command.HELP_ERROR;
+        }
+    }
+
+    private static void help(PrintStream out) {
+        // Currently some commands have no dash, see OFBIZ-5872
+        out.println("");
+        out.println("Usage: java -jar ofbiz.jar [command] [arguments]");
+        out.println("both    -----> Runs simultaneously the POS (Point of Sales) application and OFBiz standard");
+        out.println("-help, -? ----> This screen");
+        out.println("load-data -----> Creates tables/load data, eg: load-data -readers=seed,demo,ext -timeout=7200 -delegator=default -group=org.ofbiz. Or: load-data -file=/tmp/dataload.xml");
+        out.println("pos     -----> Runs the POS (Point of Sales) application");
+        out.println("start -------> Starts the server");
+        out.println("-status ------> Gives the status of the server");
+        out.println("-shutdown ----> Shutdowns the server");
+        out.println("test --------> Runs the JUnit test script");
+        out.println("[no config] --> Uses default config");
+        out.println("[no command] -> Starts the server with default config");
+    }
+
+    private void createListenerThread() throws StartupException {
+        if (config.adminPort > 0) {
+            this.adminPortThread = new AdminPortThread();
+            this.adminPortThread.start();
+        } else {
+            System.out.println("Admin socket not configured; set to port 0");
+        }
+    }
+
+    private void createLogDirectory() {
+        File logDir = new File(config.logDir);
+        if (!logDir.exists()) {
+            if (logDir.mkdir()) {
+                System.out.println("Created OFBiz log dir [" + logDir.getAbsolutePath() + "]");
+            }
+        }
+    }
+
     /**
      * Creates a new <code>NativeLibClassLoader</code> instance.
-     * 
+     *
      * @return A new <code>NativeLibClassLoader</code> instance
      * @throws IOException
      */
@@ -366,38 +430,12 @@ public final class Start {
         return sendSocketCommand(Control.SHUTDOWN);
     }
 
-    void shutdownServer() {
-        ServerState currentState;
-        do {
-            currentState = this.serverState.get();
-            if (currentState == ServerState.STOPPING) {
-                return;
-            }
-        } while (!this.serverState.compareAndSet(currentState, ServerState.STOPPING));
-        // The current thread was the one that successfully changed the state;
-        // continue with further processing.
-        synchronized (this.loaders) {
-            // Unload in reverse order
-            for (int i = this.loaders.size(); i > 0; i--) {
-                StartupLoader loader = this.loaders.get(i - 1);
-                try {
-                    loader.unload();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if (this.adminPortThread != null && this.adminPortThread.isAlive()) {
-            this.adminPortThread.interrupt();
-        }
-    }
-
     /**
      * Returns <code>true</code> if all loaders were started.
-     * 
+     *
      * @return <code>true</code> if all loaders were started.
      */
-    boolean startStartLoaders() {
+    private boolean startStartLoaders() {
         synchronized (this.loaders) {
             // start the loaders
             for (StartupLoader loader : this.loaders) {
@@ -424,30 +462,6 @@ public final class Start {
             throw e;
         }
     }
-
-    void stopServer() {
-        shutdownServer();
-        System.exit(0);
-    }
-
-    void start() throws Exception {
-        if (!startStartLoaders()) {
-            if (this.serverState.get() == ServerState.STOPPING) {
-                return;
-            } else {
-                throw new Exception("Error during start.");
-            }
-        }
-        if (config.shutdownAfterLoad) {
-            stopServer();
-        }
-    }
-
-    public Config getConfig() {
-        return this.config;
-    }
-
-    // ----------------------------------------------- //
 
     private class AdminPortThread extends Thread {
         private ServerSocket serverSocket = null;
@@ -544,14 +558,5 @@ public final class Start {
         };
 
         abstract void processRequest(Start start, PrintWriter writer);
-    }
-
-    public enum ServerState {
-        STARTING, RUNNING, STOPPING;
-
-        @Override
-        public String toString() {
-            return name().charAt(0) + name().substring(1).toLowerCase();
-        }
     }
 }
