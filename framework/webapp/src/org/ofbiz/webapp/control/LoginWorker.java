@@ -29,6 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -157,7 +158,8 @@ public class LoginWorker {
 
             //no key made yet for this request, create one
             while (externalKey == null || externalLoginKeys.containsKey(externalKey)) {
-                externalKey = "EL" + Long.toString(Math.round(Math.random() * 1000000)) + Long.toString(Math.round(Math.random() * 1000000));
+                UUID uuid = UUID.randomUUID();
+                externalKey = "EL" + uuid.toString();
             }
 
             request.setAttribute(EXTERNAL_LOGIN_KEY_ATTR, externalKey);

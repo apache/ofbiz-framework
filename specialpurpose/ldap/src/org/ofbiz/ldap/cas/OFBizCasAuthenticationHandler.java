@@ -26,11 +26,14 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.security.SecureRandom;
+
 import javax.naming.NamingException;
 import javax.naming.directory.SearchResult;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.ldap.commons.AbstractOFBizAuthenticationHandler;
 import org.ofbiz.ldap.commons.InterfaceOFBizAuthenticationHandler;
@@ -129,7 +132,7 @@ public final class OFBizCasAuthenticationHandler extends AbstractOFBizAuthentica
     }
 
     private static int rand(int lo, int hi) {
-        java.util.Random rn = new java.util.Random();
+        java.util.Random rn = new SecureRandom();
         int n = hi - lo + 1;
         int i = rn.nextInt() % n;
         if (i < 0)

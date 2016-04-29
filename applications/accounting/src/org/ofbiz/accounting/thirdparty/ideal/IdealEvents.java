@@ -158,7 +158,7 @@ public class IdealEvents {
             transaction.setDescription(orderDescription);
 
             String returnURL = merchantReturnURL + "?orderId=" + orderId;
-            Random random = new Random();
+            Random random = new SecureRandom();
             String EntranceCode = Long.toString(Math.abs(random.nextLong()), 36);
             transaction.setEntranceCode(EntranceCode);
             transaction.setMerchantReturnURL(returnURL);
