@@ -23,7 +23,7 @@ import static org.ofbiz.base.util.UtilIO.UTF8;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Random;
+import java.security.SecureRandom;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
@@ -124,7 +124,7 @@ public class HashCrypt {
             hashType = "SHA";
         }
         if (salt == null) {
-            salt = RandomStringUtils.random(new Random().nextInt(15) + 1, CRYPT_CHAR_SET);
+            salt = RandomStringUtils.random(new SecureRandom().nextInt(15) + 1, CRYPT_CHAR_SET);
         }
         StringBuilder sb = new StringBuilder();
         sb.append("$").append(hashType).append("$").append(salt).append("$");
