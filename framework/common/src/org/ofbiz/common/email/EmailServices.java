@@ -676,6 +676,7 @@ public class EmailServices {
         } catch (MessagingException e) {
             Debug.logError(e, module);
         }
+        newContext.put("bodyParts", bodyParts);
         try {
             dctx.getDispatcher().runSync("sendMailMultiPart", newContext);
         } catch (GenericServiceException e) {
