@@ -90,13 +90,18 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-
+                
+                <set field="asm_multipleSelectForm" value="FindRoutings"/>
+                <set field="asm_formSize" value="700"/>
+                <set field="asm_multipleSelect" value="FindRoutings_currentStatusId"/>
+                <set field="asm_sortable" value="false"/>
+                <set field="asm_title" value=" "/>
                 <set field="requestParameters.workEffortTypeId" to-scope="screen" default-value="ROUTING"/>
-                <set field="requestParameters.currentStatusId" to-scope="screen" default-value="ROU_ACTIVE"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
                     <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://common/webcommon/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
                         <section>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">

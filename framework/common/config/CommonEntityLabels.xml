@@ -12660,7 +12660,7 @@
     <property key="StatusItem.description.ROU_ACTIVE">
         <value xml:lang="en">Active</value>
         <value xml:lang="es">Ruta activa</value>
-        <value xml:lang="fr">Bien défini et utilisable</value>
+        <value xml:lang="fr">Défini et utilisable</value>
         <value xml:lang="it">Attiva</value>
         <value xml:lang="ja">有効</value>
         <value xml:lang="nl">Actief</value>
@@ -12670,6 +12670,10 @@
         <value xml:lang="vi">ROU_ACTIVE</value>
         <value xml:lang="zh">有效</value>
         <value xml:lang="zh-TW">有效</value>
+    </property>
+    <property key="StatusItem.description.ROU_INACTIVE">
+        <value xml:lang="en">Inactive</value>
+        <value xml:lang="fr">Inutilisable</value>
     </property>
     <property key="StatusItem.description.ROU_PROD_TEMPLATE">
         <value xml:lang="en">Production Template</value>
