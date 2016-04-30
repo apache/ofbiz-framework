@@ -29,6 +29,13 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.ManufacturingRoutingName}">
             <text-find/>
         </field>
+        <field name="currentStatusId">
+            <drop-down allow-multiple="true">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="ROUTING_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}">
             <submit button-type="button"/>
         </field>
@@ -52,16 +59,23 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.ManufacturingRoutingName}"><display/></field>
         <field name="description"><display/></field>
         <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}"><display/></field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
     </form>
     <form name="EditRouting" type="single" target="UpdateRouting" title="" default-map-name="routing"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="routing==null" target="CreateRouting"/>
         <field name="workEffortTypeId" use-when="routing==null"><hidden value="ROUTING"/></field>
-        <field name="currentStatusId" use-when="routing==null"><hidden value="ROU_ACTIVE"/></field>
         <field name="workEffortId" use-when="routing!=null"><hidden/></field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingRoutingName}"><text/></field>
         <field name="description"><text/></field>
         <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}"><text/></field>
+        <field name="currentStatusId">
+            <drop-down>
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="ROUTING_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
             <submit button-type="button"/>
         </field>

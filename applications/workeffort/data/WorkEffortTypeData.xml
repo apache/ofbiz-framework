@@ -191,6 +191,7 @@ under the License.
     <StatusType description="Manufacturing Task and Routing status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="ROUTING_STATUS"/>
 
     <StatusItem description="Well defined and usable" sequenceId="01" statusCode="ACTIVE" statusId="ROU_ACTIVE" statusTypeId="ROUTING_STATUS"/>
+    <StatusItem description="Not well defined and unusable" sequenceId="02" statusCode="INACTIVE" statusId="ROU_INACTIVE" statusTypeId="ROUTING_STATUS"/>
 
     <!-- Production Run status -->
     <StatusType description="Production Run Status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="PRODUCTION_RUN"/>
@@ -213,6 +214,9 @@ under the License.
     <StatusValidChange statusId="PRUN_RUNNING" statusIdTo="PRUN_COMPLETED" transitionName="Complete"/>
     <StatusValidChange statusId="PRUN_COMPLETED" statusIdTo="PRUN_CLOSED" transitionName="Close"/>
     <StatusValidChange statusId="PRUN_CREATED" statusIdTo="PRUN_CANCELLED" transitionName="Cancel"/>
+    
+    <StatusValidChange statusId="ROU_ACTIVE" statusIdTo="ROU_INACTIVE" transitionName="Inactive"/>
+    <StatusValidChange statusId="ROU_INACTIVE" statusIdTo="ROU_ACTIVE" transitionName="Active"/>
 
     <!-- ProductionRun Inventory assignement status -->
     <WorkEffortGoodStandardType workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" description="Product and Routing Association" hasTable="N" parentTypeId=""/>
