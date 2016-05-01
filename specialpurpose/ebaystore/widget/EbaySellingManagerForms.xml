@@ -69,7 +69,7 @@ under the License.
         <field name="submit" title="${uiLabelMap.CommonApply}"><submit/></field>
     </form>
     <!-- Sold Listing -->
-    <form name="SoldItemList" type="list"  target="doAction" list-name="soldItemList"
+    <grid name="SoldItemList"  target="doAction" list-name="soldItemList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
         <row-actions>
             <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/SoldAction.groovy"/>
@@ -95,7 +95,7 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton"  use-when="&quot;${hasAction}&quot;==&quot;true&quot;" title="${uiLabelMap.CommonSubmit}"><submit/></field>
-    </form>
+    </grid>
     <form name="OpenUnpaid" type="single" target="addDispute">
         <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
         <field name="itemId"><hidden value="${parameters.itemId}"/></field>
@@ -468,7 +468,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
     </form>
     <!-- Active Listing -->
-    <form name="ActiveItemList" type="list"  target="doAction" list-name="activeItemList"
+    <grid name="ActiveItemList"  target="doAction" list-name="activeItemList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
         <field name="itemId"><display/></field>
         <field name="SKU" title="Product ID"><display/></field>
@@ -485,9 +485,9 @@ under the License.
         <field name="EditItem">
             <hyperlink target="getItemProduct?productStoreId=${parameters.productStoreId}&amp;itemId=${itemId}" description="Edit" target-type="plain" target-window="_BLANK"/>
         </field>
-    </form>
+    </grid>
     <!-- Unsold Listing -->
-    <form name="UnsoldItemList" type="list"  target="doAction" list-name="unsoldItemList"
+    <grid name="UnsoldItemList"  target="doAction" list-name="unsoldItemList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
         <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
         <field name="itemId"><display/></field>
@@ -500,7 +500,7 @@ under the License.
         <field name="endTime"><display/></field>
         <field name="quantity"><display/></field>
         <field name="listingType"><display/></field>
-    </form>
+    </grid>
     <!-- item list options -->
     <form name="ItemOption" type="single" target="${target}">
         <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
@@ -617,7 +617,7 @@ under the License.
         <field name="currencyId" title="Currency Code"><display/></field>
         <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit/></field>
     </form>
-    <form name="bestOfferIncludeMessage" type="list" title="" list-name="listIt"
+    <grid name="bestOfferIncludeMessage" title="" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <set field="productStoreId" from-field="parameters.productStoreId"/>
@@ -667,7 +667,7 @@ under the License.
                 <parameter param-name="productStoreId" from-field="productStoreId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="viewCustomerOfferData" type="single" target="updateContactStatus">
         <field name="customerUserId" title="Customer User ID"><display description="${userId}"/></field>
         <field name="productId" title="Item Id"><display description="${itemId}"/></field>
@@ -699,7 +699,7 @@ under the License.
         </field>
         <field name="updateContactStatus"><submit button-type="button"/></field>
     </form>
-    <form name="ClosedItemList" type="list"  target="doAction" list-name="closedList"
+    <grid name="ClosedItemList"  target="doAction" list-name="closedList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true" view-size="100">
         <field name="itemId" title="Item ID" sort-field="true"><display description="${itemId}"/></field>
         <field name="SKU" title="Product ID"><display description="${SKU}"/></field>
@@ -712,7 +712,7 @@ under the License.
         <field name="bidCount" title="Bids"><display description="${bidCount}"/></field>
         <field name="hitCount" title="Hits"><display description="${hitCount}"/></field>
         <field name="listingType" title="Listing Type"><display description="${listingType}"/></field>
-    </form>
+    </grid>
     <form name="TransactionList" type="multi" target="EbayStoreImportTransaction" list-name="transactionsList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true" view-size="100">
         <row-actions>

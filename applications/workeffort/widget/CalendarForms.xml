@@ -151,7 +151,7 @@ under the License.
         <field name="actualCompletionDate"><display type="date-time"/></field>
     </form>
 
-    <form name="showCalEventRoles" type="list" list-name="roles" 
+    <grid name="showCalEventRoles" list-name="roles" 
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortPartyAssignment" list="roles" filter-by-date="true">
@@ -167,10 +167,10 @@ under the License.
         <field name="statusId" use-when="workEffort!=null">
             <display-entity entity-name="StatusItem"/>
         </field>
-    </form>
-    <form name="showCalEventRolesDel" type="list" extends="showCalEventRoles" target="deleteWorkEffortPartyAssign">
+    </grid>
+    <grid name="showCalEventRolesDel" extends="showCalEventRoles" target="deleteWorkEffortPartyAssign">
         <field name="remove" title="${uiLabelMap.CommonRemove}"><submit/></field>
-    </form>
+    </grid>
     <form name="addCalEventRole" type="single" target="createWorkEffortPartyAssign">
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>

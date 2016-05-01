@@ -34,7 +34,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
     <!-- feedback -->
-    <form name="ItemsAwaitingFeedback" type="list" list-name="itemsAwaitingFeedbackList"
+    <grid name="ItemsAwaitingFeedback" list-name="itemsAwaitingFeedbackList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="leave"  value="${commentType}"/>
@@ -51,8 +51,8 @@ under the License.
                 <parameter param-name="role" value="${role}"/>
             </hyperlink>
         </field>
-    </form>
-    <form name="RecentFeedback" type="list" list-name="recentFeedbackList"
+    </grid>
+    <grid name="RecentFeedback" list-name="recentFeedbackList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="contentId" title="Feedback Id"><display/></field>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}">
@@ -60,7 +60,7 @@ under the License.
         </field>
         <field name="commentator" title="Commentator"><display/></field>
         <field name="createdDate"><display type="date"/></field>
-    </form>
+    </grid>
     <!-- Personal Information -->
     <form name="EbayPersonalInformationForm" type="single" default-map-name="results.registrationAddress" default-table-style="basic-table">
         <field name="firstName"><display/></field>

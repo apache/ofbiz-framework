@@ -37,7 +37,7 @@ under the License.
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListVisits" type="list" separate-columns="true" title="Visits List" list-name="listIt" target="" default-entity-name="Visit" paginate-target="findVisits"
+    <grid name="ListVisits" separate-columns="true" title="Visits List" list-name="listIt" target="" default-entity-name="Visit" paginate-target="findVisits"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="-visitId"/>
@@ -69,9 +69,9 @@ under the License.
         <field name="clientIpAddress" title="${uiLabelMap.PartyClientIP}" sort-field="true"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" sort-field="true"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" sort-field="true"><display/></field>
-    </form>
+    </grid>
 
-    <form name="ListLoggedInUsers" type="list" separate-columns="true" title="Visits List" list-name="listIt" target="" default-entity-name="Visit" paginate-target="listLoggedInUsers"
+    <grid name="ListLoggedInUsers" separate-columns="true" title="Visits List" list-name="listIt" target="" default-entity-name="Visit" paginate-target="listLoggedInUsers"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="-userLoginId"/>
@@ -91,5 +91,5 @@ under the License.
             </hyperlink>
         </field>
         <field name="clientIpAddress" title="${uiLabelMap.PartyClientIP}" sort-field="true"><display/></field>
-    </form>
+    </grid>
 </forms>
