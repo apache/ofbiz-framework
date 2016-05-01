@@ -56,7 +56,7 @@ under the License.
                         </xs:enumeration>
                         <xs:enumeration value="list">
                             <xs:annotation>
-                                <xs:documentation>a list form is a list of individual forms in a table (could be called a tabular form), it has a list of sets of values and creates one form for each list element</xs:documentation>
+                                <xs:documentation>DEPRECATED use grid instead - a list form is a list of individual forms in a table (could be called a tabular form), it has a list of sets of values and creates one form for each list element</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="multi">
@@ -293,6 +293,11 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:element name="grid">
+        <xs:annotation>
+            <xs:documentation>
+                a list of individual forms in a table (could be called a tabular form), it has a list of sets of values and creates one form for each list element
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" ref="actions" />
@@ -306,33 +311,6 @@ under the License.
                 <xs:element minOccurs="0" ref="sort-order" />
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required" />
-            <xs:attribute name="type">
-                <xs:annotation>
-                    <xs:documentation>The form type is always required unless you are extending another form.</xs:documentation>
-                </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="single">
-                            <xs:annotation>
-                                <xs:documentation>a single form is a simple single form with values from a single set of values</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="list">
-                            <xs:annotation>
-                                <xs:documentation>a list form is a list of individual forms in a table (could be called a tabular form), it has a list of sets of values and creates one form for each list element</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="multi">
-                            <xs:annotation>
-                                <xs:documentation>a multi form is like a list/tabular form, but it creates a single form to submit all list item forms at once; the field names in the resulting form have an appendage attached to make them unique according to the pattern used for the multi-service
-                                    event handler that will call one service for each list element</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="upload">
-                        </xs:enumeration>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
             <xs:attribute name="target" type="xs:string" />
             <xs:attribute name="target-window" type="xs:string" />
             <xs:attribute name="target-type" default="intra-app">
