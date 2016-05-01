@@ -128,7 +128,7 @@ under the License.
         </field>
         <field name="submit" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
-    <form name="CatalogList" type="list" list-name="prodStoreCatalogList" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <grid name="CatalogList" list-name="prodStoreCatalogList" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="productStoreId"><display/></field>
         <field name="prodCatalogId">
             <display-entity entity-name="ProdCatalog" description="${catalogName}" key-field-name="prodCatalogId"/>
@@ -140,12 +140,12 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
-    <form name="errorMessageList" type="list" target="" list-name="errorMsgList" view-size="30"
+    </grid>
+    <grid name="errorMessageList" target="" list-name="errorMsgList" view-size="30"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="createDatetime"><display/></field>
         <field name="logAck"><display/></field>
         <field name="functionName"><display/></field>
         <field name="logMessage"><display/></field>
-    </form>
+    </grid>
 </forms>

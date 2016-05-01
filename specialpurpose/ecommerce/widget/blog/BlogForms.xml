@@ -56,7 +56,7 @@
         </field>
     </form>
 
-    <form name="listFindBlogContent" type="list" target=""
+    <grid name="listFindBlogContent" target=""
         default-title-style="tableheadtext" default-widget-style="inputBox"
         paginate-target="/CMSContentFind" view-size="20">
         <actions>
@@ -84,7 +84,7 @@
         <field name="contentName">
             <display/>
         </field>
-    </form>
+    </grid>
 
     <form name="AddBlogResponse" target="createBlogResponse" title="" type="single"
         default-title-style="treeHeader" default-widget-style="inputBox">
