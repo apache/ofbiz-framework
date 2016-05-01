@@ -115,7 +115,7 @@ under the License.
         </actions>
         <field name="status"><include-grid name="ExampleStatusInLine" location="component://example/widget/example/ExampleForms.xml"/></field>
     </form>
-    <grid name="ExampleStatusInLine" type="list" default-table-style="basic-table light-grid" default-entity-name="ExampleStatus">
+    <grid name="ExampleStatusInLine" default-table-style="basic-table light-grid" default-entity-name="ExampleStatus">
         <actions>
             <entity-condition entity-name="ExampleStatus">
                 <condition-expr field-name="exampleId" from-field="exampleId"/>
