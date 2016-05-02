@@ -60,15 +60,20 @@ under the License.
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
+            
+            <!--Fallback if partyIdFrom or partyIdTo is empty, at this time it is not possible to add is-empty condition in widgets (in this case to prevent service call)-->
+            <set field="partyIdFromTmp" from-field="parameters.partyIdFrom" default-value=""/>
+            <set field="partyIdToTmp" from-field="parameters.partyIdTo" default-value=""/>
+            
         </actions>
         <row-actions>
             <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
-                <field-map field-name="partyId" from-field="partyIdFrom"/>
+                <field-map field-name="partyId" from-field="partyIdFromTmp"/>
                 <field-map field-name="compareDate" from-field="agreementDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
             <service service-name="getPartyNameForDate" result-map="partyNameResultTo">
-                <field-map field-name="partyId" from-field="partyIdTo"/>
+                <field-map field-name="partyId" from-field="partyIdToTmp"/>
                 <field-map field-name="compareDate" from-field="agreementDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
