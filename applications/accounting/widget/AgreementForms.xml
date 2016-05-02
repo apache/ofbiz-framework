@@ -61,24 +61,18 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
-		<if-not-empty field="partyIdFrom">
-			<row-actions>		
+        <row-actions>
             <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
                 <field-map field-name="partyId" from-field="partyIdFrom"/>
                 <field-map field-name="compareDate" from-field="agreementDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-			</row-actions>  
-		</if-not-empty>		
-		<if-not-empty field="partyIdTo">
-			<row-actions>			
             <service service-name="getPartyNameForDate" result-map="partyNameResultTo">
                 <field-map field-name="partyId" from-field="partyIdTo"/>
                 <field-map field-name="compareDate" from-field="agreementDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-			</row-actions>  
-		</if-not-empty>	       
+        </row-actions>         
         <auto-fields-entity entity-name="Agreement" default-field-type="display"/>
         <field name="agreementId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext" sort-field="true">
             <hyperlink also-hidden="false" description="${agreementId}" target="EditAgreement">
