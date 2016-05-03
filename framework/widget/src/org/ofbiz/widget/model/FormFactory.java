@@ -127,16 +127,12 @@ public class FormFactory {
             rootElement = UtilXml.firstChildElement(rootElement, "forms");
         }
         Element formElement = UtilXml.firstChildElement(rootElement, "form", "name", formName);
-        if (formElement == null) {
-            formElement = UtilXml.firstChildElement(rootElement, "grid", "name", formName);
-        }
         return createModelForm(formElement, entityModelReader, dispatchContext, formLocation, formName);
     }
 
     public static ModelForm createModelForm(Element formElement, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation, String formName) {
         String formType = formElement.getAttribute("type");
-        if ((formType.isEmpty() || "single".equals(formType) || "upload".equals(formType))
-                && !formElement.getLocalName().equals("grid")) {
+        if (formType.isEmpty() || "single".equals(formType) || "upload".equals(formType)) {
             return new ModelSingleForm(formElement, formLocation, entityModelReader, dispatchContext);
         } else {
             return new ModelGrid(formElement, formLocation, entityModelReader, dispatchContext);
