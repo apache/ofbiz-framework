@@ -42,7 +42,7 @@ under the License.
                                         <include-form name="FindVisits"  location="component://party/widget/partymgr/PartyVisitForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListVisits"  location="component://party/widget/partymgr/PartyVisitForms.xml"/>
+                                        <include-grid name="ListVisits" location="component://party/widget/partymgr/PartyVisitForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -79,7 +79,7 @@ under the License.
             </condition>
             <widgets>
                 <screenlet title="${uiLabelMap.PageTitleListLoggedInUsers}">
-                    <include-form name="ListLoggedInUsers"  location="component://party/widget/partymgr/PartyVisitForms.xml"/>
+                    <include-grid name="ListLoggedInUsers" location="component://party/widget/partymgr/PartyVisitForms.xml"/>
                 </screenlet>
             </widgets>
             <fail-widgets>
