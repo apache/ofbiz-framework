@@ -181,7 +181,7 @@ BirtUtility.prototype =
 
 	/**
 	 * Get a parameter specified in the URL. For example, if a URL is
-	 * https://localhost:8443/iportal/wr?__report=/16.webrptdesign&iPortalID=YPTDAGCNPOYSOS
+	 * http://localhost:8080/iportal/wr?__report=/16.webrptdesign&iPortalID=YPTDAGCNPOYSOS
 	 * getURLParameter(iPortalID) will return &iPortalID=YPTDAGCNPOYSOS
 	 */
 	getURLParameter: function ( url, parameterName )

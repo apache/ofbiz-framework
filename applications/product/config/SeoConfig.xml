@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file distributed with this work for additional information regarding 
-    copyright ownership. The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may 
-    obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed 
-    on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the 
-    License. -->
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
 <seo-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../dtd/SeoConfig.xsd">
     <regexpifmatch>^.*/.*$</regexpifmatch>
 
     <category-url>
-        <value>disable</value>
-        <!-- enable/disable 1. if enable, the product seo url will be /product-name-product-id.html or /category-name-product-name-product-id.html 2. if disable, the CatalogUrlServlet.makeCatalogUrl 
-            will be used -->
+        <value>enable</value>
+        <!-- enable/disable
+          1. if enable, the product seo url will be /product-name-product-id.html or /category-name-product-name-product-id.html
+          2. if disable, the CatalogUrlServlet.makeCatalogUrl will be used -->
         <allowed-context-paths>/:/ecomseo</allowed-context-paths>
         <!-- if category-url is enabled, only context paths listed here will be allowed to use the new seo transformers -->
-        <category-name>enable</category-name>
-        <!-- enable/disable 1. if enable, the product seo url will be /category-name-product-name-product-id.html 2. if disable, the product seo url will be /product-name-product-id.html -->
+        <category-name>disable</category-name>
+        <!-- enable/disable
+          1. if enable, the product seo url will be /category-name-product-name-product-id.html
+          2. if disable, the product seo url will be /product-name-product-id.html -->
         <category-url-suffix>.html</category-url-suffix>
         <!-- suffix to add to the product seo url -->
     </category-url>
@@ -22,13 +38,15 @@
     <jsessionid>
         <anonymous>
             <value>disable</value>
-            <!-- enable/disable 1. when disable, the seo url patterns that contains jsessionid will be applied; 2. when enable, the seo url patterns that contains jsessionid will be 
-                skipped -->
+            <!-- enable/disable
+              1. when disable, the seo url patterns that contains jsessionid will be applied;
+              2. when enable, the seo url patterns that contains jsessionid will be skipped -->
         </anonymous>
         <user>
             <value>disable</value>
-            <!-- enable/disable 1. when disable, the url-patterns under exceptions will be used to skip the seo url patterns that contains jsessionid; 2. when enable, the seo url patterns 
-                that contains jsessionid will be skipped -->
+            <!-- enable/disable
+              1. when disable, the url-patterns under exceptions will be used to skip the seo url patterns that contains jsessionid;
+              2. when enable, the seo url patterns that contains jsessionid will be skipped -->
             <exceptions>
                 <url-pattern>^.*/(keywordsearch|logout).*$</url-pattern>
                 <!-- sample: ^.*/(keywordsearch|logout).*$ -->

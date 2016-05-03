@@ -377,7 +377,7 @@ under the License.
         <response name="success" type="view" value="FindSalesInvoicesByDueDate"/>
     </request-map>
     <request-map uri="findSalesInvoicesByDueDate">
-        <security https="true" auth="true"/>
+        <security https="false" auth="true"/>
         <event type="service" invoke="getInvoicePaymentInfoListByDueDateOffset"/>
         <response name="success" type="view" value="FindSalesInvoicesByDueDate"/>
         <response name="error" type="view" value="FindSalesInvoicesByDueDate"/>
@@ -387,7 +387,7 @@ under the License.
         <response name="success" type="view" value="FindPurchaseInvoicesByDueDate"/>
     </request-map>
     <request-map uri="findPurchaseInvoicesByDueDate">
-        <security https="true" auth="true"/>
+        <security https="false" auth="true"/>
         <event type="service" invoke="getInvoicePaymentInfoListByDueDateOffset"/>
         <response name="success" type="view" value="FindPurchaseInvoicesByDueDate"/>
         <response name="error" type="view" value="FindPurchaseInvoicesByDueDate"/>

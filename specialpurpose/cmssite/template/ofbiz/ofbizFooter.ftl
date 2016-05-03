@@ -21,7 +21,7 @@ under the License.
 <br />
 <div align="center">
     <a href="http://jigsaw.w3.org/css-validator/validator?uri=http://ofbiz.apache.org/"><img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Valid CSS!"/></a>
-    <a href="http://validator.w3.org/check?uri=referer" onclick="this.href='http://validator.w3.org/check?uri=' + escape(document.URL)"><img style="border:0;width:88px;height:31px" src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!"/></a>
+    <a href="http://validator.w3.org/check?uri=referer"><img style="border:0;width:88px;height:31px" src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!"/></a>
 </div>
 <br />
 <div id="footer" align="center">
