@@ -449,6 +449,9 @@ under the License.
         <field name="termDays" widget-area-style="align-right" title-area-style="align-right">
             <display/>
         </field>
+        <field name="uomId" title="${uiLabelMap.Uom}">
+            <display-entity entity-name="Uom"/>
+        </field>
     </form>
     
     <form name="EditInvoiceTerm" type="single" target="createInvoiceTerm" title=""
@@ -463,6 +466,13 @@ under the License.
             </drop-down>
         </field>
         <field name="description"><textarea/></field>
+        <field name="uomId" title="${uiLabelMap.Uom}">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
