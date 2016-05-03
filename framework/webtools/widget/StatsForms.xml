@@ -39,12 +39,12 @@ under the License.
         </field>
     </grid>
 
-    <form name="ListRequestStats" extends="ListStats" list-name="requestList"/>
-    <form name="ListEventStats" extends="ListStats" list-name="eventList"/>
-    <form name="ListViewStats" extends="ListStats" list-name="viewList"/>
-    <form name="ListRequestBins" extends="ListStats" list-name="requestList">
+    <grid name="ListRequestStats" extends="ListStats" list-name="requestList"/>
+    <grid name="ListEventStats" extends="ListStats" list-name="eventList"/>
+    <grid name="ListViewStats" extends="ListStats" list-name="viewList"/>
+    <grid name="ListRequestBins" extends="ListStats" list-name="requestList">
         <field name="viewBins"><hidden/></field>
-    </form>
+    </grid>
 
     <grid name="ListMetrics" list-name="metricsList" paginate-target="ViewMetrics"
             header-row-style="header-row-2" default-table-style="basic-table light-grid">

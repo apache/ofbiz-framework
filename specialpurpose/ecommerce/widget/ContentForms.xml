@@ -26,7 +26,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
 
     </form>
-    <grid name="searchList" target="" list-name="queryResults"
+    <form name="searchList" type="list" target="" list-name="queryResults"
         default-title-style="tableheadtext" default-widget-style="inputBox"
         paginate-target="/AdminSearch">
         <field name="editContent" title=" ">

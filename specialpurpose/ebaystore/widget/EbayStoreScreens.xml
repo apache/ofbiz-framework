@@ -187,7 +187,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="Associated Catalog List">
-                                    <include-form name="CatalogList" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                                    <include-grid name="CatalogList" location="component://ebaystore/widget/EbayStoreForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -289,7 +289,7 @@ under the License.
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.EbayErrorMessageList}">
-                            <include-form name="errorMessageList" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                            <include-grid name="errorMessageList" location="component://ebaystore/widget/EbayStoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
