@@ -65,13 +65,13 @@ under the License.
                                 <include-menu name="StatsSinceStart" location="component://webtools/widget/Menus.xml"/>
                                 <label>${uiLabelMap.WebtoolsStatsCurrentTime} ${nowTimestamp}</label>
                                 <screenlet title="${uiLabelMap.WebtoolsStatsRequestStats}" padded="false">
-                                    <include-form name="ListRequestStats" location="component://webtools/widget/StatsForms.xml"/>
+                                    <include-grid name="ListRequestStats" location="component://webtools/widget/StatsForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.WebtoolsStatsEventStats}" padded="false">
-                                    <include-form name="ListEventStats" location="component://webtools/widget/StatsForms.xml"/>
+                                    <include-grid name="ListEventStats" location="component://webtools/widget/StatsForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.WebtoolsStatsViewStats}" padded="false">
-                                    <include-form name="ListViewStats" location="component://webtools/widget/StatsForms.xml"/>
+                                    <include-grid name="ListViewStats" location="component://webtools/widget/StatsForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -98,7 +98,7 @@ under the License.
                                 </container>
                                 <include-menu name="StatsBinHistory" location="component://webtools/widget/Menus.xml"/>
                                 <label>${uiLabelMap.WebtoolsStatsCurrentTime} ${nowTimestamp}</label>
-                                <include-form name="ListRequestBins" location="component://webtools/widget/StatsForms.xml"/>
+                                <include-grid name="ListRequestBins" location="component://webtools/widget/StatsForms.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -121,7 +121,7 @@ under the License.
                                 <container style="page-title">
                                     <label text="${uiLabelMap[titleProperty]}"/>
                                 </container>
-                                <include-form name="ListMetrics" location="component://webtools/widget/StatsForms.xml" />
+                                <include-grid name="ListMetrics" location="component://webtools/widget/StatsForms.xml" />
                             </widgets>
                         </section>
                     </decorator-section>

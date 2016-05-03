@@ -177,12 +177,12 @@
                     <decorator-section name="body">
                         <screenlet>
                             <screenlet navigation-form-name="ItemsAwaitingFeedback" title="Items Awaiting Feedback">
-                                <include-form name="ItemsAwaitingFeedback" location="component://ebaystore/widget/EbayAccountForms.xml"/>
+                                <include-grid name="ItemsAwaitingFeedback" location="component://ebaystore/widget/EbayAccountForms.xml"/>
                             </screenlet>
                         </screenlet>
                         <screenlet>
                             <screenlet navigation-form-name="RecentFeedback" title="Recent Feedback">
-                                <include-form name="RecentFeedback" location="component://ebaystore/widget/EbayAccountForms.xml"/>
+                                <include-grid name="RecentFeedback" location="component://ebaystore/widget/EbayAccountForms.xml"/>
                             </screenlet>
                         </screenlet>
                     </decorator-section>

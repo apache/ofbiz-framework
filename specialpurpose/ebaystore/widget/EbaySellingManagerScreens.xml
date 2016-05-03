@@ -354,7 +354,7 @@
                 <decorator-screen name="EbaySoldListing">
                     <decorator-section name="body">
                         <screenlet title="Sold Listing">
-                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="SoldItemList"/>
+                            <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="SoldItemList"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -465,7 +465,7 @@
                     <decorator-section name="body">
                         <screenlet title="Active to Open Listings">
                             <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ItemOption"/>
-                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ActiveItemList"/>
+                            <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ActiveItemList"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -501,7 +501,7 @@
                     <decorator-section name="body">
                         <screenlet title="Unsold Listing">
                             <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ItemOption"/>
-                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="UnsoldItemList"/>
+                            <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="UnsoldItemList"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -526,7 +526,7 @@
                     <decorator-section name="body">
                         <screenlet title="uiLabelMap.EbayWaitingToShipping">
                             <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="WaitingToShippingOption"/>
-                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="SoldItemList"/>
+                            <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="SoldItemList"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -599,7 +599,7 @@
                 <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet name="ebayCustomerService" title="Customer Offer Included Message" collapsible="true">
-                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="bestOfferIncludeMessage"/>
+                            <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="bestOfferIncludeMessage"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -658,7 +658,7 @@
                     <decorator-section name="body">
                         <screenlet title="Closed Item Listings">
                             <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ItemOption"/>
-                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ClosedItemList"/>
+                            <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ClosedItemList"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

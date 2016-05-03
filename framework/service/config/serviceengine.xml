@@ -57,11 +57,11 @@ under the License.
         <engine name="jms" class="org.ofbiz.service.jms.JmsServiceEngine"/>
         <engine name="rmi" class="org.ofbiz.service.rmi.RmiServiceEngine"/>
         <engine name="soap" class="org.ofbiz.service.engine.SOAPClientEngine"/>
-        <!-- The engine xml-rpc-local is only used by a test service and for this reason it is configured to run on port 8080.
-             In order to use this in OFBiz change the port accordingly (for demo the default value is 8080)
+        <!-- The engine xml-rpc-local is only used by a test service and for this reason it is configured to run on port 8443.
+             In order to use this in OFBiz change the port accordingly (for demo the default value is 8443)
         -->
         <engine name="xml-rpc-local" class="org.ofbiz.service.engine.XMLRPCClientEngine">
-            <parameter name="url" value="http://localhost:8080/webtools/control/xmlrpc"/>
+            <parameter name="url" value="https://localhost:8443/webtools/control/xmlrpc"/>
             <parameter name="login" value="admin"/>
             <parameter name="password" value="ofbiz"/>
         </engine>
@@ -71,10 +71,10 @@ under the License.
         <service-location name="main-soap" location="http://localhost:8080/webtools/control/SOAPService"/>
         
         <service-location name="entity-sync-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
-        <service-location name="entity-sync-http" location="http://localhost:8080/webtools/control/httpService"/>
+        <service-location name="entity-sync-http" location="https://localhost:8443/webtools/control/httpService"/>
 
         <service-location name="rita-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
-        <service-location name="eedcc-test" location="http://localhost:8080/webtools/control/httpService"/>
+        <service-location name="eedcc-test" location="https://localhost:8443/webtools/control/httpService"/>
 
         <!-- default notification group for all services loaded with 'main' loader
              - uncomment this to enable error notification for all services

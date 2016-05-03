@@ -195,7 +195,7 @@ under the License.
                         </container>
                         <container style="righthalf">
                             <screenlet title="${uiLabelMap.WorkEffortParticipants}">
-                                <include-form name="showCalEventRolesDel" location="component://workeffort/widget/CalendarForms.xml" />
+                                <include-grid name="showCalEventRolesDel" location="component://workeffort/widget/CalendarForms.xml" />
                                 <section>
                                     <condition>
                                         <and>
@@ -221,7 +221,7 @@ under the License.
                         </container>
                         <container style="righthalf">
                             <screenlet title="${uiLabelMap.WorkEffortParticipants}">
-                                <include-form name="showCalEventRoles" location="component://workeffort/widget/CalendarForms.xml" />
+                                <include-grid name="showCalEventRoles" location="component://workeffort/widget/CalendarForms.xml" />
                             </screenlet>
                         </container>
                     </fail-widgets>

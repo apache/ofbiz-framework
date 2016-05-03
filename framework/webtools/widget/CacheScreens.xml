@@ -41,7 +41,7 @@ under the License.
                                 </screenlet>
                                 <screenlet>
                                     <include-menu name="FindCache" location="component://webtools/widget/Menus.xml"/>
-                                    <include-form name="ListCache" location="component://webtools/widget/CacheForms.xml"/>
+                                    <include-grid name="ListCache" location="component://webtools/widget/CacheForms.xml"/>
                                     <include-menu name="FindCache" location="component://webtools/widget/Menus.xml"/>
                                 </screenlet>
                             </widgets>
@@ -74,7 +74,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.PageTitleFindUtilCacheElements}">
                                     <label>${uiLabelMap.WebtoolsCacheName} ${cacheName} (${now}) ${uiLabelMap.WebtoolsSizeTotal} ${totalSize} ${uiLabelMap.WebtoolsBytes}</label>
                                     <include-menu name="CacheElements" location="component://webtools/widget/Menus.xml"/>
-                                    <include-form name="ListCacheElements" location="component://webtools/widget/CacheForms.xml"/>
+                                    <include-grid name="ListCacheElements" location="component://webtools/widget/CacheForms.xml"/>
                                     <include-menu name="CacheElements" location="component://webtools/widget/Menus.xml"/>
                                 </screenlet>
                             </widgets>

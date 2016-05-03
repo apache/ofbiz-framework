@@ -175,7 +175,7 @@ under the License.
                                     </platform-specific>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.ImageManagementImageUploadList}">
-                                    <include-form name="ListImageUpload" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                    <include-grid name="ListImageUpload" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -274,7 +274,7 @@ under the License.
                                     <html><html-template location="component://product/template/imagemanagement/showPeopleApprove.ftl"/></html>
                                 </platform-specific>
                                 <screenlet title="${uiLabelMap.CommonApproved}">
-                                    <include-form name="ListPeopleApproved" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                    <include-grid name="ListPeopleApproved" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -698,12 +698,12 @@ under the License.
                                         <label style="h1">${uiLabelMap.Product} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]</label>
                                         <container style="lefthalf">
                                             <screenlet title="${uiLabelMap.ImageManagementChooseReplacementImage}">
-                                                <include-form name="ListImageExist" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                                <include-grid name="ListImageExist" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                             </screenlet>
                                         </container>
                                         <container style="righthalf">
                                             <screenlet title="${uiLabelMap.ImageManagementChooseImageToReplace}">
-                                                <include-form name="ListImageReplace" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                                <include-grid name="ListImageReplace" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                             </screenlet>
                                         </container>
                                         <container style="clear"/>
@@ -780,7 +780,7 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ListLookupImage" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                        <include-grid name="ListLookupImage" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -834,7 +834,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${parameters.productId} : ${parameters.showDate}">
-                                    <include-form name="ListImageRecentlyApproved" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                    <include-grid name="ListImageRecentlyApproved" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -852,7 +852,7 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ListLookupImageFrame" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                        <include-grid name="ListLookupImageFrame" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -884,7 +884,7 @@ under the License.
                             <widgets>
                                 <!--<label style="h1">${uiLabelMap.Product} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]</label>-->
                                 <screenlet title="${uiLabelMap.ImageManagementThumbnailSizeExistingInProduct} : ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]">
-                                    <include-form name="SizeListOfProduct" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                    <include-grid name="SizeListOfProduct" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.ImageManagementResize}">
                                     <include-form name="ImageResize" location="component://product/widget/catalog/ImageManagementForms.xml"/>
