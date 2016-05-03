@@ -21,6 +21,12 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- list all assets in a tabular format -->
+    <form name="FindFixedAssetOptions" extends="lookupFixedAsset" extends-resource="component://accounting/widget/FieldLookupForms.xml"
+        target="ListFixedAssets">
+        <field name="searchOptions_collapsed"><hidden value="true"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
     <grid name="ListFixedAssets" list-name="listIt" paginate-target="ListFixedAssets"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -62,11 +68,6 @@ under the License.
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="FixedAssetSearchResults"/>
     </grid>
 
-    <form name="FindFixedAssetOptions" extends="lookupFixedAsset" extends-resource="component://accounting/widget/FieldLookupForms.xml"
-        target="ListFixedAssets">
-        <field name="searchOptions_collapsed"><hidden value="true"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
 
     <!-- create and update a fixed asset -->
     <form name="EditFixedAsset" type="single" target="updateFixedAsset" title="" default-map-name="fixedAsset"
