@@ -21,7 +21,7 @@ ant start
 (you can also run directly "ant load-demo start")
 
 Once OFBiz starts, you can look at the demo storefront at:
-https://localhost:8443/ecommerce
+http://localhost:8080/ecommerce
 
 the back office at:
 https://localhost:8443/ordermgr

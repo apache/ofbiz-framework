@@ -53,7 +53,7 @@ under the License.
     <SurveyQuestion surveyQuestionId="1034" surveyQuestionCategoryId="1001" surveyQuestionTypeId="OPTION" question="How would you rate this store for on-line functionality?"/>
     <SurveyQuestion surveyQuestionId="1035" surveyQuestionCategoryId="1001" surveyQuestionTypeId="URL" question="What is your favorite on-line store? (Enter Valid URL)"/>
     <SurveyQuestion surveyQuestionId="1036" surveyQuestionCategoryId="1001" surveyQuestionTypeId="TEXTAREA" question="Comments:"/>
-    <SurveyQuestion surveyQuestionId="1037" surveyQuestionCategoryId="1001" surveyQuestionTypeId="SEPERATOR_TEXT" question="&lt;img src=&quot;https://localhost:8443/images/ofbiz_logo.gif&quot;&gt;"/>
+    <SurveyQuestion surveyQuestionId="1037" surveyQuestionCategoryId="1001" surveyQuestionTypeId="SEPERATOR_TEXT" question="&lt;img src=&quot;http://localhost:8080/images/ofbiz_logo.gif&quot;&gt;"/>
     <SurveyQuestion surveyQuestionId="1038" surveyQuestionCategoryId="1001" surveyQuestionTypeId="SEPERATOR_LINE"/>
     <SurveyQuestion surveyQuestionId="1042" surveyQuestionCategoryId="1001" surveyQuestionTypeId="CONTENT" question="Do you have a picture you would like to attach?"/>
 
