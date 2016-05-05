@@ -80,7 +80,7 @@
     <ProductFeatureAppl productId="FA-001-O" productFeatureId="2104" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>
 
     <!-- survey appl -->
-    <ProductStoreSurveyAppl productStoreSurveyId="1100" productStoreId="9000" surveyApplTypeId="CART_ADD" surveyId="1100" productId="FA-001" fromDate="2003-11-24 16:00:02.467" surveyTemplate="/applications/content/template/survey/genericsurvey.ftl" lastUpdatedStamp="2003-12-04 21:40:23.27" lastUpdatedTxStamp="2003-12-04 21:40:20.607"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="1100" productStoreId="9000" surveyApplTypeId="CART_ADD" surveyId="1100" productId="FA-001" fromDate="2003-11-24 16:00:02.467" surveyTemplate="/applications/content/template/survey/GenericSurvey.ftl" lastUpdatedStamp="2003-12-04 21:40:23.27" lastUpdatedTxStamp="2003-12-04 21:40:20.607"/>
 
     <!-- fulfillment service -->
     <Content contentId="FA_ACTIVATION" customMethodId="FIN_PURCH_OFBIZ"/>

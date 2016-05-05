@@ -205,7 +205,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleSearchContent}">
                             <platform-specific>
-                                <html><html-template location="component://content/template/cms/addSubSite.ftl"/></html>
+                                <html><html-template location="component://content/template/cms/AddSubSite.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>

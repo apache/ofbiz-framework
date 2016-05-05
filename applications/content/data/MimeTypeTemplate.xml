@@ -20,17 +20,17 @@
 
 <entity-engine-xml>
     <!-- application templates -->
-    <MimeTypeHtmlTemplate mimeTypeId="application/x-shockwave-flash" templateLocation="component://content/template/mime-type/flash-swf.ftl"/>
+    <MimeTypeHtmlTemplate mimeTypeId="application/x-shockwave-flash" templateLocation="component://content/template/mime-type/Flash-swf.ftl"/>
 
     <!-- image template -->
-    <MimeTypeHtmlTemplate mimeTypeId="image/jpeg" templateLocation="component://content/template/mime-type/image.ftl"/>
-    <MimeTypeHtmlTemplate mimeTypeId="image/pjpeg" templateLocation="component://content/template/mime-type/image.ftl"/>
-    <MimeTypeHtmlTemplate mimeTypeId="image/gif" templateLocation="component://content/template/mime-type/image.ftl"/>
-    <MimeTypeHtmlTemplate mimeTypeId="image/tiff" templateLocation="component://content/template/mime-type/image.ftl"/>
-    <MimeTypeHtmlTemplate mimeTypeId="image/png" templateLocation="component://content/template/mime-type/image.ftl"/>
+    <MimeTypeHtmlTemplate mimeTypeId="image/jpeg" templateLocation="component://content/template/mime-type/Image.ftl"/>
+    <MimeTypeHtmlTemplate mimeTypeId="image/pjpeg" templateLocation="component://content/template/mime-type/Image.ftl"/>
+    <MimeTypeHtmlTemplate mimeTypeId="image/gif" templateLocation="component://content/template/mime-type/Image.ftl"/>
+    <MimeTypeHtmlTemplate mimeTypeId="image/tiff" templateLocation="component://content/template/mime-type/Image.ftl"/>
+    <MimeTypeHtmlTemplate mimeTypeId="image/png" templateLocation="component://content/template/mime-type/Image.ftl"/>
 
     <!-- video templates -->
-    <MimeTypeHtmlTemplate mimeTypeId="video/quicktime" templateLocation="component://content/template/mime-type/quicktime.ftl"/>
-    <MimeTypeHtmlTemplate mimeTypeId="video/mp4" templateLocation="component://content/template/mime-type/quicktime.ftl"/>
-    <MimeTypeHtmlTemplate mimeTypeId="video/x-flv" templateLocation="component://content/template/mime-type/flash-flv.ftl"/>
+    <MimeTypeHtmlTemplate mimeTypeId="video/quicktime" templateLocation="component://content/template/mime-type/QuickTime.ftl"/>
+    <MimeTypeHtmlTemplate mimeTypeId="video/mp4" templateLocation="component://content/template/mime-type/QuickTime.ftl"/>
+    <MimeTypeHtmlTemplate mimeTypeId="video/x-flv" templateLocation="component://content/template/mime-type/Flash-flv.ftl"/>
 </entity-engine-xml>
