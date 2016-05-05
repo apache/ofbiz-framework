@@ -292,7 +292,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingMainPage}">
-                            <platform-specific><html><html-template location="component://accounting/template/main.ftl"/></html></platform-specific>
+                            <platform-specific><html><html-template location="component://accounting/template/Main.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -303,7 +303,7 @@ under the License.
     <screen name="creditCardFields">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://accounting/template/common/creditcardfields.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://accounting/template/common/CreditCardFields.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

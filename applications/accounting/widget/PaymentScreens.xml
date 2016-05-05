@@ -445,7 +445,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingManualTransaction}">
                             <platform-specific>
-                                <html><html-template location="component://accounting/template/payment/manualTx.ftl"/></html>
+                                <html><html-template location="component://accounting/template/payment/ManualTx.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -457,7 +457,7 @@ under the License.
          <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://accounting/template/payment/manualCCTx.ftl"/></html>
+                    <html><html-template location="component://accounting/template/payment/ManualCCTx.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

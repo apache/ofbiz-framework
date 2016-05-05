@@ -252,7 +252,7 @@ under the License.
                                     </decorator-section> 
                                     <decorator-section name="search-results">
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/template/payment/depositWithdrawPayments.ftl"/></html>
+                                            <html><html-template location="component://accounting/template/payment/DepositWithdrawPayments.ftl"/></html>
                                         </platform-specific>
                                     </decorator-section>
                                 </decorator-screen>  
@@ -403,7 +403,7 @@ under the License.
                                     </decorator-section> 
                                     <decorator-section name="search-results">
                                         <platform-specific>
-                                            <html><html-template location="component://accounting/webapp/ar/payment/batchPayments.ftl"/></html>
+                                            <html><html-template location="component://accounting/template/ar/payment/BatchPayments.ftl"/></html>
                                         </platform-specific>
                                     </decorator-section>
                                 </decorator-screen>  

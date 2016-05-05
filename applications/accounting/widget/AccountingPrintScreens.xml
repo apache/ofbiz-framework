@@ -55,15 +55,15 @@ under the License.
                             </decorator-section>
                             <decorator-section name="topRight">
                                <platform-specific>
-                                    <xsl-fo><html-template location="component://accounting/template/invoice/invoiceReportHeaderInfo.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://accounting/template/invoice/InvoiceReportHeaderInfo.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </decorator-section>
                             <decorator-section name="body">
                                <platform-specific>
-                                   <xsl-fo><html-template location="component://accounting/template/invoice/invoiceReportContactMechs.fo.ftl"/></xsl-fo>
+                                   <xsl-fo><html-template location="component://accounting/template/invoice/InvoiceReportContactMechs.fo.ftl"/></xsl-fo>
                               </platform-specific>
                                <platform-specific>
-                                   <xsl-fo><html-template location="component://accounting/template/invoice/invoiceReportItems.fo.ftl"/></xsl-fo>
+                                   <xsl-fo><html-template location="component://accounting/template/invoice/InvoiceReportItems.fo.ftl"/></xsl-fo>
                                </platform-specific>
                             </decorator-section>
                         </decorator-screen>
