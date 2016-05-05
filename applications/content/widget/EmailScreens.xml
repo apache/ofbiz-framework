@@ -24,7 +24,7 @@
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://content/template/email/servicenotification.ftl"/></html>
+                    <html><html-template location="component://content/template/email/ServiceNotification.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

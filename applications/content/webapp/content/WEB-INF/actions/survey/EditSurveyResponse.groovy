@@ -32,7 +32,7 @@ if (!surveyId && surveyResponseId) {
 surveyWrapper = new SurveyWrapper(delegator, surveyResponseId, partyId, surveyId, null);
 surveyWrapper.setEdit(true);
 
-templateUrl = UtilURL.fromOfbizHomePath("applications/content/template/survey/genericsurvey.ftl");
+templateUrl = UtilURL.fromOfbizHomePath("applications/content/template/survey/GenericSurvey.ftl");
 if (templateUrl) {
     writer = new StringWriter();
     surveyWrapper.render(templateUrl, writer);
