@@ -124,10 +124,6 @@ under the License.
     <request-map uri="main"><security https="false" auth="false"/><response name="success" type="view" value="main" save-current-view="true"/></request-map>
     <request-map uri="policies"><security https="false" auth="false"/><response name="success" type="view" value="policies"/></request-map>
 
-    <!-- TO BE REMOVED
-    <request-map uri="passwordemail"><security https="false" auth="false"/><response name="success" type="view" value="passwordemail"/></request-map>
-    -->
-
     <!-- Session Setting Requests -->
     <request-map uri="setSessionLocale">
         <security https="false" auth="false"/>
@@ -844,13 +840,6 @@ under the License.
         <response name="success" type="none"/>
     </request-map>
 
-    <!-- TO BE REMOVED
-    <request-map uri="catalog">
-        <security https="false" auth="false"/>
-        <response name="success" type="view" value="catalog"/>
-    </request-map>
-    -->
-
     <request-map uri="quickadd">
         <security https="false" auth="false"/>
         <response name="success" type="view" value="quickadd"/>
@@ -1494,83 +1483,6 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-
-    <!-- TO BE REMOVED
-    <request-map uri="createforumarticle">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="createforumarticle"/>
-    </request-map>
-    <request-map uri="editforumarticle">
-        <security https="true" auth="false"/>
-        <response name="success" type="view" value="editforumarticle"/>
-    </request-map>
-    <request-map uri="createforumresponse">
-        <security https="true" auth="false"/>
-        <response name="success" type="view" value="createforumresponse"/>
-    </request-map>
-    <request-map uri="editforuminfo">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="editforuminfo"/>
-    </request-map>
-    <request-map uri="editaddforumdata">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="editaddforumdata"/>
-    </request-map>
-    <request-map uri="editaddimage">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="editaddimage"/>
-    </request-map>
-    <request-map uri="persistImage">
-        <security auth="true" https="true"/>
-        <event type="java" path="org.ofbiz.content.content.UploadContentAndImage" invoke="uploadContentAndImage"/>
-        <response name="success" type="view" value="editforumarticle"/>
-        <response name="error" type="view" value="editaddimage"/>
-    </request-map>
-    <request-map uri="img">
-        <security auth="false" https="false"/>
-        <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveImage"/>
-        <response name="success" type="none"/>
-        <response name="error" type="view" value="main"/>
-    </request-map>
-    <request-map uri="uploadArticleAndImage">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.content.content.UploadContentAndImage" invoke="uploadContentAndImage"/>
-        <response name="success" type="view" value="editforumarticle"/>
-        <response name="error" type="view" value="createforumarticle"/>
-    </request-map>
-    <request-map uri="updateContent">
-        <security auth="true" https="true"/>
-        <event invoke="updateContent" path="component://content/script/org/ofbiz/content/content/ContentEvents.xml" type="simple"/>
-        <response name="success" type="view" value="editforumarticle"/>
-        <response name="error" type="view" value="editforuminfo"/>
-    </request-map>
-
-    <request-map uri="uploadResponse">
-        <security https="true" auth="true"/>
-        <event invoke="persistContentAndAssoc" type="service"/>
-        <response name="success" type="view" value="showforumresponse"/>
-        <response name="error" type="view" value="createforumresponse"/>
-    </request-map>
-    <request-map uri="persistContent">
-        <security auth="true" https="true"/>
-        <event invoke="persistContentAndAssoc" type="service"/>
-        <response name="success" type="view" value="editforumarticle"/>
-        <response name="error" type="view" value="editaddforumdata"/>
-    </request-map>
-    -->
-
-    <!-- TO BE REMOVED
-    <request-map uri="mostrecent">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="mostrecent"/>
-    </request-map>
-    <request-map uri="publishResponse">
-        <security https="true" auth="true"/>
-        <event type="service-multi" invoke="updateContent"/>
-        <response name="success" type="view" value="mostrecent"/>
-        <response name="error" type="view" value="mostrecent"/>
-    </request-map>
-    -->
 
     <request-map uri="searchContent">
         <security https="true" auth="false"/>

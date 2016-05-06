@@ -593,13 +593,6 @@ under the License.
         <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
 
-    <!-- TO BE REMOVED
-    <request-map uri="TransactionReports">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="TransactionReports"/>
-    </request-map>
-    -->
-
     <!-- transaction action requests -->
     <request-map uri="processAuthorizeTransaction">
         <security https="true" auth="true"/>
@@ -724,13 +717,6 @@ under the License.
         <response name="success" type="view" value="GlAccountNavigate"/>
     </request-map>
 
-    <!-- TO BE REMOVED
-    <request-map uri="ListGlobalGlAccount">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListGlobalGlAccount"/>
-    </request-map>
-     -->
-
     <request-map uri="FindGlobalGlAccount">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindGlobalGlAccount"/>
@@ -792,10 +778,6 @@ under the License.
         <response name="error" type="view" value="ImportExport"/>
     </request-map>
 
-    <!-- TO BE REMOVED
-    <request-map uri="EditGlobalGlAccountOrganizations"><security https="true" auth="true"/><response name="success" type="view" value="EditGlobalGlAccountOrganizations"/></request-map>
-    -->
-
     <request-map uri="createGlAccountOrganization">
         <security https="true" auth="true"/>
         <event type="service" invoke="createGlAccountOrganization"/>
@@ -808,22 +790,6 @@ under the License.
         <response name="success" type="view" value="ListGlAccountOrganization"/>
         <response name="error" type="view" value="ListGlAccountOrganization"/>
     </request-map>
-
-    <!-- TO BE REMOVED
-    <request-map uri="EditGlobalGlAccountRoles"><security https="true" auth="true"/><response name="success" type="view" value="EditGlobalGlAccountRoles"/></request-map>
-    <request-map uri="createGlAccountRole">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createGlAccountRole"/>
-        <response name="success" type="view" value="EditGlobalGlAccountRoles"/>
-        <response name="error" type="view" value="EditGlobalGlAccountRoles"/>
-    </request-map>
-    <request-map uri="updateGlAccountRole">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateGlAccountRole"/>
-        <response name="success" type="view" value="EditGlobalGlAccountRoles"/>
-        <response name="error" type="view" value="EditGlobalGlAccountRoles"/>
-    </request-map>
-    -->
 
     <request-map uri="ListGlAccountEntries">
         <security https="true" auth="true"/>
@@ -942,67 +908,6 @@ under the License.
         <response name="success" type="view" value="ListFixedAssetProducts"/>
         <response name="error" type="view" value="ListFixedAssetProducts"/>
     </request-map>
-
-    <!-- TO BE REMOVED ??
-    <request-map uri="ListFixedAssetCalendar">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListFixedAssetCalendar"/>
-    </request-map>
-    <request-map uri="updateFixedAssetCalendar">
-        <security https="true" auth="true"/>
-        <event type="service" path="org.ofbiz.accounting.fixedasset.FixedAssetServices.xml" invoke="updateFixedAssetCalendar"/>
-        <response name="success" type="view" value="ListFixedAssetCalendar"/>
-        <response name="error" type="view" value="ListFixedAssetCalendar"/>
-    </request-map>
-
-    <request-map uri="ListFixedAssetParties">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListFixedAssetParties"/>
-    </request-map>
-    <request-map uri="EditFixedAssetParties">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditFixedAssetParties"/>
-    </request-map>
-    <request-map uri="addPartyToFixedAsset">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="addPartyToFixedAsset"/>
-        <response name="success" type="view" value="EditFixedAssetParties"/>
-        <response name="error" type="view" value="EditFixedAssetParties"/>
-    </request-map>
-    <request-map uri="updatePartyToFixedAsset">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updatePartyToFixedAsset"/>
-        <response name="success" type="view" value="EditFixedAssetParties"/>
-        <response name="error" type="view" value="EditFixedAssetParties"/>
-    </request-map>
-    <request-map uri="removePartyFromFixedAsset">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removePartyFromFixedAsset"/>
-        <response name="success" type="view" value="EditFixedAssetParties"/>
-        <response name="error" type="view" value="EditFixedAssetParties"/>
-    </request-map>
-
-    <request-map uri="ListFixedAssetRollUp"><security https="true" auth="true"/><response name="success" type="view" value="ListFixedAssetRollUp"/></request-map>
-    <request-map uri="EditFixedAssetRollup"><security https="true" auth="true"/><response name="success" type="view" value="EditFixedAssetRollup"/></request-map>
-    <request-map uri="addFixedAssetToFixedAsset">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="safeAddFixedAssetToFixedAsset"/>
-        <response name="success" type="view" value="EditFixedAssetRollup"/>
-        <response name="error" type="view" value="EditFixedAssetRollup"/>
-    </request-map>
-    <request-map uri="updateFixedAssetToFixedAsset">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateFixedAssetToFixedAsset"/>
-        <response name="success" type="view" value="EditFixedAssetRollup"/>
-        <response name="error" type="view" value="EditFixedAssetRollup"/>
-    </request-map>
-    <request-map uri="removeFixedAssetFromFixedAsset">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeFixedAssetFromFixedAsset"/>
-        <response name="success" type="view" value="EditFixedAssetRollup"/>
-        <response name="error" type="view" value="EditFixedAssetRollup"/>
-    </request-map>
-    -->
 
     <!-- ================ FixedAsset Standard Costs Requests ================= -->
     <request-map uri="FixedAssetChildren"><security https="true" auth="true"/><response name="success" type="view" value="FixedAssetChildren"/></request-map>
@@ -1900,24 +1805,6 @@ under the License.
         <response name="error" type="view" value="EditCreditCardTypeGlAccounts"/>
     </request-map>
 
-    <!-- TO BE REMOVED
-    <request-map uri="reconcileGlAccount">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="reconcileGlAccount"/>
-        <response name="success" type="view" value="ViewGlAccountBalance"/>
-        <response name="error" type="view" value="ReconcileAccounts"/>
-    </request-map>
-    <request-map uri="viewGlAccountBalance">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ViewGlAccountBalance"/>
-    </request-map>
-
-    <request-map uri="viewGlReconciliation">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ViewGlReconciliation"/>
-    </request-map>
-    -->
-
     <request-map uri="findGlAccountReconciliation">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindGlAccountReconciliation"/>
@@ -2748,7 +2635,6 @@ under the License.
     <!-- GlAccount, GlJournalEntry, AcctgTrans -->
     <view-map name="AddGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#AddGlAccount"/>
     <view-map name="FindGlobalGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccounts"/>
-    <view-map name="ListGlobalGlAccounts" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccounts"/>
     <view-map name="ListGlAccountsReport" type="screenfop" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountsReport" content-type="application/pdf" encoding="none"/>
     <view-map name="ListGlAccountsExport" type="screenxml" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountsReport" content-type="text/xml"/>
     <view-map name="GlAccountNavigate" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#GlAccountNavigate"/>
@@ -2758,11 +2644,6 @@ under the License.
     <view-map name="EditGlReconciliation" type="screen" page="component://accounting/widget/GlScreens.xml#EditGlReconciliation"/>
 
     <view-map name="EditGlobalGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#AddGlAccount"/>
-    <!-- NOTE/TODO: these 2 appear to never have been implemented all the way, just request and view defs so far...
-    <view-map name="EditGlobalGlAccountOrganizations" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#EditGlobalGlAccountOrganizations"/>
-    <view-map name="EditGlobalGlAccountRoles" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#EditGlobalGlAccountRoles"/>
-    -->
-
     <view-map name="ListGlAccountEntries" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountEntries"/>
     <view-map name="ListAcctgTransEntries" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListAcctgTransEntries"/>
     <view-map name="EditPartyGlAccount" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditPartyGlAccount"/>
@@ -2776,10 +2657,6 @@ under the License.
     <view-map name="EditDepositSlipAndMembers" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditDepositSlipAndMembers"/>
     <view-map name="NewDepositPayment" type="screen" page="component://accounting/widget/FinAccountScreens.xml#NewDepositPayment"/>
     <view-map name="NewWithdrawalPayment" type="screen" page="component://accounting/widget/FinAccountScreens.xml#NewWithdrawalPayment"/>
-
-    <!-- TO BE REMOVED
-    <view-map name="ListFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#ListFinAccount"/>
-    -->
 
     <view-map name="EditFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditFinAccount"/>
     <view-map name="EditFinAccountRoles" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditFinAccountRoles"/>
@@ -2806,18 +2683,6 @@ under the License.
     <view-map name="EditBudgetItems" type="screen" page="component://accounting/widget/BudgetScreens.xml#EditBudgetItems"/>
     <view-map name="BudgetRoles" type="screen" page="component://accounting/widget/BudgetScreens.xml#BudgetRoles"/>
     <view-map name="BudgetReviews" type="screen" page="component://accounting/widget/BudgetScreens.xml#BudgetReviews"/>
-
-    <!-- TO BE REMOVED
-    <view-map name="addFixedAssetProduct" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#addFixedAssetProduct"/>
-    <view-map name="updateFixedAssetProduct" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#updateFixedAssetProduct"/>
-    <view-map name="removeFixedAssetProduct" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#removeFixedAssetProduct"/>
-
-    <view-map name="ListFixedAssetCalendar" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetCalendar"/>
-    <view-map name="updateFixedAssetCalendar" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#updateFixedAssetCalendar"/>
-
-    <view-map name="ListFixedAssetParties" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetParties"/>
-    <view-map name="ListFixedAssetsRollUp" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetRollUp"/>
-    -->
 
     <view-map name="EditFixedAssetStdCosts" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetStdCosts"/>
     <view-map name="FixedAssetChildren" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#FixedAssetChildren"/>
@@ -2909,10 +2774,6 @@ under the License.
     <view-map name="EditPaymentGatewayConfig" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfig" type="screen"/>
     <view-map name="FindPaymentGatewayConfigTypes" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#FindPaymentGatewayConfigTypes" type="screen"/>
     <view-map name="EditPaymentGatewayConfigType" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfigType" type="screen"/>
-
-    <!-- TO BE REMOVED
-    <view-map name="TransactionReports" page="component://accounting/widget/TransactionScreens.xml#TransactionReports" type="screen"/>
-    -->
 
     <!-- Lookup mappings -->
     <view-map name="viewprofile" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#viewprofile"/>

@@ -532,36 +532,6 @@ under the License.
         <field name="newDataResourceId" widget-style="inputBox"></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit/></field>
     </form>
-    <!-- TO BE REMOVED
-    <form name="ListContentRevisionItemApproval" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-and entity-name="ContentRevisionItemAndContentApprovalView" use-cache="true">
-                <field-map from-field="contentId" field-name="contentId"/>
-                <field-map from-field="contentRevisionSeqId" field-name="contentRevisionSeqId"/>
-            </entity-and>
-        </actions>
-        <field name="contentId"><display/></field>
-        <field name="contentRevisionSeqId"><display/></field>
-        <field name="itemContentId"><display/></field>
-        <field name="oldDataResourceId"><display/></field>
-        <field name="newDataResourceId"><display/></field>
-        <field name="contentApprovalId"><display/></field>
-
-        <field name="editLink" title=" " widget-style="buttontext" use-when="approvalCount &gt; 0">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContentRevisionItem">
-                <parameter param-name="contentId"/>
-                <parameter param-name="contentRevisionSeqId"/>
-                <parameter param-name="itemContentId"/>
-                <parameter param-name="rootContentId"/>
-                <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId/>
-            </hyperlink>
-        </field>
-        <field name="create" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="Create" target="EditContentRevisionItem"/>
-        </field>
-    </form>
-    -->
     <form name="UploadCompDocContent" type="upload" target="uploadCompDocContent"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="caContentIdTo" entry-name="contentIdTo" map-name="contentAssoc"><hidden/></field>
