@@ -1208,38 +1208,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!-- TO BE REMOVED
-    <screen name="ListContentRevisionItemApproval">
-        <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
-            </condition>
-            <actions>
-                <set field="menuName" value="empty"/>
-                <set field="title" value="ContentRevisionItem and Approval List Page"/>
-
-                <set field="contentId" from-field="parameters.contentId" to-scope="screen" default-value="${defaultContentId}"/>
-                <set field="contentRevisionSeqId" from-field="parameters.contentRevisionSeqId" to-scope="screen" default-value="${defaultContentRevisionSeqId}"/>
-
-                <entity-and entity-name="ContentRevisionItemAndContentApprovalView" use-cache="true" list-name="ContentRevAppList">
-                        <field-map from-field="contentId" field-name="contentId"/>
-                        <field-map from-field="contentRevisionSeqId" field-name="contentRevisionSeqId"/>
-                </entity-and>
-            </actions>
-            <widgets>
-                <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://content/template/Dummy.ftl"/>
-                            </html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    -->
     <screen name="EditCompDocContentRole">
         <section>
             <condition>

@@ -275,14 +275,6 @@
         <attribute mode="IN" name="dataResourceTypeId" optional="true" type="String"/>
         <attribute mode="IN" name="objectInfo" optional="true" type="String"/>
     </service>
-    <!-- TO BE REMOVED
-    <service name="removeFile" engine="simple"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeFile" auth="true">
-        <description>Remove File</description>
-        <attribute mode="IN" name="rootDir" optional="true" type="String"/>
-    </service>
-    -->
-
     <!-- Cleared associated DataResource rendered cache from UtilCache. -->
     <service name="clearAssociatedRenderCache" engine="java" auth="true" default-entity-name="DataResource"
             location="org.ofbiz.content.data.DataServices" invoke="clearAssociatedRenderCache">
