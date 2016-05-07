@@ -32,8 +32,8 @@ under the License.
                 <td width="20%">${uiLabelMap.ProductProduct}</td>
                 <td width="10%" align="right">${uiLabelMap.ProductQuantity}</td>
                 <td width="10%" align="right">${uiLabelMap.OrderSelAmount}</td>
-                <td width="5%" align="right">&nbsp;</td>
-                <td width="10%" align="right">${uiLabelMap.OrderOrderQuoteUnitPrice}</td>
+                <td width="8%" align="right">${uiLabelMap.OrderOrderQuoteUnitPrice}</td>
+                <td width="7%" align="right">${uiLabelMap.CommonComments}</td>
                 <td width="10%" align="right">${uiLabelMap.OrderAdjustments}</td>
                 <td width="10%" align="right">${uiLabelMap.CommonSubtotal}</td>
             </tr>
@@ -95,8 +95,8 @@ under the License.
                     </td>
                     <td align="right" valign="top">${quoteItem.quantity!}</td>
                     <td align="right" valign="top">${quoteItem.selectedAmount!}</td>
-                    <td></td>
                     <td align="right" valign="top"><@ofbizCurrency amount=quoteItem.quoteUnitPrice isoCode=quote.currencyUomId/></td>
+                    <td align="right" valign="top">${quoteItem.comments!}</td>
                     <td align="right" valign="top"><@ofbizCurrency amount=totalQuoteItemAdjustmentAmount isoCode=quote.currencyUomId/></td>
                     <td align="right" valign="top"><@ofbizCurrency amount=totalQuoteItemAmount isoCode=quote.currencyUomId/></td>
                 </tr>
