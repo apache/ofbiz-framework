@@ -25,9 +25,6 @@ under the License.
     <include location="component://content/webapp/content/WEB-INF/controller.xml"/>
     <description>Order Manager Module Site Configuration File</description>
     
-    <!-- event handlers -->
-    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
-    <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
     <preprocessor>

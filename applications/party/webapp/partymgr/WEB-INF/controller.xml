@@ -26,7 +26,6 @@ under the License.
     <include location="component://content/webapp/content/WEB-INF/controller.xml"/>
     <description>Party Manager Module Site Configuration File</description>
     
-    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="simplecontent" type="view" class="org.ofbiz.content.view.SimpleContentViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
