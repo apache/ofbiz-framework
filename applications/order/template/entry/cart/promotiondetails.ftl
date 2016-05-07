@@ -23,6 +23,6 @@ under the License.
     </div>
     <div class="screenlet-body">
         <div>${StringUtil.wrapString(productPromo.promoText!)}</div>
-        <div>${uiLabelMap.EcommerceGeneratedDescription}  ${promoAutoDescription!}</div>
+        <div>${uiLabelMap.OrderGeneratedDescription} ${promoAutoDescription!}</div>
     </div>
 </div>
