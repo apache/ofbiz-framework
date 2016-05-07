@@ -17,7 +17,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/clhm-release-1.0-lru.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/esapi-2.1.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/fop-2.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.22.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.24.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/guava-14.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/hamcrest-all-1.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/httpclient-4.4.1.jar"/>
