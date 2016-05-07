@@ -1298,18 +1298,6 @@
         <value xml:lang="zh">来自站点：</value>
         <value xml:lang="zh-TW">來自站台:</value>
     </property>
-    <property key="EcommerceGeneratedDescription">
-        <value xml:lang="da">Generel beskrivelse:</value>
-        <value xml:lang="en">Generated Description:</value>
-        <value xml:lang="fr">Description générée : </value>
-        <value xml:lang="it">Descrizione generata:</value>
-        <value xml:lang="ja">生成された詳細:</value>
-        <value xml:lang="nl">Gegenereerde beschrijving:</value>
-        <value xml:lang="pt-BR">Descrição geral</value>
-        <value xml:lang="vi">Miêu tả được tạo ra:</value>
-        <value xml:lang="zh">生成的描述：</value>
-        <value xml:lang="zh-TW">產生的說明:</value>
-    </property>
     <property key="EcommerceGiftAmount">
         <value xml:lang="da">Gavebeløb:</value>
         <value xml:lang="de">Gutschein Betrag:</value>
