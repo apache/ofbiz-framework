@@ -24,8 +24,6 @@ under the License.
     <include
         location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml" />
     <description>scrum Component Site Configuration File</description>
-    <handler name="service-multi" type="request"
-        class="org.ofbiz.webapp.event.ServiceMultiEventHandler" />
 
     <request-map uri="main">
         <security https="false" auth="false" />

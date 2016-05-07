@@ -25,8 +25,6 @@ under the License.
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <description>Catalog Module Site Configuration File</description>
     
-    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
-    <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
 
     <firstvisit></firstvisit>
     <!-- Events to run on every request before security (chains exempt) -->

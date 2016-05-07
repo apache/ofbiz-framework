@@ -24,7 +24,6 @@ under the License.
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <description>Facility Manager Module Site Configuration File</description>
     
-    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
 
 
