@@ -83,7 +83,7 @@ if (returnHeaderTypeId == "VENDOR_RETURN") {
     roleTypeId = "BILL_FROM_VENDOR";
     partyId = returnHeader.toPartyId;
 }
-partyOrders = from("OrderHeaderAndRoles").where("roleTypeId", roleTypeId, "partyId", partyId).orderBy("orderId").queryList();
+partyOrders = select("orderId","orderDate").from("OrderHeaderItemAndRoles").where("roleTypeId", roleTypeId, "partyId", partyId, "orderItemStatusId", "ITEM_COMPLETED").orderBy("orderId").distinct().queryList();
 context.partyOrders = partyOrders;
 context.partyId = partyId;
 

@@ -524,6 +524,7 @@ under the License.
       <alias entity-alias="OI" name="orderItemTypeId"/>
       <alias entity-alias="OI" name="itemDescription"/>
       <alias entity-alias="OI" name="orderItemSeqId"/>
+      <alias entity-alias="OI" name="orderItemStatusId" field="statusId"/>
       <view-link entity-alias="OT" rel-entity-alias="OH">
         <key-map field-name="orderId"/>
       </view-link>
