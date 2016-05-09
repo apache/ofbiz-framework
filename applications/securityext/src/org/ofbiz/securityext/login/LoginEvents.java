@@ -266,14 +266,12 @@ public class LoginEvents {
                So to fix it, done Url encoding of passwordToSend.
             */
             passwordToSend = URLEncoder.encode(passwordToSend, "UTF-8");
-        } catch (GenericEntityException e) {
+        } catch (GenericEntityException  | UnsupportedEncodingException e) {
             Debug.logWarning(e, "", module);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.toString());
             errMsg = UtilProperties.getMessage(resource, "loginevents.error_accessing_password", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         }
 
         StringBuilder emails = new StringBuilder();
