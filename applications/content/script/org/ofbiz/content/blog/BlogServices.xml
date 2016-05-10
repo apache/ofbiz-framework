@@ -150,19 +150,21 @@
         <!-- new article text -->
         <if-empty field="articleText">
             <if-not-empty field="parameters.articleData">
+                <set field="ownerContentId" from-field="parameters.blogContentId"/>
+                <set field="contentAssocTypeId" value="SUB_CONTENT"/>
+                <set field="contentIdFrom" from-field="contentId"/>
                 <set field="createText.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
                 <set field="createText.contentPurposeTypeId" value="ARTICLE"/>
                 <set field="createText.dataTemplateTypeId" value="NONE"/>
-                <set field="createText.mapKey" value="MAIN"/>
-                <set field="createSummary.ownerContentId" from-field="parameters.contentId"/>
-                <set field="createSummary.contentName" from-field="parameters.contentName" default-value="${contentName}"/>
-                <set field="createSummary.description" from-field="parameters.description" default-value="${description}"/>
-                <set field="createSummary.statusId" from-field="parameters.statusId" default-value="${statusId}"/>
-                <set field="createSummary.contentAssocTypeId" value="SUB_CONTENT"/>
+                <set field="createText.mapKey" value="ARTICLE"/>
+                <set field="createText.ownerContentId" from-field="ownerContentId"/>
+                <set field="createText.contentName" from-field="parameters.contentName"/>
+                <set field="createText.description" from-field="parameters.description"/>
+                <set field="createText.statusId" from-field="parameters.statusId"/>
+                <set field="createText.contentAssocTypeId"  from-field="contentAssocTypeId"/>
                 <set field="createText.textData" from-field="parameters.articleData"/>
                 <set field="createText.contentIdFrom" from-field="contentIdFrom"/>
                 <set field="createText.partyId" from-field="userLogin.partyId"/>
-                <log level="always" message="calling createTextContent with map: ${createText}"/>
                 <call-service service-name="createTextContent" in-map-name="createText"/>
             </if-not-empty>
         </if-empty>
