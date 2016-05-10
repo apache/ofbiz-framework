@@ -20,7 +20,7 @@
 <script type="text/javascript">
     // save new content id to JS scope so it can be used by the jstree in
     // the WebSiteCmsNav view where the newContentId is not available
-    var newContentId = ${contentId?default("'a'")};
+    var newContentId = "${contentId?default("'a'")}";
 
     function cmsSave() {
         var simpleFormAction = '<@ofbizUrl>/updateContentCms</@ofbizUrl>';
@@ -354,11 +354,11 @@
             <tr>
               <td colspan="2">
                 <div id="editorcontainer" class="nocolumns">
-                    <div id="cmseditor" style="margin: 0; width: 100%; border: 1px solid black;">
-                    <#if (dataText?has_content)>
-                      ${StringUtil.wrapString(dataText.textData!)} 
-                    </#if>
-                    </div>
+                    <textarea name="textData" id="cmseditor" style="margin: 0; width: 100%; border: 1px solid black;">                    
+                        <#if (dataText?has_content)>
+                          ${StringUtil.wrapString(dataText.textData!)} 
+                        </#if>
+                    </textarea>
                 </div>
               </td>
             </tr>
