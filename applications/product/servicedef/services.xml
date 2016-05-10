@@ -240,13 +240,13 @@ under the License.
         <description>
             Create a Product Price. 
             
-            If taxAuthGeoId and taxAuthPartyId are (or taxAuthCombinedId is) passed in then the price will be considered a price 
+            If taxAuthGeoId and taxAuthPartyId are passed in then the price will be considered a price 
             with tax included (the priceWithoutTax, priceWithTax, taxAmount, and taxPercentage fields will also be populated).
             
-            If the taxInPrice field is 'Y' then the price field will be left with the tax included (price will be equal to priceWithTax),            
+            If the taxInPrice field is 'Y' then the price field will be left with the tax included (price will be equal to priceWithTax),
             otherwise tax will be removed from the passed in price and the price field will be equal to the priceWithoutTax field.
             
-            If taxAuthGeoId or taxAuthPartyId empty, and taxAuthCombinedId is empty, then the taxInPrice field will be ignored.
+            If taxAuthGeoId or taxAuthPartyId empty then the taxInPrice field will be ignored.
         </description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -258,7 +258,6 @@ under the License.
             <exclude field-name="lastModifiedDate"/>
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
-        <attribute name="taxAuthCombinedId" type="String" mode="IN" optional="true"><!-- if passed in value will be split based on: "${taxAuthGeoId}::${taxAuthPartyId}" --></attribute>
         <override name="fromDate" mode="INOUT" optional="true"/>
         <override name="price" optional="false"/>
     </service>

@@ -93,15 +93,6 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="inlineHandlePriceWithTaxIncuded" short-description="Inline Handle Price with Tax Included">
-        <if-not-empty field="parameters.taxAuthCombinedId">
-            <set field="taxAuthCombinedId" from-field="parameters.taxAuthCombinedId"/>
-            <!-- if passed in value will be split based on: "${taxAuthGeoId}::${taxAuthPartyId}" -->
-            <set field="parameters.taxAuthGeoId" 
-                value="${groovy:taxAuthCombinedId.substring(0,taxAuthCombinedId.indexOf('::'))}"/>
-            <set field="parameters.taxAuthPartyId" 
-                value="${groovy:taxAuthCombinedId.substring(taxAuthCombinedId.indexOf('::')+2)}"/>
-        </if-not-empty>
-        
         <!-- handle price with tax included related fields (priceWithTax, taxAmount, taxPercentage, taxAuthPartyId, taxAuthGeoId) -->
         <if>
             <condition>

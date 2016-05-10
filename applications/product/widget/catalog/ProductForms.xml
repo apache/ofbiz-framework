@@ -445,6 +445,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="taxAuthPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="taxAuthGeoId"><lookup target-form-name="LookupGeo"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductPrice" type="list" target="updateProductPrice" title="" list-name="productPrices"
@@ -477,6 +479,9 @@ under the License.
         <field name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:">
             <display description="[${lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${lastModifiedDate}" also-hidden="false"/>
         </field>
+
+        <field name="taxAuthPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="taxAuthGeoId"><lookup target-form-name="LookupGeo"/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
 
