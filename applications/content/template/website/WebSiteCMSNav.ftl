@@ -559,7 +559,7 @@ function callMetaInfo(contentId) {
                 success: function(data) {
                     // if the content id is set reload the contentScreen and tree
                     if (contentId && contentId.length) {
-                        callDocument('', contentId, form.contentIdFrom.value, form.fromDate.value, form.contentAssocTypeId.value, '');
+                        callDocument('', contentId, '', '');
                         jQuery("#${contentRoot}").jstree('refresh', '#'+form.contentIdFrom.value);
                     }
                 },
