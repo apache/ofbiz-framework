@@ -215,6 +215,7 @@ under the License.
             title="Order Adjustment Type Attribute Entity">
       <field name="orderAdjustmentTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
       <prim-key field="orderAdjustmentTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="ORDER_ADJ_TYPATTR" rel-entity-name="OrderAdjustmentType">
@@ -996,6 +997,7 @@ under the License.
             title="Order Item Type Attribute Entity">
       <field name="orderItemTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
       <prim-key field="orderItemTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="ORDER_ITEM_TYPATR" rel-entity-name="OrderItemType">
@@ -1299,6 +1301,7 @@ under the License.
             title="Order Type Attribute Entity">
       <field name="orderTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
       <prim-key field="orderTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="ORDER_TPAT_ORTYP" rel-entity-name="OrderType">
@@ -1597,6 +1600,7 @@ under the License.
             title="Quote Type Attribute Entity">
       <field name="quoteTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
       <prim-key field="quoteTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="QUOTE_TPAT_QTYP" rel-entity-name="QuoteType">
@@ -2014,6 +2018,7 @@ under the License.
             title="Customer Request Type Attribute Entity">
       <field name="custRequestTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
       <prim-key field="custRequestTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="CUST_REQ_TYPE_ATTR" rel-entity-name="CustRequestType">
@@ -2260,6 +2265,7 @@ under the License.
             title="Requirement Type Attribute Entity">
       <field name="requirementTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
       <prim-key field="requirementTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="REQ_TYPE_ATTR" rel-entity-name="RequirementType">
