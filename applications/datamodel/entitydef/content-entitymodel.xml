@@ -670,6 +670,7 @@ under the License.
             title="Content Type Attribute Entity">
       <field name="contentTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
       <prim-key field="contentTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="CONTENT_TPAT_TYP" rel-entity-name="ContentType">
@@ -959,6 +960,7 @@ under the License.
             title="Data Object Type Attribute Entity">
       <field name="dataResourceTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
       <prim-key field="dataResourceTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="DATA_OBTYPE_ATTR" rel-entity-name="DataResourceType">
@@ -1114,6 +1116,7 @@ under the License.
             title="Document Type Attribute Entity">
       <field name="documentTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
       <prim-key field="documentTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="DOC_TYPE_ATTR" rel-entity-name="DocumentType">

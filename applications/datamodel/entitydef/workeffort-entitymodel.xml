@@ -354,6 +354,7 @@ under the License.
             title="Work Effort Association Type Attribute Entity">
       <field name="workEffortAssocTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
       <prim-key field="workEffortAssocTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="WK_EFFRTASSC_TATR" rel-entity-name="WorkEffortAssocType">
@@ -859,6 +860,7 @@ under the License.
             title="Work Effort Type Attribute Entity">
       <field name="workEffortTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
       <prim-key field="workEffortTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="WK_EFFRT_TYPE_ATR" rel-entity-name="WorkEffortType">
