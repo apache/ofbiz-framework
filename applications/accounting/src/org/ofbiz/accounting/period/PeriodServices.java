@@ -74,9 +74,9 @@ public class PeriodServices {
             GenericValue closedTimePeriod = EntityQuery.use(delegator).from("CustomTimePeriod").select("customTimePeriodId", "periodTypeId", "isClosed", "fromDate", "thruDate")
                     .where(findClosedConditions).orderBy("thruDate DESC").queryFirst();
 
-            if (closedTimePeriod != null && closedTimePeriod.get("thruDate") != null) {
+            if (UtilValidate.isNotEmpty(closedTimePeriod) && UtilValidate.isNotEmpty(closedTimePeriod.get("thruDate"))) {
                 lastClosedTimePeriod = closedTimePeriod;
-                lastClosedDate = UtilDateTime.toTimestamp(lastClosedTimePeriod.getDate("thruDate"));
+                lastClosedDate = lastClosedTimePeriod.getTimestamp("thruDate");
             } else {
                 // uh oh, no time periods have been closed?  in that case, just find the earliest beginning of a time period for this organization
                 // and optionally, for this period type
@@ -85,8 +85,8 @@ public class PeriodServices {
                     findParams.put("periodTypeId", periodTypeId);
                 }
                 GenericValue timePeriod = EntityQuery.use(delegator).from("CustomTimePeriod").where(findParams).orderBy("fromDate ASC").queryFirst();
-                if (timePeriod != null && timePeriod.get("fromDate") != null) {
-                    lastClosedDate = UtilDateTime.toTimestamp(timePeriod.getDate("fromDate"));
+                if (UtilValidate.isNotEmpty(timePeriod) && UtilValidate.isNotEmpty(timePeriod.get("fromDate"))) {
+                    lastClosedDate = timePeriod.getTimestamp("fromDate");
                 } else {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingPeriodCannotGet", locale));
                 }
