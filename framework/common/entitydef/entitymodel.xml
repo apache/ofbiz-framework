@@ -406,8 +406,8 @@ under the License.
       <field name="periodTypeId" type="id"></field>
       <field name="periodNum" type="numeric"></field>
       <field name="periodName" type="name"></field>
-      <field name="fromDate" type="date"></field>
-      <field name="thruDate" type="date"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
       <field name="isClosed" type="indicator"></field>
       <prim-key field="customTimePeriodId"/>
       <relation type="one" fk-name="ORG_PRD_PARPER" title="Parent" rel-entity-name="CustomTimePeriod">

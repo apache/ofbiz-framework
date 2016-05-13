@@ -465,7 +465,7 @@ public class MrpServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindCustomTimePeriod", locale));
             }
             if (customTimePeriod != null) {
-                if (customTimePeriod.getDate("thruDate") != null && customTimePeriod.getDate("thruDate").before(UtilDateTime.nowDate())) {
+                if (UtilValidate.isNotEmpty(customTimePeriod.getTimestamp("thruDate")) && customTimePeriod.getTimestamp("thruDate").before(UtilDateTime.nowTimestamp())) {
                     continue;
                 } else {
                     List<GenericValue> salesForecastDetails = null;
