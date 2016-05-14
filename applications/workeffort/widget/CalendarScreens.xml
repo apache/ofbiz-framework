@@ -53,7 +53,7 @@ under the License.
                         <screenlet title="${uiLabelMap.WorkEffortDayView}: ${groovy:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;EEEE MMMM d, yyyy&quot;, timeZone, locale)}" navigation-menu-name="Day" padded="false">
                             <include-menu name="Day" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <platform-specific>
-                                <html><html-template location="component://workeffort/template/calendar/day.ftl"/></html>
+                                <html><html-template location="component://workeffort/template/calendar/Day.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                       </container>
@@ -75,7 +75,7 @@ under the License.
                         <screenlet title="${uiLabelMap.WorkEffortWeekView}: ${uiLabelMap.CommonWeek} ${groovy:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;w&quot;, timeZone, locale)}" navigation-menu-name="Week" padded="false">
                             <include-menu name="Week" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <platform-specific>
-                                <html><html-template location="component://workeffort/template/calendar/week.ftl"/></html>
+                                <html><html-template location="component://workeffort/template/calendar/Week.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                       </container>
@@ -94,7 +94,7 @@ under the License.
                         <screenlet title="${uiLabelMap.WorkEffortMonthView}: ${groovy:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;MMMM yyyy&quot;, timeZone, locale)}" navigation-menu-name="Month" padded="false">
                             <include-menu name="Month" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <platform-specific>
-                                <html><html-template location="component://workeffort/template/calendar/month.ftl"/></html>
+                                <html><html-template location="component://workeffort/template/calendar/Month.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                       </container>
@@ -113,7 +113,7 @@ under the License.
                         <screenlet title="${uiLabelMap.WorkEffortCalendarUpComingEventsView}" navigation-menu-name="Upcoming">
                             <include-menu name="Upcoming" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <platform-specific>
-                                <html><html-template location="component://workeffort/template/calendar/upcoming.ftl"/></html>
+                                <html><html-template location="component://workeffort/template/calendar/Upcoming.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                       </container>
@@ -241,7 +241,7 @@ under the License.
                 <get-related value-field="parentWorkEffort" relation-name="WorkOrderItemFulfillment" list="parentWorkOrderItemFulfillments"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://workeffort/template/calendar/calendarEventContent.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://workeffort/template/calendar/CalendarEventContent.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
