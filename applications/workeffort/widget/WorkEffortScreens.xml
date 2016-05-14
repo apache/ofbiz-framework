@@ -74,7 +74,7 @@ under the License.
                                 <if-service-permission service-name="workEffortGenericPermission" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific><html><html-template location="component://workeffort/template/task/mytasks.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://workeffort/template/task/MyTasks.ftl"/></html></platform-specific>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.WorkEffortViewPermissionError}</label>
