@@ -710,7 +710,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://party/template/party/editcontactmech.ftl"/></html>
+                                    <html><html-template location="component://party/template/party/EditContactMech.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>
@@ -839,7 +839,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://party/template/visit/showvisits.ftl"/></html>
+                                    <html><html-template location="component://party/template/visit/ShowVisits.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>
@@ -870,7 +870,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://party/template/visit/visitdetail.ftl"/></html>
+                                    <html><html-template location="component://party/template/visit/VisitDetail.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>

@@ -69,7 +69,7 @@ under the License.
                 <decorator-screen name="PaymentMethodDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://party/template/party/editcreditcard.ftl"/></html>
+                            <html><html-template location="component://party/template/party/EditCreditCard.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -89,7 +89,7 @@ under the License.
                 <decorator-screen name="PaymentMethodDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://party/template/party/editgiftcard.ftl"/></html>
+                            <html><html-template location="component://party/template/party/EditGiftCard.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -109,7 +109,7 @@ under the License.
                 <decorator-screen name="PaymentMethodDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://party/template/party/editeftaccount.ftl"/></html>
+                            <html><html-template location="component://party/template/party/EditEftAccount.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
