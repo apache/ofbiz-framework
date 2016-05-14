@@ -406,7 +406,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://party/template/party/editShoppingList.ftl"/></html>
+                            <html><html-template location="component://party/template/party/EditShoppingList.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -453,7 +453,7 @@ under the License.
                                 <platform-specific>
                                     <html>
                                         <html-template location="component://common/template/includes/setDependentDropdownValuesJs.ftl"/>
-                                        <html-template location="component://party/template/party/editcontactmech.ftl"/>
+                                        <html-template location="component://party/template/party/EditContactMech.ftl"/>
                                     </html>
                                 </platform-specific>
                             </widgets>
@@ -813,7 +813,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://party/template/party/addressMatchMap.ftl"/></html>
+                            <html><html-template location="component://party/template/party/AddressMatchMap.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -832,7 +832,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://party/template/party/findMatches.ftl"/></html>
+                            <html><html-template location="component://party/template/party/FindMatches.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1184,7 +1184,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://party/template/party/editGeoLocation.ftl"/></html>
+                            <html><html-template location="component://party/template/party/EditGeoLocation.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

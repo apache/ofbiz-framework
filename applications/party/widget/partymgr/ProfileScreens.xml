@@ -590,7 +590,7 @@
                 <service service-name="getWorkEffortAssignedTasks"/>
             </actions>
             <widgets><!-- can always view your own tasks -->
-                <platform-specific><html><html-template location="component://party/template/party/profileblocks/mytasks.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://party/template/party/profileblocks/MyTasks.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
