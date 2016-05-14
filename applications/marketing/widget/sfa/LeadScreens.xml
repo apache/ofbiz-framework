@@ -163,7 +163,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://marketing/template/lead/mergeLeads.ftl"/></html>
+                                    <html><html-template location="component://marketing/template/lead/MergeLeads.ftl"/></html>
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>

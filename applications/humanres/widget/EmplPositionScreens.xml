@@ -306,7 +306,7 @@
             <actions>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://humanres/template/internalorg/editinternalorg.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://humanres/template/internalorg/EditInternalOrg.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -326,7 +326,7 @@
     <screen name="RemoveInternalOrgFtl">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://humanres/template/internalorg/removeinternalorg.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://humanres/template/internalorg/RemoveInternalOrg.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
