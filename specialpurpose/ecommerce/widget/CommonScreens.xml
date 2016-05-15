@@ -52,7 +52,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/jquery/plugins/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/jquery-jgrowl/1.4.1/jquery.jgrowl.min.css" global="true" />
 
-                <script location="component://ecommerce/widget/EcommerceSetup.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/EcommerceSetup.groovy"/>
 
                 <!-- Get the store VisualTheme -->
                 <set field="visualThemeId" from-field="productStore.visualThemeId" default-value="EC_DEFAULT"/>
@@ -269,7 +269,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-migrate-1.2.1.js" global="true" />
                 
 
-                <script location="component://ecommerce/widget/EcommerceSetup.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/EcommerceSetup.groovy"/>
 
                 <!-- Get the store VisualTheme -->
                 <set field="visualThemeId" from-field="productStore.visualThemeId" default-value="EC_DEFAULT"/>

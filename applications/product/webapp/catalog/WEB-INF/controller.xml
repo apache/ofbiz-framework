@@ -2103,7 +2103,7 @@ under the License.
     </request-map>
     <request-map uri="prepareCreateShipMeth">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://product/webapp/catalog/store/prepareCreateShipMeth.groovy"/>
+        <event type="groovy" path="component://product/webapp/catalog/WEB-INF/actions/prepareCreateShipMeth.groovy"/>
         <response name="success" type="view" value="EditProductStoreShipSetup"/>
         <response name="error" type="view" value="EditProductStoreShipSetup"/>
     </request-map>
