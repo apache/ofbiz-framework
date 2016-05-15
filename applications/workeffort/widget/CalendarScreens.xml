@@ -154,7 +154,7 @@ under the License.
                         <not><if-empty field="workEffort" /></not>
                     </condition>
                     <actions>
-                        <script location="component://workeffort/script/isCalOwner.groovy" />
+                        <script location="component:///workeffort/webapp/ical/WEB-INF/actions/isCalOwner.groovy" />
                     </actions>
                     <widgets />
                 </section>

@@ -120,7 +120,7 @@
         <section>
             <actions>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-                <script location="component://workeffort/script/isCalOwner.groovy"/>
+                <script location="component:///workeffort/webapp/ical/WEB-INF/actions/isCalOwner.groovy"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="trainingClassTypeId" from-field="workEffort.workEffortName"/>
                 <set field="workEffortTypeId" from-field="workEffort.workEffortTypeId"/>
