@@ -59,7 +59,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific>
-                                <html><html-template location="component://webtools/webapp/template/EntityExportAll.ftl"/></html>
+                                <html><html-template location="component://webtools/template/entity/EntityExportAll.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
