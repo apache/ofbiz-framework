@@ -57,7 +57,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://webtools/template/main.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://webtools/template/Main.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -86,7 +86,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonConfigurationDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://webtools/template/cert/viewbrowsercerts.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://webtools/template/cert/ViewBrowserCerts.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

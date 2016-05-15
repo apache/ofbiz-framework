@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#include "component://webtools/template/tempexpr/tempExprMacros.ftl"/>
+<#include "component://webtools/template/tempexpr/TempExprMacros.ftl"/>
 <h1>${title}</h1>
 <#if temporalExpression?has_content>
   <#-- Edit existing expression -->
