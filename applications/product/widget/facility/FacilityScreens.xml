@@ -419,7 +419,7 @@ under the License.
                         </container>
                         <screenlet title="${uiLabelMap.ProductSearchInventoryItemsByLabels}">
                             <platform-specific>
-                                <html><html-template location="component://product/template/facility/searchInventoryItemsByLabelsForm.ftl"/></html>
+                                <html><html-template location="component://product/template/facility/SearchInventoryItemsByLabelsForm.ftl"/></html>
                             </platform-specific>
                             <include-form name="ListFacilityInventoryItemsNoLocations" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
@@ -1133,7 +1133,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/inventory/receiveInventory.ftl"/></html>
+                            <html><html-template location="component://product/template/inventory/ReceiveInventory.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1153,7 +1153,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/returns/receiveReturn.ftl"/></html>
+                            <html><html-template location="component://product/template/returns/ReceiveReturn.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -1478,7 +1478,7 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleLabelPrinting}">
                             <include-form name="Labels" location="component://product/widget/facility/FacilityForms.xml"/>
                             <platform-specific>
-                                <html><html-template location="component://product/template/facility/batchPrintMarkAsAccepted.ftl"/></html>
+                                <html><html-template location="component://product/template/facility/BatchPrintMarkAsAccepted.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -1492,7 +1492,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <xsl-fo><html-template location="component://product/template/facility/batchPrintShippingLabels.fo.ftl"/></xsl-fo>
+                    <xsl-fo><html-template location="component://product/template/facility/BatchPrintShippingLabels.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>

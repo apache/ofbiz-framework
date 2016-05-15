@@ -29,7 +29,7 @@ under the License.
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://securityext/template/email/passwordemail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://securityext/template/email/PasswordEmail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

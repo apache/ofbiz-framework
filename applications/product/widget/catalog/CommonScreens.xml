@@ -256,7 +256,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet id="ProductKeywordsPanel" title="${uiLabelMap.ProductSearchProducts}" collapsible="true">
-                    <platform-specific><html><html-template location="component://product/template/find/keywordsearchbox.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://product/template/find/KeywordSearchBox.ftl"/></html></platform-specific>
                 </screenlet>
             </widgets>
         </section>
@@ -268,7 +268,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet id="ProductBrowseCatalogsPanel" title="${uiLabelMap.ProductBrowseCatalogs}" collapsible="true">
-                    <platform-specific><html><html-template location="component://product/template/find/sidecatalogs.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://product/template/find/SideCatalogs.ftl"/></html></platform-specific>
                 </screenlet>
             </widgets>
         </section>
@@ -280,7 +280,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet id="ProductBrowseCategoriesPanel" title="${uiLabelMap.ProductBrowseCategories}" collapsible="true">
-                    <platform-specific><html><html-template location="component://product/template/find/sidedeepcategory.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://product/template/find/SideDeepCategory.ftl"/></html></platform-specific>
                 </screenlet>
             </widgets>
         </section>
@@ -293,7 +293,7 @@ under the License.
             <widgets>
                 <screenlet id="ProductCategoryProductsPanel" title="${uiLabelMap.ProductCategoryProducts}" collapsible="true">
                     <container id="miniproductlist">
-                        <platform-specific><html><html-template location="component://product/template/find/miniproductlist.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://product/template/find/MiniProductList.ftl"/></html></platform-specific>
                     </container>
                 </screenlet>
             </widgets>
@@ -387,7 +387,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductCatalogAdministrationMainPage}">
                             <platform-specific>
-                                <html><html-template location="component://product/template/main.ftl"/></html>
+                                <html><html-template location="component://product/template/Main.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -436,7 +436,7 @@ under the License.
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/miniproductlist.groovy"/>
             </actions>
             <widgets>
-                    <platform-specific><html><html-template location="component://product/template/find/miniproductlist.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://product/template/find/MiniProductList.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

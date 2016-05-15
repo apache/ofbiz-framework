@@ -99,7 +99,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPriceDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://product/template/price/setPriceRulesCondEventJs.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://product/template/price/SetPriceRulesCondEventJs.ftl"/></html></platform-specific>
                         <include-menu name="PriceRulesButtonBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
                         <screenlet title="${uiLabelMap.ProductPriceRuleId} [${parameters.productPriceRuleId}]">
                             <label style="h6" text="${uiLabelMap.ProductConditionsActionsRemoveBefore}"/>
