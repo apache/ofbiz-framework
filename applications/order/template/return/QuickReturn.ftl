@@ -36,7 +36,7 @@ under the License.
           <#if (orderHeader?has_content) && (orderHeader.currencyUom?has_content)>
           <input type="hidden" name="currencyUomId" value="${orderHeader.currencyUom}"/>
           </#if>
-          <#include "returnItemInc.ftl"/>
+          <#include "ReturnItemInc.ftl"/>
           <hr />
           <#if "CUSTOMER_RETURN" == returnHeaderTypeId>
           <h3>${uiLabelMap.FormFieldTitle_paymentMethodId}:</h3>

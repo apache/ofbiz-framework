@@ -91,15 +91,15 @@ under the License.
                                         <html><html-template location="component://ecommerce/template/request/requestInfo.ftl"/></html>
                                     </platform-specific>
                                     <platform-specific>
-                                        <html><html-template location="component://order/webapp/ordermgr/request/ViewRequestItemInfo.ftl"/></html>
+                                        <html><html-template location="component://order/template/request/ViewRequestItemInfo.ftl"/></html>
                                     </platform-specific>
                                 </container>
                                 <container style="righthalf">
                                     <platform-specific>
-                                        <html><html-template location="component://order/webapp/ordermgr/request/requestDate.ftl"/></html>
+                                        <html><html-template location="component://order/template/request/RequestDate.ftl"/></html>
                                     </platform-specific>
                                     <platform-specific>
-                                        <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
+                                        <html><html-template location="component://order/template/request/RequestContactMech.ftl"/></html>
                                     </platform-specific>
                                     <platform-specific>
                                         <html><html-template location="component://ecommerce/template/request/requestRoles.ftl"/></html>

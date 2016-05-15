@@ -29,7 +29,7 @@ under the License.
         
         <fo:page-sequence master-reference="main">
             <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
-                <#include "component://order/webapp/ordermgr/order/companyHeader.fo.ftl"/>
+                <#include "component://order/template/order/CompanyHeader.fo.ftl"/>
                 <fo:table table-layout="fixed" border-width="1pt" border-style="solid">
                     <fo:table-column column-width="250pt"/>
                     <fo:table-body>

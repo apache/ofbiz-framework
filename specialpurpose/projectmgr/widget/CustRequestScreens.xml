@@ -143,7 +143,7 @@ under the License.
                         </container>
                         <container style="righthalf">
                             <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
+                                <html><html-template location="component://order/template/request/RequestContactMech.ftl"/></html>
                             </platform-specific>
                             <screenlet title="${uiLabelMap.OrderRequestRoles}">
                                 <include-form name="ViewRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>

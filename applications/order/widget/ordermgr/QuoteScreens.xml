@@ -194,7 +194,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/template/quote/quoteReportHeaderInfo.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/quote/QuoteReportHeaderInfo.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -204,11 +204,11 @@ under the License.
                             <widgets>
                                 <!-- the contach mechanisms, terms, payment and shipping methods are shown in the first page -->
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/template/quote/quoteReportContactMechs.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/quote/QuoteReportContactMechs.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                                 <!-- quote items and totals -->
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://order/template/quote/quoteReportBody.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://order/template/quote/QuoteReportBody.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -691,7 +691,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/template/quote/quoteInfo.ftl"/></html>
+                    <html><html-template location="component://order/template/quote/QuoteInfo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -724,7 +724,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/template/quote/quoteDate.ftl"/></html>
+                    <html><html-template location="component://order/template/quote/QuoteDate.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -733,7 +733,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://order/template/quote/quoteRoles.ftl"/></html>
+                    <html><html-template location="component://order/template/quote/QuoteRoles.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

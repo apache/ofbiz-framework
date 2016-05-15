@@ -2806,7 +2806,7 @@ public class OrderServices {
 
         // prepare the mail info
         String ofbizHome = System.getProperty("ofbiz.home");
-        String templateName = ofbizHome + "/applications/order/email/default/emailprocessnotify.ftl";
+        String templateName = ofbizHome + "/applications/order/email/default/EmailProcessNotify.ftl";
 
         Map<String, Object> sendMailContext = new HashMap<String, Object>();
         sendMailContext.put("sendTo", emailList.toString());
