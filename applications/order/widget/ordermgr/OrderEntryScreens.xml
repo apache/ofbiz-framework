@@ -28,7 +28,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/template/entry/checkinits.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/CheckInits.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -44,7 +44,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/template/entry/orderagreements.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/OrderAgreements.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

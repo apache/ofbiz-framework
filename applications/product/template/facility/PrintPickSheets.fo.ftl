@@ -30,7 +30,7 @@ under the License.
         <#list orderHeaderList as order>
             <fo:page-sequence master-reference="main">
                 <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
-                    <#include "component://order/webapp/ordermgr/order/companyHeader.fo.ftl"/>
+                    <#include "component://order/template/order/CompanyHeader.fo.ftl"/>
                     <#assign orderId = order.orderId>
                     <#assign orderDate = order.orderDate>
                     <#list orderInfoList as orderInfo>

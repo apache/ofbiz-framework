@@ -389,7 +389,7 @@ under the License.
         <form name="returnItems" method="post" action="<@ofbizUrl>createReturnItems</@ofbizUrl>">
           <input type="hidden" name="returnId" value="${returnId}" />
           <input type="hidden" name="_useRowSubmit" value="Y" />
-          <#include "returnItemInc.ftl"/>
+          <#include "ReturnItemInc.ftl"/>
         </form>
 <#else>
   ${uiLabelMap.CommonErrorMessage2} : ${uiLabelMap.CommonPleaseSelect}. ${uiLabelMap.CommonUseBackButton}

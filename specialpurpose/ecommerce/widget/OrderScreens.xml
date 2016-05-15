@@ -242,7 +242,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/template/entry/checkoutoptions.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/CheckoutOptions.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -261,7 +261,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/template/entry/checkoutshippingaddress.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/CheckoutShippingAddress.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

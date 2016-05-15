@@ -123,7 +123,7 @@ under the License.
                         <include-form name="ViewRequestStatus" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                     </screenlet>
                     <platform-specific>
-                        <html><html-template location="component://order/template/request/requestContactMech.ftl"/></html>
+                        <html><html-template location="component://order/template/request/RequestContactMech.ftl"/></html>
                     </platform-specific>
                     <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequest">
                         <include-form name="ViewRequestCommunicationEvents" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
@@ -322,7 +322,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}">
                             <platform-specific>
-                                <html><html-template location="component://order/template/request/requestitemnotes.ftl"/></html>
+                                <html><html-template location="component://order/template/request/RequestItemNotes.ftl"/></html>
                             </platform-specific>
                             <include-form name="ListRequestItemNotes" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             <include-form name="EditRequestItemNote" location="component://order/widget/ordermgr/CustRequestForms.xml"/>

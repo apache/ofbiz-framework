@@ -61,7 +61,7 @@ under the License.
                         <container>
                             <label style="h1" text="${uiLabelMap.OrderQuickFinalizeOrder}"/>
                         </container>
-                        <platform-specific><html><html-template location="component://order/template/entry/checkoutoptions.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/CheckoutOptions.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -78,7 +78,7 @@ under the License.
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/template/entry/custsettings.ftl"/></html>
+                            <html><html-template location="component://order/template/entry/CustSettings.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -96,7 +96,7 @@ under the License.
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/template/entry/shipsettings.ftl"/></html>
+                            <html><html-template location="component://order/template/entry/ShipSettings.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -114,7 +114,7 @@ under the License.
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/template/entry/editShipAddress.ftl"/></html>
+                            <html><html-template location="component://order/template/entry/EditShipAddress.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -151,7 +151,7 @@ under the License.
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/template/entry/optionsettings.ftl"/></html>
+                            <html><html-template location="component://order/template/entry/OptionSettings.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -169,7 +169,7 @@ under the License.
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
                       <platform-specific>
-                            <html><html-template location="component://order/template/entry/billsettings.ftl"/></html>
+                            <html><html-template location="component://order/template/entry/BillSettings.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                   </decorator-screen>
@@ -198,10 +198,10 @@ under the License.
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://common/template/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://order/template/entry/setAdditionalParty.ftl"/></html>
+                            <html><html-template location="component://order/template/entry/SetAdditionalParty.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://order/template/entry/additionalPartyListing.ftl"/></html>
+                            <html><html-template location="component://order/template/entry/AdditionalPartyListing.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -219,7 +219,7 @@ under the License.
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/template/entry/orderterms.ftl"/></html>
+                            <html><html-template location="component://order/template/entry/OrderTerms.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -238,16 +238,16 @@ under the License.
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/template/entry/order/orderheaderinfo.ftl"/></html>
+                            <html><html-template location="component://order/template/entry/order/OrderHeaderInfo.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://order/template/entry/order/orderpaymentinfo.ftl"/></html>
+                            <html><html-template location="component://order/template/entry/order/OrderPaymentInfo.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://order/template/entry/order/shipGroupConfirmSummary.ftl"/></html>
+                            <html><html-template location="component://order/template/entry/order/ShipGroupConfirmSummary.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://order/template/entry/order/orderitems.ftl"/></html>
+                            <html><html-template location="component://order/template/entry/order/OrderItems.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                   </decorator-screen>
@@ -266,7 +266,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/template/entry/checkoutshippingaddress.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/CheckoutShippingAddress.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -285,7 +285,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/template/entry/checkoutpayment.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/CheckoutPayment.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -307,7 +307,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/customertaxinfo.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/CustomerTaxInfo.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

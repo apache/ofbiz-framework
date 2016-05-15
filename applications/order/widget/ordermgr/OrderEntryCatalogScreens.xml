@@ -28,7 +28,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ChooseCatalog.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/choosecatalog.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/ChooseCatalog.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -38,7 +38,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/KeywordSearchOptions.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/keywordsearchbox.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/KeywordSearchBox.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -48,7 +48,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/SideDeepCategory.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/sidedeepcategory.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/SideDeepCategory.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -61,7 +61,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductSummary.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/productsummary.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/ProductSummary.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -72,7 +72,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/SideDeepCategory.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/breadcrumbs.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/BreadCrumbs.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -80,7 +80,7 @@ under the License.
     <screen name="compareproductslist">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/compareproductslist.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/CompareProductsList.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -129,7 +129,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/CategoryDetail.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/categorydetail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/CategoryDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -169,10 +169,10 @@ under the License.
             </actions>
             <widgets>
                 <include-screen name="breadcrumbs"/>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/editProduct.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/EditProduct.ftl"/></html></platform-specific>
                 <!--<platform-specific><html><html-template location="component://order/template/product/productdetail.ftl"/></html></platform-specific>-->
                 <!-- Warning: this ftl file in the order component is slightly different from that of the ecommerce one (the edit product link is shown) -->
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/productdetail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/ProductDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -187,9 +187,9 @@ under the License.
             </actions>
             <widgets>
                 <include-screen name="breadcrumbs"/>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/editProduct.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/EditProduct.ftl"/></html></platform-specific>
                 <!--<platform-specific><html><html-template location="component://order/template/product/configproductdetail.ftl"/></html></platform-specific>-->
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/configproductdetail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/ConfigProductDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -199,7 +199,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/InlineProductDetail.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/inlineProductDetail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/InlineProductDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -213,7 +213,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/template/entry/catalog/keywordsearch.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/catalog/KeywordSearch.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -236,7 +236,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/template/entry/catalog/advancedsearch.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/catalog/AdvancedSearch.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -252,7 +252,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/template/entry/catalog/quickadd.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/template/entry/catalog/QuickAdd.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -264,7 +264,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductSummary.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://order/template/entry/catalog/quickaddsummary.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/template/entry/catalog/QuickAddSummary.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -281,7 +281,7 @@ under the License.
                     <decorator-section name="body">
                         <platform-specific>
                             <html>
-                                <html-template location="component://order/template/entry/catalog/compareproducts.ftl"/>
+                                <html-template location="component://order/template/entry/catalog/CompareProducts.ftl"/>
                             </html>
                         </platform-specific>
                     </decorator-section>

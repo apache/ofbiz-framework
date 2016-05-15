@@ -27,7 +27,7 @@ under the License.
                             <widgets>
                                 <platform-specific>
                                     <html>
-                                        <html-template location="component://order/template/return/returnLinks.ftl"/>
+                                        <html-template location="component://order/template/return/ReturnLinks.ftl"/>
                                     </html>
                                 </platform-specific>
                                 <decorator-section-include name="body"/>
@@ -74,7 +74,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleFindQuickReturn}">
                             <platform-specific>
-                                <html><html-template location="component://order/template/return/quickReturn.ftl"/></html>
+                                <html><html-template location="component://order/template/return/QuickReturn.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -117,7 +117,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleReturnList}">
                             <platform-specific>
-                                <html><html-template location="component://order/template/return/returnList.ftl"/></html>
+                                <html><html-template location="component://order/template/return/ReturnList.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -140,7 +140,7 @@ under the License.
                             <widgets>
                                 <platform-specific>
                                     <html>
-                                        <html-template location="component://order/template/return/returnItems.ftl"/>
+                                        <html-template location="component://order/template/return/ReturnItems.ftl"/>
                                     </html>
                                 </platform-specific>
                             </widgets>
