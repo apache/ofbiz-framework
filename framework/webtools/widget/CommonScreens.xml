@@ -63,20 +63,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="printStart">
-        <section>
-            <widgets>
-                <platform-specific><html><html-template location="component://webtools/template/printStart.ftl"/></html></platform-specific>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="printDone">
-        <section>
-            <widgets>
-                <platform-specific><html><html-template location="component://webtools/template/printDone.ftl"/></html></platform-specific>
-            </widgets>
-        </section>
-    </screen>
     <screen name="browsercerts">
         <section>
             <actions>
