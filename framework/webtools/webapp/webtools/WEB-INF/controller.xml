@@ -498,53 +498,6 @@ under the License.
         <response name="success" type="view" value="viewbrowsercerts"/>
     </request-map>
 
-    <!-- printing requests -->
-    <request-map uri="print">
-        <event type="java" path="org.ofbiz.webtools.print.rmi.FopPrintServer" invoke="readFopPrintServerSettings"/>
-        <response name="success" type="view" value="printStart"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-    <request-map uri="updatePrintSettings">
-        <event type="java" path="org.ofbiz.webtools.print.rmi.FopPrintServer" invoke="receiveUpdateAppletSettings"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
-    </request-map>
-    <request-map uri="printComplete">
-        <event type="java" path="org.ofbiz.webtools.print.rmi.FopPrintServer" invoke="writeFopPrintServerSettings"/>
-        <response name="success" type="view" value="printDone"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-    <request-map uri="getXslFo">
-        <event type="java" path="org.ofbiz.webtools.print.FoPrintServerEvents" invoke="getXslFo"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
-    </request-map>
-    <request-map uri="META-INF">
-        <event type="java" path="org.ofbiz.webtools.print.rmi.FopPrintServer" invoke="return404"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
-    </request-map>
-    <request-map uri="barcode.class">
-        <event type="java" path="org.ofbiz.webtools.print.rmi.FopPrintServer" invoke="return404"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
-    </request-map>
-    <request-map uri="default.class">
-        <event type="java" path="org.ofbiz.webtools.print.rmi.FopPrintServer" invoke="return404"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
-    </request-map>
-    <request-map uri="com">
-        <event type="java" path="org.ofbiz.webtools.print.rmi.FopPrintServer" invoke="return404"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
-    </request-map>
-    <request-map uri="org">
-        <event type="java" path="org.ofbiz.webtools.print.rmi.FopPrintServer" invoke="return404"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
-    </request-map>
-
     <!-- Temporal expression view mapping -->
     <request-map uri="editTemporalExpression">
         <security https="true" auth="true"/>
