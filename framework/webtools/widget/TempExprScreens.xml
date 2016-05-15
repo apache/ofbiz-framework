@@ -106,7 +106,7 @@ under the License.
                                 <not><if-empty field="childExpressionList"/></not>
                             </condition>
                             <widgets>
-                                <include-form name="ListChildExpressions" location="component://webtools/widget/tempExprForms.xml"/>
+                                <include-form name="ListChildExpressions" location="component://webtools/widget/TempExprForms.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>

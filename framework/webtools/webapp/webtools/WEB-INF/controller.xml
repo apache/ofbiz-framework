@@ -609,8 +609,8 @@ under the License.
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://webtools/widget/CommonScreens.xml#main"/>
-    <view-map name="ping" type="ftl" page="component://webtools/template/ping.ftl"/>
-    <view-map name="showDateTime" type="ftl" page="component://webtools/template/showDateTime.ftl"/>
+    <view-map name="ping" type="ftl" page="component://webtools/template/Ping.ftl"/>
+    <view-map name="showDateTime" type="ftl" page="component://webtools/template/ShowDateTime.ftl"/>
 
     <view-map name="entityref" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRef"/>
     <view-map name="entityref_list" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRefList"/>
