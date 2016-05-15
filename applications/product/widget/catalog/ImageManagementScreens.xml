@@ -220,7 +220,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/template/imagemanagement/showPeopleApprove.ftl"/></html>
+                                    <html><html-template location="component://product/template/imagemanagement/ShowPeopleApprove.ftl"/></html>
                                 </platform-specific>
                                 <screenlet title="${uiLabelMap.ImageManagementApprove}">
                                     <include-form name="ImageApprove" location="component://product/widget/catalog/ImageManagementForms.xml"/>
@@ -271,7 +271,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/template/imagemanagement/showPeopleApprove.ftl"/></html>
+                                    <html><html-template location="component://product/template/imagemanagement/ShowPeopleApprove.ftl"/></html>
                                 </platform-specific>
                                 <screenlet title="${uiLabelMap.CommonApproved}">
                                     <include-grid name="ListPeopleApproved" location="component://product/widget/catalog/ImageManagementForms.xml"/>
@@ -364,7 +364,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/template/imagemanagement/showPeopleApprove.ftl"/></html>
+                                    <html><html-template location="component://product/template/imagemanagement/ShowPeopleApprove.ftl"/></html>
                                 </platform-specific>
                                 <screenlet title="${uiLabelMap.CommonRejected}">
                                     <include-form name="ListPeopleRejected" location="component://product/widget/catalog/ImageManagementForms.xml"/>    

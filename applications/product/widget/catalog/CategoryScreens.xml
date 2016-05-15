@@ -475,7 +475,7 @@ under the License.
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/category/createProductInCategoryStart.ftl"/></html>
+                            <html><html-template location="component://product/template/category/CreateProductInCategoryStart.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -497,7 +497,7 @@ under the License.
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/template/category/createProductInCategoryCheckExisting.ftl"/></html>
+                            <html><html-template location="component://product/template/category/CreateProductInCategoryCheckExisting.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
