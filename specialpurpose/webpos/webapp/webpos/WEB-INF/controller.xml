@@ -461,6 +461,20 @@
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
+    <request-map uri="ForgotPassword_step1">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="ForgotPassword_step1"/>
+    </request-map>
+    <request-map uri="ForgotPassword_step2">
+        <security auth="false" https="true"></security>
+        <response name="success" type="view" value="ForgotPassword_step2" />
+    </request-map>
+    <request-map uri="ForgotPassword_step3">
+        <security https="true" auth="false"/>
+         <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="forgotPassword"/>
+        <response name="success" type="view" value="Login"/>
+        <response name="error" type="view" value="ForgotPassword_step2"/>
+    </request-map>
     <!-- end of Ajax requests -->
     
     <!-- View Mappings -->
@@ -485,5 +499,7 @@
     <view-map name="SearchSalesRepsList" type="screen" page="component://webpos/widget/SearchScreens.xml#SearchSalesRepsList"/>
     <view-map name="SideDeepCategory" type="screen" page="component://webpos/widget/CatalogScreens.xml#SideDeepCategory"/>
     <view-map name="CategoryDetail" type="screen" page="component://webpos/widget/CatalogScreens.xml#CategoryDetail"/>
+    <view-map name="ForgotPassword_step1" type="screen" page="component://webpos/widget/CommonScreens.xml#ForgotPassword_step1"/>
+    <view-map name="ForgotPassword_step2" type="screen" page="component://webpos/widget/CommonScreens.xml#ForgotPassword_step2"/>
     <!-- End of View Mappings -->
 </site-conf>
