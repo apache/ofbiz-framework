@@ -104,6 +104,7 @@
 	<classpathentry kind="lib" path="framework/service/lib/woden-core-1.0M10.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/wsdl4j-1.6.2.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/xmlschema-core-2.2.1.jar"/>
+	<classpathentry kind="lib" path="framework/start/lib/commons-cli-1.3.1.jar"/>
 	<classpathentry kind="lib" path="framework/testtools/lib/spring-core-4.2.3.jar"/>
 	<classpathentry kind="lib" path="framework/testtools/lib/spring-test-4.2.3.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ezmorph-0.9.1.jar"/>

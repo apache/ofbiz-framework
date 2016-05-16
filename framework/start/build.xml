@@ -29,12 +29,28 @@ under the License.
     <property name="name" value="ofbiz"/>
 
     <!-- ================================================================== -->
+    <!-- classpath setup to allow start component to access external libs   -->
+    <!-- the setup ensures correct path when ofbiz.jar is copied to root    -->
+    <!-- ================================================================== -->
+
+    <path id="startlibs.absolute">
+        <fileset dir="lib" includes="**/commons-cli*.jar"/>
+    </path>
+    <property name="ofbiz.absolute" location="../.."/>
+    <pathconvert property="startlibs.relative" refid="startlibs.absolute">
+        <map from="${ofbiz.absolute}" to="."/>
+    </pathconvert>
+    <manifestclasspath property="ofbiz.jar.cp" jarfile="ofbiz.jar">
+        <classpath path="${startlibs.relative}"/>
+    </manifestclasspath>
+
+    <!-- ================================================================== -->
     <!-- Compilation of the source files                                    -->
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
         <!-- compile start -->
-        <javac18 destdir="${build.dir}/classes" srcdir="${src.dir}"/>
+        <javac18 destdir="${build.dir}/classes" srcdir="${src.dir}" classpathref="startlibs.absolute"/>
     </target>
 
     <target name="jar" depends="classes">
@@ -45,6 +61,7 @@ under the License.
                     <attribute name="Implementation-Title" value="Apache OFBiz Startup"/>
                     <attribute name="Implementation-Vendor" value="The Apache Apache OFBiz Project"/>
                     <attribute name="Main-Class" value="org.ofbiz.base.start.Start"/>
+                    <attribute name="Class-Path" value="${ofbiz.jar.cp}"/>
                 </manifest>
             </main-elements>
         </main-jar>

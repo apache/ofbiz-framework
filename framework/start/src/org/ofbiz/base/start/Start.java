@@ -23,30 +23,32 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 /**
  * OFBiz startup class.
  *
+ * <p>
  * This class implements a thread-safe state machine. The design is critical
  * for reliable starting and stopping of the server.
- *
+ * </p>
+ * <p>
  * The machine's current state and state changes must be encapsulated in this
  * class. Client code may query the current state, but it may not change it.
- *
+ * </p>
+ * <p>
  * This class uses a singleton pattern to guarantee that only one server instance
- * is running in the VM. Client code retrieves the instance by using the getInstance()
- * static method.
- *
+ * is running in the VM. Client code retrieves the instance by using the 
+ * <tt>getInstance()</tt> static method.
+ * </p>
  */
 public final class Start {
 
@@ -66,29 +68,37 @@ public final class Start {
      * such as starting, stopping or checking the status of the server.
      * 
      * @param args: The commands for ofbiz
-     * @throws StartupException: propagates to the servlet container
+     * @throws StartupException: terminates ofbiz or propagates to caller
      */
     public static void main(String[] args) throws StartupException {
-        Command command = evaluateOfbizCommand(args);
-        if (command == Command.HELP) {
-            help(System.out);
-            return;
-        } else if (command == Command.HELP_ERROR) {
-            help(System.err);
+        List<StartupCommand> ofbizCommands = null;
+        try {
+            ofbizCommands = StartupCommandUtil.parseOfbizCommands(args);
+        } catch (StartupException e) {
+            // incorrect arguments passed to the command line
+            System.err.println("Error: " + e.getMessage() + System.lineSeparator());
+            StartupCommandUtil.printOfbizStartupHelp(System.err);
             System.exit(1);
         }
-        instance.init(args, command == Command.COMMAND);
-        try {
-            if (command == Command.STATUS) {
+
+        CommandType commandType = evaluateOfbizCommands(ofbizCommands);
+        if(commandType != CommandType.HELP) {
+            instance.init(ofbizCommands);
+        }
+        switch (commandType) {
+            case HELP:
+                StartupCommandUtil.printOfbizStartupHelp(System.out);
+                break;
+            case STATUS:
                 System.out.println("Current Status : " + instance.status());
-            } else if (command == Command.SHUTDOWN) {
+                break;
+            case SHUTDOWN:
                 System.out.println("Shutting down server : " + instance.shutdown());
-            } else {
-                // general start
+                break;
+            case START:
+                populateLoaderArgs(ofbizCommands);
                 instance.start();
-            }
-        } catch (Exception e) {
-            throw new StartupException(e);
+                break;
         }
     }
 
@@ -125,48 +135,16 @@ public final class Start {
         }
     }
 
-    void init(String[] args, boolean fullInit) throws StartupException {
-        String globalSystemPropsFileName = System.getProperty("ofbiz.system.props");
-        if (globalSystemPropsFileName != null) {
-            FileInputStream stream = null;
-            try {
-                stream = new FileInputStream(globalSystemPropsFileName);
-                System.getProperties().load(stream);
-            } catch (IOException e) {
-                throw new StartupException("Couldn't load global system props", e);
-            } finally {
-                if (stream != null) {
-                    try {
-                        stream.close();
-                    } catch (IOException e) {
-                        throw new StartupException("Couldn't close stream", e);
-                    }
-                }
-            }
-        }
+    void init(List<StartupCommand> ofbizCommands) throws StartupException {
+        loadGlobalOfbizSystemProperties("ofbiz.system.props");
         try {
-            this.config = new Config(args);
-        } catch (IOException e) {
-            throw new StartupException("Couldn't not fetch config instance", e);
+            this.config = new Config(ofbizCommands);
+        } catch (StartupException e) {
+            throw new StartupException("Could not fetch config instance", e);
         }
-        // parse the startup arguments
-        if (args.length > 1) {
-            this.loaderArgs.addAll(Arrays.asList(args).subList(1, args.length));
-            // Needed when portoffset is used with these commands
-            try {
-                if ("status".equals(args[0])) {
-                    System.out.println("Current Status : " + instance.status());
-                } else if ("stop".equals(args[0])) {
-                    System.out.println("Shutting down server : " + instance.shutdown());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(99);
-            }
-        }
-        if (!fullInit) {
-            return;
-        }
+    }
+
+    void start() throws StartupException {
         // create the log directory
         createLogDirectory();
         // create the listener thread
@@ -185,14 +163,11 @@ public final class Start {
 
         // initialize the startup loaders
         initStartLoaders();
-    }
-
-    void start() throws Exception {
         if (!startStartLoaders()) {
             if (this.serverState.get() == ServerState.STOPPING) {
                 return;
             } else {
-                throw new Exception("Error during start.");
+                throw new StartupException("Error during start.");
             }
         }
         if (config.shutdownAfterLoad) {
@@ -231,58 +206,81 @@ public final class Start {
         System.exit(0);
     }
 
-    private static Command evaluateOfbizCommand(String[] args) {
-        Command command = null;
-        for (String arg : args) {
-            if (arg.equals("-help") || arg.equals("-?")) {
-                command = checkCommand(command, Command.HELP);
-            } else if (arg.equals("-status")) {
-                command = checkCommand(command, Command.STATUS);
-            } else if (arg.equals("-shutdown")) {
-                command = checkCommand(command, Command.SHUTDOWN);
-            } else if (arg.startsWith("-")) {
-                if (!arg.contains("portoffset")) {
-                    command = checkCommand(command, Command.COMMAND);
-                }
-            } else {
-                command = checkCommand(command, Command.COMMAND);
-                if (command == Command.COMMAND) {
-                } else {
-                    command = Command.HELP_ERROR;
+    private static CommandType evaluateOfbizCommands(List<StartupCommand> ofbizCommands) {
+        if (ofbizCommands.stream().anyMatch(
+                command -> command.getName().equals(StartupCommandUtil.StartupOption.HELP.getName()))) {
+            return CommandType.HELP;
+        } else if (ofbizCommands.stream().anyMatch(
+                command -> command.getName().equals(StartupCommandUtil.StartupOption.STATUS.getName()))) {
+            return CommandType.STATUS;
+        } else if (ofbizCommands.stream().anyMatch(
+                command -> command.getName().equals(StartupCommandUtil.StartupOption.SHUTDOWN.getName()))) {
+            return CommandType.SHUTDOWN;
+        } else {
+            return CommandType.START;
+        }
+    }
+
+    private enum CommandType {
+        HELP, STATUS, SHUTDOWN, START
+    }
+
+    private void loadGlobalOfbizSystemProperties(String globalOfbizPropertiesFileName) throws StartupException {
+        String globalSystemPropsFileName = System.getProperty(globalOfbizPropertiesFileName);
+        if (globalSystemPropsFileName != null) {
+            FileInputStream stream = null;
+            try {
+                stream = new FileInputStream(globalSystemPropsFileName);
+                System.getProperties().load(stream);
+            } catch (IOException e) {
+                throw new StartupException("Couldn't load global system props", e);
+            } finally {
+                if (stream != null) {
+                    try {
+                        stream.close();
+                    } catch (IOException e) {
+                        throw new StartupException("Couldn't close stream", e);
+                    }
                 }
             }
         }
-        if (command == null) {
-            command = Command.COMMAND;
-        }
-        return command;
     }
 
-    private static Command checkCommand(Command command, Command wanted) {
-        if (wanted == Command.HELP || wanted.equals(command)) {
-            return wanted;
-        } else if (command == null) {
-            return wanted;
-        } else {
-            System.err.println("Duplicate command detected(was " + command + ", wanted " + wanted);
-            return Command.HELP_ERROR;
+    /**
+     * populates the loaderArgs with arguments as expected by the
+     * containers that will receive them. 
+     * 
+     * TODO A better solution is to change the signature of all 
+     * containers to receive a <tt>List</tt> of <tt>StartupCommand</tt>s
+     * instead and delete the methods populateLoaderArgs, commandExistsInList
+     * and retrieveCommandArgumentEntries along with the loaderArgs list.
+     */
+    private static void populateLoaderArgs(List<StartupCommand> ofbizCommands) {
+        final String LOAD_DATA = StartupCommandUtil.StartupOption.LOAD_DATA.getName();
+        final String TEST = StartupCommandUtil.StartupOption.TEST.getName();
+        final String TEST_LIST = StartupCommandUtil.StartupOption.TEST_LIST.getName();
+        
+        if(commandExistsInList(ofbizCommands, LOAD_DATA)) {
+            retrieveCommandArguments(ofbizCommands, LOAD_DATA).entrySet().stream().forEach(entry -> 
+            instance.loaderArgs.add("-" + entry.getKey() + "=" + entry.getValue()));
+        } else if(commandExistsInList(ofbizCommands, TEST)) {
+            retrieveCommandArguments(ofbizCommands, TEST).entrySet().stream().forEach(entry -> 
+            instance.loaderArgs.add("-" + entry.getKey() + "=" + entry.getValue()));
+        } else if(commandExistsInList(ofbizCommands, TEST_LIST)) {
+            Map<String,String> testListArgs = retrieveCommandArguments(ofbizCommands, TEST_LIST);
+            instance.loaderArgs.add(testListArgs.get("file"));
+            instance.loaderArgs.add("-" + testListArgs.get("mode"));
         }
     }
 
-    private static void help(PrintStream out) {
-        // Currently some commands have no dash, see OFBIZ-5872
-        out.println("");
-        out.println("Usage: java -jar ofbiz.jar [command] [arguments]");
-        out.println("both    -----> Runs simultaneously the POS (Point of Sales) application and OFBiz standard");
-        out.println("-help, -? ----> This screen");
-        out.println("load-data -----> Creates tables/load data, eg: load-data -readers=seed,demo,ext -timeout=7200 -delegator=default -group=org.ofbiz. Or: load-data -file=/tmp/dataload.xml");
-        out.println("pos     -----> Runs the POS (Point of Sales) application");
-        out.println("start -------> Starts the server");
-        out.println("-status ------> Gives the status of the server");
-        out.println("-shutdown ----> Shutdowns the server");
-        out.println("test --------> Runs the JUnit test script");
-        out.println("[no config] --> Uses default config");
-        out.println("[no command] -> Starts the server with default config");
+    private static boolean commandExistsInList(List<StartupCommand> ofbizCommands, String commandName) {
+        return ofbizCommands.stream().anyMatch(command -> command.getName().equals(commandName));
+    }
+
+    private static Map<String,String> retrieveCommandArguments(List<StartupCommand> ofbizCommands, String commandName) {
+        return ofbizCommands.stream()
+                .filter(option-> option.getName().equals(commandName))
+                .collect(Collectors.toList()).get(0).getProperties();
     }
 
     private void createListenerThread() throws StartupException {
@@ -303,12 +301,6 @@ public final class Start {
         }
     }
 
-    /**
-     * Creates a new <code>NativeLibClassLoader</code> instance.
-     *
-     * @return A new <code>NativeLibClassLoader</code> instance
-     * @throws IOException
-     */
     private NativeLibClassLoader createClassLoader() throws IOException {
         ClassLoader parent = Thread.currentThread().getContextClassLoader();
         if (parent instanceof NativeLibClassLoader) {
@@ -426,13 +418,15 @@ public final class Start {
         return response;
     }
 
-    private String shutdown() throws IOException {
-        return sendSocketCommand(Control.SHUTDOWN);
+    private String shutdown() throws StartupException {
+        try {
+            return sendSocketCommand(Control.SHUTDOWN);
+        } catch (Exception e) {
+            throw new StartupException(e);
+        }
     }
 
     /**
-     * Returns <code>true</code> if all loaders were started.
-     *
      * @return <code>true</code> if all loaders were started.
      */
     private boolean startStartLoaders() {
@@ -453,13 +447,13 @@ public final class Start {
         return this.serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING);
     }
 
-    private String status() throws IOException {
+    private String status() throws StartupException {
         try {
             return sendSocketCommand(Control.STATUS);
         } catch (ConnectException e) {
             return "Not Running";
         } catch (IOException e) {
-            throw e;
+            throw new StartupException(e);
         }
     }
 
@@ -525,10 +519,6 @@ public final class Start {
                 }
             }
         }
-    }
-
-    private enum Command {
-        HELP, HELP_ERROR, STATUS, SHUTDOWN, COMMAND
     }
 
     private enum Control {

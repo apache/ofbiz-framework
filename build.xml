@@ -32,6 +32,7 @@ under the License.
     <property name="site.dir" value="../site"/>
     <property name="memory.initial.param" value="-Xms128M"/>
     <property name="memory.max.param" value="-Xmx512M"/>
+    <property name="portoffset" value="0"/>
 
     <import file="framework/build.xml" optional="false"/>
     <available file="applications/build.xml" property="applications.present"/>
@@ -588,8 +589,8 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="start"/>
-            <arg value="-portoffset=${portoffset}"/>
+            <arg value="--start"/>
+            <arg value="--portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-secure"
@@ -601,8 +602,8 @@ under the License.
             <jvmarg value="-Dnotsoserial.whitelist=${ofbiz.home.dir}/tools/security/notsoserial/empty.txt"/>
             <jvmarg value="-Dnotsoserial.dryrun=${ofbiz.home.dir}/tools/security/notsoserial/is-deserialized.txt"/>
             <jvmarg value="-Dnotsoserial.trace=${ofbiz.home.dir}/tools/security/notsoserial/deserialize-trace.txt"/>
-            <arg value="start"/>
-            <arg value="-portoffset=${portoffset}"/>
+            <arg value="--start"/>
+            <arg value="--portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-batch"
@@ -610,8 +611,8 @@ under the License.
         <java jar="ofbiz.jar" fork="true" spawn="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="start-batch"/>
-            <arg value="-portoffset=${portoffset}"/>
+            <arg value="--start"/>
+            <arg value="--portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-batch-secure"
@@ -623,8 +624,8 @@ under the License.
             <jvmarg value="-Dnotsoserial.whitelist=${ofbiz.home.dir}/tools/security/notsoserial/empty.txt"/>
             <jvmarg value="-Dnotsoserial.dryrun=${ofbiz.home.dir}/tools/security/notsoserial/is-deserialized.txt"/>
             <jvmarg value="-Dnotsoserial.trace=${ofbiz.home.dir}/tools/security/notsoserial/deserialize-trace.txt"/>
-            <arg value="start-batch"/>
-            <arg value="-portoffset=${portoffset}"/>
+            <arg value="--start"/>
+            <arg value="--portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-debug"
@@ -636,8 +637,8 @@ under the License.
             <jvmarg value="-Djava.compiler=NONE"/>
             <jvmarg value="-Xdebug"/>
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
-            <arg value="start-debug"/>
-            <arg value="-portoffset=${portoffset}"/>
+            <arg value="--start"/>
+            <arg value="--portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-pos"
@@ -645,8 +646,8 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="pos"/>
-            <arg value="-portoffset=${portoffset}"/><!-- Not sure this makes sense and is useful at all -->
+            <arg value="--pos"/>
+            <arg value="--portoffset=${portoffset}"/><!-- Not sure this makes sense and is useful at all -->
         </java>
     </target>
     <target name="start-pos-secure"
@@ -658,8 +659,8 @@ under the License.
             <jvmarg value="-Dnotsoserial.whitelist=${ofbiz.home.dir}/tools/security/notsoserial/empty.txt"/>
             <jvmarg value="-Dnotsoserial.dryrun=${ofbiz.home.dir}/tools/security/notsoserial/is-deserialized.txt"/>
             <jvmarg value="-Dnotsoserial.trace=${ofbiz.home.dir}/tools/security/notsoserial/deserialize-trace.txt"/>
-            <arg value="pos"/>
-            <arg value="-portoffset=${portoffset}"/><!-- Not sure this makes sense and is useful at all -->
+            <arg value="--pos"/>
+            <arg value="--portoffset=${portoffset}"/><!-- Not sure this makes sense and is useful at all -->
         </java>
     </target>
     <target name="start-both"
@@ -667,8 +668,8 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="both"/>
-            <arg value="-portoffset=${portoffset}"/>
+            <arg value="--both"/>
+            <arg value="--portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="start-both-secure"
@@ -680,22 +681,22 @@ under the License.
             <jvmarg value="-Dnotsoserial.whitelist=${ofbiz.home.dir}/tools/security/notsoserial/empty.txt"/>
             <jvmarg value="-Dnotsoserial.dryrun=${ofbiz.home.dir}/tools/security/notsoserial/is-deserialized.txt"/>
             <jvmarg value="-Dnotsoserial.trace=${ofbiz.home.dir}/tools/security/notsoserial/deserialize-trace.txt"/>
-            <arg value="both"/>
-            <arg value="-portoffset=${portoffset}"/>
+            <arg value="--both"/>
+            <arg value="--portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="stop"
             description="Stop OFBiz. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true">
-            <arg value="-shutdown"/>
-            <arg value="-portoffset=${portoffset}"/>
+            <arg value="--shutdown"/>
+            <arg value="--portoffset=${portoffset}"/>
         </java>
     </target>
     <target name="status"
             description="Display status of OFBiz. Use -Dportoffset=portNumber to shift all ports with the portNumber value.">
         <java jar="ofbiz.jar" fork="true">
-            <arg value="-status"/>
-            <arg value="-portoffset=${portoffset}"/>
+            <arg value="--status"/>
+            <arg value="--portoffset=${portoffset}"/>
         </java>
     </target>
 
@@ -708,7 +709,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
         </java>
     </target>
     <target name="load-demo-multitenant" depends="build"
@@ -716,18 +717,18 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
         </java>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="delegator=default#DEMO1"/>
         </java>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="delegator=default#DEMO2"/>
         </java>
     </target>
@@ -736,7 +737,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="readers=seed"/>
         </java>
     </target>
@@ -745,7 +746,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="readers=seed,seed-initial,ext"/>
         </java>
     </target>
@@ -754,7 +755,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="readers=seed,seed-initial,ext,ext-test"/>
         </java>
     </target>
@@ -763,7 +764,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true" >
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="readers=${data-readers}"/>
         </java>
     </target>
@@ -773,8 +774,9 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="delegator=${delegator}"/>
+            <arg value="--load-data"/>
             <arg value="file=${data-file}"/>
         </java>
     </target>
@@ -788,7 +790,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="readers=tenant"/>
         </java>
         <condition property="hasTenant">
@@ -828,7 +830,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="delegator=default#${tenantId}"/>
         </java>
     </target>
@@ -836,8 +838,9 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="delegator=default#${tenantId}"/>
+            <arg value="--load-data"/>
             <arg value="readers=${data-readers}"/>
         </java>
     </target>
@@ -860,8 +863,9 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="delegator=default#${tenantId}"/>
+            <arg value="--load-data"/>
             <arg value="component=${component}"/>
         </java>
     </target>
@@ -869,9 +873,11 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="delegator=default#${tenantId}"/>
+            <arg value="--load-data"/>
             <arg value="readers=${data-readers}"/>
+            <arg value="--load-data"/>
             <arg value="component=${component}"/>
         </java>
     </target>
@@ -886,7 +892,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="readers=tenant"/>
         </java>
         <condition property="hasReader">
@@ -906,7 +912,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="delegator=${delegator}"/>
         </java>
     </target>
@@ -914,8 +920,9 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="readers=${data-readers}"/>
+            <arg value="--load-data"/>
             <arg value="delegator=${delegator}"/>
         </java>
     </target>
@@ -1149,8 +1156,9 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="load-data"/>
+            <arg value="--load-data"/>
             <arg value="readers=${data-readers}"/>
+            <arg value="--load-data"/>
             <arg value="delegator=default#${tenantId}"/>
         </java>
     </target>
@@ -1182,8 +1190,8 @@ under the License.
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="test"/>
-            <arg value="-portoffset=${portoffset}"/>
+            <arg value="--test"/>
+            <arg value="--portoffset=${portoffset}"/>
             <env key="LC_ALL" value="C"/>
         </java>
         <mkdir dir="runtime/logs/test-results/html"/>
@@ -1212,9 +1220,10 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="testlist"/>
-            <arg file="runtime/test-list-build.xml"/>
-            <arg value="-ant"/>
+            <arg value="--testlist"/>
+            <arg value="file=runtime/test-list-build.xml"/>
+            <arg value="--testlist"/>
+            <arg value="mode=ant"/>
             <env key="LC_ALL" value="C"/>
         </java>
     </target>
@@ -1225,9 +1234,10 @@ under the License.
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="test"/>
-            <arg value="-component=${test.component}"/>
-            <arg value="-case=${test.case}"/>
+            <arg value="--test"/>
+            <arg value="component=${test.component}"/>
+            <arg value="--test"/>
+            <arg value="case=${test.case}"/>
             <env key="LC_ALL" value="C"/>
         </java>
         <delete dir="runtime/logs/test-results/${test.component}-${test.case}"/>
@@ -1254,9 +1264,10 @@ under the License.
         <jvmarg value="-Djava.compiler=NONE"/>
         <jvmarg value="-Xdebug"/>
         <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8091"/>
-        <arg value="test"/>
-        <arg value="-component=${test.component}"/>
-        <arg value="-case=${test.case}"/>
+        <arg value="--test"/>
+        <arg value="component=${test.component}"/>
+        <arg value="--test"/>
+        <arg value="case=${test.case}"/>
         <env key="LC_ALL" value="C"/>
       </java>
       <delete dir="runtime/logs/test-results/${test.component}-${test.case}"/>
@@ -1279,9 +1290,10 @@ under the License.
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-            <arg value="test"/>
-            <arg value="-component=${test.component}"/>
-            <arg value="-suitename=${test.suiteName}"/>
+            <arg value="--test"/>
+            <arg value="component=${test.component}"/>
+            <arg value="--test"/>
+            <arg value="suitename=${test.suiteName}"/>
             <env key="LC_ALL" value="C"/>
         </java>
         <fail message="Test run was unsuccessful">
