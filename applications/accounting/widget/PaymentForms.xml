@@ -485,9 +485,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSend}" widget-style="smallSubmit"><submit/></field>
     </form>
 
-    <form name="FindSalesInvoicesByDueDate" type="single" target="findSalesInvoicesByDueDate"
+    <form name="FindSalesInvoicesByDueDate" type="single" target="FindSalesInvoicesByDueDate"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="invoiceTypeId"><hidden value="SALES_INVOICE"/></field>
         <field name="organizationPartyId" parameter-name="partyIdFrom">
             <drop-down allow-empty="false">
                 <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">
@@ -502,9 +501,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="FindPurchaseInvoicesByDueDate" type="single" target="findPurchaseInvoicesByDueDate"
+    <form name="FindPurchaseInvoicesByDueDate" type="single" target="FindPurchaseInvoicesByDueDate"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="invoiceTypeId"><hidden value="PURCHASE_INVOICE"/></field>
         <field name="organizationPartyId" parameter-name="partyId">
             <drop-down allow-empty="false">
                 <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">

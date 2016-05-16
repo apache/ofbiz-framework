@@ -502,7 +502,8 @@ under the License.
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
-                <set field="invoicePaymentInfoList" from-field="parameters.invoicePaymentInfoList" type="List"/>
+                <set field="parameters.invoiceTypeId" value="SALES_INVOICE"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/FindInvoicesByDueDate.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -534,7 +535,8 @@ under the License.
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
-                <set field="invoicePaymentInfoList" from-field="parameters.invoicePaymentInfoList" type="List"/>
+                <set field="parameters.invoiceTypeId" value="PURCHASE_INVOICE"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/FindInvoicesByDueDate.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
