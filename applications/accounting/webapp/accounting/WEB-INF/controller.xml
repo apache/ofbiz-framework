@@ -374,23 +374,21 @@ under the License.
 
     <request-map uri="FindSalesInvoicesByDueDate">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindSalesInvoicesByDueDate"/>
-    </request-map>
-    <request-map uri="findSalesInvoicesByDueDate">
-        <security https="false" auth="true"/>
-        <event type="service" invoke="getInvoicePaymentInfoListByDueDateOffset"/>
-        <response name="success" type="view" value="FindSalesInvoicesByDueDate"/>
-        <response name="error" type="view" value="FindSalesInvoicesByDueDate"/>
+        <response name="success" type="view" value="FindSalesInvoicesByDueDate">
+            <redirect-parameter name="invoiceTypeId"/>
+            <redirect-parameter name="organizationPartyId"/>
+            <redirect-parameter name="partyId"/>
+            <redirect-parameter name="daysOffset"/>
+        </response>
     </request-map>
     <request-map uri="FindPurchaseInvoicesByDueDate">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindPurchaseInvoicesByDueDate"/>
-    </request-map>
-    <request-map uri="findPurchaseInvoicesByDueDate">
-        <security https="false" auth="true"/>
-        <event type="service" invoke="getInvoicePaymentInfoListByDueDateOffset"/>
-        <response name="success" type="view" value="FindPurchaseInvoicesByDueDate"/>
-        <response name="error" type="view" value="FindPurchaseInvoicesByDueDate"/>
+        <response name="success" type="view" value="FindPurchaseInvoicesByDueDate">
+            <redirect-parameter name="invoiceTypeId"/>
+            <redirect-parameter name="organizationPartyId"/>
+            <redirect-parameter name="partyId"/>
+            <redirect-parameter name="daysOffset"/>
+        </response>
     </request-map>
 
     <!-- Payment Group requests -->
