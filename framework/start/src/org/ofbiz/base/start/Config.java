@@ -24,12 +24,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.TimeZone;
 
@@ -52,24 +54,30 @@ public class Config {
     public final String classpathAddComponent;
     public final String classpathAddFilesFromPath;
 
-    Config(String[] args) throws IOException {
-        String firstArg = args.length > 0 ? args[0] : "";
-        // Needed when portoffset is used with these commands, start.properties fits for all of them
-        if ("start-batch".equalsIgnoreCase(firstArg)
-                || "start-debug".equalsIgnoreCase(firstArg)
-                || "stop".equalsIgnoreCase(firstArg)
-                || "-shutdown".equalsIgnoreCase(firstArg) // shutdown & status hack (was pre-existing to portoffset introduction, also useful with it)
-                || "-status".equalsIgnoreCase(firstArg)) {
-            firstArg = "start";
+    Config(List<StartupCommand> ofbizCommands) throws StartupException {
+        String fileName = determineOfbizPropertiesFileName(ofbizCommands);
+        String config = "org/ofbiz/base/start/" + fileName + ".properties";
+        Properties props;
+        try {
+            props = this.getPropertiesFile(config);
+        } catch (IOException e) {
+            throw new StartupException(e);
         }
-        // default command is "start"
-        if (firstArg == null || firstArg.trim().length() == 0) {
-            firstArg = "start";
-        }
-        String config =  "org/ofbiz/base/start/" + firstArg + ".properties";
-
-        Properties props = this.getPropertiesFile(config);
         System.out.println("Start.java using configuration file " + config);
+        
+        // set portOffsetValue
+        int portOffsetValue = 0;
+        Optional<StartupCommand> portOffsetCommand = ofbizCommands.stream()
+                .filter(command -> command.getName().equals(StartupCommandUtil.StartupOption.PORTOFFSET.getName()))
+                .findFirst();
+        if(portOffsetCommand.isPresent()) {
+            Map<String,String> commandArgs = portOffsetCommand.get().getProperties();
+            try {
+                portOffsetValue = Integer.parseInt(commandArgs.keySet().iterator().next());
+            } catch(NumberFormatException e) {
+                throw new StartupException("invalid portoffset number", e);
+            }
+        }
 
         // set the ofbiz.home
         String ofbizHomeTmp = props.getProperty("ofbiz.home", ".");
@@ -98,20 +106,18 @@ public class Config {
         adminKey = getProp(props, "ofbiz.admin.key", "NA");
 
         // create the host InetAddress
-        adminAddress = InetAddress.getByName(serverHost);
+        try {
+            adminAddress = InetAddress.getByName(serverHost);
+        } catch (UnknownHostException e) {
+            throw new StartupException(e);
+        }
 
         // parse the port number
         int adminPortTmp;
         try {
             adminPortTmp = Integer.parseInt(adminPortStr);
-            if (args.length > 0) {
-                for (String arg : args) {
-                    if (arg.toLowerCase().contains("portoffset=") && !arg.toLowerCase().contains("${portoffset}")) {
-                        adminPortTmp = adminPortTmp != 0 ? adminPortTmp : 10523; // This is necessary because the ASF machines don't allow ports 1 to 3, see  INFRA-6790
-                        adminPortTmp += Integer.parseInt(arg.split("=")[1]);
-                    }
-                }
-            }
+            adminPortTmp = adminPortTmp != 0 ? adminPortTmp : 10523; // This is necessary because the ASF machines don't allow ports 1 to 3, see  INFRA-6790
+            adminPortTmp += portOffsetValue;
         } catch (Exception e) {
             System.out.println("Error while parsing admin port number (so default to 10523) = " + e);
             adminPortTmp = 10523;
@@ -195,33 +201,37 @@ public class Config {
         loaders = Collections.unmodifiableList(loadersTmp);
 
         // set the port offset
-        Integer portOffset = 0;
-        if (args != null) {
-            for (String argument : args) {
-                // arguments can prefix w/ a '-'. Just strip them off
-                if (argument.startsWith("-")) {
-                    int subIdx = 1;
-                    if (argument.startsWith("--")) {
-                        subIdx = 2;
-                    }
-                    argument = argument.substring(subIdx);
-                }
-                // parse the arguments
-                if (argument.indexOf("=") != -1) {
-                    String argumentName = argument.substring(0, argument.indexOf("="));
-                    String argumentVal = argument.substring(argument.indexOf("=") + 1);
-                    if ("portoffset".equalsIgnoreCase(argumentName) && !"${portoffset}".equals(argumentVal)) {
-                        try {
-                            portOffset = Integer.valueOf(argumentVal);
-                        } catch (NumberFormatException e) {
-                            System.out.println("Error while parsing portoffset (the default value 0 will be used) = " + e);
-                        }
-                    }
-                }
-            }
-        }
-        this.portOffset = portOffset;
+        this.portOffset = portOffsetValue;
+    }
 
+    private String determineOfbizPropertiesFileName(List<StartupCommand> ofbizCommands) {
+        String fileName = null;
+        if (ofbizCommands.stream().anyMatch(command ->
+        command.getName() == StartupCommandUtil.StartupOption.START.getName()
+        || command.getName() == StartupCommandUtil.StartupOption.SHUTDOWN.getName()
+        || command.getName() == StartupCommandUtil.StartupOption.STATUS.getName() )
+        || ofbizCommands.isEmpty()
+        || ofbizCommands.stream().allMatch(command ->
+            command.getName() == StartupCommandUtil.StartupOption.PORTOFFSET.getName()) 
+                ){
+            fileName = "start";
+        } else if(ofbizCommands.stream().anyMatch(
+                option -> option.getName() == StartupCommandUtil.StartupOption.BOTH.getName())) {
+            fileName = "both";
+        } else if(ofbizCommands.stream().anyMatch(
+                option -> option.getName() == StartupCommandUtil.StartupOption.LOAD_DATA.getName())) {
+            fileName = "load-data";
+        } else if(ofbizCommands.stream().anyMatch(
+                option -> option.getName() == StartupCommandUtil.StartupOption.POS.getName())) {
+            fileName = "pos";
+        } else if(ofbizCommands.stream().anyMatch(
+                option -> option.getName() == StartupCommandUtil.StartupOption.TEST.getName())) {
+            fileName = "test";
+        } else if(ofbizCommands.stream().anyMatch(
+                option -> option.getName() == StartupCommandUtil.StartupOption.TEST_LIST.getName())) {
+            fileName = "testlist";
+        }
+        return fileName;
     }
 
     private String getOfbizHomeProp(Properties props, String key, String def) {

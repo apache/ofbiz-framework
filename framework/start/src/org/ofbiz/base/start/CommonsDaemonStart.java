@@ -30,7 +30,7 @@ public final class CommonsDaemonStart {
     }
 
     public void init(String[] args) throws StartupException {
-        Start.getInstance().init(args, true);
+        Start.getInstance().init(StartupCommandUtil.parseOfbizCommands(args));
     }
 
     public void destroy() {
