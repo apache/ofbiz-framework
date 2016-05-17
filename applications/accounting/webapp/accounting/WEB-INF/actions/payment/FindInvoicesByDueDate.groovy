@@ -21,7 +21,7 @@ import org.ofbiz.service.*;
 
 context.invoicePaymentInfoList = []
 
-if (parameters.daysOffset) { // it's not the initialisation but a real search request
+if (parameters.invoiceTypeId) { // it's not the initialisation but a real search request
     serviceCtx = dispatcher.getDispatchContext().makeValidContext("getInvoicePaymentInfoListByDueDateOffset", "IN", parameters);
     result = runService("getInvoicePaymentInfoListByDueDateOffset", serviceCtx)
     context.invoicePaymentInfoList = result.invoicePaymentInfoList 

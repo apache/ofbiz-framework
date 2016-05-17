@@ -487,6 +487,7 @@ under the License.
 
     <form name="FindSalesInvoicesByDueDate" type="single" target="FindSalesInvoicesByDueDate"
         header-row-style="header-row" default-table-style="basic-table">
+        <field name="invoiceTypeId"><hidden value="SALES_INVOICE"/></field>
         <field name="organizationPartyId" parameter-name="partyIdFrom">
             <drop-down allow-empty="false">
                 <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">
@@ -503,6 +504,7 @@ under the License.
     </form>
     <form name="FindPurchaseInvoicesByDueDate" type="single" target="FindPurchaseInvoicesByDueDate"
         header-row-style="header-row" default-table-style="basic-table">
+        <field name="invoiceTypeId"><hidden value="PURCHASE_INVOICE"/></field>
         <field name="organizationPartyId" parameter-name="partyId">
             <drop-down allow-empty="false">
                 <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">
