@@ -97,7 +97,7 @@ public class CategoryContentWrapper implements ContentWrapper {
     public static String getProductCategoryContentAsText(GenericValue productCategory, String prodCatContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, String encoderType) {
         String candidateFieldName = ModelUtil.dbNameToVarName(prodCatContentTypeId);
         UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
-        String cacheKey = prodCatContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + productCategory.get("productCategoryId") + SEPARATOR + encoderType;
+        String cacheKey = prodCatContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + productCategory.get("productCategoryId") + SEPARATOR + encoderType + SEPARATOR + delegator;
         try {
             String cachedValue = categoryContentCache.get(cacheKey);
             if (cachedValue != null) {

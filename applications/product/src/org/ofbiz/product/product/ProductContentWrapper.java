@@ -109,7 +109,7 @@ public class ProductContentWrapper implements ContentWrapper {
         /* caching: there is one cache created, "product.content"  Each product's content is cached with a key of
          * contentTypeId::locale::mimeType::productId, or whatever the SEPARATOR is defined above to be.
          */
-        String cacheKey = productContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + product.get("productId") + SEPARATOR + encoderType;
+        String cacheKey = productContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + product.get("productId") + SEPARATOR + encoderType + SEPARATOR + delegator;
         try {
             String cachedValue = productContentCache.get(cacheKey);
             if (cachedValue != null) {
