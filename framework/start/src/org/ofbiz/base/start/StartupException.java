@@ -65,6 +65,8 @@ public class StartupException extends Exception {
         if (getCause() != null) {
             msg = msg + " (" + getCause().getMessage() + ")";
             msg = msg +  "===============================================================================" + System.lineSeparator() ; 
+        } else {
+            msg = msg +  "===============================================================================" + System.lineSeparator() ;
         }
         return msg;
     }
