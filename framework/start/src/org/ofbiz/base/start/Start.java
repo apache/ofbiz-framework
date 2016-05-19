@@ -76,7 +76,8 @@ public final class Start {
             ofbizCommands = StartupCommandUtil.parseOfbizCommands(args);
         } catch (StartupException e) {
             // incorrect arguments passed to the command line
-            System.err.println("Error: " + e.getMessage() + System.lineSeparator());
+            System.err.println(System.lineSeparator() + "===============================================================================" + System.lineSeparator() + "Error: " 
+                    + e.getMessage() + System.lineSeparator() + "===============================================================================" + System.lineSeparator());
             StartupCommandUtil.printOfbizStartupHelp(System.err);
             System.exit(1);
         }
