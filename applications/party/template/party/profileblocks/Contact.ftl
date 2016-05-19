@@ -84,7 +84,7 @@ under the License.
                 <#elseif "EMAIL_ADDRESS" = contactMech.contactMechTypeId>
                   <div>
                     ${contactMech.infoString!}
-                    <form method="post" action="<@ofbizUrl>NewDraftCommunicationEvent</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="createEmail${contactMech.infoString?replace("&#64;","")?replace(".","")}">
+                    <form method="post" action="<@ofbizUrl>NewDraftCommunicationEvent</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="createEmail${contactMech.infoString?replace("&#64;","")?replace("&#x40;","")?replace(".","")}">
                       <#if userLogin.partyId?has_content>
                       <input name="partyIdFrom" value="${userLogin.partyId}" type="hidden"/>
                       </#if>
@@ -93,7 +93,7 @@ under the License.
                       <input name="my" value="My" type="hidden"/>
                       <input name="statusId" value="COM_PENDING" type="hidden"/>
                       <input name="communicationEventTypeId" value="EMAIL_COMMUNICATION" type="hidden"/>
-                    </form><a class="buttontext" href="javascript:document.createEmail${contactMech.infoString?replace("&#64;","")?replace(".","")}.submit()">${uiLabelMap.CommonSendEmail}</a>
+                    </form><a class="buttontext" href="javascript:document.createEmail${contactMech.infoString?replace("&#64;","")?replace("&#x40;","")?replace(".","")}.submit()">${uiLabelMap.CommonSendEmail}</a>
                   </div>
                 <#elseif "WEB_ADDRESS" = contactMech.contactMechTypeId>
                   <div>
