@@ -172,7 +172,11 @@ public final class StartupCommandUtil {
                 getOfbizStartupOptions(),
                 HelpFormatter.DEFAULT_LEFT_PAD,
                 HelpFormatter.DEFAULT_DESC_PAD,
-                "note: Only one command can execute at a time. Portoffset may be appended",
+                "note: Only one command can execute at a time. Portoffset may be appended."
+                    + System.lineSeparator()
+                    + "Also a command must be invoked separately for each argument e.g."
+                    + System.lineSeparator()
+                    + "java -jar ofbiz.jar --test component=somecomp --test case=somecase",
                 true);
     }
 
