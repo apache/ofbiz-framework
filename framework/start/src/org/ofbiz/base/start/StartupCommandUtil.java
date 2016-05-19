@@ -197,7 +197,7 @@ public final class StartupCommandUtil {
             Properties optionProperties = commandLine.getOptionProperties(StartupOption.TEST_LIST.getName());
             if(!optionProperties.containsKey("file")
                     || !optionProperties.containsKey("mode") ) {
-                throw new StartupException("You must pass both file and mode arguments to --" + StartupOption.TEST_LIST.getName() + ", ie 2 --testlist");
+                throw new StartupException("You must pass both file and mode arguments to --" + StartupOption.TEST_LIST.getName());
             } else if (!optionProperties.get("mode").toString().equals("text")
                     && !optionProperties.get("mode").toString().equals("ant")) {
                 throw new StartupException("mode only accepts text or ant in the option --"  + StartupOption.TEST_LIST.getName());
