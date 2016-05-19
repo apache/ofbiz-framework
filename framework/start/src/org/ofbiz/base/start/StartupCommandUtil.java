@@ -123,7 +123,9 @@ public final class StartupCommandUtil {
                     + System.lineSeparator()
                     + "--test component=base --test case=somecase"
                     + System.lineSeparator()
-                    + "--test component=base --test suitename=somesuite")
+                    + "or"
+                    + System.lineSeparator()
+                    + "--test component=base --test suitename=xyz")
             .numberOfArgs(2)
             .valueSeparator('=')
             .optionalArg(true)
@@ -166,7 +168,7 @@ public final class StartupCommandUtil {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp(
                 new PrintWriter(printStream, true),
-                HelpFormatter.DEFAULT_WIDTH,
+                HelpFormatter.DEFAULT_WIDTH + 6,
                 "java -jar ofbiz.jar",
                 System.lineSeparator() + "Executes OFBiz command e.g. start, shutdown, check status, etc",
                 getOfbizStartupOptions(),
