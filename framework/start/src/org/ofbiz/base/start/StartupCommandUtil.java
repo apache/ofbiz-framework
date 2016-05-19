@@ -176,6 +176,16 @@ public final class StartupCommandUtil {
                 true);
     }
 
+    static final void printAndHighlightMessage(String message) {
+        System.err.println(
+                "==============================================================================="
+                + System.lineSeparator()
+                + message
+                + System.lineSeparator()
+                + "==============================================================================="
+                );
+    }
+
     private static final List<StartupCommand> mapCommonsCliOptionsToStartupCommands(final CommandLine commandLine) {
         List<Option> optionList = Arrays.asList(commandLine.getOptions()); 
         return optionList.stream()
