@@ -161,14 +161,12 @@ public abstract class ResourceLoader {
         }
     }
 
-    private String name;
     private String prefix;
     private String envName;
 
     protected ResourceLoader() {}
 
     private void init(String name, String prefix, String envName) {
-        this.name = name;
         this.prefix = prefix;
         this.envName = envName;
     }
