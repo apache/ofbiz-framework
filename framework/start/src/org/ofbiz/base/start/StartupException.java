@@ -60,15 +60,11 @@ public class StartupException extends Exception {
     /** Returns the detail message, including the message from the nested exception if there is one. */
     @Override
     public String getMessage() {
-        String msg = super.getMessage();
-        msg = System.lineSeparator() + "===============================================================================" + System.lineSeparator() + msg; 
         if (getCause() != null) {
-            msg = msg + " (" + getCause().getMessage() + ")";
-            msg = msg +  "===============================================================================" + System.lineSeparator() ; 
+            return super.getMessage() + " (" + getCause().getMessage() + ")";
         } else {
-            msg = msg +  "===============================================================================" + System.lineSeparator() ;
+            return super.getMessage();
         }
-        return msg;
     }
 
     /** Returns the detail message, NOT including the message from the nested exception. */
