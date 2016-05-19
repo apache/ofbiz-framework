@@ -143,6 +143,8 @@ public final class StartupCommandUtil {
                     + System.lineSeparator()
                     + "--testlist file=runtime/test-list-build.xml"
                     + System.lineSeparator()
+                    + "and"
+                    + System.lineSeparator()
                     + "--testlist mode=ant or --testlist mode=text")
             .numberOfArgs(2)
             .valueSeparator('=')
