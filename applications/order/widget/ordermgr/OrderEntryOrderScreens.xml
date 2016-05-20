@@ -184,7 +184,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetAdditionalParty.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/AdditionalPartyListing.groovy"/>
                 
-                <!-- asmslect parameters, must be prefixed by asm_ for setMultipleSelectJs.ftl -->
+                <!-- asmslect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
                 <!--set field="asm_multipleSelectForm"  value="addAdditionalPartyForm"/>
                 <set field="asm_multipleSelect"  value="additionalRoleTypeId"/>
                 <set field="asm_formSize" value="700"/>
@@ -196,7 +196,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://common/template/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://common/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
                         <platform-specific>
                             <html><html-template location="component://order/template/entry/SetAdditionalParty.ftl"/></html>
                         </platform-specific>

@@ -61,7 +61,7 @@ under the License.
                     <decorator-section name="body">
                         <platform-specific>
                             <html>
-                                <html-template location="component://common/template/includes/setDependentDropdownValuesJs.ftl"/>                                
+                                <html-template location="component://common/template/includes/SetDependentDropdownValuesJs.ftl"/>
                                 <html-template location="component://ecommerce/template/customer/editcontactmech.ftl"/>
                             </html>
                         </platform-specific>
@@ -514,7 +514,7 @@ under the License.
                     <decorator-section name="body">
                         <platform-specific>
                             <html>
-                                <html-template location="component://common/template/includes/setDependentDropdownValuesJs.ftl"/>
+                                <html-template location="component://common/template/includes/SetDependentDropdownValuesJs.ftl"/>
                                 <html-template location="component://ecommerce/template/customer/newcustomer.ftl"/>
                             </html>
                         </platform-specific>

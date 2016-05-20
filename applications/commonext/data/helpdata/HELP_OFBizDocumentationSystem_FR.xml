@@ -63,7 +63,7 @@
             Si vous voulez créer un nouveau menu d'aide pour un écran, vous aurez besoin de faire ce qui suit :
           <orderedlist>
             <listitem>
-                <para>Dans le helplink.ftl dé-commentez la variable ${helpTopic} ce qui la fera apparaître en haut à droite de votre écran.</para>
+                <para>Dans le HelpLink.ftl dé-commentez la variable ${helpTopic} ce qui la fera apparaître en haut à droite de votre écran.</para>
             </listitem>
             <listitem>
                 <para>Dans le composant spécifique data/helpData, créez le fichier HELP_${helpTopic}.xml. Vous pourrez trouver un fichier d'exemple comme  HELP_ACCOUNTING_main.xml</para>

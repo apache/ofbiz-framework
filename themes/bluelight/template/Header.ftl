@@ -188,7 +188,7 @@ under the License.
             </#if>
             <#--if webSiteId?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??-->
             <#if parameters.componentName?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??>
-              <#include "component://common/template/includes/helplink.ftl" />
+              <#include "component://common/template/includes/HelpLink.ftl" />
               <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId!}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
             </#if>
             <#if userLogin??>

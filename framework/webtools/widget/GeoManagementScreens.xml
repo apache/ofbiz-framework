@@ -159,7 +159,7 @@
                 
                 <set field="noId" value="true"/><!-- see CommonGeoManagementDecorator -->
                 
-                <!-- asmslect parameters, must be prefixed by asm_ for setMultipleSelectJs.ftl -->
+                <!-- asmslect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
                 <set field="asm_multipleSelectForm"  value="LinkGeos"/>
                 <set field="asm_multipleSelect"  value="LinkGeos_geoIds"/>
                 <set field="asm_formSize" value="700"/>
@@ -178,7 +178,7 @@
             <widgets>
                 <decorator-screen name="CommonGeoManagementDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://common/template/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://common/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
                         <screenlet title="${uiLabelMap.WebtoolsGeosLinkExplained}">
                             <include-form name="LinkGeos" location="component://webtools/widget/GeoManagementForms.xml"/>
                         </screenlet>

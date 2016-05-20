@@ -61,7 +61,7 @@ under the License.
     
     <!-- ftl references -->
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://flatgrey/template/Header.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/Messages.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://flatgrey/template/Footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="FLAT_GREY" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://flatgrey/template/AppBar.ftl" sequenceId="01"/>
 </entity-engine-xml>

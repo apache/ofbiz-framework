@@ -63,6 +63,6 @@ under the License.
     <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://droppingcrumbs/template/Footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://droppingcrumbs/template/AppBarOpen.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://droppingcrumbs/template/AppBarClose.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/Messages.ftl" sequenceId="01"/>
     
 </entity-engine-xml>

@@ -23,7 +23,7 @@ your template file:
 <#include "component://common/template/includes/empExprMacros.ftl"/>
 -->
 
-<#include "component://common/template/includes/commonMacros.ftl"/>
+<#include "component://common/template/includes/CommonMacros.ftl"/>
 
 <#assign
   occurrenceList = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getOccurrenceList()

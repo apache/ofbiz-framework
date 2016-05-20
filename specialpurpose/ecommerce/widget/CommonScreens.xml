@@ -75,7 +75,7 @@ under the License.
                   </condition>
                   <widgets>
                      <platform-specific><html><html-template location="component://ecommerce/template/includes/headerHead.ftl"/></html></platform-specific>
-                     <platform-specific><html><html-template location="component://common/template/includes/openhtmlbody.ftl"/></html></platform-specific>
+                     <platform-specific><html><html-template location="component://common/template/includes/OpenHtmlBody.ftl"/></html></platform-specific>
                      <!-- render header -->
                      <container id="header"><platform-specific><html><html-template location="${headerTemplateLocation}"/></html></platform-specific></container>
 
@@ -86,7 +86,7 @@ under the License.
 
                         <container id="div3" style="${MainColumnStyle}">
                            <!-- render messages -->
-                           <platform-specific><html><html-template location="component://common/template/includes/messages.ftl"/></html></platform-specific>
+                           <platform-specific><html><html-template location="component://common/template/includes/Messages.ftl"/></html></platform-specific>
                            <decorator-section-include name="body"/>
                         </container>
 
@@ -95,7 +95,7 @@ under the License.
 
                     <!-- render footer -->
                     <container id="footer"><platform-specific><html><html-template location="${footerTemplateLocation}"/></html></platform-specific></container>
-                    <platform-specific><html><html-template location="component://common/template/includes/closehtmlbody.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://common/template/includes/CloseHtmlBody.ftl"/></html></platform-specific>
                   </widgets>
                   <fail-widgets>
                      <label text="A Product Store has not been defined for this ecommerce site.  A Product Store can be created using the ofbizsetup wizard."/>
@@ -281,12 +281,12 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/includes/headerHead.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://common/template/includes/openhtmlbody.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://common/template/includes/messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/OpenHtmlBody.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/Messages.ftl"/></html></platform-specific>
 
                 <decorator-section-include name="body"/>
 
-                <platform-specific><html><html-template location="component://common/template/includes/closehtmlbody.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/CloseHtmlBody.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
