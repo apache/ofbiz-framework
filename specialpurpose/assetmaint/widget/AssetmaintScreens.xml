@@ -313,11 +313,12 @@
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="layoutSettings.documentTitle" from-field="uiLabelMap.FixedAssetMaintWorkEffortName"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <set field="layoutSettings.documentTitle" from-field="uiLabelMap.AccountingFixedAssetMaintWorkEffortName"/>
                 <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
                 <entity-condition list="itemIssuanceList" entity-name="ProductInventoryItemAndItemIssuance">
                     <condition-expr field-name="quantity" operator="greater" value="0"/>
