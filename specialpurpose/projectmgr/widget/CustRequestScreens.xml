@@ -163,7 +163,7 @@ under the License.
                         </container>
                         <container style="clear"/>
                         <platform-specific>
-                            <html><html-template location="component://projectmgr/webapp/projectmgr/request/overViewRequestItems.ftl"/></html>
+                            <html><html-template location="component://projectmgr/webapp/projectmgr/request/OverViewRequestItems.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
