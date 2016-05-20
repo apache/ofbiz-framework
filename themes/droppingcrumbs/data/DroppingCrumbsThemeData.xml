@@ -59,10 +59,10 @@ under the License.
     <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/droppingcrumbs/js/dropdown.js" sequenceId="30"/>
     
     <!-- ftl references -->
-    <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://droppingcrumbs/template/header.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://droppingcrumbs/template/footer.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://droppingcrumbs/template/appbarOpen.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://droppingcrumbs/template/appbarClose.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://droppingcrumbs/template/Header.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://droppingcrumbs/template/Footer.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://droppingcrumbs/template/AppBarOpen.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://droppingcrumbs/template/AppBarClose.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>
     
 </entity-engine-xml>
