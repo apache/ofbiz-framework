@@ -33,14 +33,14 @@
             </actions>
             <widgets>
                 <platform-specific><html>
-                    <html-template location="component://cmssite/template/ofbiz/ofbizHead.ftl"/>
+                    <html-template location="component://cmssite/template/ofbiz/OfbizHead.ftl"/>
                 </html></platform-specific>
                 <platform-specific><html>
-                    <html-template location="component://cmssite/template/ofbiz/ofbizMenu.ftl"/>
+                    <html-template location="component://cmssite/template/ofbiz/OfbizMenu.ftl"/>
                 </html></platform-specific>
                 <decorator-section-include name="body"/>
                 <platform-specific><html>
-                    <html-template location="component://cmssite/template/ofbiz/ofbizFooter.ftl"/>
+                    <html-template location="component://cmssite/template/ofbiz/OfbizFooter.ftl"/>
                 </html></platform-specific>
             </widgets>
         </section>
@@ -53,7 +53,7 @@
                 <decorator-screen name="main-decorator">
                     <decorator-section name="body">
                         <platform-specific><html>
-                            <html-template location="component://cmssite/template/ofbiz/ofbizMain.ftl"/>
+                            <html-template location="component://cmssite/template/ofbiz/OfbizMain.ftl"/>
                         </html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
