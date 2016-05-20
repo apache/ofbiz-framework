@@ -248,7 +248,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FindOrders.groovy"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/print/FindPrinters.groovy"/>
 
-                <!-- asmslect parameters, must be prefixed by asm_ for setMultipleSelectJs.ftl -->
+                <!-- asmslect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
                 <set field="asm_multipleSelectForm"  value="lookuporder"/>
                 <set field="asm_multipleSelect"  value="roleTypeId"/>
                 <set field="asm_formSize" value="1000"/>
@@ -260,7 +260,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://common/template/includes/setMultipleSelectJs.ftl"/></html></platform-specific>                        
+                        <platform-specific><html><html-template location="component://common/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
                         <platform-specific>
                             <html><html-template location="component://order/template/order/FindOrders.ftl"/></html>
                         </platform-specific>

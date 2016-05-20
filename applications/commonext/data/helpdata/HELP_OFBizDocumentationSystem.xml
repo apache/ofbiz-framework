@@ -69,7 +69,7 @@
             screen, you need to do the following:
           <orderedlist>
             <listitem>
-                <para>In the helplink.ftl un-comment the ${helpTopic} variable so it will appear at the
+                <para>In the HelpLink.ftl un-comment the ${helpTopic} variable so it will appear at the
                     top right hand of your screen.
                 </para>
             </listitem>

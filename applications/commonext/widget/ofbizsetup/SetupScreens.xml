@@ -45,7 +45,7 @@
                     <widgets>
                         <section>
                             <actions>
-                                <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization, if you need an example with more than one dropdown in a form have a look at EditProductPriceRules screen -->
+                                <!-- fields for SetDependentDropdownValuesJs.ftl, it's a try on generalization, if you need an example with more than one dropdown in a form have a look at EditProductPriceRules screen -->
                                 <set field="dependentForm" value="NewOrganization"/>
                                 <set field="paramKey" value="countryGeoId"/>                                        
                                 <set field="mainId" value="USER_COUNTRY"/>
@@ -57,7 +57,7 @@
                                 <set field="selectedDependentOption" value="_none_"/>
                             </actions>
                             <widgets>
-                                <platform-specific><html><html-template location="component://common/template/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://common/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
                                 <screenlet title="${uiLabelMap.SetupCreateNewOrganization}">
                                     <include-form name="NewOrganization" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
                                 </screenlet>

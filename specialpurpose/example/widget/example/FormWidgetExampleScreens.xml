@@ -54,7 +54,7 @@ under the License.
                                     </container>
                                     <section>
                                         <actions>
-                                            <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization, 
+                                            <!-- fields for SetDependentDropdownValuesJs.ftl, it's a try on generalization,
                                                 if you need an example with more than one dropdown in a form have a look at 
                                                 EditProductPriceRules screen in PriceScreens.xml-->
                                             <set field="dependentForm" value="DropDownFieldsExampleForm"/>
@@ -68,7 +68,7 @@ under the License.
                                             <set field="selectedDependentOption" from-field="postalAddress.stateProvinceGeoId" default-value="_none_"/><!-- postalAddress.stateProvinceGeoId does not make much sense here, only to get the idea -->
                                             <set field="focusFieldName" value="DateTimeFieldsExampleForm_field1_i18n"/>
                                             
-                                            <!-- asmselect parameters, must be prefixed by asm_ for setMultipleSelectJs.ftl -->
+                                            <!-- asmselect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
                                             <set field="asm_multipleSelectForm" value="DropDownMultipleFieldExampleForm"/>
                                             <set field="asm_multipleSelect"  value="DropDownMultipleFieldExampleForm_countryGeoIdMultiple"/>
                                             <set field="asm_formSize" value="600"/>
@@ -76,8 +76,8 @@ under the License.
                                             <set field="asm_sortable" value="false"/>
                                         </actions>
                                         <widgets>
-                                            <platform-specific><html><html-template location="component://common/template/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
-                                            <platform-specific><html><html-template location="component://common/template/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
+                                            <platform-specific><html><html-template location="component://common/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
+                                            <platform-specific><html><html-template location="component://common/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
                                             <include-form name="DropDownFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                             <include-form name="DropDownMultipleFieldExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                         </widgets>

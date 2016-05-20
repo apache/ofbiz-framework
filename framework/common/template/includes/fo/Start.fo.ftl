@@ -33,10 +33,10 @@ under the License.
     <#include pageMaster/>
   </#list>
 <#else>
-  <#include "component://common/template/includes/fo/pm-11x17.fo.ftl"/>
-  <#include "component://common/template/includes/fo/pm-iso216.fo.ftl"/>
-  <#include "component://common/template/includes/fo/pm-legal.fo.ftl"/>  
-  <#include "component://common/template/includes/fo/pm-letter.fo.ftl"/>
+  <#include "component://common/template/includes/fo/Pm-11x17.fo.ftl"/>
+  <#include "component://common/template/includes/fo/Pm-iso216.fo.ftl"/>
+  <#include "component://common/template/includes/fo/Pm-legal.fo.ftl"/>
+  <#include "component://common/template/includes/fo/Pm-letter.fo.ftl"/>
 </#if>
   </fo:layout-master-set>
   <#assign masterReference = (layoutSettings.masterReference)?default("letter-portrait")/>

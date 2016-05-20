@@ -55,7 +55,7 @@ under the License.
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
-                                <platform-specific><html><html-template location="component://common/template/includes/setMultipleSelectJsList.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://common/template/includes/SetMultipleSelectJsList.ftl"/></html></platform-specific>
                                 <include-form name="FindRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">

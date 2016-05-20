@@ -177,7 +177,7 @@ under the License.
   <div class="screenlet-body">
     <#if shoppingListItemDatas?has_content>
         <#-- Pagination -->
-        <#include "component://common/template/includes/htmlTemplate.ftl"/>
+        <#include "component://common/template/includes/HtmlTemplate.ftl"/>
         <#assign commonUrl = "editShoppingList?partyId=" + partyId + "&shoppingListId="+(shoppingListId!)+"&"/>
         <#assign viewIndexFirst = 0/>
         <#assign viewIndexPrevious = viewIndex - 1/>
