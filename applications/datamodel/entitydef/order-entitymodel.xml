@@ -91,6 +91,7 @@ under the License.
       </field>
       <field name="includeInTax" type="indicator"></field>
       <field name="includeInShipping" type="indicator"></field>
+      <field name="isManual" type="indicator"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
