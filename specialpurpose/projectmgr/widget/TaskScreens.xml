@@ -403,7 +403,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://projectmgr/template/project/summary/noteinfo.ftl"/></html>
+                    <html><html-template location="component://projectmgr/template/project/summary/NoteInfo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
