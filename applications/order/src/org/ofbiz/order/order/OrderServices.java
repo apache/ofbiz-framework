@@ -1633,6 +1633,15 @@ public class OrderServices {
             }
         }
 
+        // Accumulate the total manually added tax adjustment
+        BigDecimal totalManuallyAddedOrderTax = ZERO;
+        for (GenericValue orderTaxAdjustment : orderTaxAdjustments) {
+            String comment = orderTaxAdjustment.getString("comments");
+            if (orderTaxAdjustment.get("amount") != null && comment !=null && comment.startsWith("Added manually by")) {
+                totalManuallyAddedOrderTax = totalManuallyAddedOrderTax.add(orderTaxAdjustment.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
+            }
+        }
+
         // Recalculate the taxes for the order
         BigDecimal totalNewOrderTax = ZERO;
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
@@ -1757,6 +1766,11 @@ public class OrderServices {
                         }
                     }
                 }
+            }
+            
+            // If there is any manually added tax then add it into new system generated tax.
+            if (totalManuallyAddedOrderTax.compareTo(BigDecimal.ZERO) > 0) {
+                totalNewOrderTax = totalNewOrderTax.add(totalManuallyAddedOrderTax).setScale(taxDecimals, taxRounding);
             }
 
             // Determine the difference between existing and new tax adjustment totals, if any
