@@ -91,7 +91,6 @@
 	<classpathentry kind="lib" path="framework/base/lib/scripting/groovy-all-2.4.5.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/scripting/jakarta-oro-2.0.8.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/scripting/jython-nooro.jar"/>
-	<classpathentry kind="lib" path="framework/catalina/lib/ecj-4.5.jar"/>
 	<classpathentry kind="lib" path="framework/entity/lib/commons-dbcp2-2.1.jar"/>
 	<classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-3.1.1.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/axiom-api-1.2.17.jar"/>
@@ -193,6 +192,7 @@
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/org.restlet.ext.servlet-2.3.0.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/httpmime-4.4.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/solr/lib/runtime/lucene-misc-5.3.1.jar"/>
+	<classpathentry kind="lib" path="framework/catalina/lib/ecj-4.5.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-8.0.33-catalina-ha.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-8.0.33-catalina-tribes.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-8.0.33-catalina.jar"/>
