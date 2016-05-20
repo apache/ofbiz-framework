@@ -60,7 +60,7 @@ under the License.
     
     <!-- ftl references -->
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://tomahawk/template/Header.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://tomahawk/template/footer.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://tomahawk/template/Footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://tomahawk/template/AppBarOpen.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://tomahawk/template/AppBarClose.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/template/includes/messages.ftl" sequenceId="01"/>

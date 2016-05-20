@@ -59,7 +59,7 @@ under the License.
     <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/bizznesstime/js/application.js" sequenceId="30"/>
     
     <!-- ftl references -->
-    <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://bizznesstime/template/header.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://bizznesstime/template/Header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://bizznesstime/template/Footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://bizznesstime/template/AppBar.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BIZZNESS_TIME" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://bizznesstime/template/Messages.ftl" sequenceId="01"/>

@@ -47,7 +47,7 @@ under the License.
             </#list>
                 </ul>
                 
-                <#include "component://bizznesstime/template/secondary-appbar.ftl" />
+                <#include "component://bizznesstime/template/SecondaryAppBar.ftl" />
             </div>
         </div>
 </#if>

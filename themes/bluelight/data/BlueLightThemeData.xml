@@ -63,6 +63,6 @@ under the License.
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://bluelight/template/Footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://bluelight/template/AppBarOpen.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://bluelight/template/AppBarClose.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://bluelight/template/messages.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="BLUELIGHT" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://bluelight/template/Messages.ftl" sequenceId="01"/>
     
 </entity-engine-xml>
