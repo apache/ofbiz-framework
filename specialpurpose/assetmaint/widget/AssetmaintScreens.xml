@@ -264,6 +264,7 @@
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
                 <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
+                <set field="noteId" from-field="parameters.noteId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator">
