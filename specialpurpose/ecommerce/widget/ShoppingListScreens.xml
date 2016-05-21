@@ -34,7 +34,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/shoppinglist/editShoppingList.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/shoppinglist/EditShoppingList.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -59,7 +59,7 @@ under the License.
                 <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/shoppinglist/editShoppingList.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/shoppinglist/EditShoppingList.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

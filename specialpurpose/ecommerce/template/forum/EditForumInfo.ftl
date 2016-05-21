@@ -17,6 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#list forumMessages! as forumMessage>
-    <#include "messageDisplay.ftl">
-</#list>
+<#import "BlogLib.ftl" as blog/>
+<@blog.renderAncestryPath trail=ancestorList?default([]) endIndexOffset=1/>
+${singleWrapper.renderFormString()}

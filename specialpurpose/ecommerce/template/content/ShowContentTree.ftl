@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#include "bloglib.ftl" />
+<#include "BlogLib.ftl" />
 <#assign siteId = requestParameters.contentId! />
 
 <@renderAncestryPath trail=ancestorList?default([]) endIndexOffset=1 siteId=siteId searchOn="true"/>

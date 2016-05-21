@@ -154,7 +154,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/email/emailpayretry.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/EmailPayRetry.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

@@ -61,8 +61,8 @@ under the License.
                     <field-map field-name="themeResources" from-field="layoutSettings"/>
                 </service>
                 <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
-                <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" default-value="component://ecommerce/template/includes/header.ftl"/>
-                <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" default-value="component://ecommerce/template/includes/footer.ftl"/>
+                <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" default-value="component://ecommerce/template/includes/Header.ftl"/>
+                <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" default-value="component://ecommerce/template/includes/Footer.ftl"/>
                 <entity-and list="webAnalyticsConfigs" entity-name="WebAnalyticsConfig">
                     <field-map field-name="webSiteId"/>
                 </entity-and>
@@ -74,7 +74,7 @@ under the License.
                      <not><if-empty field="globalContext.productStore"/></not>
                   </condition>
                   <widgets>
-                     <platform-specific><html><html-template location="component://ecommerce/template/includes/headerHead.ftl"/></html></platform-specific>
+                     <platform-specific><html><html-template location="component://ecommerce/template/includes/HeaderHead.ftl"/></html></platform-specific>
                      <platform-specific><html><html-template location="component://common/template/includes/OpenHtmlBody.ftl"/></html></platform-specific>
                      <!-- render header -->
                      <container id="header"><platform-specific><html><html-template location="${headerTemplateLocation}"/></html></platform-specific></container>
@@ -280,7 +280,7 @@ under the License.
                 <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/includes/headerHead.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/includes/HeaderHead.ftl"/></html></platform-specific>
                 <platform-specific><html><html-template location="component://common/template/includes/OpenHtmlBody.ftl"/></html></platform-specific>
                 <platform-specific><html><html-template location="component://common/template/includes/Messages.ftl"/></html></platform-specific>
 
@@ -295,7 +295,7 @@ under the License.
     <screen name="language">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/includes/language.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/includes/Language.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -319,7 +319,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://ecommerce/template/main.ftl"/></html>
+                            <html><html-template location="component://ecommerce/template/Main.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -337,11 +337,11 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://ecommerce/template/login.ftl"/></html>
+                            <html><html-template location="component://ecommerce/template/Login.ftl"/></html>
                         </platform-specific>
                         <!-- <include-screen name="ListThirdPartyLogins" location="component://passport/widget/PassportScreens.xml"/> -->
                         <platform-specific>
-                            <html><html-template location="component://ecommerce/template/order/startanoncheckout.ftl"/></html>
+                            <html><html-template location="component://ecommerce/template/order/StartAnonCheckout.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -359,7 +359,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://ecommerce/template/requirePasswordChange.ftl"/></html>
+                            <html><html-template location="component://ecommerce/template/RequirePasswordChange.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -382,14 +382,14 @@ under the License.
                     <widgets>
                         <container style="responseSelected">
                             <container style="responsetext">
-                                <platform-specific><html><html-template location="component://ecommerce/template/forum/messageDisplay.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://ecommerce/template/forum/MessageDisplay.ftl"/></html></platform-specific>
                             </container>
                         </container>
                     </widgets>
                     <fail-widgets>
                         <container>
                             <container style="responsetext">
-                                <platform-specific><html><html-template location="component://ecommerce/template/forum/messageDisplay.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://ecommerce/template/forum/MessageDisplay.ftl"/></html></platform-specific>
                             </container>
                         </container>
                     </fail-widgets>

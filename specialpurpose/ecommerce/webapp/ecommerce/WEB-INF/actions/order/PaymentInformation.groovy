@@ -101,7 +101,7 @@ if (!parameters.useShipAddr) {
     context.useShipAddr = parameters.useShipAddr;
 }
 
-// Added here to satisfy genericaddress.ftl
+// Added here to satisfy GenericAddress.ftl
 if (context.postalAddress) {
     postalAddress = context.postalAddress;
     parameters.address1 = postalAddress.address1;

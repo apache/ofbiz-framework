@@ -29,7 +29,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/AnonymousTrail.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/order/anonymoustrail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/order/AnonymousTrail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -37,7 +37,7 @@ under the License.
     <screen name="genericaddress">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/order/genericaddress.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/order/GenericAddress.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -45,7 +45,7 @@ under the License.
     <screen name="orderheader">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/order/orderheader.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/order/OrderHeader.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -53,7 +53,7 @@ under the License.
     <screen name="orderitems">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/order/orderitems.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/order/OrderItems.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -66,7 +66,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/AnonymousCheckoutLinks.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/order/anonymousCheckoutLinks.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/order/AnonymousCheckoutLinks.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -103,7 +103,7 @@ under the License.
             <widgets>
                 <decorator-screen name="anonymousCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/custsettings.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/CustSettings.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -123,7 +123,7 @@ under the License.
             <widgets>
                 <decorator-screen name="anonymousCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/shipsettings.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/ShipSettings.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -143,7 +143,7 @@ under the License.
             <widgets>
                 <decorator-screen name="anonymousCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/optionsettings.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/OptionSettings.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -164,7 +164,7 @@ under the License.
             <widgets>
                 <decorator-screen name="anonymousCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/paymentoptions.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/PaymentOptions.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -185,7 +185,7 @@ under the License.
             <widgets>
                 <decorator-screen name="anonymousCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/paymentinformation.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/PaymentInformation.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -202,7 +202,7 @@ under the License.
             <widgets>
                 <decorator-screen name="anonymousCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/checkoutreview.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/CheckoutReview.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -223,7 +223,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/billsettings.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/BillSettings.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -280,7 +280,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/checkoutshippingoptions.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/CheckoutShippingOptions.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -296,7 +296,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/splitship.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/SplitShip.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -313,7 +313,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/checkoutreview.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/CheckoutReview.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -329,7 +329,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/ordercomplete.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/OrderComplete.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -348,7 +348,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/orderhistory.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/OrderHistory.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -368,7 +368,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/orderstatus.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/OrderStatus.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -387,7 +387,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/requestreturn.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/RequestReturn.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -399,7 +399,7 @@ under the License.
     <screen name="quickAnonOrderHeader">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/order/quickAnonOrderHeader.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/order/QuickAnonOrderHeader.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -411,7 +411,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/QuickAnonCheckoutLinks.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/order/quickAnonCheckoutLinks.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/order/QuickAnonCheckoutLinks.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -450,7 +450,7 @@ under the License.
             <widgets>
                 <decorator-screen name="quickAnonCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/quickAnonCustSettings.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/QuickAnonCustSettings.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -473,7 +473,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/QuickAnonOptionSettings.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/order/quickAnonOptionSettings.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/order/QuickAnonOptionSettings.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -486,7 +486,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/StorePaymentOptions.groovy"/>
             </actions>
             <widgets>
-               <platform-specific><html><html-template location="component://ecommerce/template/order/quickAnonPaymentInformation.ftl"/></html></platform-specific>
+               <platform-specific><html><html-template location="component://ecommerce/template/order/QuickAnonPaymentInformation.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -501,7 +501,7 @@ under the License.
             <widgets>
                 <decorator-screen name="quickAnonCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/order/quickAnonCheckoutReview.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/order/QuickAnonCheckoutReview.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -523,7 +523,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common/template/includes/Messages.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://ecommerce/template/order/ccinfo.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/order/CcInfo.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -543,7 +543,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common/template/includes/Messages.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://ecommerce/template/order/eftinfo.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/order/EftInfo.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -563,7 +563,7 @@ under the License.
             </actions>
             <widgets>
               <platform-specific><html><html-template location="component://common/template/includes/Messages.ftl"/></html></platform-specific>
-              <platform-specific><html><html-template location="component://ecommerce/template/order/gcinfo.ftl"/></html></platform-specific>
+              <platform-specific><html><html-template location="component://ecommerce/template/order/GcInfo.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -582,7 +582,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/QuickAnonPaymentInformation.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/order/orderitems.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/order/OrderItems.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

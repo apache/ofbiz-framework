@@ -45,7 +45,7 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/customer/miniSignUpForContactList.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/customer/MiniSignUpForContactList.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

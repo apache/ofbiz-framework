@@ -30,7 +30,7 @@ under the License.
             </actions>
 
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/content/minipoll.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/content/MiniPoll.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -38,7 +38,7 @@ under the License.
     <screen name="content_categories">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/content/content_categories.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/content/ContentCategories.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -46,7 +46,7 @@ under the License.
     <screen name="factoids">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/content/factoids.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/content/Factoids.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -57,7 +57,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/content/Mrv.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/content/recentlyviewed.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/content/RecentlyViewed.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -78,7 +78,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/content/defaultcontent.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/content/DefaultContent.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -101,7 +101,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/content/showcontenttree.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/content/ShowContentTree.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -129,7 +129,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/content/searchContent.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/content/SearchContent.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -152,7 +152,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/content/viewcontent.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/content/ViewContent.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

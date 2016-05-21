@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#import "bloglib.ftl" as blog/>
+<#import "BlogLib.ftl" as blog/>
 <@blog.renderAncestryPath trail=ancestorList?default([]) endIndexOffset=1/>
 <#-- Main Heading -->
 <#--

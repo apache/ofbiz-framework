@@ -30,7 +30,7 @@ under the License.
                 <!-- <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/> -->
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/email/returnaccept.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/ReturnAccept.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -41,7 +41,7 @@ under the License.
                 <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/email/returncancel.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/ReturnCancel.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -52,7 +52,7 @@ under the License.
                 <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/email/returncomplete.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/email/ReturnComplete.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

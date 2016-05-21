@@ -17,6 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#import "bloglib.ftl" as blog/>
-<@blog.renderAncestryPath trail=ancestorList?default([]) endIndexOffset=1/>
-${singleWrapper.renderFormString()}
+<#import "BlogLib.ftl" as blog/>
+<div class="screenlet" >
+<#--
+<@blog.renderSiteAncestryPath trail=siteAncestorList?default([])/>
+<@blog.renderAncestryPath trail=trailList startIndex=1/>
+-->
+
+    ${singleWrapper.renderFormString()}
+</div>

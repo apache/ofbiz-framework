@@ -19,5 +19,5 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <DataResource dataResourceId="TPL_XML_MB" dataResourceTypeId="LOCAL_FILE" dataTemplateTypeId="FTL" objectInfo="component://ecommerce/template/content/tpl_mb_content.ftl" createdDate="2004-06-14 11:40:15.818" createdByUserLogin="admin" lastModifiedDate="2004-06-14 11:40:15.818" lastModifiedByUserLogin="admin" lastUpdatedStamp="2003-12-31 11:40:15.819"/>
+    <DataResource dataResourceId="TPL_XML_MB" dataResourceTypeId="LOCAL_FILE" dataTemplateTypeId="FTL" objectInfo="component://ecommerce/template/content/TplMbContent.ftl" createdDate="2004-06-14 11:40:15.818" createdByUserLogin="admin" lastModifiedDate="2004-06-14 11:40:15.818" lastModifiedByUserLogin="admin" lastUpdatedStamp="2003-12-31 11:40:15.819"/>
 </entity-engine-xml>

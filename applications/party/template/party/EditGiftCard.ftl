@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- begin editgiftcard.ftl -->
+<!-- begin EditGiftCard.ftl -->
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <#if !giftCard??>
@@ -101,4 +101,4 @@ under the License.
       </div>
   </div>
 </div>
-<!-- end editgiftcard.ftl -->
+<!-- end EditGiftCard.ftl -->

@@ -17,6 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#import "bloglib.ftl" as blog/>
+<#import "BlogLib.ftl" as blog/>
 <@blog.renderAncestryPath trail=ancestorList?default([])/>
     ${singleWrapper.renderFormString()}

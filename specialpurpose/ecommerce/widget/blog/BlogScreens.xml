@@ -116,7 +116,7 @@
                                 <widgets>
                                     <container style="blogwrapper">
                                         <include-menu name="view_edit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
-                                        <platform-specific><html><html-template location="component://ecommerce/template/blog/blogContentAltLink.ftl"/></html></platform-specific>
+                                        <platform-specific><html><html-template location="component://ecommerce/template/blog/BlogContentAltLink.ftl"/></html></platform-specific>
                                         <!--<link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle" style="blogheader">
                                             <parameter param-name="contentId" from-field="blog.contentId"/>
                                             <parameter param-name="blogContentId"/>
@@ -140,7 +140,7 @@
                                     <container style="blogwrapper">
                                         <include-menu name="view_edit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
                                         <!--<label text="${blog.contentName} [${blog.contentId}]" style="blogheader"/>-->
-                                        <platform-specific><html><html-template location="component://ecommerce/template/blog/blogContentAltLink.ftl"/></html></platform-specific>
+                                        <platform-specific><html><html-template location="component://ecommerce/template/blog/BlogContentAltLink.ftl"/></html></platform-specific>
                                         <!--<link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle" style="blogheader">
                                             <parameter param-name="contentId" from-field="blog.contentId"/>
                                             <parameter param-name="blogContentId"/>
@@ -692,7 +692,7 @@
             <widgets>
                 <platform-specific>
                     <html>
-                        <html-template location="component://ecommerce/template/blog/blogs.ftl"/>
+                        <html-template location="component://ecommerce/template/blog/Blogs.ftl"/>
 
                     </html>
                 </platform-specific>
