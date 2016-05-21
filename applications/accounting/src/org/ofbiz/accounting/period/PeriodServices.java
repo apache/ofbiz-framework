@@ -50,12 +50,12 @@ public class PeriodServices {
         Delegator delegator = dctx.getDelegator();
         String organizationPartyId = (String) context.get("organizationPartyId"); // input parameters
         String periodTypeId = (String) context.get("periodTypeId");
-        Date findDate = (Date) context.get("findDate");
+        Timestamp findDate = (Timestamp) context.get("findDate");
         Locale locale = (Locale) context.get("locale");
 
         // default findDate to now
         if (findDate == null) {
-            findDate = new Date(UtilDateTime.nowTimestamp().getTime());
+            findDate = UtilDateTime.nowTimestamp();
         }
 
         Timestamp lastClosedDate = null;          // return parameters
