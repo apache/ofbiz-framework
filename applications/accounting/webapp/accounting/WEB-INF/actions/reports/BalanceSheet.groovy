@@ -63,7 +63,7 @@ GenericValue accumAmortizationGlAccountClass = from("GlAccountClass").where("glA
 List accumAmortizationAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(accumAmortizationGlAccountClass);
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
-Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId": parameters.get('ApplicationDecorator|organizationPartyId'), "findDate": new Date(thruDate.getTime()),"userLogin": userLogin]);
+Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId": parameters.get('ApplicationDecorator|organizationPartyId'), "findDate": thruDate,"userLogin": userLogin]);
 Timestamp fromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate;
 if (!fromDate) {
     return;

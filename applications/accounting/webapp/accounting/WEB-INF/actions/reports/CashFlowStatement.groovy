@@ -53,7 +53,7 @@ List glAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(glAccount
 List cashFlowBalanceTotalList = [];
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period 
-Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId":parameters.get('ApplicationDecorator|organizationPartyId'), "findDate":new Date(parametersFromDate.getTime()),"userLogin":userLogin]);
+Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId":parameters.get('ApplicationDecorator|organizationPartyId'), "findDate": parametersFromDate,"userLogin":userLogin]);
 Timestamp periodClosingFromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate;
 if (!periodClosingFromDate) {
     return;

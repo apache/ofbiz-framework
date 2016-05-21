@@ -564,7 +564,7 @@ under the License.
             If no findDate is given, then use the current moment (nowTimestamp).
         </description>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
-        <attribute name="findDate" type="java.sql.Date" mode="IN" optional="true"/>
+        <attribute name="findDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="periodTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="lastClosedDate" type="Timestamp" mode="OUT" optional="true"/>
         <attribute name="lastClosedTimePeriod" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
