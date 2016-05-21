@@ -1197,7 +1197,7 @@
                 </calcop>
             </calculate>
             <else>
-                <set field="actualNonBilledHours" from-field="totalOriginalHours" type="Double"/>
+                <set field="actualNonBilledHours" from-field="totalOriginalHours" default-value="0" type="Double"/>
             </else>
         </if-not-empty>
         <set field="highInfo.actualNonBilledHours" from-field="actualNonBilledHours" type="Double"/>

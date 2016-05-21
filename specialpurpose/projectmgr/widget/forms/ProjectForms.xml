@@ -206,7 +206,7 @@
         <field name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display type="date"/></field>
         <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
         <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
-        <field name="actualNonBilledTotalHours" title="${uiLabelMap.ProjectMgrNonBilledActualHours}"><display description="${groovy:isBillable&amp;&amp;actualNonBilledTotalHours!=void?actualNonBilledTotalHours:&quot;&quot;}"/></field>
+        <field name="actualNonBilledHours" title="${uiLabelMap.ProjectMgrNonBilledActualHours}"><display description="${groovy:isBillable&amp;&amp;actualNonBilledHours!=void?actualNonBilledHours:&quot;&quot;}"/></field>
         <field name="createdStamp" title="${uiLabelMap.FormFieldTitle_createdDate}"><display type="date"/></field>
     </form>
     <form name="EditSubProjects" list-name="projects" type="list" target="RemoveSubProject"
