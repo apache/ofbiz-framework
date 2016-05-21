@@ -543,9 +543,16 @@ under the License.
                 <select-field field-name="accountingQuantitySum"/>
             </entity-condition>
         </actions>
+        <row-actions>
+            <entity-one entity-name="Product" value-field="product">
+                <field-map field-name="productId"/>
+            </entity-one>
+            <get-related-one relation-name="QuantityUom" to-value-field="uom" value-field="product"/>
+            <set field="quantityUom" from-field="uom.abbreviation" default-value="${uom.uomId}"/>
+        </row-actions>
         <field name="productId"><display/></field>
         <field name="unitCost" widget-style="tabletextright"><display currency="${currencyUomId}" type="currency"/></field>
-        <field name="accountingQuantitySum" widget-style="tabletextright"><display/></field>
+        <field name="accountingQuantitySum" widget-style="tabletextright"><display description="${accountingQuantitySum} ${quantityUom}"/></field>
         <field name="value" widget-style="tabletextright"><display description="${accountingQuantitySum * unitCost}" currency="${currencyUomId}" type="currency"/></field>
     </form>
 
