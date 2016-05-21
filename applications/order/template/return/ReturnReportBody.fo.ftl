@@ -108,11 +108,11 @@ under the License.
           <fo:table-column column-width="0.875in"/>
           <fo:table-body>
             <fo:table-row>
-              <fo:table-cell/>
-              <fo:table-cell/>
-              <fo:table-cell/>
-              <fo:table-cell/>
-              <fo:table-cell/>
+              <fo:table-cell><fo:block/></fo:table-cell>
+              <fo:table-cell><fo:block/></fo:table-cell>
+              <fo:table-cell><fo:block/></fo:table-cell>
+              <fo:table-cell><fo:block/></fo:table-cell>
+              <fo:table-cell><fo:block/></fo:table-cell>
               <fo:table-cell padding="1mm" border-style="solid" border-width="0.2pt">
                 <fo:block font-weight="bold" text-align="center">${uiLabelMap.CommonTotal}</fo:block>
               </fo:table-cell>
