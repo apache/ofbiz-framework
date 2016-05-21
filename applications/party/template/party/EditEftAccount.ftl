@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- begin editeftaccount.ftl -->
+<!-- begin EditEftAccount.ftl -->
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <#if !eftAccount??>
@@ -178,4 +178,4 @@ under the License.
       </div>
   </div>
 </div>
-<!-- end editeftaccount.ftl -->
+<!-- end EditEftAccount.ftl -->

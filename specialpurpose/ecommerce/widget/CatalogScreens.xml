@@ -29,7 +29,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/catalog/choosecatalog.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/catalog/ChooseCatalog.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -52,7 +52,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/SideDeepCategory.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/catalog/sidedeepcategory.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/catalog/SideDeepCategory.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -64,7 +64,7 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/catalog/minireorderprods.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/catalog/MiniReOrderProds.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -72,7 +72,7 @@ under the License.
     <screen name="miniassocprods">
         <section>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/catalog/miniassocprods.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/catalog/MiniAssocProds.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -84,7 +84,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/SideDeepCategory.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/catalog/minilastviewedcategories.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/catalog/MiniLastViewedCategories.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -96,7 +96,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/MiniProductSummary.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/catalog/minilastviewedproducts.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/catalog/MiniLastViewedProducts.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -108,7 +108,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/catalog/minilastproductsearches.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/catalog/MiniLastProductSearches.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -121,7 +121,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/MiniProductSummary.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/catalog/miniproductsummary.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/catalog/MiniProductSummary.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -283,7 +283,7 @@ under the License.
             </actions>
             <widgets>
                 <include-screen name="breadcrumbs"/>
-                <platform-specific><html><html-template location="component://ecommerce/template/catalog/productdetail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/catalog/ProductDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -309,7 +309,7 @@ under the License.
             </actions>
             <widgets>
                 <include-screen name="breadcrumbs"/>
-                <platform-specific><html><html-template location="component://ecommerce/template/catalog/configproductdetail.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/catalog/ConfigProductDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -326,7 +326,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/catalog/productreview.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/catalog/ProductReview.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -345,7 +345,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/catalog/lastviewedproducts.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/catalog/LastViewedProducts.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -355,7 +355,7 @@ under the License.
     <screen name="detailImage">
         <section>
             <widgets>
-               <platform-specific><html><html-template location="component://ecommerce/template/catalog/detailImage.ftl"/></html></platform-specific>
+               <platform-specific><html><html-template location="component://ecommerce/template/catalog/DetailImage.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -368,7 +368,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://ecommerce/template/catalog/tellafriend.ftl"/></html>
+                    <html><html-template location="component://ecommerce/template/catalog/TellAFriend.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -467,7 +467,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/template/catalog/advancedsearch.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://ecommerce/template/catalog/AdvancedSearch.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -586,7 +586,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://ecommerce/template/catalog/ajaxbreadcrumbs.ftl"/></html>
+                    <html><html-template location="component://ecommerce/template/catalog/AjaxBreadCrumbs.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>
@@ -599,7 +599,7 @@ under the License.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/PopularTags.groovy"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/template/catalog/populartags.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://ecommerce/template/catalog/PopularTags.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

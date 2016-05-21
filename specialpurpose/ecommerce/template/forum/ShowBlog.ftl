@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#import "/includes/bloglib.ftl" as blog/>
+<#import "/includes/BlogLib.ftl" as blog/>
 
 <div class="screenlet" >
 <h1>${uiLabelMap.EcommerceFromSite}:</h1><br />
