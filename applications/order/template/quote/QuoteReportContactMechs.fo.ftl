@@ -73,6 +73,19 @@ under the License.
                     <fo:table-cell><fo:block>${uiLabelMap.CommonValidThruDate}:</fo:block></fo:table-cell>
                     <fo:table-cell><fo:block>${(quote.validThruDate.toString())!}</fo:block></fo:table-cell>
                 </fo:table-row>
+                <fo:table-row>
+                    <#assign quoteLevelTerms = Static["org.ofbiz.entity.util.EntityUtil"].filterByAnd(quoteTerms, {"quoteItemSeqId": "_NA_"})!>
+                    <#if quoteLevelTerms?has_content && quoteLevelTerms.size() gt 0>
+                        <fo:table-cell><fo:block>${uiLabelMap.CommonQuoteTerms}:</fo:block></fo:table-cell>
+                        <fo:table-cell>
+                            <#list quoteLevelTerms as quoteLevelTerm>
+                                <fo:block>
+                                    ${quoteLevelTerm.getRelatedOne("TermType", false).get("description",locale)} ${quoteLevelTerm.termValue?default("")} ${quoteLevelTerm.termDays?default("")} ${quoteLevelTerm.textValue?default("")}
+                                </fo:block>
+                            </#list>
+                        </fo:table-cell>
+                    </#if>
+                </fo:table-row>
             </fo:table-body>
         </fo:table>
 </#escape>

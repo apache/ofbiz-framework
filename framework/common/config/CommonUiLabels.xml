@@ -9272,6 +9272,9 @@
         <value xml:lang="nl">Offerte</value>
         <value xml:lang="zh">询价</value>
     </property>
+    <property key="CommonQuoteTerms">
+        <value xml:lang="en">Quote Terms</value>
+    </property>
     <property key="CommonRate">
         <value xml:lang="ar">النسبة</value>
         <value xml:lang="cs">Sazba</value>
