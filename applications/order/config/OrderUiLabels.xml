@@ -2206,6 +2206,9 @@
         <value xml:lang="zh-CN">任意订单类型</value>
         <value xml:lang="zh-TW">任何訂單類型</value>
     </property>
+    <property key="OrderApproveItem">
+        <value xml:lang="en">Approve Item</value>
+    </property>
     <property key="OrderApproveOrder">
         <value xml:lang="ar">الموافقة على أمر البيع\الشراء</value>
         <value xml:lang="de">Auftrag bestätigen</value>
