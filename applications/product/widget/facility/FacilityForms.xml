@@ -468,6 +468,9 @@ under the License.
         <field name="daysToShip" title="${uiLabelMap.ProductDaysToShip}"><display/></field>
         <field name="offsetQOHQtyAvailable" title="${uiLabelMap.ProductQtyOffsetQOH}"><display/></field>
         <field name="offsetATPQtyAvailable" title="${uiLabelMap.ProductQtyOffsetATP}"><display/></field>
+        <field name="quantityUom" title="Quantity Uom">
+            <display-entity entity-name="Uom" key-field-name="uomId" description="${abbreviation}"/>
+        </field>
         <field name="usageQuantity" title="${uiLabelMap.ProductUsage}"><display/></field>
         <field name="defaultPrice" title="${uiLabelMap.ProductDefaultPrice}"><display/></field>
         <field name="listPrice" title="${uiLabelMap.ProductListPrice}"><display/></field>

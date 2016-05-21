@@ -171,7 +171,7 @@ if (action) {
         oneInventory.minimumStock = minimumStock;
         oneInventory.reorderQuantity = oneProd.reorderQuantity;
         oneInventory.daysToShip = oneProd.daysToShip;
-
+        
         resultMap =runService('getProductInventoryAndFacilitySummary', [productId : oneProd.productId, minimumStock : minimumStock, facilityId : oneProd.facilityId, checkTime : checkTime, statusId : statusId]);
         if (resultMap) {
             oneInventory.totalAvailableToPromise = resultMap.totalAvailableToPromise;
@@ -179,6 +179,7 @@ if (action) {
             oneInventory.quantityOnOrder = resultMap.quantityOnOrder;
             oneInventory.offsetQOHQtyAvailable = resultMap.offsetQOHQtyAvailable;
             oneInventory.offsetATPQtyAvailable = resultMap.offsetATPQtyAvailable;
+            oneInventory.quantityUom = resultMap.quantityUomId;
             oneInventory.usageQuantity = resultMap.usageQuantity;
             oneInventory.defaultPrice = resultMap.defaultPrice;
             oneInventory.listPrice = resultMap.listPrice;

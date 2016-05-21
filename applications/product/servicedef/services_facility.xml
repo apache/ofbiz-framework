@@ -258,6 +258,7 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="minimumStock" mode="IN" type="BigDecimal" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantityUomId" type="String" mode="OUT" optional="true"/>
         <attribute name="totalQuantityOnHand" mode="OUT" type="BigDecimal" optional="true"/>
         <attribute name="totalAvailableToPromise" mode="OUT" type="BigDecimal" optional="true"/>
         <attribute name="quantityOnOrder" mode="OUT" type="BigDecimal" optional="true"/>

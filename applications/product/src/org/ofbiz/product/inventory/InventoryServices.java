@@ -886,7 +886,6 @@ public class InventoryServices {
         }
         // filter for quantities
         minimumStock = minimumStock != null ? minimumStock : BigDecimal.ZERO;
-
         BigDecimal quantityOnHandTotal = BigDecimal.ZERO;
         if (resultOutput.get("quantityOnHandTotal") != null) {
             quantityOnHandTotal = (BigDecimal)resultOutput.get("quantityOnHandTotal");
@@ -903,7 +902,7 @@ public class InventoryServices {
         result.put("totalQuantityOnHand", resultOutput.get("quantityOnHandTotal"));
         result.put("totalAvailableToPromise", resultOutput.get("availableToPromiseTotal"));
         result.put("quantityOnOrder", quantityOnOrder);
-
+        result.put("quantityUomId", product.getString("quantityUomId"));
         result.put("offsetQOHQtyAvailable", offsetQOHQtyAvailable);
         result.put("offsetATPQtyAvailable", offsetATPQtyAvailable);
 
