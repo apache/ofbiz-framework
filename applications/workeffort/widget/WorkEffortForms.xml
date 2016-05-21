@@ -1088,7 +1088,7 @@ under the License.
         <field name="reviewText"><textarea rows="5" cols="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListWorkEffortReviews" type="list" target="updateWorkEffortReview" list-name="productWorkEfforts"  separate-columns="true"
+    <form name="ListWorkEffortReviews" type="list" target="updateWorkEffortReview" list-name="workEffortReviews"  separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortReview" use-cache="true" list="workEffortReviews">
