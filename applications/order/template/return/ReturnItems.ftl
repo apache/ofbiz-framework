@@ -146,7 +146,7 @@ under the License.
               <#assign orderHeader = item.getRelatedOne("OrderHeader", false)!>
               <#assign returnReason = item.getRelatedOne("ReturnReason", false)!>
               <#assign returnType = item.getRelatedOne("ReturnType", false)!>
-              <#assign status = item.getRelatedOne("InventoryStatusItem", false)!>
+              <#assign status = item.getRelatedOne("StatusItem", false)!>
               <#assign shipmentReceipts = item.getRelated("ShipmentReceipt", null, null, false)!>
               <#if (item.get("returnQuantity")?? && item.get("returnPrice")??)>
                  <#assign returnTotal = returnTotal + item.get("returnQuantity") * item.get("returnPrice") >
@@ -212,23 +212,11 @@ under the License.
                     </#if>
                     </div></td>
                 <td><div>
-                  <#if readOnly>
                       <#if status?has_content>
-                      ${status.get("description",locale)}
+                        ${status.get("description",locale)}
                       <#else>
-                      N/A
+                        N/A
                       </#if>
-                  <#else>
-                      <select name="expectedItemStatus_o_${rowCount}">
-                          <#if (status?has_content)>
-                              <option value="${status.statusId}">${status.get("description",locale)!}</option>
-                              <option value="${status.statusId}">--</option>
-                          </#if>
-                          <#list itemStatus as returnItemStatus>
-                              <option value="${returnItemStatus.statusId}">${returnItemStatus.get("description",locale)!}</option>
-                          </#list>
-                      </select>
-                  </#if>
                   </div></td>
                 <td><div>
                     <#if (readOnly)>
