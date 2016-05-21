@@ -21,7 +21,7 @@ import java.sql.*;
 import java.util.*;
 import org.ofbiz.base.util.*;
 
-startParam = parameters.start;
+String startParam = parameters.startTime;
 Timestamp start = null;
 if (UtilValidate.isNotEmpty(startParam)) {
     start = new Timestamp(Long.parseLong(startParam));
