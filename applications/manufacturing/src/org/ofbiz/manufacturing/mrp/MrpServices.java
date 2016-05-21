@@ -94,7 +94,7 @@ public class MrpServices {
         List<GenericValue> listResultRoles = new LinkedList<GenericValue>();
         try {
             listResult = EntityQuery.use(delegator).from("Requirement")
-                    .where("requirementTypeId", "PRODUCT_REQUIREMENT",
+                    .where("requirementTypeId", "PRODUCT_REQUIREMENT","facilityId", facilityId,
                             "statusId", "REQ_PROPOSED")
                     .queryList();
         } catch (GenericEntityException e) {
@@ -115,7 +115,7 @@ public class MrpServices {
         listResult = null;
         try {
             listResult = EntityQuery.use(delegator).from("Requirement")
-                    .where("requirementTypeId", "INTERNAL_REQUIREMENT",
+                    .where("requirementTypeId", "INTERNAL_REQUIREMENT","facilityId", facilityId,
                             "statusId", "REQ_PROPOSED")
                     .queryList();
         } catch (GenericEntityException e) {
