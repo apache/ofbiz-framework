@@ -1549,6 +1549,10 @@ float: right;
 }
 
 /* ===== Button style decorator ===== */
+.button-style-1 {
+padding-bottom: 20px;
+}
+
 .button-style-1 ul li,.tabContainer ul li {
 background-color: #ffffff;
 color: #000099;
