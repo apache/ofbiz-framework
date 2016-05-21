@@ -228,6 +228,10 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 }
             }
             newEntity.set(singlePkModeField.getName(), pkValue);
+            GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
+            if (lookedUpValue != null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueFound", UtilMisc.toMap("pkFields", newEntity.getPkShortValueString()), locale));
+            }
         } else if (isDoublePk && doublePkPrimaryInParam != null && doublePkSecondaryOutParam != null) {
             /*
              **** secondary sequenced primary key ****
