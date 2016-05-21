@@ -15024,7 +15024,7 @@
     <property key="ProductConditionsActionsRemoveBefore">
         <value xml:lang="de">Um eine Preisregel zu löschen, müssen entweder zuerst alle dazugehörigen Bedingungen und Aktionen entfernt ODER die Regel über das Ablaufdatum deaktiviert werden</value>
         <value xml:lang="en">To remove a price rule, you must before remove all conditions and actions OR disable it by entering a Through Date</value>
-        <value xml:lang="fr">Pour supprimer une règle de prix, vous devez d'abord supprimer toutes les conditions et actions. Vous pouvez aussi la désactiver en entrant une date de fin appropriée</value>
+        <value xml:lang="fr">Pour supprimer une règle de prix, vous devez d'abord supprimer toutes les conditions et actions. Vous pouvez aussi la désactiver en entrant une date de fin appropriée.</value>
         <value xml:lang="ja">価格ルールを削除するには、すべての条件およびアクションを削除するか、終了日を入れて無効にする必要があります</value>
         <value xml:lang="vi">Để loại bỏ Luật tính giá, trước tiên bạn cần loại bỏ toàn bộ các điều kiện và toán tử HOẶC vô hiệu hóa bởi nhập Ngày đến</value>
         <value xml:lang="zh">要删除价格规则，你必须先删除全部条件和操作，或通过输入一个结束日期来禁用它</value>
@@ -15057,8 +15057,8 @@
     </property>
     <property key="ProductConditionsThenActions">
         <value xml:lang="de">Wenn mehrere Bedingungen eingegeben wurde, sind sie logisch UND verknüpft. Daher müssen alle Bedingungen WAHR sein und die Preisregel auszuführen (gleiches für Aktionen)</value>
-        <value xml:lang="en">If multiple conditions are entered they are tested logically as and AND statement. Therefore all Conditions must be TRUE for the price rule to execute (same for actions)</value>
-        <value xml:lang="fr">Si toutes les conditions sont vérifiées, alors les actions sont exécutées (autrement dit ET logique entre conditions, de même pour les actions)</value>
+        <value xml:lang="en">If multiple conditions are entered they are tested logically as and AND statement. Therefore all Conditions must be TRUE for the price rule to execute (same for actions). Without Condition at all the Action will be executed.</value>
+        <value xml:lang="fr">Si toutes les conditions sont vérifiées, alors les actions sont exécutées (autrement dit ET logique entre conditions, de même pour les actions). Si aucune condition n'est définie alors les actions seront exécutées.</value>
         <value xml:lang="ja">複数の条件を登録すると、AND条件として論理的に判断されます。したがって、すべての条件は実行する価格ルールに対してTRUEである必要があります (アクションと同様)</value>
         <value xml:lang="vi">Các điều kiện đã được cập nhật và thử nghiệm với từ khóa VÀ trong hệ thống, thì toàn bộ các Điều kiện nếu thỏa mãn Đúng hệ thống sẽ áp dụng luật giá (cho tất cả các hành động) .</value>
         <value xml:lang="zh">如果输入多个条件，它们会被按照与的逻辑关系来测试。因此要执行这个价格规则，全部条件必须是真（对于操作同样如此）</value>
