@@ -144,7 +144,7 @@ under the License.
         <menu-item name="next">
             <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortNextDay}">
                 <parameter param-name="period" value="day"/>
-                <parameter param-name="start" value="${nextMillis}"/>
+                <parameter param-name="startTime" value="${nextMillis}"/>
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
                 <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
@@ -167,7 +167,7 @@ under the License.
         <menu-item name="prev">
             <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortPreviousDay}">
                 <parameter param-name="period" value="day"/>
-                <parameter param-name="start" value="${prevMillis}"/>
+                <parameter param-name="startTime" value="${prevMillis}"/>
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
                 <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
@@ -181,7 +181,7 @@ under the License.
         <menu-item name="next">
             <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortNextWeek}">
                 <parameter param-name="period" value="week"/>
-                <parameter param-name="start" value="${nextMillis}"/>
+                <parameter param-name="startTime" value="${nextMillis}"/>
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
                 <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
@@ -204,7 +204,7 @@ under the License.
         <menu-item name="prev">
             <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortPreviousWeek}">
                 <parameter param-name="period" value="week"/>
-                <parameter param-name="start" value="${prevMillis}"/>
+                <parameter param-name="startTime" value="${prevMillis}"/>
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
                 <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
@@ -218,7 +218,7 @@ under the License.
         <menu-item name="next">
             <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortNextMonth}">
                 <parameter param-name="period" value="month"/>
-                <parameter param-name="start" value="${nextMillis}"/>
+                <parameter param-name="startTime" value="${nextMillis}"/>
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
                 <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
@@ -241,7 +241,7 @@ under the License.
         <menu-item name="prev">
             <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortPreviousMonth}">
                 <parameter param-name="period" value="month"/>
-                <parameter param-name="start" value="${prevMillis}"/>
+                <parameter param-name="startTime" value="${prevMillis}"/>
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
                 <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
