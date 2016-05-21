@@ -32,18 +32,18 @@ under the License.
                 <include-screen name="GlobalActions" location="component://common/widget/CommonScreens.xml" />
                 <platform-specific>
                     <html>
-                        <html-template location="component://hhfacility/template/includes/header.ftl" />
+                        <html-template location="component://hhfacility/template/includes/Header.ftl" />
                     </html>
                 </platform-specific>
                 <platform-specific>
                     <html>
-                        <html-template location="component://hhfacility/template/includes/messages.ftl" />
+                        <html-template location="component://hhfacility/template/includes/Messages.ftl" />
                     </html>
                 </platform-specific>
                 <decorator-section-include name="body" />
                 <platform-specific>
                     <html>
-                        <html-template location="component://hhfacility/template/includes/footer.ftl" />
+                        <html-template location="component://hhfacility/template/includes/Footer.ftl" />
                     </html>
                 </platform-specific>
             </widgets>
@@ -98,7 +98,7 @@ under the License.
                 <decorator-screen name="CommonDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://hhfacility/template/login.ftl"/></html>
+                            <html><html-template location="component://hhfacility/template/Login.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -114,7 +114,7 @@ under the License.
             <widgets>
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://hhfacility/template/menu.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://hhfacility/template/Menu.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -129,7 +129,7 @@ under the License.
             <widgets>
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://hhfacility/template/receipt.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://hhfacility/template/Receipt.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -175,7 +175,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <include-form name="ProductEnter" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
-                        <platform-specific><html><html-template location="component://hhfacility/template/setFocusOnField.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://hhfacility/template/SetFocusOnField.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -193,7 +193,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <include-form name="ProductQtyEnter" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
-                        <platform-specific><html><html-template location="component://hhfacility/template/setFocusOnField.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://hhfacility/template/SetFocusOnField.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -253,7 +253,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <include-form name="FindProductStock" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
-                        <platform-specific><html><html-template location="component://hhfacility/template/stocktake.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://hhfacility/template/StockTake.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -273,7 +273,7 @@ under the License.
                     <decorator-section name="body">
                         <include-form name="ProductStocktake" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
                         <include-form name="UpdateProductStocktake" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
-                        <platform-specific><html><html-template location="component://hhfacility/template/productstocktake.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://hhfacility/template/ProductStockTake.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -290,7 +290,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://hhfacility/template/facilities.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://hhfacility/template/Facilities.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
