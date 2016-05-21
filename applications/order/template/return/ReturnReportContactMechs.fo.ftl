@@ -46,7 +46,7 @@ ${postalAddressFrom.city}<#if (postalAddressFrom.stateProvinceGeoId)?has_content
             </fo:table>
             </fo:table-cell>
 
-            <fo:table-cell/>
+            <fo:table-cell><fo:block/></fo:table-cell>
 
             <fo:table-cell>
             <fo:table table-layout="fixed" border-style="solid" border-width="0.2pt" height="1in">
