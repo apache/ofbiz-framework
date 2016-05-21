@@ -471,7 +471,7 @@ under the License.
     </request-map>
     <request-map uri="updateEmplPositionResponsibility">
         <security https="true" auth="true"/>
-        <event type="service-multi" invoke="updateEmplPositionResponsibility"/>
+        <event type="service" invoke="updateEmplPositionResponsibility"/>
         <response name="success" type="view" value="EditEmplPositionResponsibilities"/>
     </request-map>
     <request-map uri="deleteEmplPositionResponsibility">
