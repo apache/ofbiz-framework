@@ -100,6 +100,12 @@ under the License.
                 <field-map field-name="orderBy" value="estimatedStartDate"/>
             </service>
         </actions>
+        <row-actions>
+            <entity-one value-field="product" entity-name="Product"/>
+            <entity-one value-field="uom" entity-name="Uom">
+                <field-map field-name="uomId" from-field="product.quantityUomId"/>
+            </entity-one>
+        </row-actions>
         <field name="workEffortId" title=" " widget-style="buttontext">
             <hyperlink target="ShowProductionRun" description="${workEffortId}" also-hidden="false">
                 <parameter param-name="productionRunId" from-field="workEffortId"/>
@@ -108,6 +114,7 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><display/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
+        <field name="QuantityUom" title="${uiLabelMap.ProductQuantityUom}"><display description="${uom.abbreviation}"></display></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>

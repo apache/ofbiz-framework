@@ -26590,6 +26590,9 @@
         <value xml:lang="zh">要转运的数量</value>
         <value xml:lang="zh-TW">要轉運的數量</value>
     </property>
+    <property key="ProductQuantityUom">
+        <value xml:lang="en">Quantity Uom</value>
+    </property>
     <property key="ProductQuantityUomId">
         <value xml:lang="de">Menge Einheit ID</value>
         <value xml:lang="en">Quantity UomId</value>
