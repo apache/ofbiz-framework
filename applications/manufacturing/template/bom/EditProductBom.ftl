@@ -251,6 +251,7 @@ function lookupBom() {
         <td>${uiLabelMap.CommonThruDate}</td>
         <td>${uiLabelMap.CommonSequenceNum}</td>
         <td>${uiLabelMap.CommonQuantity}</td>
+        <td>${uiLabelMap.ProductQuantityUom}</td>
         <td>${uiLabelMap.ManufacturingScrapFactor}</td>
         <td>${uiLabelMap.ManufacturingFormula}</td>
         <td>${uiLabelMap.ManufacturingRoutingTask}</td>
@@ -261,6 +262,10 @@ function lookupBom() {
     <#list assocFromProducts! as assocFromProduct>
     <#assign listToProduct = assocFromProduct.getRelatedOne("AssocProduct", true)>
     <#assign curProductAssocType = assocFromProduct.getRelatedOne("ProductAssocType", true)>
+    <#assign product = assocFromProduct.getRelatedOne("AssocProduct", true)>
+    <#if product.quantityUomId?has_content>
+      <#assign quantityUom = product.getRelatedOne("QuantityUom", true)>
+    </#if>
       <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
         <td><a href="<@ofbizUrl>EditProductBom?productId=${(assocFromProduct.productIdTo)!}&amp;productAssocTypeId=${(assocFromProduct.productAssocTypeId)!}#components</@ofbizUrl>" class="buttontext">${(assocFromProduct.productIdTo)!}</a></td>
         <td><#if listToProduct??><a href="<@ofbizUrl>EditProductBom?productId=${(assocFromProduct.productIdTo)!}&amp;productAssocTypeId=${(assocFromProduct.productAssocTypeId)!}#components</@ofbizUrl>" class="buttontext">${(listToProduct.internalName)!}</a></#if>&nbsp;</td>
@@ -270,6 +275,7 @@ function lookupBom() {
         ${(assocFromProduct.thruDate)!}&nbsp;</td>
         <td>&nbsp;${(assocFromProduct.sequenceNum)!}</td>
         <td>&nbsp;${(assocFromProduct.quantity)!}</td>
+        <td>&nbsp;<#if (quantityUom.abbreviation)?has_content> ${(quantityUom.abbreviation)!} <#else> ${(quantityUom.uomId)!} </#if></td>
         <td>&nbsp;${(assocFromProduct.scrapFactor)!}</td>
         <td>&nbsp;${(assocFromProduct.estimateCalcMethod)!}</td>
         <td>&nbsp;${(assocFromProduct.routingWorkEffortId)!}</td>
