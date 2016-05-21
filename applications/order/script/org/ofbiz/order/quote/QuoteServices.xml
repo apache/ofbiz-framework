@@ -145,6 +145,14 @@ under the License.
             <set value="REQ_TAKER" field="takerMap.roleTypeId"/>
             <call-service service-name="createQuoteRole" in-map-name="takerMap"/>
         </if-compare-field>
+        
+        <!-- Set ProductStore's payToPartyId as internal organisation for quote -->
+        <if-not-empty field="productStore.payToPartyId">
+            <set from-field="newEntity.quoteId" field="internalOrgMap.quoteId"/>
+            <set from-field="productStore.payToPartyId" field="internalOrgMap.partyId"/>
+            <set value="INTERNAL_ORGANIZATIO" field="internalOrgMap.roleTypeId"/>
+            <call-service service-name="createQuoteRole" in-map-name="internalOrgMap"/>
+        </if-not-empty>
 
         <check-errors/>
     </simple-method>
