@@ -228,7 +228,7 @@ public class PartyServices {
             if (!statusId.equals(oldStatusId)) {
 
                 if (oldStatusId == null) { // old records
-                    party.set("statusId", "PARTY_ENABLED");
+                    party.set("statusId", statusId);
                     oldStatusId = party.getString("statusId");
                 } else {
 
