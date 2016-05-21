@@ -266,6 +266,11 @@ under the License.
         <action service="createReturnStatus" mode="sync"/>
         <action service="processWaitReplacementReturn" mode="sync"/>
     </eca>
+    <eca service="updateReturnHeader" event="commit">
+        <condition field-name="statusId" operator="equals" value="RETURN_ACCEPTED"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="RETURN_ACCEPTED"/>
+        <action service="updateReturnItemsStatus" mode="sync"/>
+    </eca>
 
     <eca service="updateReturnItem" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_CANCELLED"/>
