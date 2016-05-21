@@ -46,7 +46,7 @@ under the License.
             <link target="ExampleBarChart"/>
         </menu-item>
         <menu-item name="ExampleCompleteFop" title="${uiLabelMap.ContentFopFonts}">
-                <link target="fonts.pdf"/>
+                <link target="fonts.pdf" target-window="_BLANK"/>
         </menu-item>
         <menu-item name="ExampleCompoundWidgets" title="${uiLabelMap.ExampleCompoundWidgets}">
                 <link target="CompoundWidgets1"/>
