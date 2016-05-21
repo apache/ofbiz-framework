@@ -99,7 +99,7 @@ under the License.
                                                 <parameter param-name="exampleId"/>
                                                 <image url-mode="raw" src="${iconsLocation}/printer.png"/>
                                             </link>
-                                            <link target="ExampleReportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext">
+                                            <link target="ExampleReportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext" target-window="_blank">
                                                 <parameter param-name="exampleId"/>
                                                 <image url-mode="raw" src="${iconsLocation}/page_white_acrobat.png"/>
                                             </link>
