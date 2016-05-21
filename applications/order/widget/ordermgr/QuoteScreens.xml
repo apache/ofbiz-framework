@@ -167,6 +167,7 @@ under the License.
                 <get-related-one value-field="quote" relation-name="Uom" to-value-field="currency"/>
                 <get-related-one value-field="quote" relation-name="ProductStore" to-value-field="store"/>
                 <get-related-one value-field="quote" relation-name="Party" to-value-field="party"/>
+                <get-related value-field="quote" relation-name="QuoteTerm" list="quoteTerms"/>
 
                 <set field="listOrderBy[]" value="quoteItemSeqId"/>
                 <get-related value-field="quote" relation-name="QuoteItem" list="quoteItems" order-by-list="listOrderBy"/>

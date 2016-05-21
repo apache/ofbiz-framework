@@ -60,6 +60,17 @@ under the License.
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block>${(product.internalName)!} [${quoteItem.productId!}]</fo:block>
+                                <#if quoteItem.quoteItemSeqId?has_content>
+                                    <#assign quoteItemLevelTerms = Static["org.ofbiz.entity.util.EntityUtil"].filterByAnd(quoteTerms, {"quoteItemSeqId": quoteItem.quoteItemSeqId})!>
+                                    <#if quoteItemLevelTerms?has_content>
+                                        <fo:block>${uiLabelMap.CommonQuoteTerms}:</fo:block>
+                                        <#list quoteItemLevelTerms as quoteItemLevelTerm>
+                                            <fo:block text-indent="0.1in">
+                                                ${quoteItemLevelTerm.getRelatedOne("TermType", false).get("description",locale)} ${quoteItemLevelTerm.termValue?default("")} ${quoteItemLevelTerm.termDays?default("")} ${quoteItemLevelTerm.textValue?default("")}
+                                            </fo:block>
+                                        </#list>
+                                    </#if>
+                                </#if>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block text-align="right">${quoteItem.quantity!}</fo:block>
