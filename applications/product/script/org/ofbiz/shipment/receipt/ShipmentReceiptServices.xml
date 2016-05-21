@@ -204,7 +204,9 @@ under the License.
                 </condition>
                 <then>
                     <!-- Retrieve the new inventoryItem -->
-                    <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
+                    <entity-one entity-name="InventoryItem" value-field="inventoryItem">
+                        <field-map field-name="inventoryItemId" from-field="currentInventoryItemId"/>
+                    </entity-one>
 
                     <!-- Don't reset the status if it's already set to INV_PROMISED or INV_ON_HOLD -->
                     <if>
