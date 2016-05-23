@@ -101,6 +101,9 @@ under the License.
         <field name="externalId"><display/></field>
     </form>
     <form name="ListGlAccountPdf" extends="ListGlAccount">
+        <actions>
+            <entity-condition entity-name="GlAccount" list="listIt"/>
+        </actions>
         <field name="accountCode" title="${uiLabelMap.CommonCode}" widget-style="buttontext"><display/></field>
     </form>
 
