@@ -1179,6 +1179,7 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortContactMech">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="contactMechId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>
