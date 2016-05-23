@@ -59,7 +59,7 @@ To use these screens add these entries to the controller.xml file:
 <view-map name="ordertasklist" type="screen" page="component://order/widget/ordermgr/OrderTaskScreens.xml#OrderTaskList"/>
 
 ==================
-Also add this back to appheader.ftl:
+Also add this back to AppHeader.ftl:
 
 <li<#if selected = "tasklist"> class="selected"</#if>><a href="<@ofbizUrl>tasklist</@ofbizUrl>">${uiLabelMap.OrderOrderTasks}</a></li>
 

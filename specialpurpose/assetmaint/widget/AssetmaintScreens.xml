@@ -335,7 +335,7 @@
                 <decorator-screen name="GlobalFoDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
-                            <xsl-fo><html-template location="component://assetmaint/template/printFixedAssetMaint.fo.ftl"/></xsl-fo>
+                            <xsl-fo><html-template location="component://assetmaint/template/PrintFixedAssetMaint.fo.ftl"/></xsl-fo>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

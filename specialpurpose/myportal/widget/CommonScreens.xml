@@ -158,7 +158,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://myportal/template/login.ftl"/></html>
+                            <html><html-template location="component://myportal/template/Login.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

@@ -550,7 +550,7 @@
                         </screenlet>
                         <platform-specific>
                             <html>
-                                <html-template location="component://ebaystore/template/store/orderImported.ftl"/>
+                                <html-template location="component://ebaystore/template/store/OrderImported.ftl"/>
                             </html>
                         </platform-specific>
                     </decorator-section>

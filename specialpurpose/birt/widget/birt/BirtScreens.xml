@@ -42,7 +42,7 @@ under the License.
                 <set field="activeApp" value="birt" global="true"/>
                 <set field="applicationMenuName" value="BirtAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://birt/widget/birt/BirtMenus.xml" global="true"/>
-                <!--set field="appheaderTemplate" value="component://example/webapp/appheader.ftl"/-->
+                <!--set field="appheaderTemplate" value="component://example/webapp/AppHeader.ftl"/-->
                 <set field="applicationTitle" value="${uiLabelMap.BirtExampleApplication}" global="true"/>
             </actions>
             <widgets>
@@ -122,7 +122,7 @@ under the License.
                                 <screenlet title="Using report tag">
                                     <platform-specific>
                                         <html>
-                                            <html-template location="component://birt/template/report.ftl"/>
+                                            <html-template location="component://birt/template/Report.ftl"/>
                                         </html>
                                     </platform-specific>
                                 </screenlet>
@@ -167,7 +167,7 @@ under the License.
                             <widgets>
                                 <screenlet title="Using report tag">
                                     <platform-specific>
-                                        <html><html-template location="component://birt/template/chartReport.ftl"/></html>
+                                        <html><html-template location="component://birt/template/ChartReport.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </widgets>
