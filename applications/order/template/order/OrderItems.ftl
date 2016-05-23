@@ -242,6 +242,10 @@ under the License.
                                                             </#if>
                                                         </#list>
                                                     </#if>
+                                                    <#if product.productTypeId == "SERVICE" && currentItemStatus.statusId == "ITEM_COMPLETED">
+                                                        <#assign shippedQuantity = orderItem.quantity?default(0)/>
+                                                        <#assign totalReceived = orderItem.quantity?default(0)>
+                                                    </#if>
                                                     <#if orderHeader.orderTypeId == "PURCHASE_ORDER">
                                                         <#assign remainingQuantity = ((orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - totalReceived?double)>
                                                     <#else>
