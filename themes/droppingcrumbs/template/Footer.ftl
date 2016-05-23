@@ -27,7 +27,7 @@ under the License.
   <a href="http://validator.w3.org/check?uri=referer"><img src="<@ofbizContentUrl>/images/valid-xhtml10.png</@ofbizContentUrl>" alt="Valid XHTML 1.0!"/></a></p>
   <p>
   ${uiLabelMap.CommonCopyright} (c) 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation - <a href="http://www.apache.org" target="_blank">www.apache.org</a><br />
-  ${uiLabelMap.CommonPoweredBy} <a href="http://ofbiz.apache.org" target="_blank">Apache OFBiz</a> <#include "ofbizhome://runtime/svninfo.ftl" /> <#include "ofbizhome://runtime/gitinfo.ftl" /></p>
+  ${uiLabelMap.CommonPoweredBy} <a href="http://ofbiz.apache.org" target="_blank">Apache OFBiz</a> <#include "ofbizhome://runtime/svninfo.ftl" /> <#include "ofbizhome://runtime/GitInfo.ftl" /></p>
 </div>
 <#if layoutSettings.VT_FTR_JAVASCRIPT?has_content>
   <#list layoutSettings.VT_FTR_JAVASCRIPT as javaScript>

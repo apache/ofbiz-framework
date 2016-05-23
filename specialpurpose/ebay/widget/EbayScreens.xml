@@ -59,7 +59,7 @@ under the License.
                             <html><html-template location="component://ebay/template/find/EbayKeywordSearch.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://ebay/template/find/ebayExportLink.ftl"/></html>
+                            <html><html-template location="component://ebay/template/find/EayExportLink.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -85,7 +85,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEbayProductsExportToEbay}">
                             <platform-specific>
-                                <html><html-template location="component://ebay/template/find/productsExportToEbay.ftl"/></html>
+                                <html><html-template location="component://ebay/template/find/ProductsExportToEbay.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>

@@ -59,7 +59,7 @@ under the License.
                             <html><html-template location="component://product/template/find/KeywordSearch.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://googlebase/template/find/googleExportLink.ftl"/></html>
+                            <html><html-template location="component://googlebase/template/find/GoogleExportLink.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

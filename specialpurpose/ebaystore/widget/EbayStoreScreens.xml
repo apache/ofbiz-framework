@@ -214,7 +214,7 @@ under the License.
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://ebaystore/template/store/ebayApiKeywordSearch.ftl"/></html>
+                            <html><html-template location="component://ebaystore/template/store/EbayApiKeywordSearch.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -268,7 +268,7 @@ under the License.
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                             <platform-specific>
-                            <html><html-template location="component://ebaystore/template/store/productsearchExport.ftl"/></html>
+                            <html><html-template location="component://ebaystore/template/store/ProductSearchExport.ftl"/></html>
                             </platform-specific>
                     </decorator-section>
                 </decorator-screen>

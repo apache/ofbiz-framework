@@ -113,7 +113,7 @@ under the License.
                         <screenlet>
                             <container>
                                 <platform-specific>
-                                    <html><html-template location="component://bi/template/main.ftl"/></html>
+                                    <html><html-template location="component://bi/template/Main.ftl"/></html>
                                 </platform-specific>
                             </container>
                             <container>
