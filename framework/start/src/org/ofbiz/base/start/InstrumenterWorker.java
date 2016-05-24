@@ -40,7 +40,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public final class InstrumenterWorker {
+final class InstrumenterWorker {
 
     public static final void copy(InputStream in, OutputStream out) throws IOException {
         byte[] buf = new byte[4096];

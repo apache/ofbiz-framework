@@ -1,7 +1,26 @@
+/*******************************************************************************
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ *******************************************************************************/
 package org.ofbiz.base.start;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +44,7 @@ import org.apache.commons.cli.ParseException;
  * in addition to utility methods for parsing and handling these options
  * </p> 
  */
-public final class StartupCommandUtil {
+final class StartupCommandUtil {
 
     /* 
      * Make sure of defining the same set of values in:
@@ -184,14 +203,53 @@ public final class StartupCommandUtil {
                 true);
     }
 
-    static final void printAndHighlightMessage(String message) {
+    static final void highlightAndPrintErrorMessage(String errorMessage) {
         System.err.println(
                 "==============================================================================="
                 + System.lineSeparator()
-                + message
+                + errorMessage
                 + System.lineSeparator()
                 + "==============================================================================="
                 );
+    }
+
+    /**
+     * Generates the loaderArgs with arguments as expected by the
+     * containers that will receive them. 
+     * 
+     * TODO A better solution is to change the signature of all 
+     * containers to receive a <tt>List</tt> of <tt>StartupCommand</tt>s
+     * instead and delete the methods populateLoaderArgs, commandExistsInList
+     * and retrieveCommandArgumentEntries along with the loaderArgs list.
+     */
+    static List<String> adaptStartupCommandsToLoaderArgs(List<StartupCommand> ofbizCommands) {
+        List<String> loaderArgs = new ArrayList<String>();
+        final String LOAD_DATA = StartupCommandUtil.StartupOption.LOAD_DATA.getName();
+        final String TEST = StartupCommandUtil.StartupOption.TEST.getName();
+        final String TEST_LIST = StartupCommandUtil.StartupOption.TEST_LIST.getName();
+        
+        if(commandExistsInList(ofbizCommands, LOAD_DATA)) {
+            retrieveCommandArguments(ofbizCommands, LOAD_DATA).entrySet().stream().forEach(entry -> 
+            loaderArgs.add("-" + entry.getKey() + "=" + entry.getValue()));
+        } else if(commandExistsInList(ofbizCommands, TEST)) {
+            retrieveCommandArguments(ofbizCommands, TEST).entrySet().stream().forEach(entry -> 
+            loaderArgs.add("-" + entry.getKey() + "=" + entry.getValue()));
+        } else if(commandExistsInList(ofbizCommands, TEST_LIST)) {
+            Map<String,String> testListArgs = retrieveCommandArguments(ofbizCommands, TEST_LIST);
+            loaderArgs.add(testListArgs.get("file"));
+            loaderArgs.add("-" + testListArgs.get("mode"));
+        }
+        return loaderArgs;
+    }
+
+    private static boolean commandExistsInList(List<StartupCommand> ofbizCommands, String commandName) {
+        return ofbizCommands.stream().anyMatch(command -> command.getName().equals(commandName));
+    }
+
+    private static Map<String,String> retrieveCommandArguments(List<StartupCommand> ofbizCommands, String commandName) {
+        return ofbizCommands.stream()
+                .filter(option-> option.getName().equals(commandName))
+                .collect(Collectors.toList()).get(0).getProperties();
     }
 
     private static final List<StartupCommand> mapCommonsCliOptionsToStartupCommands(final CommandLine commandLine) {

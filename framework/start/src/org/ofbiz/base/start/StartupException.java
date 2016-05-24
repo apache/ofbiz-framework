@@ -23,7 +23,7 @@ package org.ofbiz.base.start;
  *
  */
 @SuppressWarnings("serial")
-public class StartupException extends Exception {
+public final class StartupException extends Exception {
 
     /**
      * Creates new <code>StartupException</code> without detail message.
