@@ -222,14 +222,14 @@ under the License.
         <tstamp>
             <format property="dateTime" pattern="yyyy-MM-dd HH:mm:ss"/>
         </tstamp>
-        <echo message=" - Release-revision : ${releasePath}-r${info.entry.commit(revision)},  ${uiLabelMap.CommonBuiltOn} ${dateTime} ${uiLabelMap.CommonWith} Java ${java.version}" file="runtime/svninfo.ftl"/>
+        <echo message=" - Release-revision : ${releasePath}-r${info.entry.commit(revision)},  ${uiLabelMap.CommonBuiltOn} ${dateTime} ${uiLabelMap.CommonWith} Java ${java.version}" file="runtime/SvnInfo.ftl"/>
         <delete file="runtime/svninfo_tmp.xml"/>
         <echo message="Done!"/>
     </target>
 
     <target name="clean-svninfo">
         <echo message="Resetting svninfo..."/>
-        <echo message=" " file="runtime/svninfo.ftl"/>
+        <echo message=" " file="runtime/SvnInfo.ftl"/>
         <echo message="Done!"/>
     </target>
     
@@ -249,13 +249,13 @@ under the License.
             <format property="dateTime" pattern="yyyy-MM-dd HH:mm:ss"/>
         </tstamp>        
         <echo message="Found Branch-revision: ${branch}-${revision}"/>
-        <echo message=" - Branch-revision: ${branch}-${revision}, ${uiLabelMap.CommonBuiltOn} ${dateTime} ${uiLabelMap.CommonWith} Java ${java.version}" file="runtime/gitinfo.ftl"/>
+        <echo message=" - Branch-revision: ${branch}-${revision}, ${uiLabelMap.CommonBuiltOn} ${dateTime} ${uiLabelMap.CommonWith} Java ${java.version}" file="runtime/GitInfo.ftl"/>
         <echo message="Done!"/>
     </target>
 
     <target name="clean-gitinfo">
         <echo message="Resetting gitinfo..."/>
-        <echo message=" " file="runtime/gitinfo.ftl"/>
+        <echo message=" " file="runtime/GitInfo.ftl"/>
         <echo message="Done!"/>
     </target>
 
