@@ -12,8 +12,8 @@ bin/
 ofbiz.jar
 changelog
 runtime/git-rebase/*
-runtime/svninfo.ftl
-runtime/gitinfo.ftl
+runtime/SvnInfo.ftl
+runtime/GitInfo.ftl
 runtime/test-list-build.xml
 runtime/logs/access_log.*
 runtime/logs/cobertura-base.dat
