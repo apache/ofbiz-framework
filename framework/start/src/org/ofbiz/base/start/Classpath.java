@@ -34,7 +34,7 @@ import java.util.StringTokenizer;
  * <p>You can build a class path by repeatedly calling the addXxx methods,
  * then use the getXxx methods to get the accumulated class path.</p>
  */
-public class Classpath {
+public final class Classpath {
 
     private static final String nativeLibExt = System.mapLibraryName("someLib").replace("someLib", "").toLowerCase();
     private List<File> elements = new ArrayList<File>();

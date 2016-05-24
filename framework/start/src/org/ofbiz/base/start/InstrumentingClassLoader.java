@@ -37,7 +37,7 @@ import java.util.zip.ZipOutputStream;
 /*
  * Instrumenting class loader. 
  */
-public final class InstrumentingClassLoader extends NativeLibClassLoader {
+final class InstrumentingClassLoader extends NativeLibClassLoader {
 
     private static final void copy(InputStream in, OutputStream out) throws IOException {
         byte[] buf = new byte[4096];
