@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entity-engine-transform-xml template="component://ecommerce/script/org/ofbiz/ecommerce/data/tree.ftl">
+<entity-engine-transform-xml template="component://ecommerce/template/data/Tree.ftl">
     <topic_tree>
         <topic id="9401">
             <child id="180000" type="content"/>

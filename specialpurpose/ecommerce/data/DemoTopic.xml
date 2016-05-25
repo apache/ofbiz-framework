@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entity-engine-transform-xml template="component://ecommerce/script/org/ofbiz/ecommerce/data/topic.ftl">
+<entity-engine-transform-xml template="component://ecommerce/template/data/Topic.ftl">
     <topics>
         <topic id="9401" name="WIDGETS.MAINTENANCE">
             <topic_heading>Maintenance</topic_heading>
