@@ -42,7 +42,6 @@ under the License.
                 <set field="activeApp" value="example" global="true"/>
                 <set field="applicationMenuName" value="ExampleAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/>
-                <!--set field="appheaderTemplate" value="component://example/webapp/AppHeader.ftl"/-->
                 <set field="applicationTitle" value="${uiLabelMap.ExampleApplication}" global="true"/>
             </actions>
             <widgets>
