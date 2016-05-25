@@ -42,7 +42,6 @@ under the License.
                 <set field="activeApp" value="birt" global="true"/>
                 <set field="applicationMenuName" value="BirtAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://birt/widget/birt/BirtMenus.xml" global="true"/>
-                <!--set field="appheaderTemplate" value="component://example/webapp/AppHeader.ftl"/-->
                 <set field="applicationTitle" value="${uiLabelMap.BirtExampleApplication}" global="true"/>
             </actions>
             <widgets>

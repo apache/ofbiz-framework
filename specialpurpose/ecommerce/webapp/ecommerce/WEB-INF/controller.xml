@@ -2029,18 +2029,6 @@ under the License.
     <view-map name="AddForumThread" page="component://ecommerce/widget/ForumScreens.xml#AddForumThread" type="screen"/>
     <view-map name="ViewForumMessage" type="screen" page="component://ecommerce/widget/ForumScreens.xml#ViewForumMessage"/>
 
-    <!-- TO BE REMOVED
-    <view-map name="showforumarticle" type="screen" page="component://ecommerce/widget/ForumScreens.xml#showforumarticle"/>
-    <view-map name="createforumarticle" type="screen" page="component://ecommerce/widget/ForumScreens.xml#createforumarticle"/>
-    <view-map name="editforumarticle" type="screen" page="component://ecommerce/widget/ForumScreens.xml#editforumarticle"/>
-    <view-map name="showforumresponse" type="screen" page="component://ecommerce/widget/ForumScreens.xml#showforumresponse"/>
-    <view-map name="createforumresponse" type="screen" page="component://ecommerce/widget/ForumScreens.xml#createforumresponse"/>
-    <view-map name="editforuminfo" type="screen" page="component://ecommerce/widget/ForumScreens.xml#editforuminfo"/>
-    <view-map name="editaddforumdata" type="screen" page="component://ecommerce/widget/ForumScreens.xml#editaddforumdata"/>
-    <view-map name="editaddimage" type="screen" page="component://ecommerce/widget/ForumScreens.xml#editaddimage"/>
-    <view-map name="mostrecent" type="screen" page="component://ecommerce/widget/ForumScreens.xml#mostrecent"/>
-    -->
-
     <!-- Quote Views -->
     <view-map name="ListQuotes" type="screen" page="component://ecommerce/widget/QuoteScreens.xml#ListQuotes"/>
     <view-map name="ViewQuote" type="screen" page="component://ecommerce/widget/QuoteScreens.xml#ViewQuote"/>
