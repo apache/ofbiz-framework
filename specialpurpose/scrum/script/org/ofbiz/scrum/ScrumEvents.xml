@@ -684,8 +684,7 @@
                 <!-- Check if there are duplicate value will reorder and change it -->
                 <set field="custRequestIndex" type="List"/>
                 <set field="custRequestIndexToSet" value="${groovy: import java.util.Set; new HashSet(custRequestIndexList);}"/>
-                <set field="custRequestIndexToList" from-field="custRequestIndexToSet" type="List"/>
-                <iterate entry="custRequestIndexMap" list="custRequestIndexToList">
+                <iterate entry="custRequestIndexMap" list="custRequestIndexToSet">
                     <set field="count" value="0" type="Integer"/>
                     <loop count="${custRequestListSize}" field="l">
                         <if-compare-field field="custRequestList[l].custSequenceNum" operator="equals" to-field="custRequestIndexMap" type="Integer">
