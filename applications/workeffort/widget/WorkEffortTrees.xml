@@ -20,7 +20,7 @@ under the License.
 
 <trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
-    <tree name="TreeWorkEffort" root-node-name="node-root" entity-name="WorkEffort" expand-collapse-request="ChildWorkEfforts?workEffortId=${workEffortId}"
+    <tree name="TreeWorkEffort" root-node-name="node-root" entity-name="WorkEffort"
         default-render-style="expand-collapse" default-wrap-style="treeWrapper">
         <node name="node-root"  entity-name="WorkEffort" >
             <entity-one entity-name="WorkEffort" value-field="workEffort"/>
