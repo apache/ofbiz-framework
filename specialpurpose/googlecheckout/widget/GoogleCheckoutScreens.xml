@@ -83,7 +83,7 @@
                 <not><if-empty field="merchantCalculations"/></not>
             </condition>
             <widgets>
-                <platform-specific><html><html-template location="component://googlecheckout/template/checkoutFlowSupport/merchantCaluclations.ftl"/></html></platform-specific>
+                    <platform-specific><html><html-template location="component://googlecheckout/template/checkoutFlowSupport/MerchantCalculations.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
