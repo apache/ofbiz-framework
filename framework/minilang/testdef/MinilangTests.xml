@@ -22,10 +22,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
-    <test-case case-name="IfRegexpTest">
-        <junit-test-suite class-name="org.ofbiz.minilang.method.ifops.test.IfRegexpTest"/>
-    </test-case>
-
     <test-case case-name="MiniLangUnitTests">
         <junit-test-suite class-name="org.ofbiz.minilang.test.MiniLangTests"/>
     </test-case>
