@@ -41,7 +41,7 @@ You can config on payment.properties
 
 merchantId=005040237
 merchantSubId=0
-merchantReturnURL=http://localhost:8080/ecommerce/control/idealNotify
+merchantReturnURL=https://localhost:8443/ecommerce/control/idealNotify
 acquirerURL=https://idealtest.secure-ing.com/ideal/iDeal
 acquirerTimeout=10
 expirationPeriod=PT1H
