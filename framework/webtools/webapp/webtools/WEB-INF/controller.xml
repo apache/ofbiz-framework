@@ -49,6 +49,7 @@ under the License.
         <response name="error" type="none"/>
     </request-map>
     <request-map uri="SOAPService">
+        <security https="false"/>
         <event type="soap"/>
         <response name="error" type="none"/>
         <response name="success" type="none"/>
