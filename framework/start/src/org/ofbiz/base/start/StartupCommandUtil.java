@@ -178,9 +178,6 @@ final class StartupCommandUtil {
         } catch (ParseException e) {
             throw new StartupException(e.getMessage());
         }
-        if(!commandLine.getArgList().isEmpty()) {
-            throw new StartupException("unrecognized options / properties: " + commandLine.getArgList());
-        }
         validateAllCommandArguments(commandLine);
         return mapCommonsCliOptionsToStartupCommands(commandLine);
     }
@@ -268,6 +265,10 @@ final class StartupCommandUtil {
     }
 
     private static final void validateAllCommandArguments(CommandLine commandLine) throws StartupException {
+        // Make sure no extra options are passed
+        if(!commandLine.getArgList().isEmpty()) {
+            throw new StartupException("unrecognized options / properties: " + commandLine.getArgList());
+        }
         // TEST_LIST validation
         if(commandLine.hasOption(StartupOption.TEST_LIST.getName())) {
             Properties optionProperties = commandLine.getOptionProperties(StartupOption.TEST_LIST.getName());
