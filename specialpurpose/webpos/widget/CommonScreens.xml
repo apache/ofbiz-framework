@@ -31,7 +31,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://webpos/widget/WebPosSetup.groovy"/>
+                <script location="component://webpos/webapp/webpos/WEB-INF/actions/WebPosSetup.groovy"/>
                 
                 <set field="layoutSettings.styleSheets[+0]" value="/webpos/images/webpos.css" global="true"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.WebPosCompanyName" global="true"/>
