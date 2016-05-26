@@ -515,7 +515,7 @@ under the License.
                     </or>
                 </and>
             </condition>
-            <link target="PaymentAcctgTransEntriesPdf">
+            <link target="PaymentAcctgTransEntriesPdf" link-type="anchor">
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
         </menu-item>
