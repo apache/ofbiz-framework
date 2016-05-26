@@ -167,7 +167,12 @@ under the License.
                         </tr>
                         <tr>
                            <td width='10%'>
-                              <select name="inventoryItemTypeId_o_${rowCount}" size="1" id="inventoryItemTypeId_o_${rowCount}" onchange="javascript:setInventoryItemStatus(this,${rowCount});">
+                             <#if product.inventoryItemTypeId?has_content>
+                               <input name="inventoryItemTypeId_o_${rowCount}" type="hidden" value="${product.inventoryItemTypeId}" />
+                               <#assign inventoryItemType = product.getRelatedOne("InventoryItemType", true)! />
+                                 ${inventoryItemType.description!}
+                             <#else>
+                               <select name="inventoryItemTypeId_o_${rowCount}" size="1" id="inventoryItemTypeId_o_${rowCount}" onchange="javascript:setInventoryItemStatus(this,${rowCount});">
                                  <#list inventoryItemTypes as nextInventoryItemType>
                                     <option value='${nextInventoryItemType.inventoryItemTypeId}'
                                  <#if (facility.defaultInventoryItemTypeId?has_content) && (nextInventoryItemType.inventoryItemTypeId == facility.defaultInventoryItemTypeId)>
@@ -175,7 +180,8 @@ under the License.
                                   </#if>
                                  >${nextInventoryItemType.get("description",locale)?default(nextInventoryItemType.inventoryItemTypeId)}</option>
                                  </#list>
-                              </select>
+                               </select>
+                             </#if>
                           </td>
                           <td width="35%">
                             <span class="label">${uiLabelMap.ProductInitialInventoryItemStatus}:</span>&nbsp;&nbsp;

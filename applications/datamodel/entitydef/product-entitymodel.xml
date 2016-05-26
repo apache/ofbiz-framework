@@ -2724,6 +2724,7 @@ under the License.
       <field name="originalImageUrl" type="url"></field>
       <field name="detailScreen" type="long-varchar"></field>
       <field name="inventoryMessage" type="description"></field>
+      <field name="inventoryItemTypeId" type="id"></field>
       <field name="requireInventory" type="indicator"></field>
       <field name="quantityUomId" type="id"></field>
       <field name="quantityIncluded" type="fixed-point"><description>If you have a six-pack of 12oz soda cans you would have quantityIncluded=12, quantityUomId=oz, piecesIncluded=6.</description></field> 
@@ -2831,6 +2832,10 @@ under the License.
       <relation type="one" fk-name="PROD_SHBX_TYPE" title="Default" rel-entity-name="ShipmentBoxType">
           <key-map field-name="defaultShipmentBoxTypeId" rel-field-name="shipmentBoxTypeId"/>
       </relation>
+      <relation type="one" fk-name="INV_ITEM_TYPE" rel-entity-name="InventoryItemType">
+          <key-map field-name="inventoryItemTypeId" rel-field-name="inventoryItemTypeId"/>
+      </relation>
+
     </entity>
     <entity entity-name="ProductAssoc"
             package-name="org.ofbiz.product.product"
