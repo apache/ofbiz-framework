@@ -122,6 +122,11 @@ under the License.
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="inventoryMessage" title="${uiLabelMap.ProductInventoryMessage}"><text size="20" maxlength="255"/></field>
+        <field name="inventoryItemTypeId" title="${uiLabelMap.ProductInventoryItemTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="InventoryItemType" key-field-name="inventoryItemTypeId"/>
+            </drop-down>
+        </field>
 
         <field name="lotIdFilledIn" title="${uiLabelMap.ProductLotId}">
             <drop-down allow-empty="false">
@@ -296,6 +301,7 @@ under the License.
             <field-group title="${uiLabelMap.CommonInventory}" collapsible="true" initially-collapsed="true">
                 <sort-field name="salesDiscWhenNotAvail"/>
                 <sort-field name="requirementMethodEnumId"/>
+                <sort-field name="inventoryItemTypeId"/>
                 <sort-field name="requireInventory"/>
                 <sort-field name="inventoryMessage"/>
                 <sort-field name="lotIdFilledIn"/>

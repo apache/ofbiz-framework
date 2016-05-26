@@ -131,6 +131,17 @@ public class ProductWorker {
         }
         return false;
     }
+    public static boolean isSerialized (Delegator delegator, String productId) {
+        try {
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
+            if (UtilValidate.isNotEmpty(product)) {
+                return "SERIALIZED_INV_ITEM".equals(product.getString("inventoryItemTypeId"));
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e.getMessage(), module);
+        }
+        return false;
+    }
 
     public static boolean taxApplies(GenericValue product) {
         String errMsg = "";

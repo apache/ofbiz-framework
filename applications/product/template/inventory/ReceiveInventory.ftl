@@ -137,6 +137,11 @@ under the License.
                 <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductInventoryItemType}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
+                  <#if product.inventoryItemTypeId?has_content>
+                    <input name="inventoryItemTypeId" type="hidden" value="${product.inventoryItemTypeId}" />
+                    <#assign inventoryItemType = product.getRelatedOne("InventoryItemType", true)! />
+                    ${inventoryItemType.description!}
+                  <#else>
                   <select name="inventoryItemTypeId" size="1">
                     <#list inventoryItemTypes as nextInventoryItemType>
                       <option value="${nextInventoryItemType.inventoryItemTypeId}"
@@ -146,8 +151,20 @@ under the License.
                       >${nextInventoryItemType.get("description",locale)?default(nextInventoryItemType.inventoryItemTypeId)}</option>
                     </#list>
                   </select>
+                  </#if>
                 </td>
               </tr>
+              <#assign isSeriazed = Static["org.ofbiz.product.product.ProductWorker"].isSerialized(delegator, product.productId)!/>
+              <#if isSeriazed?has_content>
+                <tr>
+                  <td width="14%">&nbsp;</td>
+                  <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductSerialNumber}</td>
+                  <td width="6%">&nbsp;</td>
+                  <td width="74%">
+                      <input type="text" name="serialNumber" value="${parameters.serialNumber!}" />
+                  </td>
+                </tr>
+              </#if>
               <tr>
                 <td colspan="4">&nbsp;</td>
               </tr>
@@ -437,6 +454,11 @@ under the License.
                         <tr>
                           <td width="45%">
                             ${uiLabelMap.ProductInventoryItemType} :&nbsp;
+                            <#if product.inventoryItemTypeId?has_content>
+                              <input name="inventoryItemTypeId_o_${rowCount}" type="hidden" value="${product.inventoryItemTypeId}" />
+                              <#assign inventoryItemType = product.getRelatedOne("InventoryItemType", true)! />
+                              ${inventoryItemType.description!}
+                            <#else>
                             <select name="inventoryItemTypeId_o_${rowCount}" size="1">
                               <#list inventoryItemTypes as nextInventoryItemType>
                               <option value="${nextInventoryItemType.inventoryItemTypeId}"
@@ -446,6 +468,7 @@ under the License.
                               >${nextInventoryItemType.get("description",locale)?default(nextInventoryItemType.inventoryItemTypeId)}</option>
                               </#list>
                             </select>
+                            </#if>
                           </td>
                           <td align="right">${uiLabelMap.ProductRejectionReason} :</td>
                           <td align="right">
@@ -461,13 +484,19 @@ under the License.
                             <input type="text" name="quantityRejected_o_${rowCount}" value="0" size="6"/>
                           </td>
                           <tr>
-                            <td>&nbsp;</td>
+                            <td width="45%">
+                              <#assign isSeriazed = Static["org.ofbiz.product.product.ProductWorker"].isSerialized(delegator, product.productId)!/>
+                              <#if isSeriazed?has_content>
+                                ${uiLabelMap.ProductSerialNumber} :&nbsp;
+                                <input type="text" name="serialNumber_o_${rowCount}" value="" />
+                            </#if>
+                            </td>
                             <#if !product.lotIdFilledIn?has_content || product.lotIdFilledIn != "Forbidden">
                               <td align="right">${uiLabelMap.ProductLotId}</td>
                               <td align="right">
                                 <input type="text" name="lotId_o_${rowCount}" size="20" />
                               </td>
-                            <#else />
+                            <#else>
                               <td align="right">&nbsp;</td>
                               <td align="right">&nbsp;</td>
                             </#if>
