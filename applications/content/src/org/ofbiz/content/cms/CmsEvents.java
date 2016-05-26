@@ -173,8 +173,6 @@ public class CmsEvents {
             Locale locale = UtilHttp.getLocale(request);
 
             // get the contentId/mapKey from URL
-            /* We use path aliases for everything anyway, so don't interpret the pathInfo as contentId.
-             * This makes 404 pages much faster.
             if (contentId == null) {
                 if (Debug.verboseOn()) Debug.logVerbose("Current PathInfo: " + pathInfo, module);
                 String[] pathSplit = pathInfo.split("/");
@@ -184,7 +182,7 @@ public class CmsEvents {
                     mapKey = pathSplit[1];
                 }
             }
-            */
+
 
             // verify the request content is associated with the current website
             int statusCode = -1;
