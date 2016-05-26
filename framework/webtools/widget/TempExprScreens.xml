@@ -99,7 +99,7 @@ under the License.
                     <decorator-section name="body">
                         <include-menu name="TempExprTabBar" location="component://webtools/widget/Menus.xml"/>
                         <platform-specific>
-                            <html><html-template location="component://webtools/template/tempexpr/tempExprMaint.ftl"/></html>
+                            <html><html-template location="component://webtools/template/tempexpr/TempExprMaint.ftl"/></html>
                         </platform-specific>
                         <section>
                             <condition>
