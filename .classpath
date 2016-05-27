@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="applications/content/lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/pdfbox-1.8.11.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/pdfbox-1.8.12.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jempbox-1.8.11.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/fontbox-1.8.11.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/poi-3.13-20150929.jar"/>

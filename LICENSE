@@ -39,7 +39,7 @@ framework/base/lib/log4j-core-2.3.jar
 framework/base/lib/log4j-nosql-2.3.jar
 framework/base/lib/log4j-slf4j-impl-2.3.jar
 framework/base/lib/nekohtml-1.9.16.jar
-framework/base/lib/pdfbox-1.8.11.jar
+framework/base/lib/pdfbox-1.8.12.jar
 framework/base/lib/resolver-2.9.1.jar
 framework/base/lib/serializer-2.9.1.jar
 framework/base/lib/shiro-core-1.2.3.jar
