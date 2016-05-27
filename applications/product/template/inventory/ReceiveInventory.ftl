@@ -154,8 +154,8 @@ under the License.
                   </#if>
                 </td>
               </tr>
-              <#assign isSeriazed = Static["org.ofbiz.product.product.ProductWorker"].isSerialized(delegator, product.productId)!/>
-              <#if isSeriazed?has_content>
+              <#assign isSerialized = Static["org.ofbiz.product.product.ProductWorker"].isSerialized(delegator, product.productId)!/>
+              <#if isSerialized?has_content>
                 <tr>
                   <td width="14%">&nbsp;</td>
                   <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductSerialNumber}</td>
@@ -485,8 +485,8 @@ under the License.
                           </td>
                           <tr>
                             <td width="45%">
-                              <#assign isSeriazed = Static["org.ofbiz.product.product.ProductWorker"].isSerialized(delegator, product.productId)!/>
-                              <#if isSeriazed?has_content>
+                              <#assign isSerialized = Static["org.ofbiz.product.product.ProductWorker"].isSerialized(delegator, product.productId)!/>
+                              <#if isSerialized?has_content>
                                 ${uiLabelMap.ProductSerialNumber} :&nbsp;
                                 <input type="text" name="serialNumber_o_${rowCount}" value="" />
                             </#if>
