@@ -44,7 +44,11 @@ under the License.
                 <option key="status"/>
             </radio>
         </field>
-        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button" image-location="/images/icons/magnifier.png"/></field>
+        <field name="searchButton"><submit/></field>
+        <field name="exportButton" position="2" widget-style="smallSubmit" title=" ">
+            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.CommonExport}"
+                       target="javascript: document.FindExamples.action='ListExampleExport'; document.FindExamples.submit();"/>
+        </field>
     </form>
 
     <form name="ListExamples" type="list" list-name="listIt" paginate-target="FindExample" default-entity-name="Example" separate-columns="true"
@@ -126,6 +130,11 @@ under the License.
         <field name="exampleId"><ignored/></field>
     </grid>
 
+    <form name="ListExampleExport" type="list" extends="ListExamples" extends-resource="component://example/widget/example/ExampleForms.xml" paginate="false">
+        <actions>
+            <call-parent-actions/>
+        </actions>
+    </form>
     <!-- Typically, this extended form wouldn't be necessary. The parent form (ListExamples) would
         have these attributes.
          For the Ajax example we want all example entities listed, so the we use the entity-condition

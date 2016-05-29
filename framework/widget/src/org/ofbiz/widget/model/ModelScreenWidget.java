@@ -1298,6 +1298,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
                         subWidgets.put("text", new HtmlWidget(modelScreen, childElement));
                     } else if ("csv".equals(childElement.getNodeName())) {
                         subWidgets.put("csv", new HtmlWidget(modelScreen, childElement));
+                    } else if ("xls".equals(childElement.getNodeName())) {
+                        subWidgets.put("xls", new HtmlWidget(modelScreen, childElement));
                     } else {
                         throw new IllegalArgumentException("Tag not supported under the platform-specific tag with name: " + childElement.getNodeName());
                     }

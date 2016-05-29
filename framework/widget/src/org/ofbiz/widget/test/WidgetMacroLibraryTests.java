@@ -101,6 +101,18 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         assertFalse("Csv Screen contains Macro on error : see " + screencsvUrl + " for more detail", screenOutString.contains("FreeMarker template error:"));
     }
 
+    public void testXlsMacroLibrary() throws Exception {
+        String screenxlsUrl = screenUrl.concat("Xls");
+        HttpClient http = initHttpClient();
+        http.setUrl(screenxlsUrl.concat(authentificationQuery));
+        String screenOutString = http.post();
+        assertNotNull("Response failed from ofbiz", screenOutString);
+        assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "application/vnd.ms-excel;charset=UTF-8", http.getResponseContentType());
+
+        //Test if a ftl macro error is present
+        assertFalse("Csv Screen contains Macro on error : see " + screenxlsUrl + " for more detail", screenOutString.contains("FreeMarker template error:"));
+    }
+
     public void testFopMacroLibrary() throws Exception {
         String screentextUrl = screenUrl.concat("Fop");
         HttpClient http = initHttpClient();
