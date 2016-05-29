@@ -32,7 +32,7 @@ FOR %%G IN (%BASE_LIB%\ant-*-ant-launcher.jar) DO SET LAUNCHER_JAR=%%G
 REM ECHO %LAUNCHER_JAR%
 IF [%LAUNCHER_JAR%] == [] (
   ECHO "Couldn't find ant-launcher.jar"
-) ELSE (      
+) ELSE (
   ECHO %JAVA% -jar "%LAUNCHER_JAR%" -lib "%ANT_LIB%" %1 %2 %3 %4 %5 %6
   %JAVA% -jar "%LAUNCHER_JAR%" -lib "%ANT_LIB%" %1 %2 %3 %4 %5 %6
 )
