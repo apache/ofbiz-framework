@@ -599,6 +599,13 @@ under the License.
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="xls">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="text">
         <xs:complexType>
             <xs:sequence>

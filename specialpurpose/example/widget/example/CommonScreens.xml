@@ -98,6 +98,9 @@ under the License.
                                                 <parameter param-name="exampleId"/>
                                                 <image url-mode="raw" src="${iconsLocation}/printer.png"/>
                                             </link>
+                                            <link target="ExampleReportXls" text="${uiLabelMap.CommonViewAsXls}" style="buttontext">
+                                                <parameter param-name="exampleId"/>
+                                            </link>
                                             <link target="ExampleReportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext" target-window="_blank">
                                                 <parameter param-name="exampleId"/>
                                                 <image url-mode="raw" src="${iconsLocation}/page_white_acrobat.png"/>
@@ -265,6 +268,9 @@ under the License.
 
     <screen name="SimpleDecorator">
         <section>
+            <actions>
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
                  <include-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml"/>
             </widgets>

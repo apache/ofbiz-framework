@@ -12556,6 +12556,10 @@
         <value xml:lang="fr">Voir en xml</value>
         <value xml:lang="zh">按XML格式浏览</value>
     </property>
+    <property key="CommonViewAsXls">
+        <value xml:lang="en">View as spreadsheet</value>
+        <value xml:lang="fr">Voir en tableur</value>
+    </property>
     <property key="CommonViewBlocked">
         <value xml:lang="ar">تم حظر الدخول على هذه الصفحة</value>
         <value xml:lang="de">Zugriff auf diese Sicht wurde blockiert.</value>

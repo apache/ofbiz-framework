@@ -353,6 +353,9 @@ under the License.
         <menu-item name="Csv" title="${uiLabelMap.CommonViewAsCsv}">
             <link target="${demoTargetUrl}Csv" target-window="_blank"/>
         </menu-item>
+        <menu-item name="Xls" title="${uiLabelMap.CommonViewAsXls}">
+            <link target="${demoTargetUrl}Xls" target-window="_blank"/>
+        </menu-item>
     </menu>
 
 </menus>

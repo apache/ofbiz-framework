@@ -64,6 +64,31 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ListExampleExport">
+        <section>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                            </condition>
+                            <actions>
+                                <set field="exampleCtx" from-field="parameters"/>
+                            </actions>
+                            <widgets>
+                                <include-form name="ListExampleExport" location="component://example/widget/example/ExampleForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="EditExampleLayer">
         <section>
             <actions>

@@ -49,7 +49,9 @@ under the License.
     <request-map uri="EditExample"><security https="true" auth="true"/><response name="success" type="view" value="EditExample"/></request-map>
     <request-map uri="EditExampleLayer"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleLayer"/></request-map>
     <request-map uri="ExampleReportHtml"><security https="true" auth="true"/><response name="success" type="view" value="ExampleReportHtml"/></request-map>
+    <request-map uri="ExampleReportXls"><security https="true" auth="true"/><response name="success" type="view" value="ExampleReportXls"/></request-map>
     <request-map uri="ExampleReportPdf"><security https="true" auth="true"/><response name="success" type="view" value="ExampleReportPdf"/></request-map>
+    <request-map uri="ListExampleExport"><security https="true" auth="true"/><response name="success" type="view" value="ListExampleExport"/></request-map>
     <request-map uri="createExample">
         <security https="true" auth="true"/>
         <event type="service" invoke="createExample"/>
@@ -248,7 +250,9 @@ under the License.
     <view-map name="EditExampleLayer" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExampleLayer"/>
     <view-map name="EditExampleItems" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExampleItems"/>
     <view-map name="EditExampleFeatureAppls" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExampleFeatureAppls"/>
+    <view-map name="ListExampleExport" type="screenxls" page="component://example/widget/example/ExampleScreens.xml#ListExampleExport" content-type="application/vnd.ms-excel"/>
     <view-map name="ExampleReportHtml" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleReport"/>
+    <view-map name="ExampleReportXls" type="screenxls" page="component://example/widget/example/ExampleScreens.xml#ExampleReport"/>
     <view-map name="ExampleReportPdf" type="screenfop" page="component://example/widget/example/ExampleScreens.xml#ExampleReport" content-type="application/pdf" encoding="none"/>
     <view-map name="ExampleReportPdfBarcode" type="screenfop" page="component://example/widget/example/ExampleScreens.xml#ExampleReportPdfBarcode" content-type="application/pdf" encoding="none"/>
 

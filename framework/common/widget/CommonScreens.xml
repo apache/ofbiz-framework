@@ -488,6 +488,7 @@ under the License.
                     <xml><html-template location="component://common/template/includes/MinimalDecorator.ftl"/></xml>
                     <text><html-template location="component://common/template/includes/MinimalDecorator.ftl"/></text>
                     <csv><html-template location="component://common/template/includes/MinimalDecorator.ftl"/></csv>
+                    <xls><html-template location="component://common/template/includes/Simple.xls.ftl"/></xls>
                 </platform-specific>
             </widgets>
         </section>
