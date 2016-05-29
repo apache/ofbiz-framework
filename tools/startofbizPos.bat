@@ -1,4 +1,4 @@
-echo off
+@echo off
 rem #####################################################################
 rem Licensed to the Apache Software Foundation (ASF) under one
 rem or more contributor license agreements.  See the NOTICE file
@@ -59,4 +59,3 @@ echo on
 echo off
 rem ### If you would prefer the console output to be logged rather than displayed switch out the above line for this one
 rem "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -jar ofbiz.jar > runtime\logs\console.log
- 
