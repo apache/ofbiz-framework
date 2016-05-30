@@ -33,7 +33,7 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/BiSecurityPermissionSeedData.xml"/>
     
     <!-- seed-initial data -->
-    <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/BiSystemPropertyData.xm"/>
+    <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/BiSystemPropertyData.xml"/>
     
     <!-- demo data -->
     <entity-resource type="data" reader-name="demo" loader="main" location="data/BiSecurityGroupDemoData.xml"/>
