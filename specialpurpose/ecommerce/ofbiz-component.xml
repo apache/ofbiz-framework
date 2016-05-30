@@ -26,7 +26,7 @@ under the License.
     <classpath type="dir" location="config"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/EcommerceTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/EcommerceSecurityData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/EcommerceSystemProperty.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/EcommerceSystemPropertyData.xml"/>
     
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProduct.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoSurvey.xml"/>
