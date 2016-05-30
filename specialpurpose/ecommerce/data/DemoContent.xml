@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entity-engine-transform-xml template="component://ecommerce/script/org/ofbiz/ecommerce/data/content.ftl">
+<entity-engine-transform-xml template="component://ecommerce/template/data/Content.ftl">
     <contents>
         <content id="180000" name="rocketoperation" type="text/xml">
             <content_heading>Maintenance</content_heading>
