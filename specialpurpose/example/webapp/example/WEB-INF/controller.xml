@@ -252,7 +252,7 @@ under the License.
     <view-map name="EditExampleFeatureAppls" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExampleFeatureAppls"/>
     <view-map name="ListExampleExport" type="screenxls" page="component://example/widget/example/ExampleScreens.xml#ListExampleExport" content-type="application/vnd.ms-excel"/>
     <view-map name="ExampleReportHtml" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleReport"/>
-    <view-map name="ExampleReportXls" type="screenxls" page="component://example/widget/example/ExampleScreens.xml#ExampleReport"/>
+    <view-map name="ExampleReportXls" type="screenxls" page="component://example/widget/example/ExampleScreens.xml#ExampleReport" content-type="application/vnd.ms-excel"/>
     <view-map name="ExampleReportPdf" type="screenfop" page="component://example/widget/example/ExampleScreens.xml#ExampleReport" content-type="application/pdf" encoding="none"/>
     <view-map name="ExampleReportPdfBarcode" type="screenfop" page="component://example/widget/example/ExampleScreens.xml#ExampleReportPdfBarcode" content-type="application/pdf" encoding="none"/>
 
