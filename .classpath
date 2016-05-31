@@ -16,7 +16,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/batik-all-1.8.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/clhm-release-1.0-lru.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/esapi-2.1.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/fop-2.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/fop-2.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.24.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/guava-14.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/hamcrest-all-1.2.jar"/>
@@ -51,7 +51,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/ws-commons-util-1.0.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xalan-2.7.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xercesImpl-2.11.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/xmlgraphics-commons-2.0.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/xmlgraphics-commons-2.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xmlrpc-client-3.1.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xmlrpc-common-3.1.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xmlrpc-server-3.1.2.jar"/>
