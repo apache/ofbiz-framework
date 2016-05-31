@@ -19,6 +19,7 @@
 package org.ofbiz.minilang.method.otherops;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
@@ -50,7 +51,7 @@ public final class Log extends MethodOperation {
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         this.messageFse = FlexibleStringExpander.getInstance(element.getAttribute("message"));
-        String levelAttribute = element.getAttribute("level");
+        String levelAttribute = UtilXml.getAttributeValueIgnorePrefix(element, "level");
         if (levelAttribute.length() == 0) {
             levelAttribute = "info";
         }

@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.widget.renderer.FormStringRenderer;
 import org.w3c.dom.Element;
 
@@ -135,7 +136,7 @@ public abstract class FieldInfo {
     /** XML Constructor */
     protected FieldInfo(Element element, ModelFormField modelFormField) {
         this.fieldSource = FieldInfo.SOURCE_EXPLICIT;
-        this.fieldType = findFieldTypeFromName(element.getTagName());
+        this.fieldType = findFieldTypeFromName(UtilXml.getTagNameIgnorePrefix(element));
         this.modelFormField = modelFormField;
     }
 
