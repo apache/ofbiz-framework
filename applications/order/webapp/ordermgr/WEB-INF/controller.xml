@@ -1449,13 +1449,20 @@ under the License.
         <response name="success" type="view" value="EditQuote"/>
         <response name="error" type="view" value="EditQuote"/>
     </request-map>
-
-    <request-map uri="ListQuoteRoles"><security https="true" auth="true"/><response name="success" type="view" value="ListQuoteRoles"/></request-map>
-    <request-map uri="EditQuoteRole"><security https="true" auth="true"/><response name="success" type="view" value="EditQuoteRole"/></request-map>
+    <request-map uri="ListQuoteRoles">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListQuoteRoles"/>
+    </request-map>
+    <request-map uri="EditQuoteRole">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditQuoteRole"/>
+    </request-map>
     <request-map uri="createQuoteRole">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createQuoteRole"/>
-        <response name="success" type="view" value="EditQuoteRole"/>
+        <response name="success" type="request-redirect" value="ListQuoteRoles">
+            <redirect-parameter name="quoteId"/>
+        </response>
         <response name="error" type="view" value="EditQuoteRole"/>
     </request-map>
     <request-map uri="removeQuoteRole">

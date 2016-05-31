@@ -8177,6 +8177,9 @@
         <value xml:lang="zh-CN">价格成本</value>
         <value xml:lang="zh-TW">成本到價格</value>
     </property>
+    <property key="OrderOrderQuoteCreatedSuccessfully">
+        <value xml:lang="en">Quote Created Successfully</value>
+    </property>
     <property key="OrderOrderQuoteDefaultUnitPrice">
         <value xml:lang="ar">سعر الوحدة الإفتراضي</value>
         <value xml:lang="de">Standard Stückpreis</value>
@@ -8753,6 +8756,9 @@
         <value xml:lang="vi">Báo cáo</value>
         <value xml:lang="zh">询价报告</value>
         <value xml:lang="zh-TW">報價報表</value>
+    </property>
+    <property key="OrderOrderQuoteRoleAddedSuccessfully">
+        <value xml:lang="en">Quote Role Added Successfully.</value>
     </property>
     <property key="OrderOrderQuoteRoles">
         <value xml:lang="ar">أدوار عرض السعر</value>
