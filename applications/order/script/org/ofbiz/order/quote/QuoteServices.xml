@@ -143,8 +143,9 @@ under the License.
             <set from-field="newEntity.quoteId" field="takerMap.quoteId"/>
             <set from-field="userLogin.partyId" field="takerMap.partyId"/>
             <set value="REQ_TAKER" field="takerMap.roleTypeId"/>
-            <call-service service-name="createQuoteRole" in-map-name="takerMap"/>
+            <call-service service-name="createQuoteRole" in-map-name="takerMap" />
         </if-compare-field>
+        <property-to-field resource="OrderUiLabels" property="OrderOrderQuoteCreatedSuccessfully" field="successMessage"/>
         
         <!-- Set ProductStore's payToPartyId as internal organisation for quote -->
         <if-not-empty field="productStore.payToPartyId">
@@ -305,6 +306,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="QuoteRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
+        <property-to-field resource="OrderUiLabels" property="OrderOrderQuoteRoleAddedSuccessfully" field="successMessage"/>
         <check-errors/>
     </simple-method>
 
