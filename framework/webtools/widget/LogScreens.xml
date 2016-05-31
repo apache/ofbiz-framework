@@ -123,4 +123,26 @@ under the License.
              </widgets>
          </section>
      </screen>
+
+     <screen name="FetchLogs">
+         <section>
+             <actions>
+                 <set field="titleProperty" value="PageTitleFetchLogs"/>
+                 <set field="tabButtonItem" value="fetchLogs"/>
+                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/log/FetchLogs.groovy"/>
+             </actions>
+             <widgets>
+                 <decorator-screen name="log-decorator">
+                     <decorator-section name="body">
+                         <screenlet>
+                             <platform-specific>
+                                 <html><html-template location="component://webtools/template/log/FetchLogs.ftl"/></html>
+                             </platform-specific>
+                         </screenlet>
+                     </decorator-section>
+                 </decorator-screen>
+             </widgets>
+         </section>
+     </screen>
+
  </screens>

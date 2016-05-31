@@ -127,6 +127,9 @@ under the License.
         <menu-item name="logView" title="${uiLabelMap.WebtoolsViewLog}">
             <link target="LogView"/>
         </menu-item>
+        <menu-item name="fetchLogs" title="${uiLabelMap.WebtoolsFetchLogs}">
+            <link target="FetchLogs"/>
+        </menu-item>
         <menu-item name="serviceLog" title="${uiLabelMap.WebtoolsServiceLog}">
             <link target="ServiceLog"/>
         </menu-item>

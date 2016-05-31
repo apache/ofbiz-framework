@@ -10232,6 +10232,9 @@
         <value xml:lang="zh-CN">任何</value>
         <value xml:lang="zh-TW">任何</value>
     </property>
+    <property key="CommonSelectFile">
+        <value xml:lang="en">Select File</value>
+    </property>
     <property key="CommonSelectOne">
         <value xml:lang="ar">إختر واحد</value>
         <value xml:lang="cs">Vyberte jeden</value>
