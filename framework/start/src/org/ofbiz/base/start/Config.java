@@ -44,8 +44,6 @@ public final class Config {
     public final int portOffset;
     public final int adminPort;
     public final String containerConfig;
-    public final String instrumenterClassName;
-    public final String instrumenterFile;
     public final List<Map<String, String>> loaders;
     public final String logDir;
     public final boolean shutdownAfterLoad;
@@ -72,8 +70,6 @@ public final class Config {
         portOffset = getPortOffsetValue(ofbizCommands);
         adminPort = getAdminPort(props, portOffset);
         containerConfig = getAbsolutePath(props, "ofbiz.container.config", "framework/base/config/ofbiz-containers.xml", ofbizHome);
-        instrumenterClassName = getProperty(props, "ofbiz.instrumenterClassName", null);
-        instrumenterFile = getProperty(props, "ofbiz.instrumenterFile", null);
         loaders = getLoaders(props);
         logDir = getAbsolutePath(props, "ofbiz.log.dir", "runtime/logs", ofbizHome);
         shutdownAfterLoad = isShutdownAfterLoad(props);

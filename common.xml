@@ -115,7 +115,6 @@ under the License.
                     <pathelement location="@{build.jar}"/>
                     <pathelement location="@{build-test.jar}"/>
                 </classpath>
-                <sysproperty key="net.sourceforge.cobertura.datafile" file="${build.dir}/test-results/cobertura.dat" />
                 <sysproperty key="ofbiz.home" value="${ofbiz.home.dir}"/>
                 <formatter usefile="false" type="plain"/>
                 <batchtest>
@@ -127,31 +126,6 @@ under the License.
 
     <target name="tests" depends="jar">
         <run-junit/>
-    </target>
-
-    <patternset id="cobertura-src-dirs">
-        <include name="src"/>
-    </patternset>
-
-    <target name="tests-cobertura" depends="jar">
-        <mkdir dir="${build.dir}/cobertura-lib"/>
-        <taskdef resource="tasks.properties" classpathref="cobertura.class.path"/>
-        <delete file="${build.dir}/test-results/cobertura.dat"/>
-        <cobertura-instrument datafile="${build.dir}/test-results/cobertura.dat" todir="${build.dir}/cobertura-lib">
-            <fileset dir="${build.dir}/lib">
-                <include name="*.jar"/>
-            </fileset>
-        </cobertura-instrument>
-        <run-junit build.jar="${build.dir}/cobertura-lib/${name}.jar" build-test.jar="${build.dir}/cobertura-lib/${name}-test.jar"/>
-        <delete dir="${build.dir}/test-results/cobertura-report"/>
-        <mkdir dir="${build.dir}/test-results/cobertura-report"/>
-        <cobertura-report datafile="${build.dir}/test-results/cobertura.dat" destdir="${build.dir}/test-results/cobertura-report">
-            <dirset dir=".">
-                <patternset refid="cobertura-src-dirs"/>
-            </dirset>
-
-            <include name="**/*.java"/>
-        </cobertura-report>
     </target>
 
     <target name="all" depends="jar,docs"/>

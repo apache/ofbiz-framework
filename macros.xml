@@ -57,12 +57,6 @@ under the License.
   <fileset dir="${ofbiz.home.dir}/framework/base/lib/scripting/" includes="*.jar"/>
   <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-apache-bsf-1.7.1.jar"/>
  </path>
- <path id="cobertura.class.path">
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/cobertura-1.9.4.1.jar" />
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/log4j-1.2.17.jar" />
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/asm-3.2.jar" />
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/jakarta-oro-2.0.8.jar" />
- </path>
  <path id="local.class.path"/>
  <presetdef name="default-javac">
   <javac debug="on" deprecation="on" destdir="${build.dir}/classes" srcdir="${src.dir}" classpathref="local.class.path">

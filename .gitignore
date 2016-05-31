@@ -1,6 +1,5 @@
 applications/*/build
 framework/*/build
-framework/base/lib/cobertura-*.jar
 framework/base/lib/asm*.jar
 framework/base/lib/oro*.jar
 framework/entity/lib/jdbc/*.jar
@@ -16,9 +15,6 @@ runtime/SvnInfo.ftl
 runtime/GitInfo.ftl
 runtime/test-list-build.xml
 runtime/logs/access_log.*
-runtime/logs/cobertura-base.dat
-runtime/logs/cobertura-components.dat
-runtime/logs/cobertura-report
 runtime/logs/*.log*
 runtime/logs/*.html*
 runtime/logs/test-results/*
