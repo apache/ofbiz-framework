@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns="http://ofbiz.apache.org/Widget-Menu" targetNamespace="http://ofbiz.apache.org/Widget-Menu">
+    <xs:include schemaLocation="http://ofbiz.apache.org/dtds/widget-common.xsd" />
+    <xs:element name="menus">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="menu"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="menu">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="actions" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="menu-item" />
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name" use="required" />
+            <xs:attribute name="type" default="simple">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="simple" />
+                        <xs:enumeration value="cascade" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="id" />
+            <xs:attribute type="xs:string" name="title" />
+            <xs:attribute type="xs:string" name="tooltip" />
+            <xs:attribute type="xs:string" name="default-entity-name" />
+            <xs:attribute type="xs:string" name="default-title-style" />
+            <xs:attribute type="xs:string" name="default-widget-style" />
+            <xs:attribute type="xs:string" name="default-tooltip-style" />
+            <xs:attribute type="xs:string" name="default-selected-style" />
+            <xs:attribute type="xs:string" name="default-align-style" />
+            <xs:attribute type="xs:string" name="extra-index" />
+            <xs:attribute name="orientation" default="horizontal">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="vertical" />
+                        <xs:enumeration value="horizontal" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="extends" />
+            <xs:attribute type="xs:string" name="extends-resource" />
+            <xs:attribute type="xs:string" name="default-menu-item-name" />
+            <xs:attribute type="xs:string" name="default-associated-content-id" />
+            <xs:attribute name="default-hide-if-selected" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="menu-width" />
+            <xs:attribute type="xs:string" name="default-cell-width" />
+            <xs:attribute type="xs:string" name="default-disabled-title-style" />
+            <xs:attribute type="xs:string" name="selected-menuitem-context-field-name" />
+            <xs:attribute type="xs:string" name="menu-container-style">
+                <xs:annotation>
+                    <xs:documentation>The style of the container that encloses the menu items. This
+                    attribute is ignored when the id attribute is not empty.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="default-align" default="left">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="left" />
+                        <xs:enumeration value="right" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="fill-style" />
+            <xs:attribute type="xs:string" name="default-permission-operation" />
+            <xs:attribute type="xs:string" name="default-permission-entity-action" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="menu-item">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="condition" minOccurs="0">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="ConditionRootType">
+                                <xs:attribute type="xs:string" name="pass-style">
+                                    <xs:annotation>
+                                        <xs:documentation>
+                                            If a pass-style provided and the condition passes, the widget-style of
+                                            the parent menu-item is set with the pass-style. If no pass-style is given,
+                                            the widget-style is not changed.
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute type="xs:string" name="disabled-style">
+                                    <xs:annotation>
+                                        <xs:documentation>
+                                            If a disabled-style provided and the condition fails, the disabled-style of
+                                            the parent menu-item is set with the disabled-style and processing is allowed to continue.
+                                            If no disabled-style is given, the widget-style is not changed and the menu-item is not rendered.
+                                        </xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" ref="actions" />
+                <xs:element minOccurs="0" ref="link" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="menu-item" />
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name" use="required" />
+            <xs:attribute type="xs:string" name="title" />
+            <xs:attribute type="xs:string" name="parent-portal-page-value">
+                <xs:annotation>
+                    <xs:documentation>an expanded value of the parentPortalPageId in the Portal entity, will insert buttons using the portalId as the menuitem name portalPageName as the buttom title</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="tooltip" />
+            <xs:attribute type="xs:string" name="title-style" />
+            <xs:attribute type="xs:string" name="widget-style" />
+            <xs:attribute type="xs:string" name="align-style" />
+            <xs:attribute type="xs:string" name="tooltip-style" />
+            <xs:attribute type="xs:string" name="selected-style" />
+            <xs:attribute type="xs:string" name="position" default="1" />
+            <xs:attribute type="xs:string" name="associated-content-id" />
+            <xs:attribute type="xs:string" name="hide-if-selected" />
+            <xs:attribute type="xs:string" name="cell-width" />
+            <xs:attribute type="xs:string" name="disable-if-empty" />
+            <xs:attribute type="xs:string" name="disabled-title-style" />
+            <xs:attribute type="xs:string" name="target-window" />
+            <xs:attribute type="xs:string" name="sub-menu" />
+            <xs:attribute name="align">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="left" />
+                        <xs:enumeration value="right" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="link" type="link"/>
+
+    <xs:element name="actions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="AllActions"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="entity-and" substitutionGroup="AllActions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="field-map" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by" />
+                <xs:choice minOccurs="0">
+                    <xs:element ref="limit-range" />
+                    <xs:element ref="limit-view" />
+                    <xs:element ref="use-iterator" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="entity-name" use="required" />
+            <xs:attribute name="use-cache" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="filter-by-date" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                        <xs:enumeration value="by-name" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="list" use="required" />
+            <xs:attribute name="result-set-type" default="scroll">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="forward" />
+                        <xs:enumeration value="scroll" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="entity-condition" substitutionGroup="AllActions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0">
+                    <xs:element ref="condition-expr" />
+                    <xs:element ref="condition-list" />
+                    <xs:element ref="condition-object" />
+                </xs:choice>
+                <xs:element minOccurs="0" ref="having-condition-list" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by" />
+                <xs:choice minOccurs="0">
+                    <xs:element ref="limit-range" />
+                    <xs:element ref="limit-view" />
+                    <xs:element ref="use-iterator" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="entity-name" use="required" />
+            <xs:attribute name="use-cache" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="filter-by-date" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                        <xs:enumeration value="by-name" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="distinct" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="delegator-name" />
+            <xs:attribute type="xs:string" name="list" use="required" />
+            <xs:attribute name="result-set-type" default="scroll">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="forward" />
+                        <xs:enumeration value="scroll" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

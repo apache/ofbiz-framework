@@ -91,25 +91,26 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
      * @return A new <code>ModelAction</code> instance
      */
     public static ModelAction newInstance(ModelWidget modelWidget, Element actionElement) {
-        if ("set".equals(actionElement.getNodeName())) {
+        String nodeName = UtilXml.getNodeNameIgnorePrefix(actionElement);
+        if ("set".equals(nodeName)) {
             return new SetField(modelWidget, actionElement);
-        } else if ("property-map".equals(actionElement.getNodeName())) {
+        } else if ("property-map".equals(nodeName)) {
             return new PropertyMap(modelWidget, actionElement);
-        } else if ("property-to-field".equals(actionElement.getNodeName())) {
+        } else if ("property-to-field".equals(nodeName)) {
             return new PropertyToField(modelWidget, actionElement);
-        } else if ("script".equals(actionElement.getNodeName())) {
+        } else if ("script".equals(nodeName)) {
             return new Script(modelWidget, actionElement);
-        } else if ("service".equals(actionElement.getNodeName())) {
+        } else if ("service".equals(nodeName)) {
             return new Service(modelWidget, actionElement);
-        } else if ("entity-one".equals(actionElement.getNodeName())) {
+        } else if ("entity-one".equals(nodeName)) {
             return new EntityOne(modelWidget, actionElement);
-        } else if ("entity-and".equals(actionElement.getNodeName())) {
+        } else if ("entity-and".equals(nodeName)) {
             return new EntityAnd(modelWidget, actionElement);
-        } else if ("entity-condition".equals(actionElement.getNodeName())) {
+        } else if ("entity-condition".equals(nodeName)) {
             return new EntityCondition(modelWidget, actionElement);
-        } else if ("get-related-one".equals(actionElement.getNodeName())) {
+        } else if ("get-related-one".equals(nodeName)) {
             return new GetRelatedOne(modelWidget, actionElement);
-        } else if ("get-related".equals(actionElement.getNodeName())) {
+        } else if ("get-related".equals(nodeName)) {
             return new GetRelated(modelWidget, actionElement);
         } else {
             throw new IllegalArgumentException("Action element not supported with name: " + actionElement.getNodeName());

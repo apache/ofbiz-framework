@@ -1,14 +1,29 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           elementFormDefault="qualified">
+<xs:schema 
+    xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+    xmlns:sm="http://ofbiz.apache.org/Simple-Method"
+    xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+    xmlns:wt="http://ofbiz.apache.org/Widget-Tree"
+    xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+    xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified">
+    
+    <xs:import schemaLocation="../../webapp/dtd/site-conf-ns.xsd" namespace="http://ofbiz.apache.org/Site-Conf"/>
+    <xs:import schemaLocation="widget-menu-ns.xsd" namespace="http://ofbiz.apache.org/Widget-Menu"/>
+    <xs:import schemaLocation="widget-screen-ns.xsd" namespace="http://ofbiz.apache.org/Widget-Screen"/>
+    <xs:import schemaLocation="widget-form-ns.xsd" namespace="http://ofbiz.apache.org/Widget-Form"/>
+    <xs:import schemaLocation="widget-tree-ns.xsd" namespace="http://ofbiz.apache.org/Widget-Tree"/>
+    <xs:import schemaLocation="../../minilang/dtd/simple-methods-ns.xsd" namespace="http://ofbiz.apache.org/Simple-Method"/>
+    
     <xs:element name="compound-widgets">
         <xs:complexType>
             <xs:all minOccurs="0" maxOccurs="1">
-                <xs:element name="site-conf"/>
-                <xs:element name="menus" minOccurs="0" maxOccurs="1"/>
-                <xs:element name="screens"/>
-                <xs:element name="trees" minOccurs="0" maxOccurs="1"/>
-                <xs:element name="forms"/>
-                <xs:element name="simple-methods"/>
+                <xs:element ref="sc:site-conf"/>
+                <xs:element ref="wm:menus" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="ws:screens"/>
+                <xs:element ref="wt:trees" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="wf:forms"/>
+                <xs:element ref="sm:simple-methods"/>
             </xs:all>
         </xs:complexType>
     </xs:element>

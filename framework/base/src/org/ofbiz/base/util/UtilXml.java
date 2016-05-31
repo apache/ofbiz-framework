@@ -59,6 +59,7 @@ import org.w3c.dom.DOMConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
@@ -690,10 +691,10 @@ public class UtilXml {
 
         if (node != null) {
             do {
+                String nodeName = UtilXml.getNodeNameIgnorePrefix(node);
                 if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
-                        childElementName.equals(node.getNodeName()))) {
+                    childElementName.equals(nodeName))) {
                     Element childElement = (Element) node;
-
                     elements.add(childElement);
                 }
             } while ((node = node.getNextSibling()) != null);
@@ -814,8 +815,12 @@ public class UtilXml {
 
         if (node != null) {
             do {
+                String nodeName = node.getLocalName();
+                if (nodeName == null){
+                    nodeName = UtilXml.getNodeNameIgnorePrefix(node);
+                }
                 if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
-                        childElementName.equals(node.getLocalName() != null ? node.getLocalName() : node.getNodeName()))) {
+                    childElementName.equals(nodeName))) {
                     Element childElement = (Element) node;
                     return childElement;
                 }
@@ -1146,6 +1151,60 @@ public class UtilXml {
         public Object unmarshal(HierarchicalStreamReader arg0, UnmarshallingContext arg1) {
             throw new UnsupportedOperationException();
         }
+    }
+    
+    /**
+     * get node name without any prefix
+     * @param node
+     * @return
+     */
+    public static String getNodeNameIgnorePrefix(Node node){
+        if (node==null) return null;
+        String nodeName = node.getNodeName();
+        if (nodeName.contains(":")){
+            // remove any possible prefix
+            nodeName = nodeName.split(":")[1];
+        }
+        return nodeName;
+    }
+    
+    /**
+     * get tag name without any prefix
+     * @param node
+     * @return
+     */
+    public static String getTagNameIgnorePrefix(Element element){
+        if (element==null) return null;
+        String tagName = element.getTagName();
+        if (tagName.contains(":")){
+            // remove any possible prefix
+            tagName = tagName.split(":")[1];
+        }
+        return tagName;
+    }
+    
+    /**
+     * get attribute value ignoring prefix in attribute name
+     * @param node
+     * @return
+     */
+    public static String getAttributeValueIgnorePrefix(Element element, String attributeName){
+        if (element==null) return "";
+        
+        NamedNodeMap attributes = element.getAttributes();
+        if (attributes != null){
+            for (int i = 0, size = attributes.getLength(); i < size; i++)
+            {
+                Node node = attributes.item(i);
+                if (node.getNodeType() == Node.ATTRIBUTE_NODE){
+                    String nodeName = UtilXml.getNodeNameIgnorePrefix(node);
+                    if (nodeName.equals(attributeName)){
+                        return node.getNodeValue();
+                    }
+                }
+            }
+        }
+        return "";
     }
 
 }

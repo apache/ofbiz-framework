@@ -165,7 +165,7 @@ public class ModelFormFieldBuilder {
         Element childElement = null;
         List<? extends Element> subElements = UtilXml.childElementList(fieldElement);
         for (Element subElement : subElements) {
-            String subElementName = subElement.getTagName();
+            String subElementName = UtilXml.getTagNameIgnorePrefix(subElement);
             if ("on-field-event-update-area".equals(subElementName)) {
                 UpdateArea updateArea = new UpdateArea(subElement);
                 if ("change".equals(updateArea.getEventType()))

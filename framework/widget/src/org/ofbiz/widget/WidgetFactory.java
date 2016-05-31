@@ -29,6 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.widget.model.IterateSectionWidget;
 import org.ofbiz.widget.model.ModelScreen;
 import org.ofbiz.widget.model.ModelScreenWidget;
@@ -69,9 +70,10 @@ public class WidgetFactory {
      */
     public static ModelScreenWidget getModelScreenWidget(ModelScreen modelScreen, Element element) {
         Assert.notNull("modelScreen", modelScreen, "element", element);
-        Constructor<? extends ModelScreenWidget> widgetConst = screenWidgets.get(element.getTagName());
+        String tagName = UtilXml.getTagNameIgnorePrefix(element);
+        Constructor<? extends ModelScreenWidget> widgetConst = screenWidgets.get(tagName);
         if (widgetConst == null) {
-            throw new IllegalArgumentException("ModelScreenWidget class not found for element " + element.getTagName());
+            throw new IllegalArgumentException("ModelScreenWidget class not found for element " + tagName);
         }
         try {
             return widgetConst.newInstance(modelScreen, element);

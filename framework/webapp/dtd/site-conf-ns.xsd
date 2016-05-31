@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns="http://ofbiz.apache.org/Site-Conf" targetNamespace="http://ofbiz.apache.org/Site-Conf">
+    <xs:element name="site-conf">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="include"/>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element minOccurs="0" ref="owner"/>
+                <xs:element minOccurs="0" ref="errorpage"/>
+                <xs:element minOccurs="0" ref="status-code"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="handler"/>
+                <xs:element minOccurs="0" ref="protect"/>
+                <xs:element minOccurs="0" ref="firstvisit"/>
+                <xs:element minOccurs="0" ref="preprocessor"/>
+                <xs:element minOccurs="0" ref="postprocessor"/>
+                <xs:element minOccurs="0" ref="after-login"/>
+                <xs:element minOccurs="0" ref="before-logout"/>
+                <xs:element minOccurs="0" ref="default-request"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="request-map"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="view-map"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="include">
+        <xs:annotation>
+            <xs:documentation>
+                This includes all elements of the controller.xml file references.
+
+                Note that if you define any of the event blocks in this file (the including file) they
+                will override (replace) the one in the included file, effectively emptying it. The event
+                blocks are: firstvisit, preprocessor, postprocessor, after-login, and before-logout.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.include"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.include">
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="description" type="xs:string"/>
+    <xs:element name="owner" type="xs:string"/>
+    <xs:element name="errorpage" type="xs:string"/>
+    <xs:element name="status-code" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                A redirection HTTP status-code
+                If set it will override, for this whole controller, the default status-code sets in requestHandler.properties 
+                
+                Most possible redirection status-codes are 301, 303 and 307. 
+                302 (the Java default) is not recommended for SEO reasons, 301 is preferred.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="handler">
+        <xs:annotation>
+            <xs:documentation>
+                Defines a Java class which handles a specific named type (either request or view).
+                This allows different logics for processing input from requests.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.handler"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.handler">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute name="type" default="request">
+            <xs:annotation>
+                <xs:documentation>
+                    To keep it short, request is for action when view is for rendering
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="request"/>
+                    <xs:enumeration value="view"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="class" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="protect">
+        <xs:annotation>
+            <xs:documentation>
+                Mechanism used to protect from data leakage (data stolen from a login/password couple compromised).
+                It works like the grey list anti-spam feature (aka tarpitting).
+                Any error will be ignored and will not affect the requests processing flow.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.protect"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.protect">
+        <xs:attribute type="xs:string" name="view" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="firstvisit">
+        <xs:annotation>
+            <xs:documentation>
+                Event runs at the 1st visit and only then.
+                Any error will be ignored and will not affect the requests processing flow.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="event"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="preprocessor">
+        <xs:annotation>
+            <xs:documentation>
+                Event runs before each request.
+                Any error will be ignored and will not affect the requests processing flow.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="event"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="postprocessor">
+        <xs:annotation>
+            <xs:documentation>
+                Event runs after each request.
+                Any error will be ignored and will not affect the requests processing flow.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="event"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="after-login">
+        <xs:annotation>
+            <xs:documentation>
+                Event runs after login and only then.
+                Any error will be ignored and will not affect the requests processing flow.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="event"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="before-logout">
+        <xs:annotation>
+            <xs:documentation>
+                Event runs before logout and only then.
+                Any error will be ignored and will not affect the requests processing flow.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="event"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="default-request">
+        <xs:annotation>
+            <xs:documentation>
+                If a request cannot be called, or is not defined, the default-request is used
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.default-request"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.default-request">
+        <xs:attribute type="xs:string" name="request-uri" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="request-map">
+        <xs:annotation>
+            <xs:documentation>
+                Place where are defined the elements of a request.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element minOccurs="0" ref="security"/>
+                <xs:element minOccurs="0" ref="metric"/>
+                <xs:element minOccurs="0" ref="event"/>
+                <xs:element maxOccurs="unbounded" ref="response"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.request-map"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.request-map">
+        <xs:attribute type="xs:string" name="uri" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of this request. This will be the name used to access the request.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="edit" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Reserved for future use (not used yet).
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="track-visit" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Allow or not to track first visit (related to firstvisit preprocessor).
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Don't track as first visit (related to firstvisit preprocessor).
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="track-serverhit" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Allow or not to track statistics.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Don't track in the statistics.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="security">
+        <xs:annotation>
+            <xs:documentation>
+                Define the security of the request-map, using https and auth boolean attributes.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.security"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.security">
+        <xs:attribute name="https" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Redirects to/uses/generates the secured HTTPS protocol if necessary and possible
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="auth" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    If auth=true, when you hit the request if you are not logged in you will be forwarded to the login page.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="cert" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    It true, check for HTTPS client (x.509) security.
+                    If the request is not secured throws an exception
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="external-view" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    If false, prevent to pass a view through the url ("chaining" it after the request,
+                    like control/request/view in an FTL file).
+                    Default to true.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="direct-request" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    If false the request can only be accessed in a chained request, default to true.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="metric">
+        <xs:annotation>
+            <xs:documentation>
+                Calculate and maintain a moving average response time for a Request or Event. Request Metrics can be used
+                for monitoring and reporting, Event Metrics only for reporting. Request Metrics can also be used to trigger an alternate
+                response if the optional threshold attribute is used.
+                
+                The metric works by gathering statistics until a configurable maximum is reached (number of
+                requests or elapsed time), then the average is calculated. A smoothing factor is used to
+                smooth differences between calculations.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Each metric must have a unique name. 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="estimation-size" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Positive integer number of requests to include in the metrics calculation. Defaults to "100". 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="estimation-time" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Positive integer number of milliseconds to include in the metrics calculation. Defaults to "1000". 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="smoothing" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Positive decimal smoothing factor - used to smooth the differences between calculations. A value of "1" disables smoothing. Defaults to "0.7". 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="threshold" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The metric threshold in milliseconds. If the average response time exceeds this setting,
+                        then a "threshold-exceeded" response code will be generated. That response code can be used
+                        in a response element. The threshold check will ignore the first three requests - to give
+                        the metric a chance to stablize after startup. A value of "0.0" disables the threshold.
+                        Defaults to "0.0". 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="event">
+        <xs:annotation>
+            <xs:documentation>
+                Defines a piece of code (see handlers) which will handles the request need.
+                Return any string which is then used to route to different responses.
+                Only one event by request-map.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="metric"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.event"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.event">
+        <xs:attribute name="type" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    There are as much as types (of type request) as available defined and accessible event handlers.
+                    Most used are java, service, service-multi, simple and groovy (or bsf).
+                    A most comprehensive list can be found in the common-controller.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    Event name, mostly used with special events
+                    (firstvisit,
+                    preprocessor,
+                    postprocessor,
+                    after-login,
+                    before-logout)
+                    where the name allows to differentiate them.
+                    Most of the time reques-maps, which have only 1 event, don't use it.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="path" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    The path to the class or XML file containing this event.
+                    Leave empty for services, except if you want to run it as a job, then use "async"
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="invoke" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method or service to be run.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="global-transaction" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    For service-multi, defines if the event should be wrapped in a transaction, default to true
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="response">
+        <xs:annotation>
+            <xs:documentation>
+                You can have one response for each possible return code from the event.
+                An event can return any string, and that string can be used to route to different responses.
+                At least one reponse by request-map.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="redirect-parameter">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Defines a possible parameter to redirect
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.response"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.response">
+        <xs:attribute name="name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the response, wich also matches the string returned by the event
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="type" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    One of the possible types between:
+                    none,
+                    view,
+                    view-last,
+                    view-last-noparam,
+                    view-home,
+                    request,
+                    request-redirect,
+                    request-redirect-noparam,
+                    url,
+                    cross-redirect
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="none">
+                        <xs:annotation>
+                            <xs:documentation>
+                                This is used in situations where the event will actually
+                                be generating the response. If you have an event that
+                                returns a binary download for example, you would use
+                                a response of type=none, so that the control servlet
+                                doesn't try to render anything and send it down to the
+                                client.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="view">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Send to a view for final rendering
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="view-last">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Will use the view from the last request unless there
+                                is a saved from some previous request (using the save-last-view
+                                attribute).  Use the value attribute to specify a default view
+                                in case no previous view can be retrieved.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="view-last-noparam">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Same than view-last but no parameters are redirect
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="view-home">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Will use the view from the last saved 'home' position
+                                (using the save-home-view attribute).
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="request">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Internally chains to another request
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="request-redirect">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Send a redirect down to the browser telling it to go to the new request.
+                                Automatically redirect all current request parameters to the new request or only redirected parameters if specified.                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="request-redirect-noparam">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Send a redirect down to the browser telling it to go to the new request.
+                                No current request parameters are sent to the new request, nor redirected parameters if specified.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="url">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Any URL, relative or absolute. Redirected parameters are not used, you can put them in the url.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="cross-redirect">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Works like URL but you can also pass redirected parameters.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="value" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    Depending on the type of response, will either
+                    be the view or request name (ie view-map-name or request-map URI).
+
+                    Can be an URL.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="save-last-view" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Saves the last (previous) request's view for future use, generally
+                    with the view-last type of response.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="save-current-view" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Saves the current request's view for future use, generally with
+                    the view-last type of response.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="save-home-view" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Saves the current request's view for future use, generally with
+                    the view-home type of response.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="status-code" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    A redirection HTTP status-code
+                    If set it will override, for this request, the default status-code sets in requestHandler.properties
+                    and the possible status-code sets at the controller level (included controllers inclusive)
+                    
+                    Most possible redirection status-codes are 301, 303 and 307. 
+                    302 (the Java default) is not recommended for SEO reasons, 301 is preferred.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>        
+    </xs:attributeGroup>
+    <xs:element name="redirect-parameter">
+        <xs:annotation>
+            <xs:documentation>
+                Adds a parameter with the given name to the redirect. Finds value in a
+                request attribute if exists, or a request parameter if no attribute is found.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.redirect-parameter"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.redirect-parameter">
+        <xs:attribute type="xs:string" name="name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of the parameter to redirect
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="from" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    If specified used instead of the value of name for the key to find
+                    a request attribute or parameter.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="value" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    Set a string value to the parameter.
+                </xs:documentation>
+            </xs:annotation>
+            
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="view-map">
+        <xs:annotation>
+            <xs:documentation>
+                Place where are defined the elements of a view.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.view-map"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.view-map">
+        <xs:attribute type="xs:string" name="name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of this view. This will be the name used to access the view.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="page">
+            <xs:annotation>
+                <xs:documentation>
+                    The page mapped to this view.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="type" default="default">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the view handler that will render the output: screen, screenfop, ftl etc...
+                    A most comprehensive list can be found in the common-controller.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="info">
+            <xs:annotation>
+                <xs:documentation>
+                    Extended information passed to the view handler.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="content-type">
+            <xs:annotation>
+                <xs:documentation>
+                    Content-type in the HTML sense
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="encoding">
+            <xs:annotation>
+                <xs:documentation>
+                    Charset  in the HTML sense. By default "text/html" is used.
+                    If the encoding is "none" then no charset will be used.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="no-cache" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Send no-cache headers if set to true.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="x-frame-option" default="sameorigin">
+            <xs:annotation>
+                <xs:documentation>
+                    Provides clickjacking protection by instructing browsers that this page should not be placed within a frame. 
+                    Possible values are: 
+                    deny - no rendering within a frame, 
+                    sameorigin - no rendering if origin mismatch, and 
+                    allow-from: - allow rendering if framing page is within the specified URI domain. 
+                    Allow from is supported by IE and Firefox, but not Chrome or Safari. 
+                    It will also interfere with In Page Google Analytics since it requires your page to be framed by Google.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="deny"/>
+                    <xs:enumeration value="sameorigin"/>
+                    <xs:enumeration value="allow-from"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="strict-transport-security">
+            <xs:annotation>
+                <xs:documentation>
+                    HTTP Strict-Transport-Security (HSTS) enforces secure (HTTP over SSL/TLS) connections to the server. 
+                    This reduces impact of bugs in web applications leaking session data through cookies and external links and defends against Man-in-the-middle attacks. 
+                    HSTS also disables the ability for users to ignore SSL negotiation warnings.
+                    If the security of the connection cannot be ensured (e.g. the server's TLS certificate is not trusted), 
+                    it shows an error message and do not allow the user to access the web application.
+                    As recommended by OWASP, by default "max-age=31536000; includeSubDomains" is used except if the server is localhost or 127.0.0.1.
+                    If the strict-transport-security is "none" then it will not be used. 
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>
+</xs:schema>

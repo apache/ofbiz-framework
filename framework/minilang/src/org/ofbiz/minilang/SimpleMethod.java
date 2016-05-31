@@ -229,7 +229,7 @@ public final class SimpleMethod extends MiniLangElement {
         ArrayList<MethodOperation> methodOperations = new ArrayList<MethodOperation>(operationElements.size());
         if (UtilValidate.isNotEmpty(operationElements)) {
             for (Element curOperElem : operationElements) {
-                String nodeName = curOperElem.getNodeName();
+                String nodeName = UtilXml.getNodeNameIgnorePrefix(curOperElem);
                 MethodOperation methodOp = null;
                 MethodOperation.Factory<MethodOperation> factory = methodOperationFactories.get(nodeName);
                 if (factory != null) {
