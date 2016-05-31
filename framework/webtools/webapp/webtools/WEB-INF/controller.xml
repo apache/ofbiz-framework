@@ -253,6 +253,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="LogView"/>
     </request-map>
+    <request-map uri="FetchLogs">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FetchLogs"/>
+    </request-map>
 
     <!-- Service Engine Info and Job Management Requests -->
     <request-map uri="ServiceLog">
@@ -600,6 +604,7 @@ under the License.
 
     <view-map name="LogConfiguration" type="screen" page="component://webtools/widget/LogScreens.xml#LogConfiguration"/>
     <view-map name="LogView" type="screen" page="component://webtools/widget/LogScreens.xml#LogView"/>
+    <view-map name="FetchLogs" type="screen" page="component://webtools/widget/LogScreens.xml#FetchLogs"/>
 
     <view-map name="StatsSinceStart" type="screen" page="component://webtools/widget/StatsScreens.xml#StatsSinceStart"/>
     <view-map name="StatBinsHistory" type="screen" page="component://webtools/widget/StatsScreens.xml#StatBinsHistory"/>

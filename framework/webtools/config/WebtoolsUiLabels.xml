@@ -579,6 +579,9 @@
         <value xml:lang="zh">实体同步状态</value>
         <value xml:lang="zh-TW">資料實體同步狀態</value>
     </property>
+    <property key="PageTitleFetchLogs">
+        <value xml:lang="en">Fetch Logs</value>
+    </property>
     <property key="PageTitleFindJob">
         <value xml:lang="de">Job suchen</value>
         <value xml:lang="en">Find Job</value>
@@ -2223,6 +2226,9 @@
         <value xml:lang="vi">Mức lỗi nghiêm trọng có thể dẫn đến Ứng dụng không thể thực thi được.</value>
         <value xml:lang="zh">严重错误级别会指出那些可能导致应用程序异常中断的严重错误事件。</value>
         <value xml:lang="zh-TW">嚴重錯誤級別會指出那些可能導致應用程式異常中斷的嚴重錯誤事件.</value>
+    </property>
+    <property key="WebtoolsFetchLogs">
+        <value xml:lang="en">Fetch Logs</value>
     </property>
     <property key="WebtoolsFieldName">
         <value xml:lang="de">Feldname</value>
@@ -4609,6 +4615,9 @@
         <value xml:lang="vi">Công việc theo lịch</value>
         <value xml:lang="zh">任务计划</value>
         <value xml:lang="zh-TW">任務計劃</value>
+    </property>
+    <property key="WebtoolsSearchString">
+        <value xml:lang="en">Search String</value>
     </property>
     <property key="WebtoolsSecasIgnoreError">
         <value xml:lang="de">Fehler ignorieren</value>
