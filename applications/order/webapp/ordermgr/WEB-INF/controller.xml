@@ -205,13 +205,13 @@ under the License.
     <request-map uri="updateOrderAdjustment">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateOrderAdjustment"/>
-        <response name="success" type="view" value="editorderitems"/>
+        <response name="success" type="request" value="recalcTax"/>
         <response name="error" type="view" value="editorderitems"/>
     </request-map>
     <request-map uri="deleteOrderAdjustment">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteOrderAdjustment"/>
-        <response name="success" type="view" value="editorderitems"/>
+        <response name="success" type="request" value="recalcTax"/>
         <response name="error" type="view" value="editorderitems"/>
     </request-map>
     <request-map uri="recalcTax">
