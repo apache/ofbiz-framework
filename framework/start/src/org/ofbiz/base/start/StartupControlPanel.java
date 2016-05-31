@@ -212,14 +212,6 @@ final class StartupControlPanel {
             }
         }
         NativeLibClassLoader classloader = new NativeLibClassLoader(classPath.getUrls(), parent);
-        if (config.instrumenterFile != null && config.instrumenterClassName != null) {
-            try {
-                classloader = new InstrumentingClassLoader(classPath.getUrls(), parent, config.instrumenterFile,
-                        config.instrumenterClassName);
-            } catch (Exception e) {
-                System.out.println("Instrumenter not enabled - " + e);
-            }
-        }
         classloader.addNativeClassPath(System.getProperty("java.library.path"));
         for (File folder : classPath.getNativeFolders()) {
             classloader.addNativeClassPath(folder);
@@ -255,13 +247,6 @@ final class StartupControlPanel {
                 }
             }
             loaders.trimToSize();
-        }
-        if (classloader instanceof InstrumentingClassLoader) {
-            try {
-                ((InstrumentingClassLoader)classloader).closeInstrumenter();
-            } catch (IOException e) {
-                throw new StartupException(e.getMessage(), e);
-            }
         }
         StringBuilder sb = new StringBuilder();
         for (String path : classloader.getNativeLibPaths()) {

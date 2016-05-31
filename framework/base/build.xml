@@ -58,19 +58,8 @@ under the License.
         <file name="org/ofbiz/base/util/collections/test/GenericMapTest.java"/>
     </filelist>
 
-    <patternset id="cobertura-src-dirs">
-        <include name="build/gen-src"/>
-        <include name="src"/>
-    </patternset>
-
     <target name="init">
-        <condition property="exclude.cobertura" value="org/ofbiz/base/config/Cobertura*.java">
-            <not>
-                <available classname="net.sourceforge.cobertura.instrument.ClassInstrumenter" classpathref="cobertura.class.path"/>
-            </not>
-        </condition>
         <patternset id="src.exc.set">
-            <exclude name="${exclude.cobertura}"/>
             <exclude name="org/ofbiz/base/util/OfbizJsBsfEngine.java"/>
         </patternset>
     </target>

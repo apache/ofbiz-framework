@@ -26,24 +26,13 @@
     </info>
     <configurations>
         <conf name="activemq" description="downloads the ActiveMQ jars"/>
-        <conf name="cobertura" description="downloads cobertura 1.9.4.1 (GPL2.0) http://cobertura.sourceforge.net/"/>
         <conf name="mysql" description="downloads the mysql JDBC driver"/>
         <conf name="postgres" description="downloads the postgres JDBC driver"/>
-        <conf name="sonar-ant-task" description="downloads the ant sonar task (need sonar>=2.8)
-            http://docs.codehaus.org/display/SONAR/Analyzing+with+SonarQube+Ant+Task"/>
     </configurations>
     <dependencies>
         <dependency org="org.apache.activemq" name="activemq-all" rev="5.4.2" conf="activemq->default"/>
-        <dependency org="net.sourceforge.cobertura" name="cobertura" rev="1.9.4.1" conf="cobertura->default"/>
         <dependency org="mysql" name="mysql-connector-java" rev="5.1.36" conf="mysql->default"/>
         <dependency org="postgresql" name="postgresql" rev="9.0-801.jdbc4" conf="postgres->default"/>
-        <dependency org="org.codehaus.sonar-plugins" name="sonar-ant-task" rev="1.3" conf="sonar-ant-task->default"/>
-
-        <!--Exclusions for cobertura-->
-        <exclude module="log4j" conf="cobertura"/>
-        <exclude module="ant" conf="cobertura"/>
-        <exclude module="asm" conf="cobertura"/>
-        <exclude module="oro" conf="cobertura"/>
     </dependencies>
 
 </ivy-module>

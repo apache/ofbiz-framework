@@ -143,7 +143,7 @@
 	<classpathentry kind="src" path="applications/humanres/src"/>
 	<classpathentry kind="src" path="applications/workeffort/src"/>
 	<classpathentry kind="src" path="framework/base/config"/>
-	<classpathentry excluding="org/ofbiz/base/config/CoberturaInstrumenter.java" kind="src" path="framework/base/src"/>
+	<classpathentry kind="src" path="framework/base/src"/>
 	<classpathentry kind="src" path="framework/catalina/src"/>
 	<classpathentry kind="src" path="framework/common/src"/>
 	<classpathentry kind="src" path="framework/datafile/src"/>

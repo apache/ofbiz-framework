@@ -217,33 +217,6 @@
                 </programlisting>
             </para>
         </section>
-        <section>
-            <title>2. Cobertura</title>
-            <para>
-                A Cobertura error message can show because of the test system requires a cobertura library that calculates the percentage of code accessed by tests like this:
-                <programlisting>
-                    [java] InstrumenterWorker.instrument - Code instrumentation has been disabled, unable to find instrumenter class org.ofbiz.base.config.CoberturaInstrumenter
-                </programlisting>
-                If you want to use cobertura, you have to install it:
-                <orderedlist>
-                    <listitem>
-                        <para>
-                            Execute the download-cobertura ant task
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            Re-compile source code.
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            Execute the run-tests ant task
-                        </para>
-                    </listitem>
-                </orderedlist>
-            </para>
-        </section>
     </section>
     <section>
         <title>Test result</title>
