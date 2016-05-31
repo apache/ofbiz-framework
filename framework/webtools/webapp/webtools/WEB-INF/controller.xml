@@ -55,6 +55,7 @@ under the License.
         <response name="success" type="none"/>
     </request-map>
     <request-map uri="xmlrpc" track-serverhit="false" track-visit="false">
+        <security https="false"/>
         <event type="xmlrpc"/>
         <response name="error" type="none"/>
         <response name="success" type="none"/>
