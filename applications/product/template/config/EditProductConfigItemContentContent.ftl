@@ -22,5 +22,5 @@ under the License.
 </#if>
 <br />
 <#if configItemId?has_content && productContent?has_content>
-    ${updateProductContentWrapper.renderFormString()}
+    ${updateProductContentWrapper.renderFormString(context)}
 </#if>
