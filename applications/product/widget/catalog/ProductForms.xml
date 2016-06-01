@@ -122,10 +122,15 @@ under the License.
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="inventoryMessage" title="${uiLabelMap.ProductInventoryMessage}"><text size="20" maxlength="255"/></field>
-        <field name="inventoryItemTypeId" title="${uiLabelMap.ProductInventoryItemTypeId}">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="InventoryItemType" key-field-name="inventoryItemTypeId"/>
+        <field name="inventoryItemTypeId" title="${uiLabelMap.ProductInventoryItemTypeId}" use-when="product==null">
+            <drop-down allow-empty="false" >
+                <entity-options entity-name="InventoryItemType" key-field-name="inventoryItemTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
             </drop-down>
+        </field>
+        <field name="inventoryItemTypeId" title="${uiLabelMap.ProductInventoryItemTypeId}" use-when="product!=null">
+            <display-entity entity-name="InventoryItemType"/>
         </field>
 
         <field name="lotIdFilledIn" title="${uiLabelMap.ProductLotId}">
