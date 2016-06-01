@@ -2832,7 +2832,7 @@ under the License.
       <relation type="one" fk-name="PROD_SHBX_TYPE" title="Default" rel-entity-name="ShipmentBoxType">
           <key-map field-name="defaultShipmentBoxTypeId" rel-field-name="shipmentBoxTypeId"/>
       </relation>
-      <relation type="one" fk-name="INV_ITEM_TYPE" rel-entity-name="InventoryItemType">
+      <relation type="one" fk-name="PROD_INV_ITEM_TYPE" rel-entity-name="InventoryItemType">
           <key-map field-name="inventoryItemTypeId" rel-field-name="inventoryItemTypeId"/>
       </relation>
 
