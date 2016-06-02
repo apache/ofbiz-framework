@@ -1110,6 +1110,16 @@ under the License.
                     <order-by field-name="invoiceDate"/>
                 </entity-condition>
                 <iterate entry="invoice" list="invoices">
+                    <set field="isPurchaseInvoice" value="${groovy: org.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')}" type="Boolean"/>
+                    <set field="isSalesInvoice" value="${groovy: org.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'SALES_INVOICE')}" type="Boolean"/>
+                    <if>
+                        <condition>
+                            <or>
+                                <if-compare field="isPurchaseInvoice" operator="equals" value="true" type="Boolean"/>
+                                <if-compare field="isSalesInvoice" operator="equals" value="true" type="Boolean"/>
+                            </or>
+                        </condition>
+                        <then>
                     <call-class-method method-name="getInvoiceTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker" ret-field="invoiceTotal">
                         <field field="invoice" type="GenericValue"/>
                     </call-class-method>
@@ -1134,6 +1144,8 @@ under the License.
                             </if-compare-field>
                         </else>
                     </if-compare>
+                        </then>
+                    </if>
                 </iterate>
                 <if-not-empty field="invoiceId">
                     <entity-and list="paymentAppls" entity-name="PaymentApplication">

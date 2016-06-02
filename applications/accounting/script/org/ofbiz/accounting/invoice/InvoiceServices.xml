@@ -1014,10 +1014,12 @@ under the License.
             <log level="error" message="Invoice not found"/>
             <return/>
         </if-empty>
-        <if-compare field="invoice.parentTypeId" operator="equals" value="PURCHASE_INVOICE">
+        <set field="isPurchaseInvoice" value="${groovy: org.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')}" type="Boolean"/>
+        <set field="isSalesInvoice" value="${groovy: org.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'SALES_INVOICE')}" type="Boolean"/>
+        <if-compare field="isPurchaseInvoice" operator="equals" value="true" type="Boolean">
             <set field="pref.organizationPartyId" from-field="invoice.partyId"/>
         </if-compare>
-        <if-compare field="invoice.parentTypeId" operator="equals" value="SALES_INVOICE">
+        <if-compare field="isSalesInvoice" operator="equals" value="true" type="Boolean">
             <set field="pref.organizationPartyId" from-field="invoice.partyIdFrom"/>
         </if-compare>
         <call-service service-name="getPartyAccountingPreferences" in-map-name="pref">
