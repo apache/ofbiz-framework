@@ -1120,30 +1120,30 @@ under the License.
                             </or>
                         </condition>
                         <then>
-                    <call-class-method method-name="getInvoiceTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker" ret-field="invoiceTotal">
-                        <field field="invoice" type="GenericValue"/>
-                    </call-class-method>
-
-                    <set field="checkInvoice.invoiceId" from="invoice.invoiceId"/>
-                    <call-service service-name="isInvoiceInForeignCurrency" in-map-name="checkInvoice">
-                        <result-to-field result-name="isForeign"/>
-                    </call-service>
-                    <if-compare operator="equals" value="true" field="isForeign">
-                        <if-compare-field operator="equals" field="invoiceTotal" to-field="payment.actualCurrencyAmount">
-                            <if-compare-field operator="equals" field="invoice.currencyUomId" to-field="payment.actualCurrencyUomId">
-                                <set field="invoiceId" from-field="invoice.invoiceId"/>
-                                <set field="amountApplied" from-field="payment.actualCurrencyAmount"/>
-                            </if-compare-field>
-                        </if-compare-field>
-                        <else>
-                            <if-compare-field operator="equals" field="invoiceTotal" to-field="payment.amount">
-                                <if-compare-field operator="equals" field="invoice.currencyUomId" to-field="payment.currencyUomId">
-                                    <set field="invoiceId" from-field="invoice.invoiceId"/>
-                                    <set field="amountApplied" from-field="payment.amount"/>
+                            <call-class-method method-name="getInvoiceTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker" ret-field="invoiceTotal">
+                                <field field="invoice" type="GenericValue"/>
+                            </call-class-method>
+        
+                            <set field="checkInvoice.invoiceId" from="invoice.invoiceId"/>
+                            <call-service service-name="isInvoiceInForeignCurrency" in-map-name="checkInvoice">
+                                <result-to-field result-name="isForeign"/>
+                            </call-service>
+                            <if-compare operator="equals" value="true" field="isForeign">
+                                <if-compare-field operator="equals" field="invoiceTotal" to-field="payment.actualCurrencyAmount">
+                                    <if-compare-field operator="equals" field="invoice.currencyUomId" to-field="payment.actualCurrencyUomId">
+                                        <set field="invoiceId" from-field="invoice.invoiceId"/>
+                                        <set field="amountApplied" from-field="payment.actualCurrencyAmount"/>
+                                    </if-compare-field>
                                 </if-compare-field>
-                            </if-compare-field>
-                        </else>
-                    </if-compare>
+                                <else>
+                                    <if-compare-field operator="equals" field="invoiceTotal" to-field="payment.amount">
+                                        <if-compare-field operator="equals" field="invoice.currencyUomId" to-field="payment.currencyUomId">
+                                            <set field="invoiceId" from-field="invoice.invoiceId"/>
+                                            <set field="amountApplied" from-field="payment.amount"/>
+                                        </if-compare-field>
+                                    </if-compare-field>
+                                </else>
+                            </if-compare>
                         </then>
                     </if>
                 </iterate>
