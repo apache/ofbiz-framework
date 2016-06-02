@@ -1467,13 +1467,13 @@ under the License.
         </actions>
         <alt-target use-when="product!=null" target="updateProduct"/>
         <field name="partyCompany"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.ScrumCompanyAndProductOwner}" tooltip="${uiLabelMap.ScrumCompanyNameShow} -- ${uiLabelMap.ScrumProductName}" event="onchange" action="javascrip:document.EditProduct.partyCompany.value=this.options[this.selectedIndex].text;" parameter-name="partyId" use-when="companyCurrent==null">
+        <field name="partyId" title="${uiLabelMap.ScrumCompanyAndProductOwner}" tooltip="${uiLabelMap.ScrumCompanyNameShow} -- ${uiLabelMap.ScrumProductName}" event="onchange" action="javascript:document.EditProduct.partyCompany.value=this.options[this.selectedIndex].text;" parameter-name="partyId" use-when="companyCurrent==null">
             <drop-down allow-empty="false" >
                 <option key="" description="-select one-"/>
                 <list-options list-name="scrumRolesPersonAndCompanyList" description="${groupName}[${partyIdFrom}] -- ${lastName} ${firstName} ${middleName}" key-name="partyId"/>
             </drop-down>
         </field>
-         <field name="partyId" title="${uiLabelMap.ScrumCompanyAndProductOwner}" tooltip="${uiLabelMap.ScrumCompanyNameShow} - ${uiLabelMap.ScrumProductName}" event="onchange" action="javascrip:document.EditProduct.partyCompany.value=this.options[this.selectedIndex].text;" parameter-name="partyId" use-when="companyCurrent!=null">
+         <field name="partyId" title="${uiLabelMap.ScrumCompanyAndProductOwner}" tooltip="${uiLabelMap.ScrumCompanyNameShow} - ${uiLabelMap.ScrumProductName}" event="onchange" action="javascript:document.EditProduct.partyCompany.value=this.options[this.selectedIndex].text;" parameter-name="partyId" use-when="companyCurrent!=null">
             <drop-down allow-empty="false" current-description="${companyCurrentList[0].groupName}[${companyCurrentList[0].partyIdFrom}] - ${companyCurrentList[0].lastName} ${companyCurrentList[0].firstName} ${companyCurrentList[0].middleName}" >
                 <option key="${companyCurrentList[0].groupName}[${companyCurrentList[0].partyIdFrom}] - ${companyCurrentList[0].lastName} ${companyCurrentList[0].firstName} ${companyCurrentList[0].middleName}(${companyCurrentList[0].partyId})" description="${companyCurrentList[0].groupName}[${companyCurrentList[0].partyIdFrom}] - ${companyCurrentList[0].lastName} ${companyCurrentList[0].firstName} ${companyCurrentList[0].middleName}"/>
                 <option key="" description=""/>
