@@ -539,8 +539,7 @@ if (!selectedService) {
             }
 
             if (canIncludeService && constraintName.equals("definitionLocation")) {
-                fullPath = "file:/" + System.getProperty("ofbiz.home") + "/" + constraintVal;
-                canIncludeService = curServiceModel.definitionLocation.equals(fullPath);
+                canIncludeService = curServiceModel.definitionLocation.equals(constraintVal);
             }
 
             if (canIncludeService && constraintName.equals("alpha")) {
