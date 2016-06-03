@@ -213,6 +213,7 @@ under the License.
         <field name="skillTypeId"><hidden/></field>
         <field name="deliverableTypeId"><hidden/></field>
         <field name="comments"></field>
+        <field name="leadTimeDays"></field>
         <field name="uomId"><hidden/></field>
         <!--<field name="custRequestId"><display description="${custRequestId} - ${custRequestItemSeqId}"/></field>-->
         <field name="custRequestId" title="${uiLabelMap.CommonViewRequest}" widget-style="buttontext">
