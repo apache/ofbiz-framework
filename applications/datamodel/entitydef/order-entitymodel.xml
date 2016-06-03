@@ -1468,6 +1468,7 @@ under the License.
       <field name="estimatedDeliveryDate" type="date-time"></field>
       <field name="comments" type="comment"></field>
       <field name="isPromo" type="indicator"></field>
+      <field name="leadTimeDays" type="numeric"></field>
       <prim-key field="quoteId"/>
       <prim-key field="quoteItemSeqId"/>
       <relation type="one" fk-name="QUOTE_ITM_QTE" rel-entity-name="Quote">

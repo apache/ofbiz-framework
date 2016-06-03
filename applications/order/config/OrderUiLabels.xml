@@ -8513,6 +8513,9 @@
         <value xml:lang="zh-CN">报价项目</value>
         <value xml:lang="zh-TW">報價細項</value>
     </property>
+    <property key="OrderOrderQuoteLeadTimeDays">
+        <value xml:lang="en">Lead Time Days</value>
+    </property>
     <property key="OrderOrderQuoteListAdjustments">
         <value xml:lang="ar">عرض تضبيطات عرض السعر</value>
         <value xml:lang="de">Liste der Angebotsanpassungen</value>

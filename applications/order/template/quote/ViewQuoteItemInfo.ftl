@@ -33,7 +33,8 @@ under the License.
                 <td width="10%" align="right">${uiLabelMap.ProductQuantity}</td>
                 <td width="10%" align="right">${uiLabelMap.OrderSelAmount}</td>
                 <td width="8%" align="right">${uiLabelMap.OrderOrderQuoteUnitPrice}</td>
-                <td width="7%" align="right">${uiLabelMap.CommonComments}</td>
+                <td width="7%" align="right">${uiLabelMap.OrderOrderQuoteLeadTimeDays}</td>
+                <td width="10%" align="right">${uiLabelMap.CommonComments}</td>
                 <td width="10%" align="right">${uiLabelMap.OrderAdjustments}</td>
                 <td width="10%" align="right">${uiLabelMap.CommonSubtotal}</td>
             </tr>
@@ -42,6 +43,7 @@ under the License.
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.OrderOrderTermValue}</td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.OrderOrderTermDays}</td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.OrderQuoteTermDescription}</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -96,6 +98,7 @@ under the License.
                     <td align="right" valign="top">${quoteItem.quantity!}</td>
                     <td align="right" valign="top">${quoteItem.selectedAmount!}</td>
                     <td align="right" valign="top"><@ofbizCurrency amount=quoteItem.quoteUnitPrice isoCode=quote.currencyUomId/></td>
+                    <td align="right" valign="top">${quoteItem.leadTimeDays!}</td>
                     <td align="right" valign="top">${quoteItem.comments!}</td>
                     <td align="right" valign="top"><@ofbizCurrency amount=totalQuoteItemAdjustmentAmount isoCode=quote.currencyUomId/></td>
                     <td align="right" valign="top"><@ofbizCurrency amount=totalQuoteItemAmount isoCode=quote.currencyUomId/></td>
@@ -107,6 +110,7 @@ under the License.
                     <td valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${quoteTerm.termValue!}</td>
                     <td valign="top"><#if quoteTerm.termDays??>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${quoteTerm.termDays!}</#if></td>
                     <td valign="top"><#if quoteTerm.description??>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${quoteTerm.description}</#if></td>
+                    <td align="right" valign="top"></td>
                     <td align="right" valign="top"></td>
                     <td align="right" valign="top"></td>
                     <td align="right" valign="top"></td>
@@ -127,10 +131,10 @@ under the License.
             </#list>
             <tr><td colspan="10"><hr /></td></tr>
             <tr>
-                <td align="right" colspan="7" class="label">${uiLabelMap.CommonSubtotal}</td>
+                <td align="right" colspan="8" class="label">${uiLabelMap.CommonSubtotal}</td>
                 <td align="right"><@ofbizCurrency amount=totalQuoteAmount isoCode=quote.currencyUomId/></td>
             </tr>
-            <tr><td colspan="5"></td><td colspan="6"><hr /></td></tr>
+            <tr><td colspan="6"></td><td colspan="7"><hr /></td></tr>
             <#assign totalQuoteHeaderAdjustmentAmount = 0.0>
             <#assign findAdjustment = false>
             <#list quoteAdjustments as quoteAdjustment>
@@ -138,7 +142,7 @@ under the License.
                 <#if !quoteAdjustment.quoteItemSeqId??>
                     <#assign totalQuoteHeaderAdjustmentAmount = quoteAdjustment.amount?default(0) + totalQuoteHeaderAdjustmentAmount>
                     <tr>
-                      <td align="right" colspan="6"><span class="label">${adjustmentType.get("description",locale)!}</span></td>
+                      <td align="right" colspan="7"><span class="label">${adjustmentType.get("description",locale)!}</span></td>
                       <td align="right"><@ofbizCurrency amount=quoteAdjustment.amount isoCode=quote.currencyUomId/></td>
                     </tr>
                 </#if>
@@ -146,10 +150,10 @@ under the License.
             </#list>
             <#assign grandTotalQuoteAmount = totalQuoteAmount + totalQuoteHeaderAdjustmentAmount>
             <#if findAdjustment>
-            <tr><td colspan="5"></td><td colspan="6"><hr /></td></tr>
+            <tr><td colspan="5"></td><td colspan="7"><hr /></td></tr>
             </#if>
             <tr>
-                <td align="right" colspan="7" class="label">${uiLabelMap.OrderGrandTotal}</td>
+                <td align="right" colspan="8" class="label">${uiLabelMap.OrderGrandTotal}</td>
                 <td align="right">
                     <@ofbizCurrency amount=grandTotalQuoteAmount isoCode=quote.currencyUomId/>
                 </td>
