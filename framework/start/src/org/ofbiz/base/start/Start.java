@@ -81,7 +81,13 @@ public final class Start {
                 System.out.println("Shutting down server : " + StartupControlPanel.shutdown(instance.config));
                 break;
             case START:
-                StartupControlPanel.start(instance.config, instance.serverState, ofbizCommands);
+                try {
+                    StartupControlPanel.start(instance.config, instance.serverState, ofbizCommands);
+                } catch (StartupException e) {
+                    // if startup logic fails, execute shutdown hooks
+                    e.printStackTrace();
+                    System.exit(99);
+                }
                 break;
         }
     }
