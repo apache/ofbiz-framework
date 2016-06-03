@@ -941,7 +941,6 @@ under the License.
       <field name="accessPassword" type="value" encrypt="true"><description>USPS Access Password</description></field>
       <field name="maxEstimateWeight" type="numeric"><description>Estimate split into packages</description></field>
       <field name="test" type="short-varchar"><description>Test/Production mode</description></field>
-      <field name="setup" type="short-varchar"><description>Test/Production mode</description></field>
       <prim-key field="shipmentGatewayConfigId"/>
       <relation type="one" fk-name="SGUSPS_SGC" rel-entity-name="ShipmentGatewayConfig">
         <key-map field-name="shipmentGatewayConfigId"/>
@@ -1427,7 +1426,6 @@ under the License.
             title="Shipment Type Attribute Entity">
       <field name="shipmentTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
-      <field name="description" type="description"></field>
       <prim-key field="shipmentTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="SHPMNT_TYPATR" rel-entity-name="ShipmentType">
