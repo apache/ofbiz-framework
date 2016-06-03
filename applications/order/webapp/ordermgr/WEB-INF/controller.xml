@@ -1477,9 +1477,8 @@ under the License.
     <request-map uri="createQuoteItem">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createQuoteItem"/>
-        <response name="success" type="request-redirect" value="ListQuoteItems">
-            <redirect-parameter name="quoteId"/>
-        </response>
+        <response name="success" type="view" value="ListQuoteItems"/>
+        <response name="error" type="view" value="EditQuoteItem"/>
     </request-map>
     <request-map uri="updateQuoteItem">
         <security https="true" auth="true"/>
