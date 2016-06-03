@@ -242,17 +242,27 @@ under the License.
         <field position="1" name="returnable" title="${uiLabelMap.ProductReturnable}" use-when="product==null">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
+        <field position="1" name="returnable" title="${uiLabelMap.ProductReturnable}" use-when="product!=null">
+            <display/>
+        </field>
         <field position="2" name="includeInPromotions" title="${uiLabelMap.ProductIncludePromotions}" use-when="product==null">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-
+        <field position="2" name="includeInPromotions" title="${uiLabelMap.ProductIncludePromotions}" use-when="product!=null">
+            <display/>
+        </field>
         <field position="3" name="taxable" title="${uiLabelMap.ProductTaxable}" use-when="product==null">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field position="3" name="taxable" title="${uiLabelMap.ProductTaxable}" use-when="product!=null">
+            <display/>
         </field>
         <field position="4" name="autoCreateKeywords" title="${uiLabelMap.ProductAutoCreateKeywords}" use-when="product==null">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-
+        <field position="4" name="autoCreateKeywords" title="${uiLabelMap.ProductAutoCreateKeywords}" use-when="product!=null">
+            <display/>
+        </field>
         <field name="contentInfoText" title="${uiLabelMap.ProductContentInfoText}" widget-style="tooltip">
             <display description="${uiLabelMap.ProductNoteForContentOptions}" also-hidden="false"/>
         </field>
@@ -277,6 +287,9 @@ under the License.
         </field>
         <field name="orderDecimalQuantity" use-when="product==null">
             <drop-down allow-empty="true" ><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field name="orderDecimalQuantity" use-when="product!=null">
+            <display/>
         </field>
         <sort-order>
             <field-group>
