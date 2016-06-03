@@ -50,7 +50,7 @@ under the License.
           <#assign currentSurveyMultiResp = surveyQuestionAndAppl.getRelatedOne("SurveyMultiResp", true)!/>
           <#if currentSurveyMultiResp?has_content>
             <#assign currentSurveyMultiRespColumns = currentSurveyMultiResp.getRelated("SurveyMultiRespColumn", null, null, false)/>
-          <#else/>
+          <#else>
             <#assign currentSurveyMultiRespColumns = []/>
           </#if>
           
@@ -102,7 +102,7 @@ under the License.
                   </#list>
                 </select>
               </td>
-              <#else/>
+              <#else>
                 <td><input type="text" name="surveyMultiRespColId" size="4" value="${surveyQuestionAndAppl.surveyMultiRespColId!}"/></td>
               </#if>
               <td>

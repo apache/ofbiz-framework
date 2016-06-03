@@ -63,7 +63,7 @@ under the License.
         <#assign leftColumn = !leftColumn/>
       </#list>
     </table>
-    <#else/>
+    <#else>
     <h2>${uiLabelMap.CommonNoPortletsInCategory}</h2>
   </#if>
   </div>

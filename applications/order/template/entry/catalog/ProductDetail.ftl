@@ -543,7 +543,7 @@ ${virtualJavaScript!}
                       <td><input type="text" size="5" name="quantity" value="1"/></td>
                   </tr>
                 </table>
-            <#else/>
+            <#else>
                 <input type="text" size="5" name="quantity" value="1"<#if product.isVirtual!?upper_case == "Y"> disabled="disabled"</#if>/>
             </#if>
             <#-- This calls addItem() so that variants of virtual products cant be added before distinguishing features are selected, it should not be changed to additemSubmit() -->

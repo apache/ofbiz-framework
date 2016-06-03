@@ -27,7 +27,7 @@ under the License.
 <#macro renderSurveyQuestionRequired surveyQuestionAndAppl>
   <#if surveyQuestionAndAppl.requiredField?default("N") == "Y">
     <span>*[required]</span>
-  <#else/>
+  <#else>
     <span>[optional]</span>
   </#if>
 </#macro>
@@ -133,7 +133,7 @@ under the License.
     <select name="${questionFieldName}">
       ${screens.render("component://common/widget/CommonScreens.xml#countries")}
     </select>
-  <#else/>
+  <#else>
     <div>Unsupported question type : ${surveyQuestionAndAppl.surveyQuestionTypeId}</div>
   </#if>
 </#macro>
@@ -185,7 +185,7 @@ under the License.
         <#assign closeMultiRespHeader = true/>
       </#if>
       <#assign lastSurveyMultiRespId = surveyMultiResp.surveyMultiRespId/>
-    <#else/>
+    <#else>
       <#if lastSurveyMultiRespId?has_content><#assign closeMultiRespHeader = true/></#if>
       <#assign lastSurveyMultiRespId = ""/>
     </#if>
@@ -229,14 +229,14 @@ under the License.
             if there is a surveyMultiRespColId on the surveyQuestionAndAppl use the corresponding surveyQuestionId;
             these should be in the same order as the surveyQuestionAndAppls List, so just see if it matches the first in the list
           -->
-          <#if sqaaWithColIdList?has_content><#assign nextSqaaWithColId = sqaaWithColIdList?first/><#else/><#assign nextSqaaWithColId = []></#if>
+          <#if sqaaWithColIdList?has_content><#assign nextSqaaWithColId = sqaaWithColIdList?first/><#else><#assign nextSqaaWithColId = []></#if>
           <#if surveyQuestionAndAppl.surveyMultiRespColId?has_content &&
               nextSqaaWithColId?has_content &&
               nextSqaaWithColId.surveyMultiRespColId = surveyMultiRespColumn.surveyMultiRespColId>
             <#assign dummySqaaWithColId = Static["org.ofbiz.base.util.UtilMisc"].removeFirst(sqaaWithColIdList)/>
             <#assign changed = alreadyShownSqaaPkWithColId.add(nextSqaaWithColId.getPrimaryKey())/>
             <#assign questionFieldName = "answers_" + nextSqaaWithColId.surveyQuestionId + "_" + surveyMultiRespColumn.surveyMultiRespColId/>
-          <#else/>
+          <#else>
             <#assign questionFieldName = "answers_" + surveyQuestionAndAppl.surveyQuestionId + "_" + surveyMultiRespColumn.surveyMultiRespColId/>
           </#if>
           <@renderSurveyQuestionInput surveyQuestionAndAppl=surveyQuestionAndAppl questionFieldName=questionFieldName/>
@@ -246,7 +246,7 @@ under the License.
         <@renderSurveyQuestionRequired surveyQuestionAndAppl=surveyQuestionAndAppl/>
       </td>
     </tr>
-  <#else/>
+  <#else>
     <#-- special formatting for select boxes -->
     <#assign align = "left"/>
     <#if surveyQuestionAndAppl?? && surveyQuestionAndAppl.surveyQuestionTypeId?has_content>
@@ -272,7 +272,7 @@ under the License.
         <td colspan="5"><div>${surveyQuestionAndAppl.question!}</div></td>
       <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "SEPERATOR_LINE"/>
         <td colspan="5"><hr /></td>
-      <#else/>
+      <#else>
         <#-- standard question options -->
         <td align="right">
           <@renderSurveyQuestionText surveyQuestionAndAppl=surveyQuestionAndAppl/>
@@ -301,6 +301,6 @@ under the License.
   <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
-    <td colspan="2"><input type="submit" class="smallSubmit" value="<#if survey.submitCaption?has_content>${survey.submitCaption}<#else/>Submit</#if>"/></td>
+    <td colspan="2"><input type="submit" class="smallSubmit" value="<#if survey.submitCaption?has_content>${survey.submitCaption}<#else>Submit</#if>"/></td>
   </tr>
 </table>

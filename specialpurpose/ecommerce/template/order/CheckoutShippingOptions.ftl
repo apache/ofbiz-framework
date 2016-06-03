@@ -160,7 +160,7 @@ function submitForm(form, mode, value) {
                   <textarea class="textAreaBox" cols="30" rows="3" wrap="hard" name="gift_message">${shoppingCart.getGiftMessage()!}</textarea>
                 </td>
               </tr>
-              <#else/>
+              <#else>
               <input type="hidden" name="is_gift" value="false"/>
               </#if>
               <tr><td colspan="2"><hr /></td></tr>

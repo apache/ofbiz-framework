@@ -31,7 +31,7 @@ under the License.
         <#if !goodIdentifications?has_content && !idProduct?has_content>
           <br />
           <h2>&nbsp;${uiLabelMap.ProductNoResultsFound}.</h2>
-        <#else/>
+        <#else>
           <table cellspacing="0" class="basic-table">
             <#assign rowClass = "1">
             <#if idProduct?has_content>

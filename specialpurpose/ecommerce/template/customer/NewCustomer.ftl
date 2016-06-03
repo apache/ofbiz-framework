@@ -385,7 +385,7 @@ will generally always be reserved for the logo at the top of the page.
         <@fieldErrors fieldName="PASSWORD_HINT"/>
         <input type="text" class='inputBox' name="PASSWORD_HINT" id="PASSWORD_HINT" value="${requestParameters.PASSWORD_HINT!}" maxlength="100"/>
       </div>
-    <#else/>
+    <#else>
       <div>
         <label>${uiLabelMap.PartyReceivePasswordByEmail}.</div>
       </div>

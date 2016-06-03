@@ -145,7 +145,7 @@ under the License.
               <li>${userLogin.userLoginId}</li>
             </#if>
             <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
-          <#else/>
+          <#else>
             <li>${uiLabelMap.CommonWelcome}! <a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
           </#if>
           <#---if webSiteId?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??-->

@@ -219,7 +219,7 @@ function submitForm(form, mode, value) {
                     </td>
                   </tr>
                   <tr><td colspan="2"><hr /></td></tr>
-                 <#else/>
+                 <#else>
                     <input type="hidden" name="shipping_method" value="NO_SHIPPING@_NA_"/>
                     <input type="hidden" name="may_split" value="false"/>
                     <input type="hidden" name="is_gift" value="false"/>
@@ -257,7 +257,7 @@ function submitForm(form, mode, value) {
                       <textarea cols="30" rows="3" wrap="hard" name="gift_message">${shoppingCart.getGiftMessage()!}</textarea>
                     </td>
                   </tr>
-                  <#else/>
+                  <#else>
                   <input type="hidden" name="is_gift" value="false"/>
                   </#if>
                  </#if>

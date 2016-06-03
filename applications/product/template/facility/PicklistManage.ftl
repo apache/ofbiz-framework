@@ -256,7 +256,7 @@ under the License.
           <hr />
         </#if>
       </#list>
-    <#else/>
+    <#else>
       <h3>${uiLabelMap.ProductNoPicksStarted}.</h3>
     </#if>
   </div>

@@ -119,7 +119,7 @@ under the License.
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
                                     <#if line.product?has_content>
                                         <fo:block>${line.product.internalName?default("Internal Name Not Set!")} [${line.product.productId}]</fo:block>
-                                    <#else/>
+                                    <#else>
                                         <fo:block>${line.getClass().getName()}&nbsp;</fo:block>
                                     </#if>
                                 </fo:table-cell>
