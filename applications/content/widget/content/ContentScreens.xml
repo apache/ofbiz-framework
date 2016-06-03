@@ -237,7 +237,6 @@ under the License.
                 <set field="contentId" from-field="parameters.contentId"/>
                 <set field="contentIdTo" from-field="parameters.contentIdTo"/>
                 <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"  default-value="${defaultContentAssocTypeId}"/>
-                <set field="contentAssocTypeId" from-field="contentAssocTypeId" to-scope="user"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
                 <entity-one entity-name="Content" value-field="currentValue"/>
             </actions>
