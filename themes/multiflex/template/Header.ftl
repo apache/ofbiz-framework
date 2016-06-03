@@ -66,7 +66,7 @@ under the License.
           <#if sessionAttributes.autoName?has_content>
             ${uiLabelMap.CommonWelcome}&nbsp;${sessionAttributes.autoName}!
             (${uiLabelMap.CommonNotYou}?&nbsp;<a href="<@ofbizUrl>autoLogout</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClickHere}</a>)
-          <#else/>
+          <#else>
             ${uiLabelMap.CommonWelcome}!
           </#if>
           </h2>
@@ -85,7 +85,7 @@ under the License.
             <ul>
               <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
             </ul>
-          <#else/>
+          <#else>
             <!-- Navigation item -->
             <ul>
               <li><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>

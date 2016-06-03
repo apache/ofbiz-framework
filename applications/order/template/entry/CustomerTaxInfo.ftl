@@ -35,7 +35,7 @@ under the License.
 
         <#if productStore.showTaxIsExempt?default("Y") == "Y">
         <span>${uiLabelMap.PartyTaxIsExempt} </span><input type="checkbox" name="isExempt" value="Y"/>
-        <#else/>
+        <#else>
         <input type="hidden" name="isExempt" value="N"/>
         </#if>
     </div>

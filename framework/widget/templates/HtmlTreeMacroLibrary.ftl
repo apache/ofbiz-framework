@@ -53,7 +53,7 @@ under the License.
 <#if name?has_content> name="${name}"</#if><#rt/>
 <#if title?has_content> title="${title}"</#if><#rt/>
 <#if targetWindow?has_content> target="${targetWindow}</#if><#if linkUrl?has_content> href="${linkUrl}"<#else> href="javascript:void(0);"</#if>><#rt/>
-<#if imgStr?has_content>${imgStr}<#elseif linkText?has_content/>${linkText}<#else/>&nbsp;</#if></a><#rt/>
+<#if imgStr?has_content>${imgStr}<#elseif linkText?has_content/>${linkText}<#else>&nbsp;</#if></a><#rt/>
 </#macro>
 
 <#macro renderImage src id style wid hgt border alt urlString>

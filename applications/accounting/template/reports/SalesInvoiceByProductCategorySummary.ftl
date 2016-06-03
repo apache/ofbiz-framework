@@ -19,8 +19,8 @@ under the License.
 
 <#macro resultSummary resultMap>
     <#if resultMap?has_content>
-        ${resultMap.quantityTotal?default(0)}:${resultMap.amountTotal?default(0)}:<#if (resultMap.quantityTotal?? && resultMap.quantityTotal > 0)>${resultMap.amountTotal/resultMap.quantityTotal}<#else/>0</#if>
-    <#else/>
+        ${resultMap.quantityTotal?default(0)}:${resultMap.amountTotal?default(0)}:<#if (resultMap.quantityTotal?? && resultMap.quantityTotal > 0)>${resultMap.amountTotal/resultMap.quantityTotal}<#else>0</#if>
+    <#else>
         0:0:0
     </#if>
 </#macro>

@@ -363,7 +363,7 @@ under the License.
                 <tr>
                   <td colspan="2">${uiLabelMap.ProductNoItemsPoReceive}.</td>
                 </tr>
-              <#else/>
+              <#else>
                 <tr>
                   <td>
                     <h3>${uiLabelMap.ProductReceivePurchaseOrder} #${purchaseOrder.orderId}</h3>

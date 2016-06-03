@@ -41,7 +41,7 @@ under the License.
         <#if sessionAttributes.autoName?has_content>
           ${uiLabelMap.CommonWelcome}&nbsp;${sessionAttributes.autoName?html}!
           (${uiLabelMap.CommonNotYou}?&nbsp;<a href="<@ofbizUrl>autoLogout</@ofbizUrl>" class="linktext">${uiLabelMap.CommonClickHere}</a>)
-        <#else/>
+        <#else>
           ${uiLabelMap.CommonWelcome}!
         </#if>
       </div>
@@ -52,7 +52,7 @@ under the License.
     <ul id="left-links">
       <#if userLogin?has_content && userLogin.userLoginId != "anonymous">
         <li id="header-bar-logout"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
-      <#else/>
+      <#else>
         <li id="header-bar-login"><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
         <li id="header-bar-register"><a href="<@ofbizUrl>newcustomer</@ofbizUrl>">${uiLabelMap.EcommerceRegister}</a></li>
       </#if>

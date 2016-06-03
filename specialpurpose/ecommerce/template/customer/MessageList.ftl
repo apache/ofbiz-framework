@@ -20,12 +20,12 @@ under the License.
 <#macro showMessage communicationEvent isSentMessage index>
   <#if communicationEvent.partyIdFrom?has_content>
     <#assign partyNameFrom = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdFrom, true)>
-  <#else/>
+  <#else>
     <#assign partyNameFrom = "${uiLabelMap.CommonNA}">
   </#if>
   <#if communicationEvent.partyIdTo?has_content>
     <#assign partyNameTo = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdTo, true)>
-  <#else/>
+  <#else>
     <#assign partyNameTo = "${uiLabelMap.CommonNA}">
   </#if>
               <tr>
@@ -64,7 +64,7 @@ under the License.
         <table width="100%" border="0" cellpadding="1">
           <#if (!receivedCommunicationEvents?has_content && !sentCommunicationEvents?has_content)>
             <tr><td><div>${uiLabelMap.EcommerceNoMessages}.</div></td></tr>
-          <#else/>
+          <#else>
             <tr>
               <td><div class="tableheadtext">${uiLabelMap.CommonFrom}</div></td>
               <td><div class="tableheadtext">${uiLabelMap.CommonTo}</div></td>

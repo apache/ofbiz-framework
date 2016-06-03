@@ -67,7 +67,7 @@ under the License.
     <#-- check to see if the product requires an amount -->
     <#elseif product.requireAmount?? && product.requireAmount == "Y"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderChooseAmount}...</a>
-    <#else/>
+    <#else>
                 <form method="post" action="<@ofbizUrl secure="${request.isSecure()?string}">additem</@ofbizUrl>" name="compareFormAdd${product_index}">
                     <input type="hidden" name="add_product_id" value="${product.productId}"/>
                     <input type="text" size="5" name="quantity" value="1"/>
@@ -171,7 +171,7 @@ under the License.
     <#-- check to see if the product requires an amount -->
     <#elseif product.requireAmount?? && product.requireAmount == "Y"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderChooseAmount}...</a>
-    <#else/>
+    <#else>
                 <form method="post" action="<@ofbizUrl secure="${request.isSecure()?string}">additem</@ofbizUrl>" name="compare2FormAdd${product_index}">
                     <input type="hidden" name="add_product_id" value="${product.productId}"/>
                     <input type="text" size="5" name="quantity" value="1"/>

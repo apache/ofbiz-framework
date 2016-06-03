@@ -256,7 +256,7 @@ function ShowTab(lname) {
             <#else>
               <#if "one" = relation.type>
               <b>${uiLabelMap.WebtoolsNoValueFoundFor}</b> ${relation.title}${relation.relatedTable}.
-              <#else/>
+              <#else>
               <a href="<@ofbizUrl>FindGeneric?${relation.encodeRelatedEntityFindString}&amp;find=true</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonFind}</a>
               </#if>
             </#if>

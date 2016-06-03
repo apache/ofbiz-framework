@@ -47,7 +47,7 @@ under the License.
   <div>
     <a href="javascript:popUp('<@ofbizUrl secure="${request.isSecure()?string}">compareProducts</@ofbizUrl>', 'compareProducts', '650', '750')" class="buttontext">${uiLabelMap.ProductCompareProducts}</a>
   </div>
-<#else/>
+<#else>
   <div>
     ${uiLabelMap.ProductNoProductsToCompare}
   </div>
