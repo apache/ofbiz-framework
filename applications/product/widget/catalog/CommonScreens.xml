@@ -169,6 +169,9 @@ under the License.
 
     <screen name="CommonProductStoreGroupDecorator">
         <section>
+            <actions>
+                <set field="headerItem" value="storeGroup"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
