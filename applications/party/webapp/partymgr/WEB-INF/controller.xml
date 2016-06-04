@@ -1227,7 +1227,7 @@ under the License.
     </request-map>
     <request-map uri="ProfileUpdatePassword">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updatePassword"/>
+        <event type="simple" path="component://securityext/script/org/ofbiz/securityext/login/LoginSimpleEvents.xml" invoke="updatePassword"/>
         <response name="success" type="view" value="ProfileEditUserLogin"/>
         <response name="error" type="view" value="ProfileEditUserLogin"/>
     </request-map>
