@@ -56,7 +56,9 @@ if (productionRunId) {
 
         lastTask = productionRun.getLastProductionRunRoutingTask();
         quantityDeclared = lastTask ? (lastTask.quantityProduced ?: 0.0) : 0.0 ;
-
+        
+        context.canDeclareAndProduce = "N";
+        
         if (lastTask && ("PRUN_RUNNING".equals(lastTask.currentStatusId) || "PRUN_COMPLETED".equals(lastTask.currentStatusId))) {
             context.canDeclareAndProduce = "Y";
         }
@@ -209,6 +211,7 @@ if (productionRunId) {
         // Content
         productionRunContents = from("WorkEffortContentAndInfo").where("workEffortId", productionRunId).orderBy("-fromDate").filterByDate().queryList();
         context.productionRunContents = productionRunContents;
+        context.productionRunComponents = productionRunComponents;
         context.productionRunComponentsData = productionRunComponentsData;
         context.productionRunComponentsDataReadyForIssuance = productionRunComponentsDataReadyForIssuance;
         context.productionRunComponentsAlreadyIssued = productionRunComponentsAlreadyIssued;
