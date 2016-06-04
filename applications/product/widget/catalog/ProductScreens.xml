@@ -463,7 +463,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.FilterProductCosts}">
+                        <screenlet title="${uiLabelMap.ProductFilterProductCosts}">
                             <include-form name="FilterCostComponents" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                         <section>
@@ -493,7 +493,7 @@ under the License.
                         <screenlet title="${uiLabelMap.ProductCostComponentCalcs}">
                             <include-form name="ListProductCostComponentCalcs" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.AddProductCostComponentCalc}">
+                        <screenlet title="${uiLabelMap.ProductAddProductCostComponentCalc}">
                             <include-form name="AddProductCostComponentCalc" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAutoCreateCosts}">
