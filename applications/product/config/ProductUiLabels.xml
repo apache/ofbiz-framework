@@ -12578,6 +12578,9 @@
         <value xml:lang="zh">添加产品内容 (选择内容标识， 输入开始日期):</value>
         <value xml:lang="zh-TW">增加產品內容 (選擇內容識別, 輸入開始日期):</value>
     </property>
+    <property key="ProductAddProductCostComponentCalc">
+    	<value xml:lang="en">Add Product Cost Component Calc</value>
+    </property>
     <property key="ProductAddProductFeatureFromCategory">
         <value xml:lang="de">Produktmerkmal von Kategorie oder Gruppe hinzufügen</value>
         <value xml:lang="en">Add Product Feature From Category or Group</value>
@@ -15350,6 +15353,9 @@
         <value xml:lang="de">Kostenkomponente Kalkulations Id</value>
         <value xml:lang="en">Cost Component Calc Id</value>
         <value xml:lang="zh">成本组成计算标识</value>
+    </property>
+    <property key="ProductCostComponentCalcs">
+    	<value xml:lang="en">Cost Component Calcs</value>
     </property>
     <property key="ProductCostGlAccountTypeId">
         <value xml:lang="de">Kosten Hauptbuch Konto Typ Id</value>
@@ -18131,6 +18137,9 @@
         <value xml:lang="vi">Lọc theo Ngày giới thiệu và ngày kết thúc bán hàng</value>
         <value xml:lang="zh">按介绍和销售折扣日期过滤</value>
         <value xml:lang="zh-TW">按介紹和銷售折扣日期過濾</value>
+    </property>
+    <property key="ProductFilterProductCosts">
+    	<value xml:lang="en">Filter Product Costs</value>
     </property>
     <property key="ProductFindFacilities">
         <value xml:lang="de">Einrichtungen suchen</value>
