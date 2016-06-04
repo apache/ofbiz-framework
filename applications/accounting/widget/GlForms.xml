@@ -1166,6 +1166,7 @@ under the License.
         <field name="accountCode"><display/></field>
         <field name="accountName"><display/></field>
         <field name="currencyUomId" title="${uiLabelMap.AccountingOriginalCurrency}"><display description="${origCurrencyUomId}"/></field>
+        <field name="exchangeRate" use-when="${origCurrencyUomId==currencyUomId}"><display/></field>
         <field name="exchangeRate" use-when="${origCurrencyUomId!=currencyUomId}"><display description="${origAmount/amount} ${origCurrencyUomId}/${currencyUomId}"/></field>
         <field name="debitAmount"><display type="currency" currency="${currencyUomId}" description="${groovy:if(debitCreditFlag.equals('D'))return(amount);if(debitCreditFlag.equals('C'))return(0);}"/></field>
         <field name="creditAmount"><display type="currency" currency="${currencyUomId}" description="${groovy:if(debitCreditFlag.equals('C'))return(amount);if(debitCreditFlag.equals('D'))return(0);}"/></field>
