@@ -60,7 +60,7 @@ under the License.
           <td>${uiLabelMap.AccountingPeriodName}</td>
           <td>${uiLabelMap.CommonFromDate}</td>
           <td>${uiLabelMap.CommonThruDate}</td>
-          <td>&nbsp;</td>
+          <td colspan="2">&nbsp;</td>
         </tr>
           <tr>
             <td>${currentCustomTimePeriod.customTimePeriodId}</td>
@@ -124,12 +124,16 @@ under the License.
             </td>
             <td class="button-col">
               <input type="submit" value='${uiLabelMap.CommonUpdate}'/>
-              <a href='<@ofbizUrl>deleteCustomTimePeriod?customTimePeriodId=${currentCustomTimePeriod.customTimePeriodId}</@ofbizUrl>'>
-              ${uiLabelMap.CommonDelete}</a>
+            </td>
+        </form>
+            <td class="button-col">
+              <form method="post" action='<@ofbizUrl>deleteCustomTimePeriod</@ofbizUrl>' name='deleteCustomTimePeriodForm'>
+                <input type="hidden" name="customTimePeriodId" value="${currentCustomTimePeriod.customTimePeriodId!}" />
+                <input type="submit" value='${uiLabelMap.CommonDelete}'/>
+              </form>
             </td>
           </tr>
       </table>
-        </form>
     <#else>
       <div class="screenlet-body">${uiLabelMap.AccountingNoCurrentCustomTimePeriodSelected}</div>
     </#if>
@@ -152,7 +156,7 @@ under the License.
           <td>${uiLabelMap.AccountingPeriodName}</td>
           <td>${uiLabelMap.CommonFromDate}</td>
           <td>${uiLabelMap.CommonThruDate}</td>
-          <td>&nbsp;</td>
+          <td colspan="3">&nbsp;</td>
         </tr>
         <#assign line = 0>
         <#list customTimePeriods as customTimePeriod>
@@ -213,15 +217,21 @@ under the License.
                 <#if nowTimestamp.after(compareDate)><#assign hasExpired = true></#if>
               </#if>
               <input type="text" size='13' name="thruDate" value="${customTimePeriod.thruDate?string("yyyy-MM-dd")}"<#if hasExpired> class="alert"</#if> />
-             </td>
-             <td class="button-col">
+            </td>
+            <td class="button-col">
               <input type="submit" value='${uiLabelMap.CommonUpdate}'/>
-              <a href='<@ofbizUrl>deleteCustomTimePeriod?customTimePeriodId=${customTimePeriod.customTimePeriodId!}&amp;currentCustomTimePeriodId=${currentCustomTimePeriodId!}&amp;findOrganizationPartyId=${findOrganizationPartyId!}</@ofbizUrl>'>
-              ${uiLabelMap.CommonDelete}</a>
+            </td>
+            </form>
+            <td class="button-col">
+              <form method="post" action='<@ofbizUrl>deleteCustomTimePeriod</@ofbizUrl>' name='lineForm${line}'>
+                <input type="hidden" name="customTimePeriodId" value="${customTimePeriod.customTimePeriodId!}" />
+                <input type="submit" value='${uiLabelMap.CommonDelete}'/>
+              </form>
+            </td>
+            <td class="button-col">
               <a href='<@ofbizUrl>EditCustomTimePeriod?currentCustomTimePeriodId=${customTimePeriod.customTimePeriodId!}&amp;findOrganizationPartyId=${findOrganizationPartyId!}</@ofbizUrl>'>
               ${uiLabelMap.CommonSetAsCurrent}</a>
             </td>
-            </form>
           </tr>
         </#list>
       </table>
