@@ -205,8 +205,8 @@ under the License.
             </drop-down>
         </field>
 
-        <field use-when="surveyQuestion!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field use-when="surveyQuestion!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="CreateSurveyQuestionCategory" type="single" target="createSurveyQuestionCategory" title=""
         header-row-style="header-row" default-table-style="basic-table">
