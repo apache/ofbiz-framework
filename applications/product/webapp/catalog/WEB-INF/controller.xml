@@ -1219,7 +1219,7 @@ under the License.
     <request-map uri="createProductFeatureIactn">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createProductFeatureIactn"/>
-        <response name="success" type="view" value="EditFeatureInterAction"/>
+        <response name="success" type="view" value="EditFeatureInterActions"/>
         <response name="error" type="view" value="EditFeatureInterAction"/>
     </request-map>
     <request-map uri="removeProductFeatureIactn">
