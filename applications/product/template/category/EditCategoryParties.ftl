@@ -86,7 +86,7 @@ under the License.
                     <td>
                         <form method="post" action="<@ofbizUrl>addPartyToCategory</@ofbizUrl>" style="margin: 0;" name="addNewForm">
                             <input type="hidden" name="productCategoryId" value="${productCategoryId}" />
-                            <input type="text" size="20" maxlength="20" name="partyId" value="" />
+                            <@htmlTemplate.lookupField value="${parameters.partyId!}"  formName="addNewForm" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
                             <select name="roleTypeId" size="1">
                             <#list roleTypes as roleType>
                                 <option value="${(roleType.roleTypeId)!}" <#if roleType.roleTypeId.equals("_NA_")> selected="selected"</#if>>${(roleType.get("description",locale))!}</option>
