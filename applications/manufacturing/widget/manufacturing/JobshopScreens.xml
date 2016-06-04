@@ -245,6 +245,16 @@ under the License.
                         <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}">
                             <include-form name="ListProductionRunDeclRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
+                        <section>
+                            <condition>
+                                <if-compare field="canDeclareAndProduce" operator="equals" value="N"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ManufacturingMaterials}">
+                                    <include-form name="ListProductionRunComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
                         <screenlet title="${uiLabelMap.ManufacturingProductionRunDeclaration}">
                           <section>
                             <condition>
@@ -266,6 +276,7 @@ under the License.
                             </widgets>
                           </section>
                         </screenlet>
+                        
                         <screenlet title="${uiLabelMap.ManufacturingMaterialsRequiredByRunningTask}">
                             <include-form name="ListIssueProductionRunDeclComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
