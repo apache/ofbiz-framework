@@ -63,7 +63,7 @@ under the License.
               <td>${questionType.get("description",locale)}</td>
               <td>${(questionCat.description)!}</td>
               <td>${surveyQuestionAndAppl.description!}</td>
-              <td><input type="text" name="question" size="30" value="${surveyQuestionAndAppl.question!?html}" />
+              <td>${surveyQuestionAndAppl.question!}</td>
               <td>
                 <select name="surveyPageSeqId">
                   <#if surveyQuestionAndAppl.surveyPageSeqId?has_content>
