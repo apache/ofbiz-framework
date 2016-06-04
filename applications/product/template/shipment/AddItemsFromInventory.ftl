@@ -58,7 +58,7 @@ under the License.
                   <input type="hidden" name="shipmentItemSeqId" value="${item.shipmentItemSeqId}"/>
                   <input type="hidden" name="totalIssuedQty" value="${item.totalQtyIssued}"/>
                   <span>
-                    <@htmlTemplate.lookupField formName="issueInventoryItemToShipment_${item_index}" name="inventoryItemId" id="inventoryItemId" fieldFormName="LookupInventoryItem?orderId=${item.orderId}&amp;partyId=${item.partyId}&amp;productId=${item.productId}"/>
+                    <@htmlTemplate.lookupField formName="issueInventoryItemToShipment_${item_index}" name="inventoryItemId" id="inventoryItemId" fieldFormName="LookupInventoryItem?orderId=${item.orderId}&partyId=${item.partyId}&productId=${item.productId}"/>
                   </span>
                   <input type="text" size="5" name="quantity"/>
                   <input type="submit" value="${uiLabelMap.CommonSubmit}" class="smallSubmit"/>
