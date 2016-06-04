@@ -52,7 +52,7 @@ if (UtilValidate.isNotEmpty(statusId) && statusId.startsWith("RETURN_")) {
     orderReturnValue = true;
 }
 if (parameters.shipmentId) {
-    findShipmentExprs.add(EntityCondition.makeCondition("shipmentId", EntityOperator.EQUALS, parameters.shipmentId));
+    findShipmentExprs.add(EntityCondition.makeCondition("shipmentId", EntityOperator.LIKE, "%"+parameters.shipmentId+"%"));
 }
 
 if (shipmentTypeId) {

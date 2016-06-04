@@ -32,27 +32,28 @@ function lookupShipments() {
 <div id="findOrders" class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="h3">${uiLabelMap.ProductFindShipmentTitle}</li>
-            <#if requestParameters.facilityId?has_content>
-                <li><a href="<@ofbizUrl>quickShipOrder?facilityId=${requestParameters.facilityId}</@ofbizUrl>">${uiLabelMap.ProductQuickShipOrder}</a></li>
-            </#if>
-            <li><a href="<@ofbizUrl>EditShipment</@ofbizUrl>">${uiLabelMap.ProductNewShipment}</a></li>
-            <li><a href="javascript:lookupShipments();">${uiLabelMap.ProductFindShipment}</a></li>
+          <li class="h3">${uiLabelMap.ProductFindShipmentTitle}</li>
         </ul>
         <br class="clear"/>
     </div>
     <div class="screenlet-body">
-        <form method="post" name="lookupShipmentForm" action="<@ofbizUrl>FindShipment</@ofbizUrl>">
+        <#if requestParameters.facilityId?has_content>
+          <div class="button-bar">
+            <a href="<@ofbizUrl>quickShipOrder?facilityId=${requestParameters.facilityId}</@ofbizUrl>">${uiLabelMap.ProductQuickShipOrder}</a>
+          </div>
+        </#if>
+        <div class="button-bar">
+          <a class="buttontext" href="<@ofbizUrl>EditShipment</@ofbizUrl>">${uiLabelMap.ProductNewShipment}</a>
+        </div>
+        <form method="post" name="lookupShipmentForm" action="javascript:lookupShipments();">
             <input type="hidden" name="lookupFlag" value="Y" />
             <table cellspacing="0" cellpadding="2" class="basic-table">
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductShipmentId}</td>
-                <td width="5%">&nbsp;</td>
                 <td><input type="text" name="shipmentId" value="${shipmentId!}" /></td>
               </tr>
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductShipmentType}</td>
-                <td width="5%">&nbsp;</td>
                 <td>
                   <select name="shipmentTypeId">
                     <#if currentShipmentType?has_content>
@@ -68,7 +69,6 @@ function lookupShipments() {
               </tr>
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductOriginFacility}</td>
-                <td width="5%">&nbsp;</td>
                 <td>
                   <select name="originFacilityId">
                     <#if currentOriginFacility?has_content>
@@ -84,7 +84,6 @@ function lookupShipments() {
               </tr>
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductDestinationFacility}</td>
-                <td width="5%">&nbsp;</td>
                 <td>
                   <select name="destinationFacilityId">
                     <#if currentDestinationFacility?has_content>
@@ -100,7 +99,6 @@ function lookupShipments() {
               </tr>
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.CommonStatus}</td>
-                <td width="5%">&nbsp;</td>
                 <td>
                   <select name="statusId">
                     <#if currentStatus?has_content>
@@ -128,7 +126,6 @@ function lookupShipments() {
               </tr>
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductDateFilter}</td>
-                <td width="5%">&nbsp;</td>
                 <td>
                   <table cellspacing="0" class="basic-table">
                     <tr>
@@ -144,6 +141,12 @@ function lookupShipments() {
                       </td>
                     </tr>
                   </table>
+                </td>
+              </tr>
+              <tr>
+                <td class="label"></td>
+                <td colspan="4">
+                  <input type="submit" value="Find">
                 </td>
               </tr>
             </table>
