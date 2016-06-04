@@ -108,7 +108,7 @@ under the License.
             <td><input type="text" size='10' name="periodName" value="${currentCustomTimePeriod.periodName!}" /></td>
             <td>
               <#assign hasntStarted = false>
-              <#assign compareDate = currentCustomTimePeriod.getDate("fromDate")>
+              <#assign compareDate = currentCustomTimePeriod.getTimestamp("fromDate")>
               <#if compareDate?has_content>
                 <#if nowTimestamp.before(compareDate)><#assign hasntStarted = true></#if>
               </#if>
@@ -116,7 +116,7 @@ under the License.
             </td>
             <td>
               <#assign hasExpired = false>
-              <#assign compareDate = currentCustomTimePeriod.getDate("thruDate")>
+              <#assign compareDate = currentCustomTimePeriod.getTimestamp("thruDate")>
               <#if compareDate?has_content>
                 <#if nowTimestamp.after(compareDate)><#assign hasExpired = true></#if>
               </#if>
@@ -200,7 +200,7 @@ under the License.
             <td><input type="text" size='10' name="periodName" value="${customTimePeriod.periodName!}" /></td>
             <td>
               <#assign hasntStarted = false>
-              <#assign compareDate = customTimePeriod.getDate("fromDate")>
+              <#assign compareDate = customTimePeriod.getTimestamp("fromDate")>
               <#if compareDate?has_content>
                 <#if nowTimestamp.before(compareDate)><#assign hasntStarted = true></#if>
               </#if>
@@ -208,7 +208,7 @@ under the License.
             </td>
             <td>
               <#assign hasExpired = false>
-              <#assign compareDate = customTimePeriod.getDate("thruDate")>
+              <#assign compareDate = customTimePeriod.getTimestamp("thruDate")>
               <#if compareDate?has_content>
                 <#if nowTimestamp.after(compareDate)><#assign hasExpired = true></#if>
               </#if>
