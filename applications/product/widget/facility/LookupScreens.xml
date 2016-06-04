@@ -107,6 +107,11 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.ProductLookupInventory}"/>
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="entityName" value="InventoryItem"/>
+                <set field="searchFields" value="[inventoryItemId]"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/GetSupplierInventories.groovy"/>
+                <set field="andCondition" value="${context.andCondition}"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/LookupInventoryItems.groovy"/>
             </actions>
             <widgets>
