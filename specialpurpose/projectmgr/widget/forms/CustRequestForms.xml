@@ -138,7 +138,7 @@ under the License.
                 <parameter param-name="custRequestId"/>
             </hyperlink>
          </field>
-        <field name="projectId" title="${uiLabelMap.ProjectMgrProjectId}" map-name="sResult" sort-field="true">
+        <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectId}" map-name="sResult" sort-field="true">
             <hyperlink target="projectView" description="${sResult.projectName} [${sResult.projectId}]">
                 <parameter param-name="projectId" from-field="sResult.projectId"/>
             </hyperlink>
