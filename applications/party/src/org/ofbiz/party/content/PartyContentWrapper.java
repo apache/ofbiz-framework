@@ -199,6 +199,22 @@ public class PartyContentWrapper implements ContentWrapper {
             throw new GeneralRuntimeException("Unable to find a delegator to use!");
         }
 
+        // Honor party content over Party entity fields.
+        GenericValue partyContent;
+        if (contentId != null) {
+            partyContent = EntityQuery.use(delegator).from("PartyContent").where("partyId", partyId, "contentId", contentId).cache(cache).queryOne();
+        } else {
+            partyContent = getFirstPartyContentByType(partyId, party, partyContentTypeId, delegator);
+        }
+        if (partyContent != null) {
+            // when rendering the product content, always include the Product and ProductContent records that this comes from
+            Map<String, Object> inContext = new HashMap<String, Object>();
+            inContext.put("party", party);
+            inContext.put("partyContent", partyContent);
+            ContentWorker.renderContentAsText(dispatcher, delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
+            return;
+        }
+        
         if (partyContentTypeId != null) {
             String candidateFieldName = ModelUtil.dbNameToVarName(partyContentTypeId);
 
@@ -231,21 +247,6 @@ public class PartyContentWrapper implements ContentWrapper {
                     }
                 }
             }
-        }
-
-        // otherwise a content field
-        GenericValue partyContent;
-        if (contentId != null) {
-            partyContent = EntityQuery.use(delegator).from("PartyContent").where("partyId", partyId, "contentId", contentId).cache(cache).queryOne();
-        } else {
-            partyContent = getFirstPartyContentByType(partyId, party, partyContentTypeId, delegator);
-        }
-        if (partyContent != null) {
-            // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map<String, Object> inContext = new HashMap<String, Object>();
-            inContext.put("party", party);
-            inContext.put("partyContent", partyContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
         }
     }
 

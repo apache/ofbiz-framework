@@ -145,21 +145,6 @@ public class CategoryContentWrapper implements ContentWrapper {
             throw new GeneralRuntimeException("Unable to find a delegator to use!");
         }
 
-        String candidateFieldName = ModelUtil.dbNameToVarName(prodCatContentTypeId);
-        ModelEntity categoryModel = delegator.getModelEntity("ProductCategory");
-        if (categoryModel.isField(candidateFieldName)) {
-            if (productCategory == null) {
-                productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).cache().queryOne();
-            }
-            if (productCategory != null) {
-                String candidateValue = productCategory.getString(candidateFieldName);
-                if (UtilValidate.isNotEmpty(candidateValue)) {
-                    outWriter.write(candidateValue);
-                    return;
-                }
-            }
-        }
-
         List<GenericValue> categoryContentList = EntityQuery.use(delegator).from("ProductCategoryContent").where("productCategoryId", productCategoryId, "prodCatContentTypeId", prodCatContentTypeId).orderBy("-fromDate").cache(cache).queryList();
         categoryContentList = EntityUtil.filterByDate(categoryContentList);
         
@@ -185,6 +170,22 @@ public class CategoryContentWrapper implements ContentWrapper {
             inContext.put("productCategory", productCategory);
             inContext.put("categoryContent", categoryContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
+            return;
+        }
+        
+        String candidateFieldName = ModelUtil.dbNameToVarName(prodCatContentTypeId);
+        ModelEntity categoryModel = delegator.getModelEntity("ProductCategory");
+        if (categoryModel.isField(candidateFieldName)) {
+            if (productCategory == null) {
+                productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).cache().queryOne();
+            }
+            if (productCategory != null) {
+                String candidateValue = productCategory.getString(candidateFieldName);
+                if (UtilValidate.isNotEmpty(candidateValue)) {
+                    outWriter.write(candidateValue);
+                    return;
+                }
+            }
         }
     }
 }

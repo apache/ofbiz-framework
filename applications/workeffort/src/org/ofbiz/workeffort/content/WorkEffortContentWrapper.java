@@ -293,6 +293,22 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             throw new GeneralRuntimeException("Unable to find a delegator to use!");
         }
 
+        // Honor work effort content over WorkEffort entity fields.
+        GenericValue workEffortContent;
+        if (contentId != null) {
+            workEffortContent = EntityQuery.use(delegator).from("WorkEffortContent").where("workEffortId", workEffortId, "contentId", contentId).cache(cache).queryOne();
+        } else {
+            workEffortContent = getFirstWorkEffortContentByType(workEffortId, workEffort, workEffortContentTypeId, delegator, cache);
+        }
+        if (workEffortContent != null) {
+            // when rendering the product content, always include the Product and ProductContent records that this comes from
+            Map<String, Object> inContext = new HashMap<String, Object>();
+            inContext.put("workEffort", workEffort);
+            inContext.put("workEffortContent", workEffortContent);
+            ContentWorker.renderContentAsText(dispatcher, delegator, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
+            return;
+        }
+        
         // check for workeffort field
         String candidateFieldName = ModelUtil.dbNameToVarName(workEffortContentTypeId);
         ModelEntity workEffortModel = delegator.getModelEntity("WorkEffort");
@@ -307,21 +323,6 @@ public class WorkEffortContentWrapper implements ContentWrapper {
                     return;
                 }
             }
-        }
-
-        // otherwise check content record
-        GenericValue workEffortContent;
-        if (contentId != null) {
-            workEffortContent = EntityQuery.use(delegator).from("WorkEffortContent").where("workEffortId", workEffortId, "contentId", contentId).cache(cache).queryOne();
-        } else {
-            workEffortContent = getFirstWorkEffortContentByType(workEffortId, workEffort, workEffortContentTypeId, delegator, cache);
-        }
-        if (workEffortContent != null) {
-            // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map<String, Object> inContext = new HashMap<String, Object>();
-            inContext.put("workEffort", workEffort);
-            inContext.put("workEffortContent", workEffortContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
         }
     }
 
