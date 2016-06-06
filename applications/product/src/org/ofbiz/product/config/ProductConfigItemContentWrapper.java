@@ -166,6 +166,21 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
             mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator);
         }
 
+        GenericValue productConfigItemContent = EntityQuery.use(delegator).from("ProdConfItemContent")
+                .where("configItemId", configItemId, "confItemContentTypeId", confItemContentTypeId)
+                .orderBy("-fromDate")
+                .cache(cache)
+                .filterByDate()
+                .queryFirst();
+        if (productConfigItemContent != null) {
+            // when rendering the product config item content, always include the ProductConfigItem and ProdConfItemContent records that this comes from
+            Map<String, Object> inContext = new HashMap<String, Object>();
+            inContext.put("productConfigItem", productConfigItem);
+            inContext.put("productConfigItemContent", productConfigItemContent);
+            ContentWorker.renderContentAsText(dispatcher, delegator, productConfigItemContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
+            return;
+        }
+        
         String candidateFieldName = ModelUtil.dbNameToVarName(confItemContentTypeId);
         //Debug.logInfo("candidateFieldName=" + candidateFieldName, module);
         ModelEntity productConfigItemModel = delegator.getModelEntity("ProductConfigItem");
@@ -180,20 +195,6 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
                     return;
                 }
             }
-        }
-
-        GenericValue productConfigItemContent = EntityQuery.use(delegator).from("ProdConfItemContent")
-                .where("configItemId", configItemId, "confItemContentTypeId", confItemContentTypeId)
-                .orderBy("-fromDate")
-                .cache(cache)
-                .filterByDate()
-                .queryFirst();
-        if (productConfigItemContent != null) {
-            // when rendering the product config item content, always include the ProductConfigItem and ProdConfItemContent records that this comes from
-            Map<String, Object> inContext = new HashMap<String, Object>();
-            inContext.put("productConfigItem", productConfigItem);
-            inContext.put("productConfigItemContent", productConfigItemContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, productConfigItemContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
         }
     }
 }

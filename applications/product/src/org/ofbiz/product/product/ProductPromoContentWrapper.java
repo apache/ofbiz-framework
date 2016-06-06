@@ -165,21 +165,6 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             throw new GeneralRuntimeException("Unable to find a delegator to use!");
         }
 
-        String candidateFieldName = ModelUtil.dbNameToVarName(productPromoContentTypeId);
-        ModelEntity productModel = delegator.getModelEntity("ProductPromo");
-        if (productModel.isField(candidateFieldName)) {
-            if (UtilValidate.isEmpty(productPromo)) {
-                productPromo = EntityQuery.use(delegator).from("ProductPromo").where("productPromoId", productPromoId).cache().queryOne();
-            }
-            if (UtilValidate.isNotEmpty(productPromo)) {
-                String candidateValue = productPromo.getString(candidateFieldName);
-                if (UtilValidate.isNotEmpty(candidateValue)) {
-                    outWriter.write(candidateValue);
-                    return;
-                } 
-            }
-        }
-
         List<EntityExpr> exprs = new ArrayList<EntityExpr>();
         exprs.add(EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId));
         exprs.add(EntityCondition.makeCondition("productPromoContentTypeId", EntityOperator.EQUALS, productPromoContentTypeId));
@@ -196,6 +181,22 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             inContext.put("productPromo", productPromo);
             inContext.put("productPromoContent", productPromoContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, productPromoContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
+            return;
+        }
+        
+        String candidateFieldName = ModelUtil.dbNameToVarName(productPromoContentTypeId);
+        ModelEntity productModel = delegator.getModelEntity("ProductPromo");
+        if (productModel.isField(candidateFieldName)) {
+            if (UtilValidate.isEmpty(productPromo)) {
+                productPromo = EntityQuery.use(delegator).from("ProductPromo").where("productPromoId", productPromoId).cache().queryOne();
+            }
+            if (UtilValidate.isNotEmpty(productPromo)) {
+                String candidateValue = productPromo.getString(candidateFieldName);
+                if (UtilValidate.isNotEmpty(candidateValue)) {
+                    outWriter.write(candidateValue);
+                    return;
+                } 
+            }
         }
     }
 }
