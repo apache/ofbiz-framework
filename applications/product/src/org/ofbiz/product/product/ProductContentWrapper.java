@@ -160,6 +160,23 @@ public class ProductContentWrapper implements ContentWrapper {
             throw new GeneralRuntimeException("Unable to find a delegator to use!");
         }
 
+        List<GenericValue> productContentList = EntityQuery.use(delegator).from("ProductContent").where("productId", productId, "productContentTypeId", productContentTypeId).orderBy("-fromDate").cache(cache).filterByDate().queryList();
+        if (UtilValidate.isEmpty(productContentList) && ("Y".equals(product.getString("isVariant")))) {
+            GenericValue parent = ProductWorker.getParentProduct(productId, delegator);
+            if (UtilValidate.isNotEmpty(parent)) {
+                productContentList = EntityQuery.use(delegator).from("ProductContent").where("productId", parent.get("productId"), "productContentTypeId", productContentTypeId).orderBy("-fromDate").cache(cache).filterByDate().queryList();
+            }
+        }
+        GenericValue productContent = EntityUtil.getFirst(productContentList);
+        if (productContent != null) {
+            // when rendering the product content, always include the Product and ProductContent records that this comes from
+            Map<String, Object> inContext = new HashMap<String, Object>();
+            inContext.put("product", product);
+            inContext.put("productContent", productContent);
+            ContentWorker.renderContentAsText(dispatcher, delegator, productContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
+            return;
+        }
+
         String candidateFieldName = ModelUtil.dbNameToVarName(productContentTypeId);
         ModelEntity productModel = delegator.getModelEntity("Product");
         if (product == null) {
@@ -188,20 +205,5 @@ public class ProductContentWrapper implements ContentWrapper {
                 }
         }
 
-        List<GenericValue> productContentList = EntityQuery.use(delegator).from("ProductContent").where("productId", productId, "productContentTypeId", productContentTypeId).orderBy("-fromDate").cache(cache).filterByDate().queryList();
-        if (UtilValidate.isEmpty(productContentList) && ("Y".equals(product.getString("isVariant")))) {
-            GenericValue parent = ProductWorker.getParentProduct(productId, delegator);
-            if (UtilValidate.isNotEmpty(parent)) {
-                productContentList = EntityQuery.use(delegator).from("ProductContent").where("productId", parent.get("productId"), "productContentTypeId", productContentTypeId).orderBy("-fromDate").cache(cache).filterByDate().queryList();
-            }
-        }
-        GenericValue productContent = EntityUtil.getFirst(productContentList);
-        if (productContent != null) {
-            // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map<String, Object> inContext = new HashMap<String, Object>();
-            inContext.put("product", product);
-            inContext.put("productContent", productContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, productContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
-        }
     }
 }
