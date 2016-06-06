@@ -105,7 +105,8 @@ under the License.
         <field name="needsInventoryReceive" tooltip="${uiLabelMap.OrderReturnNecessaryReceiveInventoryMessage}">
             <drop-down no-current-selected-key="N"><option key="N"/><option key="Y"/></drop-down>
         </field>
-        <field name="createdBy"><display/></field>
+        <field name="createdBy" use-when="returnHeader!=null"><display/></field>
+        <field use-when="returnHeader==null&amp;&amp;returnId==null" name="createdBy"><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <!-- UNUSED FORM
