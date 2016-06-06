@@ -47,9 +47,6 @@ under the License.
       </#if>
     </div>
     <#if currentCustomTimePeriod?has_content>
-        <form method="post" action="<@ofbizUrl>updateCustomTimePeriod</@ofbizUrl>" name="updateCustomTimePeriodForm">
-          <input type="hidden" name="findOrganizationPartyId" value="${findOrganizationPartyId!}" />
-          <input type="hidden" name="customTimePeriodId" value="${currentCustomTimePeriodId!}" />
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
           <td>${uiLabelMap.CommonId}</td>
@@ -62,7 +59,10 @@ under the License.
           <td>${uiLabelMap.CommonThruDate}</td>
           <td colspan="2">&nbsp;</td>
         </tr>
-          <tr>
+        <tr>
+          <form method="post" action="<@ofbizUrl>updateCustomTimePeriod</@ofbizUrl>" name="updateCustomTimePeriodForm">
+            <input type="hidden" name="findOrganizationPartyId" value="${findOrganizationPartyId!}" />
+            <input type="hidden" name="customTimePeriodId" value="${currentCustomTimePeriodId!}" />
             <td>${currentCustomTimePeriod.customTimePeriodId}</td>
             <td>
               <select name="parentPeriodId">
@@ -125,14 +125,14 @@ under the License.
             <td class="button-col">
               <input type="submit" value='${uiLabelMap.CommonUpdate}'/>
             </td>
-        </form>
-            <td class="button-col">
-              <form method="post" action='<@ofbizUrl>deleteCustomTimePeriod</@ofbizUrl>' name='deleteCustomTimePeriodForm'>
-                <input type="hidden" name="customTimePeriodId" value="${currentCustomTimePeriod.customTimePeriodId!}" />
-                <input type="submit" value='${uiLabelMap.CommonDelete}'/>
-              </form>
-            </td>
-          </tr>
+          </form>
+          <td class="button-col">
+            <form method="post" action='<@ofbizUrl>deleteCustomTimePeriod</@ofbizUrl>' name='deleteCustomTimePeriodForm'>
+              <input type="hidden" name="customTimePeriodId" value="${currentCustomTimePeriod.customTimePeriodId!}" />
+              <input type="submit" value='${uiLabelMap.CommonDelete}'/>
+            </form>
+          </td>
+        </tr>
       </table>
     <#else>
       <div class="screenlet-body">${uiLabelMap.AccountingNoCurrentCustomTimePeriodSelected}</div>
@@ -165,62 +165,62 @@ under the License.
           <tr>
             <form method="post" action='<@ofbizUrl>updateCustomTimePeriod</@ofbizUrl>' name='lineForm${line}'>
               <input type="hidden" name="customTimePeriodId" value="${customTimePeriod.customTimePeriodId!}" />
-            <td>${customTimePeriod.customTimePeriodId}</td>
-            <td>
-              <select name="parentPeriodId">
-                <option value=''>&nbsp;</option>
-                <#list allCustomTimePeriods as allCustomTimePeriod>
-                  <#assign allPeriodType = allCustomTimePeriod.getRelatedOne("PeriodType", true)>
-                  <#assign isDefault = false>
-                  <#if (currentCustomTimePeriod.parentPeriodId)??>
-                    <#if currentCustomTimePeriod.customTimePeriodId = allCustomTimePeriod.customTimePeriodId>
-                      <#assign isDefault = true>
+              <td>${customTimePeriod.customTimePeriodId}</td>
+              <td>
+                <select name="parentPeriodId">
+                  <option value=''>&nbsp;</option>
+                  <#list allCustomTimePeriods as allCustomTimePeriod>
+                    <#assign allPeriodType = allCustomTimePeriod.getRelatedOne("PeriodType", true)>
+                    <#assign isDefault = false>
+                    <#if (currentCustomTimePeriod.parentPeriodId)??>
+                      <#if currentCustomTimePeriod.customTimePeriodId = allCustomTimePeriod.customTimePeriodId>
+                        <#assign isDefault = true>
+                      </#if>
                     </#if>
-                  </#if>
-                  <option value='${allCustomTimePeriod.customTimePeriodId}'<#if isDefault> selected="selected"</#if>>
-                    ${allCustomTimePeriod.organizationPartyId}
-                    <#if allPeriodType??> ${allPeriodType.description}: </#if>
-                    ${allCustomTimePeriod.periodNum!}
-                    [${allCustomTimePeriod.customTimePeriodId}]
-                  </option>
-                </#list>
-              </select>
-            </td>
-            <td><input type="text" size='12' name="organizationPartyId" value="${customTimePeriod.organizationPartyId!}" /></td>
-            <td>
-              <select name="periodTypeId">
-                <#list periodTypes as periodType>
-                  <#assign isDefault = false>
-                  <#if (customTimePeriod.periodTypeId)??>
-                    <#if customTimePeriod.periodTypeId = periodType.periodTypeId>
-                     <#assign isDefault = true>
+                    <option value='${allCustomTimePeriod.customTimePeriodId}'<#if isDefault> selected="selected"</#if>>
+                      ${allCustomTimePeriod.organizationPartyId}
+                      <#if allPeriodType??> ${allPeriodType.description}: </#if>
+                      ${allCustomTimePeriod.periodNum!}
+                      [${allCustomTimePeriod.customTimePeriodId}]
+                    </option>
+                  </#list>
+                </select>
+              </td>
+              <td><input type="text" size='12' name="organizationPartyId" value="${customTimePeriod.organizationPartyId!}" /></td>
+              <td>
+                <select name="periodTypeId">
+                  <#list periodTypes as periodType>
+                    <#assign isDefault = false>
+                    <#if (customTimePeriod.periodTypeId)??>
+                      <#if customTimePeriod.periodTypeId = periodType.periodTypeId>
+                       <#assign isDefault = true>
+                      </#if>
                     </#if>
-                  </#if>
-                  <option value='${periodType.periodTypeId}'<#if isDefault> selected="selected"</#if>>${periodType.description} [${periodType.periodTypeId}]</option>
-                </#list>
-              </select>
-            </td>
-            <td><input type="text" size='4' name="periodNum" value="${customTimePeriod.periodNum!}" /></td>
-            <td><input type="text" size='10' name="periodName" value="${customTimePeriod.periodName!}" /></td>
-            <td>
-              <#assign hasntStarted = false>
-              <#assign compareDate = customTimePeriod.getTimestamp("fromDate")>
-              <#if compareDate?has_content>
-                <#if nowTimestamp.before(compareDate)><#assign hasntStarted = true></#if>
-              </#if>
-              <input type="text" size='13' name="fromDate" value="${customTimePeriod.fromDate?string("yyyy-MM-dd")}"<#if hasntStarted> class="alert"</#if> />
-            </td>
-            <td>
-              <#assign hasExpired = false>
-              <#assign compareDate = customTimePeriod.getTimestamp("thruDate")>
-              <#if compareDate?has_content>
-                <#if nowTimestamp.after(compareDate)><#assign hasExpired = true></#if>
-              </#if>
-              <input type="text" size='13' name="thruDate" value="${customTimePeriod.thruDate?string("yyyy-MM-dd")}"<#if hasExpired> class="alert"</#if> />
-            </td>
-            <td class="button-col">
-              <input type="submit" value='${uiLabelMap.CommonUpdate}'/>
-            </td>
+                    <option value='${periodType.periodTypeId}'<#if isDefault> selected="selected"</#if>>${periodType.description} [${periodType.periodTypeId}]</option>
+                  </#list>
+                </select>
+              </td>
+              <td><input type="text" size='4' name="periodNum" value="${customTimePeriod.periodNum!}" /></td>
+              <td><input type="text" size='10' name="periodName" value="${customTimePeriod.periodName!}" /></td>
+              <td>
+                <#assign hasntStarted = false>
+                <#assign compareDate = customTimePeriod.getTimestamp("fromDate")>
+                <#if compareDate?has_content>
+                  <#if nowTimestamp.before(compareDate)><#assign hasntStarted = true></#if>
+                </#if>
+                <input type="text" size='13' name="fromDate" value="${customTimePeriod.fromDate?string("yyyy-MM-dd")}"<#if hasntStarted> class="alert"</#if> />
+              </td>
+              <td>
+                <#assign hasExpired = false>
+                <#assign compareDate = customTimePeriod.getTimestamp("thruDate")>
+                <#if compareDate?has_content>
+                  <#if nowTimestamp.after(compareDate)><#assign hasExpired = true></#if>
+                </#if>
+                <input type="text" size='13' name="thruDate" value="${customTimePeriod.thruDate?string("yyyy-MM-dd")}"<#if hasExpired> class="alert"</#if> />
+              </td>
+              <td class="button-col">
+                <input type="submit" value='${uiLabelMap.CommonUpdate}'/>
+              </td>
             </form>
             <td class="button-col">
               <form method="post" action='<@ofbizUrl>deleteCustomTimePeriod</@ofbizUrl>' name='lineForm${line}'>
