@@ -35,6 +35,10 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.TimeZone;
 
+/**
+ * OFBiz server parameters needed on system startup and retrieved from
+ * one of the properties files in the start component
+ */
 public final class Config {
 
     public final String ofbizHome;
@@ -89,10 +93,8 @@ public final class Config {
         setDefaultLocale(props);
 
         // set the default timezone
-        String tzString = props.getProperty("ofbiz.timeZone.default");
-        if (tzString != null && tzString.length() > 0) {
-            TimeZone.setDefault(TimeZone.getTimeZone(tzString));
-        }
+        String tzString = props.getProperty("ofbiz.timeZone.default", TimeZone.getDefault().getID());
+        TimeZone.setDefault(TimeZone.getTimeZone(tzString));
     }
 
     private String getAbsolutePath(Properties props, String key, String def, String ofbizHome) {

@@ -216,8 +216,8 @@ final class StartupCommandUtil {
      * 
      * TODO A better solution is to change the signature of all 
      * containers to receive a <tt>List</tt> of <tt>StartupCommand</tt>s
-     * instead and delete the methods populateLoaderArgs, commandExistsInList
-     * and retrieveCommandArgumentEntries along with the loaderArgs list.
+     * instead and delete the methods adaptStartupCommandsToLoaderArgs
+     * and retrieveCommandArguments along with the loaderArgs list.
      */
     static List<String> adaptStartupCommandsToLoaderArgs(List<StartupCommand> ofbizCommands) {
         List<String> loaderArgs = new ArrayList<String>();
@@ -225,13 +225,13 @@ final class StartupCommandUtil {
         final String TEST = StartupCommandUtil.StartupOption.TEST.getName();
         final String TEST_LIST = StartupCommandUtil.StartupOption.TEST_LIST.getName();
         
-        if(commandExistsInList(ofbizCommands, LOAD_DATA)) {
+        if(ofbizCommands.stream().anyMatch(command -> command.getName().equals(LOAD_DATA))) {
             retrieveCommandArguments(ofbizCommands, LOAD_DATA).entrySet().stream().forEach(entry -> 
             loaderArgs.add("-" + entry.getKey() + "=" + entry.getValue()));
-        } else if(commandExistsInList(ofbizCommands, TEST)) {
+        } else if(ofbizCommands.stream().anyMatch(command -> command.getName().equals(TEST))) {
             retrieveCommandArguments(ofbizCommands, TEST).entrySet().stream().forEach(entry -> 
             loaderArgs.add("-" + entry.getKey() + "=" + entry.getValue()));
-        } else if(commandExistsInList(ofbizCommands, TEST_LIST)) {
+        } else if(ofbizCommands.stream().anyMatch(command -> command.getName().equals(TEST_LIST))) {
             Map<String,String> testListArgs = retrieveCommandArguments(ofbizCommands, TEST_LIST);
             loaderArgs.add(testListArgs.get("file"));
             loaderArgs.add("-" + testListArgs.get("mode"));
@@ -239,14 +239,28 @@ final class StartupCommandUtil {
         return loaderArgs;
     }
 
-    private static boolean commandExistsInList(List<StartupCommand> ofbizCommands, String commandName) {
-        return ofbizCommands.stream().anyMatch(command -> command.getName().equals(commandName));
-    }
-
     private static Map<String,String> retrieveCommandArguments(List<StartupCommand> ofbizCommands, String commandName) {
         return ofbizCommands.stream()
                 .filter(option-> option.getName().equals(commandName))
                 .collect(Collectors.toList()).get(0).getProperties();
+    }
+
+    private static final Options getOfbizStartupOptions() {
+        OptionGroup ofbizCommandOptions = new OptionGroup();
+        ofbizCommandOptions.addOption(BOTH);
+        ofbizCommandOptions.addOption(HELP);
+        ofbizCommandOptions.addOption(LOAD_DATA);
+        ofbizCommandOptions.addOption(POS);
+        ofbizCommandOptions.addOption(SHUTDOWN);
+        ofbizCommandOptions.addOption(START);
+        ofbizCommandOptions.addOption(STATUS);
+        ofbizCommandOptions.addOption(TEST);
+        ofbizCommandOptions.addOption(TEST_LIST);
+
+        Options options = new Options();
+        options.addOptionGroup(ofbizCommandOptions);
+        options.addOption(PORTOFFSET);
+        return options;
     }
 
     private static final List<StartupCommand> mapCommonsCliOptionsToStartupCommands(final CommandLine commandLine) {
@@ -292,23 +306,5 @@ final class StartupCommandUtil {
             }
         }
         //TODO add more validations
-    }
-
-    private static final Options getOfbizStartupOptions() {
-        OptionGroup ofbizCommandOptions = new OptionGroup();
-        ofbizCommandOptions.addOption(BOTH);
-        ofbizCommandOptions.addOption(HELP);
-        ofbizCommandOptions.addOption(LOAD_DATA);
-        ofbizCommandOptions.addOption(POS);
-        ofbizCommandOptions.addOption(SHUTDOWN);
-        ofbizCommandOptions.addOption(START);
-        ofbizCommandOptions.addOption(STATUS);
-        ofbizCommandOptions.addOption(TEST);
-        ofbizCommandOptions.addOption(TEST_LIST);
-
-        Options options = new Options();
-        options.addOptionGroup(ofbizCommandOptions);
-        options.addOption(PORTOFFSET);
-        return options;
     }
 }

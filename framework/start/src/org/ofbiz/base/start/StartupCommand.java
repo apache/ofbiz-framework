@@ -21,11 +21,11 @@ package org.ofbiz.base.start;
 import java.util.Map;
 
 /**
- * A command line argument passed to ofbiz
+ * A command line argument passed to OFBiz
  * 
  * <p>
  * A <tt>StartupCommand</tt> represents a processed command line argument passed 
- * to ofbiz such that it is no longer a raw string but an instance of this class.
+ * to OFBiz such that it is no longer a raw string but an instance of this class.
  * For example: <code>java -jar ofbiz.jar --status</code> where status is a command.
  * </p>
  */

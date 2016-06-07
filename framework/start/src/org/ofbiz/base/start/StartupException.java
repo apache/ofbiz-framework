@@ -19,8 +19,11 @@
 package org.ofbiz.base.start;
 
 /**
- * StartupException
- *
+ * StartupException is an exception that is thrown when something wrong happens
+ * during executing any OFBiz high level commands.
+ * 
+ * If StartupException is not handled then it will bubble up to main 
+ * and lead to system termination.
  */
 @SuppressWarnings("serial")
 public final class StartupException extends Exception {
