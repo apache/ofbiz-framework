@@ -77,7 +77,7 @@ shipGroups.each { shipGroup ->
     orderItemAssocs.each { orderItemAssoc ->
         orderItem = orderItemAssoc.getRelatedOne("OrderItem", false);
         product = orderItem.getRelatedOne("Product", false);
-        line = [];
+        line = [:];
 
         // the quantity in group
         quantityInGroup = orderItemAssoc.quantity;
