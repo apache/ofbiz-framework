@@ -49,13 +49,12 @@ public final class Start {
     }
 
     /**
-     * main is the entry point to execute high level ofbiz commands 
+     * main is the entry point to execute high level OFBiz commands 
      * such as starting, stopping or checking the status of the server.
      * 
-     * @param args: The commands for ofbiz
-     * @throws StartupException: terminates ofbiz or propagates to caller
+     * @param args: The commands for OFBiz
      */
-    public static void main(String[] args) throws StartupException {
+    public static void main(String[] args) {
         List<StartupCommand> ofbizCommands = null;
         try {
             ofbizCommands = StartupCommandUtil.parseOfbizCommands(args);
@@ -66,7 +65,7 @@ public final class Start {
             System.exit(1);
         }
 
-        CommandType commandType = evaluateOfbizCommands(ofbizCommands);
+        CommandType commandType = determineCommandType(ofbizCommands);
         if(!commandType.equals(CommandType.HELP)) {
             instance.config = StartupControlPanel.init(ofbizCommands);
         }
@@ -75,18 +74,16 @@ public final class Start {
                 StartupCommandUtil.printOfbizStartupHelp(System.out);
                 break;
             case STATUS:
-                System.out.println("Current Status : " + StartupControlPanel.status(instance.config));
+                System.out.println("Current Status : " + AdminClient.requestStatus(instance.config));
                 break;
             case SHUTDOWN:
-                System.out.println("Shutting down server : " + StartupControlPanel.shutdown(instance.config));
+                System.out.println("Shutting down server : " + AdminClient.requestShutdown(instance.config));
                 break;
             case START:
                 try {
                     StartupControlPanel.start(instance.config, instance.serverState, ofbizCommands);
                 } catch (StartupException e) {
-                    // if startup logic fails, execute shutdown hooks
-                    e.printStackTrace();
-                    System.exit(99);
+                    StartupControlPanel.fullyTerminateSystem(e);
                 }
                 break;
         }
@@ -125,7 +122,7 @@ public final class Start {
         }
     }
 
-    private static CommandType evaluateOfbizCommands(List<StartupCommand> ofbizCommands) {
+    private static CommandType determineCommandType(List<StartupCommand> ofbizCommands) {
         if (ofbizCommands.stream().anyMatch(
                 command -> command.getName().equals(StartupCommandUtil.StartupOption.HELP.getName()))) {
             return CommandType.HELP;

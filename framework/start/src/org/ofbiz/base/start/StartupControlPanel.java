@@ -18,14 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.base.start;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ConnectException;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,91 +28,85 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.ofbiz.base.start.Start.ServerState;
 
+/**
+ * The StartupControlPanel controls OFBiz by executing high level
+ * functions such as init, start and stop on the server. The bulk
+ * of the startup sequence logic resides in this class.
+ */
 final class StartupControlPanel {
 
-    enum OfbizSocketCommand {
-        SHUTDOWN, STATUS, FAIL
-    }
-
-    static Config init(List<StartupCommand> ofbizCommands) throws StartupException {
-        loadGlobalOfbizSystemProperties("ofbiz.system.props");
+    /**
+     * Initialize OFBiz by:
+     * - setting high level JVM and OFBiz system properties
+     * - creating a Config object holding startup configuration parameters
+     *
+     * @param ofbizCommands: commands passed by the user to OFBiz on start
+     * @return config: OFBiz configuration
+     */
+    static Config init(List<StartupCommand> ofbizCommands) {
+        Config config = null;
         try {
-            return new Config(ofbizCommands);
+            loadGlobalOfbizSystemProperties("ofbiz.system.props");
+            config =  new Config(ofbizCommands);
         } catch (StartupException e) {
-            throw new StartupException("Could not fetch config instance", e);
+            fullyTerminateSystem(e);
         }
+        return config;
     }
 
-    static String status(Config config) throws StartupException {
-        try {
-            return sendSocketCommand(OfbizSocketCommand.STATUS, config);
-        } catch (ConnectException e) {
-            return "Not Running";
-        } catch (IOException e) {
-            throw new StartupException(e);
-        }
-    }
-
-    static String shutdown(Config config) throws StartupException {
-        try {
-            return sendSocketCommand(OfbizSocketCommand.SHUTDOWN, config);
-        } catch (Exception e) {
-            throw new StartupException(e);
-        }
-    }
-
+    /**
+     * Execute the startup sequence for OFBiz
+     */
     static void start(Config config,
             AtomicReference<ServerState> serverState,
             List<StartupCommand> ofbizCommands) throws StartupException {
-        
+
+        List<StartupLoader> loaders = new ArrayList<StartupLoader>();
         List<String> loaderArgs = StartupCommandUtil.adaptStartupCommandsToLoaderArgs(ofbizCommands);
-        ArrayList<StartupLoader> loaders = new ArrayList<StartupLoader>();
-        Thread adminPortThread = null;
+        Thread adminServer = createAdminServer(config, serverState, loaders);
+        Classpath classPath = createClassPath(config);
+        NativeLibClassLoader classLoader = createAndSetContextClassLoader(config, classPath);
 
-        //create log dir
-        File logDir = new File(config.logDir);
-        if (!logDir.exists()) {
-            if (logDir.mkdir()) {
-                System.out.println("Created OFBiz log dir [" + logDir.getAbsolutePath() + "]");
-            }
-        }
-
-        // create the listener thread
-        if (config.adminPort > 0) {
-            adminPortThread = new AdminPortThread(loaders, serverState, config);
-            adminPortThread.start();
-        } else {
-            System.out.println("Admin socket not configured; set to port 0");
-        }
-
-        // set the shutdown hook
-        if (config.useShutdownHook) {
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                @Override
-                public void run() {
-                    StartupControlPanel.shutdownServer(loaders, serverState, this);
-                }
-            });
-        } else {
-            System.out.println("Shutdown hook disabled");
-        }
-
-        // load and start the startup loaders
-        loadStartupLoaders(config, loaderArgs, loaders, serverState);
+        createLogDirectoryIfMissing(config);
+        createRuntimeShutdownHook(config, loaders, serverState);
+        loadStartupLoaders(config, loaders, loaderArgs, serverState, classLoader);
         startStartupLoaders(loaders, serverState);
-
-        // execute shutdown if applicable
-        if (config.shutdownAfterLoad) {
-            StartupControlPanel.stopServer(loaders, serverState, adminPortThread);
-        }
+        executeShutdownAfterLoadIfConfigured(config, loaders, serverState, adminServer);
     }
 
-    static void stopServer(ArrayList<StartupLoader> loaders, AtomicReference<ServerState> serverState, Thread adminPortThread) {
-        shutdownServer(loaders, serverState, adminPortThread);
+    /**
+     * Shutdown the OFBiz server. This method is invoked in one of the
+     * following ways:
+     *
+     * - Manually if requested by the client AdminClient
+     * - Automatically if Config.shutdownAfterLoad is set to true
+     */
+    static void stop(List<StartupLoader> loaders, AtomicReference<ServerState> serverState, Thread adminServer) {
+        shutdownServer(loaders, serverState, adminServer);
         System.exit(0);
     }
 
-    private static void shutdownServer(ArrayList<StartupLoader> loaders, AtomicReference<ServerState> serverState, Thread adminPortThread) {
+    /**
+     * Properly exit from the system when a StartupException cannot or
+     * should not be handled except by exiting the system.
+     *
+     * A proper system exit is achieved by:
+     *
+     * - Printing the stack trace for users to see what happened
+     * - Executing the shutdown hooks (if existing) through System.exit
+     * - Terminating any lingering threads (if existing) through System.exit
+     * - Providing an exit code that is not 0 to signal to the build system 
+     *   or user of failure to execute.
+     * 
+     * @param e: The startup exception that cannot / should not be handled
+     *   except by terminating the system
+     */
+    static void fullyTerminateSystem(StartupException e) {
+        e.printStackTrace();
+        System.exit(1);
+    }
+
+    private static void shutdownServer(List<StartupLoader> loaders, AtomicReference<ServerState> serverState, Thread adminServer) {
         ServerState currentState;
         do {
             currentState = serverState.get();
@@ -138,8 +127,8 @@ final class StartupControlPanel {
                 }
             }
         }
-        if (adminPortThread != null && adminPortThread.isAlive()) {
-            adminPortThread.interrupt();
+        if (adminServer != null && adminServer.isAlive()) {
+            adminServer.interrupt();
         }
     }
 
@@ -157,79 +146,95 @@ final class StartupControlPanel {
         }
     }
 
-    private static String sendSocketCommand(OfbizSocketCommand socketCommand, Config config) throws IOException {
-        String response = "OFBiz is Down";
-        try {
-            Socket socket = new Socket(config.adminAddress, config.adminPort);
-            // send the command
-            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-            writer.println(config.adminKey + ":" + socketCommand);
-            writer.flush();
-            // read the reply
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            response = reader.readLine();
-            reader.close();
-            // close the socket
-            writer.close();
-            socket.close();
+    private static Thread createAdminServer(
+            Config config,
+            AtomicReference<ServerState> serverState,
+            List<StartupLoader> loaders) throws StartupException {
 
-        } catch (ConnectException e) {
-            System.out.println("Could not connect to " + config.adminAddress + ":" + config.adminPort);
+        Thread adminServer = null;
+        if (config.adminPort > 0) {
+            adminServer = new AdminServer(loaders, serverState, config);
+            adminServer.start();
+        } else {
+            System.out.println("Admin socket not configured; set to port 0");
         }
-        return response;
+        return adminServer;
     }
 
-    private static NativeLibClassLoader createClassLoader(Config config) throws IOException {
-        ClassLoader parent = Thread.currentThread().getContextClassLoader();
-        if (parent instanceof NativeLibClassLoader) {
-            parent = parent.getParent();
-        }
-        if (parent == null) {
-            parent = Start.class.getClassLoader();
-            if (parent == null) {
-                parent = ClassLoader.getSystemClassLoader();
-            }
-        }
+    private static Classpath createClassPath(Config config) throws StartupException {
         Classpath classPath = new Classpath();
-        /*
-         * Class paths needed to get StartupLoaders to work.
-         */
-        classPath.addComponent(config.ofbizHome);
-        String ofbizHomeTmp = config.ofbizHome;
-        if (!ofbizHomeTmp.isEmpty() && !ofbizHomeTmp.endsWith("/")) {
-            ofbizHomeTmp = ofbizHomeTmp.concat("/");
-        }
-        if (config.classpathAddComponent != null) {
-            String[] components = config.classpathAddComponent.split(",");
-            for (String component : components) {
-                classPath.addComponent(ofbizHomeTmp.concat(component.trim()));
+        try {
+            classPath.addComponent(config.ofbizHome);
+            String ofbizHomeTmp = config.ofbizHome;
+            if (!ofbizHomeTmp.isEmpty() && !ofbizHomeTmp.endsWith("/")) {
+                ofbizHomeTmp = ofbizHomeTmp.concat("/");
             }
-        }
-        if (config.classpathAddFilesFromPath != null) {
-            String[] paths = config.classpathAddFilesFromPath.split(",");
-            for (String path : paths) {
-                classPath.addFilesFromPath(new File(ofbizHomeTmp.concat(path.trim())));
+            if (config.classpathAddComponent != null) {
+                String[] components = config.classpathAddComponent.split(",");
+                for (String component : components) {
+                    classPath.addComponent(ofbizHomeTmp.concat(component.trim()));
+                }
             }
+            if (config.classpathAddFilesFromPath != null) {
+                String[] paths = config.classpathAddFilesFromPath.split(",");
+                for (String path : paths) {
+                    classPath.addFilesFromPath(new File(ofbizHomeTmp.concat(path.trim())));
+                }
+            }
+        } catch (IOException e) {
+            throw new StartupException("Cannot create classpath", e);
         }
-        NativeLibClassLoader classloader = new NativeLibClassLoader(classPath.getUrls(), parent);
-        classloader.addNativeClassPath(System.getProperty("java.library.path"));
-        for (File folder : classPath.getNativeFolders()) {
-            classloader.addNativeClassPath(folder);
-        }
-        return classloader;
+        return classPath;
     }
 
-    private static void loadStartupLoaders(Config config, 
-            List<String> loaderArgs, ArrayList<StartupLoader> loaders,
-            AtomicReference<ServerState> serverState) throws StartupException {
-
+    private static NativeLibClassLoader createAndSetContextClassLoader(Config config, Classpath classPath) throws StartupException {
+        ClassLoader parent = Thread.currentThread().getContextClassLoader();
         NativeLibClassLoader classloader = null;
         try {
-            classloader = createClassLoader(config);
+            classloader = new NativeLibClassLoader(classPath.getUrls(), parent);
+            classloader.addNativeClassPath(System.getProperty("java.library.path"));
+            for (File folder : classPath.getNativeFolders()) {
+                classloader.addNativeClassPath(folder);
+            }
         } catch (IOException e) {
             throw new StartupException("Couldn't create NativeLibClassLoader", e);
         }
         Thread.currentThread().setContextClassLoader(classloader);
+        return classloader;
+    }
+
+    private static void createLogDirectoryIfMissing(Config config) {
+        File logDir = new File(config.logDir);
+        if (!logDir.exists()) {
+            if (logDir.mkdir()) {
+                System.out.println("Created OFBiz log dir [" + logDir.getAbsolutePath() + "]");
+            }
+        }
+    }
+
+    private static void createRuntimeShutdownHook(
+            Config config,
+            List<StartupLoader> loaders,
+            AtomicReference<ServerState> serverState) {
+
+        if (config.useShutdownHook) {
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                @Override
+                public void run() {
+                    shutdownServer(loaders, serverState, this);
+                }
+            });
+        } else {
+            System.out.println("Shutdown hook disabled");
+        }
+    }
+
+    private static void loadStartupLoaders(Config config, 
+            List<StartupLoader> loaders,
+            List<String> loaderArgs,
+            AtomicReference<ServerState> serverState,
+            NativeLibClassLoader classloader) throws StartupException {
+
         String[] argsArray = loaderArgs.toArray(new String[loaderArgs.size()]);
         synchronized (loaders) {
             for (Map<String, String> loaderMap : config.loaders) {
@@ -246,7 +251,6 @@ final class StartupControlPanel {
                     throw new StartupException(e.getMessage(), e);
                 }
             }
-            loaders.trimToSize();
         }
         StringBuilder sb = new StringBuilder();
         for (String path : classloader.getNativeLibPaths()) {
@@ -273,6 +277,17 @@ final class StartupControlPanel {
         }
         if(!serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING)) {
             throw new StartupException("Error during start");
+        }
+    }
+
+    private static void executeShutdownAfterLoadIfConfigured(
+            Config config,
+            List<StartupLoader> loaders,
+            AtomicReference<ServerState> serverState,
+            Thread adminServer) {
+
+        if (config.shutdownAfterLoad) {
+            stop(loaders, serverState, adminServer);
         }
     }
 }
