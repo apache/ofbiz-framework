@@ -55,26 +55,26 @@ under the License.
              in the right side cell the "topRight" template is included
         -->
         <#if sections.get("topLeft")?has_content || sections.get("topRight")?has_content>
-        <fo:static-content flow-name="xsl-region-before">
-            <fo:table table-layout="fixed" width="100%">
-                <fo:table-column column-number="1" column-width="proportional-column-width(50)"/>
-                <fo:table-column column-number="2" column-width="proportional-column-width(50)"/>
-                <fo:table-body>
-                    <fo:table-row>
-                        <#if sections.get("topLeft")?has_content>
-                        <fo:table-cell>
-${sections.render("topLeft")}
-                        </fo:table-cell>
-                        </#if>
-                        <#if sections.get("topRight")?has_content>
-                        <fo:table-cell>
-${sections.render("topRight")}
-                        </fo:table-cell>
-                        </#if>
-                    </fo:table-row>
-                </fo:table-body>
-            </fo:table>
-        </fo:static-content>
+            <fo:static-content flow-name="xsl-region-before">
+                <fo:table table-layout="fixed" width="100%">
+                    <fo:table-column column-number="1" column-width="proportional-column-width(50)"/>
+                    <fo:table-column column-number="2" column-width="proportional-column-width(50)"/>
+                    <fo:table-body>
+                        <fo:table-row>
+                            <#if sections.get("topLeft")?has_content>
+                                <fo:table-cell>
+                                    ${sections.render("topLeft")}
+                                </fo:table-cell>
+                            </#if>
+                            <#if sections.get("topRight")?has_content>
+                                <fo:table-cell>
+                                    ${sections.render("topRight")}
+                                </fo:table-cell>
+                            </#if>
+                        </fo:table-row>
+                    </fo:table-body>
+                </fo:table>
+            </fo:static-content>
         </#if>
 
         <#-- the footer -->
