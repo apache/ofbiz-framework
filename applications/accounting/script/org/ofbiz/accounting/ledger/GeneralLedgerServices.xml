@@ -2023,8 +2023,8 @@ under the License.
         <set field="totalAmountFromInvoice" type="BigDecimal" value="0"/>
 
         <entity-one entity-name="Invoice" value-field="invoice"/>
-        <get-related-one value-field="invoice" relation-name="InvoiceType" to-value-field="invoiceType"/>
-        <if-compare field="invoiceType.parentTypeId" operator="equals" value="PURCHASE_INVOICE">
+        <set field="isPurchaseInvoice" value="${groovy: org.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')}" type="Boolean"/>
+        <if-compare field="isPurchaseInvoice" operator="equals" value="true" type="Boolean">
             <entity-condition entity-name="InvoiceItem" list="invoiceItems" use-cache="true">
                 <condition-list>
                     <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="PINV_SALES_TAX"/>

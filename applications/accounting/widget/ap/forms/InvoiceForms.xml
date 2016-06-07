@@ -66,12 +66,17 @@ under the License.
    </form>
     
     <form name="FindApInvoices" type="single" target="FindApInvoices" extends="FindInvoices" extends-resource="component://accounting/widget/InvoiceForms.xml">
-        <field name="parentTypeId"><hidden value="PURCHASE_INVOICE"/></field>
+        <actions>
+            <entity-condition entity-name="InvoiceType" list="invoiceTypeList">
+                <condition-list combine="or">
+                    <condition-expr field-name="parentTypeId" value="PURCHASE_INVOICE"/>
+                    <condition-expr field-name="invoiceTypeId" value="PURCHASE_INVOICE"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
         <field position="1" name="invoiceTypeId">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="InvoiceType">
-                    <entity-constraint name="parentTypeId" value="PURCHASE_INVOICE"/>
-                </entity-options>
+            <drop-down>
+                <list-options key-name="invoiceTypeId" list-name="invoiceTypeList"/>
             </drop-down>
         </field>
     </form>
@@ -79,6 +84,12 @@ under the License.
     <form name="FindPurchaseInvoices" type="single" target="FindPurchaseInvoices">
         <actions>
             <set field="organizationPartyId" from-field="parameters.organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
+            <entity-condition entity-name="InvoiceType" list="invoiceTypeList">
+                <condition-list combine="or">
+                    <condition-expr field-name="parentTypeId" value="PURCHASE_INVOICE"/>
+                    <condition-expr field-name="invoiceTypeId" value="PURCHASE_INVOICE"/>
+                </condition-list>
+            </entity-condition>
         </actions>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingVendorParty}" position="1"><lookup target-form-name="LookupPartyName"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
@@ -94,10 +105,8 @@ under the License.
         <field name="fromDueDate" position="1"><date-time/></field>
         <field name="thruDueDate" position="2"><date-time/></field>
         <field name="invoiceTypeId" position="1">
-            <drop-down allow-empty="false">
-                <entity-options entity-name="InvoiceType">
-                    <entity-constraint name="parentTypeId" value="PURCHASE_INVOICE"/>
-                </entity-options>
+            <drop-down>
+                <list-options key-name="invoiceTypeId" list-name="invoiceTypeList"/>
             </drop-down>
         </field>
         <field name="search" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
