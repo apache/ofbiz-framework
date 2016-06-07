@@ -55,6 +55,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderReadHelper;
@@ -3470,11 +3471,13 @@ public class InvoiceServices {
                         } else if (EntityQuery.use(delegator).from("InvoiceType").where("invoiceTypeId", invoice.get("invoiceTypeId")).queryOne() == null) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": InvoiceItem type id: " + invoice.get("invoiceTypeId") + " not found for invoice: " + currentInvoiceId);
                         }
-                        GenericValue invoiceType = EntityQuery.use(delegator).from("InvoiceType").where("invoiceTypeId", invoice.get("invoiceTypeId")).queryOne();
-                        if ("PURCHASE_INVOICE".equals(invoiceType.getString("parentTypeId")) && !invoice.get("partyId").equals(organizationPartyId)) {
+                        
+                        Boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, "InvoiceType", "invoiceTypeId", (String) invoice.get("invoiceTypeId"), "parentTypeId", "PURCHASE_INVOICE");
+                        Boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, "InvoiceType", "invoiceTypeId", (String) invoice.get("invoiceTypeId"), "parentTypeId", "SALES_INVOICE");
+                        if (isPurchaseInvoice && !invoice.get("partyId").equals(organizationPartyId)) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": A purchase type invoice should have the partyId 'To' being the organizationPartyId(=" + organizationPartyId + ")! however is " + invoice.get("partyId") +"! invoice: " + currentInvoiceId);
                         }
-                        if ("SALES_INVOICE".equals(invoiceType.getString("parentTypeId")) && !invoice.get("partyIdFrom").equals(organizationPartyId)) {
+                        if (isSalesInvoice && !invoice.get("partyIdFrom").equals(organizationPartyId)) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": A sales type invoice should have the partyId 'from' being the organizationPartyId(=" + organizationPartyId + ")! however is " + invoice.get("partyIdFrom") +"! invoice: " + currentInvoiceId);
                         }
 

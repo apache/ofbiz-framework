@@ -67,12 +67,17 @@ under the License.
     </form>
 
     <form name="FindArInvoices" type="single" target="FindArInvoices" extends="FindInvoices" extends-resource="component://accounting/widget/InvoiceForms.xml">
-        <field name="parentTypeId"><hidden value="SALES_INVOICE"/></field>
+        <actions>
+            <entity-condition entity-name="InvoiceType" list="invoiceTypeList">
+                <condition-list combine="or">
+                    <condition-expr field-name="parentTypeId" value="SALES_INVOICE"/>
+                    <condition-expr field-name="invoiceTypeId" value="SALES_INVOICE"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
         <field name="invoiceTypeId" position="1">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="InvoiceType">
-                    <entity-constraint name="parentTypeId" value="SALES_INVOICE"/>
-                </entity-options>
+            <drop-down>
+                <list-options key-name="invoiceTypeId" list-name="invoiceTypeList"/>
             </drop-down>
         </field>
     </form>

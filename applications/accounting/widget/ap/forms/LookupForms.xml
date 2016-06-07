@@ -23,12 +23,18 @@ under the License.
 
     <form name="LookupInvoice" target="LookupInvoice" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-condition entity-name="InvoiceType" list="invoiceTypeList">
+                <condition-list combine="or">
+                    <condition-expr field-name="parentTypeId" value="PURCHASE_INVOICE"/>
+                    <condition-expr field-name="invoiceTypeId" value="PURCHASE_INVOICE"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
         <field position="1" name="invoiceId"><text-find/></field>
         <field position="1" name="invoiceTypeId">
-            <drop-down allow-empty="true" no-current-selected-key="PURCHASE_INVOICE">
-                <entity-options entity-name="InvoiceType" key-field-name="invoiceTypeId">
-                    <entity-constraint name="parentTypeId" operator="equals" value="PURCHASE_INVOICE"/>
-                </entity-options>
+            <drop-down no-current-selected-key="PURCHASE_INVOICE">
+                <list-options key-name="invoiceTypeId" list-name="invoiceTypeList"/>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">

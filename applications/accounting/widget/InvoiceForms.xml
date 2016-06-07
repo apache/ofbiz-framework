@@ -236,14 +236,20 @@ under the License.
 
     <form name="NewSalesInvoice" type="single" target="createInvoice" title="Edit Invoice Header" default-map-name="invoice"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-condition entity-name="InvoiceType" list="invoiceTypeList">
+                <condition-list combine="or">
+                    <condition-expr field-name="parentTypeId" value="SALES_INVOICE"/>
+                    <condition-expr field-name="invoiceTypeId" value="SALES_INVOICE"/>
+                </condition-list>
+                <order-by field-name="description"/>
+            </entity-condition>
+        </actions>
         <field name="statusId"><hidden value="INVOICE_IN_PROCESS"/></field>
         <field name="currencyUomId"><hidden value="${defaultOrganizationPartyCurrencyUomId}"/></field>
         <field position="2" name="invoiceTypeId">
-            <drop-down allow-empty="false" no-current-selected-key="SALES_INVOICE">
-                <entity-options entity-name="InvoiceType">
-                    <entity-constraint name="parentTypeId" value="SALES_INVOICE"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
+            <drop-down no-current-selected-key="SALES_INVOICE">
+                <list-options key-name="invoiceTypeId" list-name="invoiceTypeList"/>
             </drop-down>
         </field>
         <field position="1" name="organizationPartyId" parameter-name="partyIdFrom">
@@ -260,14 +266,20 @@ under the License.
     </form>
     <form name="NewPurchaseInvoice" type="single" target="createInvoice" title="Edit Invoice Header" default-map-name="invoice"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-condition entity-name="InvoiceType" list="invoiceTypeList">
+                <condition-list combine="or">
+                    <condition-expr field-name="parentTypeId" value="PURCHASE_INVOICE"/>
+                    <condition-expr field-name="invoiceTypeId" value="PURCHASE_INVOICE"/>
+                </condition-list>
+                <order-by field-name="description"/>
+            </entity-condition>
+        </actions>
         <field name="statusId"><hidden value="INVOICE_IN_PROCESS"/></field>
         <field name="currencyUomId"><hidden value="${defaultOrganizationPartyCurrencyUomId}"/></field>
         <field position="2" name="invoiceTypeId">
-            <drop-down allow-empty="false" no-current-selected-key="PURCHASE_INVOICE">
-                <entity-options entity-name="InvoiceType">
-                    <entity-constraint name="parentTypeId" value="PURCHASE_INVOICE"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
+            <drop-down no-current-selected-key="PURCHASE_INVOICE">
+                <list-options key-name="invoiceTypeId" list-name="invoiceTypeList"/>
             </drop-down>
         </field>
         <field position="1" name="organizationPartyId" parameter-name="partyId">
@@ -300,10 +312,10 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}" use-when="invoice==null"><hidden value="INVOICE_IN_PROCESS"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="invoice!=null"><display-entity entity-name="StatusItem"/></field>
         <field position="1" name="description"><text size="100"/></field>
-        <field position="1" name="partyIdFrom" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)"><display description="${invoice.partyIdFrom}"/></field>
-        <field position="1" name="partyIdFrom" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)"><lookup target-form-name="LookupPartyName"/></field>
-        <field position="2" name="partyIdTo" entry-name="partyId" parameter-name="partyId" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)"><display description="${invoice.partyId}"/></field>
-        <field position="2" name="partyIdTo" entry-name="partyId" parameter-name="partyId" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="1" name="partyIdFrom" use-when="${groovy:invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;SALES_INVOICE&quot;) || invoiceType.getString(&quot;invoiceTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)}"><display description="${invoice.partyIdFrom}"/></field>
+        <field position="1" name="partyIdFrom" use-when="${groovy:invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;) || invoiceType.getString(&quot;invoiceTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)}"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="2" name="partyIdTo" entry-name="partyId" parameter-name="partyId" use-when="${groovy:invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;) || invoiceType.getString(&quot;invoiceTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)}"><display description="${invoice.partyId}"/></field>
+        <field position="2" name="partyIdTo" entry-name="partyId" parameter-name="partyId" use-when="${groovy:invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;SALES_INVOICE&quot;) || invoiceType.getString(&quot;invoiceTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)}"><lookup target-form-name="LookupPartyName"/></field>
         <field position="1" name="roleTypeId" use-when="invoice!=null&amp;&amp;invoice.getString(&quot;invoiceTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType">
