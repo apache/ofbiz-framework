@@ -83,6 +83,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this, can do partial, case insensitive, etc -->
         <attribute name="partyTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="userLoginId" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this, can do partial, case insensitive, etc -->
+        <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="groupName" type="String" mode="IN" optional="true"/>
         <attribute name="firstName" type="String" mode="IN" optional="true"/>
         <attribute name="lastName" type="String" mode="IN" optional="true"/>
@@ -153,6 +154,13 @@ under the License.
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
     </service>
 
+	<service name="getPartyFromExternalId" engine="java"
+            location="org.ofbiz.party.party.PartyServices" invoke="getPartyFromExternalId">
+        <description>Gets a list of parties from a party externalId </description>
+        <attribute name="externalId" type="String" mode="IN" optional="false"/>
+        <attribute name="parties" type="java.util.List" mode="OUT" optional="true"/>
+    </service>
+    
     <service name="getPartiesByRelationship" engine="simple"
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getPartiesByRelationship">
         <description>Gets all parties related to partyIdFrom through the PartyRelationship entity</description>
