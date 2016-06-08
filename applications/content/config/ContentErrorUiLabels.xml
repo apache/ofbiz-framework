@@ -54,6 +54,10 @@
         <value xml:lang="zh">你没有足够的权限 ${updateMode} 目录 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN)。</value>
         <value xml:lang="zh-TW">您沒有足夠的權限 ${updateMode} 目錄 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN).</value>
     </property>
+    <property key="ContentSearchNotIndexed">
+        <value xml:lang="en">Cannot find content search document. Please index all content.</value>
+        <value xml:lang="fr">Les contenus ne sont pas encore indexés, aucun résultat possible.</value>
+    </property>    
     <property key="dataEvents.error_call_create_service">
         <value xml:lang="da">Fejl ved kald af service createDataResource</value>
         <value xml:lang="de">Fehler beim Aufruf createDataResource Service</value>

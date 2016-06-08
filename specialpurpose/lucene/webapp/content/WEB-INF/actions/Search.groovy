@@ -27,6 +27,7 @@ import org.ofbiz.content.search.SearchWorker
 import org.ofbiz.product.feature.ParametricSearch
 import org.apache.lucene.search.*
 import org.apache.lucene.index.DirectoryReader
+import org.ofbiz.base.util.UtilProperties;
 
 queryLine = parameters.queryLine;
 
@@ -45,7 +46,7 @@ try {
     searcher = new IndexSearcher(reader);
     analyzer = new StandardAnalyzer();
 } catch (java.io.FileNotFoundException e) {
-    context.errorMessageList.add(e.getMessage());
+    context.errorMessageList.add(UtilProperties.getMessage("ContentErrorUiLabels", "ContentSearchNotIndexed", locale));
     return;
 }
 
