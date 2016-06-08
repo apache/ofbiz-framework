@@ -32,7 +32,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
-                <field-map field-name="inputFields" from-field="partyResumeCtx"/>
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PartyResume"/>
                 <field-map field-name="orderBy" value="resumeId"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
@@ -41,8 +41,9 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="PartyResume" default-field-type="display"/>
         <field name="resumeId" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${resumeId}" target="EditPartyResume">
+            <hyperlink also-hidden="false" description="${resumeId}" target="EditPartyResumes">
                 <parameter param-name="resumeId"/>
+                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
@@ -54,7 +55,8 @@ under the License.
        </field>
        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
            <hyperlink target="deletePartyResume" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="resumeId"/>
+               <parameter param-name="resumeId"/>
+               <parameter param-name="partyId"/>
             </hyperlink>
        </field>
     </form>
@@ -64,11 +66,11 @@ under the License.
         <field name="resumeId" use-when="partyResume!=null"><display/></field>
         <field name="resumeId" use-when="partyResume==null" required-field="true"><text/></field>
         <field name="contentId"><lookup target-form-name="LookupContent"/></field>
-        <field name="partyId" use-when="partyResume!=null&amp;&amp;partyId!=null" title="${uiLabelMap.FormFieldTitle_partyId}"><hidden/></field>
-        <field name="partyId" use-when="partyResume==null&amp;&amp;partyId==null" title="${uiLabelMap.FormFieldTitle_partyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" use-when="partyId==null" title="${uiLabelMap.FormFieldTitle_partyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" use-when="partyId!=null" title="${uiLabelMap.FormFieldTitle_partyId}"><hidden/></field>
         <field name="resumeDate"><date-time/></field>
         <field name="resumeText"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="submitButton" use-when="resumeId!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="partyResume==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="partyResume!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
