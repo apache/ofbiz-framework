@@ -41,6 +41,7 @@ under the License.
         <field name="hideFields"><hidden value="Y"/></field>
         <field name="partyId"><text size="15" /></field>
         <field name="userLoginId"><text size="15" /></field>
+        <field name="externalId"><text size="15" /></field>
         <field name="lastName"><text size="15"/></field>
         <field name="firstName"><text size="15"/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text size="15"/></field>
@@ -92,6 +93,7 @@ under the License.
             <sort-field name="extInfo"/>
             <sort-field name="partyId"/>
             <sort-field name="userLoginId"/>
+            <sort-field name="externalId"/>
             <sort-field name="lastName"/>
             <sort-field name="firstName"/>
             <sort-field name="groupName"/>
@@ -148,6 +150,7 @@ under the License.
         <field name="userLoginId" use-when="userLoginSize > 1"><include-grid name="ListPartyUserLogin" location="component://party/widget/partymgr/PartyForms.xml"/></field>
         <field name="userLoginId" use-when="userLoginSize == 1"><display description="${logins[0].userLoginId}"/></field>
         <field name="userLoginId" use-when="userLoginSize == 0"><display description="(${uiLabelMap.CommonNone})"/></field>
+        <field name="externalId"><display description="${externalId}"/></field>
         <field name="name"><display description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, true)}"/></field>
         <field name="partyTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="PartyType"/></field>
         <field name="mainRole" title="${uiLabelMap.PartyMainRole}"><display description="${mainRole.description}"/></field>

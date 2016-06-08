@@ -928,6 +928,33 @@ public class PartyServices {
         return result;
     }
 
+    /**
+     * Get the party object(s) from party externalId.
+     * @param dctx The DispatchContext that this service is operating in.
+     * @param context Map containing the input parameters.
+     * @return Map with the result of the service, the output parameters.
+     */
+    public static Map<String, Object> getPartyFromExternalId(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Delegator delegator = dctx.getDelegator();
+        List<GenericValue> parties = new ArrayList<>();
+        String externalId = (String) context.get("externalId");
+        Locale locale = (Locale) context.get("locale");
+
+        try {
+        	parties = EntityQuery.use(delegator).from("Party")
+                    .where(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("externalId"), EntityOperator.EQUALS, EntityFunction.UPPER(externalId)))
+                    .orderBy("externalId", "partyId")
+                    .queryList();
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "partyservices.cannot_get_party_entities_read",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
+        }
+        result.put("parties", parties);
+        return result;
+    }
+
     public static Map<String, Object> getPerson(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
@@ -1532,6 +1559,7 @@ public class PartyServices {
         dynamicView.addAlias("PT", "partyId");
         dynamicView.addAlias("PT", "statusId");
         dynamicView.addAlias("PT", "partyTypeId");
+        dynamicView.addAlias("PT", "externalId");
         dynamicView.addAlias("PT", "createdDate");
         dynamicView.addAlias("PT", "lastModifiedDate");
         dynamicView.addRelation("one-nofk", "", "PartyType", ModelKeyMap.makeKeyMapList("partyTypeId"));
@@ -1551,6 +1579,7 @@ public class PartyServices {
         fieldsToSelect.add("partyId");
         fieldsToSelect.add("statusId");
         fieldsToSelect.add("partyTypeId");
+        fieldsToSelect.add("externalId");
         fieldsToSelect.add("createdDate");
         fieldsToSelect.add("lastModifiedDate");
 
@@ -1584,6 +1613,7 @@ public class PartyServices {
         String roleTypeId = (String) context.get("roleTypeId");
         String statusId = (String) context.get("statusId");
         String userLoginId = (String) context.get("userLoginId");
+        String externalId = (String) context.get("externalId");
         String firstName = (String) context.get("firstName");
         String lastName = (String) context.get("lastName");
         String groupName = (String) context.get("groupName");
@@ -1605,6 +1635,9 @@ public class PartyServices {
             andExprs.add(EntityCondition.makeCondition("partyTypeId", partyTypeId));
         }
 
+        if (UtilValidate.isNotEmpty(externalId)) {
+            andExprs.add(EntityCondition.makeCondition("externalId", externalId));
+        }
         // ----
         // UserLogin Fields
         // ----
