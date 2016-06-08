@@ -40,7 +40,7 @@ under the License.
             </fo:table-header>
             <fo:table-body>
                 <#list glAcctBalancesByCostCenter as glAcctBalanceByCostCenter>
-                    <#if glAcctgOrgAndCostCenter?has_content>
+                    <#if glAcctBalanceByCostCenter?has_content>
                         <fo:table-row>
                             <fo:table-cell border="1pt solid" border-width=".1mm">
                                 <fo:block text-align="center">${glAcctBalanceByCostCenter.glAccountId!}</fo:block>
