@@ -892,9 +892,9 @@ under the License.
                 <set field="titleProperty" value="HumanResEditPartyResume"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="EditPartyResumes"/>
-                <set field="partyId" from-field="parameters.partyId"/>
                 <set field="resumeId" from-field="parameters.resumeId"/>
-                <set field="partyResumeCtx.resumeId" from-field="parameters.resumeId"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-one entity-name="PartyResume" value-field="partyResume"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
