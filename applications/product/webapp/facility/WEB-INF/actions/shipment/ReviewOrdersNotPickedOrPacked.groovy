@@ -30,7 +30,7 @@ condList.add(EntityCondition.makeCondition("pickSheetPrintedDate", EntityOperato
 orderHeaders = from("OrderHeader").where(condList).queryList();
 orders = [];
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'/'K:mm a");
-orderHeaders.each { orderHeader ->k
+orderHeaders.each { orderHeader ->
     itemIssuanceList = from("ItemIssuance").where("orderId", orderHeader.orderId).queryList();
     if (itemIssuanceList) {
         orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : dateFormat.format(orderHeader.pickSheetPrintedDate), isVerified : "Y"]);
