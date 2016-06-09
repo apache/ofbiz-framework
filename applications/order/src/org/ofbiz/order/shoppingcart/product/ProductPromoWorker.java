@@ -666,6 +666,8 @@ public class ProductPromoWorker {
         if (productPromo == null) {
             return "";
         }
+        ArrayList<String> partyClassificationsIncluded = new ArrayList<String>();
+        ArrayList<String> partyClassificationsExcluded = new ArrayList<String>();
         StringBuilder promoDescBuf = new StringBuilder();
         List<GenericValue> productPromoRules = productPromo.getRelated("ProductPromoRule", null, null, true);
         Iterator<GenericValue> promoRulesIter = productPromoRules.iterator();
@@ -688,12 +690,27 @@ public class ProductPromoWorker {
                 }
 
                 Map<String, Object> messageContext = UtilMisc.<String, Object>toMap("condValue", condValue, "equalityOperator", equalityOperator, "quantityOperator", quantityOperator);
-                String msgProp = UtilProperties.getMessage("promotext", "condition." + productPromoCond.getString("inputParamEnumId"), messageContext, locale);
-                promoDescBuf.append(msgProp);
-                promoDescBuf.append(" ");
 
-                if (promoRulesIter.hasNext()) {
-                    promoDescBuf.append(" and ");
+                if ("PPIP_PARTY_CLASS".equalsIgnoreCase(productPromoCond.getString("inputParamEnumId"))) {
+                    GenericValue partyClassificationGroup = EntityQuery.use(delegator).from("PartyClassificationGroup").where("partyClassificationGroupId", condValue).cache(true).queryOne();
+                    if (UtilValidate.isNotEmpty(partyClassificationGroup) && UtilValidate.isNotEmpty(partyClassificationGroup.getString("description"))) {
+                        condValue = partyClassificationGroup.getString("description");
+                    }
+
+                    if ("PPC_EQ".equalsIgnoreCase(productPromoCond.getString("operatorEnumId"))) {
+                        partyClassificationsIncluded.add(condValue);
+                    }
+                    if ("PPC_NEQ".equalsIgnoreCase(productPromoCond.getString("operatorEnumId"))) {
+                        partyClassificationsExcluded.add(condValue);
+                    }
+                } else {
+                    String msgProp = UtilProperties.getMessage("promotext", "condition." + productPromoCond.getString("inputParamEnumId"), messageContext, locale);
+                    promoDescBuf.append(msgProp);
+                    promoDescBuf.append(" ");
+
+                    if (promoRulesIter.hasNext()) {
+                        promoDescBuf.append(" and ");
+                    }
                 }
             }
 
@@ -750,6 +767,18 @@ public class ProductPromoWorker {
         if (productPromo.getLong("useLimitPerPromotion") != null) {
             promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerPromotion",
                     UtilMisc.toMap("limit", productPromo.getLong("useLimitPerPromotion")), locale));
+        }
+
+        if (UtilValidate.isNotEmpty(partyClassificationsIncluded)) {
+            Map<String, Object> messageContext = UtilMisc.<String, Object>toMap("partyClassificationsIncluded", partyClassificationsIncluded);
+            String msgProp = UtilProperties.getMessage("promotext", "condition.PPIP_PARTY_CLASS.APPLIED", messageContext, locale);
+            promoDescBuf.append("\n" + msgProp);
+        }
+
+        if (UtilValidate.isNotEmpty(partyClassificationsExcluded)) {
+            Map<String, Object> messageContext = UtilMisc.<String, Object>toMap("partyClassificationsExcluded", partyClassificationsExcluded);
+            String msgProp = UtilProperties.getMessage("promotext", "condition.PPIP_PARTY_CLASS.NOT_APPLIED", messageContext, locale);
+            promoDescBuf.append("\n" + msgProp);
         }
 
         return promoDescBuf.toString();
