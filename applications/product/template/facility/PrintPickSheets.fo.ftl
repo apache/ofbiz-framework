@@ -94,6 +94,8 @@ under the License.
                                                                                  <fo:block> ${billAddress.countryGeoId!}</fo:block>
                                                                                  <fo:block> ${billAddress.postalCode!}</fo:block>
                                                                                  <fo:block> ${billAddress.stateProvinceGeoId!}</fo:block>
+                                                                             <#else>
+                                                                                <fo:block></fo:block>
                                                                              </#if>
                                                                          </fo:table-cell>
                                                                      </fo:table-row>
@@ -114,7 +116,7 @@ under the License.
                                      <fo:table-column column-width="50pt"/>
                                      <fo:table-body>
                                           <fo:table-row>
-                                             <fo:table-cell></fo:table-cell>
+                                             <fo:table-cell><fo:block></fo:block></fo:table-cell>
                                              <fo:table-cell padding="2pt">
                                                  <fo:table table-layout="fixed" border-width="1pt" border-style="solid">
                                                      <fo:table-column column-width="150pt"/>
