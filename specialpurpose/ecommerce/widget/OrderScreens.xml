@@ -159,7 +159,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleBillingInformation"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/PaymentOptions.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/StorePaymentOptions.groovy"/>
+                <script location="component://order/groovyScripts/entry/StorePaymentOptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="anonymousCheckoutDecorator">
@@ -180,7 +180,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleBillingInformation"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/PaymentInformation.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/StorePaymentOptions.groovy"/>
+                <script location="component://order/groovyScripts/entry/StorePaymentOptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="anonymousCheckoutDecorator">
@@ -218,7 +218,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleBillingInformation"/>
                 <set field="anonymoustrailScreen" value="component://ecommerce/widget/OrderScreens.xml#anonymoustrail"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/BillSettings.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/StorePaymentOptions.groovy"/>
+                <script location="component://order/groovyScripts/entry/StorePaymentOptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -235,9 +235,9 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleCheckoutOptions"/>
 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/CheckoutPayment.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/CheckoutOptions.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/StorePaymentOptions.groovy"/>
+                <script location="component://order/groovyScripts/entry/CheckoutPayment.groovy"/>
+                <script location="component://order/groovyScripts/entry/CheckoutOptions.groovy"/>
+                <script location="component://order/groovyScripts/entry/StorePaymentOptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -256,7 +256,7 @@ under the License.
                 <set field="MainColumnStyle" value="rightonly"/>
 
                 <set field="titleProperty" value="PageTitleCheckoutOptions"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/CheckoutShippingAddress.groovy"/>
+                <script location="component://order/groovyScripts/entry/CheckoutShippingAddress.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -291,7 +291,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleSplitItemsForShipping"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SplitShip.groovy"/>
+                <script location="component://order/groovyScripts/entry/SplitShip.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -483,7 +483,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleBillingInformation"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/QuickAnonPaymentInformation.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/StorePaymentOptions.groovy"/>
+                <script location="component://order/groovyScripts/entry/StorePaymentOptions.groovy"/>
             </actions>
             <widgets>
                <platform-specific><html><html-template location="component://ecommerce/template/order/QuickAnonPaymentInformation.ftl"/></html></platform-specific>

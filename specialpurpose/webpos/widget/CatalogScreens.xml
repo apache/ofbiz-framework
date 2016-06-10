@@ -64,7 +64,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleCategoryPage"/>
                 <script location="component://webpos/webapp/webpos/WEB-INF/actions/catalog/Category.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/CategoryDetail.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/CategoryDetail.groovy"/>
             </actions>
             <widgets>
                 <container>

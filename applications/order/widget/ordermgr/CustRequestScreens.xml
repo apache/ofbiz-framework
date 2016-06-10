@@ -283,7 +283,7 @@ under the License.
                 <entity-one entity-name="CustRequestItem" value-field="custRequestItem"/>
                 <set field="statusId" from-field="custRequestItem.statusId"/>
                 <entity-one entity-name="StatusItem" value-field="currentStatus"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/request/GetNextSequenceNum.groovy"/>
+                <script location="component://order/groovyScripts/request/GetNextSequenceNum.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
@@ -315,7 +315,7 @@ under the License.
                 <set field="custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <entity-one entity-name="CustRequestItem" value-field="custRequestItem"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/request/RequestItemNotes.groovy"/>
+                <script location="component://order/groovyScripts/request/RequestItemNotes.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
@@ -378,7 +378,7 @@ under the License.
                     <field-map from-field="custRequestItem.custRequestId" field-name="custRequestId"/>
                     <field-map from-field="custRequestItem.custRequestItemSeqId" field-name="custRequestItemSeqId"/>
                 </entity-and>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/request/SetRequestQuote.groovy"/>
+                <script location="component://order/groovyScripts/request/SetRequestQuote.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">

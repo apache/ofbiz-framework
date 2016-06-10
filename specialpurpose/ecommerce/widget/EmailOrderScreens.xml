@@ -32,7 +32,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleOrderConfirmationNotice}"/>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce"/>
                 <set field="title" value="Order"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderView.groovy"/>
+                <script location="component://order/groovyScripts/order/OrderView.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">

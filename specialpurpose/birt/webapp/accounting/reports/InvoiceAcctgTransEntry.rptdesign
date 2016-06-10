@@ -59,7 +59,7 @@ companyLogoCtx.put("nowTimestamp", UtilDateTime.nowTimestamp());
 companyLogoCtx.put("locale", reportContext.getLocale());
 companyLogoCtx.put("parameters", parameters);
 companyLogoCtx.put("delegator", delegator);
-GroovyUtil.runScriptAtLocation("component://order/webapp/ordermgr/WEB-INF/actions/order/CompanyHeader.groovy", companyLogoCtx);
+GroovyUtil.runScriptAtLocation("component://order/groovyScripts/order/CompanyHeader.groovy", companyLogoCtx);
 logoImageUrl = companyLogoCtx.get("logoImageUrl");
 if (!logoImageUrl) {
     logoImageUrl = FileUtil.getFile("component://images/webapp/images/ofbiz_logo.gif").getPath();

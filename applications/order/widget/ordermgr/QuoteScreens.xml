@@ -173,7 +173,7 @@ under the License.
                 <get-related value-field="quote" relation-name="QuoteItem" list="quoteItems" order-by-list="listOrderBy"/>
                 <get-related value-field="quote" relation-name="QuoteAdjustment" list="quoteAdjustments"/>
 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/GetPartyAddress.groovy"/>
+                <script location="component://order/groovyScripts/quote/GetPartyAddress.groovy"/>
                 <!--
                 <get-related value-name="quote" relation-name="QuoteRole" list-name="quoteRoles"/>
                 <get-related value-name="quote" relation-name="QuoteAttribute" list-name="quoteAttributes"/>
@@ -500,7 +500,7 @@ under the License.
                 </entity-and>
                 <set from-field="quote.quoteId" field="quoteId"/>
 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/ManageQuotePrices.groovy"/>
+                <script location="component://order/groovyScripts/quote/ManageQuotePrices.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
@@ -604,7 +604,7 @@ under the License.
                 </entity-and>
                 <set from-field="quote.quoteId" field="quoteId"/>
 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/ViewQuoteProfit.groovy"/>
+                <script location="component://order/groovyScripts/quote/ViewQuoteProfit.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
@@ -629,7 +629,7 @@ under the License.
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <entity-one entity-name="Quote" value-field="quote"/>
                 <get-related-one value-field="quote" relation-name="Party" to-value-field="party"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/GetPartyEmailAddress.groovy"/>
+                <script location="component://order/groovyScripts/quote/GetPartyEmailAddress.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">

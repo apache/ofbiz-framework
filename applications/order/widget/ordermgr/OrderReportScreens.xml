@@ -38,7 +38,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderReports"/>
                 <set field="headerItem" value="reports"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/reports/ReportList.groovy"/>
+                <script location="component://order/groovyScripts/reports/ReportList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderReportDecorator">
