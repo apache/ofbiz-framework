@@ -177,7 +177,6 @@ public class UtilHttp {
                 String name = token;
                 if (equalsIndex > 0) {
                     name = token.substring(0, equalsIndex);
-                    if ("externalLoginKey".equals(name) || "PASSWORD".equals(name) || "USERNAME".equals(name)) continue;
                     paramMap.put(name, token.substring(equalsIndex + 1));
                 }
             }
