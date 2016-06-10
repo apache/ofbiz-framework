@@ -2846,7 +2846,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
             Iterator<Map.Entry<String, Object>> iter = paramMap.entrySet().iterator();
             while (iter.hasNext()) {
                 Map.Entry<String, Object> entry = iter.next();
-                if (entry.getKey().contains("externalLoginKey")) continue; 
                 sb.append(entry.getKey()).append("=").append(entry.getValue());
                 if (iter.hasNext()) {
                     sb.append("&amp;");
