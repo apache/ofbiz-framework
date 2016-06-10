@@ -357,7 +357,7 @@ under the License.
                     <field-map from-field="workEffortGoodStdTypeId" field-name="workEffortGoodStdTypeId"/>
                 </entity-and>
                 <entity-one entity-name="WorkEffortGoodStandard" value-field="routingProductLink" auto-field-map="true"/>
-                <!--<script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditRoutingProductLink.groovy"/>-->
+                <!--<script location="component://manufacturing/groovyScripts/routing/EditRoutingProductLink.groovy"/>-->
             </actions>
             <widgets>
                 <decorator-screen name="CommonRoutingDecorator">

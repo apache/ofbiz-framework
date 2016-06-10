@@ -44,7 +44,7 @@ under the License.
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="calendar"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditCalendar.groovy"/>
+                <script location="component://manufacturing/groovyScripts/routing/EditCalendar.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
@@ -144,7 +144,7 @@ under the License.
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="calendar"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditCalendarExceptionWeek.groovy"/>
+                <script location="component://manufacturing/groovyScripts/routing/EditCalendarExceptionWeek.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
@@ -169,7 +169,7 @@ under the License.
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="calendar"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditCalendarExceptionDay.groovy"/>
+                <script location="component://manufacturing/groovyScripts/routing/EditCalendarExceptionDay.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
