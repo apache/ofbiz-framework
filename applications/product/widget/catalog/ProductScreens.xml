@@ -514,7 +514,7 @@ under the License.
 
                 <set field="productId" from-field="parameters.productId"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/QuickAddVariants.groovy"/>
+                <script location="component://product/groovyScripts/catalog/product/QuickAddVariants.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
@@ -536,7 +536,7 @@ under the License.
                 <set field="tabButtonItem" value="EditProductQuickAdmin"/>
                 <set field="labelTitleProperty" value="ProductQuickAdmin"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductQuickAdmin.groovy"/>
+                <script location="component://product/groovyScripts/catalog/product/EditProductQuickAdmin.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
@@ -666,7 +666,7 @@ under the License.
 
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductInventoryItems.groovy"/>
+                <script location="component://product/groovyScripts/catalog/product/EditProductInventoryItems.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
@@ -811,7 +811,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductFeatures"/>
 
                 <set field="productId" from-field="parameters.productId"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductFeatures.groovy"/>
+                <script location="component://product/groovyScripts/catalog/product/EditProductFeatures.groovy"/>
                 <entity-and entity-name="ProductFeatureIactn" list="featureInteractions">
                     <field-map field-name="productId" from-field="parameters.productId"/>
                 </entity-and>
@@ -894,7 +894,7 @@ under the License.
 
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductContent.groovy"/>
+                <script location="component://product/groovyScripts/catalog/product/EditProductContent.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
@@ -933,8 +933,8 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-one entity-name="ProductContent" value-field="productContent"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductContentContent.groovy"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductSEO.groovy"/>
+                <script location="component://product/groovyScripts/catalog/product/EditProductContentContent.groovy"/>
+                <script location="component://product/groovyScripts/catalog/product/EditProductSEO.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
@@ -986,7 +986,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductAssociations"/>
                 <set field="tabButtonItem" value="EditProductAssoc"/>
                 <set field="labelTitleProperty" value="ProductAssociations"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductAssoc.groovy"/>
+                <script location="component://product/groovyScripts/catalog/product/EditProductAssoc.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
@@ -1026,8 +1026,8 @@ under the License.
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/ApplyFeaturesFromCategory.groovy"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/ApplyFeaturesFromGroup.groovy"/>
+                <script location="component://product/groovyScripts/catalog/product/ApplyFeaturesFromCategory.groovy"/>
+                <script location="component://product/groovyScripts/catalog/product/ApplyFeaturesFromGroup.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
@@ -1255,7 +1255,7 @@ under the License.
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="filterDate" type="Timestamp" from-field="nowTimestamp"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/BestProducts.groovy"/>
+                <script location="component://product/groovyScripts/catalog/product/BestProducts.groovy"/>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.ProductBestSellingProductsOf} ${now}">

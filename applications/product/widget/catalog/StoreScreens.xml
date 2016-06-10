@@ -330,7 +330,7 @@ under the License.
                 <set field="paymentServiceTypeEnumId" from-field="parameters.paymentServiceTypeEnumId"/>
                 <entity-one entity-name="ProductStorePaymentSetting" value-field="productStorePaymentSetting" auto-field-map="true"/>
                 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/store/EditProductStorePaySetup.groovy"/>
+                <script location="component://product/groovyScripts/catalog/store/EditProductStorePaySetup.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
@@ -394,7 +394,7 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/store/EditProductStoreSurveys.groovy"/>
+                <script location="component://product/groovyScripts/catalog/store/EditProductStoreSurveys.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">

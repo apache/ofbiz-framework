@@ -52,7 +52,7 @@ under the License.
                 <set field="tabButtonItem" value="EditKeywordThesaurus"/>
                 <set field="headerItem" value="thesaurus"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/thesaurus/EditKeywordThesaurus.groovy"/>
+                <script location="component://product/groovyScripts/catalog/thesaurus/EditKeywordThesaurus.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonThesaurusDecorator">

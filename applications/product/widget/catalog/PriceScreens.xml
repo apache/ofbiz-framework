@@ -75,7 +75,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductPriceRules"/>
                 <set field="headerItem" value="pricerules"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/price/EditProductPriceRules_old.groovy"/>
+                <script location="component://product/groovyScripts/catalog/price/EditProductPriceRules_old.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPriceDecorator">
@@ -94,7 +94,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductPriceRules"/>
                 <set field="headerItem" value="pricerules"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/price/EditProductPriceRules.groovy"/>
+                <script location="component://product/groovyScripts/catalog/price/EditProductPriceRules.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPriceDecorator">

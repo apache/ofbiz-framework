@@ -118,7 +118,7 @@ under the License.
                 <entity-condition entity-name="ProductCategoryType" list="productCategoryTypes">
                     <order-by field-name="description"/>
                 </entity-condition>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategory.groovy"/>
+                <script location="component://product/groovyScripts/catalog/category/EditCategory.groovy"/>
             </actions>
             <widgets>
                  <decorator-screen name="CommonCategoryDecorator">
@@ -143,7 +143,7 @@ under the License.
                 <entity-condition entity-name="ProductCategoryType" list="productCategoryTypes">
                     <order-by field-name="description"/>
                 </entity-condition>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategory.groovy"/>
+                <script location="component://product/groovyScripts/catalog/category/EditCategory.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -251,8 +251,8 @@ under the License.
                 <set field="textDataMap.textDataResourceId" from-field="content.dataResourceId"/>
                 <set field="contentId" from-field="content.contentId"/>
                 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategoryContentContent.groovy"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategorySEO.groovy"/>
+                <script location="component://product/groovyScripts/catalog/category/EditCategoryContentContent.groovy"/>
+                <script location="component://product/groovyScripts/catalog/category/EditCategorySEO.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
@@ -317,7 +317,7 @@ under the License.
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategoryProducts.groovy"/>
+                <script location="component://product/groovyScripts/catalog/category/EditCategoryProducts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
@@ -491,7 +491,7 @@ under the License.
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
                 <entity-one entity-name="ProductCategory" value-field="productCategory"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/category/CreateProductInCategoryCheckExisting.groovy"/>
+                <script location="component://product/groovyScripts/catalog/category/CreateProductInCategoryCheckExisting.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">

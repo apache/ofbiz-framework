@@ -218,7 +218,7 @@ under the License.
                 <set field="configItemId" from-field="parameters.configItemId"/>
                 <entity-one entity-name="ProductConfigItem" value-field="configItem" auto-field-map="true"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/config/EditProductConfigItemContent.groovy"/>
+                <script location="component://product/groovyScripts/catalog/config/EditProductConfigItemContent.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
@@ -244,7 +244,7 @@ under the License.
 
                 <set field="fromDate" from-field="requetParameters.fromDate" type="Timestamp"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/config/EditProductConfigItemContentContent.groovy"/>
+                <script location="component://product/groovyScripts/catalog/config/EditProductConfigItemContentContent.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
