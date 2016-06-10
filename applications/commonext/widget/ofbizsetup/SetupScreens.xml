@@ -80,7 +80,7 @@
                 <set field="titleProperty" value="ProductNewFacility"/>
                 <set field="tabButtonItemTop" value="facility"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/FindFacility.groovy"/>
+                <script location="component://commonext/groovyScripts/ofbizsetup/FindFacility.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -127,8 +127,8 @@
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/GetProductStoreAndWebSite.groovy"/>
-                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/FindFacility.groovy"/>
+                <script location="component://commonext/groovyScripts/ofbizsetup/GetProductStoreAndWebSite.groovy"/>
+                <script location="component://commonext/groovyScripts/ofbizsetup/FindFacility.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -175,7 +175,7 @@
                 <set field="tabButtonItemTop" value="website"/>
                 <set field="labelTitleProperty" value="PageTitleEditWebSite"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/GetProductStoreAndWebSite.groovy"/>
+                <script location="component://commonext/groovyScripts/ofbizsetup/GetProductStoreAndWebSite.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -225,7 +225,7 @@
                 <set field="titleProperty" value="PageTitleEditProductCatalog"/>
                 <set field="tabButtonItem" value="productcatalog"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/GetProdCatalog.groovy"/>
+                <script location="component://commonext/groovyScripts/ofbizsetup/GetProdCatalog.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFirstProductDecorator">
@@ -259,7 +259,7 @@
                 <set field="labelTitleProperty" value="ProductCategory"/>
 
                 <set field="partyId" from-field="parameters.partyId"/>
-                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/GetProdCatalog.groovy"/>
+                <script location="component://commonext/groovyScripts/ofbizsetup/GetProdCatalog.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFirstProductDecorator">
@@ -294,7 +294,7 @@
                 <set field="labelTitleProperty" value="ProductProduct"/>
                 
                 <set field="partyId" from-field="parameters.partyId"/>           
-                <script location="component://commonext/webapp/ofbizsetup/WEB-INF/actions/GetProdCatalog.groovy"/>
+                <script location="component://commonext/groovyScripts/ofbizsetup/GetProdCatalog.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFirstProductDecorator">
