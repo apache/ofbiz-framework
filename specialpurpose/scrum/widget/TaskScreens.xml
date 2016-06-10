@@ -35,7 +35,7 @@ under the License.
                 <set field="viewIndexNo_2" from-field="parameters.TasksListInstallNoAction_index_2" type="Integer"/>
                 <set field="viewIndexNo_3" from-field="parameters.TasksListTestNoAction_index_3" type="Integer"/>
                 <set field="viewIndexNo_4" from-field="parameters.TasksListCodingNoAction_index_4" type="Integer"/>
-                <script location="component://scrum/webapp/scrum/WEB-INF/actions/FindTaskList.groovy"/>
+                <script location="component://scrum/groovyScripts/FindTaskList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="scrumCommonDecorator" location="${parameters.mainDecoratorLocation}">
@@ -152,7 +152,7 @@ under the License.
                 <set field="headerItem" value="revision"/>
                 <set field="titleProperty" value="ScrumRevision"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX_1" type="Integer"/>
-                <script location="component://scrum/webapp/scrum/WEB-INF/actions/ListRevision.groovy"/>
+                <script location="component://scrum/groovyScripts/ListRevision.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

@@ -42,7 +42,7 @@ under the License.
                 <set field="MyTasks_index_1" value="${parameters.MyTasks_index_1}" default-value="0"/>
                 <set field="MyTasks_url" value="timesheetId=${parameters.timesheetId}&amp;MyTasks_size_1=${MyTasks_size_1}&amp;MyTasks_index_1=${MyTasks_index_1}#"/>
                 <set field="timesheetId" from-field="parameters.timesheetId"/>
-                <script location="component://scrum/webapp/scrum/WEB-INF/actions/EditDailyHourReport.groovy"/>
+                <script location="component://scrum/groovyScripts/EditDailyHourReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMyWorkScreenDecorator" location="${parameters.mainDecoratorLocation}">
@@ -81,7 +81,7 @@ under the License.
     <screen name="MyTaskList">
         <section>
             <actions>
-                <script location="component://scrum/webapp/scrum/WEB-INF/actions/TaskList.groovy"/>
+                <script location="component://scrum/groovyScripts/TaskList.groovy"/>
             </actions>
             <widgets>
                 <section>
@@ -111,8 +111,8 @@ under the License.
     <screen name="CurrentTimesheet">
         <section>
             <actions>
-                <script location="component://scrum/webapp/scrum/WEB-INF/actions/EditDailyHourReport.groovy"/>
-                <script location="component://scrum/webapp/scrum/WEB-INF/actions/TaskList.groovy"/>
+                <script location="component://scrum/groovyScripts/EditDailyHourReport.groovy"/>
+                <script location="component://scrum/groovyScripts/TaskList.groovy"/>
             </actions>
             <widgets>
                     <section>
