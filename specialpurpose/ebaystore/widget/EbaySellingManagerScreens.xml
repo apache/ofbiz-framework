@@ -316,7 +316,7 @@
                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
                     <field-map field-name="autoPrefEnumId" from-field="autoPrefEnumId2"/>
                 </entity-one>
-                <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/automationPreferences/GetDisputeInfo.groovy"/>
+                <script location="component://ebaystore/groovyScripts/automationPreferences/GetDisputeInfo.groovy"/>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.EbayAutomatiionDisputeItems}" collapsible="true" name="AutomationDispute">
@@ -418,7 +418,7 @@
                        <field-map field-name="userLoginId" from-field="userLoginId"/>
                    </entity-one>
                    <set field="partyId" from-field="userLoginCheck.partyId"/>
-                   <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/email/GetProductStoreEmailTemplate.groovy"/>
+                   <script location="component://ebaystore/groovyScripts/email/GetProductStoreEmailTemplate.groovy"/>
                    <entity-one value-field="templateContent" entity-name="Content"/>
                    <get-related-one value-field="templateContent" relation-name="DataResource" to-value-field="templateDataResource"/>
                    <get-related-one value-field="templateDataResource" relation-name="ElectronicText" to-value-field="templateData"/>
@@ -739,7 +739,7 @@
                                             <field-map field-name="thruDate" from-field="parameters.thruDate"/>
                                         </service>
                                         <set field="orderList" from-field="orderResult.orderList"/>
-                                        <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/OrderListPrepare.groovy"/>
+                                        <script location="component://ebaystore/groovyScripts/store/OrderListPrepare.groovy"/>
                                         <set field="selectedDate" value="false"/>
                                     </actions>
                                     <widgets/>

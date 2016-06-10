@@ -41,13 +41,13 @@
                        <field-map field-name="userLoginId" from-field="userLoginId"/>
                    </entity-one>
                    <set field="partyId" from-field="userLoginCheck.partyId"/>
-                   <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/email/GetProductStoreEmailTemplate.groovy"/>
+                   <script location="component://ebaystore/groovyScripts/email/GetProductStoreEmailTemplate.groovy"/>
                    <entity-one value-field="templateContent" entity-name="Content"/>
                    <get-related-one value-field="templateContent" relation-name="DataResource" to-value-field="templateDataResource"/>
                    <get-related-one value-field="templateDataResource" relation-name="ElectronicText" to-value-field="templateData"/>
                    <set field="textData" from-field="templateData.textData"/>
                    <set field="dataResourceId" from-field="templateData.dataResourceId"/>
-                <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/email/GetEmailOptions.groovy"/>
+                <script location="component://ebaystore/groovyScripts/email/GetEmailOptions.groovy"/>
                 <!-- set all parameters -->
                 <set field="emailType" from-field="parameters.emailType"/>
                 <set field="buyerUserId" from-field="parameters.buyerUserId" default-value="None"/>

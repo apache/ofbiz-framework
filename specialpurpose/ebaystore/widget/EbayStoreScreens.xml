@@ -44,7 +44,7 @@ under the License.
                 <set field="titleProperty" value="${uiLabelMap.EbayStoreSetting}"/>
                 <set field="headerItem" value="ebayStore"/>
                 <set field="tabButtonItem" value="ebayStoreSetting"/>
-                <script  location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/RetrieveStoreOptions.groovy"/>
+                <script  location="component://ebaystore/groovyScripts/store/RetrieveStoreOptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
@@ -261,7 +261,7 @@ under the License.
                 <entity-one entity-name="EbayConfig" value-field="ebayConfig">
                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
                 </entity-one>
-                <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/PrepareProductListing.groovy"/>
+                <script location="component://ebaystore/groovyScripts/store/PrepareProductListing.groovy"/>
                 <set field="language" from-field="userLogin.lastLocale" default-value="en"/>
             </actions>
             <widgets>

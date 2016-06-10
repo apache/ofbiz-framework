@@ -72,7 +72,7 @@ under the License.
     <grid name="SoldItemList"  target="doAction" list-name="soldItemList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
         <row-actions>
-            <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/SoldAction.groovy"/>
+            <script location="component://ebaystore/groovyScripts/store/SoldAction.groovy"/>
         </row-actions>
         <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
         <field name="itemId"><display description="${itemId}"/></field>
@@ -716,7 +716,7 @@ under the License.
     <form name="TransactionList" type="multi" target="EbayStoreImportTransaction" list-name="transactionsList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true" view-size="100">
         <row-actions>
-            <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/CheckOrderStatus.groovy"></script>
+            <script location="component://ebaystore/groovyScripts/store/CheckOrderStatus.groovy"></script>
         </row-actions>
         <field name="_rowSubmit"  position="1" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="productStoreId"><hidden value="${productStoreId}"/></field>
@@ -757,7 +757,7 @@ under the License.
     <form name="OrderList" type="multi" target="EbayStoreImportOrder" list-name="orderLists"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true" view-size="100">
         <row-actions>
-            <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/OrderListParameters.groovy"/>
+            <script location="component://ebaystore/groovyScripts/store/OrderListParameters.groovy"/>
         </row-actions>
         <field name="productStoreId"><hidden value="${productStoreId}"/></field>
         <field name="_rowSubmit" position="1" title="${uiLabelMap.CommonSelect}" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><check/></field>

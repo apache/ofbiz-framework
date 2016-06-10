@@ -33,7 +33,7 @@ under the License.
     <form name="EbayAccountSelection" type="single" list-name="ebayAccountList"  target="ebayAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/StoreAccount.groovy"/>
+            <script location="component://ebaystore/groovyScripts/store/StoreAccount.groovy"/>
         </actions>
         <field name="productStoreId" title="Account" action="document.EbayAccountSelection.submit()" event="onchange">
             <drop-down current="selected" allow-empty="true">
@@ -44,7 +44,7 @@ under the License.
     <form name="EbayAccountList" type="single" list-name="ebayAccountList"  target="ebayAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/StoreAccount.groovy"/>
+            <script location="component://ebaystore/groovyScripts/store/StoreAccount.groovy"/>
         </actions>
         <field name="productStoreId" title="Account" >
             <drop-down current="selected">
