@@ -33,27 +33,27 @@ under the License.
 
     <request-map uri="RenderInventoryReportHtml">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/facility/WEB-INF/actions/inventory/InventoryItemReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/facility/InventoryItemReport.groovy"/>
         <response name="success" type="view" value="RenderInventoryReportHtml"/>
     </request-map>
     <request-map uri="RenderInventoryReportPDF">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/facility/WEB-INF/actions/inventory/InventoryItemReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/facility/InventoryItemReport.groovy"/>
         <response name="success" type="view" value="RenderInventoryReportPDF"/>
     </request-map>
     <request-map uri="RenderInventoryReportExcel">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/facility/WEB-INF/actions/inventory/InventoryItemReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/facility/InventoryItemReport.groovy"/>
         <response name="success" type="view" value="RenderInventoryReportExcel"/>
     </request-map>
     <request-map uri="RenderInventoryReportMSWord">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/facility/WEB-INF/actions/inventory/InventoryItemReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/facility/InventoryItemReport.groovy"/>
         <response name="success" type="view" value="RenderInventoryReportMSWord"/>
     </request-map>
     <request-map uri="RenderInventoryReportPPT">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/facility/WEB-INF/actions/inventory/InventoryItemReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/facility/InventoryItemReport.groovy"/>
         <response name="success" type="view" value="RenderInventoryReportPPT"/>
     </request-map>
 
