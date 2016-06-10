@@ -52,7 +52,7 @@ under the License.
                 <set field="headerItem" value="bom"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/EditProductBom.groovy"/>
+                <script location="component://manufacturing/groovyScripts/bom/EditProductBom.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBomDecorator">
@@ -113,7 +113,7 @@ under the License.
                     <field-map from-field="productFeatureApplTypeId" field-name="productFeatureApplTypeId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/BomSimulation.groovy"/>
+                <script location="component://manufacturing/groovyScripts/bom/BomSimulation.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBomDecorator">
@@ -136,7 +136,7 @@ under the License.
                 <set field="tabButtonItem" value="findBom"/>
                 <set field="labelTitleProperty" value="findBom"/>
                 <set field="headerItem" value="bom"/>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/FindProductBom.groovy"/>
+                <script location="component://manufacturing/groovyScripts/bom/FindProductBom.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBomDecorator">
