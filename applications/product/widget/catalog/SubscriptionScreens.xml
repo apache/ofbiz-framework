@@ -181,9 +181,6 @@ under the License.
                                 <if-service-permission service-name="subscriptionPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <container style="h1">
-                                    <label text="${uiLabelMap.PageTitleFindSubscriptionResource}"/>
-                                </container>
                                 <container style="button-bar">
                                     <link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext create"/>
                                 </container>
