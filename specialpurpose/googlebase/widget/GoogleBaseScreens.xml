@@ -30,7 +30,7 @@ under the License.
                     <order-by field-name="description"/>
                 </entity-condition>
                 <script location="component://product/groovyScripts/catalog/find/advancedsearchoptions.groovy"/>
-                <script location="component://googlebase/webapp/googlebase/WEB-INF/actions/GoogleBaseAdvancedSearch.groovy"/>
+                <script location="component://googlebase/groovyScripts/GoogleBaseAdvancedSearch.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFindDecorator" location="${parameters.mainDecoratorLocation}">
@@ -50,7 +50,7 @@ under the License.
                 <property-map resource="GoogleBaseUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
                 <script location="component://product/groovyScripts/catalog/find/keywordsearch.groovy"/>
-                <script location="component://googlebase/webapp/googlebase/WEB-INF/actions/FilterProducts.groovy"/>
+                <script location="component://googlebase/groovyScripts/FilterProducts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFindDecorator" location="${parameters.mainDecoratorLocation}">
@@ -72,7 +72,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="googlebase"/>
                 <set field="titleProperty" value="PageTitleGoogleBaseProductsExportToGoogle"/>
-                <script location="component://googlebase/webapp/googlebase/WEB-INF/actions/productsExportToGoogle.groovy"/>
+                <script location="component://googlebase/groovyScripts/productsExportToGoogle.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
