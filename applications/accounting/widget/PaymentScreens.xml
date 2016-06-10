@@ -175,8 +175,8 @@ under the License.
                 <set field="notAppliedAmountStr" type="String" value="${groovy:
                     import java.text.NumberFormat;
                     return(NumberFormat.getCurrencyInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)));}"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/ListNotAppliedInvoices.groovy"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/ListNotAppliedPayments.groovy"/>
+                <script location="component://accounting/groovyScripts/payment/ListNotAppliedInvoices.groovy"/>
+                <script location="component://accounting/groovyScripts/payment/ListNotAppliedPayments.groovy"/>
                 <entity-one entity-name="PartyNameView" value-field="partyNameViewTo">
                     <field-map field-name="partyId" from-field="payment.partyIdTo"/>
                 </entity-one>
@@ -437,7 +437,7 @@ under the License.
                 <set field="titleProperty" value="AccountingManualTransaction"/>
                 <set field="headerItem" value="transaction"/>
                 <set field="tabButtonItem" value="manualtransactiontab"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/ManualTx.groovy"/>
+                <script location="component://accounting/groovyScripts/payment/ManualTx.groovy"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
@@ -480,7 +480,7 @@ under the License.
                 <set field="paymentId" from-field="parameters.paymentId"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/PrintChecks.groovy"/>
+                <script location="component://accounting/groovyScripts/payment/PrintChecks.groovy"/>
                 <entity-condition entity-name="InvoiceItemType" list="PayrolGroup">
                     <condition-expr field-name="parentTypeId" value="PAYROL"/>
                 </entity-condition>
@@ -501,7 +501,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/FindInvoicesByDueDate.groovy"/>
+                <script location="component://accounting/groovyScripts/payment/FindInvoicesByDueDate.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -532,7 +532,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/FindInvoicesByDueDate.groovy"/>
+                <script location="component://accounting/groovyScripts/payment/FindInvoicesByDueDate.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

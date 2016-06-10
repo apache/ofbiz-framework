@@ -1058,7 +1058,7 @@ under the License.
                         </section>
                         <section>
                             <actions>
-                                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/BillingAccounts.groovy"/>
+                                <script location="component://accounting/groovyScripts/payment/BillingAccounts.groovy"/>
                             </actions>
                             <widgets>
                                 <screenlet title="${uiLabelMap.AccountingBillingAccount}">

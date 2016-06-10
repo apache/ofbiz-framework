@@ -26,7 +26,7 @@ under the License.
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="AccountingEditCustomTimePeriods"/>
                 <set field="tabButtonItem" value="EditCustomTimePeriod"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/period/EditCustomTimePeriod.groovy"/>
+                <script location="component://accounting/groovyScripts/period/EditCustomTimePeriod.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
