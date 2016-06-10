@@ -187,7 +187,7 @@ under the License.
                     <field-map from-field="parameters.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="invoiceItemSeqId"/>
                 </entity-and>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/CreateApplicationList.groovy"/>
+                <script location="component://accounting/groovyScripts/invoice/CreateApplicationList.groovy"/>
                 <set field="invoiceAmount" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice)}" type="BigDecimal"/>
                 <set field="notAppliedAmount" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}" type="BigDecimal"/>
                 <set field="appliedAmount" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(invoice)}" type="BigDecimal"/>
@@ -359,8 +359,8 @@ under the License.
 
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/CreateApplicationList.groovy"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/ListNotAppliedPayments.groovy"/>
+                <script location="component://accounting/groovyScripts/invoice/CreateApplicationList.groovy"/>
+                <script location="component://accounting/groovyScripts/invoice/ListNotAppliedPayments.groovy"/>
                 <set field="invoiceAmount" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice)}" type="BigDecimal"/>
                 <set field="notAppliedAmount" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}" type="BigDecimal"/>
                 <set field="appliedAmount" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(invoice)}" type="BigDecimal"/>
@@ -457,7 +457,7 @@ under the License.
                     <condition-expr field-name="parentTypeId" value="PAYROL"/>
                 </entity-condition>
                 <entity-condition entity-name="InvoiceItemType" list="PayrolList"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/GetAccountOrganizationAndClass.groovy"/>
+                <script location="component://accounting/groovyScripts/invoice/GetAccountOrganizationAndClass.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">

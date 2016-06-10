@@ -28,7 +28,7 @@ under the License.
                 <set field="tabButtonItem" value="viewReports"/>
                 <set field="invoiceTypeId" value="PURCHASE_INVOICE"/>
                 <set field="organizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" default-value="${defaultOrganizationPartyId}"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/InvoiceReport.groovy"/>
+                <script location="component://accounting/groovyScripts/invoice/InvoiceReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonApReportDecorator" location="${parameters.mainDecoratorLocation}">

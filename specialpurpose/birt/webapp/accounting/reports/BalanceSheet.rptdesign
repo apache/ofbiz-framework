@@ -75,7 +75,7 @@ context.put("glFiscalTypeId", glFiscalTypeId);
 context.put("delegator", delegator);
 context.put("dispatcher", dispatcher);
 context.put("userLogin", userLogin);
-GroovyUtil.runScriptAtLocation("component://accounting/webapp/accounting/WEB-INF/actions/reports/BalanceSheet.groovy", context);
+GroovyUtil.runScriptAtLocation("component://accounting/groovyScripts/reports/BalanceSheet.groovy", context);
 
 // prepare data source lists
 assetAccountBalanceList = context.get("assetAccountBalanceList");

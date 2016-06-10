@@ -68,7 +68,7 @@ if (!logoImageUrl) {
 // create application list
 var context = new HashMap();
 context.put("invoice", invoice);
-GroovyUtil.runScriptAtLocation("component://accounting/webapp/accounting/WEB-INF/actions/invoice/CreateApplicationList.groovy", context);
+GroovyUtil.runScriptAtLocation("component://accounting/groovyScripts/invoice/CreateApplicationList.groovy", context);
 invoiceApplications = context.get("invoiceApplications");
 
 // create debit/credit total variable

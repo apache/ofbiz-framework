@@ -97,7 +97,7 @@ under the License.
                             <fail-widgets>
                                 <section>
                                     <actions>
-                                        <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/BillingAccounts.groovy"/>
+                                        <script location="component://accounting/groovyScripts/payment/BillingAccounts.groovy"/>
                                         <set field="roleTypeId" value="BILL_TO_CUSTOMER"/>
                                     </actions>
                                     <widgets>
@@ -238,7 +238,7 @@ under the License.
 
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/order/BillingAccountOrders.groovy"/>
+                <script location="component://accounting/groovyScripts/order/BillingAccountOrders.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator" location="${parameters.billingAccountDecoratorLocation}">

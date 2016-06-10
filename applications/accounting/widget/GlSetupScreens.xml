@@ -487,7 +487,7 @@ under the License.
                     <order-by field-name="taxAuthGeoId"/>
                     <order-by field-name="taxAuthPartyId"/>
                 </entity-condition>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/TaxAuthorityGlAccounts.groovy"/>
+                <script location="component://accounting/groovyScripts/chartofaccounts/TaxAuthorityGlAccounts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">

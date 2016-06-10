@@ -52,7 +52,7 @@ under the License.
                         <section>
                             <actions>
                                 <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
-                                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/InvoiceReport.groovy"/>
+                                <script location="component://accounting/groovyScripts/invoice/InvoiceReport.groovy"/>
                             </actions>
                             <widgets>
                                 <include-portal-page id="ArPortalPage"/>

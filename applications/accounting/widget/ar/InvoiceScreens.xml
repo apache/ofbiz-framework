@@ -28,7 +28,7 @@ under the License.
                 <set field="titleProperty" value="AccountingArPageTitleListReports"/>
                 <set field="invoiceTypeId" value="SALES_INVOICE"/>
                 <set field="organizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" default-value="${defaultOrganizationPartyId}"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/InvoiceReport.groovy"/>
+                <script location="component://accounting/groovyScripts/invoice/InvoiceReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

@@ -65,7 +65,7 @@ context.put("parties", parties);
 context.put("delegator", delegator);
 context.put("dispatcher", dispatcher);
 context.put("userLogin", userLogin);
-GroovyUtil.runScriptAtLocation("component://accounting/webapp/accounting/WEB-INF/actions/reports/TrialBalance.groovy", context);
+GroovyUtil.runScriptAtLocation("component://accounting/groovyScripts/reports/TrialBalance.groovy", context);
 partyNameList = context.partyNameList;
 
 // get grand totoal posted
