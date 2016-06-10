@@ -60,7 +60,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleServiceList"/>
                 <set field="tabButtonItem" value="serviceLog"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/Services.groovy"/>
+                <script location="component://webtools/groovyScripts/service/Services.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="log-decorator">
@@ -79,7 +79,7 @@ under the License.
              <actions>
                  <set field="titleProperty" value="PageTitleLogConfiguration"/>
                  <set field="tabButtonItem" value="logConfiguration"/>
-                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/log/LogConfiguration.groovy"/>
+                 <script location="component://webtools/groovyScripts/log/LogConfiguration.groovy"/>
              </actions>
              <widgets>
                  <decorator-screen name="log-decorator">
@@ -101,7 +101,7 @@ under the License.
                  <!-- TODO: the following command is not really working (and the default value is always used);
                               my guess is that the base/config/debug.properties file is not found in the classpath -->
                  <property-to-field resource="debug" property="log4j.appender.css.File" field="logFileName" default="runtime/logs/ofbiz.log" no-locale="true"/>
-                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/log/LogView.groovy"/>
+                 <script location="component://webtools/groovyScripts/log/LogView.groovy"/>
              </actions>
              <widgets>
                  <decorator-screen name="log-decorator">
@@ -129,7 +129,7 @@ under the License.
              <actions>
                  <set field="titleProperty" value="PageTitleFetchLogs"/>
                  <set field="tabButtonItem" value="fetchLogs"/>
-                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/log/FetchLogs.groovy"/>
+                 <script location="component://webtools/groovyScripts/log/FetchLogs.groovy"/>
              </actions>
              <widgets>
                  <decorator-screen name="log-decorator">

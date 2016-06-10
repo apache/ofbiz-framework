@@ -25,7 +25,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="cache"/>
                 <set field="titleProperty" value="PageTitleFindUtilCache"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/cache/FindUtilCache.groovy"/>
+                <script location="component://webtools/groovyScripts/cache/FindUtilCache.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -60,7 +60,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="cache"/>
                 <set field="titleProperty" value="PageTitleFindUtilCacheElements"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/cache/FindUtilCacheElements.groovy"/>
+                <script location="component://webtools/groovyScripts/cache/FindUtilCacheElements.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -93,7 +93,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="cache"/>
                 <set field="titleProperty" value="PageTitleEditUtilCache"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/cache/EditUtilCache.groovy"/>
+                <script location="component://webtools/groovyScripts/cache/EditUtilCache.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

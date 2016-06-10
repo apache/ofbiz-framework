@@ -52,7 +52,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="WebtoolsStatsMainPageTitle"/>
                 <set field="tabButtonItem" value="stats"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/stats/StatsSinceStart.groovy"/>
+                <script location="component://webtools/groovyScripts/stats/StatsSinceStart.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="StatsDecorator" location="${parameters.statsDecoratorLocation}">
@@ -86,7 +86,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="WebtoolsStatsBinsPageTitle"/>
                 <set field="tabButtonItem" value="stats"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/stats/StatBinsHistory.groovy"/>
+                <script location="component://webtools/groovyScripts/stats/StatBinsHistory.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="StatsDecorator" location="${parameters.statsDecoratorLocation}">
