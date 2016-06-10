@@ -261,7 +261,7 @@ under the License.
                 <entity-one entity-name="StatusItem" value-field="status"/>                
 
                 <!-- get the contact list owner's marketing email -->
-                <script location="component://marketing/webapp/marketing/WEB-INF/actions/contact/GetContactListMarketingEmail.groovy"/>
+                <script location="component://marketing/groovyScripts/marketing/contact/GetContactListMarketingEmail.groovy"/>
                 <set field="contactMechIdFrom" value="${marketingEmail.contactMechId}"/>
                 <set field="partyIdFrom" value="${contactList.ownerPartyId}"/>               
             </actions>
