@@ -40,7 +40,7 @@ under the License.
                 <set field="applicationMenuName" value="MyPortalAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://myportal/widget/MyPortalMenus.xml" global="true"/>
                 <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="MYPORTAL" global="true"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/GetParentPortalPageId.groovy"/>
+                <script location="component://common/groovyScripts/GetParentPortalPageId.groovy"/>
                 <set field="applicationTitle" value="${uiLabelMap.PageTitleMyPortalForNoLogin}"/>
                 <set field="my" value="My" global="true"/>
             </actions>
@@ -71,7 +71,7 @@ under the License.
                 <set field="applicationMenuLocation" value="component://myportal/widget/MyPortalMenus.xml" global="true"/>
                 <!-- 
                 <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="MYPORTAL" global="true"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/GetParentPortalPageId.groovy"/>
+                <script location="component://common/groovyScripts/GetParentPortalPageId.groovy"/>
                 <set field="applicationTitle" value="${uiLabelMap.PageTitleMyPortalForNoLogin}"/>
                 <set field="my" value="My" global="true"/>
                  -->

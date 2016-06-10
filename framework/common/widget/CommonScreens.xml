@@ -43,7 +43,7 @@ under the License.
     <screen name="cctypes">
         <section>
             <actions>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/CcTypes.groovy"/>
+                <script location="component://common/groovyScripts/CcTypes.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common/template/includes/CcTypes.ftl"/></html></platform-specific>
@@ -423,7 +423,7 @@ under the License.
                     <actions>
                         <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                         <set field="searchType" from-field="parameters.searchType" default-value="${searchType}"/>
-                        <script location="component://common/webcommon/WEB-INF/actions/includes/FindAutocompleteOptions.groovy"/>
+                        <script location="component://common/groovyScripts/FindAutocompleteOptions.groovy"/>
                     </actions>
                     <widgets>
                         <decorator-screen name="AjaxGlobalDecorator">

@@ -264,7 +264,7 @@ under the License.
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="inputFields" from-field="parameters"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/GetLocaleList.groovy"/>
+                <script location="component://common/groovyScripts/GetLocaleList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">

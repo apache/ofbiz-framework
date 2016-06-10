@@ -128,7 +128,7 @@ under the License.
             <actions>
                 <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
                 <set field="mainPortalPageId" from-field="parameters.mainPortalPageId"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPortlets.groovy"/>
+                <script location="component://common/groovyScripts/ListPortalPortlets.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
