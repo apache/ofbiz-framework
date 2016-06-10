@@ -1097,7 +1097,7 @@ under the License.
     <screen name="childTemplateLine">
         <section>
             <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/content/PrepSeqNo.groovy"/>
+                <script location="component://content/groovyScripts/content/PrepSeqNo.groovy"/>
             </actions>
             <widgets>
                 <include-menu name="childTemplateLine" location="component://content/widget/compdoc/CompDocMenus.xml"/>
@@ -1107,7 +1107,7 @@ under the License.
     <screen name="childInstanceLine">
         <section>
             <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/content/PrepSeqNo.groovy"/>
+                <script location="component://content/groovyScripts/content/PrepSeqNo.groovy"/>
                 <!--  find the most recent ContentAssoc/ContentRevisionItem view using the rootInstanceContentId
                       as the contentId value and rootInstanceRevSeqId for the revision
                       and the contentId of the current template part as the itemContentId

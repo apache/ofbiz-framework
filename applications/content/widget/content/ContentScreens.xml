@@ -156,7 +156,7 @@ under the License.
                <!-- <entity-condition entity-name="ContentAssocViewTo" list="contentAssoc">
                     <condition-expr field-name="contentIdStart" from-field="contentId" operator="equals"/>
                     </entity-condition>-->
-                <script location="component://content/webapp/content/WEB-INF/actions/content/GetContentLookupList.groovy"/>
+                <script location="component://content/groovyScripts/content/GetContentLookupList.groovy"/>
             </actions>
             <widgets>
 <!--                <include-form name="ListDocument" location="component://content/widget/content/ContentForms.xml"/>-->
@@ -288,7 +288,7 @@ under the License.
     <screen name="EditContentRole">
         <section>
             <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
+                <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentRole"/>
                 <set field="tabButtonItem" value="role"/>
 
@@ -314,7 +314,7 @@ under the License.
     <screen name="EditContentPurpose">
         <section>
             <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
+                <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentPurpose"/>
                 <set field="tabButtonItem" value="purpose"/>
                 <set field="contentId" from-field="parameters.contentId"/>
@@ -338,7 +338,7 @@ under the License.
     <screen name="EditContentAttribute">
         <section>
             <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
+                <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentAttribute"/>
                 <set field="tabButtonItem" value="attribute"/>
                 <set field="contentId" from-field="parameters.contentId"/>
@@ -398,7 +398,7 @@ under the License.
     <screen name="EditContentMetaData">
         <section>
             <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
+                <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentMetadata"/>
                 <set field="tabButtonItem" value="metaData"/>
                 <set field="contentId" from-field="parameters.contentId"/>
@@ -422,7 +422,7 @@ under the License.
     <screen name="EditContentWorkEfforts">
         <section>
             <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
+                <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentWorkEffort"/>
                 <set field="tabButtonItem" value="workEffort"/>
                 <set field="contentId" from-field="parameters.contentId"/>
@@ -474,7 +474,7 @@ under the License.
                 <set field="contentId" from-field="parameters.contentId"/>
                 <set field="viewSize" value="${parameters.VIEW_SIZE}" default-value="30" type="Integer"/>
                 <set field="viewIndex" value="${parameters.VIEW_INDEX}" default-value="0" type="Integer"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/content/GetContentLookupList.groovy"/>
+                <script location="component://content/groovyScripts/content/GetContentLookupList.groovy"/>
             </actions>
             <widgets>
                 <container id="Document">
@@ -601,7 +601,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/content/ContentSearchOptions.groovy"/>
+                <script location="component://content/groovyScripts/content/ContentSearchOptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="contentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -619,7 +619,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/content/ContentSearchResults.groovy"/>
+                <script location="component://content/groovyScripts/content/ContentSearchResults.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="contentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -636,7 +636,7 @@ under the License.
     <screen name="EditContentKeywords">
         <section>
             <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
+                <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentKeywords"/>
                 <set field="tabButtonItem" value="keywords"/>
                 <set field="contentId" from-field="parameters.contentId"/>

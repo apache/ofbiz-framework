@@ -60,7 +60,7 @@ under the License.
     <screen name="CMSContentEdit">
         <section>
             <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
+                <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditCMSContent"/>
                 <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" from-field="parameters.contentId"/>
@@ -73,7 +73,7 @@ under the License.
                 <set field="dataResourceId" from-field="parameters.drDataResourceId"/>
                 <set field="rootForumId" value="WebStoreFORUM"/>
                 <set field="rootForumId2" value="WebStoreCONTENT"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/FeaturePrep.groovy"/>
+                <script location="component://content/groovyScripts/cms/FeaturePrep.groovy"/>
                 <set field="menuContext.contentTarget" value="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${dataResourceId}"/>
             </actions>
             <widgets>
@@ -117,7 +117,7 @@ under the License.
                 <set field="caMapKey" from-field="MASTER_caMapKey"/>
 
 
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/CmsEditAddPrep.groovy"/>
+                <script location="component://content/groovyScripts/cms/CmsEditAddPrep.groovy"/>
                 <set field="currentCMSMenuItemName" value="EditAddContent" to-scope="user"/>
                 <set field="enableEdit" value="true"/>
             </actions>
@@ -153,7 +153,7 @@ under the License.
                 <set field="caContentIdTo" from-field="parameters.contentId"/>
                 <set field="caMapKey" from-field="parameters.mapKey"/>
 
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/CmsEditAddPrep.groovy"/>
+                <script location="component://content/groovyScripts/cms/CmsEditAddPrep.groovy"/>
                 <set field="currentCMSMenuItemName" value="EditAddContent" to-scope="user"/>
             </actions>
             <widgets>
@@ -172,13 +172,13 @@ under the License.
     <screen name="CMSSites">
         <section>
             <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
+                <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="ContentCMSSearchPage"/>
                 <set field="forumId" from-field="parameters.contentId"/>
                 <set field="defaultSiteId" value="WebStoreFORUM"/>
                 <set field="currentCMSMenuItemName" value="subsites" to-scope="user"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/UserPermPrep.groovy"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/MostRecentPrep.groovy"/>
+                <script location="component://content/groovyScripts/cms/UserPermPrep.groovy"/>
+                <script location="component://content/groovyScripts/cms/MostRecentPrep.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.cmsDecoratorLocation}">
@@ -197,7 +197,7 @@ under the License.
     <screen name="addSubSite">
         <section>
             <actions>
-                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
+                <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleSearchContent"/>
             </actions>
             <widgets>

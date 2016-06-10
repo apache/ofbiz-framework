@@ -246,7 +246,7 @@ under the License.
                 <set field="titleProperty" value="OrderFindOrder"/>
                 <set field="headerItem" value="findorders"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FindOrders.groovy"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/print/FindPrinters.groovy"/>
+                <script location="component://content/groovyScripts/print/FindPrinters.groovy"/>
 
                 <!-- asmslect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
                 <set field="asm_multipleSelectForm"  value="lookuporder"/>

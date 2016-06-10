@@ -45,7 +45,7 @@ under the License.
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="Survey" value-field ="survey"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/survey/ViewSurveyResponses.groovy"/>
+                <script location="component://content/groovyScripts/survey/ViewSurveyResponses.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
