@@ -61,7 +61,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://webpos/webapp/webpos/WEB-INF/actions/search/CustomerAddress.groovy"/>
+                <script location="component://webpos/groovyScripts/search/CustomerAddress.groovy"/>
             </actions>
             <widgets>
                 <container>
@@ -109,7 +109,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://webpos/webapp/webpos/WEB-INF/actions/search/SearchSalesReps.groovy"/>
+                <script location="component://webpos/groovyScripts/search/SearchSalesReps.groovy"/>
             </actions>
             <widgets>
                 <container>

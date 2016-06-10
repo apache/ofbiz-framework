@@ -31,7 +31,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://webpos/webapp/webpos/WEB-INF/actions/WebPosSetup.groovy"/>
+                <script location="component://webpos/groovyScripts/WebPosSetup.groovy"/>
                 
                 <set field="layoutSettings.styleSheets[+0]" value="/webpos/images/webpos.css" global="true"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.WebPosCompanyName" global="true"/>
@@ -235,7 +235,7 @@ under the License.
                 <set field="MainColumnStyle" value="leftonly"/>
                 <set field="titleProperty" value="PageTitleLogin"/>
                 <set field="headerItem" value="login"/>
-                <script location="component://webpos/webapp/webpos/WEB-INF/actions/Login.groovy"/>
+                <script location="component://webpos/groovyScripts/Login.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -254,7 +254,7 @@ under the License.
             <actions>
                 <set field="MainColumnStyle" value="leftonly"/>
                 <set field="titleProperty" value="PageTitleLogin"/>
-                <script location="component://webpos/webapp/webpos/WEB-INF/actions/Login.groovy"/>
+                <script location="component://webpos/groovyScripts/Login.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

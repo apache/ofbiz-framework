@@ -37,7 +37,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://webpos/webapp/webpos/WEB-INF/actions/catalog/SideDeepCategory.groovy"/>
+                <script location="component://webpos/groovyScripts/catalog/SideDeepCategory.groovy"/>
             </actions>
             <widgets>
                 <container>
@@ -63,7 +63,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCategoryPage"/>
-                <script location="component://webpos/webapp/webpos/WEB-INF/actions/catalog/Category.groovy"/>
+                <script location="component://webpos/groovyScripts/catalog/Category.groovy"/>
                 <script location="component://order/groovyScripts/entry/catalog/CategoryDetail.groovy"/>
             </actions>
             <widgets>
