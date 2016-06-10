@@ -454,7 +454,7 @@ if (starschemas)
     account = starschema.getString("account");
     
     quantity = starschema.getString("quantity");
-    quantity = starschema.getString("quantity");
+    countOrder = starschema.getString("countOrder");
     GS = starschema.getString("GS");
     GMS = starschema.getString("GMS");
     GMP = starschema.getString("GMP");
