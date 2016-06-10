@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
 
     <service name="migrateStatusToGlReconciliation" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/UpgradeServices.xml" invoke="migrateStatusToGlReconciliation">
+            location="component://accounting/minilang/UpgradeServices.xml" invoke="migrateStatusToGlReconciliation">
         <description>
             Migrate statusId to GlReconciliation entity,
             this service can be used to upgrade existing data i.e it sets the statusId(new field in entity) to "Created" if reconciledBalance found empty otherwise sets "Reconciled".
@@ -34,7 +34,7 @@ under the License.
     </service>
 
     <service name="migrateStatusToFinAccountTrans" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/UpgradeServices.xml" invoke="migrateStatusToFinAccountTrans">
+            location="component://accounting/minilang/UpgradeServices.xml" invoke="migrateStatusToFinAccountTrans">
         <description>
             Migrate statusId to FinAccountTrans entity,
             this service can be used to upgrade existing data i.e it sets the statusId(new field in entity) to "Approved" if found empty.
@@ -44,13 +44,13 @@ under the License.
     </service>
 
     <service name="migrateFixedAssetMaintMeter" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/UpgradeServices.xml" invoke="migrateFixedAssetMaintMeter" auth="true">
+                location="component://accounting/minilang/UpgradeServices.xml" invoke="migrateFixedAssetMaintMeter" auth="true">
         <description>Copy the FixedAssetMaintMeter entity to FixedAssetMeter. FixedAssetMeter.readingDate will be replaced with FixedAssetMaintMeter.createdStamp.</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
     </service>
     
     <service name="migrateAgreementWorkEffortAppl" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/UpgradeServices.xml" invoke="migrateAgreementWorkEffortAppl" auth="true">
+                location="component://accounting/minilang/UpgradeServices.xml" invoke="migrateAgreementWorkEffortAppl" auth="true">
         <description>Copy the AgreementWorkEffortAppl entity to AgreementWorkEffortApplic</description>
         <permission-service service-name="acctgAgreementPermissionCheck" main-action="CREATE"/>
     </service>    

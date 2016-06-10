@@ -26,7 +26,7 @@
         <entity-xml action="load" entity-xml-url="component://accounting/testdef/data/PaymentApplicationTestsData.xml"/>
     </test-case>
     <test-case case-name="application-tests">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/PaymentApplicationTests.xml"/>
+        <simple-method-test location="component://accounting/minilang/test/PaymentApplicationTests.xml"/>
     </test-case>
     
 </test-suite>

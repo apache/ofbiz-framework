@@ -300,7 +300,7 @@ under the License.
     </request-map>
     <request-map uri="importContactListParties">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://marketing/script/org/ofbiz/marketing/contact/ContactListEvents.xml" invoke="importContactListParties"/>
+        <event type="simple" path="component://marketing/minilang/marketing/contact/ContactListEvents.xml" invoke="importContactListParties"/>
         <response name="success" type="request-redirect" value="FindImportContactListParties"/>
         <response name="error" type="request-redirect" value="FindImportContactListParties"/>
     </request-map>

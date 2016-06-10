@@ -23,7 +23,7 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="assetmaint-tests">
-        <simple-method-test location="component://assetmaint/script/org/ofbiz/assetmaint/test/FixedAssetMaintTests.xml"/>
+        <simple-method-test location="component://assetmaint/minilang/test/FixedAssetMaintTests.xml"/>
     </test-case>
 
 </test-suite>

@@ -119,7 +119,7 @@ under the License.
 
     <!-- permission check -->
     <service name="securityPermissionCheck" engine="simple"
-             location="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
+             location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
         <implements service="permissionInterface"/>
         <attribute name="primaryPermission" type="String" mode="IN" optional="true" default-value="SECURITY"/>
     </service>

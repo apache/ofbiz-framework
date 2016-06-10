@@ -25,6 +25,6 @@ under the License.
     <test-case case-name="entity-crypto-tests"><junit-test-suite class-name="org.ofbiz.entity.test.EntityCryptoTestSuite"/></test-case>
     <test-case case-name="entity-query-tests"><junit-test-suite class-name="org.ofbiz.entity.test.EntityQueryTestSuite"/></test-case>
     <test-case case-name="entity-util-properties-tests">
-        <simple-method-test location="component://entity/script/org/ofbiz/entity/test/EntityUtilPropertiesTests.xml"/>
+        <simple-method-test location="component://entity/minilang/EntityUtilPropertiesTests.xml"/>
     </test-case>
 </test-suite>

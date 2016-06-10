@@ -93,9 +93,9 @@ public class LayoutEvents {
             context.put("locale", locale);
 
             try {
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentIn", formInput, context, errorMessages, locale);
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceIn", formInput, context, errorMessages, locale);
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn", formInput, context, errorMessages, locale);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentIn", formInput, context, errorMessages, locale);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceIn", formInput, context, errorMessages, locale);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", formInput, context, errorMessages, locale);
             } catch (MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
@@ -400,7 +400,7 @@ public class LayoutEvents {
                 locale = Locale.getDefault();
             }
             try {
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn", view, serviceIn, errorMessages, locale);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", view, serviceIn, errorMessages, locale);
             } catch (IllegalArgumentException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
@@ -461,9 +461,9 @@ public class LayoutEvents {
             String rootDir = request.getSession().getServletContext().getRealPath("/");
             context.put("rootDir", rootDir);
             try {
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentIn", paramMap, context, errorMessages, loc);
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceIn", paramMap, context, errorMessages, loc);
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", paramMap, context, errorMessages, loc);
             } catch (MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
@@ -534,9 +534,9 @@ public class LayoutEvents {
             String rootDir = request.getSession().getServletContext().getRealPath("/");
             context.put("rootDir", rootDir);
             try {
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentIn", paramMap, context, errorMessages, loc);
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceIn", paramMap, context, errorMessages, loc);
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", paramMap, context, errorMessages, loc);
             } catch (MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";

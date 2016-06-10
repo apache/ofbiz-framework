@@ -22,23 +22,23 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
    <!-- Start Old Implementation to send data in XML format -->
     <service name="ConvertOfbizCartToGoogle" engine="simple" invoke="ConvertOfbizCartToGoogle" auth="false"
-        location="component://googlecheckout/script/org/ofbiz/googleCheckout/ShoppingCartServices.xml">
+        location="component://googleCheckout/minilang/ShoppingCartServices.xml">
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.WebShoppingCart" mode="IN" optional="false"/>
         <attribute name="googleCart" mode="OUT" type="Map" optional="false"/>
         <attribute name="flowSupport" mode="OUT" type="Map" optional="false"/>
         <attribute name="sendInitialAuthDetails" mode="OUT" type="Boolean" optional="false"/>
     </service>
     <service name="createXMLOutput" engine="simple" invoke="createXMLOutput" auth="false"
-        location="component://googlecheckout/script/org/ofbiz/googleCheckout/PrepareXMLTemplate.xml">
+        location="component://googleCheckout/minilang/PrepareXMLTemplate.xml">
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.WebShoppingCart" mode="IN" optional="false"/>
     </service>
     <service name="transmitRequest" engine="simple" invoke="transmitRequest" auth="false"
-        location="component://googlecheckout/script/org/ofbiz/googleCheckout/PrepareXMLTemplate.xml">
+        location="component://googleCheckout/minilang/PrepareXMLTemplate.xml">
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="redirect" mode="OUT" type="String" optional="false"/>
     </service>
     <service name="connectToGoogleCheckoutServer" engine="simple" invoke="connectToGoogleCheckoutServer" auth="false"
-        location="component://googlecheckout/script/org/ofbiz/googleCheckout/PrepareXMLTemplate.xml">
+        location="component://googleCheckout/minilang/PrepareXMLTemplate.xml">
         <attribute name="conn" mode="OUT" type="java.net.HttpURLConnection" optional="false"/>
     </service>
     <!-- End Old Implementation to send data in XML format -->

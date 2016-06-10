@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
 
     <service name="migrateFacilityRole" engine="simple"
-            location="component://product/script/org/ofbiz/product/UpgradeServices.xml" invoke="migrateFacilityRole">
+            location="component://product/minilang/product/UpgradeServices.xml" invoke="migrateFacilityRole">
         <description>
             Migrate data from OldFacilityRole to FacilityParty.
             Since revision 698159 (2008-09-23) the entity FacilityRole has been deprecated.
@@ -35,14 +35,14 @@ under the License.
         </description>
     </service>
     <service name="migrateFacilitySquareFootage" engine="simple"
-            location="component://product/script/org/ofbiz/product/UpgradeServices.xml" invoke="migrateFacilitySquareFootage">
+            location="component://product/minilang/product/UpgradeServices.xml" invoke="migrateFacilitySquareFootage">
         <description>
             Migrate data from Facility.oldSquareFootage to Facility.facilitySize.
             The field Facility.squareFootageSince has been deprecated since revision 929912 (2010-04-01)
         </description>
     </service>
     <service name="migrateProductKeyword" engine="simple"
-            location="component://product/script/org/ofbiz/product/UpgradeServices.xml" invoke="migrateProductKeyword">
+            location="component://product/minilang/product/UpgradeServices.xml" invoke="migrateProductKeyword">
         <description>
             Migrate data from oldProductKeyword to ProductKeyword.
             The entity oldProductKeyword has been deprecated.

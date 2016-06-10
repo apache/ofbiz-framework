@@ -31,26 +31,26 @@ under the License.
         <attribute name="shippingMethodString" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createShoppingList" engine="simple" auth="false"
-            location="component://order/script/org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="createShoppingList">
+            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="createShoppingList">
         <description>Create a shopping list entity</description>
         <implements service="createShoppingListRecurrence"/>
         <implements service="shoppingListInterface"/>
         <attribute name="shoppingListId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateShoppingList" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingList">
+            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingList">
         <description>Update a shopping list entity</description>
         <implements service="createShoppingListRecurrence"/>
         <implements service="shoppingListInterface"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="removeShoppingList" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="removeShoppingList">
+            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="removeShoppingList">
         <description>Remove a shopping list entity</description>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="calculateShoppingListDeepTotalPrice" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="calculateShoppingListDeepTotalPrice">
+            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="calculateShoppingListDeepTotalPrice">
         <description>Remove a shopping list entity</description>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>
@@ -109,7 +109,7 @@ under the License.
         <attribute name="configId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createShoppingListItem" engine="simple" auth="false"
-            location="component://order/script/org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="createShoppingListItem">
+            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="createShoppingListItem">
         <description>Create a shopping list item</description>
         <implements service="shoppingListItemInterface"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="true"/>
@@ -118,24 +118,24 @@ under the License.
         <attribute name="shoppingListItemSeqId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateShoppingListItem" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingListItem">
+            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingListItem">
         <description>Update a shopping list item</description>
         <implements service="shoppingListItemInterface"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="removeShoppingListItem" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="removeShoppingListItem">
+            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="removeShoppingListItem">
         <description>Remove a shopping list item</description>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="addSuggestionsToShoppingList" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="addSuggestionsToShoppingList">
+            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="addSuggestionsToShoppingList">
         <description>Add suggestions to a shopping list</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="addDistinctShoppingListItem" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="addDistinctShoppingListItem">
+            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="addDistinctShoppingListItem">
         <description>Adds a shopping list item if one with the same productId does not exist</description>
         <implements service="shoppingListItemInterface"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>

@@ -25,33 +25,33 @@ under the License.
     <version>1.0</version>
 
     <service name="createSystemInfoNote" engine="simple" default-entity-name="NoteData"
-        location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="createSystemInfoNote">
+        location="component://commonext/minilang/SystemInfoServices.xml" invoke="createSystemInfoNote">
         <description>Create a system info note</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteSystemInfoNote" engine="simple" default-entity-name="NoteData"
-        location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="deleteSystemInfoNote">
+        location="component://commonext/minilang/SystemInfoServices.xml" invoke="deleteSystemInfoNote">
         <description>Delete a system info note</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="deleteAllSystemNotes" engine="simple" auth="true"
-        location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="deleteAllSystemNotes">
+        location="component://commonext/minilang/SystemInfoServices.xml" invoke="deleteAllSystemNotes">
         <description>Delete all system notes for the logged on party</description>
     </service>
     <service name="getSystemInfoNotes" engine="simple" auth="true"
-        location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="getSystemInfoNotes">
+        location="component://commonext/minilang/SystemInfoServices.xml" invoke="getSystemInfoNotes">
         <description>Get system notes for the logged on party</description>
         <attribute name="systemInfoNotes" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="getLastSystemInfoNote" engine="simple" auth="false"
-        location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="getLastSystemInfoNote">
+        location="component://commonext/minilang/SystemInfoServices.xml" invoke="getLastSystemInfoNote">
         <description>Get last system note for the logged on party</description>
         <attribute name="lastSystemInfoNote1" type="GenericValue" mode="OUT" optional="true"/>
         <attribute name="lastSystemInfoNote2" type="GenericValue" mode="OUT" optional="true"/>
         <attribute name="lastSystemInfoNote3" type="GenericValue" mode="OUT" optional="true"/>
     </service>
     <service name="getSystemInfoStatus" engine="simple" auth="true"
-        location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="getSystemInfoStatus">
+        location="component://commonext/minilang/SystemInfoServices.xml" invoke="getSystemInfoStatus">
         <description>Get system status for the logged on party</description>
         <attribute name="systemInfoStatus" type="List" mode="OUT" optional="true"/>
     </service>

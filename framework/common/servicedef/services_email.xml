@@ -127,7 +127,7 @@ under the License.
         <implements service="sendMailFromScreenInterface"/>
     </service>
     <service name="sendMailFromTemplateSetting" engine="simple"
-        location="component://common/script/org/ofbiz/common/email/EmailServices.xml" invoke="sendMailFromTemplateSetting">
+        location="component://common/minilang/email/EmailServices.xml" invoke="sendMailFromTemplateSetting">
         <description>Send Email From Email Template Setting Service</description>
         <implements service="sendMailInterface"/>
         <attribute name="emailTemplateSettingId" type="String" mode="IN" optional="false"/>

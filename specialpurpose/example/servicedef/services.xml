@@ -47,7 +47,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createExampleStatus" default-entity-name="ExampleStatus" engine="simple"
-            location="component://example/script/org/ofbiz/example/example/ExampleServices.xml" invoke="createExampleStatus" auth="true">
+            location="component://example/minilang/example/ExampleServices.xml" invoke="createExampleStatus" auth="true">
         <description>Create a ExampleStatus</description>
         <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
         <auto-attributes include="all" mode="IN" optional="false">
@@ -117,13 +117,13 @@ under the License.
 
     <!-- Permission Services -->
     <service name="exampleGenericPermission" engine="simple"
-             location="component://example/script/org/ofbiz/example/ExamplePermissionServices.xml" invoke="exampleGenericPermission">
+             location="component://example/minilang/ExamplePermissionServices.xml" invoke="exampleGenericPermission">
         <implements service="permissionInterface"/>
     </service>
 
     <!-- Example ServiceTest Service -->
     <service name="testCreateExampleService" engine="simple"
-             location="component://example/script/org/ofbiz/example/example/ExampleServices.xml" invoke="testCreateExampleService">
+             location="component://example/minilang/example/ExampleServices.xml" invoke="testCreateExampleService">
         <implements service="testServiceInterface"/>
     </service>
 </services>

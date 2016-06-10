@@ -28,11 +28,11 @@ under the License.
         <junit-test-suite class-name="org.ofbiz.product.test.InventoryItemTransferTest"/>
     </test-case>
     <test-case case-name="inventory-tests">
-        <simple-method-test location="component://product/script/org/ofbiz/product/test/InventoryTests.xml"/>
+        <simple-method-test location="component://product/minilang/product/test/InventoryTests.xml"/>
     </test-case>
 
     <test-case case-name="shipment-tests">
-        <simple-method-test location="component://product/script/org/ofbiz/shipment/test/ShipmentTests.xml"/>
+        <simple-method-test location="component://product/minilang/shipment/test/ShipmentTests.xml"/>
     </test-case>
 
     <test-case case-name="loadIssuanceTestData">

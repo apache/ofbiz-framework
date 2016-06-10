@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
 
     <service name="migrateOrderItemAssociation" engine="simple"
-            location="component://order/script/org/ofbiz/order/UpgradeServices.xml" invoke="migrateOrderItemAssociation">
+            location="component://order/minilang/UpgradeServices.xml" invoke="migrateOrderItemAssociation">
         <description>
             Migrate data from OldOrderItemAssociation to OrderItemAssoc.
             Since revision 485144 (2006-12-10) the entity OrderItemAssociation has been deprecated.
@@ -35,7 +35,7 @@ under the License.
         </description>
     </service>
     <service name="migrateCustRequestRole" engine="simple"
-            location="component://order/script/org/ofbiz/order/UpgradeServices.xml" invoke="migrateCustRequestRole">
+            location="component://order/minilang/UpgradeServices.xml" invoke="migrateCustRequestRole">
         <description>
             Migrate data from OldCustRequestRole to CustRequestParty.
             Since revision 684647 (2008-08-11) the entity CustRequestRole has been deprecated.
@@ -46,7 +46,7 @@ under the License.
         </description>
     </service>
     <service name="migrateOrderShipment" engine="simple"
-            location="component://order/script/org/ofbiz/order/UpgradeServices.xml" invoke="migrateOrderShipment">
+            location="component://order/minilang/UpgradeServices.xml" invoke="migrateOrderShipment">
         <description>
             Since revision 895250 (2010-01-02) the entity OrderShipment is used to record purchase order items that
             will be received as part of a purchase shipment. Previously ItemIssuance was used with an empty inventoryId.

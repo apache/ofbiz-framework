@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
 
     <service name="migrateSalaryStep" engine="simple"
-            location="component://humanres/script/org/ofbiz/humanres/UpgradeServices.xml" invoke="migrateSalaryStep">
+            location="component://humanres/minilang/UpgradeServices.xml" invoke="migrateSalaryStep">
         <description>
             Migrate data from OldSalaryStep to SalaryStep.
             Since revision 1709214 (2015-10-18) the entity SalaryStep has been deprecated.

@@ -26,7 +26,7 @@ under the License.
 
     <!-- Financial Account -->
     <service name="createFinAccount" engine="simple" default-entity-name="FinAccount"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccount">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createFinAccount">
         <description>Create a new Financial Account.  If no finAccountId is provided, an auto-sequenced one will be used.</description>
         <auto-attributes mode="INOUT" optional="true" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk">
@@ -35,7 +35,7 @@ under the License.
         </auto-attributes>
     </service>
     <service name="updateFinAccount" engine="simple" default-entity-name="FinAccount"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="updateFinAccount">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="updateFinAccount">
         <description>Update a Financial Account</description>
         <auto-attributes mode="INOUT" optional="false" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk">
@@ -49,22 +49,22 @@ under the License.
         <attribute name="replenishLevel" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
     <service name="deleteFinAccount" engine="simple" default-entity-name="FinAccount"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="deleteFinAccount">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="deleteFinAccount">
         <description>Delete a Financial Account</description>
         <auto-attributes mode="IN" optional="false" include="pk"/>
     </service>
     <service name="updateFinAccountBalancesFromTrans" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="updateFinAccountBalancesFromTrans">
+        location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="updateFinAccountBalancesFromTrans">
         <description>Update FinAccount.actualBalance and FinAccount.availableBalance based on a new FinAccountTrans; meant to be called as an EECA as it is for data maintenance</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="updateFinAccountBalancesFromAuth" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="updateFinAccountBalancesFromAuth">
+        location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="updateFinAccountBalancesFromAuth">
         <description>Update FinAccount.availableBalance based on a new FinAccountAuth; meant to be called as an EECA as it is for data maintenance</description>
         <attribute name="finAccountAuthId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createFinAccountStatus" default-entity-name="FinAccountStatus" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccountStatus" auth="true">
+        location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createFinAccountStatus" auth="true">
         <description>Create a FinAccountStatus</description>
         <auto-attributes include="all" mode="IN" optional="false">
             <exclude field-name="statusDate"/>
@@ -74,7 +74,7 @@ under the License.
 
     <!-- Financial Account Transaction -->
     <service name="createFinAccountTrans" engine="simple" default-entity-name="FinAccountTrans"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccountTrans">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createFinAccountTrans">
         <description>Create a new Financial Account Transaction.  Will use current timestamp for entryDate and trasanctionDate if none is provided.</description>
         <auto-attributes mode="OUT" optional="false" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk">
@@ -83,39 +83,39 @@ under the License.
         <attribute name="glAccountId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="postFinAccountTransToGl" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountGlPostServices.xml" invoke="postFinAccountTransToGl">
+        location="component://accounting/minilang/finaccount/FinAccountGlPostServices.xml" invoke="postFinAccountTransToGl">
         <description>Post a Financial Account Transaction to the General Ledger; meant to be called as an SECA</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
         <attribute name="glAccountId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccountRole">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createFinAccountRole">
         <description>Create a new Financial Account Role</description>
         <auto-attributes mode="IN" optional="false" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updateFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="updateFinAccountRole">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="updateFinAccountRole">
         <description>Update a Financial Account Role</description>
         <auto-attributes mode="IN" optional="false" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
     </service>
     <service name="deleteFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="deleteFinAccountRole">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="deleteFinAccountRole">
         <description>Remove a Financial Account Role</description>
         <auto-attributes mode="IN" optional="false" include="pk"/>
     </service>
 
     <service name="createFinAccountAuth" engine="simple" default-entity-name="FinAccountAuth"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccountAuth">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createFinAccountAuth">
         <description>Lower level service for creating authorization against a fin account.  Will use current time for authorizationDate and thruDate if not supplied.</description>
         <auto-attributes mode="OUT" optional="false" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
     </service>
     <service name="expireFinAccountAuth" engine="simple" default-entity-name="FinAccountAuth"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="expireFinAccountAuth">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="expireFinAccountAuth">
         <!-- NOTE: never set require-new-transaction on this service, needs to be called with other services in same transaction to protect operations such as the payment capture one -->
         <description>Expires a fin account authorization.  Will use current time if no time is supplied in parameter</description>
         <attribute name="finAccountAuthId" type="String" mode="IN" optional="false"/>
@@ -123,14 +123,14 @@ under the License.
     </service>
 
     <service name="setFinAccountTransStatus" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="setFinAccountTransStatus">
+        location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="setFinAccountTransStatus">
         <description>Set financial account transaction status</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
 
-    <service name="updatePaymentOnFinAccTransStatusSetToCancel" engine="simple" location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="updatePaymentOnFinAccTransStatusSetToCancel">
+    <service name="updatePaymentOnFinAccTransStatusSetToCancel" engine="simple" location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="updatePaymentOnFinAccTransStatusSetToCancel">
         <description>Update payment when FinAccountTrans status is set to Cancle, remove finAccountTransId form Payment entity.</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
     </service>
@@ -209,7 +209,7 @@ under the License.
         <attribute name="finAccountId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="getFinAccountTransListAndTotals" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="getFinAccountTransListAndTotals">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="getFinAccountTransListAndTotals">
         <description>Financial Account Transaction List and Totals</description>
         <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="finAccountTransTypeId" type="String" mode="IN" optional="true"/>
@@ -232,7 +232,7 @@ under the License.
         <attribute name="glReconciliationApprovedGrandTotal" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
     <service name="getFinAccountTransRunningTotalAndBalances" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="getFinAccountTransRunningTotalAndBalances">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="getFinAccountTransRunningTotalAndBalances">
         <description>Financial Account Running Total</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
@@ -244,7 +244,7 @@ under the License.
         <attribute name="endingBalance" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="reconcileFinAccountTrans" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="reconcileFinAccountTrans">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="reconcileFinAccountTrans">
         <description>Reconcile Financial Accounting Financial Transactions</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
@@ -252,23 +252,23 @@ under the License.
         <attribute name="debitCreditFlag" type="String" mode="IN" optional="true"/>
     </service>
     <service name="reconcileAdjustmentFinAcctgTrans" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="reconcileAdjustmentFinAcctgTrans">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="reconcileAdjustmentFinAcctgTrans">
         <description>Reconcile Financial Accounting Financial Transactions</description>
         <attribute name="finAccountTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="reconcileDepositFinAcctgTrans" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="reconcileDepositFinAcctgTrans">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="reconcileDepositFinAcctgTrans">
         <description>Reconcile Financial Accounting Financial Transactions</description>
         <attribute name="finAccountTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>
     <service name="reconcileWithdrawalFinAcctgTrans" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="reconcileWithdrawalFinAcctgTrans">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="reconcileWithdrawalFinAcctgTrans">
         <description>Reconcile Financial Accounting Financial Transactions</description>
         <attribute name="finAccountTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>    
     <service name="getReconciliationClosingBalance" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="getReconciliationClosingBalance">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="getReconciliationClosingBalance">
         <description>Service to Get Reconciliation closing balance.</description>
         <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
         <attribute name="closingBalance" type="BigDecimal" mode="OUT" optional="false"/>
@@ -449,7 +449,7 @@ under the License.
     </service>
 
     <service name="depositWithdrawPayments" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="depositWithdrawPayments">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="depositWithdrawPayments">
         <description>Deposit withdraw payments</description>
         <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
         <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
@@ -459,13 +459,13 @@ under the License.
         <attribute name="finAccountTransId" type="String" mode="OUT" optional="true"/>
         <attribute name="paymentGroupId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="expirePaymentAssociationsOnFinAccountTransCancel" engine="simple" location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="expirePaymentAssociationsOnFinAccountTransCancel">
+    <service name="expirePaymentAssociationsOnFinAccountTransCancel" engine="simple" location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="expirePaymentAssociationsOnFinAccountTransCancel">
         <description>expire payment associations with paymentGroup on finAccountTrans cancel</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
     </service>
     
     <service name="createPaymentAndFinAccountTrans" engine="simple" 
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createPaymentAndFinAccountTrans" auth="true">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createPaymentAndFinAccountTrans" auth="true">
         <description>create new payment and associate with respective financial account in FinAccountTrans Entity.</description>
         <implements service="createPayment"/>
         <attribute name="isDepositWithDrawPayment" type="String" mode="IN" optional="true"/>
@@ -476,47 +476,47 @@ under the License.
     </service>
 
     <service name="getTransactionTotalByGlReconcileId" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="getTransactionTotalByGlReconcileId">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="getTransactionTotalByGlReconcileId">
         <description>Transaction Total By GlReconcile Id</description>
         <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
         <attribute name="grandTotal" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
 
     <service name="assignGlRecToFinAccTrans" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="assignGlRecToFinAccTrans">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="assignGlRecToFinAccTrans">
         <description>Assignment of Gl Reconciliation to Fin Account Trans</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
         <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="removeFinAccountTransFromReconciliation" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="removeFinAccountTransFromReconciliation">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="removeFinAccountTransFromReconciliation">
         <description>Remove finaAccountTrans association with gl reconciliation</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="isGlReconciliationReconciled" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="isGlReconciliationReconciled">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="isGlReconciliationReconciled">
         <description>Check GlReconciliation is Reconciled or not</description>
         <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
         <attribute name="isReconciled" type="Boolean" mode="OUT" optional="false"/>
     </service>
 
     <service name="cancelBankReconciliation" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="cancelBankReconciliation">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="cancelBankReconciliation">
         <description>Cancel bank reconciliation.</description>
         <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
     </service>
     
     <service name="getAssociatedAcctgTransEntriesWithFinAccountTrans" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="getAssociatedAcctgTransEntriesWithFinAccountTrans">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="getAssociatedAcctgTransEntriesWithFinAccountTrans">
         <description>Get associated acctgTransEntries with finAccountTrans</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
         <attribute name="acctgTransAndEntries" type="List" mode="OUT" optional="true"/>
     </service>
     
     <service name="autoFinAccountReconciliation" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="autoFinAccountReconciliation" auth="true">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="autoFinAccountReconciliation" auth="true">
         <description>Auto Reconciled FinAccountTrans entries</description>
     </service>
 </services>

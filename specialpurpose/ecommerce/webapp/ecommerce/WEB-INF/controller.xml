@@ -331,7 +331,7 @@ under the License.
     </request-map>
     <request-map uri="processCustomerSettings">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="processCustomerSettings"/>
+        <event type="simple" path="component://ecommerce/minilang/customer/CustomerEvents.xml" invoke="processCustomerSettings"/>
         <response name="success" type="request" value="anonCheckShipmentNeeded"/>
         <response name="error" type="view" value="custsetting"/>
     </request-map>
@@ -351,7 +351,7 @@ under the License.
     </request-map>
     <request-map uri="processShipSettings">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="processShipSettings"/>
+        <event type="simple" path="component://ecommerce/minilang/customer/CustomerEvents.xml" invoke="processShipSettings"/>
         <response name="success" type="request" value="setShipOptions"/>
         <response name="error" type="view" value="shipsetting"/>
     </request-map>
@@ -363,7 +363,7 @@ under the License.
 
     <request-map uri="processShipOptions">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="processShipOptions"/>
+        <event type="simple" path="component://ecommerce/minilang/customer/CustomerEvents.xml" invoke="processShipOptions"/>
         <response name="success" type="request" value="setShippingBeforePayment"/>
         <response name="error" type="view" value="optionsetting"/>
     </request-map>
@@ -433,7 +433,7 @@ under the License.
 
     <request-map uri="processPaymentSettings">
        <security https="true" auth="false"/>
-       <event type="groovy" path="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+       <event type="groovy" path="component://ecommerce/minilang/order/ProcessPaymentSettings.groovy"/>
        <response name="success" type="request" value="reviewOrder"/>
        <response name="error" type="view" value="paymentinformation"/>
    </request-map>
@@ -466,7 +466,7 @@ under the License.
 
     <request-map uri="quickAnonProcessCustomerSettings">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/QuickAnonCustomerEvents.xml" invoke="createUpdateCustomer"/>
+        <event type="simple" path="component://ecommerce/minilang/customer/QuickAnonCustomerEvents.xml" invoke="createUpdateCustomer"/>
         <response name="success" type="request" value="quickAnonOrderReview"/>
         <response name="error" type="view" value="quickAnonCustSetting"/>
     </request-map>
@@ -478,14 +478,14 @@ under the License.
 
     <request-map uri="quickAnonProcessShipOptions">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/QuickAnonCustomerEvents.xml" invoke="processShipOptions"/>
+        <event type="simple" path="component://ecommerce/minilang/customer/QuickAnonCustomerEvents.xml" invoke="processShipOptions"/>
         <response name="success" type="view" value="quickAnonOptionSetting"/>
         <response name="error" type="view" value="quickAnonOptionSetting"/>
     </request-map>
 
     <request-map uri="quickAnonProcessShipOptionsUpdateOrderItems">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/QuickAnonCustomerEvents.xml" invoke="processShipOptions"/>
+        <event type="simple" path="component://ecommerce/minilang/customer/QuickAnonCustomerEvents.xml" invoke="processShipOptions"/>
         <response name="success" type="request" value="quickAnonUpdateShippingChargeOrderItems"/>
         <response name="error" type="view" value="quickAnonOrderItems"/>
     </request-map>
@@ -519,7 +519,7 @@ under the License.
 
     <request-map uri="quickAnonAddCreditCardToCart">
        <security https="true" auth="false"/>
-       <event type="groovy" path="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+       <event type="groovy" path="component://ecommerce/minilang/order/ProcessPaymentSettings.groovy"/>
        <response name="success" type="view" value="quickAnonCcInfo"/>
        <response name="error" type="view" value="quickAnonCcInfo"/>
    </request-map>
@@ -533,21 +533,21 @@ under the License.
 
    <request-map uri="quickAnonAddEftAccountToCart">
        <security https="true" auth="false"/>
-       <event type="groovy" path="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+       <event type="groovy" path="component://ecommerce/minilang/order/ProcessPaymentSettings.groovy"/>
        <response name="success" type="view" value="quickAnonEftInfo"/>
        <response name="error" type="view" value="quickAnonEftInfo"/>
    </request-map>
 
    <request-map uri="quickAnonEnterExtOffline">
         <security https="true" auth="false"/>
-        <event type="groovy" path="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+        <event type="groovy" path="component://ecommerce/minilang/order/ProcessPaymentSettings.groovy"/>
         <response name="success" type="view" value="quickAnonOrderReview"/>
         <response name="error" type="view" value="quickAnonOrderReview"/>
    </request-map>
 
    <request-map uri="quickAnonAddGiftCardToCart">
        <security https="true" auth="false"/>
-       <event type="groovy" path="component://ecommerce/script/org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>
+       <event type="groovy" path="component://ecommerce/minilang/order/ProcessPaymentSettings.groovy"/>
        <response name="success" type="request" value="quickAnonGcInfo"/>
        <response name="error" type="view" value="quickAnonGcInfo"/>
    </request-map>
@@ -972,7 +972,7 @@ under the License.
     </request-map>
     <request-map uri="createcustomer">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createCustomer"/>
+        <event type="simple" path="component://ecommerce/minilang/customer/CustomerEvents.xml" invoke="createCustomer"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="newcustomer"/>
     </request-map>
@@ -1090,14 +1090,14 @@ under the License.
     </request-map>
     <request-map uri="createCreditCard">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="createCreditCard"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="createCreditCard"/>
         <response name="success" type="view" value="editcreditcard"/>
         <response name="address" type="view" value="editcontactmech"/>
         <response name="error" type="view" value="editcreditcard"/>
     </request-map>
     <request-map uri="updateCreditCard">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="updateCreditCard"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="updateCreditCard"/>
         <response name="success" type="view" value="editcreditcard"/>
         <response name="address" type="view" value="editcontactmech"/>
         <response name="error" type="view" value="editcreditcard"/>
@@ -1126,20 +1126,20 @@ under the License.
     </request-map>
     <request-map uri="createEftAccount">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="createEftAccount"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="createEftAccount"/>
         <response name="success" type="view" value="editeftaccount"/>
         <response name="error" type="view" value="editeftaccount"/>
     </request-map>
     <request-map uri="updateEftAccount">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="updateEftAccount"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="updateEftAccount"/>
         <response name="success" type="view" value="editeftaccount"/>
         <response name="error" type="view" value="editeftaccount"/>
     </request-map>
 
     <request-map uri="deletePaymentMethod">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="deletePaymentMethod"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="deletePaymentMethod"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
@@ -1176,7 +1176,7 @@ under the License.
 
     <request-map uri="updatePassword">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://securityext/script/org/ofbiz/securityext/login/LoginSimpleEvents.xml" invoke="updatePassword"/>
+        <event type="simple" path="component://securityext/minilang/login/LoginSimpleEvents.xml" invoke="updatePassword"/>
         <response name="success" type="view" value="changepassword"/>
         <response name="error" type="view" value="changepassword"/>
     </request-map>
@@ -1307,7 +1307,7 @@ under the License.
     </request-map>
     <request-map uri="submitAnonContact">
         <security https="true" auth="false"/>
-        <event type="simple" invoke="createAnonContact" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml"/>
+        <event type="simple" invoke="createAnonContact" path="component://ecommerce/minilang/customer/CustomerEvents.xml"/>
         <response name="success" type="request-redirect" value="main"/>
         <response name="error" type="request" value="AnonContactus"/>
     </request-map>
@@ -1651,13 +1651,13 @@ under the License.
     </request-map>
     <request-map uri="getShipOptions">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="getShipOptions"/>
+        <event type="simple" path="component://ecommerce/minilang/customer/CustomerEvents.xml" invoke="getShipOptions"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="setShippingOption">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="setShippingOption"/>
+        <event type="simple" path="component://ecommerce/minilang/customer/CustomerEvents.xml" invoke="setShippingOption"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
@@ -1751,14 +1751,14 @@ under the License.
 
     <request-map uri="createCustomerProfile">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createCustomerProfile"/>
+        <event type="simple" path="component://ecommerce/minilang/customer/CustomerEvents.xml" invoke="createCustomerProfile"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="newcustomer"/>
     </request-map>
 
     <request-map uri="updateCustomerProfile">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="updateCustomerProfile"/>
+        <event type="simple" path="component://ecommerce/minilang/customer/CustomerEvents.xml" invoke="updateCustomerProfile"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="EditProfile"/>
     </request-map>
@@ -1885,7 +1885,7 @@ under the License.
         <response name="success" type="view" value="productCategoryList" save-current-view="true"/>
     </request-map>
     <request-map uri="fromSetSessionLocale">
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="fromSetSessionLocale"/>
+        <event type="simple" path="component://ecommerce/minilang/customer/CustomerEvents.xml" invoke="fromSetSessionLocale"/>
         <response name="success" type="view-last" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>

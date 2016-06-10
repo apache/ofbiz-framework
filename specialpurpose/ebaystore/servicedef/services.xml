@@ -25,7 +25,7 @@ under the License.
     <version>1.0</version>
 
     <service name="createEbayAccount" engine="simple"
-        location="component://ebaystore/script/org/ofbiz/ebaystore/EbayServices.xml" invoke="createEbayAccount" auth="true">
+        location="component://ebaystore/minilang/EbayServices.xml" invoke="createEbayAccount" auth="true">
         <attribute name="salutation" mode="IN" type="String" optional="true"/>
         <attribute name="firstName" mode="IN" type="String" optional="false"/>
         <attribute name="middleName" mode="IN" type="String" optional="true"/>
@@ -175,7 +175,7 @@ under the License.
     </service>
     <!-- ebay inventory -->
     <service name="reserveEbayProductInventory" engine="simple"
-        location="component://ebaystore/script/org/ofbiz/ebaystore/EbayServices.xml" invoke="reserveEbayProductInventory">
+        location="component://ebaystore/minilang/EbayServices.xml" invoke="reserveEbayProductInventory">
         <description>Reserve Inventory in a Product Store</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
@@ -184,7 +184,7 @@ under the License.
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"></attribute>
     </service>
     <service name="reserveEbayProductInventoryByStoreFacility" engine="simple"
-        location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
+        location="component://product/minilang/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
         <description>Reserve product for ebay Inventory and make reserve for a Product By Facility
             If requireInventory is Y the quantity not reserved is returned, if N then a negative
             availableToPromise will be used to track quantity ordered beyond what is in stock.
@@ -230,7 +230,7 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="false"></attribute>
     </service>
     <service name="updateEbayProductQtyReserved" default-entity-name="EbayProductStoreInventory" engine="simple"
-        location="component://ebaystore/script/org/ofbiz/ebaystore/EbayServices.xml" invoke="updateEbayProductQtyReserved" auth="true">
+        location="component://ebaystore/minilang/EbayServices.xml" invoke="updateEbayProductQtyReserved" auth="true">
         <description>Update/cancel an Product quantity that reserved from inventory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"></attribute>

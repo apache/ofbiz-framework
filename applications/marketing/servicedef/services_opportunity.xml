@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
 
     <service name="createSalesForecast" engine="simple" auth="true" default-entity-name="SalesForecast"
-            location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesForecast">
+            location="component://order/minilang/opportunity/OpportunityServices.xml" invoke="createSalesForecast">
        <description>Creates a Sales Forecast for the userLogin. Requires ORDERMGR_4C_CREATE permission.
             This will save the forecast into the history as well. Note that this service does not compute
             the forecast. That must be done in a higher level service.</description>
@@ -36,7 +36,7 @@ under the License.
     </service>
 
     <service name="updateSalesForecast" engine="simple" auth="true" default-entity-name="SalesForecast"
-            location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="updateSalesForecast">
+            location="component://order/minilang/opportunity/OpportunityServices.xml" invoke="updateSalesForecast">
        <description>Updates a Sales Forecast and marks it as modified by the userLogin. Requires ORDERMGR_4C_UPDATE
             permission. This will save the current forecast into the history before overwritting it.
             Note that this service does not compute the forecast. That must be done in a higher level service.</description>
@@ -91,19 +91,19 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="true"/>
     </service>
     <service name="createSalesOpportunityAccountRole" engine="simple" default-entity-name="SalesOpportunityRole" 
-        location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityAccountRole">
+        location="component://order/minilang/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityAccountRole">
         <description>Create sales opportunity account role</description>
         <attribute name="accountPartyId" mode="IN" type="String"/>
         <attribute name="salesOpportunityId" mode="IN" type="String"/>
     </service>
     <service name="createSalesOpportunityLeadRole" engine="simple" default-entity-name="SalesOpportunityRole" 
-        location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityLeadRole">
+        location="component://order/minilang/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityLeadRole">
         <description>Create sales opportunity lead role</description>
         <attribute name="leadPartyId" mode="IN" type="String"/>
         <attribute name="salesOpportunityId" mode="IN" type="String"/>
     </service>
     <service name="findPartyInSalesOpportunityRole" engine="simple" default-entity-name="SalesOpportunityRole" 
-        location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="findPartyInSalesOpportunityRole">
+        location="component://order/minilang/opportunity/OpportunityServices.xml" invoke="findPartyInSalesOpportunityRole">
         <description>find sales opportunity role party</description>
         <attribute name="roleTypeId" mode="IN" type="String"/>
         <attribute name="salesOpportunityId" mode="IN" type="String" optional="true"/>

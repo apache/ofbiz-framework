@@ -24,73 +24,73 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
     <service name="acctgAgreementPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgAgreementPermissionCheck">
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="acctgAgreementPermissionCheck">
         <description>Accounting Agreement Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
     <service name="acctgBasePermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="basePermissionCheck">
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="basePermissionCheck">
         <description>Accounting Basic Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
     <service name="acctgBillingAcctCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgBillingAcctCheck">
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="acctgBillingAcctCheck">
         <description>Basic Billing Account Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
     <service name="acctgCommissionPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="commissionPermissionCheck">
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="commissionPermissionCheck">
         <description>Accounting Commission Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
     <service name="acctgCostPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgCostPermissionCheck">
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="acctgCostPermissionCheck">
         <description>Accounting Cost Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
     <service name="acctgFinAcctPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgFinAcctPermissionCheck">
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="acctgFinAcctPermissionCheck">
         <description>Accounting Financial Account Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
     <service name="acctgFxPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgFxPermissionCheck">
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="acctgFxPermissionCheck">
         <description>Accounting Foreign Exchange Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
     <service name="acctgInvoicePermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgInvoicePermissionCheck">
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="acctgInvoicePermissionCheck">
         <description>Accounting Invoice Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
     <service name="acctgPrefPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="preferencePermissionCheck">
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="preferencePermissionCheck">
         <description>Accounting Preferences Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
     <service name="acctgTransactionPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgTransactionPermissionCheck">
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="acctgTransactionPermissionCheck">
         <description>Basic General Ledger Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
     <service name="basicGeneralLedgerPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="basePermissionCheck">
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="basePermissionCheck">
         <description>Basic General Ledger Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
     <service name="fixedAssetPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="basePermissionCheck">
+            location="component://accounting/minilang/permissions/PermissionServices.xml" invoke="basePermissionCheck">
         <description>Fixed Asset Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>

@@ -26,21 +26,21 @@ under the License.
 
     <!-- Product Store Services -->
     <service name="createProductStore" default-entity-name="ProductStore" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStore">
+            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="createProductStore">
         <description>Create a Product Store</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <override name="storeName" optional="false"/>
     </service>
     <service name="updateProductStore" default-entity-name="ProductStore" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStore">
+            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="updateProductStore">
         <description>Update a Product Store</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <service name="reserveStoreInventory" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="reserveStoreInventory">
+            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="reserveStoreInventory">
         <description>Reserve Inventory in a Product Store</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
@@ -53,7 +53,7 @@ under the License.
     </service>
 
     <service name="isStoreInventoryRequired" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="isStoreInventoryRequired" auth="false">
+            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="isStoreInventoryRequired" auth="false">
         <description>Checks if Store Inventory is Required</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="productStore" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
@@ -62,7 +62,7 @@ under the License.
         <attribute name="requireInventory" type="String" mode="OUT" optional="false"><!-- Y/N --></attribute>
     </service>
     <service name="isStoreInventoryAvailable" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailable" auth="false">
+            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailable" auth="false">
         <description>Checks if Store Inventory is Required</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="productStore" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
@@ -72,7 +72,7 @@ under the License.
         <attribute name="available" type="String" mode="OUT" optional="false"><!-- Y/N --></attribute>
     </service>
     <service name="isStoreInventoryAvailableOrNotRequired" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailableOrNotRequired" auth="false">
+            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailableOrNotRequired" auth="false">
         <description>Checks if Store Inventory is Required</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="productStore" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
@@ -345,7 +345,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="checkProductStoreGroupRollup" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="checkProductStoreGroupRollup" auth="true">
+            location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="checkProductStoreGroupRollup" auth="true">
         <description>Check if a productStoreGroupId with a primaryParentGroupId has related productStoreGroupRollup or for first ProductStoreGroupRollup on a ProductStoreGroup set relation on primaryParentGroupId</description>
         <attribute name="productStoreGroupId" mode="IN" type="String"/>
         <attribute name="primaryParentGroupId" mode="IN" type="String" optional="true"/>
@@ -355,7 +355,7 @@ under the License.
 
     <!-- Permission Services -->
     <service name="productStoreGenericPermission" engine="simple"
-        location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="productStoreGenericPermission">
+        location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="productStoreGenericPermission">
         <implements service="permissionInterface"/>
     </service>
 </services>

@@ -33,7 +33,7 @@
 
     <!-- Content services? -->
     <service name="getPublicForumMessage" engine="simple" default-entity-name="Content" auth="true"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="getPublicForumMessage">
+            location="component://content/minilang/content/ContentServices.xml" invoke="getPublicForumMessage">
         <description>Get Content and resource information</description>
         <permission-service service-name="genericContentPermission" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -41,7 +41,7 @@
     </service>
 
     <service name="getSubContentWithPermCheck" engine="simple"  auth="true"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="getSubContentWithPermCheck">
+            location="component://content/minilang/content/ContentServices.xml" invoke="getSubContentWithPermCheck">
         <description>Get Content and resource information</description>
         <permission-service service-name="genericContentPermission" main-action="VIEW"/>
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
@@ -55,7 +55,7 @@
     </service>
 
     <service name="getSubSubContentWithPermCheck" engine="simple"  auth="true"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="getSubSubContentWithPermCheck">
+            location="component://content/minilang/content/ContentServices.xml" invoke="getSubSubContentWithPermCheck">
         <description>Get Content associated with Content</description>
         <implements service="getSubContentWithPermCheck"/>
         <attribute mode="IN" name="subContentAssocTypeId" optional="true" type="String"/>
@@ -64,7 +64,7 @@
     </service>
 
     <service name="getContentAndDataResource" engine="simple" default-entity-name="Content" auth="true"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="getContentAndDataResource">
+            location="component://content/minilang/content/ContentServices.xml" invoke="getContentAndDataResource">
         <description>Get Content and resource information</description>
         <permission-service service-name="genericContentPermission" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -72,7 +72,7 @@
     </service>
 
     <service name="getDataResource" engine="simple" default-entity-name="DataResource" auth="true"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="getDataResource">
+            location="component://content/minilang/content/ContentServices.xml" invoke="getDataResource">
         <description>Get Content and resource information</description>
         <permission-service service-name="genericContentPermission" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -81,21 +81,21 @@
 
     <!-- DataCategory services -->
     <service name="createDataCategory" engine="simple" default-entity-name="DataCategory" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createDataCategory">
+            location="component://content/minilang/data/DataServices.xml" invoke="createDataCategory">
         <description>Create a DataCategory</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateDataCategory" engine="simple" default-entity-name="DataCategory" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateDataCategory">
+            location="component://content/minilang/data/DataServices.xml" invoke="updateDataCategory">
         <description>Update a DataCategory</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeDataCategory" engine="simple" default-entity-name="DataCategory" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeDataCategory">
+            location="component://content/minilang/data/DataServices.xml" invoke="removeDataCategory">
         <description>Remove DataCategory</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -122,35 +122,35 @@
 
     <!-- DataResourceRole services -->
     <service name="createDataResourceRole" engine="simple" default-entity-name="DataResourceRole" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createDataResourceRole">
+            location="component://content/minilang/data/DataServices.xml" invoke="createDataResourceRole">
         <description>Create a DataResourceRole</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateDataResourceRole" engine="simple" default-entity-name="DataResourceRole" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateDataResourceRole">
+            location="component://content/minilang/data/DataServices.xml" invoke="updateDataResourceRole">
         <description>Update a DataResourceRole</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeDataResourceRole" engine="simple" default-entity-name="DataResourceRole" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeDataResourceRole">
+            location="component://content/minilang/data/DataServices.xml" invoke="removeDataResourceRole">
         <description>Remove DataResourceRole</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Generic Content Services -->
-    <service name="createEmailContent" engine="simple" location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createEmailContent">
+    <service name="createEmailContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createEmailContent">
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="subject" type="String" mode="IN" optional="false"/>
         <attribute name="plainBody" type="String" mode="IN" optional="false"/>
         <attribute name="htmlBody" type="String" mode="IN" optional="true" allow-html="any"/>
         <override name="contentId" mode="INOUT"/>
     </service>
-    <service name="updateEmailContent" engine="simple" location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateEmailContent">
+    <service name="updateEmailContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="updateEmailContent">
         <attribute name="subjectDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="subject" type="String" mode="IN" optional="true"/>
         <attribute name="plainBodyDataResourceId" type="String" mode="IN" optional="true"/>
@@ -159,29 +159,29 @@
         <attribute name="htmlBody" type="String" mode="IN" optional="true" allow-html="any"/>
     </service>
 
-    <service name="createDownloadContent" engine="simple" location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createDownloadContent">
+    <service name="createDownloadContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createDownloadContent">
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="file" type="String" mode="IN" optional="false"/>
         <override name="contentId" mode="INOUT"/>
     </service>
-    <service name="updateDownloadContent" engine="simple" location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateDownloadContent">
+    <service name="updateDownloadContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="updateDownloadContent">
         <attribute name="fileDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="file" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createSimpleTextContent" engine="simple" location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createSimpleTextContent">
+    <service name="createSimpleTextContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createSimpleTextContent">
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="text" type="String" mode="IN" optional="false" allow-html="any"/>
         <override name="contentId" mode="INOUT"/>
     </service>
-    <service name="updateSimpleTextContent" engine="simple" location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateSimpleTextContent">
+    <service name="updateSimpleTextContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="updateSimpleTextContent">
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="text" type="String" mode="IN" optional="true" allow-html="any"/>
     </service>
 
     <!-- Util -->
     <service name="findAssocContent" engine="simple"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="findAssocContent" auth="true">
+            location="component://content/minilang/content/ContentServices.xml" invoke="findAssocContent" auth="true">
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
         <attribute name="mapKeys" type="List" mode="IN" optional="false"/>
         <attribute name="contentAssocs" type="List" mode="OUT" optional="true"/>
@@ -191,7 +191,7 @@
 
     <!-- simply use createContent and the accoc will be created too" -->
         <!--service name="createContentAndAssoc" default-entity-name="Content" engine="simple"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createContentAndAssoc" auth="true">
+            location="component://content/minilang/content/ContentServices.xml" invoke="createContentAndAssoc" auth="true">
         <description>Create a Content with a ContentAssoc</description>
         <auto-attributes entity-name="Content" include="all" mode="IN" optional="true">
             <exclude field-name="contentId"/>
@@ -367,7 +367,7 @@
 
     <service name="persistCompDocContent" engine="simple"
         transaction-timeout="7200"
-            location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml" invoke="persistCompDocContent" auth="true">
+            location="component://content/minilang/compdoc/CompDocServices.xml" invoke="persistCompDocContent" auth="true">
         <description>Persist a CompDoc DataResource and data</description>
         <implements service="persistDataResourceAndData"/>
         <attribute name="contentRevisionSeqId" type="String" mode="OUT" optional="false"/>
@@ -376,7 +376,7 @@
 
     <service name="persistCompDocPdf2Survey" engine="simple"
         transaction-timeout="7200"
-            location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml" invoke="persistCompDocPdf2Survey" auth="true">
+            location="component://content/minilang/compdoc/CompDocServices.xml" invoke="persistCompDocPdf2Survey" auth="true">
         <description>Upload/save PDF, create Survey, populate Content</description>
         <implements service="persistCompDocContent"/>
         <attribute name="pdfName" type="String" mode="IN" optional="true"/>
@@ -421,7 +421,7 @@
     </service>
 
     <service name="createArticleContent" engine="simple" transaction-timeout="300" auth="true"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createArticleContent">
+            location="component://content/minilang/content/ContentServices.xml" invoke="createArticleContent">
         <description>Creates content records for a blog entry</description>
         <implements service="createContentFromUploadedFile" optional="true"/>
         <implements service="createTextContent" optional="true"/>
@@ -470,7 +470,7 @@
     </service>
     <service name="createTopic"
         auth="true" engine="simple" invoke="createTopic"
-        location="component://content/script/org/ofbiz/content/content/ContentServices.xml" >
+        location="component://content/minilang/content/ContentServices.xml" >
         <description>Create a TOPIC type Content </description>
         <attribute mode="IN" name="newTopicId" optional="false" type="String"/>
         <attribute mode="IN" name="newTopicDescription" optional="true" type="String"/>
@@ -684,7 +684,7 @@
 
     <!-- ================ CompDoc Requests ================= -->
     <service name="persistContentRevisionAndItem" engine="simple"
-        location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml"
+        location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="persistContentRevisionAndItem" auth="true">
         <description>Update a ContentRevision and ContentRevisionItem</description>
         <auto-attributes entity-name="ContentRevision" include="all" mode="IN" optional="true">
@@ -697,7 +697,7 @@
     </service>
 
     <service name="prepForApproval" engine="simple"
-        location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml"
+        location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="prepForApproval" auth="true">
         <description>Set ContentApprovals for approval process</description>
         <attribute name="rootContentId" type="String" mode="IN" optional="false"/>
@@ -705,7 +705,7 @@
     </service>
 
     <service name="getFinalApprovalStatus" engine="simple"
-        location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml"
+        location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="getFinalApprovalStatus" auth="true">
         <description>Set ContentApprovals for approval process</description>
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
@@ -715,7 +715,7 @@
     </service>
 
     <service name="getApprovalsWithPermissions" engine="simple"
-        location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml"
+        location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="getApprovalsWithPermissions" auth="true" >
         <description>Get a list of ContentApprovals and permission indicators</description>
         <attribute name="rootContentId" type="String" mode="IN" optional="false"/>
@@ -726,7 +726,7 @@
     </service>
 
     <service name="hasApprovalPermission" engine="simple"
-        location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml"
+        location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="hasApprovalPermission" auth="true">
         <description>Determine permission status for record</description>
         <attribute name="contentApprovalId" type="String" mode="IN" optional="false"/>
@@ -735,7 +735,7 @@
     </service>
 
     <service name="genCompDocInstance" engine="simple"
-        location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml"
+        location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="genCompDocInstance" auth="true">
         <description>Generate parallel CompDoc Instance tree</description>
         <attribute name="contentName" type="String" mode="IN" optional="true"/>
@@ -746,7 +746,7 @@
     </service>
 
     <service name="persistCompDoc" engine="simple"
-        location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml"
+        location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="persistCompDoc" auth="true">
         <description>Create a CompDoc Template entity and associated ContentRevision/Item entities</description>
         <implements service="persistContentAndAssoc"/>
@@ -755,7 +755,7 @@
     </service>
 
     <service name="cloneTemplateContentApprovals" engine="simple"
-        location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml"
+        location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="cloneTemplateContentApprovals" auth="true">
         <description>Bump the previous ContentApproval approvals up to current CDT</description>
         <attribute name="contentRevisionSeqId" type="String" mode="IN" optional="false"/>
@@ -763,7 +763,7 @@
     </service>
 
     <service name="cloneInstanceContentApprovals" engine="simple"
-        location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml"
+        location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="cloneInstanceContentApprovals" auth="true">
         <description>Bump the previous ContentApproval approvals up to current CDI</description>
         <attribute name="contentRevisionSeqId" type="String" mode="IN" optional="true"/>
@@ -771,7 +771,7 @@
     </service>
 
     <service name="checkForWaitingApprovals" engine="simple"
-        location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml"
+        location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="checkForWaitingApprovals" auth="true">
         <description>Check to see if there are any ContentApproval records awaiting this user's action</description>
         <attribute name="thisUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
@@ -779,7 +779,7 @@
     </service>
 
     <service name="getMostRecentRevision" engine="simple"
-        location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml"
+        location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="getMostRecentRevision" auth="true">
         <description>Look for most recent revision for contentId</description>
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
@@ -854,7 +854,7 @@
 
     <!-- blog services -->
     <service name="createBlogEntry" engine="simple" auth="true"
-        location="component://content/script/org/ofbiz/content/blog/BlogServices.xml" invoke="createBlogEntry">
+        location="component://content/minilang/blog/BlogServices.xml" invoke="createBlogEntry">
         <description>Creates content records for a blog entry</description>
         <implements service="uploadFileInterface" optional="true"/>
         <attribute name="blogContentId" type="String" mode="INOUT" optional="false"/>
@@ -867,7 +867,7 @@
         <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="any"/>
     </service>
     <service name="updateBlogEntry" engine="simple" auth="true"
-        location="component://content/script/org/ofbiz/content/blog/BlogServices.xml" invoke="updateBlogEntry">
+        location="component://content/minilang/blog/BlogServices.xml" invoke="updateBlogEntry">
         <description>Updates content records for a blog entry</description>
         <implements service="uploadFileInterface" optional="true"/>
         <attribute name="blogContentId" type="String" mode="INOUT" optional="false"/>
@@ -880,7 +880,7 @@
         <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="any"/>
     </service>
     <service name="getBlogEntry" engine="simple" auth="true"
-        location="component://content/script/org/ofbiz/content/blog/BlogServices.xml" invoke="getBlogEntry">
+        location="component://content/minilang/blog/BlogServices.xml" invoke="getBlogEntry">
         <description>Retrieves content records for a blog entry</description>
         <attribute name="blogContentId" type="String" mode="INOUT" optional="false"/>
         <attribute name="contentId" type="String" mode="INOUT" optional="true"/><!-- also used for new entries, will return with no error with empty contentId -->
@@ -894,7 +894,7 @@
         <attribute name="articleContentId" type="String" mode="OUT" optional="true"/>
         <attribute name="summaryContentId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="getOwnedOrPublishedBlogEntries" engine="simple" location="component://content/script/org/ofbiz/content/blog/BlogServices.xml" invoke="getOwnedOrPublishedBlogEntries"
+    <service name="getOwnedOrPublishedBlogEntries" engine="simple" location="component://content/minilang/blog/BlogServices.xml" invoke="getOwnedOrPublishedBlogEntries"
          auth="true"  transaction-timeout="7200">
         <attribute type="String" mode="IN" name="contentId" optional="false"/>
         <attribute mode="IN" name="userLogin" optional="false" type="org.ofbiz.entity.GenericValue"/>
@@ -911,7 +911,7 @@
 
     <!-- eca helper services -->
     <service name="checkContentAssocIds" engine="simple"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="checkContentAssocIds">
+            location="component://content/minilang/content/ContentServices.xml" invoke="checkContentAssocIds">
         <description>Fixes the ContentAssoc IDs based on passed parameters</description>
         <attribute name="contentIdFrom" type="String" mode="INOUT" optional="true"/>
         <attribute name="contentIdTo" type="String" mode="INOUT" optional="true"/>
@@ -920,15 +920,15 @@
 
     <!-- content permission services -->
     <service name="contentManagerRolePermission" engine="simple" auth="true"
-            location="component://content/script/org/ofbiz/content/permission/ContentPermissionServices.xml" invoke="contentManagerRolePermission">
+            location="component://content/minilang/permission/ContentPermissionServices.xml" invoke="contentManagerRolePermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="contentManagerPermission" engine="simple" auth="true"
-            location="component://content/script/org/ofbiz/content/permission/ContentPermissionServices.xml" invoke="contentManagerPermission">
+            location="component://content/minilang/permission/ContentPermissionServices.xml" invoke="contentManagerPermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="genericContentPermission" engine="simple" auth="true"
-            location="component://content/script/org/ofbiz/content/permission/ContentPermissionServices.xml" invoke="genericContentPermission">
+            location="component://content/minilang/permission/ContentPermissionServices.xml" invoke="genericContentPermission">
         <description>Generic Content Permission Service; Takes mainAction to determine the mode.</description>
         <implements service="permissionInterface"/>
         <attribute name="ownerContentId" type="String" mode="IN" optional="true"/>
@@ -940,14 +940,14 @@
         <attribute name="contentOperationId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="genericDataResourcePermission" engine="simple" auth="true"
-            location="component://content/script/org/ofbiz/content/permission/DataResourcePermissionServices.xml" invoke="genericDataResourcePermission">
+            location="component://content/minilang/permission/DataResourcePermissionServices.xml" invoke="genericDataResourcePermission">
         <description>Generic DataResource Permission Service; Takes mainAction to determine the mode.</description>
         <implements service="permissionInterface"/>
         <attribute name="dataResourceId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="createContentAlternativeUrl" engine="simple"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createContentAlternativeUrl" auth="true" transaction-timeout="7200">
+            location="component://content/minilang/content/ContentServices.xml" invoke="createContentAlternativeUrl" auth="true" transaction-timeout="7200">
         <description>Create Content Alternative URL</description>
         <attribute name="contentId" mode="IN" type="String" optional="true"></attribute>
         <attribute name="contentCreated" mode="OUT" type="String" optional="true"></attribute>

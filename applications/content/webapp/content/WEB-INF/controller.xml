@@ -1575,13 +1575,13 @@ under the License.
     <request-map uri="AddLayout"><security auth="true" https="true"/><response name="success" type="view" value="AddLayout"/></request-map>
     <request-map uri="createLayout">
         <security auth="true" https="true"/>
-        <event invoke="createLayout" path="component://content/script/org/ofbiz/content/layout/LayoutEvents.xml" type="simple"/>
+        <event invoke="createLayout" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="AddLayout"/>
     </request-map>
     <request-map uri="updateLayout">
         <security auth="true" https="true"/>
-        <event invoke="updateLayout" path="component://content/script/org/ofbiz/content/layout/LayoutEvents.xml" type="simple"/>
+        <event invoke="updateLayout" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
@@ -1605,7 +1605,7 @@ under the License.
     </request-map>
     <request-map uri="pasteSubContent">
         <security auth="true" https="true"/>
-        <event invoke="pasteSubContent" path="component://content/script/org/ofbiz/content/layout/LayoutEvents.xml" type="simple"/>
+        <event invoke="pasteSubContent" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
@@ -1621,38 +1621,38 @@ under the License.
     <request-map uri="EditLayoutUrl"><security auth="true" https="true"/><response name="success" type="view" value="EditLayoutUrl"/></request-map>
     <request-map uri="createLayoutText">
         <security auth="true" https="true"/>
-        <event invoke="createLayoutText" path="component://content/script/org/ofbiz/content/layout/LayoutEvents.xml" type="simple"/>
+        <event invoke="createLayoutText" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayoutText"/>
         <response name="error" type="view" value="EditLayoutText"/>
     </request-map>
     <request-map uri="EditLayoutSubContent"><security auth="true" https="true"/><response name="success" type="view" value="EditLayoutSubContent"/></request-map>
     <request-map uri="updateLayoutText">
         <security auth="true" https="true"/>
-        <event invoke="updateLayoutText" path="component://content/script/org/ofbiz/content/layout/LayoutEvents.xml" type="simple"/>
+        <event invoke="updateLayoutText" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayoutText"/>
         <response name="error" type="view" value="EditLayoutText"/>
     </request-map>
     <request-map uri="createLayoutHtml">
         <security auth="true" https="true"/>
-        <event invoke="createLayoutText" path="component://content/script/org/ofbiz/content/layout/LayoutEvents.xml" type="simple"/>
+        <event invoke="createLayoutText" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayoutHtml"/>
         <response name="error" type="view" value="EditLayoutHtml"/>
     </request-map>
     <request-map uri="updateLayoutHtml">
         <security auth="true" https="true"/>
-        <event invoke="updateLayoutText" path="component://content/script/org/ofbiz/content/layout/LayoutEvents.xml" type="simple"/>
+        <event invoke="updateLayoutText" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayoutHtml"/>
         <response name="error" type="view" value="EditLayoutHtml"/>
     </request-map>
     <request-map uri="createLayoutUrl">
         <security auth="true" https="true"/>
-        <event invoke="createLayoutUrl" path="component://content/script/org/ofbiz/content/layout/LayoutEvents.xml" type="simple"/>
+        <event invoke="createLayoutUrl" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayoutUrl"/>
         <response name="error" type="view" value="EditLayoutUrl"/>
     </request-map>
     <request-map uri="updateLayoutUrl">
         <security auth="true" https="true"/>
-        <event invoke="updateLayoutUrl" path="component://content/script/org/ofbiz/content/layout/LayoutEvents.xml" type="simple"/>
+        <event invoke="updateLayoutUrl" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayoutUrl"/>
         <response name="error" type="view" value="EditLayoutUrl"/>
     </request-map>
@@ -1821,7 +1821,7 @@ under the License.
     </request-map>
     <request-map uri="addDocumentToTree">
         <security auth="true" https="true"/>
-        <event invoke="createDocument" path="component://content/script/org/ofbiz/content/content/ContentEvents.xml" type="simple"/>
+        <event invoke="createDocument" path="component://content/minilang/content/ContentEvents.xml" type="simple"/>
         <response name="success" type="request-redirect" value="navigateContent"/>
         <response name="error" type="request" value="navigateContent"/>
     </request-map>

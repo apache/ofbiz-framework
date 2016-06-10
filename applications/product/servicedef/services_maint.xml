@@ -26,7 +26,7 @@ under the License.
 
     <!-- Product Category Maintenance Services -->
     <service name="copyCategoryProductMembers" engine="simple" transaction-timeout="600"
-            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" invoke="copyCategoryProductMembers" auth="true">
+            location="component://product/minilang/product/category/CategoryServices.xml" invoke="copyCategoryProductMembers" auth="true">
         <description>Copy Product Members from one Category to Another, optionally filtering by the given valid date (otherwise no date filtering done), and optionally recursing (if recurse=Y) down the from category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="productCategoryIdTo" type="String" mode="IN" optional="false"/>
@@ -34,13 +34,13 @@ under the License.
         <attribute name="recurse" type="String" mode="IN" optional="true"/>
     </service>
     <service name="expireAllCategoryProductMembers" engine="simple"
-            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" invoke="expireAllCategoryProductMembers" auth="true">
+            location="component://product/minilang/product/category/CategoryServices.xml" invoke="expireAllCategoryProductMembers" auth="true">
         <description>Expire All Product Members in a Category optionally using the thruDate specified as the expire date (now timestamp used by default)</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="removeExpiredCategoryProductMembers" engine="simple"
-            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" invoke="removeExpiredCategoryProductMembers" auth="true">
+            location="component://product/minilang/product/category/CategoryServices.xml" invoke="removeExpiredCategoryProductMembers" auth="true">
         <description>Remove All Expired Product Members in a Category, optionally uses the valid date instead of now to determine if the member has expired</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="validDate" type="Timestamp" mode="IN" optional="true"/>
@@ -94,7 +94,7 @@ under the License.
 
     <!-- Check Urls exists or not related services -->
     <service name="checkImageUrlForAllCategories" engine="simple"
-      location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrlForAllCategories" transaction-timeout="36000">
+      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="checkImageUrlForAllCategories" transaction-timeout="36000">
         <description>check For Image Urls exists or not for all categories</description>
         <attribute name="topCategory" type="String" mode="IN" optional="true"/>
         <attribute name="excludeEmpty" type="Boolean" mode="IN" optional="true"/>
@@ -102,14 +102,14 @@ under the License.
     </service>
 
     <service name="getAllCategories" engine="simple"
-      location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="getAllCategories">
+      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="getAllCategories">
         <description>Get all categories of a category </description>
         <attribute name="topCategory" type="String" mode="IN" optional="true"/>
         <attribute name="categories" type="java.util.List" mode="OUT" optional="true"/>
     </service>
 
     <service name="getRelatedCategories" engine="simple"
-      location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="getRelatedCategories">
+      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="getRelatedCategories">
         <description>Get all related categories of a category </description>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="categories" type="java.util.List" mode="INOUT" optional="true"/>
@@ -130,27 +130,27 @@ under the License.
     </service>
 
     <service name="checkImageUrlForCategoryAndProduct" engine="simple"
-      location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrlForCategoryAndProduct">
+      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="checkImageUrlForCategoryAndProduct">
         <description>check For Image Urls exists or not for category</description>
         <attribute name="categoryId" type="String" mode="IN" optional="false"/>
         <attribute name="fileNotExists" type="java.util.List" mode="OUT" optional="true"/>
         <attribute name="fileExists" type="java.util.List" mode="OUT" optional="true"/>
     </service>
     <service name="checkImageUrlForCategory" engine="simple"
-      location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrlForCategory">
+      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="checkImageUrlForCategory">
         <description>check For Image Urls exists or not For Product</description>
         <attribute name="categoryId" type="String" mode="IN" optional="false"/>
         <attribute name="filesImageMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
     <service name="checkImageUrlForProduct" engine="simple"
-      location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrlForProduct">
+      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="checkImageUrlForProduct">
         <description>check For Image Urls exists or not For Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="filesImageMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
 
     <service name="checkImageUrl" engine="simple"
-      location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrl">
+      location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="checkImageUrl">
         <description>check For Image Urls exists or not</description>
         <attribute name="imageUrl" type="String" mode="IN" optional="false"/>
         <attribute name="isExists" type="String" mode="OUT" optional="true"/>
@@ -169,11 +169,11 @@ under the License.
     <!-- Inventory Maintenance Services -->
     <!-- ============================== -->
     <service name="updateOldInventoryToDetailAll" engine="simple"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailAll" auth="true">
+            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailAll" auth="true">
         <description>Update Old Inventory To Detail</description>
     </service>
     <service name="updateOldInventoryToDetailSingle" engine="simple" require-new-transaction="true"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailSingle" auth="true">
+            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailSingle" auth="true">
         <description>Update Old Inventory To Detail</description>
         <attribute name="inventoryItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>

@@ -114,21 +114,21 @@ under the License.
 
     <!-- CharacterSet services -->
     <service name="createCharacterSet" engine="simple" default-entity-name="CharacterSet" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createCharacterSet">
+            location="component://content/minilang/data/DataServices.xml" invoke="createCharacterSet">
         <description>Create a CharacterSet</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateCharacterSet" engine="simple" default-entity-name="CharacterSet" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateCharacterSet">
+            location="component://content/minilang/data/DataServices.xml" invoke="updateCharacterSet">
         <description>Update a CharacterSet</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeCharacterSet" engine="simple" default-entity-name="CharacterSet" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeCharacterSet">
+            location="component://content/minilang/data/DataServices.xml" invoke="removeCharacterSet">
         <description>Remove CharacterSet</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -136,21 +136,21 @@ under the License.
 
     <!-- DataResourceType services -->
     <service name="createDataResourceType" engine="simple" default-entity-name="DataResourceType" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createDataResourceType">
+            location="component://content/minilang/data/DataServices.xml" invoke="createDataResourceType">
         <description>Create a DataResourceType</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateDataResourceType" engine="simple" default-entity-name="DataResourceType" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateDataResourceType">
+            location="component://content/minilang/data/DataServices.xml" invoke="updateDataResourceType">
         <description>Update a DataResourceType</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeDataResourceType" engine="simple" default-entity-name="DataResourceType" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeDataResourceType">
+            location="component://content/minilang/data/DataServices.xml" invoke="removeDataResourceType">
         <description>Remove DataResourceType</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -158,21 +158,21 @@ under the License.
 
     <!--DataResourceTypeAttr services.-->
     <service name="createDataResourceTypeAttr" engine="simple" default-entity-name="DataResourceTypeAttr" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createDataResourceTypeAttr">
+            location="component://content/minilang/data/DataServices.xml" invoke="createDataResourceTypeAttr">
         <description>Create a DataResourceTypeAttr</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateDataResourceTypeAttr" engine="simple" default-entity-name="DataResourceTypeAttr" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateDataResourceTypeAttr">
+            location="component://content/minilang/data/DataServices.xml" invoke="updateDataResourceTypeAttr">
         <description>Update a DataResourceTypeAttr</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeDataResourceTypeAttr" engine="simple" default-entity-name="DataResourceTypeAttr" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeDataResourceTypeAttr">
+            location="component://content/minilang/data/DataServices.xml" invoke="removeDataResourceTypeAttr">
         <description>Remove DataResourceTypeAttr</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -180,21 +180,21 @@ under the License.
 
     <!-- FileExtension services -->
     <service name="createFileExtension" engine="simple" default-entity-name="FileExtension" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createFileExtension">
+            location="component://content/minilang/data/DataServices.xml" invoke="createFileExtension">
         <description>Create a FileExtension</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateFileExtension" engine="simple" default-entity-name="FileExtension" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateFileExtension">
+            location="component://content/minilang/data/DataServices.xml" invoke="updateFileExtension">
         <description>Update a FileExtension</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeFileExtension" engine="simple" default-entity-name="FileExtension" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeFileExtension">
+            location="component://content/minilang/data/DataServices.xml" invoke="removeFileExtension">
         <description>Remove FileExtension</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -202,21 +202,21 @@ under the License.
 
     <!-- MetaDataPredicate services -->
     <service name="createMetaDataPredicate" engine="simple" default-entity-name="MetaDataPredicate" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createMetaDataPredicate">
+            location="component://content/minilang/data/DataServices.xml" invoke="createMetaDataPredicate">
         <description>Create a MetaDataPredicate</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateMetaDataPredicate" engine="simple" default-entity-name="MetaDataPredicate" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateMetaDataPredicate">
+            location="component://content/minilang/data/DataServices.xml" invoke="updateMetaDataPredicate">
         <description>Update a MetaDataPredicate</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeMetaDataPredicate" engine="simple" default-entity-name="MetaDataPredicate" auth="true"
-        location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeMetaDataPredicate">
+        location="component://content/minilang/data/DataServices.xml" invoke="removeMetaDataPredicate">
         <description>Remove MetaDataPredicate</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -224,38 +224,38 @@ under the License.
 
     <!-- MimeType services -->
     <service name="createMimeType" engine="simple" default-entity-name="MimeType" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createMimeType">
+            location="component://content/minilang/data/DataServices.xml" invoke="createMimeType">
         <description>Create a MimeType</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateMimeType" engine="simple" default-entity-name="MimeType" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateMimeType">
+            location="component://content/minilang/data/DataServices.xml" invoke="updateMimeType">
         <description>Update a MimeType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeMimeType" engine="simple" default-entity-name="MimeType" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeMimeType">
+            location="component://content/minilang/data/DataServices.xml" invoke="removeMimeType">
         <description>Remove MimeType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- MimeTypeHtmlTemplate services -->
     <service name="createMimeTypeHtmlTemplate" engine="simple" default-entity-name="MimeTypeHtmlTemplate" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createMimeTypeHtmlTemplate">
+            location="component://content/minilang/data/DataServices.xml" invoke="createMimeTypeHtmlTemplate">
         <description>Create a MimeTypeHtmlTemplate</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateMimeTypeHtmlTemplate" engine="simple" default-entity-name="MimeTypeHtmlTemplate" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateMimeTypeHtmlTemplate">
+            location="component://content/minilang/data/DataServices.xml" invoke="updateMimeTypeHtmlTemplate">
         <description>Update a MimeTypeHtmlTemplate</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeMimeTypeHtmlTemplate" engine="simple" default-entity-name="MimeTypeHtmlTemplate" auth="true"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeMimeTypeHtmlTemplate">
+            location="component://content/minilang/data/DataServices.xml" invoke="removeMimeTypeHtmlTemplate">
         <description>Remove MimeTypeHtmlTemplate</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>

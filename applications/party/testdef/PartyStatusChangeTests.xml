@@ -26,7 +26,7 @@
     </test-case>    
     
     <test-case case-name="partystatuschangetest">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyStatusChangeTests.xml"/>
+        <simple-method-test location="component://party/minilang/test/PartyStatusChangeTests.xml"/>
     </test-case>  
 
 </test-suite>

@@ -1054,13 +1054,13 @@ under the License.
     </request-map>
     <request-map uri="createInternalOrg">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://humanres/script/org/ofbiz/humanres/HumanResEvents.xml" invoke="createInternalOrg"/>
+        <event type="simple" path="component://humanres/minilang/HumanResEvents.xml" invoke="createInternalOrg"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
     <request-map uri="removeInternalOrg">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://humanres/script/org/ofbiz/humanres/HumanResEvents.xml" invoke="removeInternalOrg"/>
+        <event type="simple" path="component://humanres/minilang/HumanResEvents.xml" invoke="removeInternalOrg"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
@@ -1079,7 +1079,7 @@ under the License.
     </request-map>
     <request-map uri="createPublicHoliday">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://humanres/script/org/ofbiz/humanres/HumanResEvents.xml" invoke="createPublicHoliday"/>
+        <event type="simple" path="component://humanres/minilang/HumanResEvents.xml" invoke="createPublicHoliday"/>
         <response name="success" type="request-redirect-noparam" value="PublicHoliday"/>
         <response name="error" type="view" value="PublicHoliday"/>
     </request-map>

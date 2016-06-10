@@ -75,7 +75,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="cancelFixedAssetStdCost" default-entity-name="FixedAssetStdCost" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="cancelFixedAssetStdCost" auth="true">
+                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="cancelFixedAssetStdCost" auth="true">
         <description>Cancel a Fixed Asset Standard Cost</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -121,7 +121,7 @@ under the License.
     </service>
     <!-- FixedAsset Maintenance Create/Update/Delete-->
     <service name="createFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaint" auth="true">
+                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaint" auth="true">
         <description>Create a Fixed Asset Maintenance</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -132,7 +132,7 @@ under the License.
         <override name="maintHistSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
     </service>
     <service name="updateFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMaint" auth="true">
+                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMaint" auth="true">
         <description>Update a Fixed Asset Maintenance</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -145,7 +145,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createMaintsFromTimeInterval" engine="simple" use-transaction="false"
-                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createMaintsFromTimeInterval" auth="true">
+                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="createMaintsFromTimeInterval" auth="true">
         <description>Create Fixed Asset Maintenances from ProductMaint time intervals. Currently works
         with day, month, and year interval types. This service is intended to be run as a regularly
         scheduled job.</description>
@@ -153,14 +153,14 @@ under the License.
     </service>
     <!-- FixedAsset Maintenance Meter Create/Update/Delete-->
     <service name="createFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMeter" auth="true">
+                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMeter" auth="true">
         <description>Create a Fixed Asset Maintenance Meter</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMeter" auth="true">
+                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMeter" auth="true">
         <description>Update a Fixed Asset Maintenance Meter</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -173,7 +173,7 @@ under the License.
     </service>
     <!-- FixedAsset Maintenance Order Create/Update/Delete-->
     <service name="createFixedAssetMaintOrder" default-entity-name="FixedAssetMaintOrder" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaintOrder" auth="true">
+                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaintOrder" auth="true">
         <description>Create a Fixed Asset Maintenance Order</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <attribute name="fixedAssetId" type="String" mode="IN" optional="false"/>
@@ -227,7 +227,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="checkUpdateFixedAssetDepreciation" default-entity-name="AcctgTrans" engine="simple"
-              location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="checkUpdateFixedAssetDepreciation" auth="true">
+              location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="checkUpdateFixedAssetDepreciation" auth="true">
         <description>If the accounting transaction is a depreciation transaction for a fixed asset, update the depreciation amount in the FixedAsset entity.</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -246,19 +246,19 @@ under the License.
         <attribute name="plannedPastDepreciationTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="straightLineDepreciation" engine="simple" default-entity-name="FixedAsset"
-                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="straightLineDepreciation" auth="true">
+                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="straightLineDepreciation" auth="true">
         <description>Straight line depreciation service to Fixed Asset</description>
         <implements service="fixedAssetDepCalcInterface"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="doubleDecliningBalanceDepreciation" engine="simple" default-entity-name="FixedAsset"
-                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="doubleDecliningBalanceDepreciation" auth="true">
+                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="doubleDecliningBalanceDepreciation" auth="true">
         <description>Double declining balance depreciation service to Fixed Asset</description>
         <implements service="fixedAssetDepCalcInterface"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="calculateFixedAssetDepreciation" engine="simple" default-entity-name="FixedAssetDepMethod"
-                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="calculateFixedAssetDepreciation" auth="true">
+                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="calculateFixedAssetDepreciation" auth="true">
         <description>Select the depreciation method according to the entry in FixedAssetDepMethod</description>
         <attribute name="fixedAssetId" type="String" mode="IN"/>
         <attribute name="assetDepreciationTillDate" type="List" mode="OUT" optional="true"/>

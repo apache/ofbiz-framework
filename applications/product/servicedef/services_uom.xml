@@ -30,7 +30,7 @@ under the License.
         <attribute mode="OUT" name="convertedValue" optional="true" type="BigDecimal"/>
     </service>
     <service name="convertUomProduct" engine="simple" auth="false"
-        location="component://product/script/org/ofbiz/product/product/ProductUomFormulas.xml" invoke="convertUomProduct">
+        location="component://product/minilang/product/product/ProductUomFormulas.xml" invoke="convertUomProduct">
         <description>UoM conversion based on product attributes</description>
         <implements service="interfaceUomFormula"/>
     </service>

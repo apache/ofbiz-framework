@@ -164,7 +164,7 @@
     </request-map>
     <request-map uri="autoSendFeedbackReminder">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="autoSendFeedbackReminder"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="autoSendFeedbackReminder"/>
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
@@ -174,49 +174,49 @@
     </request-map>
     <request-map uri="createEmailTemplate">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createEmailTemplate" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml"/>
+        <event type="simple" invoke="createEmailTemplate" path="component://ebaystore/minilang/EbayStoreEvents.xml"/>
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="editEmailTemplate"/>
     </request-map>
     <request-map uri="updateEmailTemplate">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateEmailTemplate" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml"/>
+        <event type="simple" invoke="updateEmailTemplate" path="component://ebaystore/minilang/EbayStoreEvents.xml"/>
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="editEmailTemplate"/>
     </request-map>
     <request-map uri="updateEmailTemplate">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateEmailTemplate" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml"/>
+        <event type="simple" invoke="updateEmailTemplate" path="component://ebaystore/minilang/EbayStoreEvents.xml"/>
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="editEmailTemplate"/>
     </request-map>
     <request-map uri="autoSendPaymentReceivedEmail">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="autoSendPaymentReceivedEmail"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="autoSendPaymentReceivedEmail"/>
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
     <request-map uri="settingCombineOrders">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="settingCombineOrders"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="settingCombineOrders"/>
         <response name="success" type="request-redirect" value="automationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
     <request-map uri="settingWinningBuyerNotification">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="settingWinningBuyerNotification"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="settingWinningBuyerNotification"/>
         <response name="success" type="request-redirect" value="automationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
     <request-map uri="settingSendItemDispatchedNotification">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="settingSendItemDispatchedNotification"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="settingSendItemDispatchedNotification"/>
         <response name="success" type="request-redirect" value="automationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
     <request-map uri="runBlockItemOutOfStock">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="settingAutoBlockItemOutOfStock"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="settingAutoBlockItemOutOfStock"/>
         <response name="success" type="request-redirect" value="automationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
@@ -377,7 +377,7 @@
     </request-map>
     <request-map uri="doAction">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="checkEbayAction"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="checkEbayAction"/>
         <response name="makeSecondChanceOffer" type="request" value="makeSecondChanceOffer"/>
         <response name="openUnpaid" type="request" value="openUnpaid"/>
     </request-map>

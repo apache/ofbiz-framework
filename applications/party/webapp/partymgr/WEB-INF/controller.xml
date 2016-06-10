@@ -266,14 +266,14 @@ under the License.
     <request-map uri="editcreditcard"><security https="true" auth="true"/><response name="success" type="view" value="editcreditcard"/></request-map>
     <request-map uri="createCreditCard">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="createCreditCard"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="createCreditCard"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="address" type="view" value="editcontactmech"/>
         <response name="error" type="view" value="editcreditcard"/>
     </request-map>
     <request-map uri="updateCreditCard">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="updateCreditCard"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="updateCreditCard"/>
         <response name="success" type="view" value="editcreditcard"/>
         <response name="error" type="view" value="editcreditcard"/>
     </request-map>
@@ -295,13 +295,13 @@ under the License.
     <request-map uri="editeftaccount"><security https="true" auth="true"/><response name="success" type="view" value="editeftaccount"/></request-map>
     <request-map uri="createEftAccount">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="createEftAccount"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="createEftAccount"/>
         <response name="success" type="view" value="editeftaccount"/>
         <response name="error" type="view" value="editeftaccount"/>
     </request-map>
     <request-map uri="updateEftAccount">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="updateEftAccount"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="updateEftAccount"/>
         <response name="success" type="view" value="editeftaccount"/>
         <response name="error" type="view" value="editeftaccount"/>
     </request-map>
@@ -309,20 +309,20 @@ under the License.
     <request-map uri="editAvsOverride"><security https="true" auth="true"/><response name="success" type="view" value="editavsoverride"/></request-map>
     <request-map uri="updateAvsOverride">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="updateAVSOverride"/>
+        <event type="simple" path="component://party/minilang/party/PartySimpleMethods.xml" invoke="updateAVSOverride"/>
         <response name="success" type="view" value="editavsoverride"/>
         <response name="error" type="view" value="editavsoverride"/>
     </request-map>
     <request-map uri="resetAvsOverride">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="deleteAVSOverride"/>
+        <event type="simple" path="component://party/minilang/party/PartySimpleMethods.xml" invoke="deleteAVSOverride"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
 
     <request-map uri="deletePaymentMethod">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="deletePaymentMethod"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="deletePaymentMethod"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
@@ -330,7 +330,7 @@ under the License.
     <request-map uri="NewCustomer"><security https="true" auth="true"/><response name="success" type="view" value="NewCustomer"/></request-map>
     <request-map uri="createCustomer">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://party/script/org/ofbiz/party/user/UserEvents.xml" invoke="createCustomer"/>
+        <event type="simple" path="component://party/minilang/user/UserEvents.xml" invoke="createCustomer"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="NewCustomer"/>
     </request-map>
@@ -338,7 +338,7 @@ under the License.
     <request-map uri="NewProspect"><security https="true" auth="true"/><response name="success" type="view" value="NewProspect"/></request-map>
     <request-map uri="createProspect">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://party/script/org/ofbiz/party/user/UserEvents.xml" invoke="createProspect"/>
+        <event type="simple" path="component://party/minilang/user/UserEvents.xml" invoke="createProspect"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="NewProspect"/>
     </request-map>
@@ -346,7 +346,7 @@ under the License.
     <request-map uri="NewEmployee"><security https="true" auth="true"/><response name="success" type="view" value="NewEmployee"/></request-map>
     <request-map uri="createEmployee">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://party/script/org/ofbiz/party/user/UserEvents.xml" invoke="createEmployee"/>
+        <event type="simple" path="component://party/minilang/user/UserEvents.xml" invoke="createEmployee"/>
         <response name="success" type="request-redirect" value="viewprofile"/>
         <response name="error" type="view" value="NewEmployee"/>
     </request-map>
@@ -638,13 +638,13 @@ under the License.
     </request-map>
     <request-map uri="uploadAttachFiletoEmail">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createCommunicationEventContent" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
+        <event type="simple" invoke="createCommunicationEventContent" path="component://party/minilang/communication/CommunicationEventEvents.xml"/>
         <response name="success" type="view-home" value="EditCommunicationEvent"/>
         <response name="error" type="view-home" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="uploadAttachFile">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createCommunicationEventContent" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
+        <event type="simple" invoke="createCommunicationEventContent" path="component://party/minilang/communication/CommunicationEventEvents.xml"/>
         <response name="success" type="view" value="ListCommContent"/>
         <response name="error" type="view" value="ListCommContent"/>
     </request-map>
@@ -724,7 +724,7 @@ under the License.
 
     <request-map uri="allocateMsgToParty">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml" invoke="allocateMsgToParty"/>
+        <event type="simple" path="component://party/minilang/communication/CommunicationEventEvents.xml" invoke="allocateMsgToParty"/>
         <response name="success" type="view-last-noparam"/>
         <response name="error" type="view-last" value="ViewCommunicationEvent"/>
     </request-map>
@@ -770,7 +770,7 @@ under the License.
     </request-map>
     <request-map uri="createCommunicationEventRole">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createCommunicationEventRole" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
+        <event type="simple" invoke="createCommunicationEventRole" path="component://party/minilang/communication/CommunicationEventEvents.xml"/>
         <response name="success" type="view-home" value="EditCommunicationEvent"/>
         <response name="error" type="view-home" value="EditCommunicationEvent"/>
     </request-map>
@@ -929,13 +929,13 @@ under the License.
 
     <request-map uri="createPartyContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://party/script/org/ofbiz/party/party/PartySimpleEvents.xml" invoke="createPartyContent"/>
+        <event type="simple" path="component://party/minilang/party/PartySimpleEvents.xml" invoke="createPartyContent"/>
         <response name="success" type="view" value="EditPartyContents"/>
     </request-map>
 
     <request-map uri="updatePartyContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://party/script/org/ofbiz/party/party/PartySimpleEvents.xml" invoke="updatePartyContent"/>
+        <event type="simple" path="component://party/minilang/party/PartySimpleEvents.xml" invoke="updatePartyContent"/>
         <response name="success" type="view" value="EditPartyContents"/>
     </request-map>
 
@@ -1068,7 +1068,7 @@ under the License.
     </request-map>
     <request-map uri="deleteBillingAccount">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="deleteBillingAccount"/>
+        <event type="simple" path="component://party/minilang/party/PartySimpleMethods.xml" invoke="deleteBillingAccount"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
@@ -1170,7 +1170,7 @@ under the License.
     </request-map>
     <request-map uri="editGeoLocation">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://party/script/org/ofbiz/party/party/PartySimpleEvents.xml" invoke="editGeoLocation"/>
+        <event type="simple" path="component://party/minilang/party/PartySimpleEvents.xml" invoke="editGeoLocation"/>
         <response name="success" type="view" value="PartyGeoLocation"/>
         <response name="error" type="view" value="PartyGeoLocation"/>
     </request-map>
@@ -1227,7 +1227,7 @@ under the License.
     </request-map>
     <request-map uri="ProfileUpdatePassword">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://securityext/script/org/ofbiz/securityext/login/LoginSimpleEvents.xml" invoke="updatePassword"/>
+        <event type="simple" path="component://securityext/minilang/login/LoginSimpleEvents.xml" invoke="updatePassword"/>
         <response name="success" type="view" value="ProfileEditUserLogin"/>
         <response name="error" type="view" value="ProfileEditUserLogin"/>
     </request-map>

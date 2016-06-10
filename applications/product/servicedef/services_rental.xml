@@ -23,7 +23,7 @@ under the License.
     <description>Product Component Services</description>
 
     <service name="createFixedAssetAndLinkToProduct" default-entity-name="FixedAsset" engine="simple"
-                location="component://product/script/org/ofbiz/product/rental/RentalServices.xml" invoke="createFixedAssetAndLinkToProduct" auth="true">
+                location="component://product/minilang/product/rental/RentalServices.xml" invoke="createFixedAssetAndLinkToProduct" auth="true">
         <description>Create an FixedAsset and link to an existing product to ease rental products creation</description>
         <attribute name="productId" mode="IN" type="String"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
@@ -31,7 +31,7 @@ under the License.
     </service>
 
     <service name="getProductFirstRelatedFixedAsset" engine="simple"
-                location="component://product/script/org/ofbiz/product/rental/RentalServices.xml" invoke="getProductFirstRelatedFixedAsset" auth="true">
+                location="component://product/minilang/product/rental/RentalServices.xml" invoke="getProductFirstRelatedFixedAsset" auth="true">
         <description>Most rental products are associated with one fixed asset only, this service will return the first genericValue fixedAsset</description>
         <attribute name="productId" mode="INOUT" type="String"/>
         <attribute name="fixedAssetId" mode="OUT" type="String" optional="true"/>

@@ -95,7 +95,7 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="getWebSitePathAlias" default-entity-name="WebSitePathAlias" engine="simple" auth="true"
-            location="component://content/script/org/ofbiz/content/website/WebSiteServices.xml" invoke="getWebSitePathAlias">
+            location="component://content/minilang/website/WebSiteServices.xml" invoke="getWebSitePathAlias">
         <description>Get a WebSite Path Alias</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes mode="OUT" include="nonpk" optional="false"/>
@@ -134,14 +134,14 @@
 
     <!-- auto-create website content records -->
     <service name="autoCreateWebSiteContent" engine="simple" auth="true"
-            location="component://content/script/org/ofbiz/content/website/WebSiteServices.xml" invoke="quickCreateWebSiteContent">
+            location="component://content/minilang/website/WebSiteServices.xml" invoke="quickCreateWebSiteContent">
         <description>Auto Create Content Publish Points</description>
         <attribute name="webSiteId" type="String" mode="IN" optional="false"/>
         <attribute name="webSiteContentTypeId" type="List" mode="IN" optional="false"/>
     </service>
 
     <service name="generateMissingSeoUrlForWebsite" engine="simple" auth="true"
-            location="component://content/script/org/ofbiz/content/website/WebSiteServices.xml" invoke="generateMissingSeoUrlForWebsite" transaction-timeout="36000000">
+            location="component://content/minilang/website/WebSiteServices.xml" invoke="generateMissingSeoUrlForWebsite" transaction-timeout="36000000">
         <description>Generate Missing Seo URL's for Website</description>
         <attribute name="webSiteId" type="String" mode="IN" optional="false"/>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>

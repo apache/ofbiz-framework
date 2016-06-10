@@ -118,7 +118,7 @@ under the License.
     </service>
     
     <service name="getAssociatedProductsList" engine="simple" auth="false"
-        location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" invoke="getAssociatedProductsList">
+        location="component://product/minilang/product/category/CategoryServices.xml" invoke="getAssociatedProductsList">
         <description>Set the product options for selected product category, mostly used by getDependentDropdownValues</description>
         <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
         <attribute name="products" mode="OUT" type="java.util.List"/>

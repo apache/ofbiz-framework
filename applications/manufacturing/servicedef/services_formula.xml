@@ -30,12 +30,12 @@ under the License.
         <attribute mode="OUT" name="quantity" optional="false" type="BigDecimal"/>
     </service>
     <service name="exampleComponentFormula" engine="simple" auth="true"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/bom/BomFormulas.xml" invoke="exampleComponentFormula">
+            location="component://manufacturing/minilang/bom/BomFormulas.xml" invoke="exampleComponentFormula">
         <description>Example bom formula</description>
         <implements service="interfaceBomFormula"/>
     </service>
     <service name="linearComponentFormula" engine="simple" auth="true"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/bom/BomFormulas.xml" invoke="linearComponentConsumptionFormula">
+            location="component://manufacturing/minilang/bom/BomFormulas.xml" invoke="linearComponentConsumptionFormula">
         <description>Formula that computes the quantity of linear component in bom</description>
         <implements service="interfaceBomFormula"/>
     </service>
@@ -45,7 +45,7 @@ under the License.
         <attribute mode="OUT" name="totalTime" optional="false" type="BigDecimal"/>
     </service>
     <service name="exampleTaskFormula" engine="simple" auth="false"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/TaskFormulae.xml" invoke="exampleTaskFormula">
+            location="component://manufacturing/minilang/techdata/TaskFormulae.xml" invoke="exampleTaskFormula">
         <description>Formula that computes the estimated manufacturing time of a given task</description>
         <implements service="interfaceTaskFormula"/>
     </service>

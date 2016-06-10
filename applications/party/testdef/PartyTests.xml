@@ -22,13 +22,13 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="party-tests">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTests.xml"/>
+        <simple-method-test location="component://party/minilang/test/PartyTests.xml"/>
     </test-case>
     <test-case case-name="partystatuschangetestdata">
         <entity-xml action="load" entity-xml-url="component://party/testdef/data/PartyStatusChangeTestData.xml"/>
     </test-case>
     <test-case case-name="partystatuschangetest">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyStatusChangeTests.xml"/>
+        <simple-method-test location="component://party/minilang/test/PartyStatusChangeTests.xml"/>
     </test-case> 
     
 </test-suite>

@@ -23,50 +23,50 @@ under the License.
     <vendor></vendor>
     <version>1.0</version>
     
-    <service name="projectUpdateMemberPermission" engine="simple" invoke="projectUpdateMemberPermission" location="component://scrum/script/org/ofbiz/scrum/ScrumPermissionServices.xml">
+    <service name="projectUpdateMemberPermission" engine="simple" invoke="projectUpdateMemberPermission" location="component://scrum/minilang/ScrumPermissionServices.xml">
         <implements service="permissionInterface"/>
         <attribute name="projectId" mode="IN" type="String" optional="false"/>
     </service>
-    <service name="taskUpdateMemberPermission" engine="simple" invoke="taskUpdateMemberPermission" location="component://scrum/script/org/ofbiz/scrum/ScrumPermissionServices.xml">
+    <service name="taskUpdateMemberPermission" engine="simple" invoke="taskUpdateMemberPermission" location="component://scrum/minilang/ScrumPermissionServices.xml">
         <implements service="permissionInterface"/>
         <attribute name="projectId" mode="IN" type="String" optional="false"/>
     </service>
-    <service name="sprintAddPermission" engine="simple" invoke="sprintAddPermission" location="component://scrum/script/org/ofbiz/scrum/ScrumPermissionServices.xml">
+    <service name="sprintAddPermission" engine="simple" invoke="sprintAddPermission" location="component://scrum/minilang/ScrumPermissionServices.xml">
         <implements service="permissionInterface"/>
         <attribute name="projectId" mode="IN" type="String"></attribute>
     </service>
-    <service name="sprintViewPermission" engine="simple" invoke="sprintViewPermission" location="component://scrum/script/org/ofbiz/scrum/ScrumPermissionServices.xml">
-        <implements service="permissionInterface"/>
-        <attribute name="projectId" mode="IN" type="String"></attribute>
-        <attribute name="sprintId" mode="IN" type="String"></attribute>
-    </service>
-    <service name="sprintUpdatePermission" engine="simple" invoke="sprintUpdatePermission" location="component://scrum/script/org/ofbiz/scrum/ScrumPermissionServices.xml">
+    <service name="sprintViewPermission" engine="simple" invoke="sprintViewPermission" location="component://scrum/minilang/ScrumPermissionServices.xml">
         <implements service="permissionInterface"/>
         <attribute name="projectId" mode="IN" type="String"></attribute>
         <attribute name="sprintId" mode="IN" type="String"></attribute>
     </service>
-    <service name="sprintDeletePermission" engine="simple" invoke="sprintDeletePermission" location="component://scrum/script/org/ofbiz/scrum/ScrumPermissionServices.xml">
+    <service name="sprintUpdatePermission" engine="simple" invoke="sprintUpdatePermission" location="component://scrum/minilang/ScrumPermissionServices.xml">
         <implements service="permissionInterface"/>
         <attribute name="projectId" mode="IN" type="String"></attribute>
         <attribute name="sprintId" mode="IN" type="String"></attribute>
     </service>
-    <service name="sprintBacklogDeletePermission" engine="simple" invoke="sprintBacklogDeletePermission" location="component://scrum/script/org/ofbiz/scrum/ScrumPermissionServices.xml">
+    <service name="sprintDeletePermission" engine="simple" invoke="sprintDeletePermission" location="component://scrum/minilang/ScrumPermissionServices.xml">
         <implements service="permissionInterface"/>
         <attribute name="projectId" mode="IN" type="String"></attribute>
         <attribute name="sprintId" mode="IN" type="String"></attribute>
     </service>
-    <service name="projectTaskCreatePermission" engine="simple" invoke="projectTaskCreatePermission" location="component://scrum/script/org/ofbiz/scrum/ScrumPermissionServices.xml">
+    <service name="sprintBacklogDeletePermission" engine="simple" invoke="sprintBacklogDeletePermission" location="component://scrum/minilang/ScrumPermissionServices.xml">
+        <implements service="permissionInterface"/>
+        <attribute name="projectId" mode="IN" type="String"></attribute>
+        <attribute name="sprintId" mode="IN" type="String"></attribute>
+    </service>
+    <service name="projectTaskCreatePermission" engine="simple" invoke="projectTaskCreatePermission" location="component://scrum/minilang/ScrumPermissionServices.xml">
         <implements service="permissionInterface"/>
         <attribute name="projectId" mode="IN" type="String" optional="false"/>
     </service>
-    <service name="projectTaskDeletePermission" engine="simple" invoke="projectTaskDeletePermission" location="component://scrum/script/org/ofbiz/scrum/ScrumPermissionServices.xml">
+    <service name="projectTaskDeletePermission" engine="simple" invoke="projectTaskDeletePermission" location="component://scrum/minilang/ScrumPermissionServices.xml">
         <implements service="permissionInterface"/>
         <attribute name="projectId" mode="IN" type="String" optional="false"/>
     </service>
     
     <!-- SCRUM Permission Check-->
     <service name="scrumPermissionCheck" engine="simple"
-            location="component://scrum/script/org/ofbiz/scrum/ScrumPermissionServices.xml" invoke="scrumPermissionCheck">
+            location="component://scrum/minilang/ScrumPermissionServices.xml" invoke="scrumPermissionCheck">
         <description>Scrum Basic Permission Checking Logic</description>
         <implements service="permissionInterface"/>
         <attribute name="projectId" type="String" mode="IN" optional="true"/>

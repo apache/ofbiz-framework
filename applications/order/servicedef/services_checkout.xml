@@ -21,7 +21,7 @@ under the License.
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
 
-    <service name="createUpdateCustomerAndShippingAddress" engine="simple" location="component://order/script/org/ofbiz/order/order/CheckoutServices.xml" auth="false" invoke="createUpdateCustomerAndShippingAddress">
+    <service name="createUpdateCustomerAndShippingAddress" engine="simple" location="component://order/minilang/order/CheckoutServices.xml" auth="false" invoke="createUpdateCustomerAndShippingAddress">
         <implements service="createUpdateShippingAddress"/>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="firstName" type="String" mode="IN" optional="true"/>
@@ -37,7 +37,7 @@ under the License.
         <attribute name="shipToPhoneContactMechId" type="String" mode="INOUT" optional="true"/>
     </service>
 
-    <service name="createUpdateBillingAddressAndPaymentMethod" engine="simple" location="component://order/script/org/ofbiz/order/order/CheckoutServices.xml" auth="false" invoke="createUpdateBillingAddressAndPaymentMethod">
+    <service name="createUpdateBillingAddressAndPaymentMethod" engine="simple" location="component://order/minilang/order/CheckoutServices.xml" auth="false" invoke="createUpdateBillingAddressAndPaymentMethod">
         <implements service="createUpdateBillingAddress"/>
         <implements service="createUpdateCreditCard"/>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
@@ -51,7 +51,7 @@ under the License.
         <attribute name="billToPhoneContactMechId" mode="INOUT" type="String" optional="true"/>
     </service>
 
-    <service name="setAnonUserLogin" engine="simple" location="component://order/script/org/ofbiz/order/order/CheckoutServices.xml" auth="false" invoke="setAnonUserLogin">
+    <service name="setAnonUserLogin" engine="simple" location="component://order/minilang/order/CheckoutServices.xml" auth="false" invoke="setAnonUserLogin">
          <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
          <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>

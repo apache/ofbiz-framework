@@ -55,7 +55,7 @@ under the License.
     </request-map>
     <request-map uri="startStopScheduledGbase">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://googlebase/script/org/ofbiz/googlebase/GooglebaseEvents.xml" invoke="startStopScheduledGbase"/>
+        <event type="simple" path="component://googlebase/minilang/GooglebaseEvents.xml" invoke="startStopScheduledGbase"/>
         <response name="success" type="view" value="GooglebaseAutoUpdate"/>
         <response name="error" type="view" value="GooglebaseAutoUpdate"/>
     </request-map>

@@ -29,6 +29,6 @@ under the License.
         <service-test service-name="testCreateExampleService"/>
     </test-case>
     <test-case case-name="testCreateExampleService Direct Simple Method">
-        <simple-method-test location="component://example/script/org/ofbiz/example/example/ExampleServices.xml" name="testCreateExampleService"/>
+        <simple-method-test location="component://example/minilang/example/ExampleServices.xml" name="testCreateExampleService"/>
     </test-case>
 </test-suite>

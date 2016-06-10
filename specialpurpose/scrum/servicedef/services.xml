@@ -24,7 +24,7 @@ under the License.
     <version>1.0</version>
     
     <service name="updateSprintBacklogseq" engine="simple" default-entity-name="CustRequest" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="updateSprintBacklogseq" transaction-timeout="0">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="updateSprintBacklogseq" transaction-timeout="0">
         <auto-attributes mode="IN" include="pk"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="mode" type="String" mode="IN"/><!-- possible values: TOP, BOTTOM, UP, DOWN -->
@@ -49,7 +49,7 @@ under the License.
     </service>
     
     <service name="getProjectInfoFromTask" engine="simple"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="getProjectInfoFromTask">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="getProjectInfoFromTask">
         <description>Get the projectId and Name when a sprint backlog or task is provided.</description>
         <attribute name="taskId" type="String" mode="INOUT" optional="true"/>
         <attribute name="sprintId" type="String" mode="IN" optional="true"/>
@@ -64,7 +64,7 @@ under the License.
     </service>
     
     <service name="updateTimesheetEntryByWorkeffort" engine="simple"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="updateTimesheetEntryByWorkeffort">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="updateTimesheetEntryByWorkeffort">
         <description>Update workeffort by workeffortId and timesheetId </description>
         <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
         <attribute name="timesheetId" type="String" mode="INOUT" optional="false"/>
@@ -93,7 +93,7 @@ under the License.
     </service>
     
     <service name="getScrumActualHour" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="getScrumActualHour">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="getScrumActualHour">
         
         <attribute name="projectId" type="String" mode="IN" optional="true"/>
         <attribute name="sprintId" type="String" mode="IN" optional="true"/>
@@ -105,14 +105,14 @@ under the License.
     </service>
     
     <service name="getScrumActualHourByTimesheet" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="getScrumActualHourByTimesheet">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="getScrumActualHourByTimesheet">
         
         <attribute name="timesheetId" type="String" mode="IN" optional="false"/>
         <attribute name="actualHours" type="Double" mode="OUT" optional="false"/>
     </service>
     
     <service name="updateScrumTaskAssigment" default-entity-name="WorkEffortPartyAssignment" engine="simple"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="updateScrumTaskAssigment" auth="true">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="updateScrumTaskAssigment" auth="true">
         <description>Update a WorkEffortPartyAssignment Entity, including set enddate and create new</description>
         <required-permissions join-type="OR">
             <check-permission permission="SCRUM" action="_ADMIN"/>
@@ -131,7 +131,7 @@ under the License.
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
     </service>
     <service name="addProductTimeToNewInvoice" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="addProductTimeToNewInvoice">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="addProductTimeToNewInvoice">
         <description>Add Product Time to a new Invoice</description>
         <required-permissions join-type="AND">
             <check-permission permission="SCRUM_BILLING" action="_CREATE"/>
@@ -147,7 +147,7 @@ under the License.
         <attribute name="includeMeeting" type="String" mode="IN" optional="true"/>
     </service>
     <service name="scrumAddWorkEffortTimeToInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="scrumAddWorkEffortTimeToInvoice">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="scrumAddWorkEffortTimeToInvoice">
         <description>Add WorkEffort Time to existing Invoice</description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
@@ -157,7 +157,7 @@ under the License.
         <attribute name="billingMap" type="Map" mode="OUT" optional="true"/>
     </service>
     <service name="scrumAddWorkEffortTimeToNewInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="scrumAddWorkEffortTimeToInvoice">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="scrumAddWorkEffortTimeToInvoice">
         <description>Add WorkEffort Time to a new Invoice</description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
@@ -168,13 +168,13 @@ under the License.
         <attribute name="billingMap" type="Map" mode="OUT" optional="true"/>
     </service>
     <service name="removeInvoiceInTimeEntry" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="removeInvoiceInTimeEntry">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="removeInvoiceInTimeEntry">
         <description>Remove invoiceId in TimeEntry</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
     
     <service name="getScrumPlanHour" engine="simple" invoke="getScrumPlanHour"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" auth="true">
+        location="component://scrum/minilang/ScrumServices.xml" auth="true">
         <description>Get Scrum Plan Hours from Backlog or Task : TimeEntry--> Task--> Backlog</description>
         <attribute name="taskId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
@@ -186,7 +186,7 @@ under the License.
     </service>
     
     <service name="getProductBacklogSize" engine="simple"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="getProductBacklogSize">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="getProductBacklogSize">
         <description>Get project information and related backlog and task info.</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
@@ -195,7 +195,7 @@ under the License.
     </service>
     
     <service name="getScrumProject" engine="simple"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="getScrumProject">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="getScrumProject">
         <description>Get project information and related backlog and task info.</description>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
@@ -203,7 +203,7 @@ under the License.
     </service>
     
     <service name="getScrumTaskInfo" engine="simple" invoke="getScrumTaskInfo"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" auth="true">
+        location="component://scrum/minilang/ScrumServices.xml" auth="true">
         <description>Get task info and others related to task</description>
         <attribute name="taskId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" mode="IN" type="String" optional="true"/>
@@ -212,32 +212,32 @@ under the License.
     
     <!-- For emplLeave : Get party leave hours for date -->
     <service name="getPartyLeaveHoursForDate" engine="simple" invoke="getPartyLeaveHoursForDate" default-entity-name="EmplLeave"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" auth="true">
+        location="component://scrum/minilang/ScrumServices.xml" auth="true">
         <description>Get party leave hours for date</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="hours" type="Double" mode="OUT" optional="true"/>
     </service>
     <service name="checkSprintStatus" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="checkSprintStatus">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="checkSprintStatus">
     </service>
     <service name="checkScrumPlanHour" engine="simple" auth="true" 
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="checkScrumPlanHour">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="checkScrumPlanHour">
         <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
         <attribute name="planHours" type="Double" mode="IN" optional="true"/>
         <attribute name="allow" type="Boolean" mode="OUT" optional="false"/>
     </service>
     <service name="reOrderProductBacklogItemSequenceNumber" engine="simple" auth="true" 
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="reOrderProductBacklogItemSequenceNumber">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="reOrderProductBacklogItemSequenceNumber">
         <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="autoCompleteBacklog" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="autoCompleteBacklog">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="autoCompleteBacklog">
         <attribute name="workEffortId" mode="IN" type="String" optional="false"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
     </service>
     <service name="autoScrumNotification" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="autoScrumNotification">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="autoScrumNotification">
         <attribute name="sprintId" mode="IN" type="String" optional="true"/>
         <attribute name="sprintStatusId" mode="IN" type="String" optional="true"/>
         <attribute name="custRequestId" mode="IN" type="String" optional="true"/>
@@ -245,7 +245,7 @@ under the License.
         <attribute name="webSiteId" mode="IN" type="String" optional="true"/><!-- for notification services -->
     </service>
     <service name="updateTimesheetToInProcess" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="updateTimesheetToInProcess">
+        location="component://scrum/minilang/ScrumServices.xml" invoke="updateTimesheetToInProcess">
         <description>Updates the Timesheet status back to in process to be able to correct errors</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -255,7 +255,7 @@ under the License.
         <implements service="updateScrumRevisionChange"/>
     </service>
     <service name="updateScrumRevisionChange" engine="simple" export="true" validate="false" require-new-transaction="true"
-            location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="updateScrumRevisionChange">
+            location="component://scrum/minilang/ScrumServices.xml" invoke="updateScrumRevisionChange">
         <description>Update Scrum Revision Change</description>
         <attribute name="taskId" type="String" mode="IN" optional="false"/>
         <attribute name="hours" type="String" mode="IN" optional="true"/>

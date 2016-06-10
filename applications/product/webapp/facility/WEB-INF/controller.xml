@@ -822,7 +822,7 @@ under the License.
     </request-map>
     <request-map uri="createFacilityContent">
         <security auth="true" https="true"/>
-        <event path="component://product/script/org/ofbiz/product/storage/FacilityEvents.xml" type="simple" invoke="createFacilityContent"/>
+        <event path="component://product/minilang/product/storage/FacilityEvents.xml" type="simple" invoke="createFacilityContent"/>
         <response name="success" type="request-redirect" value="EditFacilityContent">
             <redirect-parameter name="facilityId"/>
         </response>

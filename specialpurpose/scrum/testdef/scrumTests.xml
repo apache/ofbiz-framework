@@ -21,37 +21,37 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
         <test-case case-name="scrum-tests">
-            <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/ScrumTests.xml"/>
+            <simple-method-test location="component://scrum/minilang/test/ScrumTests.xml"/>
         </test-case>
         <test-case case-name="productBacklog-tests">
-             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/ProductBacklogTest.xml"/>
+             <simple-method-test location="component://scrum/minilang/test/ProductBacklogTest.xml"/>
         </test-case>
         <test-case case-name="scrumProject-tests">
-             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/ScrumProjectTests.xml"/>
+             <simple-method-test location="component://scrum/minilang/test/ScrumProjectTests.xml"/>
         </test-case>
         <test-case case-name="sprint-tests">
-             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/SprintTests.xml"/>
+             <simple-method-test location="component://scrum/minilang/test/SprintTests.xml"/>
         </test-case>
         <test-case case-name="sprintBacklog-tests">
-             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/SprintBacklogTests.xml"/>
+             <simple-method-test location="component://scrum/minilang/test/SprintBacklogTests.xml"/>
         </test-case>
         <test-case case-name="dailyMeetingMinute-tests">
-             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/DailyMeetingMinuteTests.xml"/>
+             <simple-method-test location="component://scrum/minilang/test/DailyMeetingMinuteTests.xml"/>
         </test-case>
         <test-case case-name="product-tests">
-             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/ProductTest.xml"/>
+             <simple-method-test location="component://scrum/minilang/test/ProductTest.xml"/>
         </test-case>
         <!--<test-case case-name="task-test">
-            <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/TaskTests.xml"/>
+            <simple-method-test location="component://scrum/minilang/test/TaskTests.xml"/>
         </test-case>-->
         <test-case case-name="myWork-test">
-            <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/MyWorkTests.xml"/>
+            <simple-method-test location="component://scrum/minilang/test/MyWorkTests.xml"/>
         </test-case>
         <test-case case-name="timesheet-test">
-            <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/TimesheetTests.xml"/>
+            <simple-method-test location="component://scrum/minilang/test/TimesheetTests.xml"/>
         </test-case>
         <!-- test-case case-name="qa-tests">
-             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/QATests.xml"/>
+             <simple-method-test location="component://scrum/minilang/test/QATests.xml"/>
         </test-case-->
         
         <!-- Tests data load -->

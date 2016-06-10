@@ -25,37 +25,37 @@ under the License.
     <version>1.0</version>
     
     <!-- Shipment Gateway Config Method services -->
-    <service name="updateShipmentGatewayConfig" engine="simple" location="component://product/script/org/ofbiz/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfig">
+    <service name="updateShipmentGatewayConfig" engine="simple" location="component://product/minilang/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfig">
         <description>Update Shipment Gateway Config</description>
         <auto-attributes entity-name="ShipmentGatewayConfig" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="ShipmentGatewayConfig" include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="updateShipmentGatewayConfigDhl" engine="simple" location="component://product/script/org/ofbiz/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigDhl">
+    <service name="updateShipmentGatewayConfigDhl" engine="simple" location="component://product/minilang/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigDhl">
         <description>Update Shipment Gateway Config DHL</description>
         <auto-attributes entity-name="ShipmentGatewayDhl" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="ShipmentGatewayDhl" include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="updateShipmentGatewayConfigFedex" engine="simple" location="component://product/script/org/ofbiz/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigFedex">
+    <service name="updateShipmentGatewayConfigFedex" engine="simple" location="component://product/minilang/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigFedex">
         <description>Update Shipment Gateway Config FedEx</description>
         <auto-attributes entity-name="ShipmentGatewayFedex" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="ShipmentGatewayFedex" include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="updateShipmentGatewayConfigUps" engine="simple" location="component://product/script/org/ofbiz/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigUps">
+    <service name="updateShipmentGatewayConfigUps" engine="simple" location="component://product/minilang/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigUps">
         <description>Update Shipment Gateway Config UPS</description>
         <auto-attributes entity-name="ShipmentGatewayUps" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="ShipmentGatewayUps" include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="updateShipmentGatewayConfigUsps" engine="simple" location="component://product/script/org/ofbiz/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigUsps">
+    <service name="updateShipmentGatewayConfigUsps" engine="simple" location="component://product/minilang/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigUsps">
         <description>Update Shipment Gateway Config USPS</description>
         <auto-attributes entity-name="ShipmentGatewayUsps" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="ShipmentGatewayUsps" include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="updateShipmentGatewayConfigType" engine="simple" location="component://product/script/org/ofbiz/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigType">
+    <service name="updateShipmentGatewayConfigType" engine="simple" location="component://product/minilang/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigType">
         <description>Update Shipment Gateway Config Type</description>
         <auto-attributes entity-name="ShipmentGatewayConfigType" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="ShipmentGatewayConfigType" include="nonpk" mode="IN" optional="true"/>

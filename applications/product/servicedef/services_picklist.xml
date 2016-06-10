@@ -33,7 +33,7 @@ under the License.
     </service>
 
     <service name="findOrdersToPickMove" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="findOrdersToPickMove">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="findOrdersToPickMove">
         <description>Gets Picklist Data</description>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="shipmentMethodTypeId" type="String" mode="IN" optional="true"/>
@@ -50,7 +50,7 @@ under the License.
 
     <!-- Persisted Picklist Services -->
     <service name="createPicklistFromOrders" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="createPicklistFromOrders" transaction-timeout="600">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="createPicklistFromOrders" transaction-timeout="600">
         <description>Create Picklist From Orders</description>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="shipmentMethodTypeId" type="String" mode="IN" optional="true"/>
@@ -62,7 +62,7 @@ under the License.
     </service>
 
     <service name="printPickSheets" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="printPickSheets">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="printPickSheets">
         <description>Print pick sheets for orders</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
@@ -76,7 +76,7 @@ under the License.
     </service>
 
     <service name="getPicklistDisplayInfo" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="getPicklistDisplayInfo">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="getPicklistDisplayInfo">
         <description>Create Picklist From Orders</description>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="viewIndex" mode="INOUT" type="Integer" optional="true"/>
@@ -88,7 +88,7 @@ under the License.
     </service>
 
     <service name="getPickAndPackReportInfo" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="getPickAndPackReportInfo">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="getPickAndPackReportInfo">
         <description>Get Pick And Pack Report Info</description>
         <attribute name="picklistId" type="String" mode="IN" optional="false"/>
         <attribute name="picklistInfo" type="Map" mode="OUT" optional="false"/>
@@ -98,7 +98,7 @@ under the License.
 
     <!-- Picklist -->
     <service name="createPicklist" default-entity-name="Picklist" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="createPicklist" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="createPicklist" auth="true">
         <description>Create Picklist</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -108,7 +108,7 @@ under the License.
         </auto-attributes>
     </service>
     <service name="updatePicklist" default-entity-name="Picklist" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="updatePicklist" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="updatePicklist" auth="true">
         <description>Update Picklist</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -119,57 +119,57 @@ under the License.
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="deletePicklist" default-entity-name="Picklist" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="deletePicklist" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="deletePicklist" auth="true">
         <description>Delete Picklist</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- PicklistBin -->
     <service name="createPicklistBin" default-entity-name="PicklistBin" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="createPicklistBin" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="createPicklistBin" auth="true">
         <description>Create PicklistBin</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
     <service name="updatePicklistBin" default-entity-name="PicklistBin" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="updatePicklistBin" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="updatePicklistBin" auth="true">
         <description>Update PicklistBin</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deletePicklistBin" default-entity-name="PicklistBin" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="deletePicklistBin" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="deletePicklistBin" auth="true">
         <description>Delete PicklistBin</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="checkPicklistBinItemStatuses" default-entity-name="PicklistBin" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="checkPicklistBinItemStatuses" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="checkPicklistBinItemStatuses" auth="true">
         <description>Update Picklist based on Item Status</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- PicklistItem -->
     <service name="createPicklistItem" default-entity-name="PicklistItem" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="createPicklistItem" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="createPicklistItem" auth="true">
         <description>Create PicklistItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
         <override name="itemStatusId" optional="true"/>
     </service>
     <service name="updatePicklistItem" default-entity-name="PicklistItem" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="updatePicklistItem" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="updatePicklistItem" auth="true">
         <description>Update PicklistItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldItemStatusId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="deletePicklistItem" default-entity-name="PicklistItem" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="deletePicklistItem" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="deletePicklistItem" auth="true">
         <description>Delete PicklistItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="editPicklistItem" default-entity-name="PicklistItem" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="editPicklistItem" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="editPicklistItem" auth="true">
         <description>Edit PicklistItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="lotId" mode="IN" type="String" optional="false" />
@@ -179,20 +179,20 @@ under the License.
         <attribute name="oldLotId" mode="IN" type="String" optional="true" />
     </service>
     <service name="setPicklistItemToComplete" default-entity-name="PicklistItem" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="setPicklistItemToComplete" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="setPicklistItemToComplete" auth="true">
         <description>Update PicklistItem's Status to COMPLETE</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
     <service name="cancelPicklistAndItems" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="cancelPicklistAndItems" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="cancelPicklistAndItems" auth="true">
         <description>If Picklist is Cancelled then cancel all the PicklistItems.</description>
         <attribute name="picklistId" type="String" mode="IN"/>
     </service>
 
     <!-- PicklistRole -->
     <service name="createPicklistRole" default-entity-name="PicklistRole" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="createPicklistRole" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="createPicklistRole" auth="true">
         <description>Create PicklistRole</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -202,7 +202,7 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updatePicklistRole" default-entity-name="PicklistRole" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="updatePicklistRole" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="updatePicklistRole" auth="true">
         <description>Update PicklistRole</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -211,7 +211,7 @@ under the License.
         </auto-attributes>
     </service>
     <service name="deletePicklistRole" default-entity-name="PicklistRole" engine="simple"
-            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="deletePicklistRole" auth="true">
+            location="component://product/minilang/shipment/picklist/PicklistServices.xml" invoke="deletePicklistRole" auth="true">
         <description>Delete PicklistRole</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>

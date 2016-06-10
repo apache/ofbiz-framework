@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+        <simple-method method-name="testCreateTestTask" short-description="" login-required="false">
+            <entity-one value-field="userLogin" entity-name="UserLogin">
+                <field-map field-name="userLoginId" value="testadmin"/>
+            </entity-one>
+            <set-current-user-login value-field="userLogin"/>
+            <set field="formInput.formInput.userLogin" from-field="userLogin"/>
+            <set field="formInput.formInput.workEffortTypeId" value="SCRUM_TASK_ERROR"/>
+            <set field="formInput.formInput.currentStatusId" value="STS_CREATED"/>
+            <set field="formInput.formInput.roleTypeId" value="SCRUM_TEAM"/>
+            <set field="formInput.formInput.statusId" value="SCAS_ASSIGNED"/>
+            <set field="formInput.formInput.priority" value="1"/>
+            <set field="formInput.formInput.description" value=""/>
+            <set field="formInput.formInput.uploadedFile" value=""/>
+            <set field="formInput.formInput.contentTypeId" value="DOCUMENT"/>
+            <set field="formInput.formInput.resourceStatusId" value="CTNT_PUBLISHED"/>
+            <set field="formInput.formInput.workEffortContentTypeId" value="CREATED_MEDIA"/>
+            <set field="formInput.formInput.partyId" value="SCRUMTEAM-1"/>
+            <call-simple-method method-name="createTestTask" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+        </simple-method>
+</simple-methods>

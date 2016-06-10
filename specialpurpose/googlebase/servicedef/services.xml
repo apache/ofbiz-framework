@@ -71,7 +71,7 @@ under the License.
     
     <!-- Auto update to google base **scheduled service -->
     <service name="autoUpdateToGoogleBase" engine="simple"
-        location="component://googlebase/script/org/ofbiz/googlebase/GooglebaseServices.xml" invoke="autoUpdateToGoogleBase" auth="true" use-transaction="false">
+        location="component://googlebase/minilang/GooglebaseServices.xml" invoke="autoUpdateToGoogleBase" auth="true" use-transaction="false">
         <description>Auto update to google base</description>
         <attribute type="List" mode="OUT" name="allProductExportList" optional="true"/>
     </service>

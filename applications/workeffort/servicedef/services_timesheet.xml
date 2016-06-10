@@ -26,30 +26,30 @@ under the License.
 
     <!-- Timesheet Services -->
     <service name="createTimesheet" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimesheet">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="createTimesheet">
         <description>Creates Timesheet</description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateTimesheetToInProcess" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="updateTimesheetToInProcess">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="updateTimesheetToInProcess">
         <description>Updates the Timesheet status back to in process to be able to correct errors</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="updateTimesheet" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="updateTimesheet">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="updateTimesheet">
         <description>Updates Timesheet</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTimesheet" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="deleteTimesheet">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="deleteTimesheet">
         <description>Deletes Timesheet</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createTimesheets" engine="simple"
-            location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimesheets" auth="true">
+            location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="createTimesheets" auth="true">
         <description>Creates Timesheet for multiple Parties in a single shot</description>
         <attribute name="partyIdList" type="List" mode="IN" optional="true"/>
         <attribute name="clientPartyId" type="String" mode="IN" optional="true"/>
@@ -58,7 +58,7 @@ under the License.
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createTimesheetForThisWeek" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimesheetForThisWeek">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="createTimesheetForThisWeek">
         <description>Creates Timesheet for this week if no required date specified.</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -68,13 +68,13 @@ under the License.
         <attribute name="requiredDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="addTimesheetToInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="addTimesheetToInvoice">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="addTimesheetToInvoice">
         <description>Add Timesheet to Invoice</description>
         <attribute name="timesheetId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="addTimesheetToNewInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="addTimesheetToInvoice">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="addTimesheetToInvoice">
         <description>Add Timesheet to Invoice</description>
         <attribute name="timesheetId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
@@ -83,7 +83,7 @@ under the License.
     </service>
 
     <service name="addWorkEffortTimeToInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="addWorkEffortTimeToInvoice">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="addWorkEffortTimeToInvoice">
         <description>Add WorkEffort Time to existing Invoice, with the option to combine all timeentries with the same rateType into one invoiceItem </description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
@@ -92,7 +92,7 @@ under the License.
         <attribute name="thruDate" mode="IN" type="Timestamp" optional="true"/>
     </service>
     <service name="addWorkEffortTimeToNewInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="addWorkEffortTimeToInvoice">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="addWorkEffortTimeToInvoice">
         <description>Add WorkEffort Time to a new Invoice with the option to combine all time entries with the same rateType into one invoiceItem</description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
@@ -104,43 +104,43 @@ under the License.
 
     <!-- TimesheetRole Services -->
     <service name="createTimesheetRole" default-entity-name="TimesheetRole" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimesheetRole">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="createTimesheetRole">
         <description>Creates TimesheetRole</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTimesheetRole" default-entity-name="TimesheetRole" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="deleteTimesheetRole">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="deleteTimesheetRole">
         <description>Deletes TimesheetRole</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- TimeEntry Services -->
     <service name="createTimeEntry" default-entity-name="TimeEntry" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimeEntry">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="createTimeEntry">
         <description>Creates TimeEntry</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateTimeEntry" default-entity-name="TimeEntry" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="updateTimeEntry">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="updateTimeEntry">
         <description>Updates TimeEntry</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTimeEntry" default-entity-name="TimeEntry" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="deleteTimeEntry">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="deleteTimeEntry">
         <description>Deletes TimeEntry</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="unlinkInvoiceFromTimeEntry" default-entity-name="TimeEntry" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="unlinkInvoiceFromTimeEntry">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="unlinkInvoiceFromTimeEntry">
         <description>Deletes TimeEntry</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="INOUT" optional="false"/>
     </service>
     <service name="getTimeEntryRate" default-entity-name="TimeEntry" engine="simple" auth="true"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="getTimeEntryRate">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="getTimeEntryRate">
         <description>Creates TimeEntry</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="currencyUomId" mode="IN" type="String" optional="true"/>

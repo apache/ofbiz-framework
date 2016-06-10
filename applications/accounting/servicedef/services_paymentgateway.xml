@@ -25,61 +25,61 @@ under the License.
     <version>1.0</version>
     
     <!-- Payment Gateway Config Method services -->
-    <service name="updatePaymentGatewayConfig" engine="simple" location="component://accounting/script/org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfig">
+    <service name="updatePaymentGatewayConfig" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfig">
         <description>Update Payment Gateway Config</description>
         <auto-attributes entity-name="PaymentGatewayConfig" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewayConfig" include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="updatePaymentGatewayConfigSagePay" engine="simple" location="component://accounting/script/org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigSagePay">
+    <service name="updatePaymentGatewayConfigSagePay" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigSagePay">
         <description>Update Payment Gateway Config SagePay</description>
         <auto-attributes entity-name="PaymentGatewaySagePay" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewaySagePay" include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="updatePaymentGatewayConfigAuthorizeNet" engine="simple" location="component://accounting/script/org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigAuthorizeNet">
+    <service name="updatePaymentGatewayConfigAuthorizeNet" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigAuthorizeNet">
         <description>Update Payment Gateway Config Authorize Dot Net</description>
         <auto-attributes entity-name="PaymentGatewayAuthorizeNet" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewayAuthorizeNet" include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="updatePaymentGatewayConfigClearCommerce" engine="simple" location="component://accounting/script/org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigClearCommerce">
+    <service name="updatePaymentGatewayConfigClearCommerce" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigClearCommerce">
         <description>Update Payment Gateway Config Clear Commerce</description>
         <auto-attributes entity-name="PaymentGatewayClearCommerce" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewayClearCommerce" include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="updatePaymentGatewayConfigCyberSource" engine="simple" location="component://accounting/script/org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigCyberSource">
+    <service name="updatePaymentGatewayConfigCyberSource" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigCyberSource">
         <description>Update Payment Gateway Config CyberSource</description>
         <auto-attributes entity-name="PaymentGatewayCyberSource" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewayCyberSource" include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="updatePaymentGatewayConfigPayflowPro" engine="simple" location="component://accounting/script/org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigPayflowPro">
+    <service name="updatePaymentGatewayConfigPayflowPro" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigPayflowPro">
         <description>Update Payment Gateway Config Payflow Pro</description>
         <auto-attributes entity-name="PaymentGatewayPayflowPro" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewayPayflowPro" include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="updatePaymentGatewayConfigPayPal" engine="simple" location="component://accounting/script/org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigPayPal">
+    <service name="updatePaymentGatewayConfigPayPal" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigPayPal">
         <description>Update Payment Gateway Config PayPal</description>
         <auto-attributes entity-name="PaymentGatewayPayPal" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewayPayPal" include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="updatePaymentGatewayConfigWorldPay" engine="simple" location="component://accounting/script/org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigWorldPay">
+    <service name="updatePaymentGatewayConfigWorldPay" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigWorldPay">
         <description>Update Payment Gateway Config WorldPay</description>
         <auto-attributes entity-name="PaymentGatewayWorldPay" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewayWorldPay" include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="updatePaymentGatewayConfigType" engine="simple" location="component://accounting/script/org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigType">
+    <service name="updatePaymentGatewayConfigType" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigType">
         <description>Update Payment Gateway Config Type</description>
         <auto-attributes entity-name="PaymentGatewayConfigType" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewayConfigType" include="nonpk" mode="IN" optional="true"/>
     </service>
     
-    <service name="updatePaymentGatewayConfigSecurePay" engine="simple" location="component://accounting/script/org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigSecurePay">
+    <service name="updatePaymentGatewayConfigSecurePay" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigSecurePay">
         <description>Update Payment Gateway Config SecurePay</description>
         <auto-attributes entity-name="PaymentGatewaySecurePay" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewaySecurePay" include="nonpk" mode="IN" optional="true"/>
@@ -90,7 +90,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     
-    <service name="updatePaymentGatewayConfigiDEAL" engine="simple" location="component://accounting/script/org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigiDEAL">
+    <service name="updatePaymentGatewayConfigiDEAL" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigiDEAL">
         <description>Update Payment Gateway Config iDEAL</description>
         <auto-attributes entity-name="PaymentGatewayiDEAL" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewayiDEAL" include="nonpk" mode="IN" optional="true"/>

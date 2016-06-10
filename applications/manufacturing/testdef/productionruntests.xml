@@ -26,6 +26,6 @@
     </test-case>
 
     <test-case case-name="production-run-tests">
-        <simple-method-test location="component://manufacturing/script/org/ofbiz/manufacturing/test/ProductionRunTests.xml"/>
+        <simple-method-test location="component://manufacturing/minilang/test/ProductionRunTests.xml"/>
     </test-case>
 </test-suite>

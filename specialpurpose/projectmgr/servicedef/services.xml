@@ -23,7 +23,7 @@ under the License.
     <description>Project Manager service definitions.</description>
 
     <service name="createTimeEntryInTimesheet" default-entity-name="TimeEntry" engine="simple" auth="true"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="createTimeEntryInTimesheet">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="createTimeEntryInTimesheet">
         <description>Creates TimeEntry and searches for a timesheetId, if required it will create a weekly time sheet, it also assigns the party to the task</description>
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -34,7 +34,7 @@ under the License.
     </service>
 
     <service name="createProjectTimesheet" engine="simple" default-entity-name="Timesheet"
-        location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimesheetForThisWeek">
+        location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="createTimesheetForThisWeek">
         <description>Creates Timesheet for this week if no required date specified.</description>
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -46,7 +46,7 @@ under the License.
     </service>
 
     <service name="projectMgrPermission" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectPermissionServices.xml" invoke="projectMgrPermission">
+        location="component://projectmgr/minilang/ProjectPermissionServices.xml" invoke="projectMgrPermission">
         <implements service="permissionInterface"/>
         <attribute name="projectId" type="String" mode="IN" optional="true"/>
         <attribute name="phaseId" type="String" mode="IN" optional="true"/>
@@ -58,12 +58,12 @@ under the License.
     </service>
     
     <service name="projectMgrRequestPermission" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectPermissionServices.xml" invoke="projectMgrRequestPermission">
+        location="component://projectmgr/minilang/ProjectPermissionServices.xml" invoke="projectMgrRequestPermission">
         <implements service="permissionInterface"/>
     </service>
     
     <service name="updateTimeEntryByWorkeffort" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="updateTimeEntryByWorkeffort">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="updateTimeEntryByWorkeffort">
         <description>Update workeffort by workeffortId and timesheetId </description>
         <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
         <attribute name="timesheetId" type="String" mode="INOUT" optional="false"/>
@@ -82,7 +82,7 @@ under the License.
     </service>
 
     <service name="getProject" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getProject">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="getProject">
         <description>Get project information and related phase and task info.</description>
         <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
@@ -91,7 +91,7 @@ under the License.
     </service>
 
     <service name="createProject" engine="simple" default-entity-name="WorkEffort"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="createProject">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="createProject">
         <description>Copy a project planning from a template.</description>
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <implements service="interfaceWorkEffort"/>
@@ -112,7 +112,7 @@ under the License.
     </service>
 
     <service name="updateProject" default-entity-name="WorkEffort" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="updateProject">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="updateProject">
         <description>Update a Project</description>
         <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
         <implements service="interfaceWorkEffort"/>
@@ -123,7 +123,7 @@ under the License.
     </service>
 
     <service name="createProjectTask" engine="simple" default-entity-name="WorkEffort"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="createProjectTask">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="createProjectTask">
         <description>Create a new task and optionally assign to a resource.</description>
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <implements service="interfaceWorkEffort"/>
@@ -144,7 +144,7 @@ under the License.
     </service>
 
     <service name="copyProject" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="copyProject">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="copyProject">
         <description>Copy a project planning data but ignore the actual data.</description>
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="false"/>
@@ -153,7 +153,7 @@ under the License.
     </service>
 
     <service name="copyProjectToTemplate" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="copyProjectToTemplate">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="copyProjectToTemplate">
         <description>Copy a project planning data to a template project.</description>
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="false"/>
@@ -162,14 +162,14 @@ under the License.
     </service>
 
     <service name="scheduleProject" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="scheduleProject">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="scheduleProject">
         <description>(re) calculate the estimated start and enddates of tasks within a project</description>
         <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
     </service>
 
     <service name="getProjectIdAndNameFromTask" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getProjectIdAndNameFromTask">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="getProjectIdAndNameFromTask">
         <description>Get the projectId and Name when a phase or task is provided.</description>
         <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="taskId" type="String" mode="INOUT" optional="true"/>
@@ -183,7 +183,7 @@ under the License.
     </service>
 
     <service name="getProjectPhaseList" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getProjectPhaseList">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="getProjectPhaseList">
         <description>Get project phase information and related task info.</description>
         <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
@@ -191,7 +191,7 @@ under the License.
     </service>
 
     <service name="getProjectTaskList" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getProjectTaskList">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="getProjectTaskList">
         <description>Get project phase information and related task info.</description>
         <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
@@ -199,7 +199,7 @@ under the License.
     </service>
 
     <service name="getProjectTask" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getProjectTask">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="getProjectTask">
         <description>Get project task information and related timesheet info.</description>
         <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="hoursPartyId" type="String" mode="IN" optional="true"/>
@@ -210,7 +210,7 @@ under the License.
     </service>
 
     <service name="getProjectsByParties" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getProjectsByParties">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="getProjectsByParties">
         <description>Get project information by party</description>
         <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
@@ -219,7 +219,7 @@ under the License.
     </service>
 
     <service name="getTasksByParties" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getTasksByParties">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="getTasksByParties">
         <description>Get project information by party</description>
         <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="workEffortId" type="String" mode="INOUT" optional="true"/>
@@ -228,7 +228,7 @@ under the License.
     </service>
 
     <service name="updateTaskAndRelatedInfo" default-entity-name="WorkEffort" engine="simple"
-            location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="updateTaskAndRelatedInfo">
+            location="component://projectmgr/minilang/ProjectServices.xml" invoke="updateTaskAndRelatedInfo">
         <description>Update a task and related info</description>
         <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <implements service="interfaceWorkEffort"/>
@@ -241,7 +241,7 @@ under the License.
     </service>
  
      <service name="updateTaskAssigment" default-entity-name="WorkEffortPartyAssignment" engine="simple"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="updateTaskAssigment">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="updateTaskAssigment">
         <description>Update a WorkEffortPartyAssignment Entity, including set enddate and create new</description>
         <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="INOUT"/>
@@ -256,7 +256,7 @@ under the License.
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
     <service name="addProjectTimeToNewInvoice" engine="simple" auth="true"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="addProjectTimeToNewInvoice">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="addProjectTimeToNewInvoice">
         <description>Add Project Time to a new Invoice</description>
         <attribute name="projectId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
@@ -266,7 +266,7 @@ under the License.
         <attribute name="reCreate" type="String" mode="IN" optional="true"/>
     </service>
     <service name="addValidationPartiesToTask" engine="simple" auth="true"
-        location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="addValidationPartiesToTask">
+        location="component://projectmgr/minilang/ProjectServices.xml" invoke="addValidationPartiesToTask">
         <description>SECA to add either project-testing or -approval parties to a task when a task is set to complete</description>
         <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>

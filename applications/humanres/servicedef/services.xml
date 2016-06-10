@@ -67,7 +67,7 @@ under the License.
     </service>
 
     <service name="createPartySkill" engine="simple" default-entity-name="PartySkill"
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createPartySkill" auth="true">
+             location="component://humanres/minilang/HumanResServices.xml" invoke="createPartySkill" auth="true">
         <description>Create Skill for a Party</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -255,7 +255,7 @@ under the License.
     </service>
 
     <service name="deletePayHistory" engine="simple" default-entity-name="PayHistory"
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="deletePayHistory" auth="true">
+             location="component://humanres/minilang/HumanResServices.xml" invoke="deletePayHistory" auth="true">
         <description>Delete Pay History</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -284,7 +284,7 @@ under the License.
     </service>
 
     <service name="createSalaryStep" engine="simple" default-entity-name="SalaryStep"
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createSalaryStep" auth="true">
+             location="component://humanres/minilang/HumanResServices.xml" invoke="createSalaryStep" auth="true">
         <description>Create Salary Step</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -293,7 +293,7 @@ under the License.
     </service>
 
     <service name="updateSalaryStep" engine="simple" default-entity-name="SalaryStep"
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updateSalaryStep" auth="true">
+             location="component://humanres/minilang/HumanResServices.xml" invoke="updateSalaryStep" auth="true">
         <description>Update Salary Step</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -391,7 +391,7 @@ under the License.
     </service>
 
     <service name="createEmplPositionReportingStruct" engine="simple" default-entity-name="EmplPositionReportingStruct"
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplPositionReportingStruct" auth="true">
+             location="component://humanres/minilang/HumanResServices.xml" invoke="createEmplPositionReportingStruct" auth="true">
         <description>Create Employee Position Reporting Structure</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -455,7 +455,7 @@ under the License.
     </service>
 
     <service name="humanResManagerPermission" engine="simple"
-        location="component://humanres/script/org/ofbiz/humanres/permission/HumanResPermissionServices.xml" invoke="humanResManagerPermission" auth="true">
+        location="component://humanres/minilang/permission/HumanResPermissionServices.xml" invoke="humanResManagerPermission" auth="true">
         <implements service="permissionInterface"/>
     </service>
 
@@ -480,7 +480,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="createEmployee" engine="simple"
-        location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createEmployee">
+        location="component://humanres/minilang/HumanResServices.xml" invoke="createEmployee">
         <description>Create an Employee its role and contact details</description>
         <auto-attributes entity-name="Person" mode="IN" optional="true">
             <exclude field-name="partyId"/>
@@ -561,7 +561,7 @@ under the License.
     </service>
 
     <service name="updateEmplPositionTypeRate" engine="simple" default-entity-name="EmplPositionTypeRate"
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updateEmplPositionTypeRate" auth="true">
+             location="component://humanres/minilang/HumanResServices.xml" invoke="updateEmplPositionTypeRate" auth="true">
         <description>Update Valid EmplPositionTypeRate</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -573,7 +573,7 @@ under the License.
     </service>
 
     <service name="deleteEmplPositionTypeRate" engine="simple" default-entity-name="EmplPositionTypeRate"
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="deleteEmplPositionTypeRate" auth="true">
+             location="component://humanres/minilang/HumanResServices.xml" invoke="deleteEmplPositionTypeRate" auth="true">
         <description>Delete Valid EmplPositionTypeRate</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -602,7 +602,7 @@ under the License.
     </service>
     
     <service name="createEmplLeave" engine="simple" default-entity-name="EmplLeave"
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplLeave" auth="true">
+             location="component://humanres/minilang/HumanResServices.xml" invoke="createEmplLeave" auth="true">
         <description>Create Employee Leave</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -649,7 +649,7 @@ under the License.
     </service>
 
     <service name="getCurrentPartyEmploymentData" engine="simple"
-        location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="getCurrentPartyEmploymentData" auth="true">
+        location="component://humanres/minilang/HumanResServices.xml" invoke="getCurrentPartyEmploymentData" auth="true">
         <description>Delete Valid LeaveType</description>
         <permission-service service-name="humanResManagerPermission" main-action="VIEW"/>
         <attribute name="partyId" type="String" mode="IN"/>
@@ -779,7 +779,7 @@ under the License.
     </service>
 
     <service name="applyTraining" engine="simple" default-entity-name="PersonTraining" 
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="applyTraining" auth="true">
+             location="component://humanres/minilang/HumanResServices.xml" invoke="applyTraining" auth="true">
         <description>Create Training Request</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -790,7 +790,7 @@ under the License.
     </service>
 
     <service name="assignTraining" engine="simple" default-entity-name="PersonTraining" 
-             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="assignTraining" auth="true">
+             location="component://humanres/minilang/HumanResServices.xml" invoke="assignTraining" auth="true">
         <description>Create Training Request</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>

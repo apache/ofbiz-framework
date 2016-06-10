@@ -26,7 +26,7 @@ under the License.
 
     <!-- Budget  -->
     <service name="createBudget" default-entity-name="Budget" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="createBudget" auth="true">
+                location="component://accounting/minilang/budget/BudgetServices.xml" invoke="createBudget" auth="true">
         <description>Create a Budget</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -38,7 +38,7 @@ under the License.
     </service>
 
     <service name="updateBudgetStatus" default-entity-name="BudgetStatus" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="updateBudgetStatus">
+                location="component://accounting/minilang/budget/BudgetServices.xml" invoke="updateBudgetStatus">
         <description>Update a Budget</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
