@@ -87,7 +87,7 @@ under the License.
                 <set field="fromDate" from-field="requestParameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="requestParameters.thruDate" type="Timestamp"/>
                 <set field="trackingCodeId" from-field="requestParameters.trackingCodeId"/>
-                <script location="component://marketing/webapp/marketing/WEB-INF/actions/reports/TrackingCodeReport.groovy"/>
+                <script location="component://marketing/groovyScripts/marketing/reports/TrackingCodeReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMarketReportDecorator">
@@ -109,7 +109,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="fromDate" from-field="requestParameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="requestParameters.thruDate" type="Timestamp"/>
-                <script location="component://marketing/webapp/marketing/WEB-INF/actions/reports/MarketingCampaignReport.groovy"/>
+                <script location="component://marketing/groovyScripts/marketing/reports/MarketingCampaignReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMarketReportDecorator">
@@ -132,7 +132,7 @@ under the License.
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom" type="String"/>
                 <set field="partyIdTo" from-field="parameters.partyIdTo" type="String"/>
                 <set field="roleStatusId" from-field="parameters.roleStatusId" type="String"/>
-                <script location="component://marketing/webapp/marketing/WEB-INF/actions/reports/EmailStatusReport.groovy"/>
+                <script location="component://marketing/groovyScripts/marketing/reports/EmailStatusReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMarketReportDecorator">
@@ -154,7 +154,7 @@ under the License.
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <set field="contactListId" from-field="parameters.contactListId" type="String"/>
                 <set field="statusId" from-field="parameters.statusId" type="String"/>
-                <script location="component://marketing/webapp/marketing/WEB-INF/actions/reports/PartyStatusReport.groovy"/>
+                <script location="component://marketing/groovyScripts/marketing/reports/PartyStatusReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMarketReportDecorator">

@@ -130,7 +130,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="Leads"/>
                 <set field="tabButtonItem" value="CloneLead"/>
-                <script location="component://marketing/webapp/sfa/WEB-INF/action/CloneLead.groovy"/>
+                <script location="component://marketing/groovyScripts/sfa/CloneLead.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
@@ -149,7 +149,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="Leads"/>
                 <set field="tabButtonItem" value="MergeLeads"/>
-                <script location="component://marketing/webapp/sfa/WEB-INF/action/MergeContacts.groovy"/>
+                <script location="component://marketing/groovyScripts/sfa/MergeContacts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
