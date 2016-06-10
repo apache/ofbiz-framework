@@ -67,7 +67,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindQuickReturn"/>
                 <set field="headerItem" value="return"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/QuickReturn.groovy"/>
+                <script location="component://order/groovyScripts/return/QuickReturn.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator" location="${parameters.orderReturnDecoratorLocation}">
@@ -90,7 +90,7 @@ under the License.
                 <set field="tabButtonItem" value="OrderReturnHeader"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/ordermgr-js/return.js" global="true"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHeader.groovy"/>
+                <script location="component://order/groovyScripts/return/ReturnHeader.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator" location="${parameters.orderReturnDecoratorLocation}">
@@ -131,7 +131,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleReturnItems"/>
                 <set field="headerItem" value="return"/>
                 <set field="tabButtonItem" value="OrderReturnItems"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnItems.groovy"/>
+                <script location="component://order/groovyScripts/return/ReturnItems.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator" location="${parameters.orderReturnDecoratorLocation}">
@@ -158,7 +158,7 @@ under the License.
                 <set field="headerItem" value="return"/>
                 <set field="tabButtonItem" value="OrderReturnHistory"/>
                 <set field="returnId" from-field="parameters.returnId"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnItems.groovy"/>
+                <script location="component://order/groovyScripts/return/ReturnItems.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator" location="${parameters.orderReturnDecoratorLocation}">
@@ -208,7 +208,7 @@ under the License.
         <section>
             <actions>
                 <set field="entityField" value="returnTypeId"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHistory.groovy"/>
+                <script location="component://order/groovyScripts/return/ReturnHistory.groovy"/>
             </actions>
             <widgets>
                 <section>
@@ -236,7 +236,7 @@ under the License.
         <section>
             <actions>
                 <set field="entityField" value="returnReasonId"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHistory.groovy"/>
+                <script location="component://order/groovyScripts/return/ReturnHistory.groovy"/>
             </actions>
             <widgets>
                 <section>
@@ -264,7 +264,7 @@ under the License.
         <section>
             <actions>
                 <set field="entityField" value="returnQuantity"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHistory.groovy"/>
+                <script location="component://order/groovyScripts/return/ReturnHistory.groovy"/>
             </actions>
             <widgets>
                 <section>
@@ -292,7 +292,7 @@ under the License.
         <section>
             <actions>
                 <set field="entityField" value="receivedQuantity"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHistory.groovy"/>
+                <script location="component://order/groovyScripts/return/ReturnHistory.groovy"/>
             </actions>
             <widgets>
                 <section>
@@ -320,7 +320,7 @@ under the License.
         <section>
             <actions>
                 <set field="entityField" value="returnPrice"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHistory.groovy"/>
+                <script location="component://order/groovyScripts/return/ReturnHistory.groovy"/>
             </actions>
             <widgets>
                 <section>

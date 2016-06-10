@@ -37,7 +37,7 @@ under the License.
     <screen name="keywordsearchbox">
         <section>
             <actions>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/KeywordSearchOptions.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/KeywordSearchOptions.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/template/entry/catalog/KeywordSearchBox.ftl"/></html></platform-specific>
@@ -49,7 +49,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/SideDeepCategory.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/SideDeepCategory.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/catalog/SideDeepCategory.ftl"/></html></platform-specific>
@@ -81,7 +81,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/SideDeepCategory.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/SideDeepCategory.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/catalog/MiniLastViewedCategories.ftl"/></html></platform-specific>
@@ -132,7 +132,7 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductSummary.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/ProductSummary.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/template/entry/catalog/ProductSummary.ftl"/></html></platform-specific>
@@ -144,7 +144,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/SideDeepCategory.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/SideDeepCategory.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/template/entry/catalog/BreadCrumbs.ftl"/></html></platform-specific>
@@ -163,7 +163,7 @@ under the License.
                 <set field="MainColumnStyle" value="center"/>
 
                 <set field="titleProperty" value="PageTitleCategoryPage"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/Category.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/Category.groovy"/>
                 <!-- Open this commented section for the demo of Layered Navigation, navigate through Gizmo and Widgets categories to see it in action.
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/LayeredNavigation.groovy"/>
                 <set field="detailScreen" value="LayeredCategoryDetail"/>
@@ -205,7 +205,7 @@ under the License.
                 <set field="productsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#productsummary"/>
                 <set field="productCategoryLinkScreen" value="component://ecommerce/widget/CatalogScreens.xml#ProductCategoryLink"/>
 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/CategoryDetail.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/CategoryDetail.groovy"/>
 
                 <entity-and entity-name="ProductCategoryLink" list="productCategoryLinks" use-cache="true" filter-by-date="true">
                     <field-map field-name="productCategoryId" from-field="productCategoryId"/>
@@ -252,7 +252,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleProductPage"/>
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/productAdditionalView.js" global="true"/>
                 <set field="configproductdetailScreen" value="component://ecommerce/widget/CatalogScreens.xml#configproductdetail"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/Product.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/Product.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -279,7 +279,7 @@ under the License.
             <actions>
                 <set field="productsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#productsummary"/>
 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductDetail.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/ProductDetail.groovy"/>
             </actions>
             <widgets>
                 <include-screen name="breadcrumbs"/>
@@ -291,7 +291,7 @@ under the License.
     <screen name="inlineProductDetail">
         <section>
             <actions>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/InlineProductDetail.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/InlineProductDetail.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/template/entry/catalog/InlineProductDetail.ftl"/></html></platform-specific>
@@ -304,8 +304,8 @@ under the License.
             <actions>
                 <set field="productsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#productsummary"/>
                 <set field="inlineProductDetailScreen" value="component://ecommerce/widget/CatalogScreens.xml#inlineProductDetail"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductDetail.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/PrepareConfigForm.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/ProductDetail.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/PrepareConfigForm.groovy"/>
             </actions>
             <widgets>
                 <include-screen name="breadcrumbs"/>
@@ -384,7 +384,7 @@ under the License.
                 <set field="quickaddsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#quickaddsummary"/>
 
                 <set field="titleProperty" value="PageTitleQuickAdd"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/QuickAdd.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/QuickAdd.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -399,7 +399,7 @@ under the License.
     <screen name="quickaddsummary">
         <section>
             <actions>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductSummary.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/ProductSummary.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/template/entry/catalog/QuickAddSummary.ftl"/></html></platform-specific>
@@ -418,7 +418,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleSearchResults"/>
                 <set field="parameters.VIEW_SIZE" from-field="parameters.VIEW_SIZE" default-value="10"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/KeywordSearch.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/KeywordSearch.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -441,7 +441,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleTagResults"/>
                 <set field="parameters.VIEW_SIZE" from-field="parameters.VIEW_SIZE" default-value="10"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/KeywordSearch.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/KeywordSearch.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -462,7 +462,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleAdvancedSearch"/>
                 <set field="headerItem" value="Advanced Search"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/AdvancedSearchOptions.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/AdvancedSearchOptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -536,7 +536,7 @@ under the License.
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/Category.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/Category.groovy"/>
                 <set field="fromSetSessionLocale" value="${groovy: return request.getAttribute('fromSetSessionLocale');}"/>
                 <set field="visualThemeId" from-field="productStore.visualThemeId" default-value="EC_DEFAULT"/>
                 <service service-name="getVisualThemeResources">

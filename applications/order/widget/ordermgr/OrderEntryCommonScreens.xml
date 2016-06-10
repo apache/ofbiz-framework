@@ -22,7 +22,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="orderentry"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetShoppingCart.groovy"/>
+                <script location="component://order/groovyScripts/entry/SetShoppingCart.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -47,7 +47,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="orderentry"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetShoppingCart.groovy"/>
+                <script location="component://order/groovyScripts/entry/SetShoppingCart.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

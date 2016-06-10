@@ -1221,7 +1221,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="pickMoveInfoList" from-field="parameters.pickMoveInfoList"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/CompanyHeader.groovy"/>
+                <script location="component://order/groovyScripts/order/CompanyHeader.groovy"/>
             </actions>
             <widgets>
                 <section>

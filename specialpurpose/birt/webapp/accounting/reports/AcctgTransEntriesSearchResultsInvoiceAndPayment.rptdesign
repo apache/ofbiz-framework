@@ -838,7 +838,7 @@ context.put("locale", reportContext.getLocale());
 context.put("parameters", parameters);
 context.put("delegator", delegator);
 context.put("dispatcher", dispatcher);
-GroovyUtil.runScriptAtLocation("component://order/webapp/ordermgr/WEB-INF/actions/order/CompanyHeader.groovy", context);
+GroovyUtil.runScriptAtLocation("component://order/groovyScripts/order/CompanyHeader.groovy", context);
 var postalAddress = context.get("postalAddress");
 var country = postalAddress.getRelatedOne("CountryGeo", false);
 var phone = context.get("phone");

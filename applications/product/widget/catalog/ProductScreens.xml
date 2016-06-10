@@ -1283,7 +1283,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewProductOrders"/>
                 <set field="tabButtonItem" value="viewProductOrder"/>
                 <set field="labelTitleProperty" value="OrderOrders"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FindOrders.groovy"/>
+                <script location="component://order/groovyScripts/order/FindOrders.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">

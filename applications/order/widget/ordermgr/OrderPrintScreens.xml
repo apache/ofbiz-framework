@@ -32,7 +32,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderView.groovy"/>
+                <script location="component://order/groovyScripts/order/OrderView.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
@@ -79,7 +79,7 @@ under the License.
     <screen name="CompanyLogo">
         <section>
             <actions>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/CompanyHeader.groovy"/>
+                <script location="component://order/groovyScripts/order/CompanyHeader.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><xsl-fo><html-template location="component://order/template/order/CompanyHeader.fo.ftl"/></xsl-fo></platform-specific>
@@ -93,8 +93,8 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHeader.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnItems.groovy"/>
+                <script location="component://order/groovyScripts/return/ReturnHeader.groovy"/>
+                <script location="component://order/groovyScripts/return/ReturnItems.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
@@ -144,7 +144,7 @@ under the License.
                 <set field="titleProperty" value="OrderShipGroups"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/ShipGroups.groovy"/>
+                <script location="component://order/groovyScripts/order/ShipGroups.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">

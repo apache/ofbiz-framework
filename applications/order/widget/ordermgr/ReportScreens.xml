@@ -239,7 +239,7 @@ under the License.
                 <set field="viewIndex" value="${parameters.VIEW_INDEX}" default-value="0" type="Integer"/>
                 <set field="fromOrderDate" from-field="parameters.fromOrderDate" type="Timestamp"/>
                 <set field="thruOrderDate" from-field="parameters.thruOrderDate" type="Timestamp"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/reports/OpenOrderItemsReport.groovy"/>
+                <script location="component://order/groovyScripts/reports/OpenOrderItemsReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

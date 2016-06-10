@@ -48,7 +48,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="MarketingReports"/>
-                <!--  <script location="component://order/webapp/ordermgr/WEB-INF/actions/reports/ReportList.groovy"/>-->
+                <!--  <script location="component://order/groovyScripts/reports/ReportList.groovy"/>-->
             </actions>
             <widgets>
                 <decorator-screen name="CommonMarketReportDecorator">

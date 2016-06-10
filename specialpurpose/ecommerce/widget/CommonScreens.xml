@@ -313,7 +313,7 @@ under the License.
                 <set field="randomSurveyGroup" value="testSurveyGroup"/>
 
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/Main.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/Category.groovy"/>
+                <script location="component://order/groovyScripts/entry/catalog/Category.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

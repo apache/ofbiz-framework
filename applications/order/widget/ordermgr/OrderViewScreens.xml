@@ -55,8 +55,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/order.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/OrderShippingInfo.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/geoAutoCompleter.js" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderView.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderViewWebSecure.groovy"/>
+                <script location="component://order/groovyScripts/order/OrderView.groovy"/>
+                <script location="component://order/groovyScripts/order/OrderViewWebSecure.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -202,8 +202,8 @@ under the License.
                 <set field="titleProperty" value="OrderLookupOrder"/>
                 <set field="headerItem" value="orderlist"/>
                 <set field="filterDate" type="Timestamp" from-field="parameters.filterDate"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderList.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FilterOrderList.groovy"/>
+                <script location="component://order/groovyScripts/order/OrderList.groovy"/>
+                <script location="component://order/groovyScripts/order/FilterOrderList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -221,8 +221,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderEditItems"/>
                 <set field="headerItem" value="orderlist"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderView.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderViewWebSecure.groovy"/>
+                <script location="component://order/groovyScripts/order/OrderView.groovy"/>
+                <script location="component://order/groovyScripts/order/OrderViewWebSecure.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -245,7 +245,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderFindOrder"/>
                 <set field="headerItem" value="findorders"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FindOrders.groovy"/>
+                <script location="component://order/groovyScripts/order/FindOrders.groovy"/>
                 <script location="component://content/groovyScripts/print/FindPrinters.groovy"/>
 
                 <!-- asmslect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
@@ -277,7 +277,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderAddNote"/>
                 <set field="headerItem" value="findorders"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/NewNote.groovy"/>
+                <script location="component://order/groovyScripts/order/NewNote.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -305,7 +305,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderDeliveryScheduleInfo.groovy"/>
+                <script location="component://order/groovyScripts/order/OrderDeliveryScheduleInfo.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -323,7 +323,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderOrderStatisticsPage"/>
                 <set field="headerItem" value="stats"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderStats.groovy"/>
+                <script location="component://order/groovyScripts/order/OrderStats.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -341,7 +341,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderReceiveOfflinePayments"/>
                 <set field="headerItem" value="findorders"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/ReceivePayment.groovy"/>
+                <script location="component://order/groovyScripts/order/ReceivePayment.groovy"/>
                 <entity-and entity-name="OrderRole" list="orderRoles">
                   <field-map field-name="orderId" value="${parameters.orderId}"/>
                   <field-map field-name="roleTypeId" value="BILL_FROM_VENDOR"/>
@@ -365,7 +365,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderViewImage"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/ViewImage.groovy"/>
+                <script location="component://order/groovyScripts/order/ViewImage.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/template/order/ViewImage.ftl"/></html></platform-specific>
@@ -378,7 +378,7 @@ under the License.
                 <set field="titleProperty" value="OrderSendConfirmationEmail"/>
                 <set field="headerItem" value="findorders"/>
                 <set field="emailType" value="PRDS_ODR_CONFIRM"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/SendConfirmationEmail.groovy"/>
+                <script location="component://order/groovyScripts/order/SendConfirmationEmail.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -397,7 +397,7 @@ under the License.
                 <set field="titleProperty" value="OrderSendConfirmationEmail"/>
                 <set field="headerItem" value="findorders"/>
                 <set field="emailType" value="PRDS_ODR_COMPLETE"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/SendConfirmationEmail.groovy"/>
+                <script location="component://order/groovyScripts/order/SendConfirmationEmail.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -436,7 +436,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="findorders"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderHistory.groovy"/>
+                <script location="component://order/groovyScripts/order/OrderHistory.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -539,7 +539,7 @@ under the License.
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="filterDate" type="Timestamp" value="${nowTimestamp}"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderList.groovy"/>
+                <script location="component://order/groovyScripts/order/OrderList.groovy"/>
             </actions>
             <widgets>
                 <section>
