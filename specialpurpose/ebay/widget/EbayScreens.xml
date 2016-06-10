@@ -31,7 +31,7 @@ under the License.
                     <order-by field-name="description"/>
                 </entity-condition>
                 <script location="component://product/groovyScripts/catalog/find/advancedsearchoptions.groovy"/>
-                <script location="component://ebay/webapp/ebay/WEB-INF/actions/find/EbayAdvancedSearch.groovy"/>
+                <script location="component://ebay/groovyScripts/EbayAdvancedSearch.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
@@ -78,7 +78,7 @@ under the License.
                     <condition-expr field-name="geoTypeId" value="COUNTRY"/>
                     <order-by field-name="geoName"/>
                 </entity-condition>
-                <script location="component://ebay/webapp/ebay/WEB-INF/actions/find/ProductsExportToEbay.groovy"/>
+                <script location="component://ebay/groovyScripts/ProductsExportToEbay.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
@@ -148,7 +148,7 @@ under the License.
                 <set field="titleProperty" value="EbayEBayOrders"/>
                 <set field="headerItem" value="eBayOrders"/>
                 <set field="orderList" from-field="parameters.orderList"/>
-                <script location="component://ebay/webapp/ebay/WEB-INF/actions/find/eBayOrders.groovy"/>
+                <script location="component://ebay/groovyScripts/eBayOrders.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
@@ -260,7 +260,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="EbayEBayOrders"/>
                 <set field="headerItem" value="eBayOrders"/>
-                <script location="component://ebay/webapp/ebay/WEB-INF/actions/find/updatedEbayOrders.groovy"/>
+                <script location="component://ebay/groovyScripts/updatedEbayOrders.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">

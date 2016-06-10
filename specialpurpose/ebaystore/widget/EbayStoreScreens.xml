@@ -208,7 +208,7 @@ under the License.
                     <order-by field-name="description"/>
                 </entity-condition>
                 <script location="component://product/groovyScripts/catalog/find/advancedsearchoptions.groovy"/>
-                <script location="component://ebay/webapp/ebay/WEB-INF/actions/find/EbayAdvancedSearch.groovy"/>
+                <script location="component://ebay/groovyScripts/EbayAdvancedSearch.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
