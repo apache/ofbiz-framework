@@ -72,7 +72,7 @@ under the License.
         <section>
             <actions>
                 <set field="partyId" from-field="defaultOrganizationPartyId"/>
-                <script location="component://humanres/webapp/humanres/WEB-INF/actions/category/CategoryTree.groovy"></script>
+                <script location="component://humanres/groovyScripts/category/CategoryTree.groovy"></script>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.FormFieldTitle_company}">
