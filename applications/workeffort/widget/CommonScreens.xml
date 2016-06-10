@@ -159,7 +159,7 @@ under the License.
                                 <if-has-permission permission="WORKEFFORTMGR" action="_VIEW" />
                             </condition>
                             <actions>
-                                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Days.groovy" />
+                                <script location="component://workeffort/groovyScripts/workeffort/calendar/Days.groovy" />
                             </actions>
                             <widgets>
                                 <screenlet id="calendarOptions" name="calendarOptionsScreenlet" collapsible="true" title="${uiLabelMap.WorkEffortCalendarFindEntries}">

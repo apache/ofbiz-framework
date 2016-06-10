@@ -26,7 +26,7 @@ under the License.
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="parameters.period" from-field="parameters.period" default-value="${initialView}"/>
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/CreateUrlParam.groovy"/>
+                <script location="component://workeffort/groovyScripts/workeffort/calendar/CreateUrlParam.groovy"/>
                 <set field="parentTypeId" from-field="parameters.parentTypeId" default-value="EVENT"/><!-- workeffortTypeId parent to ad events --> 
             </actions>
             <widgets>
@@ -45,7 +45,7 @@ under the License.
                     <actions>
                         <set field="titleProperty" value="PageTitleCalendarDay"/>
                         <set field="tabButtonItem" value="day"/>
-                        <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Days.groovy"/>
+                        <script location="component://workeffort/groovyScripts/workeffort/calendar/Days.groovy"/>
                     </actions>
                     <widgets>
                       <include-screen name="eventDetail"/>
@@ -67,7 +67,7 @@ under the License.
                         </or>
                     </condition>
                     <actions>
-                        <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Week.groovy"/>
+                        <script location="component://workeffort/groovyScripts/workeffort/calendar/Week.groovy"/>
                     </actions>
                     <widgets>
                       <include-screen name="eventDetail"/>
@@ -86,7 +86,7 @@ under the License.
                         <if-compare field="parameters.period" operator="equals" value="month"/>
                     </condition>
                     <actions>
-                        <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Month.groovy"/>
+                        <script location="component://workeffort/groovyScripts/workeffort/calendar/Month.groovy"/>
                     </actions>
                     <widgets>
                       <include-screen name="eventDetail"/>
@@ -105,7 +105,7 @@ under the License.
                         <if-compare field="parameters.period" operator="equals" value="upcoming"/>
                     </condition>
                     <actions>
-                        <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Upcoming.groovy"/>
+                        <script location="component://workeffort/groovyScripts/workeffort/calendar/Upcoming.groovy"/>
                     </actions>
                     <widgets>
                       <include-screen name="eventDetail"/>
@@ -127,7 +127,7 @@ under the License.
         <section>
             <actions>
                 <set field="parameters.period" from-field="parameters.period" default-value="${initialView}"/>
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/CreateUrlParam.groovy"/>
+                <script location="component://workeffort/groovyScripts/workeffort/calendar/CreateUrlParam.groovy"/>
                 <set field="titleProperty" value="WorkEffortCalendar"/>
             </actions>
             <widgets>
@@ -154,7 +154,7 @@ under the License.
                         <not><if-empty field="workEffort" /></not>
                     </condition>
                     <actions>
-                        <script location="component:///workeffort/webapp/ical/WEB-INF/actions/isCalOwner.groovy" />
+                        <script location="component:///workeffort/groovyScripts/ical/isCalOwner.groovy" />
                     </actions>
                     <widgets />
                 </section>

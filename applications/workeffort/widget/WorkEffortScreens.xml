@@ -674,7 +674,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/find/WorkEffortSearchResults.groovy"/>
+                <script location="component://workeffort/groovyScripts/workeffort/find/WorkEffortSearchResults.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
@@ -692,7 +692,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/find/WorkEffortSearchOptions.groovy"/>
+                <script location="component://workeffort/groovyScripts/workeffort/find/WorkEffortSearchOptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
