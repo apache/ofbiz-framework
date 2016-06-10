@@ -142,7 +142,7 @@ under the License.
 
     <request-map uri="updatedEbayOrders">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://ebay/webapp/ebay/WEB-INF/actions/find/updatedEbayOrders.groovy"/>
+        <event type="groovy" path="component://ebay/groovyScripts/updatedEbayOrders.groovy"/>
         <response name="success" type="view" value="FindEbayOrders"/>
         <response name="failure" type="view" value="FindEbayOrders"/>
         <response name="error" type="view" value="FindEbayOrders"/>
