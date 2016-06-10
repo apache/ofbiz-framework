@@ -25,7 +25,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="find"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.groovy"/>
+                <script location="component://party/groovyScripts/HasPartyPermissions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -62,8 +62,8 @@ under the License.
                 <set field="tabButtonItem" value="editcreditcard"/>
                 <set field="cardNumberMinDisplay" value="min"/>
                 <set field="showToolTip" value="true"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/EditPaymentMethod.groovy"/>
+                <script location="component://party/groovyScripts/HasPartyPermissions.groovy"/>
+                <script location="component://party/groovyScripts/party/EditPaymentMethod.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="PaymentMethodDecorator">
@@ -82,8 +82,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditGiftCard"/>
                 <set field="tabButtonItem" value="editgiftcard"/>
 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/EditPaymentMethod.groovy"/>
+                <script location="component://party/groovyScripts/HasPartyPermissions.groovy"/>
+                <script location="component://party/groovyScripts/party/EditPaymentMethod.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="PaymentMethodDecorator">
@@ -102,8 +102,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditEftAccount"/>
                 <set field="tabButtonItem" value="editeftaccount"/>
 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/EditPaymentMethod.groovy"/>
+                <script location="component://party/groovyScripts/HasPartyPermissions.groovy"/>
+                <script location="component://party/groovyScripts/party/EditPaymentMethod.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="PaymentMethodDecorator">

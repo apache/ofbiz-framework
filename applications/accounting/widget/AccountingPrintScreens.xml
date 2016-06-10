@@ -33,7 +33,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingInvoice"/>
                 <script location="component://accounting/groovyScripts/invoice/EditInvoice.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>
+                <script location="component://party/groovyScripts/party/GetMyCompany.groovy"/>
             </actions>
             <widgets>
                 <section>

@@ -44,7 +44,7 @@ under the License.
                 <set field="displayFields" value="[geoId, geoName, geoCode]"/>
                 
                 <!-- optional: additional entity condition (named andCondition) added to search query -->
-                <!-- example : script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy" /-->
+                <!-- example : script location="component://party/groovyScripts/party/StatusCondition.groovy" /-->
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -81,7 +81,7 @@ under the License.
                 <set field="displayFields" value="[geoId, geoName, geoCode]"/>
 
                 <!-- optional: additional entity condition (named andCondition) added to search query -->
-                <!-- example : script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy" /-->
+                <!-- example : script location="component://party/groovyScripts/party/StatusCondition.groovy" /-->
                 
             </actions>
             <widgets>

@@ -29,7 +29,7 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="findparty"/>
                 <set field="initialyCollapsed" value="${groovy:'Y'.equals(parameters.hideFields)}" type="String"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindParty.groovy"/>
+                <script location="component://party/groovyScripts/party/FindParty.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -68,7 +68,7 @@ under the License.
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -400,7 +400,7 @@ under the License.
 
                 <set field="labelTitleProperty" value="PartyShoppingLists"/>
 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/EditShoppingList.groovy"/>
+                <script location="component://party/groovyScripts/party/EditShoppingList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -423,8 +423,8 @@ under the License.
 
                 <set field="labelTitleProperty" value="PageTitleEditContactMech"/>
 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/EditContactMech.groovy"/>
+                <script location="component://party/groovyScripts/HasPartyPermissions.groovy"/>
+                <script location="component://party/groovyScripts/party/EditContactMech.groovy"/>
 
                 <set field="dependentForm" value="editcontactmechform"/>
                 <set field="paramKey" value="countryGeoId"/>
@@ -826,7 +826,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleAddressMatches"/>
                 <set field="headerItem" value="addrmap"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindMatches.groovy"/>
+                <script location="component://party/groovyScripts/party/FindMatches.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1122,7 +1122,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitlePartyGeoLocation"/>
                 <set field="tabButtonItem" value="PartyGeoLocation"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/PartyGeoLocation.groovy"/>
+                <script location="component://party/groovyScripts/party/PartyGeoLocation.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1162,7 +1162,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitlePartyGeoLocation"/>
                 <set field="tabButtonItem" value="PartyGeoLocation"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/PartyGeoLocation.groovy"/>
+                <script location="component://party/groovyScripts/party/PartyGeoLocation.groovy"/>
             </actions>
             <widgets>
                 <label>${uiLabelMap.CommonLatitude} ${latestGeoPoint.latitude}</label>
@@ -1178,7 +1178,7 @@ under the License.
                 <set field="titleProperty" value="PageTitlePartyGeoLocation"/>
                 <set field="tabButtonItem" value="PartyGeoLocation"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetGeoLocation.groovy"/>
+                <script location="component://party/groovyScripts/party/GetGeoLocation.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1267,7 +1267,7 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="postalAddressTemplateSuffix" value=".ftl"/>
                 <set field="addressTemplatePath" value="${sys:getProperty('ofbiz.home')}/applications/party/webapp/partymgr/party/contactmechtemplates/"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetPostalAddressTemplate.groovy"/>
+                <script location="component://party/groovyScripts/party/GetPostalAddressTemplate.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -1284,7 +1284,7 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="postalAddressTemplateSuffix" value=".fo.ftl"/>
                 <set field="addressTemplatePath" value="${sys:getProperty('ofbiz.home')}/applications/party/template/party/contactmechtemplates/"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetPostalAddressTemplate.groovy"/>
+                <script location="component://party/groovyScripts/party/GetPostalAddressTemplate.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>

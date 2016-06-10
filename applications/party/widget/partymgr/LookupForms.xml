@@ -43,7 +43,7 @@ under the License.
             <set field="inputFields" from-field="parameters"/>
             <set field="orderBy" value="partyId"/>
             <set field="entityName" value="PartyNameView"/>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
+            <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
         </actions>
         <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="display"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
@@ -80,7 +80,7 @@ under the License.
             <set field="inputFields" from-field="parameters"/>
             <set field="orderBy" value="partyId"/>
             <set field="entityName" value="PartyNameContactMechView"/>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
+            <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
         </actions>
         <row-actions>
             <set field="name" value="${firstName} ${middleName} ${lastName} ${groupName}"/>
@@ -114,7 +114,7 @@ under the License.
             <set field="inputFields" from-field="parameters"/>
             <set field="orderBy" value="partyId"/>
             <set field="entityName" value="PartyRoleNameDetail"/>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
+            <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
@@ -182,7 +182,7 @@ under the License.
     <form name="listLookupPerson" type="list" list-name="listIt" paginate-target="LookupPerson"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
+            <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
         </actions>
         <!--<auto-fields-entity entity-name="Person" default-field-type="display"/>-->
         <field name="partyId"  widget-style="smallSubmit" title="${uiLabelMap.PartyPartyId}">
@@ -215,7 +215,7 @@ under the License.
         <actions>
             <set field="inputFields" from-field="requestParameters"/>
             <set field="entityName" value="PartyAndUserLoginAndPerson"/>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
+            <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
         </actions>
         <!--<auto-fields-entity entity-name="PartyAndUserLoginAndPerson" default-field-type="display"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
@@ -245,7 +245,7 @@ under the License.
         <actions>
             <set field="inputFields" from-field="requestParameters"/>
             <set field="entityName" value="UserLoginAndPartyDetails"/>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
+            <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
         </actions>
         <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
@@ -269,7 +269,7 @@ under the License.
     <form name="listLookupPartyGroup" type="list" list-name="listIt" paginate-target="LookupPartyGroup"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
+            <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
         </actions>
         <!--<auto-fields-entity entity-name="PartyGroup" default-field-type="display"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
@@ -413,7 +413,7 @@ under the License.
         <actions>
             <set field="inputFields" from-field="parameters"/>
             <set field="entityName" value="PartyAndContactMech"/>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
+            <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
         </actions>
 
         <field name="contactMechId"  widget-style="buttontext">
