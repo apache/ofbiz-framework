@@ -247,7 +247,7 @@ under the License.
             <actions>
                 <set field="title" value="${uiLabelMap.PageTitleFindProductStocktake}"/>
                 <set field="idValue" from-field="parameters.idValue"/>
-                <script location="component://hhfacility/webapp/hhfacility/WEB-INF/actions/ProductList.groovy"/>
+                <script location="component://hhfacility/groovyScripts/ProductList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="FacilityDecorator">
@@ -264,7 +264,7 @@ under the License.
         <section>
             <actions>
                 <set field="title" value="${uiLabelMap.PageTitleProductStocktake}"/>
-                <script location="component://hhfacility/webapp/hhfacility/WEB-INF/actions/ProductStockTake.groovy"/>
+                <script location="component://hhfacility/groovyScripts/ProductStockTake.groovy"/>
 
                 <set field="locationSeqId" from-field="productFacilityLocations"/>
             </actions>
