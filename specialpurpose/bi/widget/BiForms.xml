@@ -24,7 +24,7 @@ under the License.
     <form name="selectStarSchema" title="" type="single" target="ReportBuilderSelectStarSchemaFields"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <script location="component://bi/webapp/bi/WEB-INF/actions/reportbuilder/GetStarSchemas.groovy"/>
+            <script location="component://bi/groovyScripts/GetStarSchemas.groovy"/>
         </actions>
         <field name="starSchemaName" title="${uiLabelMap.BusinessIntelligenceReportBuilderSelectTheStarSchemaReport}">
             <drop-down allow-empty="false">
