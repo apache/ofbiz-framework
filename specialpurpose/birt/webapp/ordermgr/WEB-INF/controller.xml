@@ -30,7 +30,7 @@ under the License.
 
     <request-map uri="checkReportBy">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/CheckReportBy.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/CheckReportBy.groovy"/>
         <response name="dayPDF" type="request" value="SalesReport.pdf"/>
         <response name="weekPDF" type="request" value="SalesReportWeek.pdf"/>
         <response name="monthPDF" type="request" value="SalesReportMonth.pdf"/>
@@ -46,51 +46,51 @@ under the License.
         </response>
     </request-map>
     <request-map uri="SalesReport.pdf"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/SalesReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
         <response name="success" type="view" value="SalesOrderReportPDF"/>
     </request-map>
     <request-map uri="SalesReportWeek.pdf"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/SalesReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
         <response name="success" type="view" value="SalesOrderReportWeekPDF"/>
     </request-map>
     <request-map uri="SalesReportMonth.pdf"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/SalesReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
         <response name="success" type="view" value="SalesOrderReportMonthPDF"/>
     </request-map>
     <request-map uri="SalesReport.excel"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/SalesReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
         <response name="success" type="view" value="SalesOrderReportExcel"/>
     </request-map>
     <request-map uri="SalesReportWeek.excel"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/SalesReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
         <response name="success" type="view" value="SalesOrderReportWeekExcel"/>
     </request-map>
     <request-map uri="SalesReportMonth.excel"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/SalesReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
         <response name="success" type="view" value="SalesOrderReportMonthExcel"/>
     </request-map>
     <request-map uri="SalesReport.html"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/SalesReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
         <response name="success" type="view" value="SalesOrderReportHTML"/>
     </request-map>
     <request-map uri="SalesReportWeek.html"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/SalesReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
         <response name="success" type="view" value="SalesOrderReportWeekHTML"/>
     </request-map>
     <request-map uri="SalesReportMonth.html"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/SalesReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
         <response name="success" type="view" value="SalesOrderReportMonthHTML"/>
     </request-map>
     <request-map uri="NetBeforeOverheadReport.pdf"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/NetBeforeOverheadReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/NetBeforeOverheadReport.groovy"/>
         <response name="success" type="view" value="NetBeforeOverheadOrderReport"/>
     </request-map>
     <request-map uri="ProductDemandReport.pdf"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/ProductDemandReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/ProductDemandReport.groovy"/>
         <response name="success" type="view" value="ProductDemandOrderReport"/>
     </request-map>
     <request-map uri="ProductContributionReport.pdf"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/ProductContributionReport.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/ProductContributionReport.groovy"/>
         <response name="success" type="view" value="ProductDemandOrderReport"/>
     </request-map>
 
@@ -98,7 +98,7 @@ under the License.
         <response name="success" type="view" value="OrderByReferrerReport"/>
     </request-map>
     <request-map uri="OrdersByChannel.pdf"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/webapp/ordermgr/WEB-INF/actions/reports/OrderByChannel.groovy"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/OrderByChannel.groovy"/>
         <response name="success" type="view" value="OrdersByChannelReport"/>
     </request-map>
     <request-map uri="OrderDiscountCode.pdf">
