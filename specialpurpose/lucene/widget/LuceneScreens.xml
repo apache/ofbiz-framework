@@ -60,8 +60,8 @@ under the License.
         <section>
             <actions>
                 <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
-                <script location="component://lucene/webapp/content/WEB-INF/actions/AdvancedSearchPrep.groovy"/>
-                <script location="component://lucene/webapp/content/WEB-INF/actions/Search.groovy"/>
+                <script location="component://lucene/groovyScripts/content/AdvancedSearchPrep.groovy"/>
+                <script location="component://lucene/groovyScripts/content/Search.groovy"/>
                 <set field="titleProperty" value="ContentCMSSearchPage"/>
                 <set field="currentCMSMenuItemName" value="search" to-scope="user"/>
                 <property-map map-name="uiLabelMap" resource="ProductUiLabels"/>
@@ -85,7 +85,7 @@ under the License.
         <section>
             <actions>
                 <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
-                <script location="component://lucene/webapp/content/WEB-INF/actions/SearchProducts.groovy"/>
+                <script location="component://lucene/groovyScripts/content/SearchProducts.groovy"/>
                 <set field="titleProperty" value="ContentCMSSearchPage"/>
                 <set field="currentCMSMenuItemName" value="productSearch" to-scope="user"/>
                 <property-map map-name="uiLabelMap" resource="ProductUiLabels"/>
