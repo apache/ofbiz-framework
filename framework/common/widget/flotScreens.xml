@@ -23,7 +23,7 @@ under the License.
     <screen name="FlotChart">
         <section>
             <actions>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/PrepareDataForFlotGraph.groovy"/>
+                <script location="component://common/groovyScripts/PrepareDataForFlotGraph.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>

@@ -39,7 +39,7 @@ under the License.
                 <set field="applicationMenuLocation" value="component://marketing/widget/sfa/SfaMenus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.SfaManagerApplication}" global="true"/>
                 <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="SFA" global="true"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/GetParentPortalPageId.groovy"/>
+                <script location="component://common/groovyScripts/GetParentPortalPageId.groovy"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
