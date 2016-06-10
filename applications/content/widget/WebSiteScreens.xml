@@ -120,7 +120,7 @@ under the License.
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <property-map map-name="uiLabelMap" resource="PartyUiLabels"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/website/EditWebSiteParties.groovy"/>
+                <script location="component://content/groovyScripts/website/EditWebSiteParties.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
@@ -148,7 +148,7 @@ under the License.
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
 
-                <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.groovy"/>
+                <script location="component://content/groovyScripts/website/WebSitePublishPoint.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
@@ -287,7 +287,7 @@ under the License.
                 <entity-one entity-name="Content" value-field="content"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/website/WebSiteCMSMetaInfo.groovy"/>
+                <script location="component://content/groovyScripts/website/WebSiteCMSMetaInfo.groovy"/>
             </actions>
             <widgets>
                 <container id="cmscontent" style="no-clear">

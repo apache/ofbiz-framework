@@ -180,7 +180,7 @@ under the License.
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
 
-                <script location="component://content/webapp/content/WEB-INF/actions/survey/EditSurveyQuestions.groovy"/>
+                <script location="component://content/groovyScripts/survey/EditSurveyQuestions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
@@ -249,7 +249,7 @@ under the License.
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
 
-                <script location="component://content/webapp/content/WEB-INF/actions/survey/ViewSurveyResponses.groovy"/>
+                <script location="component://content/groovyScripts/survey/ViewSurveyResponses.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
@@ -289,7 +289,7 @@ under the License.
 
                 <set field="surveyResponseId" from-field="parameters.surveyResponseId"/>
                 <entity-one entity-name="SurveyResponse" value-field="surveyResponse"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/survey/EditSurveyResponse.groovy"/>
+                <script location="component://content/groovyScripts/survey/EditSurveyResponse.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
