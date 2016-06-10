@@ -255,7 +255,7 @@ under the License.
     <screen name="keywordsearchbox">
         <section>
             <actions>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearchbox.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/keywordsearchbox.groovy"/>
             </actions>
             <widgets>
                 <screenlet id="ProductKeywordsPanel" title="${uiLabelMap.ProductSearchProducts}" collapsible="true">
@@ -267,7 +267,7 @@ under the License.
     <screen name="sidecatalogs">
         <section>
             <actions>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/sidecatalogs.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/sidecatalogs.groovy"/>
             </actions>
             <widgets>
                 <screenlet id="ProductBrowseCatalogsPanel" title="${uiLabelMap.ProductBrowseCatalogs}" collapsible="true">
@@ -279,7 +279,7 @@ under the License.
     <screen name="sidedeepcategory">
         <section>
             <actions>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/sidedeepcategory.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/sidedeepcategory.groovy"/>
             </actions>
             <widgets>
                 <screenlet id="ProductBrowseCategoriesPanel" title="${uiLabelMap.ProductBrowseCategories}" collapsible="true">
@@ -291,7 +291,7 @@ under the License.
     <screen name="miniproductlist">
         <section>
             <actions>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/miniproductlist.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/miniproductlist.groovy"/>
             </actions>
             <widgets>
                 <screenlet id="ProductCategoryProductsPanel" title="${uiLabelMap.ProductCategoryProducts}" collapsible="true">
@@ -306,7 +306,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleChooseTopCategory"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/ChooseTopCategory.groovy"/>
+                <script location="component://product/groovyScripts/catalog/ChooseTopCategory.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -329,7 +329,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="ProductFastLoadCatalogIntoCache"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/FastLoadCache.groovy"/>
+                <script location="component://product/groovyScripts/catalog/FastLoadCache.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -347,7 +347,7 @@ under the License.
     <screen name="categorytree">
         <section>
             <actions>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/category/CategoryTree.groovy"/>
+                <script location="component://product/groovyScripts/catalog/category/CategoryTree.groovy"/>
             </actions>
             <widgets>
                 <screenlet id="ProductBrowseCategoriesPanel" title="${uiLabelMap.ProductBrowseCatalogeAndCategories}" collapsible="true">
@@ -436,7 +436,7 @@ under the License.
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/miniproductlist.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/miniproductlist.groovy"/>
             </actions>
             <widgets>
                     <platform-specific><html><html-template location="component://product/template/find/MiniProductList.ftl"/></html></platform-specific>

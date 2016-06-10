@@ -218,7 +218,7 @@
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX_1" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE_1" type="Integer" default-value="10"/>
 
-                <!--script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeatureCategories.groovy"/-->
+                <!--script location="component://product/groovyScripts/catalog/feature/EditFeatureCategories.groovy"/-->
             </actions>
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
@@ -255,7 +255,7 @@
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeatureCategoryFeatures.groovy"/>
+                <script location="component://product/groovyScripts/catalog/feature/EditFeatureCategoryFeatures.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
@@ -275,7 +275,7 @@
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureGroup"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeatureGroups.groovy"/>
+                <script location="component://product/groovyScripts/catalog/feature/EditFeatureGroups.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
@@ -336,7 +336,7 @@
                 <set field="featureNum" from-field="parameters.featureNum" type="Integer"/>
                 <set field="productFeatureCategoryId" from-field="parameters.productFeatureCategoryId"/>
                 <set field="tabButtonItem" value="FeatureCategory"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/feature/QuickAddProductFeatures.groovy"/>
+                <script location="component://product/groovyScripts/catalog/feature/QuickAddProductFeatures.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">

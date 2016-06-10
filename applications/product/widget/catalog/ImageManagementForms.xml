@@ -386,7 +386,7 @@ under the License.
     
     <form name="ImageFrames" type="single" title="" target="uploadFrame" header-row-style="header-row" default-table-style="basic-table" target-window="_self">
         <actions>
-            <script location="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/ImageFrame.groovy"/>
+            <script location="component://product/groovyScripts/catalog/imagemanagement/ImageFrame.groovy"/>
             <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource">
                 <field-map field-name="contentId" from-field="parameters.contentId"/>
                 <field-map field-name="drDataResourceId" from-field="parameters.dataResourceId"/>

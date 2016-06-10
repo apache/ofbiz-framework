@@ -97,8 +97,8 @@ under the License.
                                 </entity-and>-->
                                 
                                 <!--<entity-one value-field="product" entity-name="Product"/>-->
-                                <!--<script location="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/seoLocales.groovy"/>-->
-                                <script location="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/ImageGallery.groovy"/>
+                                <!--<script location="component://product/groovyScripts/catalog/imagemanagement/seoLocales.groovy"/>-->
+                                <script location="component://product/groovyScripts/catalog/imagemanagement/ImageGallery.groovy"/>
                             </actions>
                             <widgets>
                                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
@@ -156,7 +156,7 @@ under the License.
                 <set field="userTabButtonImage" value="ImageUpload"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/ImageUpload.groovy"/>
+                <script location="component://product/groovyScripts/catalog/imagemanagement/ImageUpload.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
@@ -791,7 +791,7 @@ under the License.
         <section>
             <actions>
                 <set field="userTabButtonImage" value="ImageRecentlyApproved"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/ImageRecentlyApproved.groovy"/>
+                <script location="component://product/groovyScripts/catalog/imagemanagement/ImageRecentlyApproved.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">

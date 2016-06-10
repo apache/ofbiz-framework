@@ -30,7 +30,7 @@ under the License.
                     <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
                     <order-by field-name="description"/>
                 </entity-condition>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/advancedsearchoptions.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/advancedsearchoptions.groovy"/>
                 <script location="component://ebay/webapp/ebay/WEB-INF/actions/find/EbayAdvancedSearch.groovy"/>
             </actions>
             <widgets>
@@ -50,7 +50,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
                 <set field="headerItem" value="export"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearch.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/keywordsearch.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
