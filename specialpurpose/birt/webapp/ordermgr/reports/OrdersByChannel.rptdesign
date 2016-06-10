@@ -255,7 +255,7 @@ module = "OrdersByChannel.rptdesign";]]></method>
             <method name="open"><![CDATA[salesOrderItemFacts = null;
 try {
     if(params["saleChannel"] != "null"){
-        salesOrderItemFacts = delegator.findByAnd("SalesOrderItemFact", UtilMisc.toMap("saleChannel", params["saleChannel"]), null, false);
+        salesOrderItemFacts = delegator.findByAnd("SalesOrderItemFact", UtilMisc.toMap("salesChannelEnumId", params["saleChannel"]), null, false);
     }else{
         salesOrderItemFacts = delegator.findList("SalesOrderItemFact", null, null, null, null, false);
     }
@@ -267,17 +267,13 @@ countOfRow = 0;
 if (salesOrderItemFacts) {
     totalRow = salesOrderItemFacts.size();
 }]]></method>
-            <method name="fetch"><![CDATA[if (countOfRow == totalRow - 1) return false;
-
+            <method name="fetch"><![CDATA[if (countOfRow > (totalRow - 1)) return false;
 salesOrderItemFact = salesOrderItemFacts.get(countOfRow);
-
 row["orderId"] = salesOrderItemFact.getString("orderId");
 row["orderItemSeqId"] = salesOrderItemFact.getString("orderItemSeqId");
-row["orderStatus"] = salesOrderItemFact.getString("orderStatus");
 row["quantity"] = salesOrderItemFact.getString("quantity");
-row["saleChannel"] = salesOrderItemFact.getString("saleChannel");
+row["saleChannel"] = salesOrderItemFact.getString("brand");
 row["extNetAmount"] = salesOrderItemFact.getString("extNetAmount");
-
 countOfRow ++;
 return true;]]></method>
         </script-data-set>
