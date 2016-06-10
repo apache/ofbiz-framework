@@ -693,8 +693,8 @@ under the License.
 
                 <set field="labelTitleProperty" value="PageTitleEditContactMech"/>
 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/EditContactMech.groovy"/>
+                <script location="component://party/groovyScripts/HasPartyPermissions.groovy"/>
+                <script location="component://party/groovyScripts/party/EditContactMech.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -749,7 +749,7 @@ under the License.
                 <entity-one entity-name="Party" use-cache="true" value-field="party"/>
                 <entity-one entity-name="Person" use-cache="true" value-field="lookupPerson"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/FindCommEventContactMechs.groovy"/>
+                <script location="component://party/groovyScripts/communication/FindCommEventContactMechs.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -827,7 +827,7 @@ under the License.
                 <set field="headerItem" value="visits"/>
                 <set field="tabButtonItem" value="showvisits"/>
 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/ShowVisits.groovy"/>
+                <script location="component://party/groovyScripts/visit/ShowVisits.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -858,7 +858,7 @@ under the License.
                 <set field="headerItem" value="visits"/>
                 <set field="tabButtonItem" value="visitdetail"/>
 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/VisitDetails.groovy"/>
+                <script location="component://party/groovyScripts/visit/VisitDetails.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">

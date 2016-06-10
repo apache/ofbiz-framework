@@ -573,7 +573,7 @@ under the License.
                         <if-compare field="otherContacts" operator="equals" value="Y"/>
                     </condition>
                     <actions>
-                        <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>
+                        <script location="component://party/groovyScripts/party/GetMyCompany.groovy"/>
                         <set field="fromPartyId" from-field=""/>
                         <set field="notFromPartyId" from-field="userLogin.partyId"/>
                         <set field="screenletTitle" from-field="uiLabelMap.OrderOpenCompanyCustomerRequests"/>

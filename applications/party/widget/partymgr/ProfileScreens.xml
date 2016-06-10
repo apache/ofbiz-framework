@@ -136,8 +136,8 @@
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetContactMechs.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+                <script location="component://party/groovyScripts/party/GetContactMechs.groovy"/>
+                <script location="component://party/groovyScripts/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -169,7 +169,7 @@
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetPaymentMethods.groovy"/>
+                <script location="component://party/groovyScripts/party/GetPaymentMethods.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -224,7 +224,7 @@
     <screen name="Cart">
         <section>
             <actions>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetCurrentCart.groovy"/>
+                <script location="component://party/groovyScripts/party/GetCurrentCart.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -240,7 +240,7 @@
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetLoyaltyPoints.groovy"/>
+                <script location="component://party/groovyScripts/party/GetLoyaltyPoints.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>

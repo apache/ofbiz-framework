@@ -95,7 +95,7 @@ under the License.
                 <set field="headerItem" value="visits"/>
                 <set field="tabButtonItem" value="visitdetail"/>
 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/VisitDetails.groovy"/>
+                <script location="component://party/groovyScripts/visit/VisitDetails.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">

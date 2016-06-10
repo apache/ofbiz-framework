@@ -386,7 +386,7 @@
     </menu>
     <menu name="MyCommSubTabBar" menu-container-style="button-bar button-style-2">
         <actions>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/GetMyCommunicationEventRole.groovy"/>
+            <script location="component://party/groovyScripts/communication/GetMyCommunicationEventRole.groovy"/>
         </actions>
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
             <condition>
