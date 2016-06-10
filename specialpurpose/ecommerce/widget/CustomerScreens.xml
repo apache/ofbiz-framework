@@ -42,7 +42,7 @@ under the License.
     <screen name="editcontactmech">
         <section>
             <actions>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditContactMech.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditContactMech.groovy"/>
                 <set field="reqName" from-field="requestName" />
                 
                 <set field="dependentForm" value="editcontactmechform"/>
@@ -76,7 +76,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditCreditCard"/>
                 <set field="cardNumberMinDisplay" value="min"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditPaymentMethod.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditPaymentMethod.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -91,7 +91,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditEFTAccount"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditPaymentMethod.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditPaymentMethod.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -106,7 +106,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditGiftCard"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditPaymentMethod.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditPaymentMethod.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -122,7 +122,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleChangePassword"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/ChangePassword.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/ChangePassword.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -139,7 +139,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditPerson"/>
                 <get-related-one value-field="userLogin" relation-name="Person" to-value-field="person"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditPerson.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditPerson.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -159,7 +159,7 @@ under the License.
                 <set field="MainColumnStyle" value="center"/>
 
                 <set field="titleProperty" value="PageTitleGiftCardBalance"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/GiftCardBalance.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/GiftCardBalance.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -178,7 +178,7 @@ under the License.
                 <set field="MainColumnStyle" value="center"/>
 
                 <set field="titleProperty" value="PageTitleGiftCardLink"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/GiftCardLink.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/GiftCardLink.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -194,7 +194,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleProfileSurvey"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/CustomerSurvey.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/CustomerSurvey.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -496,7 +496,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleNewCustomer"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/NewCustomer.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/NewCustomer.groovy"/>
 
                 <set field="dependentForm" value="newuserform"/>
                 <set field="paramKey" value="countryGeoId"/>
@@ -533,7 +533,7 @@ under the License.
                 <entity-one entity-name="Person" value-field="person"/>
                 <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/ViewProfile.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/ViewProfile.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -575,9 +575,9 @@ under the License.
                 <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
 
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/profile.js" global="true"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditShippingAddress.groovy"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditBillingAddress.groovy"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditEmailAndTelecomNumber.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditShippingAddress.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditBillingAddress.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditEmailAndTelecomNumber.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -596,8 +596,8 @@ under the License.
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="EcommerceEditProfile"/>
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/profile.js" global="true"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditShippingAddress.groovy"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditEmailAndTelecomNumber.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditShippingAddress.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditEmailAndTelecomNumber.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -617,9 +617,9 @@ under the License.
 
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/profile.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/geoAutoCompleter.js" global="true"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditShippingAddress.groovy"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditBillingAddress.groovy"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/ViewProfile.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditShippingAddress.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditBillingAddress.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/ViewProfile.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -658,7 +658,7 @@ under the License.
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/CustomerReviews.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/CustomerReviews.groovy"/>
             </actions>
             <widgets>
                 <section>

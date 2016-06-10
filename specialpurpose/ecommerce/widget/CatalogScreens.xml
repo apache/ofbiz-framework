@@ -60,7 +60,7 @@ under the License.
     <screen name="minireorderprods">
         <section>
             <actions>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/MiniReorderProds.groovy"/>
+                <script location="component://ecommerce/groovyScripts/catalog/MiniReorderProds.groovy"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
@@ -93,7 +93,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/MiniProductSummary.groovy"/>
+                <script location="component://ecommerce/groovyScripts/catalog/MiniProductSummary.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/catalog/MiniLastViewedProducts.ftl"/></html></platform-specific>
@@ -118,7 +118,7 @@ under the License.
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/MiniProductSummary.groovy"/>
+                <script location="component://ecommerce/groovyScripts/catalog/MiniProductSummary.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/catalog/MiniProductSummary.ftl"/></html></platform-specific>
@@ -165,7 +165,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleCategoryPage"/>
                 <script location="component://order/groovyScripts/entry/catalog/Category.groovy"/>
                 <!-- Open this commented section for the demo of Layered Navigation, navigate through Gizmo and Widgets categories to see it in action.
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/LayeredNavigation.groovy"/>
+                <script location="component://ecommerce/groovyScripts/catalog/LayeredNavigation.groovy"/>
                 <set field="detailScreen" value="LayeredCategoryDetail"/>
                  -->
                 <set field="tabButtonItem" value="LookupProductCategories"/>
@@ -509,7 +509,7 @@ under the License.
     <screen name="showBestSellingCategory">
         <section>
             <actions>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/BestSellingCategory.groovy"/>
+                <script location="component://ecommerce/groovyScripts/catalog/BestSellingCategory.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/catalog/ShowBestSellingCategory.ftl"/></html></platform-specific>
@@ -521,7 +521,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="LookupProductCategories"/>
                 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/ProductCategories.groovy"/>
+                <script location="component://ecommerce/groovyScripts/catalog/ProductCategories.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/catalog/ProductCategories.ftl"/></html></platform-specific>
@@ -582,7 +582,7 @@ under the License.
        <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/ajaxbreadcrumbs.groovy"/>
+                <script location="component://ecommerce/groovyScripts/catalog/ajaxbreadcrumbs.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -596,7 +596,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/PopularTags.groovy"/>
+                <script location="component://ecommerce/groovyScripts/catalog/PopularTags.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/catalog/PopularTags.ftl"/></html></platform-specific>

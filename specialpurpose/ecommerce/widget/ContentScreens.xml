@@ -54,7 +54,7 @@ under the License.
     <screen name="recentlyviewed">
         <section>
             <actions>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/content/Mrv.groovy"/>
+                <script location="component://ecommerce/groovyScripts/content/Mrv.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/content/RecentlyViewed.ftl"/></html></platform-specific>
@@ -72,8 +72,8 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleContentPage"/>
                 <set field="headerItem" value="main"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/Main.groovy"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/content/ContentPrep.groovy"/>
+                <script location="component://ecommerce/groovyScripts/Main.groovy"/>
+                <script location="component://ecommerce/groovyScripts/content/ContentPrep.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -96,7 +96,7 @@ under the License.
                 <set field="formDefFile" value="/BlogForms.xml"/>
                 <set field="entityName" value="Content"/>
                 <set field="permissionType" value="none"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/NodeTrailPrep.groovy"/>
+                <script location="component://ecommerce/groovyScripts/forum/NodeTrailPrep.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -123,8 +123,8 @@ under the License.
                 <set field="queryFormName" value="searchQuery"/>
                 <set field="listFormName" value="searchList"/>
                 <set field="defaultSiteId" value="WebStoreCONTENT"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/content/AdvancedSearchPrep.groovy"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/content/Search.groovy"/>
+                <script location="component://ecommerce/groovyScripts/content/AdvancedSearchPrep.groovy"/>
+                <script location="component://ecommerce/groovyScripts/content/Search.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -146,8 +146,8 @@ under the License.
                 <set field="headerItem" value="Content"/>
                 <set field="entityName" value="ContentAssocDataResourceViewFrom"/>
                 <set field="permissionType" value="none"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/NodeTrailPrep.groovy"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/includes/MruAdd.groovy"/>
+                <script location="component://ecommerce/groovyScripts/forum/NodeTrailPrep.groovy"/>
+                <script location="component://ecommerce/groovyScripts/includes/MruAdd.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

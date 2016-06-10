@@ -52,7 +52,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/jquery/plugins/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/jquery-jgrowl/1.4.1/jquery.jgrowl.min.css" global="true" />
 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/EcommerceSetup.groovy"/>
+                <script location="component://ecommerce/groovyScripts/EcommerceSetup.groovy"/>
 
                 <!-- Get the store VisualTheme -->
                 <set field="visualThemeId" from-field="productStore.visualThemeId" default-value="EC_DEFAULT"/>
@@ -269,7 +269,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-migrate-1.2.1.js" global="true" />
                 
 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/EcommerceSetup.groovy"/>
+                <script location="component://ecommerce/groovyScripts/EcommerceSetup.groovy"/>
 
                 <!-- Get the store VisualTheme -->
                 <set field="visualThemeId" from-field="productStore.visualThemeId" default-value="EC_DEFAULT"/>
@@ -312,7 +312,7 @@ under the License.
                 <set field="headerItem" value="main"/>
                 <set field="randomSurveyGroup" value="testSurveyGroup"/>
 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/Main.groovy"/>
+                <script location="component://ecommerce/groovyScripts/Main.groovy"/>
                 <script location="component://order/groovyScripts/entry/catalog/Category.groovy"/>
             </actions>
             <widgets>
@@ -331,7 +331,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleLogin"/>
                 <set field="headerItem" value="login"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/Login.groovy"/>
+                <script location="component://ecommerce/groovyScripts/Login.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -353,7 +353,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleLogin"/>
                 <set field="headerItem" value="login"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/Login.groovy"/>
+                <script location="component://ecommerce/groovyScripts/Login.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

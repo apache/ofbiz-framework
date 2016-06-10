@@ -27,7 +27,7 @@ under the License.
                 <!-- <set field="title" value="Order Confirmation Notice"/> -->
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control"/>
                 <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>                
-                <!-- <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/> -->
+                <!-- <script location="component://ecommerce/groovyScripts/order/OrderStatus.groovy"/> -->
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/email/ReturnAccept.ftl"/></html></platform-specific>
