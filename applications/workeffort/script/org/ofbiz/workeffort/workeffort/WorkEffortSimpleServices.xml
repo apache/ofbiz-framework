@@ -853,7 +853,7 @@ under the License.
     <simple-method method-name="createWorkEffortRequestItem" short-description="Create a CustRequestItemWorkEffort">
         <make-value entity-name="CustRequestItemWorkEffort" value-field="lookupMap"/>
         <set-pk-fields map="parameters" value-field="lookupMap"/>
-        <find-by-primary-key entity-name="QuoteWorkEffort" map="lookupMap" value-field="custRequestItemWorkEffort"/>
+        <find-by-primary-key entity-name="CustRequestItemWorkEffort" map="lookupMap" value-field="custRequestItemWorkEffort"/>
         <if-not-empty field="custRequestItemWorkEffort">
             <add-error>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortCustRequestItemAlreadyExists"/>
