@@ -29,7 +29,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleShoppingList"/>
                 <set field="headerItem" value="Shopping List"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/shoppinglist/EditShoppingList.groovy"/>
+                <script location="component://ecommerce/groovyScripts/shoppinglist/EditShoppingList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -50,7 +50,7 @@ under the License.
                 <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/shoppinglist/EditShoppingList.groovy"/>
+                <script location="component://ecommerce/groovyScripts/shoppinglist/EditShoppingList.groovy"/>
                 <set field="visualThemeId" from-field="productStore.visualThemeId" default-value="EC_DEFAULT"/>
                 <service service-name="getVisualThemeResources">
                     <field-map field-name="visualThemeId"/>

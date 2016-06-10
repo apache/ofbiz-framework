@@ -87,7 +87,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleOrderConfirmationNotice}"/>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce"/>
                 <set field="allowAnonymousView" value="Y"/>  <!-- this field will instruction OrderStatus.groovy to allow an anonymous order to be viewed by anybody, so the email confirmation screen will work -->
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/>
+                <script location="component://ecommerce/groovyScripts/order/OrderStatus.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/email/OrderNoticeEmail.ftl"/></html></platform-specific>
@@ -106,7 +106,7 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleOrderCompleteNotice}"/>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/>
+                <script location="component://ecommerce/groovyScripts/order/OrderStatus.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/email/OrderNoticeEmail.ftl"/></html></platform-specific>
@@ -121,7 +121,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleOrderBackorderNotice}"/>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control"/>
                 <set field="allowAnonymousView" value="Y"/>  <!-- this field will instruction OrderStatus.groovy to allow an anonymous order to be viewed by anybody, so the email confirmation screen will work -->
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/>
+                <script location="component://ecommerce/groovyScripts/order/OrderStatus.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/email/OrderNoticeEmail.ftl"/></html></platform-specific>
@@ -136,7 +136,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleOrderChangeNotice}"/>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control"/>
                 <set field="allowAnonymousView" value="Y"/>  <!-- this field will instruction OrderStatus.groovy to allow an anonymous order to be viewed by anybody, so the email confirmation screen will work -->
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/>
+                <script location="component://ecommerce/groovyScripts/order/OrderStatus.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/email/OrderNoticeEmail.ftl"/></html></platform-specific>
@@ -151,7 +151,7 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleOrderPaymentRetryNotice}"/>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OrderStatus.groovy"/>
+                <script location="component://ecommerce/groovyScripts/order/OrderStatus.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/email/EmailPayRetry.ftl"/></html></platform-specific>
@@ -166,7 +166,7 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleShipmentCompleteNotice}"/>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/ShipmentStatus.groovy"/>
+                <script location="component://ecommerce/groovyScripts/order/ShipmentStatus.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/template/email/ShipmentNotificationEmail.ftl"/></html></platform-specific>

@@ -26,7 +26,7 @@ under the License.
             <actions>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="productStoreSurveyId" from-field="parameters.productStoreSurveyId"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/CustomerSurvey.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/CustomerSurvey.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">

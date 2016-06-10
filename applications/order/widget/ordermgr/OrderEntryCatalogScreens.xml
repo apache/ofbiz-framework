@@ -182,7 +182,7 @@ under the License.
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
                 <set field="inlineProductDetailScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#inlineProductDetail"/>
                 <script location="component://order/groovyScripts/entry/catalog/ProductDetail.groovy"/>
-                <!--<script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/prepareconfigform.bsh"/>-->
+                <!--<script location="component://ecommerce/groovyScripts/catalog/prepareconfigform.bsh"/>-->
                 <script location="component://order/groovyScripts/entry/catalog/PrepareConfigForm.groovy"/>
             </actions>
             <widgets>
