@@ -52,7 +52,7 @@
     <form name="ListResources" type="list" list-name="listIt" paginate-target="FindResource"
         odd-row-style="alternate-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
         <actions>
-            <script location="component://scrum/webapp/scrum/WEB-INF/actions/ListScrumResource.groovy"/>
+            <script location="component://scrum/groovyScripts/ListScrumResource.groovy"/>
             <entity-one entity-name="UserLogin" value-field="systemUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>

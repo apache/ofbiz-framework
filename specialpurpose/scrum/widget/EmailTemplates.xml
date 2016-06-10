@@ -92,7 +92,7 @@ under the License.
             <actions>
                 <set field="custRequestId" from-field="custRequestId"/>
                 <set field="partyIdTo" from-field="partyIdTo"/>
-                <script location="component://scrum/webapp/scrum/WEB-INF/actions/BacklogNotifications.groovy"/>
+                <script location="component://scrum/groovyScripts/BacklogNotifications.groovy"/>
                 <set field="title" value="Backlog Notification backlog item# ${custRequestId}"/>
             </actions>
             <widgets>
@@ -114,7 +114,7 @@ under the License.
             <actions>
                 <set field="custRequestId" from-field="custRequestId"/>
                 <set field="partyIdTo" from-field="partyIdTo"/>
-                <script location="component://scrum/webapp/scrum/WEB-INF/actions/BacklogNotifications.groovy"/>
+                <script location="component://scrum/groovyScripts/BacklogNotifications.groovy"/>
                 <set field="title" value="Backlog Notification backlog item# ${custRequestId}"/>
             </actions>
             <widgets>
@@ -133,7 +133,7 @@ under the License.
             <actions>
                 <set field="custRequestId" from-field="custRequestId"/>
                 <set field="partyIdTo" from-field="partyIdTo"/>
-                <script location="component://scrum/webapp/scrum/WEB-INF/actions/BacklogNotifications.groovy"/>
+                <script location="component://scrum/groovyScripts/BacklogNotifications.groovy"/>
                 <set field="title" value="Backlog Notification backlog item# ${custRequestId}"/>
             </actions>
             <widgets>
@@ -155,7 +155,7 @@ under the License.
             <actions>
                 <set field="custRequestId" from-field="custRequestId"/>
                 <set field="partyIdTo" from-field="partyIdTo"/>
-                <script location="component://scrum/webapp/scrum/WEB-INF/actions/BacklogNotifications.groovy"/>
+                <script location="component://scrum/groovyScripts/BacklogNotifications.groovy"/>
                 <set field="title" value="Backlog Notification backlog item# ${custRequestId}"/>
             </actions>
             <widgets>
