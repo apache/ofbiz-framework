@@ -26,12 +26,12 @@ under the License.
 
     <!-- Common Permission Service -->
     <service name="commonGenericPermission" engine="simple"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="commonGenericPermission">
+        location="component://common/minilang/CommonServices.xml" invoke="commonGenericPermission">
         <implements service="permissionInterface"/>
     </service>
 
     <service name="commonGetAllCrudPermissions" engine="simple"
-        location="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="getAllCrudPermissions" auth="false">
+        location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="getAllCrudPermissions" auth="false">
         <description>Returns all CRUD and View Permissions</description>
         <attribute name="primaryPermission" type="String" mode="IN" optional="false"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
@@ -161,7 +161,7 @@ under the License.
 
     <!-- CustomTimePeriod Services -->
     <service name="createCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="simple"
-            location="component://common/script/org/ofbiz/common/period/PeriodServices.xml" invoke="createCustomTimePeriod" auth="true">
+            location="component://common/minilang/period/PeriodServices.xml" invoke="createCustomTimePeriod" auth="true">
         <description>Create a CustomTimePeriod record</description>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -171,13 +171,13 @@ under the License.
         <override name="periodTypeId" optional="false"/>
     </service>
     <service name="updateCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="simple"
-            location="component://common/script/org/ofbiz/common/period/PeriodServices.xml" invoke="updateCustomTimePeriod" auth="true">
+            location="component://common/minilang/period/PeriodServices.xml" invoke="updateCustomTimePeriod" auth="true">
         <description>Update a CustomTimePeriod record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deleteCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="simple"
-            location="component://common/script/org/ofbiz/common/period/PeriodServices.xml" invoke="deleteCustomTimePeriod" auth="true">
+            location="component://common/minilang/period/PeriodServices.xml" invoke="deleteCustomTimePeriod" auth="true">
         <description>Delete a CustomTimePeriod record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
@@ -281,19 +281,19 @@ under the License.
 
     <!-- Keyword Thesaurus services -->
     <service name="createKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
-            location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="createKeywordThesaurus" auth="true">
+            location="component://common/minilang/CommonServices.xml" invoke="createKeywordThesaurus" auth="true">
         <description>Create a Keyword Thesaurus</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
-            location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="updateKeywordThesaurus" auth="true">
+            location="component://common/minilang/CommonServices.xml" invoke="updateKeywordThesaurus" auth="true">
         <description>Update a Keyword Thesaurus</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
-            location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="deleteKeywordThesaurus" auth="true">
+            location="component://common/minilang/CommonServices.xml" invoke="deleteKeywordThesaurus" auth="true">
         <description>Delete a Keyword Thesaurus</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <override name="alternateKeyword" optional="true"/>
@@ -301,13 +301,13 @@ under the License.
 
     <!-- Uom conversion service -->
     <service name="createUomConversionDated" default-entity-name="UomConversionDated" engine="simple"
-            location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="createUomConversionDated" auth="true">
+            location="component://common/minilang/CommonServices.xml" invoke="createUomConversionDated" auth="true">
         <description>Create a new dated UOM converesion entity</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="convertUom" default-entity-name="UomConversion" engine="simple"
-            location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="convertUom" auth="false">
+            location="component://common/minilang/CommonServices.xml" invoke="convertUom" auth="false">
         <description>Make a unit of measure conversion, first using UomConversion, then with UomConversionDated</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="asOfDate" mode="IN" type="Timestamp" optional="true"/>
@@ -319,7 +319,7 @@ under the License.
         <attribute name="defaultRoundingMode" mode="IN" type="String" optional="true"/>
     </service>
     <service name="convertUomCustom" default-entity-name="UomConversion" engine="simple"
-            location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="convertUomCustom" auth="false">
+            location="component://common/minilang/CommonServices.xml" invoke="convertUomCustom" auth="false">
         <description>Make a unit of measure conversion, using CustomMethod entity</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="originalValue" mode="IN" type="BigDecimal" optional="false"/>
@@ -329,7 +329,7 @@ under the License.
     </service>
     
     <service name="checkUomConversion" engine="simple" default-entity-name="UomConversion"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="checkUomConversion">
+        location="component://common/minilang/CommonServices.xml" invoke="checkUomConversion">
         <description>Returns true if an UomConversion record exists</description>
         <permission-service service-name="commonGenericPermission" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN"/>
@@ -337,7 +337,7 @@ under the License.
     </service>
     
     <service name="checkUomConversionDated" engine="simple" default-entity-name="UomConversionDated"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="checkUomConversionDated">
+        location="component://common/minilang/CommonServices.xml" invoke="checkUomConversionDated">
         <description>Returns true if an UomConversionDated record exists</description>
         <permission-service service-name="commonGenericPermission" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN"/>
@@ -345,7 +345,7 @@ under the License.
     </service>
     
     
-    <service name="getFileUploadProgressStatus" engine="simple" location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getFileUploadProgressStatus" auth="false">
+    <service name="getFileUploadProgressStatus" engine="simple" location="component://common/minilang/CommonServices.xml" invoke="getFileUploadProgressStatus" auth="false">
         <description>Look up progress made in File Upload process</description>
         <attribute name="uploadProgressListener" mode="IN" type="org.ofbiz.webapp.event.FileUploadProgressListener" optional="true"/>
         <attribute name="contentLength" mode="OUT" type="Long" optional="true"/>
@@ -424,7 +424,7 @@ under the License.
 
     <!-- common permission services -->
     <service name="genericBasePermissionCheck" engine="simple"
-             location="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
+             location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
         <implements service="permissionInterface"/>
         <attribute name="primaryPermission" type="String" mode="IN" optional="false"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
@@ -513,7 +513,7 @@ under the License.
 
     <!-- Visual theme services -->
     <service name="getVisualThemeResources" engine="simple"
-            location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getVisualThemeResources">
+            location="component://common/minilang/CommonServices.xml" invoke="getVisualThemeResources">
         <description>Get a visual theme resources Map. Call with visualThemeId String,
             and optional themeResources Map. Returns themeResources Map - a
             Map of Lists, where the resourceTypeEnumId is the key and the value
@@ -569,7 +569,7 @@ under the License.
 
     <!-- ==============Permission Checking Service============= -->
     <service name="visualThemePermissionCheck" engine="simple"
-        location="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="visualThemePermissionCheck">
+        location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="visualThemePermissionCheck">
         <description>Visual Theme Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
@@ -577,7 +577,7 @@ under the License.
 
     <!-- Temporal expression services -->
     <service name="tempExprPermissionCheck" engine="simple"
-             location="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
+             location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
         <implements service="permissionInterface"/>
         <attribute name="primaryPermission" type="String" mode="IN" optional="false" default-value="TEMPEXPR"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
@@ -609,7 +609,7 @@ under the License.
 
     <!-- Portal Page Portlet services -->
     <service name="createPortalPagePortlet" default-entity-name="PortalPagePortlet" engine="simple" auth="true"
-        location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="createPortalPagePortlet">
+        location="component://common/minilang/PortalPageServices.xml" invoke="createPortalPagePortlet">
         <description>Add a registered PortalPortlet to a PortalPage</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -621,13 +621,13 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deletePortalPagePortlet" default-entity-name="PortalPagePortlet" engine="simple" auth="true"
-        location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="deletePortalPagePortlet">
+        location="component://common/minilang/PortalPageServices.xml" invoke="deletePortalPagePortlet">
         <description>Delete a PortalPortlet from a PortalPage</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="movePortletToPortalPage" default-entity-name="PortalPagePortlet" engine="simple" auth="true"
-        location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="movePortletToPortalPage">
+        location="component://common/minilang/PortalPageServices.xml" invoke="movePortletToPortalPage">
         <description>Move a PortalPortlet from the actual portalPage to a different one</description>
         <attribute name="portalPageId" type="String" mode="IN" optional="false"/>
         <attribute name="portalPortletId" type="String" mode="IN" optional="false"/>
@@ -637,7 +637,7 @@ under the License.
 
     <!-- Portal Page services -->
     <service name="createPortalPage" default-entity-name="PortalPage" engine="simple" auth="true"
-        location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="createPortalPage">
+        location="component://common/minilang/PortalPageServices.xml" invoke="createPortalPage">
         <description>Create a new Portal Page</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -648,13 +648,13 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deletePortalPage" default-entity-name="PortalPage" engine="simple" auth="true"
-        location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="deletePortalPage">
+        location="component://common/minilang/PortalPageServices.xml" invoke="deletePortalPage">
         <description>Delete a Portal Page, related colums and used portlets</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updatePortalPageSeq" engine="simple" default-entity-name="PortalPage" auth="true"
-        location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="updatePortalPageSeq">
+        location="component://common/minilang/PortalPageServices.xml" invoke="updatePortalPageSeq">
         <auto-attributes mode="IN" include="pk"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="mode" type="String" mode="IN"/><!-- possible values: TOP, BOTTOM, UP, DOWN -->
@@ -662,7 +662,7 @@ under the License.
 
     <!-- PortalPageColumn services -->
     <service name="addPortalPageColumn" default-entity-name="PortalPageColumn" engine="simple" auth="true"
-        location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="addPortalPageColumn">
+        location="component://common/minilang/PortalPageServices.xml" invoke="addPortalPageColumn">
         <description>Add a new Column to a PortalPage</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -674,14 +674,14 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deletePortalPageColumn" default-entity-name="PortalPageColumn" engine="simple" auth="true"
-        location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="deletePortalPageColumn">
+        location="component://common/minilang/PortalPageServices.xml" invoke="deletePortalPageColumn">
         <description>Delete a Column from a PortalPage</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- update Sequence No for Drag and Drop -->
     <service name="updatePortletSeqDragDrop" engine="simple" auth="true"
-        location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="updatePortletSeqDragDrop">
+        location="component://common/minilang/PortalPageServices.xml" invoke="updatePortletSeqDragDrop">
         <attribute name="o_portalPageId" mode="IN" type="String" ></attribute>
         <attribute name="o_portalPortletId" mode="IN" type="String"></attribute>
         <attribute name="o_portletSeqId" mode="IN" type="String"></attribute>
@@ -701,7 +701,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="getPortletAttributes" engine="simple" auth="true"
-        location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="getPortletAttributes">
+        location="component://common/minilang/PortalPageServices.xml" invoke="getPortletAttributes">
         <description>Get all attributes of a Portlet</description>
         <attribute name="portalPageId" type="String" mode="IN" optional="true"/>
         <attribute name="ownerUserLoginId" type="String" mode="IN" optional="true"/>
@@ -736,7 +736,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="linkGeos" engine="simple" auth="true"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="linkGeos">
+        location="component://common/minilang/CommonServices.xml" invoke="linkGeos">
         <description>Link Geos to another Geo</description>
         <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
         <attribute name="geoIds" type="List" mode="IN" optional="true"/>
@@ -744,18 +744,18 @@ under the License.
         <attribute name="geoAssocTypeId" type="String" mode="IN"/>
     </service>
     <service name="getRelatedGeos" engine="simple" auth="false"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getRelatedGeos">
+        location="component://common/minilang/CommonServices.xml" invoke="getRelatedGeos">
         <attribute name="geoId" mode="IN" type="String"/>
         <attribute name="geoAssocTypeId" mode="IN" type="String"/>
         <attribute name="geoList" mode="OUT" type="java.util.List"/>
     </service>
     <service name="getCountryList" engine="simple" auth="false"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getCountryList">
+        location="component://common/minilang/CommonServices.xml" invoke="getCountryList">
         <description>Get a list of country and associated states from Geo</description>
         <attribute name="countryList" mode="OUT" type="java.util.List"/>
     </service>
     <service name="getAssociatedStateList" engine="simple" auth="false"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getAssociatedStateList">
+        location="component://common/minilang/CommonServices.xml" invoke="getAssociatedStateList">
         <attribute name="countryGeoId" mode="IN" type="String" optional="false"/>
         <attribute name="listOrderBy" mode="IN" type="String" optional="true"/>
         <attribute name="stateList" mode="OUT" type="java.util.List"/>
@@ -787,17 +787,17 @@ under the License.
     </service>
     
     <service name="getServerTimestamp" engine="simple" auth="false"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getServerTimestamp">
+        location="component://common/minilang/CommonServices.xml" invoke="getServerTimestamp">
         <attribute name="serverTimestamp" mode="OUT" type="TimeStamp"/>
     </service>
     
     <service name="getServerTimeZone" engine="simple" auth="false"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getServerTimeZone">
+        location="component://common/minilang/CommonServices.xml" invoke="getServerTimeZone">
         <attribute name="serverTimeZone" mode="OUT" type="String"/>
     </service>
     
     <service name="getServerTimestampAsLong" engine="simple" auth="false"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getServerTimestampAsLong">
+        location="component://common/minilang/CommonServices.xml" invoke="getServerTimestampAsLong">
         <attribute name="serverTimestamp" mode="OUT" type="Long"/>
     </service>
     

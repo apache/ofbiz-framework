@@ -36,7 +36,7 @@ under the License.
             The fromData should be defaulted if not passed in.
     -->
     <service name="createCommContentDataResource" engine="simple"
-                location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createCommContentDataResource" auth="true">
+                location="component://content/minilang/content/ContentServices.xml" invoke="createCommContentDataResource" auth="true">
         <description>Create CommunicationEvent and Content</description>
         <implements service="persistContentAndAssoc"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
@@ -44,7 +44,7 @@ under the License.
     </service>
 
     <service name="updateCommContentDataResource" engine="simple"
-                location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateCommContentDataResource" auth="true">
+                location="component://content/minilang/content/ContentServices.xml" invoke="updateCommContentDataResource" auth="true">
         <description>Update CommunicationEvent and Content</description>
         <implements service="persistContentAndAssoc"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
@@ -52,7 +52,7 @@ under the License.
     </service>
 
     <service name="createCommEventContentAssoc" engine="simple"
-                location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createCommEventContentAssoc" auth="true">
+                location="component://content/minilang/content/ContentServices.xml" invoke="createCommEventContentAssoc" auth="true">
         <description>Create CommEventContentAssoc</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
@@ -62,7 +62,7 @@ under the License.
     </service>
 
     <service name="updateCommEventContentAssoc" engine="simple"
-                location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateCommEventContentAssoc" auth="true">
+                location="component://content/minilang/content/ContentServices.xml" invoke="updateCommEventContentAssoc" auth="true">
         <description>Update CommEventContentAssoc</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
@@ -72,7 +72,7 @@ under the License.
     </service>
 
     <service name="removeCommEventContentAssoc" engine="simple"
-                location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="removeCommEventContentAssoc" auth="true">
+                location="component://content/minilang/content/ContentServices.xml" invoke="removeCommEventContentAssoc" auth="true">
         <description>Remove CommEventContentAssoc</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="contentId" type="String" mode="IN" optional="false"/>

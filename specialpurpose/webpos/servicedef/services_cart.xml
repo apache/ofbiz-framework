@@ -23,7 +23,7 @@ under the License.
     <version>1.0</version>
     
     <service name="setPartyToCart" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/CartEvents.xml" invoke="setPartyToCart">
+             location="component://webpos/minilang/CartEvents.xml" invoke="setPartyToCart">
         <description>Set party to cart</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
@@ -31,20 +31,20 @@ under the License.
     </service>
     
     <service name="updateCartItem" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/CartEvents.xml" invoke="updateCartItem">
+             location="component://webpos/minilang/CartEvents.xml" invoke="updateCartItem">
         <description>Update Cart Item</description>
         <attribute name="cartLineIndex" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="String" mode="IN" optional="false"/>
     </service>
     
     <service name="deleteCartItem" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/CartEvents.xml" invoke="deleteCartItem">
+             location="component://webpos/minilang/CartEvents.xml" invoke="deleteCartItem">
         <description>Delete Cart Item</description>
         <attribute name="cartLineIndex" type="String" mode="IN" optional="false"/>
     </service>
     
     <service name="getProductAndPrice" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/CartEvents.xml" invoke="getProductAndPrice">
+             location="component://webpos/minilang/CartEvents.xml" invoke="getProductAndPrice">
         <description>Get Product And Price</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="product" type="GenericValue" mode="OUT" optional="true"/>
@@ -53,7 +53,7 @@ under the License.
     </service>
     
     <service name="getFormattedAmount" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/CartEvents.xml" invoke="getFormattedAmount">
+             location="component://webpos/minilang/CartEvents.xml" invoke="getFormattedAmount">
         <description>Get Formatted Amount</description>
         <attribute name="amount" type="String" mode="IN" optional="true"/>
         <attribute name="currencyId" type="String" mode="IN" optional="true"/>
@@ -61,7 +61,7 @@ under the License.
     </service>
     
     <service name="getFormattedProductFeaturePrice" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/CartEvents.xml" invoke="getFormattedProductFeaturePrice">
+             location="component://webpos/minilang/CartEvents.xml" invoke="getFormattedProductFeaturePrice">
         <description>Get Formatted Feature Price</description>
         <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
         <attribute name="productPriceTypeId" type="String" mode="IN" optional="false"/>
@@ -70,24 +70,24 @@ under the License.
     </service>
     
     <service name="removeSalesRep" engine="simple"
-             location="component://webpos/script/org/ofbiz/webpos/event/CartEvents.xml" invoke="removeSalesRep">
+             location="component://webpos/minilang/CartEvents.xml" invoke="removeSalesRep">
         <description>Remove Sales Rep from cart</description>
         <attribute type="String" mode="IN" name="partyId" optional="false"/>
     </service>
     
     <service name="addSalesRep" engine="simple"
-             location="component://webpos/script/org/ofbiz/webpos/event/CartEvents.xml" invoke="addSalesRep">
+             location="component://webpos/minilang/CartEvents.xml" invoke="addSalesRep">
         <description>Add Sales Rep to cart</description>
         <attribute type="String" mode="IN" name="partyId" optional="false"/>
     </service>
     
     <service name="getShipMethods" engine="simple"
-             location="component://webpos/script/org/ofbiz/webpos/event/CartEvents.xml" invoke="getShipMethods">
+             location="component://webpos/minilang/CartEvents.xml" invoke="getShipMethods">
         <description>Get ship methods</description>
     </service>
     
     <service name="setShipMethod" engine="simple"
-             location="component://webpos/script/org/ofbiz/webpos/event/CartEvents.xml" invoke="setShipMethod">
+             location="component://webpos/minilang/CartEvents.xml" invoke="setShipMethod">
         <description>Set ship method</description>
     </service>
 </services>

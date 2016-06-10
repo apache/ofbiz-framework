@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="createOrganization" short-description="Create Customer" login-required="false">
+        <set field="require_email" value="true"/>
+        <set field="require_phone" value="false"/>
+        <set field="require_login" value="false"/>
+        <!-- this parameter must be set to true or the createUser method below will use a default password instead of the one entered by user -->
+        <set field="create_allow_password" value="true"/>
+
+        <set field="parameters.roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+        <now-timestamp field="nowStamp"/>
+
+        <!-- Create the PartyGroup -->
+        <call-map-processor in-map-name="parameters" out-map-name="partyGroupContext">
+            <simple-map-processor name="newPartyGroup">
+                <process field="partyId"><copy/></process>
+                <process field="groupName"><copy to-field="groupName"/><not-empty><fail-property resource="" property="SetupOrganizationNameIsMissing"/></not-empty></process>
+            </simple-map-processor>
+        </call-map-processor>
+
+        <!-- Create the PartyRole -->
+        <set field="partyRoleContext.roleTypeId" from-field="parameters.roleTypeId"/>
+
+        <!-- Create the Postal Address -->
+        <if-compare field="parameters.USE_ADDRESS" operator="equals" value="false">
+            <!-- address not used, do nothing -->
+            <else>
+                <call-map-processor in-map-name="parameters" out-map-name="addressContext">
+                    <simple-map-processor name="newPerson">
+                        <process field="roleTypeId"><copy/></process>
+                        <process field="groupName"><copy to-field="toName"/></process>
+                        <process field="USER_ADDRESS1"><copy to-field="address1"/><not-empty><fail-property resource="PartyUiLabels" property="PartyAddressLine1Missing"/></not-empty></process>
+                        <process field="USER_ADDRESS2"><copy to-field="address2"/></process>
+                        <process field="USER_CITY"><copy to-field="city"/><not-empty><fail-property resource="PartyUiLabels" property="PartyCityMissing"/></not-empty></process>
+                        <process field="USER_STATE"><copy to-field="stateProvinceGeoId"/></process>
+                        <process field="USER_POSTAL_CODE"><copy to-field="postalCode"/><not-empty><fail-property resource="PartyUiLabels" property="PartyPostalCodeMissing"/></not-empty></process>
+                        <process field="USER_COUNTRY"><copy to-field="countryGeoId"/><not-empty><fail-property resource="PartyUiLabels" property="PartyCountryMissing"/></not-empty></process>
+                        <process field="USER_ADDRESS_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
+                    </simple-map-processor>
+                </call-map-processor>
+                <if-compare value="USA" operator="equals" field="parameters.USER_COUNTRY">
+                    <if-empty field="parameters.USER_STATE">
+                        <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
+                        <field-to-list field="tempErrorMessage" list="error_list"/>
+                    </if-empty>
+                </if-compare>
+                <if-compare value="CAN" operator="equals" field="parameters.USER_COUNTRY">
+                    <if-empty field="parameters.USER_STATE">
+                        <property-to-field field="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
+                        <field-to-list field="tempErrorMessage" list="error_list"/>
+                    </if-empty>
+                </if-compare>
+            </else>
+        </if-compare>
+        <!-- Create the Work Phone -->
+        <if-not-empty field="parameters.USER_WORK_CONTACT">
+            <call-map-processor in-map-name="parameters" out-map-name="workPhoneContext">
+                <simple-map-processor name="newTelecomNumber">
+                    <process field="roleTypeId"><copy/></process>
+                    <process field="USER_WORK_COUNTRY"><copy to-field="countryCode"/></process>
+                    <process field="USER_WORK_AREA"><copy to-field="areaCode"/></process>
+                    <process field="USER_WORK_CONTACT"><copy to-field="contactNumber"/></process>
+                    <process field="USER_WORK_EXT"><copy to-field="extension"/></process>
+                    <process field="USER_WORK_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
+                </simple-map-processor>
+            </call-map-processor>
+        </if-not-empty>
+        <!-- Create the Fax Phone -->
+        <if-not-empty field="parameters.USER_FAX_CONTACT">
+            <call-map-processor in-map-name="parameters" out-map-name="faxPhoneContext">
+                <simple-map-processor name="newTelecomNumber">
+                    <process field="roleTypeId"><copy/></process>
+                    <process field="USER_FAX_COUNTRY"><copy to-field="countryCode"/></process>
+                    <process field="USER_FAX_AREA"><copy to-field="areaCode"/></process>
+                    <process field="USER_FAX_CONTACT"><copy to-field="contactNumber"/></process>
+                    <process field="USER_FAX_EXT"><copy to-field="extension"/></process>
+                    <process field="USER_FAX_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
+                </simple-map-processor>
+            </call-map-processor>
+        </if-not-empty>
+        <!-- Check for required Phone -->
+        <if-compare field="require_phone" operator="equals" value="true">
+            <if-empty field="parameters.USER_HOME_CONTACT">
+                <if-empty field="parameters.USER_WORK_CONTACT">
+                    <if-empty field="parameters.USER_MOBILE_CONTACT">
+                        <call-map-processor in-map-name="parameters" out-map-name="dummymap">
+                            <simple-map-processor name="checkRequiredPhone">
+                                <process field="REQUIRED_PHONE">
+                                    <not-empty><fail-property resource="PartyUiLabels" property="PartyContactTelephoneMissing"/></not-empty>
+                                </process>
+                            </simple-map-processor>
+                        </call-map-processor>
+                    </if-empty>
+                </if-empty>
+            </if-empty>
+        </if-compare>
+        <!-- Create the email address -->
+        <call-map-processor in-map-name="parameters" out-map-name="emailContext">
+            <simple-map-processor name="newEmail">
+                <process field="roleTypeId"><copy/></process>
+                <process field="USER_EMAIL"><copy to-field="emailAddress"/></process>
+                <process field="USER_EMAIL_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
+            </simple-map-processor>
+        </call-map-processor>
+        <!-- Check for required E-Mail -->
+        <if-compare field="require_email" operator="equals" value="true">
+            <if-empty field="emailContext.emailAddress">
+                <call-map-processor in-map-name="emailContext" out-map-name="dummymap">
+                    <simple-map-processor name="checkRequiredEmail">
+                        <process field="emailAddress">
+                            <not-empty><fail-property resource="PartyUiLabels" property="PartyEmailAddressMissing"/></not-empty>
+                        </process>
+                    </simple-map-processor>
+                </call-map-processor>
+            </if-empty>
+            <if-not-empty field="emailContext.emailAddress">
+                <call-map-processor in-map-name="emailContext" out-map-name="dummymap">
+                    <simple-map-processor name="checkRequiredEmailFormat">
+                        <process field="emailAddress">
+                            <validate-method method="isEmail">
+                                <fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/>
+                            </validate-method>
+                        </process>
+                    </simple-map-processor>
+                </call-map-processor>
+            </if-not-empty>
+        </if-compare>
+        <!-- get the visit from the session to get the visitId -->
+        <session-to-field field="visit"/>
+
+        <!-- now that everything is validated & setup, check to see if there are errors, then call the services -->
+        <check-errors/>
+
+        <call-service service-name="createPartyGroup" in-map-name="partyGroupContext">
+            <result-to-field result-name="partyId" field="tempMap.partyId"/>
+        </call-service>
+
+        <!-- now that we have the partyId, put it where it needs to go... -->
+        <set field="userLoginContext.partyId" from-field="tempMap.partyId"/>
+        <set field="partyGroupContext.partyId" from-field="tempMap.partyId"/>
+        <set field="partyRoleContext.partyId" from-field="tempMap.partyId"/>
+        <set field="addressContext.partyId" from-field="tempMap.partyId"/>
+        <set field="workPhoneContext.partyId" from-field="tempMap.partyId"/>
+        <set field="faxPhoneContext.partyId" from-field="tempMap.partyId"/>
+        <set field="mobilePhoneContext.partyId" from-field="tempMap.partyId"/>
+        <set field="emailContext.partyId" from-field="tempMap.partyId"/>
+        
+        <call-service service-name="createPartyRole" in-map-name="partyRoleContext"/>
+        <!-- add Carrier roletype  -->
+        <set field="partyRoleContext.roleTypeId" value="CARRIER"/>
+        <call-service service-name="createPartyRole" in-map-name="partyRoleContext"/>
+        
+        <!-- billing address -->
+        <if-compare field="parameters.USE_ADDRESS" operator="equals" value="false">
+            <!-- address not used, do nothing -->
+            <else>
+                <call-service service-name="createPartyPostalAddress" in-map-name="addressContext">
+                    <result-to-field result-name="contactMechId" field="addressPurposeContext.contactMechId"/>
+                </call-service>
+                <set field="addressPurposeContext.partyId" from-field="tempMap.partyId"/>
+                <!-- create the payment location -->
+                <set field="addressPurposeContext.contactMechPurposeTypeId" value="PAYMENT_LOCATION"/>
+                <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
+                <!-- also consider this address the general correspondence address -->
+                <set field="addressPurposeContext.contactMechPurposeTypeId" value="GENERAL_LOCATION"/>
+                <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
+                <!-- create the billing location -->
+                <set field="addressPurposeContext.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
+                <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
+            </else>
+        </if-compare>
+        <!-- home phone -->
+        <if-not-empty field="parameters.USER_HOME_CONTACT">
+            <call-service service-name="createPartyTelecomNumber" in-map-name="homePhoneContext">
+                <result-to-field result-name="contactMechId" field="homePhonePurposeContext.contactMechId"/>
+            </call-service>
+            <set field="homePhonePurposeContext.partyId" from-field="tempMap.partyId"/>
+            <set field="homePhonePurposeContext.contactMechPurposeTypeId" value="PHONE_HOME"/>
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="homePhonePurposeContext"/>
+        </if-not-empty>
+        <!-- work phone -->
+        <if-not-empty field="parameters.USER_WORK_CONTACT">
+            <call-service service-name="createPartyTelecomNumber" in-map-name="workPhoneContext">
+                <result-to-field result-name="contactMechId" field="workPhonePurposeContext.contactMechId"/>
+            </call-service>
+            <set field="workPhonePurposeContext.partyId" from-field="tempMap.partyId"/>
+            <set field="workPhonePurposeContext.contactMechPurposeTypeId" value="PHONE_WORK"/>
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="workPhonePurposeContext"/>
+        </if-not-empty>
+        <!-- fax phone -->
+        <if-not-empty field="parameters.USER_FAX_CONTACT">
+            <call-service service-name="createPartyTelecomNumber" in-map-name="faxPhoneContext">
+                <result-to-field result-name="contactMechId" field="faxPhonePurposeContext.contactMechId"/>
+            </call-service>
+            <set field="faxPhonePurposeContext.partyId" from-field="tempMap.partyId"/>
+            <set field="faxPhonePurposeContext.contactMechPurposeTypeId" value="FAX_NUMBER"/>
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="faxPhonePurposeContext"/>
+        </if-not-empty>
+        <!-- mobile phone -->
+        <if-not-empty field="parameters.USER_MOBILE_CONTACT">
+            <call-service service-name="createPartyTelecomNumber" in-map-name="mobilePhoneContext">
+                <result-to-field result-name="contactMechId" field="mobilePhonePurposeContext.contactMechId"/>
+            </call-service>
+            <set field="mobilePhonePurposeContext.partyId" from-field="tempMap.partyId"/>
+            <set field="mobilePhonePurposeContext.contactMechPurposeTypeId" value="PHONE_MOBILE"/>
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="mobilePhonePurposeContext"/>
+        </if-not-empty>
+        <!-- email address -->
+        <if-not-empty field="parameters.USER_EMAIL">
+            <call-service service-name="createPartyEmailAddress" in-map-name="emailContext">
+                <result-to-field result-name="contactMechId" field="emailPurposeContext.contactMechId"/>
+            </call-service>
+            <set field="emailPurposeContext.partyId" from-field="tempMap.partyId"/>
+            <set field="emailPurposeContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
+        </if-not-empty>
+
+        <!-- General Ledger Setup for the new organization -->
+        <!--<call-simple-method method-name="setupDefaultGeneralLedger"/>-->
+        
+        <!-- create CustomTimePeriod within one years -->
+        <now-timestamp field="nowTimestamp"/>
+        <set field="endMonth" value="12"/>
+        <set field="endDate" value="31"/>
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getYearStart" ret-field="fromDateStamp">
+            <field field="nowTimestamp" type="java.sql.Timestamp"/>
+        </call-class-method>
+        <set field="curYearString" value="${str:toString(date:year(fromDateStamp, util:defaultTimeZone(), util:defaultLocale()))}"/>
+        <set field="customTimePeriodCtx.fromDate" from-field="fromDateStamp" type="Date"/>
+        <set field="customTimePeriodCtx.thruDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.toSqlDate(endMonth ,endDate , curYearString)}" type="Date"/>
+        <set field="customTimePeriodCtx.isClosed" value="N"/>
+        <set field="customTimePeriodCtx.organizationPartyId" from-field="tempMap.partyId"/>
+        <set field="customTimePeriodCtx.periodName" from-field="curYearString"/>
+        <set field="customTimePeriodCtx.periodNum" value="1" type="Long"/>
+        <set field="customTimePeriodCtx.periodTypeId" value="FISCAL_YEAR"/>
+        <call-service service-name="createCustomTimePeriod" in-map-name="customTimePeriodCtx"/>
+
+        <!-- Create partyId for UserLogin -->
+        <session-to-field field="userLoginCtx" session-name="userLogin"/>
+        <if-empty field="userLoginCtx.partyId">
+            <make-value value-field="newEntity" entity-name="Party"/>
+            <set field="newEntity.partyId" from-field="userLoginCtx.userLoginId"/>
+            <set field="newEntity.partyTypeId" value="PERSON"/>
+            <create-value value-field="newEntity"/>
+            <clear-field field="newEntity"/>
+            <make-value value-field="newPerson" entity-name="Person"/>
+            <set field="newPerson.partyId" from-field="userLoginCtx.userLoginId"/>
+            <create-value value-field="newPerson"/>
+            <clear-field field="newPerson"/>
+            
+            <set field="userLoginCtx.partyId" from-field="userLoginCtx.userLoginId"/>
+            <store-value value-field="userLoginCtx"/>
+        </if-empty>
+
+        <!-- set the partyId in the request -->
+        <field-to-request field="tempMap.partyId" request-name="partyId"/>
+    </simple-method>
+
+    <simple-method method-name="setupDefaultGeneralLedger" short-description="General Ledger Setup for the new organization">
+        <set field="partyId" from-field="parameters.partyId"/>
+        <!-- create GL journal for suspended transactions (failed post) -->
+        <set field="createGlJournalCtx.organizationPartyId" from-field="partyId"/>
+        <set field="createGlJournalCtx.glJournalName" value="Suspense transactions"/>
+        <call-service service-name="createGlJournal" in-map-name="createGlJournalCtx">
+            <result-to-field result-name="glJournalId" field="acctgPreferenceCtx.errorGlJournalId"/>
+        </call-service>
+
+        <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
+        <call-bsh><![CDATA[
+           groupName = partyGroup.get("groupName");
+           if(groupName != null){
+              parameters.put("invoiceIdPrefix", groupName.toUpperCase().substring(0, 2)+"CI");
+           }else{
+              parameters.put("invoiceIdPrefix", "CI");
+           }
+           ]]></call-bsh>
+
+        <set field="acctgPreferenceCtx.partyId" from-field="partyId"/>
+        <set field="acctgPreferenceCtx.taxFormId" value="US_IRS_1120"/>
+        <set field="acctgPreferenceCtx.cogsMethodId" value="COGS_AVG_COST"/>
+        <set field="acctgPreferenceCtx.baseCurrencyUomId" value="USD"/>
+        <set field="acctgPreferenceCtx.oldInvoiceSequenceEnumId" value="INVSQ_ENF_SEQ"/>
+        <set field="acctgPreferenceCtx.invoiceIdPrefix" from-field="parameters.invoiceIdPrefix"/>
+        <set field="acctgPreferenceCtx.oldQuoteSequenceEnumId" value="INVSQ_ENF_SEQ"/>
+        <set field="acctgPreferenceCtx.quoteIdPrefix" value="QU"/>
+        <set field="acctgPreferenceCtx.oldOrderSequenceEnumId" value="INVSQ_ENF_SEQ"/>
+        <set field="acctgPreferenceCtx.orderIdPrefix" value="OD"/>
+        <call-service service-name="createPartyAcctgPreference" in-map-name="acctgPreferenceCtx"/>
+
+        <!-- run demo General Chart Of Accounts  -->
+        <entity-condition entity-name="GlAccount" list="glAccountList"/>
+        <if-empty field="glAccountList">
+            <set field="importChartOfAccountCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/accounting/data/DemoGeneralChartOfAccounts.xml"/>
+            <session-to-field field="importChartOfAccountCtx.userLogin" session-name="userLogin"/>
+            <call-service service-name="entityImport" in-map-name="importChartOfAccountCtx"/>
+            <check-errors/>
+        </if-empty>
+
+        <!-- create General Ledger Setup -->
+        <now-timestamp field="nowTimestamp"/>
+        <set field="placeholderValues.orgPartyId" from="partyId"/>
+        <set field="placeholderValues.fromDate" value="${groovy:nowTimestamp.toString()}"/>
+        <set field="importFileCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/GlAccountData.xml"/>
+        <set field="importFileCtx.placeholderValues" from="placeholderValues"/>
+        <call-service service-name="entityImport" in-map-name="importFileCtx"/>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="createCustomer" short-description="Create Customer" login-required="false">
+        <set field="require_email" value="true"/>
+        <set field="require_phone" value="false"/>
+        <set field="require_login" value="false"/>
+        <!-- this parameter must be set to true or the createUser method below will use a default password instead of the one entered by user -->
+        <set field="create_allow_password" value="true"/>
+        <set field="parameters.roleTypeId" value="CUSTOMER"/>
+        <set field="organizationPartyId" from-field="parameters.partyId"/>
+        <set field="personContext.partyId" from-field="parameters.customerPartyId"/>
+        <call-simple-method method-name="createUser" xml-resource="component://party/minilang/user/UserEvents.xml"/>
+    </simple-method>
+
+    <simple-method method-name="createFacilityAndContactMech" short-description="create Facility and ContactMech">
+        <if-empty field="parameters.facilityName">
+            <add-error>
+                <fail-property resource="SetupUiLabels" property="SetupFacilityNameIsMissing"/>
+            </add-error>
+        </if-empty>
+        <check-errors/>
+        
+        <make-value value-field="newEntity" entity-name="Facility"/>
+        <set field="defaultDaysToShip" from-field="parameters.defaultDaysToShip" type="Long"/>
+        <clear-field field="parameters.defaultDaysToShip"/>
+        
+        <set-nonpk-fields value-field="newEntity" map="parameters"/>
+        <set field="newEntity.defaultDaysToShip" from-field="defaultDaysToShip" type="Long"/>
+
+        <if-empty field="parameters.facilityId">
+            <sequenced-id sequence-name="Facility" field="facilityId"/>
+            <to-string field="facilityId"/>
+            <set field="newEntity.facilityId" from-field="facilityId"/>
+            <else>
+                <set field="newEntity.facilityId" from-field="parameters.facilityId"/>
+            </else>
+        </if-empty>
+        <set field="facilityId" from-field="newEntity.facilityId"/>
+        <field-to-request field="facilityId" request-name="facilityId"/>
+        <create-value value-field="newEntity"/>
+
+        <!-- create  Facility ContactMech-->
+        <entity-and entity-name="PartyAndPostalAddress" list="listPartyPostalAddress" filter-by-date="true">
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+        </entity-and>
+        <first-from-list entry="partyPostalAddress" list="listPartyPostalAddress"/>
+        <sequenced-id sequence-name="ContactMech" field="partyPostalAddress.contactMechId"/>
+        <set-service-fields service-name="createPostalAddress" map="partyPostalAddress" to-map="addressContext"/>
+        <call-service service-name="createPostalAddress" in-map-name="addressContext">
+            <result-to-field result-name="contactMechId" field="contactMechId"/>
+        </call-service>
+
+        <set field="facilityContactMechCtx.contactMechId" from-field="contactMechId"/>
+        <set field="facilityContactMechCtx.facilityId" from-field="facilityId"/>
+        <call-service service-name="createFacilityContactMech" in-map-name="facilityContactMechCtx"/>
+
+        <!-- create the payment location -->
+        <set field="addressPurposeContext.facilityId" from-field="facilityId"/>
+        <set field="addressPurposeContext.contactMechId" from-field="contactMechId"/>
+        <set field="addressPurposeContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
+        <call-service service-name="createFacilityContactMechPurpose" in-map-name="addressPurposeContext"/>
+        <!-- also consider this address the shipping origin address -->
+        <set field="addressPurposeContext.contactMechPurposeTypeId" value="SHIP_ORIG_LOCATION"/>
+        <call-service service-name="createFacilityContactMechPurpose" in-map-name="addressPurposeContext"/>
+    </simple-method>
+
+    <simple-method method-name="createProductStoreWithDefaultSetting" short-description="create ProductStore and setting default value for payment and shipping">
+        <if-empty field="parameters.storeName">
+            <add-error>
+                <fail-property resource="SetupUiLabels" property="SetupProductStoreNameIsMissing"/>
+            </add-error>
+        </if-empty>
+        <if-compare field="parameters.showPricesWithVatTax" operator="equals" value="Y">
+            <if-empty field="parameters.vatTaxAuthGeoId">
+                <add-error><fail-property property="ProductVatTaxAuthGeoNotSet" resource="ProductUiLabels"/></add-error>
+            </if-empty>
+            <if-empty field="parameters.vatTaxAuthPartyId">
+                <add-error><fail-property property="ProductVatTaxAuthPartyNotSet" resource="ProductUiLabels"/></add-error>
+            </if-empty>
+        </if-compare>
+        <check-errors/>
+
+        <!-- Create ProductStore -->
+        <make-value value-field="newEntity" entity-name="ProductStore"/>
+        <set-nonpk-fields value-field="newEntity" map="parameters"/>
+        <set field="newEntity.storeCreditValidDays" value="90" type="Long"/>
+        <set field="newEntity.daysToCancelNonPay"  value="30" type="Long"/>
+
+        <if-empty field="parameters.productStoreId">
+            <sequenced-id sequence-name="ProductStore" field="productStoreId"/>
+            <to-string field="productStoreId"/>
+            <set field="newEntity.productStoreId" from-field="productStoreId"/>
+            <else>
+                <set field="newEntity.productStoreId" from-field="parameters.productStoreId"/>
+            </else>
+        </if-empty>
+        <set field="productStoreId" from-field="newEntity.productStoreId"/>
+        <field-to-request field="productStoreId" request-name="productStoreId"/>
+        <create-value value-field="newEntity"/>
+
+        <!-- create the ProductStoreFacility record -->
+        <now-timestamp field="nowTimestamp"/>
+        <if-not-empty field="newEntity.inventoryFacilityId">
+            <make-value value-field="storeFacility" entity-name="ProductStoreFacility"/>
+            <set from-field="newEntity.inventoryFacilityId" field="storeFacility.facilityId"/>
+            <set from-field="newEntity.productStoreId" field="storeFacility.productStoreId"/>
+            <set from-field="nowTimestamp" field="storeFacility.fromDate"/>
+            <create-value value-field="storeFacility"/>
+        </if-not-empty>
+
+        <field-to-request field="parameters.partyId" request-name="partyId"/>
+        <set field="organizationPartyId" from-field="parameters.partyId"/>
+ 
+        <!-- Create default data of ProductStoreShipmentMeth, ShipmentMethodType , CarrierShipmentMethod, and ShipmentCostEstimate. -->
+        <entity-condition entity-name="ShipmentMethodType" list="shipmentMethodTypeList"/>
+        <if-empty field="shipmentMethodTypeList">
+            <!-- run demo Shipping  -->
+            <set field="importShippingCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/ShippingData.xml"/>
+            <session-to-field field="importShippingCtx.userLogin" session-name="userLogin"/>
+            <call-service service-name="entityImport" in-map-name="importShippingCtx"/>
+            <check-errors/>
+        </if-empty>
+
+        <!-- Import Default ProductStore & Shipment data -->
+        <set field="placeholderValues.orgPartyId" from="organizationPartyId"/>
+        <set field="placeholderValues.productStoreId" from="productStoreId"/>
+        <set field="importFileCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/ProductStoreData.xml"/>
+        <set field="importFileCtx.placeholderValues" from="placeholderValues"/>
+        <call-service service-name="entityImport" in-map-name="importFileCtx"/>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="createProdCatalogAndProductStoreCatalog" short-description="create ProdCatalog And ProductStoreCatalog">
+        <set-service-fields service-name="createProdCatalog" map="parameters" to-map="createProdCatalogCtx"/>
+
+        <call-service service-name="createProdCatalog" in-map-name="createProdCatalogCtx">
+            <result-to-field result-name="prodCatalogId" field="newProductStoreCatalog.prodCatalogId"/>
+            <result-to-request result-name="prodCatalogId" request-name="prodCatalogId"/>
+        </call-service>
+
+        <set field="newProductStoreCatalog.productStoreId" from-field="parameters.productStoreId"/>
+        <call-service service-name="createProductStoreCatalog" in-map-name="newProductStoreCatalog"/>
+    </simple-method>
+    
+    <simple-method method-name="createProductCategoryAndAddToProdCatalog" short-description="addProductCategoryToProdCatalog">
+        <!-- Create Parent ProductCategory -->
+        <set field="createPrimaryProductCategoryCtx.productCategoryId" value="${parameters.prodCatalogId}_ROOT"/>
+        <set field="createPrimaryProductCategoryCtx.categoryName" value="${parameters.prodCatalogId} Browse Root Category"/>
+        <set field="createPrimaryProductCategoryCtx.productCategoryTypeId" value="CATALOG_CATEGORY"/>
+        <call-service service-name="createProductCategory" in-map-name="createPrimaryProductCategoryCtx">
+            <result-to-field result-name="productCategoryId" field="parameters.primaryParentCategoryId"/>
+        </call-service>
+
+        <set field="addToProdCatalogCtx.productCategoryId" from-field="parameters.primaryParentCategoryId"/>
+        <set field="addToProdCatalogCtx.prodCatalogId" from-field="parameters.prodCatalogId"/>
+        <set field="addToProdCatalogCtx.prodCatalogCategoryTypeId" value="PCCT_BROWSE_ROOT"/>
+        <set field="addToProdCatalogCtx.sequenceNum" value="1" type="Long"/>
+        <call-service service-name="addProductCategoryToProdCatalog" in-map-name="addToProdCatalogCtx"/>
+
+        <!-- Create Promotion ProductCategory -->
+        <call-object-method obj-field="parameters.prodCatalogId" method-name="toUpperCase" ret-field="catalogUpperCase"/>
+        <set field="createPromotionCategoryCtx.productCategoryId" value="${catalogUpperCase}_PROMOTIONS"/>
+        <set field="createPromotionCategoryCtx.categoryName" value="${catalogUpperCase} Promotions"/>
+        <set field="createPromotionCategoryCtx.productCategoryTypeId" value="CATALOG_CATEGORY"/>
+        <set field="createPromotionCategoryCtx.detailScreen" value="component://ecommerce/widget/CatalogScreens.xml#categorydetailmatrix"/>
+
+        <call-service service-name="createProductCategory" in-map-name="createPromotionCategoryCtx">
+            <result-to-field result-name="productCategoryId" field="promotionCategoryId"/>
+        </call-service>
+        <set field="addPromoCatToProdCatalogCtx.productCategoryId" from-field="promotionCategoryId"/>
+        <set field="addPromoCatToProdCatalogCtx.prodCatalogId" from-field="parameters.prodCatalogId"/>
+        <set field="addPromoCatToProdCatalogCtx.prodCatalogCategoryTypeId" value="PCCT_PROMOTIONS"/>
+        <set field="addPromoCatToProdCatalogCtx.sequenceNum" value="2" type="Long"/>
+        <call-service service-name="addProductCategoryToProdCatalog" in-map-name="addPromoCatToProdCatalogCtx"/>
+        
+        <!-- Create ProductCategory & ProductCategoryRollup -->
+        <set-service-fields service-name="createProductCategory" map="parameters" to-map="createProductCategoryCtx"/>
+        <call-service service-name="createProductCategory" in-map-name="createProductCategoryCtx">
+            <result-to-field result-name="productCategoryId" field="productCategoryId"/>
+            <result-to-request result-name="productCategoryId" request-name="productCategoryId"/>
+        </call-service>
+
+        <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
+        <set field="newEntity.parentProductCategoryId" from-field="parameters.primaryParentCategoryId"/>
+        <set field="newEntity.productCategoryId" from-field="productCategoryId"/>
+        <set field="newEntity.sequenceNum" value="1" type="Long"/>
+        <if-empty field="newEntity.fromDate">
+            <now-timestamp field="nowTimestamp"/>
+            <set from-field="nowTimestamp" field="newEntity.fromDate"/>
+        </if-empty>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="createUpdateProductInCategory" short-description="Create/Update a Product in a Category along with special information such as features">
+        <set value="createUpdateProductInCategory" field="callingMethodName"/>
+        <if-compare field="parameters.productId" operator="equals" value="${parameters.productCategoryId}">
+            <set field="parameters.productId" value="${parameters.productId}-001"/>
+        </if-compare>
+        <entity-one entity-name="Product" value-field="product"/>
+        <if-empty field="product">
+            <set field="checkAction" value="CREATE"/>
+            <else><set field="checkAction" value="UPDATE"/></else>
+        </if-empty>
+        <call-simple-method method-name="checkCategoryRelatedPermission" xml-resource="component://product/minilang/product/category/CategoryServices.xml"/>
+        <check-errors/>
+        
+        <if-empty field="parameters.currencyUomId">
+            <!-- default to USD for lack of a better alternative, for now anyway... -->
+            <set field="parameters.currencyUomId" value="USD"/>
+        </if-empty>
+        
+        <if-empty field="product">
+            <!-- create Product -->
+            <set-service-fields service-name="createProduct" map="parameters" to-map="callCreateProductMap"/>
+            <if-empty field="callCreateProductMap.productTypeId">
+                <set field="callCreateProductMap.productTypeId" value="FINISHED_GOOD"/>
+            </if-empty>
+            <call-service service-name="createProduct" in-map-name="callCreateProductMap">
+                <result-to-field result-name="productId"/>
+            </call-service>
+            
+            <!-- create ProductCategoryMember -->
+            <set field="callCreateProductCategoryMemberMap.productId" from-field="productId"/>
+            <set field="callCreateProductCategoryMemberMap.productCategoryId" from-field="parameters.productCategoryId"/>
+            <call-service service-name="addProductToCategory" in-map-name="callCreateProductCategoryMemberMap"/>
+            
+            <set field="callCreateProductCategoryMemberMap.productId" from-field="productId"/>
+            <set field="callCreateProductCategoryMemberMap.productCategoryId" from-field="parameters.promoCat"/>
+            <call-service service-name="addProductToCategory" in-map-name="callCreateProductCategoryMemberMap"/>
+            
+            <!-- create ProductFeatureAppl(s) -->
+            <set field="hasSelectableFeatures" value="N"/>
+            <iterate-map map="parameters.productFeatureIdByType" key="productFeatureTypeId" value="productFeatureId">
+                <log level="info" message="Applying feature [${productFeatureId}] of type [${productFeatureTypeId}] to product [${productId}]"/>
+                <set field="createPfaMap.productId" from-field="productId"/>
+                <set field="createPfaMap.productFeatureId" from-field="productFeatureId"/>
+                <if-compare field="parameters.productFeatureSelectableByType[productFeatureTypeId]" operator="equals" value="Y">
+                    <set field="createPfaMap.productFeatureApplTypeId" value="SELECTABLE_FEATURE"/>
+                    <set field="hasSelectableFeatures" value="Y"/>
+                    <else>
+                        <set field="createPfaMap.productFeatureApplTypeId" value="STANDARD_FEATURE"/>
+                    </else>
+                </if-compare>
+                <call-service service-name="applyFeatureToProduct" in-map-name="createPfaMap"/>
+                <clear-field field="createPfaMap"/>
+            </iterate-map>
+            
+            <!-- set isVirtual based on hasSelectableFeatures -->
+            <if-compare field="hasSelectableFeatures" operator="equals" value="Y">
+                <entity-one entity-name="Product" value-field="newProduct"/>
+                <set field="newProduct.isVirtual" value="Y"/>
+                <store-value value-field="newProduct"/>
+            </if-compare>
+            <else>
+                <!-- update Product -->
+                <set-service-fields service-name="updateProduct" map="parameters" to-map="callUpdateProductMap"/>
+                <call-service service-name="updateProduct" in-map-name="callUpdateProductMap"/>
+                <set field="productId" from-field="parameters.productId"/>
+            </else>
+        </if-empty>
+        <field-to-result field="productId"/>
+        
+        <!-- create/update defaultPrice and averageCost ProductPrice -->
+        <if-not-empty field="parameters.defaultPrice">
+            <entity-condition entity-name="ProductPrice" list="defaultPriceValues" filter-by-date="true">
+                <condition-list>
+                    <condition-expr field-name="productId" from-field="productId"/>
+                    <condition-expr field-name="productPriceTypeId" value="DEFAULT_PRICE"/>
+                    <condition-expr field-name="productPricePurposeId" value="PURCHASE"/>
+                </condition-list>
+            </entity-condition>
+            <if-empty field="defaultPriceValues">
+                <set field="createDefaultPriceMap.productId" from-field="productId"/>
+                <set field="createDefaultPriceMap.currencyUomId" from-field="parameters.currencyUomId"/>
+                <set field="createDefaultPriceMap.price" from-field="parameters.defaultPrice" type="BigDecimal"/>
+                <set field="createDefaultPriceMap.productStoreGroupId" value="_NA_"/>
+                <set field="createDefaultPriceMap.productPriceTypeId" value="DEFAULT_PRICE"/>
+                <set field="createDefaultPriceMap.productPricePurposeId" value="PURCHASE"/>
+                <call-service service-name="createProductPrice" in-map-name="createDefaultPriceMap"/>
+                
+                <else>
+                    <first-from-list entry="defaultPrice" list="defaultPriceValues"/>
+                    <set field="updateDefaultPriceMap.productId" from-field="productId"/>
+                    <set field="updateDefaultPriceMap.price" from-field="parameters.defaultPrice" type="BigDecimal"/>
+                    <set field="updateDefaultPriceMap.productPricePurposeId" from-field="defaultPrice.productPricePurposeId"/>
+                    <set field="updateDefaultPriceMap.productPriceTypeId" from-field="defaultPrice.productPriceTypeId"/>
+                    <set field="updateDefaultPriceMap.productStoreGroupId" from-field="defaultPrice.productStoreGroupId"/>
+                    <set field="updateDefaultPriceMap.currencyUomId" from-field="defaultPrice.currencyUomId"/>
+                    <set field="updateDefaultPriceMap.fromDate" from-field="defaultPrice.fromDate"/>
+                    <call-service service-name="updateProductPrice" in-map-name="updateDefaultPriceMap"/>
+                </else>
+            </if-empty>
+            
+        </if-not-empty>
+        
+        <if-not-empty field="parameters.averageCost">
+            <entity-condition entity-name="ProductPrice" list="averageCostValues" filter-by-date="true">
+                <condition-list>
+                    <condition-expr field-name="productId" from-field="productId"/>
+                    <condition-expr field-name="productPriceTypeId" value="AVERAGE_COST"/>
+                    <condition-expr field-name="productPricePurposeId" value="PURCHASE"/>
+                </condition-list>
+            </entity-condition>
+            <if-empty field="averageCostValues">
+                <set field="createAverageCostMap.productId" from-field="productId"/>
+                <set field="createAverageCostMap.currencyUomId" from-field="parameters.currencyUomId"/>
+                <set field="createAverageCostMap.price" from-field="parameters.averageCost" type="BigDecimal"/>
+                <set field="createAverageCostMap.productStoreGroupId" value="_NA_"/>
+                <set field="createAverageCostMap.productPriceTypeId" value="AVERAGE_COST"/>
+                <set field="createAverageCostMap.productPricePurposeId" value="PURCHASE"/>
+                <call-service service-name="createProductPrice" in-map-name="createAverageCostMap"/>
+                
+                <else>
+                    <first-from-list entry="averageCost" list="averageCostValues"/>
+                    <set field="updateAverageCostMap.productId" from-field="productId"/>
+                    <set field="updateAverageCostMap.productPricePurposeId" from-field="averageCost.productPricePurposeId"/>
+                    <set field="updateAverageCostMap.productPriceTypeId" from-field="averageCost.productPriceTypeId"/>
+                    <set field="updateAverageCostMap.productStoreGroupId" from-field="averageCost.productStoreGroupId"/>
+                    <set field="updateAverageCostMap.currencyUomId" from-field="averageCost.currencyUomId"/>
+                    <set field="updateAverageCostMap.fromDate" from-field="averageCost.fromDate"/>
+                    <set field="updateAverageCostMap.price" from-field="parameters.averageCost" type="BigDecimal"/>
+                    <call-service service-name="updateProductPrice" in-map-name="updateAverageCostMap"/>
+                </else>
+            </if-empty>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="createDefaultWebSite" short-description="Create a WebSite, default webSiteId is WebStore.">
+        <set field="parameters.webSiteId" value="WebStore"/>
+        <call-service service-name="createWebSite" in-map-name="parameters"/>
+    </simple-method>
+
+</simple-methods>

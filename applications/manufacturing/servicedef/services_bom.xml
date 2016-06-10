@@ -26,7 +26,7 @@ under the License.
 
     <!-- Bill of Materials services -->
     <service name="createBOMAssoc" default-entity-name="ProductAssoc" engine="simple"
-                location="component://manufacturing/script/org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="createBOMAssoc" auth="true">
+                location="component://manufacturing/minilang/bom/BomSimpleMethods.xml" invoke="createBOMAssoc" auth="true">
         <description>Add Product to Product Association</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -34,7 +34,7 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
     <service name="copyBOMAssocs" default-entity-name="ProductAssoc" engine="simple"
-                location="component://manufacturing/script/org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="copyBOMAssocs" auth="true">
+                location="component://manufacturing/minilang/bom/BomSimpleMethods.xml" invoke="copyBOMAssocs" auth="true">
         <description>Copy BOM associations from one product to another</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="copyToProductId" type="String" optional="false" mode="IN"/>
@@ -43,7 +43,7 @@ under the License.
     </service>
 
     <service name="updateProductManufacturingRule" engine="simple" default-entity-name="ProductManufacturingRule"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="updateProductManufacturingRule">
+            location="component://manufacturing/minilang/bom/BomSimpleMethods.xml" invoke="updateProductManufacturingRule">
         <description>Update a Product Manufacturing Rule</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -54,7 +54,7 @@ under the License.
     </service>
 
     <service name="addProductManufacturingRule" engine="simple" default-entity-name="ProductManufacturingRule"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="addProductManufacturingRule">
+            location="component://manufacturing/minilang/bom/BomSimpleMethods.xml" invoke="addProductManufacturingRule">
         <description>Create a Product Manufacturing Rule</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -65,7 +65,7 @@ under the License.
     </service>
 
     <service name="deleteProductManufacturingRule" engine="simple"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="deleteProductManufacturingRule">
+            location="component://manufacturing/minilang/bom/BomSimpleMethods.xml" invoke="deleteProductManufacturingRule">
         <description>Remove a Product Manufacturing Rule</description>
         <attribute name="ruleId" form-label="${uiLabelMap.ManufacturingRuleId}" type="String" mode="IN" optional="false"/>
     </service>

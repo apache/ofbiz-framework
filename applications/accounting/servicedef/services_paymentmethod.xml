@@ -167,20 +167,20 @@ under the License.
     </service>
 
     <service name="setPaymentMethodAddress" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="setPaymentMethodAddress" auth="true">
+            location="component://accounting/minilang/payment/PaymentMethodServices.xml" invoke="setPaymentMethodAddress" auth="true">
         <description>Set the inital payment method address.</description>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="updatePaymentMethodAddress" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="updatePaymentMethodAddress" auth="true" use-transaction="false">
+            location="component://accounting/minilang/payment/PaymentMethodServices.xml" invoke="updatePaymentMethodAddress" auth="true" use-transaction="false">
         <description>Finds CreditCards and EftAccounts that use the oldContactMechId and updates to the contactMechId</description>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
         <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createPayPalPaymentMethod" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="createPayPalPaymentMethod" auth="true">
+            location="component://accounting/minilang/payment/PaymentMethodServices.xml" invoke="createPayPalPaymentMethod" auth="true">
         <description>Create a PayPal Payment Method</description>
         <auto-attributes mode="INOUT" entity-name="PayPalPaymentMethod" include="pk" optional="true"/>
         <auto-attributes mode="IN" entity-name="PayPalPaymentMethod" include="nonpk" optional="true"/>
@@ -190,7 +190,7 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="updatePayPalPaymentMethod" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="updatePayPalPaymentMethod" auth="true">
+            location="component://accounting/minilang/payment/PaymentMethodServices.xml" invoke="updatePayPalPaymentMethod" auth="true">
         <description>Update a PayPal Payment Method</description>
         <attribute name="paymentMethodId" mode="INOUT" type="String" optional="false"/>
         <auto-attributes mode="IN" entity-name="PayPalPaymentMethod" include="nonpk" optional="true"/>
@@ -823,7 +823,7 @@ under the License.
     
     <!-- Payment Group Member -->
     <service name="createPaymentGroupMember" default-entity-name="PaymentGroupMember" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="createPaymentGroupMember" auth="true">
+            location="component://accounting/minilang/payment/PaymentMethodServices.xml" invoke="createPaymentGroupMember" auth="true">
         <description>Check For Outgoing/Incoming Payment And Create Payment Group Member</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -839,7 +839,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="expirePaymentGroupMember" default-entity-name="PaymentGroupMember" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="expirePaymentGroupMember" auth="true">
+            location="component://accounting/minilang/payment/PaymentMethodServices.xml" invoke="expirePaymentGroupMember" auth="true">
         <description>expire a Payment Group Member</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>

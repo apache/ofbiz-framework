@@ -23,27 +23,27 @@ under the License.
     <version>1.0</version>
     
     <service name="payCash" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCash">
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="payCash">
         <description>Pay Cash</description>
         <attribute name="amountCash" type="String" mode="IN" optional="false"/>
     </service>
     
     <service name="payCheck" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCheck">
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="payCheck">
         <description>Pay Check</description>
         <attribute name="amountCheck" type="String" mode="IN" optional="false"/>
         <attribute name="refNum" type="String" mode="IN" optional="true"/>
     </service>
     
     <service name="payGiftCard" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payGiftCard">
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="payGiftCard">
         <description>Pay Gift Card</description>
         <attribute name="amountGiftCard" type="String" mode="IN" optional="false"/>
         <attribute name="refNum" type="String" mode="IN" optional="true"/>
     </service>
     
     <service name="payCreditCard" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCreditCard">
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="payCreditCard">
         <description>Pay Credit Card</description>
         <attribute name="swipeCard" type="String" mode="IN" optional="false"/>
         <attribute name="swipeData" type="String" mode="IN" optional="true"/>
@@ -61,12 +61,12 @@ under the License.
     </service>
     
     <service name="payFinish" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payFinish">
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="payFinish">
         <description>Pay Finish</description>
     </service>
     
     <service name="clearPayment" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="clearPayment">
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="clearPayment">
         <description>Clear Payment</description>
         <attribute name="clearCash"   type="String" mode="IN" optional="true"/>
         <attribute name="clearCheck"  type="String" mode="IN" optional="true"/>
@@ -75,7 +75,7 @@ under the License.
     </service>
     
     <service name="clearAllPayments" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="clearAllPayments">
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="clearAllPayments">
         <description>Clear All Payments</description>
     </service>
 </services>

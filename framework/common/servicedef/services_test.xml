@@ -153,50 +153,50 @@ under the License.
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testBsh" engine="bsh" location="component://common/script/org/ofbiz/common/BshServiceTest.bsh" invoke="">
+    <service name="testBsh" engine="bsh" location="component://common/minilang/BshServiceTest.bsh" invoke="">
         <description>Test BeanShell Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true" />
         <attribute name="result" type="String" mode="OUT" />
     </service>
 
-    <service name="testGroovy" engine="groovy" location="component://common/script/org/ofbiz/common/GroovyServiceTest.groovy" invoke="">
+    <service name="testGroovy" engine="groovy" location="component://common/minilang/GroovyServiceTest.groovy" invoke="">
         <description>Test Groovy Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testGroovyMethod" engine="groovy" location="component://common/script/org/ofbiz/common/GroovyServiceTest.groovy" invoke="testMethod">
+    <service name="testGroovyMethod" engine="groovy" location="component://common/minilang/GroovyServiceTest.groovy" invoke="testMethod">
         <description>Test Groovy Script Service Method Invocation</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testScriptEngineBsh" engine="script" location="component://common/script/org/ofbiz/common/BshServiceTest.bsh" invoke="">
+    <service name="testScriptEngineBsh" engine="script" location="component://common/minilang/BshServiceTest.bsh" invoke="">
         <description>Test BeanShell Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testScriptEngineGroovy" engine="script" location="component://common/script/org/ofbiz/common/GroovyServiceTest.groovy" invoke="">
+    <service name="testScriptEngineGroovy" engine="script" location="component://common/minilang/GroovyServiceTest.groovy" invoke="">
         <description>Test Script Engine With Groovy Script</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testScriptEngineGroovyMethod" engine="script" location="component://common/script/org/ofbiz/common/GroovyServiceTest.groovy" invoke="testMethod">
+    <service name="testScriptEngineGroovyMethod" engine="script" location="component://common/minilang/GroovyServiceTest.groovy" invoke="testMethod">
         <description>Test Script Engine With Groovy Script Method Invocation</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testScriptEngineJavaScript" engine="script" location="component://common/script/org/ofbiz/common/JavaScriptTest.js" invoke="">
+    <service name="testScriptEngineJavaScript" engine="script" location="component://common/minilang/JavaScriptTest.js" invoke="">
         <description>Test Script Engine With JavaScript</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="exampleId" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testScriptEngineJavaScriptFunction" engine="script" location="component://common/script/org/ofbiz/common/JavaScriptTest.js" invoke="testFunction">
+    <service name="testScriptEngineJavaScriptFunction" engine="script" location="component://common/minilang/JavaScriptTest.js" invoke="testFunction">
         <description>Test Script Engine With JavaScript Function Invocation</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
@@ -230,7 +230,7 @@ under the License.
     </service>
 
     <service name="testJavaScript" engine="javascript" auth="false"
-        location="component://common/script/org/ofbiz/common/JavaScriptTest.js" invoke="">
+        location="component://common/minilang/JavaScriptTest.js" invoke="">
         <description>Test JavaScript Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT" optional="true"/>

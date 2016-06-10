@@ -23,7 +23,7 @@ under the License.
     <version>1.0</version>
     
     <service name="createUpdateAddress" engine="simple" auth="false"
-             location="component://webpos/script/org/ofbiz/webpos/event/CustomerEvents.xml" invoke="createUpdateAddress">
+             location="component://webpos/minilang/CustomerEvents.xml" invoke="createUpdateAddress">
         <description>Create/update party address</description>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="firstName" type="String" mode="IN" optional="true"/>

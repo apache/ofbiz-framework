@@ -68,13 +68,13 @@ under the License.
     </request-map>
     <request-map uri="createScrumProject">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createScrumProject" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createScrumProject" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request" value="viewScrumProject"><redirect-parameter name="projectId"/></response>
         <response name="error" type="view" value="editScrumProject"/>
     </request-map>
     <request-map uri="updateScrumProject">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateScrumProject" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateScrumProject" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="viewScrumProject"/>
         <response name="error" type="view" value="editScrumProject"/>
     </request-map>
@@ -94,7 +94,7 @@ under the License.
     </request-map>
     <request-map uri="createSprint">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="createSprint" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createSprint" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request" value="ViewSprint"><redirect-parameter name="sprintId"/></response>
         <response name="error" type="view" value="AddSprint"></response>
     </request-map>
@@ -104,7 +104,7 @@ under the License.
     </request-map>
     <request-map uri="DeleteSprint">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="DeleteSprint" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="DeleteSprint" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="SprintList"></response>
     </request-map>
     <request-map uri="EditSprint">
@@ -113,12 +113,12 @@ under the License.
     </request-map>
     <request-map uri="UpdateSprint">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="updateSprintInfo" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateSprintInfo" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="ViewSprint"></response>
     </request-map>
     <request-map uri="addSprintMember">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="assignPartyToWorkEffort" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="assignPartyToWorkEffort" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="SprintMember"/>
     </request-map>
     <request-map uri="delSprintMember">
@@ -128,7 +128,7 @@ under the License.
     </request-map>
     <request-map uri="DeleteSprintBackLogs">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="deleteSprintBacklog" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="deleteSprintBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="ViewSprint"></response>
     </request-map>
     <request-map uri="sprintBacklogListTarget">
@@ -137,7 +137,7 @@ under the License.
     </request-map>
     <request-map uri="UpdateHours">
         <security auth="true" https="true"></security>
-        <event type="simple" invoke="updateTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"></event>
+        <event type="simple" invoke="updateTask" path="component://scrum/minilang/ScrumEvents.xml"></event>
         <response name="error" type="view" value="ViewSprint"></response>
         <response name="success" type="view" value="ViewSprint"></response>
     </request-map>
@@ -148,7 +148,7 @@ under the License.
     </request-map>
     <request-map uri="setCompleteTask">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="setTaskStatusToComplete" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="setTaskStatusToComplete" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="ViewSprint"/>
     </request-map>
     <request-map uri="DeleteTask">
@@ -162,7 +162,7 @@ under the License.
     </request-map>
     <request-map uri="setAccept">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="setAccept" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="setAccept" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="error" type="view" value="ViewProdBacklogItem"/>
         <response name="success" type="view" value="ViewProdBacklogItem"/>
     </request-map>
@@ -177,7 +177,7 @@ under the License.
     </request-map>-->
     <request-map uri="updateProductBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateProductBacklog" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateProductBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="ViewProdBacklogItem">
             <redirect-parameter name="productId"/>
             <redirect-parameter name="custRequestId"/>
@@ -191,13 +191,13 @@ under the License.
     </request-map>
     <request-map uri="deleteCustRequest">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="deleteCustRequest" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="deleteCustRequest" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="AddProdBacklog"><redirect-parameter name="productId"/></response>
         <response name="error" type="view" value="AddProdBacklog"/>
     </request-map>
     <request-map uri="deleteBacklogItem">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="deleteCustRequest" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="deleteCustRequest" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="ViewProdBacklogItem">
             <redirect-parameter name="productId"/>
             <redirect-parameter name="custRequestId"/>
@@ -206,7 +206,7 @@ under the License.
     </request-map>
     <request-map uri="deleteProductBacklogItem">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="deleteCustRequest" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="deleteCustRequest" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="AddProdBacklog">
             <redirect-parameter name="productId"/>
         </response>
@@ -214,7 +214,7 @@ under the License.
     </request-map>
     <request-map uri="updateProductBacklogItemRow">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateProductBacklogItemRows" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateProductBacklogItemRows" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="AddProdBacklog">
             <redirect-parameter name="productId"/>
             <redirect-parameter name="sequence"/>
@@ -255,7 +255,7 @@ under the License.
     </request-map>
     <request-map uri="deleteCustRequestItem">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="deleteCustRequestItem" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="deleteCustRequestItem" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="EditProdBacklog"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditProdBacklog"/>
     </request-map>
@@ -265,7 +265,7 @@ under the License.
     </request-map>
     <request-map uri="createDailyNote">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createDailyNote" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createDailyNote" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="DailyScrumMeetingMinute">
             <redirect-parameter name="sprintId"/>
         </response>
@@ -273,7 +273,7 @@ under the License.
     </request-map>
     <request-map uri="updateDailyNote">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateDailyNote" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateDailyNote" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect-noparam" value="DailyScrumMeetingMinute"/>
         <response name="error" type="view" value="DailyScrumMeetingMinute"/>
     </request-map>
@@ -284,7 +284,7 @@ under the License.
     </request-map>
     <request-map uri="createProductBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createProductBacklog" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createProductBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="AddProdBacklog">
             <redirect-parameter name="productId"/>
             <redirect-parameter name="sequence"/>
@@ -298,7 +298,7 @@ under the License.
     </request-map>
     <request-map uri="updateSprintBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateSprintBacklog" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateSprintBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="error" type="view" value="EditSprintBacklog"/>
         <response name="success" type="view" value="ViewSprint"/>
     </request-map>
@@ -315,7 +315,7 @@ under the License.
     <request-map uri="AddSprintBacklog"><security https="true" auth="true"/><response name="success" type="view" value="AddSprintBacklog"/></request-map>
     <request-map uri="createSprintBacklog">
     <security https="true" auth="true"/>
-    <event type="simple" invoke="createSprintBacklog" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+    <event type="simple" invoke="createSprintBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
     <response name="success" type="view" value="ViewSprint"/>
     <response name="error" type="view" value="AddSprintBacklog"/>
     </request-map>
@@ -334,7 +334,7 @@ under the License.
     </request-map>
     <request-map uri="createSprintBacklogTask">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="error" type="request-redirect" value="EditSprintTask">
             <redirect-parameter name="sprintId"/>
         </response>
@@ -344,7 +344,7 @@ under the License.
     </request-map>
     <request-map uri="updateSprintTask">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateTask" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="error" type="view" value="SprintTask"/>
         <response name="success" type="request-redirect" value="SprintTask">
             <redirect-parameter name="sprintId"/>
@@ -385,7 +385,7 @@ under the License.
     </request-map>
     <request-map uri="addMemberTask">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="addMemberTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="addMemberTask" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request" value="taskMember"/>
         <response name="error" type="request" value="taskMember"/>
     </request-map>
@@ -418,7 +418,7 @@ under the License.
     </request-map>
     <request-map uri="updateTask">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateTask" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request" value="taskView">
             <redirect-parameter name="taskId" from="parameters.taskId"/>
         </response>
@@ -426,7 +426,7 @@ under the License.
     </request-map>
     <request-map uri="updateTaskList">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateTask" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect-noparam" value="FindTask" />
         <response name="error" type="request-redirect-noparam" value="FindTask"/>
     </request-map>
@@ -437,7 +437,7 @@ under the License.
     </request-map>
     <request-map uri="createTaskNote">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"  invoke="createTaskNote"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml"  invoke="createTaskNote"/>
         <response name="success" type="request-redirect" value="TaskNote">
             <redirect-parameter name="taskId"/>
         </response>
@@ -445,7 +445,7 @@ under the License.
     </request-map>
     <request-map uri="deleteTaskNote">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"  invoke="deleteTaskNote"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml"  invoke="deleteTaskNote"/>
         <response name="success" type="request-redirect" value="TaskNote">
             <redirect-parameter name="taskId"/>
         </response>
@@ -465,7 +465,7 @@ under the License.
     </request-map>
     <request-map uri="setTaskStatusToComplete">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="setTaskStatusToComplete" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="setTaskStatusToComplete" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="taskView"/>
     </request-map>
     <request-map uri="setTaskStatus">
@@ -475,7 +475,7 @@ under the License.
     </request-map>
     <request-map uri="setTaskStatusReOpen">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="setTaskStatusReOpen" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="setTaskStatusReOpen" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="taskView"/>
     </request-map>
     <request-map uri="updateTaskAssigment">
@@ -516,7 +516,7 @@ under the License.
     </request-map>
     <request-map uri="createTask">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="FindTask"/>
         <response name="error" type="view" value="EditTask"/>
     </request-map>
@@ -533,13 +533,13 @@ under the License.
     </request-map>
    <request-map uri="addResource">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="addScrumResource" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="addScrumResource" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="error" type="view" value="FindResource"/>
         <response name="success" type="request-redirect-noparam" value="FindResource"/>
     </request-map>
     <request-map uri="removeResource">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="deleteScrumResource" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="deleteScrumResource" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect-noparam" value="FindResource"/>
         <response name="error" type="view" value="FindResource"/>
     </request-map>
@@ -553,7 +553,7 @@ under the License.
     </request-map>
     <request-map uri="addWorkEffortPartyAssign">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="addProjectMember" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="addProjectMember" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="listResourcesProject">
             <redirect-parameter name="partyId"/>
         </response>
@@ -561,7 +561,7 @@ under the License.
     </request-map>
     <request-map uri="addTaskPartyAssign">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="addTaskAssignment" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="addTaskAssignment" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="listResourcesTask"/>
         <response name="error" type="view" value="listResourcesTask"/>
     </request-map>
@@ -580,19 +580,19 @@ under the License.
     </request-map>
     <request-map uri="createPartyRate">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="scrumUpdatePartyRate" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="scrumUpdatePartyRate" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="EditPartyRates"/>
         <response name="error" type="view" value="EditPartyRates"/>
     </request-map>
     <request-map uri="updatePartyRate">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="scrumUpdatePartyRate" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="scrumUpdatePartyRate" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="EditPartyRates"/>
         <response name="error" type="view" value="EditPartyRates"/>
     </request-map>
     <request-map uri="deletePartyRate">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="scrumDeletePartyRate" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="scrumDeletePartyRate" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="EditPartyRates"/>
         <response name="error" type="view" value="EditPartyRates"/>
     </request-map>
@@ -621,7 +621,7 @@ under the License.
     </request-map>
     <request-map uri="updateNotBilledBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateNotBilledBacklog" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateNotBilledBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="ProductBilling">
             <redirect-parameter name="productId"/>
             <redirect-parameter name="fromDate"/>
@@ -634,7 +634,7 @@ under the License.
     </request-map>
     <request-map uri="updateTotalNotBilledBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateNotBilledBacklog" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateNotBilledBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="TotalBilling">
             <redirect-parameter name="productId"/>
             <redirect-parameter name="fromDate"/>
@@ -648,31 +648,31 @@ under the License.
     
     <request-map uri="createProductAndRole">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createProductAndRole" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createProductAndRole" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="ViewProduct"/>
         <response name="error" type="request-redirect" value="EditProduct"/>
     </request-map>
     <request-map uri="createProductRole">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createProductRole" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createProductRole" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="AddProduct"/>
         <response name="error" type="view" value="AddProduct"/>
     </request-map>
     <request-map uri="updateProduct">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateProduct" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateProduct" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="ViewProduct"></response>
         <response name="error" type="view" value="EditProduct"/>
     </request-map>
     <request-map uri="deleteProduct">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="deleteProduct" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="deleteProduct" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect-noparam" value="AddProduct"/>
         <response name="error" type="view" value="AddProduct"/>
     </request-map>
     <request-map uri="deleteProjectPartyAssign">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="removeProjectMember"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="removeProjectMember"/>
         <response name="success" type="request-redirect" value="listResourcesProject">
             <redirect-parameter name="partyId"/>
         </response>
@@ -684,13 +684,13 @@ under the License.
    </request-map>
    <request-map uri="addProductMember">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="addProductMember"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="addProductMember"/>
         <response name="success" type="view" value="ProductMember"/>
         <response name="error" type="view" value="ProductMember"/>
     </request-map>
    <request-map uri="removeProductMember">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="removeProductMember"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="removeProductMember"/>
         <response name="success" type="request-redirect" value="ProductMember">
             <redirect-parameter name="productId"/>
         </response>
@@ -698,7 +698,7 @@ under the License.
     </request-map>
     <request-map uri="UpdateCompanyAndOwner">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="updateProduct"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="updateProduct"/>
         <response name="success" type="view" value="ProductMember"/>
         <response name="error" type="view" value="ProductMember"/>
     </request-map>
@@ -710,13 +710,13 @@ under the License.
     </request-map>
     <request-map uri="addTaskAssignment">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="addTaskAssignment" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="addTaskAssignment" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="MyWork"/>
         <response name="error" type="view" value="MyWork"/>
     </request-map>
     <request-map uri="updateMyTask">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateTask" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="MyWork">
             <redirect-parameter name="timesheetId"/>
             <redirect-parameter name="MyTasks_size_1"/>
@@ -780,7 +780,7 @@ under the License.
     
     <request-map uri="testTaskBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="testTaskBacklog" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="testTaskBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="error" type="request-redirect" value="backlogView">
             <redirect-parameter name="custRequestId"/>
         </response>
@@ -795,7 +795,7 @@ under the License.
     </request-map>
     <request-map uri="createTaskForSprintBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="error" type="view" value="NewSprintBacklogTask"/>
         <response name="success" type="request-redirect" value="ViewSprint">
             <redirect-parameter name="projectId"/>
@@ -832,19 +832,19 @@ under the License.
     </request-map>
     <request-map uri="createDefaultTask">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="createDefaultTask"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createDefaultTask"/>
         <response name="success" type="view" value="defaultTasks"/>
         <response name="error" type="view" value="editDefaultTask"/>
     </request-map>
     <request-map uri="updateDefaultTask">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="updateDefaultTask"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="updateDefaultTask"/>
         <response name="success" type="view" value="defaultTasks"/>
         <response name="error" type="view" value="editDefaultTask"/>
     </request-map>
     <request-map uri="deleteDefaultTask">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="deleteDefaultTaskScrum"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="deleteDefaultTaskScrum"/>
         <response name="success" type="view" value="defaultTasks"/>
         <response name="error" type="view" value="defaultTasks"/>
     </request-map>
@@ -860,7 +860,7 @@ under the License.
     </request-map>
     <request-map uri="createTestTask">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createTestTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createTestTask" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="taskView">
         <redirect-parameter name="taskId"  from="workEffortId"/>
         </response>
@@ -879,13 +879,13 @@ under the License.
     </request-map>
     <request-map uri="createProductBacklogCategory">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createProductBacklogCategory" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createProductBacklogCategory" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="ListProductBacklogCategories"/>
         <response name="error" type="view" value="EditProductBacklogCategory"/>
     </request-map>
     <request-map uri="updateProductBacklogCategory">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="updateProductBacklogCategory" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="updateProductBacklogCategory" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="ListProductBacklogCategories"/>
         <response name="error" type="view" value="EditProductBacklogCategory"/>
     </request-map>
@@ -896,14 +896,14 @@ under the License.
     </request-map>
     <request-map uri="createQuickAddBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createQuickAddBacklog" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createQuickAddBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="ViewSprint">
         </response>
         <response name="error" type="view" value="QuickAddBacklog"/>
     </request-map>
     <request-map uri="createQuickAddUnPlannedBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createQuickAddBacklog" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createQuickAddBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="unplanBacklog">
         </response>
         <response name="error" type="view" value="QuickAddBacklog"/>
@@ -915,13 +915,13 @@ under the License.
     </request-map>
     <request-map uri="UpdateUnplanBacklogHours">
         <security auth="true" https="true"></security>
-        <event type="simple" invoke="updateTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"></event>
+        <event type="simple" invoke="updateTask" path="component://scrum/minilang/ScrumEvents.xml"></event>
         <response name="success" type="view" value="unplanBacklog"></response>
         <response name="error" type="view" value="unplanBacklog"></response>
     </request-map>
     <request-map uri="DeleteUnplanBacklog">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="deleteSprintBacklog" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="deleteSprintBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="unplanBacklog"></response>
         <response name="error" type="view" value="unplanBacklog"></response>
     </request-map>
@@ -935,7 +935,7 @@ under the License.
     </request-map>
     <request-map uri="setCompleteFromUnplanBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="setTaskStatusToComplete" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="setTaskStatusToComplete" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="unplanBacklog"/>
     </request-map>
      <request-map uri="NewUnplanBacklogTask">
@@ -944,7 +944,7 @@ under the License.
     </request-map>
     <request-map uri="createTaskForUnplanBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="unplanBacklog">
             <redirect-parameter name="productId"/>
         </response>
@@ -952,7 +952,7 @@ under the License.
     </request-map>
     <request-map uri="setUnplannedSprint">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="setUnplannedSprint" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="setUnplannedSprint" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="unplanBacklog"/>
         <response name="error" type="view" value="AddProdBacklog"/>
     </request-map>
@@ -964,12 +964,12 @@ under the License.
     </request-map>
     <request-map uri="NewProductEmail">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="createScrumCommunicationEvent"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createScrumCommunicationEvent"/>
         <response name="success" type="view" value="NewProductEmail"/>
     </request-map>
     <request-map uri="updateEmailForProduct">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="updateScrumCommunicationEvent"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="updateScrumCommunicationEvent"/>
         <response name="success" type="view" value="ProductEmails"/>
         <response name="error" type="view" value="NewProductEmail"/>
     </request-map>
@@ -979,12 +979,12 @@ under the License.
     </request-map>
     <request-map uri="replyEmailForProduct">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="createScrumCommunicationEvent"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createScrumCommunicationEvent"/>
         <response name="success" type="view" value="NewProductEmail"/>
     </request-map>
     <request-map uri="uploadAttachFiletoEmailForProduct">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createScrumCommunicationEventContent" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createScrumCommunicationEventContent" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="NewProductEmail"/>
         <response name="error" type="view" value="NewProductEmail"/>
     </request-map>
@@ -1001,7 +1001,7 @@ under the License.
     
     <request-map uri="CloseSprint">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="closeSprint" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="closeSprint" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="ViewSprint">
             <redirect-parameter name="sprintId"/>
         </response>
@@ -1017,7 +1017,7 @@ under the License.
     </request-map>
     <request-map uri="createProjectContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="createScrumProjectContent"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createScrumProjectContent"/>
         <response name="success" type="request-redirect" value="EditProjectContents">
             <redirect-parameter name="projectId"/>
         </response>
@@ -1037,7 +1037,7 @@ under the License.
     </request-map>
     <request-map uri="createScrumProductContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="createScrumProductContent"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createScrumProductContent"/>
         <response name="success" type="request-redirect" value="EditProductContents">
             <redirect-parameter name="productId"/>
         </response>
@@ -1057,7 +1057,7 @@ under the License.
     </request-map>
     <request-map uri="createProdBacklogNote">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"  invoke="createProdBacklogNote"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml"  invoke="createProdBacklogNote"/>
         <response name="success" type="request-redirect" value="ProdBacklogNote">
             <redirect-parameter name="custRequestId"/>
             <redirect-parameter name="productId"/>
@@ -1066,7 +1066,7 @@ under the License.
     </request-map>
     <request-map uri="deleteProdBacklogNote">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"  invoke="deleteProdBacklogNote"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml"  invoke="deleteProdBacklogNote"/>
         <response name="success" type="request-redirect" value="ProdBacklogNote">
             <redirect-parameter name="custRequestId"/>
             <redirect-parameter name="productId"/>
@@ -1081,7 +1081,7 @@ under the License.
     </request-map>
     <request-map uri="createBacklogItemContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"  invoke="createBacklogItemContent"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml"  invoke="createBacklogItemContent"/>
         <response name="success" type="request-redirect" value="EditBacklogItemContent">
             <redirect-parameter name="custRequestId"/>
             <redirect-parameter name="productId"/>
@@ -1105,23 +1105,23 @@ under the License.
     </request-map>
     <request-map uri="NewProductBacklogEmail">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="createScrumCommunicationEvent"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createScrumCommunicationEvent"/>
         <response name="success" type="view" value="NewProductBacklogEmail"/>
     </request-map>
     <request-map uri="updateEmailForProductBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="updateScrumCommunicationEvent"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="updateScrumCommunicationEvent"/>
         <response name="success" type="view" value="ProductBacklogEmails"/>
         <response name="error" type="view" value="NewProductBacklogEmail"/>
     </request-map>
     <request-map uri="replyEmailForProductBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="createScrumCommunicationEvent"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createScrumCommunicationEvent"/>
         <response name="success" type="view" value="NewProductBacklogEmail"/>
     </request-map>
     <request-map uri="uploadAttachFiletoEmail">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createScrumCommunicationEventContent" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createScrumCommunicationEventContent" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="view" value="NewProductBacklogEmail"/>
         <response name="error" type="view" value="NewProductBacklogEmail"/>
     </request-map>
@@ -1157,7 +1157,7 @@ under the License.
     </request-map>
     <request-map uri="CopyMemberLastSprint">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="CopyMemberLastSprint"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="CopyMemberLastSprint"/>
         <response name="success" type="request-redirect" value="ViewSprint">
             <redirect-parameter name="projectId" from="projectId"/>
             <redirect-parameter name="sprintId" from="sprintId" />
@@ -1184,19 +1184,19 @@ under the License.
     </request-map>
     <request-map uri="createDefaultTaskScrum">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="createDefaultTask"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createDefaultTask"/>
         <response name="success" type="view" value="defaultTaskScrum"/>
         <response name="error" type="view" value="editDefaultTaskScrum"/>
     </request-map>
     <request-map uri="updateDefaultTaskScrum">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="updateDefaultTask"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="updateDefaultTask"/>
         <response name="success" type="view" value="defaultTaskScrum"/>
         <response name="error" type="view" value="editDefaultTaskScrum"/>
     </request-map>
     <request-map uri="deleteDefaultTaskScrum">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="deleteDefaultTaskScrum"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="deleteDefaultTaskScrum"/>
         <response name="success" type="view" value="defaultTaskScrum"/>
         <response name="error" type="view" value="defaultTaskScrum"/>
     </request-map>
@@ -1206,7 +1206,7 @@ under the License.
     </request-map>
     <request-map uri="createTaskForBacklog">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect" value="taskView" >
             <redirect-parameter name="taskId" from="taskId" />
         </response>
@@ -1222,7 +1222,7 @@ under the License.
     </request-map>
     <request-map uri="createQuickAddParty">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="createQuickAddParty"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createQuickAddParty"/>
         <response name="success" type="request-redirect-noparam" value="FindResource"/>
         <response name="error" type="view" value="quickAddParty"/>
     </request-map>
@@ -1232,7 +1232,7 @@ under the License.
     </request-map>
     <request-map uri="createQuickAddPartyRelationship">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" invoke="createQuickAddPartyRelationship"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createQuickAddPartyRelationship"/>
         <response name="success" type="view" value="FindResource"/>
         <response name="error" type="view" value="quickAddPartyRelationship"/>
     </request-map>
@@ -1247,7 +1247,7 @@ under the License.
     </request-map>
     <request-map uri="updateQuickAddPartyRate">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="scrumUpdatePartyRate" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+        <event type="simple" invoke="scrumUpdatePartyRate" path="component://scrum/minilang/ScrumEvents.xml"/>
         <response name="success" type="request-redirect-noparam" value="FindResource"/>
         <response name="error" type="view" value="FindResource"/>
     </request-map>

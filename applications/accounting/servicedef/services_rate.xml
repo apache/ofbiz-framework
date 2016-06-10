@@ -25,21 +25,21 @@ under the License.
     <version>1.0</version>
 
     <service name="updateRateAmount" default-entity-name="RateAmount" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/rate/RateServices.xml" invoke="updateRateAmount">
+        location="component://accounting/minilang/rate/RateServices.xml" invoke="updateRateAmount">
         <description>Create/update Rate Amount</description>
         <auto-attributes include="all" mode="IN" optional="true"/>
         <override name="rateTypeId" optional="false"/>
         <override name="rateAmount" optional="false"/>
     </service>
     <service name="deleteRateAmount" default-entity-name="RateAmount" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/rate/RateServices.xml" invoke="deleteRateAmount">
+        location="component://accounting/minilang/rate/RateServices.xml" invoke="deleteRateAmount">
         <description>Delete (expire) Rate Amount</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <override name="rateTypeId" optional="false"/>
         <override name="fromDate" optional="false"/>
     </service>
     <service name="getRateAmount" default-entity-name="RateAmount" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/rate/RateServices.xml" invoke="getRateAmount">
+        location="component://accounting/minilang/rate/RateServices.xml" invoke="getRateAmount">
         <description>Get Rate Amount</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <attribute name="level" type="String" mode="OUT" optional="true"/><!-- the level the amount was retrieved from(specific -> general): workEffort, party, emplPositionType, rateType or 'null' if not found-->
@@ -52,7 +52,7 @@ under the License.
 
     <!-- PartyRate Services -->
     <service name="updatePartyRate" default-entity-name="PartyRate" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/rate/RateServices.xml" invoke="updatePartyRate">
+        location="component://accounting/minilang/rate/RateServices.xml" invoke="updatePartyRate">
         <description>Creates PartyRate</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -63,7 +63,7 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
     <service name="deletePartyRate" default-entity-name="PartyRate" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/rate/RateServices.xml" invoke="deletePartyRate">
+        location="component://accounting/minilang/rate/RateServices.xml" invoke="deletePartyRate">
         <description>Deletes PartyRate</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="rateAmountFromDate" type="Timestamp" mode="IN" optional="true"/><!-- to be able to expire rateamount specific to a party records....-->

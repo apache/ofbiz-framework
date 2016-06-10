@@ -42,7 +42,7 @@ under the License.
         <attribute name="sequenceNumNotOk" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="getProductRouting" engine="simple" auth="true"
-                location="component://manufacturing/script/org/ofbiz/manufacturing/routing/RoutingServices.xml" invoke="getProductRouting">
+                location="component://manufacturing/minilang/routing/RoutingServices.xml" invoke="getProductRouting">
         <description>Get the product's routing and routing tasks</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="workEffortId" optional="true" type="String"/>
@@ -52,7 +52,7 @@ under the License.
         <attribute mode="OUT" name="tasks" type="java.util.List" optional="true"/>
     </service>
     <service name="getRoutingTaskAssocs" engine="simple" auth="true"
-                location="component://manufacturing/script/org/ofbiz/manufacturing/routing/RoutingServices.xml" invoke="getRoutingTaskAssocs">
+                location="component://manufacturing/minilang/routing/RoutingServices.xml" invoke="getRoutingTaskAssocs">
         <description>Get the routing task assocs of a given routing</description>
         <attribute mode="IN" name="workEffortId" optional="false" type="String"/>
         <attribute mode="OUT" name="routingTaskAssocs" type="java.util.List" optional="true"/>

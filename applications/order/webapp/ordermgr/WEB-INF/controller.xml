@@ -838,7 +838,7 @@ under the License.
     </request-map>
     <request-map uri="createCreditCard">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="createCreditCard"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="createCreditCard"/>
         <response name="success" type="view" value="editcreditcard"/>
         <response name="address" type="view" value="editcontactmech"/>
         <response name="error" type="view" value="editcreditcard"/>
@@ -896,7 +896,7 @@ under the License.
     </request-map>
     <request-map uri="createCustomer">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://order/script/org/ofbiz/order/customer/CustomerEvents.xml" invoke="createCustomer"/>
+        <event type="simple" path="component://order/minilang/customer/CustomerEvents.xml" invoke="createCustomer"/>
         <response name="success" type="request" value="finalizeOrder"/>
         <response name="error" type="view" value="custsetting"/>
     </request-map>
@@ -958,7 +958,7 @@ under the License.
     </request-map>
     <request-map uri="updateCreditCard">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="updateCreditCard"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="updateCreditCard"/>
         <response name="success" type="view" value="editcreditcard"/>
         <response name="address" type="view" value="editcreditcard"/>
         <response name="error" type="view" value="editcreditcard"/>
@@ -1284,7 +1284,7 @@ under the License.
 
     <request-map uri="createCustRequestContent">
         <security auth="true" https="true"/>
-        <event path="component://order/script/org/ofbiz/order/request/CustRequestEvents.xml" type="simple"  invoke="createCustRequestContent"/>
+        <event path="component://order/minilang/request/CustRequestEvents.xml" type="simple"  invoke="createCustRequestContent"/>
         <response name="success" type="request-redirect" value="EditCustRequestContent"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>

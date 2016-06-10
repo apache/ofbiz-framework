@@ -39,14 +39,14 @@ under the License.
         <override name="textData" allow-html="any"/>
     </service>
     <service name="cancelAgreement" default-entity-name="Agreement" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="cancelAgreement" auth="true">
+                location="component://accounting/minilang/agreement/AgreementServices.xml" invoke="cancelAgreement" auth="true">
         <description>Cancel an Agreement</description>
         <permission-service service-name="acctgAgreementPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="copyAgreement" default-entity-name="Agreement" engine="simple"
-                location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="copyAgreement" auth="true">
+                location="component://accounting/minilang/agreement/AgreementServices.xml" invoke="copyAgreement" auth="true">
         <description>Copy an Agreement</description>
         <permission-service service-name="acctgAgreementPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>

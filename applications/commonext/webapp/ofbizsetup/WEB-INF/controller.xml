@@ -70,7 +70,7 @@
     </request-map>
     <request-map uri="createProductStore">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createProductStoreWithDefaultSetting"/>
+        <event type="simple" path="component://commonext/minilang/setup/SetupEvents.xml" invoke="createProductStoreWithDefaultSetting"/>
         <response name="success" type="view" value="EditProductStore"/>
         <response name="error" type="view" value="EditProductStore"/>
     </request-map>
@@ -83,14 +83,14 @@
     
     <request-map uri="createOrganization">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createOrganization"/>
+        <event type="simple" path="component://commonext/minilang/setup/SetupEvents.xml" invoke="createOrganization"/>
         <response name="success" type="view" value="initialsetup"/>
         <response name="error" type="view" value="initialsetup"/>
     </request-map>
 
     <request-map uri="OrganizationToComplete">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="setupDefaultGeneralLedger"/>
+        <event type="simple" path="component://commonext/minilang/setup/SetupEvents.xml" invoke="setupDefaultGeneralLedger"/>
         <response name="success" type="url" value="/catalog"/>
         <response name="error" type="view" value="initialsetup"/>
     </request-map>
@@ -105,7 +105,7 @@
     </request-map>
     <request-map uri="CreateFacility">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createFacilityAndContactMech"/>
+        <event type="simple" path="component://commonext/minilang/setup/SetupEvents.xml" invoke="createFacilityAndContactMech"/>
         <response name="success" type="view" value="EditFacility"/>
         <response name="error" type="view" value="EditFacility"/>
     </request-map>
@@ -123,7 +123,7 @@
     </request-map>
     <request-map uri="createWebSite">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createDefaultWebSite"/>
+        <event type="simple" path="component://commonext/minilang/setup/SetupEvents.xml" invoke="createDefaultWebSite"/>
         <response name="success" type="view" value="EditWebSite"/>
         <response name="error" type="view" value="EditWebSite"/>
     </request-map>
@@ -140,7 +140,7 @@
     </request-map>
     <request-map uri="createProdCatalog">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createProdCatalogAndProductStoreCatalog"/>
+        <event type="simple" path="component://commonext/minilang/setup/SetupEvents.xml" invoke="createProdCatalogAndProductStoreCatalog"/>
         <response name="success" type="view" value="firstproduct"/>
         <response name="error" type="view" value="firstproduct"/>
     </request-map>
@@ -157,7 +157,7 @@
     </request-map>
     <request-map uri="createProductCategory">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createProductCategoryAndAddToProdCatalog"/>
+        <event type="simple" path="component://commonext/minilang/setup/SetupEvents.xml" invoke="createProductCategoryAndAddToProdCatalog"/>
         <response name="success" type="view" value="EditCategory"/>
         <response name="error" type="view" value="EditCategory"/>
     </request-map>
@@ -174,7 +174,7 @@
     </request-map>
     <request-map uri="createUpdateProduct">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createUpdateProductInCategory"/>
+        <event type="simple" path="component://commonext/minilang/setup/SetupEvents.xml" invoke="createUpdateProductInCategory"/>
         <response name="success" type="view" value="EditProduct"/>
         <response name="error" type="view" value="EditProduct"/>
     </request-map>
@@ -185,7 +185,7 @@
     </request-map>
     <request-map uri="createCustomer">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createCustomer"/>
+        <event type="simple" path="component://commonext/minilang/setup/SetupEvents.xml" invoke="createCustomer"/>
         <response name="success" type="view" value="firstcustomer"/>
         <response name="error" type="view" value="firstcustomer"/>
     </request-map>

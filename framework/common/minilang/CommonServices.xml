@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="commonGenericPermission" short-description="Main permission logic">
+        <set field="primaryPermission" value="COMMON"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
+    </simple-method>
+
+    <simple-method method-name="createKeywordThesaurus" short-description="Create a KeywordThesaurus">
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
+        </check-permission>
+        <check-errors/>
+        <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <call-object-method obj-field="newEntity.enteredKeyword" method-name="toLowerCase" ret-field="newEntity.enteredKeyword"/>
+        <call-object-method obj-field="newEntity.alternateKeyword" method-name="toLowerCase" ret-field="newEntity.alternateKeyword"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateKeywordThesaurus" short-description="Update a KeywordThesaurus">
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
+        </check-permission>
+        <check-errors/>
+        <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <store-value value-field="newEntity"/>
+    </simple-method>
+    <simple-method method-name="deleteKeywordThesaurus" short-description="Delete a KeywordThesaurus">
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
+        </check-permission>
+        <check-errors/>
+        <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <remove-by-and entity-name="KeywordThesaurus" map="newEntity"/>
+    </simple-method>
+
+    <!-- Uom Conversion service -->
+    <simple-method method-name="createUomConversionDated" short-description="Create a new dated UOM conversion entity">
+        <make-value value-field="newEntity" entity-name="UomConversionDated"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+
+    <simple-method method-name="convertUom" short-description="Convert UOM values" login-required="false">
+        <!-- base case: if both uomIds are the same, return the original value -->
+        <if-compare-field field="parameters.uomId" to-field="parameters.uomIdTo" operator="equals">
+            <field-to-result field="parameters.originalValue" result-name="convertedValue"/>
+            <return/>
+        </if-compare-field>
+
+        <if-empty field="parameters.asOfDate">
+            <now-timestamp field="nowTimestamp"/>
+            <set field="asOfDate" from-field="nowTimestamp"/>
+            <else>
+                <set field="asOfDate" from-field="parameters.asOfDate"/>
+            </else>
+        </if-empty>
+
+        <!-- first try the regular UomConversion entity (no dates) -->
+        <entity-one entity-name="UomConversion" value-field="uomConversion" auto-field-map="true" use-cache="true"/>
+
+        <!-- if not found, try the dated uom conversion entity -->
+        <if-empty field="uomConversion">
+            <entity-condition entity-name="UomConversionDated" list="uomConversions" use-cache="true">
+                <condition-list combine="and">
+                    <condition-expr field-name="uomId" from-field="parameters.uomId"/>
+                    <condition-expr field-name="uomIdTo" from-field="parameters.uomIdTo"/>
+                    <condition-expr field-name="purposeEnumId" operator="equals" from-field="parameters.purposeEnumId" ignore-if-empty="true"/>
+                    <condition-expr field-name="fromDate" operator="less-equals" from-field="asOfDate"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="thruDate" operator="greater-equals" from-field="asOfDate"/>
+                        <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                    </condition-list>
+                </condition-list>
+                    <!-- sort by descending fromDate to get newest (biggest) first -->
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+            <first-from-list list="uomConversions" entry="uomConversion"/>
+
+            <!-- if no conversion found with specified purpose, try w/o purpose -->
+            <if-empty field="uomConversion">
+                <if-not-empty field="parameters.purposeEnumId">
+                    <entity-condition entity-name="UomConversionDated" list="uomConversions" use-cache="true">
+                        <condition-list combine="and">
+                            <condition-expr field-name="uomId" from-field="parameters.uomId"/>
+                            <condition-expr field-name="uomIdTo" from-field="parameters.uomIdTo"/>
+                            <condition-expr field-name="fromDate" operator="less-equals" from-field="asOfDate"/>
+                            <condition-list combine="or">
+                                <condition-expr field-name="thruDate" operator="greater-equals" from-field="asOfDate"/>
+                                <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                            </condition-list>
+                        </condition-list>
+                        <order-by field-name="-fromDate"/>
+                    </entity-condition>
+                    <first-from-list list="uomConversions" entry="uomConversion"/>
+                </if-not-empty>
+            </if-empty>
+        </if-empty>
+        <log level="verbose" message="using conversion factor=${uomConversion.conversionFactor}"/>
+
+        <if-empty field="uomConversion">
+            <!-- if still no uom conversion entity, then no conversion is possible -->
+            <add-error><fail-property property="CommonNoUomConversionFound" resource="CommonUiLabels"/></add-error>
+            <check-errors/>
+        <else>
+            <!-- Do custom conversion, if we have customMethodId -->
+            <if-not-empty field="uomConversion.customMethodId">  <!-- custom conversion? -->
+                <log level="verbose" message="using custom conversion customMethodId=${uomConversion.customMethodId}"/>
+                <set-service-fields service-name="convertUomCustom" to-map="customParms" map="parameters"/>
+                <set field="customParms.uomConversion" from-field="uomConversion"/>
+                <call-service service-name="convertUomCustom" in-map-name="customParms">
+                    <result-to-field result-name="convertedValue"/>
+                </call-service>
+                <log level="verbose" message="Custom UoM conversion returning convertedValue=${convertedValue}"/>
+            <else>  <!-- not custom conversion -->
+                <!-- do the conversion -->
+                <calculate field="convertedValue" type="BigDecimal" decimal-scale="15">
+                    <calcop operator="multiply">
+                        <calcop operator="get" field="parameters.originalValue"/>
+                        <calcop operator="get" field="uomConversion.conversionFactor"/>
+                    </calcop>
+                </calculate>
+            </else>
+            </if-not-empty>  <!-- custom conversion? -->
+
+            <!-- round result, if UomConversion[Dated] so specifies -->
+            <set field="roundingMode" from-field="uomConversion.roundingMode" default-value="${parameters.defaultRoundingMode}"/>
+            <set field="decimalScale" from-field="uomConversion.decimalScale" default-value="${parameters.defaultDecimalScale}"/>
+            <if-not-empty field="roundingMode">
+                <calculate field="roundedValue" type="BigDecimal" decimal-scale="${decimalScale}" rounding-mode="${roundingMode}">
+                    <calcop operator="get" field="convertedValue"/>
+                </calculate>
+                <set field="convertedValue" from-field="roundedValue"/>
+            </if-not-empty>
+        </else>
+        </if-empty>  <!-- no UomConversion or UomConversionDated found -->
+
+        <!-- all done -->
+        <field-to-result field="convertedValue"/>
+
+        <log level="verbose" message="Uom conversion of [${parameters.originalValue}] from [${parameters.uomId}] to [${parameters.uomIdTo}] using conversion factor [${uomConversion.conversionFactor}], result is [${convertedValue}]"/>
+    </simple-method>
+
+    <!-- convertUomCustom: Dispatcher for calling Custom Method for UoM conversion -->
+    <simple-method method-name="convertUomCustom" short-description="Convert UOM values using CustomMethod" login-required="false">
+        <set field="customMethodId" from-field="parameters.uomConversion.customMethodId"/>
+        <entity-one entity-name="CustomMethod" value-field="customMethod" auto-field-map="true" use-cache="true"/>
+
+        <if-empty field="customMethod.customMethodName">
+            <add-error> <fail-property property="CommonNoCustomMethodName" resource="CommonUiLabels"/> </add-error>
+            <check-errors/>
+        <else>
+            <log level="verbose" message="calling custom method ${customMethod.customMethodName}"/>
+            <set field="args.arguments" from-field="parameters"/>
+            <call-service service-name="${customMethod.customMethodName}" in-map-name="args">
+                <result-to-result result-name="convertedValue"/>
+            </call-service>
+        </else>
+        </if-empty>
+    </simple-method>
+
+    <simple-method method-name="getFileUploadProgressStatus" short-description="Look up progress made in File Upload process">
+        <set field="uploadProgressListener" from-field="parameters.uploadProgressListener"/>
+        <if-not-empty field="uploadProgressListener">
+            <call-object-method obj-field="uploadProgressListener" method-name="getContentLength" ret-field="parameters.contentLength"/>
+            <field-to-result field="parameters.contentLength" result-name="contentLength"/>
+            <call-object-method obj-field="uploadProgressListener" method-name="getBytesRead" ret-field="parameters.bytesRead"/>
+            <field-to-result field="parameters.bytesRead" result-name="bytesRead"/>
+            <call-object-method obj-field="uploadProgressListener" method-name="hasStarted" ret-field="parameters.hasStarted"/>
+            <field-to-result field="parameters.hasStarted" result-name="hasStarted"/>
+            <call-bsh><![CDATA[
+                contentLength = parameters.get("contentLength");
+                bytesRead = parameters.get("bytesRead");
+                int readPercent = (bytesRead* 100)/contentLength;
+                parameters.put("readPercent", readPercent);
+            ]]></call-bsh>
+            <field-to-result field="parameters.readPercent" result-name="readPercent"/>
+            <field-to-result field="parameters.hasStarted" result-name="hasStarted"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="getVisualThemeResources" short-description="Get visual theme resources" login-required="false">
+        <set field="visualThemeId" from-field="parameters.visualThemeId"/>
+        <set field="themeResources" from-field="parameters.themeResources"/>
+        <entity-condition list="resourceList" entity-name="VisualThemeResource" use-cache="true">
+            <condition-expr field-name="visualThemeId" from-field="visualThemeId"/>
+            <order-by field-name="resourceTypeEnumId"/>
+            <order-by field-name="sequenceId"/>
+        </entity-condition>
+        <if-empty field="resourceList">
+            <!-- if not found use the good old initial ofbiz theme so the system will at least start up and will be usable -->
+            <log level="error" message="Could not find the '${visualThemeId}' theme, reverting back to the good old OFBiz theme..."></log>
+            <entity-condition list="resourceList" entity-name="VisualThemeResource" use-cache="true">
+                <condition-expr field-name="visualThemeId" value="FLAT_GREY"/>
+                <order-by field-name="resourceTypeEnumId"/>
+                <order-by field-name="sequenceId"/>
+            </entity-condition>
+        </if-empty>
+        <if-empty field="resourceList">
+            <add-error><fail-property property="CommonVisualThemeResourcesNotFound" resource="CommonUiLabels"/></add-error>
+            <check-errors/>
+        </if-empty>
+        <iterate list="resourceList" entry="resourceRecord">
+            <set field="resourceTypeEnumId" from-field="resourceRecord.resourceTypeEnumId"/>
+            <set field="resourceValue" from-field="resourceRecord.resourceValue"/>
+            <if-empty field="resourceValue">
+                <property-to-field field="warningMsg" property="CommonVisualThemeInvalidRecord" resource="CommonUiLabels"/>
+                <log level="warning" message="${warningMsg}"/>
+                <else>
+                    <set field="themeResources[resourceTypeEnumId][]" from-field="resourceValue"/>
+                </else>
+            </if-empty>
+        </iterate>
+        <field-to-result field="themeResources"/>
+    </simple-method>
+
+    <simple-method method-name="getCountryList" short-description="Returns a list of country" login-required="false">
+        <call-class-method method-name="getCountryList" class-name="org.ofbiz.common.CommonWorkers" ret-field="geoList">
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
+        <iterate list="geoList" entry="countryGeo">
+            <set field="countryName" value="${countryGeo.geoName}: ${countryGeo.geoId}"/>
+            <field-to-list list="countryList" field="countryName"/>
+        </iterate>
+        <field-to-result field="countryList"/>
+    </simple-method>
+
+    <simple-method method-name="getAssociatedStateList" short-description="set the state options for selected country" login-required="false">
+        <set field="countryGeoId" from-field="parameters.countryGeoId"/>
+        <set field="listOrderBy" from-field="parameters.listOrderBy"/>
+        <call-class-method method-name="getAssociatedStateList" class-name="org.ofbiz.common.CommonWorkers" ret-field="geoList">
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            <field field="countryGeoId" type="String"/>
+            <field field="listOrderBy" type="String"/>
+        </call-class-method>
+        <iterate list="geoList" entry="stateGeo">
+            <set field="stateName" value="${stateGeo.geoName}: ${stateGeo.geoId}"/>
+            <field-to-list list="stateList" field="stateName"/>
+        </iterate>
+        <if-empty field="stateList">
+            <property-to-field resource="CommonUiLabels" property="CommonNoStatesProvinces" field="noOptions"/>
+            <field-to-list list="stateList" field="noOptions"/>
+        </if-empty>
+        <field-to-result field="stateList"/>
+    </simple-method>
+
+    <simple-method method-name="linkGeos" short-description="Link Geos to another Geo">
+        <entity-and entity-name="GeoAssoc" list="geoAssocs">
+            <field-map field-name="geoId" from-field="parameters.geoId"/>
+            <field-map field-name="geoAssocTypeId" from-field="parameters.geoAssocTypeId"/>
+        </entity-and>
+        <set field="oldGeoIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(geoAssocs, 'geoIdTo', true);}"/>
+        <!-- Old list contains current values -->
+        <iterate list="parameters.geoIds" entry="geoIdTo">
+            <if-compare-field field="oldGeoIds" operator="contains" to-field="geoIdTo">
+                <!-- Yes, nothing to do, it already exists and we keep it -->
+                <else> 
+                    <entity-one entity-name="GeoAssoc" value-field="oldGeoAssoc">
+                        <field-map field-name="geoId" from-field="parameters.geoId"/>
+                        <field-map field-name="geoIdTo" from-field="geoIdTo"/>
+                    </entity-one>
+                    <if-empty field="oldGeoAssoc">
+                        <!-- Add as it does not exist -->
+                        <make-value value-field="newGeoAssoc" entity-name="GeoAssoc"/>
+                        <set field="newGeoAssoc.geoId" from-field="parameters.geoId"/>
+                        <set field="newGeoAssoc.geoIdTo" from-field="geoIdTo"/>
+                        <set field="newGeoAssoc.geoAssocTypeId" from-field="parameters.geoAssocTypeId"/>
+                        <create-value value-field="newGeoAssoc"/>
+                    </if-empty>
+                </else>
+            </if-compare-field>
+        </iterate>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="getRelatedGeos" short-description="get related geos to a geo through a geoAssoc" login-required="false">
+        <entity-and entity-name="GeoAssoc" list="geoAssoc">
+            <field-map field-name="geoId" from-field="parameters.geoId"/>
+            <field-map field-name="geoAssocTypeId" from-field="parameters.geoAssocTypeId"/>
+        </entity-and>
+        <if-empty field="geoAssoc">
+            <set field="noOptions" value="____"/>
+            <field-to-list list="geoList" field="noOptions"/>
+            <else>
+                <iterate list="geoAssoc" entry="geo">
+                    <field-to-list list="geoList" field="geo.geoIdTo"/>
+                </iterate>
+            </else>
+        </if-empty>
+        <field-to-result field="geoList"/>
+    </simple-method>
+
+    <simple-method method-name="checkUomConversion" short-description="Returns true if an UomConversion record exists">
+        <entity-one entity-name="UomConversion" value-field="uomConversion">
+            <field-map field-name="uomId" from-field="parameters.uomId"/>
+            <field-map field-name="uomIdTo" from-field="parameters.uomIdTo"/>
+        </entity-one>
+        <if-not-empty field="uomConversion">
+            <set field="exist" value="true" type="Boolean"/>
+            <else>
+                <set field="exist" value="false" type="Boolean"/>
+            </else>
+        </if-not-empty>
+        <field-to-result field="exist"/>
+    </simple-method>
+
+    <simple-method method-name="checkUomConversionDated" short-description="Returns true if an UomConversionDated record exists">
+         <entity-condition entity-name="UomConversionDated" list="uomConversions" filter-by-date="true">
+            <condition-list>
+                <condition-expr field-name="uomId" operator="equals" from-field="parameters.uomId"/>
+                <condition-expr field-name="uomIdTo" operator="equals" from-field="parameters.uomIdTo"/>
+                <condition-expr field-name="purposeEnumId" operator="equals" from-field="parameters.purposeEnumId" ignore-if-empty="true"/>
+            </condition-list>
+        </entity-condition>
+        <if-not-empty field="uomConversions">
+            <set field="exist" value="true" type="Boolean"/>
+            <else>
+                <set field="exist" value="false" type="Boolean"/>
+            </else>
+        </if-not-empty>
+        <field-to-result field="exist"/>
+    </simple-method>
+
+    <simple-method method-name="getServerTimestamp" login-required="false">
+        <now field="serverTimestamp" type="java.sql.Timestamp"/>
+        <field-to-result field="serverTimestamp"/>
+    </simple-method>
+
+    <simple-method method-name="getServerTimeZone" login-required="false">
+        <set field="serverTimeZone" value="${util:defaultTimeZone()}" type="String"/>
+        <field-to-result field="serverTimeZone"/>
+    </simple-method>
+
+    <simple-method method-name="getServerTimestampAsLong" login-required="false">
+        <now field="serverTimestamp" type="java.lang.Long"/>
+        <field-to-result field="serverTimestamp"/>
+    </simple-method>
+
+</simple-methods>

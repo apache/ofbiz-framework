@@ -26,17 +26,17 @@ under the License.
 
     <!-- Permission Services -->
     <service name="facilityGenericPermission" engine="simple"
-        location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="facilityGenericPermission">
+        location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="facilityGenericPermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="checkProductFacilityRelatedPermission" engine="simple"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="checkProductFacilityRelatedPermission">
+            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="checkProductFacilityRelatedPermission">
         <description>ProductFacility Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
     <!-- Product Inventory Services -->
     <service name="createInventoryItem" default-entity-name="InventoryItem" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItem" auth="true">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItem" auth="true">
         <description>Create an InventoryItem</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -50,7 +50,7 @@ under the License.
         <override name="facilityId" optional="false"/>
     </service>
     <service name="createInventoryItemCheckSetAtpQoh" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemCheckSetAtpQoh" auth="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemCheckSetAtpQoh" auth="false">
         <description>
         </description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
@@ -59,7 +59,7 @@ under the License.
     </service>
 
     <service name="updateInventoryItem" default-entity-name="InventoryItem" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryItem" auth="true">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateInventoryItem" auth="true">
         <description>Update an InventoryItem</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -72,12 +72,12 @@ under the License.
         <attribute name="oldStatusId" mode="OUT" optional="true" type="String"/>
     </service>
     <service name="changeOwnerUponIssuance" engine="simple"  auth="true"
-        location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="changeOwnerUponIssuance">
+        location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="changeOwnerUponIssuance">
         <description>If product store setOwnerUponIssuance is Y or empty, set the inventory item owner upon issuance.</description>
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createInventoryItemStatus" engine="simple" default-entity-name="InventoryItemStatus"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemStatus">
+            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemStatus">
         <description>Create an inventory item status record</description>
         <auto-attributes mode="IN" include="all" optional="true"/>
         <override name="inventoryItemId" optional="false"/>
@@ -85,18 +85,18 @@ under the License.
     </service>
 
     <service name="checkProductInventoryDiscontinuation" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="checkProductInventoryDiscontinuation" auth="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="checkProductInventoryDiscontinuation" auth="false">
         <description>Check Product Inventory Discontinuation</description>
         <attribute name="productId" mode="IN" optional="false" type="String"/>
     </service>
     <service name="inventoryItemCheckSetDefaultValues" default-entity-name="InventoryItem" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="inventoryItemCheckSetDefaultValues" auth="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="inventoryItemCheckSetDefaultValues" auth="false">
         <description>Check and, if empty, fills with default values ownerPartyId, currencyUomId, unitCost</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
         <attribute name="inventoryItem" type="Map" mode="IN" optional="true"/>
     </service>
     <service name="createInventoryItemDetail" default-entity-name="InventoryItemDetail" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemDetail" auth="true">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemDetail" auth="true">
         <description>Create an createInventoryItemDetail - note that the quantityOnHand and availableToPromise are relative (positive or negative) and will be added to the corresponding value on the given InventoryItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -105,7 +105,7 @@ under the License.
         <override name="inventoryItemDetailSeqId" mode="OUT"/>
     </service>
     <service name="updateInventoryItemFromDetail" default-entity-name="InventoryItemDetail" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryItemFromDetail" auth="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateInventoryItemFromDetail" auth="false">
         <description>
             Sums all availableToPromiseDiff and quantityOnHandDiff elements for the inventoryItemId and sets the availableToPromise and quantityOnHand fields on the corresponding InventoryItem.
             Meant to be run as an Entity ECA triggered on any modify operation on the InventoryItemDetail entity.
@@ -113,13 +113,13 @@ under the License.
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="updateSerializedInventoryTotals" default-entity-name="InventoryItem" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateSerializedInventoryTotals" auth="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateSerializedInventoryTotals" auth="false">
         <description>Sets the ATP/QOH totals for serialized inventory items</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createInventoryItemVariance" default-entity-name="InventoryItemVariance" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemVariance" auth="true">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemVariance" auth="true">
         <description>Create an InventoryItemVariance - note that the quantityOnHand and availableToPromise are relative and will be added to the corresponding value on the given InventoryItem</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -132,7 +132,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="createPhysicalInventoryAndVariance" engine="simple" auth="true" transaction-timeout="600"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createPhysicalInventoryAndVariance">
+            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createPhysicalInventoryAndVariance">
         <description>Create a PhysicalInventory and an InventoryItemVariance</description>
         <auto-attributes entity-name="InventoryItemVariance" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PhysicalInventory" include="nonpk" mode="IN" optional="true"/>
@@ -141,7 +141,7 @@ under the License.
     </service>
 
     <service name="getMktgPackagesAvailable" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="getMktgPackagesAvailable" auth="false" use-transaction="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getMktgPackagesAvailable" auth="false" use-transaction="false">
         <description>Get Marketing Packages Available From Components In Inventory</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
@@ -150,7 +150,7 @@ under the License.
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="getProductInventoryAvailable" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
@@ -159,7 +159,7 @@ under the License.
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getInventoryAvailableByFacility" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product constrained by a facilityId</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
@@ -170,7 +170,7 @@ under the License.
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getInventoryAvailableByLocation" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
         <description>Get Inventory Availability for a Product constrained by a facility and location</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
@@ -181,7 +181,7 @@ under the License.
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getInventoryAvailableByContainer" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product constrained by a containerId</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="containerId" type="String" mode="IN" optional="false"/>
@@ -190,7 +190,7 @@ under the License.
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="getInventoryAvailableByItem" engine="simple"
-             location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
+             location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for an InventoryItem</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
@@ -210,7 +210,7 @@ under the License.
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="getProductInventoryAvailableBySupplier" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product by a Supplier</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -220,7 +220,7 @@ under the License.
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="countProductInventoryOnHand" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="countProductInventoryOnHand" auth="true" use-transaction="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="countProductInventoryOnHand" auth="true" use-transaction="false">
         <description>Count Inventory On Hand for a Product constrained by a facilityId at a given date.</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
@@ -229,7 +229,7 @@ under the License.
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
     <service name="countProductInventoryShippedForSales" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="countProductInventoryShippedForSales" auth="true" use-transaction="false">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="countProductInventoryShippedForSales" auth="true" use-transaction="false">
         <description>Count Inventory Shipped for Sales Orders for a Product constrained by a facilityId in a given date range.</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
@@ -278,7 +278,7 @@ under the License.
     </service>
 
     <service name="balanceInventoryItems" engine="simple" transaction-timeout="600"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="balanceInventoryItems" auth="true">
+            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="balanceInventoryItems" auth="true">
         <description>Balance inventory items based on the new item specified which will have available inventory that back-order (negative ATP) reservations can be reassigned to.</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="priorityOrderId" type="String" mode="IN" optional="true"/>
@@ -287,7 +287,7 @@ under the License.
     </service>
 
     <service name="reassignInventoryReservations" engine="simple" transaction-timeout="600"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="reassignInventoryReservations" auth="true">
+            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="reassignInventoryReservations" auth="true">
         <description>Balance inventory reservations for a given product/facility, considering all the reservations with promised date greater than fromDate.</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
@@ -296,13 +296,13 @@ under the License.
         <attribute name="priority" type="String" mode="IN"  optional="true"/>
     </service>
     <service name="balanceOrderItemsWithNegativeReservations" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="balanceOrderItemsWithNegativeReservations">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="balanceOrderItemsWithNegativeReservations">
         <description>For each product with a negative reservation in the order, calls reassignInventoryReservations</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="reserveAnInventoryItem" engine="simple"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveAnInventoryItem" auth="true">
+            location="component://product/minilang/product/inventory/InventoryReserveServices.xml" invoke="reserveAnInventoryItem" auth="true">
         <description></description>
         <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
@@ -319,7 +319,7 @@ under the License.
     </service>
 
     <service name="reserveProductInventory" engine="simple"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
+            location="component://product/minilang/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
         <description>Reserve Inventory for a Product.
             If requireInventory is Y the quantity not reserved is returned, if N then a negative
             availableToPromise will be used to track quantity ordered beyond what is in stock.
@@ -338,7 +338,7 @@ under the License.
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="reserveProductInventoryByFacility" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
+                location="component://product/minilang/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
         <description>Reserve Inventory for a Product By Facility
             If requireInventory is Y the quantity not reserved is returned, if N then a negative
             availableToPromise will be used to track quantity ordered beyond what is in stock.
@@ -358,7 +358,7 @@ under the License.
         <attribute name="lotId" type="String" mode="IN" optional="true" />
     </service>
     <service name="reserveProductInventoryByContainer" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
+                location="component://product/minilang/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
         <description>Reserve Inventory for a Product By Container
             If requireInventory is Y the quantity not reserved is returned, if N then a negative
             availableToPromise will be used to track quantity ordered beyond what is in stock.
@@ -376,7 +376,7 @@ under the License.
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="reserveOrderItemInventory" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveOrderItemInventory" auth="true">
+                location="component://product/minilang/product/inventory/InventoryReserveServices.xml" invoke="reserveOrderItemInventory" auth="true">
         <description>Create OrderItemShipGrpInvRes or increment existing reserved quantity.</description>
         <auto-attributes mode="IN" entity-name="OrderItemShipGrpInvRes" include="pk" optional="false"/>
         <auto-attributes mode="IN" entity-name="OrderItemShipGrpInvRes" include="nonpk" optional="true">
@@ -386,7 +386,7 @@ under the License.
         <override name="quantity" optional="false"/>
     </service>
     <service name="cancelOrderInventoryReservation" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="cancelOrderInventoryReservation" auth="true">
+                location="component://product/minilang/product/inventory/InventoryReserveServices.xml" invoke="cancelOrderInventoryReservation" auth="true">
         <description>
             Iterates through each OrderItemShipGrpInvRes on each OrderItem for the order
             with the given orderId and cancels the reservation by changing the status
@@ -399,7 +399,7 @@ under the License.
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="cancelOrderItemInvResQty" engine="simple"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="cancelOrderItemInvResQty" auth="true">
+            location="component://product/minilang/product/inventory/InventoryReserveServices.xml" invoke="cancelOrderItemInvResQty" auth="true">
         <description>Cancel a specific quantity for an order item</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
@@ -407,7 +407,7 @@ under the License.
         <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     <service name="cancelOrderItemShipGrpInvRes" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="cancelOrderItemShipGrpInvRes" auth="true">
+                location="component://product/minilang/product/inventory/InventoryReserveServices.xml" invoke="cancelOrderItemShipGrpInvRes" auth="true">
         <description>Cancels an inventory reservation</description>
         <auto-attributes entity-name="OrderItemShipGrpInvRes" include="pk" mode="IN" optional="false"/>
         <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
@@ -429,7 +429,7 @@ under the License.
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createInventoryTransfer" engine="simple"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryTransfer" auth="true">
+            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryTransfer" auth="true">
         <description>Create an inventory transfer.  Uses the prepareInventoryTransfer service; see comments there about transfer quantities and inventory items.</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <implements service="interfaceInventoryTransfer"/>
@@ -437,7 +437,7 @@ under the License.
         <attribute name="inventoryTransferId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateInventoryTransfer" engine="simple"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryTransfer" auth="true">
+            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateInventoryTransfer" auth="true">
         <description>Update an inventory transfer record</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <implements service="interfaceInventoryTransfer"/>
@@ -463,7 +463,7 @@ under the License.
     </service>
 
     <service name="createInventoryTransfersForProduct" engine="simple"
-            location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryTransfersForProduct" auth="true">
+            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryTransfersForProduct" auth="true">
         <description>Create inventory transfers for the given product and quantity. Return the units not available for transfers.</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
@@ -478,7 +478,7 @@ under the License.
     </service>
 
     <service name="issueImmediatelyFulfilledOrder" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryIssueServices.xml" invoke="issueImmediatelyFulfilledOrder" auth="false">
+                location="component://product/minilang/product/inventory/InventoryIssueServices.xml" invoke="issueImmediatelyFulfilledOrder" auth="false">
         <description>
             Issues the Inventory for an Order that was Immediately Fulfilled, like in a POS environment.
             Note that this skips the normal inventory reservation process, and the shipment process (no shipment is created).
@@ -486,7 +486,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="issueImmediatelyFulfilledOrderItem" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryIssueServices.xml" invoke="issueImmediatelyFulfilledOrderItem" auth="false">
+                location="component://product/minilang/product/inventory/InventoryIssueServices.xml" invoke="issueImmediatelyFulfilledOrderItem" auth="false">
         <description>
             Issues the Inventory for an Order Item that was Immediately Fulfilled for more info see the issueImmediatelyFulfilledOrder service.
         </description>
@@ -572,7 +572,7 @@ under the License.
     </service>
 
     <service name="createFacilityLocation" default-entity-name="FacilityLocation" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="createFacilityLocation" auth="true">
+                location="component://product/minilang/product/storage/StorageServices.xml" invoke="createFacilityLocation" auth="true">
         <description>Create a Facility Location</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -613,7 +613,7 @@ under the License.
 
     <!-- Facility ContactMech services -->
     <service name="createFacilityContactMech" engine="simple" debug="true"
-            location="component://product/script/org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="createFacilityContactMech" auth="true">
+            location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="createFacilityContactMech" auth="true">
         <description>Create a FacilityContactMech</description>
         <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
@@ -621,7 +621,7 @@ under the License.
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="updateFacilityContactMech" engine="simple"
-            location="component://product/script/org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityContactMech" auth="true">
+            location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityContactMech" auth="true">
         <description>Update a FacilityContactMech</description>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
@@ -630,13 +630,13 @@ under the License.
         <attribute name="newContactMechId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="deleteFacilityContactMech" engine="simple"
-            location="component://product/script/org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="deleteFacilityContactMech" auth="true">
+            location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="deleteFacilityContactMech" auth="true">
         <description>Delete a FacilityContactMech</description>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createFacilityPostalAddress" engine="simple"
-            location="component://product/script/org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="createFacilityPostalAddress" auth="true">
+            location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="createFacilityPostalAddress" auth="true">
         <description>Create a Postal Address</description>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
@@ -648,7 +648,7 @@ under the License.
         <override name="postalCode" optional="true"/>
     </service>
     <service name="updateFacilityPostalAddress" engine="simple"
-            location="component://product/script/org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityPostalAddress" auth="true">
+            location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityPostalAddress" auth="true">
         <description>Update a Postal Address</description>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
@@ -656,7 +656,7 @@ under the License.
         <attribute name="directions" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createFacilityTelecomNumber" engine="simple"
-            location="component://product/script/org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="createFacilityTelecomNumber" auth="true">
+            location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="createFacilityTelecomNumber" auth="true">
         <description>Create a Telecommunications Number</description>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
@@ -664,14 +664,14 @@ under the License.
         <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateFacilityTelecomNumber" engine="simple"
-            location="component://product/script/org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityTelecomNumber" auth="true">
+            location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityTelecomNumber" auth="true">
         <description>Update a Telecommunications Number</description>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
     </service>
     <service name="createFacilityEmailAddress" engine="simple"
-            location="component://product/script/org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="createFacilityEmailAddress" auth="true">
+            location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="createFacilityEmailAddress" auth="true">
         <description>Create an Email Address</description>
         <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
@@ -680,7 +680,7 @@ under the License.
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
     </service>
     <service name="updateFacilityEmailAddress" engine="simple"
-            location="component://product/script/org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityEmailAddress" auth="true">
+            location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityEmailAddress" auth="true">
         <description>Update an Email Address</description>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
@@ -688,7 +688,7 @@ under the License.
     </service>
 
     <service name="createFacilityContactMechPurpose" engine="simple"
-            location="component://product/script/org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="createFacilityContactMechPurpose">
+            location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="createFacilityContactMechPurpose">
         <description>Create a purpose for facility contact mech</description>
         <auto-attributes entity-name="FacilityContactMechPurpose" include="pk" mode="IN" optional="false">
             <exclude field-name="fromDate"/>
@@ -696,7 +696,7 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="OUT" optional="false"/>
     </service>
     <service name="deleteFacilityContactMechPurpose" engine="simple"
-            location="component://product/script/org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="deleteFacilityContactMechPurpose">
+            location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="deleteFacilityContactMechPurpose">
         <description>Delete a purpose for facility contact mech</description>
         <auto-attributes entity-name="FacilityContactMechPurpose" include="pk" mode="IN" optional="false"/>
     </service>
@@ -759,7 +759,7 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
     <service name="removePartyFromFacility" default-entity-name="FacilityParty" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="removePartyFromFacility" auth="true">
+                location="component://product/minilang/product/storage/StorageServices.xml" invoke="removePartyFromFacility" auth="true">
         <description>Remove Party From Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -783,7 +783,7 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
     <service name="deleteFacilityContent" default-entity-name="FacilityContent" engine="simple"
-                location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="deleteFacilityContent" auth="true">
+                location="component://product/minilang/product/storage/StorageServices.xml" invoke="deleteFacilityContent" auth="true">
         <description>Delete Content From Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -791,7 +791,7 @@ under the License.
 
     <!-- Stock Move Services -->
     <service name="findStockMovesNeeded" engine="simple"
-            location="component://product/script/org/ofbiz/product/inventory/StockMoveServices.xml" invoke="findStockMovesNeeded">
+            location="component://product/minilang/product/inventory/StockMoveServices.xml" invoke="findStockMovesNeeded">
         <description>
             Find all Stock Moves that need to be done.
             This service differs from the inventory transfer services in that it does not require
@@ -804,7 +804,7 @@ under the License.
         <attribute name="warningMessageList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="findStockMovesRecommended" engine="simple"
-            location="component://product/script/org/ofbiz/product/inventory/StockMoveServices.xml" invoke="findStockMovesRecommended">
+            location="component://product/minilang/product/inventory/StockMoveServices.xml" invoke="findStockMovesRecommended">
         <description>
             Find all Stock Moves that should be done based on minimum quantities on each Pick/Primary ProductFacilityLocation.
         </description>
@@ -814,7 +814,7 @@ under the License.
         <attribute name="warningMessageList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="processPhysicalStockMove" engine="simple"
-            location="component://product/script/org/ofbiz/product/inventory/StockMoveServices.xml" invoke="processPhysicalStockMove">
+            location="component://product/minilang/product/inventory/StockMoveServices.xml" invoke="processPhysicalStockMove">
         <description>
             Process a Physical Stock Move from one FacilityLocation to another, in the same Facility.
             This service will not only move quantities from one InventoryItem to another but it will
@@ -866,7 +866,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createInventoryItemLabelAppl" default-entity-name="InventoryItemLabelAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemLabelAppl" auth="true">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemLabelAppl" auth="true">
         <description>Create an InventoryItemLabelAppl</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false">
@@ -889,13 +889,13 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="setOrderReservationPriority" engine="simple" invoke="setOrderReservationPriority"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml"  auth="true">
+                location="component://product/minilang/product/inventory/InventoryServices.xml"  auth="true">
         <description>set order priority</description>
         <attribute name="priority" mode="IN" type="String" optional="true"/>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="findProductInventorylocations" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/StockMoveServices.xml" invoke="findProductInventorylocations">
+                location="component://product/minilang/product/inventory/StockMoveServices.xml" invoke="findProductInventorylocations">
        <description>Find Product's inventory locations from facility</description>
        <permission-service service-name="facilityGenericPermission" main-action="VIEW"/>
        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
@@ -903,12 +903,12 @@ under the License.
        <attribute name="LocationList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="setLastInventoryCount" engine="simple"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="setLastInventoryCount">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="setLastInventoryCount">
         <description>Service which run as EECA (on InventoryItemDetail entity) and updates lastInventoryCount for products available in facility in ProductFacility entity</description>
         <attribute name="inventoryItemId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="createUpdateFacilityGeoPoint" engine="simple" default-entity-name="GeoPoint"
-                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createUpdateFacilityGeoPoint">
+                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createUpdateFacilityGeoPoint">
         <description>Create or update GeoPoint assigned to facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <attribute name="facilityId" mode="IN" type="String"/>

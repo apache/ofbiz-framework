@@ -45,7 +45,7 @@ under the License.
     </request-map>
     <request-map uri="setPortalPortletAttributes">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="setPortalPortletAttributes" path="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
+        <event type="simple" invoke="setPortalPortletAttributes" path="component://common/minilang/PortalPageMethods.xml"/>
         <response name="success" type="view-last" value="main"/>
         <response name="error" type="request" value="main"/>
     </request-map>
@@ -57,7 +57,7 @@ under the License.
     <!-- Portal page update requests -->
     <request-map uri="ManagePortalPages">
         <security https="true" auth="true"/>
-        <event  type="simple" invoke="copyIfRequiredSystemPage" path="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
+        <event  type="simple" invoke="copyIfRequiredSystemPage" path="component://common/minilang/PortalPageMethods.xml"/>
         <response name="success" type="view" value="ManagePortalPages"/>
     </request-map>
     <request-map uri="NewPortalPage">

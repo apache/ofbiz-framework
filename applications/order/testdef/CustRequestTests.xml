@@ -23,6 +23,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
         
     <test-case case-name="custrequest-tests">
-        <simple-method-test location="component://order/script/org/ofbiz/order/test/CustRequestTests.xml"/>
+        <simple-method-test location="component://order/minilang/test/CustRequestTests.xml"/>
     </test-case>
 </test-suite>

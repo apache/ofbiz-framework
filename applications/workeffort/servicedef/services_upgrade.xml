@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
     
     <service name="migrateWorkEffortContactMech" engine="simple"
-            location="component://workeffort/script/org/ofbiz/workeffort/workeffort/UpgradeServices.xml" invoke="migrateWorkEffortContactMech">
+            location="component://workeffort/minilang/workeffort/UpgradeServices.xml" invoke="migrateWorkEffortContactMech">
         <description>
             Migrate data from OldWorkEffortContactMech to WorkEffortContactMech.
             Since revision 827903 (2009-10-21) the entity OldWorkEffortContactMech has been deprecated.

@@ -22,9 +22,9 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <!-- TODO: Move these test implementations to a separate simple methods document -->
     <test-case case-name="testCreateEventService Direct Simple Method">
-        <simple-method-test location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" name="testCreateEventService"/>
+        <simple-method-test location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" name="testCreateEventService"/>
     </test-case>
     <test-case case-name="testCreateProjectService Direct Simple Method">
-        <simple-method-test location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" name="testCreateProjectService"/>
+        <simple-method-test location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" name="testCreateProjectService"/>
     </test-case>
 </test-suite>

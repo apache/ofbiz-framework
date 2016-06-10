@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <!-- Test case for Accounting Transaction on Sales -->
+    <simple-method method-name="testAcctgTransForSalesOrderShipments" short-description="Creation and Shipments of sales order" login-required="false">
+        <!-- Precondition :
+             1. create a sales order
+             2. from the order view screen, approve the order
+             3. from the order view screen, create a shipment to the customer (click on "New Shipment For Ship Group" and then click on the "Update" button in the next screen)
+        -->
+        <!-- Following process is tested by test case:
+             1. issue (assign) the order items to the shipment: select the "Order Items" tab and then click on "Issue All"; this action will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped
+        -->
+        <!-- Post condition: all order items will be issued and it will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped
+              * Credit; in account:140000 - Account Type:"INVENTORY_ACCOUNT"
+              * Debit; in account:500000 - Account Type:"COGS_ACCOUNT"
+        -->
+
+        <set field="shipmentId" value="9998"/>
+        <set field="orderId" value="DEMO10090"/>
+        <set field="shipGroupSeqId" value="00001"/>
+        <set field="orderItemSeqId" value="00001"/>
+        <set field="inventoryItemId" value="9001"/>
+        <set field="quantity" value="2" type="BigDecimal"/>
+        <set field="productId" value="GZ-2644"/>
+
+        <entity-one entity-name="UserLogin" value-field="userLogin" auto-field-map="false">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.shipmentId" from-field="shipmentId"/>
+        <set field="serviceCtx.orderId" from-field="orderId"/>
+        <set field="serviceCtx.shipGroupSeqId" from-field="shipGroupSeqId"/>
+        <set field="serviceCtx.orderItemSeqId" from-field="orderItemSeqId"/>
+        <set field="serviceCtx.inventoryItemId" from-field="inventoryItemId"/>
+        <set field="serviceCtx.quantity" from-field="quantity"/>
+        <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="serviceCtx"/>
+
+        <entity-condition list="acctgTransList" entity-name="AcctgTrans">
+            <condition-expr field-name="shipmentId" from-field="shipmentId"/>
+            <order-by field-name="-postedDate"/>
+        </entity-condition>
+        <assert><not><if-empty field="acctgTransList"/></not></assert>
+        <first-from-list entry="acctgTrans" list="acctgTransList"/>
+
+        <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
+        <get-related list="acctgTransEntryList" relation-name="AcctgTransEntry" value-field="acctgTrans"/>
+        <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
+
+        <call-simple-method method-name="UtilCheckEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
+
+        <iterate list="acctgTransEntryList" entry="acctgTransEntry">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <assert>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="INVENTORY_ACCOUNT"/>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="140000"/>
+                </assert>
+            <else>
+                <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <assert>
+                        <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="COGS_ACCOUNT"/>
+                        <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="500000"/>
+                    </assert>
+                </if-compare>
+            </else>
+            </if-compare>
+        </iterate>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testAcctgTransOnSalesInvoice" short-description="Test case for Accounting Transaction for sales invoice" login-required="false">
+        <!-- Precondition:
+            1. Create a sales order
+            2. From the order view screen, approve the order
+            3. From the order view screen, create a shipment to the customer (click on "New Shipment For Ship Group" and then click on the "Update" button in the next screen)
+            4. Issue the order items to the shipment: select the "Order Items" tab and then click on "Issue All."
+            5. From the shipment detail screen of the shipment created in the previous step (there is a link to it from the order detail screen), set the status of the shipment to "pack"(Click on "Edit" and then from statusId drop down select statusId = "Pack" and then click update); this action will generate a sales invoice
+        -->
+        <!-- Following process is tested by test case:
+             1. Go to the invoice detail screen (there is a link to the invoice from the order detail screen) and click on the "set status to ready"; this action will generate and post to the GL the accounting transaction for the sales invoice
+        -->
+        <!-- Post condition: "Set status to ready"; This action will generate and post to the GL the accounting transaction for the sales invoice
+              * Credit; in account=400000 - Account Type="SALES_ACCOUNT"
+              * Debit; in  account=120000 - Account Type="ACCOUNTS_RECEIVABLE"
+        -->
+        <!-- Note: The above notes seem to assume that you are going to manually follow the preconditions above before running this test.
+                   Instead the test will now use order DEMO10090 which currently preconditions 1-4 fulfilled, and we'll then update the
+                   shipment to the packed status (precondition 4).  Additionally it doesn't seem to be necessary to set the invoice status
+                   to ready because the invoice is created in that state.
+        -->
+        
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+
+        <set field="serviceCtx.userLogin"  from-field="userLogin"/>
+        <set field="serviceCtx.shipmentId" value="9998"/>
+        <set field="serviceCtx.statusId" value="SHIPMENT_PACKED"/>
+        <call-service service-name="updateShipment" in-map-name="serviceCtx"/>
+
+        <entity-condition list="shipmentItemBillings" entity-name="ShipmentItemBilling">
+            <condition-expr field-name="shipmentId" value="9998"/>
+            <order-by field-name="-createdStamp"/>
+        </entity-condition>
+        <assert><not><if-empty field="shipmentItemBillings"/></not></assert>
+        <first-from-list entry="shipmentItemBilling" list="shipmentItemBillings"/>
+        <set field="invoiceId" from-field="shipmentItemBilling.invoiceId"/>
+
+        <entity-one entity-name="Invoice" value-field="invoice">
+            <field-map field-name="invoiceId" from-field="invoiceId"/>
+        </entity-one>
+        <get-related value-field="invoice" relation-name="AcctgTrans" list="acctgTransList"/>
+        <assert><not><if-empty field="acctgTransList"/></not></assert>
+
+        <!-- Check the invoice transaction -->
+        <set field="acctgTransFilter.acctgTransTypeId" value="SALES_INVOICE"/>
+        <filter-list-by-and to-list="salesAcctgTransList" list="acctgTransList" map="acctgTransFilter"/>
+        <first-from-list entry="salesAcctgTrans" list="salesAcctgTransList"/>
+
+        <assert><if-compare field="salesAcctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
+        <get-related value-field="salesAcctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
+
+        <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
+
+        <call-simple-method method-name="UtilCheckEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
+
+        <set field="acctgTransEntryFilter.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
+        <set field="acctgTransEntryFilter.glAccountId" value="120000"/>
+        <filter-list-by-and list="acctgTransEntryList" to-list="accountsReceivableEntries" map="acctgTransEntryFilter"/>
+        <assert><not><if-empty field="accountsReceivableEntries"></if-empty></not></assert>
+
+        <clear-field field="acctgTransEntryFilter"/>
+        <set field="acctgTransEntryFilter.glAccountId" value="401000"/>
+        <filter-list-by-and list="acctgTransEntryList" to-list="salesAccountEntries" map="acctgTransEntryFilter"/>
+        <assert><not><if-empty field="salesAccountEntries"></if-empty></not></assert>
+
+        <!-- Check the payment transaction -->
+        <clear-field field="acctgTransEntryFilter"/>
+        <set field="acctgTransFilter.acctgTransTypeId" value="PAYMENT_APPL"/>
+        <filter-list-by-and to-list="paymentAcctgTransList" list="acctgTransList" map="acctgTransFilter"/>
+        <first-from-list entry="paymentAcctgTrans" list="paymentAcctgTransList"/>
+
+        <assert><if-compare field="paymentAcctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
+        <get-related value-field="paymentAcctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
+
+        <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
+
+        <call-simple-method method-name="UtilCheckEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
+
+        <set field="acctgTransEntryFilter.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
+        <set field="acctgTransEntryFilter.glAccountId" value="120000"/>
+        <filter-list-by-and list="acctgTransEntryList" to-list="accountsReceivableEntries" map="acctgTransEntryFilter"/>
+        <assert><not><if-empty field="accountsReceivableEntries"></if-empty></not></assert>
+
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testAcctgTransOnPaymentReceivedFromCustomer" short-description="Test case on Payment Received from customer for Sales Invoice" login-required="false">
+        <!-- Precondition :-
+            1. Click on the Payment top menu in the Accounting application, then click on the "Create New Payment" link.
+            2. In the "New incoming payment" box, set the customer id in the "From Party ID" field; then set "Payment Type ID" = "Customer Payment" and a proper "Payment Method Type" (e.g. "Electronic Funds Transfer"); then set the "amount" and submit the form
+        -->
+        <!-- Following process is tested by test case:
+             1. From the payment detail screen, when you are ready to post the payment to the GL, click on the "Status to Received" link
+        -->
+        <!-- Post condition: "Status to Received", Received Payments. When you are ready to post the payment to the GL this action will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped:
+              * Credit; in glAccountId=126000 - glAccountTypeId="ACCOUNTS_RECEIVABLE - UNAPPLIED PAYMENTS"
+              * Debit; in glAccountId=112000 - glAccountTypeId="UNDEPOSITED_RECEIPTS"
+        -->
+
+        <!-- Creating a payment from scratch rather than using the demo data -->
+        
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+
+        <!-- Find a customer -->
+        <entity-and list="customerRoles" entity-name="PartyRole">
+            <field-map field-name="roleTypeId" value="CUSTOMER"/>
+        </entity-and>
+        <first-from-list entry="customerRole" list="customerRoles"/>
+        <set field="serviceCtx.partyIdFrom" from-field="customerRole.partyId"/>
+        <set field="serviceCtx.amount" value="100.00" type="BigDecimal"/>
+        <set field="serviceCtx.partyIdTo" value="Company"/>
+        <set field="serviceCtx.paymentMethodTypeId" value="EFT_ACCOUNT"/>
+        <set field="serviceCtx.paymentTypeId" value="CUSTOMER_PAYMENT"/>
+        <set field="serviceCtx.paymentId" from-field="paymentId"/>
+        <set field="serviceCtx.statusId" value="PMNT_RECEIVED"/>
+        <call-service service-name="createPayment" in-map-name="serviceCtx">
+            <result-to-field result-name="paymentId"/>
+        </call-service>
+
+        <entity-and list="acctgTransList" entity-name="AcctgTrans">
+            <field-map field-name="paymentId"/>
+            <field-map field-name="acctgTransTypeId" value="INCOMING_PAYMENT"/>
+        </entity-and>
+        <first-from-list list="acctgTransList" entry="acctgTrans"/>
+
+        <assert><if-compare field="paymentAcctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
+        <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
+
+        <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
+
+        <call-simple-method method-name="UtilCheckEntriesBalance" xml-resource="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
+
+        <iterate entry="acctgTransEntry" list="acctgTransEntryList">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+               <assert>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCREC_UNAPPLIED"/>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="126000"/>
+                </assert>
+            </if-compare>
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                <assert>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="111100"/>
+                </assert>
+            </if-compare>
+        </iterate>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

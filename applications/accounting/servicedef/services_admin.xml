@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
     <service name="createPartyAcctgPreference" default-entity-name="PartyAcctgPreference" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="createPartyAcctgPreference" auth="true">
+        location="component://accounting/minilang/admin/AcctgAdminServices.xml" invoke="createPartyAcctgPreference" auth="true">
         <description>Create accounting preferences for a party (organization)</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -59,21 +59,21 @@ under the License.
         </auto-attributes>
     </service>
     <service name="getPartyAccountingPreferences" default-entity-name="PartyAcctgPreference" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="getPartyAccountingPreferences" auth="true">
+            location="component://accounting/minilang/admin/AcctgAdminServices.xml" invoke="getPartyAccountingPreferences" auth="true">
         <description>Get accounting preferences for a party (organization)</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="VIEW"/>
         <attribute type="String" mode="IN" name="organizationPartyId" optional="false"/>
         <attribute name="partyAccountingPreference" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
     <service name="setAcctgCompany" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="setAcctgCompany" auth="true">
+        location="component://accounting/minilang/admin/AcctgAdminServices.xml" invoke="setAcctgCompany" auth="true">
         <description>Set Accounting Company when select</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
         <attribute type="String" mode="INOUT" name="organizationPartyId" optional="true"/>
     </service>
 
     <service name="updateFXConversion" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="updateFXConversion">
+        location="component://accounting/minilang/admin/AcctgAdminServices.xml" invoke="updateFXConversion">
         <description>Update the conversion rate between two currencies and expire the old conversion rates</description>
         <permission-service service-name="acctgFxPermissionCheck" main-action="UPDATE"/>
         <attribute type="String" mode="IN" name="uomId" optional="false"/>
@@ -129,7 +129,7 @@ under the License.
     </service>
 
     <service name="getFXConversion" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="getFXConversion">
+        location="component://accounting/minilang/admin/AcctgAdminServices.xml" invoke="getFXConversion">
         <description>get the conversion rate</description>
         <attribute type="String" mode="IN" name="uomId" optional="false"/>
         <attribute type="String" mode="IN" name="uomIdTo" optional="false"/>

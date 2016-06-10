@@ -32,9 +32,9 @@
     </test-case>
 
     <test-case case-name="auto-accounting-transaction-tests-sales">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTestsSales.xml"/>
+        <simple-method-test location="component://accounting/minilang/test/AutoAcctgTransTestsSales.xml"/>
     </test-case>
     <test-case case-name="auto-accounting-transaction-tests-purchase">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTestsPurchase.xml"/>
+        <simple-method-test location="component://accounting/minilang/test/AutoAcctgTransTestsPurchase.xml"/>
     </test-case>
 </test-suite>

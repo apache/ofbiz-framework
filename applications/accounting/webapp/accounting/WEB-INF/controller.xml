@@ -187,7 +187,7 @@ under the License.
     </request-map>
     <request-map uri="createInvoiceItemPayrol">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createInvoiceItemPayrol" path="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceEvents.xml"/>
+        <event type="simple" invoke="createInvoiceItemPayrol" path="component://accounting/minilang/invoice/InvoiceEvents.xml"/>
         <response name="success" type="view" value="listInvoiceItems"/>
         <response name="error" type="view" value="listInvoiceItems"/>
     </request-map>

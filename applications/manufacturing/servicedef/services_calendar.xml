@@ -25,72 +25,72 @@ under the License.
 
     <!-- Routing services -->
     <service name="createCalendar" engine="simple" default-entity-name="TechDataCalendar"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="createCalendar">
+            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="createCalendar">
         <description>Create a calendar</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateCalendar" engine="simple" default-entity-name="TechDataCalendar"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="updateCalendar">
+            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="updateCalendar">
         <description>Update a calendar</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeCalendar" engine="simple" default-entity-name="TechDataCalendar"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="removeCalendar">
+            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="removeCalendar">
         <description>Remove a calendar</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createCalendarWeek" engine="simple" default-entity-name="TechDataCalendarWeek"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="createCalendarWeek">
+            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="createCalendarWeek">
         <description>Create a Calendar Week</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateCalendarWeek" engine="simple" default-entity-name="TechDataCalendarWeek"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="updateCalendarWeek">
+            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="updateCalendarWeek">
         <description>Update a Calendar Week</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeCalendarWeek" engine="simple" default-entity-name="TechDataCalendarWeek"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="removeCalendarWeek">
+            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="removeCalendarWeek">
         <description>Remove a Calendar Week</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createCalendarExceptionDay" engine="simple" default-entity-name="TechDataCalendarExcDay"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="createCalendarExceptionDay">
+            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="createCalendarExceptionDay">
         <description>Create a calendar ExceptionDay</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateCalendarExceptionDay" engine="simple" default-entity-name="TechDataCalendarExcDay"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="updateCalendarExceptionDay">
+            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="updateCalendarExceptionDay">
         <description>Update a calendar ExceptionDay</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeCalendarExceptionDay" engine="simple" default-entity-name="TechDataCalendarExcDay"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="removeCalendarExceptionDay">
+            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="removeCalendarExceptionDay">
         <description>Update a calendar ExceptionDay</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createCalendarExceptionWeek" engine="simple" default-entity-name="TechDataCalendarExcWeek"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="createCalendarExceptionWeek">
+            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="createCalendarExceptionWeek">
         <description>Create a Calendar Exception Week</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateCalendarExceptionWeek" engine="simple" default-entity-name="TechDataCalendarExcWeek"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="updateCalendarExceptionWeek">
+            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="updateCalendarExceptionWeek">
         <description>Update a Calendar Exception Week</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeCalendarExceptionWeek" engine="simple" default-entity-name="TechDataCalendarExcWeek"
-            location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="removeCalendarExceptionWeek">
+            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="removeCalendarExceptionWeek">
         <description>Remove a Calendar Exception Week</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>

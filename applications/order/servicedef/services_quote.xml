@@ -26,7 +26,7 @@ under the License.
 
     <!-- Quote -->
     <service name="getNextQuoteId" engine="simple"
-        location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="getNextQuoteId">
+        location="component://order/minilang/quote/QuoteServices.xml" invoke="getNextQuoteId">
         <description>Get the Next Quote ID According to Settings on the PartyAcctgPreference Entity for the given Party</description>
         <implements service="createQuote"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -34,26 +34,26 @@ under the License.
     </service>
 
     <service name="quoteSequenceEnforced" engine="simple"
-        location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="quoteSequenceEnforced">
+        location="component://order/minilang/quote/QuoteServices.xml" invoke="quoteSequenceEnforced">
         <implements service="getNextQuoteId" optional="true"/>
         <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
         <override name="quoteId" type="Long" mode="OUT"/>
     </service>
 
     <service name="createQuote" default-entity-name="Quote" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuote" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuote" auth="true">
         <description>Create an Quote</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="OUT" optional="true"/>
     </service>
     <service name="updateQuote" default-entity-name="Quote" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="updateQuote" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="updateQuote" auth="true">
         <description>Update a Quote</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="copyQuote" default-entity-name="Quote" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="copyQuote" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="copyQuote" auth="true">
         <description>Copy a Quote</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <attribute name="copyQuoteRoles" type="String" mode="IN" optional="true"/>
@@ -64,43 +64,43 @@ under the License.
         <attribute name="copyQuoteTerms" type="String" mode="IN" optional="true"/>
     </service>
     <service name="checkUpdateQuoteStatus" default-entity-name="Quote" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="checkUpdateQuoteStatus" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="checkUpdateQuoteStatus" auth="true">
         <description>Set the Quote status to ordered.</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- QuoteRole  -->
     <service name="createQuoteRole" default-entity-name="QuoteRole" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteRole" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteRole" auth="true">
         <description>Create a QuoteRole</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
     </service>
     <service name="removeQuoteRole" default-entity-name="QuoteRole" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="removeQuoteRole" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="removeQuoteRole" auth="true">
         <description>Remove a QuoteRole</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <!-- QuoteItem  -->
     <service name="createQuoteItem" default-entity-name="QuoteItem" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteItem" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteItem" auth="true">
         <description>Create a QuoteItem</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateQuoteItem" default-entity-name="QuoteItem" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="updateQuoteItem" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="updateQuoteItem" auth="true">
         <description>Update a QuoteItem</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeQuoteItem" default-entity-name="QuoteItem" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="removeQuoteItem" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="removeQuoteItem" auth="true">
         <description>Remove a QuoteItem</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="copyQuoteItem" default-entity-name="QuoteItem" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="copyQuoteItem" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="copyQuoteItem" auth="true">
         <description>Copy a QuoteItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -110,52 +110,52 @@ under the License.
     </service>
     <!-- QuoteAttribute  -->
     <service name="createQuoteAttribute" default-entity-name="QuoteAttribute" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteAttribute" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteAttribute" auth="true">
         <description>Create a QuoteAttribute</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateQuoteAttribute" default-entity-name="QuoteAttribute" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="updateQuoteAttribute" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="updateQuoteAttribute" auth="true">
         <description>Update a QuoteAttribute</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeQuoteAttribute" engine="simple" default-entity-name="QuoteAttribute"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="removeQuoteAttribute" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="removeQuoteAttribute" auth="true">
         <description>Remove a QuoteAttribute</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <!-- QuoteCoefficient  -->
     <service name="createQuoteCoefficient" default-entity-name="QuoteCoefficient" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteCoefficient" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteCoefficient" auth="true">
         <description>Create a QuoteCoefficient</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateQuoteCoefficient" default-entity-name="QuoteCoefficient" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="updateQuoteCoefficient" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="updateQuoteCoefficient" auth="true">
         <description>Update a QuoteCoefficient</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeQuoteCoefficient" engine="simple" default-entity-name="QuoteCoefficient"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="removeQuoteCoefficient" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="removeQuoteCoefficient" auth="true">
         <description>Remove a QuoteCoefficient</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <!-- Specialized Quote services -->
     <service name="createQuoteAndQuoteItemForRequest" engine="simple" default-entity-name="QuoteItem"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteAndQuoteItemForRequest" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteAndQuoteItemForRequest" auth="true">
         <description>Create a new Quote and Quote Item for a CustRequest</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="OUT" optional="true"/>
         <override name="custRequestId" optional="false"/>
     </service>
     <service name="autoUpdateQuotePrice" engine="simple" default-entity-name="QuoteItem"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="autoUpdateQuotePrice" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="autoUpdateQuotePrice" auth="true">
         <description>Update the QuoteItem price with the passed value (if present) or automatically from the averageCost</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="manualQuoteUnitPrice" type="BigDecimal" mode="IN" optional="true"/>
@@ -164,12 +164,12 @@ under the License.
         <attribute name="costToPriceMult" type="BigDecimal" mode="IN" optional="true"/>-->
     </service>
     <service name="autoCreateQuoteAdjustments" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="autoCreateQuoteAdjustments">
+            location="component://order/minilang/quote/QuoteServices.xml" invoke="autoCreateQuoteAdjustments">
         <description>Remove all existing quote adjustments, recalc them and persist in QuoteAdjustment.</description>
         <attribute name="quoteId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createQuoteAdjustment" default-entity-name="QuoteAdjustment" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteAdjustment">
+            location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteAdjustment">
         <description>Creates a new quote adjustment record</description>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
@@ -177,19 +177,19 @@ under the License.
         <override name="quoteId" optional="false"/>
     </service>
     <service name="updateQuoteAdjustment" default-entity-name="QuoteAdjustment" engine="simple"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="updateQuoteAdjustment" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="updateQuoteAdjustment" auth="true">
         <description>Update a QuoteAdjustment</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeQuoteAdjustment" engine="simple" default-entity-name="QuoteAdjustment"
-                location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="removeQuoteAdjustment" auth="true">
+                location="component://order/minilang/quote/QuoteServices.xml" invoke="removeQuoteAdjustment" auth="true">
         <description>Remove a QuoteAdjustment</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="createQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteWorkEffort">
+            location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteWorkEffort">
         <description>Creates a new QuoteWorkEffort record and WorkEffort record</description>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
@@ -199,26 +199,26 @@ under the License.
         <override name="workEffortId" optional="false"/>
     </service>
     <service name="deleteQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="deleteQuoteWorkEffort">
+            location="component://order/minilang/quote/QuoteServices.xml" invoke="deleteQuoteWorkEffort">
         <description>Creates a new QuoteWorkEffort record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="createQuoteFromCart" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteFromCart">
+            location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteFromCart">
         <description>Creates a new quote from a shopping cart</description>
         <attribute name="cart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="applyStorePromotions" type="String" mode="IN" optional="true"/>
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="createQuoteFromShoppingList" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteFromShoppingList">
+            location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteFromShoppingList">
         <description>Creates a new quote from a shopping list</description>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="applyStorePromotions" type="String" mode="IN" optional="true"/>
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="createQuoteFromCustRequest" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteFromCustRequest">
+            location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteFromCustRequest">
         <description>Creates a new quote from a customer request</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="quoteTypeId" type="String" mode="IN" optional="true"/>
@@ -252,7 +252,7 @@ under the License.
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="createQuoteNote" engine="simple"
-            location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteNote" auth="true">
+            location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteNote" auth="true">
         <description>Create a note item and associate with a quote</description>
         <attribute name="quoteId" type="String" mode="IN"/>
         <attribute name="noteInfo" type="String" mode="IN" allow-html="any"/>

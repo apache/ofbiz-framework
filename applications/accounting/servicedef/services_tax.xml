@@ -120,7 +120,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityCategory">
+        location="component://accounting/minilang/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityCategory">
         <description>Delete TaxAuthorityCategory</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -166,7 +166,7 @@ under the License.
 
     <!-- PartyTaxAuthInfo -->
     <service name="createPartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createPartyTaxAuthInfo">
+        location="component://accounting/minilang/tax/TaxAuthorityServices.xml" invoke="createPartyTaxAuthInfo">
         <description>Create PartyTaxAuthInfo</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -174,7 +174,7 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updatePartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updatePartyTaxAuthInfo">
+        location="component://accounting/minilang/tax/TaxAuthorityServices.xml" invoke="updatePartyTaxAuthInfo">
         <description>Update PartyTaxAuthInfo</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -187,7 +187,7 @@ under the License.
     </service>
 
     <service name="createCustomerTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
-        location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createCustomerTaxAuthInfo">
+        location="component://accounting/minilang/tax/TaxAuthorityServices.xml" invoke="createCustomerTaxAuthInfo">
         <description>Create Customer PartyTaxAuthInfo</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>

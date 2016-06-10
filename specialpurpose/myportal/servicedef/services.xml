@@ -24,11 +24,11 @@ under the License.
 
     <!-- check access in permission service -->
     <service name="portalPermissionIsEmployee" engine="simple"
-        location="component://myportal/script/org/ofbiz/myportal/MyPortalServices.xml" invoke="portalPermissionIsEmployee">
+        location="component://myportal/minilang/MyPortalServices.xml" invoke="portalPermissionIsEmployee">
         <implements service="permissionInterface"/>
     </service>
     <service name="portalPermissionIsCustomer" engine="simple"
-        location="component://myportal/script/org/ofbiz/myportal/MyPortalServices.xml" invoke="portalPermissionIsCustomer">
+        location="component://myportal/minilang/MyPortalServices.xml" invoke="portalPermissionIsCustomer">
         <implements service="permissionInterface"/>
     </service>
 </services>

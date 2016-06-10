@@ -27,6 +27,6 @@ under the License.
     </test-case>
 
     <test-case case-name="quote-tests">
-        <simple-method-test location="component://order/script/org/ofbiz/order/test/QuoteTests.xml"/>
+        <simple-method-test location="component://order/minilang/test/QuoteTests.xml"/>
     </test-case>
 </test-suite>

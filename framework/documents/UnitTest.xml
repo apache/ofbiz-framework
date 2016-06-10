@@ -103,7 +103,7 @@
                 Specific simple method's location and name which will be tested in a location and a name attribute respectively like this:
                 <programlisting>
                     &lt;test-case case-name="auto-accounting-transaction-tests-PoReceipt"&gt;
-                        &lt;simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnPoReceipts"/&gt;
+                        &lt;simple-method-test location="component://accounting/minilang/test/AutoAcctgTransTests.xml" name="testAcctgTransOnPoReceipts"/&gt;
                     &lt;/test-case&gt;
                 </programlisting>
             </para>

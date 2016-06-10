@@ -27,6 +27,6 @@ under the License.
     </test-case>
 
     <test-case case-name="shoppingList-test">
-        <simple-method-test location="component://order/script/org/ofbiz/order/test/ShoppingListTests.xml"/>
+        <simple-method-test location="component://order/minilang/test/ShoppingListTests.xml"/>
     </test-case>
 </test-suite>

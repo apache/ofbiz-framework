@@ -550,7 +550,7 @@ try
     methodContext.putEnv("productStoreId", productStoreId);
     methodContext.putEnv("DateMonth", DateMonth);
     methodContext.putEnv("DateYear", DateYear);
-    SimpleMethod.runSimpleMethod("component://order/script/org/ofbiz/order/reports/NetBeforeOverheadEvent.xml", "getOrder", methodContext);
+    SimpleMethod.runSimpleMethod("component://order/minilang/reports/NetBeforeOverheadEvent.xml", "getOrder", methodContext);
     starschemas = methodContext.getEnv("starschemas");
 } 
 catch (e) 
@@ -1172,7 +1172,7 @@ try
     methodContext = new MethodContext(appContext, classLoader, MethodContext.SERVICE);
     methodContext.putEnv("productStoreId", productStoreId);
     methodContext.putEnv("DateDay", DateDay);
-    SimpleMethod.runSimpleMethod("component://order/script/org/ofbiz/order/reports/NetBeforeOverheadDateEvent.xml", "getOrder", methodContext);
+    SimpleMethod.runSimpleMethod("component://order/minilang/reports/NetBeforeOverheadDateEvent.xml", "getOrder", methodContext);
     Date_starschemas = methodContext.getEnv("Date_starschemas");
 } 
 catch (e) 
@@ -1566,7 +1566,7 @@ try
     methodContext.putEnv("productStoreId", productStoreId);
     methodContext.putEnv("DateMonth", DateMonth);
     methodContext.putEnv("DateYear", DateYear);
-    SimpleMethod.runSimpleMethod("component://order/script/org/ofbiz/order/reports/NetBeforeOverheadMonthlyEvent.xml", "getOrder", methodContext);
+    SimpleMethod.runSimpleMethod("component://order/minilang/reports/NetBeforeOverheadMonthlyEvent.xml", "getOrder", methodContext);
     starschemas = methodContext.getEnv("starschemas");
 } 
 catch (e) 

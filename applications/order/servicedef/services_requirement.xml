@@ -35,7 +35,7 @@ under the License.
         </auto-attributes>
     </service>
     <service name="createRequirement" engine="simple"
-            location="component://order/script/org/ofbiz/order/requirement/RequirementServices.xml" invoke="createRequirement">
+            location="component://order/minilang/requirement/RequirementServices.xml" invoke="createRequirement">
         <description>Create a new requirement</description>
         <implements service="requirementInterface"/>
         <attribute name="requirementTypeId" type="String" mode="IN" optional="false"/>
@@ -44,7 +44,7 @@ under the License.
         <attribute name="requirementId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="updateRequirement" engine="simple"
-            location="component://order/script/org/ofbiz/order/requirement/RequirementServices.xml" invoke="updateRequirement">
+            location="component://order/minilang/requirement/RequirementServices.xml" invoke="updateRequirement">
         <description>Update an existing requirement</description>
         <implements service="requirementInterface"/>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
@@ -52,32 +52,32 @@ under the License.
     </service>
 
     <service name="deleteRequirement" engine="simple"
-            location="component://order/script/org/ofbiz/order/requirement/RequirementServices.xml" invoke="deleteRequirement">
+            location="component://order/minilang/requirement/RequirementServices.xml" invoke="deleteRequirement">
         <description>Delete a requirement</description>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createRequirementRole" default-entity-name="RequirementRole" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/requirement/RequirementServices.xml" invoke="createRequirementRole">
+            location="component://order/minilang/requirement/RequirementServices.xml" invoke="createRequirementRole">
         <description>Creates a new party role for the requirement</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updateRequirementRole" default-entity-name="RequirementRole" engine="simple"
-                location="component://order/script/org/ofbiz/order/requirement/RequirementServices.xml" invoke="updateRequirementRole" auth="true">
+                location="component://order/minilang/requirement/RequirementServices.xml" invoke="updateRequirementRole" auth="true">
         <description>Update a RequirementRole</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeRequirementRole" engine="simple" default-entity-name="RequirementRole"
-                location="component://order/script/org/ofbiz/order/requirement/RequirementServices.xml" invoke="removeRequirementRole" auth="true">
+                location="component://order/minilang/requirement/RequirementServices.xml" invoke="removeRequirementRole" auth="true">
         <description>Remove a RequirementRole</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="associatedRequirementWithRequestItem" engine="simple"
-            location="component://order/script/org/ofbiz/order/requirement/RequirementServices.xml" invoke="associateRequirementWithRequestItem">
+            location="component://order/minilang/requirement/RequirementServices.xml" invoke="associateRequirementWithRequestItem">
         <description>Creates a CustRequestItem/Requirement association</description>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
@@ -85,7 +85,7 @@ under the License.
     </service>
 
     <service name="addRequirementTask" engine="simple"
-            location="component://order/script/org/ofbiz/order/requirement/RequirementServices.xml" invoke="addTaskToRequirement">
+            location="component://order/minilang/requirement/RequirementServices.xml" invoke="addTaskToRequirement">
         <description>Associate an existing task w/ a requirement</description>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
@@ -110,7 +110,7 @@ under the License.
         <auto-attributes entity-name="OrderRequirementCommitment" include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="checkCreateOrderRequirement" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="checkCreateOrderRequirement">
+            location="component://order/minilang/order/OrderServices.xml" invoke="checkCreateOrderRequirement">
         <description>Create OrderRequirementCommitment and Requirement for items with automatic requirement upon ordering</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
@@ -119,7 +119,7 @@ under the License.
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="checkCreateStockRequirementQoh" engine="simple" auth="true" default-entity-name="ItemIssuance"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="checkCreateStockRequirementQoh">
+            location="component://order/minilang/order/OrderServices.xml" invoke="checkCreateStockRequirementQoh">
         <description>Create a Product Requirement based on QOH inventory</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -128,7 +128,7 @@ under the License.
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="checkCreateStockRequirementAtp" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="checkCreateStockRequirementAtp">
+            location="component://order/minilang/order/OrderServices.xml" invoke="checkCreateStockRequirementAtp">
         <description>Create a Product Requirement based on ATP inventory</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
@@ -139,7 +139,7 @@ under the License.
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createRequirementFromItemATP" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createRequirementFromItemATP">
+            location="component://order/minilang/order/OrderServices.xml" invoke="createRequirementFromItemATP">
         <description>Create OrderRequirementCommitment and Requirement for items with requirement based on ATP stock levels</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
@@ -151,7 +151,7 @@ under the License.
     </service>
 
     <service name="checkCreateProductRequirementForFacility" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="checkCreateProductRequirementForFacility">
+            location="component://order/minilang/order/OrderServices.xml" invoke="checkCreateProductRequirementForFacility">
         <description>Create Requirements for all the products in a facility with QOH under the minimum stock level</description>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="defaultRequirementMethodId" type="String" mode="IN" optional="true"/>
@@ -165,13 +165,13 @@ under the License.
     </service>
 
     <service name="autoAssignRequirementToSupplier" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/requirement/RequirementServices.xml" invoke="autoAssignRequirementToSupplier">
+            location="component://order/minilang/requirement/RequirementServices.xml" invoke="autoAssignRequirementToSupplier">
         <description>If the requirement is a product requirement (purchasing) try to assign it to the primary supplier</description>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createTransferFromRequirement" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/requirement/RequirementServices.xml" invoke="createTransferFromRequirement">
+            location="component://order/minilang/requirement/RequirementServices.xml" invoke="createTransferFromRequirement">
         <description>Create the inventory transfers required to fulfill the requirement.</description>
         <attribute mode="IN" name="requirementId" optional="false" type="String"/>
         <attribute mode="IN" name="fromFacilityId" optional="false" type="String"/>

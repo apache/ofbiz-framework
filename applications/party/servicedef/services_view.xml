@@ -162,14 +162,14 @@ under the License.
     </service>
     
     <service name="getPartiesByRelationship" engine="simple"
-        location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getPartiesByRelationship">
+        location="component://party/minilang/party/PartyServices.xml" invoke="getPartiesByRelationship">
         <description>Gets all parties related to partyIdFrom through the PartyRelationship entity</description>
         <auto-attributes mode="IN" include="all" optional="true" entity-name="PartyRelationship"/>
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
         <override name="partyIdFrom" optional="false"/>
     </service>
     <service name="getRelatedParties" engine="simple"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getRelatedParties">
+            location="component://party/minilang/party/PartyServices.xml" invoke="getRelatedParties">
         <description>
             Get Parties Related to a Party
             - The relatedPartyIdList coming out will include the original partyIdFrom
@@ -189,7 +189,7 @@ under the License.
     </service>
 
     <service name="getParentOrganizations" engine="simple"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getParentOrganizations">
+            location="component://party/minilang/party/PartyServices.xml" invoke="getParentOrganizations">
         <description>
             Gets Parent Organizations for an Organization Party.
             This uses the PartyRelationship table with partyRelationshipTypeId="GROUP_ROLLUP".
@@ -204,7 +204,7 @@ under the License.
     </service>
 
     <service name="getChildRoleTypes" engine="simple"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getChildRoleTypes">
+            location="component://party/minilang/party/PartyServices.xml" invoke="getChildRoleTypes">
         <description>
             Get Child RoleTypes.
             The childRoleTypeIdList coming out will contain the original roleTypeId.
@@ -215,7 +215,7 @@ under the License.
 
     <!-- PostalAddressBoundary -->
     <service name="getPostalAddressBoundary" engine="simple"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getPostalAddressBoundary">
+            location="component://party/minilang/party/PartyServices.xml" invoke="getPostalAddressBoundary">
         <description>Get all Postal Address Boundaries</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="VIEW"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>

@@ -26,7 +26,7 @@
     </test-case>
 
     <test-case case-name="partyContactMech-tests">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyContactMechTests.xml"/>
+        <simple-method-test location="component://party/minilang/test/PartyContactMechTests.xml"/>
     </test-case>
 
 </test-suite>

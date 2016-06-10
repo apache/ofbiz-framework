@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
 
     <service name="createSubscription" default-entity-name="Subscription" auth="true" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="createSubscription">
+        location="component://product/minilang/product/subscription/SubscriptionServices.xml" invoke="createSubscription">
         <description>Create a Subscription Record</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
@@ -38,7 +38,7 @@ under the License.
     </service>
 
     <service name="isSubscribed" default-entity-name="Subscription" auth="true" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="isSubscribed">
+        location="component://product/minilang/product/subscription/SubscriptionServices.xml" invoke="isSubscribed">
         <description>Check if a particular party has at this moment a subscription</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="VIEW"/>
         <auto-attributes include="all" mode="IN" optional="true"/>
@@ -49,7 +49,7 @@ under the License.
     </service>
 
     <service name="getSubscriptionEnt" default-entity-name="Subscription" auth="true" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="getSubscription">
+        location="component://product/minilang/product/subscription/SubscriptionServices.xml" invoke="getSubscription">
         <description>Retrieve a single Subscription Entity Record</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
@@ -125,7 +125,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="updateSubscriptionAttribute" default-entity-name="SubscriptionAttribute" auth="true" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="updateSubscriptionAttribute">
+        location="component://product/minilang/product/subscription/SubscriptionServices.xml" invoke="updateSubscriptionAttribute">
         <description>Create (when not exist) or update (when exist) a Subscription attribute</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="UPDATE"/>
         <attribute name="subscriptionId" type="String" mode="INOUT" optional="false"/>
@@ -145,7 +145,7 @@ under the License.
     </service>
 
     <service name="subscriptionPermissionCheck" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="subscriptionPermissionCheck" auth="true">
+        location="component://product/minilang/product/subscription/SubscriptionServices.xml" invoke="subscriptionPermissionCheck" auth="true">
         <description>Subscription Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>

@@ -1253,7 +1253,7 @@ public class ContentWorker implements org.ofbiz.widget.content.ContentWorkerInte
             contentAssoc = delegator.makeValue("ContentAssoc");
             try {
                 // TODO: locale needs to be gotten correctly
-                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn", content, contentAssoc, new LinkedList<Object>(), Locale.getDefault());
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", content, contentAssoc, new LinkedList<Object>(), Locale.getDefault());
                 context.put("contentAssocTypeId", contentAssoc.get("contentAssocTypeId"));
                 context.put("contentAssocPredicateId", contentAssoc.get("contentAssocPredicateId"));
                 context.put("mapKey", contentAssoc.get("mapKey"));

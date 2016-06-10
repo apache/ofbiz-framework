@@ -2745,7 +2745,7 @@ under the License.
     </request-map>
     <request-map uri="setDefaultImage">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementEvents.xml" invoke="setDefaultImage"/>
+        <event type="simple" path="component://product/minilang/product/imagemanagement/ImageManagementEvents.xml" invoke="setDefaultImage"/>
         <response name="success" type="view" value="ListImageManage"/>
         <response name="error" type="view" value="ListImageManage"/>
     </request-map>

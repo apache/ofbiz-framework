@@ -171,7 +171,7 @@ under the License.
     </service>
 
     <service name="orderAdjustmentPermissionCheck" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="orderAdjustmentPermissionCheck">
+            location="component://order/minilang/order/OrderSimpleMethods.xml" invoke="orderAdjustmentPermissionCheck">
         <description>Permission service for the creation and editing of order adjustments</description>
         <implements service="permissionInterface"/>
     </service>
@@ -192,7 +192,7 @@ under the License.
         <override name="orderId" optional="false"/>
     </service>
     <service name="deleteOrderAdjustment" default-entity-name="OrderAdjustment" engine="simple"
-        location="component://order/script/org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="deleteOrderAdjustment">
+        location="component://order/minilang/order/OrderSimpleMethods.xml" invoke="deleteOrderAdjustment">
         <description>Delete an order adjustment record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>  <!-- needed for resetGrandTotal seca -->
@@ -347,7 +347,7 @@ under the License.
     </service>
 
     <service name="recreateOrderAdjustments" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="recreateOrderAdjustments">
+            location="component://order/minilang/order/OrderServices.xml" invoke="recreateOrderAdjustments">
         <description>Remove all existing order adjustments, recalc them and persist in OrderAdjustment.</description>
         <permission-service service-name="orderAdjustmentPermissionCheck" main-action="UPDATE"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
@@ -373,7 +373,7 @@ under the License.
     </service>
 
     <service name="updateOrderStatusFromReceipt" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="updateOrderStatusFromReceipt">
+            location="component://order/minilang/order/OrderSimpleMethods.xml" invoke="updateOrderStatusFromReceipt">
         <description>Updates the (purchase) order/order item status based on receipt</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="currentStatusId" type="String" mode="OUT" optional="false"/>
@@ -400,7 +400,7 @@ under the License.
     </service>
 
     <service name="getOrderItemShipGroupEstimatedShipDate" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="getOrderItemShipGroupEstimatedShipDate" auth="true">
+            location="component://order/minilang/order/OrderServices.xml" invoke="getOrderItemShipGroupEstimatedShipDate" auth="true">
         <description>Compute and return the OrderItemShipGroup estimated ship date based on the associated items.</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
@@ -440,7 +440,7 @@ under the License.
     </service>
 
     <service name="updateOrderNote" engine="simple" default-entity-name="OrderHeaderNote"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderNote" auth="true">
+            location="component://order/minilang/order/OrderServices.xml" invoke="updateOrderNote" auth="true">
         <description>Toggle Order Note and make it either Public or Private</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="noteId" type="String" mode="IN" optional="false"/>
@@ -470,7 +470,7 @@ under the License.
     </service>
     <!-- Order View Services -->
     <service name="getOrderedSummaryInformation" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="getOrderedSummaryInformation">
+            location="component://order/minilang/order/OrderServices.xml" invoke="getOrderedSummaryInformation">
         <description>Get Ordered Summary Information</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/> <!-- defaults to PLACING_CUSTOMER -->
@@ -497,7 +497,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shippingAmount" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
-    <service name="getOrderStatus" engine="simple" location="component://order/script/org/ofbiz/order/order/OrderServices.xml"
+    <service name="getOrderStatus" engine="simple" location="component://order/minilang/order/OrderServices.xml"
             invoke="getOrderStatus" auth="false">
         <description>Gets the order status</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
@@ -506,27 +506,27 @@ under the License.
 
     <!-- Order Delivery Services -->
     <service name="createOrderDeliverySchedule" default-entity-name="OrderDeliverySchedule" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderDeliveryServices.xml" invoke="createOrderDeliverySchedule">
+            location="component://order/minilang/order/OrderDeliveryServices.xml" invoke="createOrderDeliverySchedule">
         <description>Creates a delivery schedule for the specified order</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="orderItemSeqId" optional="true"/>
     </service>
     <service name="updateOrderDeliverySchedule" default-entity-name="OrderDeliverySchedule" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderDeliveryServices.xml" invoke="updateOrderDeliverySchedule">
+            location="component://order/minilang/order/OrderDeliveryServices.xml" invoke="updateOrderDeliverySchedule">
         <description>Update an existing delivery schedule for a specified purchase order</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="sendOrderDeliveryScheduleNotification" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderDeliveryServices.xml" invoke="sendOrderDeliveryScheduleNotification">
+            location="component://order/minilang/order/OrderDeliveryServices.xml" invoke="sendOrderDeliveryScheduleNotification">
         <description>Send Order Delivery Schedule Notification</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="checkSupplierRelatedOrderPermission" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderDeliveryServices.xml" invoke="checkSupplierRelatedOrderPermissionService">
+            location="component://order/minilang/order/OrderDeliveryServices.xml" invoke="checkSupplierRelatedOrderPermissionService">
         <description>Check Supplier Related Order Permission</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="checkAction" type="String" mode="IN" optional="true"/>
@@ -618,7 +618,7 @@ under the License.
     </service>
 
     <service name="getNextOrderId" engine="simple"
-        location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="getNextOrderId">
+        location="component://order/minilang/order/OrderServices.xml" invoke="getNextOrderId">
         <description>Get the Next Order ID According to Settings on the PartyAcctgPreference Entity for the given Party</description>
         <implements service="storeOrder" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -627,7 +627,7 @@ under the License.
     </service>
 
     <service name="orderSequence_enforced" engine="simple"
-        location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="orderSequence_enforced">
+        location="component://order/minilang/order/OrderServices.xml" invoke="orderSequence_enforced">
         <implements service="getNextOrderId"/>
         <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
         <override name="orderId" type="Long" mode="OUT"/>
@@ -635,13 +635,13 @@ under the License.
 
     <!-- OrderHeader -->
     <service name="createOrderHeader" default-entity-name="OrderHeader" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createOrderHeader" auth="true">
+            location="component://order/minilang/order/OrderServices.xml" invoke="createOrderHeader" auth="true">
         <description>Create OrderHeader</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateOrderHeader" default-entity-name="OrderHeader" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderHeader" auth="true">
+            location="component://order/minilang/order/OrderServices.xml" invoke="updateOrderHeader" auth="true">
         <description>Update OrderHeader</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -674,7 +674,7 @@ under the License.
         <attribute name="shipGroupSeqId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="updateOrderItemShipGroup" default-entity-name="OrderItemShipGroup" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderItemShipGroup" auth="true">
+            location="component://order/minilang/order/OrderServices.xml" invoke="updateOrderItemShipGroup" auth="true">
         <description>Updates OrderItemShipGroup.  The shipmentMethod field is of the format ${shipmentMethodTypeId}@${carrierPartyId}</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -692,7 +692,7 @@ under the License.
     </service>
 
     <service name="updateOrderContactMech" default-entity-name="OrderContactMech" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderContactMech" auth="true">
+            location="component://order/minilang/order/OrderServices.xml" invoke="updateOrderContactMech" auth="true">
         <description>Update Order Contact Mech</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="oldContactMechId" type="String" mode="IN" optional="true"/>
@@ -739,7 +739,7 @@ under the License.
     </service>
 
     <service name="addPaymentMethodToOrder" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="addPaymentMethodToOrder" auth="true">
+            location="component://order/minilang/order/OrderServices.xml" invoke="addPaymentMethodToOrder" auth="true">
         <description>Add Payment Method to Order.From this servicewe will call the createOrderPaymentPreference service to create OrderPaymentPreference</description>
         <attribute type="String" mode="IN" name="orderId" optional="false"/>
         <attribute type="String" mode="IN" name="paymentMethodId" optional="false"/>
@@ -870,7 +870,7 @@ under the License.
     </service>
 
     <service name="checkOrderIsOnBackOrder" engine="simple" auth="false"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="checkOrderIsOnBackOrder">
+            location="component://order/minilang/order/OrderServices.xml" invoke="checkOrderIsOnBackOrder">
         <description>Check if an Order is on Back Order</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="isBackOrder" type="Boolean" mode="OUT" optional="false"/>
@@ -911,7 +911,7 @@ under the License.
     </service>
 
     <service name="createOrderItemChange" engine="simple" auth="true" default-entity-name="OrderItemChange"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createOrderItemChange">
+            location="component://order/minilang/order/OrderServices.xml" invoke="createOrderItemChange">
         <description>Creates a new OrderItemChange record</description>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -926,7 +926,7 @@ under the License.
     </service>
 
     <service name="createUpdateShippingAddress" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createUpdateShippingAddress" auth="true">
+            location="component://order/minilang/order/OrderServices.xml" invoke="createUpdateShippingAddress" auth="true">
         <description>Creates new shipping address and update existing address</description>
         <attribute name="productStoreId" mode="IN" type="String" optional="true"/>
         <attribute name="setDefaultShipping" mode="IN" type="String" optional="true"/>
@@ -947,7 +947,7 @@ under the License.
     </service>
 
     <service name="createUpdateBillingAddress" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createUpdateBillingAddress" auth="true">
+            location="component://order/minilang/order/OrderServices.xml" invoke="createUpdateBillingAddress" auth="true">
         <description>Creates new billing address and update existing address</description>
         <attribute name="productStoreId" mode="IN" type="String" optional="true"/>
         <attribute name="setDefaultBilling" mode="IN" type="String" optional="true"/>
@@ -969,7 +969,7 @@ under the License.
     </service>
 
     <service name="createUpdateCreditCard" engine="simple" auth="true" default-entity-name="CreditCard"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createUpdateCreditCard">
+            location="component://order/minilang/order/OrderServices.xml" invoke="createUpdateCreditCard">
         <description>Create/Update credit card</description>
         <attribute name="expMonth" type="String" mode="IN" optional="false"/>
         <attribute name="expYear" type="String" mode="IN" optional="false"/>
@@ -988,7 +988,7 @@ under the License.
     </service>
 
    <service name="setUnitPriceAsLastPrice" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="setUnitPriceAsLastPrice" auth="false">
+            location="component://order/minilang/order/OrderServices.xml" invoke="setUnitPriceAsLastPrice" auth="false">
         <description>Sets unit price as last price for product</description>
         <attribute name="supplierPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="orderTypeId" type="String" mode="IN" optional="true"/>
@@ -1003,12 +1003,12 @@ under the License.
    </service>
 
     <service name="cancelAllBackOrders" engine="simple"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="cancelAllBackOrders" auth="true">
+            location="component://order/minilang/order/OrderServices.xml" invoke="cancelAllBackOrders" auth="true">
         <description>Cancels those back orders from suppliers whose cancel back order date (cancelBackOrderDate) has passed the current date</description>
     </service>
 
     <service name="updateShippingMethodAndCharges" engine="simple" 
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="updateShippingMethodAndCharges">
+            location="component://order/minilang/order/OrderServices.xml" invoke="updateShippingMethodAndCharges">
         <description>Compare order's shipping amount and new shipping amount(based on weight and dimension of packages).If new shipping amount is more then or less than default percentage (defined in shipment.properties) of Order's shipping amount, then shipping method and shipping charges are updated. And if new shipping amount is not more then or less than default percentage (defined in shipment.properties)% of Order's shipping amount then only shipping method is updated.Also updates record in ShipmentRouteSegment entity</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
@@ -1056,7 +1056,7 @@ under the License.
         </description>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
-    <service name="productAvailabalityByFacility" engine="simple" location="component://order/script/org/ofbiz/order/order/OrderServices.xml"
+    <service name="productAvailabalityByFacility" engine="simple" location="component://order/minilang/order/OrderServices.xml"
             invoke="productAvailabalityByFacility" auth="true">
         <description>
             Calculate ATP and QOH According For each facility
@@ -1103,7 +1103,7 @@ under the License.
     </service>
 
     <service name="createQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
-        location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteTerm">
+        location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteTerm">
         <description>
             Create a new Quate term.
         </description>
@@ -1112,7 +1112,7 @@ under the License.
         <override name="quoteItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updateQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
-        location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="updateQuoteTerm">
+        location="component://order/minilang/quote/QuoteServices.xml" invoke="updateQuoteTerm">
         <description>
             Edit the Quate term.
         </description>
@@ -1120,7 +1120,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deleteQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
-        location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="deleteQuoteTerm">
+        location="component://order/minilang/quote/QuoteServices.xml" invoke="deleteQuoteTerm">
         <description>
             delete the Quate term.
         </description>
@@ -1129,18 +1129,18 @@ under the License.
     
     <!-- Use for link the payment and the invoice When Received Payment -->
     <service name="createOrderPaymentApplication" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createOrderPaymentApplication">
+            location="component://order/minilang/order/OrderServices.xml" invoke="createOrderPaymentApplication">
         <description>Create Order Payment Application</description>
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
     </service>
     
     <service name="createTestOrderRentalProduct" engine="simple" auth="true"
-        location="component://order/script/org/ofbiz/order/test/ShoppingCartTests.xml" invoke="testCreateOrderRentalProduct">
+        location="component://order/minilang/test/ShoppingCartTests.xml" invoke="testCreateOrderRentalProduct">
         <description>Create Test Order Rental of an asset which is shipped from and returned to inventory</description>
     </service>
     
     <service name="testCreateShoppinCartAndOrder" engine="simple" auth="true"
-        location="component://order/script/org/ofbiz/order/test/ShoppingCartTests.xml" invoke="testCreateShoppinCartAndOrder">
+        location="component://order/minilang/test/ShoppingCartTests.xml" invoke="testCreateShoppinCartAndOrder">
         <description>Create an order using a shopping cart - only used internally in ShoppingCartTests.xml for test purpose</description>
         <attribute name="orderMap" type="Map" mode="OUT"/>
     </service>
@@ -1175,7 +1175,7 @@ under the License.
     </service>
     
     <service name="MoveItemBetweenShipGroups" engine="simple" 
-        location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="MoveItemBetweenShipGroups">
+        location="component://order/minilang/order/OrderServices.xml" invoke="MoveItemBetweenShipGroups">
         <description>Move order items between ship groups</description>
         <attribute name="orderId" type="String" mode="IN"/>
         <attribute name="orderItemSeqId" type="String" mode="IN"/>

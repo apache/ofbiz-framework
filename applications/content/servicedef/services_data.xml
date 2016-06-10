@@ -24,7 +24,7 @@
 
     <!-- DataResource services -->
     <service name="createDataResource" default-entity-name="DataResource" engine="simple"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createDataResource" auth="true">
+            location="component://content/minilang/data/DataServices.xml" invoke="createDataResource" auth="true">
         <description>Create a DataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -41,7 +41,7 @@
         <override name="dataResourceName" allow-html="any"/>
     </service>
     <service name="createDataResourceAndAssocToContent" default-entity-name="DataResource" engine="simple"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createDataResourceAndAssocToContent" auth="true">
+            location="component://content/minilang/data/DataServices.xml" invoke="createDataResourceAndAssocToContent" auth="true">
         <description>Create a DataResource and link this data to the content present</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <implements service="createDataResource" optional="true"/>
@@ -101,7 +101,7 @@
 
     <!-- ElectronicText services -->
     <service name="createElectronicText" default-entity-name="ElectronicText" engine="simple"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createElectronicText" auth="true">
+            location="component://content/minilang/data/DataServices.xml" invoke="createElectronicText" auth="true">
         <description>Create a ElectronicText</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <implements service="createDataResource"/>
@@ -111,7 +111,7 @@
         <override name="textData" allow-html="any"/>
     </service>
     <service name="updateElectronicText" default-entity-name="ElectronicText" engine="simple"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateElectronicText" auth="true">
+            location="component://content/minilang/data/DataServices.xml" invoke="updateElectronicText" auth="true">
         <description>Update a ElectronicText</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
@@ -120,13 +120,13 @@
         <override name="textData" allow-html="any"/>
     </service>
     <service name="removeElectronicText" default-entity-name="ElectronicText" engine="simple"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="removeElectronicText" auth="true">
+            location="component://content/minilang/data/DataServices.xml" invoke="removeElectronicText" auth="true">
         <description>Remove ElectronicText</description>
         <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="getElectronicText" engine="simple"
-            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="getElectronicText" default-entity-name="ElectronicText" auth="false" >
+            location="component://content/minilang/data/DataServices.xml" invoke="getElectronicText" default-entity-name="ElectronicText" auth="false" >
         <description>Get a ElectronicText: Can pass either content value object or contentId</description>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
         <attribute mode="IN" name="content" optional="true" type="org.ofbiz.entity.GenericValue"/>

@@ -27,10 +27,10 @@ under the License.
     </test-case>
 
     <test-case case-name="productPrice-tests">
-        <simple-method-test location="component://product/script/org/ofbiz/product/test/ProductPriceTests.xml"/>
+        <simple-method-test location="component://product/minilang/product/test/ProductPriceTests.xml"/>
     </test-case>
 
     <test-case case-name="category-tests">
-        <simple-method-test location="component://product/script/org/ofbiz/product/test/CategoryTests.xml"/>
+        <simple-method-test location="component://product/minilang/product/test/CategoryTests.xml"/>
     </test-case>
 </test-suite>

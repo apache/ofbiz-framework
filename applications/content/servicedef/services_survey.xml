@@ -44,7 +44,7 @@ under the License.
 
     <!--  TODO
     <service name="cloneSurvey" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="cloneSurvey">
+            location="component://content/minilang/survey/SurveyServices.xml" invoke="cloneSurvey">
         <description>Clone a Survey; NOTE: not yet implemented</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <attribute name="surveyId" type="String" mode="IN"/>
@@ -134,7 +134,7 @@ under the License.
 
     <!-- SurveyQuestion Services -->
     <service name="createSurveyQuestion" default-entity-name="SurveyQuestion" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyQuestion">
+            location="component://content/minilang/survey/SurveyServices.xml" invoke="createSurveyQuestion">
         <description>Create a SurveyQuestion</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -142,7 +142,7 @@ under the License.
         <attribute name="surveyId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updateSurveyQuestion" default-entity-name="SurveyQuestion" auth="true" engine="simple"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="updateSurveyQuestion">
+            location="component://content/minilang/survey/SurveyServices.xml" invoke="updateSurveyQuestion">
         <description>Update a SurveyQuestion</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -253,7 +253,7 @@ under the License.
 
     <!-- Survey Response Service -->
     <service name="createSurveyResponse" engine="simple" auth="false"
-            location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyResponse">
+            location="component://content/minilang/survey/SurveyServices.xml" invoke="createSurveyResponse">
         <description>Create a Survey Response w/ Response Answers</description>
         <auto-attributes mode="IN" entity-name="SurveyResponse" include="nonpk" optional="true"/>
         <attribute name="answers" type="Map" mode="IN" optional="false" string-map-prefix="answers_"/>

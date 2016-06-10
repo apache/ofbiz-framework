@@ -23,9 +23,9 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="auto-invoice-tests">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoInvoiceTests.xml"/>
+        <simple-method-test location="component://accounting/minilang/test/AutoInvoiceTests.xml"/>
     </test-case>
     <test-case case-name="invoice-per-shipment-tests">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/InvoicePerShipmentTests.xml"/>
+        <simple-method-test location="component://accounting/minilang/test/InvoicePerShipmentTests.xml"/>
     </test-case>
 </test-suite>

@@ -87,7 +87,7 @@ under the License.
     </service>
 
     <service name="createProductPriceCond" default-entity-name="ProductPriceCond" engine="simple"
-                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="createProductPriceCond" auth="true">
+                location="component://product/minilang/product/price/PriceServices.xml" invoke="createProductPriceCond" auth="true">
         <description>Create a ProductPriceCond</description>
         <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -96,7 +96,7 @@ under the License.
         <override name="productPriceCondSeqId" mode="OUT"/>
     </service>
     <service name="updateProductPriceCond" default-entity-name="ProductPriceCond" engine="simple"
-                location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="updateProductPriceCond" auth="true">
+                location="component://product/minilang/product/price/PriceServices.xml" invoke="updateProductPriceCond" auth="true">
         <description>Update a ProductPriceCond</description>
         <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -257,7 +257,7 @@ under the License.
     </service>
 
     <service name="createProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="createProductPromoCond" auth="true">
+                location="component://product/minilang/product/promo/PromoServices.xml" invoke="createProductPromoCond" auth="true">
         <description>Create a ProductPromo</description>
         <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -266,7 +266,7 @@ under the License.
         <override name="productPromoCondSeqId" mode="OUT"/>
     </service>
     <service name="updateProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
-                location="component://product/script/org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductPromoCond" auth="true">
+                location="component://product/minilang/product/promo/PromoServices.xml" invoke="updateProductPromoCond" auth="true">
         <description>Update a ProductPromo</description>
         <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -330,7 +330,7 @@ under the License.
     </service>
 
     <service name="getAssociatedPriceRulesConds" engine="simple" auth="false"
-        location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="getAssociatedPriceRulesConds">
+        location="component://product/minilang/product/price/PriceServices.xml" invoke="getAssociatedPriceRulesConds">
         <description>Set the Value options for selected Price Rule Condition Input</description>
         <attribute name="inputParamEnumId" mode="IN" type="String"/>
         <attribute name="productPriceRulesCondValues" mode="OUT" type="java.util.List" optional="true"/><!-- optional="true" because of quantity or other kind of fiels needing an input -->

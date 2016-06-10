@@ -31,33 +31,33 @@ under the License.
 
     <!-- Low Level CrUD Services -->
     <service name="createOagisMessageInfo" engine="simple" default-entity-name="OagisMessageInfo" require-new-transaction="true"
-            location="component://oagis/script/org/ofbiz/oagis/OagisMessageServices.xml" invoke="createOagisMessageInfo" auth="true">
+            location="component://oagis/minilang/OagisMessageServices.xml" invoke="createOagisMessageInfo" auth="true">
          <description>Create MessageInfo</description>
          <auto-attributes mode="IN" include="pk" optional="false"/>
          <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="updateOagisMessageInfo" engine="simple" default-entity-name="OagisMessageInfo" require-new-transaction="true"
-             location="component://oagis/script/org/ofbiz/oagis/OagisMessageServices.xml" invoke="updateOagisMessageInfo" auth="true">
+             location="component://oagis/minilang/OagisMessageServices.xml" invoke="updateOagisMessageInfo" auth="true">
         <description>Update MessageInfo</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="createOagisMessageErrorInfo" engine="simple" default-entity-name="OagisMessageErrorInfo"
-            location="component://oagis/script/org/ofbiz/oagis/OagisMessageServices.xml" invoke="createOagisMessageErrorInfo" auth="true">
+            location="component://oagis/minilang/OagisMessageServices.xml" invoke="createOagisMessageErrorInfo" auth="true">
          <description>Create MessageErrorInfo</description>
          <auto-attributes mode="IN" include="pk" optional="false"/>
          <auto-attributes mode="IN" include="nonpk" optional="true"/>
          <override name="errorSeqId" optional="true"/>
     </service>
     <service name="updateOagisMessageErrorInfo" engine="simple" default-entity-name="OagisMessageErrorInfo"
-             location="component://oagis/script/org/ofbiz/oagis/OagisMessageServices.xml" invoke="updateOagisMessageErrorInfo" auth="true">
+             location="component://oagis/minilang/OagisMessageServices.xml" invoke="updateOagisMessageErrorInfo" auth="true">
         <description>Update MessageErrorInfo</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
 
     <service name="createOagisMsgErrInfosFromErrMapList" engine="simple"
-            location="component://oagis/script/org/ofbiz/oagis/OagisMessageServices.xml" invoke="createOagisMsgErrInfosFromErrMapList" auth="true">
+            location="component://oagis/minilang/OagisMessageServices.xml" invoke="createOagisMsgErrInfosFromErrMapList" auth="true">
          <description>Create MessageErrorInfo From Error Map List</description>
         <auto-attributes entity-name="OagisMessageInfo" mode="IN" include="pk" optional="false"/>
          <attribute type="List" mode="IN" name="errorMapList" optional="true"/>

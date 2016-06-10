@@ -22,6 +22,6 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="marketing-tests">
-        <simple-method-test location="component://marketing/script/org/ofbiz/marketing/test/MarketingTests.xml"/>
+        <simple-method-test location="component://marketing/minilang/marketing/test/MarketingTests.xml"/>
     </test-case>
 </test-suite>

@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="custRequestPermissionCheck" short-description="Cust Request Permission Check">
+        <if>
+            <condition>
+                <and>
+                    <not><if-empty field="parameters.fromPartyId"/></not>
+                    <not><if-compare-field field="parameters.fromPartyId" to-field="userLogin.partyId" operator="equals"/></not>
+                </and>
+            </condition>
+            <then>
+                <set field="primaryPermission" value="ORDERMGR_CRQ"/>
+                <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
+                <if-compare field="hasPermission" operator="not-equals" value="true">
+                    <set field="resourceDescription" from-field="parameters.resourceDescription"/>
+                    <if-empty field="resourceDescription">
+                        <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="resourceDescription"/>
+                    </if-empty>
+                    <property-to-field resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateCustRequest" field="failMessage"/>
+                    <set field="hasPermission" type="Boolean" value="false"/>
+                    <field-to-result field="failMessage"/>
+                </if-compare>
+            </then>
+            <else>
+                <set field="hasPermission" type="Boolean" value="true"/>
+            </else>
+        </if>
+        <field-to-result field="hasPermission"/>
+    </simple-method>
+
+    <simple-method method-name="createCustRequest" short-description="Create Customer Request">
+        <make-value value-field="newEntity" entity-name="CustRequest"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <now-timestamp field="newEntity.lastModifiedDate"/>
+
+        <now-timestamp field="nowTimestamp"/>
+        <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>
+        <set from-field="nowTimestamp" field="newEntity.createdDate"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
+
+        <if-empty field="parameters.custRequestDate">
+            <set field="newEntity.custRequestDate" from-field="nowTimestamp"/>
+        </if-empty>
+
+        <!-- always start with draft -->
+        <set value="CRQ_DRAFT" field="newEntity.statusId"/>
+        
+        <if-not-empty field="parameters.custRequestId">
+            <set field="newEntity.custRequestId" from-field="parameters.custRequestId"/>
+            <else>
+                <sequenced-id sequence-name="CustRequest" field="newEntity.custRequestId"/>
+            </else>
+        </if-not-empty>
+
+        <create-value value-field="newEntity"/>
+        <field-to-result field="newEntity.custRequestId" result-name="custRequestId"/>
+
+        <!-- set status fields and history if provided -->
+        <if-not-empty field="parameters.statusId">
+            <set field="setStat.statusId" from-field="parameters.statusId"/>
+            <set field="setStat.custRequestId" from-field="newEntity.custRequestId"/>
+            <if-not-empty field="parameters.webSiteId">
+                <set field="setStat.webSiteId" from-field="parameters.webSiteId"/>
+            </if-not-empty>
+            <call-service service-name="setCustRequestStatus" in-map-name="setStat"/>
+        </if-not-empty>
+        
+        <!-- create also the item if key fields are provided -->
+        <if>
+            <condition>
+                <or>
+                    <not><if-empty field="parameters.productId"/></not>
+                    <not><if-empty field="parameters.reservStart"/></not>
+                    <not><if-empty field="parameters.story"/></not>
+                    <not><if-empty field="parameters.description"/></not>
+                </or>
+            </condition>
+            <then>
+                <set-service-fields service-name="createCustRequestItem" map="parameters" to-map="createItem"/>
+                <set field="createItem.custRequestId" from-field="newEntity.custRequestId"/>
+                <call-service service-name="createCustRequestItem" in-map-name="createItem"/>
+            </then>
+        </if>
+        
+    </simple-method>
+
+    <simple-method method-name="deleteCustRequest" short-description="Delete a draft Customer Request with no relations yet">
+        <entity-one value-field="custRequest" entity-name="CustRequest"/>
+        <if-compare operator="not-equals" value="CRQ_DRAFT" field="custRequest.statusId">
+            <add-error ><fail-property resource="OrderErrorUiLabels" property="OrderCheckCustRequestDraftStatusForDelete"/></add-error>
+        </if-compare>
+        <check-errors/>
+        <!-- delete attached content/roles first -->
+        <remove-related relation-name="CustRequestContent" value-field="custRequest"/>
+        <remove-related relation-name="CustRequestParty" value-field="custRequest"/>
+        <remove-related relation-name="CustRequestStatus" value-field="custRequest"/>
+        <remove-value value-field="custRequest"/>
+    </simple-method>
+
+    <simple-method method-name="updateCustRequest" short-description="Update Customer Request">
+        <call-simple-method method-name="checkStatusCustRequest"/>
+        <set field="oldStatusId" from-field="custRequest.statusId"/>
+        <field-to-result field="oldStatusId"/>
+        <now-timestamp field="nowTimestamp"/>
+        <set from-field="nowTimestamp" field="custRequest.lastModifiedDate"/>
+        <set from-field="userLogin.userLoginId" field="custRequest.lastModifiedByUserLogin"/>
+        <set-nonpk-fields map="parameters" value-field="custRequest"/>
+        <set field="custRequest.statusId" from-field="oldStatusId"/><!-- not update status yet -->
+        <store-value value-field="custRequest"/>
+        <if-not-empty field="parameters.statusId">
+            <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
+                <if-compare field="parameters.statusId" value="CRQ_CANCELLED" operator="equals">
+                    <!-- check for related workefforts ...and when no time recorded cancel these too -->
+                    <get-related value-field="custRequest" relation-name="CustRequestWorkEffort" list="workEfforts"/>
+                    <if-not-empty field="workEfforts">
+                        <iterate entry="workEffort" list="workEfforts">
+                            <entity-one entity-name="WorkEffort" value-field="lowInfo">
+                                <field-map field-name="workEffortId" from-field="workEffort.workEffortId"/>
+                            </entity-one>
+                            <call-simple-method method-name="getHours" xml-resource="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml"/>
+                            <set field="actualHours" from-field="highInfo.actualHours"/>
+                            <!-- no hours recorded yet so custrequest can be cancelled -->
+                            <if-empty field="actualHours">
+                                <!-- changed status-->
+                                <set field="custRequest.statusId" from-field="parameters.statusId"/>
+                                <set field="updTask.workEffortId" from-field="workEffort.workEffortId"/>
+                                <set field="updTask.currentStatusId" value="PTS_CANCELLED"/>
+                                <call-service service-name="updateWorkEffort" in-map-name="updTask"/>
+                                <else>
+                                    <set field="parameters.statusId" from-field="custRequest.statusId"/>
+                                    <property-to-field resource="OrderUiLabels" property="OrderCannotCancelRequestAlreadyWorkedOn" field="errorMessage"/>
+                                    <field-to-result field="errorMessage"/>
+                                    <set field="isShowEvent" value="N"/>
+                                </else>
+                            </if-empty>
+                        </iterate>
+                    </if-not-empty>
+                </if-compare>
+                <!-- update status and save the changed status in the history -->
+                <set-service-fields service-name="setCustRequestStatus" map="parameters" to-map="setStat"/>
+                <if-not-empty field="parameters.webSiteId">
+                    <set field="setStat.webSiteId" from-field="parameters.webSiteId"/>
+                </if-not-empty>
+                <call-service service-name="setCustRequestStatus" in-map-name="setStat"/>
+                <if-not-empty field="isShowEvent">
+                    <clear-field field="successMessage"/>
+                </if-not-empty>
+            </if-compare-field>
+        </if-not-empty>
+        
+        <!-- if story is provided update the first item of the customer request -->
+        <if-not-empty field="parameters.story">
+            <entity-and list="custRequestItems" entity-name="CustRequestItem">
+                <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+            </entity-and>
+            <if-not-empty field="custRequestItems">
+                <first-from-list entry="custRequestItem" list="custRequestItems"/>
+                <set-service-fields service-name="updateCustRequestItem" to-map="updateItem" map="custRequestItem"/>
+                <set field="updateItem.story" from-field="parameters.story"/>
+                <call-service service-name="updateCustRequestItem" in-map-name="updateItem"/>
+                <else>
+                    <set-service-fields service-name="createCustRequestItem" to-map="createItem" map="custRequest"/>
+                    <set field="createItem.story" from-field="parameters.story"/>
+                    <call-service service-name="createCustRequestItem" in-map-name="createItem"/>
+                </else>
+            </if-not-empty>
+        </if-not-empty>
+
+    </simple-method>
+
+    <simple-method method-name="checkStatusCustRequest" short-description="Check StatusId CustRequest">
+        <entity-one entity-name="CustRequest" value-field="custRequest"></entity-one>
+        <if-empty field="custRequest">
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCustRequestNotFound"/>
+            </add-error>
+            <log level="info" message="CustRequest not found, statusId Id: ${custRequest.statusId}"/>
+            <check-errors/>
+            </if-empty>
+        <if>
+            <condition>
+                <or>
+                    <if-compare field="custRequest.statusId" value="CRQ_CANCELLED" operator="equals"/>
+                    <if-compare field="custRequest.statusId" value="CRQ_COMPLETED" operator="equals"/>                
+                </or>
+            </condition>
+            <then>       
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderCheckCustRequest"/></add-error>
+                <log level="info" message="Can only update CustRequest, when status is in-process...is now: ${custRequest.statusId}"/>                    
+                <check-errors/>
+            </then>
+        </if>
+    </simple-method>
+
+    <simple-method method-name="createCustRequestAttribute" short-description="Create Customer Request Attribute">
+        <make-value value-field="newEntity" entity-name="CustRequestAttribute"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+    <simple-method method-name="updateCustRequestAttribute" short-description="Update Customer Request Attribute">
+        <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
+        <set from-field="parameters.attrName" field="lookupPKMap.attrName"/>
+        <find-by-primary-key entity-name="CustRequestAttribute" map="lookupPKMap" value-field="custRequestAttr"/>
+        <set-nonpk-fields map="parameters" value-field="custRequestAttr"/>
+        <store-value value-field="custRequestAttr"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+
+    <simple-method method-name="createCustRequestItem" short-description="Create Customer Request Item">
+        <call-simple-method method-name="checkStatusCustRequest"/>
+        <make-value value-field="newEntity" entity-name="CustRequestItem"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="parameters.custRequestItemSeqId">
+            <make-next-seq-id value-field="newEntity" seq-field-name="custRequestItemSeqId"/>
+        </if-empty>
+        <if-empty field="parameters.statusId">
+            <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
+        </if-empty>
+        <create-value value-field="newEntity"/>
+        <field-to-result field="newEntity.custRequestId" result-name="custRequestId"/>
+        <field-to-result field="newEntity.custRequestItemSeqId" result-name="custRequestItemSeqId"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+    <simple-method method-name="updateCustRequestItem" short-description="Update Customer Request Item">
+        <call-simple-method method-name="checkStatusCustRequest"/>        
+        <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
+        <set from-field="parameters.custRequestItemSeqId" field="lookupPKMap.custRequestItemSeqId"/>
+        <find-by-primary-key entity-name="CustRequestItem" map="lookupPKMap" value-field="custRequestItem"/>
+        <set-nonpk-fields map="parameters" value-field="custRequestItem"/>
+        <store-value value-field="custRequestItem"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+
+    <simple-method method-name="createCustRequestParty" short-description="Create Customer RequestParty">
+        <call-simple-method method-name="checkStatusCustRequest"/>        
+        <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
+        <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
+        <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="partyRole"/>
+        <if-empty field="partyRole.partyId">
+            <make-value value-field="partyRole" entity-name="PartyRole"/>
+            <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
+            <create-value value-field="partyRole"/>
+        </if-empty>
+        <make-value value-field="newEntity" entity-name="CustRequestParty"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="newEntity.fromDate">
+            <now-timestamp field="newEntity.fromDate"/>
+        </if-empty>
+        <create-value value-field="newEntity"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+    <simple-method method-name="updateCustRequestParty" short-description="Update an existing CustRequestParty">
+        <call-simple-method method-name="checkStatusCustRequest"/>                
+        <entity-one entity-name="CustRequestParty" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+    <simple-method method-name="expireCustRequestParty" short-description="Expire Customer CustRequestParty">
+        <call-simple-method method-name="checkStatusCustRequest"/>
+        <entity-one entity-name="CustRequestParty" value-field="lookedUpValue"/>
+        <now-timestamp field="thruDate"/>
+        <set field="lookedUpValue.thruDate" from-field="thruDate"/>
+        <store-value value-field="lookedUpValue"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+    <simple-method method-name="deleteCustRequestParty" short-description="Delete Customer CustRequestParty">
+        <call-simple-method method-name="checkStatusCustRequest"/>
+        <entity-one entity-name="CustRequestParty" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+    <simple-method method-name="createCustRequestNote" short-description="Create Customer Request Note">
+        <make-value value-field="newEntity" entity-name="CustRequestNote"/>
+        <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>
+        <set from-field="parameters.noteInfo" field="newNoteMap.note"/>
+        <call-service service-name="createNote" in-map-name="newNoteMap">
+            <result-to-field result-name="noteId" field="newEntity.noteId"/>
+        </call-service>
+        <create-value value-field="newEntity"/>
+        <field-to-result field="newEntity.noteId" result-name="noteId"/>
+        <entity-one entity-name="CustRequest" value-field="custRequest"/>
+        <field-to-result field="custRequest.fromPartyId" result-name="fromPartyId"/><!-- for notification services -->
+        <field-to-result field="custRequest.custRequestName" result-name="custRequestName"/><!-- for notification services -->
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+    <simple-method method-name="updateCustRequestNote" short-description="Update CustRequest Note">
+        <entity-one entity-name="CustRequestNote" value-field="lookedUpValue"/>
+        <entity-one entity-name="NoteData" value-field="lookedUpValueForNoteData"/>
+        <set-nonpk-fields value-field="lookedUpValueForNoteData" map="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <store-value value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValueForNoteData"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+    <simple-method method-name="createCustRequestItemNote" short-description="Create Customer RequestItem Note">
+        <call-simple-method method-name="checkStatusCustRequest"/>        
+        <make-value value-field="newEntity" entity-name="CustRequestItemNote"/>
+        <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>
+        <set from-field="parameters.custRequestItemSeqId" field="newEntity.custRequestItemSeqId"/>
+        <set from-field="parameters.note" field="newNoteMap.note"/>
+        <set from-field="parameters.partyId" field="newNoteMap.partyId"/>
+        <call-service service-name="createNote" in-map-name="newNoteMap">
+            <result-to-field result-name="noteId" field="newEntity.noteId"/>
+            <result-to-result result-name="partyId"/><!-- for notification services -->
+        </call-service>
+        <create-value value-field="newEntity"/>
+        <field-to-result field="newEntity.noteId" result-name="noteId"/>
+        <entity-one entity-name="CustRequest" value-field="custRequest"/>
+        <field-to-result field="custRequest.fromPartyId" result-name="fromPartyId"/><!-- for notification services -->
+        <field-to-result field="custRequest.custRequestName" result-name="custRequestName"/><!-- for notification services -->
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+
+    <simple-method method-name="getCustRequestsByRole" short-description="Create Customer RequestItem Note">
+        <set from-field="userLogin.partyId" field="lookupMap.partyId"/>
+        <set from-field="parameters.roleTypeId" field="lookupMap.roleTypeId"/>
+
+        <string-to-list string="priority" list="orderByList"/>
+        <string-to-list string="-responseRequiredDate" list="orderByList"/>
+        <string-to-list string="-custRequestDate" list="orderByList"/>
+        <string-to-list string="-createdDate" list="orderByList"/>
+
+        <find-by-and entity-name="CustRequestAndRole" list="custRequestAndRoles" map="lookupMap" order-by-list="orderByList"/>
+        <field-to-result field="custRequestAndRoles" result-name="custRequestAndRoles"/>
+    </simple-method>
+
+    <simple-method method-name="createCustRequestFromCart" short-description="Create a CustRequest from a ShoppingCart">
+        <call-object-method obj-field="parameters.cart" method-name="getPartyId" ret-field="createCustRequestInMap.fromPartyId"/>
+        <set value="RF_QUOTE" field="createCustRequestInMap.custRequestTypeId"/>
+        <set value="CRQ_SUBMITTED" field="createCustRequestInMap.statusId"/>
+        <set field="createCustRequestInMap.custRequestName" from-field="parameters.custRequestName"/>
+        <if-empty field="createCustRequestInMap.custRequestName">
+            <property-to-field resource="OrderUiLabels" property="OrderRequestCreatedFromShoppingCart" field="custRequestName"/>
+            <set field="createCustRequestInMap.custRequestName" from-field="custRequestName"/> 
+        </if-empty>
+        <call-object-method obj-field="parameters.cart" method-name="getCurrency" ret-field="createCustRequestInMap.maximumAmountUomId"/>
+        <call-object-method obj-field="parameters.cart" method-name="getProductStoreId" ret-field="createCustRequestInMap.productStoreId"/>
+        <call-object-method obj-field="parameters.cart" method-name="getChannelType" ret-field="createCustRequestInMap.salesChannelEnumId"/>
+        <call-service service-name="createCustRequest" in-map-name="createCustRequestInMap">
+            <result-to-field result-name="custRequestId" field="custRequestId"/>
+        </call-service>
+        <check-errors/>
+        <entity-one entity-name="CustRequest" value-field="custRequest" auto-field-map="true"/>
+
+        <!-- create, for every cart item, a request item -->
+        <call-object-method obj-field="parameters.cart" method-name="items" ret-field="items"/>
+        <iterate list="items" entry="item">
+            <!-- a new request item is created -->
+            <clear-field field="createCustRequestItemInMap"/>
+            <call-object-method obj-field="item" method-name="getConfigWrapper" ret-field="configWrapper"/>
+            <if-not-empty field="configWrapper">
+                <call-object-method obj-field="configWrapper" method-name="getConfigId" ret-field="configId"/>
+                <set from-field="configId" field="createCustRequestItemInMap.configId"/>
+            </if-not-empty>
+            <call-object-method obj-field="item" method-name="getIsPromo" ret-field="isPromo"/>
+            <if-compare field="isPromo" value="false" operator="equals" type="Boolean">
+                <set from-field="custRequest.custRequestId" field="createCustRequestItemInMap.custRequestId"/>
+                <call-object-method obj-field="item" method-name="getProductId" ret-field="createCustRequestItemInMap.productId"/>
+                <call-object-method obj-field="item" method-name="getQuantity" ret-field="createCustRequestItemInMap.quantity"/>
+                <!--<call-object-method obj-field="item" method-name="getSelectedAmount" ret-field="createCustRequestItemInMap.selectedAmount"/>-->
+                <!--<call-object-method obj-field="item" method-name="getItemComment" ret-field="createCustRequestItemInMap.comments"/>-->
+                <call-object-method obj-field="item" method-name="getReservStart" ret-field="createCustRequestItemInMap.reservStart"/>
+                <call-object-method obj-field="item" method-name="getReservLength" ret-field="createCustRequestItemInMap.reservLength"/>
+                <call-object-method obj-field="item" method-name="getReservPersons" ret-field="createCustRequestItemInMap.reservPersons"/>
+                <call-service service-name="createCustRequestItem" in-map-name="createCustRequestItemInMap">
+                    <result-to-field result-name="custRequestItemSeqId" field="custRequestItemSeqId"/>
+                </call-service>
+            </if-compare>
+        </iterate>
+
+        <field-to-result field="custRequest.custRequestId" result-name="custRequestId"/>
+    </simple-method>
+
+    <simple-method method-name="createCustRequestFromShoppingList" short-description="Create a CustRequest from a Shopping List">
+        <entity-one entity-name="ShoppingList" value-field="shoppingList" auto-field-map="true"/>
+        <call-service service-name="loadCartFromShoppingList" in-map-name="parameters">
+            <result-to-field result-name="shoppingCart" field="cart"/>
+        </call-service>
+        <set from-field="cart" field="createCustRequestFromCartInMap.cart"/>
+        <set field="createCustRequestFromCartInMap.custRequestName" from-field="shoppingList.listName"/>
+        <call-service service-name="createCustRequestFromCart" in-map-name="createCustRequestFromCartInMap">
+            <result-to-field result-name="custRequestId" field="custRequestId"/>
+        </call-service>
+        <check-errors/>
+        <field-to-result field="custRequestId" result-name="custRequestId"/>
+    </simple-method>
+
+    <!-- copy an existing CustRequestItem -->
+    <simple-method method-name="copyCustRequestItem" short-description="Copy an existing CustRequestItem">
+        <check-permission permission="ORDERMGR" action="_CRQ_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCopyCustRequestItem"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="CustRequestItem" value-field="custRequestItem" auto-field-map="true"/>
+        <check-errors/>
+
+        <set-service-fields service-name="createCustRequestItem" to-map="createCustRequestItemInMap" map="custRequestItem"/>
+        <set field="createCustRequestItemInMap.custRequestId" from-field="parameters.custRequestIdTo"/>
+        <set field="createCustRequestItemInMap.custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
+        <if-empty field="parameters.custRequestIdTo">
+            <if-empty field="parameters.custRequestItemSeqIdTo">
+                <clear-field field="createCustRequestItemInMap.custRequestItemSeqId"/>
+            </if-empty>
+        </if-empty>
+
+        <call-service service-name="createCustRequestItem" in-map-name="createCustRequestItemInMap">
+            <result-to-field result-name="custRequestId" field="custRequestIdTo"/>
+            <result-to-field result-name="custRequestItemSeqId" field="custRequestItemSeqId"/>
+        </call-service>
+
+        <check-errors/>
+
+        <if-compare field="parameters.copyLinkedQuotes" value="Y" operator="equals">
+            <get-related value-field="custRequestItem" relation-name="QuoteItem" list="quoteItems"/>
+            <iterate list="quoteItems" entry="quoteItem">
+                <clear-field field="createQuoteItemInMap"/>
+                <set-service-fields service-name="createQuoteItem" to-map="createQuoteItemInMap" map="quoteItem"/>
+                <set field="createQuoteItemInMap.custRequestId" from-field="custRequestIdTo"/>
+                <set field="createQuoteItemInMap.custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+                <clear-field field="createQuoteItemInMap.quoteItemSeqId"/>
+                <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap"/>
+            </iterate>
+        </if-compare>
+
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="createCustRequestStatus" short-description="Create Customer Request Status">
+        <make-value value-field="newEntity" entity-name="CustRequestStatus"/>
+        <sequenced-id sequence-name="CustRequestStatus" field="newEntity.custRequestStatusId"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="newEntity.statusDatetime">
+            <now-timestamp field="nowTimestamp"/>
+            <set from-field="nowTimestamp" field="newEntity.statusDatetime"/>
+        </if-empty>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+
+    <simple-method method-name="setCustRequestStatus" short-description="change the customer request Status">
+        <entity-one entity-name="CustRequest" value-field="custRequest"/>
+        <if-not-empty field="custRequest">
+            <field-to-result field="custRequest.statusId" result-name="oldStatusId"/>
+            <field-to-result field="custRequest.custRequestId"  result-name="custRequestId"/>
+            <field-to-result field="custRequest.fromPartyId" result-name="fromPartyId"/><!-- for notification -->
+            <field-to-result field="custRequest.custRequestName" result-name="custRequestName"/><!-- for notification -->
+            <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
+                <entity-one entity-name="StatusValidChange" value-field="statusChange">
+                    <field-map field-name="statusId" from-field="custRequest.statusId"/>
+                    <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
+                </entity-one>
+                <if-empty field="statusChange">
+                    <set field="msg" value="Status is not a valid change: from ${custRequest.statusId} to ${parameters.statusId}"/>
+                    <log level="error" message="${msg}"/>
+                    <add-error>
+                        <fail-property resource="OrderErrorUiLabels" property="OrderErrorCouldNotChangeOrderStatusFromTo"/>
+                    </add-error>
+                </if-empty>
+            </if-compare-field>
+        </if-not-empty>
+        
+        <!-- if not draft status input check for from fromPartyId present and name is present -->
+        <if-compare operator="not-equals" value="CRQ_DRAFT" field="parameters.statusId">
+            <if-empty field="custRequest.fromPartyId">
+                <add-error>
+                    <fail-property property="OrderCustRequestShouldHaveFromPartyIdIfNotDraft" resource="OrderUiLabels"/>
+                </add-error>
+            </if-empty>
+            <if-empty field="custRequest.custRequestName">
+                <add-error>
+                    <fail-property property="OrderCustRequestShouldHaveCustRequestNameIfNotDraft" resource="OrderUiLabels"/>
+                </add-error>
+            </if-empty>
+        </if-compare>
+        <check-errors/>
+
+        <set field="custRequest.statusId" from-field="parameters.statusId"/>
+        <if-not-empty field="parameters.reason"><!-- update reason if provided -->
+            <set field="custRequest.reason" from-field="parameters.reason"/>
+        </if-not-empty>
+        <now-timestamp field="custRequest.lastModifiedDate"/>
+        <store-value value-field="custRequest"/>
+        <call-simple-method method-name="createCustRequestStatus"/>
+    </simple-method>
+
+    <simple-method method-name="createCustRequestFromCommEvent" short-description="Create a Customer request from a commEvent(email)">
+        <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+
+        <!-- check if the commevent is already converted to a customer request, then return that id -->
+        <get-related relation-name="CustRequestCommEvent" list="custRequests" value-field="communicationEvent"/>
+        <if-compare operator="equals" value="COM_COMPLETE" field="communicationEvent.statusId">
+            <if-not-empty field="custRequests">
+                <field-to-result field="custRequests[0].custRequestId" result-name="custRequestId"/>            
+                <return/>
+            </if-not-empty>
+        </if-compare>
+                
+        <set-service-fields service-name="createCustRequest" map="parameters" to-map="custRequest"/>
+        <if-empty field="custRequest.custRequestName">
+            <set field="subjectLength" value="${groovy:communicationEvent.subject.length()}" type="Integer"/>
+            <if-compare field="subjectLength" operator="less" value="100" type="Integer">
+                <set field="custRequest.custRequestName" from-field="communicationEvent.subject"/>
+                <else>
+                    <set field="custRequest.custRequestName" value="${groovy:communicationEvent.subject.substring(0,95) + &quot;.....&quot; }"/>
+                </else>
+            </if-compare>
+        </if-empty>
+        <if-empty field="parameters.custRequestTypeId">
+            <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
+        </if-empty>
+        <if-empty field="parameters.fromPartyId">
+            <set field="custRequest.fromPartyId" from-field="communicationEvent.partyIdFrom"/>
+        </if-empty>
+        <set field="custRequest.custRequestDate" from-field="communicationEvent.entryDate"/>
+        <set field="custRequest.statusId" value="CRQ_ACCEPTED"/>
+        <if-empty field="custRequest.story">
+            <set field="custRequest.story" from-field="communicationEvent.content"/>
+        </if-empty>
+        <call-service service-name="createCustRequest" in-map-name="custRequest">
+            <result-to-field result-name="custRequestId" field="parameters.custRequestId"/>
+        </call-service>
+        <set-service-fields service-name="createCustRequestCommEvent" map="parameters" to-map="custRequestCommEvent"/>
+        <call-service service-name="createCustRequestCommEvent" in-map-name="custRequestCommEvent"/>
+
+        <!-- copy attachments/content -->
+        <entity-and entity-name="CommEventContentAssoc" list="custRequestContents">
+            <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
+        </entity-and>
+        <iterate entry="custRequestContent" list="custRequestContents">
+            <set field="reqContent.custRequestId" from-field="parameters.custRequestId"/>
+            <set field="reqContent.contentId" from-field="custRequestContent.contentId"/>
+            <call-service service-name="createCustRequestContent" in-map-name="reqContent"/>
+        </iterate>
+
+        <!-- update status from communication event -->
+        <set-service-fields service-name="setCommunicationEventStatus" map="parameters" to-map="updStat"/>
+        <set field="updStat.setRoleStatusToComplete" value="Y"/>
+        <set field="updStat.statusId" value="COM_COMPLETE"/>
+        <call-service service-name="setCommunicationEventStatus" in-map-name="updStat"/>
+
+        <field-to-result field="parameters.custRequestId" result-name="custRequestId"/>
+        <string-to-list string="Customer request ${parameters.custRequestId} created" list="successMessageList"/>
+    </simple-method>
+
+    <!-- Create/Delete  CustRequest Content -->
+    <simple-method method-name="createCustRequestContent" short-description="Create Customer request Content">
+        <call-simple-method method-name="checkStatusCustRequest"/>        
+        <make-value entity-name="CustRequestContent" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+
+        <if-empty field="newEntity.fromDate">
+            <now-timestamp field="nowTimestamp"/>
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
+        </if-empty>
+
+        <create-value value-field="newEntity"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+    <simple-method method-name="deleteCustRequestContent" short-description="Remove a Customer Request Content">
+        <call-simple-method method-name="checkStatusCustRequest"/>
+        <entity-one entity-name="CustRequestContent" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <if-empty field="lookedUpValue.thruDate">
+            <now-timestamp field="lookedUpValue.thruDate"/>
+        </if-empty>
+        <store-value value-field="lookedUpValue"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+
+    <simple-method method-name="updateCustRequestLastModifiedDate" short-description="update the modified date field in a customer request">
+        <entity-one entity-name="CustRequest" value-field="custRequest"/>
+        <now-timestamp field="custRequest.lastModifiedDate"/>
+        <store-value value-field="custRequest"/>
+    </simple-method>
+
+</simple-methods>

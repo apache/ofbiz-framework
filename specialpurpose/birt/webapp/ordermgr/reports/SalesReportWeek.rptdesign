@@ -436,7 +436,7 @@ try
     methodContext.putEnv("thruWeek", thruWeek);
     methodContext.putEnv("thruMonth", thruMonth);
     methodContext.putEnv("thisYear", thisYear);
-    SimpleMethod.runSimpleMethod("component://order/script/org/ofbiz/order/reports/SalesReportEvent.xml", "getOrder", methodContext);
+    SimpleMethod.runSimpleMethod("component://order/minilang/reports/SalesReportEvent.xml", "getOrder", methodContext);
     starschemas = methodContext.getEnv("starschemas");
 } 
 catch (e) 

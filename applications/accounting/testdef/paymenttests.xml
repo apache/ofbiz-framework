@@ -23,7 +23,7 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="auto-payment-tests">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml"/>
+        <simple-method-test location="component://accounting/minilang/test/AutoPaymentTests.xml"/>
     </test-case>
     
     <!-- enable when sandbox is available and configured -->

@@ -168,55 +168,55 @@ under the License.
 
     <!-- EntitySync Services -->
     <service name="createEntitySync" default-entity-name="EntitySync" engine="simple"
-            location="component://entityext/script/org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="createEntitySync" auth="true">
+            location="component://entityext/minilang/EntitySyncServices.xml" invoke="createEntitySync" auth="true">
         <description>Create EntitySync</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateEntitySync" default-entity-name="EntitySync" engine="simple"
-            location="component://entityext/script/org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="updateEntitySync" auth="true">
+            location="component://entityext/minilang/EntitySyncServices.xml" invoke="updateEntitySync" auth="true">
         <description>Update EntitySync</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="createEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="simple"
-            location="component://entityext/script/org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="createEntitySyncInclude" auth="true">
+            location="component://entityext/minilang/EntitySyncServices.xml" invoke="createEntitySyncInclude" auth="true">
         <description>Create EntitySyncInclude</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="applEnumId" optional="false"/>
     </service>
     <service name="updateEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="simple"
-            location="component://entityext/script/org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="updateEntitySyncInclude" auth="true">
+            location="component://entityext/minilang/EntitySyncServices.xml" invoke="updateEntitySyncInclude" auth="true">
         <description>Update EntitySyncInclude</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="simple"
-            location="component://entityext/script/org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="deleteEntitySyncInclude" auth="true">
+            location="component://entityext/minilang/EntitySyncServices.xml" invoke="deleteEntitySyncInclude" auth="true">
         <description>Delete EntitySyncInclude</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="updateEntitySyncRunning" engine="simple"
-            location="component://entityext/script/org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="updateEntitySync" auth="true" require-new-transaction="true">
+            location="component://entityext/minilang/EntitySyncServices.xml" invoke="updateEntitySync" auth="true" require-new-transaction="true">
         <description>Update EntitySync while Running</description>
         <implements service="updateEntitySync"/>
     </service>
     <service name="createEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="simple"
-            location="component://entityext/script/org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="createEntitySyncHistory" auth="true" require-new-transaction="true">
+            location="component://entityext/minilang/EntitySyncServices.xml" invoke="createEntitySyncHistory" auth="true" require-new-transaction="true">
         <description>Create EntitySyncHistory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="startDate" mode="OUT"/>
     </service>
     <service name="updateEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="simple"
-            location="component://entityext/script/org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="updateEntitySyncHistory" auth="true" require-new-transaction="true">
+            location="component://entityext/minilang/EntitySyncServices.xml" invoke="updateEntitySyncHistory" auth="true" require-new-transaction="true">
         <description>Update EntitySyncHistory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="simple"
-            location="component://entityext/script/org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="deleteEntitySyncHistory" auth="true" require-new-transaction="true">
+            location="component://entityext/minilang/EntitySyncServices.xml" invoke="deleteEntitySyncHistory" auth="true" require-new-transaction="true">
         <description>Delete EntitySyncHistory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -230,7 +230,7 @@ under the License.
         <description>Clean EntitySyncRemove Info - Generally should be run asynchronously after each sync run, or periodically run on a schedule</description>
     </service>
     <service name="resetEntitySyncStatusToNotStarted" engine="simple"
-            location="component://entityext/script/org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="resetEntitySyncStatusToNotStarted" auth="true" transaction-timeout="600">
+            location="component://entityext/minilang/EntitySyncServices.xml" invoke="resetEntitySyncStatusToNotStarted" auth="true" transaction-timeout="600">
         <description>Generally run manually to reset the status of an EntitySync when it has "crashed". Update a EntitySync, set the Status to ESR_NOT_STARTED, but ONLY if running (ie in ESR_RUNNING)</description>
         <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
     </service>

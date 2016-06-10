@@ -23,13 +23,13 @@ under the License.
     <description>Handheld Facility Demo Services</description>
 
     <service name="tc_ProductExists" engine="simple"
-        location="component://hhfacility/script/org/ofbiz/hhfacility/FacilityServices.xml" invoke="tc_ProductExists">
+        location="component://hhfacility/minilang/FacilityServices.xml" invoke="tc_ProductExists">
         <description>Check Product exists</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="tc_ReceiveProductQty" engine="simple"
-        location="component://hhfacility/script/org/ofbiz/hhfacility/FacilityServices.xml" invoke="tc_ReceiveProductQty">
+        location="component://hhfacility/minilang/FacilityServices.xml" invoke="tc_ReceiveProductQty">
         <description>Receive Product Qty to Facility</description>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>

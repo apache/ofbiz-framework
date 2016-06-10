@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="createSubscription" short-description="Create a Subscription">
+        <make-value entity-name="Subscription" value-field="newEntity"/>
+        <if-empty field="parameters.subscriptionId">
+            <sequenced-id sequence-name="Subscription" field="newEntity.subscriptionId"/> <!-- get the next sequenced ID -->
+            <else>
+                <set field="newEntity.subscriptionId" from-field="parameters.subscriptionId"/>
+            </else>
+        </if-empty>
+        <field-to-result field="newEntity.subscriptionId" result-name="subscriptionId"/>
+
+        <!-- lookup the product subscription resource (if exists) -->
+        <if-not-empty field="parameters.subscriptionResourceId">
+            <if-not-empty field="parameters.productId">
+                <entity-and entity-name="ProductSubscriptionResource" list="resourceList" filter-by-date="true">
+                    <field-map field-name="subscriptionResourceId" from-field="parameters.subscriptionResourceId"/>
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <order-by field-name="-fromDate"/>
+                </entity-and>
+                <first-from-list entry="resource" list="resourceList"/>
+                <if-not-empty field="resource">
+                    <set-nonpk-fields value-field="newEntity" map="resource"/>
+                </if-not-empty>
+            </if-not-empty>
+        </if-not-empty>
+
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+
+    <simple-method method-name="isSubscribed" short-description="check if a party has a subscription">
+        <set field="pfInput.inputFields" from-field="parameters"/>
+        <set field="pfInput.entityName" value="Subscription"/>
+        <set field="pfInput.filterByDate" from-field="parameters.filterByDate" default-value="Y"/>
+
+        <call-service service-name="performFindList" in-map-name="pfInput">
+            <result-to-field result-name="list" field="pfResultList"/>
+        </call-service>
+
+        <if-empty field="pfResultList">
+            <set field="found" value="false" type="Boolean"/>
+            <else>
+                <set field="found" value="true" type="Boolean"/>
+                <first-from-list entry="subscription" list="pfResultList"/>
+                <field-to-result field="subscription.subscriptionId" result-name="subscriptionId"/>
+            </else>
+        </if-empty>
+
+        <field-to-result field="found" result-name="isSubscribed"/>
+    </simple-method>
+
+    <simple-method method-name="getSubscription" short-description="Get Subscription data">
+        <entity-one entity-name="Subscription" value-field="subscription"/>
+        <field-to-result field="parameters.subscriptionId" result-name="subscriptionId"/>
+        <if-not-empty field="subscription">
+            <field-to-result field="subscription" result-name="subscription"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="updateSubscriptionAttribute" short-description="Create (when not exist) or update (when exist) a Subscription attribute">
+        <field-to-result field="parameters.subscriptionId" result-name="subscriptionId"/>
+        <entity-one entity-name="SubscriptionAttribute" value-field="lookedUpValue"/>
+        <if-empty field="lookedUpValue">
+            <make-value entity-name="SubscriptionAttribute" value-field="newEntity"/>
+            <set-pk-fields map="parameters" value-field="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
+            <create-value value-field="newEntity"/>
+            <else>
+                <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+                <store-value value-field="lookedUpValue"/>
+            </else>
+        </if-empty>
+    </simple-method>
+
+    <!-- ============== Permission Checking Service ============= -->
+    <simple-method method-name="subscriptionPermissionCheck" short-description="Subscription permission checking logic">
+        <set field="primaryPermission" value="CATALOG"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
+        <!-- Backwards compatibility - check for non-existent CATALOG_READ permission -->
+        <if>
+            <condition>
+                <and>
+                    <if-compare field="hasPermission" value="false" operator="equals" type="Boolean"/>
+                    <if-compare field="mainAction" value="VIEW" operator="equals"/>
+                </and>
+            </condition>
+            <then>
+                <if-has-permission permission="CATALOG_READ">
+                    <set field="hasPermission" type="Boolean" value="true"/>
+                    <field-to-result field="hasPermission"/>
+                </if-has-permission>
+            </then>
+        </if>
+    </simple-method>
+
+</simple-methods>

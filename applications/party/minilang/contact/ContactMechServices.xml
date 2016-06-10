@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createContactMech" short-description="Create Contact Mechanism">
+        <make-value value-field="newValue" entity-name="ContactMech"/>
+        <if-empty field="parameters.contactMechId">
+            <sequenced-id sequence-name="ContactMech" field="newValue.contactMechId"/>
+            <else>
+                <set field="newValue.contactMechId" from-field="parameters.contactMechId"/>
+            </else>
+        </if-empty>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
+        <create-value value-field="newValue"/>
+        <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
+        <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
+        <log level="info" message="Contact mech created with id ${newValue.contactMechId}"/>
+    </simple-method>
+
+    <simple-method method-name="updateContactMech" short-description="Update Contact Mechanism">
+        <set field="successMessageProperty" value="PartyContactMechanismSuccessfullyUpdated"/>
+        <if-compare field="parameters.contactMechTypeId" operator="equals" value="EMAIL_ADDRESS">
+            <set field="successMessageProperty" value="PartyEmailAddressSuccessfullyUpdated"/>
+        </if-compare>
+        <if-compare field="parameters.contactMechTypeId" operator="equals" value="WEB_ADDRESS">
+            <set field="successMessageProperty" value="PartyWebAddressSuccessfullyUpdated"/>
+        </if-compare>
+        <if-compare field="parameters.contactMechTypeId" operator="equals" value="IP_ADDRESS">
+            <set field="successMessageProperty" value="PartyIpAddressSuccessfullyUpdated"/>
+        </if-compare>
+        <if-compare field="parameters.contactMechTypeId" operator="equals" value="ELECTRONIC_ADDRESS">
+            <set field="successMessageProperty" value="PartyElectronicAddressSuccessfullyUpdated"/>
+        </if-compare>
+        <if-compare field="parameters.contactMechTypeId" operator="equals" value="DOMAIN_NAME">
+            <set field="successMessageProperty" value="PartyDomainNameSuccessfullyUpdated"/>
+        </if-compare>
+
+        <make-value entity-name="ContactMech" value-field="ContactMechMap"/>
+        <set-pk-fields value-field="ContactMechMap" map="parameters"/>
+        <find-by-primary-key entity-name="ContactMech" map="ContactMechMap" value-field="oldValue"/>
+        <if-compare-field to-field="oldValue.infoString" field="parameters.infoString" operator="not-equals">
+             <log level="info" message="Contact mech need updating"/>
+            <clone-value value-field="oldValue" new-value-field="newValue"/>
+            <set-nonpk-fields map="parameters" value-field="newValue" set-if-null="false"/>
+            <set field="context.contactMechTypeId" from-field="parameters.contactMechTypeId"/>
+            <set field="context.infoString" from-field="parameters.infoString"/>
+            <call-service service-name="createContactMech" in-map-name="context">
+                <default-message resource="PartyUiLabels" property="${successMessageProperty}"/>
+                <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
+            </call-service>
+            <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
+            <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
+            <else>
+                <log level="info" message="Contact mech not changed"/>
+                <field-to-result field="oldValue.contactMechId" result-name="contactMechId"/>
+                <field-to-request field="oldValue.contactMechId" request-name="contactMechId"/>
+            </else>
+        </if-compare-field>
+    </simple-method>
+
+    <simple-method method-name="createPostalAddress" short-description="Create Contact Mechanism with PostalAddress">
+        <if-compare value="USA" operator="equals" field="parameters.countryGeoId">
+          <if-empty field="parameters.stateProvinceGeoId">
+            <add-error>
+              <fail-property resource="PartyUiLabels" property="PartyStateInUsMissing"/>
+            </add-error>
+          </if-empty>
+        </if-compare>
+        <if-compare value="CAN" operator="equals" field="parameters.countryGeoId">
+          <if-empty field="parameters.stateProvinceGeoId">
+            <add-error>
+              <fail-property resource="PartyUiLabels" property="PartyProvinceInCanadaMissing"/>
+            </add-error>
+          </if-empty>
+        </if-compare>
+        <check-errors/>
+        <make-value entity-name="PostalAddress" value-field="newValue"/>
+        <set field="context.contactMechTypeId" value="POSTAL_ADDRESS"/>
+        <set field="context.contactMechId" from-field="parameters.contactMechId"/>
+        <call-service service-name="createContactMech" in-map-name="context">
+            <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
+            <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
+        </call-service>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
+        <create-value value-field="newValue"/>
+        <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
+        <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
+    </simple-method>
+
+    <simple-method method-name="updatePostalAddress" short-description="Update Contact Mechanism with PostalAddress">
+        <if-compare value="USA" operator="equals" field="parameters.countryGeoId">
+          <if-empty field="parameters.stateProvinceGeoId">
+            <add-error>
+              <fail-property resource="PartyUiLabels" property="PartyStateInUsMissing"/>
+            </add-error>
+          </if-empty>
+        </if-compare>
+        <if-compare value="CAN" operator="equals" field="parameters.countryGeoId">
+          <if-empty field="parameters.stateProvinceGeoId">
+            <add-error>
+              <fail-property resource="PartyUiLabels" property="PartyProvinceInCanadaMissing"/>
+            </add-error>
+          </if-empty>
+        </if-compare>
+        <check-errors/>
+        <make-value entity-name="PostalAddress" value-field="newValue"/>
+        <set-pk-fields value-field="newValue" map="parameters"/>
+        <find-by-primary-key entity-name="PostalAddress" map="newValue" value-field="oldValue"/>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
+
+        <set field="context.contactMechTypeId" value="POSTAL_ADDRESS"/>
+
+        <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
+            <log level="info" message="Postal address need updating"/>
+            <call-service service-name="createContactMech" in-map-name="context">
+                <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
+                <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
+            </call-service>
+            <create-value value-field="newValue"/>
+            <else>
+                <set field="context.contactMechId" from-field="parameters.contactMechId"/>
+                <call-service service-name="updateContactMech" in-map-name="context">
+                    <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
+                    <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
+                </call-service>
+                <if-compare-field to-field="newValue.contactMechId" field="oldValue.contactMechId" operator="not-equals">
+                    <log level="info" message="Postal address need updating, contact mech changed"/>
+                    <create-value value-field="newValue"/>
+                    <else>
+                        <log level="info" message="Postal address unchanged"/>
+                    </else>
+                </if-compare-field>
+            </else>
+        </if-compare-field>
+        <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
+        <field-to-result field="parameters.contactMechId" result-name="oldContactMechId"/>
+        <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
+    </simple-method>
+
+    <simple-method method-name="createTelecomNumber" short-description="Create Contact Mechanism with Telecom Number">
+        <make-value entity-name="TelecomNumber" value-field="newValue"/>
+        <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
+        <set field="context.contactMechId" from-field="parameters.contactMechId"/>
+        <call-service service-name="createContactMech" in-map-name="context">
+            <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
+            <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
+        </call-service>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
+        <create-value value-field="newValue"/>
+        <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
+        <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
+    </simple-method>
+
+    <simple-method method-name="updateTelecomNumber" short-description="Update Contact Mechanism with Telecom Number">
+        <make-value entity-name="TelecomNumber" value-field="newValue"/>
+        <set-pk-fields value-field="newValue" map="parameters"/>
+        <find-by-primary-key entity-name="TelecomNumber" map="newValue" value-field="oldValue"/>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
+        <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
+
+        <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
+            <log level="info" message="Telecom number needs updating"/>
+            <call-service service-name="createContactMech" in-map-name="context">
+                <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
+                <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
+            </call-service>
+            <create-value value-field="newValue"/>
+            <else>
+                <set field="context.contactMechId" from-field="parameters.contactMechId"/>
+                <call-service service-name="updateContactMech" in-map-name="context">
+                    <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
+                    <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
+                </call-service>
+                <if-compare-field to-field="newValue.contactMechId" field="oldValue.contactMechId" operator="not-equals">
+                    <log level="info" message="Telecom Number need updating, contact mech changed"/>
+                    <create-value value-field="newValue"/>
+                    <else>
+                        <log level="info" message="Telecom Number unchanged"/>
+                    </else>
+                </if-compare-field>
+            </else>
+        </if-compare-field>
+        <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
+        <field-to-result field="parameters.contactMechId" result-name="oldContactMechId"/>
+    </simple-method>
+
+    <simple-method method-name="createEmailAddress" short-description="Create an email address contact mechanism">
+        <call-map-processor xml-resource="component://party/minilang/contact/ContactMechMapProcs.xml"
+            processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <set field="context.contactMechTypeId" value="EMAIL_ADDRESS"/>
+        <call-service service-name="createContactMech" in-map-name="context">
+            <default-message resource="PartyUiLabels" property="PartyEmailAddressSuccessfullyCreated"/>
+            <result-to-result result-name="contactMechId"/>
+            <result-to-request result-name="contactMechId"/>
+        </call-service>
+    </simple-method>
+    <simple-method method-name="updateEmailAddress" short-description="Update an email address contact mechanism">
+        <call-map-processor xml-resource="component://party/minilang/contact/ContactMechMapProcs.xml"
+            processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <set field="context.contactMechTypeId" value="EMAIL_ADDRESS"/>
+        <call-service service-name="updateContactMech" in-map-name="context">
+            <default-message resource="PartyUiLabels" property="PartyEmailAddressSuccessfullyUpdated"/>
+            <result-to-result result-name="contactMechId"/>
+            <result-to-request result-name="contactMechId"/>
+        </call-service>
+    </simple-method>
+
+   <simple-method method-name="createContactMechLink" short-description="Create a link between two ContactMechs, such as PostalAddress and TelecomNumber or email">
+       <!--TODO: need security check of some sort? -->
+       <check-errors/>
+       <make-value value-field="newEntity" entity-name="ContactMechLink"/>
+       <set-pk-fields map="parameters" value-field="newEntity"/>
+       <create-value value-field="newEntity"/>
+   </simple-method>
+   <simple-method method-name="deleteContactMechLink" short-description="Delete a link between two ContactMechs">
+       <!--TODO: need security check of some sort? -->
+       <check-errors/>
+       <make-value value-field="lookupPKMap" entity-name="ContactMechLink"/>
+       <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+       <find-by-primary-key entity-name="ContactMechLink" map="lookupPKMap" value-field="contactMechLinkInstance"/>
+       <remove-value value-field="contactMechLinkInstance"/>
+   </simple-method>
+
+    <!-- contactmech attribute services -->
+    <simple-method method-name="createContactMechAttribute" short-description="createContactMechAttribute">
+        <make-value value-field="newEntity" entity-name="ContactMechAttribute"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateContactMechAttribute" short-description="updateContactMechAttribute">
+        <entity-one entity-name="ContactMechAttribute" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContactMechAttribute" short-description="removeContactMechAttribute">
+        <entity-one entity-name="ContactMechAttribute" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+
+    <simple-method method-name="sendVerifyEmailAddressNotification" short-description="Send an email to the person for Verification of his Email Address" login-required="false">
+        <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
+            <condition-list>
+                <condition-expr field-name="emailType" operator="equals" value="PRDS_EMAIL_VERIFY"/>
+            </condition-list>
+        </entity-condition>
+        <set field="lookupHash.emailAddress" from-field="parameters.emailAddress"/>
+        <find-by-primary-key value-field="emailAddressVerification" entity-name="EmailAddressVerification" map="lookupHash"/>
+        <set field="bodyParameters.verifyHash" from-field="emailAddressVerification.verifyHash"/>
+        <first-from-list entry="storeEmail" list="productStoreEmailSettings"/>
+        <entity-and list="webSites" entity-name="WebSite">
+            <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
+        </entity-and>
+        <first-from-list entry="webSite" list="webSites"/>
+        <if-not-empty field="storeEmail.bodyScreenLocation">
+            <set field="emailParams.sendTo" from-field="parameters.emailAddress"/>
+            <set field="emailParams.subject" from-field="storeEmail.subject"/>
+            <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+            <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+            <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+            <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
+            <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+            <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            <map-to-map to-map="emailParams.bodyParameters" map="bodyParameters"/>
+            <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
+            <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="verifyEmailAddress" short-description="Verify an Email Address through verifyHash and expireDate" login-required="false">
+        <entity-and entity-name="EmailAddressVerification" list="emailAddressVerifications">
+            <field-map field-name="verifyHash" from-field="parameters.verifyHash"/>
+        </entity-and>
+
+        <first-from-list list="emailAddressVerifications" entry="emailAddressVerification"/>
+        <if-not-empty field="emailAddressVerification">
+            <now-timestamp field="nowTimestamp"/>
+            <if-compare-field field="emailAddressVerification.expireDate" to-field="nowTimestamp" operator="less">
+                 <add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressVerificationExpired"/></add-error>
+            </if-compare-field>
+        <else>
+            <add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotExist"/></add-error>
+        </else>
+        </if-not-empty>
+        <check-errors/>
+    </simple-method>
+</simple-methods>

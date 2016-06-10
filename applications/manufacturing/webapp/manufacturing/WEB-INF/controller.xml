@@ -254,13 +254,13 @@ under the License.
     </request-map>
     <request-map uri="AddRoutingTaskAssoc">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleEvents.xml" invoke="addRoutingTaskAssoc"/>
+        <event type="simple" path="component://manufacturing/minilang/techdata/RoutingSimpleEvents.xml" invoke="addRoutingTaskAssoc"/>
         <response name="success" type="view" value="EditRoutingTaskAssoc"/>
         <response name="error" type="view" value="EditRoutingTaskAssoc"/>
     </request-map>
     <request-map uri="UpdateRoutingTaskAssoc">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleEvents.xml" invoke="updateRoutingTaskAssoc"/>
+        <event type="simple" path="component://manufacturing/minilang/techdata/RoutingSimpleEvents.xml" invoke="updateRoutingTaskAssoc"/>
         <response name="success" type="view" value="EditRoutingTaskAssoc"/>
         <response name="error" type="view" value="EditRoutingTaskAssoc"/>
     </request-map>
@@ -378,7 +378,7 @@ under the License.
     </request-map>
     <request-map uri="UpdateProductBom">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://manufacturing/script/org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="eventEditBOM"/>
+        <event type="simple" path="component://manufacturing/minilang/bom/BomSimpleMethods.xml" invoke="eventEditBOM"/>
         <response name="success" type="view" value="EditProductBom"/>
         <response name="error" type="view" value="EditProductBom"/>
     </request-map>
@@ -433,7 +433,7 @@ under the License.
     </request-map>
     <request-map uri="createProductionRun">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://manufacturing/script/org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="createProductionRun"/>
+        <event type="simple" path="component://manufacturing/minilang/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="createProductionRun"/>
         <response name="createProductionRunsForProductBom" type="request" value="createProductionRunsForProductBom"/>
         <response name="createProductionRunSingle" type="request" value="createProductionRunSingle"/>
     </request-map>
@@ -542,12 +542,12 @@ under the License.
     </request-map>
     <request-map uri="addProductionRunRoutingTask">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://manufacturing/script/org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="addProductionRunRoutingTask"/>
+        <event type="simple" path="component://manufacturing/minilang/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="addProductionRunRoutingTask"/>
         <response name="success" type="view" value="ProductionRunTasks"/>
     </request-map>
     <request-map uri="updateProductionRunRoutingTask">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://manufacturing/script/org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="editProductionRunRoutingTask"/>
+        <event type="simple" path="component://manufacturing/minilang/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="editProductionRunRoutingTask"/>
         <response name="success" type="view" value="ProductionRunTasks"/>
     </request-map>
     <request-map uri="deleteProductionRunRoutingTask">

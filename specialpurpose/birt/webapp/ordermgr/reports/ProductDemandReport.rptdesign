@@ -245,7 +245,7 @@ try
     methodContext.putEnv("productStoreId", productStoreId);
     methodContext.putEnv("Week", Week);
     methodContext.putEnv("Year", Year);
-    SimpleMethod.runSimpleMethod("component://order/script/org/ofbiz/order/reports/ProductDemandReportEvent.xml", "getOrder", methodContext);
+    SimpleMethod.runSimpleMethod("component://order/minilang/reports/ProductDemandReportEvent.xml", "getOrder", methodContext);
     starschemas = methodContext.getEnv("starschemas");
 } 
 catch (e) 

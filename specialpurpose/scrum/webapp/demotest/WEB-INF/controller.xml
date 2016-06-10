@@ -31,7 +31,7 @@ under the License.
     </request-map>
     <request-map uri="demotest">
         <security https="false" auth="false"/>
-        <event type="simple" invoke="setNewDemoUser" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" />
+        <event type="simple" invoke="setNewDemoUser" path="component://scrum/minilang/ScrumEvents.xml" />
         <response name="success" type="url" value="../scrum/control/main" />
         <response name="error" type="view" value="main" />
     </request-map>

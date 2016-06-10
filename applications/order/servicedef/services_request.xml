@@ -26,7 +26,7 @@ under the License.
 
     <!-- Customer Request Services -->
     <service name="custRequestPermissionCheck" engine="simple"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="custRequestPermissionCheck">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="custRequestPermissionCheck">
         <description>
             Performs a security check for CustRequest. The user, if enters a request for someone else,
             must have one of the base ORDERMGR_CRQ CRUD+ADMIN permissions.
@@ -35,7 +35,7 @@ under the License.
         <attribute name="fromPartyId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createCustRequest" engine="simple" default-entity-name="CustRequest"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequest" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequest" auth="true">
         <description>Create a custRequest record and optionally create a custRequest item.</description>
         <permission-service service-name="custRequestPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
@@ -47,7 +47,7 @@ under the License.
         <override name="story" allow-html="any"/>
     </service>
     <service name="updateCustRequest" engine="simple" default-entity-name="CustRequest"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequest" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequest" auth="true">
         <description>Update a custRequest record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -59,13 +59,13 @@ under the License.
     </service>
 
     <service name="deleteCustRequest" engine="simple" default-entity-name="CustRequest"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="deleteCustRequest" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="deleteCustRequest" auth="true">
         <description>Delete a custRequest record in draft status</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createCustRequestAttribute" engine="simple"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestAttribute" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestAttribute" auth="true">
         <description>Create CustRequestAttribute record</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="attrName" type="String" mode="IN" optional="false"/>
@@ -73,7 +73,7 @@ under the License.
     </service>
 
    <service name="updateCustRequestAttribute" engine="simple"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequestAttribute" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestAttribute" auth="true">
         <description>Update CustRequestAttribute record</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="attrName" type="String" mode="IN" optional="false"/>
@@ -81,7 +81,7 @@ under the License.
     </service>
 
     <service name="createCustRequestItem" engine="simple" default-entity-name="CustRequestItem"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestItem" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestItem" auth="true">
         <description>Create a CustRequestItem record</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -90,7 +90,7 @@ under the License.
         <override name="description" allow-html="any"/>
     </service>
     <service name="updateCustRequestItem" engine="simple" default-entity-name="CustRequestItem"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequestItem" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestItem" auth="true">
         <description>Update a CustRequestItem record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -98,7 +98,7 @@ under the License.
         <override name="description" allow-html="any"/>
     </service>
     <service name="copyCustRequestItem" default-entity-name="CustRequestItem" engine="simple"
-                location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="copyCustRequestItem" auth="true">
+                location="component://order/minilang/request/CustRequestServices.xml" invoke="copyCustRequestItem" auth="true">
         <description>Copy a CustRequest</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -108,30 +108,30 @@ under the License.
     </service>
 
     <service name="createCustRequestParty" engine="simple" default-entity-name="CustRequestParty"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestParty" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestParty" auth="true">
         <description>Create a CustRequestParty record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="fromDate" mode="IN" type="Timestamp" optional="true"/>
     </service>
     <service name="updateCustRequestParty" engine="simple" default-entity-name="CustRequestParty"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequestParty" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestParty" auth="true">
         <description>Update CustRequestParty record</description>
         <auto-attributes mode="IN" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deleteCustRequestParty" engine="simple" default-entity-name="CustRequestParty"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="deleteCustRequestParty" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="deleteCustRequestParty" auth="true">
         <description>Delete a CustRequestParty record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="expireCustRequestParty" engine="simple" default-entity-name="CustRequestParty"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="expireCustRequestParty" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="expireCustRequestParty" auth="true">
         <description>Delete a CustRequestParty record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="createCustRequestNote" engine="simple"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestNote" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestNote" auth="true">
         <description>Create a note for a CustRequest</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="noteInfo" type="String" mode="IN" optional="false" allow-html="any"/>
@@ -140,14 +140,14 @@ under the License.
         <attribute name="custRequestName" type="String" mode="OUT" optional="true"/><!-- for notification services -->
     </service>
     <service name="updateCustRequestNote" engine="simple"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequestNote" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestNote" auth="true">
         <description>Update CustRequest Note</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="noteId" type="String" mode="IN" optional="false" allow-html="any"/>
         <attribute name="noteInfo" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createCustRequestItemNote" engine="simple"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestItemNote" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestItemNote" auth="true">
         <description>Create a note for a CustRequestItem</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="custRequestItemSeqId" type="String" mode="IN" optional="false"/>
@@ -158,14 +158,14 @@ under the License.
         <attribute name="custRequestName" type="String" mode="OUT" optional="true"/><!-- for notification services -->
     </service>
     <service name="createCustRequestFromCart" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestFromCart">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestFromCart">
         <description>Creates a new request from a shopping cart</description>
         <attribute name="cart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="custRequestName" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="createCustRequestFromShoppingList" engine="simple" auth="true"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestFromShoppingList">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestFromShoppingList">
         <description>Creates a new quote from a shopping list</description>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="custRequestId" type="String" mode="OUT" optional="false"/>
@@ -173,13 +173,13 @@ under the License.
 
     <!-- Services for finding Associated CustRequests -->
     <service name="getCustRequestsByRole" engine="simple"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="getCustRequestsByRole" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="getCustRequestsByRole" auth="true">
         <description>Get CustRequests Associated By Role</description>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestAndRoles" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="setCustRequestStatus" engine="simple"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="setCustRequestStatus" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="setCustRequestStatus" auth="true">
         <description>Set the Customer Request  Status</description>
         <attribute name="custRequestId" type="String" mode="INOUT" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
@@ -190,7 +190,7 @@ under the License.
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
     </service>
     <service name="createCustRequestFromCommEvent" engine="simple" default-entity-name="CommunicationEvent"
-            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestFromCommEvent" auth="true">
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestFromCommEvent" auth="true">
         <description>Create a Customer request from a commEvent(email)</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -204,7 +204,7 @@ under the License.
 
     <!-- custRequest content services -->
     <service name="createCustRequestContent" engine="simple"
-        location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml"
+        location="component://order/minilang/request/CustRequestServices.xml"
         invoke="createCustRequestContent"
         default-entity-name="CustRequestContent" auth="true">
         <description>Create a Customer Request Content</description>
@@ -213,7 +213,7 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
     <service name="deleteCustRequestContent" engine="simple"
-        location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml"
+        location="component://order/minilang/request/CustRequestServices.xml"
         invoke="deleteCustRequestContent"
         default-entity-name="CustRequestContent" auth="true">
         <description>Update a Customer Request Content</description>

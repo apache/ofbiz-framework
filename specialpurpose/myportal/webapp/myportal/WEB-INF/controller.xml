@@ -42,7 +42,7 @@
     </request-map>
     <request-map uri="createRegister">
         <security https="true" auth="false"/>
-        <event type="simple" invoke="createRegister" path="component://myportal/script/org/ofbiz/myportal/Events.xml"/>
+        <event type="simple" invoke="createRegister" path="component://myportal/minilang/Events.xml"/>
         <response name="error" type="view" value="newRegisterLogin"/>
         <response name="resultPage" type="view" value="newRegisterLogin"/>
     </request-map>
@@ -63,7 +63,7 @@
     </request-map>
     <request-map uri="DuplicatePortalPage">
         <security https="true" auth="true"/>
-        <event  type="simple" invoke="duplicatePortalPage" path="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
+        <event  type="simple" invoke="duplicatePortalPage" path="component://common/minilang/PortalPageMethods.xml"/>
         <response name="success" type="view" value="EditPortalPage"/>
     </request-map>
     <request-map uri="NewPortalPage">
