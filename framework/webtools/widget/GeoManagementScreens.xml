@@ -54,7 +54,7 @@
                 <set field="headerItem" value="Geos"/>
                 <set field="tabButtonItem" value="GeoPoints"/>
                 <entity-one value-field="geoPoint" entity-name="GeoPoint"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/geo/GetGeoLocation.groovy"/>
+                <script location="component://webtools/groovyScripts/geo/GetGeoLocation.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonGeoManagementDecorator" location="${parameters.mainDecoratorLocation}">

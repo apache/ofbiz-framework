@@ -32,7 +32,7 @@ under the License.
                 <set field="rowLimit" from-field="parameters.rowLimit" type="Integer"/>
                 <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
 
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntitySQLProcessor.groovy"/>
+                <script location="component://webtools/groovyScripts/entity/EntitySQLProcessor.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
@@ -72,7 +72,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEntityExportAll"/>
                 <set field="tabButtonItem" value="programExport"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ProgramExport.groovy"/>
+                <script location="component://webtools/groovyScripts/entity/ProgramExport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
@@ -162,7 +162,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="WebtoolsEntityDataMaintenance"/>
                 <set field="tabButtonItem" value="entitymaint"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityMaint.groovy"/>
+                <script location="component://webtools/groovyScripts/entity/EntityMaint.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
@@ -194,7 +194,7 @@ under the License.
                 <if-has-permission permission="ENTITY_MAINT"/>
             </condition>
             <actions>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/FindGeneric.groovy"/>
+                <script location="component://webtools/groovyScripts/entity/FindGeneric.groovy"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.WebtoolsFindValues} ${uiLabelMap.WebtoolsForEntity}: ${entityName}"/>
@@ -242,7 +242,7 @@ under the License.
                 <if-has-permission permission="ENTITY_MAINT"/>
             </condition>
             <actions>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ViewGeneric.groovy"/>
+                <script location="component://webtools/groovyScripts/entity/ViewGeneric.groovy"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.WebtoolsViewValue}: ${entityName}"/>
                 <set field="tabButtonItem" value="entitymaint"/>
@@ -267,7 +267,7 @@ under the License.
                 <if-has-permission permission="ENTITY_MAINT"/>
             </condition>
             <actions>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ViewRelations.groovy"/>
+                <script location="component://webtools/groovyScripts/entity/ViewRelations.groovy"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.WebtoolsRelations}: ${entityName}"/>
                 <set field="tabButtonItem" value="entitymaint"/>
@@ -294,7 +294,7 @@ under the License.
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRef.groovy"/>
+                <script location="component://webtools/groovyScripts/entity/EntityRef.groovy"/>
             </actions>
             <widgets>
                 <section>
@@ -348,7 +348,7 @@ under the License.
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="WebtoolsEntityReference"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRefList.groovy"/>
+                <script location="component://webtools/groovyScripts/entity/EntityRefList.groovy"/>
             </actions>
             <widgets>
                 <section>
@@ -412,7 +412,7 @@ under the License.
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="WebtoolsCheckUpdateDatabase"/>
                 <set field="tabButtonItem" value="checkDb"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/CheckDb.groovy"/>
+                <script location="component://webtools/groovyScripts/entity/CheckDb.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
@@ -434,7 +434,7 @@ under the License.
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsPerformanceTests"/>
                 <set field="tabButtonItem" value="entityPerformanceTest"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityPerformanceTest.groovy"/>
+                <script location="component://webtools/groovyScripts/entity/EntityPerformanceTest.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
@@ -459,7 +459,7 @@ under the License.
                 <set field="tabButtonItem" value="xmlDsDump"/>
                 <set field="entityFrom" from-field="parameters.entityFrom" type="Timestamp"/>
                 <set field="entityThru" from-field="parameters.entityThru" type="Timestamp"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/XmlDsDump.groovy"/>
+                <script location="component://webtools/groovyScripts/entity/XmlDsDump.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
