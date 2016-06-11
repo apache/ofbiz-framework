@@ -582,7 +582,7 @@ under the License.
        <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://ecommerce/groovyScripts/catalog/ajaxbreadcrumbs.groovy"/>
+                <script location="component://ecommerce/groovyScripts/catalog/AjaxBreadcrumbs.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>

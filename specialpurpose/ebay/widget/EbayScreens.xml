@@ -30,7 +30,7 @@ under the License.
                     <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
                     <order-by field-name="description"/>
                 </entity-condition>
-                <script location="component://product/groovyScripts/catalog/find/advancedsearchoptions.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/AdvancedSearchOptions.groovy"/>
                 <script location="component://ebay/groovyScripts/EbayAdvancedSearch.groovy"/>
             </actions>
             <widgets>
@@ -148,7 +148,7 @@ under the License.
                 <set field="titleProperty" value="EbayEBayOrders"/>
                 <set field="headerItem" value="eBayOrders"/>
                 <set field="orderList" from-field="parameters.orderList"/>
-                <script location="component://ebay/groovyScripts/eBayOrders.groovy"/>
+                <script location="component://ebay/groovyScripts/EbayOrders.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
@@ -260,7 +260,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="EbayEBayOrders"/>
                 <set field="headerItem" value="eBayOrders"/>
-                <script location="component://ebay/groovyScripts/updatedEbayOrders.groovy"/>
+                <script location="component://ebay/groovyScripts/UpdatedEbayOrders.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">

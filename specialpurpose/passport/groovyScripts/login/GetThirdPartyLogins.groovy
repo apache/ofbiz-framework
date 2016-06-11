@@ -24,7 +24,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.product.store.ProductStoreWorker;
 
-final String module = "getThirdPartyLogins.groovy"
+final String module = "GetThirdPartyLogins.groovy"
 
 adminErrorInfo = context.adminErrorInfo;
 productStoreId = context.productStoreId;

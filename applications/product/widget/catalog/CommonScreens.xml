@@ -255,7 +255,7 @@ under the License.
     <screen name="keywordsearchbox">
         <section>
             <actions>
-                <script location="component://product/groovyScripts/catalog/find/keywordsearchbox.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/KeywordSearchBox.groovy"/>
             </actions>
             <widgets>
                 <screenlet id="ProductKeywordsPanel" title="${uiLabelMap.ProductSearchProducts}" collapsible="true">
@@ -267,7 +267,7 @@ under the License.
     <screen name="sidecatalogs">
         <section>
             <actions>
-                <script location="component://product/groovyScripts/catalog/find/sidecatalogs.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/SideCatalogs.groovy"/>
             </actions>
             <widgets>
                 <screenlet id="ProductBrowseCatalogsPanel" title="${uiLabelMap.ProductBrowseCatalogs}" collapsible="true">
@@ -279,7 +279,7 @@ under the License.
     <screen name="sidedeepcategory">
         <section>
             <actions>
-                <script location="component://product/groovyScripts/catalog/find/sidedeepcategory.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/SideDeepCategory.groovy"/>
             </actions>
             <widgets>
                 <screenlet id="ProductBrowseCategoriesPanel" title="${uiLabelMap.ProductBrowseCategories}" collapsible="true">
@@ -291,7 +291,7 @@ under the License.
     <screen name="miniproductlist">
         <section>
             <actions>
-                <script location="component://product/groovyScripts/catalog/find/miniproductlist.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/MiniProductList.groovy"/>
             </actions>
             <widgets>
                 <screenlet id="ProductCategoryProductsPanel" title="${uiLabelMap.ProductCategoryProducts}" collapsible="true">
@@ -436,7 +436,7 @@ under the License.
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://product/groovyScripts/catalog/find/miniproductlist.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/MiniProductList.groovy"/>
             </actions>
             <widgets>
                     <platform-specific><html><html-template location="component://product/template/find/MiniProductList.ftl"/></html></platform-specific>

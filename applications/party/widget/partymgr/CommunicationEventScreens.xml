@@ -932,7 +932,7 @@ under the License.
                                 </condition>
                                 <actions>
                                     <set field="fromPartyId" from-field="communicationEvent.partyIdFrom"/>
-                                    <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getLastRequestAssignment.groovy"/>
+                                    <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/GetLastRequestAssignment.groovy"/>
                                 </actions>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.OrderRequest}">

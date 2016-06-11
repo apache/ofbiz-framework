@@ -224,7 +224,7 @@ under the License.
         <set field="productContent.sequenceNum" from-field="parameters.sequenceNum" type="Long"/>
         <store-value value-field="productContent"/>
         <if-not-empty field="parameters.sequenceNum">
-            <script location="component://product/groovyScripts/catalog/imagemanagement/sortSequenceNum.groovy"/>
+            <script location="component://product/groovyScripts/catalog/imagemanagement/SortSequenceNum.groovy"/>
             <set field="productContent.sequenceNum" from-field="parameters.sequenceNum" type="Long"/>
             <store-value value-field="productContent"/>
         </if-not-empty>
