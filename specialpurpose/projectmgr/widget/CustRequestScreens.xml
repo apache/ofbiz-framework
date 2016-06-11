@@ -76,7 +76,7 @@ under the License.
                 <set field="fromPartyId" from-field="communicationEvent.partyIdFrom"/>
                 <set field="statusId" from-field="custRequest.statusId"/>
                 <entity-one entity-name="StatusItem" value-field="currentStatus"/>
-                <script location="component://projectmgr/groovyScripts/getLastRequestAssignment.groovy"/>
+                <script location="component://projectmgr/groovyScripts/GetLastRequestAssignment.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">

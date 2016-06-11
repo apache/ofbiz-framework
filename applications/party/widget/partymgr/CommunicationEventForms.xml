@@ -185,7 +185,7 @@ under the License.
     <form name="EditInternalNote" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
         <actions>
             <set field="nowDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
-            <script location="component://party/groovyScripts/communication/recentVisitor.groovy"/>
+            <script location="component://party/groovyScripts/communication/RecentVisitor.groovy"/>
         </actions>
         <alt-target use-when="communicationEvent!=null" target="updateCommunicationEvent"/>
         <field name="form"><hidden/></field>
@@ -938,7 +938,7 @@ under the License.
 
     <form name="allocateMsgToPartyForm" type="single" target="allocateMsgToParty" title="create a new party for a unknown incoming email address">
         <actions>
-            <script location="component://party/groovyScripts/communication/getPartyEmailFromCommEventInfo.groovy"/>
+            <script location="component://party/groovyScripts/communication/GetPartyEmailFromCommEventInfo.groovy"/>
         </actions>
         <field name="form"><hidden value="list"/></field>
         <field name="portalPageId"><hidden value="${parameters.portalPageId}"/></field>

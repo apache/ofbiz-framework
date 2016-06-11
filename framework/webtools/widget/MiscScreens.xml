@@ -27,7 +27,7 @@ under the License.
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsDataFileMainTitle"/>
                 <set field="tabButtonItem" value="data"/>
-                <script location="component://webtools/groovyScripts/datafile/viewdatafile.groovy"/>
+                <script location="component://webtools/groovyScripts/datafile/ViewDataFile.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">

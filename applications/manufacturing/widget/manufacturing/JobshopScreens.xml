@@ -88,7 +88,7 @@ under the License.
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <script location="component://manufacturing/groovyScripts/jobshopmgt/ViewProductionRun.groovy"/>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/productionRunAllFixedAssets.groovy"/>
+                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunAllFixedAssets.groovy"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId"/>
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
@@ -167,7 +167,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunDeclaration.groovy"/>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/productionRunAllFixedAssets.groovy"/>
+                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunAllFixedAssets.groovy"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId" default-value="${parameters.workEffortId}"/>
                 <entity-one entity-name="WorkEffort" value-field="productionRun">

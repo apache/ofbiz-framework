@@ -97,7 +97,7 @@ under the License.
                                 </entity-and>-->
                                 
                                 <!--<entity-one value-field="product" entity-name="Product"/>-->
-                                <!--<script location="component://product/groovyScripts/catalog/imagemanagement/seoLocales.groovy"/>-->
+                                <!--<script location="component://product/groovyScripts/catalog/imagemanagement/SeoLocales.groovy"/>-->
                                 <script location="component://product/groovyScripts/catalog/imagemanagement/ImageGallery.groovy"/>
                             </actions>
                             <widgets>

@@ -93,7 +93,7 @@
             <log level="info" message="=== trackingCodeIds: ${trackingCodeIds[indexOfSetting]}"/>
             <log level="info" message="=== allowRecommendeds: ${allowRecommendeds[indexOfSetting]}"/>
             <set field="parameters.productStoreId" from-field="productStoreId"/>
-            <script location="component://googlebase/groovyScripts/productsToGooglebase.groovy"/>
+            <script location="component://googlebase/groovyScripts/ProductsToGooglebase.groovy"/>
             <!-- iterate each CatalogList in each ProductStore -->
             <iterate entry="catalogCategoryIds" list="categoryIds">
                 <if-not-empty field="catalogCategoryIds">
@@ -126,7 +126,7 @@
                 </then>
             </if>
             <if-not-empty field="productList">
-                <script location="component://googlebase/groovyScripts/googlebaseDivideList.groovy"/>
+                <script location="component://googlebase/groovyScripts/GooglebaseDivideList.groovy"/>
                 <set field="i" value="0" type="Integer"/>
                 <iterate entry="productExportList" list="productExportLists">
                     <iterate entry="checkProductId" list="productExportList">

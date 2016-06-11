@@ -58,7 +58,7 @@ under the License.
                 <entity-condition entity-name="ProdCatalog" list="prodCatalogs">
                     <order-by field-name="catalogName"/>
                 </entity-condition>
-                <script location="component://product/groovyScripts/catalog/find/advancedsearchoptions.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/AdvancedSearchOptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFindDecorator">
@@ -75,7 +75,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
-                <script location="component://product/groovyScripts/catalog/find/keywordsearch.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/KeywordSearch.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFindDecorator">

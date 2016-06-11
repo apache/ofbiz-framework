@@ -111,7 +111,7 @@ under the License.
     <form name="GooglebaseAutoUpdateConfig" type="list" list-name="configList" header-row-style="header-row-2" 
         default-table-style="basic-table hover-bar" odd-row-style="alternate-row">
         <actions>
-            <script location="component://googlebase/groovyScripts/autoUpdateConfig.groovy"/>
+            <script location="component://googlebase/groovyScripts/AutoUpdateConfig.groovy"/>
         </actions>
         <field name="productStoreId"><display/></field>
         <field name="outOfStock" title="Update if product is out of stock"><display/></field>
