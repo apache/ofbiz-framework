@@ -64,7 +64,7 @@ under the License.
                 <set field="thruDate" type="Timestamp" from-field="parameters.thruDate"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <script location="component://accounting/webapp/ar/WEB-INF/actions/BatchPayments.groovy"/>
+                <script location="component://accounting/groovyScripts/ar/BatchPayments.groovy"/>
                 <entity-and entity-name="FinAccount" list="finAccounts">
                     <field-map field-name="finAccountTypeId" value="BANK_ACCOUNT"/>
                 </entity-and>

@@ -390,7 +390,7 @@ under the License.
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
-                <script location="component://accounting/webapp/ar/WEB-INF/actions/BatchPayments.groovy"/>
+                <script location="component://accounting/groovyScripts/ar/BatchPayments.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">

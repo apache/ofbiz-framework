@@ -167,7 +167,7 @@ under the License.
                 <set field="titleProperty" value="AccountingFindSalesInvoicesForCommissionRun"/>
                 <set field="tabButtonItem" value="commissionRun"/>
                 <set field="salesRepPartyList" type="List" from-field="parameters.partyIds"/>
-                <script location="component://accounting/webapp/ap/WEB-INF/actions/invoices/CommissionRun.groovy"/>
+                <script location="component://accounting/groovyScripts/ap/invoices/CommissionRun.groovy"/>
                 
                 <!-- asmslect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
                 <set field="asm_multipleSelectForm"  value="CommissionRun"/>
@@ -207,7 +207,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingCommissionReport"/>
                 <set field="tabButtonItem" value="commissionReport"/>
-                <script location="component://accounting/webapp/ap/WEB-INF/actions/invoices/CommissionReport.groovy"/>
+                <script location="component://accounting/groovyScripts/ap/invoices/CommissionReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonApReportDecorator" location="${parameters.mainDecoratorLocation}">

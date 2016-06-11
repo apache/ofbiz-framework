@@ -27,7 +27,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://accounting/webapp/ap/WEB-INF/actions/invoices/CommissionReport.groovy"/>
+                <script location="component://accounting/groovyScripts/ap/invoices/CommissionReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
