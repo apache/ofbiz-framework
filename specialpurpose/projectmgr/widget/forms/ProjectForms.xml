@@ -189,10 +189,10 @@
     <form name="ListCurrentProjects" type="list" list-name="projects" paginate-target="main"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListCurrentProjects.groovy"/>
+            <script location="component://projectmgr/groovyScripts/ListCurrentProjects.groovy"/>
         </actions>
         <row-actions>
-            <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ProjectIsBillable.groovy"/>
+            <script location="component://projectmgr/groovyScripts/ProjectIsBillable.groovy"/>
         </row-actions>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
             <hyperlink description="${projectName}" target="projectView">
