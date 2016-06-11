@@ -110,7 +110,7 @@ under the License.
                 <set field="tabButtonItem" value="billing"/>
                 <set field="labelTitleProperty" value="PageTitleProjectBilling"/>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ProjectBilling.groovy"/>
+                <script location="component://projectmgr/groovyScripts/ProjectBilling.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -415,7 +415,7 @@ under the License.
                 <set field="tabButtonItem" value="ganttchart"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/jsgantt.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/images/jsgantt.css" global="true"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/GanttChart.groovy"/>
+                <script location="component://projectmgr/groovyScripts/GanttChart.groovy"/>
             </actions>
             <widgets>
                 <label text="${project}"/>
@@ -986,7 +986,7 @@ under the License.
                         <actions>
                             <set field="projectId" from-field="project.workEffortId"/>
                             <set field="parameters.projectId" from-field="project.workEffortId"/>
-                            <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/GanttChart.groovy"/>
+                            <script location="component://projectmgr/groovyScripts/GanttChart.groovy"/>
                             <service service-name="getProject" result-map="result">
                                 <field-map field-name="projectId" from-field="projectId"/>
                             </service>

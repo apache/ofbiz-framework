@@ -195,7 +195,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="task"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.groovy"/>
+                <script location="component://projectmgr/groovyScripts/getProjectId.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -375,7 +375,7 @@ under the License.
             <actions>
                 <set field="parameters.workEffortIdFrom" from-field="parameters.workEffortId"/>
                 <set field="parameters.workEffortTypeId" value="TASK"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
+                <script location="component://projectmgr/groovyScripts/ChildWorkEffort.bsh"/>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.ProjectMgrSubTasks}">
