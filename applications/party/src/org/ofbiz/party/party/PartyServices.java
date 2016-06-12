@@ -2445,7 +2445,7 @@ public class PartyServices {
                             } else { // person
                                 Map<String, Object> person = UtilMisc.toMap(
                                         "firstName", rec.get("firstName"),
-                                        "middleName", rec.get("midleName"),
+                                        "middleName", rec.get("middleName"),
                                         "lastName", rec.get("lastName"),
                                         "preferredCurrencyUomId", rec.get("preferredCurrencyUomId"),
                                         "statusId", "PARTY_ENABLED",
