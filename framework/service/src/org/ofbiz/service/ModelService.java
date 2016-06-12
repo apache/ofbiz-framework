@@ -1183,6 +1183,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                         if (overrideParam.overrideOptional) {
                             existingParam.optional = overrideParam.optional;
                         }
+                        if (UtilValidate.isNotEmpty(overrideParam.allowHtml)) {
+                            existingParam.allowHtml = overrideParam.allowHtml;
+                        }
                         addParam(existingParam);
                     } else {
                         Debug.logWarning("Override param found but no parameter existing; ignoring: " + overrideParam.name, module);
