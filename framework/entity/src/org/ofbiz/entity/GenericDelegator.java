@@ -568,7 +568,7 @@ public class GenericDelegator implements Delegator {
     @Override
     public ModelFieldTypeReader getModelFieldTypeReader(ModelEntity entity) {
         String helperName = getEntityHelperName(entity);
-        if (helperName == null || helperName.length() <= 0) {
+        if (UtilValidate.isEmpty(helperName)) {
             return null;
         }
         ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
@@ -585,7 +585,7 @@ public class GenericDelegator implements Delegator {
     public Collection<String> getEntityFieldTypeNames(ModelEntity entity) throws GenericEntityException {
         String helperName = getEntityHelperName(entity);
 
-        if (helperName == null || helperName.length() <= 0) {
+        if (UtilValidate.isEmpty(helperName)) {
             return null;
         }
         ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);

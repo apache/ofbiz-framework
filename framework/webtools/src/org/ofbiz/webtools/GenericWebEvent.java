@@ -62,7 +62,7 @@ public class GenericWebEvent {
         String entityName = request.getParameter("entityName");
         Locale locale = UtilHttp.getLocale(request);
 
-        if (entityName == null || entityName.length() <= 0) {
+        if (UtilValidate.isEmpty(entityName)) {
             String errMsg = UtilProperties.getMessage(GenericWebEvent.err_resource, "genericWebEvent.entity_name_not_specified", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             Debug.logWarning("[GenericWebEvent.updateGeneric] The entityName was not specified, but is required.", module);
@@ -96,7 +96,7 @@ public class GenericWebEvent {
 
         String updateMode = request.getParameter("UPDATE_MODE");
 
-        if (updateMode == null || updateMode.length() <= 0) {
+        if (UtilValidate.isEmpty(updateMode)) {
             String errMsg = UtilProperties.getMessage(GenericWebEvent.err_resource, "genericWebEvent.update_mode_not_specified", locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             Debug.logWarning("[updateGeneric] Update Mode was not specified, but is required; entityName: " + entityName, module);

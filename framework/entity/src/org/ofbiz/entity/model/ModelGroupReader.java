@@ -220,7 +220,7 @@ public class ModelGroupReader implements Serializable {
         Map<String, String> gc = getGroupCache(delegatorBaseName);
         Set<String> enames = new HashSet<String>();
 
-        if (groupName == null || groupName.length() <= 0) return enames;
+        if (UtilValidate.isEmpty(groupName)) return enames;
         if (UtilValidate.isEmpty(gc)) return enames;
         for (Map.Entry<String, String> entry: gc.entrySet()) {
             if (groupName.equals(entry.getValue())) enames.add(entry.getKey());

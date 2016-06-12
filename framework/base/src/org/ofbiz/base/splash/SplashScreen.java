@@ -27,6 +27,8 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.Window;
 
+import org.ofbiz.base.util.UtilValidate;
+
 @SuppressWarnings("serial")
 public final class SplashScreen extends Frame {
 
@@ -36,7 +38,7 @@ public final class SplashScreen extends Frame {
     private Image fImage;
 
     public SplashScreen(String aImageId) {
-        if (aImageId == null || aImageId.trim().length() == 0) {
+        if (UtilValidate.isEmpty(aImageId)) {
             throw new IllegalArgumentException("Image Id does not have content.");
         }
         fImageId = aImageId;

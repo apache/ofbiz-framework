@@ -93,7 +93,7 @@ public class PaymentWorker {
         if (request.getAttribute("_ERROR_MESSAGE_") != null) tryEntity = false;
 
         String donePage = request.getParameter("DONE_PAGE");
-        if (donePage == null || donePage.length() <= 0)
+        if (UtilValidate.isEmpty(donePage))
             donePage = "viewprofile";
         results.put("donePage", donePage);
 

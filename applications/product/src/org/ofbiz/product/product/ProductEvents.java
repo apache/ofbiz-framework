@@ -209,7 +209,7 @@ public class ProductEvents {
 
         String updateMode = request.getParameter("UPDATE_MODE");
 
-        if (updateMode == null || updateMode.length() <= 0) {
+        if (UtilValidate.isEmpty(updateMode)) {
             errMsg = UtilProperties.getMessage(resource,"productevents.updatemode_not_specified", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             Debug.logWarning("[ProductEvents.updateProductAssoc] Update Mode was not specified, but is required", module);
