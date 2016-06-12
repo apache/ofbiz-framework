@@ -133,7 +133,7 @@ public class DataFile {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      */
     public void readDataFile(String content) throws DataFileException {
-        if (content == null || content.length() <= 0)
+        if (UtilValidate.isEmpty(content))
             throw new IllegalStateException("Content is empty, can't read file");
 
         ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes());

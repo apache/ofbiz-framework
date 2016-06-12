@@ -108,9 +108,9 @@ public class LoginServices {
         String visitId = (String) context.get("visitId");
 
         String errMsg = "";
-        if (username == null || username.length() <= 0) {
+        if (UtilValidate.isEmpty(username)) {
             errMsg = UtilProperties.getMessage(resource,"loginservices.username_missing", locale);
-        } else if (password == null || password.length() <= 0) {
+        } else if (UtilValidate.isEmpty(password)) {
             errMsg = UtilProperties.getMessage(resource,"loginservices.password_missing", locale);
         } else {
 

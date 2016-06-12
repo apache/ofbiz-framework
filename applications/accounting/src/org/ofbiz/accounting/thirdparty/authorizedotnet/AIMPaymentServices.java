@@ -395,7 +395,7 @@ public class AIMPaymentServices {
             Debug.logInfo("The password property in " + configStr + " is not configured.", module);
         }
         if ("3.1".equals(ver)) {
-            if (tranKey == null || tranKey.length() <= 0) {
+            if (UtilValidate.isEmpty(tranKey)) {
                 Debug.logInfo("Trankey property required for version 3.1 reverting to 3.0",module);
                 ver = "3.0";
             }

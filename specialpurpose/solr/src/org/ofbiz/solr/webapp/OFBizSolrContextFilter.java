@@ -586,7 +586,7 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
         if (delegator == null) {
             String delegatorName = servletContext.getInitParameter("entityDelegatorName");
 
-            if (delegatorName == null || delegatorName.length() <= 0) {
+            if (UtilValidate.isEmpty(delegatorName)) {
                 delegatorName = "default";
             }
             if (Debug.verboseOn()) Debug.logVerbose("Setup Entity Engine Delegator with name " + delegatorName, module);
