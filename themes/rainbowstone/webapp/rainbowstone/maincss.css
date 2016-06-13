@@ -562,6 +562,7 @@ text-decoration: underline;
 .button-bar ul li ul li {
     float: left;
     font-weight: bold;
+    margin-right: 0.5em;
 }
 
 .button-bar ul .opposed {

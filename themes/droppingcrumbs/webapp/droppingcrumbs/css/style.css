@@ -314,7 +314,7 @@ color: #333333;
 font-weight: bold;
 }
 
-A.buttontext,.buttontextdisabled {
+A.buttontext,.buttontextdisabled, .button-bar li.buttontext a {
 background-color: #ffffff;
 border: #999999 solid 0.1em;
 font-weight: bold;
@@ -324,11 +324,11 @@ padding: 0.1em 0.4em 0.1em 0.4em;
 /*white-space: nowrap;*/
 }
 
-A.buttontext {
+A.buttontext, .button-bar li.buttontext a {
 color: #000099;
 }
 
-A.buttontext:hover {
+A.buttontext:hover, .button-bar li.buttontext a:hover {
 color: #ff0000;
 }
 
