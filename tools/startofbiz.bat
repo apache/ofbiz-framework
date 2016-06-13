@@ -55,8 +55,8 @@ rem "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -Xdebug -Xnoagent -Djava.compiler=N
 rem ### Simple easy to read line
 cd %OFBIZ_HOME%
 echo on
-"%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -jar ofbiz.jar
+"%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -server -jar ofbiz.jar
 echo off
 rem ### If you would prefer the console output to be logged rather than displayed switch out the above line for this one
-rem "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -jar ofbiz.jar > runtime\logs\console.log
+rem "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -server -jar ofbiz.jar > runtime\logs\console.log
 
