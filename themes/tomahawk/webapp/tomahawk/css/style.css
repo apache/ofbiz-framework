@@ -1486,6 +1486,10 @@ font-weight: bold;
 text-transform: uppercase;
 }
 
+.button-bar ul li ul li {
+margin-right: 0.5em;
+}
+
 .button-bar ul .opposed {
 float: right;
 }

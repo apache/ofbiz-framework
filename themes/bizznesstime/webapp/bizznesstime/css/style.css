@@ -977,7 +977,7 @@ a.buttontext,.buttontextdisabled {
     /*white-space: nowrap;*/
 }
 
-a.buttontext {
+a.buttontext, .button-bar li.buttontext a {
     background:url(../images/btn-bg.gif) center left repeat-x;
     border:2px solid #ddd;
     color:#444444;
