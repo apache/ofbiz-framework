@@ -84,7 +84,10 @@ under the License.
 
 <div class="screenlet">
         <div class="boxlink">
-            <a href="<@ofbizUrl>createEmptyShoppingList?productStoreId=${productStoreId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>
+            <form id="createEmptyShoppingList" action="<@ofbizUrl>createEmptyShoppingList</@ofbizUrl>" method="post">
+               <input type="hidden" name="productStoreId" value="${productStoreId!}" />
+               <a href="javascript:document.getElementById('createEmptyShoppingList').submit();" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>
+            </form>
         </div>
     <h3>${uiLabelMap.EcommerceShoppingLists}</h3>
     <div class="screenlet-body">
@@ -105,7 +108,10 @@ under the License.
           </form>
         <#else>
           <label>${uiLabelMap.EcommerceNoShoppingListsCreate}.</label>
-          <a href="<@ofbizUrl>createEmptyShoppingList?productStoreId=${productStoreId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>
+          <form id="createEmptyShoppingList" action="<@ofbizUrl>createEmptyShoppingList</@ofbizUrl>" method="post">
+             <input type="hidden" name="productStoreId" value="${productStoreId!}" />
+             <input type="submit" name="submit" class="smallSubmit" value="${uiLabelMap.CommonCreateNew}"/>
+          </form>
         </#if>
     </div>
 </div>
