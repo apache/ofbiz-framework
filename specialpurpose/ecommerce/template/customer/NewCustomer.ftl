@@ -212,7 +212,7 @@ will generally always be reserved for the logo at the top of the page.
         <@fieldErrors fieldName="CUSTOMER_COUNTRY"/>
         <select name="CUSTOMER_COUNTRY" id="newuserform_countryGeoId">
             ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-            <#assign defaultCountryGeoId = Static["org.ofbiz.base.util.EntityUtilProperties"].getPropertyValue("general", "country.geo.id.default", delegator)>
+            <#assign defaultCountryGeoId = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "country.geo.id.default", delegator)>
             <option selected="selected" value="${defaultCountryGeoId}">
                 <#assign countryGeo = delegator.findOne("Geo",Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId), false)>
                 ${countryGeo.get("geoName",locale)}
