@@ -122,14 +122,14 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <div class="boxlink">
-          <a class='submenutext' href='javascript:$('createCustRequestFromShoppingList').submit()'>${uiLabelMap.OrderCreateCustRequestFromShoppingList}</a>
-          <a class='submenutext' href='javascript:$('createQuoteFromShoppingList').submit()'>${uiLabelMap.OrderCreateQuoteFromShoppingList}</a>
-          <a href="javascript:$('updateList').submit();" class="submenutextright">${uiLabelMap.CommonSave}</a>
+          <a class='submenutext' href='javascript:document.createCustRequestFromShoppingList.submit();'>${uiLabelMap.OrderCreateCustRequestFromShoppingList}</a>
+          <a class='submenutext' href='javascript:document.createQuoteFromShoppingList.submit();'>${uiLabelMap.OrderCreateQuoteFromShoppingList}</a>
+          <a href="javascript:document.updateList.submit();" class="submenutextright">${uiLabelMap.CommonSave}</a>
         </div>
         <h3>${uiLabelMap.EcommerceShoppingListDetail} - ${shoppingList.listName}</h3>
     </div>
     <div class="screenlet-body">
-      <form id= "createCustRequestFromShoppingList" method= "post" action= "<@ofbizUrl>createCustRequestFromShoppingList</@ofbizUrl>">
+      <form name= "createCustRequestFromShoppingList" method= "post" action= "<@ofbizUrl>createCustRequestFromShoppingList</@ofbizUrl>">
         <fieldset>
           <input type= "hidden" name= "shoppingListId" value= "${shoppingList.shoppingListId}"/>
         </fieldset>
@@ -139,7 +139,7 @@ under the License.
           <input type="hidden" name="shoppingListId" value="${shoppingList.shoppingListId}"/>
         </fieldset>
       </form>
-      <form id="updateList" method="post" action="<@ofbizUrl>updateShoppingList</@ofbizUrl>">
+      <form name="updateList" method="post" action="<@ofbizUrl>updateShoppingList</@ofbizUrl>">
         <fieldset class="inline">
           <input type="hidden" class="inputBox" name="shoppingListId" value="${shoppingList.shoppingListId}" />
           <input type="hidden" class="inputBox" name="partyId" value="${shoppingList.partyId?if_exists}" />
@@ -199,7 +199,7 @@ under the License.
               </#if>
             </div>
             <div>
-              <input type="submit" class="button" name="submit" value="${uiLabelMap.CommonSave}">
+              <a href="javascript:document.updateList.submit();" class="button">${uiLabelMap.CommonSave}</a>
             </div>
           </fieldset>
         </form>
