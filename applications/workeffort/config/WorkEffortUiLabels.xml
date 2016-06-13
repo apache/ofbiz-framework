@@ -2901,7 +2901,7 @@
         <value xml:lang="zh-TW">iCal輔助</value>
     </property>
     <property key="WorkEffortICalendarHelpUrl">
-        <value xml:lang="en">http://docs.ofbiz.org/x/piE</value>
+        <value xml:lang="en">https://cwiki.apache.org/confluence/display/OFBENDUSER/iCalendar+Integration</value>
     </property>
     <property key="WorkEffortICalendarName">
         <value xml:lang="de">Kalendername</value>

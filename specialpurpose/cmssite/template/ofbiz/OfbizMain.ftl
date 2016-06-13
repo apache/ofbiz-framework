@@ -24,11 +24,11 @@ under the License.
         <p><a href="http://us.apachecon.com/c/acus2008/"><img src="http://www.apache.org/ads/ApacheCon/2008-usa-125x125.png" alt="ApacheCon US 2008" align="left"/></a>
         <b>CHECK IT OUT!</b> There is a special <a href="http://us.apachecon.com/c/acus2008/schedule/ofbiz-symposium">OFBiz Symposium</a> at <a href="http://us.apachecon.com/c/acus2008/">ApacheCon US 2008</a> in New Orleans on Novemver 3-7. This event includes 2 days of training sessions, 2 days of conference presentations, and BOF sessions in the evening after the conference. Because it is a part of ApacheCon attendees can also enjoy other ApacheCon training and conference sessions and participate in other events including the Hackathon, Barcamp Apache (wiki driven unconference), and the Expo (show floor) which will include companies using OFBiz as well as others. See <a href="http://us.apachecon.com/c/acus2008/schedule/ofbiz-symposium">schedule details here</a>, and <a href="http://guest.cvent.com/i.aspx?4W,M3,e057feb1-c5f1-4430-a0ce-c4d78049759e">register here</a>.</p>
 
-        <p>There are new features every day in OFBiz. For a summary <a href="http://docs.ofbiz.org/x/-Qs">see new feature summary here</a>.</p>
+        <p>There are new features every day in OFBiz. For a summary <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Main+New+Features">see new feature summary here</a>.</p>
         <p>&nbsp;-&nbsp;Accounting: auto-posting services in testing and reports in build-out</p>
         <p>&nbsp;-&nbsp;Project Management: extension of the WorkEffort and other base components, initially complete and being refined</p>
         <p>Free Training Videos are now available that offer an introduction to the Apache OFBiz Framework, based on the example component.
-          They can be <a href="http://docs.ofbiz.org/x/PQM">downloaded here</a>.</p>
+          They can be <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Framework+Introduction+Videos+and+Diagrams">downloaded here</a>.</p>
 
       </div>
 
@@ -49,13 +49,13 @@ under the License.
 
 
         <p>For answers to your questions you might find the following documents useful:
-          <a href="http://docs.ofbiz.org/x/lQM">Project Overview</a>,
-          <a href="http://docs.ofbiz.org/x/hgM">Is Apache OFBiz for Me?</a>,
+          <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Apache+OFBiz+Project+Overview">Project Overview</a>,
+          <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Is+OFBiz+for+Me">Is Apache OFBiz for Me?</a>,
           <a href="feature-list.html">Feature List</a>, and
           <a href="comingsoon.html">Features Coming Soon</a>
         </p>
 
-        <p>For more technical information, see the <a href="http://docs.ofbiz.org/x/Swg">Documentation</a> page.</p>
+        <p>For more technical information, see the <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/OFBiz+Documentation+Index">Documentation</a> page.</p>
 
 
         <p>Apache OFBiz offers a great deal of functionality, including:</p>
@@ -131,7 +131,7 @@ under the License.
                 <a href="http://store.xinit.com/ecommerce/control/main" target="_blank">***Xinit Systems</a>
                 <!--a href="http://www.worldfranchisecouncil.org/control/cpview?contentId=WFC_HOME" target="_blank">**World Franchise Council</a-->
             </p>
-            <p>For a more complete list of sites see the <a href="http://docs.ofbiz.org/x/ZQM">Apache OFBiz User List</a> page.</p>
+            <p>For a more complete list of sites see the <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Apache+OFBiz+User+List">Apache OFBiz User List</a> page.</p>
 
       </div>
         <div id="inthenews">
@@ -183,7 +183,7 @@ under the License.
         <p>OFBiz is in the Apache Incubator. See the status here: <a href="http://incubator.apache.org/projects/ofbiz.html">here</a>.</p>
 
         <p>Free Training Videos are now available that offer an introduction to the Apache OFBiz Framework, based on the example component.
-            They can be downloaded <a href="http://docs.ofbiz.org/x/PQM">here</a>.</p>
+            They can be downloaded <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Framework+Introduction+Videos+and+Diagrams">here</a>.</p>
 
         <p>The 2005 OFBiz Users Conference turned out Great! The video recordings are available <a href="VideosConf.html">here</a>.</p>
 
@@ -200,7 +200,7 @@ under the License.
         <p>New Case Study from Integral Business Solutions about their projects
           based on Apache OFBiz, especially recent work they have done for the US Air Force. <a href="IntegralAirForceCaseStudy.pdf">Download the complete document here.</a></p>
 
-        <p>Apache OFBiz Basic Production Setup document Now Available: <a href="http://docs.ofbiz.org/x/j">Apache OFBiz Production Setup Guide</a>.
+        <p>Apache OFBiz Basic Production Setup document Now Available: <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Apache+OFBiz+Technical+Production+Setup+Guide">Apache OFBiz Production Setup Guide</a>.
         This is a free download meant to help you get going with Apache OFBiz. It is sponsored by
          <a href="http://www.hotwaxmedia.com/?atc=OFB" target="_blank">Hotwax Media</a> and
         <a href="http://www.go-integral.com" target="_blank">Integral Business Solutions</a>.

@@ -28,7 +28,7 @@
         <abstract>
             <para>
                 This Book is currently in an experimental stage. It will be the start of moving the OFBiz documentation from the current 
-                <link xl:href="http://docs.ofbiz.org">OFBiz documentation site</link> and the old ofbiz website (Entity documents) to the OFBiz content component. 
+                <link xl:href="https://cwiki.apache.org/confluence/display/OFBIZ/Home">OFBiz documentation site</link> and the old ofbiz website (Entity documents) to the OFBiz content component. 
                 The layout is currently open for discussion by the OFBiz community. 
             </para>
             <para>

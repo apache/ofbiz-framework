@@ -19,18 +19,18 @@ under the License.
     <div id="link-column">
 
         <h2>What is Apache OFBiz?</h2>
-        <a href="http://docs.ofbiz.org/x/lQM">Project Overview</a>
-        <a href="http://docs.ofbiz.org/x/hgM">Is OFBiz for Me?</a>
-        <a href="http://docs.ofbiz.org/x/-Qs">Main New Features</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Apache+OFBiz+Project+Overview">Project Overview</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Is+OFBiz+for+Me">Is OFBiz for Me?</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Main+New+Features">Main New Features</a>
         <a href="comingsoon.html">Features Coming Soon</a>
         <a href="feature-list.html">Feature List</a>
 
-        <a href="http://docs.ofbiz.org/x/ZQM">User List</a>
-        <a href="http://docs.ofbiz.org/x/UwM">User Stories</a>
-        <a href="http://docs.ofbiz.org/x/jQM">Brochures, etc</a>
-        <a href="http://docs.ofbiz.org/x/Swg">Documentation</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Apache+OFBiz+User+List">User List</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Apache+OFBiz+User+Stories">User Stories</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBIZ/General+Material+for+Branding+and+Marketing">Brochures, etc</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/OFBiz+Documentation+Index">Documentation</a>
         <a href="VideosConf.html">Conference Videos</a>
-        <a href="http://docs.ofbiz.org/x/PQM">Framework Intro Videos</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Framework+Introduction+Videos+and+Diagrams">Framework Intro Videos</a>
 
 
         <h2>Demo Sites</h2>
@@ -45,26 +45,26 @@ under the License.
         <a href="http://docs.ofbiz.org/x/yg4" target="_blank">Alternative Demo Servers</a>
 
         <h2>Download OFBiz</h2>
-        <a href="http://docs.ofbiz.org/x/rwM">Getting Started (Read this first)</a>
-        <a href="http://docs.ofbiz.org/x/mAM">Copyright &amp; License</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Apache+OFBiz+Getting+Started">Getting Started (Read this first)</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Copyright+and+License">Copyright &amp; License</a>
 
-        <a href="http://docs.ofbiz.org/x/mgM">Source Access (Recommended)</a>
+        <a href="https://ofbiz.apache.org/source-repositories.html">Source Access (Recommended)</a>
         <a href="http://build.hotwaxmedia.com/">Nightly Builds (Ready to use)</a>
 
         <h2>Resources &amp; Tools</h2>
-        <a href="http://docs.ofbiz.org/x/Swg">Main Documentation Page</a>
-        <a href="http://docs.ofbiz.org/x/yAk">Mailing Lists</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/OFBiz+Documentation+Index">Main Documentation Page</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mailing+Lists">Mailing Lists</a>
 
         <a href="https://issues.apache.org/jira/browse/OFBIZ">Issue Tracker (Jira)</a>
-        <a href="http://docs.ofbiz.org/x/mgM">Source Repository (SVN)</a>
+        <a href="https://ofbiz.apache.org/source-repositories.html">Source Repository (SVN)</a>
         <a href="http://fisheye6.cenqua.com/browse/ofbiz">Source Browse and Stats (Fisheye)</a>
         <!-- no RSS feed any more... <a href="http://www.ofbiz.org/rss/svnlog.rss">SVN Commit RSS Feed</a> -->
         <a href="http://api.ofbiz.org/">API Reference (Javadoc)</a>
         <a href="http://cwiki.apache.org/confluence/display/OFBIZ">Documentation Site: Wiki</a>
 
         <a href="VideosConf.html">Conference Videos</a>
-        <a href="http://docs.ofbiz.org/x/QQg">Books</a>
-        <a href="http://docs.ofbiz.org/x/SgU">Open Source Projects, Standards</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Related+Books">Books</a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Open+Source+Projects+and+Standards">Open Source Projects, Standards</a>
 
         <!-- DEJ20080122 commenting these out, may want to totally remove eventually as they are only of interest for historical purposes
         <h2>Old Resources</h2>
@@ -99,7 +99,7 @@ under the License.
         <a href="http://www.openegovernment.org">Government</a>
 
         <h2>Service Providers</h2>
-        <a href="http://docs.ofbiz.org/x/JAM" target="_blank"><b>Complete Listing on Wiki</b></a>
+        <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Apache+OFBiz+Service+Providers" target="_blank"><b>Complete Listing on Wiki</b></a>
         <a href="http://www.hotwaxmedia.com/?atc=OFB" target="_blank"><b>Hotwax Media</b></a>
         <a href="http://www.antwebsystems.com" target="_blank"><b>Ant Websystems</b></a>
         <a href="http://www.opensourcestrategies.com/ofbiz/" target="_blank"><b>Open Source Strategies, Inc.</b></a>
