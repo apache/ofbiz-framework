@@ -378,7 +378,7 @@ under the License.
                                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
                                 <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                             </link>
-                            <link target="ListAgreementItemProductsReport" text="${uiLabelMap.CommonPrint}" style="buttontext">
+                            <link target="ListAgreementItemProductsReport" text="${uiLabelMap.CommonPrint}" style="buttontext" target-window="_BLANK">
                                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
                                 <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                             </link>
@@ -414,7 +414,7 @@ under the License.
                                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
                                 <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                             </link>
-                            <link target="ListAgreementItemFacilitiesReport" text="${uiLabelMap.CommonPrint}" style="buttontext">
+                            <link target="ListAgreementItemFacilitiesReport" text="${uiLabelMap.CommonPrint}" style="buttontext" target-window="_BLANK">
                                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
                                 <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                             </link>
@@ -577,7 +577,7 @@ under the License.
                                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
                                 <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                             </link>
-                            <link target="ListAgreementItemSupplierProductsReport" text="${uiLabelMap.CommonPrint}" style="buttontext">
+                            <link target="ListAgreementItemSupplierProductsReport" text="${uiLabelMap.CommonPrint}" style="buttontext" target-window="_BLANK">
                                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
                                 <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
                             </link>
