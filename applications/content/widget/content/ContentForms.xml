@@ -405,6 +405,7 @@ under the License.
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateContentPurpose" default-field-type="display"/>
+        <field name="sequenceNum"><text /></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurpose">
