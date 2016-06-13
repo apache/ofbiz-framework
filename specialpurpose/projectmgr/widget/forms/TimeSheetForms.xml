@@ -42,7 +42,7 @@
                     <entity-order-by field-name="sequenceNum"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>
-                <sub-hyperlink target="taskView" description="${groovy:workEffortId!=void&amp;&amp;!&quot;Totals&quot;.equals(workEffortId)?workEffortId:&quot;&quot;}">
+                <sub-hyperlink target="taskView" description="${workEffortId}">
                     <parameter param-name="workEffortId"/>
                     <parameter param-name="my"/>
                 </sub-hyperlink>
@@ -206,9 +206,7 @@
     <form name="QuickCreateTimeEntry" target="createQuickTimeEntry" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="WorkEffort">
-                <field-map field-name="workEffortId" from-field=""/>
-            </entity-one>
+            <entity-one entity-name="WorkEffort" value-field="workEffortId"/>
         </actions>
         <field name="timesheetId" map-name="currentTimesheet"><hidden/></field>
         <field name="partyId" map-name="userLogin"><hidden/></field>

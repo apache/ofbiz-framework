@@ -132,7 +132,7 @@
             <drop-down allow-empty="true" current-description="${result.projectId} ${product.productId} - ${result.projectName}${product.internalName} - ${result.sprintName} - ${groovy:result.backlogName.toString().substring(0,Math.min(result.backlogName.toString().length(),30))}[${result.backlogId}] - ${groovy:result.taskName.toString().substring(0,Math.min(result.taskName.toString().length(),30))}[${result.taskId}]">
                 <list-options key-name="taskId" list-name="taskListDropdown" description="${projectId}${productId} - ${projectName} ${productName} - ${sprintName} - ${groovy: if (description) description.substring(0,Math.min(description.length(),30))} [${custRequestId}] - ${groovy:taskName.substring(0,Math.min(taskName.length(),20))}[${taskId}]"/>
                 <entity-options entity-name="EmplLeaveType" key-field-name="leaveTypeId"/>
-                <sub-hyperlink target="taskView" description="${groovy:workEffortId!=void&amp;&amp;!&quot;Totals&quot;.equals(workEffortId)?workEffortId:&quot;&quot;}" target-window="_blank">
+                <sub-hyperlink target="taskView" description="${workEffortId}">
                     <parameter param-name="taskId" from-field="workEffortId"/>
                 </sub-hyperlink>
             </drop-down>
