@@ -578,6 +578,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="-server"/>
             <arg value="--start"/>
             <arg value="--portoffset=${portoffset}"/>
         </java>
@@ -587,6 +588,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="-server"/>
             <jvmarg value="-javaagent:${ofbiz.home.dir}/tools/security/notsoserial/notsoserial-1.0-SNAPSHOT.jar"/>
             <jvmarg value="-Dnotsoserial.whitelist=${ofbiz.home.dir}/tools/security/notsoserial/empty.txt"/>
             <jvmarg value="-Dnotsoserial.dryrun=${ofbiz.home.dir}/tools/security/notsoserial/is-deserialized.txt"/>
@@ -600,6 +602,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true" spawn="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="-server"/>
             <arg value="--start"/>
             <arg value="--portoffset=${portoffset}"/>
         </java>
@@ -609,6 +612,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true" spawn="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="-server"/>
             <jvmarg value="-javaagent:${ofbiz.home.dir}/tools/security/notsoserial/notsoserial-1.0-SNAPSHOT.jar"/>
             <jvmarg value="-Dnotsoserial.whitelist=${ofbiz.home.dir}/tools/security/notsoserial/empty.txt"/>
             <jvmarg value="-Dnotsoserial.dryrun=${ofbiz.home.dir}/tools/security/notsoserial/is-deserialized.txt"/>
@@ -622,6 +626,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="-server"/>
             <jvmarg value="-Xnoagent"/>
             <jvmarg value="-Djava.compiler=NONE"/>
             <jvmarg value="-Xdebug"/>
@@ -1220,6 +1225,7 @@ under the License.
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="-server"/>
             <arg value="--test"/>
             <arg value="component=${test.component}"/>
             <arg value="--test"/>

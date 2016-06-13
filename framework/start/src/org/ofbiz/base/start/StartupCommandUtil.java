@@ -128,7 +128,7 @@ final class StartupCommandUtil {
             .build();
     private static final Option START = Option.builder("u")
             .longOpt(StartupOption.START.getName())
-            .desc("Start OFBiz")
+            .desc("Start OFBiz (beware of possible needed JVM arguments...)")
             .hasArg(false)
             .build();
     private static final Option STATUS = Option.builder("s")
