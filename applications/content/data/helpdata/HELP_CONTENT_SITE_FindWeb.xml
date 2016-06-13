@@ -31,7 +31,7 @@
     <section>
         <title>Subsection 2 title</title>
         <para>
-        for more info see the <link xl:href="http://docs.ofbiz.org">OFBiz documentation site</link> for more info.
+        for more info see the <link xl:href="https://cwiki.apache.org/confluence/display/OFBIZ/Home">OFBiz documentation site</link> for more info.
         </para>
     </section>
 </section>
