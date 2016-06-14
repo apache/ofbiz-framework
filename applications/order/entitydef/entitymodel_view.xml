@@ -1742,4 +1742,17 @@ under the License.
         <key-map field-name="productId"/>
       </relation>
   </view-entity>
+  
+  <view-entity entity-name="WorkAndOrderItemFulfillment"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="WorkOrderItemFulfillment And WorkEffort View Entity">
+      <member-entity entity-alias="WOIF" entity-name="WorkOrderItemFulfillment"/>
+      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+      <alias-all entity-alias="WOIF"/>
+      <alias-all entity-alias="WE"/>
+      <view-link rel-entity-alias="WE" entity-alias="WOIF">
+        <key-map field-name="workEffortId"/>
+      </view-link>
+  </view-entity>
 </entitymodel>

@@ -2652,16 +2652,21 @@ public class ProductionRunServices {
             }
             try {
                 List<GenericValue> existingProductionRuns = null;
+                
                 if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
-                    existingProductionRuns = EntityQuery.use(delegator).from("WorkOrderItemFulfillment")
-                            .where("orderId", orderItemOrShipGroupAssoc.get("orderId"), 
-                                    "orderItemSeqId", orderItemOrShipGroupAssoc.get("orderItemSeqId"),
-                                    "shipGroupSeqId", shipGroupSeqId)
+                    existingProductionRuns = EntityQuery.use(delegator).from("WorkAndOrderItemFulfillment")
+                            .where(
+                                    EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderItemOrShipGroupAssoc.get("orderId")),
+                                    EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, orderItemOrShipGroupAssoc.get("orderItemSeqId")),
+                                    EntityCondition.makeCondition("shipGroupSeqId", EntityOperator.EQUALS, orderItemOrShipGroupAssoc.get("shipGroupSeqId")),
+                                    EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED"))
                                     .cache().queryList();
                 } else {
-                    existingProductionRuns = EntityQuery.use(delegator).from("WorkOrderItemFulfillment")
-                            .where("orderId", orderItemOrShipGroupAssoc.get("orderId"), 
-                                    "orderItemSeqId", orderItemOrShipGroupAssoc.get("orderItemSeqId"))
+                    existingProductionRuns = EntityQuery.use(delegator).from("WorkAndOrderItemFulfillment")
+                            .where(
+                                    EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderItemOrShipGroupAssoc.get("orderId")),
+                                    EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, orderItemOrShipGroupAssoc.get("orderItemSeqId")),
+                                    EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED"))
                                     .cache().queryList();
                 }
                 if (UtilValidate.isNotEmpty(existingProductionRuns)) {
