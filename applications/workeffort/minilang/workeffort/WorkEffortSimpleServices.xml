@@ -871,7 +871,7 @@ under the License.
             </add-error>
             <check-errors/>
         </if-empty>
-        <remove-value value-field="lookupMap"/>
+        <remove-value value-field="custRequestItemWorkEffort"/>
     </simple-method>
     <simple-method method-name="checkCustRequestItemExists" short-description="Checks to see if a CustRequestItem exists">
         <make-value entity-name="CustRequestItem" value-field="lookupMap"/>
