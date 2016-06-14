@@ -110,6 +110,7 @@ under the License.
         <alt-target use-when="quote==null" target="createQuote"/>
         <auto-fields-entity entity-name="Quote" default-field-type="edit"/>
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"><display/></field>
+        <field name="statusId" title="${uiLabelMap.FormFieldTitle_statusId}"><ignored/></field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="QuoteType" key-field-name="quoteTypeId">
@@ -127,7 +128,7 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="issueDate" title="${uiLabelMap.OrderOrderQuoteIssueDate}"></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+        <field name="statusId" use-when="quote!=null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${quote.statusId}"/>
