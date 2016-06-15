@@ -103,8 +103,8 @@ under the License.
 
 <#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle><fo:table-row <@getFoStyle "${altRowStyles}"/>></#macro>
 <#macro renderFormatItemRowClose formName></fo:table-row></#macro>
-<#macro renderFormatItemRowCellOpen fieldName style positionSpan><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle style/><#else><@getFoStyle "tabletext"/></#if>></#macro>
-<#macro renderFormatItemRowCellClose fieldName></fo:table-cell></#macro>
+<#macro renderFormatItemRowCellOpen fieldName style positionSpan><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle style/><#else><@getFoStyle "tabletext"/></#if>><fo:block></#macro>
+<#macro renderFormatItemRowCellClose fieldName></fo:block></fo:table-cell></#macro>
 <#macro renderFormatItemRowFormCellOpen style></#macro>
 <#macro renderFormatItemRowFormCellClose></#macro>
 
@@ -116,8 +116,8 @@ under the License.
 <#macro renderFormatFieldRowTitleCellOpen style><fo:table-cell font-weight="bold" text-align="right" padding="3pt"><fo:block></#macro>
 <#macro renderFormatFieldRowTitleCellClose></fo:block></fo:table-cell></#macro>
 <#macro renderFormatFieldRowSpacerCell></#macro>
-<#macro renderFormatFieldRowWidgetCellOpen positionSpan style><fo:table-cell text-align="left" padding="2pt" padding-left="5pt" <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if>></#macro>
-<#macro renderFormatFieldRowWidgetCellClose></fo:table-cell></#macro>
+<#macro renderFormatFieldRowWidgetCellOpen positionSpan style><fo:table-cell text-align="left" padding="2pt" padding-left="5pt" <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if>><fo:block></#macro>
+<#macro renderFormatFieldRowWidgetCellClose></fo:block></fo:table-cell></#macro>
 
 <#macro renderFormatEmptySpace> <@makeBlock "" " " /><!--space--></#macro>
 
