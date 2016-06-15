@@ -219,8 +219,7 @@ public class DatabaseUtil {
         List<ModelEntity> entitiesAdded = new LinkedList<ModelEntity>();
         String schemaName;
         try {
-            DatabaseMetaData dbData = this.getDatabaseMetaData(null, messages);
-            schemaName = getSchemaName(dbData);
+            schemaName = getSchemaName(messages);
         } catch (SQLException e) {
             String message = "Could not get schema name the database, aborting.";
             if (messages != null) messages.add(message);
@@ -734,15 +733,7 @@ public class DatabaseUtil {
         // then print out XML for the entities/fields
         List<ModelEntity> newEntList = new LinkedList<ModelEntity>();
 
-        boolean isCaseSensitive = false;
-        DatabaseMetaData dbData = this.getDatabaseMetaData(null, messages);
-        if (dbData != null) {
-            try {
-                isCaseSensitive = dbData.supportsMixedCaseIdentifiers();
-            } catch (SQLException e) {
-                Debug.logError(e, "Error getting db meta data about case sensitive", module);
-            }
-        }
+        boolean isCaseSensitive = getIsCaseSensitive(messages);
 
         // iterate over the table names is alphabetical order
         for (String tableName: new TreeSet<String>(colInfo.keySet())) {
@@ -755,18 +746,55 @@ public class DatabaseUtil {
         return newEntList;
     }
 
-    public DatabaseMetaData getDatabaseMetaData(Connection connection, Collection<String> messages) {
-        if (connection == null) {
+    private String getSchemaName(Collection<String> messages) throws SQLException {
+        String schemaName;
+        Connection connection = null;
+
+        try {
             connection = getConnectionLogged(messages);
+            DatabaseMetaData dbData = this.getDatabaseMetaData(connection, messages);
+            schemaName = getSchemaName(dbData);
+            return schemaName;
         }
-
-        if (connection == null) {
-            String message = "Unable to establish a connection with the database, no additional information available.";
-            Debug.logError(message, module);
-            if (messages != null) messages.add(message);
-            return null;
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    Debug.logError(e, module);
+                }
+            }
         }
+    }
 
+    private boolean getIsCaseSensitive(Collection<String> messages) {
+        Connection connection = null;
+
+        try {
+            connection = getConnectionLogged(messages);
+            boolean isCaseSensitive = false;
+            DatabaseMetaData dbData = this.getDatabaseMetaData(connection, messages);
+            if (dbData != null) {
+                try {
+                    isCaseSensitive = dbData.supportsMixedCaseIdentifiers();
+                } catch (SQLException e) {
+                    Debug.logError(e, "Error getting db meta data about case sensitive", module);
+                }
+            }
+            return isCaseSensitive;
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    Debug.logError(e, module);
+                }
+            }
+        }
+    }
+
+    public DatabaseMetaData getDatabaseMetaData(Connection connection, Collection<String> messages) {
         DatabaseMetaData dbData = null;
         try {
             dbData = connection.getMetaData();
