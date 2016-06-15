@@ -18,20 +18,20 @@
     under the License.
 -->
 <entity-engine-xml>
-    <SystemProperty systemResourceId="general" systemPropertyId="ORGANIZATION_PARTY" description="the default organizationPartyId for used in dropdowns and reports"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="VISUAL_THEME" description="ID of the VisualTheme to use if there is no VISUAL_THEME UserPreference record for the current user (ie default value)"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="currency.uom.id.default" description="The default currency to use for prices, etc"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="country.geo.id.default" description="the default country for drop downs"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="partner.trackingCodeId.default" description="the default trackingCodeId to use for Partner Managed Tracking Codes"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="defaultFromEmailAddress" description="general default 'fromEmailAddress' can be overridden in: EmailTemplateSetting"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="mail.notifications.enabled" description="mail notifications enabled (Y|N)"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.relay.host" description="the default mail server to use"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.auth.user" description="SMTP Auth username setting"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.auth.password" description="SMTP Auth password setting"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.port" description="Gmail smtp port can be either 465 or 587"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.starttls.enable" description="Gmail requires StartTLS"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.socketFactory.port" description="Port needs to be the same as mail.smtp.port"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.socketFactory.class" description="JSSE socket factory"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.socketFactory.fallback" description="Fallback [true|false] determines whether you will allow a non secure connection if you are unable to get a secure one"/>
-    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.sendpartial" description="setting this property to false will abort sending the message"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="ORGANIZATION_PARTY" systemPropertyValue="Company" description="the default organizationPartyId for used in dropdowns and reports"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="VISUAL_THEME" systemPropertyValue="FLAT_GREY" description="ID of the VisualTheme to use if there is no VISUAL_THEME UserPreference record for the current user (ie default value)"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="currency.uom.id.default" systemPropertyValue="USD" description="The default currency to use for prices, etc"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="country.geo.id.default" systemPropertyValue="USA" description="the default country for drop downs"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="partner.trackingCodeId.default" systemPropertyValue="" description="the default trackingCodeId to use for Partner Managed Tracking Codes"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="defaultFromEmailAddress" systemPropertyValue="ofbiztest@example.com" description="general default 'fromEmailAddress' can be overridden in: EmailTemplateSetting"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="mail.notifications.enabled" systemPropertyValue="N" description="mail notifications enabled (Y|N)"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.relay.host" systemPropertyValue="" description="the default mail server to use"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.auth.user" systemPropertyValue="" description="SMTP Auth username setting"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.auth.password" systemPropertyValue="" description="SMTP Auth password setting"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.port" systemPropertyValue="465" description="Gmail smtp port can be either 465 or 587"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.starttls.enable" systemPropertyValue="true" description="Gmail requires StartTLS"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.socketFactory.port" systemPropertyValue="465" description="Port needs to be the same as mail.smtp.port"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.socketFactory.class" systemPropertyValue="javax.net.ssl.SSLSocketFactory" description="JSSE socket factory"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.socketFactory.fallback" systemPropertyValue="false" description="Fallback [true|false] determines whether you will allow a non secure connection if you are unable to get a secure one"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.sendpartial" systemPropertyValue="true" description="setting this property to false will abort sending the message"/>
 </entity-engine-xml>
