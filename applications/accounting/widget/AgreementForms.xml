@@ -256,7 +256,7 @@ under the License.
     <form name="AddAgreementTerm" type="single" target="createAgreementTerm" title="" default-map-name="agreementTerm"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="AgreementTerm" default-field-type="edit"/>
-        <field name="agreementTermId" title="${uiLabelMap.AccountingAgreementTermId}"><hidden/></field>
+        <field name="agreementTermId" title="${uiLabelMap.AccountingAgreementTermId}"><ignored/></field>
         <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="TermType">
