@@ -29,6 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.transaction.TransactionManager;
 
 import org.apache.commons.dbcp2.DriverConnectionFactory;
+import org.apache.commons.dbcp2.PoolableConnection;
 import org.apache.commons.dbcp2.PoolableConnectionFactory;
 import org.apache.commons.dbcp2.managed.LocalXAConnectionFactory;
 import org.apache.commons.dbcp2.managed.PoolableManagedConnectionFactory;
@@ -53,6 +54,8 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 public class DBCPConnectionFactory implements ConnectionFactory {
 
     public static final String module = DBCPConnectionFactory.class.getName();
+    // ManagedDataSource is useful to debug the usage of connections in the pool (must be verbose)
+    // In case you don't want to be disturbed in the log (focusing on something else), it's still easy to comment out the line from DebugManagedDataSource
     protected static final ConcurrentHashMap<String, DebugManagedDataSource> dsCache = new ConcurrentHashMap<String, DebugManagedDataSource>();
 
     public Connection getConnection(GenericHelperInfo helperInfo, JdbcElement abstractJdbc) throws SQLException, GenericEntityException {
@@ -140,11 +143,10 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         poolConfig.setTestOnReturn(jdbcElement.getTestOnReturn());
         poolConfig.setTestWhileIdle(jdbcElement.getTestWhileIdle());
 
-        GenericObjectPool pool = new GenericObjectPool(factory, poolConfig);
+        GenericObjectPool<PoolableConnection> pool = new GenericObjectPool<PoolableConnection>(factory, poolConfig);
         factory.setPool(pool);
 
         mds = new DebugManagedDataSource(pool, xacf.getTransactionRegistry());
-        //mds = new DebugManagedDataSource(pool, xacf.getTransactionRegistry()); // Useful to debug the usage of connections in the pool
         mds.setAccessToUnderlyingConnectionAllowed(true);
 
         // cache the pool
@@ -156,7 +158,6 @@ public class DBCPConnectionFactory implements ConnectionFactory {
 
     public void closeAll() {
         // no methods on the pool to shutdown; so just clearing for GC
-        // Hmm... then how do we close the JDBC connections?
         dsCache.clear();
     }
 
