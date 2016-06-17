@@ -364,13 +364,13 @@ creditTotal = 0;]]></method>
                 </list-property>
             </structure>
             <property name="dataSource">OFBiz</property>
-            <method name="open"><![CDATA[acctgTransAndEntries = new LinkedkList();
+            <method name="open"><![CDATA[acctgTransAndEntries = new LinkedList();
 
 // get acctg trans entry of invoice
-invoiceAcctgTransAndEntries = new LinkedkList();
+invoiceAcctgTransAndEntries = new LinkedList();
 var orderBy = UtilMisc.toList("acctgTransId", "acctgTransEntrySeqId");
 try {
-    var conds = new LinkedkList();
+    var conds = new LinkedList();
     conds.add(EntityCondition.makeCondition("invoiceId", EntityOperator.EQUALS, invoiceId));
     conds.add(EntityCondition.makeCondition("paymentId", EntityOperator.EQUALS, null));
     invoiceAcctgTransAndEntries = delegator.findList("AcctgTransAndEntries", EntityCondition.makeCondition(conds), null, orderBy, null, false);

@@ -179,7 +179,7 @@ if(productPromoCodes.size()>0){
         amount = orderInfo.get("grandTotal");
         totalOrdersAmount = totalOrdersAmount + amount;
         //Shipping Total
-        cond =  new LinkedkList();
+        cond =  new LinkedList();
         cond.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
         cond.add(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "SHIPPING_CHARGES"));
         orderAdjustments = delegator.findList("OrderAdjustment", EntityCondition.makeCondition(cond, EntityOperator.AND), null, null, null, false);
