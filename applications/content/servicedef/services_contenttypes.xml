@@ -67,8 +67,9 @@ under the License.
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="attrName" optional="false"/>
     </service>
-    <service name="removeContentTypeAttr" engine="entity-auto" auth="true" invoke="delete">
+    <service name="removeContentTypeAttr" engine="entity-auto" default-entity-name="ContentTypeAttr" auth="true" invoke="delete">
         <description>Remove ContentTypeAttr</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes entity-name="ContentTypeAttr" include="pk" mode="IN" optional="false"/>
