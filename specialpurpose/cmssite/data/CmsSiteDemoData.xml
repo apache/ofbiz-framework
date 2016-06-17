@@ -101,8 +101,10 @@ under the License.
     <Content contentId="CMSS_DEMO_HOME" contentTypeId="DOCUMENT" decoratorContentId="CMSS_DEC"
         contentName="CMS Site Demo Home Page" dataResourceId="CMSS_DEMO_HOME"/>
     <ContentPurpose contentId="CMSS_DEMO_HOME" contentPurposeTypeId="SECTION"/>
-    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_HOME" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="demoHome"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_HOME" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
     <WebSiteContent webSiteId="CmsSite" contentId="CMSS_DEMO_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
+    <!-- WebSitePathAlias will be used for serving the page -->
+    <WebSitePathAlias webSiteId="CmsSite" pathAlias="demoHome" contentId="CMSS_DEMO_HOME" fromDate="2016-06-09 13:37:30.43"/>
 
     <!-- yet another demo page -->
     <DataResource dataResourceId="CMSS_DEMO_PAGE1" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
@@ -114,7 +116,10 @@ under the License.
     </ElectronicText>
     <Content contentId="CMSS_DEMO_PAGE1" contentTypeId="DOCUMENT" decoratorContentId="CMSS_DEC" contentName="CMS Site Demo Page 1" dataResourceId="CMSS_DEMO_PAGE1"/>
     <ContentPurpose contentId="CMSS_DEMO_PAGE1" contentPurposeTypeId="SECTION"/>
-    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_PAGE1" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="demoPage1"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_PAGE1" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    <WebSiteContent webSiteId="CmsSite" contentId="CMSS_DEMO_PAGE1" webSiteContentTypeId="WEB_PAGE" fromDate="2001-01-01 00:00:00"/>
+    <WebSitePathAlias webSiteId="CmsSite" pathAlias="demoPage1" contentId="CMSS_DEMO_PAGE1" fromDate="2016-06-09 13:37:30.43"/>
+    
     <DataResource dataResourceId="CMSS_DEMO_PAGE1_1" dataResourceTypeId="SHORT_TEXT" objectInfo="Sub-content 1"/>
     <Content contentId="CMSS_DEMO_PAGE1_1" contentTypeId="DOCUMENT" contentName="CMS Site Demo Page 1_1" dataResourceId="CMSS_DEMO_PAGE1_1"/>
     <ContentPurpose contentId="CMSS_DEMO_PAGE1_1" contentPurposeTypeId="SECTION"/>
