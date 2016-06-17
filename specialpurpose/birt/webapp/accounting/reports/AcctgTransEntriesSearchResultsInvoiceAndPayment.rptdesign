@@ -524,7 +524,7 @@ var thruDate = params["thruDate"].value;
 acctgTransAndEntries = null;
 
 try {
-    var conds = new LinkedkList();
+    var conds = new LinkedList();
     if (glAccountId) conds.add(EntityCondition.makeCondition("glAccountId", EntityOperator.EQUALS, glAccountId));
     if (acctgTransTypeId) conds.add(EntityCondition.makeCondition("acctgTransTypeId", EntityOperator.EQUALS, acctgTransTypeId));
     if (glFiscalTypeId) conds.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, glFiscalTypeId));

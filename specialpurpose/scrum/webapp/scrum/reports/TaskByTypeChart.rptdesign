@@ -104,7 +104,7 @@ testData = 0;
 try{
     var workEffortErrorList = delegator.findByAnd("WorkEffortAndProduct", UtilMisc.toMap("productId", productId,"workEffortTypeId","SCRUM_PROJECT"), null, false);
      // for implementation task
-    var unplannedImpleConds = new LinkedkList();
+    var unplannedImpleConds = new LinkedList();
     unplannedImpleConds.add(EntityCondition.makeCondition("productId",EntityOperator.EQUALS, productId));
     unplannedImpleConds.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_UNPLAN_BACKLOG"));
     unplannedImpleConds.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_TASK_IMPL"));
@@ -112,7 +112,7 @@ try{
     if (workEffortErrorList !=null) {
         for(j = 0; j < workEffortErrorList.size(); j++){
             var projectId = workEffortErrorList.get(j).getString("workEffortId");
-            var plannedImpleConds = new LinkedkList();
+            var plannedImpleConds = new LinkedList();
                 plannedImpleConds.add(EntityCondition.makeCondition("projectId",EntityOperator.EQUALS, projectId));
                 plannedImpleConds.add(EntityCondition.makeCondition("sprintTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"));
                 plannedImpleConds.add(EntityCondition.makeCondition("taskTypeId", EntityOperator.EQUALS, "SCRUM_TASK_IMPL"));
@@ -133,7 +133,7 @@ try{
     }
     
     // for error task
-    var unplannedErrorConds = new LinkedkList();
+    var unplannedErrorConds = new LinkedList();
     unplannedErrorConds.add(EntityCondition.makeCondition("productId",EntityOperator.EQUALS, productId));
     unplannedErrorConds.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_UNPLAN_BACKLOG"));
     unplannedErrorConds.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_TASK_ERROR"));
@@ -141,7 +141,7 @@ try{
     if (workEffortErrorList !=null) {
         for(i = 0; i < workEffortErrorList.size(); i++){
             var projectId = workEffortErrorList.get(i).getString("workEffortId");
-            var plannedErrorConds = new LinkedkList();
+            var plannedErrorConds = new LinkedList();
                 plannedErrorConds.add(EntityCondition.makeCondition("projectId",EntityOperator.EQUALS, projectId));
                 plannedErrorConds.add(EntityCondition.makeCondition("sprintTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"));
                 plannedErrorConds.add(EntityCondition.makeCondition("taskTypeId", EntityOperator.EQUALS, "SCRUM_TASK_ERROR"));
@@ -163,7 +163,7 @@ try{
     }
     
     // for installation task
-    var unplannedInstallConds = new LinkedkList();
+    var unplannedInstallConds = new LinkedList();
     unplannedInstallConds.add(EntityCondition.makeCondition("productId",EntityOperator.EQUALS, productId));
     unplannedInstallConds.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_UNPLAN_BACKLOG"));
     unplannedInstallConds.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_TASK_INST"));
@@ -171,7 +171,7 @@ try{
     if (workEffortErrorList !=null) {
         for(i = 0; i < workEffortErrorList.size(); i++){
             var projectId = workEffortErrorList.get(i).getString("workEffortId");
-            var plannedInstallConds = new LinkedkList();
+            var plannedInstallConds = new LinkedList();
                 plannedInstallConds.add(EntityCondition.makeCondition("projectId",EntityOperator.EQUALS, projectId));
                 plannedInstallConds.add(EntityCondition.makeCondition("sprintTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"));
                 plannedInstallConds.add(EntityCondition.makeCondition("taskTypeId", EntityOperator.EQUALS, "SCRUM_TASK_INST"));
@@ -191,7 +191,7 @@ try{
     }
     
     // for test task
-    var unplannedTestConds = new LinkedkList();
+    var unplannedTestConds = new LinkedList();
     unplannedTestConds.add(EntityCondition.makeCondition("productId",EntityOperator.EQUALS, productId));
     unplannedTestConds.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_UNPLAN_BACKLOG"));
     unplannedTestConds.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_TASK_TEST"));
@@ -199,7 +199,7 @@ try{
     if (workEffortErrorList !=null) {
         for(j = 0; j < workEffortErrorList.size(); j++){
             var projectId = workEffortErrorList.get(j).getString("workEffortId");
-            var plannedTestConds = new LinkedkList();
+            var plannedTestConds = new LinkedList();
                 plannedTestConds.add(EntityCondition.makeCondition("projectId",EntityOperator.EQUALS, projectId));
                 plannedTestConds.add(EntityCondition.makeCondition("sprintTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"));
                 plannedTestConds.add(EntityCondition.makeCondition("taskTypeId", EntityOperator.EQUALS, "SCRUM_TASK_TEST"));

@@ -50,7 +50,7 @@ if (!logoImageUrl) {
 
 // prepare parties list
 partyIds = org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, "GROUP_ROLLUP");
-parties = new LinkedkList();
+parties = new LinkedList();
 try {
     var 
     parties = delegator.findList("Party", EntityCondition.makeCondition("partyId", EntityOperator.IN, partyIds), null, null, null, false);
@@ -69,12 +69,12 @@ GroovyUtil.runScriptAtLocation("component://accounting/groovyScripts/reports/Tri
 partyNameList = context.partyNameList;
 
 // get grand totoal posted
-var condList = new LinkedkList();
+var condList = new LinkedList();
 condList.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 condList.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, customTimePeriodId));
 var cond = EntityCondition.makeCondition(condList);
 var fieldsToSelect = UtilMisc.toSet("totalPostedDebits", "totalPostedCredits");
-grandTotalPosted = new LinkedkList();
+grandTotalPosted = new LinkedList();
 try {
     grandTotalPosted = delegator.findList("GlAccountAndHistoryTotals", cond, fieldsToSelect, null, null, false);
 } catch (e) {
@@ -214,13 +214,13 @@ grandTotalPostedRecord = grandTotalPosted.get(0);]]></method>
             </structure>
             <property name="dataSource">OFBiz</property>
             <method name="open"><![CDATA[// get Gl account history totals
-var condList = new LinkedkList();
+var condList = new LinkedList();
 condList.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 condList.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, customTimePeriodId));
 var cond = EntityCondition.makeCondition(condList);
 var fieldsToSelect = UtilMisc.toSet("glAccountId", "accountCode", "accountName", "totalPostedDebits", "totalPostedCredits", "totalEndingBalance");
 var orderBy = UtilMisc.toList("accountCode");
-glAccountAndHistories = new LinkedkList();
+glAccountAndHistories = new LinkedList();
 try {
     glAccountAndHistories = delegator.findList("GlAccountAndHistoryTotals", cond, fieldsToSelect, orderBy, null, false);
 } catch (e) {
