@@ -17,22 +17,26 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ***********************************************/
-body {background:transparent url(/images/ofbiz_logo.gif) no-repeat scroll left top;
+body {
+    background: transparent url(/images/ofbiz_logo.gif) no-repeat scroll left top;
     color: #000;
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size:.75em;
-    line-height:1.5em;padding:50px 0 0;
+    font-size: .75em;
+    line-height: 1.5em;
+    padding: 50px 0 0;
 }
 
 a:hover {
-    color:#111111;
-    text-decoration:underline;
+    color: #111111;
+    text-decoration: underline;
 }
+
 a:visited {
-    color:#000;
-    text-decoration:underline;
+    color: #000;
+    text-decoration: underline;
 }
+
 a {
-    color:#555;
-    text-decoration:underline;
+    color: #555;
+    text-decoration: underline;
 }
