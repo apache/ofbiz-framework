@@ -178,8 +178,7 @@ under the License.
         </field>
         <field name="toPartyId" title="${uiLabelMap.AccountingToPartyId}">
             <check all-checked="false">
-                <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName} ${firstName} ${lastName} [${partyId}]" key-field-name="partyId">
-                </entity-options>
+                <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName} ${firstName} ${lastName} [${partyId}]" key-field-name="partyId"/>
             </check>
         </field>
         <field name="orderStatusId">
