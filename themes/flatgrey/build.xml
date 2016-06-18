@@ -32,8 +32,8 @@ under the License.
     <target name="clean">
         <delete file="webapp/flatgrey/js/application-min.js" />
         <delete file="webapp/flatgrey/javascript-min.css" />
-        <delete file="webapp/flatgrey/maincss-min.css" />
-        <delete file="webapp/flatgrey/mainrtl-min.css" />
+        <delete file="webapp/flatgrey/style-min.css" />
+        <delete file="webapp/flatgrey/stylertl-min.css" />
     </target>
 
     <target name="build" depends="">
@@ -41,8 +41,8 @@ under the License.
         <!-- echo message="[build] ========== Building Flat Grey Theme ==========" />
         <yuicompressor inFile="webapp/flatgrey/js/application.js" outFile="webapp/flatgrey/js/application-min.js" />
         <yuicompressor inFile="webapp/flatgrey/javascript.css" outFile="webapp/flatgrey/javascript-min.css" />
-        <yuicompressor inFile="webapp/flatgrey/maincss.css" outFile="webapp/flatgrey/maincss-min.css" />
-        <yuicompressor inFile="webapp/flatgrey/mainrtl.css" outFile="webapp/flatgrey/mainrtl-min.css" />
+        <yuicompressor inFile="webapp/flatgrey/style.css" outFile="webapp/flatgrey/style-min.css" />
+        <yuicompressor inFile="webapp/flatgrey/stylertl.css" outFile="webapp/flatgrey/stylertl-min.css" />
         <echo message="[build] ========== Done Building Flat Grey Theme ==========" /-->
     </target>
 
