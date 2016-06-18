@@ -50,7 +50,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
                 <set field="headerItem" value="export"/>
-                <script location="component://product/groovyScripts/catalog/find/Keywordsearch.groovy"/>
+                <script location="component://product/groovyScripts/catalog/find/KeywordSearch.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
