@@ -177,19 +177,18 @@ under the License.
             </drop-down>
         </field>
         <field name="toPartyId" title="${uiLabelMap.AccountingToPartyId}">
-            <drop-down allow-empty="false">
-                <entity-options entity-name="PartyRoleAndPartyDetail" description="${groupName} ${firstName} ${lastName} [${partyId}]" key-field-name="partyId">
-                    <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+            <check allow-checked="false">
+                <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName} ${firstName} ${lastName} [${partyId}]" key-field-name="partyId">
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="orderStatusId">
-            <drop-down allow-empty="false">
+            <check allow-checked="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="fromOrderDate" title="${uiLabelMap.CommonFromDate}"><date-time type="timestamp"/></field>
         <field name="thruOrderDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
