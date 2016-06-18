@@ -18,21 +18,40 @@
  */
 
 /* Make sure the layout is centered in IE5 */
-body { text-align: center; }
-.container { text-align: left; }
+body {
+    text-align: center;
+}
+
+.container {
+    text-align: left;
+}
 
 /* Fixes IE margin bugs */
-* html .column { overflow-x: hidden; }
+* html .column {
+    overflow-x: hidden;
+}
 
 /* Fixes incorrect styling of legend in IE6. */
-* html legend { margin:-18px -8px 16px 0; padding:0; }
+* html legend {
+    margin: -18px -8px 16px 0;
+    padding: 0;
+}
 
 /* Fixes incorrect placement of ol numbers in IE6/7. */
-ol { margin-left:2em; }
+ol {
+    margin-left: 2em;
+}
 
 /* Fixes wrong line-height on sup/sub in IE. */
-sup { vertical-align: text-top; }
-sub { vertical-align: text-bottom; }
+sup {
+    vertical-align: text-top;
+}
+
+sub {
+    vertical-align: text-bottom;
+}
 
 /* Fixes IE7 missing wrapping of code elements. */
-html>body p code { *white-space: normal; } 
+html > body p code {
+    *white-space: normal;
+}

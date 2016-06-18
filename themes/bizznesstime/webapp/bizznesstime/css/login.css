@@ -29,11 +29,11 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
-    border:0; 
-    margin:0; 
-    outline:0; 
-    padding:0; 
-    background:transparent; 
+    border: 0;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    background: transparent;
     vertical-align: baseline;
 }
 
@@ -45,7 +45,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-    content:''; 
+    content: '';
     content: none;
 }
 
@@ -72,94 +72,176 @@ table {
 General Styles
 ***********************************************/
 body {
-    background: url(../images/page.png) top left repeat-x #f3f4f4; 
-    color: #000; 
+    background: url(../images/page.png) top left repeat-x #f3f4f4;
+    color: #000;
     font: .75em/1.5em Verdana, Arial, Helvetica, sans-serif;
 }
-html>body {font-size: 12px;}
 
-img {display: inline-block; vertical-align: bottom;}
+html > body {
+    font-size: 12px;
+}
+
+img {
+    display: inline-block;
+    vertical-align: bottom;
+}
 
 a {
-    background:#E7EFF5;
-    text-decoration: none; 
-    color:#699BC9;
-    height:18px;
-    display:block;
-    line-height:10px;
-    padding:5px 0 0px 0;
-    font-size:11px;
+    background: #E7EFF5;
+    text-decoration: none;
+    color: #699BC9;
+    height: 18px;
+    display: block;
+    line-height: 10px;
+    padding: 5px 0 0px 0;
+    font-size: 11px;
 }
+
 a:hover {
     color: #486a8a;
     text-decoration: none;
 }
 
-
 /***********************************************
 Tables
 ***********************************************/
-table {border-collapse: collapse; border-spacing: 0; margin: 0; width:100%}
-caption {text-align: left;}
-th, td {padding: .10em .5em;}
-td #RegisterPerson_salutation,#RegisterPerson_middleName {
-    margin-right:12%;
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 0;
+    width: 100%
 }
-tbody td, tbody th {}
-tfoot {font-style: italic;}
+
+caption {
+    text-align: left;
+}
+
+th, td {
+    padding: .10em .5em;
+}
+
+td #RegisterPerson_salutation, #RegisterPerson_middleName {
+    margin-right: 12%;
+}
+
+tbody td, tbody th {
+}
+
+tfoot {
+    font-style: italic;
+}
 
 /***********************************************
 Forms
 ***********************************************/
-fieldset {clear: both;}
-legend {padding: 0 0 1.286em; font-size: 1.167em; font-weight: 700;}
-fieldset fieldset legend {padding: 0 0 1.5em; font-size: 1em;}
-* html legend {margin-left: -7px;}
-*+html legend {margin-left: -7px;}
+fieldset {
+    clear: both;
+}
 
-form .field, form .buttons {clear: both; margin: 0 0 1.5em;}
-form .field label {display: block;}
-form ul.fields li {list-style-type: none; margin: 0;}
-form ul.inline li, form ul.inline label {display: inline;}
-form ul.inline li {padding: 0 .75em 0 0;}
+legend {
+    padding: 0 0 1.286em;
+    font-size: 1.167em;
+    font-weight: 700;
+}
 
-input.radio, input.checkbox {vertical-align: top;}
-label, button, input.submit, input.image {cursor: pointer;}
-* html input.radio, * html input.checkbox {vertical-align: middle;}
-*+html input.radio, *+html input.checkbox {vertical-align: middle;}
+fieldset fieldset legend {
+    padding: 0 0 1.5em;
+    font-size: 1em;
+}
 
-textarea {overflow: auto;}
+* html legend {
+    margin-left: -7px;
+}
 
-* html button {margin: 0 .34em 0 0;}
-*+html button {margin: 0 .34em 0 0;}
+* + html legend {
+    margin-left: -7px;
+}
 
-form.horizontal .field {padding-left: 150px;}
-form.horizontal .field label {display: inline; float: left; width: 140px; margin-left: -150px;}
+form .field, form .buttons {
+    clear: both;
+    margin: 0 0 1.5em;
+}
 
-input[type="text"],input[type="password"] {
+form .field label {
+    display: block;
+}
+
+form ul.fields li {
+    list-style-type: none;
+    margin: 0;
+}
+
+form ul.inline li, form ul.inline label {
+    display: inline;
+}
+
+form ul.inline li {
+    padding: 0 .75em 0 0;
+}
+
+input.radio, input.checkbox {
+    vertical-align: top;
+}
+
+label, button, input.submit, input.image {
+    cursor: pointer;
+}
+
+* html input.radio, * html input.checkbox {
+    vertical-align: middle;
+}
+
+* + html input.radio, * + html input.checkbox {
+    vertical-align: middle;
+}
+
+textarea {
+    overflow: auto;
+}
+
+* html button {
+    margin: 0 .34em 0 0;
+}
+
+* + html button {
+    margin: 0 .34em 0 0;
+}
+
+form.horizontal .field {
+    padding-left: 150px;
+}
+
+form.horizontal .field label {
+    display: inline;
+    float: left;
+    width: 140px;
+    margin-left: -150px;
+}
+
+input[type="text"], input[type="password"] {
     border: #ddd solid 2px;
     font-size: 1.1em;
-    padding:2px 4px;
-    width:250px;
+    padding: 2px 4px;
+    width: 250px;
 }
 
 input[type="password"] {
     border: #ddd solid 2px;
     font-size: 1.1em;
-    padding:2px 4px;
-    width:250px;
-    
+    padding: 2px 4px;
+    width: 250px;
+
 }
 
-input[type="submit"],input[type="button"],input[type="reset"] {
+input[type="submit"], input[type="button"], input[type="reset"] {
     background-color: #ffffff;
     border: #ddd solid 2px;
     color: #444;
-    font-weight:bold;
-    line-height:1.8em;
-    margin:5px 5px 2px 5px;
-    padding:2px 4px;
-    text-transform:uppercase;
+    font-weight: bold;
+    line-height: 1.8em;
+    margin: 5px 5px 2px 5px;
+    padding: 2px 4px;
+    text-transform: uppercase;
 }
 
 input[type="submit"]:hover {
@@ -169,26 +251,35 @@ input[type="submit"]:hover {
 }
 
 .label {
-    font-weight:bold;
-    margin:0 0 0 0;
-    text-align:right;
-    white-space:nowrap;
-    width:40%;
+    font-weight: bold;
+    margin: 0 0 0 0;
+    text-align: right;
+    white-space: nowrap;
+    width: 40%;
 }
 
+input:focus, textarea:focus {
+    border: 2px solid #6E2723;
+}
 
-input:focus,textarea:focus { border: 2px solid #6E2723; }
-input.focused, textarea.focused { border: 2px solid #6E2723; }
+input.focused, textarea.focused {
+    border: 2px solid #6E2723;
+}
 
 /***********************************************
 Layout
 ***********************************************/
-html, body, #wrap {height: 100%;}
+html, body, #wrap {
+    height: 100%;
+}
 
-body > #wrap {height: auto; min-height: 100%;}
+body > #wrap {
+    height: auto;
+    min-height: 100%;
+}
 
 body {
-    text-align:center;
+    text-align: center;
 
 }
 
@@ -197,42 +288,40 @@ body {
 }
 
 #header {
-    display:none;
+    display: none;
 }
 
-#app-navigation{
-    display:none;
+#app-navigation {
+    display: none;
 }
-
-
 
 #column-container {
-    width:700px;
-    margin:0 auto;
-    padding:70px 0 0 0;
-    background:url(../images/login-logo.gif) center  5px no-repeat;
+    width: 700px;
+    margin: 0 auto;
+    padding: 70px 0 0 0;
+    background: url(../images/login-logo.gif) center 5px no-repeat;
 }
 
 #content-main-section {
-    background:#fff;
-    border:5px solid #f1f1f1;
-    padding:0px;
+    background: #fff;
+    border: 5px solid #f1f1f1;
+    padding: 0px;
 }
 
 .screenlet-title-bar {
-    background:#094460;
-    color:#fff;
-    padding:10px 0 10px 0;
-    text-transform:uppercase;
+    background: #094460;
+    color: #fff;
+    padding: 10px 0 10px 0;
+    text-transform: uppercase;
 }
 
 .screenlet-body {
-    text-align:center;
-    padding:2px;
+    text-align: center;
+    padding: 2px;
 }
 
 #footer {
-    display:none;
+    display: none;
 }
 
 /***********************************************
@@ -246,10 +335,21 @@ Clear Fix
     visibility: hidden;
 }
 
-.clearfix {display: inline-block;}
-html[xmlns] .clearfix { display: block; }
-* html .clearfix { height: 1%;}
-.clearfix {display: block;}
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
 
 /*NOTE .clear deprecated, clear floats automatically using .clearfix instead of using extra div */
 .clear {
@@ -279,43 +379,44 @@ html[xmlns] .clearfix { display: block; }
 .humanMsg a {
     display: none;
 }
+
 .eventMessage {
-    background:#e5f7e3 url(../images/check.gif) no-repeat;
-    background-position:7px 7px;
-    border:4px solid #c5e1c8;
-    font-weight:700;
-    color:#005e20;
-    padding:20px 8px 20px 28px;
-    text-transform:uppercase;
+    background: #e5f7e3 url(../images/check.gif) no-repeat;
+    background-position: 7px 7px;
+    border: 4px solid #c5e1c8;
+    font-weight: 700;
+    color: #005e20;
+    padding: 20px 8px 20px 28px;
+    text-transform: uppercase;
 }
 
 .errorMessage {
-    background:#ffebeb url(../images/x.gif) no-repeat;
-    background-position:7px 7px;
-    border:4px solid #f5c1c2;
-    font-weight:700;
-    color:#9e0b0f;
-    padding:8px 8px 8px 28px;
-    text-transform:uppercase;
+    background: #ffebeb url(../images/x.gif) no-repeat;
+    background-position: 7px 7px;
+    border: 4px solid #f5c1c2;
+    font-weight: 700;
+    color: #9e0b0f;
+    padding: 8px 8px 8px 28px;
+    text-transform: uppercase;
 }
 
 .content-messages {
-    width:400px;
-    position:absolute;
-    top:40%;
-    left:50%;
-    margin-left:-200px;
-    z-index:9999;
+    width: 400px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-left: -200px;
+    z-index: 9999;
 }
 
-#close{
-    position:absolute;
-    top:-5px;
-    right:-5px;
-    cursor:pointer;
+#close {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    cursor: pointer;
 }
 
-.modal-overlay{
+.modal-overlay {
     top: 0;
     left: 0;
     position: fixed;
@@ -323,12 +424,13 @@ html[xmlns] .clearfix { display: block; }
     width: 100%;
     z-index: 1000000;
     background: #000;
-    filter:alpha(opacity=70);
-    -moz-opacity:0.7;
+    filter: alpha(opacity=70);
+    -moz-opacity: 0.7;
     -khtml-opacity: 0.7;
     opacity: 0.7;
 }
-.modal-window{
+
+.modal-window {
     top: 20px;
     left: 25%;
     position: absolute;
@@ -338,7 +440,8 @@ html[xmlns] .clearfix { display: block; }
     border: solid 5px #ddd;
     padding: 5px;
 }
-span #modal-close-btn{
+
+span #modal-close-btn {
     color: red;
     position: absolute;
     right: 10px;

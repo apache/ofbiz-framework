@@ -17,33 +17,36 @@
  * under the License.
  */
 body {
-    background:none;
+    background: none;
 }
 
 .left-border {
-    float:left;width:30%;
+    float: left;
+    width: 30%;
 }
 
 .contentarea {
     margin: 0 0 0 0.5em;
-    padding:0 0 0 0.5em;
+    padding: 0 0 0 0.5em;
 }
+
 .leftonly {
-    float:none;
-    min-height:25em;
+    float: none;
+    min-height: 25em;
 }
 
 ol.numbers {
-    list-style: decimal; 
-    padding-left: 20px;
-}
-ul.dots {
-    list-style: circle; 
+    list-style: decimal;
     padding-left: 20px;
 }
 
-span.caution{
-    color:yellow;
+ul.dots {
+    list-style: circle;
+    padding-left: 20px;
+}
+
+span.caution {
+    color: yellow;
 }
 
 span.important {
@@ -51,13 +54,13 @@ span.important {
 }
 
 span.note {
-    color:#adff2f;
+    color: #adff2f;
 }
 
 span.tip {
-    color:blue;
+    color: blue;
 }
 
 span.warning {
-    color:red;
+    color: red;
 }

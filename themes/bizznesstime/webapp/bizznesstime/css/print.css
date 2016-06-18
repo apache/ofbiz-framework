@@ -18,83 +18,83 @@
  */
 
 body {
-    line-height:1.5;
-    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
-    color:#000;
-    background:none;
-    font-size:10pt;
+    line-height: 1.5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #000;
+    background: none;
+    font-size: 10pt;
 }
 
 .container {
-    background:none;
+    background: none;
 }
 
 hr {
-    background:#ccc;
-    color:#ccc;
-    width:100%;
-    height:2px;
-    margin:2em 0;
-    padding:0;
-    border:none;
+    background: #ccc;
+    color: #ccc;
+    width: 100%;
+    height: 2px;
+    margin: 2em 0;
+    padding: 0;
+    border: none;
 }
 
 hr.space {
-    background:#fff;
-    color:#fff;
+    background: #fff;
+    color: #fff;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family:"Helvetica Neue", Arial, "Lucida Grande", sans-serif;
+    font-family: "Helvetica Neue", Arial, "Lucida Grande", sans-serif;
 }
 
 code {
-    font:.9em "Courier New", Monaco, Courier, monospace;
+    font: .9em "Courier New", Monaco, Courier, monospace;
 }
 
 img {
-    float:left;
-    margin:1.5em 1.5em 1.5em 0;
+    float: left;
+    margin: 1.5em 1.5em 1.5em 0;
 }
 
 a img {
-    border:none;
+    border: none;
 }
 
 p img.top {
-    margin-top:0;
+    margin-top: 0;
 }
 
 blockquote {
-    margin:1.5em;
-    padding:1em;
-    font-style:italic;
-    font-size:.9em;
+    margin: 1.5em;
+    padding: 1em;
+    font-style: italic;
+    font-size: .9em;
 }
 
 .small {
-    font-size:.9em;
+    font-size: .9em;
 }
 
 .large {
-    font-size:1.1em;
+    font-size: 1.1em;
 }
 
 .quiet {
-    color:#999;
+    color: #999;
 }
 
 .hide {
-    display:none;
+    display: none;
 }
 
 a:link, a:visited {
-    background:transparent;
-    font-weight:700;
-    text-decoration:underline;
+    background: transparent;
+    font-weight: 700;
+    text-decoration: underline;
 }
 
 a:link:after, a:visited:after {
-    content:" (" attr(href) ") ";
-    font-size:90%;
+    content: " (" attr(href) ") ";
+    font-size: 90%;
 }
