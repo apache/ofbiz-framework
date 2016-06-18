@@ -121,7 +121,7 @@ under the License.
             <#if organizationLogoLinkURL?has_content>
                 <li id="org-logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(organizationLogoLinkURL)}</@ofbizContentUrl>"></a></li>
                 <#else>
-                <li id="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>" title="${layoutSettings}"></a></li>
+                <li id="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>" title="${layoutSettings.companyName!}"></a></li>
             </#if>
           </#if>
           <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
