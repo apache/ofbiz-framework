@@ -21,13 +21,7 @@
  * This script is also referenced by the ecommerce's screens and
  * should not contain order component's specific code.
  */
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.*;
 import org.ofbiz.party.party.PartyHelper;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.category.*;
-import org.ofbiz.entity.*;
-import java.util.List;
 
 // Put the result of CategoryWorker.getRelatedCategories into the separateRootType function as attribute.
 // The separateRootType function will return the list of category of given catalog.
