@@ -171,7 +171,9 @@ function toggleOrderIdList() {
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.ProductProductId}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='productId' value='${requestParameters.productId!}'/></td>
+                <td align='left'>
+                  <@htmlTemplate.lookupField value='${requestParameters.productId!}' formName="lookuporder" name="productId" id="productId" fieldFormName="LookupProduct"/>
+                </td>
               </tr>
               <#if goodIdentificationTypes?has_content>
               <tr>
@@ -236,7 +238,9 @@ function toggleOrderIdList() {
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.CommonUserLoginId}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='userLoginId' value='${requestParameters.userLoginId!}'/></td>
+                <td align='left'>
+                  <@htmlTemplate.lookupField value='${requestParameters.userLoginId!}' formName="lookuporder" name="userLoginId" id="userLoginId" fieldFormName="LookupUserLoginAndPartyDetails"/>
+                </td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderOrderType}</td>
@@ -257,7 +261,9 @@ function toggleOrderIdList() {
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.AccountingBillingAccount}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='billingAccountId' value='${requestParameters.billingAccountId!}'/></td>
+                <td align='left'>
+                  <@htmlTemplate.lookupField value='${requestParameters.billingAccountId!}' formName="lookuporder" name="billingAccountId" id="billingAccountId" fieldFormName="LookupBillingAccount"/>
+                </td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.CommonCreatedBy}</td>
