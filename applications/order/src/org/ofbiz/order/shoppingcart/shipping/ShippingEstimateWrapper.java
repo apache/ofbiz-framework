@@ -24,9 +24,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
+import org.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
@@ -71,8 +75,21 @@ public class ShippingEstimateWrapper {
         this.partyId = cart.getPartyId();
         this.supplierPartyId = cart.getSupplierPartyId(shipGroup);
 
+        BigDecimal totalAllowance = BigDecimal.ZERO;
+        if (UtilValidate.isNotEmpty(cart.getShipGroupItems(shipGroup))) {
+            try {
+                for (ShoppingCartItem item : cart.getShipGroupItems(shipGroup).keySet()) {
+                    GenericValue allowanceProductPrice = EntityQuery.use(delegator).from("ProductPrice").where("productPriceTypeId", "SHIPPING_ALLOWANCE", "productId", item.getProductId()).filterByDate().queryFirst();
+                    if (UtilValidate.isNotEmpty(allowanceProductPrice) && UtilValidate.isNotEmpty(allowanceProductPrice.get("price"))) {
+                        totalAllowance = totalAllowance.add(allowanceProductPrice.getBigDecimal("price")).multiply(item.getQuantity());
+                    }
+                }
+            } catch (GenericEntityException gee) {
+                Debug.logError(gee.getMessage(), module);
+            }
+        }
         this.loadShippingMethods();
-        this.loadEstimates();
+        this.loadEstimates(totalAllowance);
     }
 
     protected void loadShippingMethods() {
@@ -84,7 +101,7 @@ public class ShippingEstimateWrapper {
         }
     }
 
-    protected void loadEstimates() {
+    protected void loadEstimates(BigDecimal totalAllowance) {
         this.shippingEstimates = new HashMap<GenericValue, BigDecimal>();
         if (shippingMethods != null) {
             for (GenericValue shipMethod : shippingMethods) {
@@ -96,7 +113,7 @@ public class ShippingEstimateWrapper {
 
                 Map<String, Object> estimateMap = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, "SALES_ORDER",
                         shippingMethodTypeId, carrierPartyId, carrierRoleTypeId, shippingCmId, productStoreId,
-                        supplierPartyId, shippableItemInfo, shippableWeight, shippableQuantity, shippableTotal, partyId, productStoreShipMethId);
+                        supplierPartyId, shippableItemInfo, shippableWeight, shippableQuantity, shippableTotal, partyId, productStoreShipMethId, totalAllowance);
 
                 if (!ServiceUtil.isError(estimateMap)) {
                     BigDecimal shippingTotal = (BigDecimal) estimateMap.get("shippingTotal");

@@ -146,6 +146,16 @@ public class ShippingEvents {
             String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
             String productStoreId, String supplierPartyId, List<Map<String, Object>> itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
             BigDecimal shippableTotal, String partyId, String productStoreShipMethId) {
+        return getShipGroupEstimate(dispatcher, delegator, orderTypeId,
+                shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, shippingContactMechId,
+                productStoreId, supplierPartyId, itemInfo, shippableWeight, shippableQuantity,
+                shippableTotal, partyId, productStoreShipMethId, BigDecimal.ZERO);
+    }
+
+    public static Map<String, Object> getShipGroupEstimate(LocalDispatcher dispatcher, Delegator delegator, String orderTypeId,
+            String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
+            String productStoreId, String supplierPartyId, List<Map<String, Object>> itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
+            BigDecimal shippableTotal, String partyId, String productStoreShipMethId, BigDecimal totalAllowance) {
         String standardMessage = "A problem occurred calculating shipping. Fees will be calculated offline.";
         List<String> errorMessageList = new LinkedList<String>();
 
@@ -246,6 +256,21 @@ public class ShippingEvents {
             }
         } catch (GeneralException e) {
             return ServiceUtil.returnError(standardMessage);
+        }
+
+        // Calculate the allowance price(Already included in Product's default/list price)
+        // using shippingAllowance percent and deduct it from Actual Shipping Cost.
+        if (BigDecimal.ZERO.compareTo(shippingTotal) < 0 && BigDecimal.ZERO.compareTo(totalAllowance) < 0) {
+            BigDecimal shippingAllowancePercent = storeShipMethod.getBigDecimal("allowancePercent") != null ? storeShipMethod.getBigDecimal("allowancePercent") : BigDecimal.ZERO;
+            totalAllowance = totalAllowance.multiply(shippingAllowancePercent.divide(BigDecimal.valueOf(100)));
+            shippingTotal = shippingTotal.subtract(totalAllowance);
+        }
+
+        // Check if minimum price is set for any Shipping Option, if yes, 
+        // compare it with total shipping and use greater of the two.
+        BigDecimal minimumPrice = storeShipMethod.getBigDecimal("minimumPrice");
+        if (UtilValidate.isNotEmpty(minimumPrice) && shippingTotal.compareTo(minimumPrice) < 0){
+             shippingTotal = minimumPrice;
         }
 
         // return the totals
