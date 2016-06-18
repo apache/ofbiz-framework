@@ -999,7 +999,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="issueProductionRunTaskComponent"/>
         <field name="productionRunId"><hidden/></field>
-        <field name="fromDate"><ignored/></field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="reserveOrderEnumId"><ignored/></field>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingTaskId}">
             <drop-down allow-empty="false">

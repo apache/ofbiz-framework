@@ -101,7 +101,6 @@ under the License.
     </simple-method>
     <simple-method method-name="issueProductionRunTaskComponent" short-description="Issues the Inventory for a Production Run Task Component" login-required="false">
         <if-empty field="parameters.fromDate">
-            <set from-field="parameters.productId" field="productId"/>
             <set from-field="parameters.quantity" field="estimatedQuantity" default-value="0.0" type="BigDecimal"/>
         <else>
             <entity-one entity-name="WorkEffortGoodStandard" value-field="workEffortGoodStandard" auto-field-map="false">
@@ -116,6 +115,17 @@ under the License.
             <else>
                 <set from-field="parameters.quantity" field="estimatedQuantity" default-value="0.0" type="BigDecimal"/>
             </else>
+            </if-empty>
+            <!-- If no product found in the workEffortGoodStandard then create the entry in workEffortGoodStandard-->
+            <if-empty field="productId">
+                <set field="createWorkEffortGoodStdMap.workEffortId" from-field="parameters.workEffortId" />
+                <set field="createWorkEffortGoodStdMap.productId" from-field="parameters.productId"/>
+                <set field="createWorkEffortGoodStdMap.workEffortGoodStdTypeId" value="PRUNT_PROD_NEEDED"/>
+                <set field="createWorkEffortGoodStdMap.fromDate" from-field="parameters.fromDate" />
+	            <set field="createWorkEffortGoodStdMap.estimatedQuantity" from-field="parameters.quantity"/>
+                <set field="createWorkEffortGoodStdMap.statusId" value="WEGS_CREATED"/>
+                <call-service service-name="createWorkEffortGoodStandard" in-map-name="createWorkEffortGoodStdMap"/>
+                <set field="productId" from-field="parameters.productId"/>
             </if-empty>
         </else>
         </if-empty>
