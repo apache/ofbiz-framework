@@ -676,6 +676,8 @@ public class CheckOutHelper {
                     inputMap.put("userLogin", userLogin);
                     // TODO: check service result for an error return
                     dispatcher.runSync("updateRequirement", inputMap);
+                    inputMap = UtilMisc.toMap("userLogin", userLogin, "orderId", orderId, "orderItemSeqId", shoppingCartItem.getOrderItemSeqId(), "requirementId", requirementId, "quantity", shoppingCartItem.getQuantity());
+                    dispatcher.runSync("createOrderRequirementCommitment", inputMap);
                 } catch (Exception e) {
                     String service = e.getMessage();
                     Map<String, String> messageMap = UtilMisc.toMap("service", service);
