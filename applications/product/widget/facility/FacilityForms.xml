@@ -192,9 +192,9 @@ under the License.
         <field name="orderId">
             <lookup target-form-name="LookupOrderHeader"/>
         </field>
-        <field name="shipmentId"><text/></field>
+        <field name="shipmentId"><lookup target-form-name="LookupShipment"/></field>
         <field name="returnId"><text/></field>
-        <field name="workEffortId"><text/></field>
+        <field name="workEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="reasonEnumId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId">
