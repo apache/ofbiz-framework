@@ -132,8 +132,8 @@ under the License.
             </#if>
             <#if cartLine.getItemComment()?has_content>
               <tr><td><div>${uiLabelMap.CommonComment} : </div></td>
-                  <td><div>${cartLine.getItemComment()!}</div>
-              </td></tr>
+                  <td><div><input size="60" type="text" name="comment_${cartLineIndex}" value="${cartLine.getItemComment()?default("")}"/><br /></div></td>
+              </tr>
             </#if>
             <#if cartLine.getDesiredDeliveryDate()?has_content>
               <tr><td><div>${uiLabelMap.OrderDesiredDeliveryDate}: </div></td>

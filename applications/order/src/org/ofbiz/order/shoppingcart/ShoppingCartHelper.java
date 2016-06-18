@@ -678,6 +678,7 @@ public class ShoppingCartHelper {
 
         BigDecimal oldQuantity = BigDecimal.ONE.negate();
         String oldDescription = "";
+        String oldItemComment = "";
         BigDecimal oldPrice = BigDecimal.ONE.negate();
 
         if (this.cart.isReadOnlyCart()) {
@@ -699,6 +700,7 @@ public class ShoppingCartHelper {
                     String quantString = (String) context.get(parameterName);
                     BigDecimal quantity = BigDecimal.ONE.negate();
                     String itemDescription = "";
+                    String itemComment = "";
                     if (quantString != null) quantString = quantString.trim();
 
                     // get the cart item
@@ -719,6 +721,8 @@ public class ShoppingCartHelper {
                         }
                     } else if (parameterName.toUpperCase().startsWith("DESCRIPTION")) {
                         itemDescription = quantString;  // the quantString is actually the description if the field name starts with DESCRIPTION
+                    } else if (parameterName.toUpperCase().startsWith("COMMENT")) {
+                         itemComment= quantString;  // the quantString is actually the comment if the field name starts with COMMENT
                     } else if (parameterName.startsWith("reservStart")) {
                         if (quantString.length() ==0) {
                             // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
@@ -803,6 +807,7 @@ public class ShoppingCartHelper {
                         } else {
                             if (item != null) {
                                 try {
+                                    oldItemComment = item.getItemComment();
                                     // if, on a purchase order, the quantity has changed, get the new SupplierProduct entity for this quantity level.
                                     if (cart.getOrderType().equals("PURCHASE_ORDER")) {
                                         oldQuantity = item.getQuantity();
@@ -862,6 +867,16 @@ public class ShoppingCartHelper {
                                 }
                             }
                         }
+                    }
+                    
+                    if (parameterName.toUpperCase().startsWith("COMMENT")) {
+                      if (!oldItemComment.equals(itemComment)) {
+                          if (security.hasEntityPermission("ORDERMGR", "_CREATE", userLogin)) {
+                              if (item != null) {
+                                  item.setItemComment(itemComment);
+                              }
+                          }
+                      }
                     }
 
                     if (parameterName.toUpperCase().startsWith("PRICE")) {
