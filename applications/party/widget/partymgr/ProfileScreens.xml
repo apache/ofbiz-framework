@@ -35,7 +35,7 @@
                 <entity-one entity-name="PartyAndPerson" value-field="lookupPerson">
                     <field-map field-name="partyId" from-field="parameters.partyId"/><!-- is required -->
                 </entity-one>
-                <entity-and list="partyContentList" entity-name="PartyContent">
+                <entity-and list="partyContentList" entity-name="PartyContent" filter-by-date="true">
                     <field-map field-name="partyId" from-field="parameters.partyId"/>
                     <field-map field-name="partyContentTypeId" value="LGOIMGURL"/>
                     <order-by field-name="-fromDate"/>

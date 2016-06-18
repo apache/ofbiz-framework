@@ -67,7 +67,7 @@ under the License.
                         <entity-one value-field="orgPartyLogoMap" entity-name="PartyGroup">
                             <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
                         </entity-one>
-                        <entity-and list="orgPartyContentMap" entity-name="PartyContent">
+                        <entity-and list="orgPartyContentMap" entity-name="PartyContent" filter-by-date="true">
                             <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
                             <field-map field-name="partyContentTypeId" value="LGOIMGURL"/>
                             <order-by field-name="-fromDate"/>
