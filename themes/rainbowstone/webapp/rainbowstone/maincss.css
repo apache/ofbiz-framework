@@ -34,7 +34,7 @@ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, font, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
-b, u, i, center,dl, dt, dd, ol, ul, li,
+b, u, i, center, dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
     border: 0;
@@ -111,7 +111,7 @@ body {
     color: #000;
     min-width: 780px;
     margin: 0;
-    width:expression(document.body.clientWidth < 782? "780px" : "auto");
+    width: expression(document.body.clientWidth < 782? "780px" : "auto");
 }
 
 hr {
@@ -242,10 +242,10 @@ th, th a {
 }
 
 .page-title {
-    color:#557996;
-    margin-bottom:0.5em;
-    font-size:1.6em;
-    font-weight:bold;
+    color: #557996;
+    margin-bottom: 0.5em;
+    font-size: 1.6em;
+    font-weight: bold;
 }
 
 /* ------------------------ */
@@ -272,13 +272,13 @@ th, th a {
     font-weight: normal;
 }
 
-.last-system-msg{
+.last-system-msg {
     color: #FFFFFF;
     font-size: 0.9em;
-    padding-left:10px;
+    padding-left: 10px;
 }
 
-.preference-area{
+.preference-area {
     float: right !important;
 }
 
@@ -290,7 +290,7 @@ th, th a {
     padding: 0.1em 0.8em;
 }
 
-#masthead ul .org-logo-area img{
+#masthead ul .org-logo-area img {
     width: auto;
     height: 22px;
 }
@@ -340,8 +340,8 @@ th, th a {
     display: block;
     padding: 0 0.6em 0 0.6em;
     font-size: 0.9em;
-    font-weight:normal;
-    text-transform:uppercase;
+    font-weight: normal;
+    text-transform: uppercase;
     /* Uncomment next line for main-nav drop shadows */
     /*text-shadow: 0px 1px 1px #22323f;*/
 }
@@ -688,7 +688,7 @@ text-decoration: underline;
 }
 
 .light-grid td,
-.light-grid .header-row td{
+.light-grid .header-row td {
     border-bottom: 0.1em solid #cccccc;
     border-left: 0.1em solid #cccccc;
 }
@@ -820,7 +820,7 @@ text-decoration: underline;
 }
 
 .basic-form table .header-row:hover,
-.basic-form table tr th:hover{
+.basic-form table tr th:hover {
     /*background-color: #ffffff;*/
     color: #000000;
 }
@@ -869,7 +869,6 @@ text-decoration: underline;
     width: 16px; /* Setting must be in px */
     height: 16px; /* Setting must be in px */
 }
-
 
 /* --------------------------- */
 /*      FieldGroup Styles      */
@@ -933,33 +932,39 @@ text-decoration: underline;
 .portlet-config-title-bar ul li.move-up {
     background: url(/images/arrow-single-up-green.png) no-repeat center center;
 }
+
 .portlet-config-title-bar ul li.move-down {
     background: url(/images/arrow-single-down-green.png) no-repeat center center;
 }
+
 .portlet-config-title-bar ul li.move-left {
     background: url(/images/arrow-single-left-green.png) no-repeat center center;
 }
+
 .portlet-config-title-bar ul li.move-right {
     background: url(/images/arrow-single-right-green.png) no-repeat center center;
 }
+
 .portlet-config-title-bar ul li.move-top {
     background: url(/images/arrow-end-up-green.png) no-repeat center center;
 }
+
 .portlet-config-title-bar ul li.move-bottom {
     background: url(/images/arrow-end-down-green.png) no-repeat center center;
 }
+
 .portlet-config-title-bar ul li.remove {
     background: url(/images/mini-trash.png) no-repeat center center;
 }
+
 .portlet-config-title-bar ul li.edit {
     background: url(/images/mini-edit.png) no-repeat center center;
 }
 
-
 /* == Portal Manager Toolbar == */
 
 #manage-portal-toolbar {
-    background-color:#D4D0C8;
+    background-color: #D4D0C8;
     margin-bottom: 0.5em;
 }
 
@@ -988,50 +993,51 @@ text-decoration: underline;
 
 /*=================== For the quickadd page =================================*/
 
-.quickaddall{
-    float:right;
-    padding-bottom:1em;
-    padding-top:1em;
+.quickaddall {
+    float: right;
+    padding-bottom: 1em;
+    padding-top: 1em;
 }
 
-.quickaddtable{
-    display:inline-block;
-    clear:both;
+.quickaddtable {
+    display: inline-block;
+    clear: both;
 }
 
 .quickaddtable span {
-    display:inline;
-    float:left;
-    border-right:0.1em solid #999999;
-    border-top:0.1em solid #999999;
-    margin:0;
-    padding:0.3em;
+    display: inline;
+    float: left;
+    border-right: 0.1em solid #999999;
+    border-top: 0.1em solid #999999;
+    margin: 0;
+    padding: 0.3em;
 }
 
 .quickaddtable p {
-    clear:left;
-    height:100% !important; height:1em;
+    clear: left;
+    height: 100% !important;
+    height: 1em;
 }
 
 .quickaddtable span.pid {
-    width:10%;
+    width: 10%;
 }
 
 .quickaddtable span.name {
-    width:50%;
-    text-align:left;
+    width: 50%;
+    text-align: left;
 }
 
 .quickaddtable span.listPrice {
-    width:10%
+    width: 10%
 }
 
 .quickaddtable span.totalPrice {
-    width:10%
+    width: 10%
 }
 
 .quickaddtable span.qty {
-    width:10%
+    width: 10%
 }
 
 /* `Widths
@@ -1288,7 +1294,7 @@ optgroup {
     color: #333;
     font-weight: bold;
     padding-left: 10px; /* Setting must be in px */
-    background:url(/images/bg_bullet_full_2.gif) no-repeat 0px 0.5em;
+    background: url(/images/bg_bullet_full_2.gif) no-repeat 0px 0.5em;
 }
 
 A.browsecategorybutton {
@@ -1336,6 +1342,7 @@ A.browsecategorybutton {
 .salePrice {
     color: #ff0000;
 }
+
 .product-prevnext {
     text-align: right;
 }
@@ -1360,6 +1367,7 @@ A.browsecategorybutton {
     /* position: absolute; top: 5px; left: 5px; */
     margin: 0 0.5em 0.5em 0;
 }
+
 .productsummary .smallimage img {
     border: #CCC solid 0.1em;
     height: 5em;
@@ -1420,7 +1428,7 @@ A.browsecategorybutton {
     font-weight: bold;
 }
 
-.INFO{
+.INFO {
     color: #008000;
 }
 
@@ -1451,7 +1459,7 @@ A.browsecategorybutton {
 }
 
 .boxlink {
-    float:right;
+    float: right;
 }
 
 DIV.boxtop {
@@ -1518,8 +1526,8 @@ A.boxheadbutton:hover {
 }
 
 .webToolList h3 {
-    margin:0.75em 0 0.09em 0;
-    text-transform:uppercase;
+    margin: 0.75em 0 0.09em 0;
+    text-transform: uppercase;
 }
 
 A.linktext {
@@ -1649,7 +1657,7 @@ DIV.col-right {
     width: auto;
 }
 
-.leftclear{
+.leftclear {
     clear: left;
     height: 1%;
 }
@@ -1726,6 +1734,7 @@ img.cssImgSmall {
     /* add padding to account for vertical scrollbar */
     padding-right: 20px;
 }
+
 /* IE 6 doesn't support max-height
  * we use height instead, but this forces the menu to always be this tall
  */
@@ -1735,21 +1744,24 @@ img.cssImgSmall {
 
 /* The custom CSS for adjust the JsTree */
 .jstree-default .jstree-leaf > ins {
-    background-position:-36px 0;
+    background-position: -36px 0;
     vertical-align: top;
 }
-html>/**/body .jstree-default a {
-    white-space:normal !important;
+
+html > /**/ body .jstree-default a {
+    white-space: normal !important;
     height: auto;
 }
+
 /* IE6 and below */
 * html .jstree-default a {
-    white-space:normal;
+    white-space: normal;
     height: auto;
 }
+
 /* IE7 */
-*+html .jstree-default a {
-    white-space:normal;
+* + html .jstree-default a {
+    white-space: normal;
     height: auto;
 }
 
@@ -1759,7 +1771,7 @@ html>/**/body .jstree-default a {
     color: #ffffff;
     height: 1%; /* IE fix */
     min-height: 1.5em;
-    padding:0.8em 0.2em;
+    padding: 0.8em 0.2em;
 }
 
 .screenlet-title-bar-pager .h1,
@@ -1850,7 +1862,6 @@ html>/**/body .jstree-default a {
     cursor: default;
 }
 
-
 .screenlet-title-bar-pager ul a:hover {
     background-color: #999;
 }
@@ -1860,8 +1871,9 @@ html>/**/body .jstree-default a {
 .screenlet-title-bar-pager ul .nav-displaying {
     padding: 0 1em 0 1em;
 }
+
 .screenlet-title-bar-pager ul .nav-pagesize,
-.screenlet-title-bar-pager ul .nav-page-select{
+.screenlet-title-bar-pager ul .nav-page-select {
     position: relative;
     top: -5px;
 }
@@ -1876,7 +1888,7 @@ html>/**/body .jstree-default a {
 
 .screenlet-title-bar-pager ul .nav-displaying {
     border-right: none;
-    float :right;
+    float: right;
 }
 
 /*end addon modification generic-portlet*/
