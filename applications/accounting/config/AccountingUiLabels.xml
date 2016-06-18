@@ -19,25 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
-    <property key="AccountingAHCElectronicCheck">
-        <value xml:lang="ar">حساب EFT: AHC/شيك الكتروني</value>
-        <value xml:lang="cs">Bankovní převod</value>
-        <value xml:lang="de">Bankverbindung: elektronische Überweisung</value>
-        <value xml:lang="en">EFT Account: AHC/Electronic Check</value>
-        <value xml:lang="es">Cuenta EFT (transferencia electrónica)</value>
-        <value xml:lang="fr">Compte de virement électronique</value>
-        <value xml:lang="hi-IN">EFT ख़ाता: AHC/ Electronic जान्च</value>
-        <value xml:lang="it">Conto EFT: AHC/Assegni elettronici</value>
-        <value xml:lang="ja">電子取引(EFT)アカウント: AHC/電子小切手</value>
-        <value xml:lang="nl">Bankrekening: AHC/Electronic Check</value>
-        <value xml:lang="pt">Conta de EFT: AHC/cheques eletrônicos</value>
-        <value xml:lang="ro">Cont EFT : AHC/Cecuri Electronice</value>
-        <value xml:lang="ru">Текущий счет</value>
-        <value xml:lang="th">บัญชีธนาคาร: AHC/ตรวจสอบระบบอิเล็กทรอนิกส์</value>
-        <value xml:lang="vi">Tài khoản EFT: Kiểm tra AHC/Điện tử</value>
-        <value xml:lang="zh">电子资金转账账户：金融机构委员会/电子支票</value>
-        <value xml:lang="zh-TW">電子資金轉帳帳戶:金融機構委員會/電子支票</value>
-    </property>
     <property key="AccountingAccount">
         <value xml:lang="ar">حساب</value>
         <value xml:lang="cs">Účet</value>
@@ -77,6 +58,21 @@
         <value xml:lang="vi">ID tài khoản</value>
         <value xml:lang="zh">账户标识</value>
         <value xml:lang="zh-TW">科目識別</value>
+    </property>
+    <property key="AccountingAccounting">
+        <value xml:lang="ar">المحاسبة</value>
+        <value xml:lang="de">Buchhaltung</value>
+        <value xml:lang="en">Accounting</value>
+        <value xml:lang="fr">Comptabilité</value>
+        <value xml:lang="hi-IN">लेखांकन</value>
+        <value xml:lang="it">Contabilità</value>
+        <value xml:lang="ja">会計</value>
+        <value xml:lang="nl">Boekhouding</value>
+        <value xml:lang="pt">Contabilidade</value>
+        <value xml:lang="th">การบัญชี</value>
+        <value xml:lang="vi">Kế toán</value>
+        <value xml:lang="zh">记账</value>
+        <value xml:lang="zh-TW">會計</value>
     </property>
     <property key="AccountingAccountLimit">
         <value xml:lang="ar">حدود الحساب</value>
@@ -131,6 +127,24 @@
         <value xml:lang="zh">缺少账户编号</value>
         <value xml:lang="zh-TW">沒有科目號碼</value>
     </property>
+    <property key="AccountingAccounts">
+        <value xml:lang="ar">حسابات</value>
+        <value xml:lang="de">Konten</value>
+        <value xml:lang="en">Accounts</value>
+        <value xml:lang="es">cuentas</value>
+        <value xml:lang="fr">Comptes</value>
+        <value xml:lang="hi-IN">लेखा</value>
+        <value xml:lang="it">Conti</value>
+        <value xml:lang="ja">アカウント</value>
+        <value xml:lang="nl">Rekeningen</value>
+        <value xml:lang="pt">Contas</value>
+        <value xml:lang="ro">Conturi</value>
+        <value xml:lang="ru">Счета</value>
+        <value xml:lang="th">บัญชี</value>
+        <value xml:lang="vi">Tài khoản</value>
+        <value xml:lang="zh">账户</value>
+        <value xml:lang="zh-TW">科目</value>
+    </property>
     <property key="AccountingAccountTransactionId">
         <value xml:lang="ar">دليل العملية الحسابية</value>
         <value xml:lang="cs">ID transakčního účtu</value>
@@ -176,69 +190,6 @@
         <value xml:lang="vi">Loại TK bị thiếu</value>
         <value xml:lang="zh">缺少账户类型</value>
         <value xml:lang="zh-TW">沒有科目類型</value>
-    </property>
-    <property key="AccountingAccounting">
-        <value xml:lang="ar">المحاسبة</value>
-        <value xml:lang="de">Buchhaltung</value>
-        <value xml:lang="en">Accounting</value>
-        <value xml:lang="fr">Comptabilité</value>
-        <value xml:lang="hi-IN">लेखांकन</value>
-        <value xml:lang="it">Contabilità</value>
-        <value xml:lang="ja">会計</value>
-        <value xml:lang="nl">Boekhouding</value>
-        <value xml:lang="pt">Contabilidade</value>
-        <value xml:lang="th">การบัญชี</value>
-        <value xml:lang="vi">Kế toán</value>
-        <value xml:lang="zh">记账</value>
-        <value xml:lang="zh-TW">會計</value>
-    </property>
-    <property key="AccountingAccounts">
-        <value xml:lang="ar">حسابات</value>
-        <value xml:lang="de">Konten</value>
-        <value xml:lang="en">Accounts</value>
-        <value xml:lang="es">cuentas</value>
-        <value xml:lang="fr">Comptes</value>
-        <value xml:lang="hi-IN">लेखा</value>
-        <value xml:lang="it">Conti</value>
-        <value xml:lang="ja">アカウント</value>
-        <value xml:lang="nl">Rekeningen</value>
-        <value xml:lang="pt">Contas</value>
-        <value xml:lang="ro">Conturi</value>
-        <value xml:lang="ru">Счета</value>
-        <value xml:lang="th">บัญชี</value>
-        <value xml:lang="vi">Tài khoản</value>
-        <value xml:lang="zh">账户</value>
-        <value xml:lang="zh-TW">科目</value>
-    </property>
-    <property key="AccountingAcctRecon">
-        <value xml:lang="ar">تسوية الحساب</value>
-        <value xml:lang="de">Kontoabstimmung</value>
-        <value xml:lang="en">Account Reconciliation</value>
-        <value xml:lang="fr">Rapprochement de compte</value>
-        <value xml:lang="hi-IN">लेखा पुनर्मिलान</value>
-        <value xml:lang="it">Riconciliazione</value>
-        <value xml:lang="ja">アカウント残高照合</value>
-        <value xml:lang="nl">Afstemming grootboekrekening</value>
-        <value xml:lang="pt">Reconciliação de Conta</value>
-        <value xml:lang="th">การเช็คยอดบัญชี</value>
-        <value xml:lang="vi">Cân đối kế toán</value>
-        <value xml:lang="zh">账户对账</value>
-        <value xml:lang="zh-TW">帳目調節</value>
-    </property>
-    <property key="AccountingAcctRecons">
-        <value xml:lang="ar">تسويات الحساب</value>
-        <value xml:lang="de">Kontenabstimmungen</value>
-        <value xml:lang="en">Account Reconciliations</value>
-        <value xml:lang="fr">Rapprochements de compte</value>
-        <value xml:lang="hi-IN">लेखा पुनर्मिलान</value>
-        <value xml:lang="it">Riconciliazioni</value>
-        <value xml:lang="ja">アカウント残高照合</value>
-        <value xml:lang="nl">Afstemmingen grootboekrekening</value>
-        <value xml:lang="pt">Reconciliações de Contas</value>
-        <value xml:lang="th">การเช็คยอดบัญชี</value>
-        <value xml:lang="vi">Cân đối kế toán</value>
-        <value xml:lang="zh">账户对账</value>
-        <value xml:lang="zh-TW">帳目調節(區間)</value>
     </property>
     <property key="AccountingAcctgTrans">
         <value xml:lang="ar">العمليات المحاسبية</value>
@@ -295,6 +246,36 @@
         <value xml:lang="vi">Bút toán cho</value>
         <value xml:lang="zh">交易记录：</value>
         <value xml:lang="zh-TW">交易記帳: </value>
+    </property>
+    <property key="AccountingAcctRecon">
+        <value xml:lang="ar">تسوية الحساب</value>
+        <value xml:lang="de">Kontoabstimmung</value>
+        <value xml:lang="en">Account Reconciliation</value>
+        <value xml:lang="fr">Rapprochement de compte</value>
+        <value xml:lang="hi-IN">लेखा पुनर्मिलान</value>
+        <value xml:lang="it">Riconciliazione</value>
+        <value xml:lang="ja">アカウント残高照合</value>
+        <value xml:lang="nl">Afstemming grootboekrekening</value>
+        <value xml:lang="pt">Reconciliação de Conta</value>
+        <value xml:lang="th">การเช็คยอดบัญชี</value>
+        <value xml:lang="vi">Cân đối kế toán</value>
+        <value xml:lang="zh">账户对账</value>
+        <value xml:lang="zh-TW">帳目調節</value>
+    </property>
+    <property key="AccountingAcctRecons">
+        <value xml:lang="ar">تسويات الحساب</value>
+        <value xml:lang="de">Kontenabstimmungen</value>
+        <value xml:lang="en">Account Reconciliations</value>
+        <value xml:lang="fr">Rapprochements de compte</value>
+        <value xml:lang="hi-IN">लेखा पुनर्मिलान</value>
+        <value xml:lang="it">Riconciliazioni</value>
+        <value xml:lang="ja">アカウント残高照合</value>
+        <value xml:lang="nl">Afstemmingen grootboekrekening</value>
+        <value xml:lang="pt">Reconciliações de Contas</value>
+        <value xml:lang="th">การเช็คยอดบัญชี</value>
+        <value xml:lang="vi">Cân đối kế toán</value>
+        <value xml:lang="zh">账户对账</value>
+        <value xml:lang="zh-TW">帳目調節(區間)</value>
     </property>
     <property key="AccountingActualCurrencyAmount">
         <value xml:lang="ar">القيمة بالعملة الفعلية</value>
@@ -1020,6 +1001,25 @@
         <value xml:lang="vi">Bản hợp đồng</value>
         <value xml:lang="zh">合同</value>
         <value xml:lang="zh-TW">合約</value>
+    </property>
+    <property key="AccountingAHCElectronicCheck">
+        <value xml:lang="ar">حساب EFT: AHC/شيك الكتروني</value>
+        <value xml:lang="cs">Bankovní převod</value>
+        <value xml:lang="de">Bankverbindung: elektronische Überweisung</value>
+        <value xml:lang="en">EFT Account: AHC/Electronic Check</value>
+        <value xml:lang="es">Cuenta EFT (transferencia electrónica)</value>
+        <value xml:lang="fr">Compte de virement électronique</value>
+        <value xml:lang="hi-IN">EFT ख़ाता: AHC/ Electronic जान्च</value>
+        <value xml:lang="it">Conto EFT: AHC/Assegni elettronici</value>
+        <value xml:lang="ja">電子取引(EFT)アカウント: AHC/電子小切手</value>
+        <value xml:lang="nl">Bankrekening: AHC/Electronic Check</value>
+        <value xml:lang="pt">Conta de EFT: AHC/cheques eletrônicos</value>
+        <value xml:lang="ro">Cont EFT : AHC/Cecuri Electronice</value>
+        <value xml:lang="ru">Текущий счет</value>
+        <value xml:lang="th">บัญชีธนาคาร: AHC/ตรวจสอบระบบอิเล็กทรอนิกส์</value>
+        <value xml:lang="vi">Tài khoản EFT: Kiểm tra AHC/Điện tử</value>
+        <value xml:lang="zh">电子资金转账账户：金融机构委员会/电子支票</value>
+        <value xml:lang="zh-TW">電子資金轉帳帳戶:金融機構委員會/電子支票</value>
     </property>
     <property key="AccountingAmount">
         <value xml:lang="ar">ميلغ</value>
@@ -10903,6 +10903,35 @@
         <value xml:lang="vi">Id doanh thu thuần trong tài khoản Sổ cái</value>
         <value xml:lang="zh">覆盖收入总账账户标识</value>
         <value xml:lang="zh-TW">覆蓋收入總帳科目識別</value>
+    </property>
+    <property key="AccountingPaymentReceiveViaiDEAL">
+        <value xml:lang="de">Zahlung über iDEAL erhalten</value>
+        <value xml:lang="en">Payment receive via iDEAL</value>
+        <value xml:lang="fr">Paiement reçu par iDEAL</value>
+        <value xml:lang="hi-IN">भुगतान iDEAL के माध्यम से प्राप्त</value>
+        <value xml:lang="it">Pagamento ricevuto da iDEAL</value>
+        <value xml:lang="ja">iDEAL経由で支払を受取</value>
+        <value xml:lang="nl">Betalingsontvangst via iDEAL</value>
+        <value xml:lang="vi">Thanh toán nhận qua iDEAL</value>
+        <value xml:lang="zh">通过iDEAL接收到的支付</value>
+        <value xml:lang="zh-TW">通過iDEAL接收到的支付</value>
+    </property>
+    <property key="AccountingPayWithiDEAL">
+        <value xml:lang="cs">Platba prostřednictvím iDEAL</value>
+        <value xml:lang="de">Bezahlung mit iDEAL</value>
+        <value xml:lang="en">Pay With iDEAL</value>
+        <value xml:lang="es">Pagar con iDEAL</value>
+        <value xml:lang="fr">Paiement avec iDEAL</value>
+        <value xml:lang="it">Paga con iDEAL</value>
+        <value xml:lang="ja">iDEALで支払</value>
+        <value xml:lang="nl">Betaal met iDEAL</value>
+        <value xml:lang="pt-PT">&gt;Pagar Com iDEAL</value>
+        <value xml:lang="ro">Plateste cu iDEAL</value>
+        <value xml:lang="ru">Платить через iDEAL</value>
+        <value xml:lang="th">ชำระเงินผ่าน iDEAL</value>
+        <value xml:lang="vi">Chi trả với iDEAL</value>
+        <value xml:lang="zh">用iDEAL支付</value>
+        <value xml:lang="zh-TW">用iDEAL支付</value>
     </property>
     <property key="AccountingPIN">
         <value xml:lang="ar">الرمز السري</value>
@@ -21867,6 +21896,16 @@
         <value xml:lang="zh">本年贷方余额</value>
         <value xml:lang="zh-TW">本年貸方餘額</value>
     </property>
+    <property key="IdealSuccessful">
+        <value xml:lang="de">Die Transaktion war erfolgreich.</value>
+        <value xml:lang="en">The transaction has been successful.</value>
+        <value xml:lang="fr">La transaction a été réussie.</value>
+        <value xml:lang="ja">トランザクションは成功しました。</value>
+        <value xml:lang="nl">De betaling is met succes ontvangen.</value>
+        <value xml:lang="vi">Bút toán đã thành công.</value>
+        <value xml:lang="zh">交易成功了。</value>
+        <value xml:lang="zh-TW">交易成功了.</value>
+    </property>
     <property key="FormFieldTitle_yearToDateBalanceDebit">
         <value xml:lang="ar">رصيد المدين لسنة من تاريخه</value>
         <value xml:lang="de">Jahr heutiger Saldo Soll</value>
@@ -23826,6 +23865,17 @@
         <value xml:lang="zh">更新eWay支付网关配置</value>
         <value xml:lang="zh-TW">更新eWay支付閘道配置</value>
     </property>
+    <property key="PageTitleUpdatePaymentGatewayConfigiDEAL">
+        <value xml:lang="de">Bezahl-Schnittstelle iDEAL aktualisieren</value>
+        <value xml:lang="en">Update Payment Gateway Config iDEAL</value>
+        <value xml:lang="fr">Mise à jour de la configuration de l'interface iDEAL</value>
+        <value xml:lang="hi-IN">भुगतान गेटवे विन्यास iDEAL उन्नत करे</value>
+        <value xml:lang="it">Aggiorna configurazione gateway pagamento iDEAL</value>
+        <value xml:lang="ja">iDEAL支払ゲートウェイ設定を更新</value>
+        <value xml:lang="vi">Cập nhật cấu hình cổng thanh toán iDEAL</value>
+        <value xml:lang="zh">更新iDEAL支付网关配置</value>
+        <value xml:lang="zh-TW">更新iDEAL支付閘道配置</value>
+    </property>
     <property key="PageTitleUpdatePaymentGatewayConfigPayPal">
         <value xml:lang="de">Bezahl-Schnittstelle PayPal aktualisieren</value>
         <value xml:lang="en">Update Payment Gateway Config PayPal</value>
@@ -23976,55 +24026,5 @@
         <value xml:lang="vi">Xem điểm nhập Bút toán</value>
         <value xml:lang="zh">浏览交易记录</value>
         <value xml:lang="zh-TW">檢視交易記錄</value>
-    </property>
-    <property key="PageTitleUpdatePaymentGatewayConfigiDEAL">
-        <value xml:lang="de">Bezahl-Schnittstelle iDEAL aktualisieren</value>
-        <value xml:lang="en">Update Payment Gateway Config iDEAL</value>
-        <value xml:lang="fr">Mise à jour de la configuration de l'interface iDEAL</value>
-        <value xml:lang="hi-IN">भुगतान गेटवे विन्यास iDEAL उन्नत करे</value>
-        <value xml:lang="it">Aggiorna configurazione gateway pagamento iDEAL</value>
-        <value xml:lang="ja">iDEAL支払ゲートウェイ設定を更新</value>
-        <value xml:lang="vi">Cập nhật cấu hình cổng thanh toán iDEAL</value>
-        <value xml:lang="zh">更新iDEAL支付网关配置</value>
-        <value xml:lang="zh-TW">更新iDEAL支付閘道配置</value>
-    </property>
-    <property key="AccountingPayWithiDEAL">
-        <value xml:lang="cs">Platba prostřednictvím iDEAL</value>
-        <value xml:lang="de">Bezahlung mit iDEAL</value>
-        <value xml:lang="en">Pay With iDEAL</value>
-        <value xml:lang="es">Pagar con iDEAL</value>
-        <value xml:lang="fr">Paiement avec iDEAL</value>
-        <value xml:lang="it">Paga con iDEAL</value>
-        <value xml:lang="ja">iDEALで支払</value>
-        <value xml:lang="nl">Betaal met iDEAL</value>
-        <value xml:lang="pt-PT">&gt;Pagar Com iDEAL</value>
-        <value xml:lang="ro">Plateste cu iDEAL</value>
-        <value xml:lang="ru">Платить через iDEAL</value>
-        <value xml:lang="th">ชำระเงินผ่าน iDEAL</value>
-        <value xml:lang="vi">Chi trả với iDEAL</value>
-        <value xml:lang="zh">用iDEAL支付</value>
-        <value xml:lang="zh-TW">用iDEAL支付</value>
-    </property>
-    <property key="AccountingPaymentReceiveViaiDEAL">
-        <value xml:lang="de">Zahlung über iDEAL erhalten</value>
-        <value xml:lang="en">Payment receive via iDEAL</value>
-        <value xml:lang="fr">Paiement reçu par iDEAL</value>
-        <value xml:lang="hi-IN">भुगतान iDEAL के माध्यम से प्राप्त</value>
-        <value xml:lang="it">Pagamento ricevuto da iDEAL</value>
-        <value xml:lang="ja">iDEAL経由で支払を受取</value>
-        <value xml:lang="nl">Betalingsontvangst via iDEAL</value>
-        <value xml:lang="vi">Thanh toán nhận qua iDEAL</value>
-        <value xml:lang="zh">通过iDEAL接收到的支付</value>
-        <value xml:lang="zh-TW">通過iDEAL接收到的支付</value>
-    </property>
-    <property key="IdealSuccessful">
-        <value xml:lang="de">Die Transaktion war erfolgreich.</value>
-        <value xml:lang="en">The transaction has been successful.</value>
-        <value xml:lang="fr">La transaction a été réussie.</value>
-        <value xml:lang="ja">トランザクションは成功しました。</value>
-        <value xml:lang="nl">De betaling is met succes ontvangen.</value>
-        <value xml:lang="vi">Bút toán đã thành công.</value>
-        <value xml:lang="zh">交易成功了。</value>
-        <value xml:lang="zh-TW">交易成功了.</value>
     </property>
 </resource>

@@ -564,75 +564,6 @@
         <value xml:lang="zh">无法调用偿还（refund）服务！</value>
         <value xml:lang="zh-TW">無法呼叫償還(refund)服務！</value>
     </property>
-    <property key="AccountingOrbital">
-        <value xml:lang="ar">حصل خطأ أثناء استرجاع بيانات السلة</value>
-        <value xml:lang="de">Ein Fehler trat beim Ermitteln der Warenkorbdetails auf</value>
-        <value xml:lang="en">An error occurred while retrieving cart details</value>
-        <value xml:lang="it">Un'errore è successo mentre ricavavo i dettagli del carrello</value>
-        <value xml:lang="ja">カードの詳細を取得時にエラーが発生しました</value>
-        <value xml:lang="pt">Ocorreu um erro ao recuperar os detalhes carrinho</value>
-        <value xml:lang="zh">获取购物车详细信息时出错</value>
-        <value xml:lang="zh-TW">獲取購物車詳細資訊時出錯</value>
-    </property>
-    <property key="AccountingPayPalCommunicationError">
-        <value xml:lang="de">Während der Kommunikation mit PayPal ist ein Problem aufgetreten, bitte versuchen Sie es noch einmal oder wählen Sie eine andere Zahlungsmethode</value>
-        <value xml:lang="en">A problem occurred while communicating with PayPal, please try again or select a different checkout method</value>
-        <value xml:lang="hi-IN">Paypal से संचार में समस्या, कृपया पुन: प्रयास करें या एक अलग Checkout पद्धति का चयन करें</value>
-        <value xml:lang="it">Si è verificato un problema durante la comunicazione con PayPal, per favore provare di nuovo o selezionare un altro metodo di checkout</value>
-        <value xml:lang="ja">PayPalとの通信中に問題が発生しました、再度実行するか別のチェックアウト方法を選択してください</value>
-        <value xml:lang="pt">Ocorreu um problema durante a comunicação com o PayPal, por favor tente novamente, ou selecione um método de pagamento diferente</value>
-        <value xml:lang="zh">与贝宝通讯时出错，请重试或选择其它结账方式</value>
-        <value xml:lang="zh-TW">與PayPal通訊時出錯,請重試或選擇其它結帳方式</value>
-    </property>
-    <property key="AccountingPayPalErrorDuringRetrievingCartDetails">
-        <value xml:lang="ar">حصل خطأ أثناء استرجاع بيانات السلة</value>
-        <value xml:lang="de">Beim Auslesen von Details aus dem Warenkorb ist ein Fehler aufgetreten</value>
-        <value xml:lang="en">An error occurred while retreiving cart details</value>
-        <value xml:lang="it">Un'errore è successo mentre ricavavo i dettagli del carrello</value>
-        <value xml:lang="ja">カードの詳細を取得中にエラーが発生しました</value>
-        <value xml:lang="pt">Ocorreu um erro ao recuperar os detalhes do carrinho</value>
-        <value xml:lang="zh">获取购物车详细信息时出错</value>
-        <value xml:lang="zh-TW">獲取購物車詳細資訊時出錯</value>
-    </property>
-    <property key="AccountingPayPalPaymentGatewayConfigCannotFind">
-        <value xml:lang="de">Für den Abschluss mit PayPal-Express liegt keine Konfiguration (PaymentGatewayConfigPayPal) vor, kann nicht fortfahren.</value>
-        <value xml:lang="en">Couldn't retrieve a PaymentGatewayConfigPayPal record for Express Checkout, cannot continue.</value>
-        <value xml:lang="it">Non è possibile ricavare un record PaymentGatewayConfigPayPal per Express Checkout, non è possibile continuare.</value>
-        <value xml:lang="ja">エクスプレスチェックアウトに対するPaymentGatewayConfigPayPalレコードの取得ができません。処理を継続できません。</value>
-        <value xml:lang="pt">Não foi possível recuperar um registro PaymentGatewayConfigPayPal para Checkout Express, não é possível continuar.</value>
-        <value xml:lang="zh">无法获取用于快速结账的贝宝支付网关配置（PaymentGatewayConfigPayPal）记录，不能继续。</value>
-        <value xml:lang="zh-TW">無法獲取用於快速結帳的PayPal支付閘道配置(PaymentGatewayConfigPayPal)記錄,不能繼續.</value>
-    </property>
-    <property key="AccountingPayPalShoppingCartIsEmpty">
-        <value xml:lang="ar">سلة التسوق فارغة, لا يمكن البدء بالإنهاء السريع</value>
-        <value xml:lang="de">Ihr Warenkorb ist leer, kann PayPal-Express nicht abschließen</value>
-        <value xml:lang="en">Shopping cart is empty, cannot proceed with Express Checkout</value>
-        <value xml:lang="fr">Votre panier est vide, vous ne pouvez pas effectuer une validation express</value>
-        <value xml:lang="hi-IN">शॉपिंग कार्ट खाली है, एक्सप्रेस चेकआउट के साथ आगे नहीं बढ़ सकते</value>
-        <value xml:lang="it">Il carrello è vuoto, non posso procedere con il checkout Express</value>
-        <value xml:lang="ja">買い物かごには何も入っていません、エクスプレスチェックアウトできません</value>
-        <value xml:lang="pt">Carrinho de Compras está vazio, não é possível prosseguir com o Pagamento expresso</value>
-        <value xml:lang="zh">购物车是空的，无法处理快速结账</value>
-        <value xml:lang="zh-TW">購物車是空的,無法處理快速結帳</value>
-    </property>
-    <property key="AccountingPayPalTokenNotFound">
-        <value xml:lang="de">Das Token von PayPal-Express ist nicht im Warenkorb hinterlegt; kann nicht fortfahren</value>
-        <value xml:lang="en">Express Checkout token not present in cart, cannot get checkout details</value>
-        <value xml:lang="it">Il token per Express Checkout non è presente nel carrello, non è possibile ottenere i dettagli di checkout</value>
-        <value xml:lang="ja">エクスプレスチェックアウトのトークンが買い物かごに存在しません。チェックアウトの詳細が取得できません。</value>
-        <value xml:lang="pt">Token de pagamento expreso não presentes no carrinho, não é possível obter detalhes de checkout</value>
-        <value xml:lang="zh">购物车中没有快速结账标志，无法获得结账详细信息</value>
-        <value xml:lang="zh-TW">購物車中沒有快速結帳標誌,無法獲得結帳詳細資訊</value>
-    </property>
-    <property key="AccountingPayPalUnknownError">
-        <value xml:lang="de">Bei der Kontaktaufnahme mit PayPal ist ein unbekannter Fehler aufgetreten</value>
-        <value xml:lang="en">An unknown error occurred while contacting PayPal</value>
-        <value xml:lang="it">Un'errore sconosciuto è accaduto mentre contattavi PayPal</value>
-        <value xml:lang="ja">PayPalに接続中に未知のエラーが発生しました</value>
-        <value xml:lang="pt">Um erro desconhecido ocorreu ao entrar em contato com PayPal</value>
-        <value xml:lang="zh">与贝宝联系时发生了一个未知的错误</value>
-        <value xml:lang="zh-TW">與PayPal聯絡時發生了一個未知的錯誤</value>
-    </property>
     <property key="AccountingPaymentAmountIsNegative">
         <value xml:lang="ar">المبلغ المدخل ${overrideAmount} سالب.</value>
         <value xml:lang="de">Eingegebene Menge ${overrideAmount} ist negativ.</value>
@@ -711,6 +642,75 @@
         <value xml:lang="zh">更新支付状态信息时出错：${errorString}</value>
         <value xml:lang="zh-TW">更新支付狀態資訊時出錯:${errorString}</value>
     </property>
+    <property key="AccountingOrbital">
+        <value xml:lang="ar">حصل خطأ أثناء استرجاع بيانات السلة</value>
+        <value xml:lang="de">Ein Fehler trat beim Ermitteln der Warenkorbdetails auf</value>
+        <value xml:lang="en">An error occurred while retrieving cart details</value>
+        <value xml:lang="it">Un'errore è successo mentre ricavavo i dettagli del carrello</value>
+        <value xml:lang="ja">カードの詳細を取得時にエラーが発生しました</value>
+        <value xml:lang="pt">Ocorreu um erro ao recuperar os detalhes carrinho</value>
+        <value xml:lang="zh">获取购物车详细信息时出错</value>
+        <value xml:lang="zh-TW">獲取購物車詳細資訊時出錯</value>
+    </property>
+    <property key="AccountingPayPalCommunicationError">
+        <value xml:lang="de">Während der Kommunikation mit PayPal ist ein Problem aufgetreten, bitte versuchen Sie es noch einmal oder wählen Sie eine andere Zahlungsmethode</value>
+        <value xml:lang="en">A problem occurred while communicating with PayPal, please try again or select a different checkout method</value>
+        <value xml:lang="hi-IN">Paypal से संचार में समस्या, कृपया पुन: प्रयास करें या एक अलग Checkout पद्धति का चयन करें</value>
+        <value xml:lang="it">Si è verificato un problema durante la comunicazione con PayPal, per favore provare di nuovo o selezionare un altro metodo di checkout</value>
+        <value xml:lang="ja">PayPalとの通信中に問題が発生しました、再度実行するか別のチェックアウト方法を選択してください</value>
+        <value xml:lang="pt">Ocorreu um problema durante a comunicação com o PayPal, por favor tente novamente, ou selecione um método de pagamento diferente</value>
+        <value xml:lang="zh">与贝宝通讯时出错，请重试或选择其它结账方式</value>
+        <value xml:lang="zh-TW">與PayPal通訊時出錯,請重試或選擇其它結帳方式</value>
+    </property>
+    <property key="AccountingPayPalErrorDuringRetrievingCartDetails">
+        <value xml:lang="ar">حصل خطأ أثناء استرجاع بيانات السلة</value>
+        <value xml:lang="de">Beim Auslesen von Details aus dem Warenkorb ist ein Fehler aufgetreten</value>
+        <value xml:lang="en">An error occurred while retreiving cart details</value>
+        <value xml:lang="it">Un'errore è successo mentre ricavavo i dettagli del carrello</value>
+        <value xml:lang="ja">カードの詳細を取得中にエラーが発生しました</value>
+        <value xml:lang="pt">Ocorreu um erro ao recuperar os detalhes do carrinho</value>
+        <value xml:lang="zh">获取购物车详细信息时出错</value>
+        <value xml:lang="zh-TW">獲取購物車詳細資訊時出錯</value>
+    </property>
+    <property key="AccountingPayPalPaymentGatewayConfigCannotFind">
+        <value xml:lang="de">Für den Abschluss mit PayPal-Express liegt keine Konfiguration (PaymentGatewayConfigPayPal) vor, kann nicht fortfahren.</value>
+        <value xml:lang="en">Couldn't retrieve a PaymentGatewayConfigPayPal record for Express Checkout, cannot continue.</value>
+        <value xml:lang="it">Non è possibile ricavare un record PaymentGatewayConfigPayPal per Express Checkout, non è possibile continuare.</value>
+        <value xml:lang="ja">エクスプレスチェックアウトに対するPaymentGatewayConfigPayPalレコードの取得ができません。処理を継続できません。</value>
+        <value xml:lang="pt">Não foi possível recuperar um registro PaymentGatewayConfigPayPal para Checkout Express, não é possível continuar.</value>
+        <value xml:lang="zh">无法获取用于快速结账的贝宝支付网关配置（PaymentGatewayConfigPayPal）记录，不能继续。</value>
+        <value xml:lang="zh-TW">無法獲取用於快速結帳的PayPal支付閘道配置(PaymentGatewayConfigPayPal)記錄,不能繼續.</value>
+    </property>
+    <property key="AccountingPayPalShoppingCartIsEmpty">
+        <value xml:lang="ar">سلة التسوق فارغة, لا يمكن البدء بالإنهاء السريع</value>
+        <value xml:lang="de">Ihr Warenkorb ist leer, kann PayPal-Express nicht abschließen</value>
+        <value xml:lang="en">Shopping cart is empty, cannot proceed with Express Checkout</value>
+        <value xml:lang="fr">Votre panier est vide, vous ne pouvez pas effectuer une validation express</value>
+        <value xml:lang="hi-IN">शॉपिंग कार्ट खाली है, एक्सप्रेस चेकआउट के साथ आगे नहीं बढ़ सकते</value>
+        <value xml:lang="it">Il carrello è vuoto, non posso procedere con il checkout Express</value>
+        <value xml:lang="ja">買い物かごには何も入っていません、エクスプレスチェックアウトできません</value>
+        <value xml:lang="pt">Carrinho de Compras está vazio, não é possível prosseguir com o Pagamento expresso</value>
+        <value xml:lang="zh">购物车是空的，无法处理快速结账</value>
+        <value xml:lang="zh-TW">購物車是空的,無法處理快速結帳</value>
+    </property>
+    <property key="AccountingPayPalTokenNotFound">
+        <value xml:lang="de">Das Token von PayPal-Express ist nicht im Warenkorb hinterlegt; kann nicht fortfahren</value>
+        <value xml:lang="en">Express Checkout token not present in cart, cannot get checkout details</value>
+        <value xml:lang="it">Il token per Express Checkout non è presente nel carrello, non è possibile ottenere i dettagli di checkout</value>
+        <value xml:lang="ja">エクスプレスチェックアウトのトークンが買い物かごに存在しません。チェックアウトの詳細が取得できません。</value>
+        <value xml:lang="pt">Token de pagamento expreso não presentes no carrinho, não é possível obter detalhes de checkout</value>
+        <value xml:lang="zh">购物车中没有快速结账标志，无法获得结账详细信息</value>
+        <value xml:lang="zh-TW">購物車中沒有快速結帳標誌,無法獲得結帳詳細資訊</value>
+    </property>
+    <property key="AccountingPayPalUnknownError">
+        <value xml:lang="de">Bei der Kontaktaufnahme mit PayPal ist ein unbekannter Fehler aufgetreten</value>
+        <value xml:lang="en">An unknown error occurred while contacting PayPal</value>
+        <value xml:lang="it">Un'errore sconosciuto è accaduto mentre contattavi PayPal</value>
+        <value xml:lang="ja">PayPalに接続中に未知のエラーが発生しました</value>
+        <value xml:lang="pt">Um erro desconhecido ocorreu ao entrar em contato com PayPal</value>
+        <value xml:lang="zh">与贝宝联系时发生了一个未知的错误</value>
+        <value xml:lang="zh-TW">與PayPal聯絡時發生了一個未知的錯誤</value>
+    </property>
     <property key="AccountingTaxIdInvalidFormat">
         <value xml:lang="ar">دليل الضريبة ${parameters.partyTaxId} لم يدخل بطريقة صحيحة للمصلحة الضريبية المختارة ${taxAuthority.taxIdFormatPattern}</value>
         <value xml:lang="de">Die Steuer ID ${parameters.partyTaxId} war in einem ungültigen Format für die gewählte Steuerbehörde ${taxAuthority.taxIdFormatPattern}</value>
@@ -728,6 +728,67 @@
         <value xml:lang="it">Errore di lettura impostazioni tasse: ${errorString}</value>
         <value xml:lang="zh">获取税务设置时数据错误：${errorString}</value>
         <value xml:lang="zh-TW">獲取稅務設定時資料錯誤:${errorString}</value>
+    </property>
+    <property key="idealEvents.failedToExecuteServiceCreatePaymentFromPreference">
+        <value xml:lang="ar">فشل في تنفيذ خدمة CreatePaymentFromPreference</value>
+        <value xml:lang="de">Ausführen des Service CreatePaymentFromPreference fehlgeschlagen</value>
+        <value xml:lang="en">Failed To Execute Service CreatePaymentFromPreference</value>
+        <value xml:lang="fr">Échec sur l'execution du service de création d'un payment suivant les préférence (CreatePaymentFromPreference)</value>
+        <value xml:lang="hi-IN">सर्विस CreatePaymentFromPreference पर अमल(execute) करने में असफल</value>
+        <value xml:lang="it">Fallita esecuzione servizio CreatePaymentFromPreference</value>
+        <value xml:lang="zh">执行从设置创建支付（CreatePaymentFromPreference）这个服务时出错</value>
+        <value xml:lang="zh-TW">執行從偏好新建支付(CreatePaymentFromPreference)這個服務時出錯</value>
+    </property>
+    <property key="idealEvents.noValidOrderIdReturned">
+        <value xml:lang="ar">لا يوجد أمر بيع/شراء صحيح مسترجع</value>
+        <value xml:lang="de">Es wurde keine gültige BestellId zurückgegeben</value>
+        <value xml:lang="en">No Valid OrderId Returned</value>
+        <value xml:lang="fr">Référence commande retournée n'est pas valide</value>
+        <value xml:lang="hi-IN">मान्य OrderId वापस नहीं लौटा</value>
+        <value xml:lang="it">Nessun numero ordine restituito</value>
+        <value xml:lang="zh">返回的订单标识无效</value>
+        <value xml:lang="zh-TW">返回的訂單標識無效</value>
+    </property>
+    <property key="idealEvents.problemsConnectingWithIdeal">
+        <value xml:lang="de">Probleme bei der Verbindung zu iDEAL</value>
+        <value xml:lang="en">Problems Connecting With iDEAL</value>
+        <value xml:lang="fr">Problème rencontré dans la connexion avec iDEAL</value>
+        <value xml:lang="hi-IN">iDEAL के साथ जोड़ने में समस्या</value>
+        <value xml:lang="it">Problema nella connessione con iDEAL</value>
+        <value xml:lang="zh">连接 iDEAL 时出错</value>
+        <value xml:lang="zh-TW">連接 iDEAL 時出錯</value>
+    </property>
+    <property key="idealEvents.problemsGettingAuthenticationUser">
+        <value xml:lang="ar">مشاكل في مصادقة المستخدم</value>
+        <value xml:lang="de">Probleme beim Ermitteln des berechtigten Benutzers</value>
+        <value xml:lang="en">Problems Getting Authentication User</value>
+        <value xml:lang="fr">Problème sur l'authentification de l'utilisateur</value>
+        <value xml:lang="hi-IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
+        <value xml:lang="it">Problema durante l'autenticazione utente</value>
+        <value xml:lang="zh">获取认证用户时出错</value>
+        <value xml:lang="zh-TW">獲取認證使用者時出錯</value>
+    </property>
+    <property key="idealEvents.problemsGettingMerchantConfiguration">
+        <value xml:lang="ar">مشاكل في ترتيبات التاجر</value>
+        <value xml:lang="de">Probleme beim Ermitteln der Verkaufs-Konfiguration</value>
+        <value xml:lang="en">Problems Getting Merchant Configuration</value>
+        <value xml:lang="fr">Problème de récupération de la configuration marchand</value>
+        <value xml:lang="hi-IN">व्यापारी विन्यास में समस्याएँ हो रही</value>
+        <value xml:lang="it">Problema nel ricavare la configurazione del negoziante</value>
+        <value xml:lang="ja">マーチャント設定の取得時にエラー</value>
+        <value xml:lang="zh">获取商户配置时出错</value>
+        <value xml:lang="zh-TW">獲取商戶配置時出錯</value>
+    </property>
+    <property key="idealEvents.problemsGettingOrderHeader">
+        <value xml:lang="ar">مشاكل في رأس أمر البيع/الشراء</value>
+        <value xml:lang="de">Probleme beim Ermitteln des Bestellkopfs</value>
+        <value xml:lang="en">Problems Getting OrderHeader</value>
+        <value xml:lang="fr">Problème de récupération de la commande</value>
+        <value xml:lang="hi-IN">OrderHeader में समस्याएँ हो रही</value>
+        <value xml:lang="it">Problema nel ricavare la testata ordine</value>
+        <value xml:lang="ja">注文ヘッダ取得時にエラー</value>
+        <value xml:lang="zh">获取订单头时出错</value>
+        <value xml:lang="zh-TW">獲取訂單頭時出錯</value>
     </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="ar">فشل في تنفيذ خدمة createPaymentFromPreference</value>
@@ -916,65 +977,5 @@
         <value xml:lang="zh">获取订单头时出错</value>
         <value xml:lang="zh-TW">獲取訂單頭時出錯</value>
     </property>
-    <property key="idealEvents.failedToExecuteServiceCreatePaymentFromPreference">
-        <value xml:lang="ar">فشل في تنفيذ خدمة CreatePaymentFromPreference</value>
-        <value xml:lang="de">Ausführen des Service CreatePaymentFromPreference fehlgeschlagen</value>
-        <value xml:lang="en">Failed To Execute Service CreatePaymentFromPreference</value>
-        <value xml:lang="fr">Échec sur l'execution du service de création d'un payment suivant les préférence (CreatePaymentFromPreference)</value>
-        <value xml:lang="hi-IN">सर्विस CreatePaymentFromPreference पर अमल(execute) करने में असफल</value>
-        <value xml:lang="it">Fallita esecuzione servizio CreatePaymentFromPreference</value>
-        <value xml:lang="zh">执行从设置创建支付（CreatePaymentFromPreference）这个服务时出错</value>
-        <value xml:lang="zh-TW">執行從偏好新建支付(CreatePaymentFromPreference)這個服務時出錯</value>
-    </property>
-    <property key="idealEvents.noValidOrderIdReturned">
-        <value xml:lang="ar">لا يوجد أمر بيع/شراء صحيح مسترجع</value>
-        <value xml:lang="de">Es wurde keine gültige BestellId zurückgegeben</value>
-        <value xml:lang="en">No Valid OrderId Returned</value>
-        <value xml:lang="fr">Référence commande retournée n'est pas valide</value>
-        <value xml:lang="hi-IN">मान्य OrderId वापस नहीं लौटा</value>
-        <value xml:lang="it">Nessun numero ordine restituito</value>
-        <value xml:lang="zh">返回的订单标识无效</value>
-        <value xml:lang="zh-TW">返回的訂單標識無效</value>
-    </property>
-    <property key="idealEvents.problemsConnectingWithIdeal">
-        <value xml:lang="de">Probleme bei der Verbindung zu iDEAL</value>
-        <value xml:lang="en">Problems Connecting With iDEAL</value>
-        <value xml:lang="fr">Problème rencontré dans la connexion avec iDEAL</value>
-        <value xml:lang="hi-IN">iDEAL के साथ जोड़ने में समस्या</value>
-        <value xml:lang="it">Problema nella connessione con iDEAL</value>
-        <value xml:lang="zh">连接 iDEAL 时出错</value>
-        <value xml:lang="zh-TW">連接 iDEAL 時出錯</value>
-    </property>
-    <property key="idealEvents.problemsGettingAuthenticationUser">
-        <value xml:lang="ar">مشاكل في مصادقة المستخدم</value>
-        <value xml:lang="de">Probleme beim Ermitteln des berechtigten Benutzers</value>
-        <value xml:lang="en">Problems Getting Authentication User</value>
-        <value xml:lang="fr">Problème sur l'authentification de l'utilisateur</value>
-        <value xml:lang="hi-IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
-        <value xml:lang="it">Problema durante l'autenticazione utente</value>
-        <value xml:lang="zh">获取认证用户时出错</value>
-        <value xml:lang="zh-TW">獲取認證使用者時出錯</value>
-    </property>
-    <property key="idealEvents.problemsGettingMerchantConfiguration">
-        <value xml:lang="ar">مشاكل في ترتيبات التاجر</value>
-        <value xml:lang="de">Probleme beim Ermitteln der Verkaufs-Konfiguration</value>
-        <value xml:lang="en">Problems Getting Merchant Configuration</value>
-        <value xml:lang="fr">Problème de récupération de la configuration marchand</value>
-        <value xml:lang="hi-IN">व्यापारी विन्यास में समस्याएँ हो रही</value>
-        <value xml:lang="it">Problema nel ricavare la configurazione del negoziante</value>
-        <value xml:lang="ja">マーチャント設定の取得時にエラー</value>
-        <value xml:lang="zh">获取商户配置时出错</value>
-        <value xml:lang="zh-TW">獲取商戶配置時出錯</value>
-    </property>
-    <property key="idealEvents.problemsGettingOrderHeader">
-        <value xml:lang="ar">مشاكل في رأس أمر البيع/الشراء</value>
-        <value xml:lang="de">Probleme beim Ermitteln des Bestellkopfs</value>
-        <value xml:lang="en">Problems Getting OrderHeader</value>
-        <value xml:lang="fr">Problème de récupération de la commande</value>
-        <value xml:lang="hi-IN">OrderHeader में समस्याएँ हो रही</value>
-        <value xml:lang="it">Problema nel ricavare la testata ordine</value>
-        <value xml:lang="ja">注文ヘッダ取得時にエラー</value>
-        <value xml:lang="zh">获取订单头时出错</value>
-        <value xml:lang="zh-TW">獲取訂單頭時出錯</value>
-    </property>
+    
 </resource>
