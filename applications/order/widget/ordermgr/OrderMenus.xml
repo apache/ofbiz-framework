@@ -310,7 +310,7 @@ under the License.
                     <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
             </condition>
-            <link target="/requestitems">
+            <link target="requestitems">
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
