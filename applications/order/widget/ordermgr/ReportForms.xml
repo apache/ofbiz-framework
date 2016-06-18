@@ -177,13 +177,13 @@ under the License.
             </drop-down>
         </field>
         <field name="toPartyId" title="${uiLabelMap.AccountingToPartyId}">
-            <check allow-checked="false">
+            <check all-checked="false">
                 <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName} ${firstName} ${lastName} [${partyId}]" key-field-name="partyId">
                 </entity-options>
             </check>
         </field>
         <field name="orderStatusId">
-            <check allow-checked="false">
+            <check all-checked="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
