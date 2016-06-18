@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-
 //partyAcctgPrefAndGroupList
 partyAcctgPrefAndGroupList = [];
 partyAcctgPrefAndGroup = delegator.findList("PartyAcctgPrefAndGroup", null, null, null, null, false);
