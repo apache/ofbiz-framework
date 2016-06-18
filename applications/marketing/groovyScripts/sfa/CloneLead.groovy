@@ -18,7 +18,6 @@
  */
 
 import org.ofbiz.entity.util.EntityUtil
-import org.ofbiz.entity.condition.EntityCondition
 import org.ofbiz.party.contact.ContactHelper
 
 partyId = parameters.partyId;

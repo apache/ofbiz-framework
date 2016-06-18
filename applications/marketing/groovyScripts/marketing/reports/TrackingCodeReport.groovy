@@ -17,11 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.transaction.TransactionUtil
 import org.ofbiz.entity.condition.EntityOperator
-import org.ofbiz.entity.condition.EntityExpr
 import org.ofbiz.entity.condition.EntityCondition
-import org.ofbiz.entity.condition.EntityConditionList
 import org.ofbiz.marketing.report.ReportHelper
 
 // query for both number of visits and number of orders
