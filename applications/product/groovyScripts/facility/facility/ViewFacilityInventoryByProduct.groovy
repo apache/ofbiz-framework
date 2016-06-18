@@ -39,6 +39,7 @@ hasOffsetQOH = false;
 hasOffsetATP = false;
 
 rows = [] as ArrayList;
+int listSize = 0; // The complete size of the list of result (for pagination)
 
 if (action) {
     // ------------------------------
@@ -124,11 +125,15 @@ if (action) {
     whereCondition = EntityCondition.makeCondition(whereConditionsList, EntityOperator.AND);
 
     beganTransaction = false;
+    // get the indexes for the partial list
+    lowIndex = ((viewIndex.intValue() * viewSize.intValue()) + 1);
+    highIndex = (viewIndex.intValue() + 1) * viewSize.intValue();
     List prods = null;
     try {
         beganTransaction = TransactionUtil.begin();
         prodsEli = from(prodView).where(whereCondition).orderBy("productId").cursorScrollInsensitive().distinct().queryIterator();
-        prods = prodsEli.getCompleteList();
+        prods = prodsEli.getPartialList(lowIndex, highIndex);
+        listSize = prodsEli.getResultsSizeAfterPartialList();
         prodsEli.close();
     } catch (GenericEntityException e) {
         errMsg = "Failure in operation, rolling back transaction";
@@ -198,6 +203,7 @@ if (action) {
         }
     }
 }
-context.overrideListSize = rows.size();
+
+context.overrideListSize = listSize;
 context.inventoryByProduct = rows;
 context.searchParameterString = searchParameterString;
