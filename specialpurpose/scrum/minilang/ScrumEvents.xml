@@ -1572,6 +1572,8 @@
                     <!-- assign new party to task -->
                     <set field="newInput.partyId" from-field="parameters.partyId"/>
                     <set field="newInput.workEffortId" from-field="taskId"/>
+                    <set field="newInput.fromDate" from-field="parameters.fromDate"/>
+                    <set field="newInput.thruDate" from-field="parameters.thruDate"/>
                     <if-empty field="taskOwnerRoles">
                         <set field="newInput.roleTypeId" from-field="parameters.roleTypeId"/>
                     </if-empty>
