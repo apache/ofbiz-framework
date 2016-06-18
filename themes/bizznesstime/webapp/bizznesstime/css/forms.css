@@ -27,68 +27,69 @@ form label {
     font-size: 11px;
     color: #5d5644;
     margin-top: 5px;
-    text-transform:uppercase;
+    text-transform: uppercase;
 }
 
 form a img {
-    float:none;
-    margin:0px 5px 10px 5px;
+    float: none;
+    margin: 0px 5px 10px 5px;
 }
 
 form tbody {
-  border:none;
+    border: none;
 }
+
 form tbody tr {
-  border:0px;
+    border: 0px;
 }
 
-input[type="radio"],input[type="checkbox"] {
-  font-size: 1.1em;
-  margin: 5px 5px 10px 0px;
-}
-
-input[type="text"],input[type="password"] {
-    background:#fbfbfb;
-    border: #ccc solid 1px;
-    font-weight:normal;
+input[type="radio"], input[type="checkbox"] {
     font-size: 1.1em;
-    margin:5px 0px;
-    padding:2px 4px;
+    margin: 5px 5px 10px 0px;
 }
 
-input[type="submit"],input[type="button"],input[type="reset"] {
-  background:url(../images/btn-bg.gif) center left repeat-x;
-  border: #ddd solid 2px;
+input[type="text"], input[type="password"] {
+    background: #fbfbfb;
+    border: #ccc solid 1px;
+    font-weight: normal;
+    font-size: 1.1em;
+    margin: 5px 0px;
+    padding: 2px 4px;
+}
+
+input[type="submit"], input[type="button"], input[type="reset"] {
+    background: url(../images/btn-bg.gif) center left repeat-x;
+    border: #ddd solid 2px;
     color: #444;
-  font-weight:bold;
-  line-height:1.8em;
-  margin:5px 5px 2px 0px;
-  padding:2px 4px;
-  text-transform:uppercase;
+    font-weight: bold;
+    line-height: 1.8em;
+    margin: 5px 5px 2px 0px;
+    padding: 2px 4px;
+    text-transform: uppercase;
 }
 
 input[type="submit"]:hover,
 input[type="button"],
 input[type="reset"] {
-  color: #1c334d;
-  cursor: pointer;
-  text-decoration: none;
+    color: #1c334d;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 input[type="file"] {
-  font-size: 1.1em;
-  height: 1.9em; /* force ctrl to scale with text */
-  background-color: #ffffff;
-  border: #ddd solid 2px;
+    font-size: 1.1em;
+    height: 1.9em; /* force ctrl to scale with text */
+    background-color: #ffffff;
+    border: #ddd solid 2px;
     color: #444;
 }
 
 select {
-  background-color: #fbfbfb;
-  border: #ccc solid 1px;
-  font-size: 1.1em;
-  height: 1.6em; /* force ctrl to scale with text */
-  margin:5px 0px 2px 0px;
+    background-color: #fbfbfb;
+    border: #ccc solid 1px;
+    font-size: 1.1em;
+    height: 1.6em; /* force ctrl to scale with text */
+    margin: 5px 0px 2px 0px;
 }
 
 select[multiple="multiple"] {
@@ -96,17 +97,17 @@ select[multiple="multiple"] {
 }
 
 textarea {
-  border: #ddd solid 2px;
-  font-weight:bold;
-  font-size: 1.1em;
-  margin:5px 5px 5px 5px;
-  padding:2px 4px;
+    border: #ddd solid 2px;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 5px 5px 5px 5px;
+    padding: 2px 4px;
 }
 
-input:focus,.contentarea textarea:focus {
-  border: 1px solid #6E2723;
+input:focus, .contentarea textarea:focus {
+    border: 1px solid #6E2723;
 }
 
 input.focused, textarea.focused {
-  border: 1px solid #6E2723;
+    border: 1px solid #6E2723;
 }

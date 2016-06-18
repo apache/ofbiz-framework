@@ -108,7 +108,7 @@ Submenu
     padding-right: 0.5em;
 }
 
-.submenutext,a.submenutext,a.submenutext:visited {
+.submenutext, a.submenutext, a.submenutext:visited {
     color: #333;
     font-size: 0.9em;
     font-weight: bold;
@@ -219,7 +219,7 @@ Trees
     padding-right: 1em;
 }
 
-.basic-tree li .treeitem { 
+.basic-tree li .treeitem {
     border-style: none;
     color: #333;
     font-size: 1em;
@@ -232,7 +232,7 @@ Trees
 /***********************************************
 Navigation Bars
 ***********************************************/
-.basic-nav { 
+.basic-nav {
     padding-left: 1em;
 }
 
@@ -267,11 +267,11 @@ Navigation Bars
 }
 
 .nav-pager {
-    padding:0.08em 0 0.5em 0;
-    clear:both;
-    display:block;
-    position:relative;
-    margin:0px 0 10px 0;
+    padding: 0.08em 0 0.5em 0;
+    clear: both;
+    display: block;
+    position: relative;
+    margin: 0px 0 10px 0;
 }
 
 .nav-pager ul {
@@ -288,7 +288,7 @@ Navigation Bars
 
 .nav-pager ul li a {
     display: block;
-    color:#444444;
+    color: #444444;
     font-weight: bold;
 }
 
@@ -296,9 +296,9 @@ Navigation Bars
 .nav-pager ul .nav-previous,
 .nav-pager ul .nav-next,
 .nav-pager ul .nav-last {
-    background-color:#fff;
-    border:2px solid #ddd;
-    color:#444;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    color: #444;
     padding: 0 0.5em 0 0.5em;
 }
 
@@ -306,9 +306,9 @@ Navigation Bars
 .nav-pager ul .nav-previous-disabled,
 .nav-pager ul .nav-next-disabled,
 .nav-pager ul .nav-last-disabled {
-    background-color:#fff;
-    border:2px solid #ddd;
-    color:#ccc;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    color: #ccc;
     padding: 0 0.5em 0 0.5em;
 }
 
@@ -334,7 +334,7 @@ form .basic-table,
     margin-bottom: 0;
 }
 
-.basic-table tr th,.basic-table .header-row {
+.basic-table tr th, .basic-table .header-row {
     font-weight: bold;
     text-align: left;
 }
@@ -347,7 +347,7 @@ form .basic-table,
     color: #000000;
 }
 
-.basic-table .alternate-row { 
+.basic-table .alternate-row {
     background-color: #f5f6eb;
 }
 
@@ -359,7 +359,7 @@ form .basic-table,
     background: #FFF55F;
 }
 
-.basic-table .Validate { 
+.basic-table .Validate {
     background: #A0D5F7;
 }
 
@@ -367,39 +367,39 @@ form .basic-table,
     background: #72A8F2;
 }
 
-.basic-table .Warn { 
+.basic-table .Warn {
     background: #f55C5C;
 }
 
-.basic-table .alternate-rowWarn { 
+.basic-table .alternate-rowWarn {
     background: #FC7455;
 }
 
-.basic-table tr .button-col { 
+.basic-table tr .button-col {
     vertical-align: top;
 }
 
 .basic-table tr .button-col a {
-    background:url(../images/btn-bg.gif) center left repeat-x;
+    background: url(../images/btn-bg.gif) center left repeat-x;
     border: 2px solid #ddd;
     color: #333;
     float: left;
-    font-weight:bold;
+    font-weight: bold;
     margin: 0 0.1em 0 0.1em;
     padding: 0.1em 0.4em 0.1em 0.4em;
-    text-transform:uppercase;
+    text-transform: uppercase;
     white-space: nowrap;
 }
 
-.basic-table tr .smallSubmit,.basic-table tr .smallSubmit:visited {
-    background:url(../images/btn-bg.gif) center left repeat-x;
-    border:2px solid #ddd;
-    color:#444;
-    font-weight:bold;
-    line-height:1.8em;
-    margin:5px 5px 2px;
-    padding:2px 4px;
-    text-transform:uppercase;
+.basic-table tr .smallSubmit, .basic-table tr .smallSubmit:visited {
+    background: url(../images/btn-bg.gif) center left repeat-x;
+    border: 2px solid #ddd;
+    color: #444;
+    font-weight: bold;
+    line-height: 1.8em;
+    margin: 5px 5px 2px;
+    padding: 2px 4px;
+    text-transform: uppercase;
 }
 
 .basic-table tr .button-col a:hover,
@@ -415,9 +415,9 @@ form .basic-table,
 
 .basic-table .header-row-2 th,
 .basic-table .header-row-2 td {
-    background:#D14B1F url(../images/tableheader-bg.jpg) repeat-x scroll 0 -100px;
-    border-bottom:2px solid #FFFFFF;
-    border-left:1px solid #D14B1F;
+    background: #D14B1F url(../images/tableheader-bg.jpg) repeat-x scroll 0 -100px;
+    border-bottom: 2px solid #FFFFFF;
+    border-left: 1px solid #D14B1F;
     color: #fff;
     font-weight: bold;
     text-align: left;
@@ -425,7 +425,7 @@ form .basic-table,
 
 .basic-table .header-row-2 th a,
 .basic-table .header-row-2 td a {
-    color:#fff;
+    color: #fff;
 }
 
 .basic-table .header-row-2 th .sort-order-asc,
@@ -475,7 +475,7 @@ form .basic-table,
     width: 20%;
 }
 
-.form-widget table,.form-widget-table {
+.form-widget table, .form-widget-table {
     width: auto;
 }
 
@@ -487,23 +487,23 @@ form .basic-table,
 Calendar
 ***********************************************/
 .field-lookup a {
-background: url(/images/fieldlookup.gif) no-repeat 0 0;
-display: inline-block;
-/* margin: 3px 10px 0px 4px; */
-vertical-align:top;
-margin-top:6px;
-width:16px;
-height:16px;
+    background: url(/images/fieldlookup.gif) no-repeat 0 0;
+    display: inline-block;
+    /* margin: 3px 10px 0px 4px; */
+    vertical-align: top;
+    margin-top: 6px;
+    width: 16px;
+    height: 16px;
 }
 
 .view-calendar a {
-background: url(/images/cal.gif) no-repeat !important;
-display: inline-block;
-/* margin: 3px 10px 0px 4px; */
-vertical-align:top;
-margin-top:5px;
-width:16px;
-height:16px;
+    background: url(/images/cal.gif) no-repeat !important;
+    display: inline-block;
+    /* margin: 3px 10px 0px 4px; */
+    vertical-align: top;
+    margin-top: 5px;
+    width: 16px;
+    height: 16px;
 }
 
 .calendar {
@@ -570,11 +570,11 @@ height:16px;
     padding: 3px;
     font-size: 12px;
     text-align: center;
-    color:#333;
+    color: #333;
 }
 
 .calendar_date_select .cds_footer span {
-    display:none
+    display: none
 }
 
 .calendar_date_select table {
@@ -702,23 +702,23 @@ Legacy Forms
                    <fieldset>
                    <label>, etc...
 ***********************************************/
-.label { 
+.label {
     font-weight: bold;
     text-align: right;
     white-space: nowrap;
     width: 1%;
-    margin:0 4px 0 0px;
-    vertical-align:middle;
+    margin: 0 4px 0 0px;
+    vertical-align: middle;
 }
 
 .basic-form {
-    clear:both;
-    display:block;
-    margin:5px 0 5px 0;
-    width:100%;
+    clear: both;
+    display: block;
+    margin: 5px 0 5px 0;
+    width: 100%;
 }
 
-.required,input.required { 
+.required, input.required {
     background-color: #eeeeee;
 }
 
@@ -741,9 +741,9 @@ Legacy Forms
 }
 
 .fieldgroup-title-bar a {
-cursor:pointer;
-text-decoration:none;
-padding-left: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    padding-left: 10px;
 }
 
 /***********************************************
