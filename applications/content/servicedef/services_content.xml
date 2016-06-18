@@ -106,7 +106,7 @@
         <group>
             <invoke name="updateDataResource" parameters="preserve" result-to-context="true"/>
             <invoke name="attachUploadToDataResource" parameters="preserve" result-to-context="true"/>
-            <invoke name="updateContent"/>
+            <invoke name="updatePartyContent"/>
         </group>
     </service>
 
