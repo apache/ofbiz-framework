@@ -40,7 +40,7 @@ under the License.
         </field>
         <field name="hideFields"><hidden value="Y"/></field>
         <field name="partyId"><text size="15" /></field>
-        <field name="userLoginId"><text size="15" /></field>
+        <field name="userLoginId"><lookup target-form-name="LookupUserLogin" size="15"/></field>
         <field name="externalId"><text size="15" /></field>
         <field name="lastName"><text size="15"/></field>
         <field name="firstName"><text size="15"/></field>
