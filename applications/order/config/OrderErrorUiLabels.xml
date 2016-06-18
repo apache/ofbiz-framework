@@ -19,28 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
-    <property key="OrderAProductStoreMustBeSelectedForASalesOrder">
-        <value xml:lang="ar">يجب اختيار محل السلعة لأمر البيع</value>
-        <value xml:lang="de">Für einen Verkaufsauftrag muss ein Laden ausgewählt werden. </value>
-        <value xml:lang="en">A Product Store MUST be selected for a Sales Order. </value>
-        <value xml:lang="es">Se debe seleccionar una tienda para un pedido de venta</value>
-        <value xml:lang="fr">Un centre de profit doit être choisi pour une commande de vente.</value>
-        <value xml:lang="it">Un Negozioe DEVE essere selezionato per un'Ordine di Vendita. </value>
-        <value xml:lang="ja">販売注文に対して製品店舗を選択する必要があります。</value>
-        <value xml:lang="nl">Er moet een winkel geselecteerd zijn voor een verkoopborder.</value>
-        <value xml:lang="pt-BR">Um produto da loja deve estar selecionado para um pedido de venda</value>
-        <value xml:lang="ro">TREBUIE sa selectionezi un magazin pentru o comanda de Vanzare. </value>
-        <value xml:lang="ru">Для сбытового заказа ДОЛЖНА быть выбрана торговая точка. </value>
-        <value xml:lang="th">คลังสินค้าต้องเลือกสำหรับรายการขาย</value>
-        <value xml:lang="vi">Thông tin kho (Product Store) phải được chọn cho Đơn đặt hàng (Sales Order). </value>
-        <value xml:lang="zh">必须为销售订单选择一个产品店铺。 </value>
-        <value xml:lang="zh-TW">必須為銷售訂單選擇一個產品店鋪。 </value>
-    </property>
-    <property key="OrderApproveOrderBeforeQuickDropShip">
-        <value xml:lang="de">Bestellung muss freigegeben werden bevor Streckenlieferung abgeschlossen wird.</value>
-        <value xml:lang="en">Order must be approved before completing drop shipment.</value>
-        <value xml:lang="zh">必须在完成厂家直送之前批准订单。</value>
-    </property>
     <property key="OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId">
         <value xml:lang="de">Ein alternative Gratisbeigabe ist vorhanden, aber entweder nicht mehr gültig oder nicht mehr auf Lager : ${alternateGwpProductId}</value>
         <value xml:lang="en">An alternateGwpProductId was in place, but was either not valid or is no longer in stock for ID : ${alternateGwpProductId}</value>
@@ -55,6 +33,23 @@
         <value xml:lang="vi">Giá trị́ alternateGwpProductId đã chọń, nhưng không còn hợp lệ hoặc không còn tồn tại trong kho với ID: ${alternateGwpProductId}</value>
         <value xml:lang="zh">输入的alternateGwpProductId无效或不再使用了，标识：${alternateGwpProductId}</value>
         <value xml:lang="zh-TW">輸入的alternateGwpProductId無效或不再使用了ID：${alternateGwpProductId}</value>
+    </property>
+    <property key="OrderAnUnitPriceCantBeLesserThanZero">
+        <value xml:lang="ar">سعر الوحدة لا يمكن أن يكون أقل من صفر</value>
+        <value xml:lang="de">Ein Einheitenpreis kann nicht kleiner als null sein</value>
+        <value xml:lang="en">An unit price can't be lesser than zero</value>
+        <value xml:lang="es">Un precio unitario no puede ser menor que cero.</value>
+        <value xml:lang="fr">Un prix unitaire ne peut pas être inférieur à zéro</value>
+        <value xml:lang="it">Il prezzo unitario non puù essere minore di zero</value>
+        <value xml:lang="ja">単価はゼロより小さくできません</value>
+        <value xml:lang="nl">Een stukprijs kan niet lager zijn dan nul.</value>
+        <value xml:lang="pt-BR">O preço unitário não pode ser menor que zero</value>
+        <value xml:lang="ro">Pretul unitar nu poate fi mai mic decat zero</value>
+        <value xml:lang="ru">Цена не может быть меньше ноля</value>
+        <value xml:lang="th">ราคาต่อหน่วยไม่สามารถใส่น้อยกว่าศูนย์</value>
+        <value xml:lang="vi">Giá sản phẩm phải lớn hơn 0</value>
+        <value xml:lang="zh">单价不能小于零</value>
+        <value xml:lang="zh-TW">單價不能小于零</value>
     </property>
     <property key="OrderAnUnSupportedProductPromoCondCondition">
         <value xml:lang="de">Eine nicht unterstützte Promotion Kondition wurde genutzt: ${operatorEnumId}, deswegen Fehler bei der Verarbeitung</value>
@@ -86,22 +81,34 @@
         <value xml:lang="zh">使用了不支持的productPromoCond作为输入参数：${inputParamEnumId}，返回false，检查失败</value>
         <value xml:lang="zh-TW">使用了不支援的productPromoCond作為輸入參數：${inputParamEnumId}，返回false，檢查失敗</value>
     </property>
-    <property key="OrderAnUnitPriceCantBeLesserThanZero">
-        <value xml:lang="ar">سعر الوحدة لا يمكن أن يكون أقل من صفر</value>
-        <value xml:lang="de">Ein Einheitenpreis kann nicht kleiner als null sein</value>
-        <value xml:lang="en">An unit price can't be lesser than zero</value>
-        <value xml:lang="es">Un precio unitario no puede ser menor que cero.</value>
-        <value xml:lang="fr">Un prix unitaire ne peut pas être inférieur à zéro</value>
-        <value xml:lang="it">Il prezzo unitario non puù essere minore di zero</value>
-        <value xml:lang="ja">単価はゼロより小さくできません</value>
-        <value xml:lang="nl">Een stukprijs kan niet lager zijn dan nul.</value>
-        <value xml:lang="pt-BR">O preço unitário não pode ser menor que zero</value>
-        <value xml:lang="ro">Pretul unitar nu poate fi mai mic decat zero</value>
-        <value xml:lang="ru">Цена не может быть меньше ноля</value>
-        <value xml:lang="th">ราคาต่อหน่วยไม่สามารถใส่น้อยกว่าศูนย์</value>
-        <value xml:lang="vi">Giá sản phẩm phải lớn hơn 0</value>
-        <value xml:lang="zh">单价不能小于零</value>
-        <value xml:lang="zh-TW">單價不能小于零</value>
+    <property key="OrderApproveOrderBeforeQuickDropShip">
+        <value xml:lang="de">Bestellung muss freigegeben werden bevor Streckenlieferung abgeschlossen wird.</value>
+        <value xml:lang="en">Order must be approved before completing drop shipment.</value>
+        <value xml:lang="zh">必须在完成厂家直送之前批准订单。</value>
+    </property>
+    <property key="OrderAProductStoreMustBeSelectedForASalesOrder">
+        <value xml:lang="ar">يجب اختيار محل السلعة لأمر البيع</value>
+        <value xml:lang="de">Für einen Verkaufsauftrag muss ein Laden ausgewählt werden. </value>
+        <value xml:lang="en">A Product Store MUST be selected for a Sales Order. </value>
+        <value xml:lang="es">Se debe seleccionar una tienda para un pedido de venta</value>
+        <value xml:lang="fr">Un centre de profit doit être choisi pour une commande de vente.</value>
+        <value xml:lang="it">Un Negozioe DEVE essere selezionato per un'Ordine di Vendita. </value>
+        <value xml:lang="ja">販売注文に対して製品店舗を選択する必要があります。</value>
+        <value xml:lang="nl">Er moet een winkel geselecteerd zijn voor een verkoopborder.</value>
+        <value xml:lang="pt-BR">Um produto da loja deve estar selecionado para um pedido de venda</value>
+        <value xml:lang="ro">TREBUIE sa selectionezi un magazin pentru o comanda de Vanzare. </value>
+        <value xml:lang="ru">Для сбытового заказа ДОЛЖНА быть выбрана торговая точка. </value>
+        <value xml:lang="th">คลังสินค้าต้องเลือกสำหรับรายการขาย</value>
+        <value xml:lang="vi">Thông tin kho (Product Store) phải được chọn cho Đơn đặt hàng (Sales Order). </value>
+        <value xml:lang="zh">必须为销售订单选择一个产品店铺。 </value>
+        <value xml:lang="zh-TW">必須為銷售訂單選擇一個產品店鋪。 </value>
+    </property>
+    <property key="OrderCannotAddVirtualProductToQuote">
+        <value xml:lang="de">Es kann kein 'virtuelles' Produkt hinzugefügt werden, bitte eine Variante auswählen.</value>
+        <value xml:lang="en">You cannot add a 'Virtual' product here, select one of the related variants.</value>
+        <value xml:lang="ja">'仮想'製品をここで追加できません。関連した別型を選択してください。</value>
+        <value xml:lang="vi">Bạn không thể thêm sản phẩm ảo ('Virtual' product) tại đây, bạn hãy chọn trong các hàng hóa liên quan (related variants).</value>
+        <value xml:lang="zh">在这里你不能添加一个虚拟产品，请选择一个相关的变型。</value>
     </property>
     <property key="OrderCannotGetOrderHeader">
         <value xml:lang="ar">لا يمكن إحضار رأس أمر البيع\الشراء</value>
@@ -245,17 +252,17 @@
         <value xml:lang="zh">没有找到购物车运输组 [ ${groupIndex} ]</value>
         <value xml:lang="zh-TW">沒有找到購物車運輸組 [ ${groupIndex} ]</value>
     </property>
-    <property key="OrderCartShipGroupSeqIdIsMandatory">
-        <value xml:lang="de">Warenkorb shipGroupSeqId wird benötigt</value>
-        <value xml:lang="en">Cart shipGroupSeqId is mandatory</value>
-        <value xml:lang="fr">La reference du groupe d'expédition est obligatoire</value>
-        <value xml:lang="zh">购物车必须有运输组序号(shipGroupSeqId)</value>
-    </property>
     <property key="OrderCartShipGroupPartyCarrierNotFound">
         <value xml:lang="de">Kein Transporteur gefunden für [${partyId}]</value>
         <value xml:lang="en">No Party Carrier found for [${partyId}]</value>
         <value xml:lang="fr">Aucun transporteur trouvé pour la reference [${partyId}]</value>
         <value xml:lang="zh">没有找到[${partyId}]的承运商</value>
+    </property>
+    <property key="OrderCartShipGroupSeqIdIsMandatory">
+        <value xml:lang="de">Warenkorb shipGroupSeqId wird benötigt</value>
+        <value xml:lang="en">Cart shipGroupSeqId is mandatory</value>
+        <value xml:lang="fr">La reference du groupe d'expédition est obligatoire</value>
+        <value xml:lang="zh">购物车必须有运输组序号(shipGroupSeqId)</value>
     </property>
     <property key="OrderCartShipGroupShipmentMethodNotFound">
         <value xml:lang="de">Keine Liefermethode gefunden für [${shipmentMethodTypeId}]</value>
@@ -2136,6 +2143,20 @@
         <value xml:lang="zh">没有找到要发送到的电子邮件地址</value>
         <value xml:lang="zh-TW">沒有找到要發送到的電子郵件位址</value>
     </property>
+    <property key="OrderNosettingsFound">
+        <value xml:lang="ar">لا يوجد إعدادات</value>
+        <value xml:lang="de">Keine Einstellungen gefunden</value>
+        <value xml:lang="en">No settings found</value>
+        <value xml:lang="es">Configuraciones no encontradas</value>
+        <value xml:lang="fr">Aucune configuration trouvée</value>
+        <value xml:lang="it">Nessuna impostazione trovata</value>
+        <value xml:lang="ja">設定がありません</value>
+        <value xml:lang="pt-BR">Nenhuma configuração encontrada</value>
+        <value xml:lang="th">ไม่พบการตั้งค่า</value>
+        <value xml:lang="vi">Không thiết lập nào được tìm thấy</value>
+        <value xml:lang="zh">没有找到设置</value>
+        <value xml:lang="zh-TW">沒有找到設置</value>
+    </property>
     <property key="OrderNoShoppingListAvailable">
         <value xml:lang="ar">قائمة التسوق غير متوفرة</value>
         <value xml:lang="de">Keine Einkaufsliste vorhanden</value>
@@ -2181,6 +2202,21 @@
         <value xml:lang="vi">Không có nhà cung cấp (Supplier) nào cho sản phẩm này</value>
         <value xml:lang="zh">没有找到这个产品的供货商</value>
         <value xml:lang="zh-TW">沒有找到這個產品的供貨商</value>
+    </property>
+    <property key="OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction">
+        <value xml:lang="de">Gratisbeigabe wird nicht hinzugefügt, da Produkt [ ${productId} ] nicht mehr auf Lager für die Aktion: ${productPromoAction}</value>
+        <value xml:lang="en">Not applying GWP because productId [ ${productId} ] is out of stock for productPromoAction: ${productPromoAction}</value>
+        <value xml:lang="es">Gwp no aplicable debido al código del producto [ ${productId} ] que está fuere de stock para la acción promocional del producto: ${productPromoAction}</value>
+        <value xml:lang="fr">Gwp non applicable à cause de l'identifiant de l'article [ ${productId} ] qui n'est pas en stock pour l'action promotionnelle de l'article : ${productPromoAction}</value>
+        <value xml:lang="it">Non è possibile applicare GWP perchè productId [ ${productId} ] non è in giacenza per productPromoAction: ${productPromoAction}</value>
+        <value xml:lang="ja">GWPを適用できません。製品ID [ ${productId} ] は製品プロモーションアクション ${productPromoAction} に対して在庫切れです</value>
+        <value xml:lang="pt-BR">Incapaz de aplicar GWP por que o produto de Id (productId) [ ${productId} ]  está acabado no estoque para productPromoAction: ${productPromoAction}</value>
+        <value xml:lang="ro">Nu este posibila aplicarea GWP pentru ca productId [ ${productId} ] nu este in stoc pentru productPromoAction: ${productPromoAction}</value>
+        <value xml:lang="ru">GWP не применен потому что продукт с кодом [ ${productId} ] отсутствует на складе для акции: ${productPromoAction}</value>
+        <value xml:lang="th">ไม่ใช้  GWP เพราะรหัสสินค้า [ ${productId} ] หมดจากคลังสำหรับ productPromoAction: ${productPromoAction}</value>
+        <value xml:lang="vi">Không thiết lập GWP vì sản phẩm [ ${productId} ] đã hết hàng cho chiến dịch khuyến mãi: ${productPromoAction}</value>
+        <value xml:lang="zh">没有应用促销礼品，因为产品标识 [ ${productId} ] 无货，产品促销活动：${productPromoAction}</value>
+        <value xml:lang="zh-TW">沒有應用促銷禮品，因為產品ID [ ${productId} ] 無貨，產品促銷活動：${productPromoAction}</value>
     </property>
     <property key="OrderNoTaxEntryFoundFor">
         <value xml:lang="ar">لا يوجد قيد ضريبة لـ :  ${zipCode} / ${city} - ${itemAmount}</value>
@@ -2228,35 +2264,6 @@
         <value xml:lang="vi">Không WF tìm thấy cho đơn hàng ID : ${orderId}</value>
         <value xml:lang="zh">没有找到用于订单标识 ${orderId} 的工作流</value>
         <value xml:lang="zh-TW">沒有找到用于訂單ID ${orderId} 的工作流</value>
-    </property>
-    <property key="OrderNosettingsFound">
-        <value xml:lang="ar">لا يوجد إعدادات</value>
-        <value xml:lang="de">Keine Einstellungen gefunden</value>
-        <value xml:lang="en">No settings found</value>
-        <value xml:lang="es">Configuraciones no encontradas</value>
-        <value xml:lang="fr">Aucune configuration trouvée</value>
-        <value xml:lang="it">Nessuna impostazione trovata</value>
-        <value xml:lang="ja">設定がありません</value>
-        <value xml:lang="pt-BR">Nenhuma configuração encontrada</value>
-        <value xml:lang="th">ไม่พบการตั้งค่า</value>
-        <value xml:lang="vi">Không thiết lập nào được tìm thấy</value>
-        <value xml:lang="zh">没有找到设置</value>
-        <value xml:lang="zh-TW">沒有找到設置</value>
-    </property>
-    <property key="OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction">
-        <value xml:lang="de">Gratisbeigabe wird nicht hinzugefügt, da Produkt [ ${productId} ] nicht mehr auf Lager für die Aktion: ${productPromoAction}</value>
-        <value xml:lang="en">Not applying GWP because productId [ ${productId} ] is out of stock for productPromoAction: ${productPromoAction}</value>
-        <value xml:lang="es">Gwp no aplicable debido al código del producto [ ${productId} ] que está fuere de stock para la acción promocional del producto: ${productPromoAction}</value>
-        <value xml:lang="fr">Gwp non applicable à cause de l'identifiant de l'article [ ${productId} ] qui n'est pas en stock pour l'action promotionnelle de l'article : ${productPromoAction}</value>
-        <value xml:lang="it">Non è possibile applicare GWP perchè productId [ ${productId} ] non è in giacenza per productPromoAction: ${productPromoAction}</value>
-        <value xml:lang="ja">GWPを適用できません。製品ID [ ${productId} ] は製品プロモーションアクション ${productPromoAction} に対して在庫切れです</value>
-        <value xml:lang="pt-BR">Incapaz de aplicar GWP por que o produto de Id (productId) [ ${productId} ]  está acabado no estoque para productPromoAction: ${productPromoAction}</value>
-        <value xml:lang="ro">Nu este posibila aplicarea GWP pentru ca productId [ ${productId} ] nu este in stoc pentru productPromoAction: ${productPromoAction}</value>
-        <value xml:lang="ru">GWP не применен потому что продукт с кодом [ ${productId} ] отсутствует на складе для акции: ${productPromoAction}</value>
-        <value xml:lang="th">ไม่ใช้  GWP เพราะรหัสสินค้า [ ${productId} ] หมดจากคลังสำหรับ productPromoAction: ${productPromoAction}</value>
-        <value xml:lang="vi">Không thiết lập GWP vì sản phẩm [ ${productId} ] đã hết hàng cho chiến dịch khuyến mãi: ${productPromoAction}</value>
-        <value xml:lang="zh">没有应用促销礼品，因为产品标识 [ ${productId} ] 无货，产品促销活动：${productPromoAction}</value>
-        <value xml:lang="zh-TW">沒有應用促銷禮品，因為產品ID [ ${productId} ] 無貨，產品促銷活動：${productPromoAction}</value>
     </property>
     <property key="OrderNumberOfPersonsShouldBeOneOrLarger">
         <value xml:lang="ar">عدد الأشخاص يجب أن يكون "واحد" أو أكبر</value>
@@ -6524,22 +6531,6 @@
         <value xml:lang="zh">没有找到要添加的明细</value>
         <value xml:lang="zh-TW">沒有找到要添加的明細</value>
     </property>
-    <property key="shoppingListEvents.error_calling_update">
-        <value xml:lang="ar">خطأ في الإتصال بـ updateShoppingListItem في handleShoppingListItemVariant</value>
-        <value xml:lang="de">Fehler beim Aufruf von 'updateShoppingListItem' in 'handleShoppingListItemVariant'</value>
-        <value xml:lang="en">Error calling the updateShoppingListItem in handleShoppingListItemVariant</value>
-        <value xml:lang="es">Error al llamar updateShoppingListItem en handleShoppingListItemVariant</value>
-        <value xml:lang="fr">Erreur à l'appel de updateShoppingListItem dans handleShoppingListItemVariant</value>
-        <value xml:lang="it">Errore esecuzione di updateShoppingListItem in handleShoppingListItemVariant</value>
-        <value xml:lang="ja">handleShoppingListItemVariant で updateShoppingListItem の呼び出し中にエラー</value>
-        <value xml:lang="pt-BR">Erro ao invocar updateShoppingListItem em handleShoppingListItemVariant</value>
-        <value xml:lang="ro">Eroare executie de updateShoppingListItem in handleShoppingListItemVariant</value>
-        <value xml:lang="ru">Ошибка вызова updateShoppingListItem в handleShoppingListItemVariant</value>
-        <value xml:lang="th">Error  ข้อผิดพลาด ! การเรียก updateShoppingListItem ใน handleShoppingListItemVariant</value>
-        <value xml:lang="vi">Lỗi khi gọi updateShoppingListItem trong handleShoppingListItemVariant</value>
-        <value xml:lang="zh">调用handleShoppingListItemVariant中的updateShoppingListItem时发生错误</value>
-        <value xml:lang="zh-TW">調用handleShoppingListItemVariant中的updateShoppingListItem時發生錯誤</value>
-    </property>
     <property key="shoppinglistevents.added_product_to_cart">
         <value xml:lang="ar">تم إضافة السلعة ${productId} إلى العربة</value>
         <value xml:lang="de">Produkt ${productId} zum Warenkorb hinzugefügt.</value>
@@ -6607,6 +6598,22 @@
         <value xml:lang="zh">向购物列表添加明细时出错。</value>
         <value xml:lang="zh-CN">加入项目到购物列表错误</value>
         <value xml:lang="zh-TW">向購物列表添加明細時出錯。</value>
+    </property>
+    <property key="shoppingListEvents.error_calling_update">
+        <value xml:lang="ar">خطأ في الإتصال بـ updateShoppingListItem في handleShoppingListItemVariant</value>
+        <value xml:lang="de">Fehler beim Aufruf von 'updateShoppingListItem' in 'handleShoppingListItemVariant'</value>
+        <value xml:lang="en">Error calling the updateShoppingListItem in handleShoppingListItemVariant</value>
+        <value xml:lang="es">Error al llamar updateShoppingListItem en handleShoppingListItemVariant</value>
+        <value xml:lang="fr">Erreur à l'appel de updateShoppingListItem dans handleShoppingListItemVariant</value>
+        <value xml:lang="it">Errore esecuzione di updateShoppingListItem in handleShoppingListItemVariant</value>
+        <value xml:lang="ja">handleShoppingListItemVariant で updateShoppingListItem の呼び出し中にエラー</value>
+        <value xml:lang="pt-BR">Erro ao invocar updateShoppingListItem em handleShoppingListItemVariant</value>
+        <value xml:lang="ro">Eroare executie de updateShoppingListItem in handleShoppingListItemVariant</value>
+        <value xml:lang="ru">Ошибка вызова updateShoppingListItem в handleShoppingListItemVariant</value>
+        <value xml:lang="th">Error  ข้อผิดพลาด ! การเรียก updateShoppingListItem ใน handleShoppingListItemVariant</value>
+        <value xml:lang="vi">Lỗi khi gọi updateShoppingListItem trong handleShoppingListItemVariant</value>
+        <value xml:lang="zh">调用handleShoppingListItemVariant中的updateShoppingListItem时发生错误</value>
+        <value xml:lang="zh-TW">調用handleShoppingListItemVariant中的updateShoppingListItem時發生錯誤</value>
     </property>
     <property key="shoppinglistevents.error_getting_shopping_list_and_items">
         <value xml:lang="ar">خطأ في إحضار قائمة التسوق والبنود</value>
@@ -6691,12 +6698,5 @@
         <value xml:lang="zh">购物列表标识是一个必须的参数。</value>
         <value xml:lang="zh-CN">shoppingListId 是必须的参数</value>
         <value xml:lang="zh-TW">購物列表ID是一個必須的參數。</value>
-    </property>
-    <property key="OrderCannotAddVirtualProductToQuote">
-        <value xml:lang="de">Es kann kein 'virtuelles' Produkt hinzugefügt werden, bitte eine Variante auswählen.</value>
-        <value xml:lang="en">You cannot add a 'Virtual' product here, select one of the related variants.</value>
-        <value xml:lang="ja">'仮想'製品をここで追加できません。関連した別型を選択してください。</value>
-        <value xml:lang="vi">Bạn không thể thêm sản phẩm ảo ('Virtual' product) tại đây, bạn hãy chọn trong các hàng hóa liên quan (related variants).</value>
-        <value xml:lang="zh">在这里你不能添加一个虚拟产品，请选择一个相关的变型。</value>
     </property>
 </resource>
