@@ -29,6 +29,7 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="SecurityUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ScrumCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ScrumCompanySubtitle" global="true"/>
 
