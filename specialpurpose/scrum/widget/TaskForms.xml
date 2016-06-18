@@ -819,7 +819,7 @@
     </form>
     <form name="FindTaskRevision" target="FindTaskRevision" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="productId"><text/> </field>
+        <field name="productId"><lookup target-form-name="LookupProduct"/> </field>
         <field name="custRequestId" title="${uiLabelMap.ScrumBacklogId}"><text/> </field>
         <field name="workEffortId" title="${uiLabelMap.ScrumTaskId}"><text/> </field>
         <field name="findButton" title="${uiLabelMap.CommonFind}"><submit/></field>
