@@ -29,7 +29,6 @@ under the License.
         <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special quote number sequencing -->
         <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
         <log level="info" message="In getNextQuoteId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
-
         <if-not-empty field="partyAcctgPreference">
            <get-related-one relation-name="QuoteCustomMethod" value-field="partyAcctgPreference" to-value-field="customMethod"/>
            <else>
