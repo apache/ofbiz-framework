@@ -101,12 +101,12 @@ under the License.
     <form name="OpenOrderItemsReport" type="single" target="OpenOrderItemsReport" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId">
-            <drop-down allow-empty="false">
+            <check all-checked="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="orderTypeId">
             <drop-down allow-empty="false">
@@ -115,12 +115,12 @@ under the License.
             </drop-down>
         </field>
         <field name="orderStatusId">
-            <drop-down allow-empty="false">
+            <check all-checked="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
-                    <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
+                    <entity-constraint name="statusId" operator="in" value="ORDER_APPROVED,ORDER_CREATED,ORDER_HOLD"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="fromOrderDate" title="${uiLabelMap.OrderReportFromDate}"><date-time type="timestamp"/></field>
         <field name="thruOrderDate" title="${uiLabelMap.OrderReportThruDate}"><date-time type="timestamp"/></field>

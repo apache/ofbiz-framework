@@ -29,12 +29,13 @@ import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 
-productStoreId = parameters.productStoreId;
-orderTypeId = parameters.orderTypeId;
-orderStatusId = parameters.orderStatusId;
+productStoreId = ObjectType.simpleTypeConvert(parameters.productStoreId, "List", null, null);
+orderTypeId = ObjectType.simpleTypeConvert(parameters.orderTypeId, "List", null, null);
+orderStatusId = ObjectType.simpleTypeConvert(parameters.orderStatusId, "List", null, null);
+
 
 // search by orderTypeId is mandatory
-conditions = [EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, orderTypeId)];
+conditions = [EntityCondition.makeCondition("orderTypeId", EntityOperator.IN, orderTypeId)];
 
 if (fromOrderDate) {
     conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromOrderDate));
@@ -44,7 +45,7 @@ if (thruOrderDate) {
 }
 
 if (productStoreId) {
-    conditions.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
+    conditions.add(EntityCondition.makeCondition("productStoreId", EntityOperator.IN, productStoreId));
     // for generating a title (given product store)
     context.productStore = from("ProductStore").where("productStoreId", productStoreId).cache(true).queryOne();
 } else {
@@ -52,7 +53,7 @@ if (productStoreId) {
     context.productStore = [storeName : "All Stores"];
 }
 if (orderStatusId) {
-    conditions.add(EntityCondition.makeCondition("orderStatusId", EntityOperator.EQUALS, orderStatusId));
+    conditions.add(EntityCondition.makeCondition("orderStatusId", EntityOperator.IN, orderStatusId));
 } else {
     // search all orders that are not completed, cancelled or rejected
     conditions.add(
