@@ -84,7 +84,7 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
-        <auto-fields-entity entity-name="Timesheet"/>
+        <auto-fields-entity entity-name="Timesheet" default-field-type="display"/>
         <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
             <hyperlink description="${timesheetId}" target="EditTimesheet" also-hidden="false">
                 <parameter param-name="timesheetId"/>
