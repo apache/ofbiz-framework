@@ -648,6 +648,16 @@
         <value xml:lang="zh">拥有人会员标识</value>
         <value xml:lang="zh-TW">擁有者團體識別</value>
     </property>
+    <property key="MarketingContactListPartiesImport">
+        <value xml:lang="de">Akteure importieren</value>
+        <value xml:lang="en">Import Parties</value>
+        <value xml:lang="fr">Import d'acteurs</value>
+        <value xml:lang="ja">取引先をインポート</value>
+        <value xml:lang="th">นำเข้ากลุ่มผู้ใช้</value>
+        <value xml:lang="vi">Nhập vào các Tác nhân</value>
+        <value xml:lang="zh">导入会员</value>
+        <value xml:lang="zh-TW">匯入團體</value>
+    </property>
     <property key="MarketingContactListParty">
         <value xml:lang="de">Kontaktliste Akteur</value>
         <value xml:lang="en">Contact List Party</value>
@@ -692,16 +702,6 @@
         <value xml:lang="vi">Mã Tác nhân</value>
         <value xml:lang="zh">会员标识</value>
         <value xml:lang="zh-TW">團體識別</value>
-    </property>
-    <property key="MarketingContactListPartiesImport">
-        <value xml:lang="de">Akteure importieren</value>
-        <value xml:lang="en">Import Parties</value>
-        <value xml:lang="fr">Import d'acteurs</value>
-        <value xml:lang="ja">取引先をインポート</value>
-        <value xml:lang="th">นำเข้ากลุ่มผู้ใช้</value>
-        <value xml:lang="vi">Nhập vào các Tác nhân</value>
-        <value xml:lang="zh">导入会员</value>
-        <value xml:lang="zh-TW">匯入團體</value>
     </property>
     <property key="MarketingContactListPreferredContactMech">
         <value xml:lang="de">Bevorzugter Kontaktmechanismus</value>
@@ -3193,10 +3193,6 @@
         <value xml:lang="en">incorrect email format.</value>
         <value xml:lang="fr">Format de l'addresse courriel incorrect.</value>
     </property>
-    <property key="SfaImportVcardNameMissingError">
-        <value xml:lang="en">first name or last name missing.</value>
-        <value xml:lang="fr">Prénom ou nom manquant.</value>
-    </property>
     <property key="SfaImportVCardError">
         <value xml:lang="de">Fehler beim importieren von VCard: ${errorString}</value>
         <value xml:lang="en">Error during import data from VCard: ${errorString}</value>
@@ -3206,6 +3202,10 @@
         <value xml:lang="vi">Lỗi xảy ra khi nhập khẩu dữ liệu từ VCard: ${errorString}</value>
         <value xml:lang="zh">从VCard导入数据时出错：${errorString}</value>
         <value xml:lang="zh-TW">從VCard匯入資料時出錯:${errorString}</value>
+    </property>
+    <property key="SfaImportVcardNameMissingError">
+        <value xml:lang="en">first name or last name missing.</value>
+        <value xml:lang="fr">Prénom ou nom manquant.</value>
     </property>
     <property key="SfaInitialAccount">
         <value xml:lang="de">Initiales Account</value>
