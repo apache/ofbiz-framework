@@ -22,12 +22,12 @@ under the License.
     <VisualTheme visualThemeId="RAINBOWSTONE_SAPHIR" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Saphir"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_NAME" resourceValue="RAINBOWSTONE_SAPHIR" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-saphir.less" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/maincss.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/style.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/flag-icon.min.css" sequenceId="02"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/javascript.css" sequenceId="03"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HELPSTYLESHEET" resourceValue="/rainbowstone/help.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_DOCBOOKSTYLESHEET" resourceValue="/rainbowstone/webapp/rainbowstone/docbook.css" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/rainbowstone/mainrtl.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/rainbowstone/stylertl.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_FTR_JAVASCRIPT" resourceValue="/rainbowstone/js/rainbowstone.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/rainbowstone/images/ofbiz_logo.gif" sequenceId="01"/>
@@ -69,12 +69,12 @@ under the License.
     <VisualTheme visualThemeId="RAINBOWSTONE_RUBY" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Ruby"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_NAME" resourceValue="RAINBOWSTONE_RUBY" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-ruby.less" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/maincss.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/style.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/flag-icon.min.css" sequenceId="02"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/javascript.css" sequenceId="03"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HELPSTYLESHEET" resourceValue="/rainbowstone/help.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_DOCBOOKSTYLESHEET" resourceValue="/rainbowstone/webapp/rainbowstone/docbook.css" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/rainbowstone/mainrtl.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/rainbowstone/stylertl.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/rainbowstone/js/less.min.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_FTR_JAVASCRIPT" resourceValue="/rainbowstone/js/rainbowstone.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
@@ -113,12 +113,12 @@ under the License.
     <VisualTheme visualThemeId="RAINBOWSTONE_EMERALD" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Emerald"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_NAME" resourceValue="RAINBOWSTONE_EMERALD" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-emerald.less" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/maincss.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/style.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/flag-icon.min.css" sequenceId="02"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/javascript.css" sequenceId="03"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HELPSTYLESHEET" resourceValue="/rainbowstone/help.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_DOCBOOKSTYLESHEET" resourceValue="/rainbowstone/webapp/rainbowstone/docbook.css" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/rainbowstone/mainrtl.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/rainbowstone/stylertl.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/rainbowstone/js/less.min.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_FTR_JAVASCRIPT" resourceValue="/rainbowstone/js/rainbowstone.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
@@ -156,12 +156,12 @@ under the License.
     <VisualTheme visualThemeId="RAINBOWSTONE_AMBER" visualThemeSetId="BACKOFFICE" description="Rainbow Stone - Amber"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_NAME" resourceValue="RAINBOWSTONE_AMBER" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_STYLESHEET_LESS" resourceValue="/rainbowstone/rainbowstone-amber.less" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/maincss.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/style.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/flag-icon.min.css" sequenceId="02"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/rainbowstone/javascript.css" sequenceId="03"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HELPSTYLESHEET" resourceValue="/rainbowstone/help.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_DOCBOOKSTYLESHEET" resourceValue="/rainbowstone/webapp/rainbowstone/docbook.css" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/rainbowstone/mainrtl.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/rainbowstone/stylertl.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/rainbowstone/js/less.min.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_FTR_JAVASCRIPT" resourceValue="/rainbowstone/js/rainbowstone.js" sequenceId="01"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>

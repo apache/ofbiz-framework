@@ -32,8 +32,8 @@ under the License.
     <target name="clean">
         <delete file="webapp/rainbowstone/js/application-min.js" />
         <delete file="webapp/rainbowstone/javascript-min.css" />
-        <delete file="webapp/rainbowstone/maincss-min.css" />
-        <delete file="webapp/rainbowstone/mainrtl-min.css" />
+        <delete file="webapp/rainbowstone/style-min.css" />
+        <delete file="webapp/rainbowstone/stylertl-min.css" />
     </target>
 
     <target name="build" depends="">
@@ -41,8 +41,8 @@ under the License.
         <!-- echo message="[build] ========== Building Rainbow Stone Theme ==========" />
         <yuicompressor inFile="webapp/rainbowstone/js/application.js" outFile="webapp/rainbowstone/js/application-min.js" />
         <yuicompressor inFile="webapp/rainbowstone/javascript.css" outFile="webapp/rainbowstone/javascript-min.css" />
-        <yuicompressor inFile="webapp/rainbowstone/maincss.css" outFile="webapp/rainbowstone/maincss-min.css" />
-        <yuicompressor inFile="webapp/rainbowstone/mainrtl.css" outFile="webapp/rainbowstone/mainrtl-min.css" />
+        <yuicompressor inFile="webapp/rainbowstone/style.css" outFile="webapp/rainbowstone/style-min.css" />
+        <yuicompressor inFile="webapp/rainbowstone/stylertl.css" outFile="webapp/rainbowstone/stylertl-min.css" />
         <echo message="[build] ========== Done Building Rainbow Stone Theme ==========" /-->
     </target>
 
