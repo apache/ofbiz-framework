@@ -217,7 +217,6 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="CustRequestParty" default-field-type="display"/>
         <field name="custRequestId"><hidden/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><display type="date"/></field>
