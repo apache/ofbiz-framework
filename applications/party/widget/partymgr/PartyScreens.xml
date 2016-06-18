@@ -850,6 +850,12 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="contentId" from-field="parameters.contentId"/>
                 <entity-one entity-name="Content" value-field="content"/>
+                <entity-one entity-name="PartyContent" value-field="partyContent">
+                    <field-map field-name="contentId" from-field="parameters.contentId"/>
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                    <field-map field-name="partyContentTypeId" from-field="parameters.partyContentTypeId"/>
+                    <field-map field-name="fromDate" from-field="parameters.fromDate"/>
+                </entity-one>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator"  location="${parameters.mainDecoratorLocation}">

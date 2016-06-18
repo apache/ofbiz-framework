@@ -749,11 +749,18 @@ under the License.
 
         <alt-target use-when="content==null" target="createPartyContent"/>
         <!-- <auto-fields-entity entity-name="Content"/> -->
-
         <field name="partyId" map-name="parameters"><hidden/></field>
         <field name="dataResourceId" map-name="dataResource" use-when="content!=null"><hidden/></field>
         <field use-when="content!=null" name="contentId"><display/></field>
-        <field name="partyContentTypeId">
+        <field name="partyContentTypeId" use-when="partyContent!=null">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PartyContentType">
+                    <entity-constraint name="partyContentTypeId" value="${partyContent.partyContentTypeId}"/>
+                </entity-options>
+                <entity-options entity-name="PartyContentType"/>
+            </drop-down>
+        </field>
+        <field name="partyContentTypeId" use-when="partyContent==null">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PartyContentType"/>
             </drop-down>
@@ -767,6 +774,9 @@ under the License.
                 <entity-options entity-name="ContentType"/>
             </drop-down>
         </field>
+        <field name="fromDate" use-when="partyContent==null"><date-time/></field>
+		<field name="fromDate" use-when="partyContent!=null" map-name="partyContent"><display/></field>
+        <field name="thruDate" map-name="partyContent"><date-time/></field>
         <field name="statusId" use-when="content==null">
             <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
                 <entity-options entity-name="StatusItem">
@@ -840,11 +850,24 @@ under the License.
         <field name="dataResourceId" title="${uiLabelMap.FormFieldTitle_dataResourceName}" use-when="dataResourceId!=null">
             <display-entity entity-name="DataResource" description="${dataResourceName}"/>
         </field>
+        <field name="fromDate"><display type="date-time"></display></field>
+        <field name="thruDate"><display type="date-time"></display></field>
         <field name="editLink" title=" " widget-style="smallSubmit">
            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditPartyContents">
                 <parameter param-name="contentId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="dataResourceId"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="partyContentTypeId"/>
+            </hyperlink>
+        </field>
+        <field name="remove" title=" " widget-style="smallSubmit">
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonRemove}" target="removePartyContent">
+                <parameter param-name="contentId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="dataResourceId"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="partyContentTypeId"/>
             </hyperlink>
         </field>
     </form>
