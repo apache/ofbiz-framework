@@ -433,7 +433,8 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="ViewFacilityInventoryByProduct"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE_1" type="Integer" default-value="20"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX_1" type="Integer" default-value="0"/>
                 <!-- This is the target of the search form-->
                 <set field="facilityInventoryByProductScreen" value="ViewFacilityInventoryByProduct"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
