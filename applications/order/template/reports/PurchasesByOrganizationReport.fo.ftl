@@ -41,8 +41,8 @@ under the License.
             <#if !showToParty><fo:block font-size="10pt">${uiLabelMap.CommonFor}: ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, toPartyId, false)}</fo:block></#if>
             <#if !showFromParty><fo:block font-size="10pt">${uiLabelMap.CommonFrom}: ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, fromPartyId, false)}</fo:block></#if>
             <fo:block font-size="10pt">${uiLabelMap.FormFieldTitle_orderStatusId}:
-                <#if parameters.orderStatusIds?has_content>
-                  <#list parameters.orderStatusIds as orderStatusId>
+                <#if orderStatusIds?has_content>
+                  <#list orderStatusIds as orderStatusId>
                     <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : orderStatusId}, false)!/>
                     ${statusItem.description}
                   </#list>

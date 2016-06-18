@@ -74,23 +74,23 @@ under the License.
     <form name="SalesByStoreReport" type="single" target="SalesByStoreReport.pdf" title=""
         header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
         <field name="productStoreId">
-            <drop-down allow-empty="false">
+            <check all-checked="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="toPartyId" title="${uiLabelMap.AccountingToPartyId}">
             <lookup target-form-name="LookupPartyName"/>
         </field>
         <field name="orderStatusId">
-            <drop-down allow-empty="false">
+            <check all-checked="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="fromOrderDate" title="${uiLabelMap.CommonFromDate}"><date-time type="timestamp"/></field>
         <field name="thruOrderDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
