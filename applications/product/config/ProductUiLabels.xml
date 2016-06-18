@@ -211,15 +211,6 @@
         <value xml:lang="nl">VOOR</value>
         <value xml:lang="zh">库存</value>
     </property>
-    <property key="FacilityReturnHeaderTypeNotSupported">
-        <value xml:lang="de">${returnHeader.returnHeaderTypeId} wird nicht unterstützt</value>
-        <value xml:lang="en">${returnHeader.returnHeaderTypeId} is not supported</value>
-        <value xml:lang="it">${returnHeader.returnHeaderTypeId} non è supportata</value>
-        <value xml:lang="ja">${returnHeader.returnHeaderTypeId} はサポートされていません</value>
-        <value xml:lang="nl">${returnHeader.returnHeaderTypeId} wordt niet ondersteund</value>
-        <value xml:lang="vi">${returnHeader.returnHeaderTypeId} không được hỗ trợ</value>
-        <value xml:lang="zh">不支持${returnHeader.returnHeaderTypeId}</value>
-    </property>
     <property key="FacilityHoldShipment">
         <value xml:lang="de">Lieferung anhalten</value>
         <value xml:lang="en">Hold Shipment</value>
@@ -436,6 +427,15 @@
         <value xml:lang="vi">Đã thử nhận sê-ri kho chứa với mã serial ${parameters.serialNumber} hoặc mã kho chứa ${parameters.currentInventoryItemId} đạt tiêu chuẩn ${parameters.quantityAccepted} đã có nhiều hơn 1; chúng tôi không biết phải làm gì với nó</value>
         <value xml:lang="zh">尝试接收一个已经序列化的库存明细，序列号（serialNumber）${parameters.serialNumber}或者传入的库存明细标识（inventoryItemId）${parameters.currentInventoryItemId}，并且已接受数量 ${parameters.quantityAccepted} 大于1；我们不知道要做什么！</value>
         <value xml:lang="zh-TW">嘗試接收一個已經序列化的庫存細項,序號(serialNumber)${parameters.serialNumber}或者傳入的庫存細項標識(inventoryItemId)${parameters.currentInventoryItemId},並且已接受數量 ${parameters.quantityAccepted} 大於1;我們不知道要做什麼！</value>
+    </property>
+    <property key="FacilityReturnHeaderTypeNotSupported">
+        <value xml:lang="de">${returnHeader.returnHeaderTypeId} wird nicht unterstützt</value>
+        <value xml:lang="en">${returnHeader.returnHeaderTypeId} is not supported</value>
+        <value xml:lang="it">${returnHeader.returnHeaderTypeId} non è supportata</value>
+        <value xml:lang="ja">${returnHeader.returnHeaderTypeId} はサポートされていません</value>
+        <value xml:lang="nl">${returnHeader.returnHeaderTypeId} wordt niet ondersteund</value>
+        <value xml:lang="vi">${returnHeader.returnHeaderTypeId} không được hỗ trợ</value>
+        <value xml:lang="zh">不支持${returnHeader.returnHeaderTypeId}</value>
     </property>
     <property key="FacilitySelectOptionsToGroupBy">
         <value xml:lang="de">Wähle Gruppierungsoptionen</value>
@@ -8833,6 +8833,34 @@
         <value xml:lang="en">"Inventory Facility Id Required"</value>
         <value xml:lang="zh">必须有库存场所标识</value>
     </property>
+    
+    <property key="lotIdFilledInAllowed">
+        <value xml:lang="de">Erlaubt</value>
+        <value xml:lang="en">Allowed</value>
+        <value xml:lang="fr">Facultatif</value>
+        <value xml:lang="ja">許可</value>
+        <value xml:lang="vi">Đã cho phép</value>
+        <value xml:lang="zh">允许</value>
+        <value xml:lang="zh-TW">允許</value>
+    </property>
+    <property key="lotIdFilledInForbidden">
+        <value xml:lang="de">Verboten</value>
+        <value xml:lang="en">Forbidden</value>
+        <value xml:lang="fr">Interdit</value>
+        <value xml:lang="ja">禁止</value>
+        <value xml:lang="vi">Cấm</value>
+        <value xml:lang="zh">禁用</value>
+        <value xml:lang="zh-TW">禁用</value>
+    </property>
+    <property key="lotIdFilledInMandatory">
+        <value xml:lang="de">Obligatorisch</value>
+        <value xml:lang="en">Mandatory</value>
+        <value xml:lang="fr">Obligatoire</value>
+        <value xml:lang="ja">必須</value>
+        <value xml:lang="vi">Bắt buộc</value>
+        <value xml:lang="zh">必须</value>
+        <value xml:lang="zh-TW">必須</value>
+    </property>
     <property key="MetaDescription">
         <value xml:lang="de">Meta Beschreibung</value>
         <value xml:lang="en">Meta Description</value>
@@ -8847,6 +8875,18 @@
         <value xml:lang="vi">Từ khóa Thuộc tính</value>
         <value xml:lang="zh">META关键字（Keywords）标签</value>
         <value xml:lang="zh-TW">META關鍵字(Keywords)標籤</value>
+    </property>
+    <property key="Manufacturer">
+        <value xml:lang="de">Hersteller</value>
+        <value xml:lang="en">Manufacturer</value>
+        <value xml:lang="nl">Producent</value>
+        <value xml:lang="zh">制造商</value>
+    </property>
+    <property key="ManufacturerRef">
+        <value xml:lang="de">Los Ref.</value>
+        <value xml:lang="en">Lot Ref.</value>
+        <value xml:lang="nl">Batch ref.</value>
+        <value xml:lang="zh">批次参考</value>
     </property>
     <property key="PageTitle">
         <value xml:lang="de">Seitentitel</value>
@@ -13091,6 +13131,12 @@
         <value xml:lang="zh">金额</value>
         <value xml:lang="zh-TW">金額</value>
     </property>
+    <property key="ProductAmountSection">
+        <value xml:lang="de">Mengen</value>
+        <value xml:lang="en">Amounts</value>
+        <value xml:lang="nl">Sectie 7: Bedragen</value>
+        <value xml:lang="zh">数量</value>
+    </property>
     <property key="ProductAmountUomTypeId">
         <value xml:lang="de">Betrag Währungseinheit Typ ID</value>
         <value xml:lang="en">Amount Uom Type Id</value>
@@ -13457,6 +13503,19 @@
         <value xml:lang="vi">Kết hợp</value>
         <value xml:lang="zh">关联</value>
         <value xml:lang="zh-TW">結合</value>
+    </property>
+    
+    <property key="ProductOrderReturnStatus">
+        <value xml:lang="de">Zurück Sendungsstatus</value>
+        <value xml:lang="en">Return Shipment Status</value>
+        <value xml:lang="es">Volver estado del envío</value>
+        <value xml:lang="fr">Retour d'état d'expédition</value>
+        <value xml:lang="it">Stato di spedizione di ritorno</value>
+        <value xml:lang="ja">返品発送ステータス</value>
+        <value xml:lang="th">สถานะการขนส่งการคืนค่า</value>
+        <value xml:lang="vi">Trạng thái chuyển vận 'Hoàn trả'</value>
+        <value xml:lang="zh">退货运输状态</value>
+        <value xml:lang="zh-TW">退運狀態</value>
     </property>
     <property key="ProductAssociationsFromProduct">
         <value xml:lang="de">Zuordnungen VON diesem Produkt zu</value>
@@ -14642,6 +14701,12 @@
         <value xml:lang="vi">Phân loại Quản lý</value>
         <value xml:lang="zh">分类 [标识]</value>
         <value xml:lang="zh-TW">分類 [識別]</value>
+    </property>
+    <property key="ProductCatFacSection">
+        <value xml:lang="de">Prim. Kategorie und Einrichtung</value>
+        <value xml:lang="en">Prim. Category and Facility</value>
+        <value xml:lang="nl">Sectie 6: Category en faciliteit</value>
+        <value xml:lang="zh">主要分类和场所</value>
     </property>
     <property key="ProductChangeWithoutProductCatalog">
         <value xml:lang="de">Kann nicht geändert werden ohne Neu-Erstellung des Produktkatalogs.</value>
@@ -16087,6 +16152,12 @@
         <value xml:lang="vi">Bộ lọc dữ liệu</value>
         <value xml:lang="zh">日期过滤器</value>
         <value xml:lang="zh-TW">日期過濾器</value>
+    </property>
+    <property key="ProductDatesSection">
+        <value xml:lang="de">Termine</value>
+        <value xml:lang="en">Dates</value>
+        <value xml:lang="nl">Sectie 2: Data</value>
+        <value xml:lang="zh">日期</value>
     </property>
     <property key="ProductDateReceived">
         <value xml:lang="de">Datum erhalten</value>
@@ -19860,6 +19931,12 @@
         <value xml:lang="zh">购买这个产品必须有货吗? 如果没有指定，商店设置会使用缺省值</value>
         <value xml:lang="zh-TW">購買這個產品必須有貨嗎? 如果沒有指定,商店設定會使用預設值</value>
     </property>
+    <property key="ProductInventorySection">
+        <value xml:lang="de">Bestand</value>
+        <value xml:lang="en">Inventory</value>
+        <value xml:lang="nl">Sectie 3: Voorraad</value>
+        <value xml:lang="zh">库存</value>
+    </property>
     <property key="ProductInventorySummary">
         <value xml:lang="de">Bestand Zusammenfassung</value>
         <value xml:lang="en">Inventory Summary</value>
@@ -20833,6 +20910,15 @@
         <value xml:lang="zh">置顶</value>
         <value xml:lang="zh-TW">置頂</value>
     </property>
+    <property key="ProductManagedByLot">
+        <value xml:lang="de">gesteuert per Lot</value>
+        <value xml:lang="en">Lots managing</value>
+        <value xml:lang="fr">Gestion des lots</value>
+        <value xml:lang="ja">ロット管理</value>
+        <value xml:lang="vi">Quản trị mất mát</value>
+        <value xml:lang="zh">批次管理</value>
+        <value xml:lang="zh-TW">批次管理</value>
+    </property>
     <property key="ProductManufacturing">
         <value xml:lang="de">Produktion</value>
         <value xml:lang="en">Manufacturing</value>
@@ -21068,6 +21154,12 @@
         <value xml:lang="vi">Giá tối đa</value>
         <value xml:lang="zh">最高价格</value>
         <value xml:lang="zh-TW">最高價格</value>
+    </property>
+    <property key="ProductMeasuresSection">
+        <value xml:lang="de">Maße</value>
+        <value xml:lang="en">Measures</value>
+        <value xml:lang="nl">Sectie 4: Maten</value>
+        <value xml:lang="zh">度量</value>
     </property>
     <property key="ProductMediumImage">
         <value xml:lang="de">Mittleres Bild</value>
@@ -21459,6 +21551,12 @@
         <value xml:lang="vi">Trong thành phần dịch vụ phân quyền cho productGenericPermission bị thiếu giá trị bắt buộc phải có là main-action</value>
         <value xml:lang="zh">对于产品通用权限（productGenericPermission）服务，缺少了必须的权限服务（permission-service）元素的主操作（main-action）属性</value>
         <value xml:lang="zh-TW">對於產品通用許可權(productGenericPermission)服務,缺少了必須的許可權服務(permission-service)元素的主操作(main-action)屬性</value>
+    </property>
+    <property key="ProductMiscellaneousSection">
+        <value xml:lang="de">Verschiedenes</value>
+        <value xml:lang="en">Miscellaneous</value>
+        <value xml:lang="nl">Sectie 9: Diversen</value>
+        <value xml:lang="zh">杂项</value>
     </property>
     <property key="ProductMoreOptions">
         <value xml:lang="de">Mehr Optionen im Drop Down verfügbar.</value>
@@ -26755,6 +26853,12 @@
         <value xml:lang="zh">评级</value>
         <value xml:lang="zh-TW">評級</value>
     </property>
+    <property key="ProductRatingsSetion">
+        <value xml:lang="de">Bewertungen</value>
+        <value xml:lang="en">Ratings</value>
+        <value xml:lang="nl">Sectie 8: Waarderingen</value>
+        <value xml:lang="zh">评分</value>
+    </property>
     <property key="ProductRatingTypeEnum">
         <value xml:lang="de">Bewertungstyp Aufzählung</value>
         <value xml:lang="en">Rating Type Enum</value>
@@ -28644,6 +28748,12 @@
         <value xml:lang="vi">Đặt hàng</value>
         <value xml:lang="zh">送货订单</value>
         <value xml:lang="zh-TW">送貨訂單</value>
+    </property>
+    <property key="ProductShippingSection">
+        <value xml:lang="de">Lieferung</value>
+        <value xml:lang="en">Shipping</value>
+        <value xml:lang="nl">Sectie 5: Zending</value>
+        <value xml:lang="zh">运输</value>
     </property>
     <property key="ProductShipToAddress">
         <value xml:lang="de">Lieferadresse</value>
@@ -31837,6 +31947,12 @@
         <value xml:lang="zh">创建可变虚拟产品时出错：标识 ${variantProductId} 不是一个有效的产品标识（Product.productId）或商品标识（GoodIdentification.idValue）</value>
         <value xml:lang="zh-TW">新建可變虛擬產品時出錯:標識 ${variantProductId} 不是一個有效的產品標識(Product.productId)或商品標識(GoodIdentification.idValue)</value>
     </property>
+    <property key="ProductVirtVarSection">
+        <value xml:lang="de">Virtuelle und Varianten</value>
+        <value xml:lang="en">Virtuals and Variants</value>
+        <value xml:lang="nl">Sectie 1: Virtuelen en varianten</value>
+        <value xml:lang="zh">虚拟和可变</value>
+    </property>
     <property key="ProductVoidUpsShipment">
         <value xml:lang="de">Storniere UPS Lieferung</value>
         <value xml:lang="en">Void UPS Shipment</value>
@@ -31902,101 +32018,19 @@
         <value xml:lang="zh">警告：订单类型是</value>
         <value xml:lang="zh-TW">警告:訂單類型是</value>
     </property>
-    <property key="Tracking">
-        <value xml:lang="de">Lieferverfolgung</value>
-        <value xml:lang="en">Tracking</value>
-        <value xml:lang="fr">Traçabilité</value>
-        <value xml:lang="ja">追跡</value>
-        <value xml:lang="vi">Theo dõi</value>
-        <value xml:lang="zh">跟踪</value>
-        <value xml:lang="zh-TW">追蹤</value>
-    </property>
-    <property key="SearchTracking">
-        <value xml:lang="de">Suche Lieferverfolgung</value>
-        <value xml:lang="en">Search of a tracking</value>
-        <value xml:lang="fr">Recherche d'un suivi</value>
-        <value xml:lang="ja">追跡の検索</value>
-        <value xml:lang="zh">搜索一个跟踪</value>
-        <value xml:lang="zh-TW">搜尋一個追蹤</value>
-    </property>
-    <property key="ResultTracking">
-        <value xml:lang="de">Suchergebnis</value>
-        <value xml:lang="en">Search result</value>
-        <value xml:lang="fr">Résultat de la recherche</value>
-        <value xml:lang="ja">検索結果</value>
-        <value xml:lang="vi">Kết quả tìm kiếm</value>
-        <value xml:lang="zh">搜索结果</value>
-        <value xml:lang="zh-TW">搜尋結果</value>
-    </property>
-    <property key="TrackingType">
-        <value xml:lang="de">Art der Lieferverfolgung</value>
-        <value xml:lang="en">Type of tracking</value>
-        <value xml:lang="fr">Type de suivi</value>
-        <value xml:lang="ja">追跡の種類</value>
-        <value xml:lang="vi">Kiểu Theo dõi</value>
-        <value xml:lang="zh">跟踪类型</value>
-        <value xml:lang="zh-TW">追蹤類型</value>
-    </property>
-    <property key="TrackingTypeSale">
-        <value xml:lang="de">Abgabe</value>
-        <value xml:lang="en">Sale</value>
-        <value xml:lang="fr">Vente</value>
-        <value xml:lang="ja">販売</value>
-        <value xml:lang="vi">Bán</value>
-        <value xml:lang="zh">销售</value>
-        <value xml:lang="zh-TW">銷售</value>
-    </property>
-    <property key="TrackingTypeDownstream">
-        <value xml:lang="en">Downstream</value>
-        <value xml:lang="fr">Aval</value>
-        <value xml:lang="ja">下流</value>
-        <value xml:lang="vi">Hạ lưu</value>
-        <value xml:lang="zh">下行</value>
-        <value xml:lang="zh-TW">下行</value>
-    </property>
-    <property key="TrackingTypeUpstream">
-        <value xml:lang="en">Upstream</value>
-        <value xml:lang="fr">Amont</value>
-        <value xml:lang="ja">上流</value>
-        <value xml:lang="vi">Thượng lưu</value>
-        <value xml:lang="zh">上行</value>
-        <value xml:lang="zh-TW">上行</value>
-    </property>
-    <property key="lotIdFilledInForbidden">
-        <value xml:lang="de">Verboten</value>
-        <value xml:lang="en">Forbidden</value>
-        <value xml:lang="fr">Interdit</value>
-        <value xml:lang="ja">禁止</value>
-        <value xml:lang="vi">Cấm</value>
-        <value xml:lang="zh">禁用</value>
-        <value xml:lang="zh-TW">禁用</value>
-    </property>
-    <property key="lotIdFilledInAllowed">
-        <value xml:lang="de">Erlaubt</value>
-        <value xml:lang="en">Allowed</value>
-        <value xml:lang="fr">Facultatif</value>
-        <value xml:lang="ja">許可</value>
-        <value xml:lang="vi">Đã cho phép</value>
-        <value xml:lang="zh">允许</value>
-        <value xml:lang="zh-TW">允許</value>
-    </property>
-    <property key="lotIdFilledInMandatory">
-        <value xml:lang="de">Obligatorisch</value>
-        <value xml:lang="en">Mandatory</value>
-        <value xml:lang="fr">Obligatoire</value>
-        <value xml:lang="ja">必須</value>
-        <value xml:lang="vi">Bắt buộc</value>
-        <value xml:lang="zh">必须</value>
-        <value xml:lang="zh-TW">必須</value>
-    </property>
-    <property key="ProductManagedByLot">
-        <value xml:lang="de">gesteuert per Lot</value>
-        <value xml:lang="en">Lots managing</value>
-        <value xml:lang="fr">Gestion des lots</value>
-        <value xml:lang="ja">ロット管理</value>
-        <value xml:lang="vi">Quản trị mất mát</value>
-        <value xml:lang="zh">批次管理</value>
-        <value xml:lang="zh-TW">批次管理</value>
+    <property key="ProductWarningVirtualProduct">
+        <value xml:lang="de">Dies ist ein virtuelles Produkt und sollte keine Bestandspositionen zugewiesen haben</value>
+        <value xml:lang="en">This is a virtual product and generally should not have inventory items associated with it</value>
+        <value xml:lang="es">Este es un producto virtual y generalmente no debería tener artículos de inventario asociados a él.</value>
+        <value xml:lang="fr">C'est un article virtuel et vous ne pouvez généralement pas lui associer un inventaire d'article</value>
+        <value xml:lang="it">Questo è un prodotto virtuale e non dovrebbe avere generalmente righe inventario associati con questo</value>
+        <value xml:lang="ja">これは仮想製品です、通常関連付けされた在庫アイテムを持ちません</value>
+        <value xml:lang="ro">Acesta este un produs virtual si nu ar trebui sa aibe linii inventar asociate </value>
+        <value xml:lang="ru">Это виртуальный продукт, который не должен числиться на складе </value>
+        <value xml:lang="th">นี่คือสินค้าเกือบทั้งหมดและโดยทั่วไปควรจะไม่มีกลุ่มรายการสินค้าคงเหลือ</value>
+        <value xml:lang="vi">Đây là sản phẩm Ảo và thường là sẽ không có sản phẩm này trong kho.</value>
+        <value xml:lang="zh">这是一个虚拟产品，通常不应该把库存明细与它关联</value>
+        <value xml:lang="zh-TW">此虛擬品通常不該有庫存細項的結合.</value>
     </property>
     <property key="ProductWarningProductNotVirtual">
         <value xml:lang="de">Dies ist kein virtuelles Produkt, Varianten werden generell nicht verwendet.</value>
@@ -32011,20 +32045,6 @@
         <value xml:lang="vi">Sản phẩm này không phải là sản phẩm Ảo nên các Sản phẩm 'tự tùy chỉnh' sẽ không được sinh ra để sử dụng.</value>
         <value xml:lang="zh">这个产品不是一个虚拟产品，通常不会用于变型。</value>
         <value xml:lang="zh-TW">此產品不是虛擬品, 通常不用於變體.</value>
-    </property>
-    <property key="ProductWarningVirtualProduct">
-        <value xml:lang="de">Dies ist ein virtuelles Produkt und sollte keine Bestandspositionen zugewiesen haben</value>
-        <value xml:lang="en">This is a virtual product and generally should not have inventory items associated with it</value>
-        <value xml:lang="es">Este es un producto virtual y generalmente no debería tener artículos de inventario asociados a él.</value>
-        <value xml:lang="fr">C'est un article virtuel et vous ne pouvez généralement pas lui associer un inventaire d'article</value>
-        <value xml:lang="it">Questo è un prodotto virtuale e non dovrebbe avere generalmente righe inventario associati con questo</value>
-        <value xml:lang="ja">これは仮想製品です、通常関連付けされた在庫アイテムを持ちません</value>
-        <value xml:lang="ro">Acesta este un produs virtual si nu ar trebui sa aibe linii inventar asociate </value>
-        <value xml:lang="ru">Это виртуальный продукт, который не должен числиться на складе </value>
-        <value xml:lang="th">นี่คือสินค้าเกือบทั้งหมดและโดยทั่วไปควรจะไม่มีกลุ่มรายการสินค้าคงเหลือ</value>
-        <value xml:lang="vi">Đây là sản phẩm Ảo và thường là sẽ không có sản phẩm này trong kho.</value>
-        <value xml:lang="zh">这是一个虚拟产品，通常不应该把库存明细与它关联</value>
-        <value xml:lang="zh-TW">此虛擬品通常不該有庫存細項的結合.</value>
     </property>
     <property key="ProductWebSite">
         <value xml:lang="de">Webseite</value>
@@ -32250,6 +32270,66 @@
         <value xml:lang="zh">你搜索</value>
         <value xml:lang="zh-TW">你所搜尋的</value>
     </property>
+    <property key="ResultTracking">
+        <value xml:lang="de">Suchergebnis</value>
+        <value xml:lang="en">Search result</value>
+        <value xml:lang="fr">Résultat de la recherche</value>
+        <value xml:lang="ja">検索結果</value>
+        <value xml:lang="vi">Kết quả tìm kiếm</value>
+        <value xml:lang="zh">搜索结果</value>
+        <value xml:lang="zh-TW">搜尋結果</value>
+    </property>
+    <property key="SearchTracking">
+        <value xml:lang="de">Suche Lieferverfolgung</value>
+        <value xml:lang="en">Search of a tracking</value>
+        <value xml:lang="fr">Recherche d'un suivi</value>
+        <value xml:lang="ja">追跡の検索</value>
+        <value xml:lang="zh">搜索一个跟踪</value>
+        <value xml:lang="zh-TW">搜尋一個追蹤</value>
+    </property>
+    <property key="Tracking">
+        <value xml:lang="de">Lieferverfolgung</value>
+        <value xml:lang="en">Tracking</value>
+        <value xml:lang="fr">Traçabilité</value>
+        <value xml:lang="ja">追跡</value>
+        <value xml:lang="vi">Theo dõi</value>
+        <value xml:lang="zh">跟踪</value>
+        <value xml:lang="zh-TW">追蹤</value>
+    </property>
+    <property key="TrackingType">
+        <value xml:lang="de">Art der Lieferverfolgung</value>
+        <value xml:lang="en">Type of tracking</value>
+        <value xml:lang="fr">Type de suivi</value>
+        <value xml:lang="ja">追跡の種類</value>
+        <value xml:lang="vi">Kiểu Theo dõi</value>
+        <value xml:lang="zh">跟踪类型</value>
+        <value xml:lang="zh-TW">追蹤類型</value>
+    </property>
+    <property key="TrackingTypeDownstream">
+        <value xml:lang="en">Downstream</value>
+        <value xml:lang="fr">Aval</value>
+        <value xml:lang="ja">下流</value>
+        <value xml:lang="vi">Hạ lưu</value>
+        <value xml:lang="zh">下行</value>
+        <value xml:lang="zh-TW">下行</value>
+    </property>
+    <property key="TrackingTypeSale">
+        <value xml:lang="de">Abgabe</value>
+        <value xml:lang="en">Sale</value>
+        <value xml:lang="fr">Vente</value>
+        <value xml:lang="ja">販売</value>
+        <value xml:lang="vi">Bán</value>
+        <value xml:lang="zh">销售</value>
+        <value xml:lang="zh-TW">銷售</value>
+    </property>
+    <property key="TrackingTypeUpstream">
+        <value xml:lang="en">Upstream</value>
+        <value xml:lang="fr">Amont</value>
+        <value xml:lang="ja">上流</value>
+        <value xml:lang="vi">Thượng lưu</value>
+        <value xml:lang="zh">上行</value>
+        <value xml:lang="zh-TW">上行</value>
+    </property>
     <property key="UseCartQuantity">
         <value xml:lang="de">Verwende Warenkorbmenge</value>
         <value xml:lang="en">Use cart quantity</value>
@@ -32258,89 +32338,5 @@
         <value xml:lang="vi">Số lượng trên giỏ hàng</value>
         <value xml:lang="zh">使用购物车数量</value>
         <value xml:lang="zh-TW">使用購物車數量</value>
-    </property>
-    <property key="ProductOrderReturnStatus">
-        <value xml:lang="de">Zurück Sendungsstatus</value>
-        <value xml:lang="en">Return Shipment Status</value>
-        <value xml:lang="es">Volver estado del envío</value>
-        <value xml:lang="fr">Retour d'état d'expédition</value>
-        <value xml:lang="it">Stato di spedizione di ritorno</value>
-        <value xml:lang="ja">返品発送ステータス</value>
-        <value xml:lang="th">สถานะการขนส่งการคืนค่า</value>
-        <value xml:lang="vi">Trạng thái chuyển vận 'Hoàn trả'</value>
-        <value xml:lang="zh">退货运输状态</value>
-        <value xml:lang="zh-TW">退運狀態</value>
-    </property>
-    <property key="ProductVirtVarSection">
-        <value xml:lang="de">Virtuelle und Varianten</value>
-        <value xml:lang="en">Virtuals and Variants</value>
-        <value xml:lang="nl">Sectie 1: Virtuelen en varianten</value>
-        <value xml:lang="zh">虚拟和可变</value>
-    </property>
-    <property key="ProductDatesSection">
-        <value xml:lang="de">Termine</value>
-        <value xml:lang="en">Dates</value>
-        <value xml:lang="nl">Sectie 2: Data</value>
-        <value xml:lang="zh">日期</value>
-    </property>
-    <property key="ProductInventorySection">
-        <value xml:lang="de">Bestand</value>
-        <value xml:lang="en">Inventory</value>
-        <value xml:lang="nl">Sectie 3: Voorraad</value>
-        <value xml:lang="zh">库存</value>
-    </property>
-    <property key="ProductMeasuresSection">
-        <value xml:lang="de">Maße</value>
-        <value xml:lang="en">Measures</value>
-        <value xml:lang="nl">Sectie 4: Maten</value>
-        <value xml:lang="zh">度量</value>
-    </property>
-    <property key="ProductShippingSection">
-        <value xml:lang="de">Lieferung</value>
-        <value xml:lang="en">Shipping</value>
-        <value xml:lang="nl">Sectie 5: Zending</value>
-        <value xml:lang="zh">运输</value>
-    </property>
-    <property key="ProductCatFacSection">
-        <value xml:lang="de">Prim. Kategorie und Einrichtung</value>
-        <value xml:lang="en">Prim. Category and Facility</value>
-        <value xml:lang="nl">Sectie 6: Category en faciliteit</value>
-        <value xml:lang="zh">主要分类和场所</value>
-    </property>
-    <property key="ProductAmountSection">
-        <value xml:lang="de">Mengen</value>
-        <value xml:lang="en">Amounts</value>
-        <value xml:lang="nl">Sectie 7: Bedragen</value>
-        <value xml:lang="zh">数量</value>
-    </property>
-    <property key="ProductRatingsSetion">
-        <value xml:lang="de">Bewertungen</value>
-        <value xml:lang="en">Ratings</value>
-        <value xml:lang="nl">Sectie 8: Waarderingen</value>
-        <value xml:lang="zh">评分</value>
-    </property>
-    <property key="ProductMiscellaneousSection">
-        <value xml:lang="de">Verschiedenes</value>
-        <value xml:lang="en">Miscellaneous</value>
-        <value xml:lang="nl">Sectie 9: Diversen</value>
-        <value xml:lang="zh">杂项</value>
-    </property>
-    <property key="LotUsageReport">
-        <value xml:lang="de">Los Verwendungsbericht</value>
-        <value xml:lang="en">Lot Usage Report</value>
-        <value xml:lang="nl">Batch rapport</value>
-        <value xml:lang="zh">批次用途报表</value>
-    </property>
-    <property key="Manufacturer">
-        <value xml:lang="de">Hersteller</value>
-        <value xml:lang="en">Manufacturer</value>
-        <value xml:lang="nl">Producent</value>
-        <value xml:lang="zh">制造商</value>
-    </property>
-    <property key="ManufacturerRef">
-        <value xml:lang="de">Los Ref.</value>
-        <value xml:lang="en">Lot Ref.</value>
-        <value xml:lang="nl">Batch ref.</value>
-        <value xml:lang="zh">批次参考</value>
     </property>
 </resource>
