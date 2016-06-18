@@ -1801,6 +1801,7 @@ under the License.
     <request-map uri="LookupBulkAddProducts"><security https="true" auth="true"/><response name="success" type="view" value="LookupBulkAddProducts"/></request-map>
     <request-map uri="LookupBulkAddSupplierProducts"><security https="true" auth="true"/><response name="success" type="view" value="LookupBulkAddSupplierProducts"/></request-map>
     <request-map uri="LookupAssociatedProducts"><security https="true" auth="true"/><response name="success" type="view" value="LookupAssociatedProducts"/></request-map>
+    <request-map uri="LookupBillingAccount"><security auth="true" https="true"/><response name="success" type="view" value="LookupBillingAccount"/></request-map>
 
     <!-- PDFs -->
     <request-map uri="order.pdf"><security https="true" auth="true"/><response name="success" type="view" value="OrderPDF"/></request-map>
@@ -2079,6 +2080,7 @@ under the License.
     <view-map name="LookupBulkAddSupplierProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupBulkAddSupplierProducts"/>
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
     <view-map name="LookupAssociatedProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupAssociatedProducts"/>
+    <view-map name="LookupBillingAccount" page="component://accounting/widget/LookupScreens.xml#LookupBillingAccount" type="screen"/>
     <!-- PDFs  -->
     <view-map name="OrderPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#OrderPDF" content-type="application/pdf" encoding="none"/>
     <view-map name="ReturnPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#ReturnPDF" content-type="application/pdf" encoding="none"/>
