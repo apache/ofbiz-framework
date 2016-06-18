@@ -18,10 +18,12 @@ specific language governing permissions and limitations
 under the License.
 ***********************************************/
 
-html, body {background:#fff}
+html, body {
+    background: #fff
+}
 
-span.caution{
-    color:yellow;
+span.caution {
+    color: yellow;
 }
 
 span.important {
@@ -29,13 +31,13 @@ span.important {
 }
 
 span.note {
-    color:#adff2f;
+    color: #adff2f;
 }
 
 span.tip {
-    color:blue;
+    color: blue;
 }
 
 span.warning {
-    color:red;
+    color: red;
 }
