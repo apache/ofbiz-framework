@@ -41,7 +41,14 @@ under the License.
             <#if !showToParty><fo:block font-size="10pt">${uiLabelMap.CommonFor}: ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, toPartyId, false)}</fo:block></#if>
             <#if !showFromParty><fo:block font-size="10pt">${uiLabelMap.CommonFrom}: ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, fromPartyId, false)}</fo:block></#if>
             <fo:block font-size="10pt">${uiLabelMap.FormFieldTitle_orderStatusId}:
-                <#if parameters.orderStatusId?has_content>${parameters.orderStatusId}<#else>${uiLabelMap.CommonAny}</#if>
+                <#if parameters.orderStatusId?has_content>
+                  <#list parameters.orderStatusId as orderStatusId>
+                    <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : orderStatusId}, false)!/>
+                    ${statusItem.description}
+                  </#list>
+                <#else>
+                  ${uiLabelMap.CommonAny}
+                </#if>
             </fo:block>
             <#if parameters.fromOrderDate?has_content><fo:block font-size="10pt">${uiLabelMap.CommonFromDate}: ${parameters.fromOrderDate} (${uiLabelMap.OrderDate} &gt;= ${uiLabelMap.CommonFrom})</fo:block></#if>
             <#if parameters.thruOrderDate?has_content><fo:block font-size="10pt">${uiLabelMap.CommonThruDate}: ${parameters.thruOrderDate} (${uiLabelMap.OrderDate} &lt; ${uiLabelMap.CommonFrom})</fo:block></#if>

@@ -267,14 +267,16 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="partyId" from-field="parameters.productStoreId" type="List"/>
+                <set field="orderStatusId" from-field="parameters.orderStatusId" type="List"/>
                 <entity-condition entity-name="OrderReportPurchasesGroupByProduct" list="productReportList">
                     <condition-list combine="and">
-                        <condition-expr field-name="toPartyId" operator="equals" from-field="parameters.toPartyId" ignore-if-empty="true"/>
+                        <condition-expr field-name="toPartyId" operator="in" from-field="partyId" ignore-if-empty="true"/>
                         <condition-expr field-name="toRoleTypeId" operator="equals" value="BILL_TO_CUSTOMER"/>
                         <condition-expr field-name="fromPartyId" operator="equals" from-field="parameters.fromPartyId" ignore-if-empty="true"/>
                         <condition-expr field-name="fromRoleTypeId" operator="equals" value="BILL_FROM_VENDOR"/>
                         <condition-expr field-name="orderTypeId" operator="equals" value="PURCHASE_ORDER"/>
-                        <condition-expr field-name="orderStatusId" operator="equals" value="${parameters.orderStatusId}" ignore-if-empty="true"/>
+                        <condition-expr field-name="orderStatusId" operator="in" from-field="orderStatusId" ignore-if-empty="true"/>
                         <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-empty="true"/>
                         <condition-expr field-name="orderDate" operator="less" from-field="parameters.thruOrderDate" ignore-if-empty="true"/>
                     </condition-list>
