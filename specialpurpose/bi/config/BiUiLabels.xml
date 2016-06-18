@@ -107,6 +107,87 @@
         <value xml:lang="zh">值：${dimensionValue} 中的自然键：${naturalKeyFields} 是空的</value>
         <value xml:lang="zh-TW">值:${dimensionValue} 中的自然鍵:${naturalKeyFields} 是空的</value>
     </property>
+    <property key="BusinessIntelligenceNote1">
+        <value xml:lang="en">This is a proof of concept for an OFBiz integrated framework for business intelligence analysis.</value>
+        <value xml:lang="fr">C'est une preuve de concept d'informatique décisionnelle intégrée au Framework</value>
+        <value xml:lang="it">Questo è un prototipo di un framework per analisi di dati (business intelligence) integrato in OFBiz.</value>
+        <value xml:lang="ja">OFBiz統合フレームワークにおけるビジネスインテリジェンス分析のコンセプト。</value>
+        <value xml:lang="th">การทดสอบความเข้าใจสำหรับ OFBiz framework เพื่อการวิเคราะห์ระบบการเรียนรู้ทางธุรกิจ</value>
+        <value xml:lang="zh">这是一个验证OFBiz集成框架能够用于商业智能的实现。</value>
+        <value xml:lang="zh-TW">這是一個驗證OFBiz整複合框架能夠用於商業智慧的實作.</value>
+    </property>
+    <property key="BusinessIntelligenceNote2">
+        <value xml:lang="en">The idea is to define a set entities for business intelligence analysis in a separate (olap) database,</value>
+        <value xml:lang="fr">L'idée est de définir un ensemble d'entités pour l'analyse de l'Informatique décisionnelle dans une base de données séparée (OLAP),</value>
+        <value xml:lang="it">L'idea è di definire un'insieme di entità per le analisi di business intelligence in un database (OLAP) separato,</value>
+        <value xml:lang="ja">ビジネスインテリジェンス分析のために別の(OLAP)データベースにエンティティ一式を定義するという考えは、</value>
+        <value xml:lang="th">แผนการในการตั้งค่าสิ่งที่มีอยู่เพื่อวิเคราะห์การเรียนรู้ทางธุรกิจในการแยก (olap) ฐานข้อมูล</value>
+        <value xml:lang="zh">思路是在一个独立的(OLAP)数据库中为商业智能分析定义一组实体，</value>
+        <value xml:lang="zh-TW">點子是在一個分離的(OLAP)資料庫為商業智慧分析定義一組資料實體,</value>
+    </property>
+    <property key="BusinessIntelligenceNote3">
+        <value xml:lang="en">accessible, in the same way as the main one (OLTP), via the delegator.</value>
+        <value xml:lang="fr">accessibles, de la même manière que pour la base de données principale (OLTP), par l'intermédiaire du délégateur.</value>
+        <value xml:lang="it">accessibile, nello stesso modo di quello principale (OLTP), attraverso un delegator.</value>
+        <value xml:lang="ja">理解しやすく、主流(OLAP)と同じ方法で、デリゲータによって実現します。</value>
+        <value xml:lang="th">สามารถเข้าถึงได้ในทางเดียวกันกับทางแรก (OLTP)</value>
+        <value xml:lang="zh">可访问，与主要的数据库同构，通过delegator实现。</value>
+        <value xml:lang="zh-TW">可存取的,和主要的(OLTP)資料庫相同結構,透過delegator.</value>
+    </property>
+    <property key="BusinessIntelligenceNote4">
+        <value xml:lang="en">The new olap database, will contain all the entities necessary to datawarehouse analysis:</value>
+        <value xml:lang="fr">La nouvelle base de données OLAP, contiendra toutes les entités nécessaires à l'analyse du datawarehouse :</value>
+        <value xml:lang="it">Il nuovo database olap, conterrà tutte le entità necessarie alle analisi di datawarehouse: </value>
+        <value xml:lang="ja">新しいOLAPデータベースはデータウェアハウス分析に必要なエンティティを全て含んでいます。</value>
+        <value xml:lang="th">ฐานข้อมูล olap ใหม่จะประกอบด้วยสิ่งที่มีอยู่ซึ่งจำเป็นในการวิเคราะห์ข้อมูลคลังสินค้า:</value>
+        <value xml:lang="zh">新的OLAP数据库，将包含全部数据仓库分析所需的实体：</value>
+        <value xml:lang="zh-TW">新的OLAP資料庫,將包含全部資料倉儲分析所需的資料實體:</value>
+    </property>
+    <property key="BusinessIntelligenceNote5">
+        <value xml:lang="en">dimensions, facts and star schemas (that are view-entities).</value>
+        <value xml:lang="fr">dimensions, faits et schémas en étoile (ce sont des vues sur la base de données : view-entities au sens d'OFBiz).</value>
+        <value xml:lang="it">dimensioni, fatti e star schemas (view-entities).</value>
+        <value xml:lang="ja">ディメンジョン、ファクト、そしてスタースキーマ (ビュー) です。</value>
+        <value xml:lang="th">ขอบเขต,ข้อเท็จจริงและแผนผัง (เป็นการแสดงสิ่งที่มีอยู่)</value>
+        <value xml:lang="zh">维度、事实和星型模型(浏览实体)。</value>
+        <value xml:lang="zh-TW">維度、事實和星型模型(檢視資料實體).</value>
+    </property>
+    <property key="BusinessIntelligenceNote6">
+        <value xml:lang="en">The dimensions, facts and star schemas are defined according to best practices for datawarehouses</value>
+        <value xml:lang="fr">Les dimensions, les faits et les schémas en étoile sont définis selon les bonnes pratiques pour les datawarehouses </value>
+        <value xml:lang="it">Le dimensioni, fatti e star schemas sono definiti in accordo alle migliori pratiche per i datawarehouses</value>
+        <value xml:lang="ja">ディメンジョン、ファクト、そしてスタースキーマはデータウェアハウスのベストプラックティス、</value>
+        <value xml:lang="th">ขอบเขต,ข้อเท็จจริงและแผนผังตามที่ระบุเป็นวิธีปฏิบัติที่ดีที่สุดสำหรับข้อมูลคลังสินค้า</value>
+        <value xml:lang="zh">维度、事实和星型模型定义参考了数据仓库最佳实践</value>
+        <value xml:lang="zh-TW">維度、事實和星型模型定義參考了資料倉儲最佳慣例</value>
+    </property>
+    <property key="BusinessIntelligenceNote7">
+        <value xml:lang="en">and best practices for OFBiz: they are defined as standard entities using the xml entity defs;</value>
+        <value xml:lang="fr">et pour OFBiz. Ils sont définis comme des entités standards à l'aide de définitions d'entités dans des fichiers XML.</value>
+        <value xml:lang="it">e le migliori pratiche per OFBiz: sono definite come entità standard usando le definizioni xml entity;</value>
+        <value xml:lang="ja">およびOFBizのベストプラックティスに従って定義されています: それらはxmlエンティティ定義を使用して標準エンティティとして定義されています。</value>
+        <value xml:lang="th">และวิธีปฏิบัติที่ดีที่สุดสำหรับ OFBiz คือ: ต้องกำหนดมาตรฐานสิ่งที่มีอยู่ให้เหมือนกับที่ใช้ใน xml </value>
+        <value xml:lang="zh">以及OFBiz最佳实践：把它们用XML实体定义定义为标准实体；</value>
+        <value xml:lang="zh-TW">以及OFBiz最佳慣例:把它們用XML資料實體定義定義為標準資料實體;</value>
+    </property>
+    <property key="BusinessIntelligenceNote8">
+        <value xml:lang="en">clear and consistent naming conventions are used and they are documented</value>
+        <value xml:lang="fr">Des conventions de nommages claires et cohérentes sont utilisées et documentées</value>
+        <value xml:lang="it">sono usate convenzioni nei nomi corrette e consistenti e sono documentate</value>
+        <value xml:lang="ja">明瞭で一貫した命名規則が使用され、またそれらを文書化するため、</value>
+        <value xml:lang="th">ยกเลิกและใช้ชื่อข้อตกลงที่สอดคล้องกันและเป็นไปตามเอกสาร</value>
+        <value xml:lang="zh">使用简明一致的命名规范，</value>
+        <value xml:lang="zh-TW">使用簡明一致的命名規範,</value>
+    </property>
+    <property key="BusinessIntelligenceNote9">
+        <value xml:lang="en">by meta data descriptions (in the entity def).</value>
+        <value xml:lang="fr">par des méta descriptions de données (dans les définitions d'entités)</value>
+        <value xml:lang="it">mediante le descrizioni dei meta dati (nella definizione entità).</value>
+        <value xml:lang="ja">メタデータ定義が使用されます (エンティティ定義の中で)。</value>
+        <value xml:lang="th">โดยรายละเอียดที่มาของข้อมูล(อยู่ในที่กำหนด)</value>
+        <value xml:lang="zh">(在实体定义中)通过元数据描述进行文档化。</value>
+        <value xml:lang="zh-TW">(在資料實體定義中)透過 Meta data 描述進行檔化.</value>
+    </property>
     <property key="BusinessIntelligenceNote10">
         <value xml:lang="en">The best practices for datawarehouses are mainly taken from the great book "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball.</value>
         <value xml:lang="fr">Les bonnes pratiques pour datawarehouses sont principalement tirées du fameux livre "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball.</value>
@@ -197,16 +278,7 @@
         <value xml:lang="zh">你能通过点击下面的链接来快速初始化数据仓库：</value>
         <value xml:lang="zh-TW">你能透過點選下面的連結來快速初始化資料倉儲:</value>
     </property>
-    <property key="BusinessIntelligenceNote1">
-        <value xml:lang="en">This is a proof of concept for an OFBiz integrated framework for business intelligence analysis.</value>
-        <value xml:lang="fr">C'est une preuve de concept d'informatique décisionnelle intégrée au Framework</value>
-        <value xml:lang="it">Questo è un prototipo di un framework per analisi di dati (business intelligence) integrato in OFBiz.</value>
-        <value xml:lang="ja">OFBiz統合フレームワークにおけるビジネスインテリジェンス分析のコンセプト。</value>
-        <value xml:lang="th">การทดสอบความเข้าใจสำหรับ OFBiz framework เพื่อการวิเคราะห์ระบบการเรียนรู้ทางธุรกิจ</value>
-        <value xml:lang="zh">这是一个验证OFBiz集成框架能够用于商业智能的实现。</value>
-        <value xml:lang="zh-TW">這是一個驗證OFBiz整複合框架能夠用於商業智慧的實作.</value>
-    </property>
-    <property key="BusinessIntelligenceNote20">
+        <property key="BusinessIntelligenceNote20">
         <value xml:lang="en">The CurrencyDimension, DateDimension, ProductDimension and the SalesInvoiceItemFact entities will be automatically populated.</value>
         <value xml:lang="fr">La dimension de devise, la dimension de date, la dimension d'article et SalesInvoiceItemFact seront automatiquement alimentés.</value>
         <value xml:lang="it">Le entità CurrencyDimension, DateDimension, ProductDimension e SalesInvoiceItemFact sono caricate automaticamente.</value>
@@ -296,15 +368,6 @@
         <value xml:lang="zh">初始化只需要做一次，因为产品数据和销售发票数据</value>
         <value xml:lang="zh-TW">初始化只需要做一次,因為產品資料和銷售發票資料</value>
     </property>
-    <property key="BusinessIntelligenceNote2">
-        <value xml:lang="en">The idea is to define a set entities for business intelligence analysis in a separate (olap) database,</value>
-        <value xml:lang="fr">L'idée est de définir un ensemble d'entités pour l'analyse de l'Informatique décisionnelle dans une base de données séparée (OLAP),</value>
-        <value xml:lang="it">L'idea è di definire un'insieme di entità per le analisi di business intelligence in un database (OLAP) separato,</value>
-        <value xml:lang="ja">ビジネスインテリジェンス分析のために別の(OLAP)データベースにエンティティ一式を定義するという考えは、</value>
-        <value xml:lang="th">แผนการในการตั้งค่าสิ่งที่มีอยู่เพื่อวิเคราะห์การเรียนรู้ทางธุรกิจในการแยก (olap) ฐานข้อมูล</value>
-        <value xml:lang="zh">思路是在一个独立的(OLAP)数据库中为商业智能分析定义一组实体，</value>
-        <value xml:lang="zh-TW">點子是在一個分離的(OLAP)資料庫為商業智慧分析定義一組資料實體,</value>
-    </property>
     <property key="BusinessIntelligenceNote30">
         <value xml:lang="en">are kept updated by ecas: if you create/update a product or create a new invoice,</value>
         <value xml:lang="fr">sont maintenues à jour par ECAS (Evènements/Conditions/Actions). Si vous créez/mettez à jour un article ou créez une nouvelle facture,</value>
@@ -322,69 +385,6 @@
         <value xml:lang="th">ข้อมูลใหม่จะต้องรวมทันทีในการวิเคราะห์ข้อมูลคลังสินค้า</value>
         <value xml:lang="zh">新信息会立即包含在数据仓库的分析中。</value>
         <value xml:lang="zh-TW">新訊息會立即包含在資料倉儲的分析中.</value>
-    </property>
-    <property key="BusinessIntelligenceNote3">
-        <value xml:lang="en">accessible, in the same way as the main one (OLTP), via the delegator.</value>
-        <value xml:lang="fr">accessibles, de la même manière que pour la base de données principale (OLTP), par l'intermédiaire du délégateur.</value>
-        <value xml:lang="it">accessibile, nello stesso modo di quello principale (OLTP), attraverso un delegator.</value>
-        <value xml:lang="ja">理解しやすく、主流(OLAP)と同じ方法で、デリゲータによって実現します。</value>
-        <value xml:lang="th">สามารถเข้าถึงได้ในทางเดียวกันกับทางแรก (OLTP)</value>
-        <value xml:lang="zh">可访问，与主要的数据库同构，通过delegator实现。</value>
-        <value xml:lang="zh-TW">可存取的,和主要的(OLTP)資料庫相同結構,透過delegator.</value>
-    </property>
-    <property key="BusinessIntelligenceNote4">
-        <value xml:lang="en">The new olap database, will contain all the entities necessary to datawarehouse analysis:</value>
-        <value xml:lang="fr">La nouvelle base de données OLAP, contiendra toutes les entités nécessaires à l'analyse du datawarehouse :</value>
-        <value xml:lang="it">Il nuovo database olap, conterrà tutte le entità necessarie alle analisi di datawarehouse: </value>
-        <value xml:lang="ja">新しいOLAPデータベースはデータウェアハウス分析に必要なエンティティを全て含んでいます。</value>
-        <value xml:lang="th">ฐานข้อมูล olap ใหม่จะประกอบด้วยสิ่งที่มีอยู่ซึ่งจำเป็นในการวิเคราะห์ข้อมูลคลังสินค้า:</value>
-        <value xml:lang="zh">新的OLAP数据库，将包含全部数据仓库分析所需的实体：</value>
-        <value xml:lang="zh-TW">新的OLAP資料庫,將包含全部資料倉儲分析所需的資料實體:</value>
-    </property>
-    <property key="BusinessIntelligenceNote5">
-        <value xml:lang="en">dimensions, facts and star schemas (that are view-entities).</value>
-        <value xml:lang="fr">dimensions, faits et schémas en étoile (ce sont des vues sur la base de données : view-entities au sens d'OFBiz).</value>
-        <value xml:lang="it">dimensioni, fatti e star schemas (view-entities).</value>
-        <value xml:lang="ja">ディメンジョン、ファクト、そしてスタースキーマ (ビュー) です。</value>
-        <value xml:lang="th">ขอบเขต,ข้อเท็จจริงและแผนผัง (เป็นการแสดงสิ่งที่มีอยู่)</value>
-        <value xml:lang="zh">维度、事实和星型模型(浏览实体)。</value>
-        <value xml:lang="zh-TW">維度、事實和星型模型(檢視資料實體).</value>
-    </property>
-    <property key="BusinessIntelligenceNote6">
-        <value xml:lang="en">The dimensions, facts and star schemas are defined according to best practices for datawarehouses</value>
-        <value xml:lang="fr">Les dimensions, les faits et les schémas en étoile sont définis selon les bonnes pratiques pour les datawarehouses </value>
-        <value xml:lang="it">Le dimensioni, fatti e star schemas sono definiti in accordo alle migliori pratiche per i datawarehouses</value>
-        <value xml:lang="ja">ディメンジョン、ファクト、そしてスタースキーマはデータウェアハウスのベストプラックティス、</value>
-        <value xml:lang="th">ขอบเขต,ข้อเท็จจริงและแผนผังตามที่ระบุเป็นวิธีปฏิบัติที่ดีที่สุดสำหรับข้อมูลคลังสินค้า</value>
-        <value xml:lang="zh">维度、事实和星型模型定义参考了数据仓库最佳实践</value>
-        <value xml:lang="zh-TW">維度、事實和星型模型定義參考了資料倉儲最佳慣例</value>
-    </property>
-    <property key="BusinessIntelligenceNote7">
-        <value xml:lang="en">and best practices for OFBiz: they are defined as standard entities using the xml entity defs;</value>
-        <value xml:lang="fr">et pour OFBiz. Ils sont définis comme des entités standards à l'aide de définitions d'entités dans des fichiers XML.</value>
-        <value xml:lang="it">e le migliori pratiche per OFBiz: sono definite come entità standard usando le definizioni xml entity;</value>
-        <value xml:lang="ja">およびOFBizのベストプラックティスに従って定義されています: それらはxmlエンティティ定義を使用して標準エンティティとして定義されています。</value>
-        <value xml:lang="th">และวิธีปฏิบัติที่ดีที่สุดสำหรับ OFBiz คือ: ต้องกำหนดมาตรฐานสิ่งที่มีอยู่ให้เหมือนกับที่ใช้ใน xml </value>
-        <value xml:lang="zh">以及OFBiz最佳实践：把它们用XML实体定义定义为标准实体；</value>
-        <value xml:lang="zh-TW">以及OFBiz最佳慣例:把它們用XML資料實體定義定義為標準資料實體;</value>
-    </property>
-    <property key="BusinessIntelligenceNote8">
-        <value xml:lang="en">clear and consistent naming conventions are used and they are documented</value>
-        <value xml:lang="fr">Des conventions de nommages claires et cohérentes sont utilisées et documentées</value>
-        <value xml:lang="it">sono usate convenzioni nei nomi corrette e consistenti e sono documentate</value>
-        <value xml:lang="ja">明瞭で一貫した命名規則が使用され、またそれらを文書化するため、</value>
-        <value xml:lang="th">ยกเลิกและใช้ชื่อข้อตกลงที่สอดคล้องกันและเป็นไปตามเอกสาร</value>
-        <value xml:lang="zh">使用简明一致的命名规范，</value>
-        <value xml:lang="zh-TW">使用簡明一致的命名規範,</value>
-    </property>
-    <property key="BusinessIntelligenceNote9">
-        <value xml:lang="en">by meta data descriptions (in the entity def).</value>
-        <value xml:lang="fr">par des méta descriptions de données (dans les définitions d'entités)</value>
-        <value xml:lang="it">mediante le descrizioni dei meta dati (nella definizione entità).</value>
-        <value xml:lang="ja">メタデータ定義が使用されます (エンティティ定義の中で)。</value>
-        <value xml:lang="th">โดยรายละเอียดที่มาของข้อมูล(อยู่ในที่กำหนด)</value>
-        <value xml:lang="zh">(在实体定义中)通过元数据描述进行文档化。</value>
-        <value xml:lang="zh-TW">(在資料實體定義中)透過 Meta data 描述進行檔化.</value>
     </property>
     <property key="BusinessIntelligenceQuickInitDataWarehouse">
         <value xml:lang="en">Quick Init DataWarehouse</value>
