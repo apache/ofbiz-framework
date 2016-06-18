@@ -18,63 +18,63 @@ specific language governing permissions and limitations
 under the License.
 ***********************************************/
 body {
-background:none;
-font-size:105%;
+    background: none;
+    font-size: 105%;
 }
 
 p {
-margin-top:10px;
+    margin-top: 10px;
 }
 
 .left-border {
-float:left;
-width:35%;
+    float: left;
+    width: 35%;
 }
 
 .leftonly {
-float:none;
-min-height:25em;
+    float: none;
+    min-height: 25em;
 }
 
 #column-container .leftonly {
-width:auto;
+    width: auto;
 }
 
 div.screenlet-body {
-border: none;
-overflow: hidden;
+    border: none;
+    overflow: hidden;
 }
 
 #Document .contentarea {
-background:none;
+    background: none;
 }
 
 #Document #column-container {
-background:none;
+    background: none;
 }
 
 #content-main-section h1 {
-display: block;
-font-weight:bold;
+    display: block;
+    font-weight: bold;
 }
 
 #content-main-section h2 {
-background:none;
-font-weight:bold;
+    background: none;
+    font-weight: bold;
 }
 
 ol.numbers {
-list-style: decimal;
-padding-left: 20px;
+    list-style: decimal;
+    padding-left: 20px;
 }
 
 ul.dots {
-list-style: circle;
-padding-left: 20px;
+    list-style: circle;
+    padding-left: 20px;
 }
 
-span.caution{
-    color:yellow;
+span.caution {
+    color: yellow;
 }
 
 span.important {
@@ -82,13 +82,13 @@ span.important {
 }
 
 span.note {
-    color:#adff2f;
+    color: #adff2f;
 }
 
 span.tip {
-    color:blue;
+    color: blue;
 }
 
 span.warning {
-    color:red;
+    color: red;
 }
