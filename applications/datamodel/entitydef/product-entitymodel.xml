@@ -4225,6 +4225,9 @@ under the License.
       <field name="shipmentCustomMethodId" type="id"></field>
       <field name="shipmentGatewayConfigId" type="id"></field>
       <field name="sequenceNumber" type="numeric"></field>
+      <field name="allowancePercent" type="fixed-point"></field>
+      <field name="minimumPrice" type="currency-amount"></field>
+
       <prim-key field="productStoreShipMethId"/>
       <relation type="one-nofk" rel-entity-name="Party">
         <key-map field-name="companyPartyId" rel-field-name="partyId"/>

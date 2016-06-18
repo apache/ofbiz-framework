@@ -466,6 +466,7 @@ under the License.
     <ProductPriceType description="Special Promo Price" productPriceTypeId="SPECIAL_PROMO_PRICE"/>
     <ProductPriceType description="Box Price" productPriceTypeId="BOX_PRICE"/>
     <ProductPriceType description="Minimum Order Price" productPriceTypeId="MINIMUM_ORDER_PRICE"/>
+    <ProductPriceType description="Shipping Allowance Price" productPriceTypeId="SHIPPING_ALLOWANCE"/>
 
     <ProductPricePurpose description="Purchase/Initial" productPricePurposeId="PURCHASE"/>
     <ProductPricePurpose description="Recurring Charge" productPricePurposeId="RECURRING_CHARGE"/>
