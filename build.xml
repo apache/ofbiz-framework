@@ -1477,7 +1477,7 @@ under the License.
             <classpath>
                 <path location="framework/base/build/lib/ofbiz-base.jar"/>
                 <path location="framework/base/lib/commons/commons-codec-1.10.jar"/>
-                <path location="framework/base/lib/shiro-core-1.2.3.jar"/>
+                <path location="framework/base/lib/shiro-core-1.2.5.jar"/>
                 <path location="framework/base/lib/slf4j-api-1.6.4.jar"/>
             </classpath>
         </java>
