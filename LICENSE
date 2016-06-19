@@ -42,7 +42,7 @@ framework/base/lib/nekohtml-1.9.16.jar
 framework/base/lib/pdfbox-1.8.12.jar
 framework/base/lib/resolver-2.9.1.jar
 framework/base/lib/serializer-2.9.1.jar
-framework/base/lib/shiro-core-1.2.3.jar
+framework/base/lib/shiro-core-1.2.5.jar
 framework/base/lib/tika-core-1.12.jar
 framework/base/lib/tika-parsers-1.12.jar
 framework/base/lib/ws-commons-java5-1.0.1.jar
