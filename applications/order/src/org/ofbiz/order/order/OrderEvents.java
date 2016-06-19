@@ -34,6 +34,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.Delegator;
@@ -43,6 +44,7 @@ import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
+import java.math.BigDecimal;
 
 /**
  * Order Events
@@ -112,21 +114,21 @@ public class OrderEvents {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
         String  orderId = request.getParameter("orderId");
-        String[] orderItemSeqIds = request.getParameterValues("selectedItem");
-
-        if (orderItemSeqIds != null) {
-            for (String orderItemSeqId : orderItemSeqIds) {
-                try {
-                    GenericValue orderItem = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
-                    List<GenericValue> orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc", null, null, false);
-                    for (GenericValue orderItemShipGroupAssoc : orderItemShipGroupAssocs) {
-                        GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup", false);
-                        String shipGroupSeqId = orderItemShipGroup.getString("shipGroupSeqId");
-
+        String[] selectedItems = request.getParameterValues("selectedItem");
+        
+        
+        
+        if (selectedItems != null) {
+            for (String selectedItem : selectedItems) {
+            	String [] orderItemSeqIdAndOrderItemShipGrpId = selectedItem.split(":");
+            	String orderItemSeqId = orderItemSeqIdAndOrderItemShipGrpId[0];
+            	String shipGroupSeqId = orderItemSeqIdAndOrderItemShipGrpId[1];
+                        BigDecimal cancelQuantity = new BigDecimal(request.getParameter("iqm_"+orderItemSeqId+":"+shipGroupSeqId));
                         Map<String, Object> contextMap = new HashMap<String, Object>();
                         contextMap.put("orderId", orderId);
                         contextMap.put("orderItemSeqId", orderItemSeqId);
                         contextMap.put("shipGroupSeqId", shipGroupSeqId);
+                        contextMap.put("cancelQuantity", cancelQuantity);
                         contextMap.put("userLogin", userLogin);
                         contextMap.put("locale", locale);
                         try {
@@ -144,11 +146,6 @@ public class OrderEvents {
                             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                             return "error";
                         }
-                    }
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                    return "error";
-                }
             }
             return "success";
         } else {
