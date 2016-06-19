@@ -777,6 +777,7 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PRunsInfoAndOrder"/>
     </request-map>
+    <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
 
     <!-- end of request mappings -->
 
@@ -811,6 +812,7 @@ under the License.
     <view-map name="LookupRouting" page="component://manufacturing/widget/manufacturing/LookupScreens.xml#LookupRouting" type="screen"/>
     <view-map name="LookupRoutingTask" page="component://manufacturing/widget/manufacturing/LookupScreens.xml#LookupRoutingTask" type="screen"/>
     <view-map name="LookupProductFeature" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature" type="screen"/>
+    <view-map name="LookupFacilityLocation" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation"/>
 
     <!-- BOM view mappings -->
     <view-map name="EditProductBom" page="component://manufacturing/widget/manufacturing/BomScreens.xml#EditProductBom" type="screen"/>

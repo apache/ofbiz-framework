@@ -312,6 +312,8 @@ under the License.
             </drop-down>
         </field>
         <field name="lotId"><text default-value="${lastLotId}"/></field>
+        <field name="facilityId"><hidden/></field>
+        <field name="locationSeqId"> <lookup target-form-name="LookupFacilityLocation" target-parameter="facilityId" ></lookup></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="ProductionRunDeclareAndProduceTop" type="single" skip-end="true" target="productionRunDeclareAndProduce" title="" default-map-name="productionRunData"

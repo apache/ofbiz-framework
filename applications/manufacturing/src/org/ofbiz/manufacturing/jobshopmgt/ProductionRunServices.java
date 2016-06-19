@@ -1567,6 +1567,7 @@ public class ProductionRunServices {
         String inventoryItemTypeId = (String)context.get("inventoryItemTypeId");
         String lotId = (String)context.get("lotId");
         String uomId = (String) context.get("quantityUomId");
+        String locationSeqId = (String) context.get("locationSeqId");
         Boolean createLotIfNeeded = (Boolean)context.get("createLotIfNeeded");
         Boolean autoCreateLot = (Boolean)context.get("autoCreateLot");
 
@@ -1688,6 +1689,7 @@ public class ProductionRunServices {
                     }
                     //serviceContext.put("serialNumber", productionRunId);
                     serviceContext.put("lotId", lotId);
+                    serviceContext.put("locationSeqId", locationSeqId);
                     serviceContext.put("uomId",uomId);
                     serviceContext.put("userLogin", userLogin);
                     Map<String, Object> resultService = dispatcher.runSync("createInventoryItem", serviceContext);
@@ -1723,6 +1725,7 @@ public class ProductionRunServices {
                 serviceContext.put("datetimeManufactured", UtilDateTime.nowTimestamp());
                 serviceContext.put("comments", "Created by production run " + productionRunId);
                 serviceContext.put("lotId", lotId);
+                serviceContext.put("locationSeqId", locationSeqId);
                 serviceContext.put("uomId",uomId);
                 if (unitCost.compareTo(ZERO) != 0) {
                     serviceContext.put("unitCost", unitCost);

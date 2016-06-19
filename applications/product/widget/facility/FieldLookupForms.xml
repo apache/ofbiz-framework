@@ -56,7 +56,8 @@ under the License.
     <form name="lookupFacilityLocation" target="LookupFacilityLocation" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="FacilityLocation" default-field-type="find"/>
-        <field name="facilityId">
+        <field name="facilityId" use-when="facilityId != null"><hidden/></field>
+        <field name="facilityId" use-when="facilityId == null">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Facility" description="${facilityName}" key-field-name="facilityId">
                     <entity-order-by field-name="facilityName"/>
