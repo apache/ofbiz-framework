@@ -55,6 +55,7 @@ under the License.
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupFacility}"/>
+                <set field="facilityId" from-field="parameters.facilityId" default-value="${parameters.parm0}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
@@ -74,7 +75,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="LookupShipment">
         <section>
             <actions>
