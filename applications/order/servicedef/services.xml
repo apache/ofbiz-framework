@@ -282,6 +282,7 @@ under the License.
         <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="itemReasonMap" type="Map" mode="IN" string-map-prefix="irm_" optional="true"/>
         <attribute name="itemCommentMap" type="Map" mode="IN" string-map-prefix="icm_" optional="true"/>
+        <attribute name="itemQtyMap" type="Map" mode="IN" string-map-prefix="iqm_" optional="true"/>
     </service>
     <service name="cancelOrderItemNoActions" engine="java" auth="true"
             location="org.ofbiz.order.order.OrderServices" invoke="cancelOrderItem">

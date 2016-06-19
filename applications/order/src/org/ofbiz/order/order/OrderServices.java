@@ -2058,7 +2058,14 @@ public class OrderServices {
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         Map<String, String> itemReasonMap = UtilGenerics.checkMap(context.get("itemReasonMap"));
         Map<String, String> itemCommentMap = UtilGenerics.checkMap(context.get("itemCommentMap"));
-
+        Map<String, String> itemQuantityMap = UtilGenerics.checkMap(context.get("itemQtyMap"));
+        if ((cancelQuantity == null) && UtilValidate.isNotEmpty(itemQuantityMap)) {
+        	String key = orderItemSeqId+":"+shipGroupSeqId;
+        	if (UtilValidate.isNotEmpty(itemQuantityMap.get(key))) {
+        		cancelQuantity = new BigDecimal(itemQuantityMap.get(key));	
+        	}
+        	
+        }
         // debugging message info
         String itemMsgInfo = orderId + " / " + orderItemSeqId + " / " + shipGroupSeqId;
 
@@ -2157,12 +2164,15 @@ public class OrderServices {
                             "orderId", orderItem.getString("orderId"),
                             "orderItemSeqId", orderItem.getString("orderItemSeqId"),
                             "shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"));
-                    try {
-                        dispatcher.runSync("deleteOrderItemShipGroupAssoc", localCtx);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        return ServiceUtil.returnError(e.getMessage());
+                    if (availableQuantity.compareTo(thisCancelQty) == 0) {
+                    	try {
+                            dispatcher.runSync("deleteOrderItemShipGroupAssoc", localCtx);
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
                     }
+                    
 
                     //  create order item change record
                     if (!"Y".equals(orderItem.getString("isPromo"))) {

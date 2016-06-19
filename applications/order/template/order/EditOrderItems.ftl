@@ -257,7 +257,7 @@ under the License.
                                         <td align="center">
                                             <input type="text" name="iqm_${shipGroupAssoc.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" size="6" value="${shipGroupQty?string.number}"/>
                                             <#if itemSelectable>
-                                                <input type="checkbox" name="selectedItem" value="${orderItem.orderItemSeqId}" />
+                                                <input type="checkbox" name="selectedItem" value="${orderItem.orderItemSeqId}:${shipGroupAssoc.shipGroupSeqId}" />
                                             </#if>
                                         </td>
                                     </#if>
