@@ -294,7 +294,7 @@
                 </and>
             </condition>
             <link target="updateProject" request-confirmation="true" confirmation-message="${uiLabelMap.ProjectMgrConfirmationClose}">
-                <parameter param-name="workEffortId" from-field="parameters.projectId"/>
+                <parameter param-name="workEffortId" from-field="projectId"/>
                 <parameter param-name="currentStatusId" value="PRJ_CLOSED"/>
             </link>
         </menu-item>
