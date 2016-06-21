@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://ofbiz.apache.org/Simple-Method" targetNamespace="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods-ns.xsd">
+        xmlns="http://ofbiz.apache.org/Simple-Method" targetNamespace="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
   <simple-map-processor name="assignmentMap">
     <process field="workEffortId"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortIdMissing"/></not-empty></process>
     <process field="partyId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyPartyIdMissing"/></not-empty></process>

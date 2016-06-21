@@ -19,7 +19,7 @@
 -->
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://ofbiz.apache.org/Site-Conf" targetNamespace="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf-ns.xsd">
+        xmlns="http://ofbiz.apache.org/Site-Conf" targetNamespace="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <description>Google Checkout Component Site Configuration File</description>
         

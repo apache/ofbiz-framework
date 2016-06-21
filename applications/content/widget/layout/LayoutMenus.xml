@@ -19,7 +19,7 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://ofbiz.apache.org/Widget-Menu" targetNamespace="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu-ns.xsd">
+        xmlns="http://ofbiz.apache.org/Widget-Menu" targetNamespace="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="layout" selected-menuitem-context-field-name="tabButtonItem" default-menu-item-name="content" default-associated-content-id="${userLogin.userLoginId}" title="" type="simple"
         menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="ListLayout" title="${uiLabelMap.ContentListOwnCreatedTemplates}" >

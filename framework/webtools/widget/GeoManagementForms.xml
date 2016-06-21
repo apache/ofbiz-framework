@@ -19,7 +19,7 @@
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xmlns="http://ofbiz.apache.org/Widget-Form" targetNamespace="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form-ns.xsd">
+        xmlns="http://ofbiz.apache.org/Widget-Form" targetNamespace="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="FindGeo" id="FindGeo" target="${currentUrl}" extends="LookupGeo" extends-resource="component://common/widget/LookupForms.xml"/>
     

@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://ofbiz.apache.org/Simple-Method" targetNamespace="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods-ns.xsd">
+        xmlns="http://ofbiz.apache.org/Simple-Method" targetNamespace="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="cdynePostalAddressFillInCounty" short-description="Cdyne PostalAddress Fill In County">
         <entity-one entity-name="PostalAddress" value-field="postalAddress"/>
         <log level="verbose" message="In cdynePostalAddressFillInCounty contactMechId=${parameters.contactMechId}; postalAddress=${postalAddress}"/>

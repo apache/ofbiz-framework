@@ -16,7 +16,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://ofbiz.apache.org/Site-Conf" targetNamespace="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf-ns.xsd">
+        xmlns="http://ofbiz.apache.org/Site-Conf" targetNamespace="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>
     <description>Accounting Manager : AP Module Site Configuration File</description>

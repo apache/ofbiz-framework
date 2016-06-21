@@ -18,7 +18,7 @@
   under the License.
   -->
 
-<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Tree" targetNamespace="http://ofbiz.apache.org/Widget-Tree http://ofbiz.apache.org/dtds/widget-tree-ns.xsd">
+<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Tree" targetNamespace="http://ofbiz.apache.org/Widget-Tree http://ofbiz.apache.org/dtds/widget-tree.xsd">
     <tree name="ResponseTree" entity-name="Content" root-node-name="node-root" default-render-style="simple" default-wrap-style="responseTreeWrapper">
         <node name="node-root" entry-name="rsp">
             <entity-one entity-name="Content" use-cache="false" value-field="rsp">

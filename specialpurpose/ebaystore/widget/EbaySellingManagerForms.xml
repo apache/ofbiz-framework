@@ -20,7 +20,7 @@ under the License.
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xmlns="http://ofbiz.apache.org/Widget-Form" targetNamespace="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form-ns.xsd">
+        xmlns="http://ofbiz.apache.org/Widget-Form" targetNamespace="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- Automation Preference -->
     <form name="EditAutomationRelistSoldItems" target="createEbayProductStorePref" type="single" default-map-name="ebayPrefRelisting" >
         <alt-target use-when="ebayPrefRelisting!=null" target="updateEbayProductStorePref"/>

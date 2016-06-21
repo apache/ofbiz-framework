@@ -8,12 +8,12 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     elementFormDefault="qualified">
     
-    <xs:import schemaLocation="../../webapp/dtd/site-conf-ns.xsd" namespace="http://ofbiz.apache.org/Site-Conf"/>
-    <xs:import schemaLocation="widget-menu-ns.xsd" namespace="http://ofbiz.apache.org/Widget-Menu"/>
-    <xs:import schemaLocation="widget-screen-ns.xsd" namespace="http://ofbiz.apache.org/Widget-Screen"/>
-    <xs:import schemaLocation="widget-form-ns.xsd" namespace="http://ofbiz.apache.org/Widget-Form"/>
-    <xs:import schemaLocation="widget-tree-ns.xsd" namespace="http://ofbiz.apache.org/Widget-Tree"/>
-    <xs:import schemaLocation="../../minilang/dtd/simple-methods-ns.xsd" namespace="http://ofbiz.apache.org/Simple-Method"/>
+    <xs:import schemaLocation="../../webapp/dtd/site-conf.xsd" namespace="http://ofbiz.apache.org/Site-Conf"/>
+    <xs:import schemaLocation="widget-menu.xsd" namespace="http://ofbiz.apache.org/Widget-Menu"/>
+    <xs:import schemaLocation="widget-screen.xsd" namespace="http://ofbiz.apache.org/Widget-Screen"/>
+    <xs:import schemaLocation="widget-form.xsd" namespace="http://ofbiz.apache.org/Widget-Form"/>
+    <xs:import schemaLocation="widget-tree.xsd" namespace="http://ofbiz.apache.org/Widget-Tree"/>
+    <xs:import schemaLocation="../../minilang/dtd/simple-methods.xsd" namespace="http://ofbiz.apache.org/Simple-Method"/>
     
     <xs:element name="compound-widgets">
         <xs:complexType>
