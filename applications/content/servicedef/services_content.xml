@@ -344,7 +344,7 @@
     <service name="createContentMetaData" engine="entity-auto" default-entity-name="ContentMetaData" auth="true" invoke="create">
         <description>Create a ContentMetaData</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateContentMetaData" engine="entity-auto" default-entity-name="ContentMetaData" auth="true" invoke="update">
@@ -382,7 +382,7 @@
     <service name="createContentPurpose" engine="entity-auto" default-entity-name="ContentPurpose" auth="true" invoke="create">
         <description>Create a ContentPurpose</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateContentPurpose" engine="entity-auto" default-entity-name="ContentPurpose" auth="true" invoke="update">
@@ -409,7 +409,7 @@
     <service name="createContentPurposeOperation" engine="entity-auto" default-entity-name="ContentPurposeOperation" auth="true" invoke="create">
         <description>Create a ContentPurposeOperation</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateContentPurposeOperation" engine="entity-auto" default-entity-name="ContentPurposeOperation" auth="true" invoke="update">
@@ -428,7 +428,7 @@
     <service name="createContentAttribute" engine="entity-auto" default-entity-name="ContentAttribute" auth="true" invoke="create">
         <description>Create a ContentAttribute</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateContentAttribute" engine="entity-auto" default-entity-name="ContentAttribute" auth="true" invoke="update">
@@ -504,7 +504,7 @@
     <service name="createContentRevisionItem" engine="entity-auto" default-entity-name="ContentRevisionItem" auth="true" invoke="create">
         <description>Create a ContentRevisionItem</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateContentRevisionItem" engine="entity-auto" default-entity-name="ContentRevisionItem" auth="true" invoke="update">

@@ -88,7 +88,7 @@ under the License.
     </service>
     <service name="createSalesOpportunityRole" default-entity-name="SalesOpportunityRole" engine="entity-auto" invoke="create">
         <description>Create sales opportunity role</description>
-        <auto-attributes mode="IN" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="createSalesOpportunityAccountRole" engine="simple" default-entity-name="SalesOpportunityRole" 
         location="component://order/minilang/opportunity/OpportunityServices.xml" invoke="createSalesOpportunityAccountRole">

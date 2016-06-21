@@ -214,7 +214,7 @@
     <service name="createDataResourceMetaData" engine="entity-auto" default-entity-name="DataResourceMetaData" auth="true" invoke="create">
         <description>Create an DataResourceMetaData</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateDataResourceMetaData" engine="entity-auto" default-entity-name="DataResourceMetaData" auth="true" invoke="update">

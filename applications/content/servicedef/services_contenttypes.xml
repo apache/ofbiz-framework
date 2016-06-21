@@ -65,9 +65,8 @@ under the License.
     <service name="createContentTypeAttr" engine="entity-auto" default-entity-name="ContentTypeAttr" auth="true" invoke="create">
         <description>Create a ContentTypeAttr</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="attrName" optional="false"/>
     </service>
     <service name="removeContentTypeAttr" engine="entity-auto" default-entity-name="ContentTypeAttr" auth="true" invoke="delete">
         <description>Remove ContentTypeAttr</description>

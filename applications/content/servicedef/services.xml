@@ -105,7 +105,7 @@
     <service name="createDataResourceAttribute" engine="entity-auto" default-entity-name="DataResourceAttribute" auth="true" invoke="create">
         <description>Create a DataResourceAttribute</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateDataResourceAttribute" engine="entity-auto" default-entity-name="DataResourceAttribute" auth="true" invoke="update">
