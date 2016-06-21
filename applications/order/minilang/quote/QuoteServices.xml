@@ -915,7 +915,13 @@ under the License.
         </call-service>
         <check-errors/>
 
-        <get-related value-field="custRequest" relation-name="CustRequestItem" list="custRequestItems"/>
+        <entity-condition list="custRequestItems" entity-name="CustRequestItem">
+            <condition-list combine="and">
+                <condition-expr field-name="custRequestId" operator="equals" from-field="custRequest.custRequestId"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="CRQ_REJECTED"/>
+            </condition-list>
+        </entity-condition>
         <iterate list="custRequestItems" entry="custRequestItem">
             <clear-field field="createQuoteItemInMap"/>
             <set field="createQuoteItemInMap.quoteId" from-field="quoteId"/>
