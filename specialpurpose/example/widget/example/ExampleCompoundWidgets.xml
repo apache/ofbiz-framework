@@ -26,7 +26,7 @@ under the License.
         xmlns:wt="http://ofbiz.apache.org/Widget-Tree"
         xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
         xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
-        xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+        xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widget-ns.xsd">
     
     <sc:site-conf>
         <sc:request-map uri="CompoundWidgets1">

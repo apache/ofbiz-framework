@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+        xmlns="http://ofbiz.apache.org/Simple-Method" targetNamespace="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods-ns.xsd">
     <simple-method method-name="testPackingServices" short-description="test packing services" login-required="false">
 
         <set field="packSingleItemInMap.productId" value="GZ-2644"/>

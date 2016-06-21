@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
+        xmlns="http://ofbiz.apache.org/Widget-Tree" targetNamespace="http://ofbiz.apache.org/Widget-Tree http://ofbiz.apache.org/dtds/widget-tree-ns.xsd">
     <tree name="CompDocTemplateTree" entity-name="Content" root-node-name="node-root"
         default-render-style="simple" default-wrap-style="treeWrapper">
         <node name="node-root" wrap-style="treeWrapper">

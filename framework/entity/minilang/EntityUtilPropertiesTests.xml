@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+        xmlns="http://ofbiz.apache.org/Simple-Method" targetNamespace="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods-ns.xsd">
         
     <simple-method method-name="testGetGeneralProperties" short-description="test getting general properties" login-required="false">
         <call-class-method ret-field="currencyUomIdDefault" method-name="getPropertyValue" class-name="org.ofbiz.entity.util.EntityUtilProperties">

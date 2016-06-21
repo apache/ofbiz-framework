@@ -19,7 +19,7 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
+ xmlns="http://ofbiz.apache.org/Widget-Menu" targetNamespace="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu-ns.xsd">
 
     <menu name="contentsetup" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="adddataresource" title="${uiLabelMap.CommonAdd}" >

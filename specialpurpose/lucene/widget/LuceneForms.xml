@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+        xmlns="http://ofbiz.apache.org/Widget-Form" targetNamespace="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form-ns.xsd">
 
     <form name="IndexContentDocuments" target="indexContentTree" title="" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="submitButton" title="${uiLabelMap.ContentIndexAll}" widget-style="smallSubmit" position="1"><submit button-type="button"/></field>

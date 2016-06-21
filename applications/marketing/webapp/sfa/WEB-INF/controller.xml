@@ -19,7 +19,7 @@ under the License.
 -->
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+        xmlns="http://ofbiz.apache.org/Site-Conf" targetNamespace="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf-ns.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>
     <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>
