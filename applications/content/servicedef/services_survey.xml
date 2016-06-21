@@ -236,8 +236,9 @@ under the License.
     <service name="createSurveyTrigger" default-entity-name="SurveyTrigger" auth="true" engine="entity-auto" invoke="create">
         <description>Create a SurveyTrigger</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
     <service name="updateSurveyTrigger" default-entity-name="SurveyTrigger" auth="true" engine="entity-auto" invoke="update">
         <description>Update a SurveyTrigger</description>
