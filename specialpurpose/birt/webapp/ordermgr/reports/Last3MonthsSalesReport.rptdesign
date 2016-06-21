@@ -215,7 +215,7 @@ module = "Last3MonthsSalesReport.rptdesign";]]></method>
             <method name="open"><![CDATA[salesOrderItemStarSchemas = null;
 userLogin = null;
 try {
-    userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId","admin"));
+    userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
     months = new LinkedList();
     thisMonth = 0;
     thisMonth = UtilDateTime.getMonth(UtilDateTime.nowTimestamp(), TimeZone.getDefault(), Locale.getDefault())+1;
@@ -278,7 +278,7 @@ if (salesOrderItemStarSchemas) {
     totalRow = salesOrderItemStarSchemas.size();
 }
 ]]></method>
-            <method name="fetch"><![CDATA[if (countOfRow == totalRow - 1) return false;
+            <method name="fetch"><![CDATA[if (countOfRow >= totalRow) return false;
 salesOrderItemStarSchema = salesOrderItemStarSchemas.get(countOfRow);
 input =  new HashMap();
 input.put("productId", salesOrderItemStarSchema.getString("productProductId"));
@@ -297,7 +297,7 @@ price = 0;
 internalName = "None";
 input =  new HashMap();
 try {
-    product = delegator.findByPrimaryKey("Product",UtilMisc.toMap("productId", salesOrderItemStarSchema.getString("productProductId")));
+    product = delegator.findOne("Product",UtilMisc.toMap("productId", salesOrderItemStarSchema.getString("productProductId")), false);
     if(product!=null){
         input.put("product", product);
         input.put("userLogin", userLogin);
