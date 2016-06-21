@@ -141,6 +141,8 @@ under the License.
                 <field-map field-name="partyId" from-field="partyId"/>
                 <field-map field-name="userLogin" from-field="userLogin"/>
             </service>
+            <!-- NO_PAGINATOR is set to 'true' to prevent PAGINATOR_NUMBER to increase when we use sub-grid under a grid -->
+            <set field="globalContext.NO_PAGINATOR" value="true" type="Boolean"/>
         </row-actions>
         <field name="partyId" sort-field="true">
             <hyperlink target="viewprofile" description="${partyId}">
