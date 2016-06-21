@@ -461,8 +461,8 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="projectId" action="javascript:document.EditTask.action='EditTask';document.EditTask.submit();" event="onchange" use-when="task==null">
-            <drop-down allow-empty="true">
+        <field name="projectId" action="javascript:document.EditTask.action='EditTask';document.EditTask.submit();" event="onchange" use-when="task==null" required-field="true">
+            <drop-down allow-empty="false">
                 <entity-options description="${workEffortName}" entity-name="WorkEffort" key-field-name="workEffortId">
                     <entity-constraint name="workEffortTypeId" value="SCRUM_PROJECT"/>
                 </entity-options>
