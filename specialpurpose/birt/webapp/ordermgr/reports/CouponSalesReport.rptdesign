@@ -147,7 +147,7 @@ countOfRow = 0;
 if (couponSalesOrders) {
     totalRow = couponSalesOrders.size();
 }]]></method>
-            <method name="fetch"><![CDATA[if (countOfRow == totalRow - 1) return false;
+            <method name="fetch"><![CDATA[if (countOfRow >= totalRow) return false;
 userLogin = null;
 input =  new HashMap();
 try {
