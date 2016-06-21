@@ -18,7 +18,7 @@
     under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    xmlns="http://ofbiz.apache.org/Widget-Form" targetNamespace="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form-ns.xsd">
     
     <form name="ListTimesheets" type="list" list-name="timesheets" paginate-target="MyWork"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">

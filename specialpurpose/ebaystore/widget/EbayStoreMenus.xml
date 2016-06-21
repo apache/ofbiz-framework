@@ -17,7 +17,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Menu" targetNamespace="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu-ns.xsd">
     <menu name="EbayStoreAppBar" title="${uiLabelMap.EbayStoreApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
            <menu-item name="eBayConfigurations" title="${uiLabelMap.EbayConfigurations}"><link target="FindEbayConfigurations"/></menu-item>
     </menu>

@@ -18,7 +18,7 @@
   under the License.
   -->
 
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Menu" targetNamespace="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu-ns.xsd">
     <menu name="view_edit" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="all" orientation="horizontal" menu-width="100%" default-widget-style="tabButton" menu-container-style="blogmenuwrapper" title="" type="simple">
         <menu-item name="edit" title="${uiLabelMap.CommonEdit}">
             <condition>
