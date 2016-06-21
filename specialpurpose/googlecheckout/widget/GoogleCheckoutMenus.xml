@@ -19,7 +19,7 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://ofbiz.apache.org/Widget-Menu" targetNamespace="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu-ns.xsd">
+    xmlns="http://ofbiz.apache.org/Widget-Menu" targetNamespace="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="GoogleCheckoutAppBar" title="${uiLabelMap.GoogleCheckoutApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="GoogleCheckoutConfigurations" title="${uiLabelMap.GoogleCheckoutGoogleCheckoutConfiguration}"><link target="GoogleCheckoutConfigurations"/></menu-item>
         <menu-item name="GoogleCheckoutShippingMethods" title="${uiLabelMap.GoogleCheckoutShippingMethods}"><link target="GoogleCheckoutShippingMethods"/></menu-item>

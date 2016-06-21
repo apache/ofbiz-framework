@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://ofbiz.apache.org/Simple-Method" targetNamespace="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods-ns.xsd">
+        xmlns="http://ofbiz.apache.org/Simple-Method" targetNamespace="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
   <!-- ContactMech map procs -->
   <simple-map-processor name="facilityContactMech">
     <process field="contactMechTypeId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactMechTypeIdMissing"/></not-empty></process>
