@@ -26,7 +26,7 @@ under the License.
         xmlns:wt="http://ofbiz.apache.org/Widget-Tree"
         xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
         xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
-        xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widget.xsd">
+        xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
     
     <sc:site-conf>
         <sc:request-map uri="CompoundWidgets1">
@@ -38,7 +38,7 @@ under the License.
 
         <sc:view-map name="CompoundWidgets1" type="screen" page="component://example/widget/example/ExampleCompoundWidgets.xml#CompoundWidgets1"/>
         <sc:view-map name="CompoundWidgets2" type="screen" page="component://example/widget/example/ExampleCompoundWidgets.xml#CompoundWidgets2"/>
-    </sc:site-conf>
+*    </sc:site-conf>
 
     <wm:menus>
         <wm:menu name="CompoundWidgetsMenu" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
