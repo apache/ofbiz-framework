@@ -168,7 +168,7 @@ under the License.
     <request-map uri="updateProductCategoryToCategory">
         <security https="true" auth="true"/>
         <event type="service-multi" path="" invoke="updateProductCategoryToCategory"/>
-        <response name="success" type="request-redirect" value="EditCategoryRollup"/>
+        <response name="success" type="view" value="EditCategoryRollup"/>
         <response name="error" type="view" value="EditCategoryRollup"/>
     </request-map>
     <request-map uri="removeProductCategoryFromCategory">
