@@ -85,7 +85,13 @@ under the License.
               <td>=></td>
               <td>${map.mapValue}</td>
               <td>${map.sequenceNum!}</td>
-              <td class="button-col"><a href="<@ofbizUrl>removeAddressMatchMap?mapKey=${map.mapKey}&amp;mapValue=${map.mapValue}</@ofbizUrl>">${uiLabelMap.CommonDelete}</a></td>
+              <td class="button-col">
+                <form name="removeAddressMatchMap_${map_index}" method="post" action="<@ofbizUrl>removeAddressMatchMap</@ofbizUrl>">
+	              <input type="hidden" name="mapKey" value="${map.mapKey}" />
+	              <input type="hidden" name="mapValue" value="${map.mapValue}" />
+	              <input type="submit" value="${uiLabelMap.CommonDelete}" />
+	            </form>
+	          </td>
             </tr>
             <#-- toggle the row color -->
 
