@@ -285,7 +285,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditCategoryRollup"/>
                 <set field="tabButtonItem" value="EditCategoryRollup"/>
                 <set field="labelTitleProperty" value="ProductRollup"/>
-                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <set field="productCategoryId" from-field="parameters.showProductCategoryId" default-value="${parameters.productCategoryId}"/>
+                <set field="parameters.productCategoryId" from-field="productCategoryId"/>
 
                 <entity-condition entity-name="ProductCategoryRollup" list="currentProductCategoryRollups">
                     <condition-expr field-name="productCategoryId" from-field="productCategoryId"/>
