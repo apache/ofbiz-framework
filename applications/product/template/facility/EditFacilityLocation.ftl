@@ -138,7 +138,7 @@ under the License.
             <input type="hidden" name="facilityId" value="${facilityId!}" />
             <input type="hidden" name="locationSeqId" value="${locationSeqId!}" />
             <input type="hidden" name="useValues" value="true" />
-            <span class="label">${uiLabelMap.ProductProductId}</span><input type="text" size="10" name="productId" />
+            <@htmlTemplate.lookupField formName="createProductFacilityLocationForm" name="productId" id="productId" fieldFormName="LookupProduct"/>
             <span class="label">${uiLabelMap.ProductMinimumStock}</span><input type="text" size="10" name="minimumStock" />
             <span class="label">${uiLabelMap.ProductMoveQuantity}</span><input type="text" size="10" name="moveQuantity" />
             <input type="submit" value="${uiLabelMap.CommonAdd}" />
