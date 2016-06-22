@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Menu" targetNamespace="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Menu" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="CommonAppBarMenu" default-menu-item-name="main" id="app-navigation" type="simple" title="${applicationTitle}&amp;nbsp;"
         default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="headerItem">
         <menu-item name="main" title="${uiLabelMap.CommonMain}">

@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://ofbiz.apache.org/Simple-Method" targetNamespace="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
   <simple-map-processor name="contentIn">
       <process field="contentId"><copy to-field="contentId" replace="true" set-if-null="false"/></process>
       <process field="contentTypeId"><copy to-field="contentTypeId" replace="true" set-if-null="false"/></process>

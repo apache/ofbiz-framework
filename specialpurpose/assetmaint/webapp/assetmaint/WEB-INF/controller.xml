@@ -19,7 +19,7 @@
 -->
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://ofbiz.apache.org/Site-Conf" targetNamespace="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+        xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
     <!-- Note: The order of the following include elements is important -->
     <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
     <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>
