@@ -263,17 +263,22 @@ under the License.
                                 <link target="/content/control/gotoContent" text="${uiLabelMap.ContentContent} ${uiLabelMap.CommonPage}" url-mode="inter-app" style="buttontext">
                                     <parameter param-name="contentId"/>
                                 </link>
+                                <screenlet title="${contentFormTitle}">
+                                    <include-form name="${contentFormName}" location="component://product/widget/catalog/CategoryForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.ProductListAssociatedContentInfos}">
+                                    <include-form name="ListAssociatedContentInfos" location="component://product/widget/catalog/ProductForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.ProductCreateSimpleTextContentForAlternateLocale}">
+                                    <include-form name="CreateSimpleTextContentForAlternateLocale" location="component://product/widget/catalog/CategoryForms.xml"/>
+                                </screenlet>
                             </widgets>
+                            <fail-widgets>
+                                <screenlet title="${contentFormTitle}">
+                                    <include-form name="${contentFormName}" location="component://product/widget/catalog/CategoryForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
                         </section>
-                        <screenlet title="${contentFormTitle}">
-                            <include-form name="${contentFormName}" location="component://product/widget/catalog/CategoryForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.ProductListAssociatedContentInfos}">
-                            <include-form name="ListAssociatedContentInfos" location="component://product/widget/catalog/ProductForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.ProductCreateSimpleTextContentForAlternateLocale}">
-                            <include-form name="CreateSimpleTextContentForAlternateLocale" location="component://product/widget/catalog/CategoryForms.xml"/>
-                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

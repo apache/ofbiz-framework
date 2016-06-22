@@ -939,15 +939,25 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditProductContent}">
-                            <include-form name="${contentFormName}" location="component://product/widget/catalog/ProductForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleListAssociatedContentInfos}">
-                            <include-form name="ListAssociatedContentInfos" location="component://product/widget/catalog/ProductForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleCreateSimpleTextContentForAlternateLocale}">
-                            <include-form name="CreateSimpleTextContentForAlternateLocale" location="component://product/widget/catalog/ProductForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition><not><if-empty field="contentId"/></not></condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleEditProductContent}">
+                                    <include-form name="${contentFormName}" location="component://product/widget/catalog/ProductForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.PageTitleListAssociatedContentInfos}">
+                                    <include-form name="ListAssociatedContentInfos" location="component://product/widget/catalog/ProductForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.PageTitleCreateSimpleTextContentForAlternateLocale}">
+                                    <include-form name="CreateSimpleTextContentForAlternateLocale" location="component://product/widget/catalog/ProductForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.PageTitleEditProductContent}">
+                                    <include-form name="${contentFormName}" location="component://product/widget/catalog/ProductForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
