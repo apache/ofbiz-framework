@@ -281,7 +281,7 @@ under the License.
         </exec>
         <loadfile property="svn-output" srcFile="build/svn-check/svn.output"/>
         <condition property="svn-version-ok">
-        <!-- On Linux prefer patch because "svn patch" needs "ant exec and you can't check patching errors -->
+        <!-- On Linux prefer patch because "svn patch" needs "ant" exec and you can't check patching errors -->
           <and>
             <os family="windows"/>
             <or>
