@@ -406,8 +406,8 @@ under the License.
     <request-map uri="DeleteProductManufacturingRule">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteProductManufacturingRule"/>
-        <response name="success" type="view" value="EditProductManufacturingRules"/>
-        <response name="error" type="view" value="EditProductManufacturingRules"/>
+        <response name="success" type="request-redirect" value="EditProductManufacturingRules"/>
+        <response name="error" type="request-redirect" value="EditProductManufacturingRules"/>
     </request-map>
 
     <!-- MRP request mappings -->
