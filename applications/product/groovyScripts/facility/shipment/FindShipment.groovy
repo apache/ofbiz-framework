@@ -40,7 +40,7 @@ maxDate = parameters.maxDate;
 
 // set the page parameters
 viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0);
-viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: EntityUtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20", delegator));
+viewSize = parameters.VIEW_SIZE ?: EntityUtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20);
 context.viewIndex = viewIndex;
 context.viewSize = viewSize;
 

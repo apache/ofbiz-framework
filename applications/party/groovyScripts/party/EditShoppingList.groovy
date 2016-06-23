@@ -104,7 +104,7 @@ if (shoppingListId) {
             context.shoppingListItemDatas = shoppingListItemDatas;
             // pagination for the shopping list
             viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0);
-            viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: EntityUtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20", delegator));
+            viewSize = parameters.VIEW_SIZE ?: EntityUtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20);
             listSize = shoppingListItemDatas ? shoppingListItemDatas.size() : 0;
 
             lowIndex = (viewIndex * viewSize) + 1;

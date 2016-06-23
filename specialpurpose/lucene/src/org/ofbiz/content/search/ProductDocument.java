@@ -185,7 +185,7 @@ public class ProductDocument implements LuceneDocument {
                     int weight = 1;
                     try {
                         // this is defaulting to a weight of 1 because you specified you wanted to index this type
-                        weight = Integer.parseInt(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductContent." + productContentTypeId, "1", delegator));
+                        weight = EntityUtilProperties.getPropertyAsInteger("prodsearch", "index.weight.ProductContent." + productContentTypeId, 1).intValue();
                     } catch (Exception e) {
                         Debug.logWarning("Could not parse weight number: " + e.toString(), module);
                     }
@@ -287,7 +287,7 @@ public class ProductDocument implements LuceneDocument {
         float weight = 0;
         if (property != null) {
             try {
-                weight = Float.parseFloat(EntityUtilProperties.getPropertyValue("prodsearch", property, "0", delegator));
+                weight = EntityUtilProperties.getPropertyAsFloat("prodsearch", property, 0).floatValue();
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }

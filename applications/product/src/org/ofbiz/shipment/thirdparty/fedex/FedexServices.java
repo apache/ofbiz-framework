@@ -874,7 +874,7 @@ public class FedexServices {
 
                         // Use default weight if available
                         try {
-                            packageWeight = new BigDecimal(EntityUtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value", delegator));
+                            packageWeight = EntityUtilProperties.getPropertyAsBigDecimal(shipmentPropertiesFile, "shipment.default.weight.value", BigDecimal.ZERO);
                         } catch (NumberFormatException ne) {
                             Debug.logWarning("Default shippable weight not configured (shipment.default.weight.value), assuming 1.0" + weightUomId , module);
                             packageWeight = BigDecimal.ONE;
