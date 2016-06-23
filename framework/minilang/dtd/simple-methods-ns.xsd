@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns="http://ofbiz.apache.org/Simple-Method" targetNamespace="http://ofbiz.apache.org/Simple-Method">
 <!--
     ==================================================
     ========== The Simple Methods Section ==========

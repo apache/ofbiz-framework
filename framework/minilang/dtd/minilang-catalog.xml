@@ -27,5 +27,6 @@ under the License.
     <!-- <public publicId="-//W3C//DTD SVG 1.0//EN" uri="svg10.dtd"/> -->
 
     <system systemId="http://ofbiz.apache.org/dtds/simple-methods.xsd" uri="simple-methods.xsd" />
+    <system systemId="http://ofbiz.apache.org/dtds/simple-methods-ns.xsd" uri="simple-methods-ns.xsd" />
 
 </catalog>

@@ -19,7 +19,7 @@
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="checkEbayAction" short-description="Check eBay Action">
         <set field="resultResponse" from-field="parameters.action"/>
         <return response-code="${resultResponse}"/>

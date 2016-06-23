@@ -19,7 +19,7 @@
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="scrumPermissionCheck" short-description="general service to check access to the scrum component">
         <set field="primaryPermission" value="SCRUM"/>
         <set field="hasPermission" value="true" type="Boolean"/>
