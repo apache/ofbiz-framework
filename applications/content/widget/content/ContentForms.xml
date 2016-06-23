@@ -126,6 +126,7 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${contentId}" target="javascript:set_value('${contentId}')"/>
         </field>
         <field name="contentName"><display/></field>
+        <field name="mimeTypeId"><display/></field>
         <field name="createdByUserLogin"><ignored/></field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target=""/>
     </form>
