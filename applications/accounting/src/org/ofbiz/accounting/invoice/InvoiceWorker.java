@@ -47,14 +47,16 @@ import org.ofbiz.entity.util.EntityUtilProperties;
 /**
  * InvoiceWorker - Worker methods of invoices
  */
-public class InvoiceWorker {
+public final class InvoiceWorker {
 
-    public static String module = InvoiceWorker.class.getName();
-    private static BigDecimal ZERO = BigDecimal.ZERO;
-    private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-    private static int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
-    private static int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
+    public static final String module = InvoiceWorker.class.getName();
+    private static final BigDecimal ZERO = BigDecimal.ZERO;
+    private static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static final int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+    private static final int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
+    private static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
+
+    private InvoiceWorker () {}
 
     /**
      * Return the total amount of the invoice (including tax) using the the invoiceId as input.
