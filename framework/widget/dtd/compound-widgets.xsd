@@ -13,7 +13,7 @@
     <xs:import schemaLocation="widget-screen.xsd" namespace="http://ofbiz.apache.org/Widget-Screen"/>
     <xs:import schemaLocation="widget-form.xsd" namespace="http://ofbiz.apache.org/Widget-Form"/>
     <xs:import schemaLocation="widget-tree.xsd" namespace="http://ofbiz.apache.org/Widget-Tree"/>
-    <xs:import schemaLocation="../../minilang/dtd/simple-methods.xsd" namespace="http://ofbiz.apache.org/Simple-Method"/>
+    <xs:import schemaLocation="../../minilang/dtd/simple-methods-ns.xsd" namespace="http://ofbiz.apache.org/Simple-Method"/>
     
     <xs:element name="compound-widgets">
         <xs:complexType>

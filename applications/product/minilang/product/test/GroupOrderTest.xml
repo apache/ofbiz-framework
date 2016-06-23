@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="testGroupOrderLimitReached" short-description="Test GroupOrder the limit is reached" login-required="false">
         <!-- Test GroupOrder the limit is reached

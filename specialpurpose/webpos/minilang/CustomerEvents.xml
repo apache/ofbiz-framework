@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createUpdateAddress" short-description="Create/Update party address" login-required="true">
         <set-service-fields service-name="createUpdatePerson" map="parameters" to-map="createUpdatePersonMap"/>
         <call-service service-name="createUpdatePerson" in-map-name="createUpdatePersonMap">
