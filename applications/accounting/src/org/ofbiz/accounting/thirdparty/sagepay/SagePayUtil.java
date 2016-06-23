@@ -43,9 +43,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.ofbiz.base.util.Debug;
 
 
-public class SagePayUtil
-{
+public final class SagePayUtil {
+
     public static final String module = SagePayUtil.class.getName();
+    private SagePayUtil() {}
 
     public static Map<String, Object> buildCardAuthorisationPaymentResponse
     (Boolean authResult, String authCode, String authFlag, BigDecimal processAmount, String authRefNum, String authAltRefNum, String authMessage) {
