@@ -1878,6 +1878,23 @@ under the License.
         <field name="currencyUomId"><display/></field>
         <field name="price"><display/></field>
     </form>
+    <form name="ListCommissionAgreements" type="list" list-name="commissionAgreements"
+        odd-row-style="alternate-row" default-table-style="basic-table">
+        <field name="agreementId" widget-style="buttontext">
+            <hyperlink target="/accounting/control/EditAgreementItemProduct" target-type="inter-app" description="${agreementId}/${agreementItemSeqId}" also-hidden="false">
+                <parameter param-name="agreementId"/>
+                <parameter param-name="agreementItemSeqId"/>
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
+        <field name="partyIdTo"><display/></field>
+        <field name="agreementText"><display/></field>
+        <field name="description"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="currencyUomId"><display/></field>
+        <field name="price"><display/></field>
+    </form>
 
     <!-- ProductWorkEfforts forms -->
     <form name="AddProductWorkEffort" target="createWorkEffortGoodStandard" title="" type="single"

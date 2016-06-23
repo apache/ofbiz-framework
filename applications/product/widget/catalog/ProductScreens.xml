@@ -229,6 +229,11 @@ under the License.
                     <field-map field-name="agreementTypeId" value="PRODUCT_AGREEMENT"/>
                     <order-by field-name="fromDate"/>
                 </entity-and>
+                <entity-and entity-name="AgreementItemAndProductAppl" list="commissionAgreements">
+                    <field-map field-name="productId"/>
+                    <field-map field-name="agreementTypeId" value="COMMISSION_AGREEMENT"/>
+                    <order-by field-name="fromDate"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
@@ -245,6 +250,9 @@ under the License.
                             <include-form name="ListSalesAgreements" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductCommissions}">
+                            <include-form name="ListCommissionAgreements" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductProducts}">
                             <include-form name="ListProductAgreements" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                     </decorator-section>
