@@ -57,11 +57,13 @@ import org.ofbiz.security.Security;
 /**
  * ContentManagementWorker Class
  */
-public class ContentManagementWorker {
+public final class ContentManagementWorker {
 
     public static final String module = ContentManagementWorker.class.getName();
-    public static Map<String, GenericValue> cachedWebSitePublishPoints = new HashMap<String, GenericValue>();
-    public static Map<String, Map<String, Object>> cachedStaticValues = new HashMap<String, Map<String,Object>>();
+    private static Map<String, GenericValue> cachedWebSitePublishPoints = new HashMap<String, GenericValue>();
+    private static Map<String, Map<String, Object>> cachedStaticValues = new HashMap<String, Map<String,Object>>();
+
+    private ContentManagementWorker() {}
 
     public static void mruAdd(HttpServletRequest request, GenericEntity pk, String suffix) {
         HttpSession session = request.getSession();
