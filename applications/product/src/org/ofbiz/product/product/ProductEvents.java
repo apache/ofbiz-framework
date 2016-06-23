@@ -875,9 +875,10 @@ public class ProductEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productId = request.getParameter("productId");
         String productFeatureApplTypeId = request.getParameter("productFeatureApplTypeId");
-        String fromDate = request.getParameter("fromDate");
-        if ((fromDate == null) || (fromDate.trim().length() == 0)) {
-            fromDate = UtilDateTime.nowTimestamp().toString();
+        String fromDateStr = request.getParameter("fromDate");
+        Timestamp fromDate = UtilDateTime.nowTimestamp();
+        if (UtilValidate.isNotEmpty(fromDateStr)) {
+            fromDate = Timestamp.valueOf(fromDateStr);
         }
         String[] productFeatureIdArray = request.getParameterValues("productFeatureId");
         if (productFeatureIdArray != null && productFeatureIdArray.length > 0) {
