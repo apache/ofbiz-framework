@@ -215,6 +215,7 @@ under the License.
   <div class="screenlet-body">
       <form method="post" action="<@ofbizUrl>EditSurveyQuestions</@ofbizUrl>">
         <input type="hidden" name="surveyId" value="${requestParameters.surveyId}"/>
+        <input type="hidden" name="applyQuestionFromCategory" value="Y"/>
         <select name="surveyQuestionCategoryId">
           <#list questionCategories as category>
             <option value="${category.surveyQuestionCategoryId}">${category.description?default("??")} [${category.surveyQuestionCategoryId}]</option>

@@ -62,7 +62,7 @@ if (surveyQuestion && surveyQuestion.surveyQuestionTypeId && "OPTION".equals(sur
 surveyQuestionCategoryId = parameters.surveyQuestionCategoryId;
 surveyQuestionCategory = null;
 categoryQuestions = null;
-if (surveyQuestionCategoryId) {
+if (surveyQuestionCategoryId && "Y".equals(parameters.applyQuestionFromCategory)) {
     surveyQuestionCategory = from("SurveyQuestionCategory").where("surveyQuestionCategoryId", surveyQuestionCategoryId).queryOne();
     if (surveyQuestionCategory) {
         categoryQuestions = surveyQuestionCategory.getRelated("SurveyQuestion", null, null, false);
