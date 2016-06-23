@@ -35,9 +35,11 @@ import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.util.EntityQuery;
 
 
-public class UtilAccounting {
+public final class UtilAccounting {
+	
+    public static final String module = UtilAccounting.class.getName();
 
-    public static String module = UtilAccounting.class.getName();
+    private UtilAccounting() {}
 
     /**
      * Get the GL Account for a product or the default account type based on input. This replaces the simple-method service
