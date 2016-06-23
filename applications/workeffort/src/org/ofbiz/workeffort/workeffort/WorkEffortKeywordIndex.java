@@ -57,7 +57,7 @@ public class WorkEffortKeywordIndex {
         List<String> strings = new LinkedList<String>();
         int widWeight = 1;
         try {
-            widWeight = Integer.parseInt(EntityUtilProperties.getPropertyValue("workeffort", "index.weight.WorkEffort.workEffortId", "1", delegator));
+            widWeight = EntityUtilProperties.getPropertyAsInteger("workeffort", "index.weight.WorkEffort.workEffortId", 1).intValue();
         } catch (Exception e) {
             Debug.logWarning("Could not parse weight number: " + e.toString(), module);
         }
@@ -87,7 +87,7 @@ public class WorkEffortKeywordIndex {
         for (String workEffortContentTypeId: workEffortContentTypes.split(",")) {
             int weight = 1;
             try {
-                weight = Integer.parseInt(EntityUtilProperties.getPropertyValue("workeffort", "index.weight.WorkEffortContent." + workEffortContentTypeId, "1", delegator));
+                weight = EntityUtilProperties.getPropertyAsInteger("workeffort", "index.weight.WorkEffortContent." + workEffortContentTypeId, 1).intValue();
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }
@@ -140,7 +140,7 @@ public class WorkEffortKeywordIndex {
             int weight = 1;
 
             try {
-                weight = Integer.parseInt(EntityUtilProperties.getPropertyValue("workeffort", "index.weight." + value.getEntityName() + "." + fieldName, "1", delegator));
+                weight = EntityUtilProperties.getPropertyAsInteger("workeffort", "index.weight." + value.getEntityName() + "." + fieldName, 1).intValue();
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }

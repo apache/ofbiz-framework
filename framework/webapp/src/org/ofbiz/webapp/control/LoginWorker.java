@@ -1199,8 +1199,8 @@ public class LoginWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String userName = request.getParameter("USERNAME");
         Timestamp now = UtilDateTime.nowTimestamp();
-        Integer reqToChangePwdInDays = Integer.valueOf(EntityUtilProperties.getPropertyValue("security", "user.change.password.days", "0", delegator));
-        Integer passwordNoticePeriod = Integer.valueOf(EntityUtilProperties.getPropertyValue("security", "user.change.password.notification.days", "0", delegator));
+        Integer reqToChangePwdInDays = EntityUtilProperties.getPropertyAsInteger("security", "user.change.password.days", 0);
+        Integer passwordNoticePeriod = EntityUtilProperties.getPropertyAsInteger("security", "user.change.password.notification.days", 0);
         if (reqToChangePwdInDays > 0) {
             List<GenericValue> passwordHistories = null;
             try {

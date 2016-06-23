@@ -428,7 +428,7 @@ public class LoginServices {
     public static void createUserLoginPasswordHistory(Delegator delegator,String userLoginId, String currentPassword) throws GenericEntityException{
         int passwordChangeHistoryLimit = 0;
         try {
-            passwordChangeHistoryLimit = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "password.change.history.limit", "0", delegator));
+            passwordChangeHistoryLimit = EntityUtilProperties.getPropertyAsInteger("security", "password.change.history.limit", 0).intValue();
         } catch (NumberFormatException nfe) {
             //No valid value is found so don't bother to save any password history
             passwordChangeHistoryLimit = 0;
@@ -946,7 +946,7 @@ public class LoginServices {
 
         int passwordChangeHistoryLimit = 0;
         try {
-            passwordChangeHistoryLimit = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "password.change.history.limit", "0", delegator));
+            passwordChangeHistoryLimit = EntityUtilProperties.getPropertyAsInteger("security", "password.change.history.limit", 0).intValue();
         } catch (NumberFormatException nfe) {
             //No valid value is found so don't bother to save any password history
             passwordChangeHistoryLimit = 0;
@@ -979,7 +979,7 @@ public class LoginServices {
         int minPasswordLength = 0;
 
         try {
-            minPasswordLength = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "password.length.min", "0", delegator));
+            minPasswordLength = EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 0).intValue();
         } catch (NumberFormatException nfe) {
             minPasswordLength = 0;
         }
