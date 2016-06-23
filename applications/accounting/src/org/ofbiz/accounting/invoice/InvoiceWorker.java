@@ -281,8 +281,12 @@ public class InvoiceWorker {
     public static GenericValue getSendFromAddress(GenericValue invoice) {
         return getInvoiceAddressByType(invoice, "PAYMENT_LOCATION");
     }
-
+    
     public static GenericValue getInvoiceAddressByType(GenericValue invoice, String contactMechPurposeTypeId) {
+        return getInvoiceAddressByType(invoice, contactMechPurposeTypeId, true);
+    }
+
+    public static GenericValue getInvoiceAddressByType(GenericValue invoice, String contactMechPurposeTypeId, boolean fetchPartyAddress) {
         Delegator delegator = invoice.getDelegator();
         List<GenericValue> locations = null;
         // first try InvoiceContactMech to see if we can find the address needed
@@ -292,7 +296,7 @@ public class InvoiceWorker {
             Debug.logError("Touble getting InvoiceContactMech entity list", module);
         }
 
-        if (UtilValidate.isEmpty(locations))    {
+        if (UtilValidate.isEmpty(locations) && fetchPartyAddress)    {
             // if no locations found get it from the PartyAndContactMech using the from and to party on the invoice
             String destinationPartyId = null;
             Timestamp now = UtilDateTime.nowTimestamp();
