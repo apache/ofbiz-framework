@@ -101,7 +101,8 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="ruleId==null" target="AddProductManufacturingRule"/>
         <auto-fields-service service-name="updateProductManufacturingRule" map-name="manufacturingRule"/>
-        <field name="ruleId"><display/></field>
+        <field name="ruleId" use-when="ruleId!=null"><display/></field>
+        <field name="ruleId" use-when="ruleId==null"><ignored/></field>
         <field name="productId">
             <lookup target-form-name="LookupProduct"/>
         </field>
