@@ -29568,7 +29568,7 @@
     </property>
     <property key="ProductShowAllFacilities">
         <value xml:lang="de">Alle Einrichtungen anzeigen</value>
-        <value xml:lang="en">showAllFacilities</value>
+        <value xml:lang="en">Show All Facilities</value>
         <value xml:lang="es">ver todos los Almacenes</value>
         <value xml:lang="fr">Voir tous les lieux de stockage</value>
         <value xml:lang="it">Mostra tutte le Stabilimento</value>
