@@ -45,11 +45,13 @@ import org.ofbiz.entity.util.EntityUtil;
 /**
  * Worker methods for Payments
  */
-public class PaymentWorker {
+public final class PaymentWorker {
 
     public static final String module = PaymentWorker.class.getName();
-    private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+    private static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+    private static final int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+
+    private PaymentWorker() {}
 
     // to be able to use in minilanguage where Boolean cannot be used
     public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(Delegator delegator, String partyId) {
