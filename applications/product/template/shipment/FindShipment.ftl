@@ -25,7 +25,6 @@ function lookupShipments() {
     } else {
         document.lookupShipmentForm.action = "<@ofbizUrl>FindShipment</@ofbizUrl>";
     }
-    document.lookupShipmentForm.submit();
 }
 // -->
 </script>
@@ -45,7 +44,7 @@ function lookupShipments() {
         <div class="button-bar">
           <a class="buttontext" href="<@ofbizUrl>EditShipment</@ofbizUrl>">${uiLabelMap.ProductNewShipment}</a>
         </div>
-        <form method="post" name="lookupShipmentForm" action="javascript:lookupShipments();">
+        <form method="post" name="lookupShipmentForm" onsubmit="lookupShipments();">
             <input type="hidden" name="lookupFlag" value="Y" />
             <table cellspacing="0" cellpadding="2" class="basic-table">
               <tr>
