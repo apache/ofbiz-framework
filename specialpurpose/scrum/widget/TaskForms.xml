@@ -26,8 +26,6 @@
             <entity-and entity-name="CustRequestWorkEffort" list="sprintBacklogTasks">
                 <field-map field-name="workEffortId" from-field="parameters.taskId"/>
             </entity-and>
-            <set field="cus"/>
-            <set field="parameters.custRequestId" value="${groovy: if (sprintBacklogTasks.size() != 0 &amp;&amp; task != null) return sprintBacklogTasks.get(0).getString(&quot;custRequestId&quot;)}"/>
             <entity-condition entity-name="ScrumProjectSprintBacklog" list="scrumProjectSprintBacklogs">
                 <condition-list combine="and">
                     <condition-expr field-name="childWorkEffortId" from-field="parameters.sprintId" ignore-if-empty="true"/>
@@ -64,7 +62,6 @@
                 <field-map field-name="taskId" from-field="taskId"/>
             </service>
         </actions>
-        <alt-target use-when="task!=null" target="updateSprintTask"/>
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="sprintId"><hidden value="${parameters.sprintId}"/></field>
         <field name="workEffortId" use-when="task!=null"><hidden value="${parameters.taskId}"/></field>
