@@ -70,7 +70,7 @@ under the License.
         <field name="lastInviteDate"><display/></field>
         <field name="remove" title=" " widget-style="buttontext">
             <hyperlink target="deletePartyInvitation" description="${uiLabelMap.CommonDelete}">
-                <parameter param-name="partyInvitationId" value="partyInvitationId"/>
+                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
             </hyperlink>
         </field>
     </form>
