@@ -75,6 +75,7 @@ under the License.
         <check-errors/>
         <if-compare field="requirement.requirementTypeId" operator="equals" value="PRODUCT_REQUIREMENT">
             <if-not-empty field="requirement.productId">
+                <if-not-empty field="requirement.quantity">
                 <entity-condition entity-name="SupplierProduct" list="supplierProducts">
                     <condition-list>
                         <condition-expr field-name="productId" from-field="requirement.productId"/>
@@ -92,6 +93,7 @@ under the License.
                     <set field="requirementSupplier.roleTypeId" value="SUPPLIER"/>
                     <now-timestamp field="requirementSupplier.fromDate"/>
                     <create-value value-field="requirementSupplier"/>
+                </if-not-empty>
                 </if-not-empty>
             </if-not-empty>
         </if-compare>
