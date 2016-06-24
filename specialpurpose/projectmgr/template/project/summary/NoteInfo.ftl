@@ -49,17 +49,37 @@ under the License.
                     <#if note.internalNote! == "N">
                         <div>${uiLabelMap.ProjectMgrPrintableNote}</div>
                           <#if project?has_content>
-                            <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId!}&amp;noteId=${note.noteId}&amp;internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
+                            <form name="updateProjectNoteForPublicNote" method="post" action="<@ofbizUrl>updateProjectNote</@ofbizUrl>">
+                              <input type="hidden" name="workEffortId" value="${project.workEffortId!}" />
+                              <input type="hidden" name="noteId" value="${note.noteId}" />
+                              <input type="hidden" name="internalNote" value="Y" />
+                              <input type="submit" value="${uiLabelMap.OrderNotesPrivate}"/>
+                            </form>
                           <#else>
-                            <a href="<@ofbizUrl>updateTaskNoteSummary?workEffortId=${task.workEffortId!}&amp;noteId=${note.noteId}&amp;internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
+                            <form name="updateTaskNoteSummaryPublicNote" method="post" action="<@ofbizUrl>updateTaskNoteSummary</@ofbizUrl>">
+                              <input type="hidden" name="workEffortId" value="${task.workEffortId!}" />
+                              <input type="hidden" name="noteId" value="${note.noteId}" />
+                              <input type="hidden" name="internalNote" value="Y" />
+                              <input type="submit" value="${uiLabelMap.OrderNotesPrivate}"/>
+                            </form>
                           </#if>
                     </#if>
                     <#if note.internalNote! == "Y">
                         <div>${uiLabelMap.OrderNotPrintableNote}</div>
                            <#if project?has_content>
-                             <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId!}&amp;noteId=${note.noteId}&amp;internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
+                             <form name="updateProjectNoteForPrivateNote" method="post" action="<@ofbizUrl>updateProjectNote</@ofbizUrl>">
+                               <input type="hidden" name="workEffortId" value="${project.workEffortId!}" />
+                               <input type="hidden" name="noteId" value="${note.noteId}" />
+                               <input type="hidden" name="internalNote" value="N" />
+                               <input type="submit" value="${uiLabelMap.OrderNotesPublic}"/>
+                             </form>
                           <#else>
-                            <a href="<@ofbizUrl>updateTaskNoteSummary?workEffortId=${task.workEffortId!}&amp;noteId=${note.noteId}&amp;internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
+                            <form name="updateTaskNoteSummaryPrivateNote" method="post" action="<@ofbizUrl>updateTaskNoteSummary</@ofbizUrl>">
+                              <input type="hidden" name="workEffortId" value="${task.workEffortId!}" />
+                              <input type="hidden" name="noteId" value="${note.noteId}" />
+                              <input type="hidden" name="internalNote" value="N" />
+                              <input type="submit" value="${uiLabelMap.OrderNotesPublic}"/>
+                            </form>
                           </#if>
                     </#if>
                   </td>

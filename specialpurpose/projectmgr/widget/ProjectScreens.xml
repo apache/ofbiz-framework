@@ -562,6 +562,9 @@ under the License.
         <section>
             <actions>
                 <set field="workEffortId" from-field="projectId"/>
+                <entity-one entity-name="WorkEffort" value-field="project">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                </entity-one>
                 <entity-and entity-name="WorkEffortNoteAndData" list="workEffortNoteandDetails">
                     <field-map field-name="workEffortId" from-field="workEffortId"/>
                     <order-by field-name="-noteDateTime"/>
