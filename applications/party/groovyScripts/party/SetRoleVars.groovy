@@ -19,30 +19,26 @@
  import org.ofbiz.entity.*;
  import org.ofbiz.entity.util.EntityUtil;
 
- roleTypeAndParty = from("RoleTypeAndParty").where("partyId", parameters.partyId, "roleTypeId", "ACCOUNT").queryList();
- if (roleTypeAndParty) {
-     context.accountDescription = roleTypeAndParty[0].description;
- }
-
- roleTypeAndParty = from("RoleTypeAndParty").where("partyId", parameters.partyId, "roleTypeId", "CONTACT").queryList();
- if (roleTypeAndParty) {
-     context.contactDescription = roleTypeAndParty.get(0).description;
- }
- roleTypeAndParty = from("RoleTypeAndParty").where("partyId", parameters.partyId, "roleTypeId", "LEAD").queryList();
- if (roleTypeAndParty) {
-     context.leadDescription = roleTypeAndParty.get(0).description;
-     partyRelationships = from("PartyRelationship").where("partyIdTo", parameters.partyId, "roleTypeIdFrom", "ACCOUNT_LEAD", "roleTypeIdTo", "LEAD", "partyRelationshipTypeId", "EMPLOYMENT").filterByDate().queryList();
-     if (partyRelationships) {
-         context.partyGroupId = partyRelationships.get(0).partyIdFrom;
-         context.partyId = parameters.partyId;
-     }
- }
- roleTypeAndParty = from("RoleTypeAndParty").where("partyId", parameters.partyId, "roleTypeId", "ACCOUNT_LEAD").queryList();
- if (roleTypeAndParty) {
-     context.leadDescription = roleTypeAndParty.get(0).description;
-     partyRelationships = from("PartyRelationship").where("partyIdFrom", parameters.partyId, "roleTypeIdFrom", "ACCOUNT_LEAD", "roleTypeIdTo", "LEAD", "partyRelationshipTypeId", "EMPLOYMENT").filterByDate().queryList();
-     if (partyRelationships) {
-         context.partyGroupId = parameters.partyId;
-         context.partyId = partyRelationships.get(0).partyIdTo;
-     }
- }
+roleTypeId = parameters.roleTypeId;
+roleTypeAndParty = from("RoleTypeAndParty").where("partyId", parameters.partyId, "roleTypeId", roleTypeId).queryFirst();
+if (roleTypeAndParty) {
+    if ("ACCOUNT".equals(roleTypeId)) {
+        context.accountDescription = roleTypeAndParty.description;
+    } else if ("CONTACT".equals(roleTypeId)) {
+        context.contactDescription = roleTypeAndParty.description;
+    } else if ("LEAD".equals(roleTypeId)) {
+        context.leadDescription = roleTypeAndParty.description;
+        partyRelationships = from("PartyRelationship").where("partyIdTo", parameters.partyId, "roleTypeIdFrom", "ACCOUNT_LEAD", "roleTypeIdTo", "LEAD", "partyRelationshipTypeId", "EMPLOYMENT").filterByDate().queryFirst();
+        if (partyRelationships) {
+            context.partyGroupId = partyRelationships.partyIdFrom;
+            context.partyId = parameters.partyId;
+        }
+    } else if ("ACCOUNT_LEAD".equals(roleTypeId)) {
+        context.leadDescription = roleTypeAndParty.description;
+        partyRelationships = from("PartyRelationship").where("partyIdFrom", parameters.partyId, "roleTypeIdFrom", "ACCOUNT_LEAD", "roleTypeIdTo", "LEAD", "partyRelationshipTypeId", "EMPLOYMENT").filterByDate().queryFirst();
+        if (partyRelationships) {
+            context.partyGroupId = parameters.partyId;
+            context.partyId = partyRelationships.partyIdTo;
+        }
+    }
+}
