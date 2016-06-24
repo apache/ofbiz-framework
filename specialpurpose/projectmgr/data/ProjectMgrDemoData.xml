@@ -109,6 +109,7 @@ under the License.
 
     <!-- make sure admin show up as a resource, he acts as a full access admin -->
     <PartyRole partyId="admin" roleTypeId="PROJECT_TEAM"/>
+    <PartyRole partyId="admin" roleTypeId="PROVIDER_MANAGER"/>
 
     <!-- security demo data -->
     <!-- allow these these usergroups read only -->
@@ -167,6 +168,8 @@ under the License.
     <WorkEffortAssoc workEffortIdFrom="9102" workEffortIdTo="9103" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="9103" workEffortIdTo="9105" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="9105" workEffortIdTo="9106" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
+
+    <PartyRole partyId="DemoCustCompany" roleTypeId="CLIENT_BILLING"/>
 
     <!-- Another Demo project for DemoCustomeCompanyr and employee 1,3-->
     <WorkEffort workEffortId="9200" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.911" scopeEnumId="WES_PRIVATE" workEffortName="Demo Project3 DemoCustomerCompany" revisionNumber="1"/>
