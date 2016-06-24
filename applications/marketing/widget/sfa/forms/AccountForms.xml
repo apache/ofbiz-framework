@@ -138,8 +138,9 @@ under the License.
             <set field="existRelationship" from-field="existRelationships[0]"/>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile" description="${partyName} [${partyId}]">
+            <hyperlink target="viewprofile" description="${partyName} [${partyId}]" >
                 <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
             </hyperlink>
         </field>
         <field name="emailAddress"><display description="${emailAddresses[0].infoString}"/></field>
