@@ -343,10 +343,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ManufacturingMandatoryWorkEfforts}">
+                        <screenlet title="${uiLabelMap.ManufacturingPrecedingProductionRun}">
                             <include-form name="mandatoryWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.ManufacturingDependentWorkEfforts}">
+                        <screenlet title="${uiLabelMap.ManufacturingSucceedingProductionRun}">
                             <include-form name="dependentWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                     </decorator-section>
