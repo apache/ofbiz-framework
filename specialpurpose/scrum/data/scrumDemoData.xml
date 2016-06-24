@@ -49,6 +49,7 @@ under the License.
     <PartyRole partyId="SCRUMADMIN" roleTypeId="SCRUM_MEMBER"/>
     
     <PartyRole partyId="DemoCustomer-1" roleTypeId="PRODUCT_OWNER"/>
+    <PartyRole partyId="DemoCustomer-1" roleTypeId="SCRUM_TEAM"/>
     <PartyRole partyId="SCRUMASTER" roleTypeId="SCRUM_MASTER"/>
     <PartyRole partyId="SCRUMASTER" roleTypeId="CONTACT"/>
     <PartyRole partyId="SCRUMTEAM-1" roleTypeId="SCRUM_TEAM"/>
