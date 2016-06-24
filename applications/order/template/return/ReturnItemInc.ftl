@@ -69,7 +69,7 @@ under the License.
               <td colspan="4">
             <input type="hidden" name="returnAdjustmentTypeId_o_${rowCount}" value="${returnAdjustmentType}"/>
             <input type="hidden" name="orderAdjustmentId_o_${rowCount}" value="${orderItem.orderAdjustmentId}"/>
-                ${description?default("N/A")}
+                ${StringUtil.wrapString(description)?default("N/A")}
               </td>
               <td>
                 ${orderItem.amount?string("##0.00")}
