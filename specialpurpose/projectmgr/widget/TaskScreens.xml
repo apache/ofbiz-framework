@@ -396,6 +396,9 @@ under the License.
     <screen name="NoteInfo">
         <section>
             <actions>
+                <entity-one entity-name="WorkEffort" value-field="task">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                </entity-one>
                 <entity-and entity-name="WorkEffortNoteAndData" list="workEffortNoteandDetails">
                     <field-map field-name="workEffortId" from-field="workEffortId"/>
                     <order-by field-name="-noteDateTime"/>
