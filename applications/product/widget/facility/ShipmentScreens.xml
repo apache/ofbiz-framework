@@ -25,7 +25,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ProductFindShipment"/>
                 <set field="headerItem" value="shipment"/>
-                <script location="component://product/groovyScripts/facility/shipment/FindShipment.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -52,14 +51,17 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ProductFindShipment"/>
                 <set field="headerItem" value="shipment"/>
-                <script location="component://product/groovyScripts/facility/shipment/FindShipment.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/template/shipment/FindShipment.ftl"/></html>
-                        </platform-specific>
+                        <link target="EditShipment" text="${uiLabelMap.ProductNewShipment}" style="buttontext"></link>
+                        <screenlet title="${uiLabelMap.ProductFindShipment}">
+                            <include-form name="FindShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductShipmentsFound}">
+                            <include-form name="ListShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -214,7 +216,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
+                        <screenlet title="${uiLabelMap.ProductEditShipment}">
+                            <include-form name="EditShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
