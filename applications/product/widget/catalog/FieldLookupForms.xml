@@ -104,6 +104,7 @@ under the License.
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}"><display-entity entity-name="ProductType"/></field>
         <field name="supplierProductId"><display/></field>
         <field name="minimumOrderQuantity"><display/></field>
+        <field name="lastPrice"><display currency="${currencyUomId}" type="currency"/></field>
     </form>
 
     <form name="lookupVirtualProduct" extends="lookupProduct" default-map-name= "inputFields" target="LookupVirtualProduct" title="" type="single"
