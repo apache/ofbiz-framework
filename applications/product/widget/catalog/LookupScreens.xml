@@ -209,6 +209,7 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="SupplierProductAndProduct"/>
                 <set field="searchFields" value="[productId, partyId, brandName, internalName]"/>
+                <set field="searchDistinct" value="true" type="Boolean"/>
                 <set field="andCondition" value="${groovy: return org.ofbiz.entity.condition.EntityCondition.makeCondition(org.ofbiz.base.util.UtilMisc.toMap('partyId', parameters.partyId))}"/>
             </actions>
             <widgets>
