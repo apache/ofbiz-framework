@@ -27,7 +27,6 @@ import org.ofbiz.base.util.Debug
 import org.ofbiz.base.util.UtilHttp
 import org.ofbiz.content.search.SearchWorker
 import org.ofbiz.product.feature.ParametricSearch
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper
 import org.apache.lucene.search.*
 import org.apache.lucene.index.DirectoryReader
 import org.apache.lucene.store.Directory
@@ -36,16 +35,6 @@ paramMap = UtilHttp.getParameterMap(request);
 queryLine = paramMap.queryLine.toString();
 //Debug.logInfo("in search, queryLine:" + queryLine, "");
 
-formDefFile = page.formDefFile;
-queryFormName = page.queryFormName;
-//Debug.logInfo("in search, queryFormName:" + queryFormName, "");
-queryWrapper = new HtmlFormWrapper(formDefFile, queryFormName, request, response);
-context.queryWrapper = queryWrapper;
-
-listFormName = page.listFormName;
-//Debug.logInfo("in search, listFormName:" + listFormName, "");
-listWrapper = new HtmlFormWrapper(formDefFile, listFormName, request, response);
-context.listWrapper = listWrapper;
 siteId = paramMap.siteId ?: "WebStoreCONTENT";
 //Debug.logInfo("in search, siteId:" + siteId, "");
 featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(paramMap);
@@ -111,5 +100,5 @@ if (searcher) {
             hitSet.add(contentId);
         }
     }
-    listWrapper.putInContext("queryResults", contentList);
+    context.queryResults = contentList;
 }
