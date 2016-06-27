@@ -177,6 +177,7 @@ under the License.
                 <set field="tabButtonItem" value="SurveyQuestions"/>
                 <set field="labelTitleProperty" value="PageTitleEditSurveyQuestions"/>
 
+                <set field="newCategory" from-field="parameters.newCategory" default-value="N"/>
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
 
@@ -191,7 +192,85 @@ under the License.
                         <include-form name="ListSurveyQuestions" location="component://content/widget/survey/SurveyForms.xml"/>
                         <include-form name="CreateSurveyQuestion" location="component://content/widget/survey/SurveyForms.xml"/>
                         -->
-
+                        <section>
+                            <condition>
+                                <if-compare operator="equals" value="Y" field="newCategory"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ContentSurveyCreateQuestionCategory}">
+                                    <container style="button-bar">
+                                        <link target="EditSurveyQuestions" text="${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyQuestion}" style="buttontext">
+                                            <parameter param-name="surveyId" from-field="parameters.surveyId"/>
+                                        </link>
+                                    </container>
+                                    <include-form name="CreateSurveyQuestionCategory" location="component://content/widget/survey/SurveyForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="surveyQuestionId"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.CommonEdit} ${uiLabelMap.ContentSurveyQuestion}">
+                                            <container style="button-bar">
+                                                <link target="EditSurveyQuestions" text="${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyQuestion}" style="buttontext">
+                                                    <parameter param-name="surveyId" from-field="parameters.surveyId"/>
+                                                </link>
+                                                <link target="EditSurveyQuestions" text="${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyQuestion} ${uiLabelMap.ContentSurveryCategory}" style="buttontext">
+                                                    <parameter param-name="surveyId" from-field="parameters.surveyId"/>
+                                                    <parameter param-name="newCategory" value="Y"/>
+                                                </link>
+                                            </container>
+                                            <include-form name="CreateSurveyQuestion" location="component://content/widget/survey/SurveyForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet title="${uiLabelMap.ContentSurveyCreateQuestion}">
+                                            <container style="button-bar">
+                                                <link target="EditSurveyQuestions" text="${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyQuestion} ${uiLabelMap.ContentSurveryCategory}" style="buttontext">
+                                                    <parameter param-name="surveyId" from-field="parameters.surveyId"/>
+                                                    <parameter param-name="newCategory" value="Y"/>
+                                                </link>
+                                            </container>
+                                            <include-form name="CreateSurveyQuestion" location="component://content/widget/survey/SurveyForms.xml"/>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
+                            </fail-widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <and>
+                                    <not><if-empty field="surveyQuestion"/></not>
+                                    <if-compare operator="equals" value="OPTION" field="surveyQuestion.surveyQuestionTypeId"/>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <platform-specific><html><html-template location="component://content/template/survey/SurveyOptions.ftl"/></html></platform-specific>
+                                <section>
+                                    <condition>
+                                        <if-empty field="surveyQuestionOption"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.ContentSurveyCreateQuestionOption}">
+                                            <include-form name="CreateSurveyQuestionOption" location="component://content/widget/survey/SurveyForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet title="${uiLabelMap.ContentSurveyEditQuestionOption}">
+                                            <container style="button-bar">
+                                                <link target="EditSurveyQuestions" text="${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyOption}" style="buttontext">
+                                                    <parameter param-name="surveyId" from-field="parameters.surveyId"/>
+                                                    <parameter param-name="surveyQuestionId" from-field="surveyQuestionOption.surveyQuestionId"/>
+                                                </link>
+                                            </container>
+                                            <include-form name="CreateSurveyQuestionOption" location="component://content/widget/survey/SurveyForms.xml"/>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                        </section>
                         <screenlet id="SurveyPagePanel" title="${uiLabelMap.PageTitleEditSurveyPages} ${uiLabelMap.ContentSurveySurveyId} ${surveyId}" collapsible="true">
                             <include-form name="AddSurveyPage" location="component://content/widget/survey/SurveyForms.xml"/>
                         </screenlet>

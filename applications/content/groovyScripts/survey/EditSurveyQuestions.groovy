@@ -20,7 +20,6 @@
 import org.ofbiz.entity.*
 import org.ofbiz.entity.condition.*
 import org.ofbiz.base.util.*
-import org.ofbiz.widget.renderer.html.*
 
 surveyQuestionId = parameters.surveyQuestionId;
 context.surveyQuestionId = surveyQuestionId;
@@ -31,19 +30,10 @@ surveyQuestionAndApplList = from("SurveyQuestionAndAppl").where("surveyId", surv
 surveyPageList = from("SurveyPage").where("surveyId", surveyId).orderBy("sequenceNum").queryList();
 surveyMultiRespList = from("SurveyMultiResp").where("surveyId", surveyId).orderBy("multiRespTitle").queryList();
 
-HtmlFormWrapper createSurveyQuestionWrapper = new HtmlFormWrapper("component://content/widget/survey/SurveyForms.xml", "CreateSurveyQuestion", request, response);
-createSurveyQuestionWrapper.putInContext("surveyId", surveyId);
-createSurveyQuestionWrapper.putInContext("surveyQuestion", surveyQuestion);
-
-HtmlFormWrapper createSurveyQuestionCategoryWrapper = new HtmlFormWrapper("component://content/widget/survey/SurveyForms.xml", "CreateSurveyQuestionCategory", request, response);
-createSurveyQuestionCategoryWrapper.putInContext("surveyId", surveyId);
-
 if (surveyQuestion && surveyQuestion.surveyQuestionTypeId && "OPTION".equals(surveyQuestion.surveyQuestionTypeId)) {
     // get the options
     questionOptions = from("SurveyQuestionOption").where("surveyQuestionId", surveyQuestionId).orderBy("sequenceNum").queryList();
     context.questionOptions = questionOptions;
-
-    HtmlFormWrapper createSurveyOptionWrapper = new HtmlFormWrapper("component://content/widget/survey/SurveyForms.xml", "CreateSurveyQuestionOption", request, response);
 
     // survey question option
     optionSeqId = parameters.surveyOptionSeqId;
@@ -52,11 +42,6 @@ if (surveyQuestion && surveyQuestion.surveyQuestionTypeId && "OPTION".equals(sur
         surveyQuestionOption = from("SurveyQuestionOption").where("surveyQuestionId", surveyQuestionId, "surveyOptionSeqId", optionSeqId).queryOne();
     }
     context.surveyQuestionOption = surveyQuestionOption;
-
-    createSurveyOptionWrapper.putInContext("surveyQuestionOption", surveyQuestionOption);
-    createSurveyOptionWrapper.putInContext("surveyQuestionId", surveyQuestionId);
-    createSurveyOptionWrapper.putInContext("surveyId", surveyId);
-    context.createSurveyOptionWrapper = createSurveyOptionWrapper;
 }
 
 surveyQuestionCategoryId = parameters.surveyQuestionCategoryId;
@@ -74,10 +59,6 @@ context.surveyQuestion = surveyQuestion;
 context.surveyQuestionAndApplList = surveyQuestionAndApplList;
 context.surveyPageList = surveyPageList;
 context.surveyMultiRespList = surveyMultiRespList;
-
-context.createSurveyQuestionWrapper = createSurveyQuestionWrapper;
-context.createSurveyQuestionCategoryWrapper = createSurveyQuestionCategoryWrapper;
-
 context.surveyQuestionCategory = surveyQuestionCategory;
 context.categoryQuestions = categoryQuestions;
 context.questionCategories = questionCategories;
