@@ -48,6 +48,7 @@ under the License.
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="workEffortId" mode="IN" type="String" optional="true"/>
         <attribute name="fromDate" type="java.sql.Timestamp" mode="INOUT" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="createProductionRunAssoc" engine="simple"
                 location="component://manufacturing/minilang/jobshopmgt/ProductionRunServices.xml" invoke="createProductionRunAssoc" auth="false">

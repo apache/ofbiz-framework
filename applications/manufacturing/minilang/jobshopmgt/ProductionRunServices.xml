@@ -25,27 +25,13 @@ under the License.
     <simple-method method-name="createProductionRunPartyAssign" 
         short-description="Assign the selected party to the production run or task">
         
-        <set field="productionRunId" from-field="parameters.productionRunId"/>
-        <set field="partyId" from-field="parameters.partyId"/>
-        <set field="roleTypeId" from-field="parameters.roleTypeId"/>
-        <set field="statusId" value="PRTYASGN_ASSIGNED"/>
         <set field="parameters.statusId" value="PRTYASGN_ASSIGNED"/>
         
-        <if-not-empty field="parameters.workEffortId">
-            <set field="workEffortId" from-field="parameters.workEffortId"/>
-        </if-not-empty>
         <if-empty field="parameters.workEffortId">
-            <set field="parameters.workEffortId" from-field="productionRunId"/>
-            <set field="workEffortId" from-field="productionRunId"/>
+            <set field="parameters.workEffortId" from-field="parameters.productionRunId"/>
         </if-empty>
         
-        <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-        <set field="fromDate" from-field="workEffort.estimatedStartDate"/>
-        <set field="statusDateTime" from-field="workEffort.estimatedStartDate"/>
-        <set field="parameters.statusDateTime" from-field="workEffort.estimatedStartDate"/>
-        <set field="parameters.fromDate" from-field="workEffort.estimatedStartDate"/>
         <field-to-result field="parameters.productionRunId" result-name="productionRunId" />
-        <field-to-result field="parameters.fromDate" result-name="fromDate" />
         <call-simple-method method-name="assignPartyToWorkEffort"
             xml-resource="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" />
         
