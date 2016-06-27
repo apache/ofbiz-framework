@@ -21,11 +21,11 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <#assign task = taskInfo.task>
-    <#assign taskForm = taskInfo.taskForm>
     <h3>${task.workEffortName!} [${task.workEffortId}]</h3>
   </div>
   <div class="screenlet-body">
-    ${taskForm.renderFormString(context)}
+    ${setRequestAttribute("records", taskInfo.records)}
+    ${screens.render("component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunTasksInfo")}
   </div>
 </div>
 </#list>

@@ -17,16 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
-
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;
 
 taskInfos = [];
 tasks = from("WorkEffort").where("workEffortParentId", productionRunId, "workEffortTypeId", "PROD_ORDER_TASK").orderBy("workEffortId").queryList();
 tasks.each { task ->
     records = task.getRelated("WorkEffortFixedAssetAssign", null, null, false);
-    HtmlFormWrapper taskForm = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "ProductionRunTaskFixedAssets", request, response);
-    taskForm.putInContext("records", records);
-    taskInfos.add([task : task, taskForm : taskForm]);
+    taskInfos.add([task : task, records : records]);
 }
 context.taskInfos = taskInfos;
