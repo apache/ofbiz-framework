@@ -52,27 +52,28 @@ import org.ofbiz.entity.GenericEntityException;
  */
 public final class SolrUtil {
     
+    private SolrUtil() {}
     public static final String module = SolrUtil.class.getName();
-    private static String[] solrProdAttribute = { "productId", "internalName", "manu", "size", "smallImage", "mediumImage", "largeImage", "listPrice", "defaultPrice", "inStock", "isVirtual" };
+    private static final String[] solrProdAttribute = { "productId", "internalName", "manu", "size", "smallImage", "mediumImage", "largeImage", "listPrice", "defaultPrice", "inStock", "isVirtual" };
 
-    public static final String solrConfigName = "solrconfig.properties";
-    public static final String solrUrl = makeSolrWebappUrl();
+    private static final String solrConfigName = "solrconfig.properties";
+    private static final String solrUrl = makeSolrWebappUrl();
     
-    protected static final String socketTimeoutString = UtilProperties.getPropertyValue(solrConfigName, "solr.client.socket.timeout");
+    private static final String socketTimeoutString = UtilProperties.getPropertyValue(solrConfigName, "solr.client.socket.timeout");
     
-    protected static final String connectionTimeoutString = UtilProperties.getPropertyValue(solrConfigName, "solr.client.connection.timeout");
+    private static final String connectionTimeoutString = UtilProperties.getPropertyValue(solrConfigName, "solr.client.connection.timeout");
     
-    protected static final String clientUsername = UtilProperties.getPropertyValue(solrConfigName, "solr.client.username");
+    private static final String clientUsername = UtilProperties.getPropertyValue(solrConfigName, "solr.client.username");
     
-    protected static final String clientPassword = UtilProperties.getPropertyValue(solrConfigName, "solr.client.password");
+    private static final String clientPassword = UtilProperties.getPropertyValue(solrConfigName, "solr.client.password");
 
-    protected static final Integer socketTimeout = getSocketTimeout();
+    private static final Integer socketTimeout = getSocketTimeout();
     
-    protected static final Integer connectionTimeout = getConnectionTimeout();
+    private static final Integer connectionTimeout = getConnectionTimeout();
     
-    protected static final String trustSelfSignedCertString = UtilProperties.getPropertyValue(solrConfigName, "solr.client.trust.selfsigned.cert", "false");
+    private static final String trustSelfSignedCertString = UtilProperties.getPropertyValue(solrConfigName, "solr.client.trust.selfsigned.cert", "false");
     
-    protected static final boolean trustSelfSignedCert = getTrustSelfSignedCert();
+    private static final boolean trustSelfSignedCert = getTrustSelfSignedCert();
     
     public static String makeSolrWebappUrl() {
         final String solrWebappProtocol = UtilProperties.getPropertyValue(solrConfigName, "solr.webapp.protocol");
