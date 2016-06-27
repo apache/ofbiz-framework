@@ -40,10 +40,12 @@ import org.ofbiz.service.ServiceUtil;
 /**
  * LayoutWorker Class
  */
-public class LayoutWorker {
+public final class LayoutWorker {
 
     public static final String module = LayoutWorker.class.getName();
-    public static final String err_resource = "ContentErrorUiLabels";
+    private static final String err_resource = "ContentErrorUiLabels";
+
+    private LayoutWorker() {}
 
     /**
      * Uploads image data from a form and stores it in ImageDataResource.
