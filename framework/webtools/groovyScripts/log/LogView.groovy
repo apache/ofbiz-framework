@@ -24,13 +24,13 @@ try {
     File logFile = FileUtil.getFile(logFileName);
     logFile.eachLine { line ->
         type = '';
-        if (line.contains(":INFO ] ")) {
+        if (line.contains(" |I| ")) {
             type = 'INFO';
-        } else if (line.contains(":WARN ] ")) {
+        } else if (line.contains(" |W| ")) {
             type = 'WARN';
-        } else if (line.contains(":ERROR] ")) {
+        } else if (line.contains(" |E| ")) {
             type = 'ERROR';
-        } else if (line.contains(":DEBUG] ")) {
+        } else if (line.contains(" |D| ")) {
             type = 'DEBUG';
         }
         logLines.add([type: type, line:line]);
