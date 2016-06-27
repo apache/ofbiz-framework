@@ -35,12 +35,12 @@ import org.ofbiz.service.LocalDispatcher;
  * with product's bills of materials.
  * These methods are also available as services (see {@link BOMServices}).
  */
-public class BOMHelper {
+public final class BOMHelper {
 
     public static final String module = BOMHelper.class.getName();
 
     /** Creates a new instance of BOMHelper */
-    public BOMHelper() {
+    private BOMHelper() {
     }
 
     /** Returns the product's low level code (llc) i.e. the maximum depth
