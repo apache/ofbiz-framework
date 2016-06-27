@@ -84,7 +84,7 @@ function insertImageName(size,nameValue) {
                 <h3>${uiLabelMap.ProductCreateNewProductConfigItemContent}</h3>
             </div>
             <div class="screenlet-body">
-                ${prepareAddProductContentWrapper.renderFormString(context)}
+                ${screens.render("component://product/widget/catalog/ConfigScreens.xml#PrepareAddProductConfigItemContentAssoc")}
             </div>
         </div>
         <div class="screenlet">
@@ -92,7 +92,7 @@ function insertImageName(size,nameValue) {
                 <h3>${uiLabelMap.ProductAddContentProductConfigItem}</h3>
             </div>
             <div class="screenlet-body">
-                ${addProductContentWrapper.renderFormString(context)}
+                ${screens.render("component://product/widget/catalog/ConfigScreens.xml#AddProductConfigItemContentAssoc")}
             </div>
         </div>
     </#if>

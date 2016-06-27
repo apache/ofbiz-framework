@@ -20,7 +20,6 @@
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.base.util.*;
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 
 contentId = request.getParameter("contentId") ?: null;
 
@@ -66,12 +65,6 @@ if (contentId && content) {
         }
     }
 }
-updateProductContentWrapper = new HtmlFormWrapper("component://product/widget/catalog/ConfigForms.xml", "EditProductConfigItemContentSimpleText", request, response);
-updateProductContentWrapper.putInContext("textData", textData);
-
-context.updateProductContentWrapper = updateProductContentWrapper;
-updateProductContentWrapper.putInContext("productContentData", productContentData);
 
 context.productContentData = productContentData;
-updateProductContentWrapper.putInContext("content", content);
-updateProductContentWrapper.putInContext("contentId", contentId);
+context.textData = textData;
