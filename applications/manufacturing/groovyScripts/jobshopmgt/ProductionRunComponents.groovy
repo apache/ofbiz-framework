@@ -17,16 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
-
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;
 
 taskInfos = [];
 tasks = from("WorkEffort").where("workEffortParentId", productionRunId, "workEffortTypeId", "PROD_ORDER_TASK").orderBy("workEffortId").queryList();
 tasks.each { task ->
     records = from("WorkEffortGoodStandard").where("workEffortId", task.workEffortId).queryList();
-    HtmlFormWrapper taskForm = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "ProductionRunTaskComponents", request, response);
-    taskForm.putInContext("records", records);
-    taskInfos.add([task : task, taskForm : taskForm]);
+    taskInfos.add([task : task, records : records]);
 }
 context.taskInfos = taskInfos;

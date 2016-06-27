@@ -479,6 +479,7 @@ under the License.
                 <set field="titleProperty" value="ManufacturingProductionRunComponents"/>
                 <set field="tabButtonItem" value="components"/>
                 <set field="headerItem" value="jobshop"/>
+                <set field="formName" value="ProductionRunTaskComponents"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -513,6 +514,7 @@ under the License.
                 <set field="titleProperty" value="ManufacturingProductionRunActualComponents"/>
                 <set field="tabButtonItem" value="actualComponents"/>
                 <set field="headerItem" value="jobshop"/>
+                <set field="formName" value="ProductionRunTaskActualComponents"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -543,6 +545,7 @@ under the License.
                 <set field="titleProperty" value="ManufacturingProductionRunFixedAssets"/>
                 <set field="tabButtonItem" value="fixedAssets"/>
                 <set field="headerItem" value="jobshop"/>
+                <set field="formName" value="ProductionRunTaskFixedAssets"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -568,6 +571,16 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ProductionRunTasksInfo">
+        <section>
+            <actions>
+                <set field="records" value="${groovy: request.getAttribute('records');}"/>
+            </actions>
+            <widgets>
+                <include-form name="${formName}" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
             </widgets>
         </section>
     </screen>
