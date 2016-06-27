@@ -18,22 +18,17 @@
  */
 
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;
-taskCosts = [];
+taskInfoList = [];
 tasks = from("WorkEffort").where("workEffortParentId", productionRunId, "workEffortTypeId", "PROD_ORDER_TASK").orderBy("workEffortId").queryList();
 tasks.each { task ->
     costs = from("CostComponent").where("workEffortId", task.workEffortId).filterByDate().queryList();
-    HtmlFormWrapper taskCostsForm = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "ProductionRunTaskCosts", request, response);
-    taskCostsForm.putInContext("taskCosts", costs);
-    taskCosts.add([task : task ,costsForm : taskCostsForm]);
+    taskInfoList.add([task : task, taskCosts : costs]);
 }
 // get the costs directly associated to the production run (e.g. overhead costs)
 productionRun = from("WorkEffort").where("workEffortId", productionRunId).cache(true).queryOne();
 costs = from("CostComponent").where("workEffortId", productionRunId).filterByDate().queryList();
-HtmlFormWrapper taskCostsForm = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "ProductionRunTaskCosts", request, response);
-taskCostsForm.putInContext("taskCosts", costs);
-taskCosts.add([task : productionRun ,costsForm : taskCostsForm]);
+taskInfoList.add([task : productionRun, taskCosts : costs]);
 
-context.taskCosts = taskCosts;
+context.taskInfoList = taskInfoList;

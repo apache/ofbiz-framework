@@ -612,6 +612,16 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ProductionRunTaskCosts">
+        <section>
+            <actions>
+                <set field="taskCosts" value="${groovy: request.getAttribute('taskCosts');}"/>
+            </actions>
+            <widgets>
+                <include-form name="ProductionRunTaskCosts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
     <screen name="ProductionRunContent">
         <section>
             <actions>
