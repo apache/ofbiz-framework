@@ -37,9 +37,11 @@ import org.ofbiz.service.ServiceUtil;
 /**
  * Order Helper - Helper Methods For Non-Read Actions
  */
-public class OrderChangeHelper {
+public final class OrderChangeHelper {
 
     public static final String module = OrderChangeHelper.class.getName();
+
+    private OrderChangeHelper() {}
 
     public static boolean approveOrder(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) {
         return approveOrder(dispatcher, userLogin, orderId, false);
