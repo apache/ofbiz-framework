@@ -1,5 +1,7 @@
 
-The JavaPOS JCL DTD file is no longer distributed with/by OFBiz for licensing reasons (the CPL has limitations that prevent this). The old web server that used to publicly host these files also seems to no longer exist. You can download the file from the CVS repository of the jposloader project on SourceForge, here:
+The JavaPOS JCL DTD file is no longer distributed with/by OFBiz for licensing reasons (the CPL has limitations that prevent this). 
+The old web server that used to publicly host these files also seems to no longer exist. 
+You can download the file from the CVS repository of the jposloader project on SourceForge, here:
 
 http://jposloader.cvs.sourceforge.net/*checkout*/jposloader/jcl/src/jpos/res/jcl.dtd?revision=1.2
 
