@@ -82,10 +82,10 @@ public class BirtEmailServices {
         String attachmentName = (String) serviceContext.remove("attachmentName");
         Locale locale = (Locale) serviceContext.get("locale");
         Map<String, Object> bodyParameters = UtilGenerics.cast(serviceContext.remove("bodyParameters"));
-        Locale birtLocale = (Locale) serviceContext.remove(BirtWorker.BIRT_LOCALE);
-        Map<String, Object> birtParameters = UtilGenerics.cast(serviceContext.remove(BirtWorker.BIRT_PARAMETERS));
-        String birtImageDirectory = (String) serviceContext.remove(BirtWorker.BIRT_IMAGE_DIRECTORY);
-        String birtContentType = (String) serviceContext.remove(BirtWorker.BIRT_CONTENT_TYPE);
+        Locale birtLocale = (Locale) serviceContext.remove(BirtWorker.getBirtLocale());
+        Map<String, Object> birtParameters = UtilGenerics.cast(serviceContext.remove(BirtWorker.getBirtParameters()));
+        String birtImageDirectory = (String) serviceContext.remove(BirtWorker.getBirtImageDirectory());
+        String birtContentType = (String) serviceContext.remove(BirtWorker.getBirtContentType());
         if (bodyParameters == null) {
             bodyParameters = MapStack.create();
         }
@@ -160,12 +160,12 @@ public class BirtEmailServices {
                 if (birtLocale == null) {
                     birtLocale = locale;
                 }
-                birtContext.put(BirtWorker.BIRT_LOCALE, birtLocale);
+                birtContext.put(BirtWorker.getBirtLocale(), birtLocale);
                 if (birtParameters != null) {
-                    birtContext.put(BirtWorker.BIRT_PARAMETERS, birtParameters);
+                    birtContext.put(BirtWorker.getBirtParameters(), birtParameters);
                 }
                 if (birtImageDirectory != null) {
-                    birtContext.put(BirtWorker.BIRT_IMAGE_DIRECTORY, birtImageDirectory);
+                    birtContext.put(BirtWorker.getBirtImageDirectory(), birtImageDirectory);
                 }
                 if (birtContentType == null) {
                     birtContentType = "application/pdf";

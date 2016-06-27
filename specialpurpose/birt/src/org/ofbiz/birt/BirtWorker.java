@@ -46,18 +46,19 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.LocalDispatcher;
 
-public class BirtWorker {
+public final class BirtWorker {
 
     public final static String module = BirtWorker.class.getName();
 
-    public final static String BIRT_PARAMETERS = "birtParameters";
-    public final static String REPORT_ENGINE = "reportEngine";
-    public final static String BIRT_LOCALE = "birtLocale";
-    public final static String BIRT_IMAGE_DIRECTORY = "birtImageDirectory";
-    public final static String BIRT_CONTENT_TYPE = "birtContentType";
-    public final static String BIRT_OUTPUT_FILE_NAME = "birtOutputFileName";
+    private final static String BIRT_PARAMETERS = "birtParameters";
+    private final static String BIRT_LOCALE = "birtLocale";
+    private final static String BIRT_IMAGE_DIRECTORY = "birtImageDirectory";
+    private final static String BIRT_CONTENT_TYPE = "birtContentType";
+    private final static String BIRT_OUTPUT_FILE_NAME = "birtOutputFileName";
 
-    private static HTMLServerImageHandler imageHandler = new HTMLServerImageHandler();
+    private final static HTMLServerImageHandler imageHandler = new HTMLServerImageHandler();
+
+    private BirtWorker () {}
 
     /**
      * export report
@@ -192,5 +193,25 @@ public class BirtWorker {
         if (UtilValidate.isNotEmpty(security)) {
             appContext.put("security", security);
         }
+    }
+
+    public static String getBirtParameters () {
+        return BIRT_PARAMETERS;
+    }
+
+    public static String getBirtLocale () {
+        return BIRT_LOCALE;
+    }
+
+    public static String getBirtImageDirectory () {
+        return BIRT_IMAGE_DIRECTORY;
+    }
+
+    public static String getBirtContentType () {
+        return BIRT_CONTENT_TYPE;
+    }
+
+    public static String getBirtOutputFileName () {
+        return BIRT_OUTPUT_FILE_NAME;
     }
 }
