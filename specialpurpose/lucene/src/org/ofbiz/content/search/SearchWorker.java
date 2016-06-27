@@ -38,11 +38,13 @@ import org.apache.lucene.util.Version;
 /**
  * SearchWorker Class
  */
-public class SearchWorker {
+public final class SearchWorker {
 
     public static final String module = SearchWorker.class.getName();
 
-    public static final Version LUCENE_VERSION = Version.LUCENE_5_3_1;
+    private static final Version LUCENE_VERSION = Version.LUCENE_5_3_1;
+
+    private SearchWorker() {}
 
     public static void indexContentTree(LocalDispatcher dispatcher, Delegator delegator, String siteId) throws Exception {
         GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
@@ -87,5 +89,9 @@ public class SearchWorker {
         for (GenericValue content : contentList) {
             indexer.queue(new ContentDocument(content, dispatcher));
         }
+    }
+
+    public static Version getLuceneVersion() {
+        return LUCENE_VERSION;
     }
 }

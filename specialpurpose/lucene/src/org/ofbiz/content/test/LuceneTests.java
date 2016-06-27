@@ -81,7 +81,7 @@ public class LuceneTests extends OFBizTestCase {
 
         IndexSearcher searcher = new IndexSearcher(r);
         Analyzer analyzer = new StandardAnalyzer();
-        analyzer.setVersion(SearchWorker.LUCENE_VERSION);
+        analyzer.setVersion(SearchWorker.getLuceneVersion());
 
         QueryParser parser = new QueryParser("content", analyzer);
         Query query = parser.parse(queryLine);
