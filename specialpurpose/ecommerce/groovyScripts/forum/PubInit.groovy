@@ -32,7 +32,6 @@ import org.ofbiz.security.*;
 import org.ofbiz.service.*;
 import org.ofbiz.entity.model.*;
 import org.ofbiz.webapp.website.WebSiteWorker;
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 import org.ofbiz.securityext.login.*;
 import org.ofbiz.common.*;
 import org.ofbiz.entity.model.*;

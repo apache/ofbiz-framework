@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 import org.ofbiz.entity.condition.EntityCondition;
 
 shipmentId = request.getParameter("shipmentId");

@@ -32,7 +32,6 @@ import org.ofbiz.entity.*;
 import org.ofbiz.security.*;
 import org.ofbiz.service.*;
 import org.ofbiz.entity.model.*;
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 import org.ofbiz.base.util.collections.LifoSet;
 
 import javax.servlet.*;
