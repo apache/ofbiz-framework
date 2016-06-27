@@ -23,8 +23,6 @@ import org.ofbiz.entity.*;
 import org.ofbiz.security.*;
 import org.ofbiz.service.*;
 import org.ofbiz.entity.model.*;
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
-import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.webapp.ftl.FreeMarkerViewHandler;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.content.ContentManagementWorker;

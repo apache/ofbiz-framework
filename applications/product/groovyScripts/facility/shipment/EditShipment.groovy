@@ -18,7 +18,6 @@
  */
 
 import org.ofbiz.entity.condition.*
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper
 
 shipmentId = parameters.shipmentId;
 shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
