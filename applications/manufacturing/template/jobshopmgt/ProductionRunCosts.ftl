@@ -17,15 +17,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#list taskCosts as taskCost>
+<#list taskInfoList as taskInfo>
   <div class="screenlet">
     <div class="screenlet-title-bar">
-      <#assign task = taskCost.task>
+      <#assign task = taskInfo.task>
       <h3>${uiLabelMap.ManufacturingActualCosts} ${task.workEffortName!} [${task.workEffortId}]</h3>
     </div>
     <div class="screenlet-body">
-      <#assign costsForm = taskCost.costsForm>
-      ${costsForm.renderFormString(context)}
+      <#assign taskCosts = taskInfo.taskCosts>
+      ${setRequestAttribute("taskCosts", taskCosts)}
+      ${screens.render("component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunTaskCosts")}
     </div>
   </div>
 </#list>
