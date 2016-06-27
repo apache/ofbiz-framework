@@ -51,10 +51,12 @@ import com.sun.star.uri.ExternalUriReferenceTranslator;
  * Note that for this to work you must start OpenOffice with a command such as the following:
  *   <code>soffice -accept=socket,host=localhost,port=8100;urp;</code>
  */
-public class OpenOfficeWorker{
+public final class OpenOfficeWorker{
 
     public static final String module = OpenOfficeWorker.class.getName();
 
+    private OpenOfficeWorker() {}
+    
     /**
      * Use OpenOffice to convert documents between types
      */
