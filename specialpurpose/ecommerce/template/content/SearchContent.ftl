@@ -97,7 +97,6 @@ under the License.
 
 
 
-    ${listWrapper.renderFormString()}
 
 <#macro listSiteIds contentId indentIndex=0>
   <#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in listSiteIds, contentId:" + contentId,"")/>
