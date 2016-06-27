@@ -231,6 +231,36 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="PrepareAddProductConfigItemContentAssoc">
+        <section>
+            <actions>
+                <set field="calendarExceptionWeek" value="${groovy: request.getAttribute('calendarExceptionWeek');}"/>
+            </actions>
+            <widgets>
+                <include-form name="PrepareAddProductConfigItemContentAssoc" location="component://product/widget/catalog/ConfigForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddProductConfigItemContentAssoc">
+        <section>
+            <actions>
+                <set field="calendarExceptionWeek" value="${groovy: request.getAttribute('calendarExceptionWeek');}"/>
+            </actions>
+            <widgets>
+                <include-form name="AddProductConfigItemContentAssoc" location="component://product/widget/catalog/ConfigForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddProductConfigItemContentAssoc">
+        <section>
+            <actions>
+                <set field="calendarExceptionWeek" value="${groovy: request.getAttribute('calendarExceptionWeek');}"/>
+            </actions>
+            <widgets>
+                <include-form name="AddProductConfigItemContentAssoc" location="component://product/widget/catalog/ConfigForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditProductConfigItemContentContent">
         <section>
             <actions>
@@ -249,9 +279,30 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/template/config/EditProductConfigItemContentContent.ftl"/></html>
-                        </platform-specific>
+                        <container style="button-bar">
+                            <link target="EditProductConfigItemContent" text="${uiLabelMap.ProductProduct} ${uiLabelMap.ProductConfigItem} ${uiLabelMap.ProductContent} ${uiLabelMap.CommonList}" style="buttontext">
+                                <parameter param-name="configItemId" from-field="configItemId"/>
+                            </link>
+                            <section>
+                                <condition>
+                                    <not><if-empty field="contentId"/></not>
+                                </condition>
+                                <widgets>
+                                    <link target="/content/control/EditContent?contentId=${contentId}" text="${uiLabelMap.ProductContent} ${uiLabelMap.CommonPage}" style="buttontext" target-window="_blank" url-mode="inter-app"/>
+                                </widgets>
+                            </section>
+                        </container>
+                        <section>
+                            <condition>
+                                <and>
+                                    <not><if-empty field="configItemId"/></not>
+                                    <not><if-empty field="productContent"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-form name="EditProductConfigItemContentSimpleText" location="component://product/widget/catalog/ConfigForms.xml"/>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

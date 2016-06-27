@@ -21,7 +21,6 @@ import org.ofbiz.base.util.*
 import org.ofbiz.base.util.string.*
 import org.ofbiz.entity.*
 import org.ofbiz.entity.util.EntityUtilProperties;
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 
 // make the image file formats
 context.tenantId = delegator.getDelegatorTenantId();
@@ -49,18 +48,6 @@ productContent.each { productContent ->
     content = productContent.getRelatedOne("Content", false);
     productContentDatas.add([productContent : productContent, content : content]);
 }
-
-updateProductContentWrapper = new HtmlFormWrapper("component://product/widget/catalog/ConfigForms.xml", "UpdateProductConfigItemContentAssoc", request, response);
-context.updateProductContentWrapper = updateProductContentWrapper;
-updateProductContentWrapper.putInContext("productContentDatas", productContentDatas);
-
-prepareAddProductContentWrapper = new HtmlFormWrapper("component://product/widget/catalog/ConfigForms.xml", "PrepareAddProductConfigItemContentAssoc", request, response);
-context.prepareAddProductContentWrapper = prepareAddProductContentWrapper;
-prepareAddProductContentWrapper.putInContext("configItem", configItem);
-
-addProductContentWrapper = new HtmlFormWrapper("component://product/widget/catalog/ConfigForms.xml", "AddProductConfigItemContentAssoc", request, response);
-context.addProductContentWrapper = addProductContentWrapper;
-addProductContentWrapper.putInContext("configItem", configItem);
 
 context.productContentList = productContentDatas;
 // End ProductContent stuff
@@ -141,3 +128,4 @@ if (fileType) {
         }
     }
 }
+
