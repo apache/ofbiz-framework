@@ -87,34 +87,34 @@ public class BirtViewHandler implements ViewHandler {
 
             Map<String, Object> context = new HashMap<String, Object>();
             // set parameters from request
-             Map<String, Object> parameters = UtilGenerics.cast(request.getAttribute(BirtWorker.BIRT_PARAMETERS));
+             Map<String, Object> parameters = UtilGenerics.cast(request.getAttribute(BirtWorker.getBirtParameters()));
             if (parameters != null) {
-                context.put(BirtWorker.BIRT_PARAMETERS, parameters);
+                context.put(BirtWorker.getBirtParameters(), parameters);
             } else {
-                context.put(BirtWorker.BIRT_PARAMETERS, UtilHttp.getParameterMap(request));
+                context.put(BirtWorker.getBirtParameters(), UtilHttp.getParameterMap(request));
             }
             // set locale from request
-            Locale locale = (Locale)request.getAttribute(BirtWorker.BIRT_LOCALE);
+            Locale locale = (Locale)request.getAttribute(BirtWorker.getBirtLocale());
             if (locale == null) {
                 locale = UtilHttp.getLocale(request);
             }
             
             // set output file name
-            String outputFileName = (String) request.getAttribute(BirtWorker.BIRT_OUTPUT_FILE_NAME);
+            String outputFileName = (String) request.getAttribute(BirtWorker.getBirtOutputFileName());
             if (UtilValidate.isNotEmpty(outputFileName)) {
                 UtilHttp.setContentDisposition(response, outputFileName);
             }
             
             // set override content type
-            String overrideContentType = (String) request.getAttribute(BirtWorker.BIRT_CONTENT_TYPE);
+            String overrideContentType = (String) request.getAttribute(BirtWorker.getBirtContentType());
             if (UtilValidate.isNotEmpty(overrideContentType)) {
                 contentType = overrideContentType;
             }
             
-            context.put(BirtWorker.BIRT_LOCALE, locale);
+            context.put(BirtWorker.getBirtLocale(), locale);
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             String birtImageDirectory = EntityUtilProperties.getPropertyValue("birt", "birt.html.image.directory", delegator);
-            context.put(BirtWorker.BIRT_IMAGE_DIRECTORY, birtImageDirectory);
+            context.put(BirtWorker.getBirtImageDirectory(), birtImageDirectory);
             BirtWorker.exportReport(design, context, contentType, response.getOutputStream());
         } catch (BirtException e) {
             throw new ViewHandlerException("Birt Error create engine: " + e.toString(), e);
