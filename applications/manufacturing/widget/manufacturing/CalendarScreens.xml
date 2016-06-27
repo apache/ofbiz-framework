@@ -216,4 +216,34 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ListCalendarExceptionDay">
+        <section>
+            <actions>
+                <set field="calendarExceptionDays" value="${groovy: request.getAttribute('calendarExceptionDays');}"/>
+            </actions>
+            <widgets>
+                <include-form name="ListCalendarExceptionDay" location="component://manufacturing/widget/manufacturing/CalendarForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddCalendarExceptionDay">
+        <section>
+            <actions>
+                <set field="techDataCalendar" value="${groovy: request.getAttribute('techDataCalendar');}"/>
+            </actions>
+            <widgets>
+                <include-form name="AddCalendarExceptionDay" location="component://manufacturing/widget/manufacturing/CalendarForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="UpdateCalendarExceptionDay">
+        <section>
+            <actions>
+                <set field="calendarExceptionDay" value="${groovy: request.getAttribute('calendarExceptionDay');}"/>
+            </actions>
+            <widgets>
+                <include-form name="UpdateCalendarExceptionDay" location="component://manufacturing/widget/manufacturing/CalendarForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
 </screens>

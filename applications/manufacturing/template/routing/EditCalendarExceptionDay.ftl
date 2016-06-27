@@ -25,7 +25,8 @@ under the License.
     [${uiLabelMap.CommonId} ${techDataCalendar.calendarId!}]</h3>
   </div>
   <div class="screenlet-body">
-    ${listCalendarExceptionDayWrapper.renderFormString(context)}
+    ${setRequestAttribute("calendarExceptionDays", calendarExceptionDays)}
+    ${screens.render("component://manufacturing/widget/manufacturing/CalendarScreens.xml#ListCalendarExceptionDay")}
   </div>
 </div>
 <#if calendarExceptionDay?has_content>
@@ -34,7 +35,8 @@ under the License.
     <h3>${uiLabelMap.PageTitleEditCalendarExceptionWeek}</h3>
   </div>
   <div class="screenlet-body">
-    ${updateCalendarExceptionDayWrapper.renderFormString(context)}
+    ${setRequestAttribute("calendarExceptionDay", calendarExceptionDay)}
+    ${screens.render("component://manufacturing/widget/manufacturing/CalendarScreens.xml#UpdateCalendarExceptionDay")}
   </div>
 </div>
 </#if>
@@ -43,7 +45,8 @@ under the License.
     <h3>${uiLabelMap.PageTitleAddCalendarExceptionWeek}</h3>
   </div>
   <div class="screenlet-body">
-    ${addCalendarExceptionDayWrapper.renderFormString(context)}
+    ${setRequestAttribute("techDataCalendar", techDataCalendar)}
+    ${screens.render("component://manufacturing/widget/manufacturing/CalendarScreens.xml#AddCalendarExceptionDay")}
   </div>
 </div>
 </#if>

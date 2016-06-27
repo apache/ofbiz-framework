@@ -21,7 +21,6 @@
 import java.util.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 
 if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
     context.hasPermission = Boolean.TRUE;
@@ -34,19 +33,12 @@ calendarExceptionDays = [];
 calendarId = parameters.calendarId ?: request.getAttribute("calendarId");
 if (calendarId) {
     techDataCalendar = from("TechDataCalendar").where("calendarId", calendarId).queryOne();
+    context.techDataCalendar = techDataCalendar;
 }
 if (techDataCalendar) {
     calendarExceptionDays = techDataCalendar.getRelated("TechDataCalendarExcDay", null, null, false);
+    context.calendarExceptionDays = calendarExceptionDays;
 }
-HtmlFormWrapper listCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/CalendarForms.xml", "ListCalendarExceptionDay", request, response);
-listCalendarExceptionDayWrapper.putInContext("calendarExceptionDays", calendarExceptionDays);
-
-HtmlFormWrapper addCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/CalendarForms.xml", "AddCalendarExceptionDay", request, response);
-addCalendarExceptionDayWrapper.putInContext("techDataCalendar", techDataCalendar);
-
-context.techDataCalendar = techDataCalendar;
-context.listCalendarExceptionDayWrapper = listCalendarExceptionDayWrapper;
-context.addCalendarExceptionDayWrapper = addCalendarExceptionDayWrapper;
 
 exceptionDateStartTime = parameters.exceptionDateStartTime ?: request.getAttribute("exceptionDateStartTime");
 exceptionDateStartTime = ObjectType.simpleTypeConvert(exceptionDateStartTime, "Timestamp", null, null);
@@ -54,9 +46,6 @@ exceptionDateStartTime = ObjectType.simpleTypeConvert(exceptionDateStartTime, "T
 if (exceptionDateStartTime) {
     calendarExceptionDay = from("TechDataCalendarExcDay").where("calendarId", calendarId , "exceptionDateStartTime", exceptionDateStartTime).queryOne();
     if (calendarExceptionDay) {
-        HtmlFormWrapper updateCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/CalendarForms.xml", "UpdateCalendarExceptionDay", request, response);
-        updateCalendarExceptionDayWrapper.putInContext("calendarExceptionDay", calendarExceptionDay);
         context.calendarExceptionDay = calendarExceptionDay;
-        context.updateCalendarExceptionDayWrapper =  updateCalendarExceptionDayWrapper;
     }
 }
