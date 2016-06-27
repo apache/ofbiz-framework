@@ -310,9 +310,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://order/template/order/OrderDeliveryScheduleInfo.ftl"/></html>
-                        </platform-specific>
+                        <section>
+                            <condition>
+                                <if-compare operator="equals" value="true" field="hasPermission"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.OrderScheduleDelivery}">
+                                    <container style="button-bar">
+                                        <link target="orderview" text="${uiLabelMap.OrderViewOrder}" style="buttontext">
+                                            <parameter param-name="orderId" from-field="orderId"/>
+                                        </link>
+                                    </container>
+                                    <section>
+                                        <condition>
+                                            <not><if-empty field="orderId"/></not>
+                                        </condition>
+                                        <widgets>
+                                            <include-form name="UpdateDeliveryScheduleInformation" location="component://order/widget/ordermgr/OrderDeliveryScheduleForms.xml"/>
+                                        </widgets>
+                                        <fail-widgets>
+                                            <label text="${uiLabelMap.OrderNoPurchaseSpecified}"></label>
+                                        </fail-widgets>
+                                    </section>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3" text="${uiLabelMap.OrderViewPermissionError}"></label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

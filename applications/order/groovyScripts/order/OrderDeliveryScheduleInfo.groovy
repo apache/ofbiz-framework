@@ -19,7 +19,6 @@
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
-import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 
 orderId = request.getParameter("orderId");
 orderTypeId = null;
@@ -38,15 +37,9 @@ hasSupplierRelatedPermissionStr = checkResult.hasSupplierRelatedPermission;
 // Determine what the reuslt is, no result is FALSE
 hasSupplierRelatedPermission = "true".equals(hasSupplierRelatedPermissionStr);
 
-// Initialize the PO Delivery Schedule form
-updatePODeliveryInfoWrapper = new HtmlFormWrapper("component://order/widget/ordermgr/OrderDeliveryScheduleForms.xml", "UpdateDeliveryScheduleInformation", request, response);
-updatePODeliveryInfoWrapper.putInContext("orderId", orderId);
-updatePODeliveryInfoWrapper.putInContext("orderItemSeqId", "_NA_");
-updatePODeliveryInfoWrapper.putInContext("schedule", schedule);
-updatePODeliveryInfoWrapper.putInContext("hasSupplierRelatedPermission", hasSupplierRelatedPermission);
-
 context.orderId = orderId;
+context.orderItemSeqId = "_NA_";
 context.orderTypeId = orderTypeId;
 context.orderHeader = orderHeader;
+context.schedule = schedule;
 context.hasPermission = hasSupplierRelatedPermission;
-context.updatePODeliveryInfoWrapper = updatePODeliveryInfoWrapper;
