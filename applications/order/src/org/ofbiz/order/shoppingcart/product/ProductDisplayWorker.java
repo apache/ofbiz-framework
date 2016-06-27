@@ -48,9 +48,11 @@ import org.ofbiz.product.category.CategoryWorker;
 import org.ofbiz.product.product.ProductWorker;
 
 
-public class ProductDisplayWorker {
+public final class ProductDisplayWorker {
 
     public static final String module = ProductDisplayWorker.class.getName();
+
+    private ProductDisplayWorker() {}
 
     /* ========================================================================================*/
 
@@ -306,7 +308,7 @@ public class ProductDisplayWorker {
         return result;
     }
 
-    static class ProductByMapComparator implements Comparator<Object> {
+    private static class ProductByMapComparator implements Comparator<Object> {
         private Map<String, Object> orderByMap;
         private boolean descending;
 
