@@ -39,11 +39,13 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 /** Utility methods needed to implement a WebDAV servlet. */
-public class WebDavUtil {
+public final class WebDavUtil {
 
     public static final String module = WebDavUtil.class.getName();
-    public static final TimeZone GMT_TIMEZONE = TimeZone.getTimeZone("GMT");
-    public static final String RFC1123_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss zzz";
+    private static final TimeZone GMT_TIMEZONE = TimeZone.getTimeZone("GMT");
+    private static final String RFC1123_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss zzz";
+
+    private WebDavUtil() {}
 
     public static String formatDate(String formatString, Date date) {
         DateFormat df = new SimpleDateFormat(formatString);
@@ -104,5 +106,9 @@ public class WebDavUtil {
         result.put("login.username", username);
         result.put("login.password", password);
         return result;
+    }
+
+    public static String getRFC1123DateFormat() {
+        return RFC1123_DATE_FORMAT;
     }
 }
