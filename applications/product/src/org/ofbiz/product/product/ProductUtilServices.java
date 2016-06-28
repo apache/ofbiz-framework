@@ -54,11 +54,13 @@ import org.ofbiz.service.ServiceUtil;
 /**
  * Product Services
  */
-public class ProductUtilServices {
+public final class ProductUtilServices {
 
     public static final String module = ProductUtilServices.class.getName();
-    public static final String resource = "ProductUiLabels";
-    public static final String resourceError = "ProductErrorUiLabels";
+    private static final String resource = "ProductUiLabels";
+    private static final String resourceError = "ProductErrorUiLabels";
+
+    private ProductUtilServices () {}
 
     /** First expire all ProductAssocs for all disc variants, then disc all virtuals that have all expired variant ProductAssocs */
     public static Map<String, Object> discVirtualsWithDiscVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
