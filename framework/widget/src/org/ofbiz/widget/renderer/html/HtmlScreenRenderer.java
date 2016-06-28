@@ -709,8 +709,8 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
 
         try {
             if (UtilValidate.isNotEmpty(dataResourceId)) {
-                if (WidgetDataResourceWorker.dataresourceWorker != null) {
-                    renderedContent = WidgetDataResourceWorker.dataresourceWorker.renderDataResourceAsTextExt(delegator, dataResourceId, contentContext, locale, mimeTypeId, false);
+                if (WidgetDataResourceWorker.getDataresourceWorker() != null) {
+                    renderedContent = WidgetDataResourceWorker.getDataresourceWorker().renderDataResourceAsTextExt(delegator, dataResourceId, contentContext, locale, mimeTypeId, false);
                 } else {
                     Debug.logError("Not rendering content, WidgetDataResourceWorker.dataresourceWorker not found.", module);
                 }
@@ -721,8 +721,8 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                     Debug.logError("Not rendering content, WidgetContentWorker.contentWorker not found.", module);
                 }
             } else if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
-                if (WidgetDataResourceWorker.dataresourceWorker != null) {
-                    renderedContent = WidgetDataResourceWorker.dataresourceWorker.renderDataResourceAsTextExt(delegator, expandedDataResourceId, contentContext, locale, mimeTypeId, false);
+                if (WidgetDataResourceWorker.getDataresourceWorker() != null) {
+                    renderedContent = WidgetDataResourceWorker.getDataresourceWorker().renderDataResourceAsTextExt(delegator, expandedDataResourceId, contentContext, locale, mimeTypeId, false);
                 } else {
                     Debug.logError("Not rendering content, WidgetDataResourceWorker.dataresourceWorker not found.", module);
                 }
