@@ -394,7 +394,10 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
  * form of: areaId, target, target parameters [, areaId, target, target parameters...].
 */
 
-function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, defaultDelay, formName){
+function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, defaultDelay, formName) {
+    ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, defaultDelay, formName, null);
+}
+function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, defaultDelay, formName, args) {
     var areaArray = areaCsvString.replace(/&amp;/g, '&').split(",");
     var numAreas = parseInt(areaArray.length / 3);
 
@@ -414,10 +417,16 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
             minLength: defaultMinLength,
             delay: defaultDelay,
             source: function(request, response){
+                var queryArgs = {"term": request.term};
+                if (typeof args == "object" && jQuery.isArray(args)) {
+                     for (var i = 0; i < args.length; i++) {
+                         queryArgs["parm" + i] = jQuery(args[i]).val();
+                     }
+                }
                 jQuery.ajax({
                     url: url,
                     type: "post",
-                    data: {term : request.term},
+                    data: queryArgs,
                     beforeSend: function (jqXHR, settings) {
                         //If LAST_AUTOCOMP_REF is not null means an existing ajax auto-completer request is in progress, so need to abort them to prevent inconsistent behavior of autocompleter
                         if (LAST_AUTOCOMP_REF != null && LAST_AUTOCOMP_REF.readyState != 4) {
