@@ -23,9 +23,12 @@ import org.ofbiz.base.util.Debug;
 /**
  * PortalPageWorker Class
  */
-public class WidgetPortalPageWorker {
+public final class WidgetPortalPageWorker {
     public static final String module = WidgetPortalPageWorker.class.getName();
-    public static PortalPageWorkerInterface portalPageWorker = null;
+    private static PortalPageWorkerInterface portalPageWorker = null;
+
+    private WidgetPortalPageWorker() {}
+
     static {
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
