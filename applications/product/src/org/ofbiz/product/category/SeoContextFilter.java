@@ -276,7 +276,7 @@ public class SeoContextFilter extends ContextFilter {
                         rd.forward(request, response);
                     } else {
                         // redirect with url change in browser
-                        httpResponse.setStatus(SeoConfigUtil.DEFAULT_RESPONSECODE);
+                        httpResponse.setStatus(SeoConfigUtil.getDefaultResponseCode());
                         httpResponse.setHeader("Location", redirectPath);
                     }
                 }
@@ -386,7 +386,7 @@ public class SeoContextFilter extends ContextFilter {
 
         if (foundMatch) {
             if (responseCodeInt == null) {
-                response.setStatus(SeoConfigUtil.DEFAULT_RESPONSECODE);
+                response.setStatus(SeoConfigUtil.getDefaultResponseCode());
             } else {
                 response.setStatus(responseCodeInt.intValue());
             }
