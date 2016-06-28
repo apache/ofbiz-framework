@@ -67,7 +67,7 @@ if (searchFields && fieldValue) {
     }
     searchFieldsList.each { fieldName ->
         if ("EQUALS".equals(searchType)) {
-            orExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(searchFieldsList[0]), EntityOperator.EQUALS, searchValue));    
+            orExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(searchFieldsList[0]), EntityOperator.EQUALS, searchValue));
             return;//in case of EQUALS, we search only a match for the returned field
         } else {
             orExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue));
@@ -86,9 +86,9 @@ if (conditionFields) {
         if (conditionFieldEntry.getValue() instanceof java.util.List) {
             def orCondFields = [];
             for (entry in conditionFieldEntry.getValue()) {
-                orCondFields.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, entry));                
+                orCondFields.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, entry));
             }
-            mainAndConds.add(EntityCondition.makeCondition(orCondFields, EntityOperator.OR));            
+            mainAndConds.add(EntityCondition.makeCondition(orCondFields, EntityOperator.OR));
         } else {
             mainAndConds.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, conditionFieldEntry.getValue()));
         }
