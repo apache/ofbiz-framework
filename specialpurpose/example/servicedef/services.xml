@@ -126,4 +126,11 @@ under the License.
              location="component://example/minilang/example/ExampleServices.xml" invoke="testCreateExampleService">
         <implements service="testServiceInterface"/>
     </service>
+    <!-- Send push notification service -->
+    <service name="sendExamplePushNotifications" engine="java"
+                location="org.ofbiz.example.ExampleServices" invoke="sendExamplePushNotifications" auth="true">
+        <attribute name="exampleId" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="message" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="successMessage" mode="IN" type="String" optional="true"></attribute>
+    </service>
 </services>

@@ -94,6 +94,7 @@ framework/catalina/lib/tomcat-8.0.33-tomcat-util-scan.jar
 framework/catalina/lib/tomcat-8.0.33-tomcat-util.jar
 framework/catalina/lib/tomcat-extras-8.0.33-tomcat-juli.jar
 framework/catalina/lib/tomcat-extras-8.0.33-tomcat-juli-adapters.jar
+framework/catalina/lib/tomcat-embed-websocket-8.0.33.jar
 framework/entity/lib/commons-dbcp2-2.1.jar
 framework/entity/lib/jdbc/derby-10.11.1.1.jar
 framework/geronimo/lib/geronimo-transaction-3.1.1.jar

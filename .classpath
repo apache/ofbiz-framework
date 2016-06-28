@@ -204,6 +204,7 @@
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-8.0.33-tomcat-util.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-8.0.33-tomcat-juli-adapters.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-8.0.33-tomcat-juli.jar"/>
+	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-embed-websocket-8.0.33.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xstream-1.4.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
