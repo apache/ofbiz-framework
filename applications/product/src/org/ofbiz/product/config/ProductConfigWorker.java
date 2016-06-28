@@ -47,11 +47,12 @@ import org.ofbiz.webapp.website.WebSiteWorker;
 /**
  * Product Config Worker class to reduce code in templates.
  */
-public class ProductConfigWorker {
+public final class ProductConfigWorker {
 
     public static final String module = ProductConfigWorker.class.getName();
-    public static final String resource = "ProductUiLabels";
-    public static final String SEPARATOR = "::";    // cache key separator
+    private static final String SEPARATOR = "::";    // cache key separator
+
+    private ProductConfigWorker () {}
 
     private static final UtilCache<String, ProductConfigWrapper> productConfigCache = UtilCache.createUtilCache("product.config", true);     // use soft reference to free up memory if needed
 
