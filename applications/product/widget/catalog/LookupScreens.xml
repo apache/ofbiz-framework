@@ -55,7 +55,7 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="Product"/>
                 <set field="searchFields" value="[productId, brandName, internalName]"/>
-                <set field="andCondition" value="${groovy: return org.ofbiz.entity.condition.EntityCondition.makeCondition(&quot;isVirtual&quot;, &quot;Y&quot;)}"/>
+				 <set field="conditionFields.isVirtual" value="Y" />
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
