@@ -128,6 +128,7 @@
             </drop-down>
         </field>
         <field name="description"><hidden/></field>
+        <field name="approverPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListLeaveApprovals" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
