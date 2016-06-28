@@ -52,9 +52,36 @@ import org.ofbiz.webapp.website.WebSiteWorker;
 /**
  * ProductStoreWorker - Worker class for store related functionality
  */
-public class ProductStoreWorker {
+public final class ProductStoreWorker {
 
     public static final String module = ProductStoreWorker.class.getName();
+    private static Map<String, String> defaultProductStoreEmailScreenLocation = new HashMap<String, String>();
+
+    static {
+        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_CONFIRM", "component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice");
+        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_COMPLETE", "component://ecommerce/widget/EmailOrderScreens.xml#OrderCompleteNotice");
+        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_BACKORDER", "component://ecommerce/widget/EmailOrderScreens.xml#BackorderNotice");
+        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_CHANGE", "component://ecommerce/widget/EmailOrderScreens.xml#OrderChangeNotice");
+
+        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_PAYRETRY", "component://ecommerce/widget/EmailOrderScreens.xml#PaymentRetryNotice");
+
+        defaultProductStoreEmailScreenLocation.put("PRDS_RTN_ACCEPT", "component://ecommerce/widget/EmailReturnScreens.xml#ReturnAccept");
+        defaultProductStoreEmailScreenLocation.put("PRDS_RTN_COMPLETE", "component://ecommerce/widget/EmailReturnScreens.xml#ReturnComplete");
+        defaultProductStoreEmailScreenLocation.put("PRDS_RTN_CANCEL", "component://ecommerce/widget/EmailReturnScreens.xml#ReturnCancel");
+
+        defaultProductStoreEmailScreenLocation.put("PRDS_GC_PURCHASE", "component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardPurchase");
+        defaultProductStoreEmailScreenLocation.put("PRDS_GC_RELOAD", "component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardReload");
+
+        defaultProductStoreEmailScreenLocation.put("PRDS_QUO_CONFIRM", "component://order/widget/ordermgr/QuoteScreens.xml#ViewQuoteSimple");
+
+        defaultProductStoreEmailScreenLocation.put("PRDS_PWD_RETRIEVE", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
+
+        defaultProductStoreEmailScreenLocation.put("PRDS_TELL_FRIEND", "component://ecommerce/widget/EmailProductScreens.xml#TellFriend");
+
+        defaultProductStoreEmailScreenLocation.put("PRDS_CUST_REGISTER", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
+    }
+
+    private ProductStoreWorker() {}
 
     public static GenericValue getProductStore(String productStoreId, Delegator delegator) {
         if (productStoreId == null || delegator == null) {
@@ -708,32 +735,6 @@ public class ProductStoreWorker {
             }
             return false;
         }
-    }
-
-    protected static Map<String, String> defaultProductStoreEmailScreenLocation = new HashMap<String, String>();
-
-    static {
-        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_CONFIRM", "component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice");
-        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_COMPLETE", "component://ecommerce/widget/EmailOrderScreens.xml#OrderCompleteNotice");
-        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_BACKORDER", "component://ecommerce/widget/EmailOrderScreens.xml#BackorderNotice");
-        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_CHANGE", "component://ecommerce/widget/EmailOrderScreens.xml#OrderChangeNotice");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_ODR_PAYRETRY", "component://ecommerce/widget/EmailOrderScreens.xml#PaymentRetryNotice");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_RTN_ACCEPT", "component://ecommerce/widget/EmailReturnScreens.xml#ReturnAccept");
-        defaultProductStoreEmailScreenLocation.put("PRDS_RTN_COMPLETE", "component://ecommerce/widget/EmailReturnScreens.xml#ReturnComplete");
-        defaultProductStoreEmailScreenLocation.put("PRDS_RTN_CANCEL", "component://ecommerce/widget/EmailReturnScreens.xml#ReturnCancel");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_GC_PURCHASE", "component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardPurchase");
-        defaultProductStoreEmailScreenLocation.put("PRDS_GC_RELOAD", "component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardReload");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_QUO_CONFIRM", "component://order/widget/ordermgr/QuoteScreens.xml#ViewQuoteSimple");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_PWD_RETRIEVE", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_TELL_FRIEND", "component://ecommerce/widget/EmailProductScreens.xml#TellFriend");
-
-        defaultProductStoreEmailScreenLocation.put("PRDS_CUST_REGISTER", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
     }
 
     public static String getDefaultProductStoreEmailScreenLocation(String emailType) {
