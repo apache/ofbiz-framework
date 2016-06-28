@@ -29,9 +29,10 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 
-public class ImportProductHelper {
+public final class ImportProductHelper {
 
-    static String module = ImportProductHelper.class.getName();
+    public static final String module = ImportProductHelper.class.getName();
+    private ImportProductHelper() {}
 
     // prepare the product map
     public static Map<String, Object> prepareProduct(String productId) {
