@@ -23,9 +23,12 @@ import org.ofbiz.base.util.Debug;
 /**
  * WidgetContentWorker Class
  */
-public class WidgetContentWorker {
+public final class WidgetContentWorker {
     public static final String module = WidgetContentWorker.class.getName();
-    public static ContentWorkerInterface contentWorker = null;
+    private static ContentWorkerInterface contentWorker = null;
+
+    private WidgetContentWorker () {}
+
     static {
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -38,5 +41,9 @@ public class WidgetContentWorker {
         } catch (InstantiationException e) {
             Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
         }
+    }
+
+    public static ContentWorkerInterface getContentWorker() {
+        return contentWorker;
     }
 }
