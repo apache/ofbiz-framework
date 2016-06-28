@@ -30,9 +30,11 @@ import org.ofbiz.entity.util.EntityQuery;
 /**
  * WebSiteWorker - Worker class for web site related functionality
  */
-public class WebSiteWorker {
+public final class WebSiteWorker {
 
     public static final String module = WebSiteWorker.class.getName();
+
+    private WebSiteWorker() {}
 
     public static String getWebSiteId(ServletRequest request) {
         ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
