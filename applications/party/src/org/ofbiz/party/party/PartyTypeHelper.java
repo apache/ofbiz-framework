@@ -30,9 +30,11 @@ import org.ofbiz.entity.util.EntityTypeUtil;
 /**
  * PartyTypeHelper
  */
-public class PartyTypeHelper {
+public final class PartyTypeHelper {
 
     public static final String module = PartyTypeHelper.class.getName();
+
+    private PartyTypeHelper () {}
 
     /** Check if a related party is of the right party type (PERSON or PARTY_GROUP)
      *@param delegator needed Delegator
