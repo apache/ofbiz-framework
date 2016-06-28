@@ -20,7 +20,10 @@ package org.ofbiz.product.category;
 
 import org.ofbiz.base.util.UtilValidate;
 
-public class SeoUrlUtil {
+public final class SeoUrlUtil {
+
+    private SeoUrlUtil() {}
+
     public static String replaceSpecialCharsUrl(String url) {
         if (UtilValidate.isEmpty(url)) {
             url = "";
