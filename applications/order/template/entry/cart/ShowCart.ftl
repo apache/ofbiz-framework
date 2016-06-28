@@ -80,8 +80,8 @@ under the License.
                   <td align="right"><div>${uiLabelMap.ProductProductId} :</div></td>
                   <td>
                     <span class='tabletext'>
-                      <#if orderType=="PURCHASE_ORDER">                        
-                        <#if partyId?has_content>                                               
+                      <#if orderType=="PURCHASE_ORDER">
+                        <#if partyId?has_content>
                           <#assign fieldFormName="LookupSupplierProduct?partyId=${partyId}">
                         <#else>
                           <#assign fieldFormName="LookupSupplierProduct">
