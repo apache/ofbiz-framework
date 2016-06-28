@@ -101,7 +101,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="PartyRoleNameDetail"/>
                 <set field="searchFields" value="[partyId, firstName, middleName, lastName, groupName]"/>
-                <set field="andCondition" value="${groovy: return org.ofbiz.entity.condition.EntityCondition.makeCondition('roleTypeId', 'CUSTOMER')}"/>
+                <set field="conditionFields.roleTypeId" value="CUSTOMER" />
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
