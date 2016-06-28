@@ -338,6 +338,24 @@ under the License.
         <response name="success" type="view" value="EditRoutingTaskFixedAssets"/>
         <response name="error" type="view" value="EditRoutingTaskFixedAssets"/>
     </request-map>
+    <request-map uri="EditRoutingTaskParties">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditRoutingTaskParties"/>
+    </request-map>
+    <request-map uri="createRoutinTaskPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="assignPartyToWorkEffort"/>
+        <response name="success" type="request-redirect" value="EditRoutingTaskParties">
+            <redirect-parameter name="workEffortId"/>
+        </response>
+    </request-map>
+    <request-map uri="updateRoutinTaskPartyAssign">
+         <security https="true" auth="true"/>
+         <event type="service" invoke="updatePartyToWorkEffortAssignment"/>
+         <response name="success" type="request-redirect" value="EditRoutingTaskParties">
+            <redirect-parameter name="workEffortId"/>
+        </response>
+    </request-map>
     <!-- CostCalc mappings -->
     <request-map uri="EditCostCalcs">
         <security https="true" auth="true"/>
@@ -803,6 +821,7 @@ under the License.
     <view-map name="EditRoutingTaskAssoc" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskAssoc" type="screen"/>
     <view-map name="EditRoutingProductLink" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingProductLink" type="screen"/>
     <view-map name="EditRoutingTaskFixedAssets" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskFixedAssets" type="screen"/>
+    <view-map name="EditRoutingTaskParties" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskParties" type="screen"/>
     <!-- Lookup view mappings -->
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>

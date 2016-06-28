@@ -373,6 +373,11 @@ under the License.
                 <parameter param-name="workEffortId" from-field="routingTask.workEffortId"/>
             </link>
         </menu-item>
+        <menu-item name="editRoutingTaskParties" title="${uiLabelMap.WorkEffortParties}">
+            <link target="EditRoutingTaskParties">
+                <parameter param-name="workEffortId" from-field="routingTask.workEffortId"/>
+            </link>
+        </menu-item>
     </menu>
 
 </menus>

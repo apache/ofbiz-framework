@@ -402,4 +402,35 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+    <form name="AddRoutingTaskParty" target="createRoutinTaskPartyAssign" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="workEffortId"><hidden/></field>
+        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
+        <field name="partyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId" required-field="true">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="RoleType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListRoutingTaskParties" type="list" target="updateRoutinTaskPartyAssign" list-name="routingTaskParties"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditRoutingTaskParties">
+        <field name="workEffortId"><hidden/></field>
+        <field name="partyId">
+            <display-entity entity-name="PartyNameView" description="${personalTitle} ${firstName} ${middleName} ${lastName} ${suffix} ${groupName}" also-hidden="true" cache="false"/>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.CommonRole}">
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
 </forms>
