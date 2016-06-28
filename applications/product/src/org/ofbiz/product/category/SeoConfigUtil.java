@@ -48,14 +48,14 @@ import org.xml.sax.SAXException;
  * SeoConfigUtil - SEO Configuration file utility.
  * 
  */
-public class SeoConfigUtil {
+public final class SeoConfigUtil {
     private static final String module = SeoConfigUtil.class.getName();
     private static Perl5Compiler perlCompiler = new Perl5Compiler();
     private static boolean isInitialed = false;
     private static boolean categoryUrlEnabled = true;
     private static boolean categoryNameEnabled = false;
     private static String categoryUrlSuffix = null;
-    public static final String DEFAULT_REGEXP = "^.*/.*$";
+    private static final String DEFAULT_REGEXP = "^.*/.*$";
     private static Pattern regexpIfMatch = null;
     private static boolean useUrlRegexp = false;
     private static boolean jSessionIdAnonEnabled = false;
@@ -68,33 +68,35 @@ public class SeoConfigUtil {
     private static List<Pattern> userExceptionPatterns = null;
     private static Set<String> allowedContextPaths = null;
     private static Map<String, String> specialProductIds = null;
-    public static final String ELEMENT_REGEXPIFMATCH = "regexpifmatch";
-    public static final String ELEMENT_URL_CONFIG = "url-config";
-    public static final String ELEMENT_DESCRIPTION = "description";
-    public static final String ELEMENT_FORWARD = "forward";
-    public static final String ELEMENT_SEO = "seo";
-    public static final String ELEMENT_URLPATTERN = "url-pattern";
-    public static final String ELEMENT_REPLACEMENT = "replacement";
-    public static final String ELEMENT_RESPONSECODE = "responsecode";
-    public static final String ELEMENT_JSESSIONID = "jsessionid";
-    public static final String ELEMENT_ANONYMOUS = "anonymous";
-    public static final String ELEMENT_VALUE = "value";
-    public static final String ELEMENT_USER = "user";
-    public static final String ELEMENT_EXCEPTIONS = "exceptions";
-    public static final String ELEMENT_CHAR_FILTERS = "char-filters";
-    public static final String ELEMENT_CHAR_FILTER = "char-filter";
-    public static final String ELEMENT_CHARACTER_PATTERN = "character-pattern";
-    public static final String ELEMENT_CATEGORY_URL = "category-url";
-    public static final String ELEMENT_ALLOWED_CONTEXT_PATHS = "allowed-context-paths";
-    public static final String ELEMENT_CATEGORY_NAME = "category-name";
-    public static final String ELEMENT_CATEGORY_URL_SUFFIX = "category-url-suffix";
-    public static final String SEO_CONFIG_FILENAME = "SeoConfig.xml";
-    public static final int DEFAULT_RESPONSECODE = HttpServletResponse.SC_MOVED_PERMANENTLY;
-    public static final String DEFAULT_ANONYMOUS_VALUE = "disable";
-    public static final String DEFAULT_USER_VALUE = "disable";
-    public static final String DEFAULT_CATEGORY_URL_VALUE = "enable";
-    public static final String DEFAULT_CATEGORY_NAME_VALUE = "disable";
-    public static final String ALLOWED_CONTEXT_PATHS_SEPERATOR = ":";
+    private static final String ELEMENT_REGEXPIFMATCH = "regexpifmatch";
+    private static final String ELEMENT_URL_CONFIG = "url-config";
+    private static final String ELEMENT_DESCRIPTION = "description";
+    private static final String ELEMENT_FORWARD = "forward";
+    private static final String ELEMENT_SEO = "seo";
+    private static final String ELEMENT_URLPATTERN = "url-pattern";
+    private static final String ELEMENT_REPLACEMENT = "replacement";
+    private static final String ELEMENT_RESPONSECODE = "responsecode";
+    private static final String ELEMENT_JSESSIONID = "jsessionid";
+    private static final String ELEMENT_ANONYMOUS = "anonymous";
+    private static final String ELEMENT_VALUE = "value";
+    private static final String ELEMENT_USER = "user";
+    private static final String ELEMENT_EXCEPTIONS = "exceptions";
+    private static final String ELEMENT_CHAR_FILTERS = "char-filters";
+    private static final String ELEMENT_CHAR_FILTER = "char-filter";
+    private static final String ELEMENT_CHARACTER_PATTERN = "character-pattern";
+    private static final String ELEMENT_CATEGORY_URL = "category-url";
+    private static final String ELEMENT_ALLOWED_CONTEXT_PATHS = "allowed-context-paths";
+    private static final String ELEMENT_CATEGORY_NAME = "category-name";
+    private static final String ELEMENT_CATEGORY_URL_SUFFIX = "category-url-suffix";
+    private static final String SEO_CONFIG_FILENAME = "SeoConfig.xml";
+    private static final int DEFAULT_RESPONSECODE = HttpServletResponse.SC_MOVED_PERMANENTLY;
+    private static final String DEFAULT_ANONYMOUS_VALUE = "disable";
+    private static final String DEFAULT_USER_VALUE = "disable";
+    private static final String DEFAULT_CATEGORY_URL_VALUE = "enable";
+    private static final String DEFAULT_CATEGORY_NAME_VALUE = "disable";
+    private static final String ALLOWED_CONTEXT_PATHS_SEPERATOR = ":";
+
+    private SeoConfigUtil() {}
 
     /**
      * Initialize url regular express configuration.
@@ -531,5 +533,9 @@ public class SeoConfigUtil {
     @Deprecated
     public static String getSpecialProductId(String productId) {
         return specialProductIds.get(productId);
+    }
+
+    public static int getDefaultResponseCode() {
+        return DEFAULT_RESPONSECODE;
     }
 }

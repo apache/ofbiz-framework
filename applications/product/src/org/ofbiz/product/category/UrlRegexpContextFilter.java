@@ -243,7 +243,7 @@ public class UrlRegexpContextFilter extends ContextFilter {
                         rd.forward(request, response);
                     } else {
                         // redirect with url change in browser
-                        httpResponse.setStatus(SeoConfigUtil.DEFAULT_RESPONSECODE);
+                        httpResponse.setStatus(SeoConfigUtil.getDefaultResponseCode());
                         httpResponse.setHeader("Location", redirectPath);
                     }
                 }

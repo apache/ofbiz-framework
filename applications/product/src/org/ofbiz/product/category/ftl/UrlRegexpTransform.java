@@ -218,7 +218,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
         }
         if (foundMatch) {
             if (responseCodeInt == null) {
-                response.setStatus(SeoConfigUtil.DEFAULT_RESPONSECODE);
+                response.setStatus(SeoConfigUtil.getDefaultResponseCode());
             } else {
                 response.setStatus(responseCodeInt.intValue());
             }
