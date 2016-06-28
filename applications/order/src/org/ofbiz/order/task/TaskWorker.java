@@ -28,9 +28,12 @@ import org.ofbiz.entity.GenericValue;
 /**
  * Order Processing Task Worker
  */
-public class TaskWorker {
+public final class TaskWorker {
 
     public static final String module = TaskWorker.class.getName();
+    private static final Map<String, String> statusMapping = UtilMisc.toMap("WF_NOT_STARTED", "Waiting", "WF_RUNNING", "Active", "WF_COMPLETE", "Complete", "WF_SUSPENDED", "Hold");
+
+    private TaskWorker() {}
 
     public static String getCustomerName(GenericValue orderTaskList) {
         String lastName = orderTaskList.getString("customerLastName");
@@ -46,7 +49,6 @@ public class TaskWorker {
       }
     }
 
-    static Map<String, String> statusMapping = UtilMisc.toMap("WF_NOT_STARTED", "Waiting", "WF_RUNNING", "Active", "WF_COMPLETE", "Complete", "WF_SUSPENDED", "Hold");
 
     public static String getPrettyStatus(GenericValue orderTaskList) {
         String statusId = orderTaskList.getString("currentStatusId");
