@@ -394,4 +394,25 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditRoutingTaskParties">
+        <section>
+            <actions>
+                <set field="titleProperty" value="WorkEffortParties"/>
+                <entity-and entity-name="WorkEffortPartyAssignment" list="routingTaskParties">
+                    <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+                    <order-by field-name="-fromDate"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonRoutingTaskDecorator">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.AddParty}">
+                            <include-form name="AddRoutingTaskParty" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListRoutingTaskParties" location="component://manufacturing/widget/manufacturing/RoutingTaskForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
