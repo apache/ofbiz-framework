@@ -51,46 +51,47 @@ import org.ofbiz.base.util.UtilValidate;
  * Apache FOP worker class.
  */
 
-public class ApacheFopWorker {
+public final class ApacheFopWorker {
 
     public static final String module = ApacheFopWorker.class.getName();
     /** File name prefix used for temporary files. Currently set to
      * <code>org.ofbiz.webapp.view.ApacheFopWorker-</code>.
      */
-    public static final String tempFilePrefix = "org.ofbiz.webapp.view.ApacheFopWorker-";
+    private static final String tempFilePrefix = "org.ofbiz.webapp.view.ApacheFopWorker-";
 
-    protected static FopFactory fopFactory = null;
+    private static FopFactory fopFactory = null;
     
-    public static final int encryptionLengthBitsDefault = 128;
+    private static final int encryptionLengthBitsDefault = 128;
     
-    public static final String encryptionLengthDefault = UtilProperties.getPropertyValue("fop", "fop.encryption-length.default", String.valueOf(encryptionLengthBitsDefault));
+    private static final String encryptionLengthDefault = UtilProperties.getPropertyValue("fop", "fop.encryption-length.default", String.valueOf(encryptionLengthBitsDefault));
 
-    public static final String userPasswordDefault = UtilProperties.getPropertyValue("fop", "fop.userPassword.default");
+    private static final String userPasswordDefault = UtilProperties.getPropertyValue("fop", "fop.userPassword.default");
 
-    public static final String ownerPasswordDefault = UtilProperties.getPropertyValue("fop", "fop.ownerPassword.default");
+    private static final String ownerPasswordDefault = UtilProperties.getPropertyValue("fop", "fop.ownerPassword.default");
 
-    public static final String allowPrintDefault = UtilProperties.getPropertyValue("fop", "fop.allowPrint.default", "true");
+    private static final String allowPrintDefault = UtilProperties.getPropertyValue("fop", "fop.allowPrint.default", "true");
 
-    public static final String allowCopyContentDefault = UtilProperties.getPropertyValue("fop", "fop.allowCopyContent.default", "true");
+    private static final String allowCopyContentDefault = UtilProperties.getPropertyValue("fop", "fop.allowCopyContent.default", "true");
 
-    public static final String allowEditContentDefault = UtilProperties.getPropertyValue("fop", "fop.allowEditContent.default", "true");
+    private static final String allowEditContentDefault = UtilProperties.getPropertyValue("fop", "fop.allowEditContent.default", "true");
 
-    public static final String allowEditAnnotationsDefault = UtilProperties.getPropertyValue("fop", "fop.allowEditAnnotations.default", "true");
+    private static final String allowEditAnnotationsDefault = UtilProperties.getPropertyValue("fop", "fop.allowEditAnnotations.default", "true");
 
-    public static final String allowFillInFormsDefault = UtilProperties.getPropertyValue("fop", "fop.allowFillInForms.default", "true");
+    private static final String allowFillInFormsDefault = UtilProperties.getPropertyValue("fop", "fop.allowFillInForms.default", "true");
 
-    public static final String allowAccessContentDefault = UtilProperties.getPropertyValue("fop", "fop.allowAccessContent.default", "true");
+    private static final String allowAccessContentDefault = UtilProperties.getPropertyValue("fop", "fop.allowAccessContent.default", "true");
 
-    public static final String allowAssembleDocumentDefault = UtilProperties.getPropertyValue("fop", "fop.allowAssembleDocument.default", "true");
+    private static final String allowAssembleDocumentDefault = UtilProperties.getPropertyValue("fop", "fop.allowAssembleDocument.default", "true");
 
-    public static final String allowPrintHqDefault = UtilProperties.getPropertyValue("fop", "fop.allowPrintHq.default", "true");
+    private static final String allowPrintHqDefault = UtilProperties.getPropertyValue("fop", "fop.allowPrintHq.default", "true");
 
-    public static final String encryptMetadataDefault = UtilProperties.getPropertyValue("fop", "fop.encrypt-metadata.default", "true");
+    private static final String encryptMetadataDefault = UtilProperties.getPropertyValue("fop", "fop.encrypt-metadata.default", "true");
     
-    public static final String fopPath = UtilProperties.getPropertyValue("fop", "fop.path", "/framework/webapp/config");
+    private static final String fopPath = UtilProperties.getPropertyValue("fop", "fop.path", "/framework/webapp/config");
     
-    public static final String fopFontBaseProperty = UtilProperties.getPropertyValue("fop", "fop.font.base.url", "/framework/webapp/config/");
+    private static final String fopFontBaseProperty = UtilProperties.getPropertyValue("fop", "fop.font.base.url", "/framework/webapp/config/");
 
+    private ApacheFopWorker() {}
 
     /** Returns an instance of the FopFactory class. FOP documentation recommends
      * the reuse of the factory instance because of the startup time.
@@ -240,13 +241,13 @@ public class ApacheFopWorker {
 
     /** Local URI resolver for the Transformer class.
      */
-    public static class LocalResolver implements URIResolver {
+    private static class LocalResolver implements URIResolver {
 
         private URIResolver defaultResolver;
 
-        protected LocalResolver() {}
+        private LocalResolver() {}
 
-        public LocalResolver(URIResolver defaultResolver) {
+        private LocalResolver(URIResolver defaultResolver) {
             this.defaultResolver = defaultResolver;
         }
 
@@ -262,5 +263,53 @@ public class ApacheFopWorker {
             }
             return defaultResolver.resolve(href, base);
         }
+    }
+
+    public static String getEncryptionLengthDefault() {
+        return encryptionLengthDefault;
+    }
+
+    public static String getUserPasswordDefault() {
+        return userPasswordDefault;
+    }
+
+    public static String getOwnerPasswordDefault() {
+        return ownerPasswordDefault;
+    }
+
+    public static String getAllowPrintDefault() {
+        return allowPrintDefault;
+    }
+
+    public static String getAllowCopyContentDefault() {
+        return allowCopyContentDefault;
+    }
+
+    public static String getAllowEditContentDefault() {
+        return allowEditContentDefault;
+    }
+
+    public static String getAllowEditAnnotationsDefault() {
+        return allowEditAnnotationsDefault;
+    }
+
+    public static String getAllowAccessContentDefault() {
+        return allowAccessContentDefault;
+    }
+
+    public static String getAllowFillInFormsDefault() {
+        return allowFillInFormsDefault;
+    }
+
+    public static String getAllowAssembleDocumentDefault() {
+        return allowAssembleDocumentDefault;
+    }
+
+    public static String getAllowPrintHqDefault() {
+        return allowPrintHqDefault;
+    }
+
+    public static String getEncryptMetadataDefault() {
+        return encryptMetadataDefault;
     }
 }
