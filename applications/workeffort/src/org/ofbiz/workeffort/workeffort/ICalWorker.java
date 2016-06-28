@@ -183,7 +183,7 @@ public class ICalWorker {
                     }
                     if ("getlastmodified".equals(propElement.getNodeName())) {
                         Date lastModified = getLastModifiedDate(request);
-                        Element lmElement = helper.createElementSetValue("D:getlastmodified", WebDavUtil.formatDate(WebDavUtil.RFC1123_DATE_FORMAT, lastModified));
+                        Element lmElement = helper.createElementSetValue("D:getlastmodified", WebDavUtil.formatDate(WebDavUtil.getRFC1123DateFormat(), lastModified));
                         supportedProps.add(lmElement);
                         continue;
                     }
