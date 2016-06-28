@@ -98,8 +98,8 @@ public class MenuWrapTransform implements TemplateTransformModel {
         Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
         GenericValue val = null;
         try {
-            if (WidgetContentWorker.contentWorker != null) {
-                val = WidgetContentWorker.contentWorker.getCurrentContentExt(delegator, trail, userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
+            if (WidgetContentWorker.getContentWorker() != null) {
+                val = WidgetContentWorker.getContentWorker().getCurrentContentExt(delegator, trail, userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
             } else {
                 Debug.logError("Not rendering content, not ContentWorker found.", module);
             }
@@ -129,8 +129,8 @@ public class MenuWrapTransform implements TemplateTransformModel {
         }
         // This order is taken so that the mimeType can be overridden in the transform arguments.
         String mimeTypeId = null;
-        if (WidgetContentWorker.contentWorker != null) {
-            mimeTypeId = WidgetContentWorker.contentWorker.getMimeTypeIdExt(delegator, view, templateCtx);
+        if (WidgetContentWorker.getContentWorker() != null) {
+            mimeTypeId = WidgetContentWorker.getContentWorker().getMimeTypeIdExt(delegator, view, templateCtx);
         } else {
             Debug.logError("Not rendering content, not ContentWorker found.", module);
         }
