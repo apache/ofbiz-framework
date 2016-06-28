@@ -31,9 +31,10 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
-public class ImageManagementHelper {
+public final class ImageManagementHelper {
 
     static String module = ImageManagementHelper.class.getName();
+    private ImageManagementHelper() {}
 
     public static String getInternalImageUrl(HttpServletRequest request, String productId) {
         String internalImageUrl = null;
