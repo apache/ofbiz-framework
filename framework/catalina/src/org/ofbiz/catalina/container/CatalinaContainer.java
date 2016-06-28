@@ -560,7 +560,8 @@ public class CatalinaContainer implements Container {
         JarScanner jarScanner = context.getJarScanner();
         if (jarScanner instanceof StandardJarScanner) {
             StandardJarScanner standardJarScanner = (StandardJarScanner) jarScanner;
-            standardJarScanner.setScanClassPath(false);
+            standardJarScanner.setJarScanFilter(new FilterJars());
+            standardJarScanner.setScanClassPath(true);
         }
 
         context.setJ2EEApplication(J2EE_APP);

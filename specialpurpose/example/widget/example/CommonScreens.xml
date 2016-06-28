@@ -45,6 +45,14 @@ under the License.
                 <set field="applicationTitle" value="${uiLabelMap.ExampleApplication}" global="true"/>
             </actions>
             <widgets>
+                <section>
+                    <condition>
+                        <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                    </condition>
+                    <actions>
+                        <set field="layoutSettings.javaScripts[]" value="/example/js/ExamplePushNotifications.js" global="true"/>
+                    </actions>
+                </section>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
             </widgets>
         </section>

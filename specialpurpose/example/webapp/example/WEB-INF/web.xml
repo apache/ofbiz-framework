@@ -49,7 +49,7 @@ under the License.
         <init-param><param-name>disableContextSecurity</param-name><param-value>N</param-value></init-param>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css</param-value>
+            <param-value>/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css:/js:/ws</param-value>
         </init-param>
         <init-param><param-name>errorCode</param-name><param-value>403</param-value></init-param>
         <init-param><param-name>redirectPath</param-name><param-value>/control/main</param-value></init-param>

@@ -31,4 +31,14 @@ under the License.
         <action service="createExampleStatus" mode="sync"/>
     </eca>
     -->
+    <!-- Send push notification on create example -->
+    <eca service="updateExample" event="global-commit-post-run">
+        <set field-name="message" value="Example is updated"/>
+        <action service="sendExamplePushNotifications" mode="sync"/>
+    </eca>
+    <!-- Send push notification on update example -->
+    <eca service="createExample" event="global-commit-post-run">
+        <set field-name="message" value="New example created"/>
+        <action service="sendExamplePushNotifications" mode="sync"/>
+    </eca>
 </service-eca>

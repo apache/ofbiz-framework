@@ -27,7 +27,7 @@ under the License.
 
     <property environment="env"/>
     <property name="desc" value="Example Component"/>
-    <property name="name" value="ofbiz-example"/>
+    <property name="name" value="ofbiz-example-discoverable"/>
     <property name="ofbiz.home.dir" value="../.."/>
     <property name="src.dir" value="src"/>
     <property name="dtd.dir" value="dtd"/>
@@ -36,6 +36,7 @@ under the License.
 
     <path id="local.class.path">
         <fileset dir="${lib.dir}" includes="*.jar"/>
+        <fileset dir="../../framework/catalina/lib" includes="*.jar"/>
         <fileset dir="../../framework/base/lib" includes="*.jar"/>
         <fileset dir="../../framework/base/lib/commons" includes="*.jar"/>
         <fileset dir="../../framework/base/lib/j2eespecs" includes="*.jar"/>
