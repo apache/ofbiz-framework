@@ -44,9 +44,76 @@ import org.ofbiz.base.location.ComponentLocationResolver;
  * File Utilities
  *
  */
-public class FileUtil {
+public final class FileUtil {
 
     public static final String module = FileUtil.class.getName();
+
+    private FileUtil () {}
+
+    private static class SearchTextFilesFilter implements FilenameFilter {
+        String fileExtension;
+        Set<String> stringsToFindInFile = new HashSet<String>();
+        Set<String> stringsToFindInPath = new HashSet<String>();
+
+        public SearchTextFilesFilter(String fileExtension, Set<String> stringsToFindInPath, Set<String> stringsToFindInFile) {
+            this.fileExtension = fileExtension;
+            if (stringsToFindInPath != null) {
+                this.stringsToFindInPath.addAll(stringsToFindInPath);
+            }
+            if (stringsToFindInFile != null) {
+                this.stringsToFindInFile.addAll(stringsToFindInFile);
+            }
+        }
+
+        @Override
+        public boolean accept(File dir, String name) {
+            File file = new File(dir, name);
+            if (file.getName().startsWith(".")) {
+                return false;
+            }
+            if (file.isDirectory()) {
+                return true;
+            }
+
+            boolean hasAllPathStrings = true;
+            String fullPath = dir.getPath().replace('\\', '/');
+            for (String pathString: stringsToFindInPath) {
+                if (fullPath.indexOf(pathString) < 0) {
+                    hasAllPathStrings = false;
+                    break;
+                }
+            }
+
+            if (hasAllPathStrings && name.endsWith("." + fileExtension)) {
+                if (stringsToFindInFile.size() == 0) {
+                    return true;
+                }
+                StringBuffer xmlFileBuffer = null;
+                try {
+                    xmlFileBuffer = FileUtil.readTextFile(file, true);
+                } catch (FileNotFoundException e) {
+                    Debug.logWarning("Error reading xml file [" + file + "] for file search: " + e.toString(), module);
+                    return false;
+                } catch (IOException e) {
+                    Debug.logWarning("Error reading xml file [" + file + "] for file search: " + e.toString(), module);
+                    return false;
+                }
+                if (UtilValidate.isNotEmpty(xmlFileBuffer)) {
+                    boolean hasAllStrings = true;
+                    for (String stringToFile: stringsToFindInFile) {
+                        if (xmlFileBuffer.indexOf(stringToFile) < 0) {
+                            hasAllStrings = false;
+                            break;
+                        }
+                    }
+                    return hasAllStrings;
+                }
+            } else {
+                return false;
+            }
+            return false;
+        }
+    }
 
     public static File getFile(String path) {
         return getFile(null, path);
@@ -275,71 +342,6 @@ public class FileUtil {
         List<File> fileList = new LinkedList<File>();
         FileUtil.searchFiles(fileList, new File(basePath), new SearchTextFilesFilter("xml", stringsToFindInPath, stringsToFindInFile), true);
         return fileList;
-    }
-
-    public static class SearchTextFilesFilter implements FilenameFilter {
-        String fileExtension;
-        Set<String> stringsToFindInFile = new HashSet<String>();
-        Set<String> stringsToFindInPath = new HashSet<String>();
-
-        public SearchTextFilesFilter(String fileExtension, Set<String> stringsToFindInPath, Set<String> stringsToFindInFile) {
-            this.fileExtension = fileExtension;
-            if (stringsToFindInPath != null) {
-                this.stringsToFindInPath.addAll(stringsToFindInPath);
-            }
-            if (stringsToFindInFile != null) {
-                this.stringsToFindInFile.addAll(stringsToFindInFile);
-            }
-        }
-
-        @Override
-        public boolean accept(File dir, String name) {
-            File file = new File(dir, name);
-            if (file.getName().startsWith(".")) {
-                return false;
-            }
-            if (file.isDirectory()) {
-                return true;
-            }
-
-            boolean hasAllPathStrings = true;
-            String fullPath = dir.getPath().replace('\\', '/');
-            for (String pathString: stringsToFindInPath) {
-                if (fullPath.indexOf(pathString) < 0) {
-                    hasAllPathStrings = false;
-                    break;
-                }
-            }
-
-            if (hasAllPathStrings && name.endsWith("." + fileExtension)) {
-                if (stringsToFindInFile.size() == 0) {
-                    return true;
-                }
-                StringBuffer xmlFileBuffer = null;
-                try {
-                    xmlFileBuffer = FileUtil.readTextFile(file, true);
-                } catch (FileNotFoundException e) {
-                    Debug.logWarning("Error reading xml file [" + file + "] for file search: " + e.toString(), module);
-                    return false;
-                } catch (IOException e) {
-                    Debug.logWarning("Error reading xml file [" + file + "] for file search: " + e.toString(), module);
-                    return false;
-                }
-                if (UtilValidate.isNotEmpty(xmlFileBuffer)) {
-                    boolean hasAllStrings = true;
-                    for (String stringToFile: stringsToFindInFile) {
-                        if (xmlFileBuffer.indexOf(stringToFile) < 0) {
-                            hasAllStrings = false;
-                            break;
-                        }
-                    }
-                    return hasAllStrings;
-                }
-            } else {
-                return false;
-            }
-            return false;
-        }
     }
 
     /**
