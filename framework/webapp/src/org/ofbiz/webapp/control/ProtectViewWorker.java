@@ -39,13 +39,15 @@ import org.ofbiz.entity.util.EntityQuery;
 /**
  * Common Workers
  */
-public class ProtectViewWorker {
+public final class ProtectViewWorker {
 
     private final static String module = ProtectViewWorker.class.getName();
     private static final String resourceWebapp = "WebappUiLabels";
     private static final Map<String, Long> hitsByViewAccessed = new ConcurrentHashMap<String, Long>();
     private static final Map<String, Long> durationByViewAccessed = new ConcurrentHashMap<String, Long>();
     private static final Long one = new Long(1);
+
+    private ProtectViewWorker () {}
 
     /**
      * An HTTP WebEvent handler that checks to see if an userLogin should be tarpitted
