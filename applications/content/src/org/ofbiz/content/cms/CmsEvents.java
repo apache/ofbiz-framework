@@ -152,7 +152,7 @@ public class CmsEvents {
                 mapKey = pathAlias.getString("mapKey");
                 if (contentId == null && UtilValidate.isNotEmpty(alias)) {
                     if (!alias.startsWith("/")) {
-                       alias = "/" + alias;
+                        alias = "/" + alias;
                     }
                     RequestDispatcher rd = request.getRequestDispatcher(request.getServletPath() + alias);
                     try {
@@ -189,14 +189,14 @@ public class CmsEvents {
             boolean hasErrorPage = false;
 
             if (contentId != null) {
-	            try {
-	                statusCode = verifyContentToWebSite(delegator, webSiteId, contentId);
-	            } catch (GeneralException e) {
-	                Debug.logError(e, module);
-	                throw new GeneralRuntimeException(e.getMessage(), e);
-	            }
+                try {
+                    statusCode = verifyContentToWebSite(delegator, webSiteId, contentId);
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    throw new GeneralRuntimeException(e.getMessage(), e);
+                }
             } else {
-            	statusCode = HttpServletResponse.SC_NOT_FOUND;
+                statusCode = HttpServletResponse.SC_NOT_FOUND;
             }
 
             // We try to find a specific Error page for this website concerning the status code
@@ -225,14 +225,16 @@ public class CmsEvents {
                         Debug.logError(e, module);
                     }
                     if (errorPage != null) {
-                        if (Debug.verboseOn()) Debug.logVerbose("Found error pages " + statusCode + " : " + errorPage, module);
+                        if (Debug.verboseOn())
+                            Debug.logVerbose("Found error pages " + statusCode + " : " + errorPage, module);
                         contentId = errorPage.getString("contentId");
                     } else {
-                        if (Debug.verboseOn()) Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, module);
+                        if (Debug.verboseOn())
+                            Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, module);
                         contentId = errorContainer.getString("contentId");
                     }
                     mapKey = null;
-                    hasErrorPage=true;
+                    hasErrorPage = true;
                 }
                 // We try to find a generic content Error page concerning the status code
                 if (!hasErrorPage) {
@@ -273,7 +275,7 @@ public class CmsEvents {
                     // TODO: replace "screen" to support dynamic rendering of different output
                     FormStringRenderer formStringRenderer = new MacroFormRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.formrenderer", delegator), request, response);
                     templateMap.put("formStringRenderer", formStringRenderer);
-                    
+
                     // if use web analytics
                     List<GenericValue> webAnalytics = EntityQuery.use(delegator).from("WebAnalyticsConfig").where("webSiteId", webSiteId).queryList();
                     // render
@@ -286,11 +288,11 @@ public class CmsEvents {
                     }
 
                 } catch (TemplateException e) {
-                	throw new GeneralRuntimeException(String.format("Error creating form renderer while rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
+                    throw new GeneralRuntimeException(String.format("Error creating form renderer while rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
                 } catch (IOException e) {
-                	throw new GeneralRuntimeException(String.format("Error in the response writer/output stream while rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
+                    throw new GeneralRuntimeException(String.format("Error in the response writer/output stream while rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
                 } catch (GeneralException e) {
-                	throw new GeneralRuntimeException(String.format("Error rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
+                    throw new GeneralRuntimeException(String.format("Error rendering content [%s] with path alias [%s]", contentId, pathInfo), e);
                 }
 
                 return "success";
@@ -318,18 +320,18 @@ public class CmsEvents {
         try {
             webSite = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache().queryOne();
             if (webSite != null) {
-            	siteName = webSite.getString("siteName");
+                siteName = webSite.getString("siteName");
             }
             if (siteName == null) {
-            	siteName = "Not specified";
+                siteName = "Not specified";
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
         if (webSite != null) {
-        	request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display for website: " + siteName + " [" + webSiteId + "] not even a default page!");
+            request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display for website: " + siteName + " [" + webSiteId + "] not even a default page!");
         } else {
-        	request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display, not even a default page AND the website entity record for WebSiteId:" + webSiteId + " could not be found");
+            request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display, not even a default page AND the website entity record for WebSiteId:" + webSiteId + " could not be found");
         }
         return "error";
     }
@@ -360,7 +362,7 @@ public class CmsEvents {
                     .orderBy("-fromDate").cache().filterByDate().queryList();
 
             if (topLevelContentValues != null) {
-                for (GenericValue point: topLevelContentValues) {
+                for (GenericValue point : topLevelContentValues) {
                     int subContentStatusCode = verifySubContent(delegator, contentId, point.getString("contentId"));
                     if (subContentStatusCode == HttpServletResponse.SC_OK) {
                         return HttpServletResponse.SC_OK;
