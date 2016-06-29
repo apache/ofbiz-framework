@@ -33,9 +33,11 @@ import org.ofbiz.entity.util.EntityQuery;
 
 
 /** WorkEffortWorker - Work Effort worker class. */
-public class WorkEffortWorker {
+public final class WorkEffortWorker {
 
     public static final String module = WorkEffortWorker.class.getName();
+
+    private WorkEffortWorker() {}
 
     public static List<GenericValue> getLowestLevelWorkEfforts(Delegator delegator, String workEffortId, String workEffortAssocTypeId) {
         return getLowestLevelWorkEfforts(delegator, workEffortId, workEffortAssocTypeId, "workEffortIdFrom", "workEffortIdTo");
