@@ -114,7 +114,7 @@ under the License.
     
     <sm:simple-methods>
         <sm:simple-method method-name="CompoundWidgetsFunc">
-            <sm:log message="CompoundWidgetsFunc runs" sm:level="info"/>
+            <sm:log message="CompoundWidgetsFunc runs" level="info"/>
         </sm:simple-method>
     </sm:simple-methods>
     
