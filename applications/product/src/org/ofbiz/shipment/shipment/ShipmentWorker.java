@@ -40,10 +40,13 @@ import org.ofbiz.service.ModelService;
 /**
  * ShipmentWorker - Worker methods for Shipment and related entities
  */
-public class ShipmentWorker {
+public final class ShipmentWorker {
 
     public static final String module = ShipmentWorker.class.getName();
-    public static final MathContext generalRounding = new MathContext(10);
+    private static final MathContext generalRounding = new MathContext(10);
+
+    private ShipmentWorker() {}
+
     /*
      * Returns the value of a given ShipmentPackageContent record.  Calculated by working out the total value (from the OrderItems) of all ItemIssuances
      * for the ShipmentItem then dividing that by the total quantity issued for the same to get an average item value then multiplying that by the package
