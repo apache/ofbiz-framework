@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns="http://ofbiz.apache.org/Simple-Method" targetNamespace="http://ofbiz.apache.org/Simple-Method">
 <!--
     ==================================================
     ========== The Simple Methods Section ==========
@@ -84,14 +84,20 @@ under the License.
     </xs:simpleType>
 
     <xs:simpleType name="javaClassName">
+        <xs:annotation>
+            <xs:documentation>
+                The Java data type.
+                
+                Optional. Attribute type: constant. Attribute must contain a valid Java class name.
+            </xs:documentation>
+        </xs:annotation>
         <xs:restriction base="xs:token">
             <xs:pattern value="[a-zA-Z_]{1}[a-zA-Z0-9_$.]+" />
         </xs:restriction>
     </xs:simpleType>
 
     <!-- Reusable attributes and attribute groups -->
-
-    <xs:attribute name="field">
+    <xs:simpleType name="fieldType">
         <xs:annotation>
             <xs:documentation>
                 The name of the field to set. The target of the assignment.
@@ -99,14 +105,12 @@ under the License.
                 Required. Attribute type: expression.
             </xs:documentation>
         </xs:annotation>
-        <xs:simpleType>
-            <xs:restriction base="xs:token">
-                <xs:minLength value="1" />
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:attribute>
+        <xs:restriction base="xs:token">
+            <xs:minLength value="1" />
+        </xs:restriction>
+    </xs:simpleType>
 
-    <xs:attribute name="error-list-name" type="xs:string">
+    <xs:simpleType name="error-list-name">
         <xs:annotation>
             <xs:documentation>
                 The name of the error message list. It will be created if it does not exist.
@@ -115,19 +119,11 @@ under the License.
                 Optional. Attribute types: constant, ${expression}.
             </xs:documentation>
         </xs:annotation>
-    </xs:attribute>
+        <xs:restriction base="xs:string">
+        </xs:restriction>
+    </xs:simpleType>
 
-    <xs:attribute name="type" type="javaClassName">
-        <xs:annotation>
-            <xs:documentation>
-                The Java data type.
-                
-                Optional. Attribute type: constant. Attribute must contain a valid Java class name.
-            </xs:documentation>
-        </xs:annotation>
-    </xs:attribute>
-
-    <xs:attributeGroup name="attlist.operatorRequired">
+    <xs:complexType name="attlist.operatorRequired">
         <xs:attribute name="operator" use="required">
             <xs:annotation>
                 <xs:documentation>
@@ -152,9 +148,9 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-    </xs:attributeGroup>
+    </xs:complexType>
 
-    <xs:attributeGroup name="attlist.operatorOptionalRvalue">
+    <xs:complexType name="attlist.operatorOptionalRvalue">
         <xs:attribute name="operator" use="required">
             <xs:annotation>
                 <xs:documentation>
@@ -185,9 +181,9 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-    </xs:attributeGroup>
+    </xs:complexType>
 
-    <xs:attributeGroup name="attlist.check-permission">
+    <xs:complexType name="attlist.check-permission">
         <xs:attribute name="permission" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
@@ -208,9 +204,9 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-    </xs:attributeGroup>
+    </xs:complexType>
 
-    <xs:attribute name="delegator-name" type="xs:string">
+    <xs:simpleType name="delegator-name">
         <xs:annotation>
             <xs:documentation>
                 An alternate delegator name. When specified, the entity operation will use the
@@ -219,7 +215,8 @@ under the License.
                 Optional. Attribute types: constant, ${expression}.
             </xs:documentation>
         </xs:annotation>
-    </xs:attribute>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
 
 <!--
     =============================
@@ -482,7 +479,7 @@ under the License.
                 <xs:element ref="fail-message" />
                 <xs:element ref="fail-property" />
             </xs:choice>
-            <xs:attribute ref="error-list-name"/>
+            <xs:attribute name="error-list-name" type="error-list-name"/>
         </xs:complexType>
     </xs:element>
 
@@ -503,7 +500,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="error-list-name"/>
+            <xs:attribute name="error-list-name" type="error-list-name"/>
         </xs:complexType>
     </xs:element>
 
@@ -531,7 +528,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="error-list-name" />
+            <xs:attribute name="error-list-name" type="error-list-name"/>
         </xs:complexType>
     </xs:element>
 
@@ -547,24 +544,30 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:sequence>
-                <xs:element name="alt-permission" minOccurs="0" maxOccurs="unbounded">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Declares an alternate permission. Alternate permissions are checked when the primary permission check fails.
-                        </xs:documentation>
-                    </xs:annotation>
-                    <xs:complexType>
-                        <xs:attributeGroup ref="attlist.check-permission" />
-                    </xs:complexType>
-                </xs:element>
-                <xs:choice>
-                    <xs:element ref="fail-message" />
-                    <xs:element ref="fail-property" />
-                </xs:choice>
-            </xs:sequence>
-            <xs:attributeGroup ref="attlist.check-permission" />
-            <xs:attribute ref="error-list-name" />
+            <xs:complexContent>
+                <xs:extension base="attlist.check-permission">
+                    <xs:sequence>
+                        <xs:element name="alt-permission" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Declares an alternate permission. Alternate permissions are checked when the primary permission check fails.
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="attlist.check-permission">
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:choice>
+                            <xs:element ref="fail-message" />
+                            <xs:element ref="fail-property" />
+                        </xs:choice>
+                    </xs:sequence>
+                    <xs:attribute name="error-list-name" type="error-list-name"/>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
@@ -575,7 +578,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="field" type="fieldType" use="required" />
         </xs:complexType>
     </xs:element>
 
@@ -594,7 +597,7 @@ under the License.
                 <xs:element ref="field" />
                 <xs:element ref="string" />
             </xs:choice>
-            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="field" type="fieldType" use="required" />
             <xs:attribute name="class-name" type="javaClassName" use="required">
                 <xs:annotation>
                     <xs:documentation>
@@ -671,7 +674,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="type">
+            <xs:attribute name="type" type="javaClassName">
                 <xs:annotation>
                     <xs:documentation>
                         The Java class of the argument. Defaults to "java.lang.String".
@@ -905,7 +908,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="field" type="fieldType" use="required" />
             <xs:attribute name="type">
                 <xs:annotation>
                     <xs:documentation>
@@ -935,7 +938,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="field" type="fieldType" use="required" />
         </xs:complexType>
     </xs:element>
 
@@ -947,7 +950,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="field" type="fieldType" use="required" />
         </xs:complexType>
     </xs:element>
 
@@ -999,7 +1002,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="field" type="fieldType" use="required" />
             <xs:attribute type="xs:string" name="resource" use="required">
                 <xs:annotation>
                     <xs:documentation>
@@ -1106,7 +1109,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="field" type="fieldType" use="required" />
             <xs:attribute type="xs:string" name="request-name">
                 <xs:annotation>
                     <xs:documentation>
@@ -1136,7 +1139,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="field" type="fieldType" use="required" />
             <xs:attribute type="xs:string" name="session-name">
                 <xs:annotation>
                     <xs:documentation>
@@ -1165,7 +1168,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="field" type="fieldType" use="required" />
             <xs:attribute type="xs:string" name="from">
                 <xs:annotation>
                     <xs:documentation>
@@ -1259,7 +1262,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="field" type="fieldType" use="required" />
             <xs:attribute type="xs:string" name="from">
                 <xs:annotation>
                     <xs:documentation>
@@ -1697,7 +1700,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="field" type="fieldType" use="required" />
             <xs:attribute type="xs:string" name="resource" use="required">
                 <xs:annotation>
                     <xs:documentation>
@@ -1775,7 +1778,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="error-list-name"/>
+            <xs:attribute name="error-list-name" type="error-list-name"/>
         </xs:complexType>
     </xs:element>
 
@@ -1853,48 +1856,51 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:sequence>
-                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
-                <xs:element minOccurs="0" ref="else" />
-            </xs:sequence>
-            <xs:attribute type="xs:string" name="field" use="required">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of the field that will be compared. The l-value.
-                        
-                        Required. Attribute type: expression.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attributeGroup ref="attlist.operatorOptionalRvalue" />
-            <xs:attribute type="xs:string" name="value" use="required">
-                <xs:annotation>
-                    <xs:documentation>
-                        The value that the field will be compared to. The r-value.
-                        
-                        Ignored when the operator attribute equals "is-null", "is-not-null", or "is-empty" - required otherwise. Attribute type: constant+expr.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute ref="type">
-                <xs:annotation>
-                    <xs:documentation>
-                        The Java data type. Both values will be converted to this type before comparison.
-                        Invalid when the operator attribute value is "contains".
-                        
-                        Optional. Attribute type: constant. Attribute must contain a valid Java class name.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="format">
-                <xs:annotation>
-                    <xs:documentation>
-                        Format used for type conversions. Valid only when the type attribute is not empty.
-                        
-                        Optional. Attribute types: constant, ${expression}.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
+            <xs:complexContent>
+                <xs:extension base="attlist.operatorOptionalRvalue">
+                    <xs:sequence>
+                        <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
+                        <xs:element minOccurs="0" ref="else" />
+                    </xs:sequence>
+                    <xs:attribute type="xs:string" name="field" use="required">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The name of the field that will be compared. The l-value.
+                                
+                                Required. Attribute type: expression.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute type="xs:string" name="value" use="required">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The value that the field will be compared to. The r-value.
+                                
+                                Ignored when the operator attribute equals "is-null", "is-not-null", or "is-empty" - required otherwise. Attribute type: constant+expr.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="type" type="javaClassName">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The Java data type. Both values will be converted to this type before comparison.
+                                Invalid when the operator attribute value is "contains".
+                                
+                                Optional. Attribute type: constant. Attribute must contain a valid Java class name.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute type="xs:string" name="format">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Format used for type conversions. Valid only when the type attribute is not empty.
+                                
+                                Optional. Attribute types: constant, ${expression}.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
@@ -1906,40 +1912,43 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:sequence>
-                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
-                <xs:element minOccurs="0" ref="else" />
-            </xs:sequence>
-            <xs:attribute type="xs:string" name="field" use="required">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of the field that will be compared. The l-value.
-                        
-                        Required. Attribute type: expression.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attributeGroup ref="attlist.operatorRequired" />
-            <xs:attribute type="xs:string" name="to-field" use="required">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of the field that will be compared to the field specified in the field attribute.
-                        The r-value.
-                        
-                        Required. Attribute type: expression.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute ref="type" />
-            <xs:attribute type="xs:string" name="format">
-                <xs:annotation>
-                    <xs:documentation>
-                        Format used for type conversions. Valid only when the type attribute is not empty.
-                        
-                        Optional. Attribute types: constant, ${expression}.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
+            <xs:complexContent>
+                <xs:extension base="attlist.operatorRequired">
+                    <xs:sequence>
+                        <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
+                        <xs:element minOccurs="0" ref="else" />
+                    </xs:sequence>
+                    <xs:attribute type="xs:string" name="field" use="required">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The name of the field that will be compared. The l-value.
+                                
+                                Required. Attribute type: expression.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute type="xs:string" name="to-field" use="required">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The name of the field that will be compared to the field specified in the field attribute.
+                                The r-value.
+                                
+                                Required. Attribute type: expression.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="type" type="javaClassName"/>
+                    <xs:attribute type="xs:string" name="format">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Format used for type conversions. Valid only when the type attribute is not empty.
+                                
+                                Optional. Attribute types: constant, ${expression}.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
@@ -1976,11 +1985,14 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:sequence>
-                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
-                <xs:element minOccurs="0" ref="else" />
-            </xs:sequence>
-            <xs:attributeGroup ref="attlist.check-permission" />
+            <xs:complexContent>
+                <xs:extension base="attlist.check-permission">
+                    <xs:sequence>
+                        <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
+                        <xs:element minOccurs="0" ref="else" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
@@ -2309,7 +2321,7 @@ under the License.
     ===========================
 -->
 
-    <xs:attribute name="result-name" type="xs:string">
+    <xs:simpleType name="result-name">
         <xs:annotation>
             <xs:documentation>
                 The name of the called service's OUT attribute.
@@ -2317,9 +2329,10 @@ under the License.
                 Required. Attribute type: expression.
             </xs:documentation>
         </xs:annotation>
-    </xs:attribute>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
 
-    <xs:attributeGroup name="attlist.propertyInfoOptional">
+    <xs:complexType name="attlist.propertyInfoOptional">
             <xs:attribute name="resource" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
@@ -2338,7 +2351,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-    </xs:attributeGroup>
+    </xs:complexType>
 
     <xs:element name="call-bsh" substitutionGroup="CallOperations">
         <xs:annotation>
@@ -2464,7 +2477,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="error-list-name" />
+            <xs:attribute name="error-list-name" type="error-list-name"/>
         </xs:complexType>
     </xs:element>
 
@@ -2480,7 +2493,7 @@ under the License.
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
                 <xs:element ref="string" />
-                <xs:element ref="field" />
+                <xs:element ref="field"/>
             </xs:choice>
             <xs:attribute type="xs:string" name="obj-field" use="required">
                 <xs:annotation>
@@ -2529,7 +2542,10 @@ under the License.
                         </xs:documentation>
                     </xs:annotation>
                     <xs:complexType mixed="true">
-                        <xs:attributeGroup ref="attlist.propertyInfoOptional" />
+                        <xs:complexContent>
+                            <xs:extension base="attlist.propertyInfoOptional">
+                            </xs:extension>
+                        </xs:complexContent>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="error-suffix" minOccurs="0">
@@ -2540,7 +2556,10 @@ under the License.
                         </xs:documentation>
                     </xs:annotation>
                     <xs:complexType mixed="true">
-                        <xs:attributeGroup ref="attlist.propertyInfoOptional" />
+                        <xs:complexContent>
+                            <xs:extension base="attlist.propertyInfoOptional">
+                            </xs:extension>
+                        </xs:complexContent>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="success-prefix" minOccurs="0">
@@ -2551,7 +2570,10 @@ under the License.
                         </xs:documentation>
                     </xs:annotation>
                     <xs:complexType mixed="true">
-                        <xs:attributeGroup ref="attlist.propertyInfoOptional" />
+                        <xs:complexContent>
+                            <xs:extension base="attlist.propertyInfoOptional">
+                            </xs:extension>
+                        </xs:complexContent>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="success-suffix" minOccurs="0">
@@ -2562,7 +2584,10 @@ under the License.
                         </xs:documentation>
                     </xs:annotation>
                     <xs:complexType mixed="true">
-                        <xs:attributeGroup ref="attlist.propertyInfoOptional" />
+                        <xs:complexContent>
+                            <xs:extension base="attlist.propertyInfoOptional">
+                            </xs:extension>
+                        </xs:complexContent>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="message-prefix" minOccurs="0">
@@ -2573,7 +2598,10 @@ under the License.
                         </xs:documentation>
                     </xs:annotation>
                     <xs:complexType mixed="true">
-                        <xs:attributeGroup ref="attlist.propertyInfoOptional" />
+                        <xs:complexContent>
+                            <xs:extension base="attlist.propertyInfoOptional">
+                            </xs:extension>
+                        </xs:complexContent>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="message-suffix" minOccurs="0">
@@ -2584,7 +2612,10 @@ under the License.
                         </xs:documentation>
                     </xs:annotation>
                     <xs:complexType mixed="true">
-                        <xs:attributeGroup ref="attlist.propertyInfoOptional" />
+                        <xs:complexContent>
+                            <xs:extension base="attlist.propertyInfoOptional">
+                            </xs:extension>
+                        </xs:complexContent>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="default-message" minOccurs="0">
@@ -2595,7 +2626,10 @@ under the License.
                         </xs:documentation>
                     </xs:annotation>
                     <xs:complexType mixed="true">
-                        <xs:attributeGroup ref="attlist.propertyInfoOptional" />
+                        <xs:complexContent>
+                            <xs:extension base="attlist.propertyInfoOptional">
+                            </xs:extension>
+                        </xs:complexContent>
                     </xs:complexType>
                 </xs:element>
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -2814,7 +2848,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="result-name" use="required" />
+            <xs:attribute name="result-name" type="result-name" use="required" />
             <xs:attribute type="xs:string" name="field">
                 <xs:annotation>
                     <xs:documentation>
@@ -2835,7 +2869,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="result-name" use="required" />
+            <xs:attribute name="result-name" type="result-name" use="required" />
             <xs:attribute type="xs:string" name="request-name">
                 <xs:annotation>
                     <xs:documentation>
@@ -2856,7 +2890,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="result-name" use="required" />
+            <xs:attribute name="result-name" type="result-name" use="required" />
             <xs:attribute type="xs:string" name="session-name">
                 <xs:annotation>
                     <xs:documentation>
@@ -2883,7 +2917,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="result-name" use="required" />
+            <xs:attribute name="result-name" type="result-name" use="required" />
             <xs:attribute type="xs:string" name="service-result-name">
                 <xs:annotation>
                     <xs:documentation>
@@ -2935,7 +2969,7 @@ under the License.
     =============================
 -->
 
-    <xs:attribute type="xs:string" name="began-transaction-name">
+    <xs:simpleType name="began-transaction-name">
         <xs:annotation>
             <xs:documentation>
                 The name of the field that contains a Boolean value specifying whether or not a transaction was begun in the current transaction demarcation.
@@ -2944,9 +2978,10 @@ under the License.
                 Optional. Attribute type: expression.
             </xs:documentation>
         </xs:annotation>
-    </xs:attribute>
+        <xs:restriction base="xs:string"></xs:restriction>
+    </xs:simpleType>
 
-    <xs:attributeGroup name="attlist.entityFindOperations">
+    <xs:complexType name="attlist.entityFindOperations">
         <xs:attribute name="entity-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
@@ -2996,8 +3031,8 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute ref="delegator-name" />
-    </xs:attributeGroup>
+        <xs:attribute name="delegator-name" type="delegator-name"/>
+    </xs:complexType>
 
     <xs:element name="clear-cache-line" substitutionGroup="EntityValueOperations">
         <xs:annotation>
@@ -3028,7 +3063,7 @@ under the License.
                 </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="delegator-name" />
+            <xs:attribute name="delegator-name" type="delegator-name"/>
         </xs:complexType>
     </xs:element>
 
@@ -3040,7 +3075,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="delegator-name" />
+            <xs:attribute name="delegator-name" type="delegator-name"/>
         </xs:complexType>
     </xs:element>
 
@@ -3276,17 +3311,20 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="field-map" />
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by" />
-                <xs:choice minOccurs="0">
-                    <xs:element ref="limit-range" />
-                    <xs:element ref="limit-view" />
-                    <xs:element ref="use-iterator" />
-                </xs:choice>
-            </xs:sequence>
-            <xs:attributeGroup ref="attlist.entityFindOperations"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.entityFindOperations">
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" ref="field-map" />
+                        <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
+                        <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by" />
+                        <xs:choice minOccurs="0">
+                            <xs:element ref="limit-range" />
+                            <xs:element ref="limit-view" />
+                            <xs:element ref="use-iterator" />
+                        </xs:choice>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
@@ -3297,22 +3335,25 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:sequence>
-                <xs:choice minOccurs="0">
-                    <xs:element ref="condition-expr"/>
-                    <xs:element ref="condition-list"/>
-                    <xs:element ref="condition-object"/>
-                </xs:choice>
-                <xs:element minOccurs="0" ref="having-condition-list"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by"/>
-                <xs:choice minOccurs="0">
-                    <xs:element ref="limit-range"/>
-                    <xs:element ref="limit-view"/>
-                    <xs:element ref="use-iterator"/>
-                </xs:choice>
-            </xs:sequence>
-            <xs:attributeGroup ref="attlist.entityFindOperations"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.entityFindOperations">
+                    <xs:sequence>
+                        <xs:choice minOccurs="0">
+                            <xs:element ref="condition-expr"/>
+                            <xs:element ref="condition-list"/>
+                            <xs:element ref="condition-object"/>
+                        </xs:choice>
+                        <xs:element minOccurs="0" ref="having-condition-list"/>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
+                        <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by"/>
+                        <xs:choice minOccurs="0">
+                            <xs:element ref="limit-range"/>
+                            <xs:element ref="limit-view"/>
+                            <xs:element ref="use-iterator"/>
+                        </xs:choice>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
@@ -3349,7 +3390,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="delegator-name" />
+            <xs:attribute name="delegator-name" type="delegator-name" />
         </xs:complexType>
     </xs:element>
 
@@ -3397,8 +3438,8 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="error-list-name" />
-            <xs:attribute ref="delegator-name" />
+            <xs:attribute name="error-list-name" type="error-list-name"/>
+            <xs:attribute name="delegator-name" type="delegator-name" />
         </xs:complexType>
     </xs:element>
 
@@ -3453,7 +3494,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="delegator-name" />
+            <xs:attribute name="delegator-name" type="delegator-name" />
         </xs:complexType>
     </xs:element>
 
@@ -3677,7 +3718,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="delegator-name" />
+            <xs:attribute name="delegator-name" type="delegator-name" />
         </xs:complexType>
     </xs:element>
 
@@ -3736,7 +3777,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="delegator-name" />
+            <xs:attribute name="delegator-name" type="delegator-name" />
         </xs:complexType>
     </xs:element>
 
@@ -4031,7 +4072,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="delegator-name" />
+            <xs:attribute name="delegator-name" type="delegator-name" />
         </xs:complexType>
     </xs:element>
 
@@ -4142,7 +4183,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="delegator-name" />
+            <xs:attribute name="delegator-name" type="delegator-name" />
         </xs:complexType>
     </xs:element>
 
@@ -4173,7 +4214,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="delegator-name" />
+            <xs:attribute name="delegator-name" type="delegator-name" />
         </xs:complexType>
     </xs:element>
 
@@ -4280,7 +4321,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="field" type="fieldType" use="required" />
             <xs:attribute type="xs:string" name="stagger-max">
                 <xs:annotation>
                     <xs:documentation>
@@ -4302,7 +4343,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="delegator-name" />
+            <xs:attribute name="delegator-name" type="delegator-name" />
         </xs:complexType>
     </xs:element>
 
@@ -4410,7 +4451,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute ref="delegator-name" />
+            <xs:attribute name="delegator-name" type="delegator-name" />
         </xs:complexType>
     </xs:element>
 
@@ -4453,7 +4494,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="began-transaction-name" />
+            <xs:attribute name="began-transaction-name" type="began-transaction-name" />
         </xs:complexType>
     </xs:element>
 
@@ -4465,7 +4506,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="began-transaction-name" />
+            <xs:attribute name="began-transaction-name" type="began-transaction-name" />
         </xs:complexType>
     </xs:element>
 
@@ -4479,7 +4520,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="began-transaction-name" />
+            <xs:attribute name="began-transaction-name" type="began-transaction-name" />
         </xs:complexType>
     </xs:element>
 
@@ -4500,7 +4541,9 @@ under the License.
     ==============================
 -->
 
-    <xs:attribute name="level">
+
+        
+    <xs:simpleType name="levelType">
         <xs:annotation>
             <xs:documentation>
                 The logging level to use.
@@ -4508,21 +4551,20 @@ under the License.
                 Defaults to "info".
                 
                 Required. Attribute type: constant.
-                </xs:documentation>
+            </xs:documentation>
         </xs:annotation>
-        <xs:simpleType>
-            <xs:restriction base="xs:token">
-                <xs:enumeration value="info" />
-                <xs:enumeration value="verbose" />
-                <xs:enumeration value="timing" />
-                <xs:enumeration value="important" />
-                <xs:enumeration value="warning" />
-                <xs:enumeration value="error" />
-                <xs:enumeration value="fatal" />
-                <xs:enumeration value="always" />
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:attribute>
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="info" />
+            <xs:enumeration value="verbose" />
+            <xs:enumeration value="timing" />
+            <xs:enumeration value="important" />
+            <xs:enumeration value="warning" />
+            <xs:enumeration value="error" />
+            <xs:enumeration value="fatal" />
+            <xs:enumeration value="always" />
+        </xs:restriction>
+    </xs:simpleType>
+    
 
     <xs:element name="log" substitutionGroup="OtherOperations">
         <xs:annotation>
@@ -4531,7 +4573,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute ref="level" use="required"/>
+            <xs:attribute name="level" type="levelType" use="required"/>
             <xs:attribute name="message" type="xs:string" use="required">
                 <xs:annotation>
                     <xs:documentation>
@@ -4552,7 +4594,7 @@ under the License.
         </xs:annotation>
         <xs:complexType>
             <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
-            <xs:attribute ref="level" use="required"/>
+            <xs:attribute name="level" type="levelType" use="required"/>
         </xs:complexType>
     </xs:element>
 
@@ -4574,7 +4616,7 @@ under the License.
                 <xs:element ref="calcop" />
                 <xs:element ref="number" />
             </xs:choice>
-            <xs:attribute ref="field" />
+            <xs:attribute name="field" type="fieldType" />
             <xs:attribute name="rounding-mode">
                 <xs:annotation>
                     <xs:documentation>
@@ -4811,16 +4853,19 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="make-in-string"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="process"/>
-            </xs:sequence>
-            <xs:attributeGroup ref="attlist.simple-map-processor"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.simple-map-processor">
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" ref="make-in-string"/>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" ref="process"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.simple-map-processor">
+    <xs:complexType name="attlist.simple-map-processor">
         <xs:attribute type="xs:string" name="name" use="required"/>
-    </xs:attributeGroup>
+    </xs:complexType>
     <!-- Make In String & Operations -->
     <xs:element name="make-in-string">
         <xs:annotation>
@@ -4832,17 +4877,20 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="in-field"/>
-                <xs:element ref="property"/>
-                <xs:element ref="constant"/>
-            </xs:choice>
-            <xs:attributeGroup ref="attlist.make-in-string"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.make-in-string">
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element ref="in-field"/>
+                        <xs:element ref="property"/>
+                        <xs:element ref="constant"/>
+                    </xs:choice>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.make-in-string">
+    <xs:complexType name="attlist.make-in-string">
         <xs:attribute type="xs:string" name="field" use="required"/>
-    </xs:attributeGroup>
+    </xs:complexType>
     <xs:element name="in-field">
         <xs:annotation>
             <xs:documentation>
@@ -4850,12 +4898,15 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.in-field"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.in-field">
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.in-field">
+    <xs:complexType name="attlist.in-field">
         <xs:attribute type="xs:string" name="field" use="required"/>
-    </xs:attributeGroup>
+    </xs:complexType>
     <xs:element name="property">
         <xs:annotation>
             <xs:documentation>
@@ -4864,10 +4915,13 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.property"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.property">
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.property">
+    <xs:complexType name="attlist.property">
         <xs:attribute type="xs:string" name="resource" use="required">
             <xs:annotation>
                 <xs:documentation>
@@ -4882,7 +4936,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-    </xs:attributeGroup>
+    </xs:complexType>
     <xs:element name="constant" type="xs:string">
         <xs:annotation>
             <xs:documentation>
@@ -4912,21 +4966,24 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="validate-method"/>
-                <xs:element ref="compare"/>
-                <xs:element ref="compare-field"/>
-                <xs:element ref="regexp"/>
-                <xs:element ref="not-empty"/>
-                <xs:element ref="copy"/>
-                <xs:element ref="convert"/>
-            </xs:choice>
-            <xs:attributeGroup ref="attlist.process"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.process">
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element ref="validate-method"/>
+                        <xs:element ref="compare"/>
+                        <xs:element ref="compare-field"/>
+                        <xs:element ref="regexp"/>
+                        <xs:element ref="not-empty"/>
+                        <xs:element ref="copy"/>
+                        <xs:element ref="convert"/>
+                    </xs:choice>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.process">
+    <xs:complexType name="attlist.process">
         <xs:attribute type="xs:string" name="field" use="required"/>
-    </xs:attributeGroup>
+    </xs:complexType>
     <xs:element name="validate-method">
         <xs:annotation>
             <xs:documentation>
@@ -4937,17 +4994,20 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:choice>
-                <xs:element ref="fail-message"/>
-                <xs:element ref="fail-property"/>
-            </xs:choice>
-            <xs:attributeGroup ref="attlist.validate-method"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.validate-method">
+                <xs:choice>
+                    <xs:element ref="fail-message"/>
+                    <xs:element ref="fail-property"/>
+                </xs:choice>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.validate-method">
+    <xs:complexType name="attlist.validate-method">
         <xs:attribute type="xs:string" name="method" use="required"/>
         <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate"/>
-    </xs:attributeGroup>
+    </xs:complexType>
     <xs:element name="compare">
         <xs:annotation>
             <xs:documentation>
@@ -4957,31 +5017,31 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:choice>
-                <xs:element ref="fail-message"/>
-                <xs:element ref="fail-property"/>
-            </xs:choice>
-            <xs:attributeGroup ref="attlist.compare"/>
-            <xs:attributeGroup ref="attlist.operatorRequired"/>
-            <xs:attributeGroup ref="attlist.typeDefaultString"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.operatorRequired">
+                    <xs:choice>
+                        <xs:element ref="fail-message"/>
+                        <xs:element ref="fail-property"/>
+                    </xs:choice>
+                    <xs:attribute type="xs:string" name="value" use="required">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Literal or flexible string using ${} syntax.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute type="xs:string" name="format">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Format based on the type of the object (date,number, etc.).
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attributeGroup ref="attlist.typeDefaultString"/>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.compare">
-        <xs:attribute type="xs:string" name="value" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Literal or flexible string using ${} syntax.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="format">
-            <xs:annotation>
-                <xs:documentation>
-                    Format based on the type of the object (date,number, etc.).
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="compare-field">
         <xs:annotation>
             <xs:documentation>
@@ -4989,25 +5049,25 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:choice>
-                <xs:element ref="fail-message"/>
-                <xs:element ref="fail-property"/>
-            </xs:choice>
-            <xs:attributeGroup ref="attlist.compare-field"/>
-            <xs:attributeGroup ref="attlist.operatorRequired"/>
-            <xs:attributeGroup ref="attlist.typeDefaultString"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.operatorRequired">
+                    <xs:choice>
+                        <xs:element ref="fail-message"/>
+                        <xs:element ref="fail-property"/>
+                    </xs:choice>
+                    <xs:attribute type="xs:string" name="field" use="required"/>
+                    <xs:attribute type="xs:string" name="format">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Format based on the type of the object (date,number, etc.).
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attributeGroup ref="attlist.typeDefaultString"/>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.compare-field">
-        <xs:attribute type="xs:string" name="field" use="required"/>
-        <xs:attribute type="xs:string" name="format">
-            <xs:annotation>
-                <xs:documentation>
-                    Format based on the type of the object (date,number, etc.).
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="regexp">
         <xs:annotation>
             <xs:documentation>
@@ -5016,16 +5076,19 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:choice>
-                <xs:element ref="fail-message"/>
-                <xs:element ref="fail-property"/>
-            </xs:choice>
-            <xs:attributeGroup ref="attlist.regexp"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.regexp">
+                <xs:choice>
+                    <xs:element ref="fail-message"/>
+                    <xs:element ref="fail-property"/>
+                </xs:choice>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.regexp">
+    <xs:complexType name="attlist.regexp">
         <xs:attribute type="xs:string" name="expr" use="required"/>
-    </xs:attributeGroup>
+    </xs:complexType>
     <xs:element name="not-empty">
         <xs:annotation>
             <xs:documentation>
@@ -5049,10 +5112,13 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.copy"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.copy">
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.copy">
+    <xs:complexType name="attlist.copy">
         <xs:attribute type="xs:string" name="to-field">
             <xs:annotation>
                 <xs:documentation>
@@ -5089,7 +5155,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-    </xs:attributeGroup>
+    </xs:complexType>
     <xs:element name="convert">
         <xs:annotation>
             <xs:documentation>
@@ -5099,14 +5165,17 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:choice>
-                <xs:element ref="fail-message"/>
-                <xs:element ref="fail-property"/>
-            </xs:choice>
-            <xs:attributeGroup ref="attlist.convert"/>
+            <xs:complexContent>
+                <xs:extension base="attlist.convert">
+                    <xs:choice>
+                        <xs:element ref="fail-message"/>
+                        <xs:element ref="fail-property"/>
+                    </xs:choice>
+                </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.convert">
+    <xs:complexType name="attlist.convert">
         <xs:attribute type="xs:string" name="to-field">
             <xs:annotation>
                 <xs:documentation>
@@ -5167,5 +5236,5 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-    </xs:attributeGroup>
+    </xs:complexType>
 </xs:schema>

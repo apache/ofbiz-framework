@@ -19,7 +19,7 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="acceptAssignment" short-description="Create Work Effort">
         <call-map-processor xml-resource="component://workeffort/minilang/workeffort/WorkflowMapProcessors.xml"
                 processor-name="assignmentMap" in-map-name="parameters" out-map-name="context"/>
