@@ -963,6 +963,7 @@ under the License.
             <link target="updateScrumProject" request-confirmation="true" confirmation-message="Are you sure you want to close this project?" style="buttontext delete">
                 <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
                 <parameter param-name="projectId" from-field="parameters.projectId"/>
+                <parameter param-name="productId" from-field="project.productId"/>
                 <parameter param-name="currentStatusId" value="SPJ_CLOSED"/>
                 <parameter param-name="isCloseBtn" value="Y"/>
             </link>
@@ -980,6 +981,7 @@ under the License.
             <link target="updateScrumProject" request-confirmation="true" confirmation-message="Are you sure you want to Re-Open this project?">
                 <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
                 <parameter param-name="projectId" from-field="parameters.projectId"/>
+                <parameter param-name="productId" from-field="project.productId"/>
                 <parameter param-name="currentStatusId" value="SPJ_ACTIVE"/>
             </link>
         </menu-item>
