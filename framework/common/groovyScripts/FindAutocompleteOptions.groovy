@@ -18,6 +18,7 @@
  */
 
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -46,6 +47,23 @@ if (searchValueFieldName) {
 
 def searchType = context.searchType;
 def displayFieldsSet = null;
+
+def conditionDates = context.conditionDates;
+def fromDateName = null;
+def thruDateName = null;
+def filterByDateValue = null;
+
+//If conditionDates is present on context, resolve values use add condition date to the condition search
+if (conditionDates) {
+    filterByDateValue = conditionDates.filterByDateValue ?: UtilDateTime.nowTimestamp();
+    fromDateName = conditionDates.fromDateName ?: null;
+    thruDateName = conditionDates.thruDateName ?: null;
+    //if the field filterByDate is present, init default value for fromDate and thruDate
+    if (!fromDateName && !thruDateName) {
+        fromDateName = "fromDate";
+        thruDateName = "thruDate";
+    }
+}
 
 if (searchFields && fieldValue) {
     def searchFieldsList = StringUtil.toList(searchFields);
@@ -101,6 +119,24 @@ if (orExprs && entityName && displayFieldsSet) {
     //if there is an extra condition, add it to main condition list
     if (context.andCondition && context.andCondition instanceof EntityCondition) {
         mainAndConds.add(context.andCondition);
+    }
+    if (conditionDates) {
+        def condsDateList = [];
+        if (thruDateName) {
+            def condsByThruDate = [];
+            condsByThruDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(thruDateName), EntityOperator.GREATER_THAN, filterByDateValue));
+            condsByThruDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(thruDateName), EntityOperator.EQUALS, null));
+            condsDateList.add(EntityCondition.makeCondition(condsByThruDate, EntityOperator.OR));
+        }
+
+        if (fromDateName) {
+            def condsByFromDate = [];
+            condsByFromDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fromDateName), EntityOperator.LESS_THAN_EQUAL_TO, filterByDateValue));
+            condsByFromDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fromDateName), EntityOperator.EQUALS, null));
+            condsDateList.add(EntityCondition.makeCondition(condsByFromDate, EntityOperator.OR));
+        }
+
+        mainAndConds.add(EntityCondition.makeCondition(condsDateList, EntityOperator.AND));
     }
 
     def entityConditionList = EntityCondition.makeCondition(mainAndConds, EntityOperator.AND);
