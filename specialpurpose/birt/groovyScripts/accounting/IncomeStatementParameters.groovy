@@ -17,6 +17,9 @@
  * under the License.
  */
 
+import java.sql.Timestamp;
+import org.ofbiz.base.util.Debug;
+
 def module = "IncomeStatementParameters.groovy";
 
 try {

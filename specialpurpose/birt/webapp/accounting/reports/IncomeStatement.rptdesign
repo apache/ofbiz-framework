@@ -23,6 +23,7 @@ under the License.
     <method name="initialize"><![CDATA[
 importPackage(Packages.org.ofbiz.base.util)
 importPackage(Packages.org.ofbiz.entity.util)
+importPackage(Packages.java.util)
 
 module = "IncomeStatement.rptdesign";
 dateFormatter = new java.text.SimpleDateFormat("dd MMMMM yyyy");
@@ -54,13 +55,13 @@ if (params["fromDate"].value) {
     fromDate = params["fromDate"].value;
 }
 
-if (!params["thruDate"].value) {
+if (params["thruDate"].value) {
     thruDate = params["thruDate"].value;
 } else {
     thruDate = UtilDateTime.nowTimestamp();
 }
 
-if (!params["glFiscalTypeId"].value) {
+if (params["glFiscalTypeId"].value) {
     glFiscalTypeId = params["glFiscalTypeId"].value;
 } else {
     glFiscalTypeId = "ACTUAL";
@@ -68,6 +69,7 @@ if (!params["glFiscalTypeId"].value) {
 
 // call IncomeStatement.groovy script
 context = new HashMap();
+context.put("parameters", new HashMap());
 context.put("organizationPartyId", organizationPartyId);
 context.put("fromDate", fromDate);
 context.put("thruDate", thruDate);
@@ -75,7 +77,7 @@ context.put("glFiscalTypeId", glFiscalTypeId);
 context.put("delegator", delegator);
 context.put("dispatcher", dispatcher);
 context.put("userLogin", userLogin);
-GroovyUtil.runScriptAtLocation("component://accounting/groovyScripts/reports/IncomeStatement.groovy", context);
+GroovyUtil.runScriptAtLocation("component://accounting/groovyScripts/reports/IncomeStatement.groovy", null, context);
 
 // prepare data source lists
 revenueAccountBalanceList = context.get("revenueAccountBalanceList");
