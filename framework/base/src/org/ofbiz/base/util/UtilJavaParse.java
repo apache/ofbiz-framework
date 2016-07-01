@@ -32,9 +32,65 @@ import org.ofbiz.base.component.ComponentConfig;
  * NOTE: the approach here is not the best and it may be better to use a parser, line one based on antlr, or using a Java Bytecode parser to look at .class files.
  *
  */
-public class UtilJavaParse {
+public final class UtilJavaParse {
 
     public static final String module = UtilJavaParse.class.getName();
+
+    // FIXME: Not thread safe
+    private static Set<String> serviceMethodNames = new HashSet<String>();
+    private static Set<String> entityMethodNames = new HashSet<String>();
+    static {
+        serviceMethodNames.add("runSync");
+        serviceMethodNames.add("runSyncIgnore");
+        serviceMethodNames.add("runAsync");
+        serviceMethodNames.add("runAsyncWait");
+        serviceMethodNames.add("registerCallback");
+        serviceMethodNames.add("schedule"); // NOTE: the service name may be the 1st, 2nd or 3rd param for variations on this
+        serviceMethodNames.add("addRollbackService");
+        serviceMethodNames.add("addCommitService");
+        
+        entityMethodNames.add("getModelEntity");
+        entityMethodNames.add("getEntityGroupName");
+        entityMethodNames.add("getModelEntityMapByGroup");
+        entityMethodNames.add("getGroupHelperName");
+        entityMethodNames.add("getEntityHelperName");
+        entityMethodNames.add("getEntityHelper");
+
+        entityMethodNames.add("makeValue");
+        entityMethodNames.add("makeValueSingle");
+        entityMethodNames.add("makeValidValue");
+        entityMethodNames.add("makePK");
+        entityMethodNames.add("makePKSingle");
+
+        entityMethodNames.add("create");
+        entityMethodNames.add("createSingle");
+        entityMethodNames.add("removeByAnd");
+        entityMethodNames.add("removeByCondition");
+
+        entityMethodNames.add("create");
+        entityMethodNames.add("createSingle");
+        entityMethodNames.add("removeByAnd");
+        entityMethodNames.add("removeByCondition");
+        entityMethodNames.add("storeByCondition");
+        entityMethodNames.add("removeAll");
+        entityMethodNames.add("findOne");
+        entityMethodNames.add("findByPrimaryKey");
+        entityMethodNames.add("findByPrimaryKeyCache");
+        entityMethodNames.add("findAllCache");
+        entityMethodNames.add("findByAnd");
+        entityMethodNames.add("findByOr");
+        entityMethodNames.add("findByAndCache");
+        entityMethodNames.add("findByLike");
+        entityMethodNames.add("findByCondition");
+        entityMethodNames.add("findByConditionCache");
+        entityMethodNames.add("findListIteratorByCondition");
+        entityMethodNames.add("find");
+        entityMethodNames.add("findList");
+        entityMethodNames.add("findCountByAnd");
+        entityMethodNames.add("findCountByCondition");
+    }
+
+    private UtilJavaParse () {}
 
     public static String findRealPathAndFileForClass(String fullyQualifiedClassName) {
         // search through the component directories, in the src directory for each, using the class path as the path within it
@@ -116,18 +172,6 @@ public class UtilJavaParse {
         return nextClose;
     }
 
-    // FIXME: Not thread safe
-    public static Set<String> serviceMethodNames = new HashSet<String>();
-    static {
-        serviceMethodNames.add("runSync");
-        serviceMethodNames.add("runSyncIgnore");
-        serviceMethodNames.add("runAsync");
-        serviceMethodNames.add("runAsyncWait");
-        serviceMethodNames.add("registerCallback");
-        serviceMethodNames.add("schedule"); // NOTE: the service name may be the 1st, 2nd or 3rd param for variations on this
-        serviceMethodNames.add("addRollbackService");
-        serviceMethodNames.add("addCommitService");
-    }
     public static Set<String> findServiceCallsInBlock(int blockStart, int blockEnd, String javaFile) {
         Set<String> serviceNameSet = new HashSet<String>();
 
@@ -154,49 +198,6 @@ public class UtilJavaParse {
         return serviceNameSet;
     }
 
-    // FIXME: Not thread safe
-    public static Set<String> entityMethodNames = new HashSet<String>();
-    static {
-        entityMethodNames.add("getModelEntity");
-        entityMethodNames.add("getEntityGroupName");
-        entityMethodNames.add("getModelEntityMapByGroup");
-        entityMethodNames.add("getGroupHelperName");
-        entityMethodNames.add("getEntityHelperName");
-        entityMethodNames.add("getEntityHelper");
-
-        entityMethodNames.add("makeValue");
-        entityMethodNames.add("makeValueSingle");
-        entityMethodNames.add("makeValidValue");
-        entityMethodNames.add("makePK");
-        entityMethodNames.add("makePKSingle");
-
-        entityMethodNames.add("create");
-        entityMethodNames.add("createSingle");
-        entityMethodNames.add("removeByAnd");
-        entityMethodNames.add("removeByCondition");
-
-        entityMethodNames.add("create");
-        entityMethodNames.add("createSingle");
-        entityMethodNames.add("removeByAnd");
-        entityMethodNames.add("removeByCondition");
-        entityMethodNames.add("storeByCondition");
-        entityMethodNames.add("removeAll");
-        entityMethodNames.add("findOne");
-        entityMethodNames.add("findByPrimaryKey");
-        entityMethodNames.add("findByPrimaryKeyCache");
-        entityMethodNames.add("findAllCache");
-        entityMethodNames.add("findByAnd");
-        entityMethodNames.add("findByOr");
-        entityMethodNames.add("findByAndCache");
-        entityMethodNames.add("findByLike");
-        entityMethodNames.add("findByCondition");
-        entityMethodNames.add("findByConditionCache");
-        entityMethodNames.add("findListIteratorByCondition");
-        entityMethodNames.add("find");
-        entityMethodNames.add("findList");
-        entityMethodNames.add("findCountByAnd");
-        entityMethodNames.add("findCountByCondition");
-    }
     public static Set<String> findEntityUseInBlock(int blockStart, int blockEnd, String javaFile) {
         Set<String> entityNameSet = new HashSet<String>();
 
