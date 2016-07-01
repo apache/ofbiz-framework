@@ -260,7 +260,7 @@ if (starschemas)
 {
     totalRows = starschemas.size();
 }]]></method>
-            <method name="fetch"><![CDATA[if (currentRow >= totalRows - 1) return false;
+            <method name="fetch"><![CDATA[if (currentRow >= totalRows) return false;
 {
     starschema = starschemas.get(currentRow);
     orderDateDateValue = starschema.getString("orderDateDateValue");
