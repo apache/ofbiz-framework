@@ -29,9 +29,21 @@ import java.util.TimeZone;
 /**
  * General output formatting functions - mainly for helping in JSPs
  */
-public class UtilFormatOut {
+public final class UtilFormatOut {
 
     public static final String module = UtilFormatOut.class.getName();
+    
+    // ------------------- price format handlers -------------------
+    // FIXME: This is not thread-safe! DecimalFormat is not synchronized.
+    private static final DecimalFormat priceDecimalFormat = new DecimalFormat(UtilProperties.getPropertyValue("general", "currency.decimal.format", "#,##0.00"));
+
+    // ------------------- quantity format handlers -------------------
+    private static final DecimalFormat quantityDecimalFormat = new DecimalFormat("#,##0.###");
+
+    // ------------------- percentage format handlers -------------------
+    private static final DecimalFormat percentageDecimalFormat = new DecimalFormat("##0.##%");
+
+    private UtilFormatOut() {}
 
     public static String safeToString(Object obj) {
         if (obj != null) {
@@ -40,10 +52,6 @@ public class UtilFormatOut {
             return "";
         }
     }
-
-    // ------------------- price format handlers -------------------
-    // FIXME: This is not thread-safe! DecimalFormat is not synchronized.
-    static DecimalFormat priceDecimalFormat = new DecimalFormat(UtilProperties.getPropertyValue("general", "currency.decimal.format", "#,##0.00"));
 
     /** Formats a Double representing a price into a string
      * @param price The price Double to be formatted
@@ -169,9 +177,6 @@ public class UtilFormatOut {
         return nf.format(amount);
     }
 
-    // ------------------- percentage format handlers -------------------
-    static DecimalFormat percentageDecimalFormat = new DecimalFormat("##0.##%");
-
     /** Formats a Double representing a percentage into a string
      * @param percentage The percentage Double to be formatted
      * @return A String with the formatted percentage
@@ -197,9 +202,6 @@ public class UtilFormatOut {
     public static String formatPercentage(double percentage) {
         return percentageDecimalFormat.format(percentage);
     }
-
-    // ------------------- quantity format handlers -------------------
-    static DecimalFormat quantityDecimalFormat = new DecimalFormat("#,##0.###");
 
     /** Formats an Long representing a quantity into a string
      * @param quantity The quantity Long to be formatted
