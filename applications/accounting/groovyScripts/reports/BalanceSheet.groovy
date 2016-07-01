@@ -37,10 +37,16 @@ if (!thruDate) {
 if (!glFiscalTypeId) {
     return;
 }
-
+organizationPartyId =null
+if(context.organizationPartyId) {
+    organizationPartyId = context.organizationPartyId;
+} else {
+    organizationPartyId = parameters.get('ApplicationDecorator|organizationPartyId')
+}
 // Setup the divisions for which the report is executed
-List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP');
-partyIds.add(parameters.get('ApplicationDecorator|organizationPartyId'));
+List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP');
+partyIds.add(organizationPartyId);
+
 
 // Get the group of account classes that will be used to position accounts in the proper section of the financial statement
 GenericValue assetGlAccountClass = from("GlAccountClass").where("glAccountClassId", "ASSET").cache(true).queryOne();
@@ -63,7 +69,7 @@ GenericValue accumAmortizationGlAccountClass = from("GlAccountClass").where("glA
 List accumAmortizationAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(accumAmortizationGlAccountClass);
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
-Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId": parameters.get('ApplicationDecorator|organizationPartyId'), "findDate": thruDate,"userLogin": userLogin]);
+Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId": organizationPartyId, "findDate": thruDate,"userLogin": userLogin]);
 Timestamp fromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate;
 if (!fromDate) {
     return;
@@ -407,9 +413,9 @@ transactionTotals.each { transactionTotal ->
     transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
 }
 // Add the "retained earnings" account
-Map netIncomeResult = runService('prepareIncomeStatement', ["organizationPartyId": parameters.get('ApplicationDecorator|organizationPartyId'), "glFiscalTypeId": glFiscalTypeId, "fromDate": fromDate, "thruDate": thruDate, "userLogin": userLogin]);
+Map netIncomeResult = runService('prepareIncomeStatement', ["organizationPartyId": organizationPartyId, "glFiscalTypeId": glFiscalTypeId, "fromDate": fromDate, "thruDate": thruDate, "userLogin": userLogin]);
 BigDecimal netIncome = (BigDecimal)netIncomeResult.totalNetIncome;
-GenericValue retainedEarningsAccount = from("GlAccountTypeDefault").where("glAccountTypeId", "RETAINED_EARNINGS", "organizationPartyId", parameters.get('ApplicationDecorator|organizationPartyId')).cache(true).queryOne();
+GenericValue retainedEarningsAccount = from("GlAccountTypeDefault").where("glAccountTypeId", "RETAINED_EARNINGS", "organizationPartyId", organizationPartyId).cache(true).queryOne();
 if (retainedEarningsAccount) {
     GenericValue retainedEarningsGlAccount = retainedEarningsAccount.getRelatedOne("GlAccount", false);
     transactionTotalsMap.put(retainedEarningsGlAccount.glAccountId, UtilMisc.toMap("glAccountId", retainedEarningsGlAccount.glAccountId,"accountName", retainedEarningsGlAccount.accountName, "accountCode", retainedEarningsGlAccount.accountCode, "balance", netIncome));
