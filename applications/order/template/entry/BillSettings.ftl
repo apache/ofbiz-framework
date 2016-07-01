@@ -49,7 +49,8 @@ function makeExpDate() {
               <tr><td colspan="3"><hr /></td></tr>
               <#if billingAccountList?has_content>
                 <tr>
-                  <td width="1%">
+                  <td>
+                    <span>${uiLabelMap.FormFieldTitle_billingAccountId}</span>
                     <select name="billingAccountId">
                       <option value=""></option>
                         <#list billingAccountList as billingAccount>
@@ -63,36 +64,27 @@ function makeExpDate() {
                         </#list>
                     </select>
                   </td>
-                  <td width="50%">
-                    <span>${uiLabelMap.FormFieldTitle_billingAccountId}</span>
-                  </td>
                   <td>&nbsp;</td>
                 </tr>
                 <tr>
-                  <td width="1%" align="right">
-                    <input type="text" size="5" name="billingAccountAmount" value=""/>
-                  </td>
-                  <td width="50%">
+                  <td>
                     ${uiLabelMap.OrderBillUpTo}
+                    <input type="text" size="5" name="billingAccountAmount" value=""/>
                   </td>
                   <td>&nbsp;</td>
                 </tr>
                 <tr><td colspan="3"><hr /></td></tr>
               </#if>
               <tr>
-                <td width="1%">
+                <td>
                   <input type="radio" id="checkOutPaymentId_EXT_OFFLINE" name="checkOutPaymentId" value="EXT_OFFLINE" <#if checkOutPaymentId?? && checkOutPaymentId == "EXT_OFFLINE">checked="checked"</#if>/>
-                </td>
-                <td colspan="2" width="50%">
                   <label for="checkOutPaymentId_EXT_OFFLINE">${uiLabelMap.OrderPaymentOfflineCheckMoney}</label>
                 </td>
               </tr>
              <tr><td colspan="3"><hr /></td></tr>
               <tr>
-                <td width="1%">
+                <td>
                   <input type="radio" id="checkOutPaymentId_EXT_COD" name="checkOutPaymentId" value="EXT_COD" <#if checkOutPaymentId?? && checkOutPaymentId == "EXT_COD">checked="checked"</#if>/>
-                </td>
-                <td colspan="2" width="50%">
                   <label for="checkOutPaymentId_EXT_COD">${uiLabelMap.OrderCOD}</label>
                 </td>
               </tr>
@@ -102,10 +94,8 @@ function makeExpDate() {
                   <#if paymentMethod.paymentMethodTypeId == "CREDIT_CARD">
                     <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)>
                     <tr>
-                      <td width="1%">
+                      <td>
                         <input type="radio" id="checkOutPaymentId_CREDIT_CARD_${paymentMethod.paymentMethodId}" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if checkOutPaymentId?? && paymentMethod.paymentMethodId == checkOutPaymentId>checked="checked"</#if>/>
-                      </td>
-                      <td width="50%">
                         <label for="checkOutPaymentId_CREDIT_CARD_${paymentMethod.paymentMethodId}">
                           CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                           <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
@@ -119,10 +109,8 @@ function makeExpDate() {
                   <#elseif paymentMethod.paymentMethodTypeId == "EFT_ACCOUNT">
                     <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false)>
                     <tr>
-                      <td width="1%">
+                      <td>
                         <input type="radio" id="checkOutPaymentId_EFT_ACCOUNT_${paymentMethod.paymentMethodId}" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if checkOutPaymentId?? && paymentMethod.paymentMethodId == checkOutPaymentId>checked="checked"</#if>/>
-                      </td>
-                      <td width="50%">
                         <label for="checkOutPaymentId_EFT_ACCOUNT_${paymentMethod.paymentMethodId}">
                           EFT:&nbsp;${eftAccount.bankName!}: ${eftAccount.accountNumber!}
                           <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
