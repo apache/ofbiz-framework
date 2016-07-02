@@ -25,9 +25,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-public class UtilGenerics {
+public final class UtilGenerics {
 
     public static final String module = UtilMisc.class.getName();
+
+    private UtilGenerics() {}
 
     @SuppressWarnings("unchecked")
     public static <V> V cast(Object object) {
