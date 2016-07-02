@@ -163,7 +163,7 @@ public class ProductServices {
         Set<String> featureSet = new LinkedHashSet<String>();
 
         try {
-            List<GenericValue> features = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureApplTypeId", productFeatureApplTypeId).orderBy("sequenceNum", "productFeatureTypeId").cache(true).queryList();
+            List<GenericValue> features = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureApplTypeId", productFeatureApplTypeId).orderBy("sequenceNum", "productFeatureTypeId").cache(true).filterByDate().queryList();
             for (GenericValue v: features) {
                 featureSet.add(v.getString("productFeatureTypeId"));
             }
