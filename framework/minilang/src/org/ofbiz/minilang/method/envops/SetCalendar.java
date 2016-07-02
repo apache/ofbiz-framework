@@ -197,7 +197,7 @@ public final class SetCalendar extends MethodOperation {
             if (timeZone == null) {
                 timeZone = TimeZone.getDefault();
             }
-            fromStamp = (Timestamp) MiniLangUtil.convertType(newValue, java.sql.Timestamp.class, locale, timeZone, UtilDateTime.DATE_TIME_FORMAT);
+            fromStamp = (Timestamp) MiniLangUtil.convertType(newValue, java.sql.Timestamp.class, locale, timeZone, UtilDateTime.getDateTimeFormat());
             if (!this.yearsFse.isEmpty()) {
                 years= parseInt(this.yearsFse.expandString(methodContext.getEnvMap()));
             }

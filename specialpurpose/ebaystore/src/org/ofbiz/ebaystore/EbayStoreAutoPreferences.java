@@ -310,7 +310,7 @@ public class EbayStoreAutoPreferences {
         String isAutoFeedbackReminder = "N";
         int afterDays = 0;
         GenericValue ebayProductStorePref = null;
-        String dateTimeFormat = UtilDateTime.DATE_TIME_FORMAT;
+        String dateTimeFormat = UtilDateTime.getDateTimeFormat();
         SimpleDateFormat formatter = new SimpleDateFormat(dateTimeFormat);
 
         try {
