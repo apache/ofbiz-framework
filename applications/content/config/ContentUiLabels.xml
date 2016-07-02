@@ -7283,7 +7283,7 @@
         <value xml:lang="ar">أهداف من أجل مجموعة المنتدى:</value>
         <value xml:lang="da">Formål for forumgruppe</value>
         <value xml:lang="de">Zwecke für Forumgruppe:</value>
-        <value xml:lang="en">Purposes for forumgroup:</value>
+        <value xml:lang="en">Purposes for forumgroup: ${objectName} [${objectId}]</value>
         <value xml:lang="fr">Buts pour le groupe de forums</value>
         <value xml:lang="it">Funzioni per gruppo forum:</value>
         <value xml:lang="ja">フォーラムグループの目的</value>
@@ -7298,7 +7298,7 @@
         <value xml:lang="ar">أدوار لمجموعة المنتدى:</value>
         <value xml:lang="da">Roller for forumgruppe</value>
         <value xml:lang="de">Rollen für Forumgruppe:</value>
-        <value xml:lang="en">Roles for forumgroup:</value>
+        <value xml:lang="en">Roles for forumgroup: ${objectName} [${objectId}]</value>
         <value xml:lang="fr">Rôles pour le groupe de forums : </value>
         <value xml:lang="it">Ruoli per gruppo forum:</value>
         <value xml:lang="ja">フォーラムグループのロール</value>
