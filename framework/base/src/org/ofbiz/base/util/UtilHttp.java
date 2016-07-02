@@ -66,18 +66,20 @@ import com.ibm.icu.util.Calendar;
 /**
  * HttpUtil - Misc HTTP Utility Functions
  */
-public class UtilHttp {
+public final class UtilHttp {
 
     public static final String module = UtilHttp.class.getName();
 
-    public static final String MULTI_ROW_DELIMITER = "_o_";
-    public static final String ROW_SUBMIT_PREFIX = "_rowSubmit_o_";
-    public static final String COMPOSITE_DELIMITER = "_c_";
-    public static final int MULTI_ROW_DELIMITER_LENGTH = MULTI_ROW_DELIMITER.length();
-    public static final int ROW_SUBMIT_PREFIX_LENGTH = ROW_SUBMIT_PREFIX.length();
-    public static final int COMPOSITE_DELIMITER_LENGTH = COMPOSITE_DELIMITER.length();
+    private static final String MULTI_ROW_DELIMITER = "_o_";
+    private static final String ROW_SUBMIT_PREFIX = "_rowSubmit_o_";
+    private static final String COMPOSITE_DELIMITER = "_c_";
+    private static final int MULTI_ROW_DELIMITER_LENGTH = MULTI_ROW_DELIMITER.length();
+    private static final int ROW_SUBMIT_PREFIX_LENGTH = ROW_SUBMIT_PREFIX.length();
+    private static final int COMPOSITE_DELIMITER_LENGTH = COMPOSITE_DELIMITER.length();
 
-    public static final String SESSION_KEY_TIMEZONE = "timeZone";
+    private static final String SESSION_KEY_TIMEZONE = "timeZone";
+
+    private UtilHttp () {}
 
     /**
      * Create a combined map from servlet context, session, attributes and parameters
@@ -1470,4 +1472,11 @@ public class UtilHttp {
         }
     }
 
+    public static String getMultiRowDelimiter() {
+        return MULTI_ROW_DELIMITER;
+    }
+
+    public static String getRowSubmitPrefix() {
+        return ROW_SUBMIT_PREFIX;
+    }
 }

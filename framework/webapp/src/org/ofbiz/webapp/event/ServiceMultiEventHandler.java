@@ -190,14 +190,14 @@ public class ServiceMultiEventHandler implements EventHandler {
 
             // now loop throw the rows and prepare/invoke the service for each
             for (int i = 0; i < rowCount; i++) {
-                String curSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;
+                String curSuffix = UtilHttp.getMultiRowDelimiter() + i;
                 boolean rowSelected = false;
-                if (UtilValidate.isNotEmpty(request.getAttribute(UtilHttp.ROW_SUBMIT_PREFIX + i))) {
-                    rowSelected = request.getAttribute(UtilHttp.ROW_SUBMIT_PREFIX + i) == null ? false :
-                    "Y".equalsIgnoreCase((String)request.getAttribute(UtilHttp.ROW_SUBMIT_PREFIX + i));
+                if (UtilValidate.isNotEmpty(request.getAttribute(UtilHttp.getRowSubmitPrefix() + i))) {
+                    rowSelected = request.getAttribute(UtilHttp.getRowSubmitPrefix() + i) == null ? false :
+                    "Y".equalsIgnoreCase((String)request.getAttribute(UtilHttp.getRowSubmitPrefix() + i));
                 } else {
-                    rowSelected = request.getParameter(UtilHttp.ROW_SUBMIT_PREFIX + i) == null ? false :
-                    "Y".equalsIgnoreCase(request.getParameter(UtilHttp.ROW_SUBMIT_PREFIX + i));
+                    rowSelected = request.getParameter(UtilHttp.getRowSubmitPrefix() + i) == null ? false :
+                    "Y".equalsIgnoreCase(request.getParameter(UtilHttp.getRowSubmitPrefix() + i));
                 }
 
                 // make sure we are to process this row

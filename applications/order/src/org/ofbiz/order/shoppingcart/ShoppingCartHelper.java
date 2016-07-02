@@ -508,7 +508,7 @@ public class ShoppingCartHelper {
             String productId = null;
             String quantStr = null;
             String requirementId = null;
-            String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;
+            String thisSuffix = UtilHttp.getMultiRowDelimiter() + i;
             boolean rowSelected = (!context.containsKey("_rowSubmit" + thisSuffix))? false :
                     "Y".equalsIgnoreCase((String)context.get("_rowSubmit" + thisSuffix));
 
