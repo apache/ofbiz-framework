@@ -40,7 +40,7 @@ public class HttpClient {
 
     public static final String module = HttpClient.class.getName();
 
-    private int hostVerification = SSLUtil.HOSTCERT_NORMAL_CHECK;
+    private int hostVerification = SSLUtil.getHostCertNormalCheck();
     private int timeout = 30000;
     private boolean debug = false;
     private boolean lineFeed = true;

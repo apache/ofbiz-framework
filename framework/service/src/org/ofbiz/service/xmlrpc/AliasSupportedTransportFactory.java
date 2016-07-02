@@ -98,7 +98,7 @@ public class AliasSupportedTransportFactory extends XmlRpcTransportFactoryImpl {
                 HttpsURLConnection scon = (HttpsURLConnection) con;
                 try {
                     scon.setSSLSocketFactory(SSLUtil.getSSLSocketFactory(ks, password, alias));
-                    scon.setHostnameVerifier(SSLUtil.getHostnameVerifier(SSLUtil.HOSTCERT_MIN_CHECK));
+                    scon.setHostnameVerifier(SSLUtil.getHostnameVerifier(SSLUtil.getHostCertMinCheck()));
                 } catch (GeneralException e) {
                     throw new IOException(e.getMessage());
                 } catch (GeneralSecurityException e) {

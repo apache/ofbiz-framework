@@ -49,18 +49,55 @@ import org.ofbiz.base.config.GenericConfigException;
  * KeyStoreUtil - Utilities for setting up SSL connections with specific client certificates
  *
  */
-public class SSLUtil {
+public final class SSLUtil {
 
     public static final String module = SSLUtil.class.getName();
 
-    public static final int HOSTCERT_NO_CHECK = 0;
-    public static final int HOSTCERT_MIN_CHECK = 1;
-    public static final int HOSTCERT_NORMAL_CHECK = 2;
+    private static final int HOSTCERT_NO_CHECK = 0;
+    private static final int HOSTCERT_MIN_CHECK = 1;
+    private static final int HOSTCERT_NORMAL_CHECK = 2;
 
     private static boolean loadedProps = false;
 
+    private SSLUtil () {}
+
     static {
         SSLUtil.loadJsseProperties();
+    }
+
+    private static class TrustAnyManager implements X509TrustManager {
+
+        public void checkClientTrusted(X509Certificate[] certs, String string) throws CertificateException {
+            Debug.logImportant("Trusting (un-trusted) client certificate chain:", module);
+            for (X509Certificate cert: certs) {
+                Debug.logImportant("---- " + cert.getSubjectX500Principal().getName() + " valid: " + cert.getNotAfter(), module);
+
+            }
+        }
+
+        public void checkServerTrusted(X509Certificate[] certs, String string) throws CertificateException {
+            Debug.logImportant("Trusting (un-trusted) server certificate chain:", module);
+            for (X509Certificate cert: certs) {
+                Debug.logImportant("---- " + cert.getSubjectX500Principal().getName() + " valid: " + cert.getNotAfter(), module);
+            }
+        }
+
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+    }
+
+
+    public static int getHostCertNoCheck() {
+        return HOSTCERT_NO_CHECK;
+    }
+
+    public static int getHostCertMinCheck() {
+        return HOSTCERT_MIN_CHECK;
+    }
+
+    public static int getHostCertNormalCheck() {
+        return HOSTCERT_NORMAL_CHECK;
     }
 
     public static boolean isClientTrusted(X509Certificate[] chain, String authType) {
@@ -276,28 +313,6 @@ public class SSLUtil {
                 System.setProperty("javax.net.debug","ssl:handshake");
             }
             loadedProps = true;
-        }
-    }
-
-    static class TrustAnyManager implements X509TrustManager {
-
-        public void checkClientTrusted(X509Certificate[] certs, String string) throws CertificateException {
-            Debug.logImportant("Trusting (un-trusted) client certificate chain:", module);
-            for (X509Certificate cert: certs) {
-                Debug.logImportant("---- " + cert.getSubjectX500Principal().getName() + " valid: " + cert.getNotAfter(), module);
-
-            }
-        }
-
-        public void checkServerTrusted(X509Certificate[] certs, String string) throws CertificateException {
-            Debug.logImportant("Trusting (un-trusted) server certificate chain:", module);
-            for (X509Certificate cert: certs) {
-                Debug.logImportant("---- " + cert.getSubjectX500Principal().getName() + " valid: " + cert.getNotAfter(), module);
-            }
-        }
-
-        public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[0];
         }
     }
 }

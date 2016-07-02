@@ -703,7 +703,7 @@ public class OagisServices {
             HttpClient http = new HttpClient(sendToUrl);
 
             // test parameters
-            http.setHostVerificationLevel(SSLUtil.HOSTCERT_NO_CHECK);
+            http.setHostVerificationLevel(SSLUtil.getHostCertNoCheck());
             http.setAllowUntrusted(true);
             http.setDebug(true);
 
