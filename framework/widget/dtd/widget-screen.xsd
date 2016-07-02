@@ -573,6 +573,7 @@ under the License.
                 <xs:element minOccurs="0" ref="xml" />
                 <xs:element minOccurs="0" ref="text" />
                 <xs:element minOccurs="0" ref="csv" />
+                <xs:element minOccurs="0" ref="xls" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
