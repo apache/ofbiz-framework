@@ -650,7 +650,7 @@ public class EbayEvents {
         int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
         if (rowCount > 1) {
             for (int i = 0; i < rowCount; i++) {
-                String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;        // current suffix after each field id
+                String thisSuffix = UtilHttp.getMultiRowDelimiter() + i;        // current suffix after each field id
                 // get the NameSpecifics
                 if (paramMap.containsKey("nameValueListType" + thisSuffix)) {
                     nameValueListType = (String) paramMap.remove("nameValueListType" + thisSuffix);

@@ -1799,7 +1799,7 @@ public class ShoppingCartEvents {
         } else {
             for (int i = 0; i < rowCount; i++) {
                 controlDirective = null;                // re-initialize each time
-                String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;        // current suffix after each field id
+                String thisSuffix = UtilHttp.getMultiRowDelimiter() + i;        // current suffix after each field id
 
                 // get the productId
                 if (paramMap.containsKey("productId" + thisSuffix)) {
@@ -2012,7 +2012,7 @@ public class ShoppingCartEvents {
             Debug.logWarning("No rows to process, as rowCount = " + rowCount, module);
         } else {
             for (int i = 0; i < rowCount; i++) {
-                String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;
+                String thisSuffix = UtilHttp.getMultiRowDelimiter() + i;
                 if (paramMap.containsKey("productId" + thisSuffix)) {
                     productId = (String) paramMap.remove("productId" + thisSuffix);
                 }

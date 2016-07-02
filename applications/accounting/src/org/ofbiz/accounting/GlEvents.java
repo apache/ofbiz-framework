@@ -55,7 +55,7 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
     // The number of multi form rows is retrieved
     int rowCount = UtilHttp.getMultiFormRowCount(ctx);
     for (int i = 0; i < rowCount; i++) {  //for calculating amount per glAccountId
-        String suffix = UtilHttp.MULTI_ROW_DELIMITER + i;
+        String suffix = UtilHttp.getMultiRowDelimiter() + i;
         isSelected = (ctx.containsKey("_rowSubmit" + suffix) && "Y".equalsIgnoreCase((String)ctx.get("_rowSubmit" + suffix)));
         if (!isSelected) {
             continue;
@@ -95,7 +95,7 @@ public static String createReconcileAccount(HttpServletRequest request, HttpServ
     String glReconciliationId = (String) glReconResult.get("glReconciliationId");
     String reconciledAmount;
     for (int i = 0; i < rowCount; i++) {
-        String suffix = UtilHttp.MULTI_ROW_DELIMITER + i;
+        String suffix = UtilHttp.getMultiRowDelimiter() + i;
         isSelected = (ctx.containsKey("_rowSubmit" + suffix) && "Y".equalsIgnoreCase((String)ctx.get("_rowSubmit" + suffix)));
         if (!isSelected) {
             continue;
