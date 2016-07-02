@@ -28,10 +28,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * URL Utilities - Simple Class for flexibly working with properties files
  *
  */
-public class UtilURL {
+public final class UtilURL {
 
     public static final String module = UtilURL.class.getName();
     private static final Map<String, URL> urlMap = new ConcurrentHashMap<String, URL>();
+
+    private UtilURL() {}
 
     public static <C> URL fromClass(Class<C> contextClass) {
         String resourceName = contextClass.getName();
