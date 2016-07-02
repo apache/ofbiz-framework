@@ -25,7 +25,7 @@ under the License.
         <field name="sendFrom"><text/></field>
         <field name="sendTo"><text/></field>
         <field name="subject"><text/></field>
-        <field name="birtReportLocation" tooltip="Example is component://birt/webapp/birt/report/example.rptdesign"><text/></field>
+        <field name="birtReportLocation" tooltip="Example is component://birt/webapp/birt/report/example.rptdesign" required-field="true"><text/></field>
         <field name="birtContentType">
             <drop-down>
                 <option key="text/html" description="text/html"/>
@@ -39,7 +39,7 @@ under the License.
                 <option key="application/vnd.oasis.opendocument.presentation" description="application/vnd.oasis.opendocument.presentation"/>
             </drop-down>
         </field>
-        <field name="attachmentName"><text/></field>
+        <field name="attachmentName" required-field="true"><text/></field>
         <field name="sendButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
