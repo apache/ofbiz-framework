@@ -37,19 +37,19 @@ import com.ibm.icu.util.Calendar;
 /**
  * Utility class for handling java.util.Date, the java.sql data/time classes and related
  */
-public class UtilDateTime {
-    public static final String[] months = {// // to be translated over CommonMonthName, see example in accounting
+public final class UtilDateTime {
+    private static final String[] months = {// // to be translated over CommonMonthName, see example in accounting
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November",
         "December"
     };
 
-    public static final String[] days = {// to be translated over CommonDayName, see example in accounting
+    private static final String[] days = {// to be translated over CommonDayName, see example in accounting
         "Monday", "Tuesday", "Wednesday",
         "Thursday", "Friday", "Saturday", "Sunday"
     };
 
-    public static final String[][] timevals = {
+    private static final String[][] timevals = {
         {"1000", "millisecond"},
         {"60", "second"},
         {"60", "minute"},
@@ -57,19 +57,21 @@ public class UtilDateTime {
         {"168", "week"}
     };
 
-    public static final DecimalFormat df = new DecimalFormat("0.00;-0.00");
+    private static final DecimalFormat df = new DecimalFormat("0.00;-0.00");
     /**
      * JDBC escape format for java.sql.Date conversions.
      */
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
     /**
      * JDBC escape format for java.sql.Timestamp conversions.
      */
-    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
     /**
      * JDBC escape format for java.sql.Time conversions.
      */
-    public static final String TIME_FORMAT = "HH:mm:ss";
+    private static final String TIME_FORMAT = "HH:mm:ss";
+
+    private UtilDateTime() {}
 
     public static double getInterval(Date from, Date thru) {
         return thru != null ? thru.getTime() - from.getTime() : 0;
@@ -1228,5 +1230,17 @@ public class UtilDateTime {
             throw new UnsupportedOperationException();
         }
 
+    }
+    
+    public static String getDateFormat() {
+        return DATE_FORMAT;
+    }
+
+    public static String getDateTimeFormat() {
+        return DATE_TIME_FORMAT;
+    }
+
+    public static String getTimeFormat() {
+        return TIME_FORMAT;
     }
 }
