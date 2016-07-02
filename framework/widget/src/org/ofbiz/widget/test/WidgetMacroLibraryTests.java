@@ -50,7 +50,7 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         HttpClient http = new HttpClient();
         http.followRedirects(true);
         http.setAllowUntrusted(true);
-        http.setHostVerificationLevel(SSLUtil.HOSTCERT_NO_CHECK);
+        http.setHostVerificationLevel(SSLUtil.getHostCertNoCheck());
         return http;
     }
 
