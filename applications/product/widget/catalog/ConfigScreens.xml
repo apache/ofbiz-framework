@@ -233,9 +233,6 @@ under the License.
     </screen>
     <screen name="PrepareAddProductConfigItemContentAssoc">
         <section>
-            <actions>
-                <set field="calendarExceptionWeek" value="${groovy: request.getAttribute('calendarExceptionWeek');}"/>
-            </actions>
             <widgets>
                 <include-form name="PrepareAddProductConfigItemContentAssoc" location="component://product/widget/catalog/ConfigForms.xml"/>
             </widgets>
@@ -243,9 +240,6 @@ under the License.
     </screen>
     <screen name="AddProductConfigItemContentAssoc">
         <section>
-            <actions>
-                <set field="calendarExceptionWeek" value="${groovy: request.getAttribute('calendarExceptionWeek');}"/>
-            </actions>
             <widgets>
                 <include-form name="AddProductConfigItemContentAssoc" location="component://product/widget/catalog/ConfigForms.xml"/>
             </widgets>
@@ -253,9 +247,6 @@ under the License.
     </screen>
     <screen name="AddProductConfigItemContentAssoc">
         <section>
-            <actions>
-                <set field="calendarExceptionWeek" value="${groovy: request.getAttribute('calendarExceptionWeek');}"/>
-            </actions>
             <widgets>
                 <include-form name="AddProductConfigItemContentAssoc" location="component://product/widget/catalog/ConfigForms.xml"/>
             </widgets>
