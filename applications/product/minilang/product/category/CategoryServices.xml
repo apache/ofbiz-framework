@@ -528,8 +528,12 @@ under the License.
             <set field="entityName" value="ProductCategoryAttribute"/>
             <call-simple-method method-name="copyCategoryEntities"/>
         </if-not-empty>
-        <if-not-empty field="parameters.duplicateFeatures">
+        <if-not-empty field="parameters.duplicateFeatureCategories">
             <set field="entityName" value="ProductFeatureCategoryAppl"/>
+            <call-simple-method method-name="copyCategoryEntities"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.duplicateFeatureGroups">
+            <set field="entityName" value="ProductFeatureCatGrpAppl"/>
             <call-simple-method method-name="copyCategoryEntities"/>
         </if-not-empty>
         <if-not-empty field="parameters.duplicateCatalogs">
