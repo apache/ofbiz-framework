@@ -691,7 +691,8 @@ under the License.
         <attribute name="duplicateChildRollup" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateMembers" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateCatalogs" type="String" mode="IN" optional="true"/>
-        <attribute name="duplicateFeatures" type="String" mode="IN" optional="true"/>
+        <attribute name="duplicateFeatureCategories" type="String" mode="IN" optional="true"/>
+        <attribute name="duplicateFeatureGroups" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateAttributes" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateRoles" type="String" mode="IN" optional="true"/>
     </service>

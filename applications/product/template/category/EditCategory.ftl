@@ -249,7 +249,8 @@ function insertImageName(type,nameValue) {
                             ${uiLabelMap.ProductCategoryRollupChildCategories}&nbsp;<input type="checkbox" name="duplicateChildRollup" value="Y" />
                             ${uiLabelMap.ProductProducts}&nbsp;<input type="checkbox" name="duplicateMembers" value="Y" checked="checked" />
                             ${uiLabelMap.ProductCatalogs}&nbsp;<input type="checkbox" name="duplicateCatalogs" value="Y" checked="checked" />
-                            ${uiLabelMap.ProductFeatures}&nbsp;<input type="checkbox" name="duplicateFeatures" value="Y" checked="checked" />
+                            ${uiLabelMap.ProductFeatureCategories}&nbsp;<input type="checkbox" name="duplicateFeatureCategories" value="Y" checked="checked" />
+                            ${uiLabelMap.ProductFeatureGroups}&nbsp;<input type="checkbox" name="duplicateFeatureGroups" value="Y"/>
                             ${uiLabelMap.PartyParties}&nbsp;<input type="checkbox" name="duplicateRoles" value="Y" checked="checked" />
                             ${uiLabelMap.ProductAttributes}&nbsp;<input type="checkbox" name="duplicateAttributes" value="Y" checked="checked" />
                         </div>

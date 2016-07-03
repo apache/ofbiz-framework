@@ -17960,6 +17960,9 @@
         <value xml:lang="zh">特征分类和组</value>
         <value xml:lang="zh-TW">特性分類和群組</value>
     </property>
+    <property key="ProductFeatureCategories">
+        <value xml:lang="en">Feature Categories</value>
+    </property>
     <property key="ProductFeatureCategory">
         <value xml:lang="de">Merkmal Kategorie</value>
         <value xml:lang="en">Feature Category</value>
@@ -18030,6 +18033,9 @@
         <value xml:lang="vi">Nhóm Đặc tính SP gia tăng</value>
         <value xml:lang="zh">特征组</value>
         <value xml:lang="zh-TW">特性群組</value>
+    </property>
+        <property key="ProductFeatureGroups">
+        <value xml:lang="en">Feature Groups</value>
     </property>
     <property key="ProductFeatureGroupAppls">
         <value xml:lang="de">Merkmalgruppe Anwendungen</value>
