@@ -257,6 +257,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditEvent" save-home-view="true"/>
     </request-map>
+    <request-map uri="createCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCommunicationEvent"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view" value="EditCommunicationEvent"/>
+    </request-map>
 
     <!-- Lookup requests -->
     <request-map uri="LookupSalesForecast"><security https="true" auth="true"/><response name="success" type="view" value="LookupSalesForecast"/></request-map>
