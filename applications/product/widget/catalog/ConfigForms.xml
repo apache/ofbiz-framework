@@ -116,7 +116,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProdConfItemContent"/>
         <field name="configItemId" title="${uiLabelMap.ProductConfigItemId}" map-name="productConfigItem"><hidden/></field>
-        <field name="contentId" title="${uiLabelMap.ProductContentId}" ></field>
+        <field name="contentId" title="${uiLabelMap.ProductContentId}" ><lookup target-form-name="LookupContent"></lookup></field>
         <field name="confItemContentTypeId" title="${uiLabelMap.ProductProductConfigItemContentTypeId}">
             <drop-down>
                 <entity-options entity-name="ProdConfItemContentType">
