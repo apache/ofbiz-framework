@@ -40,13 +40,10 @@ under the License.
     <form name="ListPartySkills" type="list" list-name="listIt" use-row-submit="true" separate-columns="true" target="updatePartySkillExt" paginate-target="findPartySkills"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="result" result-map-list="listIt">
-                <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" value="PartySkill"/>
-                <field-map field-name="orderBy" value="skillTypeId"/>
-                <field-map field-name="viewIndex" from-field="viewIndex"/>
-                <field-map field-name="viewSize" from-field="viewSize"/>
-            </service>
+            <entity-condition entity-name="PartySkill">
+                <condition-expr field-name="partyId" from-field="partyId"/>
+                <order-by field-name="skillTypeId"/>
+            </entity-condition>
         </actions>
         <auto-fields-service default-field-type="hidden" service-name="updatePartySkill"/>
         <field name="skillTypeId">
