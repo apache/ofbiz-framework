@@ -378,11 +378,11 @@ public abstract class ModelForm extends ModelWidget {
         }
         this.paginateTarget = paginateTarget;
         ArrayList<AltTarget> altTargets = new ArrayList<AltTarget>();
-        if (parentModel != null) {
-            altTargets.addAll(parentModel.altTargets);
-        }
         for (Element altTargetElement : UtilXml.childElementList(formElement, "alt-target")) {
             altTargets.add(new AltTarget(altTargetElement));
+        }
+        if (parentModel != null) {
+            altTargets.addAll(parentModel.altTargets);
         }
         altTargets.trimToSize();
         this.altTargets = Collections.unmodifiableList(altTargets);
