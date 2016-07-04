@@ -46,12 +46,14 @@ import org.w3c.dom.Element;
 /**
  * ServiceEcaUtil
  */
-public class ServiceEcaUtil {
+public final class ServiceEcaUtil {
 
     public static final String module = ServiceEcaUtil.class.getName();
 
     // using a cache is dangerous here because if someone clears it the ECAs won't run: public static UtilCache ecaCache = new UtilCache("service.ServiceECAs", 0, 0, false);
-    public static Map<String, Map<String, List<ServiceEcaRule>>> ecaCache = new ConcurrentHashMap<String, Map<String, List<ServiceEcaRule>>>();
+    private static Map<String, Map<String, List<ServiceEcaRule>>> ecaCache = new ConcurrentHashMap<String, Map<String, List<ServiceEcaRule>>>();
+
+    private ServiceEcaUtil() {}
 
     public static void reloadConfig() {
         ecaCache.clear();
@@ -88,7 +90,7 @@ public class ServiceEcaUtil {
         }
     }
 
-    protected static Callable<List<ServiceEcaRule>> createEcaLoaderCallable(final ResourceHandler handler) {
+    private static Callable<List<ServiceEcaRule>> createEcaLoaderCallable(final ResourceHandler handler) {
         return new Callable<List<ServiceEcaRule>>() {
             public List<ServiceEcaRule> call() throws Exception {
                 return getEcaDefinitions(handler);
