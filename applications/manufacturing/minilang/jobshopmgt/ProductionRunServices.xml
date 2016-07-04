@@ -54,7 +54,6 @@ under the License.
     <!-- Warehouse -->
     <simple-method method-name="issueProductionRunTask" short-description="Issues the Inventory for a Production Run Task" login-required="false">
         <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-
         <if-empty field="parameters.failIfItemsAreNotAvailable">
             <set field="parameters.failIfItemsAreNotAvailable" value="Y"/>
         </if-empty>
@@ -75,6 +74,29 @@ under the License.
                         <clear-field field="callSvcMap"/>
                         <set-service-fields to-map="callSvcMap" service-name="issueProductionRunTaskComponent" map="component"/>
                         <set from-field="reserveOrderEnumId" field="callSvcMap.reserveOrderEnumId"/>
+                        <!-- calculate quantity needed if the produced run quantity is produced partially -->
+                        <entity-and list="issuances" entity-name="WorkEffortAndInventoryAssign">
+                            <field-map field-name="workEffortId" from-field="workEffort.workEffortId"/>
+                            <field-map field-name="productId" from-field="component.productId"/>
+                        </entity-and>
+                        <set field="totalIssuance" value="0.00" type="BigDecimal"/>
+                        <iterate list="issuances" entry="issuance">
+                            <calculate field="totalIssuance">
+                                <calcop operator="add">
+                                    <calcop field="issuance.quantity" operator="get"/>
+                                    <calcop field="totalIssuance" operator="get"/>
+                                </calcop>
+                            </calculate>
+                        </iterate>
+                        
+                        <if-compare field="totalIssuance" operator="not-equals" value="0.00">
+                            <set field="callSvcMap.quantity" value="0.00" type="BigDecimal"/>
+                            <calculate field="callSvcMap.quantity">
+                                <calcop field="component.estimatedQuantity" operator="subtract">
+                                    <calcop operator="get" field="totalIssuance"/>
+                                </calcop>
+                            </calculate>
+                        </if-compare>
                         <set field="callSvcMap.description" value="BOM Part"/>
                         <set field="callSvcMap.failIfItemsAreNotAvailable" from-field="parameters.failIfItemsAreNotAvailable"/>
                         <set field="callSvcMap.failIfItemsAreNotOnHand" from-field="parameters.failIfItemsAreNotOnHand"/>
