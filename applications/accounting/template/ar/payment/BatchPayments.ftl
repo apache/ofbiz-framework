@@ -182,8 +182,10 @@ function setServiceName(selection) {
                       <th>${uiLabelMap.FormFieldTitle_amountToApply}</th>
                       <th>${uiLabelMap.CommonPaymentMethodType}</th>
                       <th>
-                        ${uiLabelMap.CommonSelectAll}
-                        <input type="checkbox" id="checkAllPayments" name="checkAllPayments" onchange="javascript:togglePaymentId(this);"/>
+                        <label>
+                          ${uiLabelMap.CommonSelectAll}
+                          <input type="checkbox" id="checkAllPayments" name="checkAllPayments" onchange="javascript:togglePaymentId(this);"/>
+                        </label>
                       </th>
                     </tr>
                   </thead>

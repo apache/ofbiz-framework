@@ -185,7 +185,7 @@ function runAction() {
         <td>${uiLabelMap.AccountingAmount}</td>
         <td>${uiLabelMap.FormFieldTitle_paidAmount}</td>
         <td>${uiLabelMap.FormFieldTitle_outstandingAmount}</td> 
-        <td>${uiLabelMap.CommonSelectAll} <input type="checkbox" id="checkAllInvoices" name="checkAllInvoices" onchange="javascript:toggleInvoiceId(this);"/></td>
+        <td><label>${uiLabelMap.CommonSelectAll} <input type="checkbox" id="checkAllInvoices" name="checkAllInvoices" onchange="javascript:toggleInvoiceId(this);"/></label></td>
       </tr>
       <#-- Header Ends-->
       <#assign alt_row = false>
@@ -205,7 +205,7 @@ function runAction() {
             <td><@ofbizCurrency amount=invoicePaymentInfo.amount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
             <td><@ofbizCurrency amount=invoicePaymentInfo.paidAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
             <td><@ofbizCurrency amount=invoicePaymentInfo.outstandingAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
-            <td align="right"><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:getInvoiceRunningTotal();"/></td>
+            <td align="right"><label><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:getInvoiceRunningTotal();"/></label></td>
           </tr>
           <#-- toggle the row color -->
           <#assign alt_row = !alt_row>
