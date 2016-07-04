@@ -134,7 +134,7 @@ function doPublish() {
                         (assocProduct.smallImageUrl! != "") && (assocProduct.smallImageUrl! == product.smallImageUrl!)) >
                     <#assign checked = "checked='checked'"/>
                 </#if>
-                <td><input type="radio" ${checked} name="useImages" value="${assocProduct.productId}"/></td>
+                <td><label><input type="radio" ${checked} name="useImages" value="${assocProduct.productId}"/></label></td>
                 <#assign fromDate = Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(productAssoc.getTimestamp("fromDate").toString())/>
                 <td><a class="buttontext" href="javascript:removeAssoc('${productAssoc.productIdTo}','${fromDate}');">x</a></td>
             </tr>

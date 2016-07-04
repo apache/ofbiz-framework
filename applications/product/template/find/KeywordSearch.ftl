@@ -69,7 +69,7 @@ under the License.
 
     <table cellspacing="0" class="basic-table">
         <tr>
-          <td><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);"/> <b>${uiLabelMap.ProductProduct}</b></td>
+          <td><label><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);"/> <b>${uiLabelMap.ProductProduct}</b></label></td>
           <td align="right">
             <b>
             <#if 0 < viewIndex?int>

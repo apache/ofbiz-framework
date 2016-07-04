@@ -31,7 +31,7 @@ under the License.
             <td><b>${uiLabelMap.ProductFeatureType}</b></td>
             <td><b>${uiLabelMap.ProductIdSeqNum}</b></td>
             <td><b>${uiLabelMap.ProductIdCode}</b></td>
-            <td align="right"><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="Y" checked="checked" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureTypeId_tableRow_', 'selectAllForm');" /></td>
+            <td align="right"><b><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="Y" checked="checked" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureTypeId_tableRow_', 'selectAllForm');" /></label></b></td>
           </tr>
         <#assign rowClass = "2">
         <#list 0..featureNum-1 as feature>

@@ -65,7 +65,7 @@ under the License.
     <td><b>${uiLabelMap.CommonThruDate}</b></td>
     <td><b>${uiLabelMap.ProductAmount}</b></td>
     <td><b>${uiLabelMap.CommonSequence}</b></td>
-    <td><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');" /></td>
+    <td><b><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');" /></labe></b></td>
   </tr>
 <#assign rowCount = 0>
 <#assign rowClass = "2">
