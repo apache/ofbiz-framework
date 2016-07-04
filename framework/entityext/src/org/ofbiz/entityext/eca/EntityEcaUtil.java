@@ -45,11 +45,13 @@ import org.w3c.dom.Element;
 /**
  * EntityEcaUtil
  */
-public class EntityEcaUtil {
+public final class EntityEcaUtil {
 
     public static final String module = EntityEcaUtil.class.getName();
 
     private static final UtilCache<String, Map<String, Map<String, List<EntityEcaRule>>>> entityEcaReaders = UtilCache.createUtilCache("entity.EcaReaders", 0, 0, false);
+
+    private EntityEcaUtil () {}
 
     public static Map<String, Map<String, List<EntityEcaRule>>> getEntityEcaCache(String entityEcaReaderName) {
         Map<String, Map<String, List<EntityEcaRule>>> ecaCache = entityEcaReaders.get(entityEcaReaderName);
@@ -76,7 +78,7 @@ public class EntityEcaUtil {
         return delegatorInfo.getEntityEcaReader();
     }
 
-    protected static void readConfig(String entityEcaReaderName, Map<String, Map<String, List<EntityEcaRule>>> ecaCache) {
+    private static void readConfig(String entityEcaReaderName, Map<String, Map<String, List<EntityEcaRule>>> ecaCache) {
         EntityEcaReader entityEcaReaderInfo = null;
         try {
             entityEcaReaderInfo = EntityConfig.getInstance().getEntityEcaReader(entityEcaReaderName);
@@ -144,7 +146,7 @@ public class EntityEcaUtil {
         return rules;
     }
 
-    protected static Callable<List<EntityEcaRule>> createEcaLoaderCallable(final ResourceHandler handler) {
+    private static Callable<List<EntityEcaRule>> createEcaLoaderCallable(final ResourceHandler handler) {
         return new Callable<List<EntityEcaRule>>() {
             public List<EntityEcaRule> call() throws Exception {
                 return getEcaDefinitions(handler);
