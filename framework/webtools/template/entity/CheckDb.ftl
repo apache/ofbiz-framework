@@ -20,11 +20,11 @@ under the License.
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="checkupdatetables"/>
         ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
-        &nbsp;<input type="checkbox" name="checkPks" value="true" checked="checked"/>&nbsp;${uiLabelMap.WebtoolsPks}
-        &nbsp;<input type="checkbox" name="checkFks" value="true"/>&nbsp;${uiLabelMap.WebtoolsFks}
-        &nbsp;<input type="checkbox" name="checkFkIdx" value="true"/>&nbsp;${uiLabelMap.WebtoolsFkIdx}
-        &nbsp;<input type="checkbox" name="addMissing" value="true"/>&nbsp;${uiLabelMap.WebtoolsAddMissing}
-        &nbsp;<input type="checkbox" name="repair" value="true"/>&nbsp;${uiLabelMap.WebtoolsRepairColumnSizes}
+        <label>&nbsp;<input type="checkbox" name="checkPks" value="true" checked="checked"/>&nbsp;${uiLabelMap.WebtoolsPks}</label>
+        <label>&nbsp;<input type="checkbox" name="checkFks" value="true"/>&nbsp;${uiLabelMap.WebtoolsFks}</label>
+        <label>&nbsp;<input type="checkbox" name="checkFkIdx" value="true"/>&nbsp;${uiLabelMap.WebtoolsFkIdx}</label>
+        <label>&nbsp;<input type="checkbox" name="addMissing" value="true"/>&nbsp;${uiLabelMap.WebtoolsAddMissing}</label>
+        <label>&nbsp;<input type="checkbox" name="repair" value="true"/>&nbsp;${uiLabelMap.WebtoolsRepairColumnSizes}</label>
         <input type="submit" value="${uiLabelMap.WebtoolsCheckUpdateDatabase}"/>
     </form>
     <p>${uiLabelMap.WebtoolsNoteUseAtYourOwnRisk}</p>
