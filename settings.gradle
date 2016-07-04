@@ -1,0 +1,26 @@
+def iterateOverActiveComponents(applyFunction) {
+    def frameworkComponents = new XmlParser().parse('framework/component-load.xml')
+    def applicationsComponents = new XmlParser().parse('applications/component-load.xml')
+    def specialpurposeComponents = new XmlParser().parse('specialpurpose/component-load.xml')
+
+    applyFunction file('framework/start')
+
+    frameworkComponents.children().each { component ->
+        applyFunction file("framework/"+component.@"component-location")
+    }
+    applicationsComponents.children().each { component ->
+        applyFunction file("applications/"+component.@"component-location")
+    }
+    specialpurposeComponents.children().each { component ->
+        applyFunction file("specialpurpose/"+component.@"component-location")
+    }
+
+    file('hot-deploy').eachDir { component ->
+        applyFunction(component)
+    }
+}
+
+iterateOverActiveComponents { File component ->
+    def subProject = (component.toString() - rootDir)
+    include subProject.replaceAll('/', ':')
+}
