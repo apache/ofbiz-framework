@@ -334,12 +334,6 @@ under the License.
         <field name="productionRunTaskId" entry-name="workEffortId"><hidden/></field>
         <field name="productId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
-        <field name="failIfItemsAreNotAvailable">
-            <drop-down allow-empty="false">
-                <option key="Y" description="${uiLabelMap.CommonYes}"/>
-                <option key="N" description="${uiLabelMap.CommonNo}"/>
-            </drop-down>
-        </field>
         <field name="task" entry-name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">
             <display description="${workEffortName} [${workEffortId}]" also-hidden="false"/>
         </field>
@@ -348,7 +342,7 @@ under the License.
         </field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display also-hidden="false"/></field>
         <field name="issuedQuantity" title="${uiLabelMap.ManufacturingIssuedQuantity}"><display also-hidden="false"/></field>
-        <field name="locationSeqId">
+        <field name="locationSeqId" use-when="estimatedQuantity != issuedQuantity">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductFacilityLocation" description="${locationSeqId}">
                     <entity-constraint name="productId" env-name="productId"/>
@@ -356,12 +350,18 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="secondaryLocationSeqId">
+        <field name="secondaryLocationSeqId" use-when="estimatedQuantity != issuedQuantity">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductFacilityLocation" description="${locationSeqId}" key-field-name="locationSeqId">
                     <entity-constraint name="productId" env-name="productId"/>
                     <entity-constraint name="facilityId" env-name="facilityId"/>
                 </entity-options>
+            </drop-down>
+        </field>
+        <field name="failIfItemsAreNotAvailable" use-when="estimatedQuantity != issuedQuantity">
+            <drop-down allow-empty="false">
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="_rowSubmit"><hidden value="Y"/></field>
