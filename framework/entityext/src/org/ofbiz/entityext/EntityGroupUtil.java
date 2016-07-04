@@ -34,9 +34,11 @@ import org.ofbiz.entity.util.EntityQuery;
 /**
  * EntityEcaUtil
  */
-public class EntityGroupUtil {
+public final class EntityGroupUtil {
 
     public static final String module = EntityGroupUtil.class.getName();
+
+    private EntityGroupUtil () {}
 
     public static Set<String> getEntityNamesByGroup(String entityGroupId, Delegator delegator, boolean requireStampFields) throws GenericEntityException {
         Set<String> entityNames = new HashSet<String>();
