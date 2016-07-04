@@ -18,18 +18,36 @@ under the License.
 -->
 
 <script type="text/javascript">
-    var checkBoxNameStart = "view";
-    var formName = "findorder";
 
+    jQuery(document).ready( function() {
+        jQuery('#allcheck').change( function() {
+            setCheckboxes();
+        });
+
+        jQuery('.statuscheck').change( function() {
+            setAllCheckbox();
+        });
+    });
 
     function setCheckboxes() {
-        // This would be clearer with camelCase variable names
-        var allCheckbox = document.forms[formName].elements[checkBoxNameStart + "all"];
-        for(i = 0;i < document.forms[formName].elements.length;i++) {
-            var elem = document.forms[formName].elements[i];
-            if (elem.name.indexOf(checkBoxNameStart) == 0 && elem.name.indexOf("_") < 0 && elem.type == "checkbox") {
-                elem.checked = allCheckbox.checked;
+        if (jQuery('#allcheck').is(':checked')) {
+            jQuery('.statuscheck').attr ('checked', true);
+        } else {
+            jQuery('.statuscheck').attr ('checked', false );
+        }
+    }
+    function setAllCheckbox() {
+        var allChecked = true;
+        jQuery('.statuscheck').each (function () {
+            if (!jQuery(this).is(':checked')) {
+                allChecked = false;
             }
+        });
+        if (allChecked == false && jQuery('#allcheck').is(':checked')) {
+            jQuery('#allcheck').attr('checked', false);
+        }
+        if (allChecked == true && !jQuery('#allcheck').is(':checked')) {
+            jQuery('#allcheck').attr('checked', true);
         }
     }
 
@@ -69,15 +87,15 @@ under the License.
             <td>&nbsp;&nbsp;</td>
             <td nowrap="nowrap">
                 <div>
-                    <label><input type="checkbox" name="viewall" value="Y" onclick="javascript:setCheckboxes()" <#if state.hasAllStatus()>checked="checked"</#if> />${uiLabelMap.CommonAll}</label>
-                    <label><input type="checkbox" name="viewcreated" value="Y" <#if state.hasStatus('viewcreated')>checked="checked"</#if> />${uiLabelMap.CommonCreated}</label>
-                    <label><input type="checkbox" name="viewprocessing" value="Y" <#if state.hasStatus('viewprocessing')>checked="checked"</#if> />${uiLabelMap.CommonProcessing}</label>
-                    <label><input type="checkbox" name="viewapproved" value="Y" <#if state.hasStatus('viewapproved')>checked="checked"</#if> />${uiLabelMap.CommonApproved}</label>
-                    <label><input type="checkbox" name="viewhold" value="Y" <#if state.hasStatus('viewhold')>checked="checked"</#if> />${uiLabelMap.CommonHeld}</label>
-                    <label><input type="checkbox" name="viewcompleted" value="Y" <#if state.hasStatus('viewcompleted')>checked="checked"</#if> />${uiLabelMap.CommonCompleted}</label>
+                    <label><input type="checkb<input type="checkbox" name="viewall" value="Y" id="allcheck" <#if state.hasAllStatus()>checked="checked"</#if> />${uiLabelMap.CommonAll}</label>
+                    <label><input type="checkbox" name="viewcreated" value="Y" class="statuscheck" <#if state.hasStatus('viewcreated')>checked="checked"</#if> />${uiLabelMap.CommonCreated}</label>
+                    <label><input type="checkbox" name="viewprocessing" value="Y" class="statuscheck" <#if state.hasStatus('viewprocessing')>checked="checked"</#if> />${uiLabelMap.CommonProcessing}</label>
+                    <label><input type="checkbox" name="viewapproved" value="Y" class="statuscheck" <#if state.hasStatus('viewapproved')>checked="checked"</#if> />${uiLabelMap.CommonApproved}</label>
+                    <label><input type="checkbox" name="viewhold" value="Y" class="statuscheck" <#if state.hasStatus('viewhold')>checked="checked"</#if> />${uiLabelMap.CommonHeld}</label>
+                    <label><input type="checkbox" name="viewcompleted" value="Y" class="statuscheck" <#if state.hasStatus('viewcompleted')>checked="checked"</#if> />${uiLabelMap.CommonCompleted}</label>
                     <#--input type="checkbox" name="viewsent" value="Y" <#if state.hasStatus('viewsent')>checked="checked"</#if> />${uiLabelMap.CommonSent}-->
-                    <label><input type="checkbox" name="viewrejected" value="Y" <#if state.hasStatus('viewrejected')>checked="checked"</#if> />${uiLabelMap.CommonRejected}</label>
-                    <label><input type="checkbox" name="viewcancelled" value="Y" <#if state.hasStatus('viewcancelled')>checked="checked"</#if> />${uiLabelMap.CommonCancelled}</label>
+                    <label><input type="checkbox" name="viewrejected" value="Y" class="statuscheck" <#if state.hasStatus('viewrejected')>checked="checked"</#if> />${uiLabelMap.CommonRejected}</label>
+                    <label><input type="checkbox" name="viewcancelled" value="Y" class="statuscheck" <#if state.hasStatus('viewcancelled')>checked="checked"</#if> />${uiLabelMap.CommonCancelled}</label>
                 </div>
             </td>
           </tr>
