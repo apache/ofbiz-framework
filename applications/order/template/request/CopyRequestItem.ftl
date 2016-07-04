@@ -23,7 +23,7 @@ under the License.
     <input type="hidden" name="custRequestItemSeqId" value="${custRequestItem.custRequestItemSeqId}"/>
     <div>
         <span class="label">${uiLabelMap.OrderCopyCustRequestItem}</span>
-        ${uiLabelMap.OrderOrderQuoteItems}&nbsp;<input type="checkbox" name="copyLinkedQuotes" value="Y"/>
+        <label>${uiLabelMap.OrderOrderQuoteItems}&nbsp;<input type="checkbox" name="copyLinkedQuotes" value="Y"/></label>
     </div>
     <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonCopy}"/>
 </form>

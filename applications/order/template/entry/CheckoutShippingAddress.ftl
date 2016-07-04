@@ -78,11 +78,10 @@ function toggleBillingAccount(box) {
                    <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
                    <#assign checkThisAddress = (shippingContactMech_index == 0 && !cart.getShippingContactMechId()?has_content) || (cart.getShippingContactMechId()?default("") == shippingAddress.contactMechId)/>
                    <tr>
-                     <td valign="top" width="1%" nowrap="nowrap">
+                     <td valign="top" nowrap="nowrap">
+                     <label>
                        <input type="radio" name="shipping_contact_mech_id" value="${shippingAddress.contactMechId}"<#if checkThisAddress> checked="checked"</#if> />
-                     </td>
-                     <td valign="top" width="99%" nowrap="nowrap">
-                       <div>
+                       <span>
                          <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
                          <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
                          <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
@@ -92,7 +91,8 @@ function toggleBillingAccount(box) {
                          <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
                          <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
                          <a href="javascript:submitForm(document.checkoutInfoForm, 'EA', '${shippingAddress.contactMechId}');" class="buttontext">${uiLabelMap.CommonUpdate}</a>
-                       </div>
+                       </span>
+                     </label>
                      </td>
                    </tr>
                    <tr><td colspan="2"><hr /></td></tr>
@@ -123,7 +123,7 @@ function toggleBillingAccount(box) {
                      </tr>
                    <#else>
                      <#list agreements as agreement>
-                        <input type="radio" name="agreementId" value="${agreement.agreementId!}"<#if checkThisAddress> checked="checked"</#if> />${agreement.description!} will be used for this order.
+                        <label><input type="radio" name="agreementId" value="${agreement.agreementId!}"<#if checkThisAddress> checked="checked"</#if> />${agreement.description!} will be used for this order.</label>
                      </#list>
                    </#if>
                  </#if>

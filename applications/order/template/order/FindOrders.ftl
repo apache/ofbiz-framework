@@ -412,13 +412,13 @@ function toggleOrderIdList() {
                 </td>
               </tr>
               <tr>
-                <td width='25%' align='right' class='label'>${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterInventoryProblems}</td>
+                <td width='25%' align='right' class='label'><label for="filterInventoryProblems">${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterInventoryProblems}</label></td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
                   <table class="basic-table" cellspacing='0'>
                     <tr>
                       <td nowrap="nowrap">
-                        <input type="checkbox" name="filterInventoryProblems" value="Y"
+                        <input type="checkbox" id="filterInventoryProblems" name="filterInventoryProblems" value="Y"
                             <#if requestParameters.filterInventoryProblems?default("N") == "Y">checked="checked"</#if> />
                       </td>
                     </tr>
@@ -426,13 +426,13 @@ function toggleOrderIdList() {
                 </td>
               </tr>
               <tr>
-                <td width='25%' align='right' class='label'>${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPartiallyReceivedPOs}</td>
+                <td width='25%' align='right' class='label'><label for="filterPartiallyReceivedPOs">${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPartiallyReceivedPOs}</label></td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
                   <table class="basic-table" cellspacing='0'>
                     <tr>
                       <td nowrap="nowrap">
-                        <input type="checkbox" name="filterPartiallyReceivedPOs" value="Y"
+                        <input type="checkbox" id="filterPartiallyReceivedPOs" name="filterPartiallyReceivedPOs" value="Y"
                             <#if requestParameters.filterPartiallyReceivedPOs?default("N") == "Y">checked="checked"</#if> />
                       </td>
                     </tr>
@@ -440,13 +440,13 @@ function toggleOrderIdList() {
                 </td>
               </tr>
               <tr>
-                <td width='25%' align='right' class='label'>${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPOsOpenPastTheirETA}</td>
+                <td width='25%' align='right' class='label'><label for="filterPOsOpenPastTheirETA">${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPOsOpenPastTheirETA}</label></td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
                   <table class="basic-table" cellspacing='0'>
                     <tr>
                       <td nowrap="nowrap">
-                        <input type="checkbox" name="filterPOsOpenPastTheirETA" value="Y"
+                        <input type="checkbox" id="filterPOsOpenPastTheirETA" name="filterPOsOpenPastTheirETA" value="Y"
                             <#if requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y">checked="checked"</#if> />
                       </td>
                     </tr>
@@ -454,13 +454,13 @@ function toggleOrderIdList() {
                 </td>
               </tr>
               <tr>
-                <td width='25%' align='right' class='label'>${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPOsWithRejectedItems}</td>
+                <td width='25%' align='right' class='label'><label for="filterPOsWithRejectedItems">${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPOsWithRejectedItems}</label></td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
                   <table class="basic-table" cellspacing='0'>
                     <tr>
                       <td nowrap="nowrap">
-                        <input type="checkbox" name="filterPOsWithRejectedItems" value="Y"
+                        <input type="checkbox" id="filterPOsWithRejectedItems" name="filterPOsWithRejectedItems" value="Y"
                             <#if requestParameters.filterPOsWithRejectedItems?default("N") == "Y">checked="checked"</#if> />
                       </td>
                     </tr>

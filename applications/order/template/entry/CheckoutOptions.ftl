@@ -123,11 +123,10 @@ function submitForm(form, mode, value) {
                      <#list shippingContactMechList as shippingContactMech>
                        <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
                        <tr>
-                         <td valign="top" width="1%">
+                         <td valign="top">
+                           <label>
                            <input type="radio" name="shipping_contact_mech_id" value="${shippingAddress.contactMechId}" onclick="javascript:submitForm(document.checkoutInfoForm, 'SA', null);"<#if shoppingCart.getShippingContactMechId()?default("") == shippingAddress.contactMechId> checked="checked"</#if>/>
-                         </td>
-                         <td valign="top" width="99%">
-                           <div>
+                           <span>
                              <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
                              <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
                              <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
@@ -137,7 +136,8 @@ function submitForm(form, mode, value) {
                              <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
                              <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
                              <a href="javascript:submitForm(document.checkoutInfoForm, 'EA', '${shippingAddress.contactMechId}');" class="buttontext">${uiLabelMap.CommonUpdate}</a>
-                           </div>
+                           </span>
+                           </label>
                          </td>
                        </tr>
                        <#if shippingContactMech_has_next>
@@ -172,27 +172,27 @@ function submitForm(form, mode, value) {
                   <#list carrierShipmentMethodList as carrierShipmentMethod>
                     <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
                     <tr>
-                      <td width="1%" valign="top">
-                        <input type="radio" name="shipping_method" value="${shippingMethod}" <#if shippingMethod == chosenShippingMethod?default("N@A")>checked="checked"</#if>/>
-                      </td>
                       <td valign="top">
-                        <div>
+                        <label>
+                        <input type="radio" name="shipping_method" value="${shippingMethod}" <#if shippingMethod == chosenShippingMethod?default("N@A")>checked="checked"</#if>/>
+                        <span>
                           <#if shoppingCart.getShippingContactMechId()??>
                             <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
                           </#if>
                           <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId!}&nbsp;</#if>${carrierShipmentMethod.description!}
                           <#if shippingEst?has_content> - <#if (shippingEst > -1)><@ofbizCurrency amount=shippingEst isoCode=shoppingCart.getCurrency()/><#else>${uiLabelMap.OrderCalculatedOffline}</#if></#if>
-                        </div>
+                        </span>
+                        </label>
                       </td>
                     </tr>
                   </#list>
                   <#if !carrierShipmentMethodList?? || carrierShipmentMethodList?size == 0>
                     <tr>
-                      <td width="1%" valign="top">
-                        <input type="radio" name="shipping_method" value="Default" checked="checked"/>
-                      </td>
                       <td valign="top">
-                        <div>${uiLabelMap.OrderUseDefault}.</div>
+                        <label>
+                        <input type="radio" name="shipping_method" value="Default" checked="checked"/>
+                        ${uiLabelMap.OrderUseDefault}.
+                        </label>
                       </td>
                     </tr>
                   </#if>
@@ -204,18 +204,18 @@ function submitForm(form, mode, value) {
                   </tr>
                   <tr>
                     <td valign="top">
+                    <label>
                       <input type="radio" <#if shoppingCart.getMaySplit()?default("N") == "N">checked="checked"</#if> name="may_split" value="false"/>
-                    </td>
-                    <td valign="top">
-                      <div>${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.</div>
+                      ${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.
+                    </label>
                     </td>
                   </tr>
                   <tr>
                     <td valign="top">
+                    <label>
                       <input <#if shoppingCart.getMaySplit()?default("N") == "Y">checked="checked"</#if> type="radio" name="may_split" value="true"/>
-                    </td>
-                    <td valign="top">
-                      <div>${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</div>
+                      ${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.
+                    </label>
                     </td>
                   </tr>
                   <tr><td colspan="2"><hr /></td></tr>
@@ -241,8 +241,8 @@ function submitForm(form, mode, value) {
                     <td colspan="2">
                       <div>
                         <span class="h2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
-                        <input type="radio" <#if shoppingCart.getIsGift()?default("Y") == "Y">checked="checked"</#if> name="is_gift" value="true"><span>${uiLabelMap.CommonYes}</span>
-                        <input type="radio" <#if shoppingCart.getIsGift()?default("N") == "N">checked="checked"</#if> name="is_gift" value="false"><span>${uiLabelMap.CommonNo}</span>
+                        <label><input type="radio" <#if shoppingCart.getIsGift()?default("Y") == "Y">checked="checked"</#if> name="is_gift" value="true"><span>${uiLabelMap.CommonYes}</span></label>
+                        <label><input type="radio" <#if shoppingCart.getIsGift()?default("N") == "N">checked="checked"</#if> name="is_gift" value="false"><span>${uiLabelMap.CommonNo}</span></label>
                       </div>
                     </td>
                   </tr>
@@ -320,32 +320,40 @@ function submitForm(form, mode, value) {
                   <#if productStorePaymentMethodTypeIdMap.EXT_OFFLINE??>
                   <tr>
                     <td>
+                      <label>
                       <input type="radio" name="checkOutPaymentId" value="EXT_OFFLINE" <#if "EXT_OFFLINE" == checkOutPaymentId>checked="checked"</#if>/>
                       <span>${uiLabelMap.OrderMoneyOrder}</span>
+                      </label>
                     </td>
                   </tr>
                   </#if>
                   <#if productStorePaymentMethodTypeIdMap.EXT_COD??>
                   <tr>
                     <td>
+                      <label>
                       <input type="radio" name="checkOutPaymentId" value="EXT_COD" <#if "EXT_COD" == checkOutPaymentId>checked="checked"</#if>/>
                       <span>${uiLabelMap.OrderCOD}</span>
+                      </label>
                     </td>
                   </tr>
                   </#if>
                   <#if productStorePaymentMethodTypeIdMap.EXT_WORLDPAY??>
                   <tr>
                     <td>
+                      <label>
                       <input type="radio" name="checkOutPaymentId" value="EXT_WORLDPAY" <#if "EXT_WORLDPAY" == checkOutPaymentId>checked="checked"</#if>/>
                       <span>${uiLabelMap.AccountingPayWithWorldPay}</span>
+                      </label>
                     </td>
                   </tr>
                   </#if>
                   <#if productStorePaymentMethodTypeIdMap.EXT_PAYPAL??>
                   <tr>
                     <td>
+                      <label>
                       <input type="radio" name="checkOutPaymentId" value="EXT_PAYPAL" <#if "EXT_PAYPAL" == checkOutPaymentId>checked="checked"</#if>/>
                       <span>${uiLabelMap.AccountingPayWithPayPal}</span>
+                      </label>
                     </td>
                   </tr>
                   </#if>
@@ -355,8 +363,10 @@ function submitForm(form, mode, value) {
                   <#list finAccounts as finAccount>
                       <tr>
                         <td>
+                          <label>
                           <input type="radio" name="checkOutPaymentId" value="FIN_ACCOUNT|${finAccount.finAccountId}" <#if "FIN_ACCOUNT" == checkOutPaymentId>checked="checked"</#if>/>
                           <span>${uiLabelMap.AccountingFinAccount} #${finAccount.finAccountId}</span>
+                          </label>
                         </td>
                       </tr>
                   </#list>
@@ -376,8 +386,10 @@ function submitForm(form, mode, value) {
                       <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)>
                       <tr>
                         <td>
+                          <label>
                           <input type="radio" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if shoppingCart.isPaymentSelected(paymentMethod.paymentMethodId)>checked="checked"</#if>/>
                           <span>CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</span>
+                          </label>
                           <a href="javascript:submitForm(document.checkoutInfoForm, 'EC', '${paymentMethod.paymentMethodId}');" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                           <#if paymentMethod.description?has_content><br /><span>(${paymentMethod.description})</span></#if>
                           &nbsp;${uiLabelMap.OrderCardSecurityCode}&nbsp;<input type="text" size="5" maxlength="10" name="securityCode_${paymentMethod.paymentMethodId}" value=""/>
@@ -389,8 +401,10 @@ function submitForm(form, mode, value) {
                       <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false)>
                       <tr>
                         <td>
+                          <label>
                           <input type="radio" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if shoppingCart.isPaymentSelected(paymentMethod.paymentMethodId)>checked="checked"</#if>/>
                           <span>${uiLabelMap.AccountingEFTAccount}:&nbsp;${eftAccount.bankName!}: ${eftAccount.accountNumber!}</span>
+                          </label>
                           <a href="javascript:submitForm(document.checkoutInfoForm, 'EE', '${paymentMethod.paymentMethodId}');" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                           <#if paymentMethod.description?has_content><br /><span>(${paymentMethod.description})</span></#if>
                         </td>
@@ -418,8 +432,10 @@ function submitForm(form, mode, value) {
 
                       <tr>
                         <td>
+                          <label>
                           <input type="radio" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if shoppingCart.isPaymentSelected(paymentMethod.paymentMethodId)>checked="checked"</#if>/>
                           <span>${uiLabelMap.AccountingGift}:&nbsp;${giftCardNumber}</span>
+                          </label>
                           <a href="javascript:submitForm(document.checkoutInfoForm, 'EG', '${paymentMethod.paymentMethodId}');" class="buttontext">[${uiLabelMap.CommonUpdate}]</a>
                           <#if paymentMethod.description?has_content><br /><span>(${paymentMethod.description})</span></#if>
                         </td>
@@ -460,8 +476,10 @@ function submitForm(form, mode, value) {
                   <tr><td colspan="2"><hr /></td></tr>
                   <tr>
                     <td>
+                    <label>
                       <input type="checkbox" name="addGiftCard" value="Y"/>
                       <span>${uiLabelMap.AccountingUseGiftCardNotOnFile}</span>
+                    </label>
                     </td>
                   </tr>
                   <tr>
