@@ -52,9 +52,11 @@ import org.ofbiz.entity.model.ModelField;
 /**
  * Helper methods when dealing with Entities, especially ones that follow certain conventions
  */
-public class EntityUtil {
+public final class EntityUtil {
 
     public static final String module = EntityUtil.class.getName();
+
+    private EntityUtil() {}
 
     @SafeVarargs
     public static <V> Map<String, V> makeFields(V... args) {
