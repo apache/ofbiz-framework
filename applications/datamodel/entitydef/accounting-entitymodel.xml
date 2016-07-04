@@ -2801,6 +2801,30 @@ under the License.
       </relation>
     </entity>
 
+    <entity entity-name="CheckAccount"
+            package-name="org.ofbiz.accounting.payment"
+            title="Check Information Entity">
+      <field name="paymentMethodId" type="id-ne"></field>
+      <field name="bankName" type="name"></field>
+      <field name="routingNumber" type="short-varchar"></field>
+      <field name="accountType" type="short-varchar"></field>
+      <field name="accountNumber" type="long-varchar"></field>
+      <field name="nameOnAccount" type="name"></field>
+      <field name="companyNameOnAccount" type="name"></field>
+      <field name="contactMechId" type="id-ne"></field>
+      <field name="branchCode" type="short-varchar"></field>
+      <prim-key field="paymentMethodId"/>
+      <relation type="one" fk-name="CACCT_PMETH" rel-entity-name="PaymentMethod">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one" fk-name="CACCT_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="CACCT_PADDR" rel-entity-name="PostalAddress">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </entity>
+
     <entity entity-name="GiftCard"
             package-name="org.ofbiz.accounting.payment"
             title="Gift Card Information Entity">
