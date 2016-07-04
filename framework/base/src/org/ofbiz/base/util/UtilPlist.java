@@ -36,12 +36,14 @@ import static org.ofbiz.base.util.UtilGenerics.checkMap;
  * File Utilities
  *
  */
-public class UtilPlist {
+public final class UtilPlist {
 
     public static final String module = UtilPlist.class.getName();
 
+    private UtilPlist() {}
+    
     /** simple 4 char indentation */
-    public static final String indentFourString = "    ";
+    private static final String indentFourString = "    ";
 
     public static void writePlistProperty(String name, Object value, int indentLevel, PrintWriter writer) {
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
