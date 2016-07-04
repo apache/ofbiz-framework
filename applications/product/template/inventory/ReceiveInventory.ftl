@@ -312,8 +312,7 @@ under the License.
                   <td>
                     <table class="basic-table" cellspacing="0">
                       <tr>
-                        <td width="5%" nowrap="nowrap"><input type="radio" name="shipmentId" value="${shipment.shipmentId}" /></td>
-                        <td width="5%" nowrap="nowrap">${shipment.shipmentId}</td>
+                        <td nowrap="nowrap"><label><input type="radio" name="shipmentId" value="${shipment.shipmentId}" /> ${shipment.shipmentId}</label></td>
                         <td>${shipmentType.get("description",locale)?default(shipmentType.shipmentTypeId?default(""))}</td>
                         <td>${statusItem.get("description",locale)?default(statusItem.statusId?default("N/A"))}</td>
                         <td>${(originFacility.facilityName)!} [${shipment.originFacilityId!}]</td>
@@ -331,8 +330,7 @@ under the License.
                 <td>
                   <table class="basic-table" cellspacing="0">
                     <tr>
-                      <td width="5%" nowrap="nowrap"><input type="radio" name="shipmentId" value="_NA_" /></td>
-                      <td width="5%" nowrap="nowrap">${uiLabelMap.ProductNoSpecificShipment}</td>
+                      <td nowrap="nowrap"><label><input type="radio" name="shipmentId" value="_NA_" /> ${uiLabelMap.ProductNoSpecificShipment}</label></td>
                       <td colspan="5"></td>
                     </tr>
                   </table>
@@ -369,13 +367,13 @@ under the License.
                     <h3>${uiLabelMap.ProductReceivePurchaseOrder} #${purchaseOrder.orderId}</h3>
                     <#if shipment?has_content>
                     <h3>${uiLabelMap.ProductShipmentId} #${shipment.shipmentId}</h3>
-                    <span>Set Shipment As Received</span>&nbsp;
-                    <input type="checkbox" name="forceShipmentReceived" value="Y"/>
+                    <label><span>Set Shipment As Received</span>&nbsp;
+                    <input type="checkbox" name="forceShipmentReceived" value="Y"/></label>
                     </#if>
                   </td>
                   <td align="right">
-                    ${uiLabelMap.CommonSelectAll}
-                    <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');"/>
+                    <label>${uiLabelMap.CommonSelectAll}
+                    <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');"/></label>
                   </td>
                 </tr>
                 <#list purchaseOrderItems as orderItem>

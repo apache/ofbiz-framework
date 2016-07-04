@@ -77,8 +77,8 @@ under the License.
                     </h3>
                   </td>
                   <td align="right">
-                    ${uiLabelMap.ProductSelectAll}&nbsp;
-                    <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');" />
+                    <label>${uiLabelMap.ProductSelectAll}&nbsp;
+                    <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');" /></label>
                   </td>
                 </tr>
 

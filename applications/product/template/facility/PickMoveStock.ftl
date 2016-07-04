@@ -58,8 +58,8 @@ under the License.
                     <td>${uiLabelMap.ProductMoveQuantity}</td>
                     <td>${uiLabelMap.CommonConfirm}</td>
                     <td align="right">
-                        ${uiLabelMap.ProductSelectAll}&nbsp;
-                        <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'moveInfoId_tableRow_', 'selectAllForm');" />
+                        <label>${uiLabelMap.ProductSelectAll}&nbsp;
+                        <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'moveInfoId_tableRow_', 'selectAllForm');" /></label>
                     </td>
                 </tr>
                 <#if moveByOisgirInfoList?has_content || moveByPflInfoList?has_content>

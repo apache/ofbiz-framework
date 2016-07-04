@@ -28,12 +28,9 @@ under the License.
     <input type="hidden" name="facilityId" value="${facilityId}"/>
     <table class="basic-table" cellspacing='0'>
       <tr>
-        <td class='label'>${uiLabelMap.FacilityGroupByShippingMethod}</td>
-        <td><input type="checkbox" name="groupByShippingMethod" value="Y" <#if "${requestParameters.groupByShippingMethod!}" == "Y">checked="checked"</#if>/></td>
-        <td class='label'>${uiLabelMap.FacilityGroupByWarehouseArea}</td>
-        <td><input type="checkbox" name="groupByWarehouseArea" value="Y" <#if "${requestParameters.groupByWarehouseArea!}" == "Y">checked="checked"</#if>/></td>
-        <td class='label'>${uiLabelMap.FacilityGroupByNoOfOrderItems}</td>
-        <td><input type="checkbox" name="groupByNoOfOrderItems" value="Y" <#if "${requestParameters.groupByNoOfOrderItems!}" == "Y">checked="checked"</#if>/></td>
+        <td><label class='label'>${uiLabelMap.FacilityGroupByShippingMethod} <input type="checkbox" name="groupByShippingMethod" value="Y" <#if "${requestParameters.groupByShippingMethod!}" == "Y">checked="checked"</#if>/></label></td>
+        <td><label class='label'>${uiLabelMap.FacilityGroupByWarehouseArea} <input type="checkbox" name="groupByWarehouseArea" value="Y" <#if "${requestParameters.groupByWarehouseArea!}" == "Y">checked="checked"</#if>/></label></td>
+        <td><label class='label'>${uiLabelMap.FacilityGroupByNoOfOrderItems} <input type="checkbox" name="groupByNoOfOrderItems" value="Y" <#if "${requestParameters.groupByNoOfOrderItems!}" == "Y">checked="checked"</#if>/></label></td>
       </tr>
       <tr><td>&nbsp;</td></tr>
     </table>
