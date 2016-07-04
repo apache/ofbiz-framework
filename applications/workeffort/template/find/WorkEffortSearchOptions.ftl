@@ -29,8 +29,8 @@ under the License.
           <td valign="middle">
             <div>
               <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING!}"/>&nbsp;
-              ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if>/>
-              ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if>/>
+              <label>${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if>/></label>
+              <label>${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if>/></label>
             </div>
           </td>
         </tr>
@@ -61,8 +61,8 @@ under the License.
                   </#list>
                   </select>
                   ${uiLabelMap.WorkEffortIncludeAllSubWorkEfforts}?
-                  ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_WORK_EFFORTS" value="Y" checked="checked"/>
-                  ${uiLabelMap.CommonNo}<input type="radio" name="SEARCH_SUB_WORK_EFFORTS" value="N"/>
+                  <label>${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_WORK_EFFORTS" value="Y" checked="checked"/></label>
+                  <label>${uiLabelMap.CommonNo}<input type="radio" name="SEARCH_SUB_WORK_EFFORTS" value="N"/></label>
             </div>
           </td>
         </tr>
@@ -130,8 +130,8 @@ under the License.
                 <option value="SortKeywordRelevancy">${uiLabelMap.ProductKeywordRelevancy}</option>
                 <option value="SortWorkEffortField:workEffortName">${uiLabelMap.WorkEffortName}</option>
               </select>
-              ${uiLabelMap.ProductLowToHigh}<input type="radio" name="sortAscending" value="Y" checked="checked"/>
-              ${uiLabelMap.ProductHighToLow}<input type="radio" name="sortAscending" value="N"/>
+              <label>${uiLabelMap.ProductLowToHigh}<input type="radio" name="sortAscending" value="Y" checked="checked"/></label>
+              <label>${uiLabelMap.ProductHighToLow}<input type="radio" name="sortAscending" value="N"/></label>
             </div>
           </td>
         </tr>
@@ -144,8 +144,8 @@ under the License.
                 </#list>
                 <div class="label">${uiLabelMap.CommonSortedBy} ${searchSortOrderString}</div>
                 <div>
-                  ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked="checked"/>
-                  ${uiLabelMap.CommonRefineSearch}<input type="radio" name="clearSearch" value="N"/>
+                  <label>${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked="checked"/></label>
+                  <label>${uiLabelMap.CommonRefineSearch}<input type="radio" name="clearSearch" value="N"/></label>
                 </div>
             </td>
           </tr>

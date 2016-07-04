@@ -24,16 +24,16 @@ under the License.
             </div>
             <div>
                 <span class="label">${uiLabelMap.CommonDuplicate}</span>
-                ${uiLabelMap.FormFieldTitle_rate}&nbsp;<input type="checkbox" name="duplicateWorkEffortAssignmentRates" value="Y" checked="checked"/>
-                ${uiLabelMap.WorkEffortAssoc}&nbsp;<input type="checkbox" name="duplicateWorkEffortAssocs" value="Y" checked="checked"/>
-                ${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" name="duplicateWorkEffortContents" value="Y" checked="checked"/>
-                ${uiLabelMap.WorkEffortNotes}&nbsp;<input type="checkbox" name="duplicateWorkEffortNotes" value="Y" checked="checked"/>
+                <label>${uiLabelMap.FormFieldTitle_rate}&nbsp;<input type="checkbox" name="duplicateWorkEffortAssignmentRates" value="Y" checked="checked"/></label>
+                <label>${uiLabelMap.WorkEffortAssoc}&nbsp;<input type="checkbox" name="duplicateWorkEffortAssocs" value="Y" checked="checked"/></label>
+                <label>${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" name="duplicateWorkEffortContents" value="Y" checked="checked"/></label>
+                <label>${uiLabelMap.WorkEffortNotes}&nbsp;<input type="checkbox" name="duplicateWorkEffortNotes" value="Y" checked="checked"/></label>
             </div>
             <div>
                 <span class="label">${uiLabelMap.CommonRemove}</span>
-                ${uiLabelMap.FormFieldTitle_rate}&nbsp;<input type="checkbox" name="removeWorkEffortAssignmentRates" value="Y"/>
-                ${uiLabelMap.WorkEffortAssoc}&nbsp;<input type="checkbox" name="removeWorkEffortAssocs" value="Y"/>
-                ${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" name="removeWorkEffortContents" value="Y"/>
-                ${uiLabelMap.WorkEffortNotes}&nbsp;<input type="checkbox" name="removeWorkEffortNotes" value="Y"/>
+                <label>${uiLabelMap.FormFieldTitle_rate}&nbsp;<input type="checkbox" name="removeWorkEffortAssignmentRates" value="Y"/></label>
+                <label>${uiLabelMap.WorkEffortAssoc}&nbsp;<input type="checkbox" name="removeWorkEffortAssocs" value="Y"/></label>
+                <label>${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" name="removeWorkEffortContents" value="Y"/></label>
+                <label>${uiLabelMap.WorkEffortNotes}&nbsp;<input type="checkbox" name="removeWorkEffortNotes" value="Y"/></label>
             </div>
         </form>
