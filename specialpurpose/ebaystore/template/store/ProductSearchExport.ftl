@@ -420,13 +420,12 @@ under the License.
                                             <td><input type="text" name="location" size="50" maxlength="50" value="${item.getLocation()!}" /></td>
                                         </tr>
                                         <tr>
-                                            <td class="label"><b>Enable auto-relist item</b></td>
-                                            <td><input type="checkbox" name="isAutoRelist" value="Y" <#if isAutoRelist == "Y">checked="checked"</#if>/></td>
+                                            <td class="label"><label><b>Enable auto-relist item</b> <input type="checkbox" name="isAutoRelist" value="Y" <#if isAutoRelist == "Y">checked="checked"</#if>/></label></td>
                                         </tr>
                                         <#if isReserve?? && isReserve == true>
                                         <tr>
-                                            <td class="label"><b>Require eBay Inventory</b></td>
-                                            <td><input type="checkbox" name="requireEbayInventory" value="Y" <#if requireEbayInventory == "Y">checked="checked"</#if>/></td>
+                                            <td class="label"><label><b>Require eBay Inventory</b> <input type="checkbox" name="requireEbayInventory" value="Y" <#if requireEbayInventory == "Y">checked="checked"</#if>/></label></td>
+                                            <td></td>
                                         </tr>
                                         </#if>
                                         <tr>
@@ -523,7 +522,7 @@ under the License.
                                                 <table align="left" width="60%"  height="100%" cellspacing="0">
                                                     <tr>
                                                         <td></td>
-                                                        <td><input type="checkbox" value="Y" onclick="javascript:enabledItemTemplate(this.value);" id="enabledTheme" name="enabledTheme" /><b>Add a theme</b></checkbox></td>
+                                                        <td><label><input type="checkbox" value="Y" onclick="javascript:enabledItemTemplate(this.value);" id="enabledTheme" name="enabledTheme" /><b>Add a theme</b></label></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="label">Select Theme</td>
@@ -601,10 +600,10 @@ under the License.
                                                          <td class="label"></td>
                                                         <td>
                                                             <#if listingType.type.equals("Chinese")>
-                                                                <input type="radio" name="listype" value="auction"/><b>${tabName!}</b>
+                                                                <label><input type="radio" name="listype" value="auction"/><b>${tabName!}</b></label>
                                                                 <#--<input type="checkbox" value="Y" name="enabledAuction_${id}" /><b>${tabName!}</b></checkbox-->
                                                             <#elseif listingType.type == "FixedPriceItem">
-                                                                <input type="radio" name="listype" value="fixedprice"/><b>${tabName!}</b>
+                                                                <label><input type="radio" name="listype" value="fixedprice"/><b>${tabName!}</b></label>
                                                                 <#--input type="checkbox" value="Y" name="enabledFixedPrice_${id}" /><b>${tabName!}</b></checkbox-->
                                                             </#if>
                                                         </td>
@@ -678,7 +677,7 @@ under the License.
                                                     <#if listingType.type.equals("FixedPriceItem") >
                                                     <tr>
                                                         <td class="label"></td><!-- use when fixed price and store fixed price -->
-                                                        <td><input type="checkbox" value="true" name="enableBestOffer_${id}" /><b>Enable Best Offer</b></td>
+                                                        <td><label><input type="checkbox" value="true" name="enableBestOffer_${id}" /><b>Enable Best Offer</b></label></td>
                                                         <td class="label"></td>
                                                         <td><br /></td>
                                                     </tr>
@@ -720,8 +719,7 @@ under the License.
                                                                         <#if paymentMethod.compareTo(buyerPayMethCode_PAY_PAL!) == 0 >
                                                                                 <#assign is_payPal = true>
                                                                         </#if>
-                                                                        <td valign="top"><input type="checkbox" value="true" name="Payments_${paymentMethod.value()!}" /></td>
-                                                                        <td align="left"><b>${paymentMethod.value()!}</b></td>
+                                                                        <td valign="top"></label><input type="checkbox" value="true" name="Payments_${paymentMethod.value()!}" /> <b>${paymentMethod.value()!}</b></label></td>
                                                                         <#if j == 3>
                                                                              </tr>
                                                                              <#assign j = 0>
@@ -795,8 +793,7 @@ under the License.
                                                     <#list shippingLocationDetails as shippingLocationDetail>
                                                         <#assign shippingLocation = shippingLocationDetail.getShippingLocation()!>
                                                         <#if j==0><tr></#if>
-                                                          <td valign="top"><input type="checkbox" value="true" name="Shipping_${shippingLocation!}" /></td>
-                                                          <td align="left"><b>${shippingLocationDetail.getDescription()!}</b></td>
+                                                          <td valign="top"><label><input type="checkbox" value="true" name="Shipping_${shippingLocation!}" /><b>${shippingLocationDetail.getDescription()!}</b></label></td>
                                                         <#if j==3></tr><#assign j=0><#else><#assign j=j+1></#if>
                                                     </#list>
                                              </table>

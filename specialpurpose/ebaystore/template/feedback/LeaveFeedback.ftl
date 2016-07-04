@@ -87,10 +87,14 @@ under the License.
                         <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&amp;transId=${leaveFeedback.transactionID}&amp;ssPageName=STRK:MESOX:VPS&amp;itemid=${leaveFeedback.itemID}">order details</a>
                         </td>
                         <td>
+                            <label>
                             <input type="radio" name="commentType${feedbackCounter}" value="positive" 
                                 onclick="document.getElementById('rate${feedbackCounter}').style.display='block';"/><span>Positive</span>
+                            </label>
+                            <label>
                             <input type="radio" name="commentType${feedbackCounter}" checked="checked" value="none" 
                                 onclick="document.getElementById('rate${feedbackCounter}').style.display='none';"/><span>I'll leave Feedback later</span>
+                            </label>
                             <div id="rate${feedbackCounter}" style="display:none">
                                 <input type="text" value="" maxlength="80" size="80" name="commentText${feedbackCounter}" label="Tell us more"/>
                                 <br />80 characters left<br /><br />
@@ -118,14 +122,22 @@ under the License.
                         <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&amp;transId=${leaveFeedback.transactionID}&amp;ssPageName=STRK:MESOX:VPS&amp;itemid=${leaveFeedback.itemID}">order details</a>
                         </td>
                         <td>
+                        <label>
                         <input type="radio" name="commentType${feedbackCounter}" value="positive" 
                             onclick="document.getElementById('rate${feedbackCounter}').style.display='block';"/><span>Positive</span>
+                        </label>
+                        <label>
                         <input type="radio" name="commentType${feedbackCounter}" value="neutral" 
                             onclick="document.getElementById('rate${feedbackCounter}').style.display='block';"/><span>Neutral</span>
+                        </label>
+                        <label>
                         <input type="radio" name="commentType${feedbackCounter}" value="negative" 
                             onclick="document.getElementById('rate${feedbackCounter}').style.display='block';"/><span>Negative</span>
+                        </label>
+                        <label>
                         <input type="radio" name="commentType${feedbackCounter}" checked="checked" value="none" 
                             onclick="document.getElementById('rate${feedbackCounter}').style.display='none';"/><span>I'll leave Feedback later</span>
+                        </label>
                         <div id="rate${feedbackCounter}" style="display:none">
                             <input type="text" value="" maxlength="80" size="80" name="commentText${feedbackCounter}" label="Tell us more"/>
                             <br />80 characters left<br /><br />
@@ -150,28 +162,23 @@ under the License.
                                         <table class="answers" width="100%" border="0" cellpadding="0" cellspacing="0">
                                             <tbody>
                                                 <tr>
-                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="5" type="radio" />
-                                                    </td><td>Item was not received</td>
+                                                    <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="5" type="radio" /> Item was not received</label>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="6" type="radio" /></td>
-                                                    <td>Quality did not match item description</td>
+                                                    <td width="25"></label><input name="AqItemAsDescribedId${feedbackCounter}" value="6" type="radio" />Quality did not match item description</label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="2" type="radio" /></td>
-                                                    <td>Item was damaged</td>
+                                                    <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="2" type="radio" />Item was damaged</label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="1" type="radio" /></td>
-                                                    <td>Item was a counterfeit, replica, or an unauthorized copy</td>
+                                                    <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="1" type="radio" />Item was a counterfeit, replica, or an unauthorized copy</label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="3" type="radio" /></td>
-                                                    <td>Wrong item</td>
+                                                    <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="3" type="radio" />Wrong item</label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="4" type="radio" checked="checked" /></td>
-                                                    <td>Other</td>
+                                                    <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="4" type="radio" checked="checked" />Other</label></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -244,10 +251,14 @@ under the License.
                     <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&amp;transId=${leaveFeedback.transactionID}&amp;ssPageName=STRK:MESOX:VPS&amp;itemid=${leaveFeedback.itemID}">order details</a>
                     </td>
                     <td>
+                      <label>
                         <input type="radio" name="commentType${feedbackCounter}" value="positive" 
                             onclick="document.getElementById('rate${feedbackCounter}').style.display='block';"/><span>Positive</span>
+                      </label>
+                      <label>
                         <input type="radio" name="commentType${feedbackCounter}" checked="checked" value="none" 
                             onclick="document.getElementById('rate${feedbackCounter}').style.display='none';"/><span>I'll leave Feedback later</span>
+                      </label>
                         <div id="rate${feedbackCounter}" style="display:none">
                             <input type="text" value="" maxlength="80" size="80" name="commentText${feedbackCounter}" label="Tell us more"/>
                             <br />80 characters left<br /><br />
@@ -277,14 +288,22 @@ under the License.
                     <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&amp;transId=${leaveFeedback.transactionID}&amp;ssPageName=STRK:MESOX:VPS&amp;itemid=${leaveFeedback.itemID}">order details</a>
                     </td>
                     <td>
+                    <label>
                     <input type="radio" name="commentType${feedbackCounter}" value="positive" 
                         onclick="document.getElementById('rate${feedbackCounter}').style.display='block';"/><span>Positive</span>
+                    </label>
+                    <label>
                     <input type="radio" name="commentType${feedbackCounter}" value="neutral" 
                         onclick="document.getElementById('rate${feedbackCounter}').style.display='block';"/><span>Neutral</span>
+                    </label>
+                    <label>
                     <input type="radio" name="commentType${feedbackCounter}" value="negative" 
                         onclick="document.getElementById('rate${feedbackCounter}').style.display='block';"/><span>Negative</span>
+                    </label>
+                    <label>
                     <input type="radio" name="commentType${feedbackCounter}" checked="checked" value="none" 
                         onclick="document.getElementById('rate${feedbackCounter}').style.display='none';"/><span>I'll leave Feedback later</span>
+                    </label>
                     <div id="rate${feedbackCounter}" style="display:none">
                         <input type="text" value="" maxlength="80" size="80" name="commentText${feedbackCounter}" label="Tell us more"/>
                         <br />80 characters left<br /><br />
@@ -309,28 +328,23 @@ under the License.
                                     <table class="answers" width="100%" border="0" cellpadding="0" cellspacing="0">
                                         <tbody>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="5" type="radio" />
-                                                </td><td>Item was not received</td>
+                                                <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="5" type="radio" />Item was not received</label>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="6" type="radio" /></td>
-                                                <td>Quality did not match item description</td>
+                                                <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="6" type="radio" />Quality did not match item description</label></td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="2" type="radio" /></td>
-                                                <td>Item was damaged</td>
+                                                <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="2" type="radio" />Item was damaged</label></td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="1" type="radio" /></td>
-                                                <td>Item was a counterfeit, replica, or an unauthorized copy</td>
+                                                <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="1" type="radio" />Item was a counterfeit, replica, or an unauthorized copy</label></td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="3" type="radio" /></td>
-                                                <td>Wrong item</td>
+                                                <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="3" type="radio" />Wrong item</label></td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="4" type="radio" checked="checked" /></td>
-                                                <td>Other</td>
+                                                <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="4" type="radio" checked="checked" />Other</label></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -402,19 +416,31 @@ under the License.
                 </td>
                 <td>
                 <#if leaveFeedback.role == "seller">
+                  <label>
                     <input type="radio" name="commentType${feedbackCounter}" value="positive" 
                         onclick="document.getElementById('rate${feedbackCounter}').style.display='block';"/><span>Positive</span>
+                  </label>
+                  <label>
                     <input type="radio" name="commentType${feedbackCounter}" value="neutral" 
                         onclick="document.getElementById('rate${feedbackCounter}').style.display='block';"/><span>Neutral</span>
+                  </label>
+                  <label>
                     <input type="radio" name="commentType${feedbackCounter}" value="negative" 
                         onclick="document.getElementById('rate${feedbackCounter}').style.display='block';"/><span>Negative</span>
+                  </label>
+                  <label>
                     <input type="radio" name="commentType${feedbackCounter}" checked="checked" value="none" 
                         onclick="document.getElementById('rate${feedbackCounter}').style.display='none';"/><span>I'll leave Feedback later</span>
+                  </label>
                 <#else>
+                  <label>
                     <input type="radio" name="commentType${feedbackCounter}" value="positive" 
                         onclick="document.getElementById('rate${feedbackCounter}').style.display='block';"/><span>Positive</span>
+                  </label>
+                  <label>
                     <input type="radio" name="commentType${feedbackCounter}" checked="checked" value="none" 
                         onclick="document.getElementById('rate${feedbackCounter}').style.display='none';"/><span>I'll leave Feedback later</span>
+                  </label>
                 </#if>
                 <#if leaveFeedback.role == "seller">
                     <div id="rate${feedbackCounter}" style="display:none">
@@ -441,28 +467,23 @@ under the License.
                                     <table class="answers" width="100%" border="0" cellpadding="0" cellspacing="0">
                                         <tbody>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="5" type="radio" />
-                                                </td><td>Item was not received</td>
+                                                <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="5" type="radio" />Item was not received</label>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="6" type="radio" /></td>
-                                                <td>Quality did not match item description</td>
+                                                <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="6" type="radio" />Quality did not match item description</label></td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="2" type="radio" /></td>
-                                                <td>Item was damaged</td>
+                                                <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="2" type="radio" />Item was damaged</label></td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="1" type="radio" /></td>
-                                                <td>Item was a counterfeit, replica, or an unauthorized copy</td>
+                                                <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="1" type="radio" />Item was a counterfeit, replica, or an unauthorized copy</label></td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="3" type="radio" /></td>
-                                                <td>Wrong item</td>
+                                                <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="3" type="radio" />Wrong item</label></td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="4" type="radio" checked="checked" /></td>
-                                                <td>Other</td>
+                                                <td width="25"><label><input name="AqItemAsDescribedId${feedbackCounter}" value="4" type="radio" checked="checked" />Other</label></td>
                                             </tr>
                                         </tbody>
                                     </table>

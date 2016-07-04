@@ -167,8 +167,8 @@ under the License.
               <td class="label" align="right" valign="middle"></td>
               <td valign="middle">
                    <div onclick="javascript:switchTheme();">
-                   <input type="radio" name="storeThemeType" <#if themeType! == "Basic">checked="checked"</#if> value="Basic" default="default" /> Basic Theme
-                   <input type="radio"  name="storeThemeType" <#if themeType! == "Advanced">checked="checked"</#if> value="Advanced" /> Advanced Theme
+                   <label><input type="radio" name="storeThemeType" <#if themeType! == "Basic">checked="checked"</#if> value="Basic" default="default" /> Basic Theme</label>
+                   <label><input type="radio"  name="storeThemeType" <#if themeType! == "Advanced">checked="checked"</#if> value="Advanced" /> Advanced Theme</label>
                    </div>
               </td>
             </tr>
