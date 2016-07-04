@@ -23,6 +23,9 @@ under the License.
     <eca service="createPerson" event="commit">
         <action service="ensureNaPartyRole" mode="sync"/>
     </eca>
+    <eca service="createProductStoreRole" event="invoke">
+        <action service="ensurePartyRole" mode="sync" run-as-user="system"/>
+    </eca>
     <eca service="createPartyGroup" event="commit">
         <action service="ensureNaPartyRole" mode="sync"/>
     </eca>
