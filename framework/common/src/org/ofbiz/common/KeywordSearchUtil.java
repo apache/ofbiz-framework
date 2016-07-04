@@ -37,12 +37,12 @@ import org.ofbiz.entity.util.EntityQuery;
 /**
  * A few utility methods related to Keyword Search.
  */
-public class KeywordSearchUtil {
+public final class KeywordSearchUtil {
 
     public static final String module = KeywordSearchUtil.class.getName();
 
-    public static Set<String> thesaurusRelsToInclude = new HashSet<String>();
-    public static Set<String> thesaurusRelsForReplace = new HashSet<String>();
+    private static Set<String> thesaurusRelsToInclude = new HashSet<String>();
+    private static Set<String> thesaurusRelsForReplace = new HashSet<String>();
 
     static {
         thesaurusRelsToInclude.add("KWTR_UF");
@@ -55,6 +55,8 @@ public class KeywordSearchUtil {
         thesaurusRelsForReplace.add("KWTR_USE");
         thesaurusRelsForReplace.add("KWTR_CS");
     }
+
+    private KeywordSearchUtil () {}
 
     public static String getSeparators() {
         // String separators = ";: ,.!?\t\"\'\r\n\\/()[]{}*%<>-+_";
