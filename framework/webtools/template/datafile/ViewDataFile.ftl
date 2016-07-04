@@ -24,7 +24,7 @@ under the License.
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataDefinitionFileName}</td>
             <td><input name="DEFINITION_LOCATION" type="text" size="60" value="${parameters.DEFINITION_LOCATION!}" /></td>
-            <td><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name="DEFINITION_IS_URL"<#if parameters.DEFINITION_IS_URL?has_content> checked="checked"</#if> /></td>
+            <td><label><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name="DEFINITION_IS_URL"<#if parameters.DEFINITION_IS_URL?has_content> checked="checked"</#if> /></label></td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataDefinitionName}</td>
@@ -46,7 +46,7 @@ under the License.
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataFileName}</td>
             <td><input name="DATAFILE_LOCATION" type="text" size="60" value="${parameters.DATAFILE_LOCATION!}" /></td>
-            <td><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name="DATAFILE_IS_URL"<#if parameters.DATAFILE_IS_URL?has_content> checked="checked"</#if> /></td>
+            <td><label><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" id="datafile_is_url" name="DATAFILE_IS_URL"<#if parameters.DATAFILE_IS_URL?has_content> checked="checked"</#if> /></label></td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataSaveToFile}</td>
