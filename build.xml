@@ -497,7 +497,6 @@ under the License.
           <fileset dir="${ofbiz.home.dir}/framework/webapp/build/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/specialpurpose/birt/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/specialpurpose/ebaystore/lib" includes="*.jar"/>
-          <fileset dir="${ofbiz.home.dir}/specialpurpose/googlecheckout/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/specialpurpose/ldap/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/specialpurpose/pos/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/applications/content/lib" includes="*.jar"/>
