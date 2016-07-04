@@ -430,10 +430,21 @@ public class TaxAuthorityServices {
                                     "taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, 
                                     "productPricePurposeId", "PURCHASE")
                             .orderBy("-fromDate").filterByDate().queryFirst();
+                    
+                    
+                    if (productPrice == null) {
+                    	GenericValue virtualProduct = ProductWorker.getParentProduct(product.getString("productId"), delegator); 
+                    	if (virtualProduct != null) {
+                    		productPrice = EntityQuery.use(delegator).from("ProductPrice")
+                                    .where("productId", virtualProduct.get("productId"), 
+                                            "taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, 
+                                            "productPricePurposeId", "PURCHASE")
+                                    .orderBy("-fromDate").filterByDate().queryFirst();
+                    	}
+                    }
                     //Debug.logInfo("=================== productId=" + product.getString("productId"), module);
                     //Debug.logInfo("=================== productPrice=" + productPrice, module);
                 }
-
                 GenericValue taxAdjValue = delegator.makeValue("OrderAdjustment");
 
                 if (productPrice != null && "Y".equals(productPrice.getString("taxInPrice"))) {
