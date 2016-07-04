@@ -98,7 +98,7 @@ under the License.
                 <td>${uiLabelMap.ProductIssue}</td>
                 <td align="right">
                     <div>${uiLabelMap.CommonSubmit} ?</div>
-                    <div>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'orderItemData_tableRow_', 'selectAllForm');" /></div>
+                    <div><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'orderItemData_tableRow_', 'selectAllForm');" /></label></div>
                 </td>
             </tr>
             <#assign alt_row = false>
