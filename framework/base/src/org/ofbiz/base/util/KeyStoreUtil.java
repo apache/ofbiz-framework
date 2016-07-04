@@ -57,9 +57,11 @@ import org.ofbiz.base.config.GenericConfigException;
  * KeyStoreUtil - Utilities for getting KeyManagers and TrustManagers
  *
  */
-public class KeyStoreUtil {
+public final class KeyStoreUtil {
 
     public static final String module = KeyStoreUtil.class.getName();
+
+    private KeyStoreUtil () {}
 
     public static void storeComponentKeyStore(String componentName, String keyStoreName, KeyStore store) throws IOException, GenericConfigException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
         ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);
