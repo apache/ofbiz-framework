@@ -93,7 +93,7 @@ function getPaymentRunningTotal() {
                         <td>${uiLabelMap.AccountingToParty}</td>
                         <td>${uiLabelMap.CommonAmount}</td>
                         <td>${uiLabelMap.CommonDate}</td>
-                        <td align="right">${uiLabelMap.CommonSelectAll}<input type="checkbox" id="checkAllPayments" name="checkAllPayments" onchange="javascript:togglePaymentId(this);"/></td>
+                        <td align="right"><label>${uiLabelMap.CommonSelectAll}<input type="checkbox" id="checkAllPayments" name="checkAllPayments" onchange="javascript:togglePaymentId(this);"/></label></td>
                     </tr>
                     <#assign alt_row = false>
                     <#list paymentList as payment>
@@ -104,15 +104,15 @@ function getPaymentRunningTotal() {
                             <td>${(payment.partyToFirstName)!} ${(payment.partyToLastName)!} ${(payment.partyToGroupName)!}</td>
                             <td><@ofbizCurrency amount=payment.amount isoCode=payment.currencyUomId/></td>
                             <td>${payment.effectiveDate!}</td>
-                            <td align="right">${uiLabelMap.AccountingDeposit}<input type="checkbox" id="paymentId_${payment_index}" name="paymentIds" value="${payment.paymentId}" onclick="javascript:getPaymentRunningTotal();"/></td>
+                            <td align="right"><label>${uiLabelMap.AccountingDeposit}<input type="checkbox" id="paymentId_${payment_index}" name="paymentIds" value="${payment.paymentId}" onclick="javascript:getPaymentRunningTotal();"/></label></td>
                         </tr>
                         <#assign alt_row = !alt_row>
                     </#list>
                     <div align="right">
                         <span class="label">${uiLabelMap.AccountingPayment} ${uiLabelMap.PartyPartyGroupName}</span>
                         <input type="text" size='25' id="paymentGroupName" name='paymentGroupName' />
-                        <span class="label">${uiLabelMap.AccountingGroupInOneTransaction}</span>
-                        <input type="checkbox" name="groupInOneTransaction" value="Y" checked="checked" />
+                        <label><span class="label">${uiLabelMap.AccountingGroupInOneTransaction}</span>
+                        <input type="checkbox" name="groupInOneTransaction" value="Y" checked="checked" /></label>
                         <input id="submitButton" type="button"  onclick="javascript:document.depositWithdrawPaymentsForm.submit();" value="${uiLabelMap.AccountingDepositWithdraw}" disabled="disabled"/>
                     </div>
                 </table>
