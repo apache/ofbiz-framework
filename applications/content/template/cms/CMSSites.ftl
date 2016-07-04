@@ -163,16 +163,19 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
   <a class="tabButton" href="<@ofbizUrl>CMSContentEdit?contentId=${content.contentId}&amp;nodeTrailCsv=${nodeTrailCsv!}</@ofbizUrl>" >View</a>
           </td>
           <td>
-          <b>submitted:</b>
+          <label><b>submitted:</b>
           <input type="radio" name="statusId_o_${row}" value="CTNT_FINAL_DRAFT" checked="checked"/>
+          </label>
           </td>
           <td>
-          <b>publish:</b>
+          <label><b>publish:</b>
           <input type="radio" name="statusId_o_${row}" value="CTNT_PUBLISHED"/>
+          </label>
           </td>
           <td>
-          <b>reject:</b>
+          <label><b>reject:</b>
           <input type="radio" name="statusId_o_${row}" value="CTNT_DEACTIVATED"/>
+          </label>
           </td>
         </tr>
           <input type="hidden" name="contentId_o_${row}" value="${content.contentId}"/>
