@@ -27,8 +27,6 @@
         ebaystore/build.xml,
         ecommerce/build.xml,
         example/build.xml,
-        googlebase/build.xml,
-        googlecheckout/build.xml,
         hhfacility/build.xml,
         ldap/build.xml,
         lucene/build.xml,
