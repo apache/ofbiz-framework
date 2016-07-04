@@ -25,7 +25,7 @@ import java.util.Locale;
 
 import com.ibm.icu.text.RuleBasedNumberFormat;
 
-public class UtilNumber {
+public final class UtilNumber {
 
     public static String module = UtilNumber.class.getName();
 
@@ -35,6 +35,94 @@ public class UtilNumber {
     // default scale and rounding mode for BigDecimals
     private static final int DEFAULT_BD_SCALE = 2;
     private static final int DEFAULT_BD_ROUNDING_MODE = BigDecimal.ROUND_HALF_UP;
+
+    // ICU4J rule sets for the en_US locale. To add more rules, expand this string.
+    // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
+    private static final String ruleSet_en_US =
+        /*
+         * These rules format a number in one of the two styles often used
+         * on checks.  %dollars-and-hundredths formats cents as hundredths of
+         * a dollar (23.40 comes out as "twenty-three and 40/100 dollars").
+         * %dollars-and-cents formats in dollars and cents (23.40 comes out as
+         * "twenty-three dollars and forty cents")
+         */
+        "%dollars-and-cents:\n"
+        + "    x.0: << [and >%%cents>];\n"
+        + "    0.x: >%%cents>;\n"
+        + "    0: zero dollars; one dollar; =%%main= dollars;\n"
+        + "%%main:\n"
+        + "    zero; one; two; three; four; five; six; seven; eight; nine;\n"
+        + "    ten; eleven; twelve; thirteen; fourteen; fifteen; sixteen;\n"
+        + "        seventeen; eighteen; nineteen;\n"
+        + "    20: twenty[->>];\n"
+        + "    30: thirty[->>];\n"
+        + "    40: forty[->>];\n"
+        + "    50: fifty[->>];\n"
+        + "    60: sixty[->>];\n"
+        + "    70: seventy[->>];\n"
+        + "    80: eighty[->>];\n"
+        + "    90: ninety[->>];\n"
+        + "    100: << hundred[ >>];\n"
+        + "    1000: << thousand[ >>];\n"
+        + "    1,000,000: << million[ >>];\n"
+        + "    1,000,000,000: << billion[ >>];\n"
+        + "    1,000,000,000,000: << trillion[ >>];\n"
+        + "    1,000,000,000,000,000: =#,##0=;\n"
+        + "%%cents:\n"
+        + "    100: <%%main< cent[s];\n"
+        + "%dollars-and-hundredths:\n"
+        + "    x.0: <%%main< and >%%hundredths>/100;\n" // this used to end in 'dollars' but that should be added later
+        + "%%hundredths:\n"
+        + "    100: <00<;\n";
+
+    // ICU4J rule sets for the th_TH locale. To add more rules, expand this string.
+    // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
+    private static final String ruleSet_th_TH =
+        /*
+         * These rules format a number in one of the two styles often used
+         * on checks.  %bahts-and-hundredths formats stangs as hundredths of
+         * a baht (23.40 comes out as "twenty-three and 40/100 bahts").
+         * %bahts-and-stangs formats in bahts and stangs (23.40 comes out as
+         * "twenty-three bahts and forty stangs")
+         */
+        "%bahts-and-stangs:\n"
+        + "    x.0: << [and >%%stangs>];\n"
+        + "    0.x: >%%stangs>;\n"
+        + "    0: zero bahts; one baht; =%%main= bahts;\n"
+        + "%%main:\n"
+        + "    zero; one; two; three; four; five; six; seven; eight; nine;\n"
+        + "    ten; eleven; twelve; thirteen; fourteen; fifteen; sixteen;\n"
+        + "        seventeen; eighteen; nineteen;\n"
+        + "    20: twenty[->>];\n"
+        + "    30: thirty[->>];\n"
+        + "    40: forty[->>];\n"
+        + "    50: fifty[->>];\n"
+        + "    60: sixty[->>];\n"
+        + "    70: seventy[->>];\n"
+        + "    80: eighty[->>];\n"
+        + "    90: ninety[->>];\n"
+        + "    100: << hundred[ >>];\n"
+        + "    1000: << thousand[ >>];\n"
+        + "    1,000,000: << million[ >>];\n"
+        + "    1,000,000,000: << billion[ >>];\n"
+        + "    1,000,000,000,000: << trillion[ >>];\n"
+        + "    1,000,000,000,000,000: =#,##0=;\n"
+        + "%%stangs:\n"
+        + "    100: <%%main< stang[s];\n"
+        + "%bahts-and-hundredths:\n"
+        + "    x.0: <%%main< and >%%hundredths>/100;\n" // this used to end in 'bahts' but that should be added later
+        + "%%hundredths:\n"
+        + "    100: <00<;\n";
+
+    // hash map to store ICU4J rule sets keyed to Locale
+    private static HashMap<Locale, String> rbnfRuleSets;
+    static {
+        rbnfRuleSets = new HashMap<Locale, String>();
+        rbnfRuleSets.put(Locale.US, ruleSet_en_US);
+        rbnfRuleSets.put(new Locale("th"), ruleSet_th_TH);
+    }
+
+    private UtilNumber() {}
 
     /**
      * Method to get BigDecimal scale factor from a property
@@ -111,92 +199,6 @@ public class UtilNumber {
         else if ("ROUND_FLOOR".equals(value)) return BigDecimal.ROUND_FLOOR;
         else if ("ROUND_UNNECCESSARY".equals(value)) return BigDecimal.ROUND_UNNECESSARY;
         return -1;
-    }
-
-    // ICU4J rule sets for the en_US locale. To add more rules, expand this string.
-    // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
-    public static final String ruleSet_en_US =
-        /*
-         * These rules format a number in one of the two styles often used
-         * on checks.  %dollars-and-hundredths formats cents as hundredths of
-         * a dollar (23.40 comes out as "twenty-three and 40/100 dollars").
-         * %dollars-and-cents formats in dollars and cents (23.40 comes out as
-         * "twenty-three dollars and forty cents")
-         */
-        "%dollars-and-cents:\n"
-        + "    x.0: << [and >%%cents>];\n"
-        + "    0.x: >%%cents>;\n"
-        + "    0: zero dollars; one dollar; =%%main= dollars;\n"
-        + "%%main:\n"
-        + "    zero; one; two; three; four; five; six; seven; eight; nine;\n"
-        + "    ten; eleven; twelve; thirteen; fourteen; fifteen; sixteen;\n"
-        + "        seventeen; eighteen; nineteen;\n"
-        + "    20: twenty[->>];\n"
-        + "    30: thirty[->>];\n"
-        + "    40: forty[->>];\n"
-        + "    50: fifty[->>];\n"
-        + "    60: sixty[->>];\n"
-        + "    70: seventy[->>];\n"
-        + "    80: eighty[->>];\n"
-        + "    90: ninety[->>];\n"
-        + "    100: << hundred[ >>];\n"
-        + "    1000: << thousand[ >>];\n"
-        + "    1,000,000: << million[ >>];\n"
-        + "    1,000,000,000: << billion[ >>];\n"
-        + "    1,000,000,000,000: << trillion[ >>];\n"
-        + "    1,000,000,000,000,000: =#,##0=;\n"
-        + "%%cents:\n"
-        + "    100: <%%main< cent[s];\n"
-        + "%dollars-and-hundredths:\n"
-        + "    x.0: <%%main< and >%%hundredths>/100;\n" // this used to end in 'dollars' but that should be added later
-        + "%%hundredths:\n"
-        + "    100: <00<;\n";
-
-    // ICU4J rule sets for the th_TH locale. To add more rules, expand this string.
-    // For reference, see the RbnfSampleRuleSets.java file distributed with ICU4J
-    public static final String ruleSet_th_TH =
-        /*
-         * These rules format a number in one of the two styles often used
-         * on checks.  %bahts-and-hundredths formats stangs as hundredths of
-         * a baht (23.40 comes out as "twenty-three and 40/100 bahts").
-         * %bahts-and-stangs formats in bahts and stangs (23.40 comes out as
-         * "twenty-three bahts and forty stangs")
-         */
-        "%bahts-and-stangs:\n"
-        + "    x.0: << [and >%%stangs>];\n"
-        + "    0.x: >%%stangs>;\n"
-        + "    0: zero bahts; one baht; =%%main= bahts;\n"
-        + "%%main:\n"
-        + "    zero; one; two; three; four; five; six; seven; eight; nine;\n"
-        + "    ten; eleven; twelve; thirteen; fourteen; fifteen; sixteen;\n"
-        + "        seventeen; eighteen; nineteen;\n"
-        + "    20: twenty[->>];\n"
-        + "    30: thirty[->>];\n"
-        + "    40: forty[->>];\n"
-        + "    50: fifty[->>];\n"
-        + "    60: sixty[->>];\n"
-        + "    70: seventy[->>];\n"
-        + "    80: eighty[->>];\n"
-        + "    90: ninety[->>];\n"
-        + "    100: << hundred[ >>];\n"
-        + "    1000: << thousand[ >>];\n"
-        + "    1,000,000: << million[ >>];\n"
-        + "    1,000,000,000: << billion[ >>];\n"
-        + "    1,000,000,000,000: << trillion[ >>];\n"
-        + "    1,000,000,000,000,000: =#,##0=;\n"
-        + "%%stangs:\n"
-        + "    100: <%%main< stang[s];\n"
-        + "%bahts-and-hundredths:\n"
-        + "    x.0: <%%main< and >%%hundredths>/100;\n" // this used to end in 'bahts' but that should be added later
-        + "%%hundredths:\n"
-        + "    100: <00<;\n";
-
-    // hash map to store ICU4J rule sets keyed to Locale
-    public static HashMap<Locale, String> rbnfRuleSets;
-    static {
-        rbnfRuleSets = new HashMap<Locale, String>();
-        rbnfRuleSets.put(Locale.US, ruleSet_en_US);
-        rbnfRuleSets.put(new Locale("th"), ruleSet_th_TH);
     }
 
     /**
