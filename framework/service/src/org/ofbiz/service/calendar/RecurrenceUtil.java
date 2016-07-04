@@ -29,7 +29,9 @@ import com.ibm.icu.util.Calendar;
 /**
  * Recurrence Utilities
  */
-public class RecurrenceUtil {
+public final class RecurrenceUtil {
+
+    private RecurrenceUtil () {}
 
     /** Returns a Date object from a String. */
     public static Date parseDate(String dateStr) {
