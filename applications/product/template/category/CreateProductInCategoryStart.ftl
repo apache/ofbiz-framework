@@ -44,7 +44,9 @@ under the License.
                                     <option value="${productFeature.productFeatureId}">${productFeature.description}</option>
                                 </#list>
                             </select>
-                            <input type="checkbox" name="pftsel_${productFeatureTypeId}"/>${uiLabelMap.ProductSelectable}
+                            <label>
+                              <input type="checkbox" name="pftsel_${productFeatureTypeId}"/>${uiLabelMap.ProductSelectable}
+                            </label>
                         </div>
                     </td>
                 </tr>

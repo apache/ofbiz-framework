@@ -35,7 +35,7 @@ under the License.
           <td><b>${uiLabelMap.ProductCategory}</b></td>
           <td><b>${uiLabelMap.CommonFromDate}</b></td>
           <td><b>${uiLabelMap.ProductThruDateAmountSequenceApplicationType}</b></td>
-          <td><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');"/></b></td>
+          <td><b><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');"/></label></b></td>
         </tr>
   <#assign rowClass = "2">
   <#list productFeatureAndAppls as productFeatureAndAppl>
