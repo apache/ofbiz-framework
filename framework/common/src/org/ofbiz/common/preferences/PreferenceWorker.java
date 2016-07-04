@@ -34,23 +34,25 @@ import org.ofbiz.service.ServiceUtil;
 /**
  * User preference worker methods.
  */
-public class PreferenceWorker {
+public final class PreferenceWorker {
     public static final String module = PreferenceWorker.class.getName();
     /**
      * User preference administrator permission. Currently set to "USERPREF_ADMIN".
      */
-    public static final String ADMIN_PERMISSION = "USERPREF_ADMIN";
+    private static final String ADMIN_PERMISSION = "USERPREF_ADMIN";
     /** User login ID parameter name. Currently set to "userPrefLoginId". This
      * parameter name is used in preference service definitions to specify a user login ID
      * that is different than the currently logged in user.
      */
-    public static final String LOGINID_PARAMETER_NAME = "userPrefLoginId";
+    private static final String LOGINID_PARAMETER_NAME = "userPrefLoginId";
 
     /** Default userLoginId. Currently set to "_NA_". This userLoginId is used to
      * retrieve default preferences when the user is not logged in.
      */
-    public static final String DEFAULT_UID = "_NA_";
+    private static final String DEFAULT_UID = "_NA_";
 
+    private PreferenceWorker () {}
+    
     /**
      * Add a UserPreference GenericValue to a Map.
      * @param rec GenericValue to convert
