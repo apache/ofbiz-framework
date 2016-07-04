@@ -35,9 +35,10 @@ import java.nio.charset.Charset;
 import org.apache.commons.io.IOUtils;
 
 public final class UtilIO {
-    public static final Charset UTF8 = Charset.forName("UTF-8");
+    private static final Charset UTF8 = Charset.forName("UTF-8");
     public static final String module = UtilIO.class.getName();
 
+    private UtilIO () {}
     /** Copy an InputStream to an OutputStream, optionally closing either
      *  the input or the output.
      *
@@ -314,5 +315,9 @@ public final class UtilIO {
         }
         writer.write(value.substring(r));
         writer.close();
+    }
+
+    public static Charset getUtf8() {
+        return UTF8;
     }
 }
