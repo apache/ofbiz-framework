@@ -35,9 +35,11 @@ import org.ofbiz.entity.util.EntityUtil;
 /**
  * Worker methods for Geos
  */
-public class GeoWorker {
+public final class GeoWorker {
 
     public static final String module = GeoWorker.class.getName();
+
+    private GeoWorker() {}
 
     public static List<GenericValue> expandGeoGroup(String geoId, Delegator delegator) {
         GenericValue geo = null;
