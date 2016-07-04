@@ -44,11 +44,13 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
 @SuppressWarnings("serial")
-public class EntityUtilProperties implements Serializable {
+public final class EntityUtilProperties implements Serializable {
 
     public final static String module = EntityUtilProperties.class.getName();
+    
+    private EntityUtilProperties () {}
 
-    protected static Map<String, String> getSystemPropertyValue(String resource, String name, Delegator delegator) {
+    private static Map<String, String> getSystemPropertyValue(String resource, String name, Delegator delegator) {
         Map<String, String> results = new HashMap<>();
         results.put("isExistInDb", "N");
         results.put("value", "");
