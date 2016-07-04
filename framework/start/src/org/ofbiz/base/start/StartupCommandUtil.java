@@ -128,7 +128,7 @@ final class StartupCommandUtil {
             .build();
     private static final Option START = Option.builder("u")
             .longOpt(StartupOption.START.getName())
-            .desc("Start OFBiz (beware of possible needed JVM arguments...)")
+            .desc("Start OFBiz")
             .hasArg(false)
             .build();
     private static final Option STATUS = Option.builder("s")
@@ -187,7 +187,7 @@ final class StartupCommandUtil {
         formatter.printHelp(
                 new PrintWriter(printStream, true),
                 HelpFormatter.DEFAULT_WIDTH + 6,
-                "java -jar ofbiz.jar",
+                "ofbiz|ofbizDebug|ofbizSecure|ofbizBackground|ofbizBackgroundSecure",
                 System.lineSeparator() + "Executes OFBiz command e.g. start, shutdown, check status, etc",
                 getOfbizStartupOptions(),
                 HelpFormatter.DEFAULT_LEFT_PAD,
@@ -196,7 +196,7 @@ final class StartupCommandUtil {
                     + System.lineSeparator()
                     + "Also a command must be invoked separately for each argument e.g."
                     + System.lineSeparator()
-                    + "java -jar ofbiz.jar --test component=somecomp --test case=somecase",
+                    + "gradlew \"ofbiz --test component=somecomp --test case=somecase\"",
                 true);
     }
 
