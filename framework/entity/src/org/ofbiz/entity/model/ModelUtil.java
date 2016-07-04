@@ -30,9 +30,12 @@ import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
  * Generic Entity - General Utilities
  *
  */
-public class ModelUtil {
+public final class ModelUtil {
 
     public static final String module = ModelUtil.class.getName();
+    private static final String vowelBag = "aeiouyAEIOUY";
+
+    private ModelUtil () {}
 
     /**
      * Changes the first letter of the passed String to upper case.
@@ -141,7 +144,6 @@ public class ModelUtil {
         return dbName.toString();
     }
 
-    public static String vowelBag = "aeiouyAEIOUY";
     /**  Start by removing all vowels, then pull 1 letter at a time off the end of each _ separated segment, go until it is less than or equal to the desired length
      *
      * @param dbName
