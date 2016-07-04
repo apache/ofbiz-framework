@@ -32,9 +32,11 @@ import org.ofbiz.entity.util.EntityQuery;
 /**
  * StatusWorker
  */
-public class StatusWorker {
+public final class StatusWorker {
 
     public static final String module = StatusWorker.class.getName();
+
+    private StatusWorker() {}
 
     public static void getStatusItems(PageContext pageContext, String attributeName, String statusTypeId) {
         Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
