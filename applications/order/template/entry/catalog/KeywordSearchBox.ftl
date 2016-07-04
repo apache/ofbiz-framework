@@ -48,8 +48,8 @@ under the License.
           <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId!}" />
         </#if>
         <div>
-          <input type="radio" name="SEARCH_OPERATOR" id="SEARCH_OPERATOR_OR" value="OR" <#if searchOperator == "OR">checked="checked"</#if> /><label for="SEARCH_OPERATOR_OR">${uiLabelMap.CommonAny}</label>
-          <input type="radio" name="SEARCH_OPERATOR" id="SEARCH_OPERATOR_AND" value="AND" <#if searchOperator == "AND">checked="checked"</#if> /><label for="SEARCH_OPERATOR_AND">${uiLabelMap.CommonAll}</label>
+          <label for="SEARCH_OPERATOR_OR"><input type="radio" name="SEARCH_OPERATOR" id="SEARCH_OPERATOR_OR" value="OR" <#if searchOperator == "OR">checked="checked"</#if> />${uiLabelMap.CommonAny}</label>
+          <label for="SEARCH_OPERATOR_AND"><input type="radio" name="SEARCH_OPERATOR" id="SEARCH_OPERATOR_AND" value="AND" <#if searchOperator == "AND">checked="checked"</#if> />${uiLabelMap.CommonAll}</label>
           <input type="submit" value="${uiLabelMap.CommonFind}" class="button" />
         </div>
       </fieldset>

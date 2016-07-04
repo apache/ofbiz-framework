@@ -277,11 +277,11 @@ under the License.
             </tr>
             <#else>
             <tr id="isViewed">
-              <td class="label">${uiLabelMap.OrderMarkViewed}</td>
+              <td class="label"><label for="checkViewed">${uiLabelMap.OrderMarkViewed}</label></td>
               <td width="5%"></td>
               <td valign="top" width="80%">
                 <form id="orderViewed" action="">
-                  <input type="checkbox" name="checkViewed" onclick="javascript:markOrderViewed();"/>
+                  <input type="checkbox" id="checkViewed" name="checkViewed" onclick="javascript:markOrderViewed();"/>
                   <input type="hidden" name="orderId" value="${orderId!}"/>
                   <input type="hidden" name="isViewed" value="Y"/>
                 </form>

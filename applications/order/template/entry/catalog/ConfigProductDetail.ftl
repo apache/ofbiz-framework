@@ -494,7 +494,7 @@ function getConfigDetails() {
                 <#if renderSingleChoiceWithRadioButtons?? && "Y" == renderSingleChoiceWithRadioButtons>
                 <#-- This is the radio button implementation -->
                 <#if !question.isMandatory()>
-                  <div><input type="radio" name='${counter}' value='<#if !question.isSelected()>checked="checked"</#if>' /> No option</div>
+                  <div><label><input type="radio" name='${counter}' value='<#if !question.isSelected()>checked="checked"</#if>' /> No option</label></div>
                 </#if>
                 <#assign optionComment = "">
                 <#assign optionCounter = 0>
@@ -511,8 +511,10 @@ function getConfigDetails() {
                     <#-- Render virtual compoennts -->
                     <#if option.hasVirtualComponent()>
                       <div >
+                      <label>
                         <input type='radio' name='${counter}' id="${counter}_${optionCounter}" value='${optionCounter}' onclick="javascript:checkOptionVariants('${counter}_${optionCounter}');" />
                         ${option.description} <#if !option.isAvailable()> (*)</#if>
+                      </label>
                         <#assign components = option.getComponents()>
                         <#list components as component>
                           <#if (option.isVirtualComponent(component))>
@@ -526,8 +528,10 @@ function getConfigDetails() {
                       </div>
                     <#else>
                       <div>
+                      <label>
                         <input type="radio" name='${counter}' value='${optionCounter}' <#if option.isSelected() || (!question.isSelected() && optionCounter == 0 && question.isMandatory())>checked="checked"</#if> />
                         ${option.description}&nbsp;
+                      </label>
                         <#if (shownPrice > 0)>+<@ofbizCurrency amount=shownPrice isoCode=price.currencyUsed/>&nbsp;</#if>
                         <#if (shownPrice < 0)>-<@ofbizCurrency amount=(-1*shownPrice) isoCode=price.currencyUsed/>&nbsp;</#if>
                         <#if !option.isAvailable()>(*)</#if>
@@ -575,8 +579,10 @@ function getConfigDetails() {
                     <#-- Render virtual compoennts -->
                     <#if option.hasVirtualComponent()>
                       <div >
+                      <label>
                         <input type='CHECKBOX' name='${counter}' id="${counter}_${optionCounter}" value='${optionCounter}' onclick="javascript:checkOptionVariants('${counter}_${optionCounter}');" />
                         ${option.description} <#if !option.isAvailable()> (*)</#if>
+                      </label>
                         <#assign components = option.getComponents()>
                         <#list components as component>
                           <#if (option.isVirtualComponent(component))>
@@ -590,8 +596,10 @@ function getConfigDetails() {
                       </div>
                     <#else>
                     <div>
+                    <label>
                       <input type='CHECKBOX' name='${counter}' value='${optionCounter}' <#if option.isSelected()>checked="checked"</#if> />
                       ${option.description} +<@ofbizCurrency amount=option.price isoCode=price.currencyUsed/><#if !option.isAvailable()> (*)</#if>
+                    </label>
                     </div>
                     </#if>
                     <div>${uiLabelMap.CommonComments}: <input type="text" name='comments_${counter}_${optionCounter}' id='comments_${counter}_${optionCounter}' value='${option.comments!}' /></div>

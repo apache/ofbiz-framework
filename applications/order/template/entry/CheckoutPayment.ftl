@@ -109,32 +109,37 @@ var issuerId = "";
               <#if productStorePaymentMethodTypeIdMap.EXT_OFFLINE??>
               </div>
               <div>
+                  <label for="checkOutPaymentId_OFFLINE">
                   <input type="radio" id="checkOutPaymentId_OFFLINE" name="checkOutPaymentId" value="EXT_OFFLINE" <#if "EXT_OFFLINE" == checkOutPaymentId>checked="checked"</#if> />
-                  <label for="checkOutPaymentId_OFFLINE">${uiLabelMap.OrderMoneyOrder}</label>
+                  ${uiLabelMap.OrderMoneyOrder}</label>
               </div>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.EXT_COD??>
               <div>
+                  <label for="checkOutPaymentId_COD">
                   <input type="radio" id="checkOutPaymentId_COD" name="checkOutPaymentId" value="EXT_COD" <#if "EXT_COD" == checkOutPaymentId>checked="checked"</#if> />
-                  <label for="checkOutPaymentId_COD">${uiLabelMap.OrderCOD}</label>
+                  ${uiLabelMap.OrderCOD}</label>
               </div>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.EXT_WORLDPAY??>
               <div>
+                  <label for="checkOutPaymentId_WORLDPAY">
                   <input type="radio" id="checkOutPaymentId_WORLDPAY" name="checkOutPaymentId" value="EXT_WORLDPAY" <#if "EXT_WORLDPAY" == checkOutPaymentId>checked="checked"</#if> />
-                  <label for="checkOutPaymentId_WORLDPAY">${uiLabelMap.AccountingPayWithWorldPay}</label>
+                  ${uiLabelMap.AccountingPayWithWorldPay}</label>
               </div>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.EXT_PAYPAL??>
               <div>
+                  <label for="checkOutPaymentId_PAYPAL">
                   <input type="radio" id="checkOutPaymentId_PAYPAL" name="checkOutPaymentId" value="EXT_PAYPAL" <#if "EXT_PAYPAL" == checkOutPaymentId>checked="checked"</#if> />
-                  <label for="checkOutPaymentId_PAYPAL">${uiLabelMap.AccountingPayWithPayPal}</label>
+                  ${uiLabelMap.AccountingPayWithPayPal}</label>
               </div>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.EXT_IDEAL??>
               <div>
+                  <label for="checkOutPaymentId_IDEAL">
                   <input type="radio" id="checkOutPaymentId_IDEAL" name="checkOutPaymentId" value="EXT_IDEAL" <#if "EXT_IDEAL" == checkOutPaymentId>checked="checked"</#if> />
-                  <label for="checkOutPaymentId_IDEAL">${uiLabelMap.AccountingPayWithiDEAL}</label>
+                  ${uiLabelMap.AccountingPayWithiDEAL}</label>
               </div>
               
               <div id="issuers">
@@ -197,8 +202,9 @@ var issuerId = "";
                  <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT??>
                   <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false) />
                   <div>
+                      <label for="checkOutPayment_${paymentMethod.paymentMethodId}">
                       <input type="radio" id="checkOutPayment_${paymentMethod.paymentMethodId}" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if paymentMethod.paymentMethodId == checkOutPaymentId>checked="checked"</#if> />
-                      <label for="checkOutPayment_${paymentMethod.paymentMethodId}">${uiLabelMap.AccountingEFTAccount}:${eftAccount.bankName!}: ${eftAccount.accountNumber!}</label>
+                      ${uiLabelMap.AccountingEFTAccount}:${eftAccount.bankName!}: ${eftAccount.accountNumber!}</label>
                         <#if paymentMethod.description?has_content><p>(${paymentMethod.description})</p></#if>
                       <a href="javascript:submitForm(document.getElementById('checkoutInfoForm'), 'EE', '${paymentMethod.paymentMethodId}');" class="button">${uiLabelMap.CommonUpdate}</a>
                   </div>

@@ -78,8 +78,6 @@ under the License.
                   <td width='1%' valign="top" >
                     <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
                     <input type='radio' name='${shipGroupIndex?default("0")}_shipping_method' value='${shippingMethod}'<#if shippingMethod == chosenShippingMethod?default("N@A")> checked="checked"</#if> id='${shipGroupIndex?default("0")}_shipping_method_${shippingMethod}' />
-                  </td>
-                  <td valign="top">
                     <label for="${shipGroupIndex?default("0")}_shipping_method_${shippingMethod}">
                       <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId!}&nbsp;</#if>${carrierShipmentMethod.description!}
                       <#if cart.getShippingContactMechId(shipGroupIndex)??>
@@ -99,11 +97,11 @@ under the License.
                 </#list>
                 <#if !carrierShipmentMethodList?? || carrierShipmentMethodList?size == 0>
                 <tr>
-                  <td width='1%' valign="top">
-                    <input type='radio' name='${shipGroupIndex?default("0")}_shipping_method' value="Default" checked="checked" />
-                  </td>
                   <td valign="top">
-                    <div class='tabletext'>${uiLabelMap.FacilityNoOtherShippingMethods}</div>
+                  <label>
+                    <input type='radio' name='${shipGroupIndex?default("0")}_shipping_method' value="Default" checked="checked" />
+                    ${uiLabelMap.FacilityNoOtherShippingMethods}
+                  </label>
                   </td>
                 </tr>
                 </#if>
@@ -127,18 +125,18 @@ under the License.
                 </tr>
                 <tr>
                   <td valign="top">
+                  <label>
                     <input type='radio' <#if cart.getMaySplit(shipGroupIndex)?default("N") == "N">checked="checked"</#if> name='${shipGroupIndex?default("0")}_may_split' value='false' />
-                  </td>
-                  <td valign="top">
-                    <div>${uiLabelMap.FacilityWaitEntireOrderReady}</div>
+                    ${uiLabelMap.FacilityWaitEntireOrderReady}
+                  </label>
                   </td>
                 </tr>
                 <tr>
                   <td valign="top">
+                    <label>
                     <input <#if cart.getMaySplit(shipGroupIndex)?default("N") == "Y">checked="checked"</#if> type='radio' name='${shipGroupIndex?default("0")}_may_split' value='true' />
-                  </td>
-                  <td valign="top">
-                    <div>${uiLabelMap.FacilityShipAvailable}</div>
+                    ${uiLabelMap.FacilityShipAvailable}
+                    </label>
                   </td>
                 </tr>
                 <tr>
@@ -184,8 +182,8 @@ under the License.
                             <td colspan="2">
                                 <div>
                                     <span class="h2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
-                                    <input type="radio" <#if cart.getIsGift(shipGroupIndex)?default('Y') == 'Y'>checked="checked"</#if> name="${shipGroupIndex?default('0')}_is_gift" value="true" /><span>${uiLabelMap.CommonYes}</span>
-                                    <input type="radio" <#if cart.getIsGift(shipGroupIndex)?default('N') == 'N'>checked="checked"</#if> name="${shipGroupIndex?default('0')}_is_gift" value="false" /><span>${uiLabelMap.CommonNo}</span>
+                                    <label><input type="radio" <#if cart.getIsGift(shipGroupIndex)?default('Y') == 'Y'>checked="checked"</#if> name="${shipGroupIndex?default('0')}_is_gift" value="true" /><span>${uiLabelMap.CommonYes}</span></label>
+                                    <label><input type="radio" <#if cart.getIsGift(shipGroupIndex)?default('N') == 'N'>checked="checked"</#if> name="${shipGroupIndex?default('0')}_is_gift" value="false" /><span>${uiLabelMap.CommonNo}</span></label>
                                 </div>
                             </td>
                         </tr>

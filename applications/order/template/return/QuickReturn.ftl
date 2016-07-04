@@ -77,11 +77,10 @@ under the License.
                   <#list shippingContactMechList as shippingContactMech>
                     <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
                     <tr>
-                      <td align="right" width="1%" valign="top" nowrap="nowrap">
+                      <td align="right" valign="top" nowrap="nowrap">
+                      <label>
                         <input type="radio" name="originContactMechId" value="${shippingAddress.contactMechId}"  <#if (shippingContactMechList?size == 1)>checked="checked"</#if> />
-                      </td>
-                      <td width="99%" valign="top" nowrap="nowrap">
-                        <div>
+                        <span>
                           <#if shippingAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${shippingAddress.toName}<br /></#if>
                           <#if shippingAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span></b>&nbsp;${shippingAddress.attnName}<br /></#if>
                           <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
@@ -91,7 +90,8 @@ under the License.
                           <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
                           <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
                           <#--<a href="<@ofbizUrl>editcontactmech?DONE_PAGE=checkoutoptions&amp;contactMechId=${shippingAddress.contactMechId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonUpdate}]</a>-->
-                        </div>
+                        </span>
+                      </label>
                       </td>
                     </tr>
                   </#list>

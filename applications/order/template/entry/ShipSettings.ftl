@@ -79,11 +79,9 @@ under the License.
                             <#elseif i == 0 && !shipToPartyShippingContactMechList?has_content>
                               <#assign checked='checked' />
                             </#if>
+                            <label>
                             <input type="radio" id="shipToSameParty" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}_@_${facility.facilityId}" ${checked}/>
-                          </td>
-                          <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                          <td valign="top" width="100%" nowrap="nowrap">
-                            <div>
+                            <span>
                               <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
                               <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
                               <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
@@ -92,8 +90,10 @@ under the License.
                               <#if shippingAddress.stateProvinceGeoId?has_content><br />${shippingAddress.stateProvinceGeoId}</#if>
                               <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
                               <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
-                            </div>
+                            </span>
+                            </label>
                           </td>
+                          <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
                           <td>
                             <div><a href="/facility/control/EditContactMech?facilityId=${facility.facilityId}&amp;contactMechId=${shippingAddress.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
                           </td>
@@ -127,11 +127,9 @@ under the License.
             <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
             <tr>
               <td valign="top" nowrap="nowrap">
+              <label>
                 <input type="radio" id="shipToOtherParty" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}"s/>
-              </td>
-              <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-              <td valign="top" width="100%" nowrap="nowrap">
-                <div>
+                <span>
                   <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
                   <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
                   <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
@@ -140,8 +138,10 @@ under the License.
                   <#if shippingAddress.stateProvinceGeoId?has_content><br />${shippingAddress.stateProvinceGeoId}</#if>
                   <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
                   <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
-                </div>
+                </span>
+              </label>
               </td>
+              <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
               <td>
                 <div><a href="/partymgr/control/editcontactmech?partyId=${orderParty.partyId}&amp;contactMechId=${shippingContactMech.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
               </td>
@@ -221,10 +221,9 @@ under the License.
                     </#if>
                     <tr>
                       <td valign="top" width="1%" nowrap="nowrap">
+                        <label>
                         <input type="radio" id="shipToSameParty" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}" ${checkedValue} />
-                      </td>
-                      <td valign="top" width="99%" nowrap="nowrap">
-                        <div>
+                        <span>
                           <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
                           <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
                           <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
@@ -233,7 +232,8 @@ under the License.
                           <#if shippingAddress.stateProvinceGeoId?has_content><br />${shippingAddress.stateProvinceGeoId}</#if>
                           <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
                           <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
-                        </div>
+                        </span>
+                        </label>
                       </td>
                       <td>
                         <div><a href="/partymgr/control/editcontactmech?partyId=${orderParty.partyId}&amp;contactMechId=${shippingContactMech.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
@@ -253,10 +253,9 @@ under the License.
                     <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
                     <tr>
                       <td valign="top" width="1%" nowrap="nowrap">
+                      <label>
                         <input type="radio" id="shipToOtherParty" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}"/>
-                      </td>
-                      <td valign="top" width="99%" nowrap="nowrap">
-                        <div>
+                        <span>
                           <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
                           <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
                           <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
@@ -265,7 +264,8 @@ under the License.
                           <#if shippingAddress.stateProvinceGeoId?has_content><br />${shippingAddress.stateProvinceGeoId}</#if>
                           <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
                           <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
-                        </div>
+                        </span>
+                      </label>
                       </td>
                       <td>&nbsp;</td>
                     </tr>

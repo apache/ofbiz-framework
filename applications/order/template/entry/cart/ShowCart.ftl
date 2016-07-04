@@ -110,8 +110,10 @@ under the License.
                         <#assign value = defaultDesiredDeliveryDate>
                       </#if>
                       <@htmlTemplate.renderDateTimeField name="itemDesiredDeliveryDate" value="${value!''}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="item1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                      <label>
                       <input type="checkbox" name="useAsDefaultDesiredDeliveryDate" value="true"<#if useAsDefaultDesiredDeliveryDate??> checked="checked"</#if>/>
                       ${uiLabelMap.OrderUseDefaultDesiredDeliveryDate}
+                      </label>
                     </div>
                   </td>
                 </tr>
@@ -151,8 +153,10 @@ under the License.
                   <td>
                     <div>
                       <input type="text" size="25" name="itemComment" value="${defaultComment!}" />
+                      <label>
                       <input type="checkbox" name="useAsDefaultComment" value="true" <#if useAsDefaultComment??>checked="checked"</#if> />
                       ${uiLabelMap.OrderUseDefaultComment}
+                      </label>
                     </div>
                   </td>
                 </tr>

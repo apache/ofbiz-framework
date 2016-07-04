@@ -20,8 +20,8 @@ under the License.
     <tr>
       <td colspan="7"><h3>${uiLabelMap.OrderReturnFromOrder} ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</a></h3></td>
       <td colspan="2" align="right">
-        <span>${uiLabelMap.CommonSelectAll}</span>&nbsp;
-        <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, '${selectAllFormName}');highlightAllRows(this, 'returnItemId_tableRow_', 'selectAllForm');"/>
+        <label><span>${uiLabelMap.CommonSelectAll}</span>&nbsp;
+        <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, '${selectAllFormName}');highlightAllRows(this, 'returnItemId_tableRow_', 'selectAllForm');"/></label>
       </td>
     </tr>
 
