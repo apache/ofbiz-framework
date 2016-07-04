@@ -59,7 +59,7 @@ public final class MiniLangUtil {
 
     public static final String module = MiniLangUtil.class.getName();
 
-    public static final Set<String> SCRIPT_PREFIXES;
+    private static final Set<String> SCRIPT_PREFIXES;
 
     static {
         Set<String> scriptPrefixes = new HashSet<String>();
@@ -68,6 +68,8 @@ public final class MiniLangUtil {
         }
         SCRIPT_PREFIXES = Collections.unmodifiableSet(scriptPrefixes);
     }
+
+    private MiniLangUtil() {}
 
     /**
      * Returns <code>true</code> if <code>str</code> contains a script.
@@ -320,5 +322,4 @@ public final class MiniLangUtil {
 
     public static class PlainString {}
 
-    private MiniLangUtil() {}
 }
