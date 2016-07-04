@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.base.crypto;
 
-import static org.ofbiz.base.util.UtilIO.UTF8;
-
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -32,6 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilIO;
 
 /**
  * Utility class for doing SHA-1/MD5 One-Way Hash Encryption
@@ -55,7 +54,7 @@ public class HashCrypt {
             // FIXME: should have been getBytes("UTF-8") originally
             return doCompareTypePrefix(crypted, defaultCrypt, password.getBytes());
         } else if (crypted.startsWith("$")) {
-            return doComparePosix(crypted, defaultCrypt, password.getBytes(UTF8));
+            return doComparePosix(crypted, defaultCrypt, password.getBytes(UtilIO.getUtf8()));
         } else {
             // FIXME: should have been getBytes("UTF-8") originally
             return doCompareBare(crypted, defaultCrypt, password.getBytes());
@@ -112,7 +111,7 @@ public class HashCrypt {
     }
 
     public static String cryptUTF8(String hashType, String salt, String value) {
-        return value != null ? cryptBytes(hashType, salt, value.getBytes(UTF8)) : null;
+        return value != null ? cryptBytes(hashType, salt, value.getBytes(UtilIO.getUtf8())) : null;
     }
 
     public static String cryptValue(String hashType, String salt, String value) {
@@ -135,7 +134,7 @@ public class HashCrypt {
     private static String getCryptedBytes(String hashType, String salt, byte[] bytes) {
         try {
             MessageDigest messagedigest = MessageDigest.getInstance(hashType);
-            messagedigest.update(salt.getBytes(UTF8));
+            messagedigest.update(salt.getBytes(UtilIO.getUtf8()));
             messagedigest.update(bytes);
             return Base64.encodeBase64URLSafeString(messagedigest.digest()).replace('+', '.');
         } catch (NoSuchAlgorithmException e) {
