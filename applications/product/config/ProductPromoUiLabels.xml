@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="ProductPromoOperatorEquality.PPC_EQ">
+        <value xml:lang="en">is</value>
+    </property>
+    <property key="ProductPromoOperatorEquality.PPC_NEQ">
+        <value xml:lang="en">is not</value>
+    </property>
+    <property key="ProductPromoOperatorEquality.PPC_LT">
+        <value xml:lang="en">invalid</value>
+    </property>
+    <property key="ProductPromoOperatorEquality.PPC_LTE">
+        <value xml:lang="en">invalid</value>
+    </property>
+    <property key="ProductPromoOperatorEquality.PPC_GT">
+        <value xml:lang="en">invalid</value>
+    </property>
+    <property key="ProductPromoOperatorEquality.PPC_GTE">
+        <value xml:lang="en">invalid</value>
+    </property>
+    <property key="ProductPromoOperatorEquality.PPC_EQ">
+        <value xml:lang="en">exactly</value>
+    </property>
+    <property key="ProductPromoOperatorQuantity.PPC_NEQ">
+        <value xml:lang="en">anything except</value>
+    </property>
+    <property key="ProductPromoOperatorQuantity.PPC_LT">
+        <value xml:lang="en">less than</value>
+    </property>
+    <property key="ProductPromoOperatorQuantity.PPC_LTE">
+        <value xml:lang="en">less than</value>
+    </property>
+    <property key="ProductPromoOperatorQuantity.PPC_GT">
+        <value xml:lang="en">more than</value>
+    </property>
+    <property key="ProductPromoOperatorQuantity.PPC_GTE">
+        <value xml:lang="en">more than</value>
+    </property>
+    <property key="ProductPromoCondition.PPIP_ORDER_TOTAL">
+        <value xml:lang="en">spend ${quantityOperator} $${condValue}</value>
+    </property>
+    <property key="ProductPromoCondition.PPIP_PARTY_CLASS.APPLIED">
+        <value xml:lang="en">Applied to party classification - ${partyClassificationsIncluded}</value>
+    </property>
+    <property key="ProductPromoCondition.PPIP_PARTY_CLASS.NOT_APPLIED">
+        <value xml:lang="en">Not applied to party classification - ${partyClassificationsExcluded}</value>
+    </property>
+    <property key="ProductPromoCondition.PPIP_PRODUCT_TOTAL">
+        <value xml:lang="en">buy ${quantityOperator} $${condValue} of qualifying products</value>
+    </property>
+    <property key="ProductPromoCondition.PPIP_PRODUCT_AMOUNT">
+        <value xml:lang="en">for each $${condValue} or more of qualifying products</value>
+    </property>
+    <property key="ProductPromoCondition.PPIP_PRODUCT_QUANT">
+        <value xml:lang="en">buy ${condValue} of qualifying products</value>
+    </property>
+    <property key="ProductPromoCondition.PPIP_NEW_ACCT">
+        <value xml:lang="en">if your account is ${quantityOperator} ${condValue} days old</value>
+    </property>
+    <property key="ProductPromoCondition.PPIP_PARTY_ID">
+        <value xml:lang="en">if your account ID ${equalityOperator} ${condValue}</value>
+    </property>
+    <property key="ProductPromoCondition.PPIP_PARTY_GRP_MEM">
+        <value xml:lang="en">if your account ${equalityOperator} part of the group with ID ${condValue}</value>
+    </property>
+    <property key="ProductPromoCondition.PPIP_PARTY_GRP_MEM">
+        <value xml:lang="en">if your account ${equalityOperator} in the classification with ID ${condValue}</value>
+    </property>
+    <property key="ProductPromoCondition.PPIP_ROLE_TYPE">
+        <value xml:lang="en">if your account ${equalityOperator} in the role with ID ${condValue}</value>
+    </property>
+    <property key="ProductPromoAction.PROMO_GWP">
+        <value xml:lang="en">get a free ${productName} [${productId}]</value>
+    </property>
+    <property key="ProductPromoAction.PROMO_FREE_SHIPPING">
+        <value xml:lang="en">get free shipping of type ${productId} on carrier ${partyId}</value>
+    </property>
+    <property key="ProductPromoAction.PROMO_PROD_DISC">
+        <value xml:lang="en">get ${quantity} at ${amount}% discount</value>
+    </property>
+    <property key="ProductPromoAction.PROMO_PROD_AMDISC">
+        <value xml:lang="en">get ${quantity} at $${amount} off</value>
+    </property>
+    <property key="ProductPromoAction.PROMO_PROD_PRICE">
+        <value xml:lang="en">get ${quantity} for $${amount}</value>
+    </property>
+    <property key="ProductPromoAction.PROMO_ORDER_PERCENT">
+        <value xml:lang="en">get ${amount}% off your order</value>
+    </property>
+    <property key="ProductPromoAction.PROMO_ORDER_AMOUNT">
+        <value xml:lang="en">get $${amount} off your order</value>
+    </property>
+</resource>
