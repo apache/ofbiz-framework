@@ -62,7 +62,7 @@ public final class JobPoller implements ServiceConfigListener {
 
     private static ThreadPoolExecutor createThreadPoolExecutor() {
         try {
-            ThreadPool threadPool = ServiceConfigUtil.getServiceEngine(ServiceConfigUtil.engine).getThreadPool();
+            ThreadPool threadPool = ServiceConfigUtil.getServiceEngine(ServiceConfigUtil.getEngine()).getThreadPool();
             return new ThreadPoolExecutor(threadPool.getMinThreads(), threadPool.getMaxThreads(), threadPool.getTtl(),
                     TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(threadPool.getJobs()), new JobInvokerThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
         } catch (GenericConfigException e) {
@@ -74,7 +74,7 @@ public final class JobPoller implements ServiceConfigListener {
 
     private static int pollWaitTime() {
         try {
-            ThreadPool threadPool = ServiceConfigUtil.getServiceEngine(ServiceConfigUtil.engine).getThreadPool();
+            ThreadPool threadPool = ServiceConfigUtil.getServiceEngine(ServiceConfigUtil.getEngine()).getThreadPool();
             return threadPool.getPollDbMillis();
         } catch (GenericConfigException e) {
             Debug.logError(e, "Exception thrown while getting <thread-pool> model, using default <thread-pool> values: ", module);
@@ -144,7 +144,7 @@ public final class JobPoller implements ServiceConfigListener {
     @Override
     public void onServiceConfigChange(ServiceConfig serviceConfig) {
         if (!executor.isShutdown()) {
-            ThreadPool threadPool = serviceConfig.getServiceEngine(ServiceConfigUtil.engine).getThreadPool();
+            ThreadPool threadPool = serviceConfig.getServiceEngine(ServiceConfigUtil.getEngine()).getThreadPool();
             executor.setCorePoolSize(threadPool.getMinThreads());
             executor.setMaximumPoolSize(threadPool.getMaxThreads());
             executor.setKeepAliveTime(threadPool.getTtl(), TimeUnit.MILLISECONDS);

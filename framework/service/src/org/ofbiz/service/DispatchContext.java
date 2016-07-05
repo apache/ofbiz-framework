@@ -256,7 +256,7 @@ public class DispatchContext implements Serializable {
                 throw new RuntimeException(e.getMessage());
             }
             for (GlobalServices globalServices : globalServicesList) {
-                ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, globalServices.getLoader(), globalServices.getLocation());
+                ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.getServiceEngineXmlFileName(), globalServices.getLoader(), globalServices.getLocation());
                 futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(handler)));
             }
 
