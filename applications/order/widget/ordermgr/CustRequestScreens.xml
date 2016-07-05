@@ -729,7 +729,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific><html><html-template 
-                location="component://order/webapp/ordermgr/request/AddedNoteCustRequestNotification.ftl"/>
+                location="component://order/template/request/AddedNoteCustRequestNotification.ftl"/>
                 </html></platform-specific>
             </widgets>
             <fail-widgets>
