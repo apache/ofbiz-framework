@@ -4641,6 +4641,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 GenericValue shipAdj = delegator.makeValue("OrderAdjustment");
                 shipAdj.set("orderAdjustmentTypeId", "SHIPPING_CHARGES");
                 shipAdj.set("amount", shipEstimate);
+                if("PURCHASE_ORDER".equals(cart.getOrderType())) shipAdj.set("isManual", "Y");
                 shipAdj.set("shipGroupSeqId", shipGroupSeqId);
                 values.add(shipAdj);
             }
