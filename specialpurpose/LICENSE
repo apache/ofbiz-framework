@@ -16,7 +16,6 @@ specialpurpose/birt/lib/commons-discovery-0.5.jar
 specialpurpose/cmssite/template/docbook/extensions/tagsoup-1.2.1.jar
 specialpurpose/cmssite/template/docbook/extensions/xalan27.jar
 specialpurpose/cmssite/template/docbook/extensions/webhelpindexer.jar
-specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
 specialpurpose/lucene/lib/lucene-analyzers-common-4.9.0.jar
 specialpurpose/lucene/lib/lucene-core-4.9.0.jar
 specialpurpose/lucene/lib/lucene-queryparser-4.9.0.jar
