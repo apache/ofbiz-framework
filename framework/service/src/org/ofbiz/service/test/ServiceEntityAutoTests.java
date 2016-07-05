@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.testtools.OFBizTestCase;
 
@@ -193,4 +194,47 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         assertTrue(now.compareTo(testFieldType.getTimestamp("dateTimeField")) == 0);
     }
 
+
+    public void testEntityAutoEntityStatusConcept() throws Exception {
+        delegator.create("Testing", "testingId", "TESTING_7");
+        delegator.create("StatusType", "statusTypeId", "TESTINGSTATUS");
+        delegator.create("StatusItem", "statusId", "TESTING_CREATE", "statusTypeId", "TESTINGSTATUS");
+        delegator.create("StatusItem", "statusId", "TESTING_UPDATE", "statusTypeId", "TESTINGSTATUS");
+        GenericValue userLogin = delegator.findOne("UserLogin", true, "userLoginId", "system");
+
+        //test create testingStatus with userlogin
+        Map<String, Object> testingStatusCreateMap = UtilMisc.toMap("testingId", "TESTING_7", "statusId", "TESTING_CREATE", "userLogin", userLogin);
+        Map<String, Object> results = dispatcher.runSync("testEntityAutoCreateTestingStatus", testingStatusCreateMap);
+        assertTrue(ServiceUtil.isSuccess(results));
+        GenericValue testing = EntityQuery.use(delegator).from("TestingStatus").where("testingId", "TESTING_7").queryFirst();
+        assertNotNull(testing.getTimestamp("statusDate"));
+        assertEquals("system", testing.getString("changeByUserLoginId"));
+
+        //test create testingStatus without userLogin
+        try {
+            testingStatusCreateMap = UtilMisc.toMap("testingId", "TESTING_7", "statusId", "TESTING_CREATE");
+            results = dispatcher.runSync("testEntityAutoCreateTestingStatus", testingStatusCreateMap, 10, true);
+            assertTrue(ServiceUtil.isError(results));
+        } catch (GenericServiceException e) {
+            assertEquals(e.toString(),"You call a creation on entity that require the userLogin to track the activity, please controle that your service definition has auth='true'");
+        }
+
+        //test update testingStatus
+        try {
+            Map<String, Object> testingStatusUpdateMap = UtilMisc.toMap("testingStatusId", testing.get("testingStatusId"), "statusId", "TESTING_UPDATE", "userLogin", userLogin);
+            results = dispatcher.runSync("testEntityAutoUpdateTestingStatus", testingStatusUpdateMap, 10, true);
+            assertTrue(ServiceUtil.isError(results));
+        } catch (GenericServiceException e) {
+            assertEquals(e.toString(), "You call a updating operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+        }
+
+        //test delete testingStatus
+        try {
+            Map<String, Object> testingStatusDeleteMap = UtilMisc.toMap("testingStatusId", testing.get("testingStatusId"), "userLogin", userLogin);
+            results = dispatcher.runSync("testEntityAutoDeleteTestingStatus", testingStatusDeleteMap, 10, true);
+            assertTrue(ServiceUtil.isError(results));
+        } catch (GenericServiceException e) {
+            assertEquals(e.toString(), "You call a deleting operation on entity that track the activity, sorry I can't do that, please amazing developer check your service definition ;)");
+        }
+    }
 }
