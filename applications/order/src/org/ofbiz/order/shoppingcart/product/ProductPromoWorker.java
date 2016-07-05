@@ -683,8 +683,8 @@ public final class ProductPromoWorker {
             while (productPromoCondIter != null && productPromoCondIter.hasNext()) {
                 GenericValue productPromoCond = productPromoCondIter.next();
 
-                String equalityOperator = UtilProperties.getMessage("promotext", "operator.equality." + productPromoCond.getString("operatorEnumId"), locale);
-                String quantityOperator = UtilProperties.getMessage("promotext", "operator.quantity." + productPromoCond.getString("operatorEnumId"), locale);
+                String equalityOperator = UtilProperties.getMessage("ProductPromoUiLabels", "ProductPromoOperatorEquality." + productPromoCond.getString("operatorEnumId"), locale);
+                String quantityOperator = UtilProperties.getMessage("ProductPromoUiLabels", "ProductPromoOperatorQuantity." + productPromoCond.getString("operatorEnumId"), locale);
 
                 String condValue = "invalid";
                 if (UtilValidate.isNotEmpty(productPromoCond.getString("condValue"))) {
@@ -706,7 +706,7 @@ public final class ProductPromoWorker {
                         partyClassificationsExcluded.add(condValue);
                     }
                 } else {
-                    String msgProp = UtilProperties.getMessage("promotext", "condition." + productPromoCond.getString("inputParamEnumId"), messageContext, locale);
+                    String msgProp = UtilProperties.getMessage("ProductPromoUiLabels", "ProductPromoCondition." + productPromoCond.getString("inputParamEnumId"), messageContext, locale);
                     promoDescBuf.append(msgProp);
                     promoDescBuf.append(" ");
 
@@ -732,7 +732,7 @@ public final class ProductPromoWorker {
                     messageContext.put("productName", ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, null, "html"));
                 }
 
-                String msgProp = UtilProperties.getMessage("promotext", "action." + productPromoAction.getString("productPromoActionEnumId"), messageContext, locale);
+                String msgProp = UtilProperties.getMessage("ProductPromoUiLabels", "ProductPromoAction." + productPromoAction.getString("productPromoActionEnumId"), messageContext, locale);
                 promoDescBuf.append(msgProp);
                 promoDescBuf.append(" ");
 
@@ -773,13 +773,13 @@ public final class ProductPromoWorker {
 
         if (UtilValidate.isNotEmpty(partyClassificationsIncluded)) {
             Map<String, Object> messageContext = UtilMisc.<String, Object>toMap("partyClassificationsIncluded", partyClassificationsIncluded);
-            String msgProp = UtilProperties.getMessage("promotext", "condition.PPIP_PARTY_CLASS.APPLIED", messageContext, locale);
+            String msgProp = UtilProperties.getMessage("ProductPromoUiLabels", "ProductPromoCondition.PPIP_PARTY_CLASS.APPLIED", messageContext, locale);
             promoDescBuf.append("\n" + msgProp);
         }
 
         if (UtilValidate.isNotEmpty(partyClassificationsExcluded)) {
             Map<String, Object> messageContext = UtilMisc.<String, Object>toMap("partyClassificationsExcluded", partyClassificationsExcluded);
-            String msgProp = UtilProperties.getMessage("promotext", "condition.PPIP_PARTY_CLASS.NOT_APPLIED", messageContext, locale);
+            String msgProp = UtilProperties.getMessage("ProductPromoUiLabels", "ProductPromoCondition.PPIP_PARTY_CLASS.NOT_APPLIED", messageContext, locale);
             promoDescBuf.append("\n" + msgProp);
         }
 
