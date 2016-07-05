@@ -46,11 +46,13 @@ import org.w3c.dom.Element;
 public final class ServiceConfigUtil {
 
     public static final String module = ServiceConfigUtil.class.getName();
-    public static final String engine = "default";
-    public static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
+    private static final String engine = "default";
+    private static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
     // Keep the ServiceConfig instance in a cache - so the configuration can be reloaded at run-time. There will be only one ServiceConfig instance in the cache.
     private static final UtilCache<String, ServiceConfig> serviceConfigCache = UtilCache.createUtilCache("service.ServiceConfig", 0, 0, false);
     private static final List<ServiceConfigListener> configListeners = new CopyOnWriteArrayList<ServiceConfigListener>();
+
+    private ServiceConfigUtil() {}
 
     /**
      * Returns the specified parameter value from the specified engine, or <code>null</code>
@@ -130,5 +132,13 @@ public final class ServiceConfigUtil {
     public static void registerServiceConfigListener(ServiceConfigListener listener) {
         Assert.notNull("listener", listener);
         configListeners.add(listener);
+    }
+    
+    public static String getEngine() {
+        return engine;
+    }
+    
+    public static String getServiceEngineXmlFileName() {
+        return SERVICE_ENGINE_XML_FILENAME;
     }
 }
