@@ -100,6 +100,21 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="dateTimeField" mode="IN" type="Timestamp" optional="true"/>
     </service>
+    <service name="testEntityAutoCreateTestingStatus" auth="false"
+             engine="entity-auto" default-entity-name="TestingStatus" invoke="create">
+        <attribute name="testingId" type="String" mode="IN"/>
+        <attribute name="statusId" type="String" mode="IN"/>
+        <attribute name="testingStatusId" type="String" mode="OUT"/>
+    </service>
+    <service name="testEntityAutoUpdateTestingStatus" auth="true"
+             engine="entity-auto" default-entity-name="TestingStatus" invoke="update">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN"/>
+    </service>
+    <service name="testEntityAutoDeleteTestingStatus" auth="true"
+             engine="entity-auto" default-entity-name="TestingStatus" invoke="delete">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 
     <!-- lock wait timeout retry testing services - a scenario that we can't do automatically with the single service because the parent owns the tx we have to have end before it will succeed -->
     <service name="testServiceLockWaitTimeoutRetryCantRecover" engine="java" auth="false" transaction-timeout="2"

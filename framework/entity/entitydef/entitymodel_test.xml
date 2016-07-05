@@ -91,6 +91,26 @@ under the License.
             <key-map field-name="testingTypeId" />
         </view-link>
     </view-entity>
+    <!-- =========================================================
+      Used for testing EntityStatus concept on entity-auto
+    ========================================================= -->
+    <entity entity-name="TestingStatus"
+            package-name="org.ofbiz.entity.test"
+            title="Entity for testing EntityStatus concept">
+        <description>An entity for testing EntityStatus concept</description>
+        <field name="testingStatusId" type="id-ne"/>
+        <field name="testingId" type="id-ne" />
+        <field name="statusId" type="id-ne"/>
+        <field name="statusDate" type="date-time"/>
+        <field name="changeByUserLoginId" type="id-vlong"/>
+        <prim-key field="testingStatusId"/>
+        <relation type="one" fk-name="TEST_STA_STSITM" rel-entity-name="StatusItem">
+          <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" fk-name="TEST_STA_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
+           <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
+        </relation>
+    </entity>
   <!-- =========================================================
      An entity for testing the BLOB data type
    ========================================================== -->
