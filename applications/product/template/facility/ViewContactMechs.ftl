@@ -89,7 +89,6 @@ under the License.
               <#if facilityContactMech.thruDate?has_content><br /><b>${uiLabelMap.CommonUpdatedEffectiveThru}:&nbsp;${facilityContactMech.thruDate.toString()}</b></#if>
             </td>
             <td class="button-col">
-              &nbsp;
               <#if security.hasEntityPermission("FACILITY", "_UPDATE", session)>
                 <a href='<@ofbizUrl>EditContactMech?facilityId=${facilityId}&amp;contactMechId=${contactMech.contactMechId}</@ofbizUrl>'>${uiLabelMap.CommonUpdate}</a>
               </#if>
