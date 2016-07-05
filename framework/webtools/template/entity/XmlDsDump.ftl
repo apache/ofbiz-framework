@@ -87,10 +87,9 @@ under the License.
       </tr>
     </table>
     <br />
-    <p>${uiLabelMap.WebtoolsEntityNames}:</p>
     <@displayButtonBar/>
       <div>${uiLabelMap.WebtoolsEntitySyncDump}:
-        <input name="entitySyncId" size="30" value="${entitySyncId!}"/>
+        <input type="text" name="entitySyncId" size="30" value="${entitySyncId!}"/>
       </div>
       ${uiLabelMap.WebtoolsPreConfiguredSet}:
       <select name="preConfiguredSetName">
@@ -103,6 +102,7 @@ under the License.
       </select>
       <br />
 
+      <p>${uiLabelMap.WebtoolsEntityNames}:</p>
       <table>
         <tr>
           <#assign entCount = 0>
