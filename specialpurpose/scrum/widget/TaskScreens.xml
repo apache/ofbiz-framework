@@ -24,7 +24,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindTask"/>
-                <set field="headerItem" value="task"/>
+                <set field="headerItem" value="Tasks"/>
                 <set field="tabButtonItem" value="find"/>
                 <set field="labelTitleProperty" value="ScrumTasksList"/>
                 <set field="viewIndex_1" from-field="parameters.TasksListError_index_1" type="Integer"/>
