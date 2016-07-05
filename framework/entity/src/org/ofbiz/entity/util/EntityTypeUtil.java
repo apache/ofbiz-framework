@@ -31,9 +31,11 @@ import org.ofbiz.entity.GenericValue;
  * Makes it easier to deal with entities that follow the
  * extensibility pattern and that can be of various types as identified in the database.
  */
-public class EntityTypeUtil {
+public final class EntityTypeUtil {
 
     public static final String module = EntityTypeUtil.class.getName();
+
+    private EntityTypeUtil() {}
 
     public static boolean isType(Collection<GenericValue> thisCollection, String typeRelation, GenericValue targetType) {
         for (GenericValue value: thisCollection) {
