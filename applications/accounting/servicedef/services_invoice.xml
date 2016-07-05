@@ -134,6 +134,12 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
+    <service name="createInvoiceStatus" engine="entity-auto" default-entity-name="InvoiceStatus" invoke="create" auth="true">
+        <description>Create a Invoice Status Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <override name="statusDate" mode="IN" optional="true"/>
+    </service>
+
     <service name="createInvoiceRole" engine="simple" default-entity-name="InvoiceRole"
         location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="createInvoiceRole">
         <description>Create a new Invoice Role Record</description>

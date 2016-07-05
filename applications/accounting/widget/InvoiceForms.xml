@@ -448,6 +448,7 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field name="statusDate"><display description="${groovy:statusDate.toString().substring(0,10)}"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="changeByUserLoginId"><display /></field>
     </form>
 
     <form name="ListInvoiceTerms" list-name="invoiceTerms" target="" title="" type="list"

@@ -179,11 +179,9 @@ under the License.
         <create-value value-field="newEntity"/>
 
         <!-- create new status entry, and set lastStatusUpdate date -->
-        <make-value value-field="newInvoiceStatus" entity-name="InvoiceStatus"/>
-        <set from-field="newEntity.invoiceId" field="newInvoiceStatus.invoiceId"/>
-        <set from-field="newEntity.statusId" field="newInvoiceStatus.statusId"/>
-        <set from-field="nowTimestamp" field="newInvoiceStatus.statusDate"/>
-        <create-value value-field="newInvoiceStatus"/>
+        <set field="createInvoiceStatusMap.invoiceId" from-field="newEntity.invoiceId" />
+        <set field="createInvoiceStatusMap.statusId" from-field="newEntity.statusId" />
+        <call-service service-name="createInvoiceStatus" in-map-name="createInvoiceStatusMap"/>
     </simple-method>
 
     <simple-method method-name="copyInvoice" short-description="Create a new Invoice from an existing invoice">
@@ -403,8 +401,6 @@ under the License.
             <if-compare field="invoice.statusId" operator="equals" value="INVOICE_PAID">
                 <set field="invoiceStatusMap.invoiceId" value="${paymentApplication.invoiceId}"/>
                 <set field="invoiceStatusMap.statusId" value="INVOICE_READY"/>
-                <now-timestamp field="nowTimestamp"/>
-                <set field="invoiceStatusMap.statusDate" from-field="nowTimestamp"/>
                 <call-service service-name="setInvoiceStatus" in-map-name="invoiceStatusMap"/>
             </if-compare>
             <check-errors/>
@@ -512,14 +508,10 @@ under the License.
                 <set from-field="parameters.statusId" field="invoice.statusId"/>
                 <store-value value-field="invoice"/>
 
-                <make-value value-field="newEntity" entity-name="InvoiceStatus"/>
-                <set-nonpk-fields map="parameters" value-field="newEntity"/>
-                <set-pk-fields map="parameters" value-field="newEntity"/>
-
-                <if-empty field="newEntity.statusDate">
-                    <now-timestamp field="newEntity.statusDate"/>
-                </if-empty>
-                <create-value value-field="newEntity"/>
+                <set field="createInvoiceStatusMap.invoiceId" from-field="invoice.invoiceId"/>
+                <set field="createInvoiceStatusMap.statusId" from-field="invoice.statusId"/>
+                <set field="createInvoiceStatusMap.statusDate" from-field="parameters.statusDate"/>
+                <call-service service-name="createInvoiceStatus" in-map-name="createInvoiceStatusMap"/>
 
                 <!-- if the invoice is a payrol invoice, create the payment in the not-paid status -->
                 <if-compare field="invoice.invoiceTypeId" operator="equals" value="PAYROL_INVOICE">
