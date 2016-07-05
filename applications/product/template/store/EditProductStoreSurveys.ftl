@@ -95,7 +95,7 @@ under the License.
               <tr>
                 <td class="label">${uiLabelMap.ProductProductId}</td>
                 <td>
-                  <input type="text" size="20" name="productId" />
+                  <@htmlTemplate.lookupField formName="addSurvey" name="productId" id="productId" fieldFormName="LookupProduct"/>
                 </td>
               </tr>
               <tr>
