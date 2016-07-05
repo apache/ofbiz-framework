@@ -10191,6 +10191,9 @@
         <value xml:lang="zh">用于促销的产品</value>
         <value xml:lang="zh-TW">用於促銷的產品</value>
     </property>
+    <property key="OrderPromoAppliedSuccessfully">
+        <value xml:lang="en">Promotion Code[${productPromoCodeId}] has been applied successfully</value>
+    </property>
     <property key="OrderPromotion">
         <value xml:lang="ar">ترويج</value>
         <value xml:lang="de">Aktionen</value>

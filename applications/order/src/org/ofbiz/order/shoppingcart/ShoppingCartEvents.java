@@ -82,6 +82,7 @@ public class ShoppingCartEvents {
     public static final MathContext generalRounding = new MathContext(10);
 
     public static String addProductPromoCode(HttpServletRequest request, HttpServletResponse response) {
+        Locale locale = UtilHttp.getLocale(request);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = getCartObject(request);
         String productPromoCodeId = request.getParameter("productPromoCodeId");
@@ -92,6 +93,7 @@ public class ShoppingCartEvents {
                 return "error";
             }
         }
+        request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "OrderPromoAppliedSuccessfully", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale));
         return "success";
     }
 
