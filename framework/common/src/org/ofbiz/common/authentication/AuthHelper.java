@@ -35,12 +35,13 @@ import org.ofbiz.service.LocalDispatcher;
 /**
  * AuthHelper
  */
-public class AuthHelper {
+public final class AuthHelper {
 
     private static final String module = AuthHelper.class.getName();
-    protected static List<Authenticator> authenticators = new ArrayList<Authenticator>();
-    protected static boolean authenticatorsLoaded = false;
+    private static List<Authenticator> authenticators = new ArrayList<Authenticator>();
+    private static boolean authenticatorsLoaded = false;
 
+    private AuthHelper() {}
 
     public static boolean authenticate(String username, String password, boolean isServiceAuth) throws AuthenticatorException {
         if (!authenticatorsLoaded) throw new AuthenticatorException("Authenticators never loaded; be sure to call AuthHelper.loadAuthenticators()");
