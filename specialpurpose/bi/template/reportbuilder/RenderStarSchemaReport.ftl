@@ -18,25 +18,25 @@ under the License.
 -->
 
 <table cellspacing="0" class="basic-table hover-bar">
-    <tr class="header-row">
-        <#assign firstRecord = records[0]!/>
-        <#list columnNames as columnName>
-        <td<#if firstRecord?? && firstRecord[columnName]?default("")?is_number> class="align-text"</#if>>
-            ${columnName}
-        </td>
-        </#list>
-    </tr>
-    <#assign alt_row = false>
-    <#list records as record>
+  <tr class="header-row">
+    <#assign firstRecord = records[0]!/>
+    <#list columnNames as columnName>
+      <td<#if firstRecord?? && firstRecord[columnName]?default("")?is_number> class="align-text"</#if>>
+        ${columnName}
+      </td>
+    </#list>
+  </tr>
+  <#assign alt_row = false>
+  <#list records as record>
     <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-        <#list columnNames as columnName>
+      <#list columnNames as columnName>
         <#assign columnValue = record[columnName]?default("")>
         <td<#if columnValue?is_number> class="align-text"</#if>>
-            ${columnValue}
+          ${columnValue}
         </td>
-        </#list>
+      </#list>
     </tr>
     <#-- toggle the row color -->
     <#assign alt_row = !alt_row>
-    </#list>
+  </#list>
 </table>
