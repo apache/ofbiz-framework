@@ -37,9 +37,11 @@ import org.ofbiz.entity.util.EntityUtilProperties;
 /**
  * Common Workers
  */
-public class CommonWorkers {
+public final class CommonWorkers {
 
     public final static String module = CommonWorkers.class.getName();
+
+    private CommonWorkers() {}
 
     public static List<GenericValue> getCountryList(Delegator delegator) {
         List<GenericValue> geoList = new LinkedList<GenericValue>();
