@@ -41,9 +41,11 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.webapp.control.ContextFilter;
 import org.ofbiz.webapp.website.WebSiteWorker;
 
-public class UrlServletHelper extends ContextFilter {
+public final class UrlServletHelper extends ContextFilter {
     
     public final static String module = UrlServletHelper.class.getName();
+    
+    private UrlServletHelper() {}
     
     public static void setRequestAttributes(ServletRequest request, Delegator delegator, ServletContext servletContext) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
