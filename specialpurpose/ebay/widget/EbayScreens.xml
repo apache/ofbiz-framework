@@ -70,7 +70,6 @@ under the License.
     <screen name="ProductsExportToEbay">
         <section>
             <actions>
-                <property-map resource="GoogleBaseUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="headerItem" value="export"/>
                 <set field="titleProperty" value="PageTitleEbayProductsExportToEbay"/>
                 <set field="selectResult" from-field="parameters.selectResult"/>

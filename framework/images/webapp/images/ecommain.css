@@ -1040,9 +1040,6 @@ display: inline;
 #microcart li#microCartPayPalCheckout img {
 width: 135px;
 }
-#microcart li#googleCheckoutEnabled img, #microcart li#googleCheckoutDisabled img {
-width: 145px;
-}
 /*===================For ProductDetail page.===========================================*/
 #productdetail {
 width: 670px;

@@ -1797,44 +1797,7 @@ under the License.
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
-    
-    <!--  Old request that calls the services written in Minilang -->
-    <request-map uri="cartToGoogleCheckout">
-        <security auth="false" https="false"/>
-        <event type="service" invoke="transmitRequest"/>
-        <response type="view" name="success" value="cartToGoogleCheckout"/>
-    </request-map>
-    
-    <!-- New request that prepare data in the Java code -->
-   <request-map uri="googleCheckout">
-        <security auth="false" https="false" />
-        <event type="service" invoke="sendGoogleCheckoutRequest" />
-        <response type="view" name="success" value="redirectToGoogleCheckout" />
-    </request-map>    
-    
-    <!-- This will be used in production instance to provide secure communication -->
-    <request-map uri="secureGoogleCheckoutNotification">
-        <security auth="false" https="true"/>
-        <event type="java" path="org.ofbiz.googlecheckout.GoogleCheckoutResponseEvents" invoke="checkNotification"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
-    </request-map>
 
-    <!--  This request can be used for server that don't have SSL certificate installed or sandbox instance that handles google response on unsecure port-->
-    <request-map uri="unSecureGoogleCheckoutNotification">
-        <security auth="false" https="false"/>
-        <event type="java" path="org.ofbiz.googlecheckout.GoogleCheckoutResponseEvents" invoke="checkNotification"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
-    </request-map>
-    
-    <request-map uri="returnBackFromGoogle">
-        <security https="false" auth="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="clearCart"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="main"/>
-    </request-map>
-    
     <!-- Product Comparison Requests -->
     <request-map uri="addToCompare">
         <security https="false" auth="false"/>
@@ -2055,10 +2018,6 @@ under the License.
 
     <!-- One Page Checkout -->
     <view-map name="OnePageCheckout" type="screen" page="component://ecommerce/widget/OrderScreens.xml#OnePageCheckout"/>
-    <!-- Google Checkout View Mapping -->
-    <view-map name="cartToGoogleCheckout" type="screen" page="component://googlecheckout/widget/GoogleCheckoutScreens.xml#redirect"/>
-    <view-map name="redirectToGoogleCheckout" type="screen" page="component://googlecheckout/widget/GoogleCheckoutScreens.xml#redirect"/>
-    
     <view-map name="compareProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#compareProducts"/>
     
     <!-- Product in the different UOM -->

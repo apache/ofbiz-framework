@@ -540,16 +540,6 @@
         <value xml:lang="zh">购物车有</value>
         <value xml:lang="zh-TW">購物車有</value>
     </property>
-    <property key="EcommerceCartToGoogleCheckout">
-        <value xml:lang="en">Google Checkout</value>
-        <value xml:lang="it">Checkout con Google Checkout</value>
-        <value xml:lang="ja">Googleチェックアウト</value>
-        <value xml:lang="nl">Google checkout</value>
-        <value xml:lang="pt-BR">Finalizar compra com Google Checkout</value>
-        <value xml:lang="vi">Google Checkout</value>
-        <value xml:lang="zh">Google结账</value>
-        <value xml:lang="zh-TW">Google結帳</value>
-    </property>
     <property key="EcommerceCartTotal">
         <value xml:lang="cs">Košík celkem</value>
         <value xml:lang="da">Indkøbskurv total</value>
