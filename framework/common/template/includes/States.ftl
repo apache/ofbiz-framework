@@ -18,12 +18,13 @@ under the License.
 -->
 <#assign states = Static["org.ofbiz.common.CommonWorkers"].getStateList(delegator)>
 <#list states as state>
-    <option value='${state.geoId}'>${state.geoName?default(state.geoId)}</option>
+  <option value='${state.geoId}'>${state.geoName?default(state.geoId)}</option>
 </#list>
 
 <#-- Here is some alternate code to get states limited to a region
 <#if requestParameters.CUSTOMER_COUNTRY??>
-    <#assign stateAssocs = Static["org.ofbiz.common.CommonWorkers"].getAssociatedStateList(delegator,requestParameters.CUSTOMER_COUNTRY)>
+    <#assign stateAssocs = Static[
+        "org.ofbiz.common.CommonWorkers"].getAssociatedStateList(delegator,requestParameters.CUSTOMER_COUNTRY)>
 <#else>
     <#assign stateAssocs = Static["org.ofbiz.common.CommonWorkers"].getAssociatedStateList(delegator,null)>
 </#if>

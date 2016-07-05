@@ -21,6 +21,6 @@ under the License.
 
 <option></option>
 <#list 0..10 as i>
-    <#assign expireYear = thisYear + i>
-    <option value="${expireYear}">${expireYear}</option>
+  <#assign expireYear = thisYear + i>
+  <option value="${expireYear}">${expireYear}</option>
 </#list>

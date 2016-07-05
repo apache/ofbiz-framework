@@ -25,20 +25,20 @@ margin: 1em;
 -->
 
 <script type="text/javascript" src="/images/jquery/plugins/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-<link rel="stylesheet" href="/images/jquery/plugins/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/images/jquery/plugins/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen"/>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("a#single_image").fancybox();
         $("a#inline").fancybox({
             'hideOnContentClick': true
         });
         $("a.group").fancybox({
-            'transitionIn'  :   'elastic',
-            'transitionOut' :   'elastic',
-            'speedIn'       :   600,
-            'speedOut'      :   200,
-            'overlayShow'   :   false
+            'transitionIn': 'elastic',
+            'transitionOut': 'elastic',
+            'speedIn': 600,
+            'speedOut': 200,
+            'overlayShow': false
         });
     });
 </script>
@@ -57,16 +57,19 @@ margin: 1em;
     <table cellspacing="0" class="basic-table">
       <#list visualThemes as visualTheme>
         <#assign screenshots = delegator.findByAnd("VisualThemeResource", Static["org.ofbiz.base.util.UtilMisc"].toMap(
-                                        "visualThemeId", "${visualTheme.visualThemeId}",
-                                        "resourceTypeEnumId", "VT_SCREENSHOT"), orderByList, false)>
+            "visualThemeId", "${visualTheme.visualThemeId}",
+            "resourceTypeEnumId", "VT_SCREENSHOT"), orderByList, false)>
         <tr<#if visualTheme.visualThemeId == visualThemeId> class="selected"</#if>>
           <td>
-            <form name="SetUserPreferences_${visualTheme.visualThemeId}" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
+            <form name="SetUserPreferences_${visualTheme.visualThemeId}" method="post"
+                action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
               <input type="hidden" name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
               <input type="hidden" name="userPrefTypeId" value="VISUAL_THEME"/>
               <input type="hidden" name="userPrefValue" value="${visualTheme.visualThemeId}"/>
             </form>
-            <a href="javascript:document.forms['SetUserPreferences_${visualTheme.visualThemeId}'].submit()">${visualTheme.get("description", locale)?default(visualTheme.visualThemeId)}</a>
+            <a href="javascript:document.forms['SetUserPreferences_${visualTheme.visualThemeId}'].submit()">
+              ${visualTheme.get("description", locale)?default(visualTheme.visualThemeId)}
+            </a>
           </td>
           <td>
             <#if visualTheme.visualThemeId == visualThemeId>${uiLabelMap.CommonVisualThemeSelected}<#else>&nbsp;</#if>
@@ -74,9 +77,11 @@ margin: 1em;
           <td>
             <#if screenshots?has_content>
               <#list screenshots as screenshot>
-                <a id="single_image" href="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>" width="150" alt=""/></a>
+                <a id="single_image" href="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>"><img
+                    src="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>" width="150"
+                    alt=""/></a>
               </#list>
-           <#else>
+            <#else>
               ${uiLabelMap.CommonVisualThemeNoScreenshots}
             </#if>
           </td>

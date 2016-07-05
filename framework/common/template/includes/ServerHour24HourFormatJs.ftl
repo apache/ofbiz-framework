@@ -17,24 +17,30 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script type="text/javascript">
-jQuery(document).ready(function() {
-  window.setInterval(function(){clock()}, 1000);
-  var serverTimestamp = 0;
-  var date;
-  function clock() {
-    if (jQuery("#${clockField}").text() === "${uiLabelMap.CommonServerHour}:") {
-      waitSpinnerShow();
-      serverTimestamp = getServiceResult("getServerTimestampAsLong")['serverTimestamp'];
-      serverTimeZone = getServiceResult("getServerTimeZone")['serverTimeZone'];;
-      initTimeZone();
-      date = new timezoneJS.Date(serverTimestamp, serverTimeZone);
-      waitSpinnerHide();      
-    } else {
-      date.setSeconds(date.getSeconds() + 1);
-    }
-    // dateFormat does not respect the timezone :/ Fortunately toString is what we want :)
-    //jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + dateFormat(date, "yyyy-mm-dd HH:MM:ss"));
-    jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: "  + date.toString());
-  }
-})
+    jQuery(document).ready(function () {
+        window.setInterval(function () {
+            clock()
+        }, 1000);
+        var serverTimestamp = 0;
+        var date;
+
+        function clock() {
+            if (jQuery("#${clockField}").text() === "${uiLabelMap.CommonServerHour}:") {
+                waitSpinnerShow();
+                serverTimestamp = getServiceResult("getServerTimestampAsLong")['serverTimestamp'];
+                serverTimeZone = getServiceResult("getServerTimeZone")['serverTimeZone'];
+                ;
+                initTimeZone();
+                date = new timezoneJS.Date(serverTimestamp, serverTimeZone);
+                waitSpinnerHide();
+            } else {
+                date.setSeconds(date.getSeconds() + 1);
+            }
+            // dateFormat does not respect the timezone :/ Fortunately toString is what we want :)
+            //jQuery("#${clockField}
+            ").text("${uiLabelMap.CommonServerHour}
+            : "  + dateFormat(date, "yyyy-mm-dd HH:MM:ss"));
+            jQuery("#${clockField}").text("${uiLabelMap.CommonServerHour}: " + date.toString());
+        }
+    })
 </script>

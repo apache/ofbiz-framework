@@ -22,19 +22,36 @@ under the License.
 <#if "ar.iw"?contains(docLangAttr?substring(0, 2))><#assign langDir = "rtl"></#if>
 
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
-<head>
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
+  </head>
 
-<body>
+  <body>
     <style>
-        .txf {mso-number-format:\@} <#-- Text format-->
-        .cf {mso-number-format:"\#\#0.00"} <#-- currency format-->
-        .nf {mso-number-format:"0.00"} <#-- number format-->
-        .tf {mso-number-format:"HH:mm:ss"} <#-- time format-->
-        .df {mso-number-format:"yyyy-MM-dd"} <#-- date format-->
-        .dtf {mso-number-format:"yyyy-MM-dd HH:mm:ss"} <#-- date-time format-->
+        .txf {
+            mso-number-format: \@
+        } <#-- Text format-->
+
+        .cf {
+            mso-number-format: "\#\#0.00"
+        } <#-- currency format-->
+
+        .nf {
+            mso-number-format: "0.00"
+        } <#-- number format-->
+
+        .tf {
+            mso-number-format: "HH:mm:ss"
+        } <#-- time format-->
+
+        .df {
+            mso-number-format: "yyyy-MM-dd"
+        } <#-- date format-->
+
+        .dtf {
+            mso-number-format: "yyyy-MM-dd HH:mm:ss"
+        } <#-- date-time format-->
     </style>
-${sections.render("body")}
-</body>
+    ${sections.render("body")}
+  </body>
 </html>
