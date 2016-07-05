@@ -638,7 +638,7 @@ under the License.
         </actions>
         <field name="productStoreGroupId"><hidden/></field>
         <field name="productStoreGroupName">
-            <hyperlink target="ListParentProductStoreGroup" description="${productStoreGroupName} [${productStoreGroupId}]">
+            <hyperlink target="EditProductStoreGroupAndAssoc" description="${productStoreGroupName} [${productStoreGroupId}]">
                 <parameter param-name="productStoreGroupId"/>
             </hyperlink>
         </field>

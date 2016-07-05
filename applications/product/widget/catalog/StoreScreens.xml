@@ -656,5 +656,55 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="EditProductStoreGroupAndAssoc">
+       <section>
+           <actions>
+               <property-map map-name="uiLabelMap" resource="CommonUiLabels"/>
+               <property-map map-name="uiLabelMap" resource="ProductUiLabels"/>
+               <entity-one entity-name="ProductStoreGroup" value-field="productStoreGroup"/>
+               <set field="isAjaxRequest" value="${groovy: 'XMLHttpRequest'.equals(request.getHeader('X-Requested-With'))}" type="Boolean"/>
+           </actions>
+           <widgets>
+               <section>
+                   <condition>
+                       <if-compare field="isAjaxRequest" operator="equals" value="false" type="Boolean"/>
+                   </condition>
+                   <widgets>
+                       <decorator-screen name="CommonProductStoreGroupDecorator" location="${parameters.mainDecoratorLocation}">
+                           <decorator-section name="body">
+                               <screenlet title="${uiLabelMap.ProductProductStoreGroup} ${productStoreGroup.productStoreGroupName} [${productStoreGroup.productStoreGroupId}]" name="editProductStoreGroup" collapsible="true" initially-collapsed="true">
+                                   <include-form name="EditProductStoreGroup" location="component://product/widget/catalog/StoreForms.xml"/>
+                               </screenlet>
+                               <screenlet title="${uiLabelMap.ProductProductStoreGroupRollup}" id="editProductStoreGroupRollup" name="editProductStoreGroupRollup" collapsible="true" initially-collapsed="true">
+                                   <include-form name="ListProductStoreGroupAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
+                               </screenlet>
+                               <screenlet title="${uiLabelMap.ProductProductStoreMember}">
+                                   <include-form name="ListProductStoreAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
+                               </screenlet>
+                               <screenlet title="${uiLabelMap.ProductAddToProductStoreGroup}">
+                                   <include-form name="AddProductStoreAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
+                               </screenlet>
+                           </decorator-section>
+                       </decorator-screen>
+                   </widgets>
+                   <fail-widgets>
+                   	    <screenlet title="${uiLabelMap.ProductProductStoreGroup} ${productStoreGroup.productStoreGroupName} [${productStoreGroup.productStoreGroupId}]" name="editProductStoreGroup" collapsible="true" initially-collapsed="true">
+                            <include-form name="EditProductStoreGroup" location="component://product/widget/catalog/StoreForms.xml"/>
+                   		</screenlet>
+                        <screenlet title="${uiLabelMap.ProductProductStoreGroupRollup}" id="editProductStoreGroupRollup" name="editProductStoreGroupRollup" collapsible="true" initially-collapsed="true">
+                            <include-form name="ListProductStoreGroupAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductProductStoreMember}">
+                            <include-form name="ListProductStoreAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductAddToProductStoreGroup}">
+                            <include-form name="AddProductStoreAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
+                        </screenlet>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
 
 </screens>
