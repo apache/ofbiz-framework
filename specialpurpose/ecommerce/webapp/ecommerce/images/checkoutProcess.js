@@ -538,8 +538,6 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
                         jQuery('#quickCheckoutDisabled').show();
                         jQuery('#onePageCheckoutEnabled').hide();
                         jQuery('#onePageCheckoutDisabled').show();
-                        jQuery('#googleCheckoutEnabled').hide();
-                        jQuery('#googleCheckoutDisabled').show();
                         jQuery('#microCartPayPalCheckout').hide();
                     } else {
                         // Replace whole cart panel with updated cart values for updating line item in case of gift item is added or remove in cart after applying coupon code

@@ -36,7 +36,6 @@ under the License.
               <li><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="button">${uiLabelMap.OrderCheckout}</a></li>
               <li><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="button">${uiLabelMap.OrderCheckoutQuick}</a></li>
               <li><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="button">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
-              <li><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>" class="button">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
             </ul>
           </#if>
           <table>
@@ -83,7 +82,6 @@ under the License.
               <li><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="button">${uiLabelMap.OrderCheckout}</a></li>
               <li><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="button">${uiLabelMap.OrderCheckoutQuick}</a></li>
               <li><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>" class="button">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
-              <li><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>" class="button">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
             </ul>
           </#if>
         <#else>

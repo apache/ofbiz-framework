@@ -997,13 +997,6 @@
         <value xml:lang="zh">场所管理中的浏览操作。</value>
         <value xml:lang="zh-TW">場所管理中的檢視操作.</value>
     </property>
-    <property key="SecurityPermission.description.GOOGLEBASE_VIEW">
-        <value xml:lang="en">View operations in the Google Base application.</value>
-        <value xml:lang="it">Operazioni di visualizzazione nell'applicazione Google Base.</value>
-        <value xml:lang="ja">Googleショッピング業務での表示操作。</value>
-        <value xml:lang="zh">Google Base应用程序中的浏览操作。</value>
-        <value xml:lang="zh-TW">Google Base應用程式中的檢視操作.</value>
-    </property>
     <property key="SecurityPermission.description.HUMANRES_CREATE">
         <value xml:lang="en">Create operations in the HumanRes Manager.</value>
         <value xml:lang="it">Operazioni di creazione nella gestione risorse umane.</value>
