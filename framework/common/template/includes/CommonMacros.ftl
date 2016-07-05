@@ -24,63 +24,71 @@ your template file:
 -->
 
 <#assign
-  dayValueList = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getDayValueList(locale)
-  monthValueList = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getMonthValueList(locale)
-/>
+    dayValueList = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getDayValueList(locale)
+    monthValueList = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getMonthValueList(locale)/>
 
 <#macro NullMacro></#macro>
 
 <#macro DateField formName="" fieldName="" fieldValue="" fieldClass="">
   <#if javaScriptEnabled>
-    <@htmlTemplate.renderDateTimeField name="${fieldName}" event="${event!}" action="${action!}" className="${fieldClass!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${fieldValue!''}" size="25" maxlength="30" id="${fieldName}1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+    <@htmlTemplate.renderDateTimeField name="${fieldName}" event="${event!}" action="${action!}"
+        className="${fieldClass!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${fieldValue!''}"
+        size="25" maxlength="30" id="${fieldName}1" dateType="date" shortDateInput=false timeDropdownParamName=""
+        defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString=""
+        hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected=""
+        pmSelected="" compositeType="" formName=""/>
   <#else>
-      <input type="text" name="${fieldName}"<#if fieldValue?has_content> value="${fieldValue}"</#if><#if fieldClass?has_content> class="${fieldClass}"</#if> maxlength="25" size="25"/>
+  <input type="text" name="${fieldName}"<#if fieldValue?has_content>
+      value="${fieldValue}"</#if><#if fieldClass?has_content> class="${fieldClass}"</#if> maxlength="25"
+      size="25"/>
   </#if>
-  <span class="tooltip">${uiLabelMap.CommonFormatDateTime}</span>
+<span class="tooltip">${uiLabelMap.CommonFormatDateTime}</span>
   <#if fieldClass == "required">
-    <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+  <span class="tooltip">${uiLabelMap.CommonRequired}</span>
   </#if>
 </#macro>
 
 <#macro MonthField fieldName="" fieldValue=-1 fieldClass="">
-  <select name="${fieldName}"<#if fieldClass?has_content> class="${fieldClass}"</#if>>
-    <#list monthValueList as monthValue>
-      <option value="${monthValue.value}"<#if monthValue.value == fieldValue> selected="selected"</#if>>${monthValue.description}</option>
-    </#list>
-  </select>
+<select name="${fieldName}"<#if fieldClass?has_content> class="${fieldClass}"</#if>>
+  <#list monthValueList as monthValue>
+      <option value="${monthValue.value}"<#if monthValue.value == fieldValue>
+          selected="selected"</#if>>${monthValue.description}</option>
+  </#list>
+</select>
   <#if fieldClass == "required">
-    <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+  <span class="tooltip">${uiLabelMap.CommonRequired}</span>
   </#if>
 </#macro>
 
 <#macro HourOfDayField fieldName="" fieldValue=-1 fieldClass="">
-  <select name="${fieldName}"<#if fieldClass?has_content> class="${fieldClass}"</#if>>
-    <#list 0..23 as i>
-      <option value="${i}"<#if i == fieldValue> selected="selected"</#if>>${i}</option>
-    </#list>
-  </select>
+<select name="${fieldName}"<#if fieldClass?has_content> class="${fieldClass}"</#if>>
+  <#list 0..23 as i>
+    <option value="${i}"<#if i == fieldValue> selected="selected"</#if>>${i}</option>
+  </#list>
+</select>
   <#if fieldClass == "required">
-    <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+  <span class="tooltip">${uiLabelMap.CommonRequired}</span>
   </#if>
 </#macro>
 
 <#macro MinuteField fieldName="" fieldValue=-1 fieldClass="">
-  <select name="${fieldName}"<#if fieldClass?has_content> class="${fieldClass}"</#if>>
-    <#list 0..59 as i>
-      <option value="${i}"<#if i == fieldValue> selected="selected"</#if>>${i}</option>
-    </#list>
-  </select>
+<select name="${fieldName}"<#if fieldClass?has_content> class="${fieldClass}"</#if>>
+  <#list 0..59 as i>
+    <option value="${i}"<#if i == fieldValue> selected="selected"</#if>>${i}</option>
+  </#list>
+</select>
   <#if fieldClass == "required">
     <span class="tooltip">${uiLabelMap.CommonRequired}</span>
   </#if>
 </#macro>
 
 <#macro DayOfWeekField fieldName="" fieldValue=-1 fieldClass="">
-  <select name="${fieldName}"<#if fieldClass?has_content> class="${fieldClass}"</#if>>
-    <#list dayValueList as dayValue>
-      <option value="${dayValue.value}"<#if dayValue.value == fieldValue> selected="selected"</#if>>${dayValue.description}</option>
-    </#list>
-  </select>
+<select name="${fieldName}"<#if fieldClass?has_content> class="${fieldClass}"</#if>>
+  <#list dayValueList as dayValue>
+    <option value="${dayValue.value}"<#if dayValue.value == fieldValue>
+        selected="selected"</#if>>${dayValue.description}</option>
+  </#list>
+</select>
   <#if fieldClass == "required">
     <span class="tooltip">${uiLabelMap.CommonRequired}</span>
   </#if>
@@ -99,7 +107,8 @@ your template file:
 
 <#macro fieldErrors fieldName>
   <#if errorMessageList?has_content>
-    <#assign fieldMessages = Static["org.ofbiz.base.util.MessageString"].getMessagesForField(fieldName, true, errorMessageList)>
+    <#assign fieldMessages = Static["org.ofbiz.base.util.MessageString"].getMessagesForField(
+        fieldName, true, errorMessageList)>
     <ul>
       <#list fieldMessages as errorMsg>
         <li class="errorMessage">${errorMsg}</li>
@@ -110,7 +119,8 @@ your template file:
 
 <#macro fieldErrorsMulti fieldName1 fieldName2 fieldName3 fieldName4>
   <#if errorMessageList?has_content>
-    <#assign fieldMessages = Static["org.ofbiz.base.util.MessageString"].getMessagesForField(fieldName1, fieldName2, fieldName3, fieldName4, true, errorMessageList)>
+    <#assign fieldMessages = Static["org.ofbiz.base.util.MessageString"].getMessagesForField(
+        fieldName1, fieldName2, fieldName3, fieldName4, true, errorMessageList)>
     <ul>
       <#list fieldMessages as errorMsg>
         <li class="errorMessage">${errorMsg}</li>

@@ -43,14 +43,14 @@ under the License.
             <td><input type="password" name="PASSWORD" value="" size="20"/></td>
           </tr>
           <#if ("Y" == useMultitenant) >
-              <#if !requestAttributes.userTenantId??>
-                  <tr>
-                      <td class="label">${uiLabelMap.CommonTenantId}</td>
-                      <td><input type="text" name="userTenantId" value="${parameters.userTenantId!}" size="20"/></td>
-                  </tr>
-              <#else>
-                  <input type="hidden" name="userTenantId" value="${requestAttributes.userTenantId!}"/>
-              </#if>
+            <#if !requestAttributes.userTenantId??>
+              <tr>
+                <td class="label">${uiLabelMap.CommonTenantId}</td>
+                <td><input type="text" name="userTenantId" value="${parameters.userTenantId!}" size="20"/></td>
+              </tr>
+            <#else>
+                <input type="hidden" name="userTenantId" value="${requestAttributes.userTenantId!}"/>
+            </#if>
           </#if>
           <tr>
             <td colspan="2" align="center">

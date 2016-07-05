@@ -18,45 +18,48 @@ under the License.
 -->
 <#if asm_multipleSelect??> <#-- we check only this var and suppose the others are also present -->
 <script type="text/javascript">
-jQuery(document).ready(function() {
-    multiple = jQuery("#${asm_multipleSelect!}");
+    jQuery(document).ready(function () {
+        multiple = jQuery("#${asm_multipleSelect!}");
 
-  <#if asm_title??>
-    // set the dropdown "title" if??
-    multiple.attr('title', '${asm_title}');
-  </#if>
-  
-    // use asmSelect in Widget Forms
-    multiple.asmSelect({
-      addItemTarget: 'top',
-      sortable: ${asm_sortable!'false'},
-      removeLabel: '${uiLabelMap.CommonRemove!'Remove'}'
-      //, debugMode: true
+      <#if asm_title??>
+          // set the dropdown "title" if??
+          multiple.attr('title', '${asm_title}');
+      </#if>
+
+        // use asmSelect in Widget Forms
+        multiple.asmSelect({
+            addItemTarget: 'top',
+            sortable: ${asm_sortable!'false'},
+            removeLabel: '${uiLabelMap.CommonRemove!'Remove'}'
+            //, debugMode: true
+        });
+
+      <#if asm_relatedField??> <#-- can be used without related field -->
+          // track possible relatedField changes
+          // on initial focus (focus-field-name must be asm_relatedField) or if the field value changes, select related multi values.
+          typeValue = jQuery('#${asm_typeField}').val();
+          jQuery("#${asm_relatedField}").one('focus', function () {
+              selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');
+          });
+          jQuery("#${asm_relatedField}").change(function () {
+              selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');
+          });
+          selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');
+      </#if>
     });
-      
-  <#if asm_relatedField??> <#-- can be used without related field -->
-    // track possible relatedField changes
-    // on initial focus (focus-field-name must be asm_relatedField) or if the field value changes, select related multi values. 
-    typeValue = jQuery('#${asm_typeField}').val();
-    jQuery("#${asm_relatedField}").one('focus', function() {
-      selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');
-    });
-    jQuery("#${asm_relatedField}").change(function() {
-      selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');
-    });
-    selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');
-  </#if>
-  });  
 </script>
 
 <style type="text/css">
-#${asm_multipleSelectForm} {
-    width: ${asm_formSize!700}px; 
-    position: relative;
-}
+    #${asm_multipleSelectForm}
+    {
+        width: ${asm_formSize!700}px
+    ;
+        position: relative
+    ;
+    }
 
-.asmListItem {
-  width: ${asm_asmListItemPercentOfForm!95}%; 
-}
+    .asmListItem {
+        width: ${asm_asmListItemPercentOfForm!95}%;
+    }
 </style>
 </#if>

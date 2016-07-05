@@ -17,24 +17,24 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script language="JavaScript" type="text/javascript">
-  function setTimeDuration() {
-    var years = window.document.getElementsByName("years")[0].value;
-    var weeks = window.document.getElementsByName("weeks")[0].value;
-    var days = window.document.getElementsByName("days")[0].value;
-    var hours = window.document.getElementsByName("hours")[0].value;
-    var minutes = window.document.getElementsByName("minutes")[0].value;
-    var seconds = window.document.getElementsByName("seconds")[0].value;
-    var millis = window.document.getElementsByName("millis")[0].value;
-    var duration = 0;
-    duration += years == null ? 0 : years * 31536000000;
-    duration += weeks == null ? 0 : weeks * 604800000;
-    duration += days == null ? 0 : days * 86400000;
-    duration += hours == null ? 0 : hours * 3600000;
-    duration += minutes == null ? 0 : minutes * 60000;
-    duration += seconds == null ? 0 : seconds * 1000;
-    duration += millis == null ? 0 : millis;
-    set_duration_value(duration);
-  }
+    function setTimeDuration() {
+        var years = window.document.getElementsByName("years")[0].value;
+        var weeks = window.document.getElementsByName("weeks")[0].value;
+        var days = window.document.getElementsByName("days")[0].value;
+        var hours = window.document.getElementsByName("hours")[0].value;
+        var minutes = window.document.getElementsByName("minutes")[0].value;
+        var seconds = window.document.getElementsByName("seconds")[0].value;
+        var millis = window.document.getElementsByName("millis")[0].value;
+        var duration = 0;
+        duration += years == null ? 0 : years * 31536000000;
+        duration += weeks == null ? 0 : weeks * 604800000;
+        duration += days == null ? 0 : days * 86400000;
+        duration += hours == null ? 0 : hours * 3600000;
+        duration += minutes == null ? 0 : minutes * 60000;
+        duration += seconds == null ? 0 : seconds * 1000;
+        duration += millis == null ? 0 : millis;
+        set_duration_value(duration);
+    }
 </script>
 <form name="TimeDuration" action="javascript:setTimeDuration()">
   <table cellspacing="0" class="basic-table">

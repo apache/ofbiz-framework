@@ -34,9 +34,9 @@ under the License.
               <tr>
                 <td class="label">${uiLabelMap.SecurityQuestion}</td>
                 <td>
-                   ${securityQuestion.description!}
-                   <input type="hidden" name="securityQuestion" value="${securityQuestion.enumId!}" />
-                   <input type="hidden" name="USERNAME" value="${userLoginId!}" />
+                  ${securityQuestion.description!}
+                  <input type="hidden" name="securityQuestion" value="${securityQuestion.enumId!}" />
+                  <input type="hidden" name="USERNAME" value="${userLoginId!}" />
                 </td>
               </tr>
               <tr>

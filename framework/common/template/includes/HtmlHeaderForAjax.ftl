@@ -19,7 +19,7 @@ under the License.
 <#assign docLangAttr = locale.toString()?replace("_", "-")>
 <#assign langDir = "ltr">
 <#if "ar.iw"?contains(docLangAttr?substring(0, 2))>
-    <#assign langDir = "rtl">
+  <#assign langDir = "rtl">
 </#if>
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
   <head>

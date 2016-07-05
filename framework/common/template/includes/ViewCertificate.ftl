@@ -19,7 +19,7 @@ under the License.
 
 <#assign components = Static["org.ofbiz.base.component.ComponentConfig"].getAllComponents()!/>
 <#if (requestParameters.certString?has_content)>
-    <#assign cert = Static["org.ofbiz.base.util.KeyStoreUtil"].pemToCert(requestParameters.certString)/>
+  <#assign cert = Static["org.ofbiz.base.util.KeyStoreUtil"].pemToCert(requestParameters.certString)/>
 </#if>
 <div class="screenlet">
   <div class="screenlet-title-bar">
@@ -27,11 +27,11 @@ under the License.
   </div>
   <div class="screenlet-body">
     <#if (cert?has_content)>
-        <span class="label">${uiLabelMap.CertType}</span>&nbsp;${cert.getType()} : ${cert.getSubjectX500Principal()}
-        <span class="label">${uiLabelMap.CertName}</span>&nbsp;${cert.getSubjectX500Principal().getName()}
-        <span class="label">${uiLabelMap.CertSerialNumber}</span>&nbsp;${cert.getSerialNumber().toString(16)}
+      <span class="label">${uiLabelMap.CertType}</span>&nbsp;${cert.getType()} : ${cert.getSubjectX500Principal()}
+      <span class="label">${uiLabelMap.CertName}</span>&nbsp;${cert.getSubjectX500Principal().getName()}
+      <span class="label">${uiLabelMap.CertSerialNumber}</span>&nbsp;${cert.getSerialNumber().toString(16)}
     <#else>
-        <h3>${uiLabelMap.CertInvalid}</h3>
+      <h3>${uiLabelMap.CertInvalid}</h3>
     </#if>
   </div>
 </div>
@@ -50,22 +50,22 @@ under the License.
       </tr>
       <#list components as component>
         <#assign keystores = component.getKeystoreInfos()!/>
-          <#list keystores as store>
-            <#if (store.isTrustStore())>
-              <tr>
-                <form method="post" action="<@ofbizUrl>/importIssuerProvision</@ofbizUrl>">
-                  <input type="hidden" name="componentName" value="${component.getComponentName()}"/>
-                  <input type="hidden" name="keystoreName" value="${store.getName()}"/>
-                  <input type="hidden" name="certString" value="${requestParameters.certString}"/>
-                  <td>${component.getComponentName()}</td>
-                  <td>${store.getName()}</td>
-                  <td align="center"><input type="checkbox" name="importIssuer" value="Y"/>
-                  <td><input type="text" name="alias" size="20"/>
-                  <td align="right"><input type="submit" value="${uiLabelMap.CommonSave}"/>
-                </form>
-              </tr>
-            </#if>
-          </#list>
+        <#list keystores as store>
+          <#if (store.isTrustStore())>
+            <tr>
+              <form method="post" action="<@ofbizUrl>/importIssuerProvision</@ofbizUrl>">
+                <input type="hidden" name="componentName" value="${component.getComponentName()}"/>
+                <input type="hidden" name="keystoreName" value="${store.getName()}"/>
+                <input type="hidden" name="certString" value="${requestParameters.certString}"/>
+                <td>${component.getComponentName()}</td>
+                <td>${store.getName()}</td>
+                <td align="center"><input type="checkbox" name="importIssuer" value="Y"/>
+                <td><input type="text" name="alias" size="20"/>
+                <td align="right"><input type="submit" value="${uiLabelMap.CommonSave}"/>
+              </form>
+            </tr>
+          </#if>
+        </#list>
       </#list>
     </table>
   </div>

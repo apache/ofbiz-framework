@@ -66,7 +66,9 @@ under the License.
           </tr>
           <tr>
             <td class="label">${uiLabelMap.SecurityAnswer}</td>
-            <td><input type="text" class='inputBox' name="securityAnswer" id="SECURITY_ANSWER" value="" maxlength="100" /></td>
+            <td>
+              <input type="text" class='inputBox' name="securityAnswer" id="SECURITY_ANSWER" value="" maxlength="100" />
+            </td>
           </tr>
         </#if>
         <tr>

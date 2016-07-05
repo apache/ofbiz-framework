@@ -23,8 +23,8 @@ under the License.
       <h3>${uiLabelMap.CommonViewBlocked}</h3>
     </div>
     <div class="screenlet-body">
-        ${errorMessage!}
-        <br />
+      ${errorMessage!}
+      <br />
     </div>
   </div>
 </center>

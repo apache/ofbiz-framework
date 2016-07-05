@@ -21,7 +21,7 @@ under the License.
   <#if requestAttributes.eventMessageList?has_content><#assign eventMessageList=requestAttributes.eventMessageList></#if>
   <#if requestAttributes.serviceValidationException??><#assign serviceValidationException = requestAttributes.serviceValidationException></#if>
   <#if requestAttributes.uiLabelMap?has_content><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
-  
+
   <#if !errorMessage?has_content>
     <#assign errorMessage = requestAttributes._ERROR_MESSAGE_!>
   </#if>
@@ -34,10 +34,11 @@ under the License.
   <#if !eventMessageList?has_content>
     <#assign eventMessageList = requestAttributes._EVENT_MESSAGE_LIST_!>
   </#if>
-  
+
   <#-- display the error messages -->
   <#if (errorMessage?has_content || errorMessageList?has_content)>
-    <div id="content-messages" class="content-messages errorMessage" onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
+    <div id="content-messages" class="content-messages errorMessage"
+        onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
       <#noescape><p>${uiLabelMap.CommonFollowingErrorsOccurred}:</p></#noescape>
       <#if errorMessage?has_content>
         <p>${StringUtil.wrapString(errorMessage)}</p>
@@ -53,25 +54,30 @@ under the License.
   <#assign jGrowlWidth = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.jgrowl.width", delegator)>
   <#assign jGrowlHeight = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.jgrowl.height", delegator)>
   <#assign jGrowlSpeed = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.jgrowl.speed", delegator)>
-  
-  <script>showjGrowl("${uiLabelMap.CommonShowAll}","${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}", "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");</script>
+
+  <script>showjGrowl(
+          "${uiLabelMap.CommonShowAll}", "${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}",
+          "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");</script>
   <#-- display the event messages -->
   <#if (eventMessage?has_content || eventMessageList?has_content)>
-    <div id="content-messages" class="content-messages eventMessage" onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
-      <#noescape><p>${uiLabelMap.CommonFollowingOccurred}:</p></#noescape>
-      <#if eventMessage?has_content>
-        <p>${StringUtil.wrapString(eventMessage)}</p>
-      </#if>
-      <#if eventMessageList?has_content>
-        <#list eventMessageList as eventMsg>
-          <p>${StringUtil.wrapString(eventMsg)}</p>
-        </#list>
-      </#if>
-    </div>
-    <#assign jGrowlPosition = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.jgrowl.position", delegator)>
-    <#assign jGrowlWidth = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.jgrowl.width", delegator)>
-    <#assign jGrowlHeight = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.jgrowl.height", delegator)>
-    <#assign jGrowlSpeed = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.jgrowl.speed", delegator)>
-    <script>showjGrowl("${uiLabelMap.CommonShowAll}","${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}", "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");</script>
+  <div id="content-messages" class="content-messages eventMessage"
+      onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
+    <#noescape><p>${uiLabelMap.CommonFollowingOccurred}:</p></#noescape>
+    <#if eventMessage?has_content>
+      <p>${StringUtil.wrapString(eventMessage)}</p>
+    </#if>
+    <#if eventMessageList?has_content>
+      <#list eventMessageList as eventMsg>
+        <p>${StringUtil.wrapString(eventMsg)}</p>
+      </#list>
+    </#if>
+  </div>
+  <#assign jGrowlPosition = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.jgrowl.position", delegator)>
+  <#assign jGrowlWidth = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.jgrowl.width", delegator)>
+  <#assign jGrowlHeight = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.jgrowl.height", delegator)>
+  <#assign jGrowlSpeed = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("widget", "widget.jgrowl.speed", delegator)>
+  <script>showjGrowl(
+          "${uiLabelMap.CommonShowAll}", "${uiLabelMap.CommonCollapse}", "${uiLabelMap.CommonHideAllNotifications}",
+          "${jGrowlPosition}", "${jGrowlWidth}", "${jGrowlHeight}", "${jGrowlSpeed}");</script>
   </#if>
 </#escape>
