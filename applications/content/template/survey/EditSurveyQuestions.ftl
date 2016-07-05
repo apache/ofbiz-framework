@@ -17,13 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 <div class="screenlet">
-  <div class="screenlet-title-bar">
-    <ul>
-      <li class="h3">${uiLabelMap.PageTitleEditSurveyQuestions} ${uiLabelMap.ContentSurveySurveyId} ${surveyId}</li>
-    </ul>
-    <br class="clear"/>
-  </div>
-  <div class="screenlet-body">
+  <div class="screenlet-body no-padding">
+    <h3>${uiLabelMap.PageTitleEditSurveyQuestions} ${uiLabelMap.ContentSurveySurveyId} ${surveyId}</h3>
+    <#assign commonUrl="EditSurveyQuestions?surveyId=${parameters.surveyId}&amp;" />
+    <#assign messageMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("lowCount", lowIndex, "highCount", highIndex, "total", listSize)/>
+    <#assign commonDisplaying = Static["org.ofbiz.base.util.UtilProperties"].getMessage("CommonUiLabels", "CommonDisplaying", messageMap, locale)/>
+    <@htmlTemplate.nextPrev commonUrl=commonUrl listSize=listSize viewSize=viewSize viewIndex=viewIndex highIndex=highIndex commonDisplaying=commonDisplaying/>
       <table class="basic-table hover-bar" cellspacing="0">
         <tr class="header-row">
           <td>${uiLabelMap.CommonId}</td>
@@ -53,7 +52,6 @@ under the License.
           <#else>
             <#assign currentSurveyMultiRespColumns = []/>
           </#if>
-          
             <tr<#if alt_row> class="alternate-row"</#if>>
             <form method="post" action="<@ofbizUrl>updateSurveyQuestionAppl</@ofbizUrl>">
               <input type="hidden" name="surveyId" value="${surveyQuestionAndAppl.surveyId}" />

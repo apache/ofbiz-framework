@@ -26,7 +26,33 @@ context.surveyQuestionId = surveyQuestionId;
 
 surveyQuestion = from("SurveyQuestion").where("surveyQuestionId", surveyQuestionId).queryOne();
 
-surveyQuestionAndApplList = from("SurveyQuestionAndAppl").where("surveyId", surveyId).orderBy("sequenceNum").queryList();
+viewIndex = parameters.VIEW_INDEX ? Integer.valueOf(parameters.VIEW_INDEX) : 0;
+viewSize = parameters.VIEW_SIZE ? Integer.valueOf(parameters.VIEW_SIZE) : 20;
+
+int lowIndex = viewIndex * viewSize + 1;
+int highIndex = (viewIndex + 1) * viewSize;
+
+context.viewIndexFirst = 0;
+context.viewIndex = viewIndex;
+context.viewIndexPrevious = viewIndex - 1;
+context.viewIndexNext = viewIndex + 1;
+context.viewSize = viewSize;
+context.lowIndex = lowIndex;
+int listSize = 0;
+
+listIt = from("SurveyQuestionAndAppl").where("surveyId", surveyId).orderBy("sequenceNum").cursorScrollInsensitive().cache(true).queryIterator();
+surveyQuestionAndApplList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1);
+
+listSize = listIt.getResultsSizeAfterPartialList();
+if (listSize < highIndex) {
+    highIndex = listSize;
+}
+
+context.viewIndexLast = (int) (listSize / viewSize);
+context.highIndex = highIndex;
+context.listSize = listSize;
+listIt.close();
+
 surveyPageList = from("SurveyPage").where("surveyId", surveyId).orderBy("sequenceNum").queryList();
 surveyMultiRespList = from("SurveyMultiResp").where("surveyId", surveyId).orderBy("multiRespTitle").queryList();
 
