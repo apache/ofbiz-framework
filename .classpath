@@ -122,7 +122,6 @@
 	<classpathentry kind="lib" path="specialpurpose/ebaystore/lib/ebaycalls.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/ebaystore/lib/ebaysdkcore.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/ebaystore/lib/helper.jar"/>
-	<classpathentry kind="lib" path="specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/ldap/lib/cas-server-core-3.3.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/jcl.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/jpos18-controls.jar"/>
@@ -164,8 +163,6 @@
 	<classpathentry kind="src" path="specialpurpose/ebaystore/src"/>
 	<classpathentry kind="src" path="specialpurpose/ecommerce/src"/>
 	<classpathentry kind="src" path="specialpurpose/example/src"/>
-	<classpathentry kind="src" path="specialpurpose/googlebase/src"/>
-	<classpathentry kind="src" path="specialpurpose/googlecheckout/src"/>
 	<classpathentry kind="src" path="specialpurpose/hhfacility/src"/>
 	<classpathentry kind="src" path="specialpurpose/ldap/src"/>
 	<classpathentry kind="src" path="specialpurpose/lucene/src"/>
