@@ -1536,6 +1536,7 @@ under the License.
       <field name="statusId" type="id-ne"></field>
       <field name="invoiceId" type="id-ne"></field>
       <field name="statusDate" type="date-time"></field>
+      <field name="changeByUserLoginId" type="id-vlong"/>
       <prim-key field="statusId"/>
       <prim-key field="invoiceId"/>
       <prim-key field="statusDate"/>
@@ -1544,6 +1545,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="INVCE_STS_INVCE" rel-entity-name="Invoice">
         <key-map field-name="invoiceId"/>
+      </relation>
+      <relation type="one" fk-name="INV_STTS_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
+          <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
       </relation>
     </entity>
     <entity entity-name="InvoiceTerm"
