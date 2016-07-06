@@ -31,7 +31,7 @@ import org.ofbiz.entity.model.ModelEntity;
  */
 @SuppressWarnings("serial")
 public class GenericValue extends GenericEntity {
-    
+
     public static final GenericValue NULL_VALUE = new NullGenericValue();
 
     /** Creates new GenericValue */
@@ -241,8 +241,8 @@ public class GenericValue extends GenericEntity {
             return "[null-entity-value]";
         }
     }
-    
+
     public static String getStackTraceAsString() {
         return Thread.currentThread().getStackTrace().toString();
-    }    
+    }
 }

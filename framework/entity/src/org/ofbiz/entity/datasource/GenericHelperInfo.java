@@ -34,7 +34,7 @@ public final class GenericHelperInfo {
     private String overrideUsername = "";
     private String overridePassword = "";
     private String helperFullName = "";
-    
+
     public GenericHelperInfo(String entityGroupName, String helperBaseName) {
         this.entityGroupName = entityGroupName == null ? "" : entityGroupName;
         this.helperBaseName = helperBaseName == null ? "" : helperBaseName;

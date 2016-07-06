@@ -908,10 +908,10 @@ public interface Delegator {
      * @throws GenericEntityException
      */
     int storeByCondition(String entityName, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException;
-   
+
     /**
      * Get use of Distributed Cache Clear mechanism status
      * @return boolean true if this delegator uses a Distributed Cache Clear mechanism 
      */
-    boolean useDistributedCacheClear();   
+    boolean useDistributedCacheClear();
 }

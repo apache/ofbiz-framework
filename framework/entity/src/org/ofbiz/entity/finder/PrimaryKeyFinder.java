@@ -80,10 +80,10 @@ public class PrimaryKeyFinder extends Finder {
         boolean autoFieldMapBool = !"false".equals(autoFieldMapString);
 
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
-        if (modelEntity == null) {
+            if (modelEntity == null) {
             throw new IllegalArgumentException("No entity definition found for entity name [" + entityName + "]");
         }
-        
+
         GenericValue valueOut = runFind(modelEntity, context, delegator, useCacheBool, autoFieldMapBool, this.fieldMap, this.selectFieldExpanderList);
 
         //Debug.logInfo("PrimaryKeyFinder: valueOut=" + valueOut, module);
@@ -124,7 +124,7 @@ public class PrimaryKeyFinder extends Finder {
         EntityFinderUtil.expandFieldMapToContext(fieldMap, context, entityContext);
         //Debug.logInfo("PrimaryKeyFinder: entityContext=" + entityContext, module);
         // then convert the types...
-        
+
         // need the timeZone and locale for conversion, so add here and remove after
         entityContext.put("locale", context.get("locale"));
         entityContext.put("timeZone", context.get("timeZone"));

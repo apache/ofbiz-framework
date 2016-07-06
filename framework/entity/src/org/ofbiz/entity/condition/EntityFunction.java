@@ -224,7 +224,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
     public void setModelField(ModelField field) {
         this.field = field;
     }
-    
+
     @Override
     public void validateSql(ModelEntity modelEntity) throws GenericModelException {
         if (nested != null) {

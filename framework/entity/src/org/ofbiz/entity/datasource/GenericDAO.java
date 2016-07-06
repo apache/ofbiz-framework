@@ -754,7 +754,7 @@ public class GenericDAO {
 
         // OFFSET clause
         makeOffsetString(sqlBuffer, findOptions);
-        
+
         // make the final SQL String
         String sql = sqlBuffer.toString();
 

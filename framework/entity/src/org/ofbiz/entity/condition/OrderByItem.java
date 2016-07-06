@@ -75,14 +75,14 @@ public class OrderByItem implements Comparator<GenericEntity> {
 
     public static final OrderByItem parse(String text) {
         text = text.trim();
-        
+
         // handle nulls first/last
         Boolean nullsFirst = null;
         if (text.toUpperCase().endsWith(NULLS_FIRST)) {
             nullsFirst = true;
             text = text.substring(0, text.length() - NULLS_FIRST.length()).trim();
         }
-        
+
         if (text.toUpperCase().endsWith(NULLS_LAST)) {
             nullsFirst = false;
             text = text.substring(0, text.length() - NULLS_LAST.length()).trim();
@@ -183,10 +183,10 @@ public class OrderByItem implements Comparator<GenericEntity> {
             sb.append(nullsFirst ? "1" : "0");
             sb.append(" END, ");
         }
-        
+
         getValue().addSqlValue(sb, modelEntity, null, includeTablenamePrefix, datasourceInfo);
         sb.append(descending ? " DESC" : " ASC");
-        
+
         if ((nullsFirst != null) && (datasourceInfo.getUseOrderByNulls())) {
             sb.append(nullsFirst ? " NULLS FIRST" : " NULLS LAST");
         }
