@@ -184,7 +184,7 @@ under the License.
                 <script location="component://order/groovyScripts/entry/SetAdditionalParty.groovy"/>
                 <script location="component://order/groovyScripts/entry/AdditionalPartyListing.groovy"/>
                 
-                <!-- asmslect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
+                <!-- asmselect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
                 <!--set field="asm_multipleSelectForm"  value="addAdditionalPartyForm"/>
                 <set field="asm_multipleSelect"  value="additionalRoleTypeId"/>
                 <set field="asm_formSize" value="700"/>

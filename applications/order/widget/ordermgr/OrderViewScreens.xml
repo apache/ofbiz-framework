@@ -248,7 +248,7 @@ under the License.
                 <script location="component://order/groovyScripts/order/FindOrders.groovy"/>
                 <script location="component://content/groovyScripts/print/FindPrinters.groovy"/>
 
-                <!-- asmslect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
+                <!-- asmselect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
                 <set field="asm_multipleSelectForm"  value="lookuporder"/>
                 <set field="asm_multipleSelect"  value="roleTypeId"/>
                 <set field="asm_formSize" value="1000"/>

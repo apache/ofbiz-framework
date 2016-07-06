@@ -159,7 +159,7 @@
                 
                 <set field="noId" value="true"/><!-- see CommonGeoManagementDecorator -->
                 
-                <!-- asmslect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
+                <!-- asmselect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
                 <set field="asm_multipleSelectForm"  value="LinkGeos"/>
                 <set field="asm_multipleSelect"  value="LinkGeos_geoIds"/>
                 <set field="asm_formSize" value="700"/>
