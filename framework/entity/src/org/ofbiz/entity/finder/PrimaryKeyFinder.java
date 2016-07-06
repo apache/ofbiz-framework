@@ -80,7 +80,7 @@ public class PrimaryKeyFinder extends Finder {
         boolean autoFieldMapBool = !"false".equals(autoFieldMapString);
 
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
-            if (modelEntity == null) {
+        if (modelEntity == null) {
             throw new IllegalArgumentException("No entity definition found for entity name [" + entityName + "]");
         }
 
