@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+<Geo abbreviation="01" geoCode="01" geoId="TR-01" geoName="Adana" geoTypeId="PROVINCE"/>
+<Geo abbreviation="02" geoCode="02" geoId="TR-02" geoName="Adıyaman" geoTypeId="PROVINCE"/>
+<Geo abbreviation="03" geoCode="03" geoId="TR-03" geoName="Afyonkarahisar" geoTypeId="PROVINCE"/>
+<Geo abbreviation="04" geoCode="04" geoId="TR-04" geoName="Ağrı" geoTypeId="PROVINCE"/>
+<Geo abbreviation="68" geoCode="68" geoId="TR-68" geoName="Aksaray" geoTypeId="PROVINCE"/>
+<Geo abbreviation="05" geoCode="05" geoId="TR-05" geoName="Amasya" geoTypeId="PROVINCE"/>
+<Geo abbreviation="06" geoCode="06" geoId="TR-06" geoName="Ankara" geoTypeId="PROVINCE"/>
+<Geo abbreviation="07" geoCode="07" geoId="TR-07" geoName="Antalya" geoTypeId="PROVINCE"/>
+<Geo abbreviation="75" geoCode="75" geoId="TR-75" geoName="Ardahan" geoTypeId="PROVINCE"/>
+<Geo abbreviation="08" geoCode="08" geoId="TR-08" geoName="Artvin" geoTypeId="PROVINCE"/>
+<Geo abbreviation="09" geoCode="09" geoId="TR-09" geoName="Aydın" geoTypeId="PROVINCE"/>
+<Geo abbreviation="10" geoCode="10" geoId="TR-10" geoName="Balıkesir" geoTypeId="PROVINCE"/>
+<Geo abbreviation="74" geoCode="74" geoId="TR-74" geoName="Bartın" geoTypeId="PROVINCE"/>
+<Geo abbreviation="72" geoCode="72" geoId="TR-72" geoName="Batman" geoTypeId="PROVINCE"/>
+<Geo abbreviation="69" geoCode="69" geoId="TR-69" geoName="Bayburt" geoTypeId="PROVINCE"/>
+<Geo abbreviation="11" geoCode="11" geoId="TR-11" geoName="Bilecik" geoTypeId="PROVINCE"/>
+<Geo abbreviation="12" geoCode="12" geoId="TR-12" geoName="Bingöl" geoTypeId="PROVINCE"/>
+<Geo abbreviation="13" geoCode="13" geoId="TR-13" geoName="Bitlis" geoTypeId="PROVINCE"/>
+<Geo abbreviation="14" geoCode="14" geoId="TR-14" geoName="Bolu" geoTypeId="PROVINCE"/>
+<Geo abbreviation="15" geoCode="15" geoId="TR-15" geoName="Burdur" geoTypeId="PROVINCE"/>
+<Geo abbreviation="16" geoCode="16" geoId="TR-16" geoName="Bursa" geoTypeId="PROVINCE"/>
+<Geo abbreviation="17" geoCode="17" geoId="TR-17" geoName="Çanakkale" geoTypeId="PROVINCE"/>
+<Geo abbreviation="18" geoCode="18" geoId="TR-18" geoName="Çankırı" geoTypeId="PROVINCE"/>
+<Geo abbreviation="19" geoCode="19" geoId="TR-19" geoName="Çorum" geoTypeId="PROVINCE"/>
+<Geo abbreviation="20" geoCode="20" geoId="TR-20" geoName="Denizli" geoTypeId="PROVINCE"/>
+<Geo abbreviation="21" geoCode="21" geoId="TR-21" geoName="Diyarbakır" geoTypeId="PROVINCE"/>
+<Geo abbreviation="81" geoCode="81" geoId="TR-81" geoName="Düzce" geoTypeId="PROVINCE"/>
+<Geo abbreviation="22" geoCode="22" geoId="TR-22" geoName="Edirne" geoTypeId="PROVINCE"/>
+<Geo abbreviation="23" geoCode="23" geoId="TR-23" geoName="Elazığ" geoTypeId="PROVINCE"/>
+<Geo abbreviation="24" geoCode="24" geoId="TR-24" geoName="Erzincan" geoTypeId="PROVINCE"/>
+<Geo abbreviation="25" geoCode="25" geoId="TR-25" geoName="Erzurum" geoTypeId="PROVINCE"/>
+<Geo abbreviation="26" geoCode="26" geoId="TR-26" geoName="Eskişehir" geoTypeId="PROVINCE"/>
+<Geo abbreviation="27" geoCode="27" geoId="TR-27" geoName="Gaziantep" geoTypeId="PROVINCE"/>
+<Geo abbreviation="28" geoCode="28" geoId="TR-28" geoName="Giresun" geoTypeId="PROVINCE"/>
+<Geo abbreviation="29" geoCode="29" geoId="TR-29" geoName="Gümüşhane" geoTypeId="PROVINCE"/>
+<Geo abbreviation="30" geoCode="30" geoId="TR-30" geoName="Hakkâri" geoTypeId="PROVINCE"/>
+<Geo abbreviation="31" geoCode="31" geoId="TR-31" geoName="Hatay" geoTypeId="PROVINCE"/>
+<Geo abbreviation="76" geoCode="76" geoId="TR-76" geoName="Iğdır" geoTypeId="PROVINCE"/>
+<Geo abbreviation="32" geoCode="32" geoId="TR-32" geoName="Isparta" geoTypeId="PROVINCE"/>
+<Geo abbreviation="34" geoCode="34" geoId="TR-34" geoName="İstanbul" geoTypeId="PROVINCE"/>
+<Geo abbreviation="35" geoCode="35" geoId="TR-35" geoName="İzmir" geoTypeId="PROVINCE"/>
+<Geo abbreviation="46" geoCode="46" geoId="TR-46" geoName="Kahramanmaraş" geoTypeId="PROVINCE"/>
+<Geo abbreviation="78" geoCode="78" geoId="TR-78" geoName="Karabük" geoTypeId="PROVINCE"/>
+<Geo abbreviation="70" geoCode="70" geoId="TR-70" geoName="Karaman" geoTypeId="PROVINCE"/>
+<Geo abbreviation="36" geoCode="36" geoId="TR-36" geoName="Kars" geoTypeId="PROVINCE"/>
+<Geo abbreviation="37" geoCode="37" geoId="TR-37" geoName="Kastamonu" geoTypeId="PROVINCE"/>
+<Geo abbreviation="38" geoCode="38" geoId="TR-38" geoName="Kayseri" geoTypeId="PROVINCE"/>
+<Geo abbreviation="79" geoCode="79" geoId="TR-79" geoName="Kilis" geoTypeId="PROVINCE"/>
+<Geo abbreviation="41" geoCode="41" geoId="TR-41" geoName="Kocaeli" geoTypeId="PROVINCE"/>
+<Geo abbreviation="42" geoCode="42" geoId="TR-42" geoName="Konya" geoTypeId="PROVINCE"/>
+<Geo abbreviation="43" geoCode="43" geoId="TR-43" geoName="Kütahya" geoTypeId="PROVINCE"/>
+<Geo abbreviation="39" geoCode="39" geoId="TR-39" geoName="Kırklareli" geoTypeId="PROVINCE"/>
+<Geo abbreviation="40" geoCode="40" geoId="TR-40" geoName="Kırşehir" geoTypeId="PROVINCE"/>
+<Geo abbreviation="71" geoCode="71" geoId="TR-71" geoName="Kırıkkale" geoTypeId="PROVINCE"/>
+<Geo abbreviation="44" geoCode="44" geoId="TR-44" geoName="Malatya" geoTypeId="PROVINCE"/>
+<Geo abbreviation="45" geoCode="45" geoId="TR-45" geoName="Manisa" geoTypeId="PROVINCE"/>
+<Geo abbreviation="47" geoCode="47" geoId="TR-47" geoName="Mardin" geoTypeId="PROVINCE"/>
+<Geo abbreviation="33" geoCode="33" geoId="TR-33" geoName="Mersin" geoTypeId="PROVINCE"/>
+<Geo abbreviation="48" geoCode="48" geoId="TR-48" geoName="Muğla" geoTypeId="PROVINCE"/>
+<Geo abbreviation="49" geoCode="49" geoId="TR-49" geoName="Muş" geoTypeId="PROVINCE"/>
+<Geo abbreviation="50" geoCode="50" geoId="TR-50" geoName="Nevşehir" geoTypeId="PROVINCE"/>
+<Geo abbreviation="51" geoCode="51" geoId="TR-51" geoName="Niğde" geoTypeId="PROVINCE"/>
+<Geo abbreviation="52" geoCode="52" geoId="TR-52" geoName="Ordu" geoTypeId="PROVINCE"/>
+<Geo abbreviation="80" geoCode="80" geoId="TR-80" geoName="Osmaniye" geoTypeId="PROVINCE"/>
+<Geo abbreviation="53" geoCode="53" geoId="TR-53" geoName="Rize" geoTypeId="PROVINCE"/>
+<Geo abbreviation="54" geoCode="54" geoId="TR-54" geoName="Sakarya" geoTypeId="PROVINCE"/>
+<Geo abbreviation="55" geoCode="55" geoId="TR-55" geoName="Samsun" geoTypeId="PROVINCE"/>
+<Geo abbreviation="63" geoCode="63" geoId="TR-63" geoName="Şanlıurfa" geoTypeId="PROVINCE"/>
+<Geo abbreviation="56" geoCode="56" geoId="TR-56" geoName="Siirt" geoTypeId="PROVINCE"/>
+<Geo abbreviation="57" geoCode="57" geoId="TR-57" geoName="Sinop" geoTypeId="PROVINCE"/>
+<Geo abbreviation="58" geoCode="58" geoId="TR-58" geoName="Sivas" geoTypeId="PROVINCE"/>
+<Geo abbreviation="73" geoCode="73" geoId="TR-73" geoName="Şırnak" geoTypeId="PROVINCE"/>
+<Geo abbreviation="59" geoCode="59" geoId="TR-59" geoName="Tekirdağ" geoTypeId="PROVINCE"/>
+<Geo abbreviation="60" geoCode="60" geoId="TR-60" geoName="Tokat" geoTypeId="PROVINCE"/>
+<Geo abbreviation="61" geoCode="61" geoId="TR-61" geoName="Trabzon" geoTypeId="PROVINCE"/>
+<Geo abbreviation="62" geoCode="62" geoId="TR-62" geoName="Tunceli" geoTypeId="PROVINCE"/>
+<Geo abbreviation="64" geoCode="64" geoId="TR-64" geoName="Uşak" geoTypeId="PROVINCE"/>
+<Geo abbreviation="65" geoCode="65" geoId="TR-65" geoName="Van" geoTypeId="PROVINCE"/>
+<Geo abbreviation="77" geoCode="77" geoId="TR-77" geoName="Yalova" geoTypeId="PROVINCE"/>
+<Geo abbreviation="66" geoCode="66" geoId="TR-66" geoName="Yozgat" geoTypeId="PROVINCE"/>
+<Geo abbreviation="67" geoCode="67" geoId="TR-67" geoName="Zonguldak" geoTypeId="PROVINCE"/>
+
+<GeoAssoc geoId="TR" geoIdTo="TR-01" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-02" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-03" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-04" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-68" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-05" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-06" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-07" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-75" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-08" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-09" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-10" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-74" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-72" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-69" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-11" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-12" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-13" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-14" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-15" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-16" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-17" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-18" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-19" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-20" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-21" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-81" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-22" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-23" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-24" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-25" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-26" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-27" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-28" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-29" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-30" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-31" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-76" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-32" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-34" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-35" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-46" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-78" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-70" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-36" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-37" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-38" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-79" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-41" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-42" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-43" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-39" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-40" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-71" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-44" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-45" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-47" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-33" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-48" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-49" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-50" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-51" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-52" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-80" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-53" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-54" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-55" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-63" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-56" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-57" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-58" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-73" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-59" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-60" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-61" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-62" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-64" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-65" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-77" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-66" geoAssocTypeId="REGIONS"/>
+<GeoAssoc geoId="TR" geoIdTo="TR-67" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
