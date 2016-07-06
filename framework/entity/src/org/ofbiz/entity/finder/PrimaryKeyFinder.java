@@ -112,7 +112,7 @@ public class PrimaryKeyFinder extends Finder {
                 ModelField curField = iter.next();
                 String fieldName = curField.getName();
                 Object fieldValue = null;
-                if (parametersObjExists) {        
+                if (parametersObjExists) {
                     fieldValue = ((Map<?, ?>) parametersObj).get(fieldName);
                 }
                 if (context.containsKey(fieldName)) {
