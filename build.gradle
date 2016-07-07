@@ -65,7 +65,6 @@ dependencies {
     getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
         compile fileTree(dir: libDir, include: '**/*.jar')
     }
-    compile fileTree(dir: 'lib', include: '**/*.jar')
     runtime files("${projectDir}/build/libs/ofbiz-base-test.jar")
 }
 
@@ -131,6 +130,25 @@ task loadDefault(group: ofbizServer) {
 task testIntegration(group: ofbizServer) {
     dependsOn 'ofbiz --test'
     description 'Run OFBiz integration tests; You must run loadDefault before running this task'
+}
+
+task terminateOfbiz(group: ofbizServer, 
+    description: 'Force termination of any running OFBiz servers, only use if \"--shutdown\" command fails') << {
+    def os = System.getProperty("os.name").toLowerCase()
+    if (os.contains("windows")) {
+        Runtime.getRuntime().exec("wmic process where \"CommandLine Like \'%org.ofbiz.base.start%\'\" Call Terminate")
+    } else {
+        def processOutput = new ByteArrayOutputStream()
+        exec { 
+            commandLine 'ps', 'ax'
+            standardOutput = processOutput
+        }
+        processOutput.toString().split(System.lineSeparator()).each { line ->
+            if(line ==~ /.*java.*/ && line ==~ /.*framework.*/) {
+                exec { commandLine 'kill', '-9', line.tokenize().first() }
+            }
+        }
+    }
 }
 
 task loadAdminUserLogin(group: ofbizServer) {
