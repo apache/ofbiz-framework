@@ -188,6 +188,19 @@ start is the default server task so this also works:
 
 `gradlew "ofbiz --status"`
 
+#### Force OFBiz shutdown
+
+Terminate all running OFBiz server instances by calling
+the appropriate operating system kill command. Use this
+command to force OFBiz termination if the --shutdown
+command does not work. Usually this is needed when in the
+middle of data loading or testing in OFBiz.
+
+Warning: Be careful in using this command as force termination
+might lead to inconsistent state / data
+
+`gradlew terminateOfbiz`
+
 #### Start OFBiz in remote debug mode
 
 Starts OFBiz in remote debug mode and waits for debugger
