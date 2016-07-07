@@ -5695,19 +5695,6 @@
         <value xml:lang="zh">使用</value>
         <value xml:lang="zh-TW">使用</value>
     </property>
-    <property key="WebtoolsUseFileStore">
-        <value xml:lang="de">Dateisystem benutzen?</value>
-        <value xml:lang="en">Use File Store ?</value>
-        <value xml:lang="fr">Utiliser le stockage sur fichier ?</value>
-        <value xml:lang="it">Usare la memorizzazzione su file?</value>
-        <value xml:lang="ja">ファイルストアを使用?</value>
-        <value xml:lang="pt">Usar File Store?</value>
-        <value xml:lang="ro">Foloseste File Memorizat ?</value>
-        <value xml:lang="th">ใช้ไฟล์เก็บข้อมูล?</value>
-        <value xml:lang="vi">Có sử dụng Lưu trữ tập tin (File Store) ?</value>
-        <value xml:lang="zh">使用文件存储吗？</value>
-        <value xml:lang="zh-TW">使用檔儲存嗎？</value>
-    </property>
     <property key="WebtoolsUseSoftRef">
         <value xml:lang="de">Referenzen benutzen ?</value>
         <value xml:lang="en">Use Soft Ref ?</value>
