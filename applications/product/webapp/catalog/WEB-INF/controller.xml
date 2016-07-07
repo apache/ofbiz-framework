@@ -2712,11 +2712,6 @@ under the License.
         <response name="success" type="view" value="ImageFrames"/>
         <response name="error" type="view" value="ImageFrames"/>
     </request-map>
-    <request-map uri="ImageWatermarking">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ImageWatermarking"/>
-        <response name="error" type="view" value="ImageWatermarking"/>
-    </request-map>
     <request-map uri="ImageCropping">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ImageCropping"/>
@@ -2799,18 +2794,6 @@ under the License.
         <response name="success" type="view" value="ListImageManage"/>
         <response name="error" type="view" value="ListImageManage"/>
     </request-map>
-    <request-map uri="createWatermarkImage">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.imagemanagement.WatermarkImage" invoke="createWatermarkImage"/>
-        <response name="success" type="view" value="ListImageManage"/>
-        <response name="error" type="view" value="ImageWatermarking"/>
-    </request-map>
-    <request-map uri="previewWatermarkImage">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.imagemanagement.WatermarkImage" invoke="previewWatermarkImage"/>
-        <response name="success" type="view" value="viewPreviewImage"/>
-        <response name="error" type="view" value="viewPreviewImage"/>
-    </request-map>
     <request-map uri="previewFrameImage">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.product.imagemanagement.FrameImage" invoke="previewFrameImage"/>
@@ -2873,7 +2856,6 @@ under the License.
         <security https="true" auth="true"/>
         <event type="groovy" path="component://product/groovyScripts/catalog/imagemanagement/CheckAction.groovy"/>
         <response name="frame" type="request" value="ImageFrames"/>
-        <response name="watermark" type="request" value="ImageWatermarking"/>
         <response name="crop" type="request" value="ImageCropping"/>
         <response name="rotate" type="request" value="ImageRotating"/>
         <response name="noAction" type="request-redirect" value="ListImageManage"/>
@@ -2909,12 +2891,6 @@ under the License.
         <response name="success" type="view" value="ListPeopleRejected"/>
         <response name="error" type="view" value="ListPeopleRejected"/>
     </request-map>
-    <request-map uri="setPreviewWaterMark">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.imagemanagement.WatermarkImage" invoke="setPreviewWaterMark"/>
-        <response name="success" type="view" value="viewPreviewImage"/>
-        <response name="error" type="view" value="viewPreviewImage"/>
-    </request-map>
     <request-map uri="chooseFrameImage">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.product.imagemanagement.FrameImage" invoke="chooseFrameImage"/>
@@ -2932,12 +2908,6 @@ under the License.
     <request-map uri="LookupImageFrame">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="LookupImageFrame"/>
-    </request-map>
-    <request-map uri="deletePreviewWatermarkImage">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.imagemanagement.WatermarkImage" invoke="deletePreviewWatermarkImage"/>
-        <response name="success" type="view" value="ListImageManage"/>
-        <response name="error" type="view" value="ImageWatermarking"/>
     </request-map>
     <request-map uri="ImageResize">
         <security https="true" auth="true"/>
@@ -3274,7 +3244,6 @@ under the License.
     <view-map name="ImageApprove" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageApprove" type="screen"/>
     <view-map name="ImageRejected" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRejected" type="screen"/>
     <view-map name="ImageFrames" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageFrames" type="screen"/>
-    <view-map name="ImageWatermarking" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageWatermarking" type="screen"/>
     <view-map name="ImageCropping" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageCropping" type="screen"/>
     <view-map name="ImageRotating" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRotating" type="screen"/>
     <view-map name="ImageShare" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageShare" type="screen"/>

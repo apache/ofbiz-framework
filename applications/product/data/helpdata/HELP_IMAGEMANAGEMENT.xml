@@ -123,11 +123,11 @@
     <section>
         <title>Manage</title>
         <section>
-            <para>You can edit image such as add frame, embedded watermark, crop image etc. You can also add caption, sort order, enable image and choose thumbnail in this function.</para>
+            <para>You can edit image such as add frame, crop image etc. You can also add caption, sort order, enable image and choose thumbnail in this function.</para>
             <para>Note: You must have Image Management Admin permission for access this function.</para>
             <orderedlist>
                 <listitem>
-                    <para>Click 'Manage' Button, then you can choose action including 'Frame', 'Watermark', 'Crop' and 'Rotate' (see below for more details).</para>
+                    <para>Click 'Manage' Button, then you can choose action including 'Frame', 'Crop' and 'Rotate' (see below for more details).</para>
                     <para>Enter your image caption.</para>
                     <para>Sort order of image by enter order number.</para>
                     <para>Enable image by tick enable checkbox.</para>
@@ -148,20 +148,6 @@
                             <para>Enter width and height of image.</para>
                             <para>Optional, you click 'Preview' to see example image.</para>
                             <para>Click 'Create' button.</para>
-                        </listitem>
-                    </orderedlist>
-                </section>
-            </section>
-            <section>
-                <title>- Watermark</title>
-                <section>
-                    <para>In Watermark function, you can draw some text on your image.</para>
-                    <orderedlist>
-                        <listitem>
-                            <para>Choose 'Watermark' then choose image you want.</para>
-                            <para>Enter any text, Choose text color, text size and text position.</para>
-                            <para>Optional, you can preview image by click 'Preview' button.</para>
-                            <para>Click 'Watermark' button.</para>
                         </listitem>
                     </orderedlist>
                 </section>

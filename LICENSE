@@ -119,7 +119,6 @@ framework/webapp/lib/serializer-2.7.0.jar
 framework/webapp/lib/xalan-2.7.1.jar
 applications/content/lib/poi-3.13-20150929.jar
 applications/product/lib/dozer-4.2.1.jar
-applications/product/lib/watermarker-0.0.4.jar
 tools/security/notsoserial/notsoserial-1.0-SNAPSHOT.jar
 specialpurpose/passport/lib/commons-httpclient-3.1.jar
 
