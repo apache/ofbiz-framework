@@ -42,8 +42,6 @@ names.each { cacheName ->
         cache.maxInMemory = UtilFormatOut.formatQuantity(utilCache.getMaxInMemory());
         cache.expireTime = UtilFormatOut.formatQuantity(utilCache.getExpireTime());
         cache.useSoftReference = utilCache.getUseSoftReference().toString();
-        cache.useFileSystemStore = utilCache.getUseFileSystemStore().toString();
-        cache.useFileSystemStore = utilCache.getUseFileSystemStore().toString();
         cache.cacheMemory = utilCache.getSizeInBytes();
         totalCacheMemory += cache.cacheMemory;
         cacheList.add(cache);

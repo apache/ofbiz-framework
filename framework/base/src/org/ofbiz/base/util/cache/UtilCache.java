@@ -39,9 +39,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import jdbm.helper.FastIterator;
-import jdbm.htree.HTree;
-
 import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -107,20 +104,10 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     /** Specifies whether or not to use soft references for this cache, defaults to false */
     protected boolean useSoftReference = false;
 
-    /** Specifies whether or not to use file base stored for this cache, defaults to false */
-    protected boolean useFileSystemStore = false;
-    private String fileStore = "runtime/data/utilcache";
-
     /** The set of listeners to receive notifications when items are modified (either deliberately or because they were expired). */
     protected Set<CacheListener<K, V>> listeners = new CopyOnWriteArraySet<CacheListener<K, V>>();
 
-    protected transient HTree<Object, V> fileTable = null;
     protected ConcurrentMap<Object, CacheLine<V>> memoryTable = null;
-
-    protected JdbmRecordManager jdbmMgr;
-
-    // weak ref on this
-    private static final ConcurrentMap<String, JdbmRecordManager> fileManagers = new ConcurrentHashMap<String, JdbmRecordManager>();
 
     /** Constructor which specifies the cacheName as well as the sizeLimit, expireTime and useSoftReference.
      * The passed sizeLimit, expireTime and useSoftReference will be overridden by values from cache.properties if found.
@@ -129,13 +116,12 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
      * @param cacheName The name of the cache.
      * @param useSoftReference Specifies whether or not to use soft references for this cache.
      */
-    private UtilCache(String cacheName, int sizeLimit, int maxInMemory, long expireTimeMillis, boolean useSoftReference, boolean useFileSystemStore, String propName, String... propNames) {
+    private UtilCache(String cacheName, int sizeLimit, int maxInMemory, long expireTimeMillis, boolean useSoftReference, String propName, String... propNames) {
         this.name = cacheName;
         this.sizeLimit = sizeLimit;
         this.maxInMemory = maxInMemory;
         this.expireTimeNanos = TimeUnit.NANOSECONDS.convert(expireTimeMillis, TimeUnit.MILLISECONDS);
         this.useSoftReference = useSoftReference;
-        this.useFileSystemStore = useFileSystemStore;
         setPropertiesParams(propName);
         setPropertiesParams(propNames);
         int maxMemSize = this.maxInMemory;
@@ -147,34 +133,6 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
             .maximumWeightedCapacity(maxMemSize)
             .listener(this)
             .build();
-        }
-        if (this.useFileSystemStore) {
-            // create the manager the first time it is needed
-            jdbmMgr = fileManagers.get(fileStore);
-            if (jdbmMgr == null) {
-                Debug.logImportant("Creating file system cache store for cache with name: " + cacheName, module);
-                try {
-                    String ofbizHome = System.getProperty("ofbiz.home");
-                    if (ofbizHome == null) {
-                        Debug.logError("No ofbiz.home property set in environment", module);
-                    } else {
-                        jdbmMgr = new JdbmRecordManager(ofbizHome + "/" + fileStore);
-                    }
-                } catch (IOException e) {
-                    Debug.logError(e, "Error creating file system cache store for cache with name: " + cacheName, module);
-                }
-                fileManagers.putIfAbsent(fileStore, jdbmMgr);
-            }
-            jdbmMgr = fileManagers.get(fileStore);
-            if (jdbmMgr != null) {
-                try {
-                    this.fileTable = HTree.createInstance(jdbmMgr);
-                    jdbmMgr.setNamedObject(cacheName, this.fileTable.getRecid());
-                    jdbmMgr.commit();
-                } catch (IOException e) {
-                    Debug.logError(e, module);
-                }
-            }
         }
     }
 
@@ -233,14 +191,6 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
             if (value != null) {
                 useSoftReference = "true".equals(value);
             }
-            value = getPropertyParam(res, propNames, "useFileSystemStore");
-            if (value != null) {
-                useFileSystemStore = "true".equals(value);
-            }
-            value = getPropertyParam(res, new String[0], "cache.file.store");
-            if (value != null) {
-                fileStore = value;
-            }
         }
     }
 
@@ -253,31 +203,12 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         return key == ObjectType.NULL ? null : (K) key;
     }
 
-    private void addAllFileTableKeys(Set<Object> keys) throws IOException {
-        FastIterator<Object> iter = fileTable.keys();
-        Object key = null;
-        while ((key = iter.next()) != null) {
-            keys.add(key);
-        }
-    }
-
     public Object getCacheLineTable() {
         throw new UnsupportedOperationException();
     }
 
     public boolean isEmpty() {
-        if (fileTable != null) {
-            try {
-                synchronized (this) {
-                    return fileTable.keys().next() == null;
-                }
-            } catch (IOException e) {
-                Debug.logError(e, module);
-                return false;
-            }
-        } else {
-            return memoryTable.isEmpty();
-        }
+        return memoryTable.isEmpty();
     }
 
     /** Puts or loads the passed element into the cache
@@ -382,17 +313,6 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         Object nulledKey = fromKey(key);
         CacheLine<V> oldCacheLine = memoryTable.put(nulledKey, createCacheLine(key, value, expireTimeNanos));
         V oldValue = oldCacheLine == null ? null : cancel(oldCacheLine);
-        if (fileTable != null) {
-            try {
-                synchronized (this) {
-                    if (oldValue == null) oldValue = fileTable.get(nulledKey);
-                    fileTable.put(nulledKey, value);
-                    jdbmMgr.commit();
-                }
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            }
-        }
         if (oldValue == null) {
             noteAddition(key, value);
             return null;
@@ -405,29 +325,13 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     V putIfAbsentInternal(K key, V value, long expireTimeNanos) {
         Object nulledKey = fromKey(key);
         V oldValue;
-        if (fileTable != null) {
-            try {
-                synchronized (this) {
-                    oldValue = fileTable.get(nulledKey);
-                    if (oldValue == null) {
-                        memoryTable.put(nulledKey, createCacheLine(key, value, expireTimeNanos));
-                        fileTable.put(nulledKey, value);
-                        jdbmMgr.commit();
-                    }
-                }
-            } catch (IOException e) {
-                Debug.logError(e, module);
-                oldValue = null;
-            }
+        CacheLine<V> newCacheLine = createCacheLine(key, value, expireTimeNanos);
+        CacheLine<V> oldCacheLine = memoryTable.putIfAbsent(nulledKey, newCacheLine);
+        if (oldCacheLine == null) {
+            oldValue = null;
         } else {
-            CacheLine<V> newCacheLine = createCacheLine(key, value, expireTimeNanos);
-            CacheLine<V> oldCacheLine = memoryTable.putIfAbsent(nulledKey, newCacheLine);
-            if (oldCacheLine == null) {
-                oldValue = null;
-            } else {
-                oldValue = oldCacheLine.getValue();
-                cancel(newCacheLine);
-            }
+            oldValue = oldCacheLine.getValue();
+            cancel(newCacheLine);
         }
         if (oldValue == null) {
             noteAddition(key, value);
@@ -446,27 +350,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         Object nulledKey = fromKey(key);
         CacheLine<V> line = memoryTable.get(nulledKey);
         if (line == null) {
-            if (fileTable != null) {
-                V value;
-                try {
-                    synchronized (this) {
-                        value = fileTable.get(nulledKey);
-                    }
-                } catch (IOException e) {
-                    Debug.logError(e, module);
-                    value = null;
-                }
-                if (value == null) {
-                    missCountNotFound.incrementAndGet();
-                    return null;
-                } else {
-                    hitCount.incrementAndGet();
-                }
-                memoryTable.put(nulledKey, createCacheLine(UtilGenerics.<K>cast(key), value, expireTimeNanos));
-                return value;
-            } else {
-                missCountNotFound.incrementAndGet();
-            }
+            missCountNotFound.incrementAndGet();
         } else {
             if (countGet) hitCount.incrementAndGet();
         }
@@ -474,28 +358,11 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     public Collection<V> values() {
-        if (fileTable != null) {
-            List<V> values = new LinkedList<V>();
-            try {
-                synchronized (this) {
-                    FastIterator<V> iter = fileTable.values();
-                    V value = iter.next();
-                    while (value != null) {
-                        values.add(value);
-                        value = iter.next();
-                    }
-                }
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            }
-            return values;
-        } else {
-            List<V> valuesList = new LinkedList<V>();
-            for (CacheLine<V> line: memoryTable.values()) {
-                valuesList.add(line.getValue());
-            }
-            return valuesList;
+        List<V> valuesList = new LinkedList<V>();
+        for (CacheLine<V> line: memoryTable.values()) {
+            valuesList.add(line.getValue());
         }
+        return valuesList;
     }
 
     private long findSizeInBytes(Object o) {
@@ -525,24 +392,8 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
 
     public long getSizeInBytes() {
         long totalSize = 0;
-        if (fileTable != null) {
-            try {
-                synchronized (this) {
-                    FastIterator<V> iter = fileTable.values();
-                    V value = iter.next();
-                    while (value != null) {
-                        totalSize += findSizeInBytes(value);
-                        value = iter.next();
-                    }
-                }
-            } catch (IOException e) {
-                Debug.logError(e, module);
-                return 0;
-            }
-        } else {
-            for (CacheLine<V> line: memoryTable.values()) {
-                totalSize += findSizeInBytes(line.getValue());
-            }
+        for (CacheLine<V> line: memoryTable.values()) {
+            totalSize += findSizeInBytes(line.getValue());
         }
         return totalSize;
     }
@@ -564,27 +415,8 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         Object nulledKey = fromKey(key);
         CacheLine<V> oldCacheLine;
         V oldValue;
-        if (fileTable != null) {
-            try {
-                synchronized (this) {
-                    try {
-                        oldValue = fileTable.get(nulledKey);
-                    } catch (IOException e) {
-                        oldValue = null;
-                        throw e;
-                    }
-                    fileTable.remove(nulledKey);
-                    jdbmMgr.commit();
-                }
-            } catch (IOException e) {
-                oldValue = null;
-                Debug.logError(e, module);
-            }
-            oldCacheLine = memoryTable.remove(nulledKey);
-        } else {
-            oldCacheLine = memoryTable.remove(nulledKey);
-            oldValue = oldCacheLine != null ? oldCacheLine.getValue() : null;
-        }
+        oldCacheLine = memoryTable.remove(nulledKey);
+        oldValue = oldCacheLine != null ? oldCacheLine.getValue() : null;
         if (oldCacheLine != null) {
             cancel(oldCacheLine);
         }
@@ -604,51 +436,17 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         if (!memoryTable.remove(nulledKey, existingCacheLine)) {
             return;
         }
-        if (fileTable != null) {
-            try {
-                synchronized (this) {
-                    fileTable.remove(nulledKey);
-                    jdbmMgr.commit();
-                }
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            }
-        }
         noteRemoval(UtilGenerics.<K>cast(key), existingCacheLine.getValue());
     }
 
     /** Removes all elements from this cache */
     public synchronized void erase() {
-        if (fileTable != null) {
-            // FIXME: erase from memory too
-            synchronized (this) {
-                Set<Object> keys = new HashSet<Object>();
-                try {
-                    addAllFileTableKeys(keys);
-                } catch (IOException e) {
-                    Debug.logError(e, module);
-                }
-                for (Object key: keys) {
-                    try {
-                        V value = fileTable.get(key);
-                        noteRemoval(toKey(key), value);
-                        removeHitCount.incrementAndGet();
-                        fileTable.remove(key);
-                        jdbmMgr.commit();
-                    } catch (IOException e) {
-                        Debug.logError(e, module);
-                    }
-                }
-            }
-            memoryTable.clear();
-        } else {
-            Iterator<Map.Entry<Object, CacheLine<V>>> it = memoryTable.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry<Object, CacheLine<V>> entry = it.next();
-                noteRemoval(toKey(entry.getKey()), entry.getValue().getValue());
-                removeHitCount.incrementAndGet();
-                it.remove();
-            }
+        Iterator<Map.Entry<Object, CacheLine<V>>> it = memoryTable.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<Object, CacheLine<V>> entry = it.next();
+            noteRemoval(toKey(entry.getKey()), entry.getValue().getValue());
+            removeHitCount.incrementAndGet();
+            it.remove();
         }
     }
 
@@ -803,30 +601,11 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         return this.useSoftReference;
     }
 
-    public boolean getUseFileSystemStore() {
-        return this.useFileSystemStore;
-    }
-
     /** Returns the number of elements currently in the cache
      * @return The number of elements currently in the cache
      */
     public int size() {
-        if (fileTable != null) {
-            int size = 0;
-            try {
-                synchronized (this) {
-                    FastIterator<Object> iter = fileTable.keys();
-                    while (iter.next() != null) {
-                        size++;
-                    }
-                }
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            }
-            return size;
-        } else {
-            return memoryTable.size();
-        }
+        return memoryTable.size();
     }
 
     /** Returns a boolean specifying whether or not an element with the specified key is in the cache.
@@ -836,26 +615,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     public boolean containsKey(Object key) {
         Object nulledKey = fromKey(key);
         CacheLine<V> line = memoryTable.get(nulledKey);
-        if (line == null) {
-            if (fileTable != null) {
-                try {
-                    synchronized (this) {
-                        FastIterator<Object> iter = fileTable.keys();
-                        Object checkKey = null;
-                        while ((checkKey = iter.next()) != null) {
-                            if (nulledKey.equals(checkKey)) {
-                                return true;
-                            }
-                        }
-                    }
-                } catch (IOException e) {
-                    Debug.logError(e, module);
-                }
-            }
-            return false;
-        } else {
-            return true;
-        }
+        return line != null;
     }
 
     /**
@@ -867,27 +627,14 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         // note that this must be a HashSet and not a FastSet in order to have a null value
         Set<Object> keys;
 
-        if (fileTable != null) {
-            keys = new HashSet<Object>();
-            try {
-                synchronized (this) {
-                    addAllFileTableKeys(keys);
-                }
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            }
-            if (keys.remove(ObjectType.NULL)) {
-                keys.add(null);
-            }
+        if (memoryTable.containsKey(ObjectType.NULL)) {
+            keys = new HashSet<Object>(memoryTable.keySet());
+            keys.remove(ObjectType.NULL);
+            keys.add(null);
         } else {
-            if (memoryTable.containsKey(ObjectType.NULL)) {
-                keys = new HashSet<Object>(memoryTable.keySet());
-                keys.remove(ObjectType.NULL);
-                keys.add(null);
-            } else {
-                keys = memoryTable.keySet();
-            }
+            keys = memoryTable.keySet();
         }
+
         return Collections.unmodifiableSet(UtilGenerics.<Set<? extends K>>cast(keys));
     }
 
@@ -920,19 +667,9 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         int keyIndex = 0;
         for (K key: getCacheLineKeys()) {
             Object nulledKey = fromKey(key);
-            if (fileTable != null) {
-                try {
-                    synchronized (this) {
-                        lineInfos.add(createLineInfo(keyIndex, key, fileTable.get(nulledKey)));
-                    }
-                } catch (IOException e) {
-                    Debug.logError(e, module);
-                }
-            } else {
-                CacheLine<V> line = memoryTable.get(nulledKey);
-                if (line != null) {
-                    lineInfos.add(createLineInfo(keyIndex, key, line));
-                }
+            CacheLine<V> line = memoryTable.get(nulledKey);
+            if (line != null) {
+                lineInfos.add(createLineInfo(keyIndex, key, line));
             }
             keyIndex++;
         }
@@ -997,53 +734,53 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     @SuppressWarnings("unchecked")
-    public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
+    public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, String... names) {
         UtilCache<K, V> existingCache = (UtilCache<K, V>) utilCacheTable.get(name);
         if (existingCache != null) return existingCache;
         String cacheName = name + getNextDefaultIndex(name);
-        UtilCache<K, V> newCache = new UtilCache<K, V>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name, names);
+        UtilCache<K, V> newCache = new UtilCache<K, V>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, name, names);
         utilCacheTable.putIfAbsent(name, newCache);
         return (UtilCache<K, V>) utilCacheTable.get(name);
     }
 
-    public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
+    public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, String... names) {
         String cacheName = name + getNextDefaultIndex(name);
-        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name, names));
+        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, name, names));
     }
 
-    public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore) {
+    public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference) {
         String cacheName = name + getNextDefaultIndex(name);
-        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name));
+        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, name));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, long expireTime, boolean useSoftReference) {
         String cacheName = name + getNextDefaultIndex(name);
-        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, sizeLimit, expireTime, useSoftReference, false, name));
+        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, sizeLimit, expireTime, useSoftReference, name));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, long expireTime) {
         String cacheName = name + getNextDefaultIndex(name);
-        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, sizeLimit, expireTime, false, false, name));
+        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, sizeLimit, expireTime, false, name));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache(int sizeLimit, long expireTime) {
         String cacheName = "specified" + getNextDefaultIndex("specified");
-        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, sizeLimit, expireTime, false, false, "specified"));
+        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, sizeLimit, expireTime, false, "specified"));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache(String name, boolean useSoftReference) {
         String cacheName = name + getNextDefaultIndex(name);
-        return storeCache(new UtilCache<K, V>(cacheName, 0, 0, 0, useSoftReference, false, "default", name));
+        return storeCache(new UtilCache<K, V>(cacheName, 0, 0, 0, useSoftReference, "default", name));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache(String name) {
         String cacheName = name + getNextDefaultIndex(name);
-        return storeCache(new UtilCache<K, V>(cacheName, 0, 0, 0, false, false, "default", name));
+        return storeCache(new UtilCache<K, V>(cacheName, 0, 0, 0, false, "default", name));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache() {
         String cacheName = "default" + getNextDefaultIndex("default");
-        return storeCache(new UtilCache<K, V>(cacheName, 0, 0, 0, false, false, "default"));
+        return storeCache(new UtilCache<K, V>(cacheName, 0, 0, 0, false, "default"));
     }
 
     private static <K, V> UtilCache<K, V> storeCache(UtilCache<K, V> cache) {

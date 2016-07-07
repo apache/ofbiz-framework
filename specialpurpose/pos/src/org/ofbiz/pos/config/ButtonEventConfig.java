@@ -43,7 +43,7 @@ public class ButtonEventConfig implements java.io.Serializable {
 
     public static final String module = ButtonEventConfig.class.getName();
     public static final String BUTTON_EVENT_CONFIG = "buttonevents.xml";
-    private static transient UtilCache<String, ButtonEventConfig> buttonConfig = UtilCache.createUtilCache("pos.ButtonEvent", 0, 0, 0, false, true);
+    private static transient UtilCache<String, ButtonEventConfig> buttonConfig = UtilCache.createUtilCache("pos.ButtonEvent", 0, 0, 0, false);
 
     protected String buttonName = null;
     protected String className = null;

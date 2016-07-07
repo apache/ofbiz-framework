@@ -41,7 +41,6 @@ if (cacheName) {
         cache.maxInMemory = UtilFormatOut.formatQuantity(utilCache.getMaxInMemory());
         cache.expireTime = UtilFormatOut.formatQuantity(utilCache.getExpireTime());
         cache.useSoftReference = utilCache.getUseSoftReference().toString();
-        cache.useFileSystemStore = utilCache.getUseFileSystemStore().toString();
 
         exp = utilCache.getExpireTime();
         hrs = Math.floor(exp / (60 * 60 * 1000));

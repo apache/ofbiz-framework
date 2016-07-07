@@ -398,12 +398,6 @@ eclipse.classpath.file.whenMerged { classpath ->
 tasks.eclipse.dependsOn(cleanEclipse)
 
 // ========== Clean up tasks ==========
-task cleanCache(group: cleanupGroup, description: 'Clean the UtilCache file') << {
-    def props = retrievePropsFromFile('framework/base/config/cache.properties')
-    if(props['cache.file.store']) {
-        delete props['cache.file.store']+'.db'
-    }
-}
 task cleanCatalina(group: cleanupGroup, description: 'Clean Catalina data in runtime/catalina/work') << {
     delete './runtime/catalina/work'
 }
