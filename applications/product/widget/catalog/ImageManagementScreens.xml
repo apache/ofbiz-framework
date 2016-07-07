@@ -511,45 +511,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    <screen name="ImageWatermarking">
-        <section>
-            <actions>
-                <set field="userTabButtonImage" value="ImageManage"/>
-                <set field="currentFormName" value="ImageWatermarking"/>
-                <set field="statusForm" value="IM_PENDING"/>
-                <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource">
-                    <field-map field-name="contentId" from-field="parameters.contentId"/>
-                    <field-map field-name="drDataResourceId" from-field="parameters.dataResourceId"/>
-                </entity-one>
-                <set field="imageURL" from-field="contentDataResource.drObjectInfo"/>
-                <property-to-field resource="catalog" property="image.management.url" field="imageServerUrl"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.ImageManagementImageWatermarking}">
-                                    <include-form name="ImageWatermarking" location="component://product/widget/catalog/ImageManagementForms.xml"/>
-                                    <platform-specific>
-                                        <html><html-template location="component://product/template/imagemanagement/ImageWatermark.ftl"/></html>
-                                    </platform-specific>
-                                </screenlet>
-                            </widgets>
-                            <fail-widgets>
-                                <label text="You do not have permission to access this page. (&quot;IMAGE_MANAGEMENT_ADMIN&quot; needed)"/>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    
+
     <screen name="ImageCropping">
         <section>
             <actions>

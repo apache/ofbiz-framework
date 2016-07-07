@@ -311,7 +311,6 @@ under the License.
             document.ListImageManage.submit();">
             <drop-down allow-empty="true">
                   <option key="frame" description="${uiLabelMap.ImageManagementFrame}"/>
-                  <option key="watermark" description="${uiLabelMap.ImageManagementWatermark}"/>
                   <option key="crop" description="${uiLabelMap.ImageManagementCrop}"/>
                   <option key="rotate" description="${uiLabelMap.ImageManagementRotate}"/>
             </drop-down>
@@ -428,72 +427,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
-    <form name="ImageWatermarking" type="single" target="createWatermarkImage" title="" header-row-style="header-row" default-table-style="basic-table">
-        <actions>
-            <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource">
-                <field-map field-name="contentId" from-field="parameters.contentId"/>
-                <field-map field-name="drDataResourceId" from-field="parameters.dataResourceId"/>
-            </entity-one>
-            <set field="imageURL" from-field="contentDataResource.drObjectInfo"/>
-        </actions>
-        <field name="imageServerUrl"><hidden/></field>
-        <field name="productId"><hidden/></field>
-        <field name="contentId"><hidden/></field>
-        <field name="dataResourceId"><hidden/></field>
-        <field name="pointX"><hidden/></field>
-        <field name="pointY"><hidden/></field>
-        <field name="width"><hidden/></field>
-        <field name="height"><hidden/></field>
-        <field name="positionX" widget-area-style="positionX"><hidden value="50.00"/></field>
-        <field name="positionY" widget-area-style="positionY"><hidden value="50.00"/></field>
-        <field name="previewCount" widget-area-style="count"><hidden value="0"/></field>
-        <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
-        <field name="imageWatermark" use-when="imageURL != null" title="${uiLabelMap.CommonImage}" widget-area-style="img-src"><image value="${imageURL}"/></field>
-        <field name="imageWatermark" use-when="imageURL == null" title="${uiLabelMap.CommonImage}" widget-area-style="img-src-de"><image value="/images/defaultImage.jpg"/></field>
-        <field name="" widget-style="h3"><display description="${uiLabelMap.ImageManagementWatermarkingLocation}"/></field>
-        <field name="imageOpacity" title="${uiLabelMap.ImageManagementOpacity}" widget-area-style="opacity">
-            <drop-down no-current-selected-key="0.5">
-                <option key="0.1" description="10%"/>
-                <option key="0.2" description="20%"/>
-                <option key="0.3" description="30%"/>
-                <option key="0.4" description="40%"/>
-                <option key="0.5" description="50%"/>
-                <option key="0.6" description="60%"/>
-                <option key="0.7" description="70%"/>
-                <option key="0.8" description="80%"/>
-                <option key="0.9" description="90%"/>
-                <option key="1.0" description="100%"/>
-            </drop-down>
-        </field>
-        <field name="textWatermark" title="${uiLabelMap.CommonText}" widget-area-style="watermark_txt"><text default-value="DEFAULT"/></field>
-        <field name="previewButton" title=" " widget-style="buttontext" widget-area-style="preview"><hyperlink target="#" target-type="plain" description="${uiLabelMap.CommonPreview}"/></field>
-        <field name="colorWatermark" title="${uiLabelMap.ImageManagementTextColor}" widget-area-style="txt_color">
-            <drop-down allow-empty="true" no-current-selected-key="TEXT_BLACK">
-                <entity-options entity-name="ProductFeature" key-field-name="productFeatureId">
-                    <entity-constraint name="productFeatureTypeId" value="COLOR"/>
-                    <entity-constraint name="productFeatureCategoryId" value="TEXT"/>
-                    <entity-order-by field-name="defaultSequenceNum"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="sizeWatermark" title="${uiLabelMap.ImageManagementTextSize}" widget-area-style="txt_size">
-            <drop-down allow-empty="true" no-current-selected-key="TEXT_MIDDLE">
-                <entity-options entity-name="ProductFeature" key-field-name="productFeatureId">
-                    <entity-constraint name="productFeatureTypeId" value="SIZE"/>
-                    <entity-constraint name="productFeatureCategoryId" value="TEXT"/>
-                    <entity-order-by field-name="defaultSequenceNum"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" event="onClick" action="javascript:setImageDimension()" widget-style="smallSubmit" ><submit button-type="button"/></field>
-        <field name="cancelButton" title=" " widget-style="buttontext" event="onClick" action="javascript:deletePreviewWatermarkImage();">
-            <hyperlink target="ListImageManage" description="${uiLabelMap.CommonCancel}">
-                <parameter param-name="productId" from-field="parameters.productId"/>
-            </hyperlink>
-        </field>
-    </form>
-    
+
     <form name="ImageCropping" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="CropImage"> 
         <actions>
             <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource">

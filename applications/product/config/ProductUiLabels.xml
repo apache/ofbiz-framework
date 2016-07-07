@@ -8624,15 +8624,6 @@
         <value xml:lang="zh">图片上传列表</value>
         <value xml:lang="zh-TW">圖片上傳清單</value>
     </property>
-    <property key="ImageManagementImageWatermarking">
-        <value xml:lang="de">Bild Wasserzeichen</value>
-        <value xml:lang="en">Image Watermarking</value>
-        <value xml:lang="ja">画像透かし</value>
-        <value xml:lang="th">ลายน้ำรูปภาพ</value>
-        <value xml:lang="vi">Lọc mờ ảnh</value>
-        <value xml:lang="zh">图片水印</value>
-        <value xml:lang="zh-TW">圖片浮水印</value>
-    </property>
     <property key="ImageManagementImageWidth">
         <value xml:lang="de">Bildbreite</value>
         <value xml:lang="en">Image Width</value>
@@ -8800,24 +8791,6 @@
         <value xml:lang="vi">Tải liên khung hình mới</value>
         <value xml:lang="zh">上传新的框</value>
         <value xml:lang="zh-TW">上傳新的框</value>
-    </property>
-    <property key="ImageManagementWatermark">
-        <value xml:lang="de">Wasserzeichen</value>
-        <value xml:lang="en">Watermark</value>
-        <value xml:lang="ja">透かし</value>
-        <value xml:lang="th">ลายน้ำ</value>
-        <value xml:lang="vi">Làm mờ</value>
-        <value xml:lang="zh">水印</value>
-        <value xml:lang="zh-TW">浮水印</value>
-    </property>
-    <property key="ImageManagementWatermarkingLocation">
-        <value xml:lang="de">Direkt auf das Bild klicken um die Position des Wasserzeichens anzupassen</value>
-        <value xml:lang="en">Click directly on the image to adjust the location of the watermark</value>
-        <value xml:lang="fr">Cliquer directement sur l'image pour positionner le filigrane</value>
-        <value xml:lang="ja">透かしの位置を調整するには画像を直接クリックしてください</value>
-        <value xml:lang="vi">Bấm trực tiếp lên ảnh để điều chỉnh vị trí làm mờ</value>
-        <value xml:lang="zh">直接点击在图片上来调整水印位置</value>
-        <value xml:lang="zh-TW">直接點擊在圖片上來調整浮水印位置</value>
     </property>
     <property key="ImageManagementWelcomeMessage">
         <value xml:lang="de">Willkommen in der Bildbearbeitung</value>
