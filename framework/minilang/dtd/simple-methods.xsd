@@ -2353,30 +2353,6 @@ under the License.
             </xs:attribute>
     </xs:complexType>
 
-    <xs:element name="call-bsh" substitutionGroup="CallOperations">
-        <xs:annotation>
-            <xs:documentation>
-                Executes a BSH script. Deprecated - replace with script.
-                
-                The script can be contained in a Java resource, and/or a short
-                script can be included in the element body.
-                If a Java resource is specified, and the element body contains a script,
-                the element body script will be executed after the Java resource script is executed.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType mixed="true">
-            <xs:attribute type="xs:string" name="resource">
-                <xs:annotation>
-                    <xs:documentation>
-                        A Java resource that contains the script.
-                        
-                        Required if the element body is empty. Attribute type: constant.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-
     <xs:element name="call-class-method" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>

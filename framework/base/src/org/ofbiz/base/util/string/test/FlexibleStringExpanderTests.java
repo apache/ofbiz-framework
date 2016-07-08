@@ -68,12 +68,10 @@ public class FlexibleStringExpanderTests extends TestCase {
         parserTest("empty", "", true, "");
         parserTest("constant-only", "a", false, "a");
         parserTest("nested-constant-emptynest-emptynest", "${a${}${}", true, "${a${}${}");
-        parserTest("bsh", "${bsh:}", true, "${bsh:}");
         parserTest("groovy", "${groovy:}", true, "${groovy:}");
 
         parserTest("escaped", "\\${}", true, "\\${}");
         parserTest("constant-escaped", "a\\${}", true, "a\\${}");
-        parserTest("escaped-bsd", "\\${bsh:}", true, "\\${bsh:}");
         parserTest("escaped-groovy", "\\${groovy:}", true, "\\${groovy:}");
 
         parserTest("missing-}", "${", true, "${");
@@ -312,10 +310,6 @@ public class FlexibleStringExpanderTests extends TestCase {
         fseTest("currency(USD): missing", "The total is ${noList[0]?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
         fseTest("currency(USD): exception", "The total is ${throwException.value?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
         fseTest("null nested", "${${nullVar}}!", testMap, "!", false);
-        fseTest("bsh: script", "${bsh:return \"Hello \" + var + \"!\";}", testMap, "Hello World!", false);
-        fseTest("bsh: null", "${bsh:return null;}!", testMap, "!", false);
-        fseTest("bsh: throw Exception", "${bsh:return throwException.value;}!", testMap, "!", false);
-        fseTest("bsh: converter exception", "${bsh:return specialNumber;}!", testMap, SpecialNumber.class.getName() + "!", false);
         fseTest("groovy: script", "${groovy:return \"Hello \" + var + \"!\";}", testMap, "Hello World!", false);
         fseTest("groovy: null", "${groovy:return null;}!", testMap, "!", false);
         fseTest("groovy missing property", "${groovy: return noList[0]}", testMap, null, null, "", null, false);
@@ -329,12 +323,10 @@ public class FlexibleStringExpanderTests extends TestCase {
         fseTest("UEL integration: throw NPE", "${" + FlexibleStringExpanderTests.class.getName() + ".ThrowNPE.noProp}", testMap, null, null, "", null, false);
         fseTest("UEL integration: missing", "${noList[0]}", testMap, null, null, "", null, false);
         fseTest("Escaped expression", "This is an \\${escaped} expression", testMap, "This is an ${escaped} expression", false);
-        fseTest("Escaped(bsh) expression", "This is an \\${bsh:escaped} expression", testMap, "This is an ${bsh:escaped} expression", false);
         fseTest("Escaped(groovy) expression", "This is an \\${groovy:escaped} expression", testMap, "This is an ${groovy:escaped} expression", false);
 
         fseTest("nested UEL integration(return BigDecimal)", "${a${'moun'}t}", testMap, null, null, "1,234,567.89", testMap.get("amount"), false);
         fseTest("UEL integration(return BigDecimal)", "${amount}", testMap, null, null, "1,234,567.89", testMap.get("amount"), false);
-        fseTest("bsh: return BigDecimal", "${bsh: return amount;}", testMap, null, null, "1,234,567.89", testMap.get("amount"), false);
         fseTest("groovy: return BigDecimal", "${groovy: return amount;}", testMap, null, null, "1,234,567.89", testMap.get("amount"), false);
     }
 }

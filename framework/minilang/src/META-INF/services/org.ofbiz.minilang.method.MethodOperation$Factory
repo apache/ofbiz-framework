@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-org.ofbiz.minilang.method.callops.CallBsh$CallBshFactory
 org.ofbiz.minilang.method.callops.CallClassMethod$CallClassMethodFactory
 org.ofbiz.minilang.method.callops.CallObjectMethod$CallObjectMethodFactory
 org.ofbiz.minilang.method.callops.CallScript$CallScriptFactory

@@ -39,12 +39,4 @@ under the License.
         <property name="port" value="1099"/>
     </container>
 
-    <!-- load BeanShell remote telnet server -->
-    <!-- Commented out by default for security reasons -->
-    <!-- the port below and port-1 will be opened by Beanshell -->
-    <!--container name="beanshell-container" class="org.ofbiz.base.container.BeanShellContainer">
-        <property name="telnet-port" value="9990"/>
-        <property name="app-name" value="OFBiz"/>
-    </container-->
-
 </ofbiz-component>
