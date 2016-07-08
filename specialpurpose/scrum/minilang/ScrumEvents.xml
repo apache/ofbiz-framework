@@ -697,13 +697,13 @@
                     </if-compare>
                 </iterate>
                 <if-not-empty field="custRequestIndex">
-                     <call-bsh><![CDATA[
+                    <script>groovy:
                          List indexList = custRequestIndex;
                          Collections.sort(indexList);
                          Collections.reverse(indexList);
                          List uniqueCustRequestIndexList = indexList;
                          return org.ofbiz.base.util.UtilMisc.toMap("uniqueCustRequestIndexList", uniqueCustRequestIndexList);
-                     ]]></call-bsh>
+                     </script>
                 </if-not-empty>
                 <if-not-empty field="uniqueCustRequestIndexList">
                     <iterate entry="custRequestIndexMap" list="uniqueCustRequestIndexList">
@@ -758,11 +758,11 @@
                         </loop>
                         <else>
                              <!-- get size -->
-                            <call-bsh><![CDATA[
+                            <script>groovy:
                                  List custRequestSeq = custRequestListWithNewSeq;
                                  List custRequestSeqList = org.ofbiz.base.util.UtilMisc.sortMaps(custRequestSeq, org.ofbiz.base.util.UtilMisc.toList("custSequenceNum"));
                                  return org.ofbiz.base.util.UtilMisc.toMap("custRequestSeqList", custRequestSeqList);
-                            ]]></call-bsh>
+                            </script>
                             <set field="custRequestListWithNewSeq" from-field="custRequestSeqList"/>
                             <call-object-method method-name="size" obj-field="custRequestListWithNewSeq" ret-field="newCustCount"/>
                             
@@ -4215,17 +4215,17 @@
             <set field="newUserLogin.passwordHint" from-field="userLoginContext.passwordHint"/>
 
             <!-- Check the password, etc for validity -->
-            <call-bsh><![CDATA[
+            <script>groovy:
                 String password = (String) userLoginContext.get("currentPassword");
                 String confirmPassword = (String) userLoginContext.get("currentPasswordVerify");
                 String passwordHint = (String) userLoginContext.get("passwordHint");
                 org.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
-            ]]></call-bsh>
+            </script>
              <!-- If password encryption is enabled, encrpyt it now -->
-            <call-bsh><![CDATA[
+            <script>groovy:
                 boolean useEncryption = "true".equals(org.ofbiz.base.util.UtilProperties.getPropertyValue("security", "password.encrypt"));
                 if (useEncryption) { newUserLogin.set("currentPassword", org.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
-            ]]></call-bsh>
+            </script>
 
             <!-- create the UserLogin -->
             <set field="newUserLogin.partyId" from-field="tempMap.partyId"/>

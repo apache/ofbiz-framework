@@ -287,14 +287,14 @@
         </call-service>
 
         <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
-        <call-bsh><![CDATA[
+        <script>groovy:
            groupName = partyGroup.get("groupName");
            if(groupName != null){
               parameters.put("invoiceIdPrefix", groupName.toUpperCase().substring(0, 2)+"CI");
            }else{
               parameters.put("invoiceIdPrefix", "CI");
            }
-           ]]></call-bsh>
+        </script>
 
         <set field="acctgPreferenceCtx.partyId" from-field="partyId"/>
         <set field="acctgPreferenceCtx.taxFormId" value="US_IRS_1120"/>

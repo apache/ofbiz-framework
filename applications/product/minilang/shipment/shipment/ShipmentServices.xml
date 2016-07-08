@@ -639,7 +639,7 @@ under the License.
         </if-not-empty>
 
         <if-empty field="shipment.estimatedShipCost">
-            <call-bsh><![CDATA[
+            <script>groovy:
                     import java.math.BigDecimal;
                     import org.ofbiz.order.order.OrderReadHelper;
 
@@ -653,7 +653,7 @@ under the License.
                     shippingAmount = shippingAmount.add(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true));
                     //org.ofbiz.base.util.Debug.log("shippingAmmount=" + shippingAmount);
                     shipment.put("estimatedShipCost", shippingAmount);
-            ]]></call-bsh>
+            </script>
         </if-empty>
 
         <!-- create a ShipmentRouteSegment with originFacilityId (if set on Shipment), destContactMechId,
@@ -699,46 +699,46 @@ under the License.
         <string-to-list string="-fromDate" list="descendingFromDateOrder"/>
         <if-not-empty field="shipment.originFacilityId">
             <if-empty field="shipment.originContactMechId">
-                <call-bsh><![CDATA[
+                <script>groovy:
                     facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
                                 delegator, shipment.get("originFacilityId"), org.ofbiz.base.util.UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION")
                             );
                     if (facilityContactMech != null) {
                         shipment.put("originContactMechId", facilityContactMech.get("contactMechId"));
                     }
-                ]]></call-bsh>
+                </script>
             </if-empty>
             <if-empty field="shipment.originTelecomNumberId">
-                <call-bsh><![CDATA[
+                <script>groovy:
                     facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
                                 delegator, shipment.get("originFacilityId"), org.ofbiz.base.util.UtilMisc.toList("PHONE_SHIP_ORIG", "PRIMARY_PHONE")
                             );
                     if (facilityContactMech != null) {
                         shipment.put("originTelecomNumberId", facilityContactMech.get("contactMechId"));
                     }
-                ]]></call-bsh>
+                </script>
             </if-empty>
         </if-not-empty>
         <if-not-empty field="shipment.destinationFacilityId">
             <if-empty field="shipment.destinationContactMechId">
-                <call-bsh><![CDATA[
+                <script>groovy:
                     facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
                                 delegator, shipment.get("destinationFacilityId"), org.ofbiz.base.util.UtilMisc.toList("SHIPPING_LOCATION", "PRIMARY_LOCATION")
                             );
                     if (facilityContactMech != null) {
                         shipment.put("destinationContactMechId", facilityContactMech.get("contactMechId"));
                     }
-                ]]></call-bsh>
+                </script>
             </if-empty>
             <if-empty field="shipment.destinationTelecomNumberId">
-                <call-bsh><![CDATA[
+                <script>groovy:
                     facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
                                 delegator, shipment.get("destinationFacilityId"), org.ofbiz.base.util.UtilMisc.toList("PHONE_SHIPPING", "PRIMARY_PHONE")
                             );
                     if (facilityContactMech != null) {
                         shipment.put("destinationTelecomNumberId", facilityContactMech.get("contactMechId"));
                     }
-                ]]></call-bsh>
+                </script>
             </if-empty>
         </if-not-empty>
 

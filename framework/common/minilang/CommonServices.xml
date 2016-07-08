@@ -192,12 +192,12 @@ under the License.
             <field-to-result field="parameters.bytesRead" result-name="bytesRead"/>
             <call-object-method obj-field="uploadProgressListener" method-name="hasStarted" ret-field="parameters.hasStarted"/>
             <field-to-result field="parameters.hasStarted" result-name="hasStarted"/>
-            <call-bsh><![CDATA[
+            <script>groovy:
                 contentLength = parameters.get("contentLength");
                 bytesRead = parameters.get("bytesRead");
                 int readPercent = (bytesRead* 100)/contentLength;
                 parameters.put("readPercent", readPercent);
-            ]]></call-bsh>
+            </script>
             <field-to-result field="parameters.readPercent" result-name="readPercent"/>
             <field-to-result field="parameters.hasStarted" result-name="hasStarted"/>
         </if-not-empty>

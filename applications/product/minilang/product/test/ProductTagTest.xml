@@ -37,10 +37,10 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="request" from-field="parameters.request"/>
-        <call-bsh><![CDATA[
+        <script>groovy:
             request.setParameter("productId", "GZ-1000");
             request.setParameter("productTags", "test");
-        ]]></call-bsh>
+        </script>
         <call-class-method method-name="addProductTags" class-name="org.ofbiz.product.product.ProductEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
@@ -74,10 +74,10 @@ under the License.
             <if-compare field="checkProductKeywordApprove.statusId" operator="equals" value="KW_APPROVED"/>
         </assert>
         <!-- Step 5 -->
-        <call-bsh><![CDATA[
+        <script>groovy:
             request.setParameter("productId", "GZ-1000");
             request.setParameter("productTags", "'rock and roll' t-shirt red");
-        ]]></call-bsh>
+        </script>
         <call-class-method method-name="addProductTags" class-name="org.ofbiz.product.product.ProductEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>

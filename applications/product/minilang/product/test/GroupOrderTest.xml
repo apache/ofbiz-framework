@@ -61,14 +61,14 @@ under the License.
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
-        <call-bsh><![CDATA[
+        <script>groovy:
             request.setParameter("orderMode", "SALES_ORDER");
             request.setParameter("productStoreId", "9000");
             request.setParameter("partyId", "DemoCustomer");
             request.setParameter("currencyUom", "USD");
             session = request.getSession();
             session.setAttribute("userLogin", userLogin);
-        ]]></call-bsh>
+        </script>
         <call-class-method method-name="initializeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
@@ -79,22 +79,22 @@ under the License.
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : setOrderCurrencyAgreementShipDates, Response : ${result}"/>
-        <call-bsh><![CDATA[
+        <script>groovy:
             request.setParameter("add_product_id", "GZ-1000");
-        ]]></call-bsh>
+        </script>
         <call-class-method method-name="addToCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : addToCart, Response : ${result}"/>
-        <call-bsh><![CDATA[
+        <script>groovy:
             request.setParameter("checkoutpage", "quick");
             request.setParameter("shipping_contact_mech_id", "9015");
             request.setParameter("shipping_method", "GROUND@UPS");
             request.setParameter("checkOutPaymentId", "EXT_PAYPAL");
             request.setParameter("is_gift", "false");
             request.setParameter("may_split", "false");
-        ]]></call-bsh>
+        </script>
         <field-to-request field="nullField" request-name="shoppingCart"/>
         <call-class-method method-name="setQuickCheckOutOptions" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
@@ -183,14 +183,14 @@ under the License.
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
-        <call-bsh><![CDATA[
+        <script>groovy:
             request.setParameter("orderMode", "SALES_ORDER");
             request.setParameter("productStoreId", "9000");
             request.setParameter("partyId", "DemoCustomer");
             request.setParameter("currencyUom", "USD");
             session = request.getSession();
             session.setAttribute("userLogin", userLogin);
-        ]]></call-bsh>
+        </script>
         <call-class-method method-name="initializeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
@@ -201,22 +201,22 @@ under the License.
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : setOrderCurrencyAgreementShipDates, Response : ${result}"/>
-        <call-bsh><![CDATA[
+        <script>groovy:
             request.setParameter("add_product_id", "GZ-1001");
-        ]]></call-bsh>
+        </script>
         <call-class-method method-name="addToCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : addToCart, Response : ${result}"/>
-        <call-bsh><![CDATA[
+        <script>groovy:
             request.setParameter("checkoutpage", "quick");
             request.setParameter("shipping_contact_mech_id", "9015");
             request.setParameter("shipping_method", "GROUND@UPS");
             request.setParameter("checkOutPaymentId", "EXT_PAYPAL");
             request.setParameter("is_gift", "false");
             request.setParameter("may_split", "false");
-        ]]></call-bsh>
+        </script>
         <field-to-request field="nullField" request-name="shoppingCart"/>
         <call-class-method method-name="setQuickCheckOutOptions" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>

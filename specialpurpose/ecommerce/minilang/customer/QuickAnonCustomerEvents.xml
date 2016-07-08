@@ -85,12 +85,12 @@ under the License.
             <set field="newUserLogin.passwordHint" from-field="userLoginContext.passwordHint"/>
 
             <!-- Check the password, etc for validity -->
-            <call-bsh><![CDATA[
+            <script>groovy:
                 String password = (String) userLoginContext.get("currentPassword");
                 String confirmPassword = (String) userLoginContext.get("currentPasswordVerify");
                 String passwordHint = (String) userLoginContext.get("passwordHint");
                 org.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
-            ]]></call-bsh>
+            </script>
         <else>
             <if-compare field="require_login" operator="equals" value="true">
                 <add-error><fail-property resource="PartyUiLabels" property="PartyUserNameMissing"/></add-error>
@@ -348,10 +348,10 @@ under the License.
 
         <if-not-empty field="newUserLogin">
             <!-- If password encryption is enabled, encrpyt it now -->
-            <call-bsh><![CDATA[
+            <script>groovy:
                 boolean useEncryption = "true".equals(org.ofbiz.base.util.UtilProperties.getPropertyValue("security", "password.encrypt"));
                 if (useEncryption) { newUserLogin.set("currentPassword", org.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
-            ]]></call-bsh>
+            </script>
             <!-- create the UserLogin manually to get around ordering and security constraints in the service -->
             <set field="userLoginContext.partyId" from-field="partyId"/>
             <create-value value-field="newUserLogin"/>
@@ -504,14 +504,14 @@ under the License.
             </call-object-method>
             <check-errors/>
             <if-not-empty field="cart">
-                <call-bsh><![CDATA[
+                <script>groovy:
                     // clear out the login fields from the cart
                     try {
                         if (cart!=null) cart.setAutoUserLogin(null, dispatcher);
                     } catch (CartItemModifyException e) {
                         Debug.logError(e, module);
                     }
-                ]]></call-bsh>
+                </script>
             </if-not-empty>
             <if-not-empty field="partyId">
                 <set field="lookupKeyValue.userLoginId" value="anonymous"/>
@@ -523,14 +523,14 @@ under the License.
                         <call-object-method obj-field="cart" method-name="setOrderPartyId">
                             <field field="partyId"/>
                         </call-object-method>
-                        <call-bsh><![CDATA[
+                        <script>groovy:
                             // clear out the login fields from the cart
                             try {
                                 if (cart!=null) cart.setUserLogin(userLogin, dispatcher);
                             } catch (CartItemModifyException e) {
                                 Debug.logError(e, module);
                             }
-                        ]]></call-bsh>
+                        </script>
                     </if-not-empty>
                 </if-not-empty>
             </if-not-empty>
@@ -562,13 +562,13 @@ under the License.
     </simple-method>
 
     <simple-method method-name="processShipOptions" short-description="Process Ship Options; to be called as a Request Event" login-required="false">
-       <call-bsh><![CDATA[
+        <script>groovy:
            shipmentMethod = parameters.get("shipping_method");
            if(shipmentMethod != null){
               parameters.put("shipmentMethodTypeId", shipmentMethod.substring(0, shipmentMethod.indexOf("@")));
               parameters.put("carrierPartyId", shipmentMethod.substring(shipmentMethod.indexOf("@")+1));
            }
-       ]]></call-bsh>
+       </script>
        <session-to-field field="cart" session-name="shoppingCart"/>
        <if-not-empty field="cart">
            <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId"/>
