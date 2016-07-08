@@ -2387,12 +2387,6 @@ under the License.
         <response name="success" type="view" value="FixedAssetTypeGlAccounts"/>
         <response name="error" type="view" value="FixedAssetTypeGlAccounts"/>
     </request-map>
-    <!-- Commented out for now WIP
-    <request-map uri="taxAuthorityVATReport">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="taxAuthorityVATReport"/>
-    </request-map>
-    Commented out for now WIP -->
 
     <!-- GeoLocation-->
     <request-map uri="FixedAssetGeoLocation">
@@ -2852,11 +2846,6 @@ under the License.
 
     <!-- Agreements Views   -->
     <view-map name="EditAgreementRoles" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementRoles"/>
-
-    <!-- Commented out for now WIP
-    <view-map name="findTaxAuthorityVATReport" type="screen" page="component://accounting/widget/TaxAuthorityForms.xml#FindTaxAuthorityVATReport"/>
-    <view-map name="taxAuthorityVATReport" type="screen" page="component://accounting/widget/TaxAuthorityForms.xml#TaxAuthorityVATReport"/>
-    Commented out for now WIP-->
 
     <view-map name="FixedAssetGeoLocation" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#FixedAssetGeoLocation"/>
     <view-map name="AcctgTransEntriesSearchResultsCsv" type="screencsv" page="component://accounting/widget/GlScreens.xml#AcctgTransEntriesSearchResultsCsv" content-type="text/csv" encoding="none"/>
