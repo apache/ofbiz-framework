@@ -189,8 +189,7 @@ under the License.
             <add-error><fail-property resource="WebPosUiLabels" property="WebPosCannotFindProduct"/></add-error>
             <check-errors/>
         <else>
-            <call-bsh>
-                <![CDATA[
+            <script>groovy:
                     webPosSession = org.ofbiz.webpos.WebPosEvents.getWebPosSession(request, null);
                     if (webPosSession != null) {
                         parameters.put("webPosSession", webPosSession);
@@ -207,8 +206,7 @@ under the License.
                             parameters.put("partyId", cart.getPartyId());
                         }
                     }
-                ]]>
-            </call-bsh>
+                </script>
             <if-not-empty field="parameters.webPosSession">
                 <if-not-empty field="parameters.cart">
                     <set field="priceContext.product" from-field="product"/>
@@ -339,13 +337,11 @@ under the License.
             <call-object-method obj-field="webPosSession" method-name="getCart" ret-field="shoppingCart"/>
             <check-errors/>
             <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
-            <call-bsh>
-                <![CDATA[
+            <script>groovy:
                     import org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
                     shippingEstWpr = ShippingEstimateWrapper.getWrapper(dispatcher, shoppingCart, 0);
                     parameters.put("shippingEstWpr", shippingEstWpr);
-                ]]>
-            </call-bsh>
+            </script>
             <set field="shippingEstWpr" from-field="parameters.shippingEstWpr"/>
             <call-object-method obj-field="shippingEstWpr" method-name="getShippingMethods" ret-field="carrierShipmentMethodList"/>
             <call-object-method obj-field="shoppingCart" method-name="getShipmentMethodTypeId" ret-field="shipmentMethodTypeId"/>
@@ -395,8 +391,7 @@ under the License.
             <check-errors/>
             <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
             <check-errors/>
-            <call-bsh>
-              <![CDATA[
+            <script>groovy:
                 shippingMethod = parameters.get("shipMethod");
                 if(shippingMethod != null) {
                     shipmentMethodTypeId = shippingMethod.substring(0, shippingMethod.indexOf("@"));
@@ -410,8 +405,7 @@ under the License.
                     parameters.put("shipmentMethodTypeId", shipmentMethodTypeId);
                     parameters.put("carrierPartyId", carrierPartyId);
                 }
-              ]]>
-            </call-bsh>
+            </script>
             <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId"/>
             <set field="carrierPartyId" from-field="parameters.carrierPartyId"/>
             <set field="productStoreShipMethId" from-field="parameters.productStoreShipMethId"/>
@@ -434,8 +428,7 @@ under the License.
             <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
             <set field="delegator" from-field="parameters.delegator" type="Object"/>
             <set field="locale" from-field="parameters.locale" type="Object"/>
-            <call-bsh>
-              <![CDATA[
+            <script>groovy:
                 Map shipCost = org.ofbiz.order.shoppingcart.shipping.ShippingEvents.getShipGroupEstimate(dispatcher, delegator, shoppingCart, 0);
                 shippingTotal = shipCost.get("shippingTotal");
                 if (shippingTotal == null) {
@@ -453,8 +446,7 @@ under the License.
 
                 cartGrandTotal = org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getGrandTotal(), isoCode, locale);
                 parameters.put("cartGrandTotal", cartGrandTotal);
-              ]]>
-            </call-bsh>
+            </script>
             <call-class-method method-name="doPromotions" class-name="org.ofbiz.order.shoppingcart.product.ProductPromoWorker">
                 <field field="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart"/>
                 <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>

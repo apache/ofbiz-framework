@@ -1304,22 +1304,10 @@ under the License.
                         </entity-one>
                         <set field="productByProductIdMap[productId]" from-field="productValueTemp"/>
 
-                        <!--
-                        <call-bsh><![CDATA[
-                        org.ofbiz.base.util.Debug.log("Added " + productId + " to product by product Map, now: " + productByProductIdMap.size());
-                        ]]></call-bsh>
-                        -->
-
                         <clear-field field="picklistItemInfoTempList"/>
                         <set field="picklistItemInfoTempList" from-field="picklistItemInfoListByProductIdMap[productId]"/>
                         <set field="picklistItemInfoTempList[]" from-field="picklistItemInfo"/>
                         <set field="picklistItemInfoListByProductIdMap[productId]" from-field="picklistItemInfoTempList"/>
-
-                        <!--
-                        <call-bsh><![CDATA[
-                        org.ofbiz.base.util.Debug.log("Added " + productId + " to pick item info list, now: " + picklistItemInfoListByProductIdMap.size());
-                        ]]></call-bsh>
-                        -->
                     <else>
                         <!-- Uh oh, no productId, how did this happen? -->
                         <log level="warning" message="No productId and no FacilityLocation, not showing in Picklist for PicklistItem: ${picklistItemInfo.picklistItem}"/>

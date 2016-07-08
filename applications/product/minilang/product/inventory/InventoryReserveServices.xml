@@ -194,13 +194,13 @@ under the License.
                                 </if-not-empty>
                             </if-empty>
                             <!-- TODO: Convert this to a <set-calendar> operation -->
-                            <call-bsh><![CDATA[
+                            <script>groovy:
                             java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
                             com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance();
                             cal.setTimeInMillis(orderDate.getTime());
                             cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
                             return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
-                            ]]></call-bsh>
+                            </script>
 
                             <!-- create or update OrderItemShipGrpInvRes record -->
                             <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
@@ -262,13 +262,13 @@ under the License.
                                 </if-not-empty>
                             </if-empty>
                             <!-- TODO: Convert this to a <set-calendar> operation -->
-                            <call-bsh><![CDATA[
+                            <script>groovy:
                             java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
                             com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance();
                             cal.setTimeInMillis(orderDate.getTime());
                             cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
                             return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
-                            ]]></call-bsh>
+                            </script>
 
                             <!-- create OrderItemShipGrpInvRes record -->
                             <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
@@ -504,13 +504,13 @@ under the License.
             <set field="daysToShip" value="30" type="Long"/>
         </if-empty>
         <!-- TODO: Convert this to a <set-calendar> operation -->
-        <call-bsh><![CDATA[
+        <script>groovy:
         java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
         com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance();
         cal.setTimeInMillis(orderDate.getTime());
         cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
         return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
-        ]]></call-bsh>
+        </script>
     </simple-method>
 
     <simple-method method-name="reserveOrderItemInventory" short-description="Reserve Order Item Inventory">

@@ -50,10 +50,10 @@ under the License.
         <set field="productStoreId" value="9000" type="String"/>
         <set field="currencyUom" value="USD" type="String"/>
 
-        <call-bsh><![CDATA[
+        <script>groovy:
             shoppingCart = new org.ofbiz.order.shoppingcart.ShoppingCart(delegator, productStoreId, locale, currencyUom);
             parameters.put("shoppingCart", shoppingCart);
-        ]]></call-bsh>
+        </script>
 
         <set field="orderTypeId" value="SALES_ORDER" type="String"/>
         <set field="paymentMethodTypeId" value="CREDIT_CARD" type="String"/>
@@ -260,11 +260,11 @@ under the License.
         <call-object-method method-name="makeAllShipGroupInfos" obj-field="shoppingCart"/>
 
         <!-- Shopping Cart checkout and create order -->
-        <call-bsh><![CDATA[
+        <script>groovy:
             checkOutHelper = new org.ofbiz.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
             java.util.Map orderMap = checkOutHelper.createOrder(userLogin);
-            parameters.put("orderMap", orderMap);]]>
-        </call-bsh>
+            parameters.put("orderMap", orderMap);
+        </script>
         
         <!-- Clear Shopping Cart -->
         <call-object-method method-name="clear" obj-field="shoppingCart"/>
@@ -621,10 +621,10 @@ under the License.
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="DemoCustomer"/>
         </entity-one>
-        <call-bsh><![CDATA[
+        <script>groovy:
             session = request.getSession();
             session.setAttribute("userLogin", userLogin);
-        ]]></call-bsh>
+        </script>
         <call-class-method method-name="initializeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
