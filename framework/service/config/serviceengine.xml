@@ -46,7 +46,6 @@ under the License.
         <engine name="simple" class="org.ofbiz.minilang.SimpleServiceEngine"/>
         <engine name="script" class="org.ofbiz.service.engine.ScriptEngine"/>
         <!-- Engines that can be replaced by the generic script engine -->
-        <engine name="bsh" class="org.ofbiz.service.engine.BeanShellEngine"/>
         <engine name="groovy" class="org.ofbiz.service.engine.GroovyEngine"/>
         <engine name="jacl" class="org.ofbiz.service.engine.BSFEngine"/>
         <engine name="javascript" class="org.ofbiz.service.engine.ScriptEngine"/>

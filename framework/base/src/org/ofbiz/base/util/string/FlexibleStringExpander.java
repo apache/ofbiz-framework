@@ -41,8 +41,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 
 /** Expands String values that contain Unified Expression Language (JSR 245)
- * syntax. This class also supports the execution of bsh scripts by using the
- * 'bsh:' prefix, and Groovy scripts by using the 'groovy:' prefix.
+ * syntax. This class also supports the execution of Groovy scripts
+ * by using the 'groovy:' prefix.
  * Further it is possible to control the output by specifying the suffix
  * '?currency(XXX)' to format the output according to the supplied locale
  * and specified (XXX) currency.<p>This class extends the UEL by allowing
@@ -312,10 +312,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                 // append everything from the current index to the start of the expression
                 strElems.add(new ConstOffsetElem(chars, currentInd, (escapedExpression ? start -1 : start) - currentInd));
             }
-            if (expression.indexOf("bsh:", start + 2) == start + 2 && !escapedExpression) {
-                // checks to see if this starts with a "bsh:", if so treat the rest of the expression as a bsh scriptlet
-                strElems.add(new ScriptElem(chars, start, Math.min(end + 1, start + length) - start, start + 6, end - start - 6));
-            } else if (expression.indexOf("groovy:", start + 2) == start + 2 && !escapedExpression) {
+            if (expression.indexOf("groovy:", start + 2) == start + 2 && !escapedExpression) {
                 // checks to see if this starts with a "groovy:", if so treat the rest of the expression as a groovy scriptlet
                 strElems.add(new ScriptElem(chars, start, Math.min(end + 1, start + length) - start, start + 9, end - start - 9));
             } else {

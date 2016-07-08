@@ -153,12 +153,6 @@ under the License.
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testBsh" engine="bsh" location="component://common/minilang/BshServiceTest.bsh" invoke="">
-        <description>Test BeanShell Script Service</description>
-        <attribute name="message" type="String" mode="IN" optional="true" />
-        <attribute name="result" type="String" mode="OUT" />
-    </service>
-
     <service name="testGroovy" engine="groovy" location="component://common/minilang/GroovyServiceTest.groovy" invoke="">
         <description>Test Groovy Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
@@ -167,12 +161,6 @@ under the License.
 
     <service name="testGroovyMethod" engine="groovy" location="component://common/minilang/GroovyServiceTest.groovy" invoke="testMethod">
         <description>Test Groovy Script Service Method Invocation</description>
-        <attribute name="message" type="String" mode="IN" optional="true"/>
-        <attribute name="result" type="String" mode="OUT"/>
-    </service>
-
-    <service name="testScriptEngineBsh" engine="script" location="component://common/minilang/BshServiceTest.bsh" invoke="">
-        <description>Test BeanShell Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>

@@ -456,9 +456,6 @@ framework/base/lib/jce-jdk13-154.jar
 framework/base/lib/xpp3-1.1.4c.jar
 framework/base/lib/xstream-1.4.9.jar
 framework/base/lib/esapi-2.1.0.jar
-framework/base/lib/scripting/antlr-2.7.6.jar
-framework/base/lib/scripting/asm-3.2.jar
-framework/base/lib/scripting/jline-0.9.94.jar
 
 =========================================================================
 The BSD License

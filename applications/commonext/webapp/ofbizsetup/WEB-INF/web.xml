@@ -38,12 +38,7 @@
         <param-name>mainDecoratorLocation</param-name>
         <param-value>component://commonext/widget/ofbizsetup/CommonScreens.xml</param-value>
     </context-param>
-    <context-param>
-        <description>BeanShell Script Location</description>
-        <param-name>scriptLocationPath</param-name>
-        <param-value>/WEB-INF/bsh</param-value>
-    </context-param>
-    
+
     <filter>
         <display-name>ContextFilter</display-name>
         <filter-name>ContextFilter</filter-name>
