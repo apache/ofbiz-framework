@@ -33,6 +33,10 @@ from the command line at the OFBiz top level directory (folder)
 
 ### Prepare OFBiz:
 
+__Note__: Depending on your Internet connection speed it might take a long
+time for this step to complete if you are using OFBiz for the first time
+as it needs to download all dependencies. So please be patient!
+
 MS Windows:
 `gradlew cleanAll loadDefault`
 
