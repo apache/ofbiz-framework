@@ -451,3 +451,20 @@ import the project to eclipse. This command will generate
 the necessary __.classpath__ and __.project__ files for eclipse.
 
 `gradlew eclipse`
+
+* * * * * * * * * * * *
+
+Useful Tips
+-----------
+
+### Gradle tab-completion on Unix-like systems:
+
+To get tab completion (auto complete gradle commands by pressing tab)
+you can download the script from the below link and place it in the
+appropriate location for your system.
+
+[Gradle tab completion](https://gist.github.com/nolanlawson/8694399)
+
+For example, on debian based systems, you can use the following command:
+
+`sudo curl -L -s https://gist.github.com/nolanlawson/8694399/raw/gradle-tab-completion.bash -o /etc/bash_completion.d/gradle-tab-completion.bash`
