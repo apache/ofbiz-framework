@@ -8,6 +8,7 @@ hot-deploy/*/build
 specialpurpose/*/build
 applications/content/index/
 bin/
+build/
 ofbiz.jar
 changelog
 runtime/git-rebase/*
@@ -41,5 +42,8 @@ desktop.ini
 .*.swp
 .*.swo
 *.patch
+.classpath
+.project
 .settings
+.gradle/
 .groovy

@@ -34,7 +34,10 @@ allprojects {
 }
 subprojects {
     configurations {
-        ofbizPluginLibs
+        // compile-time plugin libraries
+        pluginLibsCompile
+        // runtime plugin libraries
+        pluginLibsRuntime
     }
 }
 
@@ -49,11 +52,134 @@ configurations {
 dependencies {
 
     // general framework libs
+    compile 'apache-httpclient:commons-httpclient:3.1'
+    compile 'apache-xerces:resolver:2.9.1'
+    compile 'apache-xerces:xercesImpl:2.9.1'
+    compile 'avalon-framework:avalon-framework-impl:4.2.0'
+    compile 'bouncycastle:bouncycastle-jce-jdk13:112'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.0'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.4.2'
+    compile 'com.google.guava:guava:19.0'
+    compile 'com.google.zxing:core:3.2.1'
+    compile 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.0'
+    compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20160628.1'
+    compile 'com.ibm.icu:icu4j:57.1'
+    compile 'com.lowagie:itext:2.1.7'
+    compile 'com.sun.mail:javax.mail:1.5.1'
+    compile 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
+    compile 'com.thoughtworks.xstream:xstream:1.4.9'
+    compile 'commons-beanutils:commons-beanutils-core:1.8.3'
     compile 'commons-cli:commons-cli:1.3.1'
+    compile 'commons-codec:commons-codec:1.10'
+    compile 'commons-el:commons-el:1.0'
+    compile 'commons-fileupload:commons-fileupload:1.3.1'
+    compile 'commons-io:commons-io:2.4'
+    compile 'commons-logging:commons-logging:1.2'
+    compile 'commons-net:commons-net:3.3'
+    compile 'commons-validator:commons-validator:1.5.1'
+    compile 'de.odysseus.juel:juel-impl:2.2.7'
+    compile 'de.odysseus.juel:juel-spi:2.2.7'
+    compile 'httpunit:httpunit:1.7'
+    compile 'javax.el:javax.el-api:3.0.1-b04'
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.0'
+    compile 'javolution:javolution:5.4.3'
+    compile 'junit:junit-dep:4.10'
+    compile 'jython:jython:2.1'
+    compile 'net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11'
+    compile 'net.sf.barcode4j:barcode4j-fop-ext-complete:2.0'
+    compile 'net.sf.dozer:dozer:4.2.1'
+    compile 'net.sf.ezmorph:ezmorph:0.9.1'
+    compile 'net.sourceforge.nekohtml:nekohtml:1.9.16'
+    compile 'org.apache.ant:ant-apache-bsf:1.9.0'
+    compile 'org.apache.ant:ant-junit:1.9.0'
+    compile 'org.apache.ant:ant-launcher:1.9.0'
+    compile 'org.apache.axis2:axis2-adb:1.7.1'
+    compile 'org.apache.axis2:axis2-kernel:1.7.1'
+    compile 'org.apache.axis2:axis2-transport-http:1.7.1'
+    compile 'org.apache.axis2:axis2-transport-local:1.7.1'
+    compile 'org.apache.bsf:com.springsource.org.apache.bsf:2.4.0'
+    compile 'org.apache.commons:commons-collections4:4.1'
+    compile 'org.apache.commons:commons-compress:1.11'
+    compile 'org.apache.commons:commons-csv:1.1'
+    compile 'org.apache.commons:commons-dbcp2:2.1'
+    compile 'org.apache.commons:commons-pool2:2.3'
+    compile 'org.apache.derby:derby:10.11.1.1'
+    compile 'org.apache.geronimo.components:geronimo-transaction:3.1.1'
+    compile 'org.apache.geronimo.specs:geronimo-activation_1.0.2_spec:1.0'
+    compile 'org.apache.geronimo.specs:geronimo-j2ee-connector_1.5_spec:2.0.0'
+    compile 'org.apache.geronimo.specs:geronimo-jaxr_1.0_spec:1.0'
+    compile 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:1.1'
+    compile 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
+    compile 'org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1'
+    compile 'org.apache.geronimo.specs:geronimo-saaj_1.3_spec:1.1'
+    compile 'org.apache.httpcomponents:httpclient-cache:4.4.1'
+    compile 'org.apache.httpcomponents:httpcore:4.4.1'
+    compile 'org.apache.logging.log4j:log4j-1.2-api:2.3'
+    compile 'org.apache.logging.log4j:log4j-api:2.3'
+    compile 'org.apache.logging.log4j:log4j-core:2.3'
+    compile 'org.apache.logging.log4j:log4j-nosql:2.3'
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.3'
+    compile 'org.apache.neethi:neethi:3.0.3'
+    compile 'org.apache.pdfbox:fontbox:1.8.11'
+    compile 'org.apache.pdfbox:jempbox:1.8.11'
+    compile 'org.apache.pdfbox:pdfbox:1.8.12'
+    compile 'org.apache.poi:poi:3.14'
+    compile 'org.apache.servicemix.bundles:org.apache.servicemix.bundles.xpp3:1.1.4c_7'
+    compile 'org.apache.shiro:shiro-core:1.2.5'
+    compile 'org.apache.tika:tika-core:1.12'
+    compile 'org.apache.tika:tika-parsers:1.12'
+    compile 'org.apache.tomcat:tomcat-annotations-api:7.0.54'
+    compile 'org.apache.tomcat:tomcat-api:8.0.33'
+    compile 'org.apache.tomcat:tomcat-catalina-ha:8.0.33'
+    compile 'org.apache.tomcat:tomcat-catalina:8.0.33'
+    compile 'org.apache.tomcat:tomcat-coyote:8.0.33'
+    compile 'org.apache.tomcat:tomcat-jasper:8.0.33'
+    compile 'org.apache.tomcat:tomcat-jni:8.0.33'
+    compile 'org.apache.tomcat:tomcat-tribes:8.0.33'
+    compile 'org.apache.tomcat:tomcat-util-scan:8.0.33'
+    compile 'org.apache.tomcat:tomcat-util:8.0.33'
+    compile 'org.apache.tomcat.embed:tomcat-embed-websocket:8.0.33'
+    compile 'org.apache.tomcat.extras:tomcat-extras-juli-adapters:8.0.33'
+    compile 'org.apache.tomcat.extras:tomcat-extras-juli:8.0.33'
+    compile 'org.apache.woden:woden-core:1.0M10'
+    compile 'org.apache.ws.commons.axiom:axiom-api:1.2.17'
+    compile 'org.apache.ws.commons.axiom:axiom-impl:1.2.17'
+    compile 'org.apache.ws.commons.util:ws-commons-util:1.0.2'
+    compile 'org.apache.ws.xmlschema:xmlschema-core:2.2.1'
+    compile 'org.apache.xalan:com.springsource.org.apache.xml.serializer:2.7.1'
+    compile 'org.apache.xmlgraphics:fop:2.1'
+    compile 'org.apache.xmlgraphics:xmlgraphics-commons:2.1'
+    compile 'org.apache.xmlrpc:xmlrpc-client:3.1.2'
+    compile 'org.apache.xmlrpc:xmlrpc-common:3.1.2'
+    compile 'org.apache.xmlrpc:xmlrpc-server:3.1.2'
+    compile 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
+    compile 'org.codehaus.groovy:groovy-all:2.4.5'
+    compile 'org.dom4j:com.springsource.org.dom4j:1.6.1'
+    compile 'org.eclipse.jdt.core.compiler:ecj:4.5'
+    compile 'org.freemarker:freemarker:2.3.24-incubating'
+    compile 'org.hamcrest:hamcrest-all:1.3'
+    compile 'org.jdom:jdom:1.1'
+    compile 'org.lucee:commons-lang:2.6.0'
+    compile 'org.slf4j:slf4j-api:1.6.4'
+    compile 'org.springframework:spring-core:4.2.3.RELEASE'
+    compile 'org.springframework:spring-test:4.2.3.RELEASE'
+    compile 'org.zapodot:jackson-databind-java-optional:2.4.2'
+    compile 'oro:oro:2.0.8'
+    compile 'ws-commons-java5:ws-commons-java5:1.0.1'
+    compile 'wsdl4j:wsdl4j:1.6.2'
+    compile 'xalan:xalan:2.7.2'
+    compile 'xml-apis:xml-apis-ext:1.3.04'
+    compile 'xml-apis:xml-apis:1.4.01'
+
+    compile ('org.owasp.esapi:esapi:2.1.0') {
+        exclude group: 'org.beanshell', module: 'bsh-core'
+    }
 
     // plugin libs
     subprojects.each { subProject ->
-        compile project(path: subProject.path, configuration: 'ofbizPluginLibs')
+        compile project(path: subProject.path, configuration: 'pluginLibsCompile')
+        runtime project(path: subProject.path, configuration: 'pluginLibsRuntime')
     }
 
     // libs needed for junitreport
@@ -166,7 +292,7 @@ task loadAdminUserLogin(group: ofbizServer) {
     }
     dependsOn executeLoadAdminUser
     doLast {
-        delete("${projectDir}/runtime/tmpe/AdminUserLoginData.xml")
+        delete("${projectDir}/runtime/tmp/AdminUserLoginData.xml")
     }
 }
 
@@ -247,22 +373,22 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
         ['--load-data', 'file=/runtime/tmp/tmpFilteredTenantData.xml'],
         jvmArguments, false)
     loadTenantOnDefaultDelegator.dependsOn(generateDatabaseTemplateFile, generateAdminUserTemplateFile)
-    
+
     // Load the actual tenant data
     createOfbizCommandTask('loadTenantData', [], jvmArguments, false)
     loadTenantData.dependsOn(loadTenantOnDefaultDelegator)
-    
+
     // Load the tenant admin user account
     createOfbizCommandTask('loadTenantAdminUserLogin', [], jvmArguments, false)
     loadTenantAdminUserLogin.dependsOn(loadTenantData)
-    
+
     /* pass arguments to tasks, must be done this way
      * because we are in the configuration phase. We cannot
      * set the parameters at the execution phase. */
     if(project.hasProperty('tenantId')) {
         loadTenantData.args '--load-data'
         loadTenantData.args "delegator=default#${tenantId}"
-        
+
         loadTenantAdminUserLogin.args '--load-data'
         loadTenantAdminUserLogin.args "delegator=default#${tenantId}"
         loadTenantAdminUserLogin.args '--load-data'
@@ -272,7 +398,7 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
         loadTenantData.args '--load-data'
         loadTenantData.args "readers=${tenantReaders}"
     }
-    
+
     dependsOn(loadTenantAdminUserLogin)
 
     // cleanup
@@ -386,12 +512,18 @@ gradle.taskGraph.afterTask { Task task, TaskState state ->
     }
 }
 
-// remove sources from subprojects
+// remove sources of subprojects since compilation is centralized
 eclipse.classpath.file.whenMerged { classpath ->
     iterateOverActiveComponents { component ->
         classpath.entries.removeAll { entry ->
             entry.kind == 'src' && entry.path == '/' + component.toString().tokenize('/').last()
         }
+    }
+    classpath.entries.removeAll { entry ->
+        entry.kind == 'src' &&
+            entry.path == '/framework' ||
+            entry.path == '/applications' ||
+            entry.path == '/specialpurpose'
     }
 }
 // remove eclipse files before regenerating them
