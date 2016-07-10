@@ -25,8 +25,6 @@ import org.apache.tools.ant.filters.ReplaceTokens
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
-evaluationDependsOnChildren()
-
 allprojects {
     repositories{
         jcenter()
