@@ -560,7 +560,6 @@ task cleanXtra(group: cleanupGroup, description: 'Clean extra generated files li
 }
 task cleanGradle(group: cleanupGroup, description: 'clean generated files from gradle') << {
     delete file('.gradle')
-    delete file('build/libs/ofbiz-base-test.jar')
 }
 
 def cleanTasks = getTasksMatchingRegex(/^clean.+/)
