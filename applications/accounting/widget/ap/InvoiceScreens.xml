@@ -170,8 +170,8 @@ under the License.
                 <script location="component://accounting/groovyScripts/ap/invoices/CommissionRun.groovy"/>
                 
                 <!-- asmselect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
-                <set field="asm_multipleSelectForm"  value="CommissionRun"/>
-                <set field="asm_multipleSelect"  value="CommissionRun_partyId"/>
+                <set field="asm_multipleSelectForm" value="CommissionRun"/>
+                <set field="asm_multipleSelect" value="CommissionRun_partyId"/>
                 <set field="asm_formSize" value="700"/>
                 <set field="asm_listItemPercentOfForm" value="95"/>
                 <set field="asm_sortable" value="false"/>
@@ -180,7 +180,7 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                        
+                    <decorator-section name="body">
                         <platform-specific><html><html-template location="component://common/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
                         <section>
                             <widgets>
