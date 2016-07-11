@@ -54,10 +54,6 @@ under the License.
             location="main-rmi" invoke="testScv">
         <implements service="testScv"/>
     </service>
-    <service name="testRmiFail" engine="rmi" validate="false"
-            location="main-rmi" invoke="testBsh">
-        <implements service="testScv"/>
-    </service> -->
 
     <service name="testRollback" engine="java" export="true" validate="false"
             location="org.ofbiz.common.CommonServices" invoke="testRollbackListener">
