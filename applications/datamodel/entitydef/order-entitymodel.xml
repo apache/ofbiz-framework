@@ -1982,7 +1982,8 @@ under the License.
       <field name="statusId" type="id"></field>
       <field name="custRequestId" type="id"></field>
       <field name="custRequestItemSeqId" type="id"></field>
-      <field name="statusDatetime" type="date-time"></field>
+      <field name="statusDate" type="date-time"></field>
+      <field name="changeByUserLoginId" type="id-vlong"></field>
       <prim-key field="custRequestStatusId"/>
       <relation type="one" fk-name="CUST_REQST_STTS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
@@ -1993,6 +1994,9 @@ under the License.
       <relation type="one-nofk" rel-entity-name="CustRequestItem">
         <key-map field-name="custRequestId"/>
         <key-map field-name="custRequestItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="CUST_RQSTTS_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
+          <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
       </relation>
     </entity>
     <entity entity-name="CustRequestType"

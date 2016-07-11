@@ -451,17 +451,6 @@ under the License.
         <check-errors/>
     </simple-method>
 
-    <simple-method method-name="createCustRequestStatus" short-description="Create Customer Request Status">
-        <make-value value-field="newEntity" entity-name="CustRequestStatus"/>
-        <sequenced-id sequence-name="CustRequestStatus" field="newEntity.custRequestStatusId"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.statusDatetime">
-            <now-timestamp field="nowTimestamp"/>
-            <set from-field="nowTimestamp" field="newEntity.statusDatetime"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
     <simple-method method-name="setCustRequestStatus" short-description="change the customer request Status">
         <entity-one entity-name="CustRequest" value-field="custRequest"/>
         <if-not-empty field="custRequest">
@@ -505,7 +494,8 @@ under the License.
         </if-not-empty>
         <now-timestamp field="custRequest.lastModifiedDate"/>
         <store-value value-field="custRequest"/>
-        <call-simple-method method-name="createCustRequestStatus"/>
+        <set-service-fields service-name="createCustRequestStatus" map="parameters" to-map="rqMap"/>
+        <call-service service-name="createCustRequestStatus" in-map-name="rqMap"/>
     </simple-method>
 
     <simple-method method-name="createCustRequestFromCommEvent" short-description="Create a Customer request from a commEvent(email)">
