@@ -89,7 +89,7 @@ public class GroovyUtil {
             Debug.logVerbose("Using Context -- " + context, module);
         }
         try {
-            GroovyShell shell = new GroovyShell(getBinding(context));
+            GroovyShell shell = new GroovyShell(getBinding(context, expression));
             o = shell.evaluate(StringUtil.convertOperatorSubstitutions(expression));
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Evaluated to -- " + o, module);
@@ -107,6 +107,8 @@ public class GroovyUtil {
     /** Returns a <code>Binding</code> instance initialized with the
      * variables contained in <code>context</code>. If <code>context</code>
      * is <code>null</code>, an empty <code>Binding</code> is returned.
+     * <p>The expression is parsed to initiate non existing variable
+     * in <code>Binding</code> to null for GroovyShell evaluation.
      * <p>The <code>context Map</code> is added to the <code>Binding</code>
      * as a variable called "context" so that variables can be passed
      * back to the caller. Any variables that are created in the script
@@ -116,10 +118,16 @@ public class GroovyUtil {
      * @param context A <code>Map</code> containing initial variables
      * @return A <code>Binding</code> instance
      */
-    public static Binding getBinding(Map<String, Object> context) {
+    public static Binding getBinding(Map<String, Object> context, String expression) {
         Map<String, Object> vars = new HashMap<String, Object>();
         if (context != null) {
             vars.putAll(context);
+            if (UtilValidate.isNotEmpty(expression)) {
+                //analyse expression to find variables by split non alpha, ignoring "_" to allow my_variable usage
+                String [] variables = expression.split("[\\P{Alpha}&&[^_]]+");
+                for (String variable: variables)
+                    if(!vars.containsKey(variable)) vars.put(variable, null);
+            }
             vars.put("context", context);
             if (vars.get(ScriptUtil.SCRIPT_HELPER_KEY) == null) {
                 ScriptContext scriptContext = ScriptUtil.createScriptContext(context);
@@ -130,6 +138,10 @@ public class GroovyUtil {
             }
         }
         return new Binding(vars);
+    }
+
+    public static Binding getBinding(Map<String, Object> context) {
+        return getBinding(context, null);
     }
 
     public static Class<?> getScriptClassFromLocation(String location) throws GeneralException {

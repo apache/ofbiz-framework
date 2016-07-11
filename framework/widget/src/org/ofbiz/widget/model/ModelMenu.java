@@ -490,8 +490,8 @@ public class ModelMenu extends ModelWidget {
      * @param writer The Writer that the menu text will be written to
      * @param context Map containing the menu context; the following are
      *   reserved words in this context: parameters (Map), isError (Boolean),
-     *   itemIndex (Integer, for lists only, otherwise null), bshInterpreter,
-     *   menuName (String, optional alternate name for menu, defaults to the
+     *   itemIndex (Integer, for lists only, otherwise null), menuName
+     *   (String, optional alternate name for menu, defaults to the
      *   value of the name attribute)
      * @param menuStringRenderer An implementation of the MenuStringRenderer
      *   interface that is responsible for the actual text generation for

@@ -86,7 +86,7 @@ under the License.
                 <if-has-permission permission="EXAMPLE" action="_VIEW"/>
             </condition>
             <actions>
-                <!-- these are only needed so that when bsh evaluates use-when attributes these will exist and not cause an error -->
+                <!-- these are only needed so that when groovy evaluates use-when attributes these will exist and not cause an error -->
                 <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="exampleId" from-field="parameters.exampleId"/>
