@@ -1399,6 +1399,7 @@ under the License.
       <field name="statusId" type="id-ne"></field>
       <field name="shipmentId" type="id-ne"></field>
       <field name="statusDate" type="date-time"></field>
+      <field name="changeByUserLoginId" type="id-vlong"/>
       <prim-key field="statusId"/>
       <prim-key field="shipmentId"/>
       <relation type="one" fk-name="SHPMNT_STTS_STTS" rel-entity-name="StatusItem">
@@ -1406,6 +1407,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="SHPMNT_STTS_SHMT" rel-entity-name="Shipment">
         <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_STTS_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
+          <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
       </relation>
     </entity>
     <entity entity-name="ShipmentType"
