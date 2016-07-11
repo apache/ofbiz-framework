@@ -260,7 +260,7 @@ def committerGroup = 'OFBiz committers'
 
 task loadDefault(group: ofbizServer) {
     dependsOn 'ofbiz --load-data'
-    description 'Load all data; meant for OFBiz development, testing, and demo purposes'
+    description 'Load default data; meant for OFBiz development, testing, and demo purposes'
 }
 
 task testIntegration(group: ofbizServer) {
