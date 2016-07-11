@@ -31,8 +31,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.ofbiz.base.util.BshUtil;
+import org.codehaus.groovy.control.CompilationFailedException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilGenerics;
@@ -52,9 +53,6 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.renderer.FormStringRenderer;
 import org.w3c.dom.Element;
-
-import bsh.EvalError;
-import bsh.Interpreter;
 
 /**
  * Abstract base class for the &lt;form&gt; and &lt;grid&gt; elements.
@@ -892,15 +890,6 @@ public abstract class ModelForm extends ModelWidget {
         return autoFieldsServices;
     }
 
-    public Interpreter getBshInterpreter(Map<String, Object> context) throws EvalError {
-        Interpreter bsh = (Interpreter) context.get("bshInterpreter");
-        if (bsh == null) {
-            bsh = BshUtil.makeInterpreter(context);
-            context.put("bshInterpreter", bsh);
-        }
-        return bsh;
-    }
-
     @Override
     public String getBoundaryCommentName() {
         return formLocation + "#" + getName();
@@ -1319,10 +1308,8 @@ public abstract class ModelForm extends ModelWidget {
     public String getStyleAltRowStyle(Map<String, Object> context) {
         String styles = "";
         try {
-            // use the same Interpreter (ie with the same context setup) for all evals
-            Interpreter bsh = this.getBshInterpreter(context);
             for (AltRowStyle altRowStyle : this.altRowStyles) {
-                Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(altRowStyle.useWhen));
+                Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(altRowStyle.useWhen),context);
                 // retVal should be a Boolean, if not something weird is up...
                 if (retVal instanceof Boolean) {
                     Boolean boolVal = (Boolean) retVal;
@@ -1334,8 +1321,8 @@ public abstract class ModelForm extends ModelWidget {
                             + retVal.getClass().getName() + " [" + retVal + "] of form " + getName());
                 }
             }
-        } catch (EvalError e) {
-            String errmsg = "Error evaluating BeanShell style conditions on form " + getName();
+        } catch (CompilationFailedException e) {
+            String errmsg = "Error evaluating groovy style conditions on form " + getName();
             Debug.logError(e, errmsg, module);
             throw new IllegalArgumentException(errmsg);
         }
@@ -1356,11 +1343,9 @@ public abstract class ModelForm extends ModelWidget {
             expanderContext = UtilCodec.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder);
         }
         try {
-            // use the same Interpreter (ie with the same context setup) for all evals
-            Interpreter bsh = this.getBshInterpreter(context);
             for (AltTarget altTarget : this.altTargets) {
                 String useWhen = FlexibleStringExpander.expandString(altTarget.useWhen, context);
-                Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(useWhen));
+                Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhen),context);
                 boolean condTrue = false;
                 // retVal should be a Boolean, if not something weird is up...
                 if (retVal instanceof Boolean) {
@@ -1375,8 +1360,8 @@ public abstract class ModelForm extends ModelWidget {
                     return altTarget.targetExdr.expandString(expanderContext);
                 }
             }
-        } catch (EvalError e) {
-            String errmsg = "Error evaluating BeanShell target conditions on form " + getName();
+        } catch (CompilationFailedException e) {
+            String errmsg = "Error evaluating Groovy target conditions on form " + getName();
             Debug.logError(e, errmsg, module);
             throw new IllegalArgumentException(errmsg);
         }

@@ -36,12 +36,13 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 
+import org.codehaus.groovy.control.CompilationFailedException;
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.DateTimeConverters;
 import org.ofbiz.base.conversion.DateTimeConverters.StringToTimestamp;
-import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilCodec;
@@ -76,9 +77,6 @@ import org.ofbiz.widget.renderer.FormStringRenderer;
 import org.ofbiz.widget.renderer.MenuStringRenderer;
 import org.ofbiz.widget.renderer.ScreenRenderer;
 import org.w3c.dom.Element;
-
-import bsh.EvalError;
-import bsh.Interpreter;
 
 /**
  * Models the &lt;field&gt; element.
@@ -845,8 +843,7 @@ public class ModelFormField {
             return true;
 
         try {
-            Interpreter bsh = this.modelForm.getBshInterpreter(context);
-            Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(useWhenStr));
+            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhenStr),context);
             boolean condTrue = false;
             // retVal should be a Boolean, if not something weird is up...
             if (retVal instanceof Boolean) {
@@ -859,11 +856,10 @@ public class ModelFormField {
             }
 
             return condTrue;
-        } catch (EvalError e) {
-            String errMsg = "Error evaluating BeanShell use-when condition [" + useWhenStr + "] on the field " + this.name
+        } catch (CompilationFailedException e) {
+            String errMsg = "Error evaluating groovy use-when condition [" + useWhenStr + "] on the field " + this.name
                     + " of form " + this.modelForm.getName() + ": " + e.toString();
             Debug.logError(e, errMsg, module);
-            //Debug.logError("For use-when eval error context is: " + context, module);
             throw new IllegalArgumentException(errMsg);
         }
     }
@@ -3698,13 +3694,8 @@ public class ModelFormField {
             String useWhen = this.getUseWhen(context);
             if (UtilValidate.isNotEmpty(useWhen)) {
                 try {
-                    Interpreter bsh = (Interpreter) context.get("bshInterpreter");
-                    if (bsh == null) {
-                        bsh = BshUtil.makeInterpreter(context);
-                        context.put("bshInterpreter", bsh);
-                    }
-
-                    Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(useWhen));
+                    Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhen),context);
+                    boolean condTrue = false;
 
                     // retVal should be a Boolean, if not something weird is up...
                     if (retVal instanceof Boolean) {
@@ -3714,8 +3705,8 @@ public class ModelFormField {
                         throw new IllegalArgumentException("Return value from target condition eval was not a Boolean: "
                                 + retVal.getClass().getName() + " [" + retVal + "]");
                     }
-                } catch (EvalError e) {
-                    String errmsg = "Error evaluating BeanShell target conditions";
+                } catch (CompilationFailedException e) {
+                    String errmsg = "Error evaluating Groovy target conditions";
                     Debug.logError(e, errmsg, module);
                     throw new IllegalArgumentException(errmsg);
                 }
@@ -3730,13 +3721,8 @@ public class ModelFormField {
         if (UtilValidate.isEmpty(ignoreWhen)) return false;
 
         try {
-            Interpreter bsh = (Interpreter) context.get("bshInterpreter");
-            if (bsh == null) {
-                bsh = BshUtil.makeInterpreter(context);
-                context.put("bshInterpreter", bsh);
-            }
-
-            Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(ignoreWhen));
+            Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(ignoreWhen),context);
+            boolean condTrue = false;
 
             if (retVal instanceof Boolean) {
                 shouldIgnore =(Boolean) retVal;
@@ -3744,7 +3730,7 @@ public class ModelFormField {
                 throw new IllegalArgumentException("Return value from ignore-when condition eval was not a Boolean: "  + (retVal != null ? retVal.getClass().getName() : "null") + " [" + retVal + "] on the field " + this.name + " of form " + this.modelForm.getName());
             }
 
-        } catch (EvalError e) {
+        } catch (CompilationFailedException e) {
             String errMsg = "Error evaluating BeanShell ignore-when condition [" + ignoreWhen + "] on the field " + this.name + " of form " + this.modelForm.getName() + ": " + e.toString();
             Debug.logError(e, errMsg, module);
             throw new IllegalArgumentException(errMsg);

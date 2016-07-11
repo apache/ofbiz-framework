@@ -321,7 +321,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 List<Map<String, ? extends Object>> nodeTrail = UtilGenerics.checkList(traverseContext.get("nodeTrail"));
                 int indentSz = indent.intValue() + nodeTrail.size();
                 assocContext.put("indentObj", Integer.valueOf(indentSz));
-                isPick = ContentWorker.checkWhen(assocContext, (String)whenMap.get("pickWhen"));
+                isPick = ContentWorker.checkWhen(assocContext, (String)whenMap.get("pickWhen"), true);
                 return isPick;
             }
 

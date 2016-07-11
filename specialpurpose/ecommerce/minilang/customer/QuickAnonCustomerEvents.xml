@@ -64,7 +64,7 @@ under the License.
                     <process field="password"><copy to-field="currentPassword"/><not-empty><fail-property resource="PartyUiLabels" property="PartyPasswordMissing"/></not-empty></process>
                     <process field="confirmPassword">
                         <compare-field operator="equals" field="password"><fail-property resource="PartyUiLabels" property="PartyPasswordMatchError"/></compare-field>
-                        <!-- This is checked below in the checkNewPassword method in the bsh block: <not-empty><fail-property resource="PartyUiLabels" property="PartyEnterPasswordTwice"/></not-empty> -->
+                        <!-- This is checked below in the checkNewPassword method in the block: <not-empty><fail-property resource="PartyUiLabels" property="PartyEnterPasswordTwice"/></not-empty> -->
                         <copy to-field="currentPasswordVerify"/>
                     </process>
                     <process field="passwordHint"><copy to-field="passwordHint"/></process>

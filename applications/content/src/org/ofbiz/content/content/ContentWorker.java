@@ -31,8 +31,9 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.ofbiz.base.util.BshUtil;
+import org.codehaus.groovy.control.CompilationFailedException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilCodec;
@@ -63,7 +64,6 @@ import org.ofbiz.service.ServiceUtil;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import bsh.EvalError;
 import freemarker.ext.dom.NodeModel;
 
 /**
@@ -493,8 +493,8 @@ public class ContentWorker implements org.ofbiz.widget.content.ContentWorkerInte
             context.put("topics", topics);
             context.put("keywords", keywords);
             context.put("typeAncestry", contentTypeAncestry);
-            boolean isPick = checkWhen(context, (String) whenMap.get("pickWhen"));
-            boolean isReturnBefore = checkReturnWhen(context, (String) whenMap.get("returnBeforePickWhen"));
+            boolean isPick = checkWhen(context, (String) whenMap.get("pickWhen"), true);
+            boolean isReturnBefore = checkWhen(context, (String) whenMap.get("returnBeforePickWhen"), false);
             Map<String, Object> thisNode = null;
             if (isPick || !isReturnBefore) {
                 thisNode = new HashMap<String, Object>();
@@ -512,7 +512,7 @@ public class ContentWorker implements org.ofbiz.widget.content.ContentWorkerInte
                 pickList.add(content);
                 thisNode.put("value", content);
             }
-            boolean isReturnAfter = checkReturnWhen(context, (String) whenMap.get("returnAfterPickWhen"));
+            boolean isReturnAfter = checkWhen(context, (String) whenMap.get("returnAfterPickWhen"), false);
             if (!isReturnAfter) {
                 List<String> assocTypes = new LinkedList<String>();
                 List<GenericValue> relatedAssocs = getContentAssocsWithId(delegator, contentId, fromDate, thruDate, direction, assocTypes);
@@ -536,7 +536,7 @@ public class ContentWorker implements org.ofbiz.widget.content.ContentWorkerInte
                         relatedDirection = "To";
                     }
 
-                    boolean isFollow = checkWhen(assocContext, (String) whenMap.get("followWhen"));
+                    boolean isFollow = checkWhen(assocContext, (String) whenMap.get("followWhen"), true);
                     if (isFollow) {
                         GenericValue thisContent = assocValue.getRelatedOne(assocRelation, false);
                         traverse(delegator, thisContent, fromDate, thruDate, whenMap, depthIdx + 1, thisNode, contentAssocTypeId, pickList, relatedDirection);
@@ -735,34 +735,29 @@ public class ContentWorker implements org.ofbiz.widget.content.ContentWorkerInte
         }
     }
 
-    public static boolean checkWhen(Map<String, Object> context, String whenStr) {
-        boolean isWhen = true; //opposite default from checkReturnWhen
-        if (UtilValidate.isNotEmpty(whenStr)) {
-            FlexibleStringExpander fse = FlexibleStringExpander.getInstance(whenStr);
-            String newWhen = fse.expandString(context);
-            //if (Debug.infoOn()) Debug.logInfo("newWhen:" + newWhen,null);
-            //if (Debug.infoOn()) Debug.logInfo("context:" + context,null);
-            try {
-                Boolean isWhenObj = (Boolean) BshUtil.eval(newWhen, context);
-                isWhen = isWhenObj.booleanValue();
-            } catch (EvalError e) {
-                Debug.logError("Error in evaluating :" + whenStr + " : " + e.getMessage(), null);
-                throw new RuntimeException(e.getMessage());
-            }
-        }
-        //if (Debug.infoOn()) Debug.logInfo("isWhen:" + isWhen,null);
-        return isWhen;
-    }
-
-    public static boolean checkReturnWhen(Map<String, Object> context, String whenStr) {
-        boolean isWhen = false; //opposite default from checkWhen
+    /** Returns a boolean, result of whenStr evaluation with context.
+     * If whenStr is empty return defaultReturn.
+     * @param context A <code>Map</code> containing initial variables
+     * @param whenStr A <code>String</code> condition expression
+     * @param defaultReturn A <code>boolean</code> default return value
+     * @return A <code>boolan</code> result of evaluation
+     */
+    public static boolean checkWhen(Map<String, Object> context, String whenStr, boolean defaultReturn) {
+        boolean isWhen = defaultReturn;
         if (UtilValidate.isNotEmpty(whenStr)) {
             FlexibleStringExpander fse = FlexibleStringExpander.getInstance(whenStr);
             String newWhen = fse.expandString(context);
             try {
-                Boolean isWhenObj = (Boolean) BshUtil.eval(newWhen, context);
-                isWhen = isWhenObj.booleanValue();
-            } catch (EvalError e) {
+                Object retVal = GroovyUtil.eval(newWhen,context);
+                // retVal should be a Boolean, if not something weird is up...
+                if (retVal instanceof Boolean) {
+                    Boolean boolVal = (Boolean) retVal;
+                    isWhen = boolVal.booleanValue();
+                } else {
+                    throw new IllegalArgumentException("Return value from use-when condition eval was not a Boolean: "
+                            + (retVal != null ? retVal.getClass().getName() : "null") + " [" + retVal + "]");
+                }
+            } catch (CompilationFailedException e) {
                 Debug.logError("Error in evaluating :" + whenStr + " : " + e.getMessage(), null);
                 throw new RuntimeException(e.getMessage());
             }
@@ -1280,13 +1275,13 @@ public class ContentWorker implements org.ofbiz.widget.content.ContentWorkerInte
         } catch (GenericEntityException e) {
         }
         context.put("typeAncestry", contentTypeAncestry);
-        boolean isReturnBefore = checkReturnWhen(context, (String)whenMap.get("returnBeforePickWhen"));
+        boolean isReturnBefore = checkWhen(context, (String)whenMap.get("returnBeforePickWhen"), false);
         trailNode.put("isReturnBefore", Boolean.valueOf(isReturnBefore));
-        boolean isPick = checkWhen(context, (String)whenMap.get("pickWhen"));
+        boolean isPick = checkWhen(context, (String)whenMap.get("pickWhen"), true);
         trailNode.put("isPick", Boolean.valueOf(isPick));
-        boolean isFollow = checkWhen(context, (String)whenMap.get("followWhen"));
+        boolean isFollow = checkWhen(context, (String)whenMap.get("followWhen"), true);
         trailNode.put("isFollow", Boolean.valueOf(isFollow));
-        boolean isReturnAfter = checkReturnWhen(context, (String)whenMap.get("returnAfterPickWhen"));
+        boolean isReturnAfter = checkWhen(context, (String)whenMap.get("returnAfterPickWhen"), false);
         trailNode.put("isReturnAfter", Boolean.valueOf(isReturnAfter));
         trailNode.put("checked", Boolean.TRUE);
     }

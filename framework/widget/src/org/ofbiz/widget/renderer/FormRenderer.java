@@ -223,8 +223,8 @@ public class FormRenderer {
      * @param writer The Writer that the form text will be written to
      * @param context Map containing the form context; the following are
      *   reserved words in this context: parameters (Map), isError (Boolean),
-     *   itemIndex (Integer, for lists only, otherwise null), bshInterpreter,
-     *   formName (String, optional alternate name for form, defaults to the
+     *   itemIndex (Integer, for lists only, otherwise null), formName
+     *   (String, optional alternate name for form, defaults to the
      *   value of the name attribute)
      */
     public void render(Appendable writer, Map<String, Object> context)
@@ -731,9 +731,6 @@ public class FormRenderer {
                     continue;
                 }
 
-                // reset/remove the BshInterpreter now as well as later because chances are there is an interpreter at this level of the stack too
-                this.resetBshInterpreter(context);
-
                 Map<String, Object> itemMap = UtilGenerics.checkMap(item);
                 MapStack<String> localContext = MapStack.create(context);
                 if (UtilValidate.isNotEmpty(modelForm.getListEntryName())) {
@@ -749,8 +746,6 @@ public class FormRenderer {
                     }
                 }
 
-                // reset/remove the BshInterpreter now as well as later because chances are there is an interpreter at this level of the stack too
-                this.resetBshInterpreter(localContext);
                 localContext.push();
                 localContext.put("previousItem", previousItem);
                 previousItem = new HashMap<String, Object>();
@@ -762,8 +757,6 @@ public class FormRenderer {
                 if (UtilValidate.isNotEmpty(context.get("renderFormSeqNumber"))) {
                     localContext.put("formUniqueId", "_" + context.get("renderFormSeqNumber"));
                 }
-
-                this.resetBshInterpreter(localContext);
 
                 if (Debug.verboseOn())
                     Debug.logVerbose("In form got another row, context is: " + localContext, module);
@@ -1226,10 +1219,6 @@ public class FormRenderer {
         if (!modelForm.getSkipEnd())
             formStringRenderer.renderFormClose(writer, context, modelForm);
 
-    }
-
-    private void resetBshInterpreter(Map<String, Object> context) {
-        context.remove("bshInterpreter");
     }
 
     private static <X> X safeNext(Iterator<X> iterator) {
