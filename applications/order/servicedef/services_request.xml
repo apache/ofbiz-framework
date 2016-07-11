@@ -202,6 +202,13 @@ under the License.
         <override name="content" allow-html="any"/>
     </service>
 
+    <service name="createCustRequestStatus" engine="entity-auto" default-entity-name="CustRequestStatus" invoke="create" auth="true">
+        <description>Create a Cust Request Status Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="custRequestStatusId" mode="OUT" optional="false"/>
+    </service>
+
     <!-- custRequest content services -->
     <service name="createCustRequestContent" engine="simple"
         location="component://order/minilang/request/CustRequestServices.xml"
