@@ -234,6 +234,16 @@ sourceSets {
 def jvmArguments = ['-Xms128M', '-Xmx512M']
 ext.ofbizMainClass = 'org.ofbiz.base.start.Start'
 
+jar {
+    manifest {
+        attributes(
+            "Implementation-Title": project.name,
+            "Main-Class": ofbizMainClass,
+            "Class-Path": getJarManifestClasspathForCurrentOs()
+        )
+    }
+}
+
 /* ========================================================
  * Tasks
  * ======================================================== */
@@ -268,7 +278,7 @@ task terminateOfbiz(group: ofbizServer,
             standardOutput = processOutput
         }
         processOutput.toString().split(System.lineSeparator()).each { line ->
-            if(line ==~ /.*java.*/ && line ==~ /.*framework.*/) {
+            if(line ==~ /.*org\.ofbiz\.base\.start\.Start.*/) {
                 exec { commandLine 'kill', '-9', line.tokenize().first() }
             }
         }
@@ -692,11 +702,14 @@ tasks.addRule('Pattern: ofbizBackgroundSecure <Commands>: Execute OFBiz startup 
  * ======================================================== */
 
 def createOfbizCommandTask(taskName, arguments, jvmArguments, isDebugMode) {
-    task(type: JavaExec, taskName) {
-        jvmArgs(jvmArguments)
-        classpath = sourceSets.main.runtimeClasspath
-        main = ofbizMainClass 
+
+    def ofbizJarName = buildDir.toString()+'/libs/'+project.name+'.jar'
+
+    task(type: JavaExec, dependsOn: build, taskName) {
+        jvmArgs(jvmArguments) 
         debug = isDebugMode
+        classpath = files(ofbizJarName)
+        main = ofbizMainClass
         arguments.each { argument ->
             args argument
         }
@@ -807,4 +820,16 @@ def generateFileFromTemplate(templateFileInFullPath, targetDirectory, filterToke
         }
         into targetDirectory
     }
+}
+
+def getJarManifestClasspathForCurrentOs() {
+    def osClassPath = ''
+    if(System.getProperty('os.name').toLowerCase().contains('windows')) {
+        configurations.runtime.files.each { cpEntry ->
+            osClassPath += '\\' + cpEntry.toString() + ' '
+        }
+    } else {
+        osClassPath = configurations.runtime.files.collect { "$it" }.join(' ')
+    }
+    return osClassPath
 }
