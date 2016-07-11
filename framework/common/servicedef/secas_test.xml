@@ -24,10 +24,6 @@ under the License.
         <condition field-name="message" operator="equals" value="auto"/>
         <set field-name="message" value="set message to auto message"/>
     </eca>
-    <eca service="testScv" event="commit">
-        <condition field-name="message" operator="equals" value="12345"/>
-        <action service="testBsh" mode="sync"/>
-    </eca>
     <eca service="testCommit" event="global-commit">
         <action service="testScv" mode="sync"/>
     </eca>

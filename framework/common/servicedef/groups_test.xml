@@ -22,6 +22,5 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-group.xsd">
     <group name="testGroup" send-mode="all">
         <invoke name="testScv" mode="sync"/>
-        <invoke name="testBsh" mode="sync"/>
     </group>
 </service-group>

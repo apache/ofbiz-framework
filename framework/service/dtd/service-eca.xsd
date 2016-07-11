@@ -264,12 +264,3 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
 </xs:schema>
-<!--
-    <service-eca>
-        <eca service="testBsh" event="commit">
-          <condition field-name="foo" operator="equals" rhs="1"/>
-          <action service="testScv" mode="sync"/>
-          <action service="testScv" mode="sync"/>
-        </eca>
-    </service-eca>
--->
