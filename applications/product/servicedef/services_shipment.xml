@@ -162,6 +162,12 @@ under the License.
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="createShipmentStatus" default-entity-name="ShipmentStatus" engine="entity-auto" invoke="create" auth="true">
+        <description>Create Shipment Status</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="statusDate" mode="IN" optional="true"/>
+    </service>
     <service name="setShipmentSettingsFromPrimaryOrder" engine="simple"
             location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="setShipmentSettingsFromPrimaryOrder" auth="true">
         <description>Set Shipment Settings From Primary Order</description>
