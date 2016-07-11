@@ -441,6 +441,7 @@ under the License.
         <field name="statusId" type="id"></field>
         <field name="statusDate" type="date-time"></field>
         <field name="statusEndDate" type="date-time"></field>
+        <field name="changeByUserLoginId" type="id-vlong"/>
         <prim-key field="finAccountId"/>
         <prim-key field="statusId"/>
         <prim-key field="statusDate"/>
@@ -449,6 +450,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="FINACT_STTS_STI" rel-entity-name="StatusItem">
             <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" fk-name="FINACT_STTS_USER" rel-entity-name="UserLogin">
+            <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
         </relation>
     </entity>
     <entity entity-name="FinAccountTrans" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transaction Entity">

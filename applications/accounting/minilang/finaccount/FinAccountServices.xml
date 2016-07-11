@@ -152,27 +152,6 @@ under the License.
         <remove-value value-field="finAccount"/>
     </simple-method>
 
-    <simple-method method-name="createFinAccountStatus" short-description="Create FinAccountStatus">
-        <now-timestamp field="nowTimestamp"/>
-
-        <!-- find the most recent status record and set the statusEndDate -->
-        <entity-and entity-name="FinAccountStatus" list="oldFinAccountStatusList">
-            <field-map field-name="finAccountId" from-field="parameters.finAccountId"/>
-            <order-by field-name="-statusDate"/>
-        </entity-and>
-        <first-from-list entry="oldFinAccountStatus" list="oldFinAccountStatusList"/>
-        <if-not-empty field="oldFinAccountStatus">
-            <set field="oldFinAccountStatus.statusEndDate" from-field="nowTimestamp"/>
-            <store-value value-field="oldFinAccountStatus"/>
-        </if-not-empty>
-
-        <make-value entity-name="FinAccountStatus" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set field="newEntity.statusDate" from-field="nowTimestamp"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
     <!-- FinAccountTrans Services -->
     <simple-method method-name="createFinAccountTrans" short-description="Create a Financial Account Transaction">
         <entity-one entity-name="FinAccount" value-field="finAccount"/>
