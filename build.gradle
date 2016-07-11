@@ -808,12 +808,6 @@ def getTasksMatchingRegex(theRegex) {
     return filteredTasks
 }
 
-def retrievePropsFromFile(propsFile) {
-    def props = new Properties()
-    file(propsFile).withReader { props.load(it) }
-    return props
-}
-
 def generateFileFromTemplate(templateFileInFullPath, targetDirectory, filterTokens, newFileName) {
     copy {
         from (templateFileInFullPath) {
