@@ -63,13 +63,13 @@ under the License.
         <description>Update FinAccount.availableBalance based on a new FinAccountAuth; meant to be called as an EECA as it is for data maintenance</description>
         <attribute name="finAccountAuthId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="createFinAccountStatus" default-entity-name="FinAccountStatus" engine="simple"
-        location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createFinAccountStatus" auth="true">
+    <service name="createFinAccountStatus" default-entity-name="FinAccountStatus" engine="entity-auto" invoke="create" auth="true">
         <description>Create a FinAccountStatus</description>
         <auto-attributes include="all" mode="IN" optional="false">
-            <exclude field-name="statusDate"/>
             <exclude field-name="statusEndDate"/>
+            <exclude field-name="changeByUserLoginId"/>
         </auto-attributes>
+        <override name="statusDate" optional="true" mode="IN"/>
     </service>
 
     <!-- Financial Account Transaction -->

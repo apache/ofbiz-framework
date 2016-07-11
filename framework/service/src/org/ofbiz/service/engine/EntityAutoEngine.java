@@ -35,6 +35,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.finder.PrimaryKeyFinder;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelParam;
@@ -321,6 +322,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 newEntity.set("changedDate", UtilDateTime.nowTimestamp());
             }
         }
+
         if (modelEntity.getField("changeByUserLoginId") != null) {
             GenericValue userLogin = (GenericValue) parameters.get("userLogin");
             if (userLogin != null) {
@@ -328,10 +330,28 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             } else {
                 throw new GenericServiceException("You call a creation on entity that require the userLogin to track the activity, please controle that your service definition has auth='true'");
             }
+
             //Oh changeByUserLoginId detected, check if an EntityStatus concept
             if (modelEntity.getEntityName().endsWith("Status")) {
                 if (modelEntity.getField("statusDate") != null && parameters.get("statusDate") == null) {
                     newEntity.set("statusDate", UtilDateTime.nowTimestamp());
+
+                    //if a statusEndDate is present, resolve the last EntityStatus to store this value on the previous element
+                    if (modelEntity.getField("statusEndDate") != null) {
+                        ModelEntity relatedEntity = dctx.getDelegator().getModelEntity(modelEntity.getEntityName().replaceFirst("Status", ""));
+                        if (relatedEntity != null) {
+                            Map<String, Object> conditionRelatedPkFieldMap = new HashMap<String, Object>();
+                            for (String pkRelatedField : relatedEntity.getPkFieldNames()) {
+                                conditionRelatedPkFieldMap.put(pkRelatedField, parameters.get(pkRelatedField));
+                            }
+                            GenericValue previousStatus = EntityQuery.use(newEntity.getDelegator()).from(modelEntity.getEntityName())
+                                    .where(conditionRelatedPkFieldMap).orderBy("-statusDate").queryFirst();
+                            if (previousStatus != null) {
+                                previousStatus.put("statusEndDate", newEntity.get("statusDate"));
+                                previousStatus.store();
+                            }
+                        }
+                    }
                 }
             }
         }
