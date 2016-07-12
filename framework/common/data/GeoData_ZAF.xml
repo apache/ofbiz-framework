@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="EC" geoCode="01" geoId="ZAF-01" geoName="The Eastern Cape" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="FS" geoCode="02" geoId="ZAF-02" geoName="The Free State" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="GP" geoCode="03" geoId="ZAF-03" geoName="Gauteng" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="KZN" geoCode="04" geoId="ZAF-04" geoName="KwaZulu-Natal" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="LP" geoCode="05" geoId="ZAF-05" geoName="Limpopo" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="MP" geoCode="06" geoId="ZAF-06" geoName="Mpumalanga" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="NC" geoCode="07" geoId="ZAF-07" geoName="The Northern Cape" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="NW" geoCode="08" geoId="ZAF-08" geoName="North West" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="WC" geoCode="09" geoId="ZAF-09" geoName="The Western Cape" geoTypeId="PROVINCE"/>
+
+    <!-- Associations -->
+    <GeoAssoc geoId="ZAF" geoIdTo="ZAF-01" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ZAF" geoIdTo="ZAF-02" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ZAF" geoIdTo="ZAF-03" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ZAF" geoIdTo="ZAF-04" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ZAF" geoIdTo="ZAF-05" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ZAF" geoIdTo="ZAF-06" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ZAF" geoIdTo="ZAF-07" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ZAF" geoIdTo="ZAF-08" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ZAF" geoIdTo="ZAF-09" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
