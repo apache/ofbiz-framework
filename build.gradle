@@ -189,7 +189,7 @@ dependencies {
     getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
         compile fileTree(dir: libDir, include: '**/*.jar')
     }
-    runtime files("${projectDir}/build/libs/ofbiz-base-test.jar")
+    runtime files("${rootDir}/build/libs/ofbiz-base-test.jar")
 }
 
 def excludedJavaSources = []
@@ -294,15 +294,15 @@ task loadAdminUserLogin(group: ofbizServer) {
         jvmArguments, false)
     executeLoadAdminUser.doFirst {
         copy {
-            from ("${projectDir}/framework/resources/templates/AdminUserLoginData.xml") {
+            from ("${rootDir}/framework/resources/templates/AdminUserLoginData.xml") {
                 filter(ReplaceTokens, tokens: [userLoginId: userLoginId])
             }
-            into "${projectDir}/runtime/tmp/"
+            into "${rootDir}/runtime/tmp/"
         }
     }
     dependsOn executeLoadAdminUser
     doLast {
-        delete("${projectDir}/runtime/tmp/AdminUserLoginData.xml")
+        delete("${rootDir}/runtime/tmp/AdminUserLoginData.xml")
     }
 }
 
@@ -333,7 +333,7 @@ task loadTenant(group: ofbizServer, description: 'Load data using tenantId') {
 
 task createTenant(group: ofbizServer, description: 'Create a new tenant in your environment') {
 
-    def databaseTemplateFile = "${projectDir}/framework/resources/templates/AdminNewTenantData-Derby.xml"
+    def databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Derby.xml"
 
     task prepareAndValidateTenantArguments << {
         if(!project.hasProperty('tenantId')) {
@@ -345,13 +345,13 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
         // dbPlatform values: D(Derby), M(MySQL), O(Oracle), P(PostgreSQL) (default D)
         if(project.hasProperty('dbPlatform')) {
             if(dbPlatform == 'D') {
-                databaseTemplateFile = "${projectDir}/framework/resources/templates/AdminNewTenantData-Derby.xml"
+                databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Derby.xml"
             } else if(dbPlatform == 'M') {
-                databaseTemplateFile = "${projectDir}/framework/resources/templates/AdminNewTenantData-MySQL.xml"
+                databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-MySQL.xml"
             } else if(dbPlatform == 'O') {
-                databaseTemplateFile = "${projectDir}/framework/resources/templates/AdminNewTenantData-Oracle.xml"
+                databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Oracle.xml"
             } else if(dbPlatform == 'P') {
-                databaseTemplateFile = "${projectDir}/framework/resources/templates/AdminNewTenantData-PostgreSQL.xml"
+                databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-PostgreSQL.xml"
             } else {
                 throw new GradleException('Invalid value for property dbPlatform: ' + "${dbPlatform}")
             }
@@ -372,7 +372,7 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
     task generateAdminUserTemplateFile(dependsOn: prepareAndValidateTenantArguments) << {
         generateFileFromTemplate(
-            "${projectDir}/framework/resources/templates/AdminUserLoginData.xml",
+            "${rootDir}/framework/resources/templates/AdminUserLoginData.xml",
             'runtime/tmp',
             ['userLoginId': "${tenantId}-admin".toString()],
             'tmpFilteredUserLogin.xml')
@@ -402,7 +402,7 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
         loadTenantAdminUserLogin.args '--load-data'
         loadTenantAdminUserLogin.args "delegator=default#${tenantId}"
         loadTenantAdminUserLogin.args '--load-data'
-        loadTenantAdminUserLogin.args 'file=runtime/tmp/tmpFilteredUserLogin.xml'
+        loadTenantAdminUserLogin.args "file=${rootDir}/runtime/tmp/tmpFilteredUserLogin.xml"
     }
     if(project.hasProperty('tenantReaders')) {
         loadTenantData.args '--load-data'
@@ -413,8 +413,8 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
     // cleanup
     doLast {
-        delete("${projectDir}/runtime/tmp/tmpFilteredTenantData.xml")
-        delete("${projectDir}/runtime/tmp/tmpFilteredUserLogin.xml")
+        delete("${rootDir}/runtime/tmp/tmpFilteredTenantData.xml")
+        delete("${rootDir}/runtime/tmp/tmpFilteredUserLogin.xml")
     }
 }
 
@@ -425,8 +425,8 @@ task createComponent(group: sysadminGroup, description: 'Create the layout of an
         'component-resource-name': componentResourceName,
         'webapp-name': webappName,
         'base-permission': basePermission]
-    def templateDir = "${projectDir}/framework/resources/templates"
-    def componentDir = "${projectDir}/hot-deploy/${componentName}"
+    def templateDir = "${rootDir}/framework/resources/templates"
+    def componentDir = "${rootDir}/hot-deploy/${componentName}"
 
     logger.info('Creating a component with the following properties: ')
     logger.info(" - componentName: ${componentName}")
@@ -496,7 +496,7 @@ task createComponent(group: sysadminGroup, description: 'Create the layout of an
     generateFileFromTemplate(templateDir+"/Forms.xml", componentDir+"/widget",
         filterTokens, "${componentResourceName}Forms.xml")
 
-    logger.info("Component successfully created in folder ${projectDir}/hot-deploy/${componentName}.")
+    logger.info("Component successfully created in folder ${rootDir}/hot-deploy/${componentName}.")
     logger.info("Restart OFBiz and then visit the URL: https://localhost:8443/${webappName}")
 }
 
@@ -535,43 +535,48 @@ eclipse.classpath.file.whenMerged { classpath ->
             entry.path == '/applications' ||
             entry.path == '/specialpurpose'
     }
+    getDirectoryInActiveComponentsIfExists('config').each { configDir ->
+        classpath.entries.removeAll { entry ->
+            entry.kind == 'src' && entry.path == (configDir.toString() - rootDir.toString() - '/')
+        }
+    }
 }
 // remove eclipse files before regenerating them
 tasks.eclipse.dependsOn(cleanEclipse)
 
 // ========== Clean up tasks ==========
 task cleanCatalina(group: cleanupGroup, description: 'Clean Catalina data in runtime/catalina/work') << {
-    delete './runtime/catalina/work'
+    delete "${rootDir}/runtime/catalina/work"
 }
 task cleanData(group: cleanupGroup, description: 'Clean all DB data (Derby) under runtime/data') << {
-    deleteAllInDirWithExclusions('runtime/data/', ['README', 'derby.properties'])
+    deleteAllInDirWithExclusions("${rootDir}/runtime/data/", ['README', 'derby.properties'])
 }
 task cleanDownloads(group: cleanupGroup, description: 'Clean all downloaded files') << {
-    delete fileTree(dir: './framework/base/lib', includes: ['activemq-*.jar'])
-    delete fileTree(dir: './framework/entity/lib/jdbc', includes: ['postgresql-*.jar'])
-    delete fileTree(dir: './framework/entity/lib/jdbc', includes: ['mysql-*.jar'])
+    delete fileTree(dir: "${rootDir}/framework/base/lib", includes: ['activemq-*.jar'])
+    delete fileTree(dir: "${rootDir}/framework/entity/lib/jdbc", includes: ['postgresql-*.jar'])
+    delete fileTree(dir: "${rootDir}/framework/entity/lib/jdbc", includes: ['mysql-*.jar'])
 }
 task cleanLogs(group: cleanupGroup, description: 'Clean all logs in runtime/logs') << {
-    deleteAllInDirWithExclusions('runtime/logs/', ['README'])
+    deleteAllInDirWithExclusions("${rootDir}/runtime/logs/", ['README'])
 }
 task cleanOutput(group: cleanupGroup, description: 'Clean runtime/output directory') << {
-    deleteAllInDirWithExclusions('runtime/output/', ['README'])
+    deleteAllInDirWithExclusions("${rootDir}/runtime/output/", ['README'])
 }
 task cleanIndexes(group: cleanupGroup, description: 'Remove search indexes (e.g. Lucene) from runtime/indexes') << {
-    deleteAllInDirWithExclusions('runtime/indexes/', ['README', 'index.properties'])
+    deleteAllInDirWithExclusions("${rootDir}/runtime/indexes/", ['README', 'index.properties'])
 }
 task cleanTempfiles(group: cleanupGroup, description: 'Remove file in runtime/tempfiles') << {
-    deleteAllInDirWithExclusions('runtime/tempfiles/', ['README'])
-    deleteAllInDirWithExclusions('runtime/tmp/', ['README'])
+    deleteAllInDirWithExclusions("${rootDir}/runtime/tempfiles/", ['README'])
+    deleteAllInDirWithExclusions("${rootDir}/runtime/tmp/", ['README'])
 }
 task cleanUploads(group: cleanupGroup, description: 'Remove uploaded files.') << {
-    deleteAllInDirWithExclusions('runtime/uploads/', [])
+    deleteAllInDirWithExclusions("${rootDir}/runtime/uploads/", [])
 }
 task cleanXtra(group: cleanupGroup, description: 'Clean extra generated files like .rej, .DS_Store, etc.') << {
-    delete fileTree(dir: '.', includes: ['**/.nbattrs', '**/*~','**/.#*', '**/.DS_Store', '**/*.rej', '**/*.orig'])
+    delete fileTree(dir: "${rootDir}", includes: ['**/.nbattrs', '**/*~','**/.#*', '**/.DS_Store', '**/*.rej', '**/*.orig'])
 }
 task cleanGradle(group: cleanupGroup, description: 'clean generated files from gradle') << {
-    delete file('.gradle')
+    delete file("${rootDir}/.gradle")
 }
 
 def cleanTasks = getTasksMatchingRegex(/^clean.+/)
@@ -580,11 +585,11 @@ task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
 }
 
 // ========== Tasks for OFBiz committers ==========
-def websiteDir = "${projectDir}/../site"
+def websiteDir = "${rootDir}/../site"
 task copyDtds(group: committerGroup, description: 'Copy all DTDs from OFBiz instance to website') << {
     mkdir websiteDir+'/dtds'
     copy {
-        from(fileTree("${projectDir}").files) {
+        from(fileTree("${rootDir}").files) {
             include '**/*.xsd'
             exclude '**/002*.xsd'
             exclude '**/068*.xsd'
@@ -600,7 +605,7 @@ task gitInfoFooter(group: committerGroup, description: 'Update the Git Branch-re
     def branch
     def revision
     def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
-    File gitFooterFile = new File("${projectDir}/runtime/GitInfo.ftl")  
+    File gitFooterFile = new File("${rootDir}/runtime/GitInfo.ftl")  
 
     def branchOutput = new ByteArrayOutputStream()
     exec{
@@ -624,7 +629,7 @@ task gitInfoFooter(group: committerGroup, description: 'Update the Git Branch-re
 
 task svnInfoFooter(group: committerGroup, description: 'Update the Subversion revision info in the footer') << {
     def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
-    File svnFooterFile = new File("${projectDir}/runtime/SvnInfo.ftl")
+    File svnFooterFile = new File("${rootDir}/runtime/SvnInfo.ftl")
     def svnOutput = new ByteArrayOutputStream()
     exec{
         commandLine 'svn', 'info', '--xml'
@@ -648,7 +653,7 @@ task svnInfoFooter(group: committerGroup, description: 'Update the Subversion re
  * http://docs.oracle.com/javase/8/docs/technotes/guides/jar/jar.html#Service_Provider
  */
 task createBaseTestServiceProviderJar << {
-    ant.jar(destfile: "${projectDir}/build/libs/ofbiz-base-test.jar") {
+    ant.jar(destfile: "${rootDir}/build/libs/ofbiz-base-test.jar") {
         service(type: 'org.ofbiz.base.util.test.UtilObjectTests$TestFactoryIntf') {
             provider(classname: 'org.ofbiz.base.util.test.UtilObjectTests$FirstTestFactory')
             provider(classname: 'org.ofbiz.base.util.test.UtilObjectTests$SecondTestFactory')
@@ -679,10 +684,10 @@ tasks.addRule('Pattern: ofbizSecure <Commands>: Execute OFBiz startup commands p
     if(taskName ==~ /^ofbizSecure\s.*/ || taskName == 'ofbizSecure') {
         def arguments = (taskName - 'ofbizSecure').toLowerCase().tokenize(' ')
         jvmArguments.add('-server')
-        jvmArguments.add("-javaagent:${projectDir}/tools/security/notsoserial/notsoserial-1.0-SNAPSHOT.jar")
-        jvmArguments.add("-Dnotsoserial.whitelist=${projectDir}/tools/security/notsoserial/empty.txt")
-        jvmArguments.add("-Dnotsoserial.dryrun=${projectDir}/tools/security/notsoserial/is-deserialized.txt")
-        jvmArguments.add("-Dnotsoserial.trace=${projectDir}/tools/security/notsoserial/deserialize-trace.txt")
+        jvmArguments.add("-javaagent:${rootDir}/tools/security/notsoserial/notsoserial-1.0-SNAPSHOT.jar")
+        jvmArguments.add("-Dnotsoserial.whitelist=${rootDir}/tools/security/notsoserial/empty.txt")
+        jvmArguments.add("-Dnotsoserial.dryrun=${rootDir}/tools/security/notsoserial/is-deserialized.txt")
+        jvmArguments.add("-Dnotsoserial.trace=${rootDir}/tools/security/notsoserial/deserialize-trace.txt")
         createOfbizCommandTask(taskName, arguments, jvmArguments, false)
     }
 }
@@ -747,9 +752,9 @@ def createOfbizBackgroundCommandTask(taskName) {
 
 def spawnProcess(command, arguments) {
     ProcessBuilder pb = new ProcessBuilder(command, arguments)
-    File consoleLog = file("${projectDir}/runtime/logs/console.log");
+    File consoleLog = file("${rootDir}/runtime/logs/console.log");
     
-    pb.directory(file("${projectDir}"))
+    pb.directory(file("${rootDir}"))
     pb.redirectErrorStream(true)
     pb.redirectOutput(ProcessBuilder.Redirect.appendTo(consoleLog))
     pb.start()
@@ -767,23 +772,23 @@ def getDirectoryInActiveComponentsIfExists(String dirName) {
 }
 
 def iterateOverActiveComponents(applyFunction) {
-    def frameworkComponents = new XmlParser().parse('framework/component-load.xml')
-    def applicationsComponents = new XmlParser().parse('applications/component-load.xml')
-    def specialpurposeComponents = new XmlParser().parse('specialpurpose/component-load.xml')
+    def frameworkComponents = new XmlParser().parse("${rootDir}/framework/component-load.xml")
+    def applicationsComponents = new XmlParser().parse("${rootDir}/applications/component-load.xml")
+    def specialpurposeComponents = new XmlParser().parse("${rootDir}/specialpurpose/component-load.xml")
 
-    applyFunction file('framework/start')
+    applyFunction file("${rootDir}/framework/start")
 
     frameworkComponents.children().each { component ->
-        applyFunction file("framework/"+component.@"component-location")
+        applyFunction file("${rootDir}/framework/"+component.@"component-location")
     }
     applicationsComponents.children().each { component ->
-        applyFunction file("applications/"+component.@"component-location")
+        applyFunction file("${rootDir}/applications/"+component.@"component-location")
     }
     specialpurposeComponents.children().each { component ->
-        applyFunction file("specialpurpose/"+component.@"component-location")
+        applyFunction file("${rootDir}/specialpurpose/"+component.@"component-location")
     }
 
-    file('hot-deploy').eachDir { component ->
+    file("${rootDir}/hot-deploy").eachDir { component ->
         applyFunction(component)
     }
 }
