@@ -37,6 +37,11 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
+    <service name="createBudgetStatus" default-entity-name="BudgetStatus" engine="entity-auto" invoke="create" auth="true">
+        <description>Create Budget Status Record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="updateBudgetStatus" default-entity-name="BudgetStatus" engine="simple"
                 location="component://accounting/minilang/budget/BudgetServices.xml" invoke="updateBudgetStatus">
         <description>Update a Budget</description>

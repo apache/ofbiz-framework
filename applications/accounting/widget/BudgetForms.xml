@@ -82,8 +82,9 @@ under the License.
     <form name="BudgetStatus" list-name="budgetStatuses" target="" title="" type="list" separate-columns="true" paginate-target="budgetOverview"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="budgetId"><hidden/></field>
-        <field name="statusDate"><display/></field>
+        <field name="statusDate"><display type="date-time"/></field>
         <field name="statusId" title="${uiLabelMap.AccountingBudgetStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="changeByUserLoginId"><display/></field>
     </form>
     
     <form name="BudgetRoles" type="list" use-row-submit="true" title="" list-name="budgetRoles" paginate-target="BudgetOverview"

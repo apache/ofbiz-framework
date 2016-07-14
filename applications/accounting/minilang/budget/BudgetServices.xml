@@ -40,7 +40,6 @@ under the License.
 
     <!-- update Budget Status -->
     <simple-method method-name="updateBudgetStatus" short-description="Update Budget Status">
-        <now-timestamp field="nowDate"/>
         <entity-and list="budgetStatuses" entity-name="BudgetStatus">
             <field-map field-name="budgetId" from-field="parameters.budgetId"/>
             <order-by field-name="-statusDate"/>
@@ -52,18 +51,12 @@ under the License.
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-not-empty field="statusValidChange">
-                <make-value value-field="newEntity" entity-name="BudgetStatus"/>
-                <set-pk-fields value-field="newEntity" map="parameters"/>
-                <set-nonpk-fields map="parameters" value-field="newEntity"/>
-                <set field="newEntity.statusDate" from-field="nowDate"/>
-                <create-value value-field="newEntity"/>
+                <set-service-fields service-name="createBudgetStatus" to-map="createBudgetStatusMap" map="parameters" mode="IN"/>
+                <call-service service-name="createBudgetStatus" in-map-name="createBudgetStatusMap"/>
             </if-not-empty>
             <else>
-                <make-value value-field="newEntity" entity-name="BudgetStatus"/>
-                <set-pk-fields value-field="newEntity" map="parameters"/>
-                <set-nonpk-fields map="parameters" value-field="newEntity"/>
-                <set field="newEntity.statusDate" from-field="nowDate"/>
-                <create-value value-field="newEntity"/>
+                <set-service-fields service-name="createBudgetStatus" to-map="createBudgetStatusMap" map="parameters" mode="IN"/>
+                <call-service service-name="createBudgetStatus" in-map-name="createBudgetStatusMap"/>
             </else>
         </if-not-empty>
     </simple-method>
