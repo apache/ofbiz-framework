@@ -25,11 +25,22 @@ import org.apache.tools.ant.filters.ReplaceTokens
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
+// java settings
+def jvmArguments = ['-Xms128M', '-Xmx512M']
+ext.ofbizMainClass = 'org.ofbiz.base.start.Start'
+javadoc.failOnError = false
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+// root and subproject settings
+defaultTasks 'build'
+
 allprojects {
     repositories{
         jcenter()
     }
 }
+
 subprojects {
     configurations {
         // compile-time plugin libraries
@@ -39,16 +50,11 @@ subprojects {
     }
 }
 
-defaultTasks 'build'
-
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
-
 configurations {
     junitLibs
 }
-dependencies {
 
+dependencies {
     // general framework libs
     compile 'apache-httpclient:commons-httpclient:3.1'
     compile 'apache-xerces:resolver:2.9.1'
@@ -159,6 +165,7 @@ dependencies {
     compile 'org.hamcrest:hamcrest-all:1.3'
     compile 'org.jdom:jdom:1.1'
     compile 'org.lucee:commons-lang:2.6.0'
+    compile 'org.owasp.esapi:esapi:2.1.0'
     compile 'org.slf4j:slf4j-api:1.6.4'
     compile 'org.springframework:spring-core:4.2.3.RELEASE'
     compile 'org.springframework:spring-test:4.2.3.RELEASE'
@@ -169,10 +176,6 @@ dependencies {
     compile 'xalan:xalan:2.7.2'
     compile 'xml-apis:xml-apis-ext:1.3.04'
     compile 'xml-apis:xml-apis:1.4.01'
-
-    compile ('org.owasp.esapi:esapi:2.1.0') {
-        exclude group: 'org.beanshell', module: 'bsh-core'
-    }
 
     // plugin libs
     subprojects.each { subProject ->
@@ -231,9 +234,6 @@ sourceSets {
     }
 }
 
-def jvmArguments = ['-Xms128M', '-Xmx512M']
-ext.ofbizMainClass = 'org.ofbiz.base.start.Start'
-
 jar {
     manifest {
         attributes(
@@ -244,7 +244,52 @@ jar {
     }
 }
 
-javadoc.failOnError = false
+// Eclipse plugin settings
+eclipse.classpath.file.whenMerged { classpath ->
+    /* The code inside this block removes unnecessary entries
+     * in the .classpath file which are generated automatically
+     * due to the settings in the sourceSets block
+     */
+    def osName = System.getProperty('os.name').toLowerCase()
+    def osDirSeparator = osName.contains('windows') ? '\\' : '/'
+
+    iterateOverActiveComponents { component ->
+        def componentName = component.toString() - rootDir.toString()
+        classpath.entries.removeAll { entry ->
+            // remove any "src" entries in .classpath of the form /componentName
+            entry.kind == 'src' &&
+            entry.path ==~ '.*/+(' + componentName.tokenize(osDirSeparator).last() + ')$'
+        }
+    }
+    classpath.entries.removeAll { entry ->
+        /* remove "src" entries in .classpath named: 
+         *   /framework, /applications, /specialpurpose and /hot-deploy 
+         */
+        entry.kind == 'src' &&
+            entry.path ==~ /(\/+framework)$/ ||
+            entry.path ==~ /(\/+applications)$/ ||
+            entry.path ==~ /(\/+specialpurpose)$/ ||
+            entry.path ==~ /(\/+hot-deploy)$/
+    }
+    getDirectoryInActiveComponentsIfExists('config').each { configDir ->
+        /* remove any "src" entries in .classpath of the form componentName/config
+         *
+         * windows format: \framework\base\config
+         * Unix format: /framework/base/config
+         * .classpath format: framework/base/config
+         *
+         * Must convert both windows and unix to .classpath format to
+         * be able to remove it from the file
+         */
+        def relativeDir = configDir.toString() - rootDir.toString() - osDirSeparator
+        def eclipseConfigSrc = osName.contains('windows') ? relativeDir.replaceAll("\\\\", "/") : relativeDir
+        classpath.entries.removeAll { entry ->
+            entry.kind == 'src' && 
+            entry.path == eclipseConfigSrc
+        }
+    }
+}
+tasks.eclipse.dependsOn(cleanEclipse)
 
 /* ========================================================
  * Tasks
@@ -521,28 +566,6 @@ gradle.taskGraph.afterTask { Task task, TaskState state ->
         tasks.createTestReports.execute()
     }
 }
-
-// remove sources of subprojects since compilation is centralized
-eclipse.classpath.file.whenMerged { classpath ->
-    iterateOverActiveComponents { component ->
-        classpath.entries.removeAll { entry ->
-            entry.kind == 'src' && entry.path == '/' + component.toString().tokenize('/').last()
-        }
-    }
-    classpath.entries.removeAll { entry ->
-        entry.kind == 'src' &&
-            entry.path == '/framework' ||
-            entry.path == '/applications' ||
-            entry.path == '/specialpurpose'
-    }
-    getDirectoryInActiveComponentsIfExists('config').each { configDir ->
-        classpath.entries.removeAll { entry ->
-            entry.kind == 'src' && entry.path == (configDir.toString() - rootDir.toString() - '/')
-        }
-    }
-}
-// remove eclipse files before regenerating them
-tasks.eclipse.dependsOn(cleanEclipse)
 
 // ========== Clean up tasks ==========
 task cleanCatalina(group: cleanupGroup, description: 'Clean Catalina data in runtime/catalina/work') << {

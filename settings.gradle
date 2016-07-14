@@ -39,6 +39,8 @@ def iterateOverActiveComponents(applyFunction) {
 }
 
 iterateOverActiveComponents { File component ->
+    def osName = System.getProperty('os.name').toLowerCase()
+    def osDirSeparator = osName.contains('windows') ? "\\\\" : "/"
     def subProject = (component.toString() - rootDir)
-    include subProject.replaceAll('/', ':')
+    include subProject.replaceAll(osDirSeparator, ':')
 }
