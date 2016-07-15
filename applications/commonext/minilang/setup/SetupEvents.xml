@@ -247,8 +247,8 @@
             <field field="nowTimestamp" type="java.sql.Timestamp"/>
         </call-class-method>
         <set field="curYearString" value="${str:toString(date:year(fromDateStamp, util:defaultTimeZone(), util:defaultLocale()))}"/>
-        <set field="customTimePeriodCtx.fromDate" from-field="fromDateStamp" type="Date"/>
-        <set field="customTimePeriodCtx.thruDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.toSqlDate(endMonth ,endDate , curYearString)}" type="Date"/>
+        <set field="customTimePeriodCtx.fromDate" from-field="fromDateStamp" type="Timestamp"/>
+        <set field="customTimePeriodCtx.thruDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.toSqlDate(endMonth ,endDate , curYearString)}" type="Timestamp"/>
         <set field="customTimePeriodCtx.isClosed" value="N"/>
         <set field="customTimePeriodCtx.organizationPartyId" from-field="tempMap.partyId"/>
         <set field="customTimePeriodCtx.periodName" from-field="curYearString"/>
