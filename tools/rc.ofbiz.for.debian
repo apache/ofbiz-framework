@@ -38,12 +38,6 @@ JAVA_BINARY=/usr/java/j2sdk1.4.2/bin/java
 OFBIZ_HOME=/home/ofbiz/ofbiz
 OFBIZ_LOG=$OFBIZ_HOME/runtime/logs/console.log
 
-# VM Options
-JAVA_VMOPTIONS="-Xms128M -Xmx512M"
-
-# Java arguments
-JAVA_ARGS="-jar ofbiz.jar"
-
 # *nix user ofbiz should run as (you must create this user first)
 OFBIZ_USER=ofbiz
 
@@ -78,8 +72,8 @@ start() {
     cd $OFBIZ_HOME
     umask 007
     /bin/rm -f $OFBIZ_LOG
-    $JAVA_BINARY $JAVA_VMOPTIONS $JAVA_ARGS >>$OFBIZ_LOG 2>>$OFBIZ_LOG&
-    echo success
+    gradlew ofbiz >>$OFBIZ_LOG 2>>$OFBIZ_LOG&
+    echo_success
     return 0
 }
 
@@ -98,20 +92,14 @@ stop() {
     # All clear
     cd $OFBIZ_HOME
     umask 007
-    $JAVA_BINARY $JAVA_VMOPTIONS $JAVA_ARGS -shutdown >>$OFBIZ_LOG
+    gradlew "ofbiz --shutdown" >>$OFBIZ_LOG
     ofbizprocs
     if [ "$OFBIZ_PROCS" != "" ]; then
-        # Let's try to -TERM
-        /bin/kill -TERM $OFBIZ_PROCS
+        gradlew terminateOfbiz
     fi
     ofbizprocs
     if [ "$OFBIZ_PROCS" != "" ]; then
-        # Let's try it the hard way!
-        /bin/kill -9 $OFBIZ_PROCS
-    fi
-    ofbizprocs
-    if [ "$OFBIZ_PROCS" != "" ]; then
-        echo failure
+        echo_failure
         echo
         echo "Some processes could not be stopped:"
         echo $OFBIZ_PROCS
