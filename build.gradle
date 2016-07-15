@@ -222,11 +222,11 @@ excludedJavaSources.add 'org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java'
 sourceSets {
     main {
         java {
-            srcDirs = getDirectoryInActiveComponentsIfExists('src')
+            srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
             exclude excludedJavaSources
         }
         resources {
-            srcDirs = getDirectoryInActiveComponentsIfExists('src')
+            srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
             srcDirs += getDirectoryInActiveComponentsIfExists('config')
             exclude excludedJavaSources
         }
