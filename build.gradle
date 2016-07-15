@@ -175,6 +175,9 @@ dependencies {
     compile 'xalan:xalan:2.7.2'
     compile 'xml-apis:xml-apis-ext:1.3.04'
     compile 'xml-apis:xml-apis:1.4.01'
+    compile 'mysql:mysql-connector-java:5.1.36'
+    compile 'postgresql:postgresql:9.0-801.jdbc4'
+    
 
     // plugin libs
     subprojects.each { subProject ->
