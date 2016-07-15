@@ -90,12 +90,12 @@ case "$cmd" in
 		tail -n $(($1 - 4)) < runtime/merge-state/log.txt.head >> runtime/merge-state/log-message
 		prevRev=$(($rev - 1))
 		svn up
-		svn merge -r "$prevRev:$rev" https://svn.apache.org/repos/asf/ofbiz/trunk 
+		svn merge -r "$prevRev:$rev" https://svn.apache.org/repos/asf/ofbiz/trunk
 		;;
 	(test)
-		./ant clean-all
-		./ant load-demo
-		./ant run-tests
+		./gradlew cleanAll
+		./gradlew loadDefault
+		./gradlew test
 		;;
 	(commit)
 		svn commit -F runtime/merge-state/log-message

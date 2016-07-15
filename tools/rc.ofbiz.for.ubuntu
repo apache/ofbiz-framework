@@ -58,7 +58,7 @@ stop() {
     if [ "$USER" = "$OFBIZUSER" ]; then
         echo "stopping standard /home/$OFBIZUSER/$OFBIZDIR/stopofbiz.sh"
         cd /home/$OFBIZUSER/$OFBIZDIR
-	    MAXCOUNT=10
+        MAXCOUNT=10
         COUNTER=0
         until [ $COUNTER -gt $MAXCOUNT ]; do
              COUNTER=$((COUNTER+1))
@@ -81,9 +81,9 @@ checkUser() {
     if [ "$USER" != "$OFBIZUSER" ]; then
         if [ "$USER" = "" ]; then
             exec su - $OFBIZUSER -c "$0 $1 "
-	    else
-	        exec sudo -u $OFBIZUSER $0 $1 
-	    fi
+        else
+            exec sudo -u $OFBIZUSER $0 $1 
+        fi
         exit $?
     fi
 }

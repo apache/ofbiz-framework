@@ -103,24 +103,24 @@ git_rebase_runner() {
 	fi
 }
 
-run_ant() {
+run_gradlew() {
 	# POSIX [ doesn't deal well when one of the arguments is empty, and
 	# [ doesn't support [ !
 	if [ "z$USE_LOCAL_ANT" = "z" ]; then
-		ant "$@"
+		gradlew "$@"
 	else
-		./ant "$@"
+		./gradlew "$@"
 	fi
 }
 
 standard_cleanup() {
-	run_ant clean-all
+	run_gradlew cleanAll
 }
 install_worker() {
-	run_ant load-demo
+	run_gradlew loadDefault
 }
 fulltestsuite_worker() {
-	run_ant load-demo
-	run_ant run-tests
+	run_gradlew loadDefault
+	run_gradlew test
 }
 #git_rebase_runner 3 fulltestsuite_cleanup fulltestsuite_worker
