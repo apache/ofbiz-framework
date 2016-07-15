@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.content.search;
 
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.lucene.util.Version;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -33,7 +33,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.LocalDispatcher;
-import org.apache.lucene.util.Version;
 
 /**
  * SearchWorker Class
@@ -68,7 +67,7 @@ public final class SearchWorker {
     }
 
     public static String getIndexPath(String path) {
-        String basePath = UtilProperties.getPropertyValue("search", "defaultIndex", "index");
+        String basePath = UtilProperties.getPropertyValue("lucene", "defaultIndex", "index");
         return (UtilValidate.isNotEmpty(path)? basePath + "/" + path: basePath);
     }
 
