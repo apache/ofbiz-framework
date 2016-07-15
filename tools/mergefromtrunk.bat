@@ -56,9 +56,7 @@ goto exit
 
 :tests
 echo on
-ant clean-all
-ant load-demo
-ant run-tests
+gradlew cleanAll loadDefault test
 echo off
 
 echo You can now do the commit by hand if all is OK. The comment grabbed from trunk by the merge is in the file comment.tmp at root
