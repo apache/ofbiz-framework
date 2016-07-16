@@ -17,8 +17,7 @@
  * under the License.
  */
 
-import java.util.*;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.UtilMisc;
 
 // Allow containing screens to specify URL parameters to be included in calendar navigation links
 List urlParameterNames = context.urlParameterNames;

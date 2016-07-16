@@ -17,8 +17,7 @@
  * under the License.
  */
 
-import java.util.*;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.UtilMisc;
 
 facilityId = parameters.get("facilityId");
 fixedAssetId = parameters.get("fixedAssetId");
