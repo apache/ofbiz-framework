@@ -22,7 +22,7 @@ under the License.
 
    <!-- show list of upto 10 Invoices past due for longest duration -->
     <form name="ListReports" type="list" separate-columns="true" title="Invoice List" list-name="invoices" target=""
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true" paginate-target="main">
         <row-actions>
             <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
                 <field-map field-name="partyId" from-field="partyIdFrom"/>
