@@ -21,7 +21,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <#if !giftCard??>
-      <h3>${uiLabelMap.AccountingCreateNewGiftCard}</h3>
+      <h3>${uiLabelMap.AccountingCreateGiftCard}</h3>
     <#else>
       <h3>${uiLabelMap.AccountingEditGiftCard}</h3>
     </#if>
