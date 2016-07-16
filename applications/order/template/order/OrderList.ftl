@@ -87,7 +87,7 @@ under the License.
             <td>&nbsp;&nbsp;</td>
             <td nowrap="nowrap">
                 <div>
-                    <label><input type="checkb<input type="checkbox" name="viewall" value="Y" id="allcheck" <#if state.hasAllStatus()>checked="checked"</#if> />${uiLabelMap.CommonAll}</label>
+                    <label><input type="checkbox" name="viewall" value="Y" id="allcheck" <#if state.hasAllStatus()>checked="checked"</#if> />${uiLabelMap.CommonAll}</label>
                     <label><input type="checkbox" name="viewcreated" value="Y" class="statuscheck" <#if state.hasStatus('viewcreated')>checked="checked"</#if> />${uiLabelMap.CommonCreated}</label>
                     <label><input type="checkbox" name="viewprocessing" value="Y" class="statuscheck" <#if state.hasStatus('viewprocessing')>checked="checked"</#if> />${uiLabelMap.CommonProcessing}</label>
                     <label><input type="checkbox" name="viewapproved" value="Y" class="statuscheck" <#if state.hasStatus('viewapproved')>checked="checked"</#if> />${uiLabelMap.CommonApproved}</label>
