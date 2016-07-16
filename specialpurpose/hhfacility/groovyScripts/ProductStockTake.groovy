@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-
 productId = request.getParameter("productId");
 if (!productId) {
     productId = session.getAttribute("productId");
