@@ -41,7 +41,6 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import freemarker.core.Environment;
 import freemarker.template.TemplateTransformModel;
 
-//import com.clarkware.profiler.Profiler;
 /**
  * WrapSubContentCacheTransform - Freemarker Transform for URLs (links)
  *
@@ -95,14 +94,10 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
         FreeMarkerWorker.getSiteParameters(request, templateCtx);
         final Map<String, Object> savedValuesUp = new HashMap<String, Object>();
         FreeMarkerWorker.saveContextValues(templateCtx, upSaveKeyNames, savedValuesUp);
-        //if (Debug.infoOn()) Debug.logInfo("in Wrap(0a), savedValuesUp ." + savedValuesUp , module);
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
-        //if (Debug.infoOn()) Debug.logInfo("in Wrap(0b), savedValuesUp ." + savedValuesUp , module);
         final String wrapTemplateId = (String)templateCtx.get("wrapTemplateId");
-        //if (Debug.infoOn()) Debug.logInfo("in WrapSubContent, wrapTemplateId(1):" + wrapTemplateId, module);
         final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateCtx.get("globalNodeTrail"));
-        //if (Debug.infoOn()) Debug.logInfo("in WrapSubContent, trail(0):" + trail, "");
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
         Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
@@ -112,7 +107,6 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
         } catch (GeneralException e) {
             throw new RuntimeException("Error getting current content. " + e.toString());
         }
-                //if (Debug.infoOn()) Debug.logInfo("in WrapSubContent, trail(1):" + trail, "");
         final GenericValue view = val;
 
         String dataResourceId = null;
@@ -136,7 +130,6 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
         }
         final Map<String, Object> savedValues = new HashMap<String, Object>();
         FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
-        //if (Debug.infoOn()) Debug.logInfo("in Wrap(1), savedValues ." + savedValues , module);
         // This order is taken so that the mimeType can be overridden in the transform arguments.
         String mimeTypeId = ContentWorker.getMimeTypeId(delegator, view, templateCtx);
         templateCtx.put("drDataResourceId", dataResourceId);
@@ -161,16 +154,10 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
             @Override
             public void close() throws IOException {
                 FreeMarkerWorker.reloadValues(templateCtx, savedValues, env);
-                //if (Debug.infoOn()) Debug.logInfo("in Wrap(2), savedValues ." + savedValues , module);
                 String wrappedContent = buf.toString();
 
-                //if (view != null && Debug.infoOn()) Debug.logInfo("in WrapSubContent, view(2):" + view.get("contentId"), module);
-                //if (Debug.infoOn()) Debug.logInfo("in WrapSubContent, wrappedContent:" + wrappedContent, module);
-                //if (Debug.infoOn()) Debug.logInfo("in WrapSubContent, wrapTemplateId(2):" + wrapTemplateId, module);
                 if (UtilValidate.isNotEmpty(wrapTemplateId)) {
                     templateCtx.put("wrappedContent", wrappedContent);
-
-                    //Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
                     Map<String, Object> templateRoot = null;
                     Map<String, Object> templateRootTemplate = UtilGenerics.checkMap(templateCtx.get("templateRootTemplate"));
                     if (templateRootTemplate == null) {
@@ -186,9 +173,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
                     String mimeTypeId = (String)templateCtx.get("mimeTypeId");
                     Locale locale = null;
                     try {
-                        //if (Debug.infoOn()) Debug.logInfo("in Edit(0), before calling renderContentAsText ." , module);
                         ContentWorker.renderContentAsText(dispatcher, delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
-                        //if (Debug.infoOn()) Debug.logInfo("in Edit(0), after calling renderContentAsText ." , module);
                     } catch (IOException e) {
                         Debug.logError(e, "Error rendering content" + e.getMessage(), module);
                         throw new IOException("Error rendering content" + e.toString());
@@ -197,7 +182,6 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
                         throw new IOException("Error rendering content" + e2.toString());
                     }
                     FreeMarkerWorker.reloadValues(templateCtx, savedValuesUp, env);
-                    //if (Debug.infoOn()) Debug.logInfo("in Wrap(2), savedValuesUp ." + savedValuesUp , module);
                 }
             }
         };

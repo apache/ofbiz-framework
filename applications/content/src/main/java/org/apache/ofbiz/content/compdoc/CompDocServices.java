@@ -77,7 +77,6 @@ public class CompDocServices {
         Locale locale = (Locale)context.get("locale");
         GenericValue userLogin = (GenericValue)context.get("userLogin");
         String contentId = (String)context.get("contentId");
-        //String instanceContentId = null;
 
         if (UtilValidate.isNotEmpty(contentId)) {
             try {
@@ -105,8 +104,6 @@ public class CompDocServices {
 
             contentId = (String) persistContentResult.get("contentId");
             result.putAll(persistContentResult);
-            //request.setAttribute("contentId", contentId);
-            // Update ContentRevision and ContentRevisonItem
 
             Map<String, Object> contentRevisionMap = new HashMap<String, Object>();
             contentRevisionMap.put("itemContentId", contentId);
@@ -160,14 +157,10 @@ public class CompDocServices {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             Document document = new Document();
             document.setPageSize(PageSize.LETTER);
-            //Rectangle rect = document.getPageSize();
-            //PdfWriter writer = PdfWriter.getInstance(document, baos);
             PdfCopy writer = new PdfCopy(document, baos);
             document.open();
             int pgCnt = 0;
             for (GenericValue contentAssocRevisionItemView : compDocParts) {
-                //String thisContentId = contentAssocRevisionItemView.getString("contentId");
-                //String thisContentRevisionSeqId = contentAssocRevisionItemView.getString("maxRevisionSeqId");
                 String thisDataResourceId = contentAssocRevisionItemView.getString("dataResourceId");
                 GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", thisDataResourceId).queryOne();
                 String inputMimeType = null;
@@ -250,7 +243,6 @@ public class CompDocServices {
                     int n = reader.getNumberOfPages();
                     for (int i=0; i < n; i++) {
                         PdfImportedPage pg = writer.getImportedPage(reader, i + 1);
-                        //cb.addTemplate(pg, left, height * pgCnt);
                         writer.addPage(pg);
                         pgCnt++;
                     }
@@ -292,12 +284,8 @@ public class CompDocServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         try {
-            //Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-            //ByteArrayOutputStream baos = new ByteArrayOutputStream();
             Document document = new Document();
             document.setPageSize(PageSize.LETTER);
-            //Rectangle rect = document.getPageSize();
-            //PdfCopy writer = new PdfCopy(document, baos);
             document.open();
 
             GenericValue dataResource = null;

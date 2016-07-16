@@ -53,8 +53,6 @@ public final class LayoutWorker {
      * and the binary data to be in a field id'd by uploadField.
      */
     public static Map<String, Object> uploadImageAndParameters(HttpServletRequest request, String uploadField) {
-
-        //Debug.logVerbose("in uploadAndStoreImage", "");
         Locale locale = UtilHttp.getLocale(request);
 
         Map<String, Object> results = new HashMap<String, Object>();
@@ -72,7 +70,6 @@ public final class LayoutWorker {
             String errMsg = UtilProperties.getMessage(err_resource,
                     "layoutEvents.no_files_uploaded", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            //Debug.logWarning("[DataEvents.uploadImage] No files uploaded", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(err_resource,
                     "layoutEvents.no_files_uploaded", locale));
         }
@@ -88,7 +85,6 @@ public final class LayoutWorker {
             if (fi.isFormField()) {
                 formInput.put(fieldName, fieldStr);
                 request.setAttribute(fieldName, fieldStr);
-            //Debug.logVerbose("in uploadAndStoreImage, fieldName:" + fieldName + " fieldStr:" + fieldStr, "");
             }
             if (fieldName.equals(uploadField)) {
                 imageFi = fi;
@@ -101,7 +97,6 @@ public final class LayoutWorker {
             String errMsg = UtilProperties.getMessage(err_resource, 
                     "layoutEvents.image_null", UtilMisc.toMap("imageFi", imageFi), locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            //Debug.logWarning("[DataEvents.uploadImage] imageFi(" + imageFi + ") is null", module);
             return null;
         }
 
@@ -109,8 +104,6 @@ public final class LayoutWorker {
         ByteBuffer byteWrap = ByteBuffer.wrap(imageBytes);
         results.put("imageData", byteWrap);
         results.put("imageFileName", imageFi.getName());
-
-        //Debug.logVerbose("in uploadAndStoreImage, results:" + results, "");
         return results;
     }
 

@@ -142,7 +142,6 @@ public class ContentPermissionServices {
         // so I had to write this code to handle both list and strings
         List<String> passedPurposes = UtilGenerics.checkList(context.get("contentPurposeList"));
         String contentPurposeString = (String) context.get("contentPurposeString");
-        //Debug.logInfo("contentPurposeString(b):" + contentPurposeString, "");
         if (UtilValidate.isNotEmpty(contentPurposeString)) {
             List<String> purposesFromString = StringUtil.split(contentPurposeString, "|");
             if (passedPurposes == null) {
@@ -155,11 +154,8 @@ public class ContentPermissionServices {
         // Sometimes permissions need to be checked before an entity is created, so
         // there needs to be a method for setting a purpose list
         auxGetter.setList(passedPurposes);
-        //Debug.logInfo("passedPurposes(b):" + passedPurposes, "");
         List<String> targetOperations = UtilGenerics.checkList(context.get("targetOperationList"));
-        //Debug.logInfo("targetOperations(b):" + targetOperations, "");
         String targetOperationString = (String) context.get("targetOperationString");
-        //Debug.logInfo("targetOperationString(b):" + targetOperationString, "");
         if (UtilValidate.isNotEmpty(targetOperationString)) {
             List<String> operationsFromString = StringUtil.split(targetOperationString, "|");
             if (targetOperations == null) {
@@ -167,12 +163,10 @@ public class ContentPermissionServices {
             }
             targetOperations.addAll(operationsFromString);
         }
-        //Debug.logInfo("targetOperations(c):" + targetOperations, "");
         EntityPermissionChecker.StdPermissionConditionGetter permCondGetter = new EntityPermissionChecker.StdPermissionConditionGetter("ContentPurposeOperation",  "contentOperationId", "roleTypeId", "statusId", "contentPurposeTypeId", "privilegeEnumId");
         permCondGetter.setOperationList(targetOperations);
 
         EntityPermissionChecker.StdRelatedRoleGetter roleGetter = new EntityPermissionChecker.StdRelatedRoleGetter("Content",  "roleTypeId", "contentId", "partyId", "ownerContentId", "ContentRole");
-        //Debug.logInfo("targetOperations(b):" + targetOperations, "");
         List<String> passedRoles = UtilGenerics.checkList(context.get("roleTypeList"));
         if (passedRoles == null) passedRoles = new LinkedList<String>();
         String roleTypeString = (String) context.get("roleTypeString");
@@ -287,9 +281,6 @@ public class ContentPermissionServices {
                     "ContentContentToOrFromIsNull", 
                     UtilMisc.toMap("contentTo", contentTo, "contentFrom", contentFrom), locale));
         }
-        // boolean isMatch = false;
-        // boolean isMatchTo = false;
-        // boolean isMatchFrom = false;
         Map<String, Object> permResults = new HashMap<String, Object>();
 
         // Use the purposes from the from entity for both cases.

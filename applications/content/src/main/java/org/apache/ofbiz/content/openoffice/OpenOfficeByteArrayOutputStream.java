@@ -36,12 +36,10 @@ public class OpenOfficeByteArrayOutputStream extends ByteArrayOutputStream imple
 
     public OpenOfficeByteArrayOutputStream() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public OpenOfficeByteArrayOutputStream(int arg0) {
         super(arg0);
-        // TODO Auto-generated constructor stub
     }
 
 

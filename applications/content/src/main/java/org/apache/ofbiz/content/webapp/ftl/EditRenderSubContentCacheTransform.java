@@ -41,7 +41,6 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import freemarker.core.Environment;
 import freemarker.template.TemplateTransformModel;
 
-//import com.clarkware.profiler.Profiler;
 /**
  * EditRenderSubContentCacheTransform - Freemarker Transform for URLs (links)
  *
@@ -145,13 +144,9 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
             public void close() throws IOException {
                 FreeMarkerWorker.reloadValues(templateCtx, savedValues, env);
                 String wrappedContent = buf.toString();
-                // String editTemplate = (String)templateCtx.get("editTemplate");
-                // if (editTemplate != null && editTemplate.equalsIgnoreCase("true")) {
                 String wrapTemplateId = (String)templateCtx.get("wrapTemplateId");
                 if (UtilValidate.isNotEmpty(wrapTemplateId)) {
                     templateCtx.put("wrappedContent", wrappedContent);
-
-                    //Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
                     Map<String, Object> templateRoot = null;
                     Map<String, Object> templateRootTemplate = UtilGenerics.checkMap(templateCtx.get("templateRootTemplate"));
                     if (templateRootTemplate == null) {
@@ -173,9 +168,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
                     String mimeTypeId = (String)templateCtx.get("mimeTypeId");
                     Locale locale = null;
                     try {
-                        //if (Debug.infoOn()) Debug.logInfo("in Edit(0), before calling renderContentAsTextCache, wrapTemplateId: ." + wrapTemplateId , module);
                         ContentWorker.renderContentAsText(dispatcher, delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
-                        //if (Debug.infoOn()) Debug.logInfo("in Edit(0), after calling renderContentAsTextCache, wrapTemplateId: ." + wrapTemplateId , module);
                     } catch (IOException e) {
                         Debug.logError(e, "Error rendering content" + e.getMessage(), module);
                         throw new IOException("Error rendering content" + e.toString());

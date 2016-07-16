@@ -171,7 +171,6 @@ public class ContentMapFacade implements Map<Object, Object> {
     }
 
     public Set<Object> keySet() {
-        // Debug.logWarning("This method [keySet()] is not completely implemented in ContentMapFacade", module);
         return UtilGenerics.checkSet(mapKeySet);
     }
 
@@ -270,7 +269,6 @@ public class ContentMapFacade implements Map<Object, Object> {
                     }
                 }
                 String contextLink = rh.makeLink(request, response, contentUri, true, false, true);
-                // Debug.logInfo("Made link to content with ID [" + this.contentId + "]: " + contextLink, module);
                 return contextLink;
             } else {
                 return this.contentId;

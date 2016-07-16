@@ -74,7 +74,6 @@ public class ContentServicesComplex {
         String contentId = (String)context.get("contentId");
         String direction = (String)context.get("direction");
         String mapKey = (String)context.get("mapKey");
-        // Boolean nullThruDatesOnly = (Boolean)context.get("nullThruDatesOnly");
         Map<String, Object> results = getAssocAndContentAndDataResourceMethod(delegator, contentId, mapKey, direction, fromDate, thruDate, fromDateStr, thruDateStr, assocTypes, contentTypes);
         return results;
     }
@@ -115,7 +114,6 @@ public class ContentServicesComplex {
         }
         if (thruDate != null) {
             List<EntityExpr> thruList = new LinkedList<EntityExpr>();
-            //thruDate = UtilDateTime.getDayStart(thruDate, daysLater);
 
             EntityExpr thruExpr = EntityCondition.makeCondition("caThruDate", EntityOperator.LESS_THAN, thruDate);
             thruList.add(thruExpr);

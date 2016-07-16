@@ -186,9 +186,6 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
      */
     // TODO: This method is not used and should be removed. amb
     public static String uploadAndStoreImage(HttpServletRequest request, String idField, String uploadField) {
-        //Delegator delegator = (Delegator) request.getAttribute("delegator");
-
-        //String idFieldValue = null;
         ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
         List<FileItem> lst = null;
         Locale locale = UtilHttp.getLocale(request);
@@ -218,7 +215,6 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         byte[] imageBytes = null;
         for (int i = 0; i < lst.size(); i++) {
             fi = lst.get(i);
-            //String fn = fi.getName();
             String fieldName = fi.getFieldName();
             if (fi.isFormField()) {
                 String fieldStr = fi.getString();
@@ -342,7 +338,6 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         String dataResourceId = dataResource.getString("dataResourceId");
         GenericValue imageDataResource = EntityQuery.use(delegator).from("ImageDataResource").where("dataResourceId", dataResourceId).queryOne();
         if (imageDataResource != null) {
-            //b = (byte[]) imageDataResource.get("imageData");
             b = imageDataResource.getBytes("imageData");
         }
         return b;
@@ -454,10 +449,8 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         String mimeType = null;
         if (view != null)
             mimeType = view.getString("drMimeTypeId");
-            //if (Debug.infoOn()) Debug.logInfo("getDataResourceMimeType, mimeType(2):" + mimeType, "");
         if (UtilValidate.isEmpty(mimeType) && UtilValidate.isNotEmpty(dataResourceId)) {
                 GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
-                //if (Debug.infoOn()) Debug.logInfo("getDataResourceMimeType, dataResource(2):" + dataResource, "");
                 mimeType = dataResource.getString("mimeTypeId");
 
         }
@@ -953,7 +946,6 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 Debug.logError(" in renderDataResourceAsHtml(CONTEXT_FILE), got exception:" + e.getMessage(), module);
             }
             UtilIO.copy(in, true, out);
-            //out.flush();
         }
     }
 

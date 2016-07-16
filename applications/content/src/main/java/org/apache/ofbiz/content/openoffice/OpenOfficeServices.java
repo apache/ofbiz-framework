@@ -71,7 +71,6 @@ public class OpenOfficeServices {
         Map results = ServiceUtil.returnSuccess();
         Delegator delegator = dctx.getDelegator();
         XMultiComponentFactory xmulticomponentfactory = null;
-        //String uniqueSeqNum = delegator.getNextSeqId("OOTempDir");
         Timestamp ts = UtilDateTime.nowTimestamp();
         Random random = new Random(ts.getTime());
         String uniqueSeqNum = Integer.toString(Math.abs(random.nextInt()));
@@ -95,11 +94,6 @@ public class OpenOfficeServices {
             byte[] inByteArray = inByteBuffer.array();
 
             // The following line work in linux, but not Windows or Mac environment. It is preferred because it does not use temporary files
-            //OpenOfficeByteArrayInputStream oobais = new OpenOfficeByteArrayInputStream(inByteArray);
-            //Debug.logInfo("Doing convertDocumentByteBuffer, inBytes size is [" + inByteArray.length + "]", module);
-             //OpenOfficeByteArrayOutputStream baos = OpenOfficeWorker.convertOODocByteStreamToByteStream(xmulticomponentfactory, oobais, inputMimeType, outputMimeType);
-
-
             String tempDir = EntityUtilProperties.getPropertyValue("content", "content.temp.dir", delegator);
             fileIn = new File(tempDir + fileInName);
             FileOutputStream fos = new FileOutputStream(fileIn);
@@ -312,11 +306,6 @@ public class OpenOfficeServices {
             propertyvalue[ 0 ] = new PropertyValue();
             propertyvalue[ 0 ].Name = "Hidden";
             propertyvalue[ 0 ].Value = Boolean.valueOf(true);
-            //TODO: Hardcoding opening word documents -- this will need to change.
-            //propertyvalue[ 1 ] = new PropertyValue();
-            //propertyvalue[ 1 ].Name = "FilterName";
-            //propertyvalue[ 1 ].Value = "HTML (StarWriter)";
-
             // Loading the wanted document
             Object objectDocumentToStore = xcomponentloader.loadComponentFromURL(stringUrl, "_blank", 0, propertyvalue);
 
@@ -329,12 +318,7 @@ public class OpenOfficeServices {
             propertyvalue[ 0 ] = new PropertyValue();
             propertyvalue[ 0 ].Name = "URL";
             propertyvalue[ 0 ].Value = stringOriginalFile;
-            // Setting the filter name
-            //propertyvalue[ 1 ] = new PropertyValue();
-            //propertyvalue[ 1 ].Name = "FilterName";
-            //propertyvalue[ 1 ].Value = context.get("convertFilterName");
             XFrame frame = desktop.getCurrentFrame();
-            //XFrame frame = (XFrame) UnoRuntime.queryInterface(XFrame.class, desktop);
             Object dispatchHelperObj = xmulticomponentfactory.createInstanceWithContext("com.sun.star.frame.DispatchHelper", xcomponentcontext);
             XDispatchHelper dispatchHelper = (XDispatchHelper) UnoRuntime.queryInterface(XDispatchHelper.class, dispatchHelperObj);
             XDispatchProvider dispatchProvider = (XDispatchProvider) UnoRuntime.queryInterface(XDispatchProvider.class, frame);
@@ -346,11 +330,6 @@ public class OpenOfficeServices {
             propertyvalue[ 0 ] = new PropertyValue();
             propertyvalue[ 0 ].Name = "Overwrite";
             propertyvalue[ 0 ].Value = Boolean.valueOf(true);
-            // Setting the filter name
-            //propertyvalue[ 1 ] = new PropertyValue();
-            //propertyvalue[ 1 ].Name = "FilterName";
-            //propertyvalue[ 1 ].Value = context.get("convertFilterName");
-
             Debug.logInfo("stringOutFile: "+stringOutFile, module);
             // Storing and converting the document
             xstorable.storeToURL(stringOutFile, propertyvalue);

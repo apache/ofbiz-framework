@@ -228,16 +228,6 @@ public class ContentServices {
      * reflection performance penalty.
      */
     public static Map<String, Object> createContent(DispatchContext dctx, Map<String, ? extends Object> context) {
-        /*
-        context.put("entityOperation", "_CREATE");
-        List targetOperationList = ContentWorker.prepTargetOperationList(context, "_CREATE");
-
-        List contentPurposeList = ContentWorker.prepContentPurposeList(context);
-        context.put("targetOperationList", targetOperationList);
-        context.put("contentPurposeList", contentPurposeList); // for checking permissions
-        //context.put("skipPermissionCheck", null);
-        */
-
         Map<String, Object> result = createContentMethod(dctx, context);
         return result;
     }
@@ -261,7 +251,6 @@ public class ContentServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String contentId = (String) context.get("contentId");
-        //String contentTypeId = (String) context.get("contentTypeId");
 
         if (UtilValidate.isEmpty(contentId)) {
             contentId = delegator.getNextSeqId("Content");
@@ -386,31 +375,6 @@ public class ContentServices {
                 contentIdFrom = contentId;
         }
 
-        /*
-        String deactivateExisting = (String) context.get("deactivateExisting");
-        if (deactivateExisting != null && deactivateExisting.equalsIgnoreCase("true")) {
-            Map andMap = new HashMap<String, Object>();
-            andMap.put("contentIdTo", contentIdTo);
-            andMap.put("contentAssocTypeId", context.get("contentAssocTypeId"));
-
-            String mapKey = (String) context.get("mapKey");
-            if (UtilValidate.isNotEmpty(mapKey)) {
-                andMap.put("mapKey", mapKey);
-            }
-            if (Debug.infoOn()) Debug.logInfo("DEACTIVATING CONTENTASSOC andMap: " + andMap, null);
-
-            List assocList = EntityQuery.use(delegator).from("ContentAssoc").where(andMap).queryList();
-            Iterator iter = assocList.iterator();
-            while (iter.hasNext()) {
-                GenericValue val = (GenericValue) iter.next();
-                if (Debug.infoOn()) Debug.logInfo("DEACTIVATING CONTENTASSOC val: " + val, null);
-
-                val.set("thruDate", UtilDateTime.nowTimestamp());
-                val.store();
-            }
-        }
-        */
-
         GenericValue contentAssoc = delegator.makeValue("ContentAssoc");
         contentAssoc.put("contentId", contentIdFrom);
         contentAssoc.put("contentIdTo", contentIdTo);
@@ -492,8 +456,6 @@ public class ContentServices {
         result.put("contentIdFrom", contentIdFrom);
         result.put("fromDate", contentAssoc.get("fromDate"));
         result.put("contentAssocTypeId", contentAssoc.get("contentAssocTypeId"));
-        //Debug.logInfo("result:" + result, module);
-        //Debug.logInfo("contentAssoc:" + contentAssoc, module);
 
         return result;
     }
@@ -731,15 +693,9 @@ public class ContentServices {
         GenericValue pk = delegator.makeValue("ContentAssoc");
         pk.setAllFields(context, false, null, Boolean.TRUE);
         pk.setAllFields(context, false, "ca", Boolean.TRUE);
-        //String contentIdFrom = (String) context.get("contentId");
-        //String contentIdTo = (String) context.get("contentIdTo");
-        //String contentId = (String) context.get("contentId");
-        //String contentAssocTypeId = (String) context.get("contentAssocTypeId");
-        //Timestamp fromDate = (Timestamp) context.get("fromDate");
 
         GenericValue contentAssoc = null;
         try {
-            //contentAssoc = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", contentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate).queryOne();
             contentAssoc = EntityQuery.use(delegator).from("ContentAssoc").where(pk).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), module);
@@ -837,12 +793,10 @@ public class ContentServices {
             List<GenericValue> relatedAssocs = EntityQuery.use(delegator).from("ContentAssoc")
                     .where(assocExprList)
                     .orderBy("fromDate").filterByDate().queryList();
-            //if (Debug.infoOn()) Debug.logInfo("in deactivateAssocs, relatedAssocs:" + relatedAssocs, module);
 
             for (GenericValue val : relatedAssocs) {
                 val.set("thruDate", nowTimestamp);
                 val.store();
-                //if (Debug.infoOn()) Debug.logInfo("in deactivateAssocs, val:" + val, module);
             }
             results.put("deactivatedList", relatedAssocs);
         } catch (GenericEntityException e) {
@@ -863,8 +817,6 @@ public class ContentServices {
 
         Map<String,Object> templateContext = UtilGenerics.checkMap(context.get("templateContext"));
         String contentId = (String) context.get("contentId");
-        // Timestamp fromDate = (Timestamp) context.get("fromDate");
-        // GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         if (templateContext != null && UtilValidate.isEmpty(contentId)) {
             contentId = (String) templateContext.get("contentId");
@@ -873,10 +825,6 @@ public class ContentServices {
         if (templateContext != null && UtilValidate.isEmpty(mapKey)) {
             mapKey = (String) templateContext.get("mapKey");
         }
-        //String subContentId = (String) context.get("subContentId");
-        //if (templateContext != null && UtilValidate.isEmpty(subContentId)) {
-            //subContentId = (String) templateContext.get("subContentId");
-        //}
         String mimeTypeId = (String) context.get("mimeTypeId");
         if (templateContext != null && UtilValidate.isEmpty(mimeTypeId)) {
             mimeTypeId = (String) templateContext.get("mimeTypeId");
@@ -924,7 +872,6 @@ public class ContentServices {
         Writer out = (Writer) context.get("outWriter");
 
         Map<String,Object> templateContext = UtilGenerics.checkMap(context.get("templateContext"));
-        //GenericValue userLogin = (GenericValue)context.get("userLogin");
         String contentId = (String) context.get("contentId");
         if (templateContext != null && UtilValidate.isEmpty(contentId)) {
             contentId = (String) templateContext.get("contentId");
@@ -997,12 +944,6 @@ public class ContentServices {
                 if (Debug.infoOn()) Debug.logInfo("in publishContent, statusId:" + statusId + " contentStatusId:" + contentStatusId + " privilegeEnumId:" + privilegeEnumId + " contentPrivilegeEnumId:" + contentPrivilegeEnumId, module);
                 // Don't do anything if link was already there
                 if (!isPublished) {
-                    //Map thisResults = dispatcher.runSync("deactivateAssocs", mapIn);
-                    //String errorMsg = ServiceUtil.getErrorMessage(thisResults);
-                    //if (UtilValidate.isNotEmpty(errorMsg)) {
-                    //Debug.logError("Problem running deactivateAssocs. " + errorMsg, "ContentServices");
-                    //return ServiceUtil.returnError(errorMsg);
-                    //}
                     content.put("privilegeEnumId", privilegeEnumId);
                     content.put("statusId", statusId);
                     content.store();
@@ -1066,7 +1007,6 @@ public class ContentServices {
             for (Map.Entry<String, Object> entry : entrySet) {
                 String key = entry.getKey();
                 if (key.startsWith(prefix)) {
-                    // String keyBase = key.substring(prefix.length());
                     Object value = entry.getValue();
                     mapOut.put(key, value);
                 }

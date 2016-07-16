@@ -140,7 +140,6 @@ public class CompDocEvents {
 
     public static String genCompDocPdf(HttpServletRequest request, HttpServletResponse response) {
         String responseStr = "success";
-        //ByteBuffer byteBuffer = null;
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         ServletContext servletContext = session.getServletContext();
@@ -193,14 +192,6 @@ public class CompDocEvents {
 
         ByteArrayInputStream bais = new ByteArrayInputStream(outByteBuffer.array());
 
-        /*
-        try {
-            FileOutputStream fos = new FileOutputStream(FileUtil.getFile("/home/byersa/pdftest.pdf"));
-            fos.write(outByteBuffer.getBytes());
-        } catch (FileNotFoundException e) {
-        } catch (IOException e) {
-        }
-        */
         try {
             UtilHttp.streamContentToBrowser(response, bais, outByteBuffer.limit(), contentType);
         } catch (IOException e) {
@@ -211,7 +202,6 @@ public class CompDocEvents {
     }
     public static String genContentPdf(HttpServletRequest request, HttpServletResponse response) {
         String responseStr = "success";
-        //ByteBuffer byteBuffer = null;
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         ServletContext servletContext = session.getServletContext();
@@ -264,15 +254,6 @@ public class CompDocEvents {
 
         ByteArrayInputStream bais = new ByteArrayInputStream(outByteBuffer.array());
 
-        /*
-        try {
-            FileOutputStream fos = new FileOutputStream(FileUtil.getFile("/home/byersa/pdftest.pdf"));
-            fos.write(outByteBuffer.getBytes());
-            fos.close();
-        } catch (FileNotFoundException e) {
-        } catch (IOException e) {
-        }
-        */
         try {
             UtilHttp.streamContentToBrowser(response, bais, outByteBuffer.limit(), contentType);
         } catch (IOException e) {

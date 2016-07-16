@@ -96,7 +96,6 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         GenericValue subContentDataResourceViewTemp = FreeMarkerWorker.getWrappedObject("subContentDataResourceView", env);
-        //final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         
         ctx.put("mapKey", mapKey);
         ctx.put("subDataResourceTypeIdTemp", subDataResourceTypeIdTemp);
@@ -110,7 +109,6 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         // is gotten here and made available to underlying transforms to save overall
         // processing time.
         GenericValue parentContent = null;
-        //ctx.put("userLogin", userLogin);
         List<String> assocTypes = UtilMisc.toList("SUB_CONTENT");
         Timestamp fromDate = UtilDateTime.nowTimestamp();
         if (subContentDataResourceViewTemp == null) {
@@ -149,19 +147,15 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
             ctx.put("drDataResourceId", dataResourceIdTemp);
             ctx.put("subContentDataResourceView", subContentDataResourceView);
             ctx.put("mimeTypeId", mimeTypeIdTemp);
-            //request.setAttribute("drDataResourceId", subContentDataResourceView.get("drDataResourceId"));
         } else {
             ctx.put("subContentId", null);
             ctx.put("drDataResourceId", null);
             ctx.put("subContentDataResourceView", null);
             ctx.put("mimeTypeId", null);
-            //request.setAttribute("drDataResourceId", null);
         }
 
         final String dataResourceId = dataResourceIdTemp;
         final String subContentIdSub = subContentIdSubTemp;
-        //final GenericValue finalSubContentView = subContentDataResourceView;
-        //final GenericValue content = parentContent;
         final Map<String, Object> templateContext = ctx;
         final String mimeTypeId = mimeTypeIdTemp;
         final String subDataResourceTypeId = subDataResourceTypeIdTemp;
@@ -184,8 +178,6 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
                 if (editTemplate != null && editTemplate.equalsIgnoreCase("true")) {
                     if (UtilValidate.isNotEmpty(wrapTemplateId)) {
                         templateContext.put("wrappedFTL", wrappedFTL);
-                        //ServletContext servletContext = (ServletContext)request.getSession().getServletContext();
-                        //String rootDir = servletContext.getRealPath("/");
                         templateContext.put("webSiteId", webSiteId);
                         templateContext.put("https", https);
                         templateContext.put("rootDir", rootDir);

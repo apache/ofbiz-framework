@@ -121,7 +121,6 @@ In order ta make this service active add the following to the service definition
                              if (counterLine > 1) {
                                 size = line.length();
                                 String check = "\\", checkSubContent = ",", contentName = "", contentNameInprogress = "", data = line.substring(3, size);
-                                //Debug.logInfo("======Data======"+data);
                                 size = data.length();
 
                                 for (int index = 0; index< size; index++) {//start character in line
@@ -178,7 +177,6 @@ In order ta make this service active add the following to the service definition
                                             delegator.create(Entity);
                                             hasFolder = false;
                                         } else {
-                                            //Debug.logInfo("Content Name = [ " + contentId + "] already exist.");//ShoW log file
                                             hasFolder = true;
                                         }
                                         //Relation Content
@@ -261,7 +259,6 @@ In order ta make this service active add the following to the service definition
                 boolean contentNameMatch = false;
                 if (subContents.charAt(index) == check.charAt(0)) {//store data
                     contentName = contentName + contentNameInprogress;
-                    //Debug.logInfo("subcontentName---->"+contentName);
                     if (contentName.length()>100) {
                         contentName = contentName.substring(0,100);
                     }
@@ -286,7 +283,6 @@ In order ta make this service active add the following to the service definition
                         Map<String,Object> data = new HashMap<String, Object>();
                         data.put("userLogin", userLogin);
                         String dataResourceId = dispatcher.runSync("createDataResource", data).get("dataResourceId").toString();
-                        //Debug.logInfo("==dataResourceId" + dataResourceId);
 
                         //create Content
                         contentId = delegator.getNextSeqId("Content");
@@ -348,7 +344,6 @@ In order ta make this service active add the following to the service definition
                         Map<String,Object> data = new HashMap<String, Object>();
                         data.put("userLogin", userLogin);
                         String dataResourceId = dispatcher.runSync("createDataResource",data).get("dataResourceId").toString();
-                        //Debug.logInfo("==dataResourceId" + dataResourceId);
 
                         //create Content
                         contentId = delegator.getNextSeqId("Content");
