@@ -126,6 +126,7 @@ under the License.
     <screen name="ExampleReport">
         <section>
             <actions>
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleEditExample"/>
                 <set field="tabButtonItem" value="EditExample"/>
                 <set field="exampleId" from-field="parameters.exampleId"/>
