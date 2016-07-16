@@ -568,7 +568,7 @@ under the License.
     <!-- View Profile -->
     <request-map uri="viewprofile">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="view" value="viewprofile" save-home-view="true"/>
     </request-map>
     <request-map uri="viewroles">
         <security https="true" auth="true"/>
