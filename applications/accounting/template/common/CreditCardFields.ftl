@@ -126,13 +126,6 @@ under the License.
         </#if>
     <#if showToolTip?has_content><span class="tooltip">${uiLabelMap.CommonRequired}</span><#else>*</#if></td>
   </tr>
-  <#--<tr>
-    <td width="26%" align="right" valign="middle">${uiLabelMap.AccountingCardSecurityCode}</td>
-    <td width="5">&nbsp;</td>
-    <td width="74%">
-        <input type="text" size="5" maxlength="10" name="cardSecurityCode" value="${creditCard.cardSecurityCode!}" />
-    </td>
-  </tr>-->
   <tr>
     <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingExpirationDate}</b></td>
     <td width="5">&nbsp;</td>
