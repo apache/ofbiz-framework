@@ -59,7 +59,7 @@ under the License.
                             <html><html-template location="component://ebay/template/find/EbayKeywordSearch.ftl"/></html>
                         </platform-specific>
                         <platform-specific>
-                            <html><html-template location="component://ebay/template/find/EayExportLink.ftl"/></html>
+                            <html><html-template location="component://ebay/template/find/EbayExportLink.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
