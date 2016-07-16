@@ -28,8 +28,8 @@ under the License.
         <field name="parentCommEventId">
             <lookup target-form-name="LookupCommEvent">
                 <sub-hyperlink link-style="buttontext" target="EditCommunicationEvent" description="${uiLabelMap.PartyGoToParent}" use-when="communicationEvent!=null&amp;&amp;communicationEvent.get(&quot;parentCommEventId&quot;)!=null">
-                <parameter param-name="communicationEventId" from-field="parentCommEventId"/>
-            </sub-hyperlink>
+                    <parameter param-name="communicationEventId" from-field="communicationEvent.parentCommEventId"/>
+                </sub-hyperlink>
             </lookup>
         </field>
         <field name="communicationEventTypeId" >
