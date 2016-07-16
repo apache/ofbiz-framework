@@ -254,7 +254,7 @@ under the License.
     <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList</@ofbizUrl>">
       <input type="hidden" name="shoppingListId" value="${shoppingList.shoppingListId}" />
       <input type="hidden" name="partyId" value="${shoppingList.partyId!}" />
-      <input type="text" name="productId" value="" />
+      <@htmlTemplate.lookupField formName="addToShoppingList" name="productId" id="productId" fieldFormName="LookupProduct"/>
       <input type="text" size="5" name="quantity" value="${requestParameters.quantity?default("1")}" />
       <input type="submit" value="${uiLabelMap.PartyAddToShoppingList}" />
     </form>
