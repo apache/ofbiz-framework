@@ -25,7 +25,7 @@ under the License.
         <field name="action"><hidden value="${parameters.action}"/></field>
         <field name="communicationEventId" use-when="communicationEvent!=null"><display/></field>
         <field name="my"><hidden value="${my}"/></field>
-        <field name="parentCommEventId" position="2">
+        <field name="parentCommEventId">
             <lookup target-form-name="LookupCommEvent">
                 <sub-hyperlink link-style="buttontext" target="EditCommunicationEvent" description="${uiLabelMap.PartyGoToParent}" use-when="communicationEvent!=null&amp;&amp;communicationEvent.get(&quot;parentCommEventId&quot;)!=null">
                 <parameter param-name="communicationEventId" from-field="parentCommEventId"/>
