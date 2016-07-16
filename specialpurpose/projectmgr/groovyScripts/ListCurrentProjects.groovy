@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.condition.*;
 
 cond = EntityCondition.makeCondition([
         EntityCondition.makeCondition ("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"),

@@ -17,11 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.product.feature.*;
-import org.ofbiz.product.product.ProductSearch;
-import org.ofbiz.webapp.stats.VisitHandler;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.product.feature.*;
+import org.apache.ofbiz.product.product.ProductSearch;
+import org.apache.ofbiz.webapp.stats.VisitHandler;
 
 visitId = VisitHandler.getVisitId(session);
 

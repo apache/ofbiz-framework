@@ -113,7 +113,7 @@ under the License.
             </#if>
             <#assign entCount = entCount + 1>
             <#assign check = checkAll/>
-            <#if checkAll == "true" && modelEntity.getClass().getName() == "org.ofbiz.entity.model.ModelViewEntity">
+            <#if checkAll == "true" && modelEntity.getClass().getName() == "org.apache.ofbiz.entity.model.ModelViewEntity">
                 <#assign check = "false"/>
             </#if>
             <#assign curEntityName = modelEntity.getEntityName()/>

@@ -232,10 +232,10 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="EbayConfig" value-field="ebayConfig"/>
                 <set field="tabButtonItem" value="${groovy:ebayConfig == null?'newEbayConfig' : 'editEbayConfig'}"/>
-                <set field="xmlGatewayUri" value="${groovy:ebayConfig == null?'' : org.ofbiz.base.util.StringUtil.wrapString(ebayConfig.xmlGatewayUri)}"/>
-                <set field="apiServerUrl" value="${groovy:ebayConfig == null?'' : org.ofbiz.base.util.StringUtil.wrapString(ebayConfig.apiServerUrl)}"/>
-                <set field="token" value="${groovy:ebayConfig == null?'' : org.ofbiz.base.util.StringUtil.wrapString(ebayConfig.token)}"/>
-                <set field="customXml" value="${groovy:ebayConfig == null?'' : org.ofbiz.base.util.StringUtil.wrapString(ebayConfig.customXml)}"/>
+                <set field="xmlGatewayUri" value="${groovy:ebayConfig == null?'' : org.apache.ofbiz.base.util.StringUtil.wrapString(ebayConfig.xmlGatewayUri)}"/>
+                <set field="apiServerUrl" value="${groovy:ebayConfig == null?'' : org.apache.ofbiz.base.util.StringUtil.wrapString(ebayConfig.apiServerUrl)}"/>
+                <set field="token" value="${groovy:ebayConfig == null?'' : org.apache.ofbiz.base.util.StringUtil.wrapString(ebayConfig.token)}"/>
+                <set field="customXml" value="${groovy:ebayConfig == null?'' : org.apache.ofbiz.base.util.StringUtil.wrapString(ebayConfig.customXml)}"/>
                 <!--set field="webSiteId" value="${groovy:ebayConfig == null?parameters.webSiteId : ebayConfig.webSiteId}"/-->
             </actions>
             <widgets>

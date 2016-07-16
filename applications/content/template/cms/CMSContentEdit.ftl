@@ -210,17 +210,17 @@ ${menuWrapper.renderMenuString()}
     <#assign dataResourceId = currentValue.dataResourceId/>
     <#assign currentTextData = "" />
     <#if dataResourceId?has_content>
-        <#assign currentTextData=Static["org.ofbiz.content.data.DataResourceWorker"].renderDataResourceAsText(delegator, dataResourceId, null, null, null, true) />
+        <#assign currentTextData=Static["org.apache.ofbiz.content.data.DataResourceWorker"].renderDataResourceAsText(delegator, dataResourceId, null, null, null, true) />
         <#if currentTextData?has_content>
             <@renderTextData contentId=contentId textData=currentTextData />
         </#if>
     </#if>
-    <#assign contentAssocViewList =Static["org.ofbiz.content.content.ContentWorker"].getContentAssocViewList(delegator, contentId, null, "SUB_CONTENT", null, null)! />
+    <#assign contentAssocViewList =Static["org.apache.ofbiz.content.content.ContentWorker"].getContentAssocViewList(delegator, contentId, null, "SUB_CONTENT", null, null)! />
     <#list contentAssocViewList as contentAssocDataResourceView>
         <#assign contentId2 = contentAssocDataResourceView.contentId/>
         <#assign mapKey = contentAssocDataResourceView.mapKey/>
         <#assign dataResourceId2 = contentAssocDataResourceView.dataResourceId/>
-        <#assign currentTextData=Static["org.ofbiz.content.data.DataResourceWorker"].renderDataResourceAsText(delegator, dataResourceId2, null, null, null, true) />
+        <#assign currentTextData=Static["org.apache.ofbiz.content.data.DataResourceWorker"].renderDataResourceAsText(delegator, dataResourceId2, null, null, null, true) />
         <#if currentTextData?has_content>
             <@renderTextData contentId=contentId2 mapKey=mapKey textData=currentTextData />
         </#if>
@@ -314,7 +314,7 @@ ${menuWrapper.renderMenuString()}
 
 <@loopSubContent contentId=forumId viewIndex=viewIdx viewSize=viewSz contentAssocTypeId="SUBSITE" returnAfterPickWhen="1==1";>
     <#local isPublished = "" />
-    <#assign contentAssocViewFrom=Static["org.ofbiz.content.content.ContentWorker"].getContentAssocViewFrom(delegator, subContentId, contentId, "PUBLISH_LINK", null, null)! />
+    <#assign contentAssocViewFrom=Static["org.apache.ofbiz.content.content.ContentWorker"].getContentAssocViewFrom(delegator, subContentId, contentId, "PUBLISH_LINK", null, null)! />
     <#if contentAssocViewFrom?has_content>
         <#local isPublished = "checked='checked'" />
     </#if>

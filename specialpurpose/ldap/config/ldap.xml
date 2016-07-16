@@ -22,7 +22,7 @@ under the License.
     <!-- common configuration -->
     <Attribute>uid=%u</Attribute>
     <AuthenType>simple</AuthenType>
-    <AuthenticationHandler>org.ofbiz.ldap.cas.OFBizCasAuthenticationHandler</AuthenticationHandler>
+    <AuthenticationHandler>org.apache.ofbiz.ldap.cas.OFBizCasAuthenticationHandler</AuthenticationHandler>
     <AutoPartyId>admin</AutoPartyId>
     <AutoSecurityGroupId>FULLADMIN</AutoSecurityGroupId>
     <BaseDN>o=ofbiz,o=org</BaseDN>
@@ -36,7 +36,7 @@ under the License.
     <CasLogoutUri>/logout</CasLogoutUri>
     <CasUrl>https://localhost:8443/cas</CasUrl>
     <CasValidateUri>/validate</CasValidateUri>
-    <CasLdapHandler>org.ofbiz.ldap.openldap.OFBizLdapAuthenticationHandler</CasLdapHandler>
+    <CasLdapHandler>org.apache.ofbiz.ldap.openldap.OFBizLdapAuthenticationHandler</CasLdapHandler>
     <CasTGTCookieName>CASTGC</CasTGTCookieName>
 
     <!-- for MS Active Directory -->

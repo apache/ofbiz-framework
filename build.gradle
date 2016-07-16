@@ -29,7 +29,7 @@ apply from: 'common.gradle'
 
 // java settings
 def jvmArguments = ['-Xms128M', '-Xmx512M']
-ext.ofbizMainClass = 'org.ofbiz.base.start.Start'
+ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 javadoc.failOnError = false
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -200,29 +200,29 @@ dependencies {
 }
 
 def excludedJavaSources = []
-excludedJavaSources.add 'org/ofbiz/accounting/thirdparty/cybersource/IcsPaymentServices.java'
-excludedJavaSources.add 'org/ofbiz/accounting/thirdparty/ideal/IdealEvents.java'
-excludedJavaSources.add 'org/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java'
-excludedJavaSources.add 'org/ofbiz/accounting/thirdparty/orbital/OrbitalPaymentServices.java'
-excludedJavaSources.add 'org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java'
-excludedJavaSources.add 'org/ofbiz/accounting/thirdparty/securepay/SecurePayPaymentServices.java'
-excludedJavaSources.add 'org/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java'
-excludedJavaSources.add 'org/ofbiz/accounting/thirdparty/verisign/PayflowPro.java'
-excludedJavaSources.add 'org/ofbiz/content/openoffice/OpenOfficeByteArrayInputStream.java'
-excludedJavaSources.add 'org/ofbiz/content/openoffice/OpenOfficeByteArrayOutputStream.java'
-excludedJavaSources.add 'org/ofbiz/content/openoffice/OpenOfficeServices.java'
-excludedJavaSources.add 'org/ofbiz/content/openoffice/OpenOfficeWorker.java'
-excludedJavaSources.add 'org/ofbiz/content/report/JREntityListIteratorDataSource.java'
-excludedJavaSources.add 'org/ofbiz/content/report/JRMapCollectionDataSource.java'
-excludedJavaSources.add 'org/ofbiz/order/thirdparty/taxware/TaxwareException.java'
-excludedJavaSources.add 'org/ofbiz/order/thirdparty/taxware/TaxwareServices.java'
-excludedJavaSources.add 'org/ofbiz/order/thirdparty/taxware/TaxwareUTL.java'
+excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/cybersource/IcsPaymentServices.java'
+excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/ideal/IdealEvents.java'
+excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java'
+excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/orbital/OrbitalPaymentServices.java'
+excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/paypal/PayPalServices.java'
+excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayPaymentServices.java'
+excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java'
+excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/verisign/PayflowPro.java'
+excludedJavaSources.add 'org/apache/ofbiz/content/openoffice/OpenOfficeByteArrayInputStream.java'
+excludedJavaSources.add 'org/apache/ofbiz/content/openoffice/OpenOfficeByteArrayOutputStream.java'
+excludedJavaSources.add 'org/apache/ofbiz/content/openoffice/OpenOfficeServices.java'
+excludedJavaSources.add 'org/apache/ofbiz/content/openoffice/OpenOfficeWorker.java'
+excludedJavaSources.add 'org/apache/ofbiz/content/report/JREntityListIteratorDataSource.java'
+excludedJavaSources.add 'org/apache/ofbiz/content/report/JRMapCollectionDataSource.java'
+excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareException.java'
+excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareServices.java'
+excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareUTL.java'
 excludedJavaSources.add 'ShipmentScaleApplet.java'
-excludedJavaSources.add 'org/ofbiz/securityext/thirdparty/truition/TruitionCoReg.java'
-excludedJavaSources.add 'org/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java'
-excludedJavaSources.add 'org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java'
-excludedJavaSources.add 'org/ofbiz/webapp/view/JasperReportsPoiXlsViewHandler.java'
-excludedJavaSources.add 'org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java'
+excludedJavaSources.add 'org/apache/ofbiz/securityext/thirdparty/truition/TruitionCoReg.java'
+excludedJavaSources.add 'org/apache/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java'
+excludedJavaSources.add 'org/apache/ofbiz/webapp/view/JasperReportsPdfViewHandler.java'
+excludedJavaSources.add 'org/apache/ofbiz/webapp/view/JasperReportsPoiXlsViewHandler.java'
+excludedJavaSources.add 'org/apache/ofbiz/webapp/view/JasperReportsXmlViewHandler.java'
 
 sourceSets {
     main {
@@ -321,7 +321,7 @@ task terminateOfbiz(group: ofbizServer,
     description: 'Force termination of any running OFBiz servers, only use if \"--shutdown\" command fails') << {
     def os = System.getProperty("os.name").toLowerCase()
     if (os.contains("windows")) {
-        Runtime.getRuntime().exec("wmic process where \"CommandLine Like \'%org.ofbiz.base.start%\'\" Call Terminate")
+        Runtime.getRuntime().exec("wmic process where \"CommandLine Like \'%org.apache.ofbiz.base.start%\'\" Call Terminate")
     } else {
         def processOutput = new ByteArrayOutputStream()
         exec { 
@@ -410,7 +410,7 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
     task generateDatabaseTemplateFile(dependsOn: prepareAndValidateTenantArguments) << {
         def filterTokens = ['tenantId': tenantId,
             'tenantName': tenantName,
-            'domainName': project.hasProperty('domainName')? "${domainName}":'org.ofbiz',
+            'domainName': project.hasProperty('domainName')? "${domainName}":'org.apache.ofbiz',
             'db-IP': project.hasProperty('dbIp')? "${dbIp}":'',
             'db-User': project.hasProperty('dbUser')? "${dbUser}":'',
             'db-Password': project.hasProperty('dbPassword')? "${dbPassword}":'']
@@ -674,16 +674,16 @@ task svnInfoFooter(group: committerGroup, description: 'Update the Subversion re
 // ========== hidden support tasks ==========
 
 /* without executing this task, a test would fail that is named
- * org.ofbiz.base.util.test.UtilObjectTests.testGetObjectFromFactory()
+ * org.apache.ofbiz.base.util.test.UtilObjectTests.testGetObjectFromFactory()
  * 
  * The test fails because it requires defining a service provider, read more below.
  * http://docs.oracle.com/javase/8/docs/technotes/guides/jar/jar.html#Service_Provider
  */
 task createBaseTestServiceProviderJar << {
     ant.jar(destfile: "${rootDir}/build/libs/ofbiz-base-test.jar") {
-        service(type: 'org.ofbiz.base.util.test.UtilObjectTests$TestFactoryIntf') {
-            provider(classname: 'org.ofbiz.base.util.test.UtilObjectTests$FirstTestFactory')
-            provider(classname: 'org.ofbiz.base.util.test.UtilObjectTests$SecondTestFactory')
+        service(type: 'org.apache.ofbiz.base.util.test.UtilObjectTests$TestFactoryIntf') {
+            provider(classname: 'org.apache.ofbiz.base.util.test.UtilObjectTests$FirstTestFactory')
+            provider(classname: 'org.apache.ofbiz.base.util.test.UtilObjectTests$SecondTestFactory')
         }
     }
 }

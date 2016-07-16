@@ -17,12 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.order.order.*;
-import org.ofbiz.party.contact.*;
-import org.ofbiz.product.store.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.order.order.*;
+import org.apache.ofbiz.party.contact.*;
+import org.apache.ofbiz.product.store.*;
 
 orderId = parameters.orderId;
 context.orderId = orderId;

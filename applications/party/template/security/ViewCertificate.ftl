@@ -17,9 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign components = Static["org.ofbiz.base.component.ComponentConfig"].getAllComponents()!/>
+<#assign components = Static["org.apache.ofbiz.base.component.ComponentConfig"].getAllComponents()!/>
 <#if (requestParameters.certString?has_content)>
-    <#assign cert = Static["org.ofbiz.base.util.KeyStoreUtil"].pemToCert(requestParameters.certString)/>
+    <#assign cert = Static["org.apache.ofbiz.base.util.KeyStoreUtil"].pemToCert(requestParameters.certString)/>
 </#if>
 <div id="findPartyParameters" class="screenlet">
   <div class="screenlet-title-bar">

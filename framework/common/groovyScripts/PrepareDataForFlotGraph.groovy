@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.StringUtil;
 chartData = context.chartData;
 chartType = context.chartType;
 labelFieldName = context.labelFieldName;

@@ -303,7 +303,7 @@ under the License.
                         <condition-expr field-name="finAccountId" from-field="parameters.finAccountId"/>
                     </condition-list>
                 </entity-condition>
-                <set field="paymentGroupIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(pmtGrpMembrPaymentAndFinAcctTransList, 'paymentGroupId', true);}" type="List"/>
+                <set field="paymentGroupIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(pmtGrpMembrPaymentAndFinAcctTransList, 'paymentGroupId', true);}" type="List"/>
                 <entity-condition entity-name="PaymentGroup" list="paymentGroupList">
                     <condition-list combine="and">
                         <condition-expr field-name="paymentGroupId" operator="in" from-field="paymentGroupIds" ignore-if-empty="true"/>
@@ -631,7 +631,7 @@ under the License.
                 <set field="previousGlReconciliation" from-field="glReconciliationList[0]"/>
                 <service service-name="getFinAccountTransListAndTotals" result-map="transactionTotalAmount"/>
                 <set field="finAccountTransList" from-field="transactionTotalAmount.finAccountTransList" type="List"/>
-                <set field="finAccountTransIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(finAccountTransList, 'finAccountTransId', true);}" type="List"/>
+                <set field="finAccountTransIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(finAccountTransList, 'finAccountTransId', true);}" type="List"/>
                 <entity-condition entity-name="FinAccountTrans" list="finAccountTransactions">
                     <condition-list>
                         <condition-expr field-name="finAccountTransId" operator="in" from-field="finAccountTransIds"/>
@@ -676,7 +676,7 @@ under the License.
                         <condition-expr field-name="glReconciliationId" operator="equals" from-field="glReconciliationId" ignore-if-empty="true"/>
                     </condition-list>
                 </entity-condition>
-                <set field="glReconciliationIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(finAccountTransList, 'glReconciliationId', true);}" type="List"/>
+                <set field="glReconciliationIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(finAccountTransList, 'glReconciliationId', true);}" type="List"/>
                 <entity-condition entity-name="GlReconciliation" list="glReconciliations">
                     <condition-list>
                         <condition-expr field-name="glReconciliationId" operator="in" from-field="glReconciliationIds"/>

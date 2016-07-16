@@ -30,18 +30,18 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.ofbiz.manufacturing.bom -->
-  <!--  - org.ofbiz.manufacturing.techdata -->
-  <!--  - org.ofbiz.manufacturing.mrp -->
+  <!--  - org.apache.ofbiz.manufacturing.bom -->
+  <!--  - org.apache.ofbiz.manufacturing.techdata -->
+  <!--  - org.apache.ofbiz.manufacturing.mrp -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.manufacturing.bom -->
+  <!-- org.apache.ofbiz.manufacturing.bom -->
   <!-- ========================================================= -->
 
     <entity entity-name="ProductManufacturingRule"
-            package-name="org.ofbiz.manufacturing.bom"
+            package-name="org.apache.ofbiz.manufacturing.bom"
             title="Product To Part Rule Entity">
       <field name="ruleId" type="id-ne"></field>
       <field name="productId" type="id"></field>
@@ -74,11 +74,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.manufacturing.techdata -->
+  <!-- org.apache.ofbiz.manufacturing.techdata -->
   <!-- ========================================================= -->
 
     <entity entity-name="TechDataCalendar"
-            package-name="org.ofbiz.manufacturing.techdata"
+            package-name="org.apache.ofbiz.manufacturing.techdata"
             default-resource-name="ManufacturingEntityLabels"
             title="Calendar entity">
       <description>Used to defined the availability of the machines, this entity define the Id and the week definition.
@@ -93,7 +93,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="TechDataCalendarExcDay"
-            package-name="org.ofbiz.manufacturing.techdata"
+            package-name="org.apache.ofbiz.manufacturing.techdata"
             title="Calendar Exception Day entity">
       <description>Used to defined some days which differ from the normal day definition in the weekId associated in the calendar.
       </description>
@@ -109,7 +109,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="TechDataCalendarExcWeek"
-            package-name="org.ofbiz.manufacturing.techdata"
+            package-name="org.apache.ofbiz.manufacturing.techdata"
             title="Calendar Exception Week entity">
       <description>Used to defined some weeks which differ from the normal week defined in the calendar.</description>
       <field name="calendarId" type="id-ne"></field>
@@ -126,7 +126,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="TechDataCalendarWeek"
-            package-name="org.ofbiz.manufacturing.techdata"
+            package-name="org.apache.ofbiz.manufacturing.techdata"
             default-resource-name="ManufacturingEntityLabels"
             title="Week definition entity">
       <description>Used to defined the week definition disponibility for machine</description>
@@ -150,11 +150,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.manufacturing.mrp -->
+  <!-- org.apache.ofbiz.manufacturing.mrp -->
   <!-- ========================================================= -->
 
     <entity entity-name="MrpEventType"
-            package-name="org.ofbiz.manufacturing.mrp"
+            package-name="org.apache.ofbiz.manufacturing.mrp"
             default-resource-name="ManufacturingEntityLabels"
             title="MRP Event Type">
       <description></description>
@@ -164,7 +164,7 @@ under the License.
     </entity>
 
     <entity entity-name="MrpEvent"
-            package-name="org.ofbiz.manufacturing.mrp"
+            package-name="org.apache.ofbiz.manufacturing.mrp"
             title="MRP Event">
       <description></description>
       <field name="mrpId" type="id-ne"></field>
@@ -191,7 +191,7 @@ under the License.
     </entity>
 
     <view-entity entity-name="MrpEventView"
-                 package-name="org.ofbiz.manufacturing.mrp"
+                 package-name="org.apache.ofbiz.manufacturing.mrp"
                  title="MRP Event View">
       <member-entity entity-alias="MEV" entity-name="MrpEvent"></member-entity>
       <member-entity entity-alias="PR" entity-name="Product"></member-entity>

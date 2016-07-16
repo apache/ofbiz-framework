@@ -19,10 +19,10 @@
 
 import java.util.Date;
 import java.sql.Timestamp;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.Debug;
 
 costMult = 0.0;
 quoteCoefficients.each { quoteCoefficient ->

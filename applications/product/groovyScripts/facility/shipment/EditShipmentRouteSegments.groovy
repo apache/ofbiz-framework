@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*
-import org.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.condition.EntityCondition;
 
 shipmentId = request.getParameter("shipmentId");
 if (!shipmentId) {

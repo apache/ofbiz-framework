@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.util.EntityUtil
-import org.ofbiz.party.contact.ContactHelper
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.party.contact.ContactHelper
 
 contactInfoList = [];
 partyIdFrom = parameters.partyIdFrom;

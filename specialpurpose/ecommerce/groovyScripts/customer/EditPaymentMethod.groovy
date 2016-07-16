@@ -18,9 +18,9 @@
  */
 
 import java.util.HashMap;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.accounting.payment.PaymentWorker;
-import org.ofbiz.party.contact.ContactMechWorker;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.accounting.payment.PaymentWorker;
+import org.apache.ofbiz.party.contact.ContactMechWorker;
 
 paymentResults = PaymentWorker.getPaymentMethodAndRelated(request, userLogin.partyId);
 //returns the following: "paymentMethod", "creditCard", "giftCard", "eftAccount", "paymentMethodId", "curContactMechId", "donePage", "tryEntity"

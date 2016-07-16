@@ -31,15 +31,15 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
-    <!--  - org.ofbiz.ebay.config -->  
+    <!--  - org.apache.ofbiz.ebay.config -->  
     <!-- ========================================================= -->
     
     <!-- ========================================================= -->
-    <!-- org.ofbiz.ebay.config -->
+    <!-- org.apache.ofbiz.ebay.config -->
     <!-- ========================================================= -->
 
     <entity entity-name="EbayConfig"
-            package-name="org.ofbiz.ebay.config"
+            package-name="org.apache.ofbiz.ebay.config"
             title="eBay Configuration">
         <field name="productStoreId" type="id-ne"></field>    
         <field name="devId" type="value"></field>
@@ -61,7 +61,7 @@ under the License.
     </entity>
     
     <entity entity-name="EbayShippingMethod"
-            package-name="org.ofbiz.ebay.shipping"
+            package-name="org.apache.ofbiz.ebay.shipping"
             title="Ebay Shipping Method Config">
         <field name="shipmentMethodName" type="id-long-ne"></field>
         <field name="productStoreId" type="id-ne"></field>

@@ -41,7 +41,7 @@ under the License.
             request.setParameter("productId", "GZ-1000");
             request.setParameter("productTags", "test");
         </script>
-        <call-class-method method-name="addProductTags" class-name="org.ofbiz.product.product.ProductEvents" ret-field="result">
+        <call-class-method method-name="addProductTags" class-name="org.apache.ofbiz.product.product.ProductEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -78,7 +78,7 @@ under the License.
             request.setParameter("productId", "GZ-1000");
             request.setParameter("productTags", "'rock and roll' t-shirt red");
         </script>
-        <call-class-method method-name="addProductTags" class-name="org.ofbiz.product.product.ProductEvents" ret-field="result">
+        <call-class-method method-name="addProductTags" class-name="org.apache.ofbiz.product.product.ProductEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>

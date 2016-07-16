@@ -25,30 +25,30 @@ under the License.
     <version>1.0</version>
 
     <service name="sagepayCCAuth" engine="java"
-            location="org.ofbiz.accounting.thirdparty.sagepay.SagePayPaymentServices" invoke="ccAuth">
+            location="org.apache.ofbiz.accounting.thirdparty.sagepay.SagePayPaymentServices" invoke="ccAuth">
         <description>SagePay Payment Authorization Service</description>
         <implements service="ccAuthInterface"/>
     </service>
 
     <service name="sagepayCCCapture" engine="java"
-            location="org.ofbiz.accounting.thirdparty.sagepay.SagePayPaymentServices" invoke="ccCapture">
+            location="org.apache.ofbiz.accounting.thirdparty.sagepay.SagePayPaymentServices" invoke="ccCapture">
         <description>SagePay Payment Capture Service</description>
         <implements service="ccCaptureInterface"/>
     </service>
 
     <service name="sagepayCCRelease" engine="java"
-            location="org.ofbiz.accounting.thirdparty.sagepay.SagePayPaymentServices" invoke="ccRelease">
+            location="org.apache.ofbiz.accounting.thirdparty.sagepay.SagePayPaymentServices" invoke="ccRelease">
         <description>SagePay Payment Release</description>
         <implements service="paymentReleaseInterface"/>
     </service>
 
     <service name="sagepayCCRefund" engine="java"
-            location="org.ofbiz.accounting.thirdparty.sagepay.SagePayPaymentServices" invoke="ccRefund">
+            location="org.apache.ofbiz.accounting.thirdparty.sagepay.SagePayPaymentServices" invoke="ccRefund">
         <description>SagePay Payment Refund Service</description>
         <implements service="paymentRefundInterface"/>
     </service>
 
-    <service name="SagePayPaymentAuthentication" engine="java" location="org.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
+    <service name="SagePayPaymentAuthentication" engine="java" location="org.apache.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
          invoke="paymentAuthentication" auth="false">
         <description>For payment authentication</description>
         <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
@@ -112,7 +112,7 @@ under the License.
 
     </service>
     
-    <service name="SagePayPaymentAuthorisation" engine="java" location="org.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
+    <service name="SagePayPaymentAuthorisation" engine="java" location="org.apache.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
          invoke="paymentAuthorisation" auth="false">
         <description>For capturing the payment</description>
         <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
@@ -125,7 +125,7 @@ under the License.
         <attribute name="statusDetail" type="String" mode="OUT" optional="true"/>
     </service>
 
-    <service name="SagePayPaymentRelease" engine="java" location="org.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
+    <service name="SagePayPaymentRelease" engine="java" location="org.apache.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
          invoke="paymentRelease" auth="false">
         <description>For releasing (cancel) the payment</description>
         <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
@@ -138,7 +138,7 @@ under the License.
         <attribute name="statusDetail" type="String" mode="OUT" optional="true"/>
     </service>
     
-    <service name="SagePayPaymentVoid" engine="java" location="org.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
+    <service name="SagePayPaymentVoid" engine="java" location="org.apache.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
          invoke="paymentVoid" auth="false">
         <description>For voiding the payment</description>
         <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
@@ -150,7 +150,7 @@ under the License.
         <attribute name="statusDetail" type="String" mode="OUT" optional="true"/>
     </service>
     
-    <service name="SagePayPaymentRefund" engine="java" location="org.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
+    <service name="SagePayPaymentRefund" engine="java" location="org.apache.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
          invoke="paymentRefund" auth="false">
         <description>For refunding the payment</description>
         <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>

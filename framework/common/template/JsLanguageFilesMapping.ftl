@@ -19,7 +19,7 @@
 
 <#-- Use the createJsLanguageFileMapping service to create or update the JsLanguageFilesMapping.java. You will still need to compile thereafter -->
 
-package org.ofbiz.common;
+package org.apache.ofbiz.common;
 
 import java.util.HashMap;
 import java.util.Map;

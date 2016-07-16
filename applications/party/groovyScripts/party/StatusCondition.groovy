@@ -17,7 +17,7 @@
  * under the License.
  */
  
-import org.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.condition.*;
  
 exprList = [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED"), 
             EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, null)];

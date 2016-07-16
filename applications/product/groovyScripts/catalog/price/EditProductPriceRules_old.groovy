@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.condition.*
 
 String priceRuleId = request.getParameter("productPriceRuleId");
 if (priceRuleId) {

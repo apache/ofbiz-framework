@@ -61,7 +61,7 @@ under the License.
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block>${(product.internalName)!} [${quoteItem.productId!}]</fo:block>
                                 <#if quoteItem.quoteItemSeqId?has_content>
-                                    <#assign quoteItemLevelTerms = Static["org.ofbiz.entity.util.EntityUtil"].filterByAnd(quoteTerms, {"quoteItemSeqId": quoteItem.quoteItemSeqId})!>
+                                    <#assign quoteItemLevelTerms = Static["org.apache.ofbiz.entity.util.EntityUtil"].filterByAnd(quoteTerms, {"quoteItemSeqId": quoteItem.quoteItemSeqId})!>
                                     <#if quoteItemLevelTerms?has_content>
                                         <fo:block>${uiLabelMap.CommonQuoteTerms}:</fo:block>
                                         <#list quoteItemLevelTerms as quoteItemLevelTerm>

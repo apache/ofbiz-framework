@@ -116,9 +116,9 @@ under the License.
 
     <simple-method method-name="testUpdatePartyPostalAddress" short-description="Test updatePartyPostalAddress service" login-required="false">
         <set field="partyId" value="DemoCustomer"/>
-        <call-class-method method-name="findPartyLatestPostalAddress" class-name="org.ofbiz.party.party.PartyWorker" ret-field="postalAddress">
+        <call-class-method method-name="findPartyLatestPostalAddress" class-name="org.apache.ofbiz.party.party.PartyWorker" ret-field="postalAddress">
             <field field="partyId" type="java.lang.String"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
         </call-class-method>
         <!-- first try with just updating without changing the postal address -->
         <set-service-fields service-name="updatePartyPostalAddress" map="postalAddress" to-map="serviceCtx"/>

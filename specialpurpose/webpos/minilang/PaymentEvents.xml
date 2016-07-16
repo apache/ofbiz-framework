@@ -20,7 +20,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="payCash" short-description="Pay Cash" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -78,7 +78,7 @@ under the License.
     
     <simple-method method-name="payCheck" short-description="Pay Check" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -116,8 +116,8 @@ under the License.
                     <field field="paymentType" type="String"/>
                 </call-object-method>
                 <check-errors/>
-                <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field="noPaymentCode"/>
-                <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>
+                <call-class-method class-name="org.apache.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field="noPaymentCode"/>
+                <call-class-method class-name="org.apache.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>
                 <!--  No Payment -->
                 <if-compare-field field="paymentCheck" operator="equals" to-field="noPaymentCode">
                     <call-object-method obj-field="webPosTransaction" method-name="clearPayment">
@@ -166,7 +166,7 @@ under the License.
     
     <simple-method method-name="payGiftCard" short-description="Pay Gift Card" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -204,8 +204,8 @@ under the License.
                     <field field="paymentType" type="String"/>
                 </call-object-method>
                 <check-errors/>
-                <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field="noPaymentCode"/>
-                <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>
+                <call-class-method class-name="org.apache.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field="noPaymentCode"/>
+                <call-class-method class-name="org.apache.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>
                 <!--  No Payment -->
                 <if-compare-field field="paymentCheck" operator="equals" to-field="noPaymentCode">
                     <call-object-method obj-field="webPosTransaction" method-name="processNoPayment">
@@ -250,7 +250,7 @@ under the License.
     
     <simple-method method-name="payCreditCard" short-description="Pay Credit Card" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -302,8 +302,8 @@ under the License.
                         <field field="paymentType" type="String"/>
                     </call-object-method>
                     <check-errors/>
-                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field="noPaymentCode"/>
-                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>
+                    <call-class-method class-name="org.apache.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field="noPaymentCode"/>
+                    <call-class-method class-name="org.apache.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>
                     <!--  No Payment -->
                     <if-compare-field field="paymentCheck" operator="equals" to-field="noPaymentCode">
                         <call-object-method obj-field="webPosTransaction" method-name="processNoPayment">
@@ -331,7 +331,7 @@ under the License.
                             <!-- test credit card -->
                             <if-not-empty field="parameters.cardNum">
                                 <set field="cardNum" from-field="parameters.cardNum"/>
-                                <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isCreditCard" ret-field="isCreditCard">
+                                <call-class-method class-name="org.apache.ofbiz.base.util.UtilValidate" method-name="isCreditCard" ret-field="isCreditCard">
                                     <field field="cardNum" type="String"/>
                                 </call-class-method>
                                 <if-compare field="isCreditCard" operator="equals" value="false" type="String">
@@ -350,7 +350,7 @@ under the License.
                                     <set field="cardExpAfterToday" from-field="parameters.expMonth"/>
                                     <string-append string="/" field="cardExpAfterToday"/>
                                     <string-append string="${parameters.expYear}" field="cardExpAfterToday"/>
-                                    <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDateAfterToday" ret-field="isDateAfterToday">
+                                    <call-class-method class-name="org.apache.ofbiz.base.util.UtilValidate" method-name="isDateAfterToday" ret-field="isDateAfterToday">
                                         <field field="cardExpAfterToday" type="String"/>
                                     </call-class-method>
                                     <if-compare field="isDateAfterToday" operator="equals" value="false">
@@ -442,7 +442,7 @@ under the License.
     
     <simple-method method-name="payFinish" short-description="Process Sale" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -469,7 +469,7 @@ under the License.
                         <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotEnoughFunds"/></add-error>
                         <check-errors/>
                     </if-compare>
-                    <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="completeSale">
+                    <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="completeSale">
                         <field field="request"  type="javax.servlet.http.HttpServletRequest"/>
                         <field field="response" type="javax.servlet.http.HttpServletResponse"/>
                     </call-class-method>
@@ -484,7 +484,7 @@ under the License.
     
     <simple-method method-name="clearPayment" short-description="Clear Payment" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -577,7 +577,7 @@ under the License.
     
     <simple-method method-name="clearAllPayments" short-description="Clear All Payments" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>

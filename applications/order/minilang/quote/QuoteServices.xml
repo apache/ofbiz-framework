@@ -375,9 +375,9 @@ under the License.
                         </and>
                     </condition>
                     <then>
-                        <call-class-method class-name="org.ofbiz.product.config.ProductConfigWorker" method-name="loadProductConfigWrapper" ret-field="configWrapper">
-                            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-                            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+                        <call-class-method class-name="org.apache.ofbiz.product.config.ProductConfigWorker" method-name="loadProductConfigWrapper" ret-field="configWrapper">
+                            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
+                            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
                             <field field="parameters.configId" type="java.lang.String"/>
                             <field field="parameters.productId" type="java.lang.String"/>
                             <field field="" type="java.lang.String"/>
@@ -385,7 +385,7 @@ under the License.
                             <field field="" type="java.lang.String"/>
                             <field field="" type="java.lang.String"/>
                             <field field="locale" type="java.util.Locale"/>
-                            <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
+                            <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
                         </call-class-method>
                         <call-object-method method-name="getTotalPrice" obj-field="configWrapper" ret-field="totalPrice"></call-object-method>
                         <set field="newEntity.quoteUnitPrice" from-field="totalPrice"/>

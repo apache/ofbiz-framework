@@ -26,27 +26,27 @@ under the License.
 
     <!-- Product View Services -->
     <service name="getProduct" engine="java"
-            location="org.ofbiz.product.product.ProductServices" invoke="prodFindProduct">
+            location="org.apache.ofbiz.product.product.ProductServices" invoke="prodFindProduct">
         <description>Gets a product value object.</description>
         <attribute name="productId" type="String" mode="IN"/>
-        <attribute name="product" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
+        <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
     </service>
     <service name="getProductVariant" engine="java"
-            location="org.ofbiz.product.product.ProductServices" invoke="prodFindSelectedVariant">
+            location="org.apache.ofbiz.product.product.ProductServices" invoke="prodFindSelectedVariant">
         <description>Gets a list of variant product value objects.</description>
         <attribute name="productId" type="String" mode="IN"/>
         <attribute name="selectedFeatures" type="java.util.Map" mode="IN"/>
         <attribute name="products" type="java.util.List" mode="OUT"/>
     </service>
     <service name="getProductFeatureSet" engine="java"
-            location="org.ofbiz.product.product.ProductServices" invoke="prodFindFeatureTypes">
+            location="org.apache.ofbiz.product.product.ProductServices" invoke="prodFindFeatureTypes">
         <description>Gets a Set of product features (distinct)</description>
         <attribute name="productId" type="String" mode="IN"/>
         <attribute name="productFeatureApplTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="featureSet" type="java.util.Set" mode="OUT"/>
     </service>
     <service name="getProductVariantTree" engine="java"
-            location="org.ofbiz.product.product.ProductServices" invoke="prodMakeFeatureTree">
+            location="org.apache.ofbiz.product.product.ProductServices" invoke="prodMakeFeatureTree">
         <description>Gets a tree of product variants based on a virtual product and a list of features.</description>
         <attribute name="productId" type="String" mode="IN"/>
         <attribute name="featureOrder" type="java.util.Collection" mode="IN"/>
@@ -58,13 +58,13 @@ under the License.
         <attribute name="virtualVariant" type="java.util.List" mode="OUT" optional="true"/>
     </service>
     <service name="getAllProductVariants" engine="java"
-            location="org.ofbiz.product.product.ProductServices" invoke="prodFindAllVariants">
+            location="org.apache.ofbiz.product.product.ProductServices" invoke="prodFindAllVariants">
         <description>Gets a Collection of products from a 'virtual' parent product.</description>
         <attribute name="productId" type="String" mode="IN"/>
         <attribute name="assocProducts" type="java.util.Collection" mode="OUT"/>
     </service>
     <service name="getAssociatedProducts" engine="java"
-            location="org.ofbiz.product.product.ProductServices" invoke="prodFindAssociatedByType">
+            location="org.apache.ofbiz.product.product.ProductServices" invoke="prodFindAssociatedByType">
         <description>
             Finds associated products by the defined type.  Only one of either productId or productIdTo can be supplied,
             not both.  If bidirectional is set to true then the passed in productId will be treated as both a productId
@@ -81,7 +81,7 @@ under the License.
         <attribute name="assocProducts" type="java.util.Collection" mode="OUT" optional="true"/>
     </service>
     <service name="getProductFeatures" engine="java"
-            location="org.ofbiz.product.product.ProductServices" invoke="prodGetFeatures">
+            location="org.apache.ofbiz.product.product.ProductServices" invoke="prodGetFeatures">
         <description>Gets a Collection of product features (ProductFeatureAndAppl) for a product.</description>
         <attribute name="productId" type="String" mode="IN"/>
         <attribute name="type" type="String" mode="IN" optional="true"/>
@@ -89,7 +89,7 @@ under the License.
         <attribute name="productFeatures" type="java.util.Collection" mode="OUT"/>
     </service>
     <service name="getSuppliersForProduct" engine="java"
-            location="org.ofbiz.product.supplier.SupplierProductServices" invoke="getSuppliersForProduct">
+            location="org.apache.ofbiz.product.supplier.SupplierProductServices" invoke="getSuppliersForProduct">
         <description>Finds a list of SupplierProduct entity values based on a productId.
               If other parameters are given, they are used to filter the list down.</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
@@ -100,7 +100,7 @@ under the License.
         <attribute name="supplierProducts" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="convertFeaturesForSupplier" engine="java"
-        location = "org.ofbiz.product.supplier.SupplierProductServices" invoke="convertFeaturesForSupplier">
+        location = "org.apache.ofbiz.product.supplier.SupplierProductServices" invoke="convertFeaturesForSupplier">
         <description>Takes a list of product feature (either ProductFeature or ProductFeatureAndAppl) and converts
             each one for the supplier specified by partyId, changing the description and idCode</description>
         <attribute type="java.util.Collection" mode="IN" name="productFeatures" optional="false"/>
@@ -110,10 +110,10 @@ under the License.
 
     <!-- Category View Services -->
     <service name="getProductCategoryMembers" engine="java"
-            location="org.ofbiz.product.category.CategoryServices" invoke="getCategoryMembers">
+            location="org.apache.ofbiz.product.category.CategoryServices" invoke="getCategoryMembers">
         <description>Gets ProductCategoryMembers for the category_id</description>
         <attribute name="categoryId" type="String" mode="IN"/>
-        <attribute name="category" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
+        <attribute name="category" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
         <attribute name="categoryMembers" type="java.util.Collection" mode="OUT"/>
     </service>
     
@@ -125,7 +125,7 @@ under the License.
     </service>
     
     <service name="getPreviousNextProducts" engine="java"
-        location="org.ofbiz.product.category.CategoryServices" invoke="getPreviousNextProducts">
+        location="org.apache.ofbiz.product.category.CategoryServices" invoke="getPreviousNextProducts">
         <description>Gets the previous and next product Ids.</description>
         <attribute name="categoryId" type="String" mode="IN"/>
         <attribute name="productId" type="String" mode="IN"/>
@@ -133,12 +133,12 @@ under the License.
         <attribute name="introductionDateLimit" type="java.sql.Timestamp" mode="IN" optional="true"/>
         <attribute name="releaseDateLimit" type="java.sql.Timestamp" mode="IN" optional="true"/>
         <attribute name="orderByFields" type="List" mode="IN" optional="true"/>
-        <attribute name="category" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="category" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="previousProductId" type="String" mode="OUT" optional="true"/>
         <attribute name="nextProductId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="getProductCategoryAndLimitedMembers" engine="java"
-            location="org.ofbiz.product.category.CategoryServices" invoke="getProductCategoryAndLimitedMembers">
+            location="org.apache.ofbiz.product.category.CategoryServices" invoke="getProductCategoryAndLimitedMembers">
         <description>Gets a productCategory and a Collection of associated productCategoryMembers and calculates limiting parameters</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="true"/>
@@ -153,7 +153,7 @@ under the License.
         <attribute name="releaseDateLimit" type="java.sql.Timestamp" mode="IN" optional="true"/>
         <attribute name="orderByFields" type="List" mode="IN" optional="true"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="true"/>
-        <attribute name="productCategory" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="productCategory" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="productCategoryMembers" type="java.util.Collection" mode="OUT" optional="true"/> <!-- this list will only contain the limited members if limitView=true -->
         <attribute name="viewIndex" type="Integer" mode="OUT" optional="false"/> <!-- this is a 1 based index, ie the first results are in index 1 -->
         <attribute name="viewSize" type="Integer" mode="OUT" optional="false"/>

@@ -17,12 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.*;
-import org.ofbiz.order.shoppingcart.ShoppingCart;
-import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
-import org.ofbiz.order.order.OrderReadHelper;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCart;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.apache.ofbiz.order.order.OrderReadHelper;
 
 // This script can take quite a while to run with a decent amount of data
 // so we'll take a best effort approach to limit the size of the results

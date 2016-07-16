@@ -39,7 +39,7 @@ under the License.
         </tr>
         <#assign orderAdjustmentsTotal = 0 />
         <#list shoppingCart.getAdjustments() as cartAdjustment>
-          <#assign orderAdjustmentsTotal = orderAdjustmentsTotal + Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal()) />
+          <#assign orderAdjustmentsTotal = orderAdjustmentsTotal + Static["org.apache.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal()) />
         </#list>
         <tr id="completedCartDiscountRow">
           <th id="productDiscount" scope="row" colspan="5">${uiLabelMap.ProductDiscount}</th>
@@ -66,7 +66,7 @@ under the License.
             <#else>
               <#assign parentProductId = cartLine.getProductId() />
             </#if>
-            <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher, "url")! />
+            <#assign smallImageUrl = Static["org.apache.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher, "url")! />
             <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "" /></#if>
           </#if>
           <tr id="cartItemDisplayRow_${cartLine_index}">
@@ -108,7 +108,7 @@ under the License.
               <td id="cartDiscountValue">
                 <#assign orderAdjustmentsTotal = 0  />
                 <#list shoppingCart.getAdjustments() as cartAdjustment>
-                  <#assign orderAdjustmentsTotal = orderAdjustmentsTotal + Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal()) />
+                  <#assign orderAdjustmentsTotal = orderAdjustmentsTotal + Static["org.apache.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal()) />
                 </#list>
                 <@ofbizCurrency amount=orderAdjustmentsTotal isoCode=shoppingCart.getCurrency() />
               </td>
@@ -136,7 +136,7 @@ under the License.
                     <#else>
                       <#assign parentProductId = cartLine.getProductId() />
                     </#if>
-                    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher, "url")! />
+                    <#assign smallImageUrl = Static["org.apache.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher, "url")! />
                     <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "" /></#if>
                     <#if smallImageUrl?string?has_content>
                       <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix!}${smallImageUrl}</@ofbizContentUrl>" alt="Product Image" />

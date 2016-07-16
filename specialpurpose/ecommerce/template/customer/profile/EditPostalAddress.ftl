@@ -18,12 +18,12 @@ under the License.
 -->
 
 <div id="serverError_${contactMech.contactMechId}" class="errorMessage"></div>
-<#assign postalAddress = delegator.findOne("PostalAddress", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechId", contactMech.contactMechId), true) />
+<#assign postalAddress = delegator.findOne("PostalAddress", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("contactMechId", contactMech.contactMechId), true) />
 
 <form id="editPostalAddress_${contactMech.contactMechId}" method="post" action="">
   <fieldset>
     <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId!}" />
-    <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
+    <#assign productStoreId = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
     <input type="hidden" name="productStoreId" value="${productStoreId!}" />
       <div>
         <label for="address1_${contactMech.contactMechId}">${uiLabelMap.PartyAddressLine1}*</label>
@@ -48,7 +48,7 @@ under the License.
         <label for="countryGeoId_${contactMech.contactMechId}">${uiLabelMap.CommonCountry}*</label>
         <select name="countryGeoId" id="countryGeoId_${contactMech.contactMechId}" class="required">
           <#if postalAddress.countryGeoId??>
-            <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", postalAddress.countryGeoId), true) />
+            <#assign geo = delegator.findOne("Geo", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("geoId", postalAddress.countryGeoId), true) />
             <option value="${postalAddress.countryGeoId}">${geo.geoName!(postalAddress.countryGeoId)}</option>
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
@@ -59,7 +59,7 @@ under the License.
         <label for="stateProvinceGeoId_${contactMech.contactMechId}">${uiLabelMap.PartyState}*</label>
         <select name="stateProvinceGeoId" id="stateProvinceGeoId_${contactMech.contactMechId}">
           <#if postalAddress.stateProvinceGeoId??>
-            <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", postalAddress.stateProvinceGeoId), true) />
+            <#assign geo = delegator.findOne("Geo", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("geoId", postalAddress.stateProvinceGeoId), true) />
             <option value="${postalAddress.stateProvinceGeoId}">${geo.geoName!(postalAddress.stateProvinceGeoId)}</option>
           <#else>
             <option value="_NA_">${uiLabelMap.PartyNoState}</option>

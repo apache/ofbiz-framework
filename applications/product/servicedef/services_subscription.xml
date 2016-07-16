@@ -53,7 +53,7 @@ under the License.
         <description>Retrieve a single Subscription Entity Record</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
-        <attribute name="subscription" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="subscription" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
 
     <service name="createSubscriptionResource" default-entity-name="SubscriptionResource" auth="true" engine="entity-auto" invoke="create">
@@ -89,7 +89,7 @@ under the License.
     </service>
 
     <service name="processExtendSubscription" engine="java" auth="true"
-        location="org.ofbiz.product.subscription.SubscriptionServices" invoke="processExtendSubscription">
+        location="org.apache.ofbiz.product.subscription.SubscriptionServices" invoke="processExtendSubscription">
         <description>Creates or updates Subscription record</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="subscriptionResourceId" type="String" mode="IN" optional="false"/>
@@ -109,7 +109,7 @@ under the License.
         <attribute name="subscriptionId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="processExtendSubscriptionByProduct" engine="java" auth="true"
-        location="org.ofbiz.product.subscription.SubscriptionServices" invoke="processExtendSubscriptionByProduct">
+        location="org.apache.ofbiz.product.subscription.SubscriptionServices" invoke="processExtendSubscriptionByProduct">
         <description>Creates or updates Subscription record</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
@@ -120,7 +120,7 @@ under the License.
         <attribute name="quantity" type="Integer" mode="IN" optional="false"/>
     </service>
     <service name="processExtendSubscriptionByOrder" engine="java" auth="true"
-        location="org.ofbiz.product.subscription.SubscriptionServices" invoke="processExtendSubscriptionByOrder">
+        location="org.apache.ofbiz.product.subscription.SubscriptionServices" invoke="processExtendSubscriptionByOrder">
         <description>Creates or updates Subscription record</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
@@ -151,13 +151,13 @@ under the License.
     </service>
     
     <service name="runServiceOnSubscriptionExpiry" engine="java" auth="true" use-transaction="true"
-        location="org.ofbiz.product.subscription.SubscriptionServices" invoke="runServiceOnSubscriptionExpiry">
+        location="org.apache.ofbiz.product.subscription.SubscriptionServices" invoke="runServiceOnSubscriptionExpiry">
         <description>A service designed to be automatically run by job scheduler to trigger another service to run for each subscription which has expired.
             This is done by looking for all subscriptions for which thruDate and gracePeriodOnExpiry are expired and where the automaticExtend flag is set to "N".
             The service to run is found in SubscriptionResource.ServiceNameOnExpiry (by default OOTB: runSubscriptionExpired, see below)</description>
     </service>
     <service name="runSubscriptionExpired" engine="java" auth="true" use-transaction="true"
-        location="org.ofbiz.product.subscription.SubscriptionServices" invoke="runSubscriptionExpired">
+        location="org.apache.ofbiz.product.subscription.SubscriptionServices" invoke="runSubscriptionExpired">
         <description>A dummy service to test subscription expiration, expected to change depending upon the specific service logic that providers will write. 
             See https://issues.apache.org/jira/browse/OFBIZ-5333 for more information</description>
         <attribute name="subscriptionId" type="String" mode="IN" optional="false"/>

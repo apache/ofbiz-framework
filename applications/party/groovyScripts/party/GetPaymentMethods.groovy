@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.accounting.payment.PaymentWorker;
-import org.ofbiz.accounting.payment.BillingAccountWorker;
-import org.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.accounting.payment.PaymentWorker;
+import org.apache.ofbiz.accounting.payment.BillingAccountWorker;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
 partyId = parameters.partyId ?: userLogin.partyId;
 showOld = "true".equals(parameters.SHOW_OLD);

@@ -29,11 +29,11 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:          -->
-    <!--  org.ofbiz.party.agreement -->
+    <!--  org.apache.ofbiz.party.agreement -->
     <!-- ========================================================= -->
 
     <entity entity-name="OldAgreementWorkEffortAppl" table-name="AGREEMENT_WORKEFFORT_APPL"
-            package-name="org.ofbiz.party.agreement" title="Agreement WorkEffort Application Entity">
+            package-name="org.apache.ofbiz.party.agreement" title="Agreement WorkEffort Application Entity">
         <description>NOTE: this entity is deprecated by AgreementWorkEffortApplic</description>
         <field name="agreementId" type="id-ne"></field>
         <field name="agreementItemSeqId" type="id-ne"></field>

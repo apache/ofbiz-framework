@@ -97,7 +97,7 @@ under the License.
             <#assign selected = 'selected'/>
         </#if>
         <#if (formatString?has_content)>
-            <#assign description = Static["org.ofbiz.base.util.string.FlexibleStringExpander"].expandString(formatString, enum)/>
+            <#assign description = Static["org.apache.ofbiz.base.util.string.FlexibleStringExpander"].expandString(formatString, enum)/>
         <#else>
             <#assign description = enum.getString("description")/>
         </#if>
@@ -108,14 +108,14 @@ under the License.
     <select name="${questionFieldName}">
     <#assign formatString = surveyQuestionAndAppl.get("formatString")!/>
     <#assign parentGeoId = surveyQuestionAndAppl.get("geoId")!/>
-    <#assign geos = Static["org.ofbiz.common.geo.GeoWorker"].expandGeoGroup(parentGeoId, delegator)>
+    <#assign geos = Static["org.apache.ofbiz.common.geo.GeoWorker"].expandGeoGroup(parentGeoId, delegator)>
     <#list geos as geo>
           <#assign selected = ''/>
         <#if (((answer.textResponse)?has_content && answer.textResponse == geo.geoId) || (defValue == geo.geoId))>
           <#assign selected = 'selected'/>
         </#if>
         <#if (formatString?has_content)>
-            <#assign description = Static["org.ofbiz.base.util.string.FlexibleStringExpander"].expandString(formatString, geo)/>
+            <#assign description = Static["org.apache.ofbiz.base.util.string.FlexibleStringExpander"].expandString(formatString, geo)/>
         <#else>
             <#assign description = geo.getString("geoName")/>
         </#if>
@@ -124,7 +124,7 @@ under the License.
     </select>
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "STATE_PROVINCE"/>
     <select name="${questionFieldName}">
-    <#assign states = Static["org.ofbiz.common.CommonWorkers"].getStateList(delegator)>
+    <#assign states = Static["org.apache.ofbiz.common.CommonWorkers"].getStateList(delegator)>
     <#list states as state>
         <option value='${state.geoId}'>${state.geoName?default(state.geoId)}</option>
     </#list>
@@ -176,7 +176,7 @@ under the License.
     <#assign closeMultiRespHeader = false/>
     <#assign surveyMultiResp = surveyQuestionAndAppl.getRelatedOne("SurveyMultiResp", true)!/>
     <#if surveyMultiResp?has_content>
-      <#assign surveyMultiRespColumnList = surveyMultiResp.getRelated("SurveyMultiRespColumn", null, Static["org.ofbiz.base.util.UtilMisc"].toList("sequenceNum"), true)/>
+      <#assign surveyMultiRespColumnList = surveyMultiResp.getRelated("SurveyMultiRespColumn", null, Static["org.apache.ofbiz.base.util.UtilMisc"].toList("sequenceNum"), true)/>
 
       <#if lastSurveyMultiRespId == "">
         <#assign openMultiRespHeader = true/>
@@ -233,7 +233,7 @@ under the License.
           <#if surveyQuestionAndAppl.surveyMultiRespColId?has_content &&
               nextSqaaWithColId?has_content &&
               nextSqaaWithColId.surveyMultiRespColId = surveyMultiRespColumn.surveyMultiRespColId>
-            <#assign dummySqaaWithColId = Static["org.ofbiz.base.util.UtilMisc"].removeFirst(sqaaWithColIdList)/>
+            <#assign dummySqaaWithColId = Static["org.apache.ofbiz.base.util.UtilMisc"].removeFirst(sqaaWithColIdList)/>
             <#assign changed = alreadyShownSqaaPkWithColId.add(nextSqaaWithColId.getPrimaryKey())/>
             <#assign questionFieldName = "answers_" + nextSqaaWithColId.surveyQuestionId + "_" + surveyMultiRespColumn.surveyMultiRespColId/>
           <#else>

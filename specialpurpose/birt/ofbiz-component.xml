@@ -59,6 +59,6 @@ under the License.
         menu-name="secondary"
         app-bar-display="true"/>
 
-    <container name="birt-container" loaders="main" class="org.ofbiz.birt.container.BirtContainer"/>
+    <container name="birt-container" loaders="main" class="org.apache.ofbiz.birt.container.BirtContainer"/>
 
 </ofbiz-component>

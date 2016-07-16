@@ -36,7 +36,7 @@ is ${ofbiz.home}/framework/webapp/lib/ -->
 
   <fo:page-sequence master-reference="main-page">
        <fo:flow flow-name="xsl-region-body">
-       <#assign segments = Static["org.ofbiz.base.util.UtilHttp"].parseMultiFormData(parameters)>
+       <#assign segments = Static["org.apache.ofbiz.base.util.UtilHttp"].parseMultiFormData(parameters)>
        <#list segments as segment>
          <fo:block break-before="page"> <#-- this tells fop to put a page break before this content TODO: content-type must be dynamic -->
            <fo:external-graphic content-type="content-type:image/gif" width="669px" height="724px" src="<@ofbizUrl>viewShipmentLabel?shipmentId=${segment.shipmentId}&amp;shipmentRouteSegmentId=${segment.shipmentRouteSegmentId}&amp;shipmentPackageSeqId=${segment.shipmentPackageSeqId}</@ofbizUrl>"></fo:external-graphic>

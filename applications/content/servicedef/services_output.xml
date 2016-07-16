@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
 
     <service name="sendPrintFromScreen" max-retry="0" engine="java"
-        location="org.ofbiz.content.output.OutputServices" invoke="sendPrintFromScreen">
+        location="org.apache.ofbiz.content.output.OutputServices" invoke="sendPrintFromScreen">
         <description>Send Print From Screen Widget Service</description>
         <attribute name="screenLocation" type="String" mode="IN" optional="false"/>
         <attribute name="screenContext" type="Map" mode="IN" optional="true"/>
@@ -36,7 +36,7 @@ under the License.
     </service>
 
     <service name="createFileFromScreen" max-retry="0" engine="java"
-        location="org.ofbiz.content.output.OutputServices" invoke="createFileFromScreen">
+        location="org.apache.ofbiz.content.output.OutputServices" invoke="createFileFromScreen">
         <description>Create a File From Screen Widget Service</description>
         <attribute name="screenLocation" type="String" mode="IN" optional="false"/>
         <attribute name="screenContext" type="Map" mode="IN" optional="true"/>

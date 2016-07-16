@@ -20,9 +20,9 @@
 // PackageContentsAndOrder
 // ReportB
 
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.order.order.OrderReadHelper;
-import org.ofbiz.order.order.OrderContentWrapper;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.order.order.OrderReadHelper;
+import org.apache.ofbiz.order.order.OrderContentWrapper;
 
 if (productCategoryIdPar) {
     category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne();

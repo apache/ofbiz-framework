@@ -30,28 +30,28 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
-    <!--  - org.ofbiz.product.catalog -->
-    <!--  - org.ofbiz.product.category -->
-    <!--  - org.ofbiz.product.config -->
-    <!--  - org.ofbiz.product.cost -->
-    <!--  - org.ofbiz.product.facility -->
-    <!--  - org.ofbiz.product.feature -->
-    <!--  - org.ofbiz.product.inventory -->
-    <!--  - org.ofbiz.product.price -->
-    <!--  - org.ofbiz.product.product -->
-    <!--  - org.ofbiz.product.promo -->
-    <!--  - org.ofbiz.product.store -->
-    <!--  - org.ofbiz.product.subscription -->
-    <!--  - org.ofbiz.product.supplier -->
+    <!--  - org.apache.ofbiz.product.catalog -->
+    <!--  - org.apache.ofbiz.product.category -->
+    <!--  - org.apache.ofbiz.product.config -->
+    <!--  - org.apache.ofbiz.product.cost -->
+    <!--  - org.apache.ofbiz.product.facility -->
+    <!--  - org.apache.ofbiz.product.feature -->
+    <!--  - org.apache.ofbiz.product.inventory -->
+    <!--  - org.apache.ofbiz.product.price -->
+    <!--  - org.apache.ofbiz.product.product -->
+    <!--  - org.apache.ofbiz.product.promo -->
+    <!--  - org.apache.ofbiz.product.store -->
+    <!--  - org.apache.ofbiz.product.subscription -->
+    <!--  - org.apache.ofbiz.product.supplier -->
     <!-- ========================================================= -->
 
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.product.catalog -->
+    <!-- org.apache.ofbiz.product.catalog -->
     <!-- ========================================================= -->
 
     <entity entity-name="ProdCatalog"
-            package-name="org.ofbiz.product.catalog"
+            package-name="org.apache.ofbiz.product.catalog"
             title="Catalog Entity" default-resource-name="ProductEntityLabels">
       <field name="prodCatalogId" type="id-ne"></field>
       <field name="catalogName" type="name"></field>
@@ -65,7 +65,7 @@ under the License.
       <prim-key field="prodCatalogId"/>
     </entity>
     <entity entity-name="ProdCatalogCategory"
-            package-name="org.ofbiz.product.catalog"
+            package-name="org.apache.ofbiz.product.catalog"
             default-resource-name="ProductEntityLabels"
             title="Catalog Category Association Entity">
       <field name="prodCatalogId" type="id-ne"></field>
@@ -89,7 +89,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProdCatalogCategoryType"
-            package-name="org.ofbiz.product.catalog"
+            package-name="org.apache.ofbiz.product.catalog"
             default-resource-name="ProductEntityLabels"
             title="Catalog Category Association Type Entity">
       <field name="prodCatalogCategoryTypeId" type="id-ne"></field>
@@ -101,7 +101,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProdCatalogInvFacility"
-            package-name="org.ofbiz.product.catalog"
+            package-name="org.apache.ofbiz.product.catalog"
             title="Product Catalog Inventory Facility Applicability Entity">
       <field name="prodCatalogId" type="id-ne"></field>
       <field name="facilityId" type="id-ne"></field>
@@ -119,7 +119,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProdCatalogRole"
-            package-name="org.ofbiz.product.catalog"
+            package-name="org.apache.ofbiz.product.catalog"
             title="ProdCatalog Role Association Entity">
       <field name="partyId" type="id-ne"></field>
       <field name="roleTypeId" type="id-ne"></field>
@@ -153,11 +153,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.product.category -->
+  <!-- org.apache.ofbiz.product.category -->
   <!-- ========================================================= -->
 
     <view-entity entity-name="ProductAndCategoryMember"
-        package-name="org.ofbiz.product.category"
+        package-name="org.apache.ofbiz.product.category"
         title="Product And ProductCategoryMember View Entity">
         <member-entity entity-alias="PROD" entity-name="Product"/>
         <member-entity entity-alias="PCM" entity-name="ProductCategoryMember"/>
@@ -179,7 +179,7 @@ under the License.
         </relation>
     </view-entity>
     <entity entity-name="ProductCategory"
-            package-name="org.ofbiz.product.category"
+            package-name="org.apache.ofbiz.product.category"
             title="Product Category Entity">
       <field name="productCategoryId" type="id-ne"></field>
       <field name="productCategoryTypeId" type="id"></field>
@@ -207,7 +207,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="ProductCategoryAndMember"
-            package-name="org.ofbiz.product.category"
+            package-name="org.apache.ofbiz.product.category"
             title="ProductCategory And ProductCategoryMember View Entity">
       <member-entity entity-alias="PC" entity-name="ProductCategory"/>
       <member-entity entity-alias="PCM" entity-name="ProductCategoryMember"/>
@@ -229,7 +229,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="ProductCategoryAttribute"
-            package-name="org.ofbiz.product.category"
+            package-name="org.apache.ofbiz.product.category"
             title="Product Category Attribute Entity">
       <field name="productCategoryId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
@@ -245,7 +245,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductCategoryContent"
-            package-name="org.ofbiz.product.category"
+            package-name="org.apache.ofbiz.product.category"
             title="Product Category Data Object Entity">
       <field name="productCategoryId" type="id-ne"></field>
       <field name="contentId" type="id-ne"></field>
@@ -275,7 +275,7 @@ under the License.
         </index>
     </entity>
     <view-entity entity-name="ProductCategoryContentAndInfo"
-                package-name="org.ofbiz.product.category"
+                package-name="org.apache.ofbiz.product.category"
                 title="ProductCategoryContent, Content and DataResource View Entity">
       <member-entity entity-alias="PCC" entity-name="ProductCategoryContent"/>
       <member-entity entity-alias="CO" entity-name="Content"/>
@@ -306,7 +306,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="ProductCategoryContentType"
-            package-name="org.ofbiz.product.category"
+            package-name="org.apache.ofbiz.product.category"
             default-resource-name="ProductEntityLabels"
             title="Product Category Content Type Entity">
       <field name="prodCatContentTypeId" type="id-ne"></field>
@@ -318,7 +318,7 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="prodCatContentTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="ProductCategoryGlAccount" package-name="org.ofbiz.product.category" title="Product Category GlAccount Entity">
+    <entity entity-name="ProductCategoryGlAccount" package-name="org.apache.ofbiz.product.category" title="Product Category GlAccount Entity">
         <field name="productCategoryId" type="id-ne"></field>
         <field name="organizationPartyId" type="id-ne"></field>
         <field name="glAccountTypeId" type="id-ne"></field>
@@ -340,7 +340,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductCategoryLink"
-        package-name="org.ofbiz.product.category"
+        package-name="org.apache.ofbiz.product.category"
         title="Product Category Link Entity">
         <field name="productCategoryId" type="id-ne"></field>
         <field name="linkSeqId" type="id-ne"></field>
@@ -366,7 +366,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductCategoryMember"
-        package-name="org.ofbiz.product.category"
+        package-name="org.apache.ofbiz.product.category"
         title="Product Category Member Entity">
         <field name="productCategoryId" type="id-ne"></field>
         <field name="productId" type="id-ne"></field>
@@ -389,7 +389,7 @@ under the License.
         </index>
     </entity>
     <view-entity entity-name="ProductCategoryMemberAndRole"
-            package-name="org.ofbiz.product.category"
+            package-name="org.apache.ofbiz.product.category"
             title="ProductCategoryMember And ProductCategoryRole View Entity">
       <member-entity entity-alias="PCM" entity-name="ProductCategoryMember"/>
       <member-entity entity-alias="PCR" entity-name="ProductCategoryRole"/>
@@ -427,7 +427,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="ProductCategoryRole"
-            package-name="org.ofbiz.product.category"
+            package-name="org.apache.ofbiz.product.category"
             title="Product Category Role Entity">
       <field name="productCategoryId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
@@ -454,7 +454,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductCategoryRollup"
-            package-name="org.ofbiz.product.category"
+            package-name="org.apache.ofbiz.product.category"
             title="Product Category Rollup Entity">
       <field name="productCategoryId" type="id-ne"></field>
       <field name="parentProductCategoryId" type="id-ne"><description>The parent category; it should be one of productCategoryId already setup in ProductCategory or ProductCategoryRollup</description></field>
@@ -483,7 +483,7 @@ under the License.
             <index-field name="parentProductCategoryId"/>
         </index>
     </entity>
-    <view-entity entity-name="ProductCategoryRollupAndChild" package-name="org.ofbiz.product.category">
+    <view-entity entity-name="ProductCategoryRollupAndChild" package-name="org.apache.ofbiz.product.category">
         <member-entity entity-alias="PCR" entity-name="ProductCategoryRollup"/>
         <member-entity entity-alias="CPC" entity-name="ProductCategory"/>
         <alias-all entity-alias="CPC"/>
@@ -496,7 +496,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="ProductCategoryRollupAndRole"
-            package-name="org.ofbiz.product.category"
+            package-name="org.apache.ofbiz.product.category"
             title="ProductCategoryRollup And ProductCategoryRole View Entity">
       <description>Allow the lookup of a category that is in another category that a party/role is related to. So, the party/role is related to the parent category.</description>
       <member-entity entity-alias="PCRLP" entity-name="ProductCategoryRollup"/>
@@ -533,7 +533,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="ProductCategoryType"
-            package-name="org.ofbiz.product.category"
+            package-name="org.apache.ofbiz.product.category"
             default-resource-name="ProductEntityLabels"
             title="Product Category Type Entity">
       <field name="productCategoryTypeId" type="id-ne"></field>
@@ -546,7 +546,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductCategoryTypeAttr"
-            package-name="org.ofbiz.product.category"
+            package-name="org.apache.ofbiz.product.category"
             title="Product Category Type Attribute Entity">
       <field name="productCategoryTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
@@ -565,11 +565,11 @@ under the License.
     </entity>
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.product.config -->
+    <!-- org.apache.ofbiz.product.config -->
     <!-- ========================================================= -->
 
     <entity entity-name="ProductConfig"
-            package-name="org.ofbiz.product.config"
+            package-name="org.apache.ofbiz.product.config"
             title="Product Configuration Templates Entity">
         <field name="productId" type="id-ne"></field>
         <field name="configItemId" type="id-ne"></field>
@@ -593,7 +593,7 @@ under the License.
         </relation>
     </entity>
     <view-entity entity-name="ProductConfigAndProduct"
-      package-name="org.ofbiz.product.config"
+      package-name="org.apache.ofbiz.product.config"
       title="Product Config And Product  View Entity, to be able to see which products use a certain configuration item">
       <member-entity entity-alias="PDC" entity-name="ProductConfig"/>
       <member-entity entity-alias="PD" entity-name="Product"/>
@@ -607,7 +607,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="ProductConfigItem"
-            package-name="org.ofbiz.product.config"
+            package-name="org.apache.ofbiz.product.config"
             title="Product Configuration Question Entity">
         <field name="configItemId" type="id-ne"></field>
         <field name="configItemTypeId" type="id"></field>
@@ -618,7 +618,7 @@ under the License.
         <prim-key field="configItemId"/>
     </entity>
     <entity entity-name="ProdConfItemContent"
-            package-name="org.ofbiz.product.config"
+            package-name="org.apache.ofbiz.product.config"
             title="Product Configuration Question Data Object Entity">
         <field name="configItemId" type="id-ne"></field>
         <field name="contentId" type="id-ne"></field>
@@ -640,7 +640,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProdConfItemContentType"
-            package-name="org.ofbiz.product.config"
+            package-name="org.apache.ofbiz.product.config"
             title="Product Content Type Entity"
             default-resource-name="ProductEntityLabels">
         <field name="confItemContentTypeId" type="id-ne"></field>
@@ -653,7 +653,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductConfigOption"
-            package-name="org.ofbiz.product.config"
+            package-name="org.apache.ofbiz.product.config"
             title="Product Configuration Options Entity">
         <field name="configItemId" type="id-ne"></field>
         <field name="configOptionId" type="id-ne"></field>
@@ -667,7 +667,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductConfigOptionIactn"
-            package-name="org.ofbiz.product.config"
+            package-name="org.apache.ofbiz.product.config"
             title="Product Configuration Options Entity">
         <field name="configItemId" type="id-ne"></field>
         <field name="configOptionId" type="id-ne"></field>
@@ -697,7 +697,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductConfigProduct"
-            package-name="org.ofbiz.product.config"
+            package-name="org.apache.ofbiz.product.config"
             title="Product Configuration Option to Products Entity">
         <field name="configItemId" type="id-ne"></field>
         <field name="configOptionId" type="id-ne"></field>
@@ -719,7 +719,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductConfigConfig"
-            package-name="org.ofbiz.product.config"
+            package-name="org.apache.ofbiz.product.config"
             title="Existing Product Configurations Entity">
         <field name="configId" type="id-ne"></field>
         <field name="configItemId" type="id-ne"></field>
@@ -739,7 +739,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductConfigStats"
-            package-name="org.ofbiz.product.config"
+            package-name="org.apache.ofbiz.product.config"
             title="Product Configurations Stats Entity">
         <field name="configId" type="id-ne"></field>
         <field name="productId" type="id-ne"></field>
@@ -752,7 +752,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ConfigOptionProductOption"
-            package-name="org.ofbiz.product.config"
+            package-name="org.apache.ofbiz.product.config"
             title="Config Option Product Options Entity">
         <field name="configId" type="id-ne"></field>
         <field name="configItemId" type="id-ne"></field>
@@ -780,11 +780,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.product.cost -->
+  <!-- org.apache.ofbiz.product.cost -->
   <!-- ========================================================= -->
 
     <entity entity-name="CostComponent"
-            package-name="org.ofbiz.product.cost"
+            package-name="org.apache.ofbiz.product.cost"
             default-resource-name="ProductEntityLabels"
             title="Cost Component Entity">
       <field name="costComponentId" type="id-ne"></field>
@@ -833,7 +833,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="CostComponentAttribute"
-            package-name="org.ofbiz.product.cost"
+            package-name="org.apache.ofbiz.product.cost"
             title="Cost Component Attribute Entity">
       <field name="costComponentId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
@@ -849,7 +849,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="CostComponentType"
-            package-name="org.ofbiz.product.cost"
+            package-name="org.apache.ofbiz.product.cost"
             default-resource-name="ProductEntityLabels"
             title="Cost Component Type Entity">
       <field name="costComponentTypeId" type="id-ne"></field>
@@ -862,7 +862,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="CostComponentTypeAttr"
-            package-name="org.ofbiz.product.cost"
+            package-name="org.apache.ofbiz.product.cost"
             title="Cost Component Type Attribute Entity">
       <field name="costComponentTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
@@ -880,7 +880,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="CostComponentCalc"
-            package-name="org.ofbiz.product.cost"
+            package-name="org.apache.ofbiz.product.cost"
             title="Cost Component Calculation Entity">
         <field name="costComponentCalcId" type="id-ne"></field>
         <field name="description" type="description"></field>
@@ -906,7 +906,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductCostComponentCalc"
-            package-name="org.ofbiz.product.cost"
+            package-name="org.apache.ofbiz.product.cost"
             title="Product Cost Calculation Entity">
         <field name="productId" type="id-ne"></field>
         <field name="costComponentTypeId" type="id-ne"></field>
@@ -929,10 +929,10 @@ under the License.
     </entity>
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.product.facility -->
+    <!-- org.apache.ofbiz.product.facility -->
     <!-- ========================================================= -->
 
-    <entity entity-name="Container" package-name="org.ofbiz.product.facility" title="Container Entity">
+    <entity entity-name="Container" package-name="org.apache.ofbiz.product.facility" title="Container Entity">
         <field name="containerId" type="id-ne"></field>
         <field name="containerTypeId" type="id"></field>
         <field name="facilityId" type="id"></field>
@@ -945,12 +945,12 @@ under the License.
             <key-map field-name="facilityId"/>
         </relation>
     </entity>
-    <entity entity-name="ContainerType" package-name="org.ofbiz.product.facility" title="Container Type Entity">
+    <entity entity-name="ContainerType" package-name="org.apache.ofbiz.product.facility" title="Container Type Entity">
         <field name="containerTypeId" type="id-ne"></field>
         <field name="description" type="description"></field>
         <prim-key field="containerTypeId"/>
     </entity>
-    <entity entity-name="ContainerGeoPoint" package-name="org.ofbiz.product.facility" title="Container Geo Location with history">
+    <entity entity-name="ContainerGeoPoint" package-name="org.apache.ofbiz.product.facility" title="Container Geo Location with history">
       <field name="containerId" type="id-ne"></field>
       <field name="geoPointId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
@@ -965,7 +965,7 @@ under the License.
         <key-map field-name="geoPointId"/>
       </relation>
     </entity>
-    <view-entity entity-name="ContainerAndGeoPoint" package-name="org.ofbiz.product.facility"  title="Container and Geo Point View Entity">
+    <view-entity entity-name="ContainerAndGeoPoint" package-name="org.apache.ofbiz.product.facility"  title="Container and Geo Point View Entity">
       <member-entity entity-alias="CT" entity-name="Container"/>
       <member-entity entity-alias="CTGPT" entity-name="ContainerGeoPoint"/>
       <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
@@ -991,7 +991,7 @@ under the License.
       </relation>
     </view-entity>
 
-    <entity entity-name="Facility" package-name="org.ofbiz.product.facility" title="Facility Entity">
+    <entity entity-name="Facility" package-name="org.apache.ofbiz.product.facility" title="Facility Entity">
         <field name="facilityId" type="id-ne"></field>
         <field name="facilityTypeId" type="id"></field>
         <field name="parentFacilityId" type="id"></field>
@@ -1046,7 +1046,7 @@ under the License.
         <key-map field-name="facilitySizeUomId" rel-field-name="uomId"/>
       </relation>      
     </entity>
-    <view-entity entity-name="FacilityAndContactMech" package-name="org.ofbiz.product.facility" title="Facility and Contact Mech View Entity">
+    <view-entity entity-name="FacilityAndContactMech" package-name="org.apache.ofbiz.product.facility" title="Facility and Contact Mech View Entity">
         <member-entity entity-alias="FA" entity-name="Facility"/>
         <member-entity entity-alias="CM" entity-name="FacilityContactMech"/>
         <member-entity entity-alias="MC" entity-name="ContactMech"/>
@@ -1060,7 +1060,7 @@ under the License.
             <key-map field-name="contactMechId"/>
         </view-link>
     </view-entity>
-    <entity entity-name="FacilityAttribute" package-name="org.ofbiz.product.facility" title="Facility Attribute Entity">
+    <entity entity-name="FacilityAttribute" package-name="org.apache.ofbiz.product.facility" title="Facility Attribute Entity">
         <field name="facilityId" type="id-ne"></field>
         <field name="attrName" type="id-long-ne"></field>
         <field name="attrValue" type="value"></field>
@@ -1074,7 +1074,7 @@ under the License.
             <key-map field-name="attrName"/>
         </relation>
     </entity>
-    <entity entity-name="FacilityCarrierShipment" package-name="org.ofbiz.product.facility" title="Facility Role Type Entity">
+    <entity entity-name="FacilityCarrierShipment" package-name="org.apache.ofbiz.product.facility" title="Facility Role Type Entity">
         <field name="facilityId" type="id-ne"></field>
         <field name="partyId" type="id-ne"></field>
         <field name="roleTypeId" type="id-ne"></field>
@@ -1098,7 +1098,7 @@ under the License.
             <key-map field-name="roleTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="FacilityContactMech" package-name="org.ofbiz.product.facility" title="Facility Contact Mechanism Entity">
+    <entity entity-name="FacilityContactMech" package-name="org.apache.ofbiz.product.facility" title="Facility Contact Mechanism Entity">
         <field name="facilityId" type="id-ne"></field>
         <field name="contactMechId" type="id-ne"></field>
         <field name="fromDate" type="date-time"></field>
@@ -1122,7 +1122,7 @@ under the License.
             <key-map field-name="contactMechId"/>
         </relation>
     </entity>
-    <entity entity-name="FacilityContactMechPurpose" package-name="org.ofbiz.product.facility" title="Facility Contact Mechanism Purpose Entity">
+    <entity entity-name="FacilityContactMechPurpose" package-name="org.apache.ofbiz.product.facility" title="Facility Contact Mechanism Purpose Entity">
         <field name="facilityId" type="id-ne"></field>
         <field name="contactMechId" type="id-ne"></field>
         <field name="contactMechPurposeTypeId" type="id-ne"></field>
@@ -1146,7 +1146,7 @@ under the License.
             <key-map field-name="contactMechId"/>
         </relation>
     </entity>
-    <entity entity-name="FacilityGroup" package-name="org.ofbiz.product.facility" title="Facility Group Entity">
+    <entity entity-name="FacilityGroup" package-name="org.apache.ofbiz.product.facility" title="Facility Group Entity">
         <field name="facilityGroupId" type="id-ne"></field>
         <field name="facilityGroupTypeId" type="id"></field>
         <field name="primaryParentGroupId" type="id"></field>
@@ -1160,7 +1160,7 @@ under the License.
             <key-map field-name="primaryParentGroupId" rel-field-name="facilityGroupId"/>
         </relation>
     </entity>
-    <entity entity-name="FacilityGroupMember" package-name="org.ofbiz.product.facility" title="Facility Group Entity">
+    <entity entity-name="FacilityGroupMember" package-name="org.apache.ofbiz.product.facility" title="Facility Group Entity">
         <field name="facilityId" type="id-ne"></field>
         <field name="facilityGroupId" type="id-ne"></field>
         <field name="fromDate" type="date-time"></field>
@@ -1176,7 +1176,7 @@ under the License.
             <key-map field-name="facilityGroupId"/>
         </relation>
     </entity>
-    <entity entity-name="FacilityGroupRole" package-name="org.ofbiz.product.facility" title="Facility Group Role Entity">
+    <entity entity-name="FacilityGroupRole" package-name="org.apache.ofbiz.product.facility" title="Facility Group Role Entity">
         <field name="facilityGroupId" type="id-ne"></field>
         <field name="partyId" type="id"></field>
         <field name="roleTypeId" type="id"></field>
@@ -1197,7 +1197,7 @@ under the License.
             <key-map field-name="roleTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="FacilityGroupRollup" package-name="org.ofbiz.product.facility" title="Facility Group Rollup Entity">
+    <entity entity-name="FacilityGroupRollup" package-name="org.apache.ofbiz.product.facility" title="Facility Group Rollup Entity">
         <field name="facilityGroupId" type="id-ne"></field>
         <field name="parentFacilityGroupId" type="id-ne"></field>
         <field name="fromDate" type="date-time"></field>
@@ -1222,13 +1222,13 @@ under the License.
             <key-map field-name="parentFacilityGroupId"/>
         </relation>
     </entity>
-    <entity entity-name="FacilityGroupType" package-name="org.ofbiz.product.facility" title="Facility Group Type Entity"
+    <entity entity-name="FacilityGroupType" package-name="org.apache.ofbiz.product.facility" title="Facility Group Type Entity"
         default-resource-name="ProductEntityLabels">
         <field name="facilityGroupTypeId" type="id-ne"></field>
         <field name="description" type="description"></field>
         <prim-key field="facilityGroupTypeId"/>
     </entity>
-    <entity entity-name="FacilityLocation" package-name="org.ofbiz.product.facility" title="Facility Location Entity">
+    <entity entity-name="FacilityLocation" package-name="org.apache.ofbiz.product.facility" title="Facility Location Entity">
         <field name="facilityId" type="id-ne"></field>
         <field name="locationSeqId" type="id-ne"></field>
         <field name="locationTypeEnumId" type="id-ne"></field>
@@ -1250,7 +1250,7 @@ under the License.
         <key-map field-name="geoPointId"/>
       </relation>      
     </entity>
-    <entity entity-name="FacilityLocationGeoPoint" package-name="org.ofbiz.product.facility" title="Facility Location Geo Location with history">
+    <entity entity-name="FacilityLocationGeoPoint" package-name="org.apache.ofbiz.product.facility" title="Facility Location Geo Location with history">
         <field name="facilityId" type="id-ne"></field>
         <field name="locationSeqId" type="id-ne"></field>
         <field name="geoPointId" type="id-ne"></field>
@@ -1268,7 +1268,7 @@ under the License.
             <key-map field-name="geoPointId"/>
         </relation>
     </entity>
-    <view-entity entity-name="FacilityLocationAndGeoPoint" package-name="org.ofbiz.product.facility"  title="Facility Location and Geo Point View Entity">
+    <view-entity entity-name="FacilityLocationAndGeoPoint" package-name="org.apache.ofbiz.product.facility"  title="Facility Location and Geo Point View Entity">
       <member-entity entity-alias="FL" entity-name="FacilityLocation"/>
       <member-entity entity-alias="FLGPT" entity-name="FacilityLocationGeoPoint"/>
       <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
@@ -1297,7 +1297,7 @@ under the License.
         <key-map field-name="geoPointId"/>
       </relation>
     </view-entity>
-    <entity entity-name="FacilityParty" package-name="org.ofbiz.product.facility" title="Facility Party Entity">
+    <entity entity-name="FacilityParty" package-name="org.apache.ofbiz.product.facility" title="Facility Party Entity">
         <field name="facilityId" type="id"></field>
         <field name="partyId" type="id"></field>
         <field name="roleTypeId" type="id"></field>
@@ -1321,7 +1321,7 @@ under the License.
             <key-map field-name="roleTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="FacilityContent" package-name="org.ofbiz.product.facility" title="Facility Content Entity">
+    <entity entity-name="FacilityContent" package-name="org.apache.ofbiz.product.facility" title="Facility Content Entity">
         <field name="facilityId" type="id-ne"></field>
         <field name="contentId" type="id-ne"></field>
         <field name="fromDate" type="date-time"></field>
@@ -1336,7 +1336,7 @@ under the License.
             <key-map field-name="contentId"/>
         </relation>
     </entity>      
-    <view-entity entity-name="FacilityContentDetail" package-name="org.ofbiz.product.facility" title="Facility Content Detail View Entity">
+    <view-entity entity-name="FacilityContentDetail" package-name="org.apache.ofbiz.product.facility" title="Facility Content Detail View Entity">
         <member-entity entity-alias="FCT" entity-name="FacilityContent"/>
         <member-entity entity-alias="CNT" entity-name="Content"/>
         <alias-all entity-alias="FCT"/>
@@ -1351,7 +1351,7 @@ under the License.
             <key-map field-name="contentTypeId"/>
         </relation>
     </view-entity>
-    <entity entity-name="FacilityType" package-name="org.ofbiz.product.facility" default-resource-name="ProductEntityLabels"
+    <entity entity-name="FacilityType" package-name="org.apache.ofbiz.product.facility" default-resource-name="ProductEntityLabels"
         title="Facility Type Entity">
         <field name="facilityTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id-ne"></field>
@@ -1362,7 +1362,7 @@ under the License.
             <key-map field-name="parentTypeId" rel-field-name="facilityTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="FacilityTypeAttr" package-name="org.ofbiz.product.facility" title="Facility Type Attribute Entity">
+    <entity entity-name="FacilityTypeAttr" package-name="org.apache.ofbiz.product.facility" title="Facility Type Attribute Entity">
         <field name="facilityTypeId" type="id-ne"></field>
         <field name="attrName" type="id-long-ne"></field>
         <field name="description" type="description"></field>
@@ -1378,7 +1378,7 @@ under the License.
             <key-map field-name="facilityTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="ProductFacility" package-name="org.ofbiz.product.facility" title="Product Facility Entity">
+    <entity entity-name="ProductFacility" package-name="org.apache.ofbiz.product.facility" title="Product Facility Entity">
         <field name="productId" type="id-ne"></field>
         <field name="facilityId" type="id-ne"></field>
         <field name="minimumStock" type="fixed-point"></field>
@@ -1395,7 +1395,7 @@ under the License.
         </relation>
     </entity>
   <view-entity entity-name="ProductFacilityAndPostalAddress"
-        package-name="org.ofbiz.product.facility"
+        package-name="org.apache.ofbiz.product.facility"
         title="Product Facility And Contactmech And Postal Address View Entity, to be able to list products by geographic location">
     <member-entity entity-alias="PDFT" entity-name="ProductFacility"/>
     <member-entity entity-alias="FTCT" entity-name="FacilityContactMech"/>
@@ -1415,7 +1415,7 @@ under the License.
       <key-map field-name="contactMechId"/>
     </view-link>
   </view-entity>
-    <entity entity-name="ProductFacilityLocation" package-name="org.ofbiz.product.facility" title="Product Facility Entity">
+    <entity entity-name="ProductFacilityLocation" package-name="org.apache.ofbiz.product.facility" title="Product Facility Entity">
         <field name="productId" type="id-ne"></field>
         <field name="facilityId" type="id-ne"></field>
         <field name="locationSeqId" type="id-ne"></field>
@@ -1435,7 +1435,7 @@ under the License.
             <key-map field-name="locationSeqId"/>
         </relation>
     </entity>
-    <view-entity entity-name="ProductFacilityLocationQuantityTest" package-name="org.ofbiz.product.facility" title="ProductFacilityLocation Quantity Test View Entity">
+    <view-entity entity-name="ProductFacilityLocationQuantityTest" package-name="org.apache.ofbiz.product.facility" title="ProductFacilityLocation Quantity Test View Entity">
         <member-entity entity-alias="PFL" entity-name="ProductFacilityLocation"/>
         <member-entity entity-alias="FL" entity-name="FacilityLocation"/>
         <member-entity entity-alias="II" entity-name="InventoryItem"/>
@@ -1469,7 +1469,7 @@ under the License.
             <key-map field-name="locationSeqId"/>
         </relation>
     </view-entity>
-    <view-entity entity-name="ProductFacilityLocationView" package-name="org.ofbiz.product.facility" title="ProductFacilityLocation And FacilityLocation View Entity">
+    <view-entity entity-name="ProductFacilityLocationView" package-name="org.apache.ofbiz.product.facility" title="ProductFacilityLocation And FacilityLocation View Entity">
         <member-entity entity-alias="PFL" entity-name="ProductFacilityLocation"/>
         <member-entity entity-alias="FL" entity-name="FacilityLocation"/>
         <alias-all entity-alias="PFL"/>
@@ -1495,11 +1495,11 @@ under the License.
     </view-entity>
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.product.feature -->
+    <!-- org.apache.ofbiz.product.feature -->
     <!-- ========================================================= -->
 
     <entity entity-name="ProductFeature"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             default-resource-name="ProductEntityLabels"
             title="Product Feature Entity">
       <field name="productFeatureId" type="id-ne"></field>
@@ -1524,7 +1524,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="ProductFeatureAndAppl"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             title="ProductFeature And ProductFeatureAppl View Entity">
       <member-entity entity-alias="PF" entity-name="ProductFeature"/>
       <member-entity entity-alias="PFA" entity-name="ProductFeatureAppl"/>
@@ -1570,7 +1570,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="ProductFeatureAppl"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             title="Product Feature Applicability Entity">
       <field name="productId" type="id-ne"></field>
       <field name="productFeatureId" type="id-ne"></field>
@@ -1594,7 +1594,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductFeatureApplType"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             default-resource-name="ProductEntityLabels"
             title="Product Feature Applicability Type Entity">
       <field name="productFeatureApplTypeId" type="id-ne"></field>
@@ -1607,7 +1607,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductFeatureApplAttr"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             title="Product Feature Applicability Attribute Entity">
       <field name="productId" type="id-ne"></field>
       <field name="productFeatureId" type="id-ne"></field>
@@ -1631,7 +1631,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductFeatureCategory"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             default-resource-name="ProductEntityLabels"
             title="Product Feature Category Entity">
       <field name="productFeatureCategoryId" type="id-ne"></field>
@@ -1643,7 +1643,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductFeatureCategoryAppl"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             title="Product Feature Category Application Entity">
       <field name="productCategoryId" type="id-ne"></field>
       <field name="productFeatureCategoryId" type="id-ne"></field>
@@ -1660,7 +1660,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductFeatureCatGrpAppl"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             title="Product Category Feature Group Application Entity">
       <field name="productCategoryId" type="id-ne"></field>
       <field name="productFeatureGroupId" type="id-ne"></field>
@@ -1677,7 +1677,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductFeatureDataResource"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             title="Product Feature Data Resource Entity">
       <field name="dataResourceId" type="id-ne"></field>
       <field name="productFeatureId" type="id-ne"></field>
@@ -1691,14 +1691,14 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductFeatureGroup"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             title="Product Feature Group Entity">
       <field name="productFeatureGroupId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="productFeatureGroupId"/>
     </entity>
     <view-entity entity-name="ProductFeatureGroupAndAppl"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             title="Product Feature Group And Applicability View Entity">
       <member-entity entity-alias="PFGA" entity-name="ProductFeatureGroupAppl"/>
       <member-entity entity-alias="PF" entity-name="ProductFeature"/>
@@ -1709,7 +1709,7 @@ under the License.
       </view-link>
     </view-entity>
     <view-entity entity-name="ProdFeaGrpAppAndProdFeaApp"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             title="ProductFeatureGroupAppl And ProductFeatureAppl View Entity">
       <member-entity entity-alias="PFGA" entity-name="ProductFeatureGroupAppl"/>
       <member-entity entity-alias="PFA" entity-name="ProductFeatureAppl"/>
@@ -1729,7 +1729,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="ProductFeatureGroupAppl"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             title="Product Feature Group Applicability Entity">
       <field name="productFeatureGroupId" type="id-ne"></field>
       <field name="productFeatureId" type="id-ne"></field>
@@ -1747,7 +1747,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductFeatureIactn"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             title="Product Feature Interaction Entity">
       <field name="productFeatureId" type="id-ne"></field>
       <field name="productFeatureIdTo" type="id-ne"></field>
@@ -1766,7 +1766,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductFeatureIactnType"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             title="Product Feature Interaction Type Entity">
       <field name="productFeatureIactnTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id"></field>
@@ -1778,7 +1778,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductFeatureType"
-            package-name="org.ofbiz.product.feature"
+            package-name="org.apache.ofbiz.product.feature"
             default-resource-name="ProductEntityLabels"
             title="Product Feature Type Entity">
       <field name="productFeatureTypeId" type="id-ne"></field>
@@ -1792,7 +1792,7 @@ under the License.
     </entity>
 
   <entity entity-name="ProductFeaturePrice"
-    package-name="org.ofbiz.product.price"
+    package-name="org.apache.ofbiz.product.price"
     title="Product Feature Price Entity">
     <field name="productFeatureId" type="id-ne"></field>
     <field name="productPriceTypeId" type="id-ne"></field>
@@ -1827,11 +1827,11 @@ under the License.
   </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.product.inventory -->
+  <!-- org.apache.ofbiz.product.inventory -->
   <!-- ========================================================= -->
 
     <view-entity entity-name="BalanceInventoryItemsView"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Balance Inventory Items View Entity">
       <member-entity entity-alias="INV" entity-name="InventoryItem"/>
       <member-entity entity-alias="RES" entity-name="OrderItemShipGrpInvRes"/>
@@ -1854,7 +1854,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="InventoryItem"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Item Entity">
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="inventoryItemTypeId" type="id"></field>
@@ -1941,7 +1941,7 @@ under the License.
       </index>
     </entity>
     <view-entity entity-name="InventoryItemAndLocation"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="InventoryItem And FacilityLocation View Entity">
       <member-entity entity-alias="II" entity-name="InventoryItem"/>
       <member-entity entity-alias="PR" entity-name="Product"/>
@@ -1974,7 +1974,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="InventoryItemAttribute"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Item Attribute Entity">
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
@@ -1989,7 +1989,7 @@ under the License.
         <key-map field-name="attrName"/>
       </relation>
     </entity>
-    <view-entity entity-name="InventoryItemAndDetail" package-name="org.ofbiz.product.inventory">
+    <view-entity entity-name="InventoryItemAndDetail" package-name="org.apache.ofbiz.product.inventory">
         <member-entity entity-alias="II" entity-name="InventoryItem"/>
         <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
         <alias-all entity-alias="IID"/>
@@ -2025,7 +2025,7 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="InventoryItemDetail"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Item Detail Entity">
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="inventoryItemDetailSeqId" type="id-ne"></field>
@@ -2093,7 +2093,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="InventoryItemDetailSummary"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Item Detail Summary View Entity">
       <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
       <alias entity-alias="IID" name="inventoryItemId" group-by="true"/>
@@ -2101,7 +2101,7 @@ under the License.
       <alias entity-alias="IID" name="quantityOnHandTotal" field="quantityOnHandDiff" function="sum"/>
       <alias entity-alias="IID" name="accountingQuantityTotal" field="accountingQuantityDiff" function="sum"/>
     </view-entity>
-    <view-entity entity-name="InventoryItemDetailForSum" package-name="org.ofbiz.product.inventory"
+    <view-entity entity-name="InventoryItemDetailForSum" package-name="org.apache.ofbiz.product.inventory"
         title="Inventory Item And Inventory Item Detail for Summation View Entity">
         <member-entity entity-alias="II" entity-name="InventoryItem"/>
         <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
@@ -2122,7 +2122,7 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="InventoryItemStatus"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Item Status History Entity">
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="statusId" type="id-ne"></field>
@@ -2140,7 +2140,7 @@ under the License.
         <key-map field-name="statusId"/>
       </relation>
     </entity>
-    <view-entity entity-name="InventoryItemStatusForCount" package-name="org.ofbiz.product.inventory">
+    <view-entity entity-name="InventoryItemStatusForCount" package-name="org.apache.ofbiz.product.inventory">
         <description>This view-entity is for querying a count (findCountByCondition) of InventoryItems that were in a certain status at a certain point in time.</description>
         <member-entity entity-alias="IIS" entity-name="InventoryItemStatus"/>
         <member-entity entity-alias="II" entity-name="InventoryItem"/>
@@ -2156,7 +2156,7 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="InventoryItemTempRes"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Item Temporary Reservation Entity">
       <field name="visitId" type="id-ne"></field>
       <field name="productId" type="id-ne"></field>
@@ -2174,7 +2174,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="InventoryItemType"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             default-resource-name="ProductEntityLabels"
             title="Inventory Item Type Entity">
       <field name="inventoryItemTypeId" type="id-ne"></field>
@@ -2187,7 +2187,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="InventoryItemTypeAttr"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Item Type Attribute Entity">
       <field name="inventoryItemTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
@@ -2205,7 +2205,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="InventoryItemVariance"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Item Variance Entity">
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="physicalInventoryId" type="id-ne"></field>
@@ -2226,7 +2226,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="InventoryItemLabelType"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Item Label Type Entity">
       <field name="inventoryItemLabelTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id"></field>
@@ -2238,7 +2238,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="InventoryItemLabel"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Item Label Entity">
       <field name="inventoryItemLabelId" type="id-ne"></field>
       <field name="inventoryItemLabelTypeId" type="id-ne"></field>
@@ -2249,7 +2249,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="InventoryItemLabelAppl"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Item Label Applicability Entity">
       <field name="inventoryItemId" type="id-ne"></field>
       <field name="inventoryItemLabelTypeId" type="id-ne"></field>
@@ -2268,7 +2268,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="InventoryTransfer"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Inventory Transfer Entity">
       <field name="inventoryTransferId" type="id-ne"></field>
       <field name="statusId" type="id-ne"></field>
@@ -2315,7 +2315,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="Lot"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Lot Entity">
       <field name="lotId" type="id-ne"></field>
       <field name="creationDate" type="date-time"></field>
@@ -2324,7 +2324,7 @@ under the License.
       <prim-key field="lotId"/>
     </entity>
     <entity entity-name="PhysicalInventory"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="Physical Inventory Entity">
       <field name="physicalInventoryId" type="id-ne"></field>
       <field name="physicalInventoryDate" type="date-time"></field>
@@ -2333,7 +2333,7 @@ under the License.
       <prim-key field="physicalInventoryId"/>
     </entity>
     <view-entity entity-name="PhysicalInventoryAndVariance"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             title="PhysicalInventory and InventoryItemVariance View Entity">
       <member-entity entity-alias="PHINV" entity-name="PhysicalInventory"/>
       <member-entity entity-alias="IIV" entity-name="InventoryItemVariance"/>
@@ -2366,7 +2366,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="VarianceReason"
-            package-name="org.ofbiz.product.inventory"
+            package-name="org.apache.ofbiz.product.inventory"
             default-resource-name="ProductEntityLabels"
             title="Variance Reason Entity">
       <field name="varianceReasonId" type="id-ne"></field>
@@ -2375,11 +2375,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.product.price -->
+  <!-- org.apache.ofbiz.product.price -->
   <!-- ========================================================= -->
 
     <entity entity-name="ProductPaymentMethodType"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             title="Product PaymentMethodType Entity">
         <field name="productId" type="id-ne"></field>
         <field name="paymentMethodTypeId" type="id-ne"></field>
@@ -2402,7 +2402,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductPrice"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             title="Product Price Entity">
       <field name="productId" type="id-ne"></field>
       <field name="productPriceTypeId" type="id-ne"></field>
@@ -2472,7 +2472,7 @@ under the License.
         </index>
     </entity>
     <entity entity-name="ProductPriceAction"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             title="Product Price Action Entity">
       <field name="productPriceRuleId" type="id-ne"></field>
       <field name="productPriceActionSeqId" type="id-ne"></field>
@@ -2489,7 +2489,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductPriceActionType"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             default-resource-name="ProductEntityLabels"
             title="Product Price Type Entity">
       <field name="productPriceActionTypeId" type="id-ne"></field>
@@ -2497,7 +2497,7 @@ under the License.
       <prim-key field="productPriceActionTypeId"/>
     </entity>
     <entity entity-name="ProductPriceAutoNotice"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             title="Product Price Automatic Notice History Entity">
       <field name="productPriceNoticeId" type="id-ne"></field>
       <field name="facilityId" type="id"></field>
@@ -2507,7 +2507,7 @@ under the License.
       <prim-key field="productPriceNoticeId"/>
     </entity>
     <entity entity-name="ProductPriceChange"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             title="Product Price Change History Entity">
       <field name="productPriceChangeId" type="id-ne"></field>
       <field name="productId" type="id-ne"></field>
@@ -2535,7 +2535,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductPriceCond"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             title="Product Price Condition Entity">
       <field name="productPriceRuleId" type="id-ne"></field>
       <field name="productPriceCondSeqId" type="id-ne"></field>
@@ -2555,7 +2555,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductPricePurpose"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             default-resource-name="ProductEntityLabels"
             title="Product Price Purpose Entity">
         <field name="productPricePurposeId" type="id-ne"></field>
@@ -2563,7 +2563,7 @@ under the License.
         <prim-key field="productPricePurposeId"/>
     </entity>
     <entity entity-name="ProductPriceRule"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             title="Product Pice Rule Entity">
       <field name="productPriceRuleId" type="id-ne"></field>
       <field name="ruleName" type="name"></field>
@@ -2574,7 +2574,7 @@ under the License.
       <prim-key field="productPriceRuleId"/>
     </entity>
     <entity entity-name="ProductPriceType"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             default-resource-name="ProductEntityLabels"
             title="Product Price Type Entity">
       <field name="productPriceTypeId" type="id-ne"></field>
@@ -2582,7 +2582,7 @@ under the License.
       <prim-key field="productPriceTypeId"/>
     </entity>
     <entity entity-name="QuantityBreak"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             title="Quantity Break Entity">
       <field name="quantityBreakId" type="id-ne"></field>
       <field name="quantityBreakTypeId" type="id"></field>
@@ -2594,7 +2594,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="QuantityBreakType"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             default-resource-name="ProductEntityLabels"
             title="Quantity Break Type Entity">
       <field name="quantityBreakTypeId" type="id-ne"></field>
@@ -2602,7 +2602,7 @@ under the License.
       <prim-key field="quantityBreakTypeId"/>
     </entity>
     <entity entity-name="SaleType"
-            package-name="org.ofbiz.product.price"
+            package-name="org.apache.ofbiz.product.price"
             title="Sale Type Entity">
       <field name="saleTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
@@ -2610,11 +2610,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.product.product -->
+  <!-- org.apache.ofbiz.product.product -->
   <!-- ========================================================= -->
 
     <entity entity-name="GoodIdentification"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Good Identification Entity">
       <field name="goodIdentificationTypeId" type="id-ne"></field>
       <field name="productId" type="id-ne"></field>
@@ -2632,7 +2632,7 @@ under the License.
       </index>
     </entity>
     <view-entity entity-name="GoodIdentificationAndProduct"
-                package-name="org.ofbiz.product.product"
+                package-name="org.apache.ofbiz.product.product"
                 title="GoodIdentification and Product View Entity">
       <member-entity entity-alias="GI" entity-name="GoodIdentification"/>
       <member-entity entity-alias="PR" entity-name="Product"/>
@@ -2685,7 +2685,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="GoodIdentificationType"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             default-resource-name="ProductEntityLabels"
             title="Good Identification Type Entity">
       <field name="goodIdentificationTypeId" type="id-ne"></field>
@@ -2698,7 +2698,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="Product"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Product Entity">
       <field name="productId" type="id-ne"></field>
       <field name="productTypeId" type="id"></field>
@@ -2838,7 +2838,7 @@ under the License.
 
     </entity>
     <entity entity-name="ProductAssoc"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Product Association Entity">
       <field name="productId" type="id-ne"></field>
       <field name="productIdTo" type="id-ne"></field>
@@ -2877,7 +2877,7 @@ under the License.
         </relation>
     </entity>
     <view-entity entity-name="ProductAndAssoc"
-                 package-name="org.ofbiz.product.product"
+                 package-name="org.apache.ofbiz.product.product"
                  title="Product and ProductAssoc View Entity">
       <member-entity entity-alias="PD" entity-name="Product"/>
       <member-entity entity-alias="PDA" entity-name="ProductAssoc"/>
@@ -2892,7 +2892,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="ProductAssocType"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             default-resource-name="ProductEntityLabels"
             title="Product Association Type Entity">
       <field name="productAssocTypeId" type="id-ne"></field>
@@ -2905,7 +2905,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductRole"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Product Role Entity">
       <field name="productId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
@@ -2933,7 +2933,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductAttribute"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Product Attribute Entity">
       <field name="productId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
@@ -2950,7 +2950,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductCalculatedInfo"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Product Calculated Info Entity">
         <field name="productId" type="id-ne"></field>
         <field name="totalQuantityOrdered" type="fixed-point"></field>
@@ -2962,7 +2962,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductContent"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Product Data Object Entity">
       <field name="productId" type="id-ne"></field>
       <field name="contentId" type="id-ne"></field>
@@ -2997,7 +2997,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="ProductContentAndInfo"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="ProductContent, Content and DataResource View Entity">
       <member-entity entity-alias="PC" entity-name="ProductContent"/>
       <member-entity entity-alias="CO" entity-name="Content"/>
@@ -3028,7 +3028,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="ProductContentType"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             default-resource-name="ProductEntityLabels"
             title="Product Content Type Entity">
       <field name="productContentTypeId" type="id-ne"></field>
@@ -3041,7 +3041,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductGeo"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             default-resource-name="ProductEntityLabels"
             title="Product Geo Entity">
       <field name="productId" type="id-ne"></field>
@@ -3061,7 +3061,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductGlAccount"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Product GlAccount Entity">
       <field name="productId" type="id-ne"></field>
       <field name="organizationPartyId" type="id-ne"></field>
@@ -3084,7 +3084,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="ProductInventoryItem"
-        package-name="org.ofbiz.product.product"
+        package-name="org.apache.ofbiz.product.product"
         title="View entity joining Product and InventoryItem to allow queries for InventoryItem based on product attributes">
         <member-entity entity-alias="PR" entity-name="Product"/>
         <member-entity entity-alias="II" entity-name="InventoryItem"/>
@@ -3101,7 +3101,7 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="ProductKeyword" table-name="PRODUCT_KEYWORD_NEW"
-            package-name="org.ofbiz.product.product" title="Product Keyword Entity" never-cache="true">
+            package-name="org.apache.ofbiz.product.product" title="Product Keyword Entity" never-cache="true">
       <field name="productId" type="id-ne"></field>
       <field name="keyword" type="short-varchar"></field>
       <field name="keywordTypeId" type="id-ne"></field>
@@ -3123,7 +3123,7 @@ under the License.
         <index-field name="keyword"/>
       </index>
     </entity>
-    <entity entity-name="ProductMeter" package-name="org.ofbiz.product.product" title="Product Meter Entity">
+    <entity entity-name="ProductMeter" package-name="org.apache.ofbiz.product.product" title="Product Meter Entity">
         <field name="productId" type="id-ne"></field>
         <field name="productMeterTypeId" type="id-ne"><description>Part of the primary key as different meters on a machine should have distinct types</description></field>
         <field name="meterUomId" type="id"><description>Is on this entity instead of the ProductMeterType entity for more flexibility; for example being able to find all speedometers regardless of their primary unit</description></field>
@@ -3141,7 +3141,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductMeterType"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             default-resource-name="ProductEntityLabels"
             title="Product Meter Type Entity">
         <field name="productMeterTypeId" type="id-ne"></field>
@@ -3152,7 +3152,7 @@ under the License.
             <key-map field-name="defaultUomId" rel-field-name="uomId"/>
         </relation>
     </entity>
-    <entity entity-name="ProductMaint" package-name="org.ofbiz.product.product" title="Product Maintenance Entity">
+    <entity entity-name="ProductMaint" package-name="org.apache.ofbiz.product.product" title="Product Maintenance Entity">
         <description>This is used to specify the details for scheduled maintenance.</description>
         <field name="productId" type="id-ne"></field>
         <field name="productMaintSeqId" type="id-ne"></field>
@@ -3187,7 +3187,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductMaintType"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             default-resource-name="ProductEntityLabels"
             title="Product Maintenance Type Entity">
         <description>This is for both scheduled and unscheduled maintenance; use ProductMaint to track details for scheduled maintenance</description>
@@ -3200,7 +3200,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductReview"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Product Review Entity">
         <field name="productReviewId" type="id-ne"></field>
         <field name="productStoreId" type="id-ne"></field>
@@ -3225,7 +3225,7 @@ under the License.
           <key-map field-name="statusId"/>
         </relation>
     </entity>
-    <entity entity-name="ProductSearchConstraint" package-name="org.ofbiz.product.product" never-cache="true" title="Product Search Result Constraint Entity">
+    <entity entity-name="ProductSearchConstraint" package-name="org.apache.ofbiz.product.product" never-cache="true" title="Product Search Result Constraint Entity">
       <field name="productSearchResultId" type="id-ne"></field>
       <field name="constraintSeqId" type="id-ne"></field>
       <field name="constraintName" type="long-varchar"></field>
@@ -3244,7 +3244,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductSearchResult"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             never-cache="true"
             title="Product Search Result Entity">
       <field name="productSearchResultId" type="id-ne"></field>
@@ -3257,7 +3257,7 @@ under the License.
       <prim-key field="productSearchResultId"/>
     </entity>
     <entity entity-name="ProductType"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             default-resource-name="ProductEntityLabels"
             title="Product Type Entity">
       <field name="productTypeId" type="id-ne"></field>
@@ -3272,7 +3272,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductTypeAttr"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Product Type Attribute Entity">
       <field name="productTypeId" type="id-ne"></field>
       <field name="attrName" type="id-long-ne"></field>
@@ -3290,7 +3290,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="ProductVirtualAndAssocPrices"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Virtual and Associated Product Prices View Entity">
       <description>When using this to get an associated product price summary the only columns you should request are: productId, productName, assocProductCount, assocMinPrice, assocMaxPrice. The rest of the field aliases should only be used for specifying constraints since they will break the grouping.</description>
       <member-entity entity-alias="PVIRT" entity-name="Product"/>
@@ -3323,7 +3323,7 @@ under the License.
       </view-link>
     </view-entity>
     <view-entity entity-name="ProductVirtualAndVariantInfo"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Virtual and Variant Product View Entity">
       <member-entity entity-alias="PVIRT" entity-name="Product"/>
       <member-entity entity-alias="PVA" entity-name="ProductAssoc"/>
@@ -3368,7 +3368,7 @@ under the License.
       </view-link>
     </view-entity>
     <view-entity entity-name="ProductAndPriceView"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Product And Price View">
       <member-entity entity-alias="PR" entity-name="Product"/>
       <member-entity entity-alias="PP" entity-name="ProductPrice"/>
@@ -3389,7 +3389,7 @@ under the License.
         <key-map field-name="productId"/>
       </view-link>
     </view-entity>
-    <entity entity-name="VendorProduct" package-name="org.ofbiz.product.product">
+    <entity entity-name="VendorProduct" package-name="org.apache.ofbiz.product.product">
         <description>For information related to a specific vendor and product, especially for multi-vendor stores. The ProductStoreGroup is to be used much like in ProductPrice.</description>
         <field name="productId" type="id-ne"></field>
         <field name="vendorPartyId" type="id-ne"></field>
@@ -3409,11 +3409,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.product.promo -->
+  <!-- org.apache.ofbiz.product.promo -->
   <!-- ========================================================= -->
 
     <entity entity-name="ProductPromo"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Entity">
       <field name="productPromoId" type="id-ne"></field>
       <field name="promoName" type="name"></field>
@@ -3442,7 +3442,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductPromoAction"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Action Entity">
       <field name="productPromoId" type="id-ne"></field>
       <field name="productPromoRuleId" type="id-ne"></field>
@@ -3483,7 +3483,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductPromoCategory"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Category Entity">
       <field name="productPromoId" type="id-ne"></field>
       <field name="productPromoRuleId" type="id-ne"></field>
@@ -3510,7 +3510,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductPromoCode"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Entity">
       <field name="productPromoCodeId" type="id-ne"></field>
       <field name="productPromoId" type="id-ne"></field>
@@ -3536,7 +3536,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductPromoCodeEmail"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Email Entity">
       <field name="productPromoCodeId" type="id-ne"></field>
       <field name="emailAddress" type="email"></field>
@@ -3547,7 +3547,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="ProductPromoCodeEmailParty"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Email and Party View Entity">
       <member-entity entity-alias="PPCE" entity-name="ProductPromoCodeEmail"/>
       <member-entity entity-alias="CM" entity-name="ContactMech"/>
@@ -3565,7 +3565,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="ProductPromoCodeParty"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Party Entity">
       <field name="productPromoCodeId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
@@ -3579,7 +3579,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductPromoCond"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Condition Entity">
       <field name="productPromoId" type="id-ne"></field>
       <field name="productPromoRuleId" type="id-ne"></field>
@@ -3616,7 +3616,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductPromoProduct"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Category Entity">
       <field name="productPromoId" type="id-ne"></field>
       <field name="productPromoRuleId" type="id-ne"></field>
@@ -3640,7 +3640,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductPromoRule"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Rule Entity">
       <field name="productPromoId" type="id-ne"></field>
       <field name="productPromoRuleId" type="id-ne"></field>
@@ -3652,7 +3652,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductPromoUse"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Use Entity">
       <field name="orderId" type="id-ne"></field>
       <field name="promoSequenceId" type="id-ne"></field>
@@ -3685,7 +3685,7 @@ under the License.
       </index>
     </entity>
     <view-entity entity-name="ProductPromoUseCheck"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promotion Use Check View Entity">
       <member-entity entity-alias="PPU" entity-name="ProductPromoUse"/>
       <member-entity entity-alias="OH" entity-name="OrderHeader"/>
@@ -3697,11 +3697,11 @@ under the License.
     </view-entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.product.store -->
+  <!-- org.apache.ofbiz.product.store -->
   <!-- ========================================================= -->
 
     <entity entity-name="ProductStore"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Entity"
             default-resource-name="ProductEntityLabels">
       <field name="productStoreId" type="id-ne"></field>
@@ -3852,7 +3852,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductStoreCatalog"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Catalog Association Entity">
       <field name="productStoreId" type="id-ne"></field>
       <field name="prodCatalogId" type="id-ne"></field>
@@ -3870,7 +3870,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductStoreEmailSetting"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Email Settings Entity">
       <field name="productStoreId" type="id-ne"></field>
       <field name="emailType" type="id-ne"></field>
@@ -3891,7 +3891,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductStoreFinActSetting"
-                package-name="org.ofbiz.product.store"
+                package-name="org.apache.ofbiz.product.store"
                 title="Allows financial account, such as gift certificate or calling cards, to be configured at store level">
       <field name="productStoreId" type="id-ne"/>
       <field name="finAccountTypeId" type="id-ne"/>
@@ -3943,7 +3943,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductStoreFacility"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Inventory Facility Applicability Entity">
       <field name="productStoreId" type="id-ne"></field>
       <field name="facilityId" type="id-ne"></field>
@@ -3961,7 +3961,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="ProductStoreFacilityByOrder"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Facility By Order">
         <member-entity entity-alias="ORH" entity-name="OrderHeader"/>
         <member-entity entity-alias="PSF" entity-name="ProductStoreFacility"/>
@@ -3987,7 +3987,7 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="ProductStoreGroup"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             default-resource-name="ProductEntityLabels"
             title="ProductStore Group Entity">
       <field name="productStoreGroupId" type="id-ne"></field>
@@ -4004,7 +4004,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductStoreGroupMember"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="ProductStore Group Member Entity">
       <field name="productStoreId" type="id-ne"></field>
       <field name="productStoreGroupId" type="id-ne"></field>
@@ -4022,7 +4022,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductStoreGroupRole"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="ProductStore Group Role Entity">
       <field name="productStoreGroupId" type="id-ne"></field>
       <field name="partyId" type="id"></field>
@@ -4045,7 +4045,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductStoreGroupRollup"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="ProductStore Group Rollup Entity">
       <field name="productStoreGroupId" type="id-ne"></field>
       <field name="parentGroupId" type="id-ne"></field>
@@ -4072,14 +4072,14 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductStoreGroupType"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="ProductStore Group Type Entity">
       <field name="productStoreGroupTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="productStoreGroupTypeId"/>
     </entity>
     <entity entity-name="ProductStoreKeywordOvrd"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Inventory Facility Applicability Entity">
       <field name="productStoreId" type="id-ne"></field>
       <field name="keyword" type="short-varchar"></field>
@@ -4098,7 +4098,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductStorePaymentSetting"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Payment Settings Entity">
       <field name="productStoreId" type="id-ne"></field>
       <field name="paymentMethodTypeId" type="id-ne"></field>
@@ -4128,7 +4128,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="ProductStorePromoAndAppl"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Promotion and Applicability View Entity">
       <member-entity entity-alias="PSPA" entity-name="ProductStorePromoAppl"/>
       <member-entity entity-alias="PP" entity-name="ProductPromo"/>
@@ -4140,7 +4140,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="ProductStorePromoAppl"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Promotion Applicability Entity">
       <field name="productStoreId" type="id-ne"></field>
       <field name="productPromoId" type="id-ne"></field>
@@ -4164,7 +4164,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductStoreRole"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Role Association Entity">
       <field name="partyId" type="id-ne"></field>
       <field name="roleTypeId" type="id-ne"></field>
@@ -4197,7 +4197,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProductStoreShipmentMeth"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Carrier Shipment Method Entity">
       <field name="productStoreShipMethId" type="id-ne"></field>
       <field name="productStoreId" type="id-ne"></field>
@@ -4249,7 +4249,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="ProductStoreShipmentMethView"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Carrier And Shipment Method Type View Entity">
       <member-entity entity-alias="PSSM" entity-name="ProductStoreShipmentMeth"/>
       <member-entity entity-alias="SM" entity-name="ShipmentMethodType"/>
@@ -4300,7 +4300,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="ProductStoreSurveyAppl"
-            package-name="org.ofbiz.product.store"
+            package-name="org.apache.ofbiz.product.store"
             title="Product Store Survey Application Entity">
       <field name="productStoreSurveyId" type="id-ne"></field>
       <field name="productStoreId" type="id-ne"></field>
@@ -4331,7 +4331,7 @@ under the License.
         <key-map field-name="productCategoryId"/>
       </relation>
     </entity>
-    <entity entity-name="ProductStoreVendorPayment" package-name="org.ofbiz.product.store" title="Product Store Vendor Payment Entity">
+    <entity entity-name="ProductStoreVendorPayment" package-name="org.apache.ofbiz.product.store" title="Product Store Vendor Payment Entity">
         <description>Used to define payments that a vendor related to the store will accept (for multi-vendor stores)</description>
         <field name="productStoreId" type="id-ne"/>
         <field name="vendorPartyId" type="id-ne"/>
@@ -4354,7 +4354,7 @@ under the License.
             <key-map field-name="creditCardEnumId" rel-field-name="enumId"/>
         </relation>
     </entity>
-    <entity entity-name="ProductStoreVendorShipment" package-name="org.ofbiz.product.store" title="Product Store Vendor Shipment Entity">
+    <entity entity-name="ProductStoreVendorShipment" package-name="org.apache.ofbiz.product.store" title="Product Store Vendor Shipment Entity">
         <description>Used to define Carrier-ShipmentMethod combinations that a vendor related to the store will accept (for multi-vendor stores)</description>
         <field name="productStoreId" type="id-ne"/>
         <field name="vendorPartyId" type="id-ne"/>
@@ -4386,11 +4386,11 @@ under the License.
     </extend-entity>
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.product.subscription -->
+    <!-- org.apache.ofbiz.product.subscription -->
     <!-- ========================================================= -->
 
     <entity entity-name="ProductSubscriptionResource"
-            package-name="org.ofbiz.product.subscription"
+            package-name="org.apache.ofbiz.product.subscription"
             title="Product Subscription Resource Entity">
         <field name="productId" type="id-ne"></field>
         <field name="subscriptionResourceId" type="id-ne"></field>
@@ -4440,7 +4440,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="Subscription"
-            package-name="org.ofbiz.product.subscription"
+            package-name="org.apache.ofbiz.product.subscription"
             title="Subscription Entity">
         <field name="subscriptionId" type="id-ne"></field>
         <field name="description" type="description"></field>
@@ -4553,13 +4553,13 @@ under the License.
             <key-map field-name="gracePeriodOnExpiryUomId" rel-field-name="uomId"/>
         </relation>
     </entity>
-    <entity entity-name="SubscriptionActivity" package-name="org.ofbiz.product.subscription" title="Subscription Activity Entity">
+    <entity entity-name="SubscriptionActivity" package-name="org.apache.ofbiz.product.subscription" title="Subscription Activity Entity">
         <field name="subscriptionActivityId" type="id-ne"></field>
         <field name="comments" type="comment"></field>
         <field name="dateSent" type="date-time"></field>
         <prim-key field="subscriptionActivityId"/>
     </entity>
-    <entity entity-name="SubscriptionAttribute" package-name="org.ofbiz.product.subscription" title="Subscription Attribute Entity">
+    <entity entity-name="SubscriptionAttribute" package-name="org.apache.ofbiz.product.subscription" title="Subscription Attribute Entity">
         <field name="subscriptionId" type="id-ne"></field>
         <field name="attrName" type="id-long-ne"></field>
         <field name="attrValue" type="value"></field>
@@ -4574,7 +4574,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SubscriptionFulfillmentPiece"
-            package-name="org.ofbiz.product.subscription"
+            package-name="org.apache.ofbiz.product.subscription"
             title="Subscription Fulfillment Piece Entity">
         <field name="subscriptionActivityId" type="id-ne"></field>
         <field name="subscriptionId" type="id-ne"></field>
@@ -4588,7 +4588,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SubscriptionResource"
-            package-name="org.ofbiz.product.subscription"
+            package-name="org.apache.ofbiz.product.subscription"
             title="Subscription Resource Entity">
         <field name="subscriptionResourceId" type="id-ne"></field>
         <field name="parentResourceId" type="id"></field>
@@ -4608,7 +4608,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SubscriptionType"
-            package-name="org.ofbiz.product.subscription"
+            package-name="org.apache.ofbiz.product.subscription"
             default-resource-name="ProductEntityLabels"
             title="Subscription Type Entity">
         <field name="subscriptionTypeId" type="id-ne"></field>
@@ -4621,7 +4621,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SubscriptionTypeAttr"
-            package-name="org.ofbiz.product.subscription"
+            package-name="org.apache.ofbiz.product.subscription"
             title="Subscription Type Attribute Entity">
         <field name="subscriptionTypeId" type="id-ne"></field>
         <field name="attrName" type="id-long-ne"></field>
@@ -4640,7 +4640,7 @@ under the License.
     </entity>
 
     <entity entity-name="SubscriptionCommEvent"
-            package-name="org.ofbiz.product.subscription"
+            package-name="org.apache.ofbiz.product.subscription"
             title="Subscription Communication Event  Entity">
       <field name="subscriptionId" type="id-ne"></field>
       <field name="communicationEventId" type="id-ne"></field>
@@ -4654,7 +4654,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="SubscriptionAndCommEvent"
-                 package-name="org.ofbiz.product.subscription"
+                 package-name="org.apache.ofbiz.product.subscription"
                  title="Subscription And Communication Event View Entity">
       <member-entity entity-alias="SC" entity-name="SubscriptionCommEvent"/>
       <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
@@ -4666,11 +4666,11 @@ under the License.
     </view-entity>
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.product.supplier -->
+    <!-- org.apache.ofbiz.product.supplier -->
     <!-- ========================================================= -->
 
     <entity entity-name="MarketInterest"
-            package-name="org.ofbiz.product.supplier"
+            package-name="org.apache.ofbiz.product.supplier"
             title="Market Interest Entity">
       <field name="productCategoryId" type="id-ne"></field>
       <field name="partyClassificationGroupId" type="id-ne"></field>
@@ -4687,7 +4687,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ReorderGuideline"
-            package-name="org.ofbiz.product.supplier"
+            package-name="org.apache.ofbiz.product.supplier"
             title="Reorder Guideline Entity">
       <field name="reorderGuidelineId" type="id-ne"></field>
       <field name="productId" type="id-ne"></field>
@@ -4714,14 +4714,14 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="SupplierPrefOrder"
-            package-name="org.ofbiz.product.supplier"
+            package-name="org.apache.ofbiz.product.supplier"
             title="Preference Type Entity">
       <field name="supplierPrefOrderId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="supplierPrefOrderId"/>
     </entity>
     <entity entity-name="SupplierProduct"
-            package-name="org.ofbiz.product.supplier"
+            package-name="org.apache.ofbiz.product.supplier"
             title="Supplier Product Entity">
       <field name="productId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
@@ -4773,7 +4773,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="SupplierProductAndProduct"
-      package-name="org.ofbiz.product.supplier"
+      package-name="org.apache.ofbiz.product.supplier"
       title="Supplier-product and product antityview for purchase order entry">
       <member-entity entity-alias="SP" entity-name="SupplierProduct"/>
       <member-entity entity-alias="PR" entity-name="Product"/>
@@ -4788,7 +4788,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="SupplierProductFeature"
-            package-name="org.ofbiz.product.supplier"
+            package-name="org.apache.ofbiz.product.supplier"
             title="Supplier-specific product feature information">
       <field name="partyId" type="id-ne"/>
       <field name="productFeatureId" type="id-ne"/>
@@ -4808,7 +4808,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="SupplierRatingType"
-            package-name="org.ofbiz.product.supplier"
+            package-name="org.apache.ofbiz.product.supplier"
             title="Supplier Rating Type Entity">
       <field name="supplierRatingTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
@@ -4816,7 +4816,7 @@ under the License.
     </entity>
     
     <entity entity-name="ProductPromoContent"
-            package-name="org.ofbiz.product.promo"
+            package-name="org.apache.ofbiz.product.promo"
             title="Product Promo Content Entity">
       <field name="productPromoId" type="id-ne"/>
       <field name="contentId" type="id-ne"/>
@@ -4839,7 +4839,7 @@ under the License.
     </entity>
 
     <entity entity-name="ProductGroupOrder"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             title="Product Group Order Entity">
       <field name="groupOrderId" type="id-ne"></field>
       <field name="productId" type="id-ne"></field>

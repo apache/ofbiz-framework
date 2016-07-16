@@ -434,7 +434,7 @@ under the License.
                     <field-map field-name="contactMechId" from-field="communicationEvent.contactMechIdFrom"/>
                 </entity-one>
 
-                <set field="content" value="${groovy:org.ofbiz.base.util.StringUtil.wrapString(communicationEvent.content)}"/>
+                <set field="content" value="${groovy:org.apache.ofbiz.base.util.StringUtil.wrapString(communicationEvent.content)}"/>
             </actions>
             <widgets>
                 <platform-specific>

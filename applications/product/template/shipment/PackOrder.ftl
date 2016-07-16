@@ -278,7 +278,7 @@ under the License.
                         <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)!>
                         <#assign orderItemQuantity = itemInfo.quantity/>
                         <#assign orderProduct = orderItem.getRelatedOne("Product", false)!/>
-                        <#assign product = Static["org.ofbiz.product.product.ProductWorker"].findProduct(delegator, itemInfo.productId)!/>
+                        <#assign product = Static["org.apache.ofbiz.product.product.ProductWorker"].findProduct(delegator, itemInfo.productId)!/>
                         <#--
                         <#if orderItem.cancelQuantity?exists>
                           <#assign orderItemQuantity = orderItem.quantity - orderItem.cancelQuantity>
@@ -461,7 +461,7 @@ under the License.
                     <td>&nbsp;</td>
                   </tr>
                   <#list packedLines as line>
-                    <#assign product = Static["org.ofbiz.product.product.ProductWorker"].findProduct(delegator, line.getProductId())/>
+                    <#assign product = Static["org.apache.ofbiz.product.product.ProductWorker"].findProduct(delegator, line.getProductId())/>
                     <tr>
                       <td>${line.getOrderItemSeqId()}</td>
                       <td>${line.getProductId()?default("N/A")}</td>
@@ -505,7 +505,7 @@ under the License.
                   <td>&nbsp;</td>
               </tr>
               <#list packedLines as line>
-                  <#assign product = Static["org.ofbiz.product.product.ProductWorker"].findProduct(delegator, line.getProductId())/>
+                  <#assign product = Static["org.apache.ofbiz.product.product.ProductWorker"].findProduct(delegator, line.getProductId())/>
                   <tr>
                       <td>${line.getOrderItemSeqId()}</td>
                       <td>${line.getProductId()?default("N/A")}</td>

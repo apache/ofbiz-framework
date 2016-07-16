@@ -85,7 +85,7 @@ under the License.
         </field>
         <field name="partyGroupId" title="${uiLabelMap.SfaAccountName}" tooltip="${uiLabelMap.SfaSelectExistingAccountOrLeaveBlankToCreateNew}" use-when="parameters.get(&quot;partyGroupId&quot;)==&quot;&quot;">
             <drop-down allow-empty="true" current-description="">
-              <entity-options entity-name="PartyRole" description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false)} : [partyId]" key-field-name="partyId">
+              <entity-options entity-name="PartyRole" description="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false)} : [partyId]" key-field-name="partyId">
                   <entity-constraint name="roleTypeId" operator="equals" value="ACCOUNT"/>
               </entity-options>
             </drop-down>
@@ -102,12 +102,12 @@ under the License.
         </actions>
         <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}" position="1">
             <drop-down allow-empty="false">
-               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, 'partyId', false)} ${lead.partyId}"/>
+               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(delegator, 'partyId', false)} ${lead.partyId}"/>
             </drop-down>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" position="2">
             <drop-down allow-empty="false">
-               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, 'partyId', false)} ${lead.partyId}"/>
+               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(delegator, 'partyId', false)} ${lead.partyId}"/>
             </drop-down>
         </field>
         <field name="submitButton" position="3" title="${uiLabelMap.SfaMergeLeads}" widget-style="buttontext" tooltip-style="button-text"><submit button-type="text-link"/></field>

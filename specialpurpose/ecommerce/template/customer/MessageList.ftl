@@ -19,12 +19,12 @@ under the License.
 
 <#macro showMessage communicationEvent isSentMessage index>
   <#if communicationEvent.partyIdFrom?has_content>
-    <#assign partyNameFrom = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdFrom, true)>
+    <#assign partyNameFrom = Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdFrom, true)>
   <#else>
     <#assign partyNameFrom = "${uiLabelMap.CommonNA}">
   </#if>
   <#if communicationEvent.partyIdTo?has_content>
-    <#assign partyNameTo = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdTo, true)>
+    <#assign partyNameTo = Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdTo, true)>
   <#else>
     <#assign partyNameTo = "${uiLabelMap.CommonNA}">
   </#if>

@@ -22,7 +22,7 @@ under the License.
   <description>Fedex Shipment Interface Services, based on Ship Manager Direct XML API</description>
 
   <!-- FDXSubscriptionRequest/FDXSubscriptionReply -->
-  <service name="fedexSubscriptionRequest" engine="java" location="org.ofbiz.shipment.thirdparty.fedex.FedexServices" invoke="fedexSubscriptionRequest" auth="false">
+  <service name="fedexSubscriptionRequest" engine="java" location="org.apache.ofbiz.shipment.thirdparty.fedex.FedexServices" invoke="fedexSubscriptionRequest" auth="false">
     <description>Sends a subscription request to FedEx to get the meter number, which is required for Fedex Ship Manager Direct as shipping credential.
         You must supply a contact name and a partyId (usually your company's with a valid address and phone number per Fedex requirements.</description>
     <attribute name="contactPartyName" type="String" mode="IN" optional="false"/>
@@ -34,7 +34,7 @@ under the License.
   </service>
 
   <!-- FDXShipRequest/FDXShipReply -->
-  <service name="fedexShipRequest" engine="java" location="org.ofbiz.shipment.thirdparty.fedex.FedexServices" invoke="fedexShipRequest" auth="false">
+  <service name="fedexShipRequest" engine="java" location="org.apache.ofbiz.shipment.thirdparty.fedex.FedexServices" invoke="fedexShipRequest" auth="false">
     <description>Schedule a shipment route segment with FedEx.  You will get back a label image and tracking number which are stored for you in the same
         ShipmentRouteSegment.</description>
     <attribute name="shipmentId" type="String" mode="IN" optional="false"/>

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.condition.*;
 
 //default this to true, ie only show active
 activeOnly = !"false".equals(request.getParameter("activeOnly"));

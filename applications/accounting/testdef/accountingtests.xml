@@ -28,7 +28,7 @@
 
 
     <test-case case-name="accounting-tests">
-        <junit-test-suite class-name="org.ofbiz.accounting.test.FinAccountTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.test.FinAccountTests"/>
     </test-case>
 
     <test-case case-name="auto-accounting-transaction-tests-sales">

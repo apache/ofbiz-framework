@@ -17,12 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.order.shoppingcart.*;
-import org.ofbiz.order.shoppingcart.shipping.*;
-import org.ofbiz.party.contact.*;
-import org.ofbiz.product.store.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.order.shoppingcart.shipping.*;
+import org.apache.ofbiz.party.contact.*;
+import org.apache.ofbiz.product.store.*;
 
 shoppingCart = session.getAttribute("shoppingCart");
 context.shoppingCart = shoppingCart;

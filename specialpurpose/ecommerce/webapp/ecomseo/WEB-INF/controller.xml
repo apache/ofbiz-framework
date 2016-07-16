@@ -26,5 +26,5 @@ under the License.
      -->
     <description>OFBiz: eCommerce SEO Controller Configuration File</description>
     
-    <handler name="jsp" type="view" class="org.ofbiz.ecommerce.webapp.view.JspViewHandler"/>
+    <handler name="jsp" type="view" class="org.apache.ofbiz.ecommerce.webapp.view.JspViewHandler"/>
 </site-conf>

@@ -27,21 +27,21 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.security.*;
-import org.ofbiz.service.*;
-import org.ofbiz.entity.model.*;
-import org.ofbiz.content.ContentManagementWorker;
-import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.base.util.collections.LifoSet;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.security.*;
+import org.apache.ofbiz.service.*;
+import org.apache.ofbiz.entity.model.*;
+import org.apache.ofbiz.content.ContentManagementWorker;
+import org.apache.ofbiz.content.content.ContentWorker;
+import org.apache.ofbiz.base.util.collections.LifoSet;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 lookupCaches = session.getAttribute("lookupCaches");
-//org.ofbiz.base.util.Debug.logInfo("entityName:" + entityName, "");
-//org.ofbiz.base.util.Debug.logInfo("in MruAdd.groovy, lookupCaches:" + lookupCaches, "");
+//org.apache.ofbiz.base.util.Debug.logInfo("entityName:" + entityName, "");
+//org.apache.ofbiz.base.util.Debug.logInfo("in MruAdd.groovy, lookupCaches:" + lookupCaches, "");
 
 if (!lookupCaches) {
     lookupCaches = [:];
@@ -51,7 +51,7 @@ if (!lookupCaches) {
 cacheEntityName = entityName;
 //Debug.logInfo("cacheEntityName:" + cacheEntityName, "");
 lifoSet = lookupCaches[cacheEntityName];
-//org.ofbiz.base.util.Debug.logInfo("lifoSet:" + lifoSet, "");
+//org.apache.ofbiz.base.util.Debug.logInfo("lifoSet:" + lifoSet, "");
 if (!lifoSet) {
     lifoSet = new LifoSet(10);
     lookupCaches[cacheEntityName] = lifoSet;

@@ -27,7 +27,7 @@ under the License.
     <!-- Entity Import Services
          Transacitons are turned off for these services because they set transactions and timeouts inside the services with txTimeout parameter -->
     <service name="parseEntityXmlFile" engine="java"
-            location="org.ofbiz.webtools.WebToolsServices" invoke="parseEntityXmlFile" auth="true" use-transaction="false">
+            location="org.apache.ofbiz.webtools.WebToolsServices" invoke="parseEntityXmlFile" auth="true" use-transaction="false">
         <description>Parses an entity xml file or an entity xml text</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="url" type="java.net.URL" mode="IN" optional="true"/>
@@ -41,7 +41,7 @@ under the License.
         <attribute name="rowProcessed" type="Long" mode="OUT" optional="false"/>
     </service>
     <service name="entityImport" engine="java"
-            location="org.ofbiz.webtools.WebToolsServices" invoke="entityImport" auth="true" use-transaction="false">
+            location="org.apache.ofbiz.webtools.WebToolsServices" invoke="entityImport" auth="true" use-transaction="false">
         <description>Imports an entity xml file or text string</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="filename" type="String" mode="IN" optional="true" allow-html="any"/>
@@ -57,7 +57,7 @@ under the License.
         <attribute name="messages" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="entityImportDir" engine="java"
-            location="org.ofbiz.webtools.WebToolsServices" invoke="entityImportDir" auth="true" use-transaction="false">
+            location="org.apache.ofbiz.webtools.WebToolsServices" invoke="entityImportDir" auth="true" use-transaction="false">
         <description>Imports all entity xml files contained in a directory</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="path" type="String" mode="IN" optional="true"/>
@@ -72,7 +72,7 @@ under the License.
         <attribute name="messages" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="entityImportReaders" engine="java"
-        location="org.ofbiz.webtools.WebToolsServices" invoke="entityImportReaders" auth="true" use-transaction="false">
+        location="org.apache.ofbiz.webtools.WebToolsServices" invoke="entityImportReaders" auth="true" use-transaction="false">
         <description>Imports an entity xml file or text string</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="readers" type="String" mode="IN" optional="true"/>
@@ -86,7 +86,7 @@ under the License.
         <attribute name="messages" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="entityExportAll" engine="java"
-            location="org.ofbiz.webtools.WebToolsServices" invoke="entityExportAll" auth="true" use-transaction="false">
+            location="org.apache.ofbiz.webtools.WebToolsServices" invoke="entityExportAll" auth="true" use-transaction="false">
         <description>Exports all entities into xml files</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="outpath" type="String" mode="IN" optional="true"/>
@@ -95,15 +95,15 @@ under the License.
         <attribute name="results" type="List" mode="OUT" optional="false"/>
     </service>
 
-    <service name="getEntityRefData" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="getEntityRefData" auth="true" use-transaction="false">
-        <description>Gets the entity reference data - for the entity reference screen. See org.ofbiz.webtools.WebToolsServices.getEntityRefData().</description>
+    <service name="getEntityRefData" engine="java" location="org.apache.ofbiz.webtools.WebToolsServices" invoke="getEntityRefData" auth="true" use-transaction="false">
+        <description>Gets the entity reference data - for the entity reference screen. See org.apache.ofbiz.webtools.WebToolsServices.getEntityRefData().</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="numberOfEntities" type="java.lang.Integer" mode="OUT" optional="true"/>
         <attribute name="packagesList" type="java.util.List" mode="OUT" optional="true"/>
     </service>
-    <service name="exportEntityEoModelBundle" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="exportEntityEoModelBundle" auth="true" use-transaction="false">
+    <service name="exportEntityEoModelBundle" engine="java" location="org.apache.ofbiz.webtools.WebToolsServices" invoke="exportEntityEoModelBundle" auth="true" use-transaction="false">
         <description>Saves specified set of entities to an Apple EOModelBundle file.
-            See org.ofbiz.webtools.WebToolsServices.exportEoModelBundle().
+            See org.apache.ofbiz.webtools.WebToolsServices.exportEoModelBundle().
             Specify either entityPackageName or entityGroupId, or leave both empty for ALL entities in the data model.
         </description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
@@ -114,13 +114,13 @@ under the License.
         <attribute name="entityNamePrefix" type="java.lang.String" mode="IN" optional="true"/>
     </service>
 
-    <service name="entityMaintPermCheck" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="entityMaintPermCheck">
+    <service name="entityMaintPermCheck" engine="java" location="org.apache.ofbiz.webtools.WebToolsServices" invoke="entityMaintPermCheck">
         <description>Performs an entity maintenance security check. Returns hasPermission=true
           if the user has the ENTITY_MAINT permission.</description>
         <implements service="permissionInterface"/>
     </service>
 
-    <service name="exportServiceEoModelBundle" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="exportServiceEoModelBundle" auth="true" use-transaction="false">
+    <service name="exportServiceEoModelBundle" engine="java" location="org.apache.ofbiz.webtools.WebToolsServices" invoke="exportServiceEoModelBundle" auth="true" use-transaction="false">
         <description>Saves service and related artifacts diagram to an Apple EOModelBundle file.
         </description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
@@ -128,7 +128,7 @@ under the License.
         <attribute name="serviceName" type="java.lang.String" mode="IN" optional="false"/>
     </service>
 
-    <service name="saveLabelsToXmlFile" engine="java" location="org.ofbiz.webtools.labelmanager.SaveLabelsToXmlFile"
+    <service name="saveLabelsToXmlFile" engine="java" location="org.apache.ofbiz.webtools.labelmanager.SaveLabelsToXmlFile"
              invoke="saveLabelsToXmlFile" auth="true" use-transaction="false">
         <description>Save labels to xml file</description>
         <attribute name="key" type="String" mode="IN" optional="true"/>

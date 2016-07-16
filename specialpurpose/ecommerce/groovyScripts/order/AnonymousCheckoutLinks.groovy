@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
 
 shoppingCart = ShoppingCartEvents.getCartObject(request);
 

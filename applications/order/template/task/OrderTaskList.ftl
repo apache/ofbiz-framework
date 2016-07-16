@@ -67,7 +67,7 @@ under the License.
                           </tr>
                           <#assign alt_row = false>
                           <#list poList as orderHeaderAndRole>
-                            <#assign orh = Static["org.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeaderAndRole)>
+                            <#assign orh = Static["org.apache.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeaderAndRole)>
                             <#assign statusItem = orderHeaderAndRole.getRelatedOne("StatusItem", true)>
                             <#assign placingParty = orh.getPlacingParty()!>
                             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
@@ -142,7 +142,7 @@ under the License.
                               <td>
                                 <div>
                                   <#if task.customerPartyId??>
-                                    <a href="${customerDetailLink}${task.customerPartyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${Static["org.ofbiz.order.task.TaskWorker"].getCustomerName(task)}</a>
+                                    <a href="${customerDetailLink}${task.customerPartyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${Static["org.apache.ofbiz.order.task.TaskWorker"].getCustomerName(task)}</a>
                                   <#else>
                                     N/A
                                   </#if>
@@ -166,7 +166,7 @@ under the License.
                               <td>${task.priority?default("0")}</td>
                               <td>
                                 <a href="/workeffort/control/activity?workEffortId=${task.workEffortId}${StringUtil.wrapString(externalKeyParam)}" target="workeffort" class="buttontext">
-                                  ${Static["org.ofbiz.order.task.TaskWorker"].getPrettyStatus(task)}
+                                  ${Static["org.apache.ofbiz.order.task.TaskWorker"].getPrettyStatus(task)}
                                 </a>
                               </td>
                             </tr>
@@ -229,7 +229,7 @@ under the License.
                                 </td>
                                 <td>
                                   <#if task.customerPartyId??>
-                                  <a href="${customerDetailLink}${task.customerPartyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${Static["org.ofbiz.order.task.TaskWorker"].getCustomerName(task)}</a>
+                                  <a href="${customerDetailLink}${task.customerPartyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${Static["org.apache.ofbiz.order.task.TaskWorker"].getCustomerName(task)}</a>
                                   <#else>
                                   &nbsp;
                                   </#if>
@@ -256,11 +256,11 @@ under the License.
                                     <a href="${customerDetailLink}${task.wepaPartyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${task.wepaPartyId}</a>
                                   </#if>
                                 </td>
-                                <td>${Static["org.ofbiz.order.task.TaskWorker"].getRoleDescription(task)}</td>
+                                <td>${Static["org.apache.ofbiz.order.task.TaskWorker"].getRoleDescription(task)}</td>
                                 <td>${task.priority?default("0")}</td>
                                 <td>
                                   <a href="/workeffort/control/activity?workEffortId=${task.workEffortId}" target="workeffort" class="buttontext">
-                                    ${Static["org.ofbiz.order.task.TaskWorker"].getPrettyStatus(task)}
+                                    ${Static["org.apache.ofbiz.order.task.TaskWorker"].getPrettyStatus(task)}
                                   </a>
                                 </td>
                                 <#if task.statusId?? && task.statusId == "CAL_SENT">

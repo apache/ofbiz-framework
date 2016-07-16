@@ -17,11 +17,11 @@ specific language governing permissions and limitations
 under the License.
 --%>
 <%@ page import="java.util.*" %>
-<%@ page import="org.ofbiz.base.util.*" %>
-<%@ page import="org.ofbiz.entity.*" %>
-<%@ page import="org.ofbiz.entity.util.*" %>
-<%@ page import="org.ofbiz.webapp.website.WebSiteWorker" %>
-<jsp:useBean id="delegator" type="org.ofbiz.entity.GenericDelegator" scope="request" />
+<%@ page import="org.apache.ofbiz.base.util.*" %>
+<%@ page import="org.apache.ofbiz.entity.*" %>
+<%@ page import="org.apache.ofbiz.entity.util.*" %>
+<%@ page import="org.apache.ofbiz.webapp.website.WebSiteWorker" %>
+<jsp:useBean id="delegator" type="org.apache.ofbiz.entity.GenericDelegator" scope="request" />
 <%
 ServletContext context = pageContext.getServletContext();
 String webSiteId = WebSiteWorker.getWebSiteId(request);

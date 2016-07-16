@@ -265,7 +265,7 @@ under the License.
         <attribute name="revisionDescription" type="String" mode="IN" optional="true"/>
     </service>
     <service name="viewScrumRevision" engine="java" auth="true"
-        location="org.ofbiz.scrum.ScrumServices" invoke="viewScrumRevision">
+        location="org.apache.ofbiz.scrum.ScrumServices" invoke="viewScrumRevision">
         <description>view Scrum Revision</description>
         <attribute name="revision" type="String" mode="INOUT" optional="false"/>
         <attribute name="repository" type="String" mode="INOUT" optional="false"/>
@@ -273,19 +273,19 @@ under the License.
         <attribute name="diffMessage" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="retrieveMissingScrumRevision" engine="java" auth="true"
-        location="org.ofbiz.scrum.ScrumServices" invoke="retrieveMissingScrumRevision">
+        location="org.apache.ofbiz.scrum.ScrumServices" invoke="retrieveMissingScrumRevision">
         <description>Retrieve Missing Scrum Revision</description>
         <attribute name="latestRevision" type="String" mode="IN" optional="false"/>
         <attribute name="repositoryRoot" type="String" mode="IN" optional="false"/>
     </service>
     <service name="removeDuplicateScrumRevision" engine="java" auth="true"
-        location="org.ofbiz.scrum.ScrumServices" invoke="removeDuplicateScrumRevision">
+        location="org.apache.ofbiz.scrum.ScrumServices" invoke="removeDuplicateScrumRevision">
         <description>Remove Duplicate Scrum Revision</description>
         <attribute name="repositoryRoot" type="String" mode="IN" optional="false"/>
     </service>
     
     <service name="linkToProduct" engine="java" auth="true"
-        location="org.ofbiz.scrum.ScrumServices" invoke="linkToProduct">
+        location="org.apache.ofbiz.scrum.ScrumServices" invoke="linkToProduct">
         <description>check when a comunication event is created if the subject contains the PD# string, if so 
                 try to find the customer request and link it to the communication event..
         </description>

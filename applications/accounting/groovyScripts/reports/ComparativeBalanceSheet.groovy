@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilMisc;
 import java.math.BigDecimal; 
 import java.sql.Timestamp;
-import org.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
 assetAccountBalanceMap = [:];
 assetAccountBalanceList = [];

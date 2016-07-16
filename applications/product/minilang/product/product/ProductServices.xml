@@ -354,8 +354,8 @@ under the License.
     <!-- Product Keyword Services -->
     <simple-method method-name="forceIndexProductKeywords" short-description="induce all the keywords of a product">
         <entity-one entity-name="Product" value-field="product"/>
-        <call-class-method class-name="org.ofbiz.product.product.KeywordIndex" method-name="forceIndexKeywords">
-            <field field="product" type="org.ofbiz.entity.GenericValue"/>
+        <call-class-method class-name="org.apache.ofbiz.product.product.KeywordIndex" method-name="forceIndexKeywords">
+            <field field="product" type="org.apache.ofbiz.entity.GenericValue"/>
         </call-class-method>
     </simple-method>
     <simple-method method-name="deleteProductKeywords" short-description="delete all the keywords of a product">
@@ -382,8 +382,8 @@ under the License.
                 </or>
             </condition>
             <then>
-                <call-class-method class-name="org.ofbiz.product.product.KeywordIndex" method-name="indexKeywords">
-                    <field field="productInstance" type="org.ofbiz.entity.GenericValue"/>
+                <call-class-method class-name="org.apache.ofbiz.product.product.KeywordIndex" method-name="indexKeywords">
+                    <field field="productInstance" type="org.apache.ofbiz.entity.GenericValue"/>
                 </call-class-method>
             </then>
         </if>
@@ -436,7 +436,7 @@ under the License.
 
         <!-- do the same for the virtual product... -->
         <entity-one entity-name="Product" value-field="product" use-cache="true"/>
-        <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getVariantVirtualId" ret-field="virtualProductId">
+        <call-class-method class-name="org.apache.ofbiz.product.product.ProductWorker" method-name="getVariantVirtualId" ret-field="virtualProductId">
             <field field="product" type="GenericValue"/>
         </call-class-method>
         <if-not-empty field="virtualProductId">
@@ -497,8 +497,8 @@ under the License.
     </simple-method>
     <simple-method method-name="updateProductWithReviewRatingAvg" short-description="Update Product with new Review Rating Avg" login-required="false">
         <!-- this method is meant to be called in-line and depends in a productId parameter -->
-        <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getAverageProductRating" ret-field="averageCustomerRating">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method class-name="org.apache.ofbiz.product.product.ProductWorker" method-name="getAverageProductRating" ret-field="averageCustomerRating">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="productId" type="java.lang.String"/>
         </call-class-method>
         <log level="info" message="Got new average customer rating ${averageCustomerRating}"/>
@@ -884,7 +884,7 @@ under the License.
         <if-empty field="productGroupOrder.jobId">
             <!-- Create RuntimeData For ProductGroupOrder -->
             <set field="runtimeDataMap.groupOrderId" from-field="parameters.groupOrderId"/>
-            <call-class-method class-name="org.ofbiz.entity.serialize.XmlSerializer" method-name="serialize"  ret-field="runtimeInfo">
+            <call-class-method class-name="org.apache.ofbiz.entity.serialize.XmlSerializer" method-name="serialize"  ret-field="runtimeInfo">
                 <field field="runtimeDataMap" type="Object"/>
             </call-class-method>
             <make-value entity-name="RuntimeData" value-field="runtimeData"/>

@@ -30,7 +30,7 @@ under the License.
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="cdyneReturnCityState" engine="java" auth="false"
-        location="org.ofbiz.common.CdyneServices" invoke="cdyneReturnCityState">
+        location="org.apache.ofbiz.common.CdyneServices" invoke="cdyneReturnCityState">
         <description>CDyne ReturnCityState</description>
         <attribute name="zipcode" type="String" mode="IN" optional="true"/>
 

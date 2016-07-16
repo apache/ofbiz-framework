@@ -91,7 +91,7 @@
     </request-map>
     <request-map uri="retrieveThemeColorSchemeByThemeId">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveThemeColorSchemeByThemeId"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveThemeColorSchemeByThemeId"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
@@ -106,7 +106,7 @@
     </request-map>
     <request-map uri="sendLeaveFeedback">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayEvents" invoke="sendLeaveFeedback"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="sendLeaveFeedback"/>
         <response name="success" type="view" value="LeaveFeedback"/>
         <response name="error" type="view" value="LeaveFeedback"/>
     </request-map>
@@ -158,7 +158,7 @@
     </request-map>
     <request-map uri="autoPrefLeaveFeedbackOptions">
         <security auth="true" https="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoPrefLeaveFeedbackOptions"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoPrefLeaveFeedbackOptions"/>
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
@@ -261,7 +261,7 @@
     <!-- export productListing in ebay store -->
     <request-map uri="exportProductListing">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayEvents" invoke="prepareEbaySiteFacadeObject"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="prepareEbaySiteFacadeObject"/>
         <response name="success" type="view" value="exportProductListing"/>
         <response name="prepare" type="view" value="prepareProductListing"/>
         <response name="error" type="view" value="exportProductListing"/>
@@ -276,60 +276,60 @@
     </request-map>
     <request-map uri="prepareProductListing">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayEvents" invoke="addProductListing"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="addProductListing"/>
         <response name="success" type="view" value="prepareProductListing"/>
         <response name="error" type="view" value="exportProductListing"/>
     </request-map>
     <request-map uri="setSelectedCategory">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayEvents" invoke="setSelectedEbayCategory"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="setSelectedEbayCategory"/>
         <response name="success" type="view" value="prepareProductListing"/>
         <response name="error" type="view" value="prepareProductListing"/>
     </request-map>
     <request-map uri="retrieveEbayCategoryByParent">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveEbayCategoryByParent"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveEbayCategoryByParent"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="retrieveEbayStoreCategoryByParent">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveEbayStoreCategoryByParent"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveEbayStoreCategoryByParent"/>
         <response name="success" type="request" value="json"/>
     </request-map>
     <request-map uri="clearExpListing">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayEvents" invoke="clearProductListing"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="clearProductListing"/>
         <response name="success" type="view" value="exportProductListing"/>
     </request-map>
     <!-- Ad item template -->
     <request-map uri="ebayAdItemTemplate">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveItemTemplateByTemplateGroupId"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveItemTemplateByTemplateGroupId"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="updateProductExportDetail">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayEvents" invoke="updateProductExportDetail"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="updateProductExportDetail"/>
         <response name="success" type="view" value="prepareProductListing"/>
         <response name="error" type="view" value="exportProductListing"/>
     </request-map>
     <request-map uri="removeProductFromListing">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayEvents" invoke="removeProductFromListing"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="removeProductFromListing"/>
         <response name="success" type="view" value="prepareProductListing"/>
         <response name="error" type="view" value="exportProductListing"/>
     </request-map>
     <request-map uri="verifyItemBeforeAddAndExportToEbay">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayEvents" invoke="verifyItemBeforeAddAndExportToEbay"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="verifyItemBeforeAddAndExportToEbay"/>
         <response name="success" type="request" value="exportProductListing"/>
         <response name="error" type="view" value="exportProductListing"/>
     </request-map>
     <request-map uri="exportListingToEbay">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayEvents" invoke="exportListingToEbay"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="exportListingToEbay"/>
         <response name="success" type="request" value="clearExpListing"/>
         <response name="error" type="view" value="exportProductListing"/>
     </request-map>
@@ -438,7 +438,7 @@
     </request-map>
     <request-map uri="ebayAutoPrefCond">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayStoreAutoPrefEvents" invoke="ebayAutoPrefCond"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayStoreAutoPrefEvents" invoke="ebayAutoPrefCond"/>
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>

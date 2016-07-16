@@ -17,8 +17,8 @@
 * under the License.
 */
 
-import org.ofbiz.party.contact.ContactHelper;
-import org.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.party.contact.ContactHelper;
+import org.apache.ofbiz.product.store.ProductStoreWorker;
 
 shoppingCart = session.getAttribute("shoppingCart");
 partyId = shoppingCart.getPartyId();

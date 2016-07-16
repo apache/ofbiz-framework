@@ -121,7 +121,7 @@ under the License.
         </tr>
         <#if shipToPartyShippingContactMechList?has_content>
           <tr><td colspan="4"><hr /></td></tr>
-          <tr><td colspan="4">${uiLabelMap.OrderShipToAnotherParty}: <b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(shipToParty)}</b></td></tr>
+          <tr><td colspan="4">${uiLabelMap.OrderShipToAnotherParty}: <b>${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(shipToParty)}</b></td></tr>
           <tr><td colspan="4"><hr /></td></tr>
           <#list shipToPartyShippingContactMechList as shippingContactMech>
             <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
@@ -187,7 +187,7 @@ under the License.
                       <select name="${shipGroupIndex?default("0")}_supplierPartyId">
                         <option value=""></option>
                         <#list suppliers as supplier>
-                          <option value="${supplier.partyId}"<#if supplierPartyId??><#if supplier.partyId == supplierPartyId> selected="selected"</#if></#if>>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>
+                          <option value="${supplier.partyId}"<#if supplierPartyId??><#if supplier.partyId == supplierPartyId> selected="selected"</#if></#if>>${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>
                         </#list>
                       </select>
                       ${uiLabelMap.ProductReserveInventoryFromFacility}:
@@ -247,7 +247,7 @@ under the License.
                 </#if>
                 <#if shipToPartyShippingContactMechList?has_content>
                   <tr><td colspan="3"><hr /></td></tr>
-                  <tr><td colspan="3">${uiLabelMap.OrderShipToAnotherParty}: <b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(shipToParty)}</b></td></tr>
+                  <tr><td colspan="3">${uiLabelMap.OrderShipToAnotherParty}: <b>${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(shipToParty)}</b></td></tr>
                   <tr><td colspan="3"><hr /></td></tr>
                   <#list shipToPartyShippingContactMechList as shippingContactMech>
                     <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>

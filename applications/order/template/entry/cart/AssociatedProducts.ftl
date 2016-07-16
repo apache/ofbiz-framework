@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#if (shoppingCart.getOrderType() == "SALES_ORDER")>
-    <#assign associatedProducts = Static["org.ofbiz.order.shoppingcart.product.ProductDisplayWorker"].getRandomCartProductAssoc(request, true)!>
+    <#assign associatedProducts = Static["org.apache.ofbiz.order.shoppingcart.product.ProductDisplayWorker"].getRandomCartProductAssoc(request, true)!>
 </#if>
 
 <#if associatedProducts?has_content>

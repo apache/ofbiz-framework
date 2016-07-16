@@ -34,7 +34,7 @@ under the License.
         <#if productStore?has_content>
           <input type="hidden" name="partyIdTo" value="${productStore.payToPartyId!}"/>
         </#if>
-        <input type="hidden" name="note" value="${Static["org.ofbiz.base.util.UtilHttp"].getFullRequestUrl(request)}"/>
+        <input type="hidden" name="note" value="${Static["org.apache.ofbiz.base.util.UtilHttp"].getFullRequestUrl(request)}"/>
         <#if message?has_content>
           <input type="hidden" name="parentCommEventId" value="${communicationEvent.communicationEventId}"/>
           <#if (communicationEvent.origCommEventId?? && communicationEvent.origCommEventId?length > 0)>
@@ -54,7 +54,7 @@ under the License.
             <td><div>&nbsp;${sessionAttributes.autoName!} [${userLogin.partyId}] (${uiLabelMap.CommonNotYou}?&nbsp;<a href="<@ofbizUrl>autoLogout</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClickHere}</a>)</div></td>
           </tr>
           <#if partyIdTo?has_content>
-            <#assign partyToName = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, partyIdTo, true)>
+            <#assign partyToName = Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, partyIdTo, true)>
             <input type="hidden" name="partyIdTo" value="${partyIdTo}"/>
             <tr>
               <td colspan="3">&nbsp;</td>

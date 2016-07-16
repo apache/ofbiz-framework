@@ -17,13 +17,13 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.model.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.service.*;
-import org.ofbiz.content.ContentManagementWorker;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.model.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.service.*;
+import org.apache.ofbiz.content.ContentManagementWorker;
 
 paramMap = UtilHttp.getParameterMap(request);
 forumId = ContentManagementWorker.getFromSomewhere("webSitePublishPoint", paramMap, request, context);

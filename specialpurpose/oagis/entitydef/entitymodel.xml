@@ -30,15 +30,15 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
-    <!--  - org.ofbiz.specialpurpose.oagis -->
+    <!--  - org.apache.ofbiz.specialpurpose.oagis -->
     <!-- ========================================================= -->
 
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.specialpurpose.oagis -->
+    <!-- org.apache.ofbiz.specialpurpose.oagis -->
     <!-- ========================================================= -->
 
-    <entity entity-name="OagisMessageInfo" package-name="org.ofbiz.specialpurpose.oagis" title="OAGIS Message Info Entity">
+    <entity entity-name="OagisMessageInfo" package-name="org.apache.ofbiz.specialpurpose.oagis" title="OAGIS Message Info Entity">
         <field name="logicalId" type="very-short"><description>CNTROLAREA -> SENDER -> LOGICALID; max 10 chars</description></field>
         <field name="component" type="very-short"><description>CNTROLAREA -> SENDER -> COMPONENT; max 10 chars</description></field>
         <field name="task" type="short-varchar"><description>CNTROLAREA -> SENDER -> TASK; max 10 chars; note that using short-varchar instead of very-short so we can have longer fields in the DB</description></field>
@@ -88,7 +88,7 @@ under the License.
         </relation>
         -->
     </entity>
-    <entity entity-name="OagisMessageErrorInfo" package-name="org.ofbiz.specialpurpose.oagis" title="OAGIS Message Error Info Entity">
+    <entity entity-name="OagisMessageErrorInfo" package-name="org.apache.ofbiz.specialpurpose.oagis" title="OAGIS Message Error Info Entity">
         <field name="logicalId" type="very-short"></field>
         <field name="component" type="very-short"></field>
         <field name="task" type="short-varchar"></field>

@@ -27,7 +27,7 @@ under the License.
     <!-- Rebuild the Solr Tree -->
     <service name="rebuildSolrIndex" engine="java"
         transaction-timeout="72000"
-        location="org.ofbiz.solr.SolrProductSearch"
+        location="org.apache.ofbiz.solr.SolrProductSearch"
         invoke="rebuildSolrIndex" debug="true" validate="true">
         <description>rebuild SOLR Index</description>
         <attribute mode="IN" name="indexName" optional="false" type="String"/>
@@ -37,17 +37,17 @@ under the License.
     <!--  Add to Solr Tree -->
     <service name="addToSolr" engine="java"
         transaction-timeout="72000"
-        location="org.ofbiz.solr.SolrProductSearch"
+        location="org.apache.ofbiz.solr.SolrProductSearch"
         invoke="addToSolr" debug="true" validate="true">
         <description>Adds product to solr, with product denoted by productId field in instance attribute
             - intended for use with ECAs/SECAs</description>
         <attribute mode="IN" name="indexName" optional="false" type="String" default-value="solrdefault"/>
-        <attribute mode="IN" name="instance" optional="false" type="org.ofbiz.entity.GenericValue" />
+        <attribute mode="IN" name="instance" optional="false" type="org.apache.ofbiz.entity.GenericValue" />
     </service>
 
     <service name="addToSolrIndex" engine="java"
         transaction-timeout="72000"
-        location="org.ofbiz.solr.SolrProductSearch"
+        location="org.apache.ofbiz.solr.SolrProductSearch"
         invoke="addToSolrIndex" debug="true" validate="true">
         <description>Add a Product to Solr Index</description>
         <attribute mode="IN" name="indexName" optional="false" type="String"/>
@@ -80,7 +80,7 @@ under the License.
     
     <service name="addListToSolrIndex" engine="java"
         transaction-timeout="72000"
-        location="org.ofbiz.solr.SolrProductSearch"
+        location="org.apache.ofbiz.solr.SolrProductSearch"
         invoke="addListToSolrIndex" debug="true" validate="true">
         <description>Add a List of Products to Solr Index and flush after all have been added</description>
         <attribute mode="IN" name="indexName" optional="false" type="String"/>
@@ -92,7 +92,7 @@ under the License.
     <!--  Solr Queries  -->
     <service name="solrProductsSearch" engine="java"
         transaction-timeout="72000"
-        location="org.ofbiz.solr.SolrProductSearch"
+        location="org.apache.ofbiz.solr.SolrProductSearch"
         invoke="productsSearch" debug="true" validate="true">
         <description>Run a query on Solr and return the results</description>
         <attribute mode="IN" name="indexName" optional="false" type="String"/>
@@ -109,7 +109,7 @@ under the License.
     
     <service name="solrKeywordSearch" engine="java"
         transaction-timeout="72000"
-        location="org.ofbiz.solr.SolrProductSearch"
+        location="org.apache.ofbiz.solr.SolrProductSearch"
         invoke="keywordSearch" debug="true" validate="true">
         <description>Run a query on Solr and return the results</description>
         <attribute mode="IN" name="indexName" optional="false" type="String"/>
@@ -134,7 +134,7 @@ under the License.
     
     <service name="runSolrQuery" engine="java"
         transaction-timeout="72000"
-        location="org.ofbiz.solr.SolrProductSearch"
+        location="org.apache.ofbiz.solr.SolrProductSearch"
         invoke="runSolrQuery" debug="true" validate="true">
         <description>Run a query on Solr and return the results</description>
         <attribute mode="IN" name="indexName" optional="false" type="String"/>
@@ -154,7 +154,7 @@ under the License.
     
     <service name="solrAvailableCategories" engine="java"
         transaction-timeout="72000"
-        location="org.ofbiz.solr.SolrProductSearch"
+        location="org.apache.ofbiz.solr.SolrProductSearch"
         invoke="getAvailableCategories" debug="true" validate="true">
         <description>Run a query on Solr and return the results</description>
         <attribute mode="IN" name="indexName" optional="false" type="String"/>
@@ -170,7 +170,7 @@ under the License.
     
     <service name="solrSideDeepCategory" engine="java"
         transaction-timeout="72000"
-        location="org.ofbiz.solr.SolrProductSearch"
+        location="org.apache.ofbiz.solr.SolrProductSearch"
         invoke="getSideDeepCategories" debug="true" validate="true">
         <description>Run a query on Solr and return the results</description>
         <attribute mode="IN" name="indexName" optional="false" type="String"/>

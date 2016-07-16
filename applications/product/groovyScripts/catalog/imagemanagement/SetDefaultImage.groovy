@@ -24,12 +24,12 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.util.EntityUtilProperties;
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.string.*;
-import org.ofbiz.product.image.ScaleImage;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.string.*;
+import org.apache.ofbiz.product.image.ScaleImage;
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
 

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*;
 
 Map paramMap = UtilHttp.getParameterMap(request);
 def rejected = false

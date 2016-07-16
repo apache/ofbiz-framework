@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.order.order.OrderReadHelper;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.order.order.OrderReadHelper;
 
 shipmentId = parameters.shipmentId;
 shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();

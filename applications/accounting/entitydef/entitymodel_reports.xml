@@ -30,15 +30,15 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
-    <!--  - org.ofbiz.accounting.reports -->
+    <!--  - org.apache.ofbiz.accounting.reports -->
     <!-- ========================================================= -->
 
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.accounting.reports -->
+    <!-- org.apache.ofbiz.accounting.reports -->
     <!-- ========================================================= -->
 
-    <view-entity entity-name="InvoiceItemProductSummary" package-name="org.ofbiz.accounting.reports">
+    <view-entity entity-name="InvoiceItemProductSummary" package-name="org.apache.ofbiz.accounting.reports">
         <member-entity entity-alias="INV" entity-name="Invoice"/>
         <member-entity entity-alias="INITM" entity-name="InvoiceItem"/>
         <alias entity-alias="INV" name="statusId"/>
@@ -55,7 +55,7 @@ under the License.
             <key-map field-name="invoiceId"/>
         </view-link>
     </view-entity>
-    <view-entity entity-name="InvoiceItemCategorySummary" package-name="org.ofbiz.accounting.reports">
+    <view-entity entity-name="InvoiceItemCategorySummary" package-name="org.apache.ofbiz.accounting.reports">
         <member-entity entity-alias="INV" entity-name="Invoice"/>
         <member-entity entity-alias="INITM" entity-name="InvoiceItem"/>
         <member-entity entity-alias="PCM" entity-name="ProductCategoryMember"/>
@@ -78,7 +78,7 @@ under the License.
         </view-link>
     </view-entity>
     
-    <view-entity entity-name="InvoiceExport" package-name="org.ofbiz.accounting.reports">
+    <view-entity entity-name="InvoiceExport" package-name="org.apache.ofbiz.accounting.reports">
         <member-entity entity-alias="INV" entity-name="Invoice"/>
         <member-entity entity-alias="ITM" entity-name="InvoiceItem"/>
         <member-entity entity-alias="PFR" entity-name="PartyIdentification"/>

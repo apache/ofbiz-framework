@@ -60,7 +60,7 @@ under the License.
     <property name="Data Cube.productOrd.NewTabularHierarchy1.y">3</property>
     <property name="Data Cube.Inventory.width">150</property>
     <property name="Data Cube.Inventory.height">200</property>
-    <method name="initialize"><![CDATA[importPackage(Packages.org.ofbiz.base.util)
+    <method name="initialize"><![CDATA[importPackage(Packages.org.apache.ofbiz.base.util)
 
 
 module = "InventoryReport.rptdesign";]]></method>

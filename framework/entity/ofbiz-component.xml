@@ -36,7 +36,7 @@ under the License.
     
     <test-suite loader="main" location="testdef/entitytests.xml"/>
    
-    <container name="delegator-container" loaders="main" class="org.ofbiz.entity.DelegatorContainer">
+    <container name="delegator-container" loaders="main" class="org.apache.ofbiz.entity.DelegatorContainer">
         <property name="preload-delegators" value="default"/>
     </container>
 </ofbiz-component>

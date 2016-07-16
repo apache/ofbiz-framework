@@ -40,12 +40,12 @@ under the License.
             <td><a href="/partymgr/control/viewprofile?party_id=${(productCategoryRole.partyId)!}" target="_blank" class="buttontext">${(productCategoryRole.partyId)!}</a></td>
             <td>${(curRoleType.get("description",locale))!}</td>
             <#assign hasntStarted = false>
-            <#if (productCategoryRole.getTimestamp("fromDate"))?? && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().before(productCategoryRole.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
+            <#if (productCategoryRole.getTimestamp("fromDate"))?? && Static["org.apache.ofbiz.base.util.UtilDateTime"].nowTimestamp().before(productCategoryRole.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
             <td <#if hasntStarted> style="color: red;"</#if>>${(productCategoryRole.fromDate)!}</td>
             <td align="center">
                 <form method="post" action="<@ofbizUrl>updatePartyToCategory</@ofbizUrl>" name="lineForm_update${line}">
                     <#assign hasExpired = false>
-                    <#if (productCategoryRole.getTimestamp("thruDate"))?? && (Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(productCategoryRole.getTimestamp("thruDate")))> <#assign hasExpired = true></#if>
+                    <#if (productCategoryRole.getTimestamp("thruDate"))?? && (Static["org.apache.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(productCategoryRole.getTimestamp("thruDate")))> <#assign hasExpired = true></#if>
                     <input type="hidden" name="productCategoryId" value="${(productCategoryRole.productCategoryId)!}" />
                     <input type="hidden" name="partyId" value="${(productCategoryRole.partyId)!}" />
                     <input type="hidden" name="roleTypeId" value="${(productCategoryRole.roleTypeId)!}" />

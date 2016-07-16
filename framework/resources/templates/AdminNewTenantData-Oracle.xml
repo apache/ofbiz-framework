@@ -2,8 +2,8 @@
 <entity-engine-xml>
     <Tenant tenantId="@tenantId@" tenantName="@tenantName@"/>
     <TenantDomainName tenantId="@tenantId@" domainName="@domainName@" />
-    <TenantDataSource tenantId="@tenantId@" entityGroupName="org.ofbiz"
+    <TenantDataSource tenantId="@tenantId@" entityGroupName="org.apache.ofbiz"
         jdbcUri="jdbc:oracle:thin:@@db-IP@:ofbiz_@tenantId@" jdbcUsername="@db-User@" jdbcPassword="@db-Password@"/>
-    <TenantDataSource tenantId="@tenantId@" entityGroupName="org.ofbiz.olap"
+    <TenantDataSource tenantId="@tenantId@" entityGroupName="org.apache.ofbiz.olap"
         jdbcUri="jdbc:oracle:thin:@@db-IP@:ofbizolap_@tenantId@" jdbcUsername="@db-User@" jdbcPassword="@db-Password@"/>
 </entity-engine-xml>

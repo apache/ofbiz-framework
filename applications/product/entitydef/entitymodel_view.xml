@@ -21,7 +21,7 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
     
     <view-entity entity-name="ContentApprovalProductContentAndInfo"
-            package-name="org.ofbiz.content.content"
+            package-name="org.apache.ofbiz.content.content"
             title="ContentApproval, ProductContent, Content and DataResource View Entity">
       <member-entity entity-alias="CA" entity-name="ContentApproval"/>
       <member-entity entity-alias="PRC" entity-name="ProductContent"/>
@@ -62,7 +62,7 @@ under the License.
       </relation>
     </view-entity>
     
-    <view-entity entity-name="ProductCategoryMemberAndPrice" package-name="org.ofbiz.product.category" title="ProductCategoryMember And ProductPrice View Entiry">
+    <view-entity entity-name="ProductCategoryMemberAndPrice" package-name="org.apache.ofbiz.product.category" title="ProductCategoryMember And ProductPrice View Entiry">
         <member-entity entity-alias="PCM" entity-name="ProductCategoryMember"/>
         <member-entity entity-alias="PD" entity-name="Product"/>
         <member-entity entity-alias="PP" entity-name="ProductPrice"/>
@@ -81,7 +81,7 @@ under the License.
         </view-link>
     </view-entity>
 
-    <view-entity entity-name="ProductStoreGroupAndMember" package-name="org.ofbiz.product.store" title="ProductStoreGroup And ProductStore View Entiry">
+    <view-entity entity-name="ProductStoreGroupAndMember" package-name="org.apache.ofbiz.product.store" title="ProductStoreGroup And ProductStore View Entiry">
         <member-entity entity-alias="PSG" entity-name="ProductStoreGroup"/>
         <member-entity entity-alias="PSGM" entity-name="ProductStoreGroupMember"/>
         <member-entity entity-alias="PS" entity-name="ProductStore"/>
@@ -96,7 +96,7 @@ under the License.
         </view-link>
     </view-entity>
 
-    <view-entity entity-name="ProductStoreGroupRollupAndChild" package-name="org.ofbiz.product.store" title="ProductStoreGroupRollup And ProductStoreGroup View Entiry">
+    <view-entity entity-name="ProductStoreGroupRollupAndChild" package-name="org.apache.ofbiz.product.store" title="ProductStoreGroupRollup And ProductStoreGroup View Entiry">
         <member-entity entity-alias="PSGR" entity-name="ProductStoreGroupRollup"/>
         <member-entity entity-alias="PSG" entity-name="ProductStoreGroup"/>
         <alias-all entity-alias="PSG"/>

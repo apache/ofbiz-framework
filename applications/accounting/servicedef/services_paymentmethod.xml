@@ -26,14 +26,14 @@ under the License.
 
     <!-- Payment Method services -->
     <service name="deletePaymentMethod" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="deletePaymentMethod" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentMethodServices" invoke="deletePaymentMethod" auth="true">
         <description>Delete PaymentMethod</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createCreditCard" default-entity-name="CreditCard" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="createCreditCard" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentMethodServices" invoke="createCreditCard" auth="true">
         <description>Create CreditCard</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -63,7 +63,7 @@ under the License.
         <attribute name="paymentMethodId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="updateCreditCard" default-entity-name="CreditCard" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="updateCreditCard" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentMethodServices" invoke="updateCreditCard" auth="true">
         <description>Update CreditCard</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -80,12 +80,12 @@ under the License.
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="clearCreditCardDataAndExpire" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="clearCreditCardData" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentMethodServices" invoke="clearCreditCardData" auth="true">
         <description>Clears the credit card number out of the value object and expires the payment method</description>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="buildCcExpireDate" engine="java"
-                location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="makeExpireDate">
+                location="org.apache.ofbiz.accounting.payment.PaymentMethodServices" invoke="makeExpireDate">
         <description>Makes a Expire Date</description>
         <attribute name="expMonth" type="String" mode="IN" optional="false"/>
         <attribute name="expYear" type="String" mode="IN" optional="false"/>
@@ -93,7 +93,7 @@ under the License.
     </service>
 
     <service name="createGiftCard" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="createGiftCard" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentMethodServices" invoke="createGiftCard" auth="true">
         <description>Create GiftCard</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
@@ -107,7 +107,7 @@ under the License.
         <attribute name="paymentMethodId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="updateGiftCard" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="updateGiftCard" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentMethodServices" invoke="updateGiftCard" auth="true">
         <description>Update GiftCard</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
@@ -123,7 +123,7 @@ under the License.
     </service>
 
     <service name="createEftAccount" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="createEftAccount" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentMethodServices" invoke="createEftAccount" auth="true">
         <description>Create EftAccount</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
@@ -149,7 +149,7 @@ under the License.
         <attribute name="paymentMethodId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="updateEftAccount" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="updateEftAccount" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentMethodServices" invoke="updateEftAccount" auth="true">
         <description>Update EftAccount</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
@@ -198,7 +198,7 @@ under the License.
 
     <!-- Payment Auth/Capture Services -->
     <service name="manualForcedCcAuthTransaction" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processManualCcAuth" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processManualCcAuth" auth="true">
         <description>Direct link to payment processors to force manual CC authorizations; not logged in system</description>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
@@ -206,7 +206,7 @@ under the License.
         <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
     </service>
     <service name="manualForcedCcTransaction" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processManualCcTx" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processManualCcTx" auth="true">
         <description>Direct link to payment processors to force manual transactions; not logged in system</description>
         <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
@@ -240,12 +240,12 @@ under the License.
         <attribute name="tranRespMsgs" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="retryFailedAuths" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryFailedAuths" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryFailedAuths" auth="true">
         <description>(Batch) Retries failed authorizations due to processor/connection problems</description>
         <!-- this service has no parameters IN or OUT -->
     </service>
     <service name="retryFailedOrderAuth" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryFailedOrderAuth" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryFailedOrderAuth" auth="true">
         <description>Retries failed authorization due to processor/connection problems, or NSF (Not Sufficient Funds) failure, for an order</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="processResult" type="String" mode="OUT" optional="true"/>
@@ -253,13 +253,13 @@ under the License.
     </service>
 
     <service name="retryFailedAuthNsfs" engine="java"
-        location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryFailedAuthNsfs" auth="true">
+        location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryFailedAuthNsfs" auth="true">
         <description>(Batch) Retries failed authorizations due to NSF (Not Sufficient Funds); these are for auto-orders</description>
         <!-- this service has no parameters IN or OUT -->
     </service>
 
     <service name="authOrderPaymentPreference" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="authOrderPaymentPreference" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="authOrderPaymentPreference" auth="true">
         <description>Process (authorizes/re-authorizes) a single payment for an order with an optional overrideAmount</description>
         <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
         <attribute name="overrideAmount" type="BigDecimal" mode="IN" optional="true"/>
@@ -271,7 +271,7 @@ under the License.
     </service>
 
     <service name="authOrderPayments" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="authOrderPayments" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="authOrderPayments" auth="true">
         <description>Process (authorizes/re-authorizes) payments for an order</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="processResult" type="String" mode="OUT" optional="false"/>
@@ -281,7 +281,7 @@ under the License.
     </service>
 
     <service name="releaseOrderPayments" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="releaseOrderPayments" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="releaseOrderPayments" auth="true">
         <description>Releases all payment authorizations for an order</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="processResult" type="String" mode="OUT" optional="false"/>
@@ -289,26 +289,26 @@ under the License.
     </service>
 
     <service name="releaseOrderPaymentPreference" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="releaseOrderPaymentPreference" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="releaseOrderPaymentPreference" auth="true">
         <description>Releases payment authorization for a single OrderPaymentPreference</description>
         <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
     </service>
     
     <service name="creditOrderPaymentPreference" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="creditOrderPaymentPreference" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="creditOrderPaymentPreference" auth="true">
         <description>Credit payment authorization for a single OrderPaymentPreference</description>
         <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
     </service>
     
     <service name="capturePaymentsByInvoice" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="capturePaymentsByInvoice" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="capturePaymentsByInvoice" auth="true">
         <description>Captures (settles) pre-authorized order payments by invoice</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="processResult" type="String" mode="OUT" optional="false"/>
     </service>
 
     <service name="captureOrderPayments" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureOrderPayments" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureOrderPayments" auth="true">
         <description>Captures (settles) pre-authorized order payments, re-authorizing any remaining balance.  If the order involves billing accounts,
             capture to it in full before proceeding to other payment preferences.</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
@@ -320,7 +320,7 @@ under the License.
 
     <!-- deprecated in favour of captureBillingAccountPayments -->
     <service name="captureBillingAccountPayment" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureBillingAccountPayment" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureBillingAccountPayment" auth="true">
         <description>Records a settlement or payment of an invoice by a billing account for the given captureAmount</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
@@ -330,7 +330,7 @@ under the License.
         <attribute name="paymentGatewayResponseId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="captureBillingAccountPayments" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureBillingAccountPayments" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureBillingAccountPayments" auth="true">
         <description>Applies (part of) the unapplied payment applications associated to the billing account to the given invoice.</description>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
@@ -339,14 +339,14 @@ under the License.
     </service>
 
     <service name="processCaptureSplitPayment" engine="java" require-new-transaction="true"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processCaptureSplitPayment" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processCaptureSplitPayment" auth="true">
         <description>Handles the creation of new OrderPaymentPreference record (and Auth) for partial captures</description>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="splitAmount" type="BigDecimal" mode="IN" optional="false"/>
     </service>
     
     <service name="refundOrderPaymentPreference" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="refundOrderPaymentPreference" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="refundOrderPaymentPreference" auth="true">
         <description>Refund payment authorization for a single OrderPaymentPreference</description>
         <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
@@ -355,17 +355,17 @@ under the License.
     </service>
     
     <service name="refundPayment" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="refundPayment" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="refundPayment" auth="true">
         <description>Refunds A Payment</description>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="refundAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
     </service>
     
     <service name="processAuthResult" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processAuthResult" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processAuthResult" auth="true">
         <description>Process the payment authorization result(s)</description>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="processAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="authResult" type="Boolean" mode="IN" optional="false"/>
@@ -382,9 +382,9 @@ under the License.
     </service>
 
     <service name="processCaptureResult" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processCaptureResult" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processCaptureResult" auth="true">
         <description>Process the payment capture result(s)</description>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="serviceTypeEnum" type="String" mode="IN" optional="true"/>
         <attribute name="payToPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
@@ -400,9 +400,9 @@ under the License.
     </service>
     
     <service name="processReleaseResult" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processReleaseResult" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processReleaseResult" auth="true">
         <description>Process the payment release result(s)</description>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="releaseAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="releaseResult" type="Boolean" mode="IN" optional="false"/>
@@ -415,9 +415,9 @@ under the License.
     </service>
     
     <service name="processCreditResult" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processCreditResult" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processCreditResult" auth="true">
         <description>Process the payment credit result(s)</description>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="creditAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="creditResult" type="Boolean" mode="IN" optional="false"/>
@@ -430,9 +430,9 @@ under the License.
     </service>
     
     <service name="processRefundResult" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processRefundResult" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processRefundResult" auth="true">
         <description>Process the payment refund result(s)</description>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="serviceTypeEnum" type="String" mode="IN" optional="true"/>
         <attribute name="payFromPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="payToPartyId" type="String" mode="IN" optional="true"/>
@@ -450,24 +450,24 @@ under the License.
     </service>
     
     <service name="processPaymentServiceError" engine="java" require-new-transaction="true" max-retry="5"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="storePaymentErrorMessage" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="storePaymentErrorMessage" auth="true">
         <description>Process (store) error messages from payment service failures</description>
         <attribute name="paymentServiceTypeEnumId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="transCodeEnumId" type="String" mode="IN" optional="false"/>
         <attribute name="serviceResultMap" type="Map" mode="IN" optional="false"/>
     </service>
 
     <service name="savePaymentGatewayResponse" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="savePaymentGatewayResponse" auth="false">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="savePaymentGatewayResponse" auth="false">
         <description>Method to make sure PaymentGatewayResponse records get stored (uses XA wrapper on rollback)</description>
-        <attribute name="paymentGatewayResponse" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="paymentGatewayResponse" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>
 
     <service name="savePaymentGatewayResponseAndMessages" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="savePaymentGatewayResponseAndMessages" auth="false">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="savePaymentGatewayResponseAndMessages" auth="false">
         <description>Method to make sure PaymentGatewayResponse records get stored (uses XA wrapper on rollback)</description>
-        <attribute name="paymentGatewayResponse" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="paymentGatewayResponse" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="messages" type="List" mode="IN" optional="false"/>
     </service>
 
@@ -475,13 +475,13 @@ under the License.
     <service name="paymentProcessInterface" engine="interface" location="" invoke="">
         <description>Generic Payment Processing Interface</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="processAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="orderItems" type="List" mode="IN" optional="false"/>
-        <attribute name="billToParty" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
-        <attribute name="billToEmail" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
-        <attribute name="billingAddress" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
-        <attribute name="shippingAddress" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="billToParty" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="billToEmail" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="billingAddress" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="shippingAddress" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="customerIpAddress" type="String" mode="IN" optional="true"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
@@ -511,11 +511,11 @@ under the License.
 
     <service name="paymentReleaseInterface" engine="interface" location="" invoke="">
         <description>Generic Payment Release (reverse) Interface</description>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="releaseAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
-        <attribute name="authTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="authTrans" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
         <attribute name="releaseResult" type="Boolean" mode="OUT" optional="true"/>
         <attribute name="releaseAltRefNum" type="String" mode="OUT" optional="true"/>
@@ -531,9 +531,9 @@ under the License.
         <attribute name="referenceCode" type="String" mode="IN" optional="false"/>
         <attribute name="creditAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="orderItems" type="List" mode="IN" optional="true"/>
-        <attribute name="billToParty" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
-        <attribute name="billToEmail" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
-        <attribute name="billingAddress" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="billToParty" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="billToEmail" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="billingAddress" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
         <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
@@ -548,7 +548,7 @@ under the License.
 
     <service name="paymentRefundInterface" engine="interface" location="" invoke="">
         <description>Generic Payment Refund Interface</description>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="refundAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
@@ -566,17 +566,17 @@ under the License.
     <service name="ccAuthInterface" engine="interface" location="" invoke="">
         <description>Credit Card Authorization Interface</description>
         <implements service="paymentProcessInterface"/>
-        <attribute name="creditCard" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="creditCard" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="cardSecurityCode" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="ccCaptureInterface" engine="interface" location="" invoke="">
         <description>Credit Card Capture Interface</description>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="captureAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
-        <attribute name="authTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="authTrans" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
         <attribute name="captureResult" type="Boolean" mode="OUT" optional="true"/>
         <attribute name="captureAltRefNum" type="String" mode="OUT" optional="true"/>
@@ -590,7 +590,7 @@ under the License.
     <service name="ccCreditInterface" engine="interface" location="" invoke="">
         <description>Credit Card 'Credit' Inteface</description>
         <implements service="paymentCreditInterface"/>
-        <attribute name="creditCard" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="creditCard" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="cardSecurityCode" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -598,22 +598,22 @@ under the License.
     <service name="eftProcessInterface" engine="interface" location="" invoke="">
         <description>EFT Account Processing Interface</description>
         <implements service="paymentProcessInterface"/>
-        <attribute name="eftAccount" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="eftAccount" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>
 
     <!-- PayPal Payment Interfaces -->
     <service name="payPalProcessInterface" engine="interface" location="" invoke="">
         <description>PayPal authorize Interface</description>
         <implements service="paymentProcessInterface"/>
-        <attribute name="payPalPaymentMethod" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="payPalPaymentMethod" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>
     <service name="payPalCaptureInterface" engine="interface" location="" invoke="">
         <description>PayPal Capture Interface</description>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="captureAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
-        <attribute name="authTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="authTrans" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
         <attribute name="captureResult" type="Boolean" mode="OUT" optional="true"/>
         <attribute name="captureAltRefNum" type="String" mode="OUT" optional="true"/>
@@ -625,11 +625,11 @@ under the License.
     </service>
     <service name="payPalSetExpressCheckoutInterface" engine="interface" location="" invoke="">
         <description>Interface for services performing the PayPal getExpressCheckout operation</description>
-        <attribute name="cart" mode="IN" type="org.ofbiz.order.shoppingcart.ShoppingCart" optional="false"></attribute>
+        <attribute name="cart" mode="IN" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" optional="false"></attribute>
     </service>
     <service name="payPalGetExpressCheckoutInterface" engine="interface" location="" invoke="">
         <description>Interface for services performing the PayPal getExpressCheckoutDetails operation</description>
-        <attribute name="cart" mode="IN" type="org.ofbiz.order.shoppingcart.ShoppingCart" optional="false"></attribute>
+        <attribute name="cart" mode="IN" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" optional="false"></attribute>
     </service>
     <service name="payPalDoExpressCheckoutInterface" engine="interface" location="" invoke="">
         <description>Interface for services performing the PayPal doExpressCheckout operation</description>
@@ -640,140 +640,140 @@ under the License.
     <service name="giftCardProcessInterface" engine="interface" location="" invoke="">
         <description>Gift Card Processing Interface</description>
         <implements service="paymentProcessInterface"/>
-        <attribute name="giftCard" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="giftCard" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>
 
     <!-- Test Implementations -->
     <!-- Test Credit Card (CC) Requests -->
     <service name="testCCProcessor" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessor">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessor">
         <description>Test Credit Card Auth Processing: declines auth requests for all orders less than 100.00; approves auth requests for all orders greater than or equal to 100.00</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="testCCProcessorWithCapture" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessorWithCapture">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessorWithCapture">
         <description>Test Credit Card Auth Processing: declines auth requests for all orders less than 100.00; approves auth requests for all orders greater than or equal to 100.00</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="testRandomAuthorize" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRandomAuthorize">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRandomAuthorize">
         <description>Test Credit Card Auth Processing: does random auth declines</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="alwaysApproveCCProcessor" engine="java"
-             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveProcessor">
+             location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveProcessor">
         <description>Test Credit Card Auth Processing: always approve the auth request</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="alwaysApproveWithCaptureCCProcessor" engine="java"
-             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveWithCapture">
+             location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveWithCapture">
         <description>Test Credit Card Auth Processing: always approve with capture auth request</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="alwaysDeclineCCProcessor" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysDeclineProcessor">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysDeclineProcessor">
         <description>Test Credit Card Auth Processing: always decline the auth request</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="alwaysNsfCCProcessor" engine="java"
-        location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysNsfProcessor">
+        location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysNsfProcessor">
         <description>Test Credit Card Auth Processing: always decline for NSF (not sufficient funds) auth request</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="alwaysBadExpireCCProcessor" engine="java"
-        location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysBadExpireProcessor">
+        location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysBadExpireProcessor">
         <description>Test Credit Card Auth Processing: always fail/bad expire date processor</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="badExpireEvenCCProcessor" engine="java"
-        location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="badExpireEvenProcessor">
+        location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="badExpireEvenProcessor">
         <description>Test Credit Card Auth Processing: fail/bad expire date when year is even processor</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="alwaysBadCardNumberCCProcessor" engine="java"
-        location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysBadCardNumberProcessor">
+        location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysBadCardNumberProcessor">
         <description>Test Credit Card Auth Processing: always decline the auth request for bad card number</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="alwaysFailCCProcessor" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysFailProcessor">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysFailProcessor">
         <description>Test Credit Card Auth Processing: always fail (error) the auth transaction request</description>
         <implements service="ccAuthInterface"/>
     </service>
 
     <service name="testCCCapture" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testCapture">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testCapture">
         <description>Test Credit Card Capture Processing: always approve the capture request</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="testCCCaptureWithReAuth" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testCaptureWithReAuth">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testCaptureWithReAuth">
         <description>Test Credit Card Capture Processing: always approve with reauth the capture request</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="testCCProcessorCaptureAlwaysDecline" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testCCProcessorCaptureAlwaysDecline">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testCCProcessorCaptureAlwaysDecline">
         <description>Test Credit Card Capture Processing: always decline a cc capture request</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="testCCRelease" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRelease">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRelease">
         <description>Test Credit Card Release Processing: always approve the release request</description>
         <implements service="paymentReleaseInterface"/>
     </service>
     <service name="testCCRefund" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRefund">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRefund">
         <description>Test Credit Card Refund Processing: always approve the refund request</description>
         <implements service="paymentRefundInterface"/>
     </service>
     <service name="testCCRefundFailure" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRefundFailure">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRefundFailure">
         <description>Credit Card Test Refund Failure</description>
         <implements service="paymentRefundInterface"/>
     </service>
 
     <!-- Test GiftCard Services -->
     <service name="alwaysApproveGCProcessor" engine="java"
-             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveWithCapture">
+             location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveWithCapture">
         <description>Gift Card Processing</description>
         <implements service="giftCardProcessInterface"/>
     </service>
     <service name="alwaysDeclineGCProcessor" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysDeclineProcessor">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysDeclineProcessor">
         <description>Gift Card Processing</description>
         <implements service="giftCardProcessInterface"/>
     </service>
     <service name="testGCRelease" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRelease">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRelease">
         <description>Gift Card Test Release</description>
         <implements service="paymentReleaseInterface"/>
     </service>
 
     <!-- Test EFT Implementations -->
     <service name="testEFTProcessor" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessor">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessor">
         <description>EFT Account Processing</description>
         <implements service="eftProcessInterface"/>
     </service>
     <service name="alwaysApproveEFTProcessor" engine="java"
-             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveProcessor">
+             location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveProcessor">
         <description>EFT Account Processing</description>
         <implements service="eftProcessInterface"/>
     </service>
     <service name="alwaysDeclineEFTProcessor" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysDeclineProcessor">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysDeclineProcessor">
         <description>EFT Account Processing</description>
         <implements service="eftProcessInterface"/>
     </service>
     <service name="testEFTRelease" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRelease">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRelease">
         <description>EFT Account Test Release</description>
         <implements service="paymentReleaseInterface"/>
     </service>
 
     <!-- Verify Credit Card Service-->
     <service name="verifyCreditCard" engine="java"
-            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="verifyCreditCard" auth="true">
+            location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="verifyCreditCard" auth="true">
         <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
         <attribute name="oldPaymentMethodId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>

@@ -255,7 +255,7 @@ under the License.
           <set field="productId" from-field="parameters.productId"/>
             <set field="hasUpdatePermission" value="${groovy:
                 result = dispatcher.runSync(&quot;scrumPermissionCheck&quot;,
-                org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                org.apache.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
                 &quot;resourceDescription&quot;, &quot;PRODUCT&quot;,
                 &quot;mainAction&quot;, &quot;VIEW&quot;,
                 &quot;productId&quot;, productId));
@@ -635,7 +635,7 @@ under the License.
             <set field="productId" from-field="parameters.productId"/>
             <set field="hasViewPermission" value="${groovy:
                 result = dispatcher.runSync(&quot;scrumPermissionCheck&quot;,
-                org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                org.apache.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
                 &quot;resourceDescription&quot;, &quot;PRODUCT&quot;,
                 &quot;mainAction&quot;, &quot;VIEW&quot;,
                 &quot;productId&quot;, productId));

@@ -270,7 +270,7 @@ under the License.
     </service>
 
     <service name="buildSurveyFromPdf" engine="java"
-            location="org.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyFromPdf" auth="false">
+            location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyFromPdf" auth="false">
         <description>Create a Survey and related entities from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
@@ -280,7 +280,7 @@ under the License.
     </service>
 
     <service name="buildSurveyResponseFromPdf" engine="java"  transaction-timeout="7200"
-            location="org.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyResponseFromPdf" auth="false">
+            location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyResponseFromPdf" auth="false">
         <description>Create a Survey and related entities from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
@@ -291,7 +291,7 @@ under the License.
     </service>
 
     <service name="getAcroFieldsFromPdf" engine="java"
-            location="org.ofbiz.content.survey.PdfSurveyServices" invoke="getAcroFieldsFromPdf" auth="false">
+            location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="getAcroFieldsFromPdf" auth="false">
         <description>Get fields from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
@@ -300,7 +300,7 @@ under the License.
     </service>
 
     <service name="setAcroFieldsFromSurveyResponse" engine="java"
-            location="org.ofbiz.content.survey.PdfSurveyServices" invoke="setAcroFieldsFromSurveyResponse" auth="false">
+            location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="setAcroFieldsFromSurveyResponse" auth="false">
         <description>Get fields from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
@@ -310,7 +310,7 @@ under the License.
     </service>
 
     <service name="setAcroFields" engine="java"
-            location="org.ofbiz.content.survey.PdfSurveyServices" invoke="setAcroFields" auth="false">
+            location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="setAcroFields" auth="false">
         <description>Get fields from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
@@ -320,13 +320,13 @@ under the License.
     </service>
 
     <service name="buildPdfFromSurveyResponse" engine="java"
-            location="org.ofbiz.content.survey.PdfSurveyServices" invoke="buildPdfFromSurveyResponse" auth="false">
+            location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="buildPdfFromSurveyResponse" auth="false">
         <description>Build Pdf From Survey Response</description>
         <attribute name="surveyResponseId" type="String" mode="IN" optional="false"/>
         <attribute name="outByteBuffer" type="java.nio.ByteBuffer" mode="OUT" optional="false"/>
     </service>
     <service name="buildSurveyQuestionsAndAnswers" engine="java"
-            location="org.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyQuestionsAndAnswers" auth="false">
+            location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyQuestionsAndAnswers" auth="false">
         <description>Build list of questions and answers From Survey Response</description>
         <attribute name="surveyResponseId" type="String" mode="IN" optional="false"/>
         <attribute name="questionsAndAnswers" type="List" mode="OUT" optional="false"/>

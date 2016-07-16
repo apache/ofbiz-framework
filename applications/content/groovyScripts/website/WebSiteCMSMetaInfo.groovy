@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*
-import org.ofbiz.entity.condition.*
-import org.ofbiz.entity.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
 
 if (content) {
     // lookup assoc content

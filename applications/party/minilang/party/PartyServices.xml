@@ -237,8 +237,8 @@ under the License.
         </if-empty>
        <if-not-empty field="parameters._uploadedFile_fileName">
            <set field="absolute" value="true" type="Boolean"/>
-           <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
-               <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+           <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.apache.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
+               <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
                <field field="absolute" type="boolean"/>
            </call-class-method>
            <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
@@ -331,8 +331,8 @@ under the License.
                <find-by-primary-key use-cache="true" entity-name="DataResource" value-field="dataResourceMap" map="lookup"/>
             <else>
                <set field="absolute" value="true" type="Boolean"/>
-               <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
-                   <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+               <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.apache.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
+                   <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
                    <field field="absolute" type="boolean"/>
                </call-class-method>
                <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>

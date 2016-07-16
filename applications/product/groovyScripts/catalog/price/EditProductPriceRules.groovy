@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.UtilMisc;
 
 context.inputParamEnums = from("Enumeration").where("enumTypeId", "PROD_PRICE_IN_PARAM").orderBy("sequenceId").cache(true).queryList();
 context.condOperEnums = from("Enumeration").where("enumTypeId", "PROD_PRICE_COND").orderBy("sequenceId").cache(true).queryList();

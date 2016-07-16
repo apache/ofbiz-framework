@@ -62,14 +62,14 @@
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
             <set field="hasUpdatePermission" value="${groovy:
                 result = dispatcher.runSync(&quot;projectMgrPermission&quot;,
-                org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                org.apache.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
                 &quot;resourceDescription&quot;, &quot;Project&quot;,
                 &quot;mainAction&quot;, &quot;UPDATE&quot;,
                 &quot;projectId&quot;, projectId));
                 return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
             <set field="hasViewPermission" value="${groovy:
                 result = dispatcher.runSync(&quot;projectMgrPermission&quot;,
-                org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                org.apache.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
                 &quot;resourceDescription&quot;, &quot;Project&quot;,
                 &quot;mainAction&quot;, &quot;VIEW&quot;,
                 &quot;projectId&quot;, projectId));
@@ -228,7 +228,7 @@
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
             <set field="hasUpdatePermission" value="${groovy:
                 result = dispatcher.runSync(&quot;projectMgrPermission&quot;,
-                org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                org.apache.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
                 &quot;resourceDescription&quot;, &quot;Project&quot;,
                 &quot;mainAction&quot;, &quot;UPDATE&quot;,
                 &quot;projectId&quot;, projectId));

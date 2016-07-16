@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.*
 
 state = request.getParameter("CategoryProductsState");
 isOpen = true;

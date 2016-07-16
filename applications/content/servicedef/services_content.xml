@@ -152,7 +152,7 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeTypeId" optional="true" type="String"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="org.ofbiz.entity.GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
     </service>
 
@@ -163,7 +163,7 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeTypeId" optional="true" type="String"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="org.ofbiz.entity.GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
     </service>
 
@@ -171,7 +171,7 @@
     <service name="checkContentPermission"
         transaction-timeout="7200"
         auth="false" engine="java" invoke="checkContentPermission"
-        location="org.ofbiz.content.content.ContentPermissionServices">
+        location="org.apache.ofbiz.content.content.ContentPermissionServices">
         <description>Check for permission to perform operation on Content</description>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
@@ -181,7 +181,7 @@
         <attribute mode="IN" name="contentPurposeString" optional="true" type="String"/>
         <attribute mode="IN" name="roleTypeString" optional="true" type="String"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
-        <attribute mode="IN" name="currentContent" optional="true" type="org.ofbiz.entity.GenericValue"/>
+        <attribute mode="IN" name="currentContent" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="IN" name="thruDate" optional="true" type="String"/>
         <!-- NOTE: entityOperation should be "_VIEW", "_ADMIN", etc. -->
@@ -194,18 +194,18 @@
         <attribute mode="IN" name="partyId" optional="true" type="String"/>
         <attribute mode="IN" name="userLoginId" optional="true" type="String"/>
         <attribute mode="OUT" name="permissionStatus" optional="true" type="String"/>
-        <attribute mode="OUT" name="permissionRecorder" optional="true" type="org.ofbiz.content.content.PermissionRecorder"/>
+        <attribute mode="OUT" name="permissionRecorder" optional="true" type="org.apache.ofbiz.content.content.PermissionRecorder"/>
     </service>
 
     <service name="findRelatedContent" default-entity-name="Content" engine="java"
-            location="org.ofbiz.content.content.ContentServices" invoke="findRelatedContent" auth="true">
+            location="org.apache.ofbiz.content.content.ContentServices" invoke="findRelatedContent" auth="true">
         <description>Create a Content</description>
-        <attribute mode="IN" name="currentContent" optional="false" type="org.ofbiz.entity.GenericValue"/>
+        <attribute mode="IN" name="currentContent" optional="false" type="org.apache.ofbiz.entity.GenericValue"/>
         <attribute mode="IN" name="toFrom" optional="true" type="String"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="IN" name="thruDate" optional="true" type="String"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="org.ofbiz.entity.GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
         <attribute mode="IN" name="contentAssocTypeList" optional="true" type="List"/>
         <attribute mode="IN" name="contentTypeList" optional="true" type="List"/>
         <attribute mode="IN" name="entityOperation" optional="true" type="String"/>
@@ -215,7 +215,7 @@
     <!--Content Assoc services.-->
     <!-- TODO: old permission service; being replaced with genericContentPermission -->
     <service name="checkAssocPermission" engine="java" transaction-timeout="7200" auth="true"
-            location="org.ofbiz.content.content.ContentPermissionServices" invoke="checkAssocPermission">
+            location="org.apache.ofbiz.content.content.ContentPermissionServices" invoke="checkAssocPermission">
         <description>Check for permission to perform operation on Content</description>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
@@ -232,8 +232,8 @@
         <attribute mode="IN" name="contentAssocPredicateId" optional="true" type="String"/>
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="OUT" name="permissionStatus" optional="true" type="String"/>
-        <attribute mode="OUT" name="permissionRecorderTo" optional="true" type="org.ofbiz.content.content.PermissionRecorder"/>
-        <attribute mode="OUT" name="permissionRecorder" optional="true" type="org.ofbiz.content.content.PermissionRecorder"/>
+        <attribute mode="OUT" name="permissionRecorderTo" optional="true" type="org.apache.ofbiz.content.content.PermissionRecorder"/>
+        <attribute mode="OUT" name="permissionRecorder" optional="true" type="org.apache.ofbiz.content.content.PermissionRecorder"/>
     </service>
 
     <service name="assocContent" engine="simple" default-entity-name="ContentAssoc"  auth="true"
@@ -242,7 +242,7 @@
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="org.ofbiz.entity.GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
         <attribute mode="IN" name="contentIdTo" optional="true" type="String"/>
         <attribute mode="IN" name="contentIdFrom" optional="true" type="String"/>
         <attribute mode="IN" name="statusId" optional="true" type="String"/>
@@ -472,7 +472,7 @@
                 location="component://content/minilang/content/ContentServices.xml" invoke="indexContentKeywords" auth="false">
         <description>Index the Keywords for a Content</description>
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
-        <attribute name="contentInstance" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="contentInstance" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="forceIndexContentKeywords" engine="simple"
             location="component://content/minilang/content/ContentServices.xml" invoke="forceIndexContentKeywords" auth="true">

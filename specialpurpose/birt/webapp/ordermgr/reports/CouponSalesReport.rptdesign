@@ -20,12 +20,12 @@ under the License.
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.20" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 2.5.1.v20090903 Build &lt;2.5.1.v20090917-1447></property>
     <property name="units">in</property>
-    <method name="initialize"><![CDATA[importPackage(Packages.org.ofbiz.base.util)
+    <method name="initialize"><![CDATA[importPackage(Packages.org.apache.ofbiz.base.util)
 
-importPackage(Packages.org.ofbiz.entity.util)
+importPackage(Packages.org.apache.ofbiz.entity.util)
 importPackage(Packages.java.util)
 importPackage(Packages.java.lang)
-importPackage(Packages.org.ofbiz.entity.condition)
+importPackage(Packages.org.apache.ofbiz.entity.condition)
 importPackage(Packages.java.math)
 module = "CouponSalesReport.rptdesign";]]></method>
     <property name="iconFile">/templates/blank_report.gif</property>

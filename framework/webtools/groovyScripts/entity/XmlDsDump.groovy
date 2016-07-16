@@ -19,11 +19,11 @@
 
 import java.util.*;
 import java.io.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.model.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.transaction.*;
-import org.ofbiz.entity.condition.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.model.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.entity.transaction.*;
+import org.apache.ofbiz.entity.condition.*;
 
 outpath = parameters.outpath;
 filename = parameters.filename;
@@ -148,7 +148,7 @@ if ("Product1".equals(preConfiguredSetName)) {
 }
 
 if (entitySyncId) {
-    passedEntityNames = org.ofbiz.entityext.synchronization.EntitySyncContext.getEntitySyncModelNamesToUse(dispatcher, entitySyncId);
+    passedEntityNames = org.apache.ofbiz.entityext.synchronization.EntitySyncContext.getEntitySyncModelNamesToUse(dispatcher, entitySyncId);
 }
 checkAll = "true".equals(parameters.checkAll);
 tobrowser = parameters.tobrowser != null;

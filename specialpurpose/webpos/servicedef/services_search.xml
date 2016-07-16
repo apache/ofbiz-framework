@@ -23,7 +23,7 @@ under the License.
     <version>1.0</version>
     
     <service name="findProducts" engine="java"
-             location="org.ofbiz.webpos.search.WebPosSearch" invoke="findProducts">
+             location="org.apache.ofbiz.webpos.search.WebPosSearch" invoke="findProducts">
         <description>Find products by name/description/good identification value</description>
         <attribute type="String" mode="IN" name="searchByProductIdValue" optional="true"/>
         <attribute type="String" mode="IN" name="searchByProductName" optional="true"/>
@@ -33,7 +33,7 @@ under the License.
     </service>
     
     <service name="findParties" engine="java"
-             location="org.ofbiz.webpos.search.WebPosSearch" invoke="findParties">
+             location="org.apache.ofbiz.webpos.search.WebPosSearch" invoke="findParties">
         <description>Find parties by name/surname/good identification value</description>
         <attribute type="String" mode="IN" name="searchByPartyLastName" optional="true"/>
         <attribute type="String" mode="IN" name="searchByPartyFirstName" optional="true"/>

@@ -24,8 +24,8 @@ under the License.
 importPackage(Packages.java.sql);
 importPackage(Packages.java.text);
 importPackage(Packages.java.util);
-importPackage(Packages.org.ofbiz.base.util);
-importPackage(Packages.org.ofbiz.entity.condition);
+importPackage(Packages.org.apache.ofbiz.base.util);
+importPackage(Packages.org.apache.ofbiz.entity.condition);
 module = "ProjectAndSprintChart.rptdesign";
 
 totalRow = 0;

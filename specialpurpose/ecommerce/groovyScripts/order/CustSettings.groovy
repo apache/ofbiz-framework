@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
 partyId = null;
 

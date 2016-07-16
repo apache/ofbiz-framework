@@ -316,12 +316,12 @@ Doc.D
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="9pt">${uiLabelMap.ManufacturingPrintoutDate} : ${Static["org.ofbiz.base.util.UtilDateTime"].nowDateString("dd/MM/yyyy")}</fo:inline>
+                                <fo:inline font-size="9pt">${uiLabelMap.ManufacturingPrintoutDate} : ${Static["org.apache.ofbiz.base.util.UtilDateTime"].nowDateString("dd/MM/yyyy")}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="9pt">${uiLabelMap.ManufacturingCompletionDate} : ${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRun.productionRun.estimatedCompletionDate, "dd/MM/yyyy")}</fo:inline>
+                                <fo:inline font-size="9pt">${uiLabelMap.ManufacturingCompletionDate} : ${Static["org.apache.ofbiz.base.util.UtilDateTime"].toDateString(productionRun.productionRun.estimatedCompletionDate, "dd/MM/yyyy")}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>

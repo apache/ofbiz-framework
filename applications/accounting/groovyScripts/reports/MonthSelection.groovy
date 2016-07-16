@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.service.calendar.ExpressionUiHelper;
+import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.service.calendar.ExpressionUiHelper;
 
 if (parameters.selectedMonth) {
   selectedMonth = Integer.valueOf(parameters.selectedMonth);

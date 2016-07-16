@@ -27,9 +27,9 @@ under the License.
     <EntitySync entitySyncId="1500" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000" targetServiceName="remoteStoreEntitySyncDataRmi" keepRemoveInfoHours="24" forPushOnly="Y"/>
     <EntitySyncInclude entitySyncId="1500" entityOrPackage="ServerHit" applEnumId="ESIA_EXCLUDE"/>
     <EntitySyncInclude entitySyncId="1500" entityOrPackage="ServerHitBin" applEnumId="ESIA_EXCLUDE"/>
-    <EntitySyncInclude entitySyncId="1500" entityOrPackage="org.ofbiz.service" applEnumId="ESIA_EXCLUDE"/>
-    <EntitySyncInclude entitySyncId="1500" entityOrPackage="org.ofbiz.entity" applEnumId="ESIA_EXCLUDE"/>
-    <EntitySyncInclude entitySyncId="1500" entityOrPackage="org.ofbiz." applEnumId="ESIA_INCLUDE"/>
+    <EntitySyncInclude entitySyncId="1500" entityOrPackage="org.apache.ofbiz.service" applEnumId="ESIA_EXCLUDE"/>
+    <EntitySyncInclude entitySyncId="1500" entityOrPackage="org.apache.ofbiz.entity" applEnumId="ESIA_EXCLUDE"/>
+    <EntitySyncInclude entitySyncId="1500" entityOrPackage="org.apache.ofbiz." applEnumId="ESIA_INCLUDE"/>
     <!--
         <RecurrenceRule recurrenceRuleId="1500" untilDateTime="" frequency="MINUTELY" intervalNumber="2" countNumber="-1"/>
         <RecurrenceInfo recurrenceInfoId="1500" startDateTime="2000-01-01 00:00:00.000" recurrenceRuleId="1500" recurrenceCount="0"/>

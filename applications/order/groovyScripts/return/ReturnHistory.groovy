@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 
 commonReturnHistoryCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "ReturnItem"),
                            EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, entityField),

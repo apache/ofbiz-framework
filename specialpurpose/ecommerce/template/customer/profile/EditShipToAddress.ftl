@@ -22,7 +22,7 @@ under the License.
   <fieldset>
     <input type="hidden" name="setShippingPurpose" value="Y" />
     <input type="hidden" name="contactMechId" value="${shipToContactMechId!}" />
-    <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
+    <#assign productStoreId = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
     <input type="hidden" name="productStoreId" value="${productStoreId!}" />
     <div>
       <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}*</label>

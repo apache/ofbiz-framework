@@ -17,12 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.string.*;
-import org.ofbiz.entity.util.EntityUtilProperties;
-import org.ofbiz.product.image.ScaleImage;
-import org.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.string.*;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.product.image.ScaleImage;
+import org.apache.ofbiz.entity.condition.*
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
 

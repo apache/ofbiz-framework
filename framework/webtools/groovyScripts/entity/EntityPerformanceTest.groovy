@@ -19,11 +19,11 @@
 
 import java.text.DecimalFormat;
 import java.util.*;
-import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.security.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.security.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
 
 DecimalFormat decimalFormat = new DecimalFormat("#,##0.#######");
 

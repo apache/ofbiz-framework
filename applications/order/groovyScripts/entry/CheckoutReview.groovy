@@ -19,16 +19,16 @@
 
 import java.lang.*;
 import java.math.BigDecimal;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.accounting.payment.*;
-import org.ofbiz.order.order.*;
-import org.ofbiz.party.contact.*;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.order.shoppingcart.*;
-import org.ofbiz.product.store.*;
-import org.ofbiz.party.party.PartyWorker;
-import org.ofbiz.webapp.website.WebSiteWorker
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.accounting.payment.*;
+import org.apache.ofbiz.order.order.*;
+import org.apache.ofbiz.party.contact.*;
+import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.product.store.*;
+import org.apache.ofbiz.party.party.PartyWorker;
+import org.apache.ofbiz.webapp.website.WebSiteWorker
 
 cart = ShoppingCartEvents.getCartObject(request);
 context.cart = cart;

@@ -1968,7 +1968,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field to test.
-                        Object to test must be a collection, string, or a class that implements org.ofbiz.base.lang.IsEmpty.
+                        Object to test must be a collection, string, or a class that implements org.apache.ofbiz.base.lang.IsEmpty.
                         
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -2047,7 +2047,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the field to test.
-                        Object to test must be a collection, string, or a class that implements org.ofbiz.base.lang.IsEmpty.
+                        Object to test must be a collection, string, or a class that implements org.apache.ofbiz.base.lang.IsEmpty.
                         
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -2127,7 +2127,7 @@ under the License.
             <xs:attribute type="xs:string" name="class">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the class that contains the validation method. Defaults to "org.ofbiz.base.util.UtilValidate".
+                        The name of the class that contains the validation method. Defaults to "org.apache.ofbiz.base.util.UtilValidate".
                         
                         Optional. Attribute type: constant
                     </xs:documentation>
@@ -4966,7 +4966,7 @@ under the License.
                 The validate-method tag is used to call any static method that accepts a String and returns a boolean.
                 If the field coming in is not a String it will be converted to a String before calling the method.
                 The two attributes for this tag are class and method which should contain the fully qualified class name and the method name, respectively.
-                If the class name is not specified it will default to org.ofbiz.base.util.UtilValidate.
+                If the class name is not specified it will default to org.apache.ofbiz.base.util.UtilValidate.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -4982,7 +4982,7 @@ under the License.
     </xs:element>
     <xs:complexType name="attlist.validate-method">
         <xs:attribute type="xs:string" name="method" use="required"/>
-        <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate"/>
+        <xs:attribute type="xs:string" name="class" default="org.apache.ofbiz.base.util.UtilValidate"/>
     </xs:complexType>
     <xs:element name="compare">
         <xs:annotation>

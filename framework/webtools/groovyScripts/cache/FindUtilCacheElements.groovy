@@ -16,11 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.base.util.cache.CacheLine;
-import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.security.Security;
+import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.apache.ofbiz.base.util.cache.CacheLine;
+import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.security.Security;
 
 context.hasUtilCacheEdit = security.hasEntityPermission("UTIL_CACHE", "_EDIT", session);
 

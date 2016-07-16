@@ -30,13 +30,13 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
-    <!--  - org.ofbiz.entity.audit -->
-    <!--  - org.ofbiz.entity.crypto -->
-    <!--  - org.ofbiz.entity.sequence -->
-    <!--  - org.ofbiz.entity.tenant -->
+    <!--  - org.apache.ofbiz.entity.audit -->
+    <!--  - org.apache.ofbiz.entity.crypto -->
+    <!--  - org.apache.ofbiz.entity.sequence -->
+    <!--  - org.apache.ofbiz.entity.tenant -->
     <!-- ========================================================= -->
 
-    <entity entity-name="EntityAuditLog" package-name="org.ofbiz.entity.audit" title="Entity Audit Log">
+    <entity entity-name="EntityAuditLog" package-name="org.apache.ofbiz.entity.audit" title="Entity Audit Log">
         <field name="auditHistorySeqId" type="id-ne"><description>Sequenced primary key</description></field>
         <field name="changedEntityName" type="long-varchar"></field>
         <field name="changedFieldName" type="long-varchar"></field>
@@ -48,34 +48,34 @@ under the License.
         <field name="changedSessionInfo" type="long-varchar"><description>This should contain whatever information is available about the session during which the value was changed. This could be a visitId, but could be something else too, so there is no foreign key.</description></field>
         <prim-key field="auditHistorySeqId"/>
     </entity>
-    <entity entity-name="EntityKeyStore" package-name="org.ofbiz.entity.crypto" title="Entity Key Store Entity">
+    <entity entity-name="EntityKeyStore" package-name="org.apache.ofbiz.entity.crypto" title="Entity Key Store Entity">
         <field name="keyName" type="id-vlong-ne"></field>
         <field name="keyText" type="long-varchar"></field>
         <prim-key field="keyName"/>
     </entity>
-    <entity entity-name="SequenceValueItem" package-name="org.ofbiz.entity.sequence" title="Sequence Value Item Entity">
+    <entity entity-name="SequenceValueItem" package-name="org.apache.ofbiz.entity.sequence" title="Sequence Value Item Entity">
       <field name="seqName" type="id-long-ne"></field>
       <field name="seqId" type="numeric"></field>
       <prim-key field="seqName"/>
     </entity>
-    <entity entity-name="JavaResource" package-name="org.ofbiz.entity" title="Java Resource">
+    <entity entity-name="JavaResource" package-name="org.apache.ofbiz.entity" title="Java Resource">
         <field name="resourceName" type="id-vlong-ne" />
         <field name="resourceValue" type="byte-array" />
         <prim-key field="resourceName" />
     </entity>
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.entity.tenant -->
+    <!-- org.apache.ofbiz.entity.tenant -->
     <!-- ========================================================= -->
     
-    <entity entity-name="Tenant" package-name="org.ofbiz.entity.tenant">
+    <entity entity-name="Tenant" package-name="org.apache.ofbiz.entity.tenant">
         <field name="tenantId" type="id-ne"/>
         <field name="tenantName" type="name"/>
         <field name="initialPath" type="value"/>
         <field name="disabled" type="indicator"><description>Disabled if 'Y', defaults to 'N' (not disabled).</description></field>
         <prim-key field="tenantId"/>
     </entity>
-    <entity entity-name="TenantDataSource" package-name="org.ofbiz.entity.tenant">
+    <entity entity-name="TenantDataSource" package-name="org.apache.ofbiz.entity.tenant">
         <description>
             There should be one record for each tenant and each group-map for the active delegator.
             The jdbc fields will override the datasource -> inline-jdbc values for the per-tenant delegator.
@@ -109,7 +109,7 @@ under the License.
             <key-map field-name="tenantId"/>
         </relation>
     </entity>
-    <entity entity-name="TenantKeyEncryptingKey" package-name="org.ofbiz.entity.tenant">
+    <entity entity-name="TenantKeyEncryptingKey" package-name="org.apache.ofbiz.entity.tenant">
         <description>
             There should be one record for each tenant and each group-map for the active delegator.
             The jdbc fields will override the datasource -> inline-jdbc values for the per-tenant delegator.
@@ -123,7 +123,7 @@ under the License.
     </entity>
     <!-- may be no reason for this entity, user is authenticated inside the tenant and this would only be useful to 
     get a list of tenants per user
-    <entity entity-name="TenantUserLogin" package-name="org.ofbiz.entity.tenant">
+    <entity entity-name="TenantUserLogin" package-name="org.apache.ofbiz.entity.tenant">
         <field name="tenantId" type="id-ne"/>
         <field name="userLoginId" type="id-vlong-ne"/>
         <field name="fromDate" type="date-time"/>
@@ -137,13 +137,13 @@ under the License.
         <!- - NOTE: there is no FK to the UserLogin entity, which is in a higher-level component, and would normally be in a separate database - ->
     </entity>
     -->
-    <entity entity-name="Component" package-name="org.ofbiz.entity.tenant">
+    <entity entity-name="Component" package-name="org.apache.ofbiz.entity.tenant">
         <description>Component Entity</description>
         <field name="componentName" type="name"></field>
         <field name="rootLocation" type="description"></field>
         <prim-key field="componentName"/>
     </entity>
-    <entity entity-name="TenantComponent" package-name="org.ofbiz.entity.tenant">
+    <entity entity-name="TenantComponent" package-name="org.apache.ofbiz.entity.tenant">
         <description></description>
         <field name="tenantId" type="id-ne"></field>
         <field name="componentName" type="name"></field>
@@ -157,7 +157,7 @@ under the License.
             <key-map field-name="componentName"/>
         </relation>
     </entity>
-    <entity entity-name="TenantDomainName" package-name="org.ofbiz.entity.tenant" 
+    <entity entity-name="TenantDomainName" package-name="org.apache.ofbiz.entity.tenant" 
             title="Tenant and its Domain Name">
         <field name="tenantId" type="id-ne"></field>
         <field name="domainName" type="long-varchar"></field>

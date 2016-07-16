@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilHttp;
 
 requestParams = UtilHttp.getParameterMap(request);
 calendarId = requestParams.get("calendarId") ?: request.getAttribute("calendarId");

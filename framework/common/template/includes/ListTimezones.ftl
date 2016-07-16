@@ -27,7 +27,7 @@ under the License.
   <table cellspacing="0" class="basic-table hover-bar">
     <#assign altRow = true>
     <#assign displayStyle = Static["java.util.TimeZone"].LONG>
-    <#assign availableTimeZones = Static["org.ofbiz.base.util.UtilDateTime"].availableTimeZones()/>
+    <#assign availableTimeZones = Static["org.apache.ofbiz.base.util.UtilDateTime"].availableTimeZones()/>
     <#list availableTimeZones as availableTz>
       <#assign altRow = !altRow>
       <tr<#if altRow> class="alternate-row"</#if>>

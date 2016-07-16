@@ -46,7 +46,7 @@ under the License.
     <#if localOrderReadHelper?? && orderHeader?has_content>
       <#assign displayParty = localOrderReadHelper.getPlacingParty()!/>
       <#if displayParty?has_content>
-        <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
+        <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
       </#if>
       <li>
         ${uiLabelMap.PartyName}
@@ -110,7 +110,7 @@ under the License.
         <#list paymentMethods as paymentMethod>
           <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId>
             <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)>
-            <#assign formattedCardNumber = Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)>
+            <#assign formattedCardNumber = Static["org.apache.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)>
           <#elseif "GIFT_CARD" == paymentMethod.paymentMethodTypeId>
             <#assign giftCard = paymentMethod.getRelatedOne("GiftCard", false)>
           <#elseif "EFT_ACCOUNT" == paymentMethod.paymentMethodTypeId>

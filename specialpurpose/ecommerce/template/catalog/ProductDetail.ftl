@@ -551,9 +551,9 @@ $(function(){
           <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="addform"  style="margin: 0;">
           <fieldset>
             <#assign inStock = true />
-            <#assign commentEnable = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("order", "order.item.comment.enable", delegator)>
+            <#assign commentEnable = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("order", "order.item.comment.enable", delegator)>
             <#if commentEnable.equals("Y")>
-                <#assign orderItemAttr = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("order", "order.item.attr.prefix", delegator)>
+                <#assign orderItemAttr = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("order", "order.item.attr.prefix", delegator)>
                 ${uiLabelMap.CommonComment}&nbsp;<input type="text" name="${orderItemAttr}comment"/>
             </#if>
             <#-- Variant Selection -->
@@ -705,7 +705,7 @@ $(function(){
                 <option value="">${uiLabelMap.OrderNewShoppingList}</option>
               </select>
               &nbsp;&nbsp;
-              <#--assign nowDate = Static["org.ofbiz.base.util.UtilDateTime"].nowDateString("yyyy-MM-dd")-->
+              <#--assign nowDate = Static["org.apache.ofbiz.base.util.UtilDateTime"].nowDateString("yyyy-MM-dd")-->
               <#if product.productTypeId! == "ASSET_USAGE">
                   &nbsp;${uiLabelMap.CommonStartDate} (yyyy-mm-dd)<@htmlTemplate.renderDateTimeField name="reservStartStr" event="" action="" value="${startDate}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="15" maxlength="30" id="reservStartStr" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>&nbsp;Number of&nbsp;days&nbsp;&nbsp;<input type="text" size="4" name="reservLength" />&nbsp;<br/>Number of&nbsp;persons&nbsp;&nbsp;<input type="text" size="4" name="reservPersons" value="1" />&nbsp;&nbsp;Qty&nbsp;&nbsp;<input type="text" size="5" name="quantity" value="1" />
               <#elseif product.productTypeId! == "ASSET_USAGE_OUT_IN">
@@ -738,7 +738,7 @@ $(function(){
                 <#list imageKeys as key>
                   <#assign swatchProduct = imageMap.get(key) />
                   <#if swatchProduct?has_content && indexer &lt; maxIndex>
-                    <#assign imageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request, "url")! />
+                    <#assign imageUrl = Static["org.apache.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request, "url")! />
                     <#if !imageUrl?string?has_content>
                       <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL", "url")! />
                     </#if>

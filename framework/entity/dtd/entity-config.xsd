@@ -114,7 +114,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="entity-eca-handler-class-name" default="org.ofbiz.entityext.eca.DelegatorEcaHandler"/>
+        <xs:attribute type="xs:string" name="entity-eca-handler-class-name" default="org.apache.ofbiz.entityext.eca.DelegatorEcaHandler"/>
         <xs:attribute name="distributed-cache-clear-enabled" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -123,10 +123,10 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="distributed-cache-clear-class-name" default="org.ofbiz.entityext.cache.EntityCacheServices"/>
+        <xs:attribute type="xs:string" name="distributed-cache-clear-class-name" default="org.apache.ofbiz.entityext.cache.EntityCacheServices"/>
         <xs:attribute type="xs:string" name="distributed-cache-clear-user-login-id" default="system"/>
         <xs:attribute type="xs:string" name="sequenced-id-prefix"/>
-        <xs:attribute type="xs:string" name="default-group-name" default="org.ofbiz"/>
+        <xs:attribute type="xs:string" name="default-group-name" default="org.apache.ofbiz"/>
         <xs:attribute type="xs:string" name="key-encrypting-key"/>
     </xs:attributeGroup>
     <xs:element name="group-map">

@@ -25,7 +25,7 @@ under the License.
     <version>1.0</version>
 
     <service name="createShipmentPackages" engine="java" auth="true"
-            location="org.ofbiz.manufacturing.bom.BOMServices" invoke="createShipmentPackages">
+            location="org.apache.ofbiz.manufacturing.bom.BOMServices" invoke="createShipmentPackages">
         <description>Runs the package configurator.</description>
         <attribute mode="IN" name="shipmentId" optional="false" type="String"/>
     </service>

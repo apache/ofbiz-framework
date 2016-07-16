@@ -38,7 +38,7 @@ under the License.
         <attribute name="itemShippingList" type="java.util.List" mode="IN" optional="true"><!-- List of BigDecimals --></attribute>
         <attribute name="orderShippingAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="orderPromotionsAmount" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="shippingAddress" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="shippingAddress" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="orderAdjustments" type="java.util.List" mode="OUT" optional="false"><!-- List of GenericValues (OrderAdjustment) --></attribute>
         <attribute name="itemAdjustments" type="java.util.List" mode="OUT" optional="false"><!-- List of Lists of GenericValues (OrderAdjustment), one List of Adjustments per item --></attribute>
     </service>
@@ -57,12 +57,12 @@ under the License.
 
     <!-- Tax Authority Calc Services -->
     <service name="calcTax" engine="java"
-        location="org.ofbiz.accounting.tax.TaxAuthorityServices" invoke="rateProductTaxCalc">
+        location="org.apache.ofbiz.accounting.tax.TaxAuthorityServices" invoke="rateProductTaxCalc">
         <description>Tax Authority Rate Product Calc Service</description>
         <implements service="calcTaxInterface"/>
     </service>
     <service name="calcTaxForDisplay" engine="java"
-        location="org.ofbiz.accounting.tax.TaxAuthorityServices" invoke="rateProductTaxCalcForDisplay">
+        location="org.apache.ofbiz.accounting.tax.TaxAuthorityServices" invoke="rateProductTaxCalcForDisplay">
         <description>Tax Authority Rate Product Calc Service</description>
         <implements service="calcTaxTotalForDisplayInterface"/>
     </service>
@@ -197,14 +197,14 @@ under the License.
 
     <!-- ZipSales Tax Services -->
     <service name="importZipSalesTaxData" engine="java" transaction-timeout="7200"
-        location="org.ofbiz.order.thirdparty.zipsales.ZipSalesServices" invoke="importFlatTable">
+        location="org.apache.ofbiz.order.thirdparty.zipsales.ZipSalesServices" invoke="importFlatTable">
         <description>Import ZipSales Flat File</description>
         <attribute name="taxFileLocation" type="String" mode="IN" optional="false"/>
         <attribute name="ruleFileLocation" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="flatZipSalesTaxCalc" engine="java"
-        location="org.ofbiz.order.thirdparty.zipsales.ZipSalesServices" invoke="flatTaxCalc">
+        location="org.apache.ofbiz.order.thirdparty.zipsales.ZipSalesServices" invoke="flatTaxCalc">
         <description>Zip Sales Calc Tax Service - change this to calcTax to run</description>
         <implements service="calcTaxInterface"/>
     </service>

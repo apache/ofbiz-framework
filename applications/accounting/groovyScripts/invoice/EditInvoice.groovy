@@ -18,16 +18,16 @@
  */
 
 import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.collections.*;
-import org.ofbiz.accounting.invoice.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.collections.*;
+import org.apache.ofbiz.accounting.invoice.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.math.BigDecimal;
 import java.math.MathContext;
-import org.ofbiz.base.util.UtilNumber;
+import org.apache.ofbiz.base.util.UtilNumber;
 
 
 invoiceId = parameters.get("invoiceId");

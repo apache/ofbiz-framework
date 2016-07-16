@@ -24,7 +24,7 @@ under the License.
 <#assign factoidTrail=[]/>
 <#assign firstContentId=""/>
 <#if factoidTrailCsv?has_content>
-  <#assign factoidTrail=Static["org.ofbiz.base.util.StringUtil"].split(factoidTrailCsv, ",") />
+  <#assign factoidTrail=Static["org.apache.ofbiz.base.util.StringUtil"].split(factoidTrailCsv, ",") />
   <#if 0 < factoidTrail?size>
     <#assign firstContentId=factoidTrail[0]?string/>
   </#if>

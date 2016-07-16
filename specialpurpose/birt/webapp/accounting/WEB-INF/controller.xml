@@ -24,7 +24,7 @@ under the License.
 
     <description>Extended Accounting Controller Configuration File</description>
 
-    <handler name="birt" type="view" class="org.ofbiz.birt.webapp.view.BirtViewHandler"/>
+    <handler name="birt" type="view" class="org.apache.ofbiz.birt.webapp.view.BirtViewHandler"/>
 
     <request-map uri="paymentReport">
         <security https="true" auth="true"/>

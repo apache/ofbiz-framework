@@ -84,13 +84,13 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="calcBillingAccountBalance" engine="java"
-            location="org.ofbiz.accounting.payment.BillingAccountWorker" invoke="calcBillingAccountBalance">
+            location="org.apache.ofbiz.accounting.payment.BillingAccountWorker" invoke="calcBillingAccountBalance">
         <description>Calculate the balance of a Billing Account</description>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="accountBalance" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="netAccountBalance" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableBalance" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToCapture" type="BigDecimal" mode="OUT" optional="false"/>
-        <attribute name="billingAccount" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
+        <attribute name="billingAccount" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
     </service>
 </services>

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*;
 
 results =  [];
 ebayAccountList = from("PartyRoleAndPartyDetail").where("roleTypeId", "EBAY_ACCOUNT").queryList();

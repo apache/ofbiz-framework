@@ -685,43 +685,43 @@ under the License.
         <entity-one entity-name="GlAccountClass" value-field="expenseGlAccountClass">
             <field-map field-name="glAccountClassId" value="EXPENSE"/>
         </entity-one>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="expenseAccountClassIds">
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="expenseAccountClassIds">
             <field field="expenseGlAccountClass" type="GenericValue"/>
         </call-class-method>
         <entity-one entity-name="GlAccountClass" value-field="revenueGlAccountClass">
             <field-map field-name="glAccountClassId" value="REVENUE"/>
         </entity-one>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="revenueAccountClassIds">
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="revenueAccountClassIds">
             <field field="revenueGlAccountClass" type="GenericValue"/>
         </call-class-method>
         <entity-one entity-name="GlAccountClass" value-field="incomeGlAccountClass">
             <field-map field-name="glAccountClassId" value="INCOME"/>
         </entity-one>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="incomeAccountClassIds">
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="incomeAccountClassIds">
             <field field="incomeGlAccountClass" type="GenericValue"/>
         </call-class-method>
         <entity-one entity-name="GlAccountClass" value-field="assetGlAccountClass">
             <field-map field-name="glAccountClassId" value="ASSET"/>
         </entity-one>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="assetAccountClassIds">
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="assetAccountClassIds">
             <field field="assetGlAccountClass" type="GenericValue"/>
         </call-class-method>
         <entity-one entity-name="GlAccountClass" value-field="contraAssetGlAccountClass">
             <field-map field-name="glAccountClassId" value="CONTRA_ASSET"/>
         </entity-one>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="contraAssetAccountClassIds">
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="contraAssetAccountClassIds">
             <field field="contraAssetGlAccountClass" type="GenericValue"/>
         </call-class-method>
         <entity-one entity-name="GlAccountClass" value-field="liabilityGlAccountClass">
             <field-map field-name="glAccountClassId" value="LIABILITY"/>
         </entity-one>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="liabilityAccountClassIds">
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="liabilityAccountClassIds">
             <field field="liabilityGlAccountClass" type="GenericValue"/>
         </call-class-method>
         <entity-one entity-name="GlAccountClass" value-field="equityGlAccountClass">
             <field-map field-name="glAccountClassId" value="EQUITY"/>
         </entity-one>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="equityAccountClassIds">
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="equityAccountClassIds">
             <field field="equityGlAccountClass" type="GenericValue"/>
         </call-class-method>
 
@@ -748,13 +748,13 @@ under the License.
         <set field="totalDebitAmount" value="0.0" type="BigDecimal"/>
         <iterate list="acctgTransAndEntries" entry="acctgTransAndEntry">
             <get-related-one value-field="acctgTransAndEntry" relation-name="GlAccount" to-value-field="glAccount"/>
-            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isCreditAccount" ret-field="isCreditAccount">
+            <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="isCreditAccount" ret-field="isCreditAccount">
                 <field field="glAccount" type="GenericValue"/>
             </call-class-method>
-            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isDebitAccount" ret-field="isDebitAccount">
+            <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="isDebitAccount" ret-field="isDebitAccount">
                 <field field="glAccount" type="GenericValue"/>
             </call-class-method>
-            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isExpenseAccount" ret-field="isExpenseAccount">
+            <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="isExpenseAccount" ret-field="isExpenseAccount">
                 <field field="glAccount" type="GenericValue"/>
             </call-class-method>
             <set field="amount" from-field="acctgTransAndEntry.amount"/>
@@ -925,7 +925,7 @@ under the License.
         <set field="totalCreditsInTimePeriod" value="${totalCreditsToEndingDate.amount - totalCreditsToOpeningDate.amount}" type="BigDecimal"/>
 
         <!-- compute opening and ending balance and store them -->
-        <set field="isDebit" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)}"/>
+        <set field="isDebit" value="${groovy:org.apache.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)}"/>
         <if-compare field="isDebit" operator="equals" value="true">
             <!-- "Debit balance" account -->
             <set field="openingBalance" value="${totalDebitsToOpeningDate.amount - totalCreditsToOpeningDate.amount}" type="BigDecimal"/>
@@ -967,23 +967,23 @@ under the License.
         <entity-one entity-name="GlAccountClass" value-field="expenseGlAccountClass">
             <field-map field-name="glAccountClassId" value="EXPENSE"/>
         </entity-one>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="expenseAccountClassIds">
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="expenseAccountClassIds">
             <field field="expenseGlAccountClass" type="GenericValue"/>
         </call-class-method>
         <entity-one entity-name="GlAccountClass" value-field="revenueGlAccountClass">
             <field-map field-name="glAccountClassId" value="REVENUE"/>
         </entity-one>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="revenueAccountClassIds">
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="revenueAccountClassIds">
             <field field="revenueGlAccountClass" type="GenericValue"/>
         </call-class-method>
         <entity-one entity-name="GlAccountClass" value-field="incomeGlAccountClass">
             <field-map field-name="glAccountClassId" value="INCOME"/>
         </entity-one>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="incomeAccountClassIds">
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="incomeAccountClassIds">
             <field field="incomeGlAccountClass" type="GenericValue"/>
         </call-class-method>
         <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-        <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+        <set field="partyIds" value="${groovy:org.apache.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
         <set field="partyIds[]" from-field="organizationPartyId"/>
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
             <condition-list combine="and">
@@ -1018,13 +1018,13 @@ under the License.
         <set field="totalNetIncome" value="0.0" type="BigDecimal"/>
         <iterate list="acctgTransAndEntries" entry="acctgTransAndEntry">
             <get-related-one value-field="acctgTransAndEntry" relation-name="GlAccount" to-value-field="glAccount"/>
-            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isCreditAccount" ret-field="isCreditAccount">
+            <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="isCreditAccount" ret-field="isCreditAccount">
                 <field field="glAccount" type="GenericValue"/>
             </call-class-method>
-            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isDebitAccount" ret-field="isDebitAccount">
+            <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="isDebitAccount" ret-field="isDebitAccount">
                 <field field="glAccount" type="GenericValue"/>
             </call-class-method>
-            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isExpenseAccount" ret-field="isExpenseAccount">
+            <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="isExpenseAccount" ret-field="isExpenseAccount">
                 <field field="glAccount" type="GenericValue"/>
             </call-class-method>
             <set field="amount" from-field="acctgTransAndEntry.amount"/>
@@ -1823,8 +1823,8 @@ under the License.
         <calculate field="diffAmount"><number value="0"/></calculate>
 
         <entity-one entity-name="Payment" value-field="payment"/>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isReceipt" ret-field="isReceiptValue">
-            <field field="payment" type="org.ofbiz.entity.GenericValue"/>
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="isReceipt" ret-field="isReceiptValue">
+            <field field="payment" type="org.apache.ofbiz.entity.GenericValue"/>
         </call-class-method>
 
         <if-compare field="isReceiptValue" operator="equals" value="true" type="Boolean">
@@ -1943,9 +1943,9 @@ under the License.
                 <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
             </iterate>
             <!-- debit entry for SALES_TAX-->
-            <call-class-method method-name="getInvoiceTaxAuthPartyAndGeos" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+            <call-class-method method-name="getInvoiceTaxAuthPartyAndGeos" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                   ret-field="taxAuthPartyAndGeos">
-                <field field="invoice" type="org.ofbiz.entity.GenericValue"/>
+                <field field="invoice" type="org.apache.ofbiz.entity.GenericValue"/>
             </call-class-method>
             <iterate-map key="taxAuthPartyId" value="taxAuthGeoIds" map="taxAuthPartyAndGeos">
                 <iterate entry="taxAuthGeoId" list="taxAuthGeoIds">
@@ -1953,7 +1953,7 @@ under the License.
                     <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
                     <set field="debitEntry.debitCreditFlag" value="D"/>
                     <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdTo"/>
-                    <call-class-method method-name="getInvoiceTaxTotalForTaxAuthPartyAndGeo" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+                    <call-class-method method-name="getInvoiceTaxTotalForTaxAuthPartyAndGeo" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                             ret-field="taxAmount">
                         <field field="invoice" type="GenericValue"/>
                         <field field="taxAuthPartyId" type="String"/>
@@ -1971,7 +1971,7 @@ under the License.
             <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
             <set field="debitEntry.debitCreditFlag" value="D"/>
             <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
-            <call-class-method method-name="getInvoiceUnattributedTaxTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+            <call-class-method method-name="getInvoiceUnattributedTaxTotal" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                     ret-field="taxAmount">
                 <field field="invoice" type="GenericValue"/>
             </call-class-method>
@@ -2023,7 +2023,7 @@ under the License.
         <set field="totalAmountFromInvoice" type="BigDecimal" value="0"/>
 
         <entity-one entity-name="Invoice" value-field="invoice"/>
-        <set field="isPurchaseInvoice" value="${groovy: org.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')}" type="Boolean"/>
+        <set field="isPurchaseInvoice" value="${groovy: org.apache.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')}" type="Boolean"/>
         <if-compare field="isPurchaseInvoice" operator="equals" value="true" type="Boolean">
             <entity-condition entity-name="InvoiceItem" list="invoiceItems" use-cache="true">
                 <condition-list>
@@ -2110,9 +2110,9 @@ under the License.
                 <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
             </iterate>
             <!-- debit entry for SALES_TAX-->
-            <call-class-method method-name="getInvoiceTaxAuthPartyAndGeos" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+            <call-class-method method-name="getInvoiceTaxAuthPartyAndGeos" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                   ret-field="taxAuthPartyAndGeos">
-                <field field="invoice" type="org.ofbiz.entity.GenericValue"/>
+                <field field="invoice" type="org.apache.ofbiz.entity.GenericValue"/>
             </call-class-method>
             <iterate-map key="taxAuthPartyId" value="taxAuthGeoIds" map="taxAuthPartyAndGeos">
                 <iterate entry="taxAuthGeoId" list="taxAuthGeoIds">
@@ -2120,7 +2120,7 @@ under the License.
                     <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
                     <set field="debitEntry.debitCreditFlag" value="D"/>
                     <set field="debitEntry.organizationPartyId" from-field="invoice.partyId"/>
-                    <call-class-method method-name="getInvoiceTaxTotalForTaxAuthPartyAndGeo" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+                    <call-class-method method-name="getInvoiceTaxTotalForTaxAuthPartyAndGeo" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                             ret-field="taxAmount">
                         <field field="invoice" type="GenericValue"/>
                         <field field="taxAuthPartyId" type="String"/>
@@ -2134,7 +2134,7 @@ under the License.
                 </iterate>
             </iterate-map>
             <!-- Another entry for tax not attributed to a taxAuthPartyId -->
-            <call-class-method method-name="getInvoiceUnattributedTaxTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+            <call-class-method method-name="getInvoiceUnattributedTaxTotal" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                     ret-field="taxAmount">
                 <field field="invoice" type="GenericValue"/>
             </call-class-method>
@@ -2265,9 +2265,9 @@ under the License.
             </iterate>
 
             <!-- credit entry for SALES_TAX-->
-            <call-class-method method-name="getInvoiceTaxAuthPartyAndGeos" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+            <call-class-method method-name="getInvoiceTaxAuthPartyAndGeos" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                   ret-field="taxAuthPartyAndGeos">
-                <field field="invoice" type="org.ofbiz.entity.GenericValue"/>
+                <field field="invoice" type="org.apache.ofbiz.entity.GenericValue"/>
             </call-class-method>
             <iterate-map key="taxAuthPartyId" value="taxAuthGeoIds" map="taxAuthPartyAndGeos">
                 <iterate entry="taxAuthGeoId" list="taxAuthGeoIds">
@@ -2275,7 +2275,7 @@ under the License.
                     <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
                     <set field="creditEntry.debitCreditFlag" value="C"/>
                     <set field="creditEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
-                    <call-class-method method-name="getInvoiceTaxTotalForTaxAuthPartyAndGeo" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+                    <call-class-method method-name="getInvoiceTaxTotalForTaxAuthPartyAndGeo" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                             ret-field="taxAmount">
                         <field field="invoice" type="GenericValue"/>
                         <field field="taxAuthPartyId" type="String"/>
@@ -2301,7 +2301,7 @@ under the License.
                 </iterate>
             </iterate-map>
             <!-- Another entry for tax not attributed to a taxAuthPartyId -->
-            <call-class-method method-name="getInvoiceUnattributedTaxTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+            <call-class-method method-name="getInvoiceUnattributedTaxTotal" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                     ret-field="taxAmount">
                 <field field="invoice" type="GenericValue"/>
             </call-class-method>
@@ -2321,7 +2321,7 @@ under the License.
             <set field="debitEntry.debitCreditFlag" value="D"/>
             <set field="debitEntry.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
             <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
-            <call-class-method method-name="getInvoiceTaxTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+            <call-class-method method-name="getInvoiceTaxTotal" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                     ret-field="invoiceTaxTotal">
                 <field field="invoice" type="GenericValue"/>
             </call-class-method>
@@ -2355,8 +2355,8 @@ under the License.
 
         <set field="amountAppliedTotal" type="BigDecimal" value="0"/>
         <entity-one entity-name="Payment" value-field="payment"/>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isDisbursement" ret-field="isDisbursement">
-            <field field="payment" type="org.ofbiz.entity.GenericValue"/>
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="isDisbursement" ret-field="isDisbursement">
+            <field field="payment" type="org.apache.ofbiz.entity.GenericValue"/>
         </call-class-method>
 
         <if-compare value="true" field="isDisbursement" operator="equals" type="Boolean">
@@ -2579,8 +2579,8 @@ under the License.
         <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID">
             <return/>
         </if-compare>
-        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isReceipt" ret-field="isReceipt">
-            <field field="payment" type="org.ofbiz.entity.GenericValue"/>
+        <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="isReceipt" ret-field="isReceipt">
+            <field field="payment" type="org.apache.ofbiz.entity.GenericValue"/>
         </call-class-method>
         <if-compare field="isReceipt" operator="equals" type="Boolean" value="true">
             <!-- if the payment Credited account is already "accounts receivable" then don't do nothing -->
@@ -2620,11 +2620,11 @@ under the License.
                 <return/>
             </if-compare>
 
-            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getGlExchangeRateOfPurchaseInvoice" ret-field="invoiceExchangeRate">
-                <field field="paymentApplication" type="org.ofbiz.entity.GenericValue"/>
+            <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="getGlExchangeRateOfPurchaseInvoice" ret-field="invoiceExchangeRate">
+                <field field="paymentApplication" type="org.apache.ofbiz.entity.GenericValue"/>
             </call-class-method>
-            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getGlExchangeRateOfOutgoingPayment" ret-field="paymentExchangeRate">
-                <field field="paymentApplication" type="org.ofbiz.entity.GenericValue"/>
+            <call-class-method class-name="org.apache.ofbiz.accounting.util.UtilAccounting" method-name="getGlExchangeRateOfOutgoingPayment" ret-field="paymentExchangeRate">
+                <field field="paymentApplication" type="org.apache.ofbiz.entity.GenericValue"/>
             </call-class-method>
             <!--Credit -->
             <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
@@ -2831,7 +2831,7 @@ under the License.
     <simple-method method-name="getGlAcctgAndAmountPercentage" short-description="Get amount percentage and glAccount for cost center">
         <set field="glAcctgAndAmountPercentageList" type="List" from-field="nullfield"/>
         <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-        <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+        <set field="partyIds" value="${groovy:org.apache.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
         <set field="partyIds[]" from-field="organizationPartyId"/>
         <entity-condition entity-name="GlAccountOrganization" list="glAccountOrganizations" use-cache="true">
             <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
@@ -2883,7 +2883,7 @@ under the License.
             <order-by field-name="productId"/>
         </entity-condition>
         <if-not-empty field="productInventoryItems">
-            <set field="productIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(productInventoryItems, 'productId', true);}" type="List"/>
+            <set field="productIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(productInventoryItems, 'productId', true);}" type="List"/>
             <iterate list="productIds" entry="productId">
                 <set field="totalQuantityOnHand" type="BigDecimal" value="0"/>
                 <set field="totalInventoryCost" type="BigDecimal" value="0"/>

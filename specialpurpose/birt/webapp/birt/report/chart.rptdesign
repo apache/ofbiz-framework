@@ -20,7 +20,7 @@ under the License.
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 4.4.1.v201408290142 Build &lt;4.4.1.v20140916-1320></property>
     <property name="units">in</property>
-    <method name="initialize"><![CDATA[importPackage(Packages.org.ofbiz.base.util)
+    <method name="initialize"><![CDATA[importPackage(Packages.org.apache.ofbiz.base.util)
 
 module = "chart.rptdesign";]]></method>
     <property name="iconFile">/templates/blank_report.gif</property>

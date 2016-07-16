@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.manufacturing.bom.BOMNode;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.manufacturing.bom.BOMNode;
 
 tree = request.getAttribute("tree");
 currencyUomId = parameters.currencyUomId;

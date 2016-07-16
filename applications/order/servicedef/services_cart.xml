@@ -25,24 +25,24 @@ under the License.
     <version>1.0</version>
 
     <service name="interfaceProductPromoCond" engine="interface" location="" invoke="">
-        <attribute name="productPromoCond" type="org.ofbiz.entity.GenericValue" mode="IN"/>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN"/>
+        <attribute name="productPromoCond" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN"/>
         <attribute name="nowTimestamp" type="Timestamp" mode="IN"/>
         <attribute name="directResult" type="Boolean" mode="OUT" optional="true"/>
         <attribute name="compareBase" type="Integer" mode="OUT" optional="true"/>
         <attribute name="operatorEnumId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="interfaceProductPromoAction" engine="interface" location="" invoke="">
-        <attribute name="productPromoAction" type="org.ofbiz.entity.GenericValue" mode="IN"/>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN"/>
+        <attribute name="productPromoAction" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN"/>
         <attribute name="nowTimestamp" type="Timestamp" mode="IN"/>
-        <attribute name="actionResultInfo" type="org.ofbiz.order.shoppingcart.product.ProductPromoWorker$ActionResultInfo" mode="IN"/>
-        <attribute name="cartItemModifyException" type="org.ofbiz.order.shoppingcart.CartItemModifyException" mode="OUT" optional="true"/>
+        <attribute name="actionResultInfo" type="org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker$ActionResultInfo" mode="IN"/>
+        <attribute name="cartItemModifyException" type="org.apache.ofbiz.order.shoppingcart.CartItemModifyException" mode="OUT" optional="true"/>
     </service>
     <service name="assignItemShipGroup" engine="java" auth="false"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="assignItemShipGroup">
+            location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="assignItemShipGroup">
         <description>Assign a ShoppingCartItem -> Quantity to a ship group</description>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="fromGroupIndex" type="Integer" mode="IN" optional="false"/>
         <attribute name="toGroupIndex" type="Integer" mode="IN" optional="false"/>
         <attribute name="itemIndex" type="Integer" mode="IN" optional="false"/>
@@ -51,9 +51,9 @@ under the License.
     </service>
 
     <service name="setCartShippingOptions" engine="java" auth="false"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="setShippingOptions">
+            location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="setShippingOptions">
         <description>Sets The ShoppingCart Shipping Options</description>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="groupIndex" type="Integer" mode="IN" optional="false"/>
         <attribute name="shippingContactMechId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -80,9 +80,9 @@ under the License.
     </service>
 
     <service name="setCartShippingAddress" engine="java" auth="false"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="setShippingOptions">
+            location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="setShippingOptions">
         <description>Sets The ShoppingCart Shipping Options</description>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="groupIndex" type="Integer" mode="IN" optional="false"/>
         <attribute name="shippingContactMechId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -92,53 +92,53 @@ under the License.
     </service>
 
     <service name="setCartPaymentOptions" engine="java" auth="false"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="setPaymentOptions">
+            location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="setPaymentOptions">
         <description>Sets the ShoppingCart Payment Options</description>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="paymentInfoId" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="refNum" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="setCartOtherOptions" engine="java" auth="false"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="setOtherOptions">
+            location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="setOtherOptions">
         <description>Sets the ShoppingCart Other Options (besided payment and shipping)</description>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="orderAdditionalEmails" type="String" mode="IN" optional="true"/>
         <attribute name="correspondingPoId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="loadCartFromOrder" engine="java" auth="true"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="loadCartFromOrder">
+            location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="loadCartFromOrder">
         <description>Create a ShoppingCart Object based on an existing order</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="createAsNewOrder" type="String" mode="IN" default-value="N"/>
         <attribute name="skipInventoryChecks" type="Boolean" mode="IN" optional="true"/>
         <attribute name="skipProductChecks" type="Boolean" mode="IN" optional="true"/>
         <attribute name="includePromoItems" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
     </service>
 
     <service name="loadCartFromQuote" engine="java" auth="true"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="loadCartFromQuote">
+            location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="loadCartFromQuote">
         <description>Create a ShoppingCart Object based on an existing quote. If applyQuoteAdjustments is set to false then standard cart adjustments are generated.</description>
         <attribute name="quoteId" type="String" mode="IN" optional="false"/>
         <attribute name="applyQuoteAdjustments" type="String" mode="IN" optional="true"/>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
     </service>
     <service name="loadCartFromShoppingList" engine="java" auth="true"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="loadCartFromShoppingList">
+            location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="loadCartFromShoppingList">
         <description>Create a ShoppingCart Object based on an existing shopping list.</description>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="applyStorePromotions" type="String" mode="IN" optional="true"/>
         <attribute name="orderPartyId" type="String" mode="IN" optional="true"/>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
     </service>
 
     <service name="getShoppingCartData" engine="java" auth="false"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="getShoppingCartData">
+            location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="getShoppingCartData">
         <description>Get the ShoppingCart data</description>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="totalQuantity" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="currencyIsoCode" type="String" mode="OUT" optional="true"/>
         <attribute name="subTotal" type="BigDecimal" mode="OUT" optional="true"/>
@@ -154,22 +154,22 @@ under the License.
     </service>
 
     <service name="getShoppingCartItemIndex" engine="java" auth="false"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="getShoppingCartItemIndex">
+            location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="getShoppingCartItemIndex">
         <description>Get the ShoppingCart info from the productId</description>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="itemIndex" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="resetShipGroupItems" engine="java" auth="false"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="resetShipGroupItems">
+            location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="resetShipGroupItems">
         <description>Reset the ship Groups in the cart and put the items in default group</description>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
     </service>
 
     <service name="prepareVendorShipGroups" engine="java" auth="false"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="prepareVendorShipGroups">
+            location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="prepareVendorShipGroups">
         <description>Split the default shipgroup to individual shipgroups that are unique to a vendor</description>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
     </service>
 </services>

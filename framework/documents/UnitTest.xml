@@ -81,7 +81,7 @@
                 Specific class's name which will be tested, in a class-name attribute like this:
                 <programlisting>
                     &lt;test-case case-name="service-tests"&gt;
-                        &lt;junit-test-suite class-name="org.ofbiz.service.test.ServiceEngineTests"/&gt;
+                        &lt;junit-test-suite class-name="org.apache.ofbiz.service.test.ServiceEngineTests"/&gt;
                     &lt;/test-case&gt;
                 </programlisting>
             </para>
@@ -184,9 +184,9 @@
                     [java] Message: Stack Trace
                     [java] ---- stack trace ---------------------------------------------------------------
                     [java] java.lang.Exception: Stack Trace
-                    [java] org.ofbiz.entity.transaction.TransactionUtil.rollback(TransactionUtil.java:335)
-                    [java] org.ofbiz.entity.transaction.TransactionUtil.rollback(TransactionUtil.java:317)
-                    [java] org.ofbiz.entity.test.EntityTestSuite.testTransactionUtilRollback(EntityTestSuite.java:437)
+                    [java] org.apache.ofbiz.entity.transaction.TransactionUtil.rollback(TransactionUtil.java:335)
+                    [java] org.apache.ofbiz.entity.transaction.TransactionUtil.rollback(TransactionUtil.java:317)
+                    [java] org.apache.ofbiz.entity.test.EntityTestSuite.testTransactionUtilRollback(EntityTestSuite.java:437)
                     [java] sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
                     [java] sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
                     [java] sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
@@ -201,12 +201,12 @@
                     [java] junit.framework.TestSuite.run(TestSuite.java:203)
                     [java] junit.framework.TestSuite.runTest(TestSuite.java:208)
                     [java] junit.framework.TestSuite.run(TestSuite.java:203)
-                    [java] org.ofbiz.testtools.TestRunContainer.start(TestRunContainer.java:146)
-                    [java] org.ofbiz.base.container.ContainerLoader.start(ContainerLoader.java:100)
-                    [java] org.ofbiz.base.start.Start.startStartLoaders(Start.java:272)
-                    [java] org.ofbiz.base.start.Start.startServer(Start.java:322)
-                    [java] org.ofbiz.base.start.Start.start(Start.java:326)
-                    [java] org.ofbiz.base.start.Start.main(Start.java:411)
+                    [java] org.apache.ofbiz.testtools.TestRunContainer.start(TestRunContainer.java:146)
+                    [java] org.apache.ofbiz.base.container.ContainerLoader.start(ContainerLoader.java:100)
+                    [java] org.apache.ofbiz.base.start.Start.startStartLoaders(Start.java:272)
+                    [java] org.apache.ofbiz.base.start.Start.startServer(Start.java:322)
+                    [java] org.apache.ofbiz.base.start.Start.start(Start.java:326)
+                    [java] org.apache.ofbiz.base.start.Start.main(Start.java:411)
                     [java] --------------------------------------------------------------------------------
                     [java]
                     ....

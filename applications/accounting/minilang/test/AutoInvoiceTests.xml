@@ -102,7 +102,7 @@ under the License.
         <entity-one value-field="invoice" entity-name="Invoice">
             <field-map field-name="invoiceId"/>
         </entity-one>
-        <call-class-method method-name="getInvoiceTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker" ret-field="invoiceTotal">
+        <call-class-method method-name="getInvoiceTotal" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker" ret-field="invoiceTotal">
             <field field="invoice" type="GenericValue"/>
         </call-class-method>
         <assert><if-compare-field field="invoiceTotal" operator="equals" to-field="amount" type="BigDecimal"/></assert>
@@ -146,8 +146,8 @@ under the License.
         </assert>
         <check-errors/>
         <iterate list="invoicesCreated" entry="invoice">
-            <call-class-method method-name="getInvoiceTotal" ret-field="amountTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker">
-                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            <call-class-method method-name="getInvoiceTotal" ret-field="amountTotal" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker">
+                <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
                 <field field="invoice.commissionInvoiceId" type="String"/>
             </call-class-method>
             <assert>

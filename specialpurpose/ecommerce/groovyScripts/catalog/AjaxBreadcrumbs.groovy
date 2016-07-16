@@ -16,9 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.product.product.ProductContentWrapper;
-import org.ofbiz.product.category.*;
-import org.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.product.category.*;
+import org.apache.ofbiz.base.util.UtilValidate;
 
 parentCategoryStr = parameters.parentCategoryStr;
 if(!UtilValidate.isEmpty(parentCategoryStr)) {

@@ -26,27 +26,27 @@ under the License.
 
     <!-- Chase Orbital Implementations -->
     <service name="orbitalCCAuth" engine="java"
-            location="org.ofbiz.accounting.thirdparty.orbital.OrbitalPaymentServices" invoke="ccAuth">
+            location="org.apache.ofbiz.accounting.thirdparty.orbital.OrbitalPaymentServices" invoke="ccAuth">
         <description>Orbital Payment Authorization</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="orbitalCCAuthCapture" engine="java"
-            location="org.ofbiz.accounting.thirdparty.orbital.OrbitalPaymentServices" invoke="ccAuthCapture">
+            location="org.apache.ofbiz.accounting.thirdparty.orbital.OrbitalPaymentServices" invoke="ccAuthCapture">
         <description>Orbital Payment Authorize and Capture service</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="orbitalCCCapture" engine="java"
-            location="org.ofbiz.accounting.thirdparty.orbital.OrbitalPaymentServices" invoke="ccCapture">
+            location="org.apache.ofbiz.accounting.thirdparty.orbital.OrbitalPaymentServices" invoke="ccCapture">
         <description>Orbital Payment Capture Service</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="orbitalCCRefund" engine="java"
-            location="org.ofbiz.accounting.thirdparty.orbital.OrbitalPaymentServices" invoke="ccRefund">
+            location="org.apache.ofbiz.accounting.thirdparty.orbital.OrbitalPaymentServices" invoke="ccRefund">
         <description>Orbital Payment Refund Service</description>
         <implements service="paymentRefundInterface"/>
     </service>
     <service name="orbitalCCRelease" engine="java"
-            location="org.ofbiz.accounting.thirdparty.orbital.OrbitalPaymentServices" invoke="ccRelease">
+            location="org.apache.ofbiz.accounting.thirdparty.orbital.OrbitalPaymentServices" invoke="ccRelease">
         <description>Orbital Payment Release Service</description>
         <implements service="paymentReleaseInterface"/>
     </service>

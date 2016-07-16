@@ -60,7 +60,7 @@ under the License.
             </service>
         </actions>
         <row-actions>
-            <set field="amountToApply" value="${groovy:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(delegator,paymentId);}"/>
+            <set field="amountToApply" value="${groovy:org.apache.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(delegator,paymentId);}"/>
         </row-actions>
         <field name="paymentId" widget-style="buttontext">
             <hyperlink description="${paymentId}" target="paymentOverview">
@@ -211,7 +211,7 @@ under the License.
 
     <form name="EditPayment" type="single" target="updatePayment" default-map-name="payment">
         <actions>
-            <set field="isDisbursement" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment);}" type="Boolean"/>
+            <set field="isDisbursement" value="${groovy:org.apache.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment);}" type="Boolean"/>
         </actions>
         <field name="paymentId"><hidden/></field>
         <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="1">
@@ -415,7 +415,7 @@ under the License.
             </entity-condition>
         </actions>
         <row-actions>
-            <set field="amountApplied" value="${groovy:org.ofbiz.accounting.payment.PaymentWorker.getPaymentAppliedAmount(delegator, paymentApplicationId);}"/>
+            <set field="amountApplied" value="${groovy:org.apache.ofbiz.accounting.payment.PaymentWorker.getPaymentAppliedAmount(delegator, paymentApplicationId);}"/>
         </row-actions>
         <auto-fields-entity entity-name="PaymentApplication" default-field-type="display"/>
         <field name="paymentApplicationId"><hidden/></field>

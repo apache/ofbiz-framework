@@ -19,7 +19,7 @@ under the License.
 
 <#assign groupName = page.randomSurveyGroup!>
 <#if groupName?has_content>
-  <#assign randomSurvey = Static["org.ofbiz.product.store.ProductStoreWorker"].getRandomSurveyWrapper(request, "testSurveyGroup")!>
+  <#assign randomSurvey = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].getRandomSurveyWrapper(request, "testSurveyGroup")!>
 </#if>
 
 <#if randomSurvey?has_content>

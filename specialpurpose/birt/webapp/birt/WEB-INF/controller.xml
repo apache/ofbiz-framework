@@ -27,7 +27,7 @@ under the License.
     
     <description>BIRT Component Site Configuration File</description>
 
-    <handler name="birt" type="view" class="org.ofbiz.birt.webapp.view.BirtViewHandler"/>
+    <handler name="birt" type="view" class="org.apache.ofbiz.birt.webapp.view.BirtViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -37,7 +37,7 @@ under the License.
     <!-- Events to run on every request after all other processing (chains exempt) -->
     <!--
     <postprocessor>
-        <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
+        <event type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
     -->
 

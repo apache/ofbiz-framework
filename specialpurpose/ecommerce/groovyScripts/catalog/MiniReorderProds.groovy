@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.order.shoppingcart.product.ProductDisplayWorker;
+import org.apache.ofbiz.order.shoppingcart.product.ProductDisplayWorker;
 
 reorderProductResults = ProductDisplayWorker.getQuickReorderProducts(request);
 context.reorderProducts = reorderProductResults.products;

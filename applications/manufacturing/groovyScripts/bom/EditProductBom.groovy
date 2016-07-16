@@ -18,8 +18,8 @@
  */
 
 import java.sql.Timestamp;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilDateTime;
 
 context.nowDate = UtilDateTime.nowDate();
 context.nowTimestampString = UtilHttp.encodeBlanks(UtilDateTime.nowTimestamp().toString());

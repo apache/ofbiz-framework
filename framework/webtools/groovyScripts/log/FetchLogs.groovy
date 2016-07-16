@@ -17,7 +17,7 @@
 * under the License.
 */
 
-import org.ofbiz.base.util.FileUtil;
+import org.apache.ofbiz.base.util.FileUtil;
 
 ofbizHomeStr = System.getProperty("ofbiz.home");
 ofbizHomeStr = ofbizHomeStr + "/runtime/logs/";

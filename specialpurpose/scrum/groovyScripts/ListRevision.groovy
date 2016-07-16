@@ -17,10 +17,10 @@
 * under the License.
 */
 
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.condition.*;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.entity.condition.*;
 
 custRequestList = [];
 custAndWorkEffortList = [];

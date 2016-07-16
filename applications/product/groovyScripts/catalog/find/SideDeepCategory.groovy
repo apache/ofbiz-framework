@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*
-import org.ofbiz.entity.*
-import org.ofbiz.product.category.*
-import org.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.product.category.*
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 state = request.getParameter("BrowseCategoriesState");
 isOpen = true;

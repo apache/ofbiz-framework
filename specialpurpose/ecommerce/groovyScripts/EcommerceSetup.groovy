@@ -18,13 +18,13 @@
  */
 
 import java.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.product.catalog.CatalogWorker;
-import org.ofbiz.product.store.ProductStoreWorker;
-import org.ofbiz.common.CommonWorkers;
-import org.ofbiz.order.shoppingcart.*;
-import org.ofbiz.webapp.control.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.product.catalog.CatalogWorker;
+import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.common.CommonWorkers;
+import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.webapp.control.*;
 
 productStore = ProductStoreWorker.getProductStore(request);
 

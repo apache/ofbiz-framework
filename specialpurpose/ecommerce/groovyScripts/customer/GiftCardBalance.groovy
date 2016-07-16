@@ -17,5 +17,5 @@
  * under the License.
  */
 
- import org.ofbiz.product.store.*;
+ import org.apache.ofbiz.product.store.*;
  context.paymentProperties = ProductStoreWorker.getProductStorePaymentProperties(request, "GIFT_CARD", null, true);

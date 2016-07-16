@@ -41,10 +41,10 @@ under the License.
                         <td>
                             <#if product?has_content>
                                 <#if product.isVariant?default('N') == 'Y'>
-                                    <#assign product = Static['org.ofbiz.product.product.ProductWorker'].getParentProduct(product.productId, delegator)!>
+                                    <#assign product = Static['org.apache.ofbiz.product.product.ProductWorker'].getParentProduct(product.productId, delegator)!>
                                 </#if>
                                 <#if product?has_content>
-                                    <#assign productName = Static['org.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request, "html")!>
+                                    <#assign productName = Static['org.apache.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request, "html")!>
                                     <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="linktext">${productName?default(product.productId)}</a>
                                 </#if>
                             </#if>

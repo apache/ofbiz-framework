@@ -21,13 +21,13 @@ under the License.
 
 <#macro lookupField className="" alert="" name="" value="" size="20" maxlength="20" id="" event="" action="" readonly="" autocomplete="" descriptionFieldName="" formName="" fieldFormName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled="" presentation="layer" width="" height="" position="topleft" fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" tabindex="">
   <#if (!ajaxEnabled?has_content)>
-    <#assign javascriptEnabled = Static["org.ofbiz.base.util.UtilHttp"].isJavaScriptEnabled(request) />
+    <#assign javascriptEnabled = Static["org.apache.ofbiz.base.util.UtilHttp"].isJavaScriptEnabled(request) />
     <#if (javascriptEnabled)>
       <#local ajaxEnabled = true>
     </#if>
   </#if>
   <#if (!id?has_content)>
-    <#local id = Static["org.ofbiz.base.util.UtilHttp"].getNextUniqueId(request) />
+    <#local id = Static["org.apache.ofbiz.base.util.UtilHttp"].getNextUniqueId(request) />
   </#if>
   <#if "true" == readonly>
     <#local readonly = true/>
@@ -43,7 +43,7 @@ under the License.
 <#macro nextPrev commonUrl="" ajaxEnabled=false javaScriptEnabled=false paginateStyle="nav-pager" paginateFirstStyle="nav-first" viewIndex=0 highIndex=0 listSize=0 viewSize=1 ajaxFirstUrl="" firstUrl="" paginateFirstLabel="" paginatePreviousStyle="nav-previous" ajaxPreviousUrl="" previousUrl="" paginatePreviousLabel="" pageLabel="" ajaxSelectUrl="" selectUrl="" ajaxSelectSizeUrl="" selectSizeUrl="" commonDisplaying="" paginateNextStyle="nav-next" ajaxNextUrl="" nextUrl="" paginateNextLabel="" paginateLastStyle="nav-last" ajaxLastUrl="" lastUrl="" paginateLastLabel="" paginateViewSizeLabel="" >
   <#local javaScriptEnabled = javaScriptEnabled />
   <#if (!javaScriptEnabled)>
-    <#local javaScriptEnabled = Static["org.ofbiz.base.util.UtilHttp"].isJavaScriptEnabled(request) />
+    <#local javaScriptEnabled = Static["org.apache.ofbiz.base.util.UtilHttp"].isJavaScriptEnabled(request) />
   </#if>
   <#if (commonUrl?has_content)>
     <#if (!firstUrl?has_content)>

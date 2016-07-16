@@ -17,11 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.component.ComponentConfig;
-import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.config.ResourceHandler;
-import org.ofbiz.testtools.TestListContainer.FoundTest;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.base.config.GenericConfigException;
+import org.apache.ofbiz.base.config.ResourceHandler;
+import org.apache.ofbiz.testtools.TestListContainer.FoundTest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

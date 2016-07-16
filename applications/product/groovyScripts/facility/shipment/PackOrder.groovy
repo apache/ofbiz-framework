@@ -17,11 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.order.order.*;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.util.EntityUtilProperties;
-import org.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.order.order.*;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.entity.condition.EntityCondition;
 
 
 facilityId = parameters.facilityId;
@@ -68,7 +68,7 @@ if (orderId && !shipGroupSeqId && orderId.indexOf("/") > -1) {
 packSession = session.getAttribute("packingSession");
 clear = parameters.clear;
 if (!packSession) {
-    packSession = new org.ofbiz.shipment.packing.PackingSession(dispatcher, userLogin);
+    packSession = new org.apache.ofbiz.shipment.packing.PackingSession(dispatcher, userLogin);
     session.setAttribute("packingSession", packSession);
     Debug.log("Created NEW packing session!!");
 } else {

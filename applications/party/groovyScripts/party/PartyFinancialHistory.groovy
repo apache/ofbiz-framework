@@ -16,15 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.common.*;
-import org.ofbiz.webapp.control.*;
-import org.ofbiz.accounting.invoice.*;
-import org.ofbiz.accounting.payment.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.common.*;
+import org.apache.ofbiz.webapp.control.*;
+import org.apache.ofbiz.accounting.invoice.*;
+import org.apache.ofbiz.accounting.payment.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.*;
 
 Boolean actualCurrency = new Boolean(context.actualCurrency);
 if (actualCurrency == null) {

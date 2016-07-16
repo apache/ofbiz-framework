@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilHttp
+import org.apache.ofbiz.base.util.UtilHttp
 
 paramMap = UtilHttp.getParameterMap(request);
 

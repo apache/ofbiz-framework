@@ -22,45 +22,45 @@
     <description>Web Pos Component Site Configuration File</description>
     <errorpage>/error/error.jsp</errorpage>
     
-    <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
-    <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
-    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
-    <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
-    <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>    
-    <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
-    <handler name="screen" type="view" class="org.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
+    <handler name="java" type="request" class="org.apache.ofbiz.webapp.event.JavaEventHandler"/>
+    <handler name="service" type="request" class="org.apache.ofbiz.webapp.event.ServiceEventHandler"/>
+    <handler name="service-multi" type="request" class="org.apache.ofbiz.webapp.event.ServiceMultiEventHandler"/>
+    <handler name="simple" type="request" class="org.apache.ofbiz.webapp.event.SimpleEventHandler"/>
+    <handler name="groovy" type="request" class="org.apache.ofbiz.webapp.event.GroovyEventHandler"/>    
+    <handler name="jsp" type="view" class="org.apache.ofbiz.webapp.view.JspViewHandler"/>
+    <handler name="screen" type="view" class="org.apache.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
     
     <!-- Events run from here for the first hit in a visit -->
     <firstvisit>
-        <event name="autoLoginCheck" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="autoLoginCheck"/>
-        <event name="checkTrackingCodeCookies" type="java" path="org.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeCookies"/>
-        <event name="setDefaultStoreSettings" type="java" path="org.ofbiz.product.product.ProductEvents" invoke="setDefaultStoreSettings"/>
+        <event name="autoLoginCheck" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="autoLoginCheck"/>
+        <event name="checkTrackingCodeCookies" type="java" path="org.apache.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeCookies"/>
+        <event name="setDefaultStoreSettings" type="java" path="org.apache.ofbiz.product.product.ProductEvents" invoke="setDefaultStoreSettings"/>
     </firstvisit>
     
     <!-- Events to run on every request before security (chains exempt) -->
     <preprocessor>
         <!-- This event allows affilate/distributor entry on any page -->
-        <event name="checkExternalLoginKey" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
-        <event name="setAssociationId" type="java" path="org.ofbiz.ecommerce.misc.ThirdPartyEvents" invoke="setAssociationId"/>
-        <event name="checkTrackingCodeUrlParam" type="java" path="org.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeUrlParam"/>
-        <event name="checkPartnerTrackingCodeUrlParam" type="java" path="org.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkPartnerTrackingCodeUrlParam"/>
-        <event name="keepCartUpdated" type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="keepCartUpdated"/>
+        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
+        <event name="setAssociationId" type="java" path="org.apache.ofbiz.ecommerce.misc.ThirdPartyEvents" invoke="setAssociationId"/>
+        <event name="checkTrackingCodeUrlParam" type="java" path="org.apache.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeUrlParam"/>
+        <event name="checkPartnerTrackingCodeUrlParam" type="java" path="org.apache.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkPartnerTrackingCodeUrlParam"/>
+        <event name="keepCartUpdated" type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="keepCartUpdated"/>
     </preprocessor>
     
     <after-login>
-        <event name="updateAssociatedDistributor" type="java" path="org.ofbiz.ecommerce.misc.ThirdPartyEvents" invoke="updateAssociatedDistributor"/>
-        <event name="keepCartUpdated" type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="keepCartUpdated"/>
+        <event name="updateAssociatedDistributor" type="java" path="org.apache.ofbiz.ecommerce.misc.ThirdPartyEvents" invoke="updateAssociatedDistributor"/>
+        <event name="keepCartUpdated" type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="keepCartUpdated"/>
         <!-- after login, get everything from the auto-save list -->
-        <event name="restoreAutoSaveList" type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="restoreAutoSaveList"/>
+        <event name="restoreAutoSaveList" type="java" path="org.apache.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="restoreAutoSaveList"/>
         <!-- after login and restoring from the auto-save list, save everything to the auto-save list to handle anything that may have already been in the cart before login -->
-        <event name="saveCartToAutoSaveList" type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="saveCartToAutoSaveList"/>
+        <event name="saveCartToAutoSaveList" type="java" path="org.apache.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="saveCartToAutoSaveList"/>
     </after-login>
     
     <!-- Security Mappings -->
     <request-map uri="checkLogin" edit="false">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="storeCheckLogin"/>
+        <event type="java" path="org.apache.ofbiz.securityext.login.LoginEvents" invoke="storeCheckLogin"/>
         <response name="success" type="view" value="main"/>
         <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
         <response name="error" type="view" value="login"/>
@@ -68,7 +68,7 @@
     
     <request-map uri="login">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.webpos.WebPosEvents" invoke="posLogin"/>
+        <event type="java" path="org.apache.ofbiz.webpos.WebPosEvents" invoke="posLogin"/>
         <response name="success" type="request" value="main"/>
         <response name="requirePasswordChange" type="view" value="RequirePasswordChange"/>
         <response name="error" type="view" value="Login"/>
@@ -76,14 +76,14 @@
     
     <request-map uri="logout">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
         <response name="success" type="request-redirect-noparam" value="main"/>
         <response name="error" type="request-redirect-noparam" value="main"/>
     </request-map>
     
     <request-map uri="autoLogout">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="autoLoginRemove"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="autoLoginRemove"/>
         <response name="success" type="request-redirect-noparam" value="main"/>
         <response name="error" type="request-redirect-noparam" value="main"/>
     </request-map>
@@ -98,13 +98,13 @@
     <!-- Standard json response, For security reason (OFBIZ-5409) tries to keep only the initially called service attributes -->
     <request-map uri="json">
         <security direct-request="false"/>
-        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="jsonResponseFromRequestAttributes"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="jsonResponseFromRequestAttributes"/>
         <response name="success" type="none"/>
     </request-map>
     
     <request-map uri="getJSONuiLabelArray">
         <security https="false" auth="false"/>
-        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="getJSONuiLabelArray"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="getJSONuiLabelArray"/>
         <response name="success" type="none" />
         <response name="error" type="none" />
     </request-map>
@@ -122,14 +122,14 @@
     
     <request-map uri="main">
         <security https="false" auth="true"/>
-        <event type="java" path="org.ofbiz.webpos.WebPosEvents" invoke="existsWebPosSession"/>
+        <event type="java" path="org.apache.ofbiz.webpos.WebPosEvents" invoke="existsWebPosSession"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="Login"/>
     </request-map>
     
     <request-map uri="Login">
         <security https="false" auth="false"/>
-        <event type="java" path="org.ofbiz.webpos.WebPosEvents" invoke="posLogin"/>
+        <event type="java" path="org.apache.ofbiz.webpos.WebPosEvents" invoke="posLogin"/>
         <response name="success" type="request" value="main"/>
         <response name="requirePasswordChange" type="view" value="RequirePasswordChange"/>
         <response name="error" type="view" value="Login"/>
@@ -137,7 +137,7 @@
     
     <request-map uri="Logout">
         <security https="false" auth="true"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
         <response name="success" type="request-redirect-noparam" value="main"/>
         <response name="error" type="request-redirect-noparam" value="main"/>
     </request-map>
@@ -149,7 +149,7 @@
     
     <request-map uri="setSessionLocale">
         <security https="false" auth="false"/>
-        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
@@ -161,7 +161,7 @@
     
     <request-map uri="setSessionTimeZone">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionTimeZone"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setSessionTimeZone"/>
         <response name="success" type="view-last" value="main"/>
         <response name="error" type="request" value="main"/>
     </request-map>
@@ -261,14 +261,14 @@
     
     <request-map uri="EmptyCart">
         <security https="false" auth="false"/>
-        <event type="java" path="org.ofbiz.webpos.WebPosEvents" invoke="emptyCartAndClearAutoSaveList"/>
+        <event type="java" path="org.apache.ofbiz.webpos.WebPosEvents" invoke="emptyCartAndClearAutoSaveList"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
     
     <request-map uri="GetProductType">
         <security https="false" auth="true"/>
-        <event type="java" path="org.ofbiz.webpos.WebPosEvents" invoke="getProductType"/>
+        <event type="java" path="org.apache.ofbiz.webpos.WebPosEvents" invoke="getProductType"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
@@ -471,7 +471,7 @@
     </request-map>
     <request-map uri="ForgotPassword_step3">
         <security https="true" auth="false"/>
-         <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="forgotPassword"/>
+         <event type="java" path="org.apache.ofbiz.securityext.login.LoginEvents" invoke="forgotPassword"/>
         <response name="success" type="view" value="Login"/>
         <response name="error" type="view" value="ForgotPassword_step2"/>
     </request-map>

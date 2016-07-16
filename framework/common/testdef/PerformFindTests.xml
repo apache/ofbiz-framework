@@ -23,7 +23,7 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="performfind-tests">
-        <junit-test-suite class-name="org.ofbiz.common.test.PerformFindTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.common.test.PerformFindTests"/>
     </test-case>
 
 </test-suite>

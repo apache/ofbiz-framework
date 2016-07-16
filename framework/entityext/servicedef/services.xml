@@ -25,8 +25,8 @@ under the License.
     <version>1.0</version>
 
     <!-- simple generic service to watch and entity through an EECA -->
-    <service name="watchEntity" engine="java" location="org.ofbiz.entityext.EntityWatchServices" invoke="watchEntity">
-        <attribute name="newValue" type="org.ofbiz.entity.GenericValue" mode="IN"/>
+    <service name="watchEntity" engine="java" location="org.apache.ofbiz.entityext.EntityWatchServices" invoke="watchEntity">
+        <attribute name="newValue" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
         <attribute name="fieldName" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -38,22 +38,22 @@ under the License.
     <service name="distributedClearAllEntityCaches" engine="group" location="distributedClearAllEntityCaches" invoke=""/>
     -->
     <service name="clearAllEntityCaches" engine="java" export="true"
-            location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearAllEntityCaches" auth="true">
+            location="org.apache.ofbiz.entityext.cache.EntityCacheServices" invoke="clearAllEntityCaches" auth="true">
         <description>Clears all values from all Entity Engine caches. By default does not distribute.</description>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
     </service>
 
     <service name="distributedClearCacheLineByValue" engine="jms" location="serviceMessenger" invoke="clearCacheLineByValue" auth="true">
         <description>Clear Cache Line by value for all Servers listening to the topic</description>
-        <attribute name="value" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="value" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>
     <!-- Below uses Group/HTTP engine
     <service name="distributedClearCacheLineByValue" engine="group" location="distributedClearCacheLineByValue" invoke=""/>
     -->
     <service name="clearCacheLineByValue" engine="java" export="true"
-            location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
+            location="org.apache.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
         <description>Clear Cache Line with a value (GenericValue); this is the preferred method since the all, by primary key and by and caches will be cleared. By default does not distribute.</description>
-        <attribute name="value" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="value" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
     </service>
 
@@ -65,7 +65,7 @@ under the License.
     <service name="distributedClearCacheLineByDummyPK" engine="group" location="distributedClearCacheLineByDummyPK" invoke=""/>
     -->
     <service name="clearCacheLineByDummyPK" engine="java" export="true"
-            location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
+            location="org.apache.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
         <description>Clear Cache Line with a dummyPK (GenericEntity); clears that all cache entry and depending on whether the dummyPK is a primaryKey or not this clears the by primary key cache or the specified entry in the by and cache. By default does not distribute.</description>
         <attribute name="dummyPK" type="GenericEntity" mode="IN" optional="false"/>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
@@ -80,7 +80,7 @@ under the License.
     <service name="distributedClearCacheLineByPrimaryKey" engine="group" location="distributedClearCacheLineByPrimaryKey" invoke=""/>
     -->
     <service name="clearCacheLineByPrimaryKey" engine="java" export="true"
-            location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
+            location="org.apache.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
         <description>Clear Cache Line with a primaryKey (GenericPK); clears the all and by primary key caches. By default does not distribute.</description>
         <attribute name="primaryKey" type="GenericPK" mode="IN" optional="false"/>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
@@ -89,14 +89,14 @@ under the License.
     <service name="distributedClearCacheLineByCondition" engine="jms" location="serviceMessenger" invoke="clearCacheLineByCondition" auth="true">
         <description>Clear Cache Line by condition for all Servers listening to the topic</description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
-        <attribute name="condition" type="org.ofbiz.entity.condition.EntityCondition" mode="IN" optional="false"/>
+        <attribute name="condition" type="org.apache.ofbiz.entity.condition.EntityCondition" mode="IN" optional="false"/>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="clearCacheLineByCondition" engine="java" export="true"
-            location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
+            location="org.apache.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
         <description>Clear Cache Line with a condition; By default does not distribute.</description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
-        <attribute name="condition" type="org.ofbiz.entity.condition.EntityCondition" mode="IN" optional="false"/>
+        <attribute name="condition" type="org.apache.ofbiz.entity.condition.EntityCondition" mode="IN" optional="false"/>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
     </service>
 
@@ -120,7 +120,7 @@ under the License.
 
     <!-- Index/Key Services -->
     <service name="rebuildEntityIndexesAndKeys" engine="java" auth="true" use-transaction="false"
-            location="org.ofbiz.entityext.data.EntityDataServices" invoke="rebuildAllIndexesAndKeys">
+            location="org.apache.ofbiz.entityext.data.EntityDataServices" invoke="rebuildAllIndexesAndKeys">
         <description>Rebuilds all indexes/keys</description>
         <required-permissions join-type="AND">
             <check-permission permission="ENTITY_MAINT"/>
@@ -132,13 +132,13 @@ under the License.
 
     <!-- Entity Delimited File Import Services -->
     <service name="importEntityFileDirectory" engine="java" auth="true" use-transaction="false"
-            location="org.ofbiz.entityext.data.EntityDataServices" invoke="importDelimitedFromDirectory">
+            location="org.apache.ofbiz.entityext.data.EntityDataServices" invoke="importDelimitedFromDirectory">
         <description>Read a directory for .txt files with entity names; read each line as a record</description>
         <attribute name="rootDirectory" type="String" mode="IN" optional="false"/>
         <attribute name="delimiter" type="String" mode="IN" optional="true"/>
     </service>
     <service name="importDelimitedEntityFile" engine="java" auth="true" transaction-timeout="14400" require-new-transaction="true"
-            location="org.ofbiz.entityext.data.EntityDataServices" invoke="importDelimitedFile">
+            location="org.apache.ofbiz.entityext.data.EntityDataServices" invoke="importDelimitedFile">
         <description>Import delimited file</description>
         <attribute name="file" type="java.io.File" mode="IN" optional="false"/>
         <attribute name="delimiter" type="String" mode="IN" optional="true"/>
@@ -147,23 +147,23 @@ under the License.
 
     <!-- data updates services -->
     <service name="unwrapByteWrappers" engine="java" auth="true" transaction-timeout="14400" require-new-transaction="true"
-        location="org.ofbiz.entityext.data.EntityDataServices" invoke="unwrapByteWrappers">
+        location="org.apache.ofbiz.entityext.data.EntityDataServices" invoke="unwrapByteWrappers">
         <description>Unwrap ByteWrapper Fields for the given entity and field</description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="fieldName" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="reencryptPrivateKeys" engine="java" auth="true" transaction-timeout="14400"
-        location="org.ofbiz.entityext.data.EntityDataServices" invoke="reencryptPrivateKeys">
+        location="org.apache.ofbiz.entityext.data.EntityDataServices" invoke="reencryptPrivateKeys">
         <description>Re-encrypt the private keys, encrypted in EntityKeyStore with oldKey, using the newKey.</description>
         <attribute name="oldKey" type="String" mode="IN" optional="true"/>
         <attribute name="newKey" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="reencryptFields" engine="java" auth="true" transaction-timeout="14400"
-            location="org.ofbiz.entityext.data.EntityDataServices" invoke="reencryptFields">
+            location="org.apache.ofbiz.entityext.data.EntityDataServices" invoke="reencryptFields">
         <description>Re-encrypt all the encrypted fields in the data model.</description>
-        <attribute name="groupName" type="String" mode="IN" optional="true" default-value="org.ofbiz"/>
+        <attribute name="groupName" type="String" mode="IN" optional="true" default-value="org.apache.ofbiz"/>
     </service>
 
     <!-- EntitySync Services -->
@@ -221,12 +221,12 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="updateOfflineEntitySync" engine="java"
-            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="updateOfflineEntitySync" auth="true">
+            location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="updateOfflineEntitySync" auth="true">
         <description>Not implemented.</description>
     </service>
 
     <service name="cleanSyncRemoveInfo" engine="java"
-            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="cleanSyncRemoveInfo" auth="true" transaction-timeout="600">
+            location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="cleanSyncRemoveInfo" auth="true" transaction-timeout="600">
         <description>Clean EntitySyncRemove Info - Generally should be run asynchronously after each sync run, or periodically run on a schedule</description>
     </service>
     <service name="resetEntitySyncStatusToNotStarted" engine="simple"
@@ -236,22 +236,22 @@ under the License.
     </service>
 
     <service name="runOfflineEntitySync" engine="java"
-            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="runOfflineEntitySync" auth="true" use-transaction="false">
+            location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="runOfflineEntitySync" auth="true" use-transaction="false">
         <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
         <attribute name="fileName" type="String" mode="IN" optional="true"><!-- if not specified defaults to "offline_entitySync-" + entitySyncId + "-" + [current date/time in yyyyMMddHHmmss format] + ".xml" --></attribute>
     </service>
     <service name="loadOfflineEntitySyncData" engine="java"
-            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="loadOfflineSyncData" auth="true" use-transaction="false">
+            location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="loadOfflineSyncData" auth="true" use-transaction="false">
         <attribute name="xmlFileName" type="String" mode="IN" optional="false"/>
     </service>
 
     <!-- Entity Remote Synchronization services -->
     <service name="runEntitySync" engine="java" auth="true" use-transaction="false"
-            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="runEntitySync">
+            location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="runEntitySync">
         <description>Run Entity Sync</description>
         <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="storeEntitySyncData" engine="java" location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="storeEntitySyncData"
+    <service name="storeEntitySyncData" engine="java" location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="storeEntitySyncData"
             export="true" auth="true" require-new-transaction="true" transaction-timeout="900">
         <description>Run Entity Sync</description>
         <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
@@ -271,7 +271,7 @@ under the License.
 
     <!-- Services for Entity Sync Data Pulling -->
     <service name="runPullEntitySync" engine="java" auth="true" use-transaction="false"
-            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="runPullEntitySync">
+            location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="runPullEntitySync">
         <description>Run Entity Sync Pulling Data From a Remote Server</description>
         <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
         <attribute name="remotePullAndReportEntitySyncDataName" type="String" mode="IN" optional="false"/>
@@ -279,7 +279,7 @@ under the License.
         <attribute name="remoteDelegatorName" type="String" mode="IN" optional="true"/>
     </service>
     <service name="pullAndReportEntitySyncData" engine="java" auth="true" export="true" use-transaction="false"
-            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="pullAndReportEntitySyncData">
+            location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="pullAndReportEntitySyncData">
         <description>Pull And Report Entity Sync Data</description>
         <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
         <attribute name="delegatorName" type="String" mode="IN" optional="true"/>

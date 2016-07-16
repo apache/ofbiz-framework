@@ -63,7 +63,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="signUpForContactList" engine="java"
-            location="org.ofbiz.marketing.marketing.MarketingServices" invoke="signUpForContactList" auth="false">
+            location="org.apache.ofbiz.marketing.marketing.MarketingServices" invoke="signUpForContactList" auth="false">
         <description>Signs an input email up for a ContactList with _NA_ party using the system userLogin.
             The intent is for anonymous sign ups to email lists.  Also validates email format.</description>
         <attribute name="contactListId" type="String" mode="IN" optional="false"/>
@@ -515,14 +515,14 @@ under the License.
     </service>
 
     <!-- VCard services -->
-    <service name="importVCard" engine="java" location="org.ofbiz.sfa.vcard.VCard" invoke="importVCard" transaction-timeout="7200">
+    <service name="importVCard" engine="java" location="org.apache.ofbiz.sfa.vcard.VCard" invoke="importVCard" transaction-timeout="7200">
         <attribute name="infile" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="OUT" optional="false"/>
         <attribute name="partyType" type="String" mode="IN" optional="true"/>
         <attribute name="serviceContext" type="Map" mode="IN" optional="true"/>
         <attribute name="serviceName" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="exportVCard" engine="java" location="org.ofbiz.sfa.vcard.VCard" invoke="exportVCard">
+    <service name="exportVCard" engine="java" location="org.apache.ofbiz.sfa.vcard.VCard" invoke="exportVCard">
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
     </service>
 

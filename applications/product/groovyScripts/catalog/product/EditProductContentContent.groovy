@@ -17,11 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.base.util.*;
 import java.sql.Timestamp;
-import org.ofbiz.base.util.ObjectType
+import org.apache.ofbiz.base.util.ObjectType
 
 contentId = parameters.contentId;
 if (!contentId) {

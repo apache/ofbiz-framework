@@ -239,8 +239,8 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getCountryList" short-description="Returns a list of country" login-required="false">
-        <call-class-method method-name="getCountryList" class-name="org.ofbiz.common.CommonWorkers" ret-field="geoList">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method method-name="getCountryList" class-name="org.apache.ofbiz.common.CommonWorkers" ret-field="geoList">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
         </call-class-method>
         <iterate list="geoList" entry="countryGeo">
             <set field="countryName" value="${countryGeo.geoName}: ${countryGeo.geoId}"/>
@@ -252,8 +252,8 @@ under the License.
     <simple-method method-name="getAssociatedStateList" short-description="set the state options for selected country" login-required="false">
         <set field="countryGeoId" from-field="parameters.countryGeoId"/>
         <set field="listOrderBy" from-field="parameters.listOrderBy"/>
-        <call-class-method method-name="getAssociatedStateList" class-name="org.ofbiz.common.CommonWorkers" ret-field="geoList">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method method-name="getAssociatedStateList" class-name="org.apache.ofbiz.common.CommonWorkers" ret-field="geoList">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="countryGeoId" type="String"/>
             <field field="listOrderBy" type="String"/>
         </call-class-method>
@@ -273,7 +273,7 @@ under the License.
             <field-map field-name="geoId" from-field="parameters.geoId"/>
             <field-map field-name="geoAssocTypeId" from-field="parameters.geoAssocTypeId"/>
         </entity-and>
-        <set field="oldGeoIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(geoAssocs, 'geoIdTo', true);}"/>
+        <set field="oldGeoIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(geoAssocs, 'geoIdTo', true);}"/>
         <!-- Old list contains current values -->
         <iterate list="parameters.geoIds" entry="geoIdTo">
             <if-compare-field field="oldGeoIds" operator="contains" to-field="geoIdTo">

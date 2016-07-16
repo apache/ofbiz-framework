@@ -91,7 +91,7 @@ under the License.
                 </#if>
                 <#if showLocale == true>
                     <tr>
-                        <#assign locale = Static["org.ofbiz.base.util.UtilMisc"].parseLocale(localeFound)!/>
+                        <#assign locale = Static["org.apache.ofbiz.base.util.UtilMisc"].parseLocale(localeFound)!/>
                         <#if locale?? && locale?has_content>
                             <#assign langAttr = localeFound.toString()?replace("_", "-")>
                             <#assign langDir = "ltr">

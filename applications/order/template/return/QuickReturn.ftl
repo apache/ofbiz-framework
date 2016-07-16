@@ -48,7 +48,7 @@ under the License.
                   <#if creditCardList?has_content>
                     <#list creditCardList as creditCardPm>
                       <#assign creditCard = creditCardPm.getRelatedOne("CreditCard", false)>
-                      <option value="${creditCard.paymentMethodId}">CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</option>
+                      <option value="${creditCard.paymentMethodId}">CC:&nbsp;${Static["org.apache.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</option>
                     </#list>
                   </#if>
                   <#if eftAccountList?has_content>

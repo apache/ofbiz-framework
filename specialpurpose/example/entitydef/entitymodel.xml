@@ -31,15 +31,15 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
-    <!--  - org.ofbiz.example.example -->
-    <!--  - org.ofbiz.example.feature -->
+    <!--  - org.apache.ofbiz.example.example -->
+    <!--  - org.apache.ofbiz.example.feature -->
     <!-- ========================================================= -->
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.example.example -->
+    <!-- org.apache.ofbiz.example.example -->
     <!-- ========================================================= -->
 
-    <entity entity-name="Example" package-name="org.ofbiz.example.example" title="Example Entity">
+    <entity entity-name="Example" package-name="org.apache.ofbiz.example.example" title="Example Entity">
         <field name="exampleId" type="id-ne"><description>primary sequenced ID</description></field>
         <field name="exampleTypeId" type="id-ne"></field>
         <field name="statusId" type="id-ne"></field>
@@ -59,7 +59,7 @@ under the License.
             <key-map field-name="statusId"/>
         </relation>
     </entity>
-    <entity entity-name="ExampleItem" package-name="org.ofbiz.example.example" title="Example Item Entity">
+    <entity entity-name="ExampleItem" package-name="org.apache.ofbiz.example.example" title="Example Item Entity">
         <field name="exampleId" type="id-ne"></field>
         <field name="exampleItemSeqId" type="id-ne"><description>secondary sequenced ID</description></field>
         <field name="description" type="description"></field>
@@ -74,7 +74,7 @@ under the License.
             <key-map field-name="exampleId"/>
         </relation>
     </entity>
-    <entity entity-name="ExampleStatus" package-name="org.ofbiz.example.example" title="Example Status Entity">
+    <entity entity-name="ExampleStatus" package-name="org.apache.ofbiz.example.example" title="Example Status Entity">
         <field name="exampleId" type="id-ne"></field>
         <field name="statusDate" type="date-time"></field>
         <field name="statusEndDate" type="date-time"></field>
@@ -89,7 +89,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ExampleType"
-            package-name="org.ofbiz.example.example"
+            package-name="org.apache.ofbiz.example.example"
             title="Example Type Entity">
         <field name="exampleTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id"></field>
@@ -101,11 +101,11 @@ under the License.
     </entity>
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.example.feature -->
+    <!-- org.apache.ofbiz.example.feature -->
     <!-- ========================================================= -->
 
     <entity entity-name="ExampleFeature"
-        package-name="org.ofbiz.example.feature"
+        package-name="org.apache.ofbiz.example.feature"
         title="Example Feature Entity">
         <field name="exampleFeatureId" type="id-ne"><description>primary sequenced ID</description></field>
         <field name="featureSourceEnumId" type="id-ne"></field>
@@ -116,7 +116,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ExampleFeatureAppl"
-        package-name="org.ofbiz.example.feature"
+        package-name="org.apache.ofbiz.example.feature"
         title="Example Feature Application Entity">
         <field name="exampleId" type="id-ne"></field>
         <field name="exampleFeatureId" type="id-ne"></field>
@@ -138,7 +138,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ExampleFeatureApplType"
-        package-name="org.ofbiz.example.feature"
+        package-name="org.apache.ofbiz.example.feature"
         title="Example Feature Application Type Entity">
         <field name="exampleFeatureApplTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id"></field>

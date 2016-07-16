@@ -18,16 +18,16 @@
  */
 
 import java.util.List;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.transaction.*
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.string.*;
-import org.ofbiz.content.content.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.transaction.*
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.string.*;
+import org.apache.ofbiz.content.content.*;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 int minFontSize = EntityUtilProperties.getPropertyAsInteger("ecommerce", "tagcloud.min.fontsize", 0).intValue();
 int maxFontSize = EntityUtilProperties.getPropertyAsInteger("ecommerce", "tagcloud.max.fontsize", 0).intValue();

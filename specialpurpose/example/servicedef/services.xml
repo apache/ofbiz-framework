@@ -128,7 +128,7 @@ under the License.
     </service>
     <!-- Send push notification service -->
     <service name="sendExamplePushNotifications" engine="java"
-                location="org.ofbiz.example.ExampleServices" invoke="sendExamplePushNotifications" auth="true">
+                location="org.apache.ofbiz.example.ExampleServices" invoke="sendExamplePushNotifications" auth="true">
         <attribute name="exampleId" mode="IN" type="String" optional="true"></attribute>
         <attribute name="message" mode="IN" type="String" optional="true"></attribute>
         <attribute name="successMessage" mode="IN" type="String" optional="true"></attribute>

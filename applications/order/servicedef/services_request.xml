@@ -160,7 +160,7 @@ under the License.
     <service name="createCustRequestFromCart" engine="simple" auth="true"
             location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestFromCart">
         <description>Creates a new request from a shopping cart</description>
-        <attribute name="cart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="cart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="custRequestName" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="OUT" optional="false"/>
     </service>

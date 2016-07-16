@@ -44,7 +44,7 @@ under the License.
         <not-empty>
             <fail-property resource="AccountingUiLabels" property="AccountingCardNumberMissing"/>
         </not-empty>
-        <validate-method method="isAnyCard" class="org.ofbiz.base.util.UtilValidate">
+        <validate-method method="isAnyCard" class="org.apache.ofbiz.base.util.UtilValidate">
             <fail-property resource="AccountingUiLabels" property="AccountingCardNumberIncorrect"/>
         </validate-method>
     </process>
@@ -81,7 +81,7 @@ under the License.
         <!-- FIXME Commented out because of OFBIZ-6920, a better solution would be do encrypt the card number when showing screen and decrypt when validating data
              Anyway the only reason of changing a card number while this card is still valid 
              is because the number have been wrongly entered. Then better to delete and create a new one -->
-        <!-- <validate-method method="isAnyCard" class="org.ofbiz.base.util.UtilValidate">
+        <!-- <validate-method method="isAnyCard" class="org.apache.ofbiz.base.util.UtilValidate">
             <fail-property resource="AccountingUiLabels" property="AccountingCardNumberIncorrect"/>
         </validate-method> -->
     </process>

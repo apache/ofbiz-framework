@@ -26,57 +26,57 @@ under the License.
 
     <!-- Verisign Payflow Pro Implementations -->
     <service name="payflowCCProcessor" engine="java"
-             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccProcessor">
+             location="org.apache.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccProcessor">
         <description>Credit Card Processing</description>
         <implements service="ccAuthInterface"/>
     </service>
 
     <service name="payflowCCCapture" engine="java"
-             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccCapture">
+             location="org.apache.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccCapture">
         <description>Credit Card Capture</description>
         <implements service="ccCaptureInterface"/>
     </service>
 
     <service name="payflowCCVoid" engine="java"
-             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccVoid">
+             location="org.apache.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccVoid">
         <description>Credit Card Void</description>
         <implements service="paymentReleaseInterface"/>
     </service>
 
     <service name="payflowCCRefund" engine="java"
-             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccRefund">
+             location="org.apache.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccRefund">
         <description>Credit Card Refund</description>
         <implements service="paymentRefundInterface"/>
     </service>
     
     <service name="payflowSetExpressCheckout" engine="java"
-             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="setExpressCheckout">
+             location="org.apache.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="setExpressCheckout">
         <implements service="payPalSetExpressCheckoutInterface"/>
     </service>
     <service name="payflowGetExpressCheckout" engine="java"
-             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="getExpressCheckout">
+             location="org.apache.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="getExpressCheckout">
         <implements service="payPalGetExpressCheckoutInterface"/>
     </service>
     <service name="payflowDoExpressCheckout" engine="java"
-             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="doExpressCheckout">
+             location="org.apache.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="doExpressCheckout">
         <implements service="payPalDoExpressCheckoutInterface"/>
     </service>
     
     <service name="payflowPayPalProcessor" engine="java"
-             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccProcessor">
+             location="org.apache.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccProcessor">
         <implements service="payPalProcessInterface"/>
     </service>
     <service name="payflowPayPalCapture" engine="java"
-             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccCapture">
+             location="org.apache.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccCapture">
         <implements service="payPalCaptureInterface"/>
     </service>
     <service name="payflowPayPalVoid" engine="java"
-             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccVoid">
+             location="org.apache.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccVoid">
         <description>Credit Card Void</description>
         <implements service="paymentReleaseInterface"/>
     </service>
     <service name="payflowPayPalRefund" engine="java"
-             location="org.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccRefund">
+             location="org.apache.ofbiz.accounting.thirdparty.verisign.PayflowPro" invoke="ccRefund">
         <implements service="paymentRefundInterface"/>
     </service>
 </services>

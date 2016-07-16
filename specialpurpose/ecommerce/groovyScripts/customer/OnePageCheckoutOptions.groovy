@@ -17,7 +17,7 @@
  * under the License.
  */
 
- import org.ofbiz.order.shoppingcart.shipping.*;
+ import org.apache.ofbiz.order.shoppingcart.shipping.*;
 
 shoppingCart = session.getAttribute("shoppingCart");
 

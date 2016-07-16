@@ -40,7 +40,7 @@
         </Async>
     </Appenders>
     <Loggers>
-        <logger name="org.ofbiz.base.converter.Converters" level="warn"/>
+        <logger name="org.apache.ofbiz.base.converter.Converters" level="warn"/>
         <logger name="org.apache" level="warn"/>
         <logger name="freemarker" level="warn"/>
 

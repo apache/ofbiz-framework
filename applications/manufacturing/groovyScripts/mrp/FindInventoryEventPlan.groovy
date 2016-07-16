@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.base.util.ObjectType;
+import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 productId = parameters.productId;
 

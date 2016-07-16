@@ -18,7 +18,7 @@
  */
 
 import java.util.StringTokenizer;
-import org.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilValidate;
 
 String carrierShipmentString = request.getParameter("carrierShipmentString");
 if (UtilValidate.isNotEmpty(carrierShipmentString)) {

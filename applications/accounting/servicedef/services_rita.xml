@@ -26,32 +26,32 @@ under the License.
 
     <!-- RiTA (Local) Implementations -->
     <service name="ritaCCAuth" engine="java" export="true"
-            location="org.ofbiz.accounting.thirdparty.gosoftware.RitaServices" invoke="ccAuth">
+            location="org.apache.ofbiz.accounting.thirdparty.gosoftware.RitaServices" invoke="ccAuth">
         <description>RiTA Credit Card Pre-Authorization/Sale</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="ritaCCCapture" engine="java" export="true"
-            location="org.ofbiz.accounting.thirdparty.gosoftware.RitaServices" invoke="ccCapture">
+            location="org.apache.ofbiz.accounting.thirdparty.gosoftware.RitaServices" invoke="ccCapture">
         <description>RiTA Credit Card Post-Authorization</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="ritaCCRelease" engine="java" export="true"
-            location="org.ofbiz.accounting.thirdparty.gosoftware.RitaServices" invoke="ccVoidRelease">
+            location="org.apache.ofbiz.accounting.thirdparty.gosoftware.RitaServices" invoke="ccVoidRelease">
         <description>RiTA Credit Card Void</description>
         <implements service="paymentReleaseInterface"/>
     </service>
     <service name="ritaCCRefund" engine="java" export="true"
-            location="org.ofbiz.accounting.thirdparty.gosoftware.RitaServices" invoke="ccRefund">
+            location="org.apache.ofbiz.accounting.thirdparty.gosoftware.RitaServices" invoke="ccRefund">
         <description>RiTA Credit Card Refund - Main Service</description>
         <implements service="paymentRefundInterface"/>
     </service>
     <service name="ritaCCVoidRefund" engine="java" export="false"
-            location="org.ofbiz.accounting.thirdparty.gosoftware.RitaServices" invoke="ccVoidRefund">
+            location="org.apache.ofbiz.accounting.thirdparty.gosoftware.RitaServices" invoke="ccVoidRefund">
         <description>RiTA Credit Card Void Refund - Called from ritaCCRefund</description>
         <implements service="paymentRefundInterface"/>
     </service>
     <service name="ritaCCCreditRefund" engine="java" export="false"
-            location="org.ofbiz.accounting.thirdparty.gosoftware.RitaServices" invoke="ccCreditRefund">
+            location="org.apache.ofbiz.accounting.thirdparty.gosoftware.RitaServices" invoke="ccCreditRefund">
         <description>RiTA Credit Card Credit Refund - Called from ritaCCRefund</description>
         <implements service="paymentRefundInterface"/>
     </service>

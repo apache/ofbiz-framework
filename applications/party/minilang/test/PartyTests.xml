@@ -100,9 +100,9 @@ under the License.
     <simple-method method-name="testUpdateUserPassword" short-description="Test updatePassword service" login-required="false">
         <set field="partyId" value="DemoCustomer"/>
         <set field="userLoginId" value="DemoCustomer"/>
-        <call-class-method method-name="findPartyLatestUserLogin" class-name="org.ofbiz.party.party.PartyWorker" ret-field="partyUserLogin">
+        <call-class-method method-name="findPartyLatestUserLogin" class-name="org.apache.ofbiz.party.party.PartyWorker" ret-field="partyUserLogin">
             <field field="partyId" type="java.lang.String"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
         </call-class-method>
         <set-service-fields service-name="updatePassword" map="partyUserLogin" to-map="serviceCtx"/>
         <!-- old details: userLoginId = DemoCustomer, password = ofbiz -->

@@ -1,0 +1,104 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+org.apache.ofbiz.minilang.method.callops.CallClassMethod$CallClassMethodFactory
+org.apache.ofbiz.minilang.method.callops.CallObjectMethod$CallObjectMethodFactory
+org.apache.ofbiz.minilang.method.callops.CallScript$CallScriptFactory
+org.apache.ofbiz.minilang.method.callops.CallService$CallServiceFactory
+org.apache.ofbiz.minilang.method.callops.CallServiceAsynch$CallServiceAsynchFactory
+org.apache.ofbiz.minilang.method.callops.CallSimpleMapProcessor$CallSimpleMapProcessorFactory
+org.apache.ofbiz.minilang.method.callops.CallSimpleMethod$CallSimpleMethodFactory
+org.apache.ofbiz.minilang.method.callops.Return$ReturnFactory
+org.apache.ofbiz.minilang.method.callops.SetServiceFields$SetServiceFieldsFactory
+org.apache.ofbiz.minilang.method.conditional.CompareCondition$CompareConditionFactory
+org.apache.ofbiz.minilang.method.conditional.CompareFieldCondition$CompareFieldConditionFactory
+org.apache.ofbiz.minilang.method.conditional.EmptyCondition$EmptyConditionFactory
+org.apache.ofbiz.minilang.method.conditional.HasPermissionCondition$HasPermissionConditionFactory
+org.apache.ofbiz.minilang.method.conditional.MasterIf$MasterIfFactory
+org.apache.ofbiz.minilang.method.conditional.RegexpCondition$RegexpConditionFactory
+org.apache.ofbiz.minilang.method.conditional.ValidateMethodCondition$ValidateMethodConditionFactory
+org.apache.ofbiz.minilang.method.entityops.ClearCacheLine$ClearCacheLineFactory
+org.apache.ofbiz.minilang.method.entityops.ClearEntityCaches$ClearEntityCachesFactory
+org.apache.ofbiz.minilang.method.entityops.CloneValue$CloneValueFactory
+org.apache.ofbiz.minilang.method.entityops.CreateValue$CreateValueFactory
+org.apache.ofbiz.minilang.method.entityops.EntityAnd$EntityAndFactory
+org.apache.ofbiz.minilang.method.entityops.EntityCondition$EntityConditionFactory
+org.apache.ofbiz.minilang.method.entityops.EntityCount$EntityCountFactory
+org.apache.ofbiz.minilang.method.entityops.EntityData$EntityDataFactory
+org.apache.ofbiz.minilang.method.entityops.EntityOne$EntityOneFactory
+org.apache.ofbiz.minilang.method.entityops.FilterListByAnd$FilterListByAndFactory
+org.apache.ofbiz.minilang.method.entityops.FilterListByDate$FilterListByDateFactory
+org.apache.ofbiz.minilang.method.entityops.FindByAnd$FindByAndFactory
+org.apache.ofbiz.minilang.method.entityops.FindByPrimaryKey$FindByPrimaryKeyFactory
+org.apache.ofbiz.minilang.method.entityops.GetRelated$GetRelatedFactory
+org.apache.ofbiz.minilang.method.entityops.GetRelatedOne$GetRelatedOneFactory
+org.apache.ofbiz.minilang.method.entityops.MakeNextSeqId$MakeNextSeqIdFactory
+org.apache.ofbiz.minilang.method.entityops.MakeValue$MakeValueFactory
+org.apache.ofbiz.minilang.method.entityops.OrderValueList$OrderValueListFactory
+org.apache.ofbiz.minilang.method.entityops.RefreshValue$RefreshValueFactory
+org.apache.ofbiz.minilang.method.entityops.RemoveByAnd$RemoveByAndFactory
+org.apache.ofbiz.minilang.method.entityops.RemoveList$RemoveListFactory
+org.apache.ofbiz.minilang.method.entityops.RemoveRelated$RemoveRelatedFactory
+org.apache.ofbiz.minilang.method.entityops.RemoveValue$RemoveValueFactory
+org.apache.ofbiz.minilang.method.entityops.SequencedIdToEnv$SequencedIdFactory
+org.apache.ofbiz.minilang.method.entityops.SetCurrentUserLogin$SetCurrentUserLoginFactory
+org.apache.ofbiz.minilang.method.entityops.SetNonpkFields$SetNonpkFieldsFactory
+org.apache.ofbiz.minilang.method.entityops.SetPkFields$SetPkFieldsFactory
+org.apache.ofbiz.minilang.method.entityops.StoreList$StoreListFactory
+org.apache.ofbiz.minilang.method.entityops.StoreValue$StoreValueFactory
+org.apache.ofbiz.minilang.method.entityops.TransactionBegin$TransactionBeginFactory
+org.apache.ofbiz.minilang.method.entityops.TransactionCommit$TransactionCommitFactory
+org.apache.ofbiz.minilang.method.entityops.TransactionRollback$TransactionRollbackFactory
+org.apache.ofbiz.minilang.method.envops.AddError$AddErrorFactory
+org.apache.ofbiz.minilang.method.envops.Assert$AssertFactory
+org.apache.ofbiz.minilang.method.envops.Break$BreakFactory
+org.apache.ofbiz.minilang.method.envops.CheckErrors$CheckErrorsFactory
+org.apache.ofbiz.minilang.method.envops.CheckId$CheckIdFactory
+org.apache.ofbiz.minilang.method.envops.ClearField$ClearFieldFactory
+org.apache.ofbiz.minilang.method.envops.Continue$ContinueFactory
+org.apache.ofbiz.minilang.method.envops.CreateObject$CreateObjectFactory
+org.apache.ofbiz.minilang.method.envops.FieldToList$FieldToListFactory
+org.apache.ofbiz.minilang.method.envops.FirstFromList$FirstFromListFactory
+org.apache.ofbiz.minilang.method.envops.Iterate$IterateFactory
+org.apache.ofbiz.minilang.method.envops.IterateMap$IterateMapFactory
+org.apache.ofbiz.minilang.method.envops.ListToList$ListToListFactory
+org.apache.ofbiz.minilang.method.envops.Loop$LoopFactory
+org.apache.ofbiz.minilang.method.envops.MapToMap$MapToMapFactory
+org.apache.ofbiz.minilang.method.envops.Now$NowFactory
+org.apache.ofbiz.minilang.method.envops.Now$NowDateToEnvFactory
+org.apache.ofbiz.minilang.method.envops.Now$NowTimestampFactory
+org.apache.ofbiz.minilang.method.envops.OrderMapList$OrderMapListFactory
+org.apache.ofbiz.minilang.method.envops.SetCalendar$SetCalendarFactory
+org.apache.ofbiz.minilang.method.envops.SetOperation$SetOperationFactory
+org.apache.ofbiz.minilang.method.envops.StringAppend$StringAppendFactory
+org.apache.ofbiz.minilang.method.envops.StringToList$StringToListFactory
+org.apache.ofbiz.minilang.method.envops.ToString$ToStringFactory
+org.apache.ofbiz.minilang.method.envops.While$WhileFactory
+org.apache.ofbiz.minilang.method.eventops.FieldToRequest$FieldToRequestFactory
+org.apache.ofbiz.minilang.method.eventops.FieldToSession$FieldToSessionFactory
+org.apache.ofbiz.minilang.method.eventops.RequestParametersToList$RequestParametersToListFactory
+org.apache.ofbiz.minilang.method.eventops.RequestToField$RequestToFieldFactory
+org.apache.ofbiz.minilang.method.eventops.SessionToField$SessionToFieldFactory
+org.apache.ofbiz.minilang.method.eventops.WebappPropertyToField$WebappPropertyToFieldFactory
+org.apache.ofbiz.minilang.method.ifops.CheckPermission$CheckPermissionFactory
+org.apache.ofbiz.minilang.method.ifops.IfInstanceOf$IfInstanceOfFactory
+org.apache.ofbiz.minilang.method.ifops.IfNotEmpty$IfNotEmptyFactory
+org.apache.ofbiz.minilang.method.otherops.Calculate$CalculateFactory
+org.apache.ofbiz.minilang.method.otherops.Log$LogFactory
+org.apache.ofbiz.minilang.method.otherops.PropertyToField$PropertyToFieldFactory
+org.apache.ofbiz.minilang.method.otherops.Trace$TraceFactory
+org.apache.ofbiz.minilang.method.serviceops.FieldToResult$FieldToResultFactory

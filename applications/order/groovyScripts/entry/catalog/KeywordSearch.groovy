@@ -22,10 +22,10 @@
  * should not contain order component's specific code.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.feature.*;
-import org.ofbiz.product.product.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.feature.*;
+import org.apache.ofbiz.product.product.*;
 
 module = "KeywordSearch.groovy";
 

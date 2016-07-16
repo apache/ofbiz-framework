@@ -100,8 +100,8 @@ under the License.
 
         <if-not-empty field="rateAmount">
             <now-timestamp field="nowTimestamp"/>
-            <set field ="previousDay" value="${groovy: org.ofbiz.base.util.UtilDateTime.adjustTimestamp(nowTimestamp,5,-1)}" type="Timestamp"/>
-            <set field="rateAmount.thruDate" value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayEnd(previousDay)}" type="Timestamp"/>
+            <set field ="previousDay" value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.adjustTimestamp(nowTimestamp,5,-1)}" type="Timestamp"/>
+            <set field="rateAmount.thruDate" value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.getDayEnd(previousDay)}" type="Timestamp"/>
             <store-value value-field="rateAmount"/>
         <else>
             <add-error>

@@ -39,7 +39,7 @@ under the License.
         <field name="field9"
             title="${uiLabelMap.ExampleDateField9Title}">
             <!--tooltip="${uiLabelMap.ExampleDateField9Tooltip}" tooltip-style="button-text"-->
-            <date-time default-value="${groovy:org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
+            <date-time default-value="${groovy:org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
         </field>
         <!-- ***************** -->
         <!-- ***   field10  *** -->
@@ -105,7 +105,7 @@ under the License.
                entry-name="exampleDateField"
                title="${uiLabelMap.ExampleDateField7Title}"
                tooltip="${uiLabelMap.ExampleDateField7Tooltip}" tooltip-style="button-text">
-            <display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MM/dd/yyyy&quot;);}"/>
+            <display description="${groovy:org.apache.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MM/dd/yyyy&quot;);}"/>
         </field>
         <!-- ***************** -->
         <!-- ***   field8  *** -->
@@ -114,7 +114,7 @@ under the License.
                entry-name="exampleDateField"
                title="${uiLabelMap.ExampleDateField8Title}"
                tooltip="${uiLabelMap.ExampleDateField8Tooltip}" tooltip-style="button-text">
-            <display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MMMM,dd,yyyy&quot;);}"/>
+            <display description="${groovy:org.apache.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MMMM,dd,yyyy&quot;);}"/>
         </field>
         <!-- ***************** -->
         <!-- ***   field12  *** -->

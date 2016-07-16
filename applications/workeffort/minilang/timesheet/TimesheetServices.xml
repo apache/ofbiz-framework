@@ -54,10 +54,10 @@ under the License.
                 <set field="nowTimestamp" from-field="parameters.requiredDate"/>
             </else>
         </if-empty>
-        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekStart" ret-field="parameters.fromDate">
+        <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getWeekStart" ret-field="parameters.fromDate">
             <field field="nowTimestamp" type="java.sql.Timestamp"/>
         </call-class-method>
-        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekEnd" ret-field="parameters.thruDate">
+        <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getWeekEnd" ret-field="parameters.thruDate">
             <field field="nowTimestamp" type="java.sql.Timestamp"/>
         </call-class-method>
         <!-- check if timesheet already exists -->
@@ -331,7 +331,7 @@ under the License.
 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayStart" ret-field="newEntity.fromDate">
+            <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getDayStart" ret-field="newEntity.fromDate">
                 <field field="nowTimestamp" type="java.sql.Timestamp"/>
             </call-class-method>
         </if-empty>
@@ -362,7 +362,7 @@ under the License.
                 </and>
             </condition>
             <then>
-                <set field="fieldsToCopy.hours" value="${groovy:org.ofbiz.base.util.UtilDateTime.getInterval((fieldsToCopy.fromDate ? fieldsToCopy.fromDate : lookedUpValue.fromDate), (fieldsToCopy.thruDate ? fieldsToCopy.thruDate : lookedUpValue.thruDate))/3600000}" type="Double"/>
+                <set field="fieldsToCopy.hours" value="${groovy:org.apache.ofbiz.base.util.UtilDateTime.getInterval((fieldsToCopy.fromDate ? fieldsToCopy.fromDate : lookedUpValue.fromDate), (fieldsToCopy.thruDate ? fieldsToCopy.thruDate : lookedUpValue.thruDate))/3600000}" type="Double"/>
             </then>
         </if>
         

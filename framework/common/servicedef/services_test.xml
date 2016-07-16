@@ -25,27 +25,27 @@ under the License.
     <version>1.0</version>
 
     <service name="testScv" engine="java" export="true" validate="false" require-new-transaction="true"
-            location="org.ofbiz.common.CommonServices" invoke="testService">
+            location="org.apache.ofbiz.common.CommonServices" invoke="testService">
         <description>Test service</description>
         <attribute name="defaultValue" type="Double" mode="IN" default-value="999.9999"/>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
     </service>
     <service name="testSOAPScv" engine="java" export="true" validate="false" require-new-transaction="true"
-            location="org.ofbiz.common.CommonServices" invoke="testSOAPService">
+            location="org.apache.ofbiz.common.CommonServices" invoke="testSOAPService">
         <description>Test SOAP service</description>
-        <attribute name="testing" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="testing" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="testingNodes" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="blockingTestScv" engine="java" validate="false" require-new-transaction="true" transaction-timeout="20"
-            location="org.ofbiz.common.CommonServices" invoke="blockingTestService">
+            location="org.apache.ofbiz.common.CommonServices" invoke="blockingTestService">
         <description>Blocking Test service</description>
         <attribute name="duration" mode="IN" type="Long" optional="true"/>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
     </service>
     <service name="testError" engine="java" export="true" validate="false" require-new-transaction="true" max-retry="1"
-            location="org.ofbiz.common.CommonServices" invoke="returnErrorService">
+            location="org.apache.ofbiz.common.CommonServices" invoke="returnErrorService">
     </service>
     <!-- Because of the danger of Java deserialization when using RMI, we (PMC) have decided to comment out main RMI related code entries.
          If you need RMI you just need to uncomment those places - See OFBIZ-6942 for details -->
@@ -57,13 +57,13 @@ under the License.
     -->
 
     <service name="testRollback" engine="java" export="true" validate="false"
-            location="org.ofbiz.common.CommonServices" invoke="testRollbackListener">
+            location="org.apache.ofbiz.common.CommonServices" invoke="testRollbackListener">
         <description>Test service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
     </service>
     <service name="testCommit" engine="java" export="true" validate="false"
-            location="org.ofbiz.common.CommonServices" invoke="testCommitListener">
+            location="org.apache.ofbiz.common.CommonServices" invoke="testCommitListener">
         <description>Test service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
@@ -198,7 +198,7 @@ under the License.
     </service>
 
     <service name="testMca" engine="java"
-            location="org.ofbiz.common.CommonServices" invoke="mcaTest">
+            location="org.apache.ofbiz.common.CommonServices" invoke="mcaTest">
         <description>Test Service MCA</description>
         <implements service="mailProcessInterface"/>
     </service>
@@ -208,7 +208,7 @@ under the License.
     </service>
 
     <service name="simpleMapListTest" engine="java" auth="false" export="true"
-            location="org.ofbiz.common.CommonServices" invoke="simpleMapListTest">
+            location="org.apache.ofbiz.common.CommonServices" invoke="simpleMapListTest">
         <description>To test XML-RPC handling of Maps and Lists</description>
         <attribute name="listOfStrings" type="List" mode="IN"/>
         <attribute name="mapOfStrings" type="Map" mode="IN"/>
@@ -222,24 +222,24 @@ under the License.
     </service>
 
     <service name="testEntityFailure" engine="java" auth="false" validate="false"
-            location="org.ofbiz.common.CommonServices" invoke="entityFailTest">
+            location="org.apache.ofbiz.common.CommonServices" invoke="entityFailTest">
         <description>Cause a Referential Integrity Error</description>
     </service>
 
     <service name="entitySortTest" engine="java" auth="false" validate="false"
-            location="org.ofbiz.common.CommonServices" invoke="entitySortTest">
+            location="org.apache.ofbiz.common.CommonServices" invoke="entitySortTest">
         <description>Test Entity Comparable</description>
     </service>
 
      <service name="makeALotOfVisits" engine="java" auth="true"
-            location="org.ofbiz.common.CommonServices" invoke="makeALotOfVisits">
+            location="org.apache.ofbiz.common.CommonServices" invoke="makeALotOfVisits">
         <description>Test JavaScript Service</description>
         <attribute name="count" type="Integer" mode="IN" optional="false"/>
         <attribute name="rollback" type="Boolean" mode="IN" optional="true"/>
     </service>
 
     <service name="byteBufferTest" engine="java" auth="true"
-            location="org.ofbiz.common.CommonServices" invoke="byteBufferTest">
+            location="org.apache.ofbiz.common.CommonServices" invoke="byteBufferTest">
         <description>Test Passing ByteBuffer To Service</description>
         <attribute name="byteBuffer1" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
         <attribute name="saveAsFileName1" type="String" mode="IN" optional="false"/>
@@ -248,7 +248,7 @@ under the License.
     </service>
 
     <service name="uploadContentTest" engine="java" auth="true"
-            location="org.ofbiz.common.CommonServices" invoke="uploadTest">
+            location="org.apache.ofbiz.common.CommonServices" invoke="uploadTest">
         <description>Upload Content Test Service</description>
         <attribute name="uploadFile" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
         <attribute name="_uploadFile_contentType" type="String" mode="IN" optional="false"/>
@@ -256,23 +256,23 @@ under the License.
     </service>
 
     <service name="conditionReturnTrue" engine="java"
-            location="org.ofbiz.common.CommonServices" invoke="conditionTrueService">
+            location="org.apache.ofbiz.common.CommonServices" invoke="conditionTrueService">
         <description>ECA Condition Service - Return TRUE</description>
         <implements service="serviceEcaConditionInterface"/>
     </service>
     <service name="conditionReturnFalse" engine="java"
-            location="org.ofbiz.common.CommonServices" invoke="conditionFalseService">
+            location="org.apache.ofbiz.common.CommonServices" invoke="conditionFalseService">
         <description>ECA Condition Service - Return FALSE</description>
         <implements service="serviceEcaConditionInterface"/>
     </service>
 
     <service name="serviceStreamTest" engine="java" auth="false"
-            location="org.ofbiz.common.CommonServices" invoke="streamTest">
+            location="org.apache.ofbiz.common.CommonServices" invoke="streamTest">
         <implements service="serviceStreamInterface"/>
     </service>
 
     <service name="ping" engine="java" export="true" require-new-transaction="true"
-            location="org.ofbiz.common.CommonServices" invoke="ping">
+            location="org.apache.ofbiz.common.CommonServices" invoke="ping">
         <description>Test Ping Service</description>
         <attribute name="message" type="String" mode="INOUT" optional="true"/>
     </service>

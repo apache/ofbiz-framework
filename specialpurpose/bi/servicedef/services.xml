@@ -22,14 +22,14 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
 
     <service name="storeGenericDimension" engine="java"
-        location="org.ofbiz.bi.util.DimensionServices" invoke="storeGenericDimension" auth="true">
+        location="org.apache.ofbiz.bi.util.DimensionServices" invoke="storeGenericDimension" auth="true">
         <description>Generic service to load data into a dimension entity (olap entity).</description>
         <attribute name="dimensionValue" type="GenericEntity" mode="IN" optional="false"/>
         <attribute name="naturalKeyFields" type="List" mode="IN" optional="false"/> <!-- the names of the fields that compose the natural key of the dimension -->
         <attribute name="updateMode" type="String" mode="IN" optional="false"/> <!-- TYPE1, TYPE2, TYPE3 -->
     </service>
     <service name="getDimensionIdFromNaturalKey" engine="java"
-        location="org.ofbiz.bi.util.DimensionServices" invoke="getDimensionIdFromNaturalKey" auth="true">
+        location="org.apache.ofbiz.bi.util.DimensionServices" invoke="getDimensionIdFromNaturalKey" auth="true">
         <description>Generic service to get the dimensionId for a natural key.</description>
         <attribute name="dimensionEntityName" type="String" mode="IN" optional="false"/>
         <attribute name="naturalKeyFields" type="Map" mode="IN" optional="false"/> <!-- the names/values pairs of the fields that compose the natural key of the dimension -->
@@ -44,7 +44,7 @@ under the License.
 
     <!-- Common Dimensions -->
     <service name="loadDateDimension" engine="java" transaction-timeout="300"
-        location="org.ofbiz.bi.util.DimensionServices" invoke="loadDateDimension" auth="true">
+        location="org.apache.ofbiz.bi.util.DimensionServices" invoke="loadDateDimension" auth="true">
         <description>Loads data in the DateDimension entity (olap entity) using the update strategy of 'type 1': overwrite the values of the attributes</description>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
@@ -93,8 +93,8 @@ under the License.
         </description>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="invoice" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
-        <attribute name="invoiceItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="invoice" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="invoiceItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="loadSalesInvoiceFact" auth="true" engine="simple"
         location="component://bi/minilang/FactServices.xml" invoke="loadSalesInvoiceFact">
@@ -111,9 +111,9 @@ under the License.
         </description>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="orderHeader" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
-        <attribute name="orderItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
-        <attribute name="orderAdjustment " type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderHeader" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderAdjustment " type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="loadSalesOrderFact" auth="true" engine="simple"
         location="component://bi/minilang/FactServices.xml" invoke="loadSalesOrderFact">

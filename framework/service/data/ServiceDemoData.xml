@@ -104,7 +104,7 @@ under the License.
 
     <!-- The TemporalExpression field meanings depend upon what type of expression it is. The integer
         values are typically obtained from the java.util.Calendar field constants. For more
-        information, see the org.ofbiz.service.calendar.TemporalExpressions.java file.
+        information, see the org.apache.ofbiz.service.calendar.TemporalExpressions.java file.
 
         tempExprTypeId        integer1       integer2        date1  date2  string1    string2
         ====================  ============== =============== ====== ====== ========== ========

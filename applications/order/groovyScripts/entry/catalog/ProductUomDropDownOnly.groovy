@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*;
 
 product = from("Product").where("productId", parameters.productId).queryOne();
 if (product) {

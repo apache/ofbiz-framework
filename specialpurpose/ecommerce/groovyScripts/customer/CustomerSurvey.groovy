@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.product.store.ProductStoreSurveyWrapper;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.product.store.ProductStoreSurveyWrapper;
 
 partyId = userLogin.partyId;
 paramMap = UtilHttp.getParameterMap(request);

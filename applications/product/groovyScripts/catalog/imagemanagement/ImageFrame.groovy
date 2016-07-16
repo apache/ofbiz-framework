@@ -18,7 +18,7 @@
  */
 
 import javax.servlet.http.HttpSession;
-import org.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilValidate;
 
 frameContentId = null;
 frameDataResourceId = null;

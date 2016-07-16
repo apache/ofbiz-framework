@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericValue
-import org.ofbiz.base.util.UtilGenerics
-import org.ofbiz.entity.serialize.XmlSerializer;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.base.util.UtilGenerics
+import org.apache.ofbiz.entity.serialize.XmlSerializer;
 
 GenericValue job = ((Delegator)delegator).findOne("JobSandbox", [jobId:parameters.jobId], false)
 context.job = job

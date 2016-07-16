@@ -20,15 +20,15 @@
 import java.math.BigDecimal;
 import java.util.Map;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.service.*;
-import org.ofbiz.product.product.ProductContentWrapper;
-import org.ofbiz.product.config.ProductConfigWorker;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.store.*;
-import org.ofbiz.order.shoppingcart.*;
-import org.ofbiz.webapp.website.WebSiteWorker;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.service.*;
+import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.product.config.ProductConfigWorker;
+import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.store.*;
+import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 miniProduct = request.getAttribute("miniProduct");
 optProductId = request.getAttribute("optProductId");

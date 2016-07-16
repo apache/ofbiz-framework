@@ -20,7 +20,7 @@ under the License.
 <#assign shoppingCart = sessionAttributes.shoppingCart!>
 <#assign currencyUomId = shoppingCart.getCurrency()>
 <#assign partyId = shoppingCart.getPartyId()>
-<#assign partyMap = Static["org.ofbiz.party.party.PartyWorker"].getPartyOtherValues(request, partyId, "party", "person", "partyGroup")>
+<#assign partyMap = Static["org.apache.ofbiz.party.party.PartyWorker"].getPartyOtherValues(request, partyId, "party", "person", "partyGroup")>
 <#assign agreementId = shoppingCart.getAgreementId()!>
 <#assign quoteId = shoppingCart.getQuoteId()!>
 

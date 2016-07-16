@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.party.contact.*;
+import org.apache.ofbiz.party.contact.*;
 
 facilityId = parameters.facilityId;
 context.facilityId = facilityId;

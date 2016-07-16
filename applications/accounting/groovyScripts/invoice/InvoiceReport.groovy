@@ -17,16 +17,16 @@
  * under the License.
  */
 
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionBuilder;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.entity.util.EntityFindOptions;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityConditionBuilder;
+import org.apache.ofbiz.entity.condition.EntityConditionList;
+import org.apache.ofbiz.entity.condition.EntityExpr;
+import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.entity.util.EntityFindOptions;
 
-exprBldr = new org.ofbiz.entity.condition.EntityConditionBuilder();
+exprBldr = new org.apache.ofbiz.entity.condition.EntityConditionBuilder();
 
 if (invoiceTypeId) {
     expr = exprBldr.AND() {

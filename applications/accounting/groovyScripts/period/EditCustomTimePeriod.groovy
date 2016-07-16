@@ -19,9 +19,9 @@
 
 import java.util.*;
 import java.net.*;
-import org.ofbiz.security.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.security.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
 
 findOrganizationPartyId = parameters.findOrganizationPartyId;
 if (findOrganizationPartyId) {

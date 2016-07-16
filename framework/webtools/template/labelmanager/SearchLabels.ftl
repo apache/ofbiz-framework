@@ -59,7 +59,7 @@ under the License.
           <select name="labelLocaleName">
             <option value="">${uiLabelMap.WebtoolsLabelManagerAllLocales}</option>
             <#list localesFound as localeFound>
-              <#assign locale = Static["org.ofbiz.base.util.UtilMisc"].parseLocale(localeFound)!/>
+              <#assign locale = Static["org.apache.ofbiz.base.util.UtilMisc"].parseLocale(localeFound)!/>
               <#assign langAttr = localeFound.toString()?replace("_", "-")>
               <#assign langDir = "ltr">
               <#if 1 < langAttr?length>

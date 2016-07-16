@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.catalog.*;
 
 catalogId = CatalogWorker.getCurrentCatalogId(request);
 promoCat = CatalogWorker.getCatalogPromotionsCategoryId(request, catalogId);

@@ -18,8 +18,8 @@
  */
 
 import java.util.ArrayList;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
 
 checkoutSteps = [];
 

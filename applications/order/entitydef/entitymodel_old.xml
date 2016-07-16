@@ -29,16 +29,16 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
-    <!--  - org.ofbiz.order.order -->
+    <!--  - org.apache.ofbiz.order.order -->
     <!-- ========================================================= -->
 
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.order.order -->
+    <!-- org.apache.ofbiz.order.order -->
     <!-- ========================================================= -->
 
     <entity entity-name="OldOrderItemAssociation" table-name="ORDER_ITEM_ASSOCIATION"
-            package-name="org.ofbiz.order.order"
+            package-name="org.apache.ofbiz.order.order"
             never-cache="true"
             title="The OLD Order Item Association Entity (replaced by OrderItemAssoc)">
       <field name="salesOrderId" type="id-ne"></field>
@@ -66,7 +66,7 @@ under the License.
     </entity>
 
     <entity entity-name="OldOrderItemInventoryRes" table-name="ORDER_ITEM_INVENTORY_RES"
-            package-name="org.ofbiz.order.order"
+            package-name="org.apache.ofbiz.order.order"
             never-cache="true"
             title="The OLD Order Item Inventory Reservation Entity">
       <field name="orderId" type="id-ne"></field>
@@ -95,7 +95,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="OldOrderShipmentPreference" table-name="ORDER_SHIPMENT_PREFERENCE"
-        package-name="org.ofbiz.order.order"
+        package-name="org.apache.ofbiz.order.order"
         never-cache="true"
         title="The Order Shipment Preference Entity (Deprecated)">
         <field name="orderId" type="id-ne"></field>
@@ -137,7 +137,7 @@ under the License.
     </entity>
 
     <entity entity-name="OldCustRequestRole" table-name="CUST_REQUEST_ROLE"
-            package-name="org.ofbiz.order.request"
+            package-name="org.apache.ofbiz.order.request"
             title="Old Customer Request Role Entity">
       <field name="custRequestId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>

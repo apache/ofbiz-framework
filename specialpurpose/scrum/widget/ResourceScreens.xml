@@ -278,7 +278,7 @@ under the License.
                         <condition-expr field-name="roleTypeId" value="OWNER"/>
                     </condition-list>
                 </entity-condition>
-                <set field="contentIds" value="${groovy:return org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(contents, &quot;contentId&quot;, true)}" type="List" />
+                <set field="contentIds" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(contents, &quot;contentId&quot;, true)}" type="List" />
                 <entity-condition list="listIt" entity-name="WorkEffortAndContentDataResource">
                     <condition-list>
                         <condition-expr field-name="workEffortContentTypeId" value="TASK_SUB_INFO"/>

@@ -17,12 +17,12 @@
  * under the License.
  */
 
-package org.ofbiz.passport;
+package org.apache.ofbiz.passport;
 
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.product.store.ProductStoreWorker;
 
 final String module = "GetThirdPartyLogins.groovy"
 

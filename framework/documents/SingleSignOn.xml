@@ -146,7 +146,7 @@
                         </listitem>
                         <listitem>
                             <para>
-                                AuthenticaionHandler : CAS handler class e.g. org.ofbiz.ldap.cas.OFBizCasAuthenticationHandler
+                                AuthenticaionHandler : CAS handler class e.g. org.apache.ofbiz.ldap.cas.OFBizCasAuthenticationHandler
                             </para>
                         </listitem>
                         <listitem>
@@ -213,7 +213,7 @@
                         </listitem>
                         <listitem>
                             <para>
-                                CasLdapHandler : LDAP hanlder class e.g. org.ofbiz.ldap.openldap.OFBizLdapAuthenticationHandler
+                                CasLdapHandler : LDAP hanlder class e.g. org.apache.ofbiz.ldap.openldap.OFBizLdapAuthenticationHandler
                             </para>
                         </listitem>
                         <listitem>
@@ -235,7 +235,7 @@
     <section>
         <title>Web Application Security Mapping</title>
         <para>
-            Every web application you need to use LDAP (single sign on) feature, you need to change the event's path of some the security request mappings to org.ofbiz.ldap.LdapLoginWorker class.
+            Every web application you need to use LDAP (single sign on) feature, you need to change the event's path of some the security request mappings to org.apache.ofbiz.ldap.LdapLoginWorker class.
         </para>
         <section>
             <title>checkLogin</title>
@@ -244,7 +244,7 @@
                     &lt;request-map uri="checkLogin" edit="false"&gt;
                         &lt;description&gt;Verify a user is logged in.&lt;/description&gt;
                         &lt;security https="true" auth="false"/> 
-                        &lt;event type="java" path="org.ofbiz.ldap.LdapLoginWorker" invoke="checkLogin"/&gt;
+                        &lt;event type="java" path="org.apache.ofbiz.ldap.LdapLoginWorker" invoke="checkLogin"/&gt;
                         &lt;response name="success" type="view" value="main"/&gt;
                         &lt;response name="error" type="view" value="login"/&gt;
                     &lt;/request-map&gt;
@@ -257,7 +257,7 @@
                 <programlisting>
                     &lt;request-map uri="login"&gt;
                         &lt;security https="true" auth="false"/&gt;
-                        &lt;event type="java" path="org.ofbiz.ldap.LdapLoginWorker" invoke="login"/&gt;
+                        &lt;event type="java" path="org.apache.ofbiz.ldap.LdapLoginWorker" invoke="login"/&gt;
                         &lt;response name="success" type="view" value="main"/&gt;
                         &lt;response name="requirePasswordChange" type="view" value="requirePasswordChange"/&gt;
                         &lt;response name="error" type="view" value="login"/&gt;
@@ -271,7 +271,7 @@
                 <programlisting>
                     &lt;request-map uri="logout"&gt;
                             &lt;security https="true" auth="true"/&gt;
-                            &lt;event type="java" path="org.ofbiz.ldap.LdapLoginWorker" invoke="logout"/&gt;
+                            &lt;event type="java" path="org.apache.ofbiz.ldap.LdapLoginWorker" invoke="logout"/&gt;
                             &lt;response name="success" type="request-redirect" value="main"/&gt;
                             &lt;response name="error" type="view" value="main"/&gt;
                     &lt;/request-map&gt;

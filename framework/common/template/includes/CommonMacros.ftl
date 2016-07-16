@@ -24,8 +24,8 @@ your template file:
 -->
 
 <#assign
-    dayValueList = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getDayValueList(locale)
-    monthValueList = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getMonthValueList(locale)/>
+    dayValueList = Static["org.apache.ofbiz.service.calendar.ExpressionUiHelper"].getDayValueList(locale)
+    monthValueList = Static["org.apache.ofbiz.service.calendar.ExpressionUiHelper"].getMonthValueList(locale)/>
 
 <#macro NullMacro></#macro>
 
@@ -107,7 +107,7 @@ your template file:
 
 <#macro fieldErrors fieldName>
   <#if errorMessageList?has_content>
-    <#assign fieldMessages = Static["org.ofbiz.base.util.MessageString"].getMessagesForField(
+    <#assign fieldMessages = Static["org.apache.ofbiz.base.util.MessageString"].getMessagesForField(
         fieldName, true, errorMessageList)>
     <ul>
       <#list fieldMessages as errorMsg>
@@ -119,7 +119,7 @@ your template file:
 
 <#macro fieldErrorsMulti fieldName1 fieldName2 fieldName3 fieldName4>
   <#if errorMessageList?has_content>
-    <#assign fieldMessages = Static["org.ofbiz.base.util.MessageString"].getMessagesForField(
+    <#assign fieldMessages = Static["org.apache.ofbiz.base.util.MessageString"].getMessagesForField(
         fieldName1, fieldName2, fieldName3, fieldName4, true, errorMessageList)>
     <ul>
       <#list fieldMessages as errorMsg>

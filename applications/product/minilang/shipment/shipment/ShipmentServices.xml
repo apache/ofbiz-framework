@@ -343,7 +343,7 @@ under the License.
         <iterate entry="returnItem" list="returnItems">
             <get-related-one value-field="returnItem" relation-name="Product" to-value-field="product"/>
             <if-not-empty field="product">
-                <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="isPhysical" ret-field="isPhysicalProduct">
+                <call-class-method class-name="org.apache.ofbiz.product.product.ProductWorker" method-name="isPhysical" ret-field="isPhysicalProduct">
                     <field field="product" type="GenericValue"/>
                 </call-class-method>
                 <if-compare field="isPhysicalProduct" operator="equals" value="true" type="Boolean">
@@ -366,7 +366,7 @@ under the License.
             <set field="isPhysicalProduct" value="false" type="Boolean"/>
             <get-related-one value-field="returnItem" relation-name="Product" to-value-field="product"/>
             <if-not-empty field="product">
-                <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="isPhysical" ret-field="isPhysicalProduct">
+                <call-class-method class-name="org.apache.ofbiz.product.product.ProductWorker" method-name="isPhysical" ret-field="isPhysicalProduct">
                     <field field="product" type="GenericValue"/>
                 </call-class-method>
             </if-not-empty>
@@ -622,7 +622,7 @@ under the License.
         <if-empty field="shipment.estimatedShipCost">
             <script>groovy:
                     import java.math.BigDecimal;
-                    import org.ofbiz.order.order.OrderReadHelper;
+                    import org.apache.ofbiz.order.order.OrderReadHelper;
 
                     orderReadHelper = new OrderReadHelper(orderHeader);
                     orderItems = orderReadHelper.getValidOrderItems();
@@ -632,7 +632,7 @@ under the License.
 
                     shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true);
                     shippingAmount = shippingAmount.add(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true));
-                    //org.ofbiz.base.util.Debug.log("shippingAmmount=" + shippingAmount);
+                    //org.apache.ofbiz.base.util.Debug.log("shippingAmmount=" + shippingAmount);
                     shipment.put("estimatedShipCost", shippingAmount);
             </script>
         </if-empty>
@@ -681,8 +681,8 @@ under the License.
         <if-not-empty field="shipment.originFacilityId">
             <if-empty field="shipment.originContactMechId">
                 <script>groovy:
-                    facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
-                                delegator, shipment.get("originFacilityId"), org.ofbiz.base.util.UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION")
+                    facilityContactMech = org.apache.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
+                                delegator, shipment.get("originFacilityId"), org.apache.ofbiz.base.util.UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION")
                             );
                     if (facilityContactMech != null) {
                         shipment.put("originContactMechId", facilityContactMech.get("contactMechId"));
@@ -691,8 +691,8 @@ under the License.
             </if-empty>
             <if-empty field="shipment.originTelecomNumberId">
                 <script>groovy:
-                    facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
-                                delegator, shipment.get("originFacilityId"), org.ofbiz.base.util.UtilMisc.toList("PHONE_SHIP_ORIG", "PRIMARY_PHONE")
+                    facilityContactMech = org.apache.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
+                                delegator, shipment.get("originFacilityId"), org.apache.ofbiz.base.util.UtilMisc.toList("PHONE_SHIP_ORIG", "PRIMARY_PHONE")
                             );
                     if (facilityContactMech != null) {
                         shipment.put("originTelecomNumberId", facilityContactMech.get("contactMechId"));
@@ -703,8 +703,8 @@ under the License.
         <if-not-empty field="shipment.destinationFacilityId">
             <if-empty field="shipment.destinationContactMechId">
                 <script>groovy:
-                    facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
-                                delegator, shipment.get("destinationFacilityId"), org.ofbiz.base.util.UtilMisc.toList("SHIPPING_LOCATION", "PRIMARY_LOCATION")
+                    facilityContactMech = org.apache.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
+                                delegator, shipment.get("destinationFacilityId"), org.apache.ofbiz.base.util.UtilMisc.toList("SHIPPING_LOCATION", "PRIMARY_LOCATION")
                             );
                     if (facilityContactMech != null) {
                         shipment.put("destinationContactMechId", facilityContactMech.get("contactMechId"));
@@ -713,8 +713,8 @@ under the License.
             </if-empty>
             <if-empty field="shipment.destinationTelecomNumberId">
                 <script>groovy:
-                    facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
-                                delegator, shipment.get("destinationFacilityId"), org.ofbiz.base.util.UtilMisc.toList("PHONE_SHIPPING", "PRIMARY_PHONE")
+                    facilityContactMech = org.apache.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
+                                delegator, shipment.get("destinationFacilityId"), org.apache.ofbiz.base.util.UtilMisc.toList("PHONE_SHIPPING", "PRIMARY_PHONE")
                             );
                     if (facilityContactMech != null) {
                         shipment.put("destinationTelecomNumberId", facilityContactMech.get("contactMechId"));
@@ -772,7 +772,7 @@ under the License.
             <string-append string=" for Primary Order ${shipment.primaryOrderId}" field="sendEmailMap.subject"/>
         </if-not-empty>
         <set value="text/html" field="sendEmailMap.contentType"/>
-        <set value="org/ofbiz/shipment/shipment/ShipmentScheduledNotice.ftl" field="sendEmailMap.templateName"/>
+        <set value="org/apache/ofbiz/shipment/shipment/ShipmentScheduledNotice.ftl" field="sendEmailMap.templateName"/>
         <set from-field="shipment" field="sendEmailMap.templateData.shipment"/>
 
         <!-- call sendGenericNotificationEmail service, if enough information was found -->

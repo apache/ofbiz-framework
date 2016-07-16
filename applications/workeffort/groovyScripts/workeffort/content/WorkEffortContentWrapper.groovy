@@ -17,7 +17,7 @@
  * under the License.
  */
 
- import org.ofbiz.workeffort.content.WorkEffortContentWrapper;
+ import org.apache.ofbiz.workeffort.content.WorkEffortContentWrapper;
 
  workEffort = context.get("workEffort");
  if (workEffort == null && workEffortId != null) {

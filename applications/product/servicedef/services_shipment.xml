@@ -380,14 +380,14 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="duplicateShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="java"
-            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="duplicateShipmentRouteSegment" auth="true">
+            location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="duplicateShipmentRouteSegment" auth="true">
         <description>Duplicates a shipment route segment and creates the new route segment in the NOT_STARTED status</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="newShipmentRouteSegmentId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="quickScheduleShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="java"
-            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="quickScheduleShipmentRouteSegment" auth="true">
+            location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="quickScheduleShipmentRouteSegment" auth="true">
         <description>Schedules a shipment route segment with the carrier and service level in the ShipmentRouteSegment entity.
           Actual scheduling is done by an async service, and this does not return an error, so it can be called in a multi-form,
           and one failed shipment scheduling does not cause other shipments to be rolled back.
@@ -498,9 +498,9 @@ under the License.
 
     <!-- Pick Verify Services -->
     <service name="verifySingleItem" engine="java"
-            location="org.ofbiz.shipment.verify.VerifyPickServices" invoke="verifySingleItem" auth="true">
+            location="org.apache.ofbiz.shipment.verify.VerifyPickServices" invoke="verifySingleItem" auth="true">
         <description>Verify Single Item</description>
-        <attribute name="verifyPickSession" type="org.ofbiz.shipment.verify.VerifyPickSession" mode="IN" optional="false"/>
+        <attribute name="verifyPickSession" type="org.apache.ofbiz.shipment.verify.VerifyPickSession" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
@@ -508,9 +508,9 @@ under the License.
     </service>
 
     <service name="verifyBulkItem" engine="java"
-            location="org.ofbiz.shipment.verify.VerifyPickServices" invoke="verifyBulkItem" auth="true">
+            location="org.apache.ofbiz.shipment.verify.VerifyPickServices" invoke="verifyBulkItem" auth="true">
         <description>Verify Multiple Items</description>
-        <attribute name="verifyPickSession" type="org.ofbiz.shipment.verify.VerifyPickSession" mode="IN" optional="false"/>
+        <attribute name="verifyPickSession" type="org.apache.ofbiz.shipment.verify.VerifyPickSession" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
@@ -523,15 +523,15 @@ under the License.
     </service>
 
     <service name="cancelAllRows" engine="java"
-            location="org.ofbiz.shipment.verify.VerifyPickServices" invoke="cancelAllRows" auth="true">
+            location="org.apache.ofbiz.shipment.verify.VerifyPickServices" invoke="cancelAllRows" auth="true">
         <description>Clear the current picking session</description>
-        <attribute name="verifyPickSession" type="org.ofbiz.shipment.verify.VerifyPickSession" mode="IN" optional="false"/>
+        <attribute name="verifyPickSession" type="org.apache.ofbiz.shipment.verify.VerifyPickSession" mode="IN" optional="false"/>
     </service>
 
     <service name="completeVerifiedPick" engine="java"
-             location="org.ofbiz.shipment.verify.VerifyPickServices" invoke="completeVerifiedPick" auth="true">
+             location="org.apache.ofbiz.shipment.verify.VerifyPickServices" invoke="completeVerifiedPick" auth="true">
         <description>Complete the picking and set the shipment to PICKED</description>
-        <attribute name="verifyPickSession" type="org.ofbiz.shipment.verify.VerifyPickSession" mode="IN" optional="false"/>
+        <attribute name="verifyPickSession" type="org.apache.ofbiz.shipment.verify.VerifyPickSession" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
@@ -541,9 +541,9 @@ under the License.
 
     <!-- Weight Package Only Services -->
     <service name="setPackageInfo" engine="java"
-            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="setPackageInfo" auth="true">
+            location="org.apache.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="setPackageInfo" auth="true">
         <description>Set the weight, dimensions/shipmentBoxType of package in SESSION</description>
-        <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
+        <attribute name="weightPackageSession" type="org.apache.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="packageWeight" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="packageLength" type="BigDecimal" mode="IN" optional="true"/>
@@ -553,9 +553,9 @@ under the License.
     </service>
 
     <service name="updatePackedLine" engine="java"
-            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="updatePackedLine" auth="true">
+            location="org.apache.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="updatePackedLine" auth="true">
         <description>Update the weight, dimensions/shipmentBoxType of package</description>
-        <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
+        <attribute name="weightPackageSession" type="org.apache.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
         <attribute name="packageWeight" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="packageLength" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="packageWidth" type="BigDecimal" mode="IN" optional="true"/>
@@ -565,16 +565,16 @@ under the License.
     </service>
 
     <service name="deletePackedLine" engine="java"
-            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="deletePackedLine" auth="true">
+            location="org.apache.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="deletePackedLine" auth="true">
         <description>Delete the weight, dimensions/shipmentBoxType of package</description>
-        <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
+        <attribute name="weightPackageSession" type="org.apache.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
         <attribute name="weightPackageSeqId" type="Integer" mode="IN" optional="false"/>
     </service>
 
     <service name="completePackage" engine="java"
-            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="completePackage" auth="true">
+            location="org.apache.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="completePackage" auth="true">
         <description>Complete the packging and set the shipment to packed</description>
-        <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
+        <attribute name="weightPackageSession" type="org.apache.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
@@ -587,18 +587,18 @@ under the License.
     </service>
 
     <service name="completeShipment" engine="java"
-            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="completeShipment" auth="true">
+            location="org.apache.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="completeShipment" auth="true">
         <description>Complete the packaging set the shipment to packed</description>
-        <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
+        <attribute name="weightPackageSession" type="org.apache.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="INOUT" optional="true"/>
     </service>
 
     <service name="savePackagesInfo" engine="java"
-            location="org.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="savePackagesInfo" auth="true">
+            location="org.apache.ofbiz.shipment.weightPackage.WeightPackageServices" invoke="savePackagesInfo" auth="true">
         <description>Save the package(s) information in ShipmentPackage entity from session</description>
-        <attribute name="weightPackageSession" type="org.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
+        <attribute name="weightPackageSession" type="org.apache.ofbiz.shipment.weightPackage.WeightPackageSession" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
@@ -606,9 +606,9 @@ under the License.
 
     <!-- Pack Order Services -->
     <service name="packSingleItem" engine="java"
-            location="org.ofbiz.shipment.packing.PackingServices" invoke="addPackLine" auth="true">
+            location="org.apache.ofbiz.shipment.packing.PackingServices" invoke="addPackLine" auth="true">
         <description>Pack Single Item</description>
-        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="packingSession" type="org.apache.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
@@ -618,9 +618,9 @@ under the License.
         <attribute name="handlingInstructions" type="String" mode="IN" optional="true"/>
     </service>
     <service name="packBulkItems" engine="java"
-            location="org.ofbiz.shipment.packing.PackingServices" invoke="packBulk" auth="true">
+            location="org.apache.ofbiz.shipment.packing.PackingServices" invoke="packBulk" auth="true">
         <description>Pack Multiple Items</description>
-        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="packingSession" type="org.apache.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="updateQuantity" type="Boolean" mode="IN" optional="true"/>
@@ -637,16 +637,16 @@ under the License.
     </service>
 
     <service name="setNextPackageSeq" engine="java"
-            location="org.ofbiz.shipment.packing.PackingServices" invoke="incrementPackageSeq" auth="true">
+            location="org.apache.ofbiz.shipment.packing.PackingServices" invoke="incrementPackageSeq" auth="true">
         <description>Increments the next package sequence</description>
-        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="packingSession" type="org.apache.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
         <attribute name="nextPackageSeq" type="Integer" mode="OUT" optional="false"/>
     </service>
 
     <service name="calcPackSessionAdditionalShippingCharge" engine="java"
-            location="org.ofbiz.shipment.packing.PackingServices" invoke="calcPackSessionAdditionalShippingCharge" auth="true">
+            location="org.apache.ofbiz.shipment.packing.PackingServices" invoke="calcPackSessionAdditionalShippingCharge" auth="true">
         <description>Totals package weights and calls the calcShipmentCostEstimate via the PackingSession</description>
-        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="packingSession" type="org.apache.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
         <attribute name="packageWeights" type="Map" string-map-prefix="packageWeight_" mode="IN" optional="true"/>
         <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
         <attribute name="shippingContactMechId" type="String" mode="IN" optional="false"/>
@@ -658,20 +658,20 @@ under the License.
     </service>
 
     <service name="clearPackAll" engine="java"
-            location="org.ofbiz.shipment.packing.PackingServices" invoke="clearPackAll" auth="true">
+            location="org.apache.ofbiz.shipment.packing.PackingServices" invoke="clearPackAll" auth="true">
         <description>Clear the current packing session</description>
-        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="packingSession" type="org.apache.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
     </service>
     <service name="clearLastPackage" engine="java"
-            location="org.ofbiz.shipment.packing.PackingServices" invoke="clearLastPackage" auth="true">
+            location="org.apache.ofbiz.shipment.packing.PackingServices" invoke="clearLastPackage" auth="true">
         <description>Clears the last package in the packing session</description>
-        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="packingSession" type="org.apache.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
         <attribute name="nextPackageSeq" type="Integer" mode="OUT" optional="false"/>
     </service>
     <service name="clearPackLine" engine="java"
-            location="org.ofbiz.shipment.packing.PackingServices" invoke="clearPackLine" auth="true">
+            location="org.apache.ofbiz.shipment.packing.PackingServices" invoke="clearPackLine" auth="true">
         <description>Clear a single line from the current packing session</description>
-        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="packingSession" type="org.apache.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
@@ -681,9 +681,9 @@ under the License.
     </service>
 
     <service name="completePack" engine="java"
-            location="org.ofbiz.shipment.packing.PackingServices" invoke="completePack" auth="true" transaction-timeout="7200">
+            location="org.apache.ofbiz.shipment.packing.PackingServices" invoke="completePack" auth="true" transaction-timeout="7200">
         <description>Complete the packaging set the shipment to PACKED</description>
-        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="packingSession" type="org.apache.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
@@ -745,7 +745,7 @@ under the License.
         <attribute name="affectAccounting" type="Boolean" mode="OUT" optional="true"/>
     </service>
     <service name="updatePurchaseShipmentFromReceipt" engine="java"
-      location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="updatePurchaseShipmentFromReceipt" auth="true">
+      location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="updatePurchaseShipmentFromReceipt" auth="true">
         <description>
           Whenever a ShipmentReceipt is generated, check the Shipment associated
           with it to see if all items were received. If so, change its status to
@@ -819,7 +819,7 @@ under the License.
 
     <!-- Shipment Estimate (Rate) Services -->
     <service name="createShipmentEstimate" engine="java"
-                location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="createShipmentEstimate" auth="true">
+                location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="createShipmentEstimate" auth="true">
         <description>Create Shipment Estimate</description>
         <attribute name="productStoreShipMethId" type="String" mode="IN" optional="false"/>
         <attribute name="toGeo" type="String" mode="IN" optional="true"/>
@@ -854,7 +854,7 @@ under the License.
     </service>
 
     <service name="removeShipmentEstimate" engine="java"
-            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="removeShipmentEstimate" auth="true">
+            location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="removeShipmentEstimate" auth="true">
         <description>Remove Shipment Estimate</description>
         <attribute name="shipmentCostEstimateId" type="String" mode="IN" optional="false"/>
     </service>
@@ -883,7 +883,7 @@ under the License.
     </service>
 
     <service name="calcShipmentCostEstimate" engine="java"
-            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="calcShipmentCostEstimate" auth="false" use-transaction="false">
+            location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="calcShipmentCostEstimate" auth="false" use-transaction="false">
         <description>Generic Shipment Cost Estimate Calc Service - Use ShipmentCostEstimate Entities</description>
         <implements service="calcShipmentEstimateInterface"/>
     </service>
@@ -917,7 +917,7 @@ under the License.
     </service>
 
     <service name="getShipmentPackageValueFromOrders" engine="java"
-            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="getShipmentPackageValueFromOrders" auth="true" use-transaction="false">
+            location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="getShipmentPackageValueFromOrders" auth="true" use-transaction="false">
         <description>Calculates the total value of a shipment package by totalling the results of the getOrderItemInvoicedAmountAndQuantity
             service for the orderItem related to each ShipmentPackageContent, prorated by the quantity of the orderItem issued to the
             ShipmentPackageContent. Value is converted according to the incoming currencyUomId.</description>
@@ -954,7 +954,7 @@ under the License.
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="sendShipmentCompleteNotification" engine="java" require-new-transaction="true" max-retry="3"
-        location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="sendShipmentCompleteNotification" auth="true">
+        location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="sendShipmentCompleteNotification" auth="true">
         <description>Send a notification on Shipment Complete</description>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
         <attribute name="sendTo" type="String" mode="IN" optional="true"/>
@@ -963,7 +963,7 @@ under the License.
         <attribute name="body" type="String" mode="OUT" optional="true"/>
         <attribute name="subject" type="String" mode="OUT" optional="true"/>
         <attribute name="orderId" type="String" mode="OUT" optional="true"/>
-        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/>
+        <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="updateIssuanceShipmentAndPoOnReceiveInventory" engine="simple"

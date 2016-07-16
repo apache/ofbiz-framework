@@ -58,7 +58,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="updateProductQuickAdminShipping" default-entity-name="Product" engine="java"
-                location="org.ofbiz.product.product.ProductServices" invoke="updateProductQuickAdminShipping" auth="true">
+                location="org.apache.ofbiz.product.product.ProductServices" invoke="updateProductQuickAdminShipping" auth="true">
         <description>Update product characteristics from Quick Admin</description>
         <implements service="interfaceProduct"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -105,7 +105,7 @@ under the License.
     </service>
 
     <service name="quickAddVariant" engine="java"
-            location="org.ofbiz.product.product.ProductServices" invoke="quickAddVariant">
+            location="org.apache.ofbiz.product.product.ProductServices" invoke="quickAddVariant">
         <description>Create a new product variant</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="productFeatureIds" type="String" mode="IN" optional="false"/>
@@ -114,7 +114,7 @@ under the License.
     </service>
 
     <service name="quickCreateVirtualWithVariants" engine="java"
-            location="org.ofbiz.product.product.ProductServices" invoke="quickCreateVirtualWithVariants">
+            location="org.apache.ofbiz.product.product.ProductServices" invoke="quickCreateVirtualWithVariants">
         <description>
             This will create a virtual product and return its ID, and associate all of the variants with it.
             It will not put the selectable features on the virtual or standard features on the variant.
@@ -154,7 +154,7 @@ under the License.
                 location="component://product/minilang/product/product/ProductServices.xml" invoke="indexProductKeywords" auth="false">
         <description>Index the Keywords for a Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="productInstance" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="productInstance" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="forceIndexProductKeywords" engine="simple"
             location="component://product/minilang/product/product/ProductServices.xml" invoke="forceIndexProductKeywords" auth="true">
@@ -207,13 +207,13 @@ under the License.
     </service>
 
     <service name="findProductById" engine="java"  auth="true" export="true"
-        location="org.ofbiz.product.product.ProductServices" invoke="findProductById">
+        location="org.apache.ofbiz.product.product.ProductServices" invoke="findProductById">
         <description>Finds productId(s) corresponding to a product reference, productId or a GoodIdentification idValue</description>
         <attribute type="String" mode="IN" name="idToFind" optional="false"/>
         <attribute type="String" mode="IN" name="goodIdentificationTypeId" optional="true"/>
         <attribute type="String" mode="IN" name="searchProductFirst" optional="true"/>
         <attribute type="String" mode="IN" name="searchAllId" optional="true"/>
-        <attribute type="org.ofbiz.entity.GenericValue" mode="OUT" name="product" optional="true"/>
+        <attribute type="org.apache.ofbiz.entity.GenericValue" mode="OUT" name="product" optional="true"/>
         <attribute type="List" mode="OUT" name="productsList" optional="true"/>
     </service>
 
@@ -441,7 +441,7 @@ under the License.
     </service>
 
     <service name="addAdditionalViewForProduct" default-entity-name="ProductContent" engine="java"
-        location="org.ofbiz.product.product.ProductServices" invoke="addAdditionalViewForProduct" auth="true">
+        location="org.apache.ofbiz.product.product.ProductServices" invoke="addAdditionalViewForProduct" auth="true">
         <implements service="uploadFileInterface"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1183,7 +1183,7 @@ under the License.
         <attribute name="text" type="String" mode="IN" optional="true" allow-html="any"/>
     </service>
     <service name="getProductFeaturesByType" engine="java"
-            location="org.ofbiz.product.feature.ProductFeatureServices" invoke="getProductFeaturesByType">
+            location="org.apache.ofbiz.product.feature.ProductFeatureServices" invoke="getProductFeaturesByType">
         <description>
             Returns a map of productFeatureTypeId -> List of ProductFeatures.  If supplied with a productFeatureCategoryId,
             the returned result is that of all product features in that category.  Otherwise, if supplied with a productFeatureGroupId,
@@ -1199,7 +1199,7 @@ under the License.
         <attribute type="Map" mode="OUT" name="productFeaturesByType" optional="false"/>
     </service>
     <service name="getAllExistingVariants" engine="java"
-        location="org.ofbiz.product.feature.ProductFeatureServices" invoke="getAllExistingVariants">
+        location="org.apache.ofbiz.product.feature.ProductFeatureServices" invoke="getAllExistingVariants">
         <description>
             Takes a productId and a List of ProductFeatureAndAppl entities and returns a List of productIds which are
             existing varaints with those features applied.
@@ -1209,7 +1209,7 @@ under the License.
         <attribute type="List" mode="OUT" name="variantProductIds" optional="false"/>
     </service>
     <service name="getVariantCombinations" engine="java"
-        location="org.ofbiz.product.feature.ProductFeatureServices" invoke="getVariantCombinations">
+        location="org.apache.ofbiz.product.feature.ProductFeatureServices" invoke="getVariantCombinations">
         <description>
             For a product, returns a List of all possible product feature combinations, based on all SELECTABLE features which
             are applied to the product.  featureCombinations is a List of Maps with the following fields:
@@ -1221,7 +1221,7 @@ under the License.
         <attribute type="List" mode="OUT" name="featureCombinations" optional="false"/>
     </service>
      <service name="getCategoryVariantProducts" engine="java" auth="false"
-         location="org.ofbiz.product.feature.ProductFeatureServices" invoke="getCategoryVariantProducts">
+         location="org.apache.ofbiz.product.feature.ProductFeatureServices" invoke="getCategoryVariantProducts">
          <description>Takes a productCategoryId and a list of product features and resolves all the product category's
              product members from virtual to variant</description>
          <attribute type="String" mode="IN" name="productCategoryId" optional="false"/>
@@ -1229,7 +1229,7 @@ under the License.
          <attribute type="java.util.List" mode="OUT" name="products"/>
      </service>
     <service name="updateProductIfAvailableFromShipment" engine="java"
-            location="org.ofbiz.product.product.ProductServices" invoke="updateProductIfAvailableFromShipment">
+            location="org.apache.ofbiz.product.product.ProductServices" invoke="updateProductIfAvailableFromShipment">
         <description>
             If property is set (catalog.properties) this will re-activate (null discountinue date) on the product
             if inventory is available. Triggered via ECA by shipment receipt services
@@ -1316,7 +1316,7 @@ under the License.
     </service>
 
     <service name="productImportFromSpreadsheet" engine="java"
-            location="org.ofbiz.product.spreadsheetimport.ImportProductServices" invoke="productImportFromSpreadsheet" auth="true">
+            location="org.apache.ofbiz.product.spreadsheetimport.ImportProductServices" invoke="productImportFromSpreadsheet" auth="true">
         <description>Create product and inventory item</description>
         <attribute name="dirName" type="java.lang.String" mode="IN" optional="true"/>
     </service>
@@ -1371,7 +1371,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="addImageForProductPromo" default-entity-name="ProductPromoContent" engine="java"
-            location="org.ofbiz.product.product.ProductServices" invoke="addImageForProductPromo" auth="true">
+            location="org.apache.ofbiz.product.product.ProductServices" invoke="addImageForProductPromo" auth="true">
         <implements service="uploadFileInterface"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1382,7 +1382,7 @@ under the License.
 
     <!-- Image Management Services -->
     <service name="addMultipleuploadForProduct" default-entity-name="ProductContent" engine="java"
-        location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="addMultipleuploadForProduct" auth="true">
+        location="org.apache.ofbiz.product.imagemanagement.ImageManagementServices" invoke="addMultipleuploadForProduct" auth="true">
         <implements service="uploadFileInterface"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1448,7 +1448,7 @@ under the License.
     </service>
 
     <service name="removeImageFileForImageManagement" engine="java"
-        location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="removeImageFileForImageManagement" auth="true">
+        location="org.apache.ofbiz.product.imagemanagement.ImageManagementServices" invoke="removeImageFileForImageManagement" auth="true">
         <description>Delete Image File</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
@@ -1457,7 +1457,7 @@ under the License.
     </service>
 
     <service name="addImageFrame" engine="java"
-        location="org.ofbiz.product.imagemanagement.FrameImage" invoke="addImageFrame" auth="true">
+        location="org.apache.ofbiz.product.imagemanagement.FrameImage" invoke="addImageFrame" auth="true">
         <description>Create Image Frame For Product.</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="imageName" optional="false" type="String"/>
@@ -1468,13 +1468,13 @@ under the License.
     </service>
 
     <service name="uploadFrame" engine="java"
-        location="org.ofbiz.product.imagemanagement.FrameImage" invoke="uploadFrame" auth="true">
+        location="org.apache.ofbiz.product.imagemanagement.FrameImage" invoke="uploadFrame" auth="true">
         <description>Upload Image Frame.</description>
         <attribute mode="IN" name="uploadedFile" optional="false" type="java.nio.ByteBuffer"/>
     </service>
 
     <service name="imageCrop" engine="java"
-        location="org.ofbiz.product.imagemanagement.CropImage" invoke="imageCrop" auth="true">
+        location="org.apache.ofbiz.product.imagemanagement.CropImage" invoke="imageCrop" auth="true">
         <description>Crop Image</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="imageName" optional="false" type="String"/>
@@ -1485,7 +1485,7 @@ under the License.
     </service>
 
     <service name="imageRotate" engine="java"
-        location="org.ofbiz.product.imagemanagement.RotateImage" invoke="imageRotate" auth="true">
+        location="org.apache.ofbiz.product.imagemanagement.RotateImage" invoke="imageRotate" auth="true">
         <description>Rotate Image</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="imageName" optional="false" type="String"/>
@@ -1532,7 +1532,7 @@ under the License.
     </service>
     
     <service name="resizeImageOfProduct" engine="java"
-        location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="resizeImageOfProduct" auth="true">
+        location="org.apache.ofbiz.product.imagemanagement.ImageManagementServices" invoke="resizeImageOfProduct" auth="true">
         <description>Resize Image Of Product.</description>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="dataResourceName" mode="IN" type="String" optional="false"/>
@@ -1540,7 +1540,7 @@ under the License.
     </service>
     
     <service name="createNewImageThumbnail" engine="java"
-        location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="createNewImageThumbnail" auth="true">
+        location="org.apache.ofbiz.product.imagemanagement.ImageManagementServices" invoke="createNewImageThumbnail" auth="true">
         <description>Create New Image Thumbnail.</description>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
@@ -1557,7 +1557,7 @@ under the License.
     </service>
     
     <service name="replaceImageToExistImage" engine="java"
-        location="org.ofbiz.product.imagemanagement.ReplaceImage" invoke="replaceImageToExistImage" auth="true">
+        location="org.apache.ofbiz.product.imagemanagement.ReplaceImage" invoke="replaceImageToExistImage" auth="true">
         <description>Resize Image Of Product.</description>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="contentIdExist" mode="IN" type="String" optional="false"/>
@@ -1567,7 +1567,7 @@ under the License.
     </service>
     
     <service name="renameImage" engine="java"
-        location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="renameImage" auth="true">
+        location="org.apache.ofbiz.product.imagemanagement.ImageManagementServices" invoke="renameImage" auth="true">
         <description>Rename Image.</description>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="contentId" mode="IN" type="String" optional="false"/>

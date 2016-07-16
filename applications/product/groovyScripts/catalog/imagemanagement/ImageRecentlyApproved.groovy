@@ -17,14 +17,14 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.util.*;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.EntityFindOptions
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.util.EntityFindOptions
 
 def limit = 13 // set number of days
 def sdf = new SimpleDateFormat("EEEE yyyy-MM-dd 00:00:00.000")

@@ -38,7 +38,7 @@ function setWeight(weight) {
       <div><font color="red">${uiLabelMap.ProductMorePackageFoundShipment}.</font></div>
     <#else>
       <#-- single package -->
-      <#assign shipmentPackage = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentPackages))!>
+      <#assign shipmentPackage = (Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(shipmentPackages))!>
       <#if shipmentPackage?has_content>
         <#assign weight = (shipmentPackage.weight)?default(0.00)>
         <#if (0 < weight?double) && !requestParameters.reweigh??>
@@ -47,7 +47,7 @@ function setWeight(weight) {
             <div><font color="red">${uiLabelMap.ProductMoreRouteSegmentFound}.</font></div>
           <#elseif !requestParameters.shipmentRouteSegmentId?? || requestAttributes._ERROR_MESSAGE_??>
             <form name="routeForm" method="post" action="<@ofbizUrl>setQuickRouteInfo</@ofbizUrl>">
-              <#assign shipmentRoute = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentRoutes))!>
+              <#assign shipmentRoute = (Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(shipmentRoutes))!>
               <#assign carrierPerson = (shipmentRoute.getRelatedOne("CarrierPerson", false))!>
               <#assign carrierPartyGroup = (shipmentRoute.getRelatedOne("CarrierPartyGroup", false))!>
               <#assign shipmentMethodType = (shipmentRoute.getRelatedOne("ShipmentMethodType", false))!>

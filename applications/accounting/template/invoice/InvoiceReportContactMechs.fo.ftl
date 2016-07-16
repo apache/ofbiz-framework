@@ -29,7 +29,7 @@ under the License.
         <fo:table-cell>
           <fo:block>${uiLabelMap.CommonTo}: </fo:block>
             <#if billingAddress?has_content>
-                <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", invoice.invoiceDate, "userLogin", userLogin))/>
+                <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", invoice.invoiceDate, "userLogin", userLogin))/>
                 <fo:block>${billToPartyNameResult.fullName?default(billingAddress.toName)?default("Billing Name Not Found")}</fo:block>
                 <#if billingAddress.attnName??>
                     <fo:block>${billingAddress.attnName}</fo:block>

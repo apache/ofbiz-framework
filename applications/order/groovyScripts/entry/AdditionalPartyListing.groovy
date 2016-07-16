@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
-import org.ofbiz.order.shoppingcart.ShoppingCart;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCart;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
 
 cart = ShoppingCartEvents.getCartObject(request);
 additionalPartyRole = cart.getAdditionalPartyRoleMap();

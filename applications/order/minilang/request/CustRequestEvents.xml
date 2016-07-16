@@ -22,7 +22,7 @@
     xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createCustRequestContent"
         short-description="Create Customer Request Content" login-required="false">
-        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker"
+        <call-class-method class-name="org.apache.ofbiz.content.layout.LayoutWorker"
             method-name="uploadImageAndParameters" ret-field="formInput">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="dataResourceName"/>

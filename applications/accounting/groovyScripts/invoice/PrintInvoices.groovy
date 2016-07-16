@@ -18,9 +18,9 @@
  */
 
 import java.text.DateFormat;
-import org.ofbiz.accounting.invoice.InvoiceWorker;
-import org.ofbiz.base.util.UtilNumber;
-import org.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.accounting.invoice.InvoiceWorker;
+import org.apache.ofbiz.base.util.UtilNumber;
+import org.apache.ofbiz.entity.condition.EntityCondition;
 
 invoiceDetailList = [];
 invoiceIds.each { invoiceId ->

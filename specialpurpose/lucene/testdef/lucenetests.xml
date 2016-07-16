@@ -26,6 +26,6 @@ under the License.
         <entity-xml action="load" entity-xml-url="component://lucene/testdef/data/LuceneTestsData.xml"/>
     </test-case>
 
-    <test-case case-name="lucene-tests"><junit-test-suite class-name="org.ofbiz.content.test.LuceneTests"/></test-case>
+    <test-case case-name="lucene-tests"><junit-test-suite class-name="org.apache.ofbiz.content.test.LuceneTests"/></test-case>
 
 </test-suite>

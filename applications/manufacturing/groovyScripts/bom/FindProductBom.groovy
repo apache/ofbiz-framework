@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.entity.condition.*;
 
 condList = [];
 if (parameters.productId) {

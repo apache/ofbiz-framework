@@ -38,11 +38,11 @@ var rawdata = [
             <#list assocList as assoc>
                 <#assign content  = delegator.findOne("Content",{"contentId":assoc.contentIdTo},true)/>
                 <#if locale != "en">
-                  <#assign content = Static["org.ofbiz.content.content.ContentWorker"].findAlternateLocaleContent(delegator, content, locale)/>
+                  <#assign content = Static["org.apache.ofbiz.content.content.ContentWorker"].findAlternateLocaleContent(delegator, content, locale)/>
                 </#if>
                 {
                 "data": {"title" : unescapeHtmlText("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},
-                <#assign assocChilds  = delegator.findByAnd("ContentAssoc",Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId",assoc.contentIdTo,"contentAssocTypeId", "TREE_CHILD"), Static["org.ofbiz.base.util.UtilMisc"].toList("sequenceNum"), false)/>
+                <#assign assocChilds  = delegator.findByAnd("ContentAssoc",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("contentId",assoc.contentIdTo,"contentAssocTypeId", "TREE_CHILD"), Static["org.apache.ofbiz.base.util.UtilMisc"].toList("sequenceNum"), false)/>
                     "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "AssocType" : "${assoc.contentAssocTypeId}", "fromDate" : "${assoc.fromDate}"}
                 <#if assocChilds?has_content>
                     ,"children": [

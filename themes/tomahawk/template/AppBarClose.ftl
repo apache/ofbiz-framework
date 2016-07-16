@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign appModelMenu = Static["org.ofbiz.widget.model.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName)>
+<#assign appModelMenu = Static["org.apache.ofbiz.widget.model.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName)>
 <#if person?has_content>
   <#assign userName = (person.firstName!) + " " + (person.middleName!) + " " + person.lastName!>
 <#elseif partyGroup?has_content>
@@ -41,7 +41,7 @@ under the License.
 </#if>
 
 <#if parameters.portalPageId?has_content && !appModelMenu.getModelMenuItemByName(headerItem)?? && userLogin??>
-    <#assign findMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("portalPageId", parameters.portalPageId)>
+    <#assign findMap = Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("portalPageId", parameters.portalPageId)>
     <#assign portalPage = delegator.findOne("PortalPage", findMap, true)!>
     <#if portalPage?has_content>
       <div id="app-nav-selected-item">

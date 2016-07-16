@@ -198,7 +198,7 @@ under the License.
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getProductInventoryAvailableFromAssocProducts" engine="java"
-             location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventoryAvailableFromAssocProducts" auth="false" use-transaction="false">
+             location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="getProductInventoryAvailableFromAssocProducts" auth="false" use-transaction="false">
         <description>
             Get Inventory Availability for a product based on List of associated products,
             usually marketing package components.
@@ -239,7 +239,7 @@ under the License.
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
     <service name="getProductInventorySummaryForItems" engine="java"
-                location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventorySummaryForItems" auth="false" use-transaction="false">
+                location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="getProductInventorySummaryForItems" auth="false" use-transaction="false">
         <description>Get ATP/QOH Availability for a list of OrderItems by summing over all facilities.  If the item is a MARKETING_PKG_AUTO/PICK, then put its quantity available from components
             in the mktgPkgATPMap and mktgPkgQOHMap.</description>
         <attribute name="orderItems" type="List" mode="IN" optional="false"/>
@@ -250,7 +250,7 @@ under the License.
         <attribute name="mktgPkgATPMap" type="Map" mode="OUT" optional="false"/>
     </service>
     <service name="getProductInventoryAndFacilitySummary" engine="java"
-                location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventoryAndFacilitySummary" auth="false" use-transaction="false">
+                location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="getProductInventoryAndFacilitySummary" auth="false" use-transaction="false">
         <description>Get ATP/QOH Availability for a list of OrderItems by summing over all facilities.  If the item is a MARKETING_PKG_AUTO/PICK, then put its quantity available from components
             in the mktgPkgATPMap and mktgPkgQOHMap.</description>
         <attribute name="checkTime" type="Timestamp" mode="IN" optional="true"/>
@@ -271,7 +271,7 @@ under the License.
     </service>
 
     <service name="checkInventoryAvailability" engine="java"
-            location="org.ofbiz.product.inventory.InventoryServices" invoke="checkInventoryAvailability">
+            location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="checkInventoryAvailability">
         <description>Batch service for checking and sending backorder notifications.  Will also set an autoCancelDate for sales orders to 30 days (hard coded)
             beyond the OISGIR's promisedDatetime, which is in turn set by reserveProductInventory service using ProductFacility.daysToShip or 30 days by default.</description>
         <!-- this service has no parameters IN or OUT -->
@@ -444,20 +444,20 @@ under the License.
         <attribute name="inventoryTransferId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="prepareInventoryTransfer" engine="java"
-            location="org.ofbiz.product.inventory.InventoryServices" invoke="prepareInventoryTransfer">
+            location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="prepareInventoryTransfer">
         <description>Prepares inventory item for transfer.  If the xferQty is less than quantityOnHandTotal of the inventory item, then the inventory
                 item is "split," and an new inventory item will be created with xferQty and used for the inventory transfer.</description> 
         <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false"/>
         <attribute name="xferQty" type="BigDecimal" mode="IN" optional="false"/>
     </service>
     <service name="completeInventoryTransfer" engine="java"
-            location="org.ofbiz.product.inventory.InventoryServices" invoke="completeInventoryTransfer">
+            location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="completeInventoryTransfer">
         <description>Completes the inventory transfer</description>
         <attribute name="inventoryTransferId" type="String" mode="IN" optional="false"/>
         <attribute name="receiveDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="cancelInventoryTransfer" engine="java"
-            location="org.ofbiz.product.inventory.InventoryServices" invoke="cancelInventoryTransfer">
+            location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="cancelInventoryTransfer">
         <description>Cancel the inventory transfer</description>
         <attribute name="inventoryTransferId" type="String" mode="IN" optional="false"/>
     </service>
@@ -492,9 +492,9 @@ under the License.
         </description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderHeader" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
-        <attribute name="orderItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
-        <attribute name="productStore" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderHeader" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="productStore" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
 
     <service name="createProductFacility" default-entity-name="ProductFacility" engine="entity-auto" invoke="create" auth="true">

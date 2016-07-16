@@ -168,7 +168,7 @@ under the License.
                 <entity-and entity-name="ProductStoreCatalog" list="prodStoreCatalogList" filter-by-date="true">
                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
                 </entity-and>
-                <set field="prodCatalogIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(prodStoreCatalogList, 'prodCatalogId', true);}" type="List"/>
+                <set field="prodCatalogIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(prodStoreCatalogList, 'prodCatalogId', true);}" type="List"/>
                 <entity-condition entity-name="ProdCatalog" list="prodCatalogList">
                     <condition-expr field-name="prodCatalogId" operator="not-in" from-field="prodCatalogIds" ignore-if-empty="true"/>
                 </entity-condition>

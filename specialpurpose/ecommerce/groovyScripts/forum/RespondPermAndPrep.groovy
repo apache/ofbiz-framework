@@ -27,12 +27,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.security.*;
-import org.ofbiz.service.*;
-import org.ofbiz.entity.model.*;
-import org.ofbiz.content.content.PermissionRecorder;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.security.*;
+import org.apache.ofbiz.service.*;
+import org.apache.ofbiz.entity.model.*;
+import org.apache.ofbiz.content.content.PermissionRecorder;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -76,10 +76,10 @@ if (currentValue) {
 mapIn.entityOperation = "_CREATE";
 mapIn.contentPurposeList = ["RESPONSE"];
 
-//org.ofbiz.base.util.Debug.logInfo("in permprep, mapIn:" + mapIn, null);
+//org.apache.ofbiz.base.util.Debug.logInfo("in permprep, mapIn:" + mapIn, null);
 result = runService('checkContentPermission', mapIn);
 permissionStatus = result.permissionStatus;
-//org.ofbiz.base.util.Debug.logInfo("permissionStatus:" + permissionStatus, null);
+//org.apache.ofbiz.base.util.Debug.logInfo("permissionStatus:" + permissionStatus, null);
 if (!"granted".equals(permissionStatus)) {
     request.setAttribute("errorMsgReq", "Permission to add response is denied (1)");
     errorMessage = "Permission to add response is denied (2)";
@@ -108,10 +108,10 @@ if (pubContentValue) {
     mapIn.currentContent = pubContentValue;
     mapIn.statusId = "CTNT_PUBLISHED";
 }
-//org.ofbiz.base.util.Debug.logInfo("in permprep(2), mapIn:" + mapIn, null);
+//org.apache.ofbiz.base.util.Debug.logInfo("in permprep(2), mapIn:" + mapIn, null);
 result = dispatcher.runSync("checkContentPermission", mapIn);
 permissionStatus = result.permissionStatus;
-//org.ofbiz.base.util.Debug.logInfo("permissionStatus(2):" + permissionStatus, null);
+//org.apache.ofbiz.base.util.Debug.logInfo("permissionStatus(2):" + permissionStatus, null);
 if (!"granted".equals(permissionStatus)) {
 
     request.setAttribute("errorMsgReq", "Permission to add response is denied (2)");

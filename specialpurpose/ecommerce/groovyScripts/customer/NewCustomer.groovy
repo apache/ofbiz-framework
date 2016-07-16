@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.product.store.ProductStoreWorker;
 
 productStore = ProductStoreWorker.getProductStore(request);
 context.productStoreId = productStore.productStoreId;

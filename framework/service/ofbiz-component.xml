@@ -44,18 +44,18 @@ under the License.
     <keystore name="rmitrust" type="jks" password="changeit" is-truststore="true"
               is-certstore="false" loader="main" location="config/rmitrust.jks"/>
 
-    <container name="service-container" loaders="main,rmi,pos,load-data,test" class="org.ofbiz.service.ServiceContainer">
-        <property name="dispatcher-factory" value="org.ofbiz.service.GenericDispatcherFactory"/>
+    <container name="service-container" loaders="main,rmi,pos,load-data,test" class="org.apache.ofbiz.service.ServiceContainer">
+        <property name="dispatcher-factory" value="org.apache.ofbiz.service.GenericDispatcherFactory"/>
     </container>
 
     <!-- RMI Service Dispatcher -->
-    <container name="rmi-dispatcher" loaders="rmi" class="org.ofbiz.service.rmi.RmiServiceContainer">
+    <container name="rmi-dispatcher" loaders="rmi" class="org.apache.ofbiz.service.rmi.RmiServiceContainer">
         <property name="bound-name" value="RMIDispatcher"/>
         <property name="bound-host" value="127.0.0.1"/>
         <property name="bound-port" value="1099"/>
         <property name="delegator-name" value="default"/>
-        <property name="client-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLClientSocketFactory"/>
-        <property name="server-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory"/>
+        <property name="client-factory" value="org.apache.ofbiz.service.rmi.socket.ssl.SSLClientSocketFactory"/>
+        <property name="server-factory" value="org.apache.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory"/>
         <property name="ssl-keystore" value="framework/base/config/ofbizrmi.jks"/>
         <property name="ssl-keystore-type" value="JKS"/>
         <property name="ssl-keystore-pass" value="changeit"/>
@@ -67,7 +67,7 @@ under the License.
     <!-- if delete-mail is set to true, will delete messages after fetching them. otherwise, will try to mark them as seen
         mail.store.protocol supports both imap and pop3, but pop3 will not be able to mark messages as seen, so you would need to delete them-->
     <!-- To use the mail listerner just uncomment and go...
-    <container name="javamail-container" class="org.ofbiz.service.mail.JavaMailContainer">
+    <container name="javamail-container" class="org.apache.ofbiz.service.mail.JavaMailContainer">
         <property name="delegator-name" value="default"/>
         <property name="dispatcher-name" value="JavaMailDispatcher"/>
         <property name="run-as-user" value="system"/>

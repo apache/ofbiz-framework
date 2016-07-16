@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 
 productPromoId = request.getParameter("productPromoId");
 if (!productPromoId) productPromoId = parameters.productPromoId;

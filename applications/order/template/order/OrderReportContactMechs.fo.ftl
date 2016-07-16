@@ -43,7 +43,7 @@ under the License.
         <#-- here we just display the name of the vendor, since there is no address -->
         <#assign vendorParty = orderReadHelper.getBillFromParty()>
         <fo:block>
-            <fo:inline font-weight="bold">${uiLabelMap.OrderPurchasedFrom}:</fo:inline> ${Static['org.ofbiz.party.party.PartyHelper'].getPartyName(vendorParty)}
+            <fo:inline font-weight="bold">${uiLabelMap.OrderPurchasedFrom}:</fo:inline> ${Static['org.apache.ofbiz.party.party.PartyHelper'].getPartyName(vendorParty)}
         </fo:block>
     </#if>
 </#if>
@@ -83,7 +83,7 @@ under the License.
             <#assign paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType", false)!>
             <#if (orderPaymentPreference?? && (orderPaymentPreference.getString("paymentMethodTypeId") == "CREDIT_CARD") && (orderPaymentPreference.getString("paymentMethodId")?has_content))>
                 <#assign creditCard = orderPaymentPreference.getRelatedOne("PaymentMethod", false).getRelatedOne("CreditCard", false)>
-                ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
+                ${Static["org.apache.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
             <#else>
                 ${paymentMethodType.get("description",locale)!}
             </#if>
@@ -99,7 +99,7 @@ under the License.
                 ${(shipGroup.getRelatedOne("ShipmentMethodType", false).get("description", locale))?default(shipGroup.shipmentMethodTypeId)}
             </#if>
             <#if (shipGroup.shipAfterDate)?? || (shipGroup.shipByDate)??>
-                <#if (shipGroup.shipAfterDate)??> - ${uiLabelMap.OrderShipAfterDate}: ${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(shipGroup.shipAfterDate)}</#if><#if (shipGroup.shipByDate)??> - ${uiLabelMap.OrderShipBeforeDate}: ${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(shipGroup.shipByDate)}</#if>
+                <#if (shipGroup.shipAfterDate)??> - ${uiLabelMap.OrderShipAfterDate}: ${Static["org.apache.ofbiz.base.util.UtilDateTime"].toDateString(shipGroup.shipAfterDate)}</#if><#if (shipGroup.shipByDate)??> - ${uiLabelMap.OrderShipBeforeDate}: ${Static["org.apache.ofbiz.base.util.UtilDateTime"].toDateString(shipGroup.shipByDate)}</#if>
             </#if>
         </fo:block>
     </#list>

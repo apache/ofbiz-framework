@@ -18,10 +18,10 @@
  */
 
 
-import org.ofbiz.content.search.ProductDocument
-import org.ofbiz.content.search.DocumentIndexer
-import org.ofbiz.entity.transaction.TransactionUtil
-import org.ofbiz.entity.util.EntityListIterator
+import org.apache.ofbiz.content.search.ProductDocument
+import org.apache.ofbiz.content.search.DocumentIndexer
+import org.apache.ofbiz.entity.transaction.TransactionUtil
+import org.apache.ofbiz.entity.util.EntityListIterator
 
 DocumentIndexer pi = DocumentIndexer.getInstance(delegator, 'products')
 if (pi) {

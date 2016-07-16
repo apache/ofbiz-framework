@@ -77,7 +77,7 @@ will generally always be reserved for the logo at the top of the page.
 
 <#macro fieldErrors fieldName>
   <#if errorMessageList?has_content>
-    <#assign fieldMessages = Static["org.ofbiz.base.util.MessageString"].getMessagesForField(fieldName, true, errorMessageList)>
+    <#assign fieldMessages = Static["org.apache.ofbiz.base.util.MessageString"].getMessagesForField(fieldName, true, errorMessageList)>
     <ul>
       <#list fieldMessages as errorMsg>
         <li class="errorMessage">${errorMsg}</li>
@@ -87,7 +87,7 @@ will generally always be reserved for the logo at the top of the page.
 </#macro>
 <#macro fieldErrorsMulti fieldName1 fieldName2 fieldName3 fieldName4>
   <#if errorMessageList?has_content>
-    <#assign fieldMessages = Static["org.ofbiz.base.util.MessageString"].getMessagesForField(fieldName1, fieldName2, fieldName3, fieldName4, true, errorMessageList)>
+    <#assign fieldMessages = Static["org.apache.ofbiz.base.util.MessageString"].getMessagesForField(fieldName1, fieldName2, fieldName3, fieldName4, true, errorMessageList)>
     <ul>
       <#list fieldMessages as errorMsg>
         <li class="errorMessage">${errorMsg}</li>
@@ -212,9 +212,9 @@ will generally always be reserved for the logo at the top of the page.
         <@fieldErrors fieldName="CUSTOMER_COUNTRY"/>
         <select name="CUSTOMER_COUNTRY" id="newuserform_countryGeoId">
             ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-            <#assign defaultCountryGeoId = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "country.geo.id.default", delegator)>
+            <#assign defaultCountryGeoId = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "country.geo.id.default", delegator)>
             <option selected="selected" value="${defaultCountryGeoId}">
-                <#assign countryGeo = delegator.findOne("Geo",Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId), false)>
+                <#assign countryGeo = delegator.findOne("Geo",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId), false)>
                 ${countryGeo.get("geoName",locale)}
             </option>
         </select>

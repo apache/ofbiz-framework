@@ -26,7 +26,7 @@ under the License.
     <include location="component://content/webapp/content/WEB-INF/controller.xml"/>
     <description>Party Manager Module Site Configuration File</description>
     
-    <handler name="simplecontent" type="view" class="org.ofbiz.content.view.SimpleContentViewHandler"/>
+    <handler name="simplecontent" type="view" class="org.apache.ofbiz.content.view.SimpleContentViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -36,7 +36,7 @@ under the License.
     <!-- Events to run on every request after all other processing (chains exempt) -->
     <!--
     <postprocessor>
-        <event name="test" type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
+        <event name="test" type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
     -->
 
@@ -225,13 +225,13 @@ under the License.
     </request-map>
     <request-map uri="addBulkToShoppingList">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="addBulkFromCart"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="addBulkFromCart"/>
         <response name="success" type="view" value="editShoppingList"/>
         <response name="error" type="view" value="editShoppingList"/>
     </request-map>
     <request-map uri="addListToCart">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="addListToCart"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="addListToCart"/>
         <response name="success" type="view" value="editShoppingList"/>
         <response name="error" type="view" value="editShoppingList"/>
     </request-map>
@@ -250,14 +250,14 @@ under the License.
     </request-map>
     <request-map uri="replaceShoppingListItem">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="replaceShoppingListItem"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="replaceShoppingListItem"/>
         <response name="success" type="view" value="editShoppingList"/>
         <response name="error" type="view" value="editShoppingList"/>
     </request-map>
 
     <request-map uri="restoreCartFromList">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="restoreAutoSaveList"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="restoreAutoSaveList"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
@@ -596,12 +596,12 @@ under the License.
     
     <request-map uri="pushPage">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setFollowerPage"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setFollowerPage"/>
         <response name="success" type="view" value="visitdetail"/>
     </request-map>
     <request-map uri="setAppletFollower">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setAppletFollower"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setAppletFollower"/>
         <response name="success" type="view" value="visitdetail"/>
     </request-map>
 
@@ -959,7 +959,7 @@ under the License.
 
     <request-map uri="img">
         <security auth="false" https="false"/>
-        <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveImage"/>
+        <event type="java" path="org.apache.ofbiz.content.data.DataEvents" invoke="serveImage"/>
         <response name="success" type="none"/>
         <response name="error" type="request" value="main"/>
     </request-map>
@@ -1206,7 +1206,7 @@ under the License.
     <!--  external communication event; mark as read using 1px image request -->
     <request-map uri="ceimages" track-serverhit="false" track-visit="false">
         <security https="false" auth="false"/>
-        <event type="java" path="org.ofbiz.party.communication.CommunicationEventServices" invoke="markCommunicationAsRead"/>
+        <event type="java" path="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="markCommunicationAsRead"/>
         <response name="success" type="none"/>
     </request-map>
 

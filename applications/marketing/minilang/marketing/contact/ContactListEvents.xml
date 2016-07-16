@@ -27,14 +27,14 @@ under the License.
         <check-errors/>
 
         <now-timestamp field="nowTimestamp"/>
-        <call-class-method method-name="getParameterMap" class-name="org.ofbiz.base.util.UtilHttp" ret-field="parameterMap">
+        <call-class-method method-name="getParameterMap" class-name="org.apache.ofbiz.base.util.UtilHttp" ret-field="parameterMap">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
         </call-class-method>
-        <call-class-method method-name="getMultiFormRowCount" class-name="org.ofbiz.base.util.UtilHttp" ret-field="rowCount">
+        <call-class-method method-name="getMultiFormRowCount" class-name="org.apache.ofbiz.base.util.UtilHttp" ret-field="rowCount">
             <field field="parameterMap" type="java.util.Map"/>
         </call-class-method>
         <loop count="${rowCount}" field="currentRow">
-            <set field="suffix" value="${groovy:org.ofbiz.base.util.UtilHttp.MULTI_ROW_DELIMITER + currentRow}"/>
+            <set field="suffix" value="${groovy:org.apache.ofbiz.base.util.UtilHttp.MULTI_ROW_DELIMITER + currentRow}"/>
             <set field="isSelected" value="${groovy:parameterMap.containsKey(&quot;_rowSubmit&quot; + suffix) &amp;&amp; &quot;Y&quot;.equalsIgnoreCase(parameterMap.get(&quot;_rowSubmit&quot; + suffix))}" type="Boolean"/>
             <if-compare field="isSelected" operator="equals" value="true">
                 <set field="partyId" value="${groovy:parameterMap[&quot;partyId&quot; + suffix]}"/>

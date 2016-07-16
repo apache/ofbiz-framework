@@ -23,10 +23,10 @@ under the License.
 
     <service name="createUpdateCustomerAndShippingAddress" engine="simple" location="component://order/minilang/order/CheckoutServices.xml" auth="false" invoke="createUpdateCustomerAndShippingAddress">
         <implements service="createUpdateShippingAddress"/>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="firstName" type="String" mode="IN" optional="true"/>
         <attribute name="lastName" type="String" mode="IN" optional="true"/>
-        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
         <attribute name="shipToCountryCode" type="String" mode="IN" optional="true"/>
         <attribute name="shipToAreaCode" type="String" mode="IN" optional="true"/>
@@ -40,8 +40,8 @@ under the License.
     <service name="createUpdateBillingAddressAndPaymentMethod" engine="simple" location="component://order/minilang/order/CheckoutServices.xml" auth="false" invoke="createUpdateBillingAddressAndPaymentMethod">
         <implements service="createUpdateBillingAddress"/>
         <implements service="createUpdateCreditCard"/>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
-        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="billToCountryCode" type="String" mode="IN" optional="true"/>
         <attribute name="billToAreaCode" type="String" mode="IN" optional="true"/>
         <attribute name="billToContactNumber" type="String" mode="IN" optional="true"/>
@@ -52,7 +52,7 @@ under the License.
     </service>
 
     <service name="setAnonUserLogin" engine="simple" location="component://order/minilang/order/CheckoutServices.xml" auth="false" invoke="setAnonUserLogin">
-         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+         <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
          <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
 

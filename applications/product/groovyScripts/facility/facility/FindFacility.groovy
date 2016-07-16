@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- import org.ofbiz.base.util.*
+ import org.apache.ofbiz.base.util.*
 
 findResult = from("Facility").queryList();
 findResultSize = findResult.size();

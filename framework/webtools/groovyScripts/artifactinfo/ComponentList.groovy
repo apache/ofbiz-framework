@@ -20,10 +20,10 @@
 import java.util.Collection;
 import java.util.List;
 
-import org.ofbiz.base.component.ComponentConfig;
-import org.ofbiz.base.component.ComponentConfig.WebappInfo;
+import org.apache.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
 
-import org.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.*
 
 Collection <ComponentConfig> components = ComponentConfig.getAllComponents();
 List componentList = [];

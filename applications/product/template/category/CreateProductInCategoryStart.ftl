@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign productFeaturesByTypeMap = Static["org.ofbiz.product.feature.ParametricSearch"].makeCategoryFeatureLists(productCategoryId, delegator)>
+<#assign productFeaturesByTypeMap = Static["org.apache.ofbiz.product.feature.ParametricSearch"].makeCategoryFeatureLists(productCategoryId, delegator)>
 
 <#if productCategoryId?has_content>
     <a href="<@ofbizUrl>EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductBackToEditCategory}]</a>
@@ -31,7 +31,7 @@ under the License.
             <input type="hidden" name="productCategoryId" value="${productCategoryId}" />
             <table cellspacing="0" class="basic-table">
             <#list productFeaturesByTypeMap.keySet() as productFeatureTypeId>
-                <#assign findPftMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", productFeatureTypeId)>
+                <#assign findPftMap = Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", productFeatureTypeId)>
                 <#assign productFeatureType = delegator.findOne("ProductFeatureType", findPftMap, true)>
                 <#assign productFeatures = productFeaturesByTypeMap[productFeatureTypeId]>
                 <tr>
@@ -66,7 +66,7 @@ under the License.
                 <tr>
                     <td width="15%">${uiLabelMap.ProductDefaultPrice}:</td>
                     <td><input type="text" name="defaultPrice" size="8"/>
-                    <#assign findCurrenciesMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("uomTypeId", "CURRENCY_MEASURE")>
+                    <#assign findCurrenciesMap = Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("uomTypeId", "CURRENCY_MEASURE")>
                     <#assign currencies = delegator.findByAnd('Uom', findCurrenciesMap, null, true) />
                     <#if currencies?has_content && (currencies?size > 0)>
                         <select name="currencyUomId">

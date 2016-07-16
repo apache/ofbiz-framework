@@ -46,7 +46,7 @@ under the License.
 <#if layoutSettings.javaScripts?has_content>
 <#--layoutSettings.javaScripts is a list of java scripts. -->
 <#-- use a Set to make sure each javascript is declared only once, but iterate the list to maintain the correct order -->
-    <#assign javaScriptsSet = Static["org.ofbiz.base.util.UtilMisc"].toSet(layoutSettings.javaScripts)/>
+    <#assign javaScriptsSet = Static["org.apache.ofbiz.base.util.UtilMisc"].toSet(layoutSettings.javaScripts)/>
     <#list layoutSettings.javaScripts as javaScript>
         <#if javaScriptsSet.contains(javaScript)>
             <#assign nothing = javaScriptsSet.remove(javaScript)/>

@@ -106,7 +106,7 @@ under the License.
             <else>
                 <!-- first figure out if we need to reset the lastInvoiceNumber; is the lastInvoiceRestartDate after the fiscalYearStartMonth/Day for this year? -->
                 <calculate field="zeroLong" type="Long"><number value="0"/></calculate>
-                <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getYearStart" ret-field="curYearFiscalStartDate">
+                <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getYearStart" ret-field="curYearFiscalStartDate">
                     <field field="nowTimestamp" type="java.sql.Timestamp"/>
                     <field field="partyAcctgPreference.fiscalYearStartDay" type="java.lang.Number"/>
                     <field field="partyAcctgPreference.fiscalYearStartMonth" type="java.lang.Number"/>
@@ -481,7 +481,7 @@ under the License.
             <else>
                 <!-- if new status is paid check if the complete invoice is applied. -->
                 <if-compare field="parameters.statusId" operator="equals" value="INVOICE_PAID">
-                    <set field="notApplied" type="BigDecimal" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}"/>
+                    <set field="notApplied" type="BigDecimal" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}"/>
                     <if-compare field="notApplied" operator="not-equals" value="0.00" type="BigDecimal">
                         <add-error>
                             <fail-property resource="AccountingUiLabels" property="AccountingInvoiceCannotChangeStatusToPaid"/>
@@ -534,7 +534,7 @@ under the License.
                                 <set field="newp.paymentTypeId" value="PAYROL_PAYMENT"/>
                                 <set field="newp.statusId" value="PMNT_NOT_PAID"/>
                                 <set field="newp.currencyUomId" from-field="invoice.currencyUomId"/>
-                                <call-class-method class-name="org.ofbiz.accounting.invoice.InvoiceWorker" method-name="getInvoiceTotal" ret-field="newp.amount">
+                                <call-class-method class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker" method-name="getInvoiceTotal" ret-field="newp.amount">
                                     <field field="invoice" type="GenericValue"/>
                                 </call-class-method>
                                 <call-service service-name="createPayment" in-map-name="newp">
@@ -641,8 +641,8 @@ under the License.
             <get-related-one relation-name="Payment" value-field="paymentApplication" to-value-field="payment"/>
             <if-compare field="payment.statusId" operator="equals" value="PMNT_CONFIRMED">
                 <set field="paymentStatusMap.paymentId" from-field="payment.paymentId"/>
-                <set field="isReceipt" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
-                <set field="isDisbursement" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}" type="Boolean"/>
+                <set field="isReceipt" value="${groovy:org.apache.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
+                <set field="isDisbursement" value="${groovy:org.apache.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}" type="Boolean"/>
                 <if-compare field="isReceipt" operator="equals" value="true" type="Boolean">
                     <set field="paymentStatusMap.statusId" value="PMNT_RECEIVED"/>
                 <else>
@@ -681,7 +681,7 @@ under the License.
         <if-empty field="currencyUomId">
             <property-to-field resource="general" property="currency.uom.id.default" field="currencyUomId"/>
         </if-empty>
-        <set field="invoiceRunningTotal" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
+        <set field="invoiceRunningTotal" value="${groovy:org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
         <field-to-result field="invoiceRunningTotal"/>
     </simple-method>
 
@@ -1006,8 +1006,8 @@ under the License.
             <log level="error" message="Invoice not found"/>
             <return/>
         </if-empty>
-        <set field="isPurchaseInvoice" value="${groovy: org.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')}" type="Boolean"/>
-        <set field="isSalesInvoice" value="${groovy: org.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'SALES_INVOICE')}" type="Boolean"/>
+        <set field="isPurchaseInvoice" value="${groovy: org.apache.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')}" type="Boolean"/>
+        <set field="isSalesInvoice" value="${groovy: org.apache.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'SALES_INVOICE')}" type="Boolean"/>
         <if-compare field="isPurchaseInvoice" operator="equals" value="true" type="Boolean">
             <set field="pref.organizationPartyId" from-field="invoice.partyId"/>
         </if-compare>

@@ -24,7 +24,7 @@ under the License.
     <version>1.0</version>
 
     <entity entity-name="ThirdPartyLogin"
-            package-name="org.ofbiz.passport"
+            package-name="org.apache.ofbiz.passport"
             title="Third party logins for a specific product store"
             default-resource-name="PassportEntityLabels">
         <field name="productStoreId" type="id-ne"></field>
@@ -48,7 +48,7 @@ under the License.
 
     <!-- GitHub OAuth -->
     <entity entity-name="OAuth2GitHub"
-            package-name="org.ofbiz.passport"
+            package-name="org.apache.ofbiz.passport"
             title="GitHub OAuth Login Config"
             default-resource-name="PassportEntityLabels">
         <field name="productStoreId" type="id-ne"></field>
@@ -67,7 +67,7 @@ under the License.
     </entity>
 
     <entity entity-name="GitHubUser"
-            package-name="org.ofbiz.passport"
+            package-name="org.apache.ofbiz.passport"
             title="Store GitHub access token for user"
             default-resource-name="PassportEntityLabels">
         <field name="gitHubUserId" type="id-vlong-ne"></field>
@@ -83,7 +83,7 @@ under the License.
 
     <!-- LinkedIn OAuth -->
     <entity entity-name="OAuth2LinkedIn"
-            package-name="org.ofbiz.passport"
+            package-name="org.apache.ofbiz.passport"
             title="LinkedIn OAuth Login Config"
             default-resource-name="PassportEntityLabels">
         <field name="productStoreId" type="id-ne"></field>
@@ -103,7 +103,7 @@ under the License.
     </entity>
 
     <entity entity-name="LinkedInUser"
-            package-name="org.ofbiz.passport"
+            package-name="org.apache.ofbiz.passport"
             title="Store LinkedIn access token for user"
             default-resource-name="PassportEntityLabels">
         <field name="linkedInUserId" type="id-vlong-ne"></field>

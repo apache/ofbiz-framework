@@ -527,7 +527,7 @@ under the License.
                 <field-map field-name="roleTypeId" value="EBAY_ACCOUNT"/>
             </entity-and>
             <set field="partyId" value="${groovy:
-                import org.ofbiz.entity.util.EntityUtil;
+                import org.apache.ofbiz.entity.util.EntityUtil;
                 GenericValue partyStore = EntityUtil.getFirst(storeList);
                 if(partyStore!=null) partyId = partyStore.getString(&quot;partyId&quot;);
                 return partyId;

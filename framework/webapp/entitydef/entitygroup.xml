@@ -21,17 +21,17 @@ under the License.
 <entitygroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitygroup.xsd">
 
-    <entity-group group="org.ofbiz.stats" entity="BrowserType"/>
-    <entity-group group="org.ofbiz.stats" entity="PlatformType"/>
-    <entity-group group="org.ofbiz.stats" entity="ProtocolType"/>
-    <entity-group group="org.ofbiz.stats" entity="ServerHit"/>
-    <entity-group group="org.ofbiz.stats" entity="ServerHitBin"/>
-    <entity-group group="org.ofbiz.stats" entity="ServerHitType"/>
-    <entity-group group="org.ofbiz.stats" entity="UserAgent"/>
-    <entity-group group="org.ofbiz.stats" entity="UserAgentMethodType"/>
-    <entity-group group="org.ofbiz.stats" entity="UserAgentType"/>
-    <entity-group group="org.ofbiz.stats" entity="Visit"/>
-    <entity-group group="org.ofbiz.stats" entity="Visitor"/>
+    <entity-group group="org.apache.ofbiz.stats" entity="BrowserType"/>
+    <entity-group group="org.apache.ofbiz.stats" entity="PlatformType"/>
+    <entity-group group="org.apache.ofbiz.stats" entity="ProtocolType"/>
+    <entity-group group="org.apache.ofbiz.stats" entity="ServerHit"/>
+    <entity-group group="org.apache.ofbiz.stats" entity="ServerHitBin"/>
+    <entity-group group="org.apache.ofbiz.stats" entity="ServerHitType"/>
+    <entity-group group="org.apache.ofbiz.stats" entity="UserAgent"/>
+    <entity-group group="org.apache.ofbiz.stats" entity="UserAgentMethodType"/>
+    <entity-group group="org.apache.ofbiz.stats" entity="UserAgentType"/>
+    <entity-group group="org.apache.ofbiz.stats" entity="Visit"/>
+    <entity-group group="org.apache.ofbiz.stats" entity="Visitor"/>
 
 </entitygroup>
 

@@ -201,7 +201,7 @@ under the License.
                 <td width="14%">&nbsp;</td>
                 <td width="6%" align="right" nowrap="nowrap"><span class="label">${uiLabelMap.ProductToFacilityContainer}</span></td>
                 <td width="6%">&nbsp;</td>
-                <#assign fac = delegator.findOne("Facility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", inventoryTransfer.facilityIdTo), false)>
+                <#assign fac = delegator.findOne("Facility", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("facilityId", inventoryTransfer.facilityIdTo), false)>
                 <td width="74%">${(fac.facilityName)?default("&nbsp;")}</td>
             </tr>
             <tr>

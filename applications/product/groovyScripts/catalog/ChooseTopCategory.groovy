@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.product.category.*
+import org.apache.ofbiz.product.category.*
 
 CategoryWorker.getCategoriesWithNoParent(request, "noParentCategories");
 noParentCategories = request.getAttribute("noParentCategories");

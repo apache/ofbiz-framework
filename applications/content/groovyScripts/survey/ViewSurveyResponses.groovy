@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.content.survey.SurveyWrapper;
+import org.apache.ofbiz.content.survey.SurveyWrapper;
 
 if (!survey) {
     surveyResponseId = parameters.surveyResponseId;

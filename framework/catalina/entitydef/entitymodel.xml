@@ -30,16 +30,16 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.ofbiz.catalina.session -->
+  <!--  - org.apache.ofbiz.catalina.session -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.catalina.session -->
+  <!-- org.apache.ofbiz.catalina.session -->
   <!-- ========================================================= -->
 
     <entity entity-name="CatalinaSession"
-            package-name="org.ofbiz.catalina.session"
+            package-name="org.apache.ofbiz.catalina.session"
             title="Catalina Session Store">
       <field name="sessionId" type="id-long-ne"></field>
       <field name="sessionSize" type="numeric"></field>

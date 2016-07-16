@@ -17,13 +17,13 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.product.catalog.CatalogWorker;
-import org.ofbiz.order.shoppingcart.product.ProductDisplayWorker;
-import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
-import org.ofbiz.product.store.ProductStoreWorker;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.product.catalog.CatalogWorker;
+import org.apache.ofbiz.order.shoppingcart.product.ProductDisplayWorker;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
 // Get the Cart and Prepare Size
 shoppingCart = ShoppingCartEvents.getCartObject(request);

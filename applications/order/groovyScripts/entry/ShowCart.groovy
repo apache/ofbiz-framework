@@ -17,13 +17,13 @@
  * under the License.
  */
 
-import org.ofbiz.service.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.order.order.OrderReadHelper; 
-import org.ofbiz.order.shoppingcart.*;
-import org.ofbiz.party.party.PartyWorker;
-import org.ofbiz.product.catalog.CatalogWorker;
+import org.apache.ofbiz.service.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.order.order.OrderReadHelper; 
+import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.party.party.PartyWorker;
+import org.apache.ofbiz.product.catalog.CatalogWorker;
 
 productId = parameters.productId;
 if (productId) {

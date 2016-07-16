@@ -36,7 +36,7 @@ under the License.
         <#list groups as group>
             <#assign helper = delegator.getGroupHelperName(group)!/>
             <#if (helper?has_content)>
-                <#assign dataSourceInfo = Static["org.ofbiz.entity.connection.DBCPConnectionFactory"].getDataSourceInfo(helper)!/>
+                <#assign dataSourceInfo = Static["org.apache.ofbiz.entity.connection.DBCPConnectionFactory"].getDataSourceInfo(helper)!/>
                 <#if (dataSourceInfo?has_content)>
                     <tr>
                         <td>${helper}</td>

@@ -38,7 +38,7 @@ under the License.
                         </#if>
                         </td>
                         <#list fieldList as field>
-                            <td>${Static["org.ofbiz.base.util.UtilFormatOut"].makeString(record.fields.get(field.name))}</td>
+                            <td>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].makeString(record.fields.get(field.name))}</td>
                             <#-- <td>${record.fields.get(field.name)!?string}</td> -->
                         </#list>
                     </tr>

@@ -35,9 +35,9 @@ under the License.
     <property name="Payment.Payments.x">135</property>
     <property name="Payment.Payments.y">80</property>
     <property name="units">in</property>
-    <method name="initialize"><![CDATA[importPackage(Packages.org.ofbiz.base.util)
+    <method name="initialize"><![CDATA[importPackage(Packages.org.apache.ofbiz.base.util)
 
-importPackage(Packages.org.ofbiz.entity.util)
+importPackage(Packages.org.apache.ofbiz.entity.util)
 module = "PaymentReport.rptdesign";]]></method>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>

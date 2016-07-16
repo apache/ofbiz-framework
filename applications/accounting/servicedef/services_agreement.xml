@@ -237,7 +237,7 @@ under the License.
     </service>
 
     <service name="getCommissionForProduct" engine="java"
-                location="org.ofbiz.accounting.agreement.AgreementServices" invoke="getCommissionForProduct" auth="true">
+                location="org.apache.ofbiz.accounting.agreement.AgreementServices" invoke="getCommissionForProduct" auth="true">
         <description>Get commission receiving parties and amounts for a product. &lt;br/&gt;
             amount input is for the entire quantity. &lt;br/&gt;&lt;br/&gt;
             Returns a List of Maps each containing &lt;br/&gt;

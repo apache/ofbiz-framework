@@ -411,9 +411,9 @@ under the License.
                 </list-property>
             </structure>
             <property name="dataSource">OFbiz</property>
-            <method name="open"><![CDATA[importPackage(Packages.org.ofbiz.minilang)
-importPackage(Packages.org.ofbiz.minilang.method)
-importPackage(Packages.org.ofbiz.base.util)
+            <method name="open"><![CDATA[importPackage(Packages.org.apache.ofbiz.minilang)
+importPackage(Packages.org.apache.ofbiz.minilang.method)
+importPackage(Packages.org.apache.ofbiz.base.util)
 importPackage(Packages.org.eclipse.birt.report.engine.api)
 
 appContext = reportContext.getAppContext();

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.GenericValue;
 
 shipmentId = parameters.shipmentId;
 shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();

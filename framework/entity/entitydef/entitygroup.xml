@@ -22,13 +22,13 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitygroup.xsd">
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.entity.tenant -->
+    <!-- org.apache.ofbiz.entity.tenant -->
     <!-- ========================================================= -->
-    <entity-group group="org.ofbiz.tenant" entity="Tenant"/>
-    <entity-group group="org.ofbiz.tenant" entity="TenantDataSource"/>
-    <entity-group group="org.ofbiz.tenant" entity="TenantKeyEncryptingKey"/>
-<!--     <entity-group group="org.ofbiz.tenant" entity="TenantUserLogin"/> -->
-    <entity-group group="org.ofbiz.tenant" entity="Component"/>
-    <entity-group group="org.ofbiz.tenant" entity="TenantComponent"/>
-    <entity-group group="org.ofbiz.tenant" entity="TenantDomainName"/>
+    <entity-group group="org.apache.ofbiz.tenant" entity="Tenant"/>
+    <entity-group group="org.apache.ofbiz.tenant" entity="TenantDataSource"/>
+    <entity-group group="org.apache.ofbiz.tenant" entity="TenantKeyEncryptingKey"/>
+<!--     <entity-group group="org.apache.ofbiz.tenant" entity="TenantUserLogin"/> -->
+    <entity-group group="org.apache.ofbiz.tenant" entity="Component"/>
+    <entity-group group="org.apache.ofbiz.tenant" entity="TenantComponent"/>
+    <entity-group group="org.apache.ofbiz.tenant" entity="TenantDomainName"/>
 </entitygroup>

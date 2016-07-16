@@ -27,7 +27,7 @@ under the License.
 <#if lastNode?has_content>
   <#assign subContent=lastNode.value/>
 <#else>
-<#assign subContent = delegator.findOne("Content", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", subContentId), true)/>
+<#assign subContent = delegator.findOne("Content", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("contentId", subContentId), true)/>
 <#assign dummy = globalNodeTrail.add(lastNode)/>
 </#if>
 <br />

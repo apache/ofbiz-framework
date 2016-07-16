@@ -26,7 +26,7 @@ under the License.
 
     <!-- Service Engine Services -->
     <service name="purgeOldJobs" engine="java"
-            location="org.ofbiz.service.ServiceUtil" invoke="purgeOldJobs" auth="true" use-transaction="false" semaphore="wait">
+            location="org.apache.ofbiz.service.ServiceUtil" invoke="purgeOldJobs" auth="true" use-transaction="false" semaphore="wait">
         <description>Cleans out old jobs which have been around longer then what is defined in serviceengine.xml</description>
         <required-permissions join-type="AND">
             <check-permission permission="SERVICE_INVOKE_ANY"/>
@@ -35,7 +35,7 @@ under the License.
     </service>
 
     <service name="cancelScheduledJob" engine="java"
-            location="org.ofbiz.service.ServiceUtil" invoke="cancelJob" auth="true">
+            location="org.apache.ofbiz.service.ServiceUtil" invoke="cancelJob" auth="true">
         <description>Cancels a schedule job</description>
         <required-permissions join-type="AND">
             <check-permission permission="SERVICE_INVOKE_ANY"/>
@@ -46,7 +46,7 @@ under the License.
     </service>
 
     <service name="cancelJobRetries" engine="java"
-            location="org.ofbiz.service.ServiceUtil" invoke="cancelJobRetries" auth="true">
+            location="org.apache.ofbiz.service.ServiceUtil" invoke="cancelJobRetries" auth="true">
         <description>Cancels a job retry flag</description>
         <required-permissions join-type="AND">
             <check-permission permission="SERVICE_INVOKE_ANY"/>
@@ -55,7 +55,7 @@ under the License.
     </service>
 
     <service name="resetScheduledJob" engine="java"
-            location="org.ofbiz.service.ServiceUtil" invoke="resetJob" auth="true">
+            location="org.apache.ofbiz.service.ServiceUtil" invoke="resetJob" auth="true">
         <description>Resets a stale job so it can be re-run</description>
         <required-permissions join-type="AND">
             <check-permission permission="SERVICE_INVOKE_ANY"/>
@@ -93,7 +93,7 @@ under the License.
         <attribute name="login.password" type="String" mode="IN"/>
         <attribute name="visitId" type="String" mode="IN" optional="true"/>
         <attribute name="isServiceAuth" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
         <attribute name="userLoginSession" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
 
@@ -112,18 +112,18 @@ under the License.
     </service>
     <service name="serviceMcaConditionInterface" engine="interface">
         <description>Interface to describe services which are used as SMCA conditions</description>
-        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
+        <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
         <attribute name="conditionReply" type="Boolean" mode="OUT"/>
     </service>
 
     <service name="mailProcessInterface" engine="interface">
         <description>Interface to describe services used to process incoming email</description>
-        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
+        <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
     </service>
 
     <!-- simple condition implementation -->
     <service name="effectiveDateEcaCondition" engine="java" auth="false" use-transaction="false"
-            location="org.ofbiz.service.ServiceUtil" invoke="genericDateCondition">
+            location="org.apache.ofbiz.service.ServiceUtil" invoke="genericDateCondition">
         <implements service="serviceEcaConditionInterface"/>
         <attribute name="fromDate" mode="IN" type="java.sql.Timestamp" optional="true"/>
         <attribute name="thruDate" mode="IN" type="java.sql.Timestamp" optional="true"/>

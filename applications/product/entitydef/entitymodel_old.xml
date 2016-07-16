@@ -29,16 +29,16 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
-    <!--  - org.ofbiz.product.facility -->
+    <!--  - org.apache.ofbiz.product.facility -->
     <!-- ========================================================= -->
 
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.product.facility -->
+    <!-- org.apache.ofbiz.product.facility -->
     <!-- ========================================================= -->
 
     <entity entity-name="OldFacilityRole" table-name="FACILITY_ROLE"
-            package-name="org.ofbiz.product.facility"
+            package-name="org.apache.ofbiz.product.facility"
             title="Facility Role Entity">
       <field name="facilityId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
@@ -57,7 +57,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="OldProductKeyword" table-name="PRODUCT_KEYWORD"
-            package-name="org.ofbiz.product.facility"
+            package-name="org.apache.ofbiz.product.facility"
             title="Old Product Keyword Entity">
       <field name="productId" type="id-ne"></field>
       <field name="keyword" type="short-varchar"></field>
@@ -72,7 +72,7 @@ under the License.
       </index>
     </entity>
     <entity entity-name="OldProductKeywordResult" table-name="PRODUCT_KEYWORD_RESULT"
-            package-name="org.ofbiz.product.product"
+            package-name="org.apache.ofbiz.product.product"
             never-cache="true"
             title="Product Keyword Result Entity">
       <field name="productKeywordResultId" type="id-ne"></field>

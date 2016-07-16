@@ -1,7 +1,7 @@
-Index: framework/start/src/org/ofbiz/base/start/start.properties
+Index: framework/start/src/org/apache/ofbiz/base/start/start.properties
 ===================================================================
---- framework/start/src/org/ofbiz/base/start/start.properties	(revision 1604588)
-+++ framework/start/src/org/ofbiz/base/start/start.properties	(working copy)
+--- framework/start/src/org/apache/ofbiz/base/start/start.properties	(revision 1604588)
++++ framework/start/src/org/apache/ofbiz/base/start/start.properties	(working copy)
 @@ -29,7 +29,7 @@
  
  # --- Set these for shutting down when running as background process
@@ -17,21 +17,21 @@ Index: framework/base/config/ofbiz-containers.xml
 +++ framework/base/config/ofbiz-containers.xml	(working copy)
 @@ -35,14 +35,14 @@
      <!-- load the naming (JNDI) server -->
-     <container name="naming-container" class="org.ofbiz.base.container.NamingServiceContainer">
+     <container name="naming-container" class="org.apache.ofbiz.base.container.NamingServiceContainer">
          <property name="host" value="0.0.0.0"/>
 -        <property name="port" value="1099"/>
 +        <property name="port" value="21099"/>
      </container>
  
      <!-- RMI Service Dispatcher -->
-     <container name="rmi-dispatcher" class="org.ofbiz.service.rmi.RmiServiceContainer">
+     <container name="rmi-dispatcher" class="org.apache.ofbiz.service.rmi.RmiServiceContainer">
          <property name="bound-name" value="RMIDispatcher"/>
          <property name="bound-host" value="127.0.0.1"/>
 -        <property name="bound-port" value="1099"/>
 +        <property name="bound-port" value="21099"/>
          <property name="delegator-name" value="default"/>
-         <property name="client-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLClientSocketFactory"/>
-         <property name="server-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory"/>
+         <property name="client-factory" value="org.apache.ofbiz.service.rmi.socket.ssl.SSLClientSocketFactory"/>
+         <property name="server-factory" value="org.apache.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory"/>
 @@ -187,7 +187,7 @@
              <property name="maxSpareThreads" value="50"/>
              <property name="maxThreads" value="100"/>

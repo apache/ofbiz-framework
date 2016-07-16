@@ -33,7 +33,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="importAddressMatchMapCsv" engine="java" auth="true"
-            location="org.ofbiz.party.party.PartyServices" invoke="importAddressMatchMapCsv">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="importAddressMatchMapCsv">
         <description>Import a CSV (name,value) of AddressMatchMap records</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
@@ -54,12 +54,12 @@ under the License.
 
     <!-- Party services -->
     <service name="deleteParty" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="deleteParty" auth="true">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="deleteParty" auth="true">
         <description>Delete a Party</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="setPartyStatus" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="setPartyStatus" auth="true">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="setPartyStatus" auth="true">
         <description>Set the party status. Requires PARTYMGR_UPDATE or PARTYMGR_STS_UPDATE permission. The change to statusId must be defined in StatusValidChange, otherwise
             this service will fail. The result is the original statusId, so that ECA conditions can check if a status has actually changed.</description>
         <permission-service service-name="partyStatusPermissionCheck" main-action="UPDATE"/>
@@ -70,7 +70,7 @@ under the License.
     </service>
 
     <service name="createPerson" engine="java" default-entity-name="Person"
-            location="org.ofbiz.party.party.PartyServices" invoke="createPerson" auth="false">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="createPerson" auth="false">
         <description>Create a Person</description>
         <auto-attributes mode="IN" include="pk" optional="true"/>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
@@ -94,7 +94,7 @@ under the License.
         <attribute name="newUserLogin" type="Map" mode="OUT" optional="false"/>
     </service>
     <service name="updatePerson" engine="java" default-entity-name="Person"
-            location="org.ofbiz.party.party.PartyServices" invoke="updatePerson" auth="true">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="updatePerson" auth="true">
         <description>Update a Person</description>
 <!--        <required-permissions join-type="AND">
             <check-permission permission="update:party:${partyId}"/>
@@ -110,7 +110,7 @@ under the License.
         <override name="lastName" optional="false"/>
     </service>
     <service name="createPartyGroup" engine="java" default-entity-name="PartyGroup"
-            location="org.ofbiz.party.party.PartyServices" invoke="createPartyGroup" auth="false">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="createPartyGroup" auth="false">
         <description>Create a PartyGroup</description>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -123,7 +123,7 @@ under the License.
         <override name="comments" allow-html="any"/>
     </service>
     <service name="updatePartyGroup" engine="java" default-entity-name="PartyGroup"
-            location="org.ofbiz.party.party.PartyServices" invoke="updatePartyGroup" auth="true">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="updatePartyGroup" auth="true">
         <description>Update a PartyGroup</description>
         <permission-service service-name="partyGroupPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="true"/>
@@ -164,7 +164,7 @@ under the License.
     </service>
 
     <service name="createAffiliate" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="createAffiliate" auth="false">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="createAffiliate" auth="false">
         <description>Create an Affiliate</description>
         <attribute name="partyId" type="String" mode="INOUT"/>
         <attribute name="affiliateName" type="String" mode="IN"/>
@@ -176,7 +176,7 @@ under the License.
     </service>
 
     <service name="updateAffiliate" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="updateAffiliate" auth="true">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="updateAffiliate" auth="true">
         <description>Update an Affiliate</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
@@ -189,7 +189,7 @@ under the License.
     </service>
 
     <service name="createPartyNote" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="createPartyNote" auth="true">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="createPartyNote" auth="true">
         <description>Create a note item and associate with a party. If a noteId is passed, creates an assoication to that note instead.</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="noteName" type="String" mode="IN" optional="true"/>
@@ -198,12 +198,12 @@ under the License.
     </service>
 
     <service name="createRoleType" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="createRoleType" auth="true">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="createRoleType" auth="true">
         <description>Create a new role type</description>
         <attribute name="roleTypeId" type="String" mode="IN"/>
         <attribute name="parentTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN"/>
-        <attribute name="roleType" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
+        <attribute name="roleType" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
     </service>
 
     <service name="setPartyProfileDefaults" engine="simple"
@@ -233,7 +233,7 @@ under the License.
     </service>
 
     <service name="linkPartyRecord" engine="java" auth="true" use-transaction="false"
-                location="org.ofbiz.party.party.PartyServices" invoke="linkParty">
+                location="org.apache.ofbiz.party.party.PartyServices" invoke="linkParty">
         <description>Merges customer accounts and disabled the duplicate</description>
         <attribute name="partyId" type="String" mode="INOUT" optional="false"/>
         <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
@@ -248,13 +248,13 @@ under the License.
     </service>
 
     <service name="findPartiesById" engine="java"  auth="true"
-            location="org.ofbiz.party.party.PartyServices" invoke="findPartyById">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="findPartyById">
         <description>Find the partyId corresponding to a reference and a reference type</description>
         <attribute type="String" mode="IN" name="idToFind" optional="false"/>
         <attribute type="String" mode="IN" name="partyIdentificationTypeId" optional="true"/>
         <attribute type="String" mode="IN" name="searchPartyFirst" optional="true"/>
         <attribute type="String" mode="IN" name="searchAllId" optional="true"/>
-        <attribute type="org.ofbiz.entity.GenericValue" mode="OUT" name="party" optional="true"/>
+        <attribute type="org.apache.ofbiz.entity.GenericValue" mode="OUT" name="party" optional="true"/>
         <attribute type="List" mode="OUT" name="partiesFound" optional="true"/>
     </service>
 
@@ -348,7 +348,7 @@ under the License.
     </service>
 
     <service name="createPartyRelationshipType" engine="java" default-entity-name="PartyRelationshipType"
-            location="org.ofbiz.party.party.PartyRelationshipServices" invoke="createPartyRelationshipType" auth="true">
+            location="org.apache.ofbiz.party.party.PartyRelationshipServices" invoke="createPartyRelationshipType" auth="true">
         <description>Create a new Party Relationship type</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -356,7 +356,7 @@ under the License.
     </service>
 
     <service name="createUpdatePartyRelationshipAndRoles" engine="java" default-entity-name="PartyRelationship"
-        location="org.ofbiz.party.party.PartyRelationshipServices" invoke="createUpdatePartyRelationshipAndRoles" auth="true">
+        location="org.apache.ofbiz.party.party.PartyRelationshipServices" invoke="createUpdatePartyRelationshipAndRoles" auth="true">
         <description>
             Create or update both parties roles and parties relationship, partyRelationshipTypeId being mandatory.
             The relationship is considered from one side or another (partyId is checked internally against partyIdFrom)
@@ -556,7 +556,7 @@ under the License.
         <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/> <!-- this is the id of the old address -->
     </service>
     <service name="copyPartyContactMechs" engine="java"
-        location="org.ofbiz.party.contact.ContactMechServices" invoke="copyPartyContactMechs" auth="true">
+        location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="copyPartyContactMechs" auth="true">
         <description>Copies all contact mechs from the partyIdFrom to the partyIdTo. Does not delete or overwrite any contact mechs.</description>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
@@ -586,7 +586,7 @@ under the License.
 
     <!-- PartyContactMechPurpose services -->
     <service name="createPartyContactMechPurpose" engine="java"
-            location="org.ofbiz.party.contact.ContactMechServices" invoke="createPartyContactMechPurpose" auth="true">
+            location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="createPartyContactMechPurpose" auth="true">
         <description>Create a Party ContactMech Purpose</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
@@ -594,7 +594,7 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
     </service>
     <service name="deletePartyContactMechPurpose" engine="java"
-            location="org.ofbiz.party.contact.ContactMechServices" invoke="deletePartyContactMechPurpose" auth="true">
+            location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="deletePartyContactMechPurpose" auth="true">
         <description>Delete a Party ContactMech Purpose</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
@@ -602,7 +602,7 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
     <service name="deletePartyContactMechPurposeIfExists" engine="java"
-            location="org.ofbiz.party.contact.ContactMechServices" invoke="deletePartyContactMechPurposeIfExists" auth="true">
+            location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="deletePartyContactMechPurposeIfExists" auth="true">
         <description>Delete a Party ContactMech Purpose</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
@@ -715,7 +715,7 @@ under the License.
 
     <!-- PartyDataSource services -->
     <service name="createPartyDataSource" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="createPartyDataSource" auth="true">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="createPartyDataSource" auth="true">
         <description>Creates a relation between a Party and a DataSource using PartyDataSource. The userLogin must have PARTYMGR_SRC_CREATE permission.</description>
         <permission-service service-name="partyDatasourcePermissionCheck" main-action="CREATE"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -856,7 +856,7 @@ under the License.
         <override name="communicationEventId" optional="false"/>
     </service>
     <service name="sendCommEventAsEmail" engine="java"
-            location="org.ofbiz.party.communication.CommunicationEventServices" invoke="sendCommEventAsEmail" auth="true"
+            location="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="sendCommEventAsEmail" auth="true"
             transaction-timeout="7200">  <!-- set transaction time out for 2 hours, since this sometimes may run as an async service to send emails to lots of people -->
         <description>Sends a communication event as a single-part email using sendMail.  All parameters come from CommunicationEvent, which must
             be of type EMAIL_COMMUNICATION. Will look for a contactMechIdTo to send the emails</description>
@@ -865,7 +865,7 @@ under the License.
 
     <!--  email to communication event ECA services -->
     <service name="createCommEventFromEmail" engine="java"
-        location="org.ofbiz.party.communication.CommunicationEventServices" invoke="createCommEventFromEmail" auth="true">
+        location="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="createCommEventFromEmail" auth="true">
         <description>
                 Creates a CommunicationEvent record based on information before running a sendMail service (to be used via ECA)
         </description>
@@ -879,16 +879,16 @@ under the License.
         <attribute name="communicationEventId" type="String" mode="OUT"/>
     </service>
     <service name="updateCommEventAfterEmail" engine="java"
-        location="org.ofbiz.party.communication.CommunicationEventServices" invoke="updateCommEventAfterEmail" auth="true">
+        location="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="updateCommEventAfterEmail" auth="true">
         <description>
                 Updates a CommunicationEvent record after running a sendMail service (to be used via ECA)
         </description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
-        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN" optional="false"/>
+        <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="IN" optional="false"/>
     </service>
 
     <service name="storeIncomingEmail" engine="java"
-        location="org.ofbiz.party.communication.CommunicationEventServices" invoke="storeIncomingEmail" auth="true">
+        location="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="storeIncomingEmail" auth="true">
         <description>
             Process incoming email. Try to determine partyIdFrom from the first SendFrom email address. datetimeStarted and datetimeEnded are the
             sent and received dates respectively, partyIdTo is from the first SendTo email address or the delivered-to address. If the parties are not found,
@@ -897,13 +897,13 @@ under the License.
             If the party cannot be found the status of the communicationEvent will be set to: COM_UNKNOWN_PARTY.
             If the parties are found the status is set to COM_ENTERED
         </description>
-        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
+        <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
         <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="sendEmailToContactList" engine="java"
-            location="org.ofbiz.party.communication.CommunicationEventServices" invoke="sendEmailToContactList" auth="true"
+            location="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="sendEmailToContactList" auth="true"
             use-transaction="true" transaction-timeout="300" max-retry="3">  <!-- Individual emails will be wrapped in their own transactions -->
             <description>Send emails to members of a contact list, wrapping each email in its own transaction and tagging each member
                 that has been sent, so if the whole effort is aborted, it can start over from the middle.  The max-retry is important because if this service is
@@ -913,7 +913,7 @@ under the License.
     </service>
 
     <service name="setCommEventComplete" engine="java"
-        location="org.ofbiz.party.communication.CommunicationEventServices" invoke="setCommEventComplete" auth="true">
+        location="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="setCommEventComplete" auth="true">
         <description>Sets the status of a communication event to COM_COMPLETE using the updateCommunicationEvent service</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
@@ -1012,7 +1012,7 @@ under the License.
     <service name="sendUpdatePersonalInfoEmailNotification" engine="simple"
             location="component://party/minilang/party/PartyServices.xml" invoke="sendUpdatePersonalInfoEmailNotification" auth="false">
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="updatedUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="updatedUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="sendCreatePartyEmailNotification" engine="simple"
@@ -1024,7 +1024,7 @@ under the License.
 
     <!-- Email address verification services-->
     <service name="createEmailAddressVerification" engine="java" default-entity-name="EmailAddressVerification"
-            location="org.ofbiz.party.contact.ContactMechServices" invoke="createEmailAddressVerification">
+            location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="createEmailAddressVerification">
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
         <attribute name="verifyHash" type="String" mode="OUT" optional="false"/>
         <attribute name="expireDate" type="String" mode="IN" optional="true"/>
@@ -1218,7 +1218,7 @@ under the License.
         <description>Create and Update a person</description>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <override name="firstName" optional="false"/>
         <override name="lastName" optional="false"/>
     </service>
@@ -1228,7 +1228,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
@@ -1237,7 +1237,7 @@ under the License.
         location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="createUpdatePartyEmailAddress" auth="false">
         <description>Create and Update email address</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="emailAddress" type="String" mode="INOUT" optional="false"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
@@ -1249,20 +1249,20 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
     </service>
 
      <!--  bounced message processing -->
     <service name="processBouncedMessage" engine="java"
-            location="org.ofbiz.party.communication.CommunicationEventServices" invoke="processBouncedMessage">
+            location="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="processBouncedMessage">
         <implements service="mailProcessInterface"/>
     </service>
 
     <!--  log incoming message MCA -->
     <service name="logIncomingMessage" engine="java"
-            location="org.ofbiz.party.communication.CommunicationEventServices" invoke="logIncomingMessage">
+            location="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="logIncomingMessage">
         <implements service="mailProcessInterface"/>
     </service>
 
@@ -1306,7 +1306,7 @@ under the License.
     </service>
 
     <service name="importParty" engine="java"
-        location="org.ofbiz.party.party.PartyServices" invoke="importParty" auth="true">
+        location="org.apache.ofbiz.party.party.PartyServices" invoke="importParty" auth="true">
         <description>Import an party with related main role, company and contact info in csv format, will ignore parties already entered</description>
         <permission-service service-name="partyGroupPermissionCheck" main-action="CREATE"/>
         <attribute mode="IN" name="uploadedFile" type="java.nio.ByteBuffer" optional="true" />

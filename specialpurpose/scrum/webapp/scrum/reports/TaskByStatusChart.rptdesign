@@ -23,8 +23,8 @@ under the License.
     <method name="initialize"><![CDATA[importPackage(Packages.java.math);
 importPackage(Packages.java.text);
 importPackage(Packages.java.util);
-importPackage(Packages.org.ofbiz.base.util);
-importPackage(Packages.org.ofbiz.entity.condition);
+importPackage(Packages.org.apache.ofbiz.base.util);
+importPackage(Packages.org.apache.ofbiz.entity.condition);
 module = "TaskByStatusChart.rptdesign";
 
 productId = params["productId"].value;

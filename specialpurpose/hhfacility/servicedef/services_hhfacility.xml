@@ -38,7 +38,7 @@ under the License.
     </service>
 
     <service name="findProductsById" engine="java"
-                location="org.ofbiz.hhfacility.FacilityServices" invoke="findProductsById" auth="false">
+                location="org.apache.ofbiz.hhfacility.FacilityServices" invoke="findProductsById" auth="false">
         <description>
             Returns a map of products based on either productId or SKU.
         </description>
@@ -48,7 +48,7 @@ under the License.
     </service>
 
     <service name="updateProductStocktake" engine="java"
-                location="org.ofbiz.hhfacility.FacilityServices" invoke="updateProductStocktake" auth="true">
+                location="org.apache.ofbiz.hhfacility.FacilityServices" invoke="updateProductStocktake" auth="true">
         <description>
             Pass this a productId, facilityId, locationSeqId and a desired QOH and it will adjust stock levels to match.
             QOH is expected to be what you can see on the shelf.
@@ -62,7 +62,7 @@ under the License.
     </service>
 
     <service name="fixProductNegativeQOH" engine="java"
-                location="org.ofbiz.hhfacility.FacilityServices" invoke="fixProductNegativeQOH" auth="true">
+                location="org.apache.ofbiz.hhfacility.FacilityServices" invoke="fixProductNegativeQOH" auth="true">
         <description>
             Pass this a productId, facilityId and it will check for negative QOH values and correct them to zero.
             ATP will be adjusted the same amount but they may still leave it below zero which can realistically happen.

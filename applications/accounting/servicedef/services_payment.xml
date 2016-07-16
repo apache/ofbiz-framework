@@ -53,7 +53,7 @@ under the License.
     </service>
 
     <service name="checkPaymentInvoices" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="checkPaymentInvoices">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="checkPaymentInvoices">
         <description>Checks to see if each invoice to which a payment is applied has been fully paid up.  If so, sets the invoice status to PAID.</description>
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
     </service>
@@ -78,7 +78,7 @@ under the License.
         <attribute name="paymentTypeId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updatePaymentApplication" default-entity-name="PaymentApplication" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="updatePaymentApplication">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="updatePaymentApplication">
         <description>
             Apply a payment to a Invoice or other payment or Billing account or  Taxauthority,
             create/update paymentApplication records.
@@ -89,7 +89,7 @@ under the License.
         <override name="paymentId" optional="false"/>
     </service>
     <service name="updatePaymentApplicationDef" default-entity-name="PaymentApplication" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="updatePaymentApplicationDef">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="updatePaymentApplicationDef">
         <description>
             Apply a payment to a Invoice or other payment or Billing account or Taxauthority,
             If no ammountApplied is supplied the system will calculate and use the maximum possible value.
@@ -129,7 +129,7 @@ under the License.
             location="component://accounting/minilang/payment/PaymentServices.xml" invoke="getInvoicePaymentInfoList" auth="true">
         <description>Create a list with information on payment due dates and amounts for the invoice; one of invoiceId or invoice must be provided.</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
-        <attribute name="invoice" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="invoice" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="invoicePaymentInfoList" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="getInvoicePaymentInfoListByDueDateOffset" engine="simple"

@@ -96,7 +96,7 @@ under the License.
         <attribute name="returnItemResponseId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="createPaymentApplicationsFromReturnItemResponse" engine="java"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="createPaymentApplicationsFromReturnItemResponse">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="createPaymentApplicationsFromReturnItemResponse">
             <description>Creates PaymentApplications for each return item billing related to the return response until
                 the responseAmount is reached or all items are paid.</description>
         <attribute name="returnItemResponseId" type="String" mode="IN" optional="false"/>
@@ -118,13 +118,13 @@ under the License.
         <description>Return Adjustment Interface</description>
         <auto-attributes mode="IN" include="all" entity-name="ReturnAdjustment" optional="true"/>
     </service>
-    <service name="createReturnAdjustment" engine="java" location="org.ofbiz.order.order.OrderReturnServices"
+    <service name="createReturnAdjustment" engine="java" location="org.apache.ofbiz.order.order.OrderReturnServices"
              invoke="createReturnAdjustment">
          <description>Simple create service</description>
          <implements service="returnAdjustmentInterface"/>
          <override name="returnAdjustmentId" mode="OUT" optional="false"/>
     </service>
-    <service name="updateReturnAdjustment" engine="java" location="org.ofbiz.order.order.OrderReturnServices"
+    <service name="updateReturnAdjustment" engine="java" location="org.apache.ofbiz.order.order.OrderReturnServices"
              invoke="updateReturnAdjustment">
         <description></description>
         <implements service="returnAdjustmentInterface"/>
@@ -148,7 +148,7 @@ under the License.
         <attribute name="returnId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createReturnItemOrAdjustment" engine="java"
-             location="org.ofbiz.order.order.OrderReturnServices" invoke="createReturnItemOrAdjustment">
+             location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="createReturnItemOrAdjustment">
         <description>create Return Item or Adjustment based on the parameters passed in</description>
         <auto-attributes mode="IN" include="all" entity-name="ReturnAdjustment" optional="true"/>
         <auto-attributes mode="IN" include="all" entity-name="ReturnItem" optional="true"/>
@@ -156,7 +156,7 @@ under the License.
         <attribute name="returnItemSeqId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="updateReturnItemOrAdjustment" engine="java"
-             location="org.ofbiz.order.order.OrderReturnServices" invoke="updateReturnItemOrAdjustment">
+             location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="updateReturnItemOrAdjustment">
         <description>update Return Item or Adjustment based on the parameters passed in</description>
         <auto-attributes mode="IN" include="all" entity-name="ReturnAdjustment" optional="true"/>
         <auto-attributes mode="IN" include="all" entity-name="ReturnItem" optional="true"/>
@@ -165,19 +165,19 @@ under the License.
 
     <!-- services to verify that returns refunds aren't issued more than once -->
     <service name="getReturnAmountByOrder" engine="java"
-             location="org.ofbiz.order.order.OrderReturnServices" invoke="getReturnAmountByOrder">
+             location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="getReturnAmountByOrder">
         <description>Finds the refunded or credited payment amounts for each order on a return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="orderReturnAmountMap" type="Map" mode="OUT"/>
     </service>
     <service name="checkPaymentAmountForRefund" engine="java"
-             location="org.ofbiz.order.order.OrderReturnServices" invoke="checkPaymentAmountForRefund">
+             location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="checkPaymentAmountForRefund">
         <description>Makes sure the return is not over-refunding/crediting any order, or return an error</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="getReturnItemInitialCost" engine="java"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="getReturnItemInitialCost">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="getReturnItemInitialCost">
         <description>Gets the item's initial cost based on the inventory item record associated with the order item or 0.00 if none found.</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="returnItemSeqId" type="String" mode="IN" optional="false"/>
@@ -185,7 +185,7 @@ under the License.
     </service>
 
     <service name="checkReturnComplete" engine="java"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="checkReturnComplete">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="checkReturnComplete">
         <description>Checks if all items on a return are complete/cancelled and updates the header status</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
@@ -193,42 +193,42 @@ under the License.
 
     <!-- return notification services -->
     <service name="sendReturnAcceptNotification" engine="java" max-retry="3"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="sendReturnAcceptNotification">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="sendReturnAcceptNotification">
         <description>Send a notification that a return has been accepted</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="sendReturnCompleteNotification" engine="java" max-retry="3"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="sendReturnCompleteNotification">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="sendReturnCompleteNotification">
         <description>Send a notification that a return has been completed</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
      <service name="sendReturnCancelNotification" engine="java" max-retry="3"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="sendReturnCancelNotification">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="sendReturnCancelNotification">
         <description>Send a notification that a return has been cancelled</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="autoCancelReplacementOrders" engine="java" max-retry="3" transaction-timeout="36000"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="autoCancelReplacementOrders">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="autoCancelReplacementOrders">
         <description>Automatic cancellation of replacement order if return is not received within 30 days</description>
     </service>
 
     <!-- return processing services -->
     <service name="processCreditReturn" engine="java" auth="true"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="processCreditReturn">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="processCreditReturn">
         <description>Process the credits in a return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processRefundReturn" engine="java" auth="true"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="processRefundReturn">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="processRefundReturn">
         <description>Process the refunds in a return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="returnTypeId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processReplacementReturn" engine="java" auth="true"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="processReplacementReturn">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="processReplacementReturn">
         <description>Process the replacements in a return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="returnTypeId" type="String" mode="IN" optional="false"/>
@@ -269,12 +269,12 @@ under the License.
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processSubscriptionReturn" engine="java" auth="true"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="processSubscriptionReturn">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="processSubscriptionReturn">
         <description>Process subscription changes from a return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processRefundReturnForReplacement" engine="java" auth="true"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="processRefundReturnForReplacement">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="processRefundReturnForReplacement">
         <description>Process the refund return for replacement order</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
@@ -287,21 +287,21 @@ under the License.
         <attribute name="returnHeaderStatus" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="getReturnableQuantity" engine="java"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="getReturnableQuantity">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="getReturnableQuantity">
         <description>Get the quantity allowed for an item to be returned</description>
-        <attribute name="orderItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="returnableQuantity" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="returnablePrice" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="getReturnableItems" engine="java"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="getReturnableItems">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="getReturnableItems">
         <description>Get a map of returnable items orderItem => quantity available to return</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="returnableItems" type="Map" mode="OUT" optional="false"/>
     </service>
 
     <service name="getOrderAvailableReturnedTotal" engine="java"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="getOrderAvailableReturnedTotal">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="getOrderAvailableReturnedTotal">
         <description>Get the total amount of all returns for an order: orderTotal, returnTotal - totals so far.  availableReturnTotal = orderTotal - returnTotal - adjustment.  Used for checking if the return total has gone over the order total.  If countNewReturnItems is set to Boolean.TRUE then return items in the CREATED state will be counted.  This should only be the case during quickRefundEntireOrder.</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="adjustment" type="BigDecimal" mode="IN" optional="true"/>
@@ -312,9 +312,9 @@ under the License.
     </service>
 
     <service name="refundBillingAccountPayment" engine="java"
-            location="org.ofbiz.order.order.OrderReturnServices" invoke="refundBillingAccountPayment" auth="true">
+            location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="refundBillingAccountPayment" auth="true">
         <description>Refunds A Billing Account Payment</description>
-        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="refundAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
     </service>

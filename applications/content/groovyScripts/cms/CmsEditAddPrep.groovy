@@ -17,12 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*
-import org.ofbiz.minilang.SimpleMapProcessor
-import org.ofbiz.content.ContentManagementWorker
-import org.ofbiz.content.content.ContentWorker
-import org.ofbiz.content.data.DataResourceWorker
-import org.ofbiz.webapp.ftl.FreeMarkerViewHandler
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.minilang.SimpleMapProcessor
+import org.apache.ofbiz.content.ContentManagementWorker
+import org.apache.ofbiz.content.content.ContentWorker
+import org.apache.ofbiz.content.data.DataResourceWorker
+import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
 
 userLogin = session.getAttribute("userLogin");
 contentAssocDataResourceViewFrom = delegator.makeValue("ContentAssocDataResourceViewFrom");

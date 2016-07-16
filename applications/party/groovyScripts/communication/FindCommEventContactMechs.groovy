@@ -24,8 +24,8 @@
  * expanded to work off other communication event types.
  */
 
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
 partyIdFrom = context.partyIdFrom;
 partyIdTo = context.partyIdTo;

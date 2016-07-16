@@ -27,8 +27,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleFinancialSummaryReportOptions"/>
                 <set field="headerItem" value="FinancialSummryReports"/>
 
-                <set field="month" from-field="parameters.month" default-value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;MM&quot;)}"/>
-                <set field="year" from-field="parameters.year" default-value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
+                <set field="month" from-field="parameters.month" default-value="${groovy:org.apache.ofbiz.base.util.UtilDateTime.nowDateString(&quot;MM&quot;)}"/>
+                <set field="year" from-field="parameters.year" default-value="${groovy:org.apache.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -60,8 +60,8 @@ under the License.
             <actions>
                 <set field="headerItem" value="FinancialSummryReports"/>
 
-                <set field="month" from-field="parameters.month" type="Integer" default-value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;MM&quot;)}"/>
-                <set field="year" from-field="parameters.year" type="Integer" default-value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
+                <set field="month" from-field="parameters.month" type="Integer" default-value="${groovy:org.apache.ofbiz.base.util.UtilDateTime.nowDateString(&quot;MM&quot;)}"/>
+                <set field="year" from-field="parameters.year" type="Integer" default-value="${groovy:org.apache.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="currencyUomId" from-field="parameters.currencyUomId"/>
 
@@ -220,7 +220,7 @@ under the License.
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds" value="${groovy:org.apache.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
                 <entity-condition entity-name="Party" list="parties">
                     <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
@@ -274,7 +274,7 @@ under the License.
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds" value="${groovy:org.apache.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
                 <entity-condition entity-name="Party" list="parties">
                     <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
@@ -299,7 +299,7 @@ under the License.
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds" value="${groovy:org.apache.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
                 <entity-condition entity-name="Party" list="parties">
                     <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
@@ -664,7 +664,7 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingTransactionTotals"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TransactionTotals"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds" value="${groovy:org.apache.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
                 <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true">
                     <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"></field-map>
@@ -734,7 +734,7 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingTransactionTotals"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TransactionTotals"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds" value="${groovy:org.apache.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
                 <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true">
                     <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"></field-map>
@@ -773,7 +773,7 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingTransactionTotals"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TransactionTotals"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds" value="${groovy:org.apache.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
                 <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true">
                     <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -1229,7 +1229,7 @@ under the License.
                 <set field="labelTitleProperty" value="FormFieldTitle_costCenters"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="GlAccountBalanceByCostCenter"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds" value="${groovy:org.apache.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
                 <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true">
                     <field-map field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -1287,7 +1287,7 @@ under the License.
                 <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds" value="${groovy:org.apache.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')}" type="List"/>
                 <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>

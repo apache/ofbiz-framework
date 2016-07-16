@@ -74,7 +74,7 @@ under the License.
     </tr>
 -->
     <#list productFeatureTypeIdsOrdered as productFeatureTypeId>
-      <#assign findPftMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", productFeatureTypeId)>
+      <#assign findPftMap = Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", productFeatureTypeId)>
       <#assign productFeatureType = delegator.findOne("ProductFeatureType", findPftMap, true)>
       <#assign productFeatures = productFeaturesByTypeMap[productFeatureTypeId]>
       <tr>
@@ -129,8 +129,8 @@ under the License.
 <hr />
 
 <#macro listSiteIds contentId indentIndex=0>
-  <#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in listSiteIds, contentId:" + contentId,"")/>
-  <#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in listSiteIds, indentIndex:" + indentIndex,"")/>
+  <#assign dummy=Static["org.apache.ofbiz.base.util.Debug"].logInfo("in listSiteIds, contentId:" + contentId,"")/>
+  <#assign dummy=Static["org.apache.ofbiz.base.util.Debug"].logInfo("in listSiteIds, indentIndex:" + indentIndex,"")/>
   <#local indent = ""/>
   <#if 0 < indentIndex >
     <#list 0..(indentIndex - 1) as idx>

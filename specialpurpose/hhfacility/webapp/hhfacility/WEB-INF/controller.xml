@@ -60,7 +60,7 @@ under the License.
     </request-map>
     <request-map uri="findstocktake">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.hhfacility.FacilitySession" invoke="findProductsById"/>
+        <event type="java" path="org.apache.ofbiz.hhfacility.FacilitySession" invoke="findProductsById"/>
         <response name="success" type="view" value="stocktake"/>
     </request-map>
 

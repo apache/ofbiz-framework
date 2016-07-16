@@ -26,14 +26,14 @@ under the License.
 
     <!-- Routing services -->
     <service name="lookupRoutingTask" engine="java"
-            location="org.ofbiz.manufacturing.techdata.TechDataServices" invoke="lookupRoutingTask" auth="true">
+            location="org.apache.ofbiz.manufacturing.techdata.TechDataServices" invoke="lookupRoutingTask" auth="true">
         <description>Only used to defined the query lookup for Routing Task</description>
         <attribute name="workEffortName" type="String" form-display="true" form-label="${uiLabelMap.ManufacturingTaskName}" mode="IN" optional="true"/>
         <attribute name="fixedAssetId" type="String" form-display="true" form-label="${uiLabelMap.ManufacturingMachineGroup}" mode="IN" optional="true"/>
         <attribute name="lookupResult" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="checkRoutingTaskAssoc" engine="java"
-            location="org.ofbiz.manufacturing.techdata.TechDataServices" invoke="checkRoutingTaskAssoc" auth="true">
+            location="org.apache.ofbiz.manufacturing.techdata.TechDataServices" invoke="checkRoutingTaskAssoc" auth="true">
         <description>Check if a new routingTaskAssoc is ok or not (same SeqId and Date)</description>
         <auto-attributes entity-name="WorkEffortAssoc" include="pk" mode="IN"/>
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
@@ -48,7 +48,7 @@ under the License.
         <attribute mode="IN" name="workEffortId" optional="true" type="String"/>
         <attribute mode="IN" name="applicableDate" optional="true" type="java.sql.Timestamp"/>
         <attribute mode="IN" name="ignoreDefaultRouting" optional="true" type="String"/><!-- If this is set to Y, the default routing is not returned -->
-        <attribute mode="OUT" name="routing" type="org.ofbiz.entity.GenericValue" optional="true"/>
+        <attribute mode="OUT" name="routing" type="org.apache.ofbiz.entity.GenericValue" optional="true"/>
         <attribute mode="OUT" name="tasks" type="java.util.List" optional="true"/>
     </service>
     <service name="getRoutingTaskAssocs" engine="simple" auth="true"
@@ -58,7 +58,7 @@ under the License.
         <attribute mode="OUT" name="routingTaskAssocs" type="java.util.List" optional="true"/>
     </service>
     <service name="getEstimatedTaskTime" engine="java" auth="true"
-                location="org.ofbiz.manufacturing.routing.RoutingServices" invoke="getEstimatedTaskTime">
+                location="org.apache.ofbiz.manufacturing.routing.RoutingServices" invoke="getEstimatedTaskTime">
         <description>Computes the estimated time needed to perform the task</description>
         <attribute mode="IN" name="taskId" optional="false" type="String"/>
         <attribute mode="IN" name="productId" optional="true" type="String"/>

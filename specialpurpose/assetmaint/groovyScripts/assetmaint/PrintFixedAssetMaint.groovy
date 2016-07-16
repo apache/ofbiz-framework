@@ -17,8 +17,8 @@ specific language governing permissions and limitations
 under the License.
 **/
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.condition.*;
 
 facility = fixedAsset.getRelatedOne("LocatedAtFacility", false);
 context.locatedAtFacility = facility;

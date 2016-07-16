@@ -66,7 +66,7 @@ under the License.
     <#elseif temporalExpression.tempExprTypeId == "TIME_OF_DAY_RANGE">
       <@TimeOfDayRange fromTime=temporalExpression.string1 toTime=temporalExpression.string2 freqType=temporalExpression.integer1 freqValue=temporalExpression.integer2/>
     <#elseif "INTERSECTION.UNION.DIFFERENCE.SUBSTITUTION"?contains(temporalExpression.tempExprTypeId)>
-      <#assign candidateIdList = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getCandidateIncludeIds(delegator, temporalExpression.tempExprId)/>
+      <#assign candidateIdList = Static["org.apache.ofbiz.service.calendar.ExpressionUiHelper"].getCandidateIncludeIds(delegator, temporalExpression.tempExprId)/>
       <#if "INTERSECTION.UNION"?contains(temporalExpression.tempExprTypeId)>
         <tr>
           <td class="label">${uiLabelMap.TemporalExpressionInclude}</td>

@@ -208,10 +208,10 @@ under the License.
                 <#assign readyToVerify = verifyPickSession.getReadyToVerifyQuantity(orderId,orderItemSeqId)>
                 <#assign orderItemQuantity = orderItem.getBigDecimal("quantity")>
                 <#assign verifiedQuantity = 0.000000>
-                <#assign shipments = delegator.findByAnd("Shipment", Static["org.ofbiz.base.util.UtilMisc"].toMap("primaryOrderId", orderItem.getString("orderId"), "statusId", "SHIPMENT_PICKED"), null, false)/>
+                <#assign shipments = delegator.findByAnd("Shipment", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("primaryOrderId", orderItem.getString("orderId"), "statusId", "SHIPMENT_PICKED"), null, false)/>
                 <#if (shipments?has_content)>
                   <#list shipments as shipment>
-                    <#assign itemIssuances = delegator.findByAnd("ItemIssuance", Static["org.ofbiz.base.util.UtilMisc"].toMap("shipmentId", shipment.getString("shipmentId"), "orderItemSeqId", orderItemSeqId), null, false)/>
+                    <#assign itemIssuances = delegator.findByAnd("ItemIssuance", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("shipmentId", shipment.getString("shipmentId"), "orderItemSeqId", orderItemSeqId), null, false)/>
                     <#if itemIssuances?has_content>
                       <#list itemIssuances as itemIssuance>
                         <#assign verifiedQuantity = verifiedQuantity + itemIssuance.getBigDecimal("quantity")>
@@ -240,7 +240,7 @@ under the License.
                     <select name="geo_${rowKey}">
                       <#if product.originGeoId?has_content>
                         <#assign originGeoId = product.originGeoId>
-                        <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", originGeoId), true)>
+                        <#assign geo = delegator.findOne("Geo", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("geoId", originGeoId), true)>
                         <option value="${originGeoId}">${geo.geoName!}</option>
                         <option value="${originGeoId}">---</option>
                       </#if>
@@ -263,11 +263,11 @@ under the License.
                 </tr>
                 <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment", null, null, false)/>
                 <#if workOrderItemFulfillments?has_content>
-                  <#assign workOrderItemFulfillment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(workOrderItemFulfillments)/>
+                  <#assign workOrderItemFulfillment = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(workOrderItemFulfillments)/>
                   <#if workOrderItemFulfillment?has_content>
                     <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort", false)/>
                     <#if workEffort?has_content>
-                      <#assign workEffortTask = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortParentId", workEffort.workEffortId), null, false))/>
+                      <#assign workEffortTask = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("workEffortParentId", workEffort.workEffortId), null, false))/>
                       <#if workEffortTask?has_content>
                         <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign", null, null, false)/>
                         <#if workEffortInventoryAssigns?has_content>

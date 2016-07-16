@@ -24,10 +24,10 @@ import java.util.Map;
 import java.util.Set;
 import java.sql.Timestamp;
 
-import org.ofbiz.entity.GenericEntity;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.webapp.event.CoreEvents;
+import org.apache.ofbiz.entity.GenericEntity;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.webapp.event.CoreEvents;
 
 if (session.getAttribute("_RUN_SYNC_RESULT_")) {
     serviceResultList = [];

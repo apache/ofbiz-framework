@@ -18,7 +18,7 @@
  */
 
 
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*;
 
 if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
     context.hasPermission = Boolean.TRUE;

@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 
 context.salesReps = from("PartyRoleNameDetail").where("roleTypeId", "SALES_REP").orderBy("lastName", "firstName").queryList();
 

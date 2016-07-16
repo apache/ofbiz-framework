@@ -17,15 +17,15 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.security.*;
-import org.ofbiz.service.*;
-import org.ofbiz.entity.model.*;
-import org.ofbiz.content.data.DataResourceWorker;
-import org.ofbiz.webapp.ftl.FreeMarkerViewHandler;
-import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.content.ContentManagementWorker;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.security.*;
+import org.apache.ofbiz.service.*;
+import org.apache.ofbiz.entity.model.*;
+import org.apache.ofbiz.content.data.DataResourceWorker;
+import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler;
+import org.apache.ofbiz.content.content.ContentWorker;
+import org.apache.ofbiz.content.ContentManagementWorker;
 
 import java.io.StringWriter;
 import freemarker.ext.beans.BeansWrapper;

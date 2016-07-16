@@ -66,7 +66,7 @@ by hand from a real template using a ruler.
                                                 <fo:table-row>
                                                     <fo:table-cell padding-before="0.8cm">
                                                         <fo:block margin-left="3.0cm">
-                                                            <#assign toPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", payment.partyIdTo, "compareDate", payment.effectiveDate, "userLogin", userLogin))/>
+                                                            <#assign toPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", payment.partyIdTo, "compareDate", payment.effectiveDate, "userLogin", userLogin))/>
                                                             ${toPartyNameResult.fullName?default("Name Not Found")}
                                                         </fo:block>
                                                     </fo:table-cell>
@@ -76,7 +76,7 @@ by hand from a real template using a ruler.
                                                 </fo:table-row>
                                                 <fo:table-row>
                                                     <fo:table-cell number-columns-spanned="2">
-                                                        <#assign amount = Static["org.ofbiz.base.util.UtilNumber"].formatRuleBasedAmount(payment.getDouble("amount"), "%dollars-and-hundredths", locale).toUpperCase()>
+                                                        <#assign amount = Static["org.apache.ofbiz.base.util.UtilNumber"].formatRuleBasedAmount(payment.getDouble("amount"), "%dollars-and-hundredths", locale).toUpperCase()>
                                                         <fo:block padding-before="0.4cm" margin-left="1.3cm">${amount}<#list 1..(100-amount.length()) as x>*</#list></fo:block>
                                                     </fo:table-cell>
                                                 </fo:table-row>
@@ -106,7 +106,7 @@ by hand from a real template using a ruler.
                                                 <fo:table-row>
                                                     <fo:table-cell padding="3pt" number-columns-spanned="3" text-align="center">
                                                         <fo:block text-align="center">
-                                                            <#assign toPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", payment.partyIdTo, "compareDate", payment.effectiveDate, "userLogin", userLogin))/>
+                                                            <#assign toPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", payment.partyIdTo, "compareDate", payment.effectiveDate, "userLogin", userLogin))/>
                                                             ${toPartyNameResult.fullName?default("Name Not Found")}
                                                         </fo:block>
                                                     </fo:table-cell>
@@ -292,7 +292,7 @@ by hand from a real template using a ruler.
                                                 <fo:table-row>
                                                     <fo:table-cell padding="3pt" number-columns-spanned="3" text-align="center">
                                                         <fo:block text-align="center">
-                                                            ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, payment.partyIdTo, false)}
+                                                            ${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, payment.partyIdTo, false)}
                                                         </fo:block>
                                                     </fo:table-cell>
                                                     <fo:table-cell padding="3pt" number-columns-spanned="4" text-align="center">

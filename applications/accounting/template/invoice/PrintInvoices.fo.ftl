@@ -105,7 +105,7 @@ under the License.
                         <fo:block>${uiLabelMap.CommonTo}: </fo:block>
                         <#if invoiceDetail.billingAddress?has_content>
                           <#assign billingAddress = invoiceDetail.billingAddress />
-                          <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", invoice.invoiceDate, "userLogin", userLogin))/>
+                          <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", invoice.invoiceDate, "userLogin", userLogin))/>
                           <fo:block>${billToPartyNameResult.fullName?default(billingAddress.toName)?default("Billing Name Not Found")}</fo:block>
                           <#if billingAddress.attnName??>
                             <fo:block>${billingAddress.attnName}</fo:block>
@@ -188,7 +188,7 @@ under the License.
                       <#assign taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", false)!>
                       <#assign itemBillings = invoiceItem.getRelated("OrderItemBilling", null, null, false)!>
                       <#if itemBillings?has_content>
-                        <#assign itemBilling = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(itemBillings)>
+                        <#assign itemBilling = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(itemBillings)>
                         <#if itemBilling?has_content>
                           <#assign itemIssuance = itemBilling.getRelatedOne("ItemIssuance", false)!>
                           <#if itemIssuance?has_content>
@@ -242,7 +242,7 @@ under the License.
                           <fo:block> <#if invoiceItem.quantity??><@ofbizCurrency amount=invoiceItem.amount! isoCode=invoice.currencyUomId!/></#if> </fo:block>
                         </fo:table-cell>
                         <fo:table-cell text-align="right">
-                          <fo:block> <@ofbizCurrency amount=(Static["org.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId!/> </fo:block>
+                          <fo:block> <@ofbizCurrency amount=(Static["org.apache.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId!/> </fo:block>
                         </fo:table-cell>
                       </fo:table-row>
                     </#list>

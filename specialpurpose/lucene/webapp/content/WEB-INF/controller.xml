@@ -26,14 +26,14 @@ under the License.
 
     <description>Lucene Component Site Configuration File</description>
 
-    <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
+    <handler name="groovy" type="request" class="org.apache.ofbiz.webapp.event.GroovyEventHandler"/>
 
     <!-- Request Mappings -->
     <request-map uri="AdminSearch"><security https="true" auth="true"/><response name="success" type="view" value="AdminSearch"/></request-map>
     <request-map uri="AdminIndex"><security https="true" auth="true"/><response name="success" type="view" value="AdminIndex"/></request-map>
     <request-map uri="indexContentTree">
         <security https="true" auth="true"/>
-        <event invoke="indexContentTree" path="org.ofbiz.content.search.SearchEvents" type="java"/>
+        <event invoke="indexContentTree" path="org.apache.ofbiz.content.search.SearchEvents" type="java"/>
         <response name="success" type="view" value="AdminIndex"/>
         <response name="error" type="view" value="AdminIndex"/>
     </request-map>

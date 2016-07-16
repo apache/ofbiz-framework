@@ -46,11 +46,11 @@ under the License.
                                 </fo:list-item>
                                 <fo:list-item>
                                     <fo:list-item-label><fo:block>${uiLabelMap.ManufacturingEstimatedStartDate}</fo:block></fo:list-item-label>
-                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.estimatedStartDate??>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.estimatedStartDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
+                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.estimatedStartDate??>${Static["org.apache.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.estimatedStartDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
                                 </fo:list-item>
                                 <fo:list-item>
                                     <fo:list-item-label><fo:block>${uiLabelMap.ManufacturingEstimatedCompletionDate}</fo:block></fo:list-item-label>
-                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.estimatedCompletionDate??>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.estimatedCompletionDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
+                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.estimatedCompletionDate??>${Static["org.apache.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.estimatedCompletionDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
                                 </fo:list-item>
                             </fo:list-block>
                         </fo:table-cell>
@@ -66,11 +66,11 @@ under the License.
                                 </fo:list-item>
                                 <fo:list-item>
                                     <fo:list-item-label><fo:block>${uiLabelMap.CommonStartDate}</fo:block></fo:list-item-label>
-                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.actualStartDate??>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.actualStartDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
+                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.actualStartDate??>${Static["org.apache.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.actualStartDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
                                 </fo:list-item>
                                 <fo:list-item>
                                     <fo:list-item-label><fo:block>${uiLabelMap.ManufacturingActualCompletionDate}</fo:block></fo:list-item-label>
-                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.actualCompletionDate??>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.actualCompletionDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
+                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.actualCompletionDate??>${Static["org.apache.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.actualCompletionDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
                                 </fo:list-item>
                             </fo:list-block>
                         </fo:table-cell>

@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*
-import org.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
 
 allSequenceNums = from("ProductContent").where("productId", parameters.productId, "productContentTypeId", "IMAGE").queryList();
 nullSequenceNums = from("ProductContent").where("productId", parameters.productId, "productContentTypeId", "IMAGE", "sequenceNum", null).queryList();

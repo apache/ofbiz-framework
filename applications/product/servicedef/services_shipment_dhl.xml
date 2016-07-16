@@ -23,7 +23,7 @@ under the License.
   <vendor>OFBiz</vendor>
   <version>1.0</version>
   <!-- DHL Register Account API Services -->
-  <service name="dhlRegisterAccount" engine="java" location="org.ofbiz.shipment.thirdparty.dhl.DhlServices" invoke="dhlRegisterInquire" auth="false">
+  <service name="dhlRegisterAccount" engine="java" location="org.apache.ofbiz.shipment.thirdparty.dhl.DhlServices" invoke="dhlRegisterInquire" auth="false">
     <description>DHL ShipIt Register Account inquire tool</description>
     <attribute name="postalCode" type="String" mode="IN" optional="false"/>
     <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
@@ -31,7 +31,7 @@ under the License.
     <attribute name="shippingKey" type="String" mode="OUT" optional="false"/>
   </service>
   <!-- DHL Rate API Services -->
-   <service name="dhlRateEstimate" engine="java" location="org.ofbiz.shipment.thirdparty.dhl.DhlServices"
+   <service name="dhlRateEstimate" engine="java" location="org.apache.ofbiz.shipment.thirdparty.dhl.DhlServices"
        invoke="dhlRateEstimate" auth="false">
     <description>DHL ShipIt rate inquire tool</description>
     <implements service="calcShipmentEstimateInterface"/>
@@ -39,7 +39,7 @@ under the License.
   </service>
   <!-- DHL Lable API Services -->
   <service name="dhlShipmentConfirm" engine="java"
-      location="org.ofbiz.shipment.thirdparty.dhl.DhlServices" invoke="dhlShipmentConfirm" auth="true" max-retry="3">
+      location="org.apache.ofbiz.shipment.thirdparty.dhl.DhlServices" invoke="dhlShipmentConfirm" auth="true" max-retry="3">
     <description>DHL Shipment Confirm</description>
     <auto-attributes entity-name="ShipmentRouteSegment" include="pk" mode="IN" optional="false"/>
   </service>

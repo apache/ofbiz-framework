@@ -49,7 +49,7 @@ under the License.
 
         <find-by-and entity-name="CreditCard" map="lookupMap" list="creditCards"/>
         <iterate entry="creditCard" list="creditCards">
-            <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDateAfterToday" ret-field="isNotExpired">
+            <call-class-method class-name="org.apache.ofbiz.base.util.UtilValidate" method-name="isDateAfterToday" ret-field="isNotExpired">
                 <field field="creditCard.expireDate"/>
             </call-class-method>
             <if-compare field="isNotExpired" operator="equals" type="Boolean" value="true">
@@ -115,7 +115,7 @@ under the License.
         <entity-one entity-name="PaymentGroup" value-field="paymentGroup"/>
         <entity-one entity-name="Payment" value-field="payment"/>
         <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="CHECK_RUN">
-            <set field="isDisbursement" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}" type="Boolean"/>
+            <set field="isDisbursement" value="${groovy:org.apache.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}" type="Boolean"/>
             <if-compare field="isDisbursement" operator="equals" value="true" type="Boolean">
                 <create-value value-field="newPaymentGroupMember"/>
             <else>
@@ -124,7 +124,7 @@ under the License.
             </if-compare>
         <else>
             <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="BATCH_PAYMENT" type="Boolean">
-                <set field="isReceipt" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
+                <set field="isReceipt" value="${groovy:org.apache.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
                 <if-compare field="isReceipt" operator="equals" value="true">
                     <create-value value-field="newPaymentGroupMember"/>
                 <else>

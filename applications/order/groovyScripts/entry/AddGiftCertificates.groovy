@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.product.store.ProductStoreWorker;
 
 cart = session.getAttribute("shoppingCart");
 productStoreId = ProductStoreWorker.getProductStoreId(request);

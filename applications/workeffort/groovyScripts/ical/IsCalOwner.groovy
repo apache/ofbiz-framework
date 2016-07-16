@@ -18,7 +18,7 @@
  */
 
 import java.util.*;
-import org.ofbiz.entity.util.*;
+import org.apache.ofbiz.entity.util.*;
 
 boolean isCalOwner = false;
 List partyAssignments = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment", ["workEffortId" : parameters.workEffortId, "partyId" : parameters.userLogin.partyId], null, false));

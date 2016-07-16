@@ -82,13 +82,13 @@ under the License.
                 <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <set field="paidInvoice" value="${groovy: org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).compareTo(java.math.BigDecimal.ZERO)==0}" type="Boolean"/>
+            <set field="paidInvoice" value="${groovy: org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).compareTo(java.math.BigDecimal.ZERO)==0}" type="Boolean"/>
             <set field="amountToApply" value="${groovy:
                 import java.text.NumberFormat;
-                return(NumberFormat.getNumberInstance(locale).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
+                return(NumberFormat.getNumberInstance(locale).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
             <set field="total" value="${groovy:
                 import java.text.NumberFormat;
-                return(NumberFormat.getNumberInstance(locale).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)));}"/>
+                return(NumberFormat.getNumberInstance(locale).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)));}"/>
         </row-actions>
         <field name="billingAccountId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
@@ -117,7 +117,7 @@ under the License.
     <form name="EditBillingAccount" type="single" target="updateBillingAccount" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <set field="availableBalance" value="${groovy:billingAccount != null ? org.ofbiz.order.order.OrderReadHelper.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
+            <set field="availableBalance" value="${groovy:billingAccount != null ? org.apache.ofbiz.order.order.OrderReadHelper.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
         </actions>
         <alt-target use-when="billingAccount==null" target="createBillingAccountAndRole"/>
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
@@ -146,7 +146,7 @@ under the License.
         </field>
         <!--
         <field name="netBalance" title="${uiLabelMap.AccountingBillingNetBalance}" tooltip="${uiLabelMap.AccountingBillingNetBalanceMessage}">
-            <display description="${groovy:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountNetBalance(delegator, billingAccountId)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
+            <display description="${groovy:org.apache.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountNetBalance(delegator, billingAccountId)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
         -->
         <field name="availableBalance" title="${uiLabelMap.AccountingBillingAvailableBalance}" tooltip="${uiLabelMap.AccountingBillingAvailableBalanceMessage}">

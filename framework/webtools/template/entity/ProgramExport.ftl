@@ -26,7 +26,7 @@ under the License.
     <div class="screenlet-body">
       <p>
       <#if xmlDoc?has_content>
-        ${Static["org.ofbiz.base.util.UtilXml"].writeXmlDocument(xmlDoc)?replace("\n", "<br />")?replace("    ", "&nbsp;&nbsp;&nbsp;&nbsp;")}
+        ${Static["org.apache.ofbiz.base.util.UtilXml"].writeXmlDocument(xmlDoc)?replace("\n", "<br />")?replace("    ", "&nbsp;&nbsp;&nbsp;&nbsp;")}
       </#if>
       </p>
     </div>

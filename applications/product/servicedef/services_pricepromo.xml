@@ -26,9 +26,9 @@ under the License.
 
     <!-- Product Price Services -->
     <service name="calculateProductPrice" engine="java"
-                location="org.ofbiz.product.price.PriceServices" invoke="calculateProductPrice" auth="false" use-transaction="false">
+                location="org.apache.ofbiz.product.price.PriceServices" invoke="calculateProductPrice" auth="false" use-transaction="false">
         <description>Calculate a Product's Price from ProductPriceRules</description>
-        <attribute name="product" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
@@ -41,7 +41,7 @@ under the License.
         <attribute name="currencyUomIdTo" type="String" mode="IN" optional="true"/>
         <attribute name="productPricePurposeId" type="String" mode="IN" optional="true"><!-- defaults to PURCHASE --></attribute>
         <attribute name="termUomId" type="String" mode="IN" optional="true"><!-- if specified ProductPrice records will be filtered by this, ensures for purposes like recurring prices that only the recurring term desired is taken into consideration --></attribute>
-        <attribute name="autoUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="autoUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="checkIncludeVat" type="String" mode="IN" optional="true"><!-- can be Y or N, defaults to N --></attribute>
         <attribute name="findAllQuantityPrices" type="String" mode="IN" optional="true"><!-- can be Y or N, defaults to N; see the allQuantityPrices attribute for more details --></attribute>
         <attribute name="surveyResponseId" type="String" mode="IN" optional="true"/>
@@ -206,7 +206,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createBulkProductPromoCode" engine="java"
-            location="org.ofbiz.product.promo.PromoServices" invoke="importPromoCodesFromFile" auth="true">
+            location="org.apache.ofbiz.product.promo.PromoServices" invoke="importPromoCodesFromFile" auth="true">
         <description>Creates several ProductPromoCode from an uploaded list of promo codes (one code per line)</description>
         <implements service="uploadFileInterface"/>
         <auto-attributes mode="IN" entity-name="ProductPromoCode" include="nonpk" optional="true"/>
@@ -224,7 +224,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createBulkProductPromoCodeEmail" engine="java"
-                location="org.ofbiz.product.promo.PromoServices" invoke="importPromoCodeEmailsFromFile" auth="true">
+                location="org.apache.ofbiz.product.promo.PromoServices" invoke="importPromoCodeEmailsFromFile" auth="true">
         <description>Create several ProductPromoCodeEmail from an uploaded list of emails (one address per line)</description>
         <implements service="uploadFileInterface"/>
         <attribute name="productPromoCodeId" type="String" mode="IN" optional="false"/>
@@ -243,7 +243,7 @@ under the License.
     </service>
 
     <service name="createProductPromoCodeSet" default-entity-name="ProductPromoCode" engine="java"
-            location="org.ofbiz.product.promo.PromoServices" invoke="createProductPromoCodeSet" auth="true">
+            location="org.apache.ofbiz.product.promo.PromoServices" invoke="createProductPromoCodeSet" auth="true">
         <description>Create a Product Promo Code Set</description>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="createdDate"/>
@@ -316,9 +316,9 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="calculatePurchasePrice" engine="java"
-                location="org.ofbiz.product.price.PriceServices" invoke="calculatePurchasePrice" auth="false" use-transaction="false">
+                location="org.apache.ofbiz.product.price.PriceServices" invoke="calculatePurchasePrice" auth="false" use-transaction="false">
         <description>Calculate a Product's Purchase Price</description>
-        <attribute name="product" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>

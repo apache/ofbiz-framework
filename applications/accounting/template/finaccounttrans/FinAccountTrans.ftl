@@ -95,7 +95,7 @@ function getFinAccountTransRunningTotalAndBalances() {
         <input name="reconciledBalance" type="hidden" value="${(glReconciliation.reconciledBalance)!}"/>
         <input name="reconciledBalanceWithUom" type="hidden" id="reconciledBalanceWithUom" value="<@ofbizCurrency amount=(glReconciliation.reconciledBalance)?default('0')/>"/>
       </#if>
-      <#assign glReconciliations = delegator.findByAnd("GlReconciliation", {"glAccountId" : finAccount.postToGlAccountId!, "statusId" : "GLREC_CREATED"}, Static["org.ofbiz.base.util.UtilMisc"].toList("reconciledDate DESC"), false)>
+      <#assign glReconciliations = delegator.findByAnd("GlReconciliation", {"glAccountId" : finAccount.postToGlAccountId!, "statusId" : "GLREC_CREATED"}, Static["org.apache.ofbiz.base.util.UtilMisc"].toList("reconciledDate DESC"), false)>
       <#if (glReconciliationId?has_content && (glReconciliationId == "_NA_" && finAccountTransList?has_content)) || !grandTotal??>
         <div align="right">
           <#if grandTotal??>
@@ -197,13 +197,13 @@ function getFinAccountTransRunningTotalAndBalances() {
                         <#assign paymentMethodType = delegator.findOne("PaymentMethodType", {"paymentMethodTypeId" : payment.paymentMethodTypeId}, true)>
                       </#if>
                       <#if payment?has_content>
-                        <#assign paymentGroupMembers = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(payment.getRelated("PaymentGroupMember", null, null, false)!) />
+                        <#assign paymentGroupMembers = Static["org.apache.ofbiz.entity.util.EntityUtil"].filterByDate(payment.getRelated("PaymentGroupMember", null, null, false)!) />
                         <#assign fromParty = payment.getRelatedOne("FromParty", false)! />
                         <#assign fromPartyName = delegator.findOne("PartyNameView", {"partyId" : fromParty.partyId}, true) />
                         <#assign toParty = payment.getRelatedOne("ToParty", false)! />
                         <#assign toPartyName = delegator.findOne("PartyNameView", {"partyId" : toParty.partyId}, true) />
                         <#if paymentGroupMembers?has_content>
-                          <#assign paymentGroupMember = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(paymentGroupMembers) />
+                          <#assign paymentGroupMember = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(paymentGroupMembers) />
                         </#if>
                       </#if>
                       <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>

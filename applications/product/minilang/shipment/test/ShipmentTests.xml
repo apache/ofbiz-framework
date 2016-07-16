@@ -33,9 +33,9 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="packSingleItemInMap.userLogin" from-field="userLogin"/>
-        <create-object class-name="org.ofbiz.shipment.packing.PackingSession" field="packingSession">
-            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
-            <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
+        <create-object class-name="org.apache.ofbiz.shipment.packing.PackingSession" field="packingSession">
+            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
         </create-object>
         <set field="packSingleItemInMap.packingSession" from-field="packingSession"/>
         <call-service service-name="packSingleItem" in-map-name="packSingleItemInMap">

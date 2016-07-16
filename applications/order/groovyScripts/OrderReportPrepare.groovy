@@ -18,10 +18,10 @@
  */
 
 import java.sql.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.content.report.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.content.report.*;
 
 delegator = request.getAttribute("delegator");
 

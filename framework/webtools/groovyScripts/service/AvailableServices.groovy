@@ -19,19 +19,19 @@
 
 import java.util.*;
 import javax.wsdl.WSDLException;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.service.eca.ServiceEcaUtil;
-import org.ofbiz.service.ModelPermGroup;
-import org.ofbiz.service.ModelPermission;
-import org.ofbiz.service.ServiceContainer;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.service.eca.ServiceEcaUtil;
+import org.apache.ofbiz.service.ModelPermGroup;
+import org.apache.ofbiz.service.ModelPermission;
+import org.apache.ofbiz.service.ServiceContainer;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 List getEcaListForService(String selectedService) {
-    ecaMap = org.ofbiz.service.eca.ServiceEcaUtil.getServiceEventMap(selectedService);
+    ecaMap = org.apache.ofbiz.service.eca.ServiceEcaUtil.getServiceEventMap(selectedService);
 
     if (!ecaMap) return null;
 
@@ -82,7 +82,7 @@ List getEcaListForService(String selectedService) {
                 setsList = new ArrayList();
                 actionsVal.each { curAction ->
                     actionClass = curAction.getClass();
-                    if (org.ofbiz.service.eca.ServiceEcaAction.equals(actionClass)) {
+                    if (org.apache.ofbiz.service.eca.ServiceEcaAction.equals(actionClass)) {
                         actionMap = [:];
 
                         //eventName

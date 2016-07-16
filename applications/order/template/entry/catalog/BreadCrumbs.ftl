@@ -27,7 +27,7 @@ under the License.
     </li>
 </#if>    
     <#-- Show the category branch -->
-    <#assign crumbs = Static["org.ofbiz.product.category.CategoryWorker"].getTrail(request)/>
+    <#assign crumbs = Static["org.apache.ofbiz.product.category.CategoryWorker"].getTrail(request)/>
     <#list crumbs as crumb>
          <#if catContentWrappers?? && catContentWrappers[crumb]??>
             <#if !isDefaultTheme>         

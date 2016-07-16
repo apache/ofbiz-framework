@@ -35,7 +35,7 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/PosSyncSettings.xml"/>
 
     <!-- load the JPOS devices -->
-    <container name="jpos.device-container" loaders="pos" class="org.ofbiz.pos.container.JposDeviceContainer">
+    <container name="jpos.device-container" loaders="pos" class="org.apache.ofbiz.pos.container.JposDeviceContainer">
         <property name="CashDrawer.1" value="NullCashDrawer"/>
         <property name="Receipt" value="NullReceipt"/>
         <!--property name="Receipt" value="TM-T88III"/-->
@@ -51,7 +51,7 @@ under the License.
     </container>
 
     <!-- load the POS GUI -->
-    <container name="pos-container" loaders="pos" class="org.ofbiz.pos.container.PosContainer">
+    <container name="pos-container" loaders="pos" class="org.apache.ofbiz.pos.container.PosContainer">
         <property name="startup-directory" value="specialpurpose/pos/config/"/>
         <property name="startup-file" value="xpos.properties"/>
         <property name="class-package-name " value="net.xoetrope.swing"/>

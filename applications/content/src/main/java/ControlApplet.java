@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilValidate;
 
 /**
  * Control Applet - Client applet for page pushing and (future) chat
