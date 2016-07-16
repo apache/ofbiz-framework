@@ -30,7 +30,7 @@ under the License.
     <title>${(decoratedContent.subcontent.title.render)!"CMS Site Generic Title (Set subcontent 'title' on your content!)"}</title>
     <link rel="shortcut icon" href="/images/ofbiz.ico" />
     <script language="javascript" src="/images/fieldlookup.js" type="text/javascript"></script>
-    <script language="javascript" src="/images/selectall.js" type="text/javascript"></script>
+    <script language="javascript" src="/images/OfbizUtil.js" type="text/javascript"></script>
     <link rel="stylesheet" href="/images/ecommain.css" type="text/css"/>
     <link rel="stylesheet" href="/ecommerce/images/blog.css" type="text/css"/>
     <link rel="stylesheet" href="/content/contentForum.css" type="text/css"/>
