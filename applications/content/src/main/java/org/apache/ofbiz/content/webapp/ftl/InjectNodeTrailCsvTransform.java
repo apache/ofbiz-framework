@@ -79,10 +79,8 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map<String, Object> templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
-        //FreeMarkerWorker.convertContext(templateCtx);
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
-        //final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         FreeMarkerWorker.getSiteParameters(request, templateCtx);
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
 
@@ -109,11 +107,9 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                 if (Debug.infoOn()) Debug.logInfo("in InjectNodeTrailCsv(0), trail:"+trail,module);
                 // This will build a nodeTrail if none exists
                 // Maybe only contentId or subContentId are passed in
-                //GenericValue currentValue = getCurrentContent(delegator, trail,  userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
                 String redo = (String)templateCtx.get("redo");
 
                 if (UtilValidate.isEmpty(trail) || (redo != null && redo.equalsIgnoreCase("true"))) {
-                    // String thisContentId = null;
                     String subContentId = (String)templateCtx.get("subContentId");
                     if (Debug.infoOn()) Debug.logInfo("in InjectNodeTrailCsv(0), subContentId:"+subContentId,module);
                     String contentId = (String)templateCtx.get("contentId");
@@ -138,8 +134,6 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                     if (Debug.infoOn()) Debug.logInfo("in InjectNodeTrailCsv(0), csvTrail:"+csvTrail,module);
                 } else {
                     // Build nodeTrail if one does not exist
-                    //if (Debug.infoOn()) Debug.logInfo("in InjectNodeTrailCsv, trail:"+trail,module);
-                    //if (Debug.infoOn()) Debug.logInfo("in InjectNodeTrailCsv, passedCsv:"+passedCsv,module);
                     if (UtilValidate.isNotEmpty(passedCsv)) {
                         csvTrail = passedCsv;
                         int lastComma = passedCsv.lastIndexOf(",");
@@ -167,7 +161,6 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                         csvTrail = ContentWorker.nodeTrailToCsv(trail);
                     }
                 }
-                //if (Debug.infoOn()) Debug.logInfo("in InjectNodeTrailCsv, csvTrail:"+csvTrail,module);
                 templateCtx.put("nodeTrailCsv", csvTrail);
                 return TransformControl.EVALUATE_BODY;
             }

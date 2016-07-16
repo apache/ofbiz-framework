@@ -85,7 +85,6 @@ public class UploadContentAndImage {
                 Debug.logError("[UploadContentAndImage.uploadContentAndImage] " + e4.getMessage(), module);
                 return "error";
             }
-            //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]lst " + lst, module);
 
             if (lst.size() == 0) {
                 String errMsg = UtilProperties.getMessage(UploadContentAndImage.err_resource, "uploadContentAndImage.no_files_uploaded", locale);
@@ -100,7 +99,6 @@ public class UploadContentAndImage {
             byte[] imageBytes = {};
             for (int i = 0; i < lst.size(); i++) {
                 fi = lst.get(i);
-                //String fn = fi.getName();
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {
                     String fieldStr = fi.getString();
@@ -138,7 +136,6 @@ public class UploadContentAndImage {
             ftlContext.put("description", passedParams.get("description"));
             ftlContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
             String drid = (String)passedParams.get("dataResourceId");
-            //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]drid:" + drid, module);
             ftlContext.put("dataResourceId", drid);
             ftlContext.put("dataResourceTypeId", null); // inhibits persistence of DataResource, because it already exists
             String contentIdTo = (String)passedParams.get("contentIdTo");
@@ -194,7 +191,6 @@ public class UploadContentAndImage {
             String ftlDataResourceId = drid;
 
             if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]ftlContentId:" + ftlContentId, module);
-            //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]ftlDataResourceId:" + ftlDataResourceId, module);
             // Create or update summary text subContent
             if (passedParams.containsKey("summaryData")) {
                 Map<String, Object> sumContext = new HashMap<String, Object>();
@@ -204,7 +200,6 @@ public class UploadContentAndImage {
                 sumContext.put("contentTypeId", "DOCUMENT");
                 sumContext.put("statusId", passedParams.get("statusId"));
                 sumContext.put("contentPurposeList", UtilMisc.toList("SUMMARY"));
-                //sumContext.put("contentPurposeList", contentPurposeList);
                 sumContext.put("targetOperationList",targetOperationList);
                 sumContext.put("contentName", passedParams.get("contentName"));
                 sumContext.put("description", passedParams.get("description"));
@@ -233,7 +228,6 @@ public class UploadContentAndImage {
                 txtContext.put("ownerContentId", ftlContentId);
                 txtContext.put("contentTypeId", "DOCUMENT");
                 txtContext.put("statusId", passedParams.get("statusId"));
-                //txtContext.put("contentPurposeList", contentPurposeList);
                 txtContext.put("contentPurposeList", UtilMisc.toList("MAIN_ARTICLE"));
                 txtContext.put("targetOperationList",targetOperationList);
                 txtContext.put("contentName", passedParams.get("contentName"));
@@ -269,9 +263,6 @@ public class UploadContentAndImage {
                 imgContext.put("privilegeEnumId", passedParams.get("privilegeEnumId"));
                 imgContext.put("targetOperationList",targetOperationList);
                 imgContext.put("dataResourceId", passedParams.get("imgDataResourceId"));
-                //String dataResourceTypeId = (String)passedParams.get("dataResourceTypeId");
-                //if (UtilValidate.isEmpty(dataResourceTypeId))
-                //dataResourceTypeId = "IMAGE_OBJECT";
                 String dataResourceTypeId = "IMAGE_OBJECT";
                 imgContext.put("dataResourceTypeId", dataResourceTypeId);
                 imgContext.put("contentIdTo", ftlContentId);
@@ -279,7 +270,6 @@ public class UploadContentAndImage {
                 imgContext.put("imageData", imageBytes);
                 imgContext.put("mapKey", "IMAGE");
                 imgContext.put("dataTemplateTypeId", "NONE");
-                // String rootDir = request.getSession().getServletContext().getRealPath("/");
                 imgContext.put("rootDir", "rootDir");
                 if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]imgContext " + imgContext, module);
                 Map<String, Object> imgResults = dispatcher.runSync("persistContentAndAssoc", imgContext);
@@ -298,7 +288,6 @@ public class UploadContentAndImage {
                 long currentAuthorAssocCount = EntityQuery.use(delegator).from("ContentAssoc")
                         .where("contentId", ftlContentId, "contentIdTo", userLoginId, "contentAssocTypeId", "AUTHOR")
                         .filterByDate().queryCount();
-                //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]currentAuthorAssocList " + currentAuthorAssocList, module);
                 if (currentAuthorAssocCount == 0) {
                     // Don't want to bother with permission checking on this association
                     GenericValue authorAssoc = delegator.makeValue("ContentAssoc");
@@ -322,7 +311,6 @@ public class UploadContentAndImage {
             String newTrail = passedParams.get("nodeTrailCsv") + "," + ftlContentId;
             request.setAttribute("nodeTrailCsv", newTrail);
             request.setAttribute("passedParams", passedParams);
-            //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]newTrail: " + newTrail, module);
             TransactionUtil.commit();
         } catch (Exception e) {
             Debug.logError(e, "[UploadContentAndImage] " , module);
@@ -344,7 +332,6 @@ public class UploadContentAndImage {
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
 
             ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
-            //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]DiskFileUpload " + dfu, module);
             List<FileItem> lst = null;
             try {
                 lst = UtilGenerics.checkList(dfu.parseRequest(request));
@@ -353,7 +340,6 @@ public class UploadContentAndImage {
                 Debug.logError("[UploadContentAndImage.uploadContentAndImage] " + e4.getMessage(), module);
                 return "error";
             }
-            //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]lst " + lst, module);
 
             if (lst.size() == 0) {
                 request.setAttribute("_ERROR_MESSAGE_", "No files uploaded");
@@ -368,7 +354,6 @@ public class UploadContentAndImage {
             passedParams.put("userLogin", userLogin);
             for (int i = 0; i < lst.size(); i++) {
                 fi = lst.get(i);
-                //String fn = fi.getName();
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {
                     String fieldStr = fi.getString();
@@ -491,9 +476,6 @@ public class UploadContentAndImage {
         ftlContext.put("textData", passedParams.get("textData" + suffix));
         byte[] bytes = (byte[])passedParams.get("imageData" + suffix);
         ftlContext.put("imageData", bytes);
-        //if (Debug.infoOn()) Debug.logInfo("[UploadContentStuff]byteBuffer:" + bytes, module);
-        //contentAssocDataResourceViewFrom.setAllFields(ftlContext2, true, null, null);
-        //ftlContext.putAll(ftlContext2);
         if (Debug.infoOn()) {
             Debug.logInfo("[UploadContentStuff]ftlContext:" + ftlContext, module);
         }

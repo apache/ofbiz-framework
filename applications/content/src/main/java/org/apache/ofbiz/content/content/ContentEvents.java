@@ -53,7 +53,6 @@ public class ContentEvents {
      * @return String specifying the exit status of this event
      */
     public static String updateAllContentKeywords(HttpServletRequest request, HttpServletResponse response) {
-        //String errMsg = "";
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Security security = (Security) request.getAttribute("security");
 
@@ -98,7 +97,6 @@ public class ContentEvents {
                 try {
                     ContentKeywordIndex.indexKeywords(content, "Y".equals(doAll));
                 } catch (GenericEntityException e) {
-                    //request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     Debug.logWarning("[ContentEvents.updateAllContentKeywords] Could not create content-keyword (write error); message: " + e.getMessage(), module);
                     errConts++;
                 }

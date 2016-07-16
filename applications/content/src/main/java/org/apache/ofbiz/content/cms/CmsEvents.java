@@ -266,10 +266,6 @@ public class CmsEvents {
 
                 response.setStatus(statusCode);
 
-                // NOTE DEJ20080817: this is done in the ContentMapFacade class now to avoid problems with the jsessionid being in the middle of the URL and such
-                //String contextLinkPrefix = rh.makeLink(request, response, "", true, false, true);
-                //templateMap.put("_CONTEXT_LINK_PREFIX_", contextLinkPrefix);
-
                 try {
                     Writer writer = response.getWriter();
                     // TODO: replace "screen" to support dynamic rendering of different output

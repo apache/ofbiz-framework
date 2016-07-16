@@ -293,7 +293,6 @@ public class DataServices {
      * A service wrapper for the updateDataResourceMethod method. Forces permissions to be checked.
      */
     public static Map<String, Object> updateDataResource(DispatchContext dctx, Map<String, ? extends Object> context) {
-        //context.put("skipPermissionCheck", null);
         Map<String, Object> result = updateDataResourceMethod(dctx, context);
         return result;
     }
@@ -398,9 +397,7 @@ public class DataServices {
 
     public static Map<String, Object> updateFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> result = new HashMap<String, Object>();
-        //GenericValue fileText = null;
         Locale locale = (Locale) context.get("locale");
-        //String dataResourceId = (String) dataResource.get("dataResourceId");
         String dataResourceTypeId = (String) context.get("dataResourceTypeId");
         String objectInfo = (String) context.get("objectInfo");
         String textData = (String) context.get("textData");
@@ -490,7 +487,6 @@ public class DataServices {
             templateContext = new HashMap<String, Object>();
         }
 
-        // GenericValue view = (GenericValue) context.get("subContentDataResourceView");
         Writer outWriter = new StringWriter();
         DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, outWriter, templateContext, locale, mimeTypeId, true);
         try {
@@ -555,7 +551,6 @@ public class DataServices {
             byte[] imageBytes = byteBuffer.array();
             try {
                 GenericValue imageDataResource = delegator.makeValue("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
-                //imageDataResource.set("imageData", imageBytes);
                 imageDataResource.setBytes("imageData", imageBytes);
                 if (Debug.infoOn()) {
                     Debug.logInfo("imageDataResource(C):" + imageDataResource, module);
@@ -585,7 +580,6 @@ public class DataServices {
     public static Map<String, Object> createBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> result = new HashMap<String, Object>();
         GenericValue dataResource = (GenericValue) context.get("dataResource");
-        //String dataResourceId = (String) dataResource.get("dataResourceId");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         String objectInfo = (String) dataResource.get("objectInfo");
         byte [] imageData = (byte []) context.get("imageData");
@@ -642,7 +636,6 @@ public class DataServices {
     public static Map<String, Object> updateBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> result = new HashMap<String, Object>();
         GenericValue dataResource = (GenericValue) context.get("dataResource");
-        //String dataResourceId = (String) dataResource.get("dataResourceId");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         String objectInfo = (String) dataResource.get("objectInfo");
         byte [] imageData = (byte []) context.get("imageData");

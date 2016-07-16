@@ -424,7 +424,6 @@ public class SurveyWrapper {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericEntityException e) {
                 throw new SurveyWrapperException(e);
-                //Debug.logError(e, "Could not commit transaction: " + e.toString(), module);
             }
         }
         return resp;
@@ -571,7 +570,6 @@ public class SurveyWrapper {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericEntityException e) {
                 throw new SurveyWrapperException(e);
-                //Debug.logError(e, "Could not commit transaction: " + e.toString(), module);
             }
         }
     }
@@ -631,7 +629,6 @@ public class SurveyWrapper {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericEntityException e) {
                 throw new SurveyWrapperException(e);
-                //Debug.logError(e, "Could not commit transaction: " + e.toString(), module);
             }
         }
 
@@ -711,7 +708,6 @@ public class SurveyWrapper {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericEntityException e) {
                 throw new SurveyWrapperException(e);
-                //Debug.logError(e, "Could not commit transaction: " + e.toString(), module);
             }
         }
 

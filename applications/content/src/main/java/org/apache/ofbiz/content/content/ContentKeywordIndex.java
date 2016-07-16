@@ -178,17 +178,6 @@ public class ContentKeywordIndex {
             addWeightedKeywordSourceString(dataResource, "dataResourceName", strings);
             addWeightedKeywordSourceString(dataResource, "objectInfo", strings);
         }
-        /*List<GenericValue> contentDataResourceViews = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", contentId).queryList();
-        for (GenericValue contentDataResourceView: contentDataResourceViews) {
-            int weight = 1;
-            addWeightedDataResourceString(contentDataResourceView, weight, strings, delegator, content);
-
-            List<GenericValue> alternateViews = contentDataResourceView.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"), false);
-            alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
-            for (GenericValue thisView: alternateViews) {
-                addWeightedDataResourceString(thisView, weight, strings, delegator, content);
-            }
-        }*/
 
         if (UtilValidate.isNotEmpty(strings)) {
             for (String str: strings) {

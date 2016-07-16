@@ -181,10 +181,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         String thisContentId = (String) templateCtx.get("contentId");
 
         //DEJ20080730 Should always use contentId, not subContentId since we're searching for that and it is confusing
-        //if (UtilValidate.isEmpty(thisContentId)) thisContentId = (String)templateCtx.get("subContentId");
-
         String thisMapKey = (String)templateCtx.get("mapKey");
-        //GenericValue subContentDataResourceView = null;
         Map<String, Object> results = ContentServicesComplex.getAssocAndContentAndDataResourceMethod(delegator, thisContentId, thisMapKey, null, fromDate, null, null, null, assocTypes, null);
         List<GenericValue> entityList = UtilGenerics.checkList(results.get("entityList"));
         templateCtx.put("entityList", entityList);

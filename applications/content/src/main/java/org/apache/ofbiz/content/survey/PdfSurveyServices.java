@@ -127,9 +127,6 @@ public class PdfSurveyServices {
                 } else if (type == AcroFields.FIELD_TYPE_LIST || type == AcroFields.FIELD_TYPE_COMBO) {
                     surveyQuestion.set("surveyQuestionTypeId", "OPTION");
                     // TODO: handle these specially with the acroFields.getListOptionDisplay (and getListOptionExport?)
-                    /*String[] listOptionDisplayArray = acroFields.getListOptionDisplay(fieldName);
-                    String[] listOptionExportArray = acroFields.getListOptionExport(fieldName);
-                    Debug.logInfo("listOptionDisplayArray: " + listOptionDisplayArray + "; listOptionExportArray: " + listOptionExportArray, module);*/
                 } else {
                     surveyQuestion.set("surveyQuestionTypeId", "TEXT_SHORT");
                     Debug.logWarning("Building Survey from PDF, fieldName=[" + fieldName + "]: don't know how to handle field type: " + type + "; defaulting to short text", module);
@@ -166,14 +163,6 @@ public class PdfSurveyServices {
 
                     // if the "/Type" value is "/Annot", then get the value of "/TU" for the annotation
 
-                    /* Interesting... this doesn't work, I guess we have to iterate to find the stuff...
-                    PdfObject typeValue = dict.get(new PdfName("/Type"));
-                    if (typeValue != null && "/Annot".equals(typeValue.toString())) {
-                        PdfObject tuValue = dict.get(new PdfName("/TU"));
-                        annotation = tuValue.toString();
-                    }
-                    */
-
                     PdfObject typeValue = null;
                     PdfObject tuValue = null;
 
@@ -186,7 +175,6 @@ public class PdfSurveyServices {
                         } else if ("/TU".equals(dictKeyName.toString())) {
                             tuValue = dictObject;
                         }
-                        //Debug.logInfo("AcroForm widget fieldName[" + fieldName + "] dictKey[" + dictKeyName.toString() + "] dictValue[" + dictObject.toString() + "]", module);
                     }
                     if (tuValue != null && typeValue != null && "/Annot".equals(typeValue.toString())) {
                         annotation = tuValue.toString();
@@ -243,7 +231,6 @@ public class PdfSurveyServices {
             Delegator delegator = dctx.getDelegator();
             String partyId = (String)context.get("partyId");
             String surveyId = (String)context.get("surveyId");
-            //String contentId = (String)context.get("contentId");
             surveyResponseId = (String)context.get("surveyResponseId");
             if (UtilValidate.isNotEmpty(surveyResponseId)) {
                 GenericValue surveyResponse = EntityQuery.use(delegator).from("SurveyResponse").where("surveyResponseId", surveyResponseId).queryOne();
@@ -267,7 +254,6 @@ public class PdfSurveyServices {
             s.setFormFlattening(true);
             for (String fieldName : hm.keySet()) {
                 //AcroFields.Item item = fs.getFieldItem(fieldName);
-                //int type = fs.getFieldType(fieldName);
                 String value = fs.getField(fieldName);
                 GenericValue surveyQuestionAndAppl = EntityQuery.use(delegator).from("SurveyQuestionAndAppl")
                         .where("surveyId", surveyId,
@@ -318,11 +304,6 @@ public class PdfSurveyServices {
             Map<String, Object> map = UtilGenerics.checkMap(fs.getFields());
             s.setFormFlattening(true);
 
-            // Debug code to get the values for setting TDP
-    //        String[] sa = fs.getAppearanceStates("TDP");
-    //        for (int i=0;i<sa.length;i++)
-    //            Debug.logInfo("Appearance="+sa[i]);
-
             for (String fieldName : map.keySet()) {
                 String parmValue = fs.getField(fieldName);
                 acroFieldMap.put(fieldName, parmValue);
@@ -358,11 +339,6 @@ public class PdfSurveyServices {
             AcroFields fs = s.getAcroFields();
             Map<String, Object> map = UtilGenerics.checkMap(fs.getFields());
             s.setFormFlattening(true);
-
-            // Debug code to get the values for setting TDP
-    //      String[] sa = fs.getAppearanceStates("TDP");
-    //      for (int i=0;i<sa.length;i++)
-    //          Debug.logInfo("Appearance="+sa[i]);
 
             for (String fieldName : map.keySet()) {
                 String fieldValue = fs.getField(fieldName);
@@ -414,7 +390,6 @@ public class PdfSurveyServices {
     public static Map<String, Object> buildPdfFromSurveyResponse(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Delegator delegator = dctx.getDelegator();
-        //LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> results = ServiceUtil.returnSuccess();
         String surveyResponseId = (String)context.get("surveyResponseId");
         String contentId = (String)context.get("contentId");
@@ -484,7 +459,6 @@ public class PdfSurveyServices {
      */
     public static Map<String, Object> buildSurveyQuestionsAndAnswers(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
-        //LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> results = ServiceUtil.returnSuccess();
         String surveyResponseId = (String)context.get("surveyResponseId");
         List<Object> qAndA = new LinkedList<Object>();

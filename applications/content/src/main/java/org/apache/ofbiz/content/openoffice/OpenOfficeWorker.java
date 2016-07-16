@@ -97,19 +97,6 @@ public final class OpenOfficeWorker{
             // Create a service manager from the initial object
             xmulticomponentfactory = (XMultiComponentFactory) UnoRuntime.queryInterface(XMultiComponentFactory.class, objectInitial);
         } catch (Exception e) {
-            // TODO: None of this works. Need a programmable start solution.
-            //String ooxvfb = UtilProperties.getPropertyValue("openoffice-uno", "oo.start.xvfb");
-            //String ooexport = UtilProperties.getPropertyValue("openoffice-uno", "oo.start.export");
-           // String oosoffice = UtilProperties.getPropertyValue("openoffice-uno", "oo.start.soffice");
-            //Process procXvfb = Runtime.getRuntime().exec(ooxvfb);
-            //Process procExport = Runtime.getRuntime().exec(ooexport);
-            /*
-            Process procSoffice = Runtime.getRuntime().exec(oosoffice);
-            Thread.sleep(3000);
-            objectInitial = xurlresolver.resolve("uno:socket,host=" + host + ",port=" + port + ";urp;StarOffice.ServiceManager");
-            xmulticomponentfactory = (XMultiComponentFactory) UnoRuntime.queryInterface(XMultiComponentFactory.class, objectInitial);
-            Debug.logInfo("soffice started. " + procSoffice, module);
-            */
             String errMsg = "Error connecting to OpenOffice with host [" + host + "] and port [" + port + "]: " + e.toString();
             Debug.logError(e, errMsg, module);
             throw new IllegalArgumentException(errMsg);
@@ -145,18 +132,9 @@ public final class OpenOfficeWorker{
         XNameAccess xNameAccess = (XNameAccess)UnoRuntime.queryInterface(XNameAccess.class, filterFactory);
         String [] filterNames = xNameAccess.getElementNames();
 
-        //String [] serviceNames = filterFactory.getAvailableServiceNames();
         for (int i=0; i < filterNames.length; i++) {
             String s = filterNames[i];
             Debug.logInfo(s, module);
-            /*
-            if (s.toLowerCase().indexOf("filter") >= 0) {
-                Debug.logInfo("FILTER: " + s, module);
-            }
-            if (s.toLowerCase().indexOf("desktop") >= 0) {
-                Debug.logInfo("DESKTOP: " + s, module);
-            }
-            */
         }
 
         List filterNameList = UtilMisc.toListArray(filterNames);
@@ -180,7 +158,6 @@ public final class OpenOfficeWorker{
            frames. */
 
         Object desktopObj = xmulticomponentfactory.createInstanceWithContext("com.sun.star.frame.Desktop", xcomponentcontext);
-        //XDesktop desktop = (XDesktop) UnoRuntime.queryInterface(XDesktop.class, desktopObj);
         XComponentLoader xcomponentloader = (XComponentLoader) UnoRuntime.queryInterface(XComponentLoader.class, desktopObj);
 
 
@@ -222,8 +199,6 @@ public final class OpenOfficeWorker{
         propertyvalue[2].Value = "1";
 
         // Storing and converting the document
-        //File newFile = new File(stringConvertedFile);
-        //newFile.createNewFile();
 
         String stringConvertedFile = convertToUrl(fileOutPath, xcomponentcontext);
         Debug.logInfo("stringConvertedFile: "+stringConvertedFile, module);
@@ -255,7 +230,6 @@ public final class OpenOfficeWorker{
            frames. */
 
         Object desktopObj = xmulticomponentfactory.createInstanceWithContext("com.sun.star.frame.Desktop", xcomponentcontext);
-        //XDesktop desktop = (XDesktop) UnoRuntime.queryInterface(XDesktop.class, desktopObj);
         XComponentLoader xcomponentloader = (XComponentLoader) UnoRuntime.queryInterface(XComponentLoader.class, desktopObj);
 
         // Preparing properties for loading the document
@@ -303,7 +277,6 @@ public final class OpenOfficeWorker{
         propertyvalue[2].Value = "1";
 
         xstorable.storeToURL("private:stream", propertyvalue);
-        //xstorable.storeToURL("file:///home/byersa/testdoc1_file.pdf", propertyvalue);
 
         // Getting the method dispose() for closing the document
         XComponent xcomponent = (XComponent) UnoRuntime.queryInterface(XComponent.class, xstorable);

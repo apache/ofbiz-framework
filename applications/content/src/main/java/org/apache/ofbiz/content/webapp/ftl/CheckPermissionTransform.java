@@ -96,8 +96,6 @@ public class CheckPermissionTransform implements TemplateTransformModel {
         final String mode = (String)templateCtx.get("mode");
         final String quickCheckContentId = (String)templateCtx.get("quickCheckContentId");
         final Map<String, Object> savedValues = new HashMap<String, Object>();
-        //Debug.logInfo("in CheckPermission, contentId(1):" + templateCtx.get("contentId"),"");
-        //Debug.logInfo("in CheckPermission, subContentId(1):" + templateCtx.get("subContentId"),"");
 
         return new LoopWriter(out) {
 
@@ -114,11 +112,6 @@ public class CheckPermissionTransform implements TemplateTransformModel {
             @Override
             public int onStart() throws TemplateModelException, IOException {
                 List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateCtx.get("globalNodeTrail"));
-                //String trailCsv = ContentWorker.nodeTrailToCsv(trail);
-                //Debug.logInfo("in CheckPermission, trailCsv(2):" + trailCsv,"");
-                //Debug.logInfo("in CheckPermission, contentId(2):" + templateCtx.get("contentId"),"");
-                //Debug.logInfo("in CheckPermission, subContentId(2):" + templateCtx.get("subContentId"),"");
-
                 GenericValue currentContent = null;
                 String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
                 String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
@@ -129,17 +122,12 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 } catch (GeneralException e) {
                     throw new RuntimeException("Error getting current content. " + e.toString());
                 }
-                // final GenericValue view = val;
                 currentContent = val;
-                if (currentContent != null) {
-                    //Debug.logInfo("in CheckPermission, currentContent(0):" + currentContent.get("contentId"),"");
-                }
 
                 if (currentContent == null) {
                     currentContent = delegator.makeValue("Content");
                     currentContent.put("ownerContentId", templateCtx.get("ownerContentId"));
                 }
-                //Debug.logInfo("in CheckPermission, currentContent(1):" + currentContent.get("contentId"),"");
 
                 Security security = null;
                 if (request != null) {
@@ -166,8 +154,6 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 }
                 List<String> targetOperationList = StringUtil.split(targetOperation, "|");
                 if (targetOperationList.size() == 0) {
-                    //Debug.logInfo("in CheckPermission, entityOperation:" + entityOperation,"");
-                    //Debug.logInfo("in CheckPermission, templateCtx:" + templateCtx,"");
                     throw new IOException("targetOperationList has zero size.");
                 }
                 List<String> roleList = new LinkedList<String>();
@@ -185,10 +171,8 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 if (UtilValidate.isEmpty(permissionStatus) || !permissionStatus.equals("granted")) {
                     String errorMessage = "Permission to add response is denied (2)";
                     PermissionRecorder recorder = (PermissionRecorder)results.get("permissionRecorder");
-                        //Debug.logInfo("recorder(0):" + recorder, "");
                     if (recorder != null) {
                         String permissionMessage = recorder.toHtml();
-                        //Debug.logInfo("permissionMessage(0):" + permissionMessage, "");
                         errorMessage += " \n " + permissionMessage;
                     }
                     templateCtx.put("permissionErrorMsg", errorMessage);

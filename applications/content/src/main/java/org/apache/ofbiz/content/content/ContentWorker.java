@@ -386,7 +386,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 .orderBy("-fromDate").cache(cache).filterByDate().queryFirst();
 
         if (subContent == null) {
-            //throw new GeneralException("No sub-content found with map-key [" + mapKey + "] for content [" + contentId + "]");
             Debug.logWarning("No sub-content found with map-key [" + mapKey + "] for content [" + contentId + "]", module);
         } else {
             String subContentId = subContent.getString("contentIdTo");
@@ -455,7 +454,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     }
 
     public static void traverse(Delegator delegator, GenericValue content, Timestamp fromDate, Timestamp thruDate, Map<String, Object> whenMap, int depthIdx, Map<String, Object> masterNode, String contentAssocTypeId, List<GenericValue> pickList, String direction) {
-        //String startContentAssocTypeId = null;
         String contentTypeId = null;
         String contentId = null;
         try {
@@ -488,7 +486,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             Map<String, Object> context = new HashMap<String, Object>();
             context.put("content", content);
             context.put("contentAssocTypeId", contentAssocTypeId);
-            //context.put("related", related);
             context.put("purposes", purposes);
             context.put("topics", topics);
             context.put("keywords", keywords);
@@ -521,7 +518,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 for (GenericValue assocValue : relatedAssocs) {
                     contentAssocTypeId = (String) assocValue.get("contentAssocTypeId");
                     assocContext.put("contentAssocTypeId", contentAssocTypeId);
-                    //assocContext.put("contentTypeId", assocValue.get("contentTypeId"));
                     assocContext.put("parentContent", content);
                     String assocRelation = null;
                     // This needs to be the opposite
@@ -611,7 +607,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                         idx++;
                         continue;
                     }
-                    // String contentAssocTypeId = (String)currentNode.get("contentAssocTypeId");
                     nodeTrail.add(currentNode);
                     ContentWorker.traceNodeTrail("16",nodeTrail);
                     Boolean isPick = (Boolean)currentNode.get("isPick");
@@ -690,7 +685,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         String contentTypeId = (String) ctx.get("contentTypeId");
         String mapKey = (String) ctx.get("mapKey");
         String parentContentId = (String) parentContent.get("contentId");
-        //if (Debug.infoOn()) Debug.logInfo("traverse, contentAssocTypeId:" + contentAssocTypeId,null);
         Map<String, Object> whenMap = UtilGenerics.checkMap(ctx.get("whenMap"));
         List<Map<String, Object>> kids = new LinkedList<Map<String,Object>>();
         currentNode.put("kids", kids);
@@ -698,8 +692,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         if (UtilValidate.isEmpty(direction)) {
             direction = "From";
         }
-        // Timestamp fromDate = (Timestamp) ctx.get("fromDate");
-        // Timestamp thruDate = (Timestamp) ctx.get("thruDate");
 
         List<String> assocTypeList = StringUtil.split(contentAssocTypeId, " ");
         List<String> contentTypeList = StringUtil.split(contentTypeId, " ");
@@ -714,13 +706,9 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             throw new RuntimeException(e2.getMessage());
         }
         List<GenericValue> relatedViews = UtilGenerics.checkList(results.get("entityList"));
-        //if (Debug.infoOn()) Debug.logInfo("traverse, relatedViews:" + relatedViews,null);
         for (GenericValue assocValue : relatedViews) {
             Map<String, Object> thisNode = ContentWorker.makeNode(assocValue);
             checkConditions(delegator, thisNode, null, whenMap);
-            // boolean isReturnBeforePick = booleanDataType(thisNode.get("isReturnBeforePick"));
-            // boolean isReturnAfterPick = booleanDataType(thisNode.get("isReturnAfterPick"));
-            // boolean isFollow = booleanDataType(thisNode.get("isFollow"));
             boolean isPick = booleanDataType(thisNode.get("isPick"));
             kids.add(thisNode);
             if (isPick) {
@@ -848,7 +836,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             thruDate = UtilDateTime.toTimestamp(strThruDate);
         }
         List<GenericValue> assocs = getContentAssocsWithId(delegator, origContentId, fromDate, thruDate, linkDir, assocTypes);
-        //if (Debug.infoOn()) Debug.logInfo(" origContentId:" + origContentId + " linkDir:" + linkDir + " assocTypes:" + assocTypes, "");
         return assocs;
     }
 
@@ -870,7 +857,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         }
         if (thruDate != null) {
             List<EntityExpr> thruList = new LinkedList<EntityExpr>();
-            //thruDate = UtilDateTime.getDayStart(thruDate, daysLater);
 
             EntityExpr thruExpr = EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN, thruDate);
             thruList.add(thruExpr);
@@ -1003,7 +989,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             contentIdOtherField = "contentId";
         }
 
-            //if (Debug.infoOn()) Debug.logInfo("getContentAncestry, contentId:" + contentId, "");
         try {
             GenericValue contentAssoc = EntityQuery.use(delegator).from("ContentAssoc")
                     .where(contentIdField, contentId, "contentAssocTypeId", contentAssocTypeId)
@@ -1067,7 +1052,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     }
 
     public static GenericValue getSubContent(Delegator delegator, String contentId, String mapKey, String subContentId, GenericValue userLogin, List<String> assocTypes, Timestamp fromDate) throws IOException {
-        //GenericValue content = null;
         GenericValue view = null;
         try {
             if (subContentId == null) {
@@ -1096,7 +1080,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     }
 
     public static GenericValue getSubContentCache(Delegator delegator, String contentId, String mapKey, String subContentId, GenericValue userLogin, List<String> assocTypes, Timestamp fromDate, Boolean nullThruDatesOnly, String contentAssocPredicateId) throws GenericEntityException {
-        //GenericValue content = null;
         GenericValue view = null;
         if (UtilValidate.isEmpty(subContentId)) {
             view = getSubContentCache(delegator, contentId, mapKey, userLogin, assocTypes, fromDate, nullThruDatesOnly, contentAssocPredicateId);
@@ -1107,7 +1090,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     }
 
     public static GenericValue getSubContentCache(Delegator delegator, String contentId, String mapKey, GenericValue userLogin, List<String> assocTypes, Timestamp fromDate, Boolean nullThruDatesOnly, String contentAssocPredicateId) throws GenericEntityException {
-        //GenericValue content = null;
         GenericValue view = null;
         if (contentId == null) {
             Debug.logError("ContentId is null", module);
@@ -1151,7 +1133,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         } else {
             passedGlobalNodeTrail = new LinkedList<Map<String,Object>>();
         }
-        //if (Debug.infoOn()) Debug.logInfo("in getCurrentContent, passedGlobalNodeTrail(3):" + passedGlobalNodeTrail , module);
         int sz = passedGlobalNodeTrail.size();
         if (sz > 0) {
             Map<String, Object> nd = passedGlobalNodeTrail.get(sz - 1);
@@ -1161,10 +1142,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 viewContentId = (String)currentContent.get("contentId");
         }
 
-        //if (Debug.infoOn()) Debug.logInfo("in getCurrentContent, currentContent(3):" + currentContent , module);
-        //if (Debug.infoOn()) Debug.logInfo("getCurrentContent, contentId:" + contentId, "");
-        //if (Debug.infoOn()) Debug.logInfo("getCurrentContent, subContentId:" + subContentId, "");
-        //if (Debug.infoOn()) Debug.logInfo("getCurrentContent, viewContentId:" + viewContentId, "");
         if (UtilValidate.isNotEmpty(subContentId)) {
             ctx.put("subContentId", subContentId);
             ctx.put("contentId", null);
@@ -1178,7 +1155,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 return currentContent;
             }
         }
-        //if (Debug.infoOn()) Debug.logInfo("getCurrentContent(2), contentId:" + contentId + " viewContentId:" + viewContentId + " subContentId:" + subContentId, "");
         if (UtilValidate.isNotEmpty(contentId) || UtilValidate.isNotEmpty(subContentId)) {
             try {
                 currentContent = ContentWorker.getSubContentCache(delegator, contentId, mapKey, subContentId, userLogin, assocTypes, fromDate, nullThruDatesOnly, contentAssocPredicateId);
@@ -1190,7 +1166,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         }
         ctx.put("globalNodeTrail", passedGlobalNodeTrail);
         ctx.put("indent", Integer.valueOf(sz));
-        //if (Debug.infoOn()) Debug.logInfo("getCurrentContent, currentContent:" + currentContent, "");
         return currentContent;
     }
 
@@ -1236,14 +1211,12 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         ctx.put("sections", sections);
         List<Object> topics = getTopics(thisContent);
         ctx.put("topics", topics);
-        //Debug.logInfo("buildPickContext, ctx:" + ctx, "");
         return ctx;
     }
 
     public static void checkConditions(Delegator delegator, Map<String, Object> trailNode, Map<String, Object> contentAssoc, Map<String, Object> whenMap) {
         Map<String, Object> context = new HashMap<String, Object>();
         GenericValue content = (GenericValue)trailNode.get("value");
-        // String contentId = (String)trailNode.get("contentId");
         if (contentAssoc == null && content != null && (content.getEntityName().indexOf("Assoc") >= 0)) {
             contentAssoc = delegator.makeValue("ContentAssoc");
             try {
@@ -1254,7 +1227,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 context.put("mapKey", contentAssoc.get("mapKey"));
             } catch (MiniLangException e) {
                 Debug.logError(e.getMessage(), module);
-                //throw new GeneralException(e.getMessage());
             }
         } else {
             context.put("contentAssocTypeId", null);
@@ -1356,7 +1328,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         Debug.logInfo("recorder(0):" + recorder, "");
         if (recorder != null && recorder.isOn()) {
             String permissionMessage = recorder.toHtml();
-            //Debug.logInfo("permissionMessage(0):" + permissionMessage, "");
             errorMessage += " \n " + permissionMessage;
         }
         return errorMessage;
@@ -1512,7 +1483,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e.getMessage(), module);
-                    //throw new GeneralException(e.getMessage());
                 }
             }
         }
@@ -1658,32 +1628,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     }
 
     public static void traceNodeTrail(String lbl, List<Map<String, Object>> nodeTrail) {
-        /*
-                if (!Debug.verboseOn()) {
-                    return;
-                }
-                if (nodeTrail == null) {
-                    return;
-                }
-                String s = "";
-                int sz = nodeTrail.size();
-                s = "nTsz:" + sz;
-                if (sz > 0) {
-                    Map cN = (Map)nodeTrail.get(sz - 1);
-                    if (cN != null) {
-                        String cid = (String)cN.get("contentId");
-                        s += " cN[" + cid + "]";
-                        List kids = (List)cN.get("kids");
-                        int kSz = (kids == null) ? 0 : kids.size();
-                        s += " kSz:" + kSz;
-                        Boolean isPick = (Boolean)cN.get("isPick");
-                        s += " isPick:" + isPick;
-                        Boolean isFollow = (Boolean)cN.get("isFollow");
-                        s += " isFollow:" + isFollow;
-                        Boolean isReturnAfterPick = (Boolean)cN.get("isReturnAfterPick");
-                        s += " isReturnAfterPick:" + isReturnAfterPick;
-                    }
-                }
-        */
+
     }
 }

@@ -284,8 +284,6 @@ public class ContentSearch {
             dynamicViewEntity.addAlias("CNT", "contentId", null, null, null, Boolean.valueOf(contentIdGroupBy), null);
             EntityCondition whereCondition = EntityCondition.makeCondition(entityConditionList, EntityOperator.AND);
 
-            // Debug.logInfo("ContentSearch, whereCondition = " + whereCondition.toString(), module);
-
             EntityListIterator eli = null;
             try {
                 eli = EntityQuery.use(delegator)
@@ -313,19 +311,6 @@ public class ContentSearch {
             try {
                 boolean hasResults = false;
                 Object initialResult = null;
-
-                /* this method has been replaced by the following to address issue with SAP DB and possibly other DBs
-                if (resultOffset != null) {
-                    Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
-                    hasResults = eli.relative(resultOffset.intValue());
-                } else {
-                    initialResult = eli.next();
-                    if (initialResult != null) {
-                        hasResults = true;
-                    }
-                }
-                 */
-
                 initialResult = eli.next();
                 if (initialResult != null) {
                     hasResults = true;
@@ -375,21 +360,6 @@ public class ContentSearch {
                     } else {
                         duplicatesFound++;
                     }
-
-                    /*
-                    StringBuilder lineMsg = new StringBuilder("Got search result line: ");
-                    Iterator<String> fieldsToSelectIter = fieldsToSelect.iterator();
-                    while (fieldsToSelectIter.hasNext()) {
-                        String fieldName = fieldsToSelectIter.next();
-                        lineMsg.append(fieldName);
-                        lineMsg.append("=");
-                        lineMsg.append(searchResult.get(fieldName));
-                        if (fieldsToSelectIter.hasNext()) {
-                            lineMsg.append(", ");
-                        }
-                    }
-                    Debug.logInfo(lineMsg.toString(), module);
-                    */
                 }
 
                 if (searchResult != null) {
