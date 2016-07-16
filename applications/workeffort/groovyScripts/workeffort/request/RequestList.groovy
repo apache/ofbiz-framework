@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilMisc;
-
 Map requests = runService('getCustRequestsByRole', ["userLogin": userLogin]);
 
 context.put("custRequestAndRoles", requests.get("custRequestAndRoles"));

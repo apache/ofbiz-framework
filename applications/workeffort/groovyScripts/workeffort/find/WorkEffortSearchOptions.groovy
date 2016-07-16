@@ -17,9 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
 import java.sql.Timestamp;
-import org.ofbiz.workeffort.workeffort.*;
+import org.ofbiz.workeffort.workeffort.WorkEffortSearchSession;
 
 searchOperator = parameters.get("SEARCH_OPERATOR");
 if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {

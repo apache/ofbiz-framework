@@ -17,9 +17,10 @@
  * under the License.
  */
 
-import java.sql.*;
-import java.util.*;
-import org.ofbiz.base.util.*;
+import java.sql.Timestamp;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 
 String startParam = parameters.startTime;
 Timestamp start = null;
