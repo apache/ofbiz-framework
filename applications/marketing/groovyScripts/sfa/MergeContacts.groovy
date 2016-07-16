@@ -42,7 +42,7 @@ if (partyIdFrom && partyIdTo) {
                 if (address2) {
                     contactDetailMap.address2 = address2;
                 }
-                geo = sfrom("Geo").where("geoId", postalAddress.stateProvinceGeoId).queryOne();
+                geo = from("Geo").where("geoId", postalAddress.stateProvinceGeoId).queryOne();
                 contactDetailMap.state = geo.geoName;
 
                 geo = from("Geo").where("geoId", postalAddress.countryGeoId).queryOne();
