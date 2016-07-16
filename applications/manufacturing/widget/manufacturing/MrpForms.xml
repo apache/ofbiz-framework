@@ -31,7 +31,9 @@ under the License.
         </field>
         <field name="facilityId" title="${uiLabelMap.ProductFacility}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Facility" description="${facilityName} [${facilityId}]"/>
+                <entity-options entity-name="Facility" description="${facilityName} [${facilityId}]">
+                    <entity-constraint name="facilityTypeId" operator="equals" value="WAREHOUSE"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="defaultYearsOffset"><text size="5" default-value="1"/></field>
