@@ -38,6 +38,7 @@ under the License.
                 <parameter param-name="workEffortIdTo" from-field="workEffortAssoc.workEffortIdTo"/>
                 <parameter param-name="workEffortIdFrom" from-field="workEffortAssoc.workEffortIdFrom"/>
                 <parameter param-name="workEffortAssocTypeId" from-field="workEffortAssoc.workEffortAssocTypeId"/>
+                <parameter param-name="fromDate" from-field="workEffortAssoc.fromDate"/>
             </link>
             <sub-node node-name="node-list">
                 <entity-condition entity-name="WorkEffortAssoc">
