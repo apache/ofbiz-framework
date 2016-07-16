@@ -43,7 +43,7 @@ under the License.
       initJQuery();
       //]]>
   </script>
-  <script language="javascript" src="<@ofbizContentUrl>/images/selectall.js</@ofbizContentUrl>"
+  <script language="javascript" src="<@ofbizContentUrl>/images/OfbizUtil.js</@ofbizContentUrl>"
           type="text/javascript"></script>
   <#if layoutSettings.javaScripts?has_content>
     <#--layoutSettings.javaScripts is a list of java scripts. -->

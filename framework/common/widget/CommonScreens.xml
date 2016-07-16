@@ -471,7 +471,7 @@ under the License.
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
 
                 <set field="layoutSettings.javaScripts[]" value="/images/OpenLayers-2.13.1.js" global="true" />
-                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/OfbizUtil.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <!-- The default (global) shortcut icon -->
                 <set field="layoutSettings.shortcutIcon" value="/images/ofbiz.ico" global="true"/>

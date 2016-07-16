@@ -626,7 +626,7 @@ Parameter: height, String or Integer, optional - The height of the lookup field.
 Parameter: position, String, optional - The position style of the lookup field.
 Parameter: fadeBackground, ?
 Parameter: clearText, String, optional - If the readonly parameter is true, clearText contains the text to be displayed in the field, default is CommonClear label.
-Parameter: showDescription, String, optional - If the showDescription parameter is true, a special span with css class "tooltip" will be created at right of the lookup button and a description will fill in (see setLookDescription in selectall.js). For now not when the lookup is read only.
+Parameter: showDescription, String, optional - If the showDescription parameter is true, a special span with css class "tooltip" will be created at right of the lookup button and a description will fill in (see setLookDescription in OfbizUtil.js). For now not when the lookup is read only.
 Parameter: initiallyCollapsed, Not used.
 Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true, the contents of lastViewName will be appended to the Ajax URL.
 Parameter: tabindex, String, optional - HTML tabindex number.

@@ -56,7 +56,7 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
 
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OpenLayers-2.13.1.js" sequenceId="13"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/selectall.js" sequenceId="15"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OfbizUtil.js" sequenceId="15"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/fieldlookup.js" sequenceId="16"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/date.format-1.2.3-min.js" sequenceId="17"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_SAPHIR" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/date.timezone-min.js" sequenceId="18"/>
@@ -100,7 +100,7 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jeditable/jquery.jeditable.js" sequenceId="11"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OpenLayers-2.13.1.js" sequenceId="13"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/selectall.js" sequenceId="15"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OfbizUtil.js" sequenceId="15"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/fieldlookup.js" sequenceId="16"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/date.format-1.2.3-min.js" sequenceId="17"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_RUBY" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/date.timezone-min.js" sequenceId="18"/>
@@ -144,7 +144,7 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jeditable/jquery.jeditable.js" sequenceId="11"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OpenLayers-2.13.1.js" sequenceId="13"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/selectall.js" sequenceId="15"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OfbizUtil.js" sequenceId="15"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/fieldlookup.js" sequenceId="16"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/date.format-1.2.3-min.js" sequenceId="17"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_EMERALD" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/date.timezone-min.js" sequenceId="18"/>
@@ -187,7 +187,7 @@ under the License.
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jeditable/jquery.jeditable.js" sequenceId="11"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OpenLayers-2.13.1.js" sequenceId="13"/>
-    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/selectall.js" sequenceId="15"/>
+    <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OfbizUtil.js" sequenceId="15"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/fieldlookup.js" sequenceId="16"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/date.format-1.2.3-min.js" sequenceId="17"/>
     <VisualThemeResource visualThemeId="RAINBOWSTONE_AMBER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/date.timezone-min.js" sequenceId="18"/>
