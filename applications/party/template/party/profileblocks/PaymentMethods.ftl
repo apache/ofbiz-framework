@@ -37,11 +37,11 @@ under the License.
   <div id="partyPaymentMethod" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="h3">${uiLabelMap.PartyPaymentMethodInformation}</li>
+        <li class="h3">${uiLabelMap.AccountingPaymentMethod}</li>
         <#if security.hasEntityPermission("PAY_INFO", "_CREATE", session) || security.hasEntityPermission("ACCOUNTING", "_CREATE", session)>
-          <li><a href="<@ofbizUrl>editeftaccount?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewEftAccount}</a></li>
-          <li><a href="<@ofbizUrl>editgiftcard?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewGiftCard}</a></li>
-          <li><a href="<@ofbizUrl>editcreditcard?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewCreditCard}</a></li>
+          <li><a href="<@ofbizUrl>editeftaccount?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateEftAccount}</a></li>
+          <li><a href="<@ofbizUrl>editgiftcard?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateGiftCard}</a></li>
+          <li><a href="<@ofbizUrl>editcreditcard?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateCreditCard}</a></li>
           <li><a href="<@ofbizUrl>EditBillingAccount?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateBillingAccount}</a></li>
         </#if>
       </ul>

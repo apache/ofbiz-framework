@@ -3555,6 +3555,18 @@
         <value xml:lang="zh">新建成本组件计算</value>
         <value xml:lang="zh-TW">新建成本元件計算</value>
     </property>
+    <property key="AccountingCreateCreditCard">
+        <value xml:lang="en">Create Credit Card</value>
+        <value xml:lang="hi-IN">क्रेडिट कार्ड बनाएँ</value>
+    </property>
+    <property key="AccountingCreateEftAccount">
+        <value xml:lang="en">Create EFT Account</value>
+        <value xml:lang="hi-IN">ईएफ़टी(EFT) खाता बनाएँ</value>
+    </property>
+    <property key="AccountingCreateGiftCard">
+        <value xml:lang="en">Create Gift Card</value>
+        <value xml:lang="hi-IN">उपहार कार्ड बनाएँ</value>
+    </property>
     <property key="AccountingCreateFixedAssetMaintOrderPermissionError">
         <value xml:lang="de">Berechtigungsfehler: Um 'createFixedAssetMaintOrder' auszuführen muss man ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run createFixedAssetMaintOrder you must have the ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission</value>
@@ -3569,25 +3581,6 @@
         <value xml:lang="vi">Lỗi phân quyền: để thực thi createFixedAssetMaintOrder bạn cần có quyền ACCOUNTING_CREATEUPDATE hoặc quyền ACCOUNTING_ADMIN, hoặc tối thiểu quyền ACCOUNTING_ROLE_CREATE</value>
         <value xml:lang="zh">安全错误：要运行新建固定资产维修保养订单(createFixedAssetMaintOrder)，你必须有ACCOUNTING_CREATEUPDATE或ACCOUNTING_ADMIN权限，或者受限制的ACCOUNTING_ROLE_CREATE权限</value>
         <value xml:lang="zh-TW">安全錯誤:要執行新建固定資產維修保養訂單(createFixedAssetMaintOrder),你必須有ACCOUNTING_CREATEUPDATE或ACCOUNTING_ADMIN權限,或者受限制的ACCOUNTING_ROLE_CREATE權限</value>
-    </property>
-    <property key="AccountingCreateNewCreditCard">
-        <value xml:lang="ar">خلق بطاقة ائتمان جديدة</value>
-        <value xml:lang="de">Neue Kreditkarte erstellen</value>
-        <value xml:lang="en">Create New Credit Card</value>
-        <value xml:lang="es">Crear nueva tarjeta de crédito</value>
-        <value xml:lang="fr">Enregistrer une nouvelle carte de crédit</value>
-        <value xml:lang="hi-IN">नया क्रेडिट कार्ड बनाएँ</value>
-        <value xml:lang="it">Creare Nuova Carta Credito</value>
-        <value xml:lang="ja">新規クレジットカードを作成</value>
-        <value xml:lang="nl">Nieuwe kredietkaart aanmaken</value>
-        <value xml:lang="pt-BR">Criar Novo Cartão de Crédito</value>
-        <value xml:lang="pt-PT">&gt;Criar Novo Cartão de Crédito</value>
-        <value xml:lang="ro">Creaza Noua Carte de Credit</value>
-        <value xml:lang="ru">Создать новую кредитную карту</value>
-        <value xml:lang="th">สร้างบัตรเครดิตใหม่</value>
-        <value xml:lang="vi">Thêm mới Thẻ tín dụng</value>
-        <value xml:lang="zh">创建新信用卡</value>
-        <value xml:lang="zh-TW">新建新信用卡</value>
     </property>
     <property key="AccountingCreateNewDepositPayment">
         <value xml:lang="ar">خلق دفعة ايداع جديدة</value>
@@ -3637,25 +3630,6 @@
         <value xml:lang="zh">为财务账户新建存款单：${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="zh-TW">為財務帳戶新建存款單:${finAccount.finAccountName} [${finAccountId}]</value>
     </property>
-    <property key="AccountingCreateNewEftAccount">
-        <value xml:lang="ar">خلق حساب EFT جديد</value>
-        <value xml:lang="de">Neue Bankverbindung erstellen</value>
-        <value xml:lang="en">Create New EFT Account</value>
-        <value xml:lang="es">Crear una nueva cuenta EFT</value>
-        <value xml:lang="fr">Enregistrer un nouveau compte de virement électronique</value>
-        <value xml:lang="hi-IN">नया  ईएफ़टी(EFT) खाता बनाएँ</value>
-        <value xml:lang="it">Creare Nuovo Conto EFT</value>
-        <value xml:lang="ja">新規電子取引(EFT)アカウントを作成</value>
-        <value xml:lang="nl">Nieuwe bankrekening aanmaken</value>
-        <value xml:lang="pt-BR">Criar Nova Conta EFT</value>
-        <value xml:lang="pt-PT">&gt;Criar Nova Conta EFT</value>
-        <value xml:lang="ro">Creaza un Cont nou EFT</value>
-        <value xml:lang="ru">Создать новый банковский счет</value>
-        <value xml:lang="th">สร้างบัญชีธนาคารใหม่</value>
-        <value xml:lang="vi">Tạo mới tài khoản EFT</value>
-        <value xml:lang="zh">创建新电子资金转账</value>
-        <value xml:lang="zh-TW">新建新電子資金轉帳</value>
-    </property>
     <property key="AccountingCreateNewFinAccount">
         <value xml:lang="ar">خلق حساب مالي جديد</value>
         <value xml:lang="de">Neues Finanzkonto erstellen</value>
@@ -3678,24 +3652,6 @@
         <value xml:lang="vi">Tạo mới tài khoản tài chính Đối ứng</value>
         <value xml:lang="zh">新建财务账目对账</value>
         <value xml:lang="zh-TW">新建財務帳目對帳</value>
-    </property>
-    <property key="AccountingCreateNewGiftCard">
-        <value xml:lang="ar">خلق بطاقة هدية جديدة</value>
-        <value xml:lang="de">Neuen Gutschein erstellen</value>
-        <value xml:lang="en">Create New Gift Card</value>
-        <value xml:lang="es">Crear nuevo certificado de regalo</value>
-        <value xml:lang="fr">Créer une nouvelle carte cadeau</value>
-        <value xml:lang="hi-IN">नया  उपहार कार्ड बनाएँ</value>
-        <value xml:lang="it">Creare Nuova Carta Omaggio</value>
-        <value xml:lang="ja">新規ギフトカードを作成</value>
-        <value xml:lang="nl">Nieuwe cadeaubon aanmaken</value>
-        <value xml:lang="pt">Criar Novo Cartão de Presente</value>
-        <value xml:lang="ro">Creare Noua Carte Omagiu</value>
-        <value xml:lang="ru">Создать новую дисконтную карту</value>
-        <value xml:lang="th">สร้างบัตรของขวัญใหม่</value>
-        <value xml:lang="vi">Tạo mới thẻ quà tặng</value>
-        <value xml:lang="zh">新建礼品卡</value>
-        <value xml:lang="zh-TW">新建禮物卡</value>
     </property>
     <property key="AccountingCreateNewInvoice">
         <value xml:lang="ar">خلق فاتورة جديدة</value>
