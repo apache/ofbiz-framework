@@ -9754,6 +9754,9 @@
         <value xml:lang="zh">没有为这个会员找到访问。</value>
         <value xml:lang="zh-TW">沒有找到這個團體的訪問.</value>
     </property>
+    <property key="PartyNotModifRecreateAttribute">
+        <value xml:lang="en">This cannot be changed without re-creating the Attribute.</value>
+    </property>
     <property key="PartyNotModifRecreatSecurityGroup">
         <value xml:lang="ar">لا يمكن التغيير دون إعادة خلق مجموعة الأمن</value>
         <value xml:lang="de">Kann nicht geändert werden ohne die Sicherheitsgruppe neu zu erstellen.</value>

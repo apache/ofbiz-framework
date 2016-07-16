@@ -728,6 +728,7 @@ under the License.
         <alt-target use-when="attribute==null" target="createPartyAttribute"/>
         <auto-fields-service service-name="updatePartyAttribute" map-name="attribute"/>
         <field name="partyId"><hidden value="${partyId}"/></field>
+        <field use-when="attribute!=null" name="attrName" tooltip="${uiLabelMap.PartyNotModifRecreateAttribute}"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
             <hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
