@@ -74,8 +74,8 @@
         <!-- Now create PartyGroup corresponding to the companyName, if its not null and then set up relationship of Person and PartyGroup as Employee and title -->
         <if-not-empty field="parameters.groupName">
             <set field="parameters.partyTypeId" value="PARTY_GROUP"/>
-            <set field="parameters.roleTypeId" value="ACCOUNT_LEAD"/>
             <if-empty field="leadContactPartyId">
+                <set field="parameters.roleTypeId" value="ACCOUNT_LEAD"/>
                 <!-- In case we have any contact mech data then associate with party group  -->
                 <call-simple-method method-name="createPartyGroupRoleAndContactMechs" xml-resource="component://party/minilang/party/PartySimpleMethods.xml"/>
                 <set field="partyGroupPartyId" from-field="partyId"/>
