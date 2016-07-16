@@ -25,6 +25,8 @@ import org.apache.tools.ant.filters.ReplaceTokens
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
+apply from: 'common.gradle'
+
 // java settings
 def jvmArguments = ['-Xms128M', '-Xmx512M']
 ext.ofbizMainClass = 'org.ofbiz.base.start.Start'
@@ -794,28 +796,6 @@ def getDirectoryInActiveComponentsIfExists(String dirName) {
         }
     }
     return dirInComponents
-}
-
-def iterateOverActiveComponents(applyFunction) {
-    def frameworkComponents = new XmlParser().parse("${rootDir}/framework/component-load.xml")
-    def applicationsComponents = new XmlParser().parse("${rootDir}/applications/component-load.xml")
-    def specialpurposeComponents = new XmlParser().parse("${rootDir}/specialpurpose/component-load.xml")
-
-    applyFunction file("${rootDir}/framework/start")
-
-    frameworkComponents.children().each { component ->
-        applyFunction file("${rootDir}/framework/"+component.@"component-location")
-    }
-    applicationsComponents.children().each { component ->
-        applyFunction file("${rootDir}/applications/"+component.@"component-location")
-    }
-    specialpurposeComponents.children().each { component ->
-        applyFunction file("${rootDir}/specialpurpose/"+component.@"component-location")
-    }
-
-    file("${rootDir}/hot-deploy").eachDir { component ->
-        applyFunction(component)
-    }
 }
 
 def deleteAllInDirWithExclusions(dirName, exclusions) {
