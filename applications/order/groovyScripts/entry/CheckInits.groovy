@@ -17,18 +17,18 @@
  * under the License.
  */
 
-import org.ofbiz.service.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.order.shoppingcart.*;
-import org.ofbiz.party.party.PartyWorker;
-import org.ofbiz.party.contact.ContactHelper;
-import org.ofbiz.product.catalog.CatalogWorker;
-import org.ofbiz.product.store.ProductStoreWorker;
-import org.ofbiz.order.shoppingcart.product.ProductDisplayWorker;
-import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
+import org.apache.ofbiz.service.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.party.party.PartyWorker;
+import org.apache.ofbiz.party.contact.ContactHelper;
+import org.apache.ofbiz.product.catalog.CatalogWorker;
+import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.order.shoppingcart.product.ProductDisplayWorker;
+import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 
 productStore = ProductStoreWorker.getProductStore(request);
 if (productStore) {

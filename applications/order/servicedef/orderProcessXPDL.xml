@@ -18,7 +18,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<Package Id="org.ofbiz.order">
+<Package Id="org.apache.ofbiz.order">
     <PackageHeader>
         <XPDLVersion>0.03</XPDLVersion>
         <Vendor>OFBiz.org</Vendor>

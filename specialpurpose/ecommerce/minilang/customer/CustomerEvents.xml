@@ -22,7 +22,7 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createCustomer" short-description="Create Customer" login-required="false">
-        <call-class-method class-name="org.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field="productStore">
+        <call-class-method class-name="org.apache.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field="productStore">
             <field field="request" type="javax.servlet.ServletRequest"/>
         </call-class-method>
 
@@ -91,7 +91,7 @@ under the License.
             String password = (String) userLoginContext.get("currentPassword");
             String confirmPassword = (String) userLoginContext.get("currentPasswordVerify");
             String passwordHint = (String) userLoginContext.get("passwordHint");
-            org.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
+            org.apache.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
         </script>
 
         <!-- Create the Person -->
@@ -384,7 +384,7 @@ under the License.
             <find-by-primary-key map="personLookup" value-field="personVo" entity-name="Person"/>
             <if-empty field="parameters.CLUB_NUMBER">
                 <script>groovy:
-                    clubId = org.ofbiz.party.party.PartyWorker.createClubId(delegator, "999", 13);
+                    clubId = org.apache.ofbiz.party.party.PartyWorker.createClubId(delegator, "999", 13);
                     parameters.put("CLUB_NUMBER", clubId);
                 </script>
             </if-empty>
@@ -395,8 +395,8 @@ under the License.
         <!-- now finished, log in the user and set the cart's partyId to that of the newly created customer ... -->
         <if-compare field="allowPassword" operator="equals" value="Y">
             <script>groovy:
-                org.ofbiz.webapp.control.LoginWorker.doBasicLogin(createdUserLogin, request);
-                org.ofbiz.webapp.control.LoginWorker.autoLoginSet(request, response);
+                org.apache.ofbiz.webapp.control.LoginWorker.doBasicLogin(createdUserLogin, request);
+                org.apache.ofbiz.webapp.control.LoginWorker.autoLoginSet(request, response);
                 session = request.getSession();
                 cart = session.getAttribute("shoppingCart");
                 if (cart != null) {
@@ -511,8 +511,8 @@ under the License.
                             }
                         </script>
                         <!-- call-object-method obj-field="cart"  method-name="setUserLogin">
-                            <field field="userLogin"  type="org.ofbiz.entity.GenericValue"/>
-                            <field field="dispatcher" map-name="request" type="org.ofbiz.service.LocalDispatcher"/>
+                            <field field="userLogin"  type="org.apache.ofbiz.entity.GenericValue"/>
+                            <field field="dispatcher" map-name="request" type="org.apache.ofbiz.service.LocalDispatcher"/>
                         </call-object-method -->
                     </if-not-empty>
                 </if-not-empty>
@@ -900,7 +900,7 @@ under the License.
             <request-to-field request-name="partyId" field="parameters.partyId"/>
         </if-empty>
         <if-empty field="parameters.username">
-            <call-class-method class-name="org.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field="productStore">
+            <call-class-method class-name="org.apache.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field="productStore">
                 <field field="request" type="javax.servlet.ServletRequest"/>
             </call-class-method>
             <if-compare field="productStore.usePrimaryEmailUsername" operator="equals" value="Y">
@@ -927,7 +927,7 @@ under the License.
                 String password = (String) userLoginMap.get("currentPassword");
                 String confirmPassword = (String) userLoginMap.get("currentPasswordVerify");
                 String passwordHint = (String) userLoginMap.get("passwordHint");
-                org.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
+                org.apache.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
             </script>
             <check-errors/>
             <set-service-fields service-name="createUserLogin"  map="userLoginMap" to-map="userLoginCtx"/>
@@ -943,8 +943,8 @@ under the License.
 
             <!-- now finished, log in the user and set the cart's partyId -->
             <script>groovy:
-                    org.ofbiz.webapp.control.LoginWorker.doBasicLogin(userLogin, request);
-                    org.ofbiz.webapp.control.LoginWorker.autoLoginSet(request, response);
+                    org.apache.ofbiz.webapp.control.LoginWorker.doBasicLogin(userLogin, request);
+                    org.apache.ofbiz.webapp.control.LoginWorker.autoLoginSet(request, response);
             </script>
             <set field="parameters.userLogin" from-field="userLogin"/>
         <else>
@@ -983,7 +983,7 @@ under the License.
             <session-to-field field="shoppingCart"/>
         </if-empty>
         <script>groovy:
-                import org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
+                import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
                 shippingEstWpr = ShippingEstimateWrapper.getWrapper(dispatcher, shoppingCart, 0);
                 parameters.put("shippingEstWpr", shippingEstWpr);
         </script>
@@ -999,7 +999,7 @@ under the License.
         </if-not-empty>
         <iterate list="carrierShipmentMethodList"  entry="carrierShipmentMethod">
             <call-object-method obj-field="shippingEstWpr" method-name="getShippingEstimate" ret-field="shippingEst">
-                <field field="carrierShipmentMethod" type="org.ofbiz.entity.GenericValue"/>
+                <field field="carrierShipmentMethod" type="org.apache.ofbiz.entity.GenericValue"/>
             </call-object-method>
             <if-empty field="shippingEst">
                 <set field="shippingEst" value="-1" type="Integer"/>
@@ -1074,28 +1074,28 @@ under the License.
         <set field="locale" from-field="parameters.locale" type="Object"/>
 
         <script>groovy:
-            Map shipCost = org.ofbiz.order.shoppingcart.shipping.ShippingEvents.getShipGroupEstimate(dispatcher, delegator, shoppingCart, 0);
+            Map shipCost = org.apache.ofbiz.order.shoppingcart.shipping.ShippingEvents.getShipGroupEstimate(dispatcher, delegator, shoppingCart, 0);
             shippingTotal = shipCost.get("shippingTotal");
             if (shippingTotal == null) {
                 shippingTotal = java.math.BigDecimal.ZERO;
             }
             shoppingCart.setItemShipGroupEstimate(shippingTotal, 0);
-            parameters.put("shippingTotal", org.ofbiz.base.util.UtilFormatOut.formatCurrency(shippingTotal, isoCode, locale));
+            parameters.put("shippingTotal", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shippingTotal, isoCode, locale));
 
-            checkOutHelper = new org.ofbiz.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
+            checkOutHelper = new org.apache.ofbiz.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
             // Calculate and add the tax adjustments
             checkOutHelper.calcAndAddTax();
 
             salesTax = shoppingCart.getTotalSalesTax();
-            totalSalesTax = org.ofbiz.base.util.UtilFormatOut.formatCurrency(salesTax, isoCode, locale);
+            totalSalesTax = org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(salesTax, isoCode, locale);
             parameters.put("totalSalesTax", totalSalesTax);
 
-            cartGrandTotal = org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getGrandTotal(), isoCode, locale);
+            cartGrandTotal = org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getGrandTotal(), isoCode, locale);
             parameters.put("cartGrandTotal", cartGrandTotal);
         </script>
-        <call-class-method method-name="doPromotions" class-name="org.ofbiz.order.shoppingcart.product.ProductPromoWorker">
-            <field field="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart"/>
-            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+        <call-class-method method-name="doPromotions" class-name="org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker">
+            <field field="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart"/>
+            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
         </call-class-method>
         <field-to-request field="parameters.shippingTotal" request-name="shippingTotal"/>
         <field-to-request field="parameters.cartGrandTotal" request-name="cartGrandTotal"/>
@@ -1207,7 +1207,7 @@ under the License.
      </simple-method>
 
     <simple-method method-name="updateCustomerProfile" short-description="Update a customer profile">
-        <call-class-method class-name="org.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field="productStore">
+        <call-class-method class-name="org.apache.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field="productStore">
             <field field="request" type="javax.servlet.ServletRequest"/>
         </call-class-method>
 
@@ -1249,8 +1249,8 @@ under the License.
             </call-service>
             <set-current-user-login value-field="newUserLogin"/>
             <script>groovy:
-                    org.ofbiz.webapp.control.LoginWorker.doBasicLogin(newUserLogin, request);
-                    org.ofbiz.webapp.control.LoginWorker.autoLoginSet(request, response);
+                    org.apache.ofbiz.webapp.control.LoginWorker.doBasicLogin(newUserLogin, request);
+                    org.apache.ofbiz.webapp.control.LoginWorker.autoLoginSet(request, response);
             </script>
             <!-- disabledDateTime/disableForYears set time until a user login remains disabled -->
             <if-not-empty field="parameters.disabledDateTime">
@@ -1281,7 +1281,7 @@ under the License.
         <if-empty field="parameters.emailAddress">
             <add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressMissingError"/></add-error>
             <else>
-                <if-validate-method field="parameters.emailAddress" method="isEmail" class="org.ofbiz.base.util.UtilValidate">
+                <if-validate-method field="parameters.emailAddress" method="isEmail" class="org.apache.ofbiz.base.util.UtilValidate">
                     <else>
                         <add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error>
                     </else>

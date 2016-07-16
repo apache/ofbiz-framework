@@ -30,16 +30,16 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.ofbiz.service.schedule -->
-  <!--  - org.ofbiz.service.semaphore -->
+  <!--  - org.apache.ofbiz.service.schedule -->
+  <!--  - org.apache.ofbiz.service.semaphore -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.service.schedule -->
+  <!-- org.apache.ofbiz.service.schedule -->
   <!-- ========================================================= -->
 
-    <entity entity-name="JobSandbox" package-name="org.ofbiz.service.schedule" title="Job Scheduler Sandbox Entity"
+    <entity entity-name="JobSandbox" package-name="org.apache.ofbiz.service.schedule" title="Job Scheduler Sandbox Entity"
             sequence-bank-size="100" never-cache="true">
         <field name="jobId" type="id-ne"></field>
         <field name="jobName" type="name"></field>
@@ -89,7 +89,7 @@ under the License.
         </index>
     </entity>
     <entity entity-name="RecurrenceInfo"
-            package-name="org.ofbiz.service.schedule"
+            package-name="org.apache.ofbiz.service.schedule"
             title="Recurrence Info Entity">
       <field name="recurrenceInfoId" type="id-ne"></field>
       <field name="startDateTime" type="date-time"></field>
@@ -107,7 +107,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="RecurrenceRule"
-            package-name="org.ofbiz.service.schedule"
+            package-name="org.apache.ofbiz.service.schedule"
             title="Recurrence Rule Entity">
       <field name="recurrenceRuleId" type="id-ne"></field>
       <field name="frequency" type="short-varchar"></field>
@@ -127,7 +127,7 @@ under the License.
       <field name="xName" type="very-long"></field>
       <prim-key field="recurrenceRuleId"/>
     </entity>
-    <entity entity-name="RuntimeData" package-name="org.ofbiz.service.schedule" title="Runtime Data Entity"
+    <entity entity-name="RuntimeData" package-name="org.apache.ofbiz.service.schedule" title="Runtime Data Entity"
             sequence-bank-size="100">
         <field name="runtimeDataId" type="id-ne"></field>
         <field name="runtimeInfo" type="very-long"></field>
@@ -138,7 +138,7 @@ under the License.
         In other words, they should be created once and left unmodified by user
         interaction. -->
     <entity entity-name="TemporalExpression"
-            package-name="org.ofbiz.service.schedule"
+            package-name="org.apache.ofbiz.service.schedule"
             title="Temporal Expression">
       <field name="tempExprId" type="id-ne"></field>
       <field name="tempExprTypeId" type="id-ne"></field>
@@ -153,7 +153,7 @@ under the License.
     </entity>
 
     <entity entity-name="TemporalExpressionAssoc"
-            package-name="org.ofbiz.service.schedule"
+            package-name="org.apache.ofbiz.service.schedule"
             title="Temporal Expression Association">
       <field name="fromTempExprId" type="id-ne"><description>The "parent" expression</description></field>
       <field name="toTempExprId" type="id-ne"><description>The "child" expression</description></field>
@@ -173,7 +173,7 @@ under the License.
     </entity>
 
     <view-entity entity-name="TemporalExpressionChild"
-            package-name="org.ofbiz.service.schedule"
+            package-name="org.apache.ofbiz.service.schedule"
             title="Temporal Expression Children View Entity">
       <member-entity entity-alias="TEA" entity-name="TemporalExpressionAssoc"/>
       <member-entity entity-alias="TE" entity-name="TemporalExpression"/>
@@ -186,7 +186,7 @@ under the License.
       </view-link>
     </view-entity>
 
-    <entity entity-name="JobManagerLock" package-name="org.ofbiz.service.schedule" title="Lock Job Manager Scheduler">
+    <entity entity-name="JobManagerLock" package-name="org.apache.ofbiz.service.schedule" title="Lock Job Manager Scheduler">
         <field name="instanceId" type="id"/>
         <field name="fromDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
@@ -204,9 +204,9 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.service.semaphore -->
+  <!-- org.apache.ofbiz.service.semaphore -->
   <!-- ========================================================= -->
-    <entity entity-name="ServiceSemaphore" package-name="org.ofbiz.service.semaphore" title="Semaphore Lock Entity"
+    <entity entity-name="ServiceSemaphore" package-name="org.apache.ofbiz.service.semaphore" title="Semaphore Lock Entity"
             sequence-bank-size="100">
         <field name="serviceName" type="name"></field>
         <field name="lockedByInstanceId" type="id"></field>

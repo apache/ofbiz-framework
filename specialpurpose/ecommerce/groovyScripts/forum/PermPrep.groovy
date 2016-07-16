@@ -27,13 +27,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.security.*;
-import org.ofbiz.service.*;
-import org.ofbiz.entity.model.*;
-import org.ofbiz.content.content.PermissionRecorder;
-import org.ofbiz.content.ContentManagementWorker;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.security.*;
+import org.apache.ofbiz.service.*;
+import org.apache.ofbiz.entity.model.*;
+import org.apache.ofbiz.content.content.PermissionRecorder;
+import org.apache.ofbiz.content.ContentManagementWorker;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -59,7 +59,7 @@ currentValue = request.getAttribute("currentValue");
 if ("add".equals(mode)) {
     entityOperation = context.addEntityOperation ?: context.entityOperation ?: "_CREATE";
     targetOperation = context.addTargetOperation ?: context.get("targetOperation") ?: "CONTENT_CREATE";
-    //org.ofbiz.base.util.Debug.logInfo("in permprep, targetOperation:" + targetOperation, null);
+    //org.apache.ofbiz.base.util.Debug.logInfo("in permprep, targetOperation:" + targetOperation, null);
 } else {
     if (!entityOperation) {
         entityOperation = "_UPDATE";
@@ -82,7 +82,7 @@ if (permissionType.equals("complex")) {
     //}
     if (!currentValue || !"Content".equals(entityName)) {
         permissionIdName = context.permissionIdName;
-        //org.ofbiz.base.util.Debug.logInfo("in permprep, permissionIdName(1):" + permissionIdName, null);
+        //org.apache.ofbiz.base.util.Debug.logInfo("in permprep, permissionIdName(1):" + permissionIdName, null);
         if (!permissionIdName) {
             thisContentId = ContentManagementWorker.getFromSomewhere(permissionIdName, paramMap, request, context);
         } else if (!thisContentId) {
@@ -92,11 +92,11 @@ if (permissionType.equals("complex")) {
         } else if (!thisContentId) {
             thisContentId = ContentManagementWorker.getFromSomewhere("contentId", paramMap, request, context);
         }
-        //org.ofbiz.base.util.Debug.logInfo("in permprep, thisContentId(2):" + thisContentId, null);
+        //org.apache.ofbiz.base.util.Debug.logInfo("in permprep, thisContentId(2):" + thisContentId, null);
     } else {
         thisContentId = currentValue.contentId;
     }
-    //org.ofbiz.base.util.Debug.logInfo("in permprep, thisContentId(3):" + thisContentId, null);
+    //org.apache.ofbiz.base.util.Debug.logInfo("in permprep, thisContentId(3):" + thisContentId, null);
 
     if (!currentValue || !"Content".equals(entityName)) {
         if (thisContentId) {
@@ -114,7 +114,7 @@ if (permissionType.equals("complex")) {
             entityOperation = editEntityOperation;
         }
     }
-    //org.ofbiz.base.util.Debug.logInfo("in permprep, currentValue(2):" + currentValue, null);
+    //org.apache.ofbiz.base.util.Debug.logInfo("in permprep, currentValue(2):" + currentValue, null);
     if ("Content".equals(currentValue?.getEntityName())) {
         mapIn.currentContent = currentValue;
     }
@@ -125,10 +125,10 @@ if (permissionType.equals("complex")) {
         mapIncontentPurposeList = StringUtil.split(contentPurposeTypeId, "|");
     }
 
-    //org.ofbiz.base.util.Debug.logInfo("in permprep, mapIn:" + mapIn, null);
+    //org.apache.ofbiz.base.util.Debug.logInfo("in permprep, mapIn:" + mapIn, null);
     result = runService('checkContentPermission', mapIn);
     permissionStatus = result.permissionStatus;
-    //org.ofbiz.base.util.Debug.logInfo("in permprep, permissionStatus:" + permissionStatus, null);
+    //org.apache.ofbiz.base.util.Debug.logInfo("in permprep, permissionStatus:" + permissionStatus, null);
     if ("granted".equals(permissionStatus)) {
         context.hasPermission = true;
         request.setAttribute("hasPermission", true);
@@ -149,15 +149,15 @@ if (permissionType.equals("complex")) {
     }
     //Debug.logInfo("in permprep, contentId(1):" + request.getAttribute("contentId"),"");
 } else {
-    //org.ofbiz.base.util.Debug.logInfo("permission:" + permission , null);
-    //org.ofbiz.base.util.Debug.logInfo("entityOperation:" + entityOperation , null);
+    //org.apache.ofbiz.base.util.Debug.logInfo("permission:" + permission , null);
+    //org.apache.ofbiz.base.util.Debug.logInfo("entityOperation:" + entityOperation , null);
     if (security.hasEntityPermission(permission, entityOperation, session)) {
-        //org.ofbiz.base.util.Debug.logInfo("hasEntityPermission is true:" , null);
+        //org.apache.ofbiz.base.util.Debug.logInfo("hasEntityPermission is true:" , null);
         context.hasPermission = true;
         request.setAttribute("hasPermission", true);
         request.setAttribute("permissionStatus", "granted");
     } else {
-        //org.ofbiz.base.util.Debug.logInfo("hasEntityPermission is false:" , null);
+        //org.apache.ofbiz.base.util.Debug.logInfo("hasEntityPermission is false:" , null);
         context.hasPermission = false;
         request.setAttribute("hasPermission", false);
         request.setAttribute("permissionStatus", "");

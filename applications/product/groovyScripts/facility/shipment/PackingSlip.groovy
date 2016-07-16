@@ -19,9 +19,9 @@
 
 // This script gets shipment items grouped by package for use in the packing slip PDF or any screens that require by-package layout
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.EntityTypeUtil
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.EntityTypeUtil
 
 // Since this script is run after ViewShipment, we will re-use the shipment in the context
 shipment = context.shipment;

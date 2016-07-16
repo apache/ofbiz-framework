@@ -49,7 +49,7 @@ under the License.
                   <td class="label">${uiLabelMap.ProductChooseCatalog}</td>
                   <td><select name='prodCatalogId'>
                     <#list catalogCol as catalogId>
-                      <#assign thisCatalogName = Static["org.ofbiz.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
+                      <#assign thisCatalogName = Static["org.apache.ofbiz.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
                       <option value='${catalogId}'>${thisCatalogName}</option>
                     </#list>
                   </select>

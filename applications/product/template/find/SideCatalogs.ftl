@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <div class="browsecategorylist">
-  <#assign sortList = Static["org.ofbiz.base.util.UtilMisc"].toList("prodCatalogCategoryTypeId", "sequenceNum", "productCategoryId")>
+  <#assign sortList = Static["org.apache.ofbiz.base.util.UtilMisc"].toList("prodCatalogCategoryTypeId", "sequenceNum", "productCategoryId")>
   <#list prodCatalogs as prodCatalog>
   <#if curProdCatalogId?? && curProdCatalogId == prodCatalog.prodCatalogId>
     <#assign prodCatalogCategories = prodCatalog.getRelated("ProdCatalogCategory", null, sortList, true)>

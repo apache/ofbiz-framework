@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
+import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
 // **************************************
 // ShipmentPlan list form

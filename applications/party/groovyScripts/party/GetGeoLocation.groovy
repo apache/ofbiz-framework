@@ -17,12 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.string.*;
-import org.ofbiz.party.contact.ContactHelper;
-import org.ofbiz.common.geo.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.string.*;
+import org.apache.ofbiz.party.contact.ContactHelper;
+import org.apache.ofbiz.common.geo.*;
 
 if (partyId) {
     context.partyId = partyId;

@@ -19,7 +19,7 @@
 
 
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer
-import org.ofbiz.content.search.SearchWorker
+import org.apache.ofbiz.content.search.SearchWorker
 
 import org.apache.lucene.document.Document
 import org.apache.lucene.index.DirectoryReader

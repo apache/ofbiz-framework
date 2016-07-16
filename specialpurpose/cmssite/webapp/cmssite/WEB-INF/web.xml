@@ -47,7 +47,7 @@ under the License.
     <filter>
         <display-name>ContextFilter</display-name>
         <filter-name>ContextFilter</filter-name>
-        <filter-class>org.ofbiz.webapp.control.ContextFilter</filter-class>
+        <filter-class>org.apache.ofbiz.webapp.control.ContextFilter</filter-class>
         <init-param>
             <param-name>disableContextSecurity</param-name>
             <param-value>N</param-value>
@@ -70,18 +70,18 @@ under the License.
             <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <listener><listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
+    <listener><listener-class>org.apache.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
     <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
-    <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
+    <!-- <listener><listener-class>org.apache.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
 
     <!-- this listener will clean up info -->
-    <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
+    <listener><listener-class>org.apache.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
 
     <servlet>
         <description>Main Control Servlet</description>
         <display-name>ControlServlet</display-name>
         <servlet-name>ControlServlet</servlet-name>
-        <servlet-class>org.ofbiz.webapp.control.ControlServlet</servlet-class>
+        <servlet-class>org.apache.ofbiz.webapp.control.ControlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 

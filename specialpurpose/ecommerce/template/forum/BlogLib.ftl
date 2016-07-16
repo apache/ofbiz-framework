@@ -47,7 +47,7 @@ under the License.
   <#if content?has_content && content.createdByUserLogin?has_content>
       <#assign userLoginId=content.createdByUserLogin/>
   </#if>
-  <#assign authorName=Static["org.ofbiz.content.ContentManagementWorker"].getUserName(request,userLoginId!)/>
+  <#assign authorName=Static["org.apache.ofbiz.content.ContentManagementWorker"].getUserName(request,userLoginId!)/>
 
   <tr>
     <td width="40px">&nbsp;</td>
@@ -166,7 +166,7 @@ ${uiLabelMap.EcommerceLoggedToPost}
 <#if !listSz?has_content><#assign listSz=0/></#if>
 
 <#if queryString?has_content>
-    <#assign queryString = Static["org.ofbiz.base.util.UtilHttp"].stripViewParamsFromQueryString(queryString)/>
+    <#assign queryString = Static["org.apache.ofbiz.base.util.UtilHttp"].stripViewParamsFromQueryString(queryString)/>
 </#if>
 
 <#assign lowIdxShow = lowIdx + 1 />

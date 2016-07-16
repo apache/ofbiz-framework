@@ -32,7 +32,7 @@ under the License.
         <field name="apiServerUrl" type="value"></field>
     </extend-entity>
     <entity entity-name="EbayProductStoreInventory"
-        package-name="org.ofbiz.ebay.store"
+        package-name="org.apache.ofbiz.ebay.store"
         title="Ebay store product inventory and status of listing">
         <field name="productStoreId" type="id-ne"></field>
         <field name="facilityId" type="id-ne"></field>
@@ -55,7 +55,7 @@ under the License.
             <key-map field-name="productStoreId"/>
         </relation>
     </entity>
-    <entity entity-name="EbayProductStorePref" package-name="org.ofbiz.ebay.store"
+    <entity entity-name="EbayProductStorePref" package-name="org.apache.ofbiz.ebay.store"
          title="Ebay store and Preference">
         <field name="productStoreId" type="id-ne"/>
         <field name="autoPrefEnumId" type="id-ne"/>
@@ -77,7 +77,7 @@ under the License.
             <key-map field-name="autoPrefJobId" rel-field-name="jobId"/>
         </relation>
     </entity>
-    <entity entity-name="EbayProductListing" package-name="org.ofbiz.ebay.store"
+    <entity entity-name="EbayProductListing" package-name="org.apache.ofbiz.ebay.store"
         title="eBay Product Listing">
         <field name="productListingId" type="id-ne"/>
         <field name="itemId" type="id-long"/>
@@ -100,7 +100,7 @@ under the License.
             <key-map field-name="statusId"/>
         </relation>
     </entity>
-    <entity entity-name="EbayProductListingAttribute" package-name="org.ofbiz.ebay.store"
+    <entity entity-name="EbayProductListingAttribute" package-name="org.apache.ofbiz.ebay.store"
         title="eBay Product Listing">
         <field name="productListingId" type="id-ne"/>
         <field name="attrName" type="id-long-ne"/>
@@ -111,7 +111,7 @@ under the License.
             <key-map field-name="productListingId"/>
         </relation>
     </entity>
-    <entity entity-name="EBayLogMessagesInfo" package-name="org.ofbiz.ebay.store"
+    <entity entity-name="EBayLogMessagesInfo" package-name="org.apache.ofbiz.ebay.store"
         title="eBay Log Messages Info">
         <field name="productStoreId" type="id-ne"/>
         <field name="logAck" type="name"/>
@@ -124,14 +124,14 @@ under the License.
             <key-map field-name="productStoreId"/>
         </relation>
     </entity>
-    <entity entity-name="EbayProductStorePrefCond" package-name="org.ofbiz.ebay.store">
+    <entity entity-name="EbayProductStorePrefCond" package-name="org.apache.ofbiz.ebay.store">
         <field name="prefCondId" type="id-ne"/>
         <field name="acceptanceCondition" type="long-varchar"></field>
         <field name="description" type="long-varchar"></field>
         <field name="parentPrefCondId" type="id-ne"></field>
         <prim-key field="prefCondId"/>
     </entity>
-    <entity entity-name="EbayUserBestOffer" package-name="org.ofbiz.ebay.store"
+    <entity entity-name="EbayUserBestOffer" package-name="org.apache.ofbiz.ebay.store"
         title="ebay User Best Offer">
         <field name="itemId" type="value"/>
         <field name="userId" type="value"/>

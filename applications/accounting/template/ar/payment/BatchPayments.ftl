@@ -210,7 +210,7 @@ function setServiceName(selection) {
                         <td>${payment.effectiveDate!}</td>
                         <td><@ofbizCurrency amount = payment.amount isoCode = payment.currencyUomId /></td>
                         <td>
-                          <#assign amountToApply = Static["org.ofbiz.accounting.payment.PaymentWorker"].getPaymentNotApplied(payment) />
+                          <#assign amountToApply = Static["org.apache.ofbiz.accounting.payment.PaymentWorker"].getPaymentNotApplied(payment) />
                           <@ofbizCurrency amount = amountToApply isoCode = amountToApply.currencyUomId />
                         </td>
                         <td>

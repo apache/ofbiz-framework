@@ -20,7 +20,7 @@ under the License.
 
 <#macro fieldErrors fieldName>
   <#if errorMessageList?has_content>
-    <#assign fieldMessages = Static["org.ofbiz.base.util.MessageString"].getMessagesForField(fieldName, true, errorMessageList)>
+    <#assign fieldMessages = Static["org.apache.ofbiz.base.util.MessageString"].getMessagesForField(fieldName, true, errorMessageList)>
     <ul>
       <#list fieldMessages as errorMsg>
         <li class="errorMessage">${errorMsg}</li>
@@ -30,7 +30,7 @@ under the License.
 </#macro>
 <#macro fieldErrorsMulti fieldName1 fieldName2 fieldName3 fieldName4>
   <#if errorMessageList?has_content>
-    <#assign fieldMessages = Static["org.ofbiz.base.util.MessageString"].getMessagesForField(fieldName1, fieldName2, fieldName3, fieldName4, true, errorMessageList)>
+    <#assign fieldMessages = Static["org.apache.ofbiz.base.util.MessageString"].getMessagesForField(fieldName1, fieldName2, fieldName3, fieldName4, true, errorMessageList)>
     <ul>
       <#list fieldMessages as errorMsg>
         <li class="errorMessage">${errorMsg}</li>

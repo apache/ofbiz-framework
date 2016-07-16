@@ -353,7 +353,7 @@ under the License.
         <calculate field="numericPadding" type="Integer">
             <number value="6"/>
         </calculate>
-        <call-class-method method-name="padNumberWithLeadingZeros" class-name="org.ofbiz.content.compdoc.CompDocEvents" ret-field="paddedSeqId">
+        <call-class-method method-name="padNumberWithLeadingZeros" class-name="org.apache.ofbiz.content.compdoc.CompDocEvents" ret-field="paddedSeqId">
             <field field="incrementedSeq" type="Long"/>
             <field field="numericPadding" type="Integer"/>
         </call-class-method>

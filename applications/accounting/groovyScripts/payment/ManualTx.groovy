@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*;
 
 // stores
 productStores = from("ProductStore").orderBy("storeName").cache(true).queryList();

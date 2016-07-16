@@ -18,5 +18,5 @@ under the License.
 */
 
 def localeMap = []
-org.ofbiz.base.util.UtilMisc.availableLocales().each { localeMap.add(localeId:it.toString()) };
+org.apache.ofbiz.base.util.UtilMisc.availableLocales().each { localeMap.add(localeId:it.toString()) };
 parameters.localeList = localeMap;

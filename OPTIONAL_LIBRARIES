@@ -11,7 +11,7 @@ on the old Undersun SVN server in the specialized/libraries component directory.
 
 -JavaScript/Rhino (NPL 1.1):
   http://www.mozilla.org/js
-  TO BUILD comment out exclude: base/build.xml:org/ofbiz/base/util/OfbizJsBsfEngine.java
+  TO BUILD comment out exclude: base/build.xml:org/apache/ofbiz/base/util/OfbizJsBsfEngine.java
 
 -applets (Netscape javascript plugin : Sun Binary Code License Agreement - BCLA)
   Developpers : http://wp.netscape.com/eng/mozilla/3.0/handbook/javascript/packages.htm
@@ -27,8 +27,8 @@ on the old Undersun SVN server in the specialized/libraries component directory.
 -JasperReports (LGPL):
   http://sourceforge.net/projects/jasperreports
   TO BUILD comment out excludes:
-    framework/webapp/build.xml:org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java,org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java
-    applications/content/build.xml:org/ofbiz/content/report/JREntityListIteratorDataSource.java,org/ofbiz/content/report/JRMapCollectionDataSource.java
+    framework/webapp/build.xml:org/apache/ofbiz/webapp/view/JasperReportsPdfViewHandler.java,org/apache/ofbiz/webapp/view/JasperReportsXmlViewHandler.java
+    applications/content/build.xml:org/apache/ofbiz/content/report/JREntityListIteratorDataSource.java,org/apache/ofbiz/content/report/JRMapCollectionDataSource.java
 
 - JIMI (used by FOP ):
   http://java.sun.com/products/jimi
@@ -73,7 +73,7 @@ on the old Undersun SVN server in the specialized/libraries component directory.
     officebean.jar
     ridl.jar
     unoil.jar
-  TO BUILD comment out exclude: applications/content/build.xml:org/ofbiz/content/openoffice/*
+  TO BUILD comment out exclude: applications/content/build.xml:org/apache/ofbiz/content/openoffice/*
 
 -=- Accounting: Payment Processing ____________________________________________________________________________________________________________________________
 
@@ -81,7 +81,7 @@ on the old Undersun SVN server in the specialized/libraries component directory.
   applications/accounting/lib/cybersource:
     cybsclients.jar
     cybssecurity.jar
-  TO BUILD comment out exclude: applications/accounting/build.xml:org/ofbiz/accounting/thirdparty/cybersource/**
+  TO BUILD comment out exclude: applications/accounting/build.xml:org/apache/ofbiz/accounting/thirdparty/cybersource/**
 
 -Securepay
   applications/accounting/lib/cybersource:
@@ -89,7 +89,7 @@ on the old Undersun SVN server in the specialized/libraries component directory.
   securepayxmlapi_obf.jar
   xercesImpl-2.4.0.jar
   xmlParserAPIs-2.4.0.jar
-  TO BUILD comment out exclude: applications/accounting/build.xml:org/ofbiz/accounting/thirdparty/securepay/**
+  TO BUILD comment out exclude: applications/accounting/build.xml:org/apache/ofbiz/accounting/thirdparty/securepay/**
 
 -WorldPay
   applications/accounting/lib/worldpay:
@@ -109,4 +109,4 @@ on the old Undersun SVN server in the specialized/libraries component directory.
     readme.txt
     select.jar
     select.properties
-  TO BUILD comment out exclude: applications/accounting/build.xml:org/ofbiz/accounting/thirdparty/worldpay/**
+  TO BUILD comment out exclude: applications/accounting/build.xml:org/apache/ofbiz/accounting/thirdparty/worldpay/**

@@ -264,7 +264,7 @@ under the License.
         <!-- check the scheduled posting date, but only if it's set -->
         <if-not-empty field="acctgTrans.scheduledPostingDate">
             <set field="scheduledPostingDate" from-field="acctgTrans.scheduledPostingDate"/>
-            <set field="beforeScheduled" value="${groovy: org.ofbiz.base.util.UtilDateTime.nowTimestamp().before(scheduledPostingDate)}"/>
+            <set field="beforeScheduled" value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp().before(scheduledPostingDate)}"/>
             <if-compare field="beforeScheduled" operator="equals" value="true" type="Boolean">
                 <add-error>
                     <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionNotScheduledToBePosted"/>
@@ -378,7 +378,7 @@ under the License.
     <simple-method method-name="getAcctgTransEntriesAndTransTotal" short-description="Calculate total of credit and debit and difference between both for passed party and group rollup parties">
         <call-simple-method method-name="getGlArithmeticSettingsInline" xml-resource="component://accounting/minilang/ledger/GeneralLedgerServices.xml"/>
         <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-        <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+        <set field="partyIds" value="${groovy:org.apache.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
         <set field="partyIds[]" from-field="organizationPartyId"/>
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries" distinct="true">
             <condition-list combine="and">

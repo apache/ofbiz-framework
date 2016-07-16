@@ -25,8 +25,8 @@ under the License.
 importPackage(Packages.java.math);
 importPackage(Packages.java.text);
 importPackage(Packages.java.util);
-importPackage(Packages.org.ofbiz.base.util);
-importPackage(Packages.org.ofbiz.entity.condition);
+importPackage(Packages.org.apache.ofbiz.base.util);
+importPackage(Packages.org.apache.ofbiz.entity.condition);
 module = "BacklogChart.rptdesign";
 
 productId = params["productId"].value;

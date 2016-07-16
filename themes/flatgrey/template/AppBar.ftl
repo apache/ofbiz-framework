@@ -21,8 +21,8 @@ under the License.
 <#if (externalLoginKey)??><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey!></#if>
 <#assign ofbizServerName = application.getAttribute("_serverId")?default("default-server")>
 <#assign contextPath = request.getContextPath()>
-<#assign displayApps = Static["org.ofbiz.webapp.control.LoginWorker"].getAppBarWebInfos(security, userLogin, ofbizServerName, "main")>
-<#assign displaySecondaryApps = Static["org.ofbiz.webapp.control.LoginWorker"].getAppBarWebInfos(security, userLogin, ofbizServerName, "secondary")>
+<#assign displayApps = Static["org.apache.ofbiz.webapp.control.LoginWorker"].getAppBarWebInfos(security, userLogin, ofbizServerName, "main")>
+<#assign displaySecondaryApps = Static["org.apache.ofbiz.webapp.control.LoginWorker"].getAppBarWebInfos(security, userLogin, ofbizServerName, "secondary")>
 
 <#if userLogin?has_content>
   <div id="main-navigation">
@@ -35,7 +35,7 @@ under the License.
         <#if thisApp == contextPath || contextPath + "/" == thisApp>
           <#assign selected = true>
         </#if>
-        <#assign servletPath = Static["org.ofbiz.webapp.WebAppUtil"].getControlServletPath(display)>
+        <#assign servletPath = Static["org.apache.ofbiz.webapp.WebAppUtil"].getControlServletPath(display)>
         <#assign thisURL = StringUtil.wrapString(servletPath)>
         <#if thisApp != "/">
           <#assign thisURL = thisURL + "main">
@@ -62,7 +62,7 @@ under the License.
         <#if thisApp == contextPath || contextPath + "/" == thisApp>
           <#assign selected = true>
         </#if>
-          <#assign servletPath = Static["org.ofbiz.webapp.WebAppUtil"].getControlServletPath(display)>
+          <#assign servletPath = Static["org.apache.ofbiz.webapp.WebAppUtil"].getControlServletPath(display)>
           <#assign thisURL = StringUtil.wrapString(servletPath)>
           <#if thisApp != "/">
             <#assign thisURL = thisURL + "main">

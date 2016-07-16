@@ -106,7 +106,7 @@ under the License.
         </actions>
         <row-actions>
             <entity-one entity-name="Party" value-field="party" use-cache="true"/>
-            <set field="partyName" value="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(party, true)}"/>
+            <set field="partyName" value="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(party, true)}"/>
             <entity-and entity-name="PartyAndContactMech" list="emailAddresses" filter-by-date="true">
                 <field-map field-name="partyId"/>
                 <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
@@ -152,7 +152,7 @@ under the License.
             <display-entity entity-name="Geo" description="${geoName}" key-field-name="geoId"/>
         </field>
         <field name="relatedCompany" use-when="relatedCompanyPartyId!=null" title="${uiLabelMap.PartyRelatedCompany}">
-            <hyperlink target="viewprofile" description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator,relatedCompanyPartyId,true);} [${relatedCompanyPartyId}]">
+            <hyperlink target="viewprofile" description="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(delegator,relatedCompanyPartyId,true);} [${relatedCompanyPartyId}]">
                 <parameter param-name="partyId" from-field="relatedCompanyPartyId"/>
             </hyperlink>
         </field>

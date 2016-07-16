@@ -923,7 +923,7 @@ under the License.
                             <entity-one entity-name="CustRequest" value-field="custRequest"/>
                             <set field="statusId" from-field="custRequest.statusId"/>
                             <entity-one entity-name="StatusItem" value-field="currentStatus"/>
-                            <set field="projectMgrExists" value="${groovy:org.ofbiz.base.component.ComponentConfig.componentExists(&quot;projectmgr&quot;)}"/>
+                            <set field="projectMgrExists" value="${groovy:org.apache.ofbiz.base.component.ComponentConfig.componentExists(&quot;projectmgr&quot;)}"/>
                         </actions>
                         <widgets>
                             <section>

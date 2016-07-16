@@ -26,7 +26,7 @@ under the License.
 
     <!-- MRP services -->
     <service name="executeMrp" engine="java"
-            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="executeMrp" auth="true"
+            location="org.apache.ofbiz.manufacturing.mrp.MrpServices" invoke="executeMrp" auth="true"
             transaction-timeout="7200" max-retry="0">
         <description>Performs a run of Mrp</description>
         <attribute name="facilityGroupId" type="String" mode="IN" optional="true"/>
@@ -36,7 +36,7 @@ under the License.
         <attribute name="msgResult" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="initMrpEvents" engine="java"
-            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="initMrpEvents" auth="true">
+            location="org.apache.ofbiz.manufacturing.mrp.MrpServices" invoke="initMrpEvents" auth="true">
         <description>Initialize data for the MRP</description>
         <attribute name="mrpId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
@@ -45,13 +45,13 @@ under the License.
         <attribute name="defaultYearsOffset" type="Integer" mode="IN" optional="true"/>
     </service>
     <service name="findProductMrpQoh" engine="java"
-            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="findProductMrpQoh" auth="true">
+            location="org.apache.ofbiz.manufacturing.mrp.MrpServices" invoke="findProductMrpQoh" auth="true">
         <description>Find the quantity on hand of products for the MRP</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="createMrpEvent" engine="java"
-            location="org.ofbiz.manufacturing.mrp.InventoryEventPlannedServices" invoke="createMrpEvent" auth="false">
+            location="org.apache.ofbiz.manufacturing.mrp.InventoryEventPlannedServices" invoke="createMrpEvent" auth="false">
         <description>create an MrpEvent</description>
         <attribute name="mrpId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
@@ -62,7 +62,7 @@ under the License.
         <attribute name="eventName" type="String" mode="IN" optional="true"/>
     </service>
     <service name="setEstimatedDeliveryDates" engine="java"
-            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="setEstimatedDeliveryDates">
+            location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="setEstimatedDeliveryDates">
         <description>Set estimated ship dates for order items based on outstanding production runs</description>
     </service>
 </services>

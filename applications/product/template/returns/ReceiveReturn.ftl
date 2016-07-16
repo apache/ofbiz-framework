@@ -61,7 +61,7 @@ under the License.
             <input type="hidden" name="facilityId" value="${requestParameters.facilityId!}" />
             <input type="hidden" name="returnId" value="${requestParameters.returnId!}" />
             <input type="hidden" name="_useRowSubmit" value="Y" />
-            <#assign now = Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()>
+            <#assign now = Static["org.apache.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()>
             <#assign rowCount = 0>
             <table cellspacing="0" class="basic-table">
               <#if !returnItems?? || returnItems?size == 0>
@@ -95,7 +95,7 @@ under the License.
                   <input type="hidden" name="quantityRejected_o_${rowCount}" value="0" />
                   <input type="hidden" name="comments_o_${rowCount}" value="${uiLabelMap.OrderReturnedItemRaNumber} ${returnItem.returnId}" />
 
-                  <#assign unitCost = Static["org.ofbiz.order.order.OrderReturnServices"].getReturnItemInitialCost(delegator, returnItem.returnId, returnItem.returnItemSeqId)/>
+                  <#assign unitCost = Static["org.apache.ofbiz.order.order.OrderReturnServices"].getReturnItemInitialCost(delegator, returnItem.returnId, returnItem.returnItemSeqId)/>
                   <tr>
                     <td colspan="2"><hr/></td>
                   </tr>
@@ -107,7 +107,7 @@ under the License.
                           <#if orderItem.productId??>
                             <#assign product = orderItem.getRelatedOne("Product", false)>
                             <#assign productId = product.productId>
-                            <#assign serializedInv = product.getRelated("InventoryItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryItemTypeId", "SERIALIZED_INV_ITEM"), null, false)>
+                            <#assign serializedInv = product.getRelated("InventoryItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("inventoryItemTypeId", "SERIALIZED_INV_ITEM"), null, false)>
                             <input type="hidden" name="productId_o_${rowCount}" value="${product.productId}" />
                             <td width="45%">
                               <div>
@@ -137,7 +137,7 @@ under the License.
                             <div class="label">${uiLabelMap.ProductLocation}</div>
                           </td>
                           <td align="right">
-                            <#assign facilityLocations = (product.getRelated("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))!>
+                            <#assign facilityLocations = (product.getRelated("ProductFacilityLocation", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))!>
                             <#if facilityLocations?has_content>
                               <select name="locationSeqId_o_${rowCount}">
                                 <#list facilityLocations as productFacilityLocation>

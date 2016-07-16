@@ -26,19 +26,19 @@ To use these screens add these entries to the controller.xml file:
 <!- - Order Manager Task List Requests - ->
 <request-map uri="acceptassignment">
     <security https="true" auth="true"/>
-    <event type="java" path="org.ofbiz.order.task.TaskEvents" invoke="acceptRoleAssignment"/>
+    <event type="java" path="org.apache.ofbiz.order.task.TaskEvents" invoke="acceptRoleAssignment"/>
     <response name="success" type="view" value="orderview"/>
     <response name="error" type="view" value="ordertasklist"/>
 </request-map>
 <request-map uri="delegateassignment">
     <security https="true" auth="true"/>
-    <event type="java" path="org.ofbiz.order.task.TaskEvents" invoke="delegateAndAcceptAssignment"/>
+    <event type="java" path="org.apache.ofbiz.order.task.TaskEvents" invoke="delegateAndAcceptAssignment"/>
     <response name="success" type="view" value="orderview"/>
     <response name="error" type="view" value="ordertasklist"/>
 </request-map>
 <request-map uri="completeassignment">
     <security https="true" auth="true"/>
-    <event type="java" path="org.ofbiz.order.task.TaskEvents" invoke="completeAssignment"/>
+    <event type="java" path="org.apache.ofbiz.order.task.TaskEvents" invoke="completeAssignment"/>
     <response name="success" type="view" value="ordertasklist"/>
     <response name="error" type="view" value="ordertasklist"/>
 </request-map>

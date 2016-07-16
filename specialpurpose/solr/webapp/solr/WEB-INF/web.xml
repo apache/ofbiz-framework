@@ -44,7 +44,7 @@
 
     <filter>
         <filter-name>ContextFilter</filter-name>
-        <filter-class>org.ofbiz.solr.webapp.OFBizSolrContextFilter</filter-class>
+        <filter-class>org.apache.ofbiz.solr.webapp.OFBizSolrContextFilter</filter-class>
         <init-param>
             <param-name>disableContextSecurity</param-name>
             <param-value>N</param-value>
@@ -69,16 +69,16 @@
     </filter-mapping>
 
     <listener>
-        <listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class>
+        <listener-class>org.apache.ofbiz.webapp.control.ControlEventListener</listener-class>
     </listener>
     <listener>
-        <listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class>
+        <listener-class>org.apache.ofbiz.webapp.control.LoginEventListener</listener-class>
     </listener>
     
     <servlet>
         <servlet-name>ControlServlet</servlet-name>
         <!-- Main Control Servlet -->
-        <servlet-class>org.ofbiz.webapp.control.ControlServlet</servlet-class>
+        <servlet-class>org.apache.ofbiz.webapp.control.ControlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
@@ -94,7 +94,7 @@
   
     <servlet>
         <servlet-name>LoadAdminUI</servlet-name>
-        <servlet-class>org.ofbiz.solr.webapp.OFBizSolrLoadAdminUiServlet</servlet-class>
+        <servlet-class>org.apache.ofbiz.solr.webapp.OFBizSolrLoadAdminUiServlet</servlet-class>
         <init-param>
             <param-name>destination</param-name>
             <param-value>${context}/#/</param-value>
@@ -105,7 +105,7 @@
     <!-- This sends SC_MOVED_PERMANENTLY (301) for resources that changed in 4.0 -->
     <servlet>
         <servlet-name>RedirectOldAdminUI</servlet-name>
-        <servlet-class>org.ofbiz.solr.webapp.OFBizSolrRedirectServlet</servlet-class>
+        <servlet-class>org.apache.ofbiz.solr.webapp.OFBizSolrRedirectServlet</servlet-class>
         <init-param>
             <param-name>destination</param-name>
             <param-value>${context}/#/</param-value>
@@ -114,7 +114,7 @@
   
     <servlet>
         <servlet-name>RedirectOldZookeeper</servlet-name>
-        <servlet-class>org.ofbiz.solr.webapp.OFBizSolrRedirectServlet</servlet-class>
+        <servlet-class>org.apache.ofbiz.solr.webapp.OFBizSolrRedirectServlet</servlet-class>
         <init-param>
             <param-name>destination</param-name>
             <param-value>${context}/zookeeper</param-value>
@@ -123,7 +123,7 @@
   
     <servlet>
         <servlet-name>RedirectLogging</servlet-name>
-        <servlet-class>org.ofbiz.solr.webapp.OFBizSolrRedirectServlet</servlet-class>
+        <servlet-class>org.apache.ofbiz.solr.webapp.OFBizSolrRedirectServlet</servlet-class>
         <init-param>
             <param-name>destination</param-name>
             <param-value>${context}/#/~logging</param-value>

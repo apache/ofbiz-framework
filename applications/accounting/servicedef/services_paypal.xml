@@ -23,38 +23,38 @@ under the License.
     <description>PayPal Services</description>
 
     <service name="payPalSetExpressCheckout" engine="java"
-             location="org.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="setExpressCheckout">
+             location="org.apache.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="setExpressCheckout">
         <implements service="payPalSetExpressCheckoutInterface"/>
     </service>
     <service name="payPalGetExpressCheckout" engine="java"
-             location="org.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="getExpressCheckout">
+             location="org.apache.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="getExpressCheckout">
         <implements service="payPalGetExpressCheckoutInterface"/>
     </service>
     <service name="payPalDoExpressCheckout" engine="java"
-             location="org.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="doExpressCheckout">
+             location="org.apache.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="doExpressCheckout">
         <implements service="payPalDoExpressCheckoutInterface"/>
     </service>
     <service name="payPalCheckoutUpdate" engine="java" auth="false"
-             location="org.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="payPalCheckoutUpdate">
+             location="org.apache.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="payPalCheckoutUpdate">
         <attribute name="request" mode="IN" type="javax.servlet.http.HttpServletRequest"/>
         <attribute name="response" mode="IN" type="javax.servlet.http.HttpServletResponse"/>
     </service>
     
     <service name="payPalProcessor" engine="java"
-             location="org.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="doAuthorization">
+             location="org.apache.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="doAuthorization">
         <implements service="payPalProcessInterface"/>
     </service>
     <service name="payPalCapture" engine="java"
-             location="org.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="doCapture">
+             location="org.apache.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="doCapture">
         <implements service="payPalCaptureInterface"/>
     </service>
     <service name="payPalVoid" engine="java"
-             location="org.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="doVoid">
+             location="org.apache.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="doVoid">
         <description>PayPal Order Payment Void</description>
         <implements service="paymentReleaseInterface"/>
     </service>
     <service name="payPalRefund" engine="java"
-             location="org.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="doRefund">
+             location="org.apache.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="doRefund">
         <implements service="paymentRefundInterface"/>
     </service>
 </services>

@@ -16,9 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
 roleTypeId = null;
 paramCond = [];

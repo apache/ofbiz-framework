@@ -53,10 +53,10 @@ margin: 1em;
   </div>
   <li class="h2" style="padding-top:1em">${uiLabelMap.CommonVisualThemeUsage}</li>
   <#if visualThemes?has_content>
-    <#assign orderByList = Static["org.ofbiz.base.util.UtilMisc"].toList("visualThemeId")/>
+    <#assign orderByList = Static["org.apache.ofbiz.base.util.UtilMisc"].toList("visualThemeId")/>
     <table cellspacing="0" class="basic-table">
       <#list visualThemes as visualTheme>
-        <#assign screenshots = delegator.findByAnd("VisualThemeResource", Static["org.ofbiz.base.util.UtilMisc"].toMap(
+        <#assign screenshots = delegator.findByAnd("VisualThemeResource", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap(
             "visualThemeId", "${visualTheme.visualThemeId}",
             "resourceTypeEnumId", "VT_SCREENSHOT"), orderByList, false)>
         <tr<#if visualTheme.visualThemeId == visualThemeId> class="selected"</#if>>

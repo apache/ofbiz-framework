@@ -21,12 +21,12 @@ under the License.
 <#if (externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
 <#assign ofbizServerName = application.getAttribute("_serverId")?default("default-server")>
 <#assign contextPath = request.getContextPath()>
-<#assign displayApps = Static["org.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "main")>
-<#assign displaySecondaryApps = Static["org.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "secondary")>
+<#assign displayApps = Static["org.apache.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "main")>
+<#assign displaySecondaryApps = Static["org.apache.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "secondary")>
 <#assign avatarList = delegator.findByAnd("PartyContent", {"partyId" : person.partyId, "partyContentTypeId" : "LGOIMGURL"}, null, false)>
 <#if avatarList?has_content>
-    <#assign avatar = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(avatarList)>
-    <#assign avatarDetail = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("PartyContentDetail", {"partyId" : person.partyId, "contentId" : avatar.contentId}, null, false))>
+    <#assign avatar = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(avatarList)>
+    <#assign avatarDetail = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("PartyContentDetail", {"partyId" : person.partyId, "contentId" : avatar.contentId}, null, false))>
 </#if>
 <body onpageshow="showHideFavorites()">
 <script type="text/javascript">
@@ -106,7 +106,7 @@ under the License.
                 <#else>
                     <#assign tileNumber = tileNumber+1>
                     <#assign isComponentEmpty=false>
-                    <#assign menuTitle = Static["org.ofbiz.base.util.string.FlexibleStringExpander"].expandString(itemMenu.menuTitle, context)/>
+                    <#assign menuTitle = Static["org.apache.ofbiz.base.util.string.FlexibleStringExpander"].expandString(itemMenu.menuTitle, context)/>
                     <li  id="Tile${tileNumber}" class="hp-menu-item <#if itemMenu.favorite == "white">normalItem<#else>favoriteItem</#if>">
                         <a href="${itemMenu.urlLink}" class="menu-link" title="${itemMenu.menuTitle}">${menuTitle}</a>
                         <a href="javascript:addToFavorite('Tile${tileNumber}', '${itemMenu.urlLink}')" title="${uiLabelMap.ClicToAddInFavorite}">

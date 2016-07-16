@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*
-import org.ofbiz.product.catalog.*
-import org.ofbiz.product.product.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.product.catalog.*
+import org.apache.ofbiz.product.product.*
 
 module = "KeywordSearch.groovy";
 

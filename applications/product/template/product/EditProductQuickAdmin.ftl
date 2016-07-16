@@ -135,7 +135,7 @@ function doPublish() {
                     <#assign checked = "checked='checked'"/>
                 </#if>
                 <td><label><input type="radio" ${checked} name="useImages" value="${assocProduct.productId}"/></label></td>
-                <#assign fromDate = Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(productAssoc.getTimestamp("fromDate").toString())/>
+                <#assign fromDate = Static["org.apache.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(productAssoc.getTimestamp("fromDate").toString())/>
                 <td><a class="buttontext" href="javascript:removeAssoc('${productAssoc.productIdTo}','${fromDate}');">x</a></td>
             </tr>
             <#assign idx = idx + 1/>

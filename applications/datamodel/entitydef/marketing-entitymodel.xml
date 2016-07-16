@@ -30,20 +30,20 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.ofbiz.marketing.campaign -->
-  <!--  - org.ofbiz.marketing.contact -->
-  <!--  - org.ofbiz.marketing.segment -->
-  <!--  - org.ofbiz.marketing.tracking -->
-  <!--  - org.ofbiz.marketing.opportunity -->
+  <!--  - org.apache.ofbiz.marketing.campaign -->
+  <!--  - org.apache.ofbiz.marketing.contact -->
+  <!--  - org.apache.ofbiz.marketing.segment -->
+  <!--  - org.apache.ofbiz.marketing.tracking -->
+  <!--  - org.apache.ofbiz.marketing.opportunity -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.marketing.campaign -->
+  <!-- org.apache.ofbiz.marketing.campaign -->
   <!-- ========================================================= -->
 
     <entity entity-name="MarketingCampaign"
-            package-name="org.ofbiz.marketing.campaign"
+            package-name="org.apache.ofbiz.marketing.campaign"
             title="Marketing Campaign Entity">
       <field name="marketingCampaignId" type="id-ne"></field>
       <field name="parentCampaignId" type="id"></field>
@@ -76,7 +76,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="MarketingCampaignNote"
-            package-name="org.ofbiz.marketing.campaign"
+            package-name="org.apache.ofbiz.marketing.campaign"
             title="Marketing Campaign Note Entity">
       <field name="marketingCampaignId" type="id-ne"></field>
       <field name="noteId" type="id-ne"></field>
@@ -90,7 +90,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="MarketingCampaignPrice"
-            package-name="org.ofbiz.marketing.campaign"
+            package-name="org.apache.ofbiz.marketing.campaign"
             title="Marketing Campaign Price Entity">
       <field name="marketingCampaignId" type="id-ne"></field>
       <field name="productPriceRuleId" type="id-ne"></field>
@@ -104,7 +104,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="MarketingCampaignPromo"
-            package-name="org.ofbiz.marketing.campaign"
+            package-name="org.apache.ofbiz.marketing.campaign"
             title="Marketing Campaign Promo Entity">
       <field name="marketingCampaignId" type="id-ne"></field>
       <field name="productPromoId" type="id-ne"></field>
@@ -118,7 +118,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="MarketingCampaignRole"
-            package-name="org.ofbiz.marketing.campaign"
+            package-name="org.apache.ofbiz.marketing.campaign"
             title="Marketing Campaign Role Entity">
       <field name="marketingCampaignId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
@@ -142,11 +142,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.marketing.contact -->
+  <!-- org.apache.ofbiz.marketing.contact -->
   <!-- ========================================================= -->
 
     <entity entity-name="ContactList"
-            package-name="org.ofbiz.marketing.contact"
+            package-name="org.apache.ofbiz.marketing.contact"
             title="Contact List Entity">
       <field name="contactListId" type="id-ne"></field>
       <field name="contactListTypeId" type="id-ne"></field>
@@ -186,7 +186,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WebSiteContactList" 
-        package-name="org.ofbiz.marketing.contact" 
+        package-name="org.apache.ofbiz.marketing.contact" 
         title="Web Site Contact List Entity">
         <field name="webSiteId" type="id-ne"></field>
         <field name="contactListId" type="id-ne"></field>
@@ -203,7 +203,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ContactListCommStatus"
-            package-name="org.ofbiz.marketing.contact"
+            package-name="org.apache.ofbiz.marketing.contact"
             title="Contact List Entity">
       <field name="contactListId" type="id-ne"></field>
       <field name="communicationEventId" type="id-ne"></field>
@@ -234,7 +234,7 @@ under the License.
       </index>
     </entity>
     <entity entity-name="ContactListParty"
-            package-name="org.ofbiz.marketing.contact"
+            package-name="org.apache.ofbiz.marketing.contact"
             title="Contact List Party Entity">
       <field name="contactListId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
@@ -259,7 +259,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="ContactListPartyAndStatus"
-        package-name="org.ofbiz.marketing.contact">
+        package-name="org.apache.ofbiz.marketing.contact">
         <member-entity entity-alias="CLPS" entity-name="ContactListPartyStatus"/>
         <member-entity entity-alias="SI" entity-name="StatusItem"/>
         <alias-all entity-alias="CLPS"/>
@@ -269,7 +269,7 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="ContactListPartyStatus"
-        package-name="org.ofbiz.marketing.contact"
+        package-name="org.apache.ofbiz.marketing.contact"
         title="Contact List Party Status Entity">
         <field name="contactListId" type="id-ne"></field>
         <field name="partyId" type="id-ne"></field>
@@ -289,7 +289,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ContactListType"
-            package-name="org.ofbiz.marketing.contact"
+            package-name="org.apache.ofbiz.marketing.contact"
             default-resource-name="MarketingEntityLabels"
             title="Contact List Type Entity">
       <field name="contactListTypeId" type="id-ne"></field>
@@ -298,11 +298,11 @@ under the License.
     </entity>
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.marketing.segment -->
+    <!-- org.apache.ofbiz.marketing.segment -->
     <!-- ========================================================= -->
 
     <entity entity-name="SegmentGroup"
-            package-name="org.ofbiz.marketing.segment"
+            package-name="org.apache.ofbiz.marketing.segment"
             title="Segment Group Entity">
         <field name="segmentGroupId" type="id-ne"></field>
         <field name="segmentGroupTypeId" type="id-ne"></field>
@@ -317,7 +317,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SegmentGroupClassification"
-            package-name="org.ofbiz.marketing.segment"
+            package-name="org.apache.ofbiz.marketing.segment"
             title="Segment Group Classification Entity">
         <field name="segmentGroupId" type="id-ne"></field>
         <field name="partyClassificationGroupId" type="id-ne"></field>
@@ -331,7 +331,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SegmentGroupGeo"
-            package-name="org.ofbiz.marketing.segment"
+            package-name="org.apache.ofbiz.marketing.segment"
             title="Segment Group Geo Entity">
         <field name="segmentGroupId" type="id-ne"></field>
         <field name="geoId" type="id-ne"></field>
@@ -345,7 +345,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SegmentGroupRole"
-            package-name="org.ofbiz.marketing.segment"
+            package-name="org.apache.ofbiz.marketing.segment"
             title="Segment Group Role Entity">
         <field name="segmentGroupId" type="id-ne"></field>
         <field name="partyId" type="id-ne"></field>
@@ -368,14 +368,14 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SegmentGroupType"
-            package-name="org.ofbiz.marketing.segment"
+            package-name="org.apache.ofbiz.marketing.segment"
             default-resource-name="MarketingEntityLabels"
             title="Segment Group Type Entity">
         <field name="segmentGroupTypeId" type="id-ne"></field>
         <field name="description" type="description"></field>
         <prim-key field="segmentGroupTypeId"/>
     </entity>
-    <view-entity entity-name="SegmentGroupViewRelatedParties" package-name="org.ofbiz.marketing.segment">
+    <view-entity entity-name="SegmentGroupViewRelatedParties" package-name="org.apache.ofbiz.marketing.segment">
         <description>
             This view entity models the following options:
             - SegmentGroupRole(SGR) -> SegmentGroupRole(SGRTO)
@@ -428,11 +428,11 @@ under the License.
     </view-entity>
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.marketing.tracking -->
+    <!-- org.apache.ofbiz.marketing.tracking -->
     <!-- ========================================================= -->
 
     <entity entity-name="TrackingCode"
-            package-name="org.ofbiz.marketing.tracking"
+            package-name="org.apache.ofbiz.marketing.tracking"
             title="Tracking Code Entity">
       <field name="trackingCodeId" type="id-ne"></field>
       <field name="trackingCodeTypeId" type="id-ne"></field>
@@ -462,7 +462,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="TrackingCodeOrder"
-            package-name="org.ofbiz.marketing.tracking"
+            package-name="org.apache.ofbiz.marketing.tracking"
             title="Tracking Code Visit Entity">
       <field name="orderId" type="id-ne"></field>
       <field name="trackingCodeTypeId" type="id-ne"></field>
@@ -484,7 +484,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="TrackingCodeOrderReturn"
-            package-name="org.ofbiz.marketing.tracking"
+            package-name="org.apache.ofbiz.marketing.tracking"
             title="Tracking Code And Order Return">
       <field name="returnId" type="id-ne"></field>
       <field name="orderId" type="id-ne"></field>
@@ -512,7 +512,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="TrackingCodeType"
-            package-name="org.ofbiz.marketing.tracking"
+            package-name="org.apache.ofbiz.marketing.tracking"
             default-resource-name="MarketingEntityLabels"
             title="Tracking Code Type Entity">
       <field name="trackingCodeTypeId" type="id-ne"></field>
@@ -520,7 +520,7 @@ under the License.
       <prim-key field="trackingCodeTypeId"/>
     </entity>
     <entity entity-name="TrackingCodeVisit"
-            package-name="org.ofbiz.marketing.tracking"
+            package-name="org.apache.ofbiz.marketing.tracking"
             title="Tracking Code Visit Entity">
       <field name="trackingCodeId" type="id-ne"></field>
       <field name="visitId" type="id-ne"></field>
@@ -538,11 +538,11 @@ under the License.
     </entity>
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.marketing.reports -->
+    <!-- org.apache.ofbiz.marketing.reports -->
     <!-- ========================================================= -->
 
      <view-entity entity-name="TrackingCodeAndVisit"
-                  package-name="org.ofbiz.marketing.reports"
+                  package-name="org.apache.ofbiz.marketing.reports"
                   title="View entity for reporting number of visits for a tracking code">
         <member-entity entity-alias="TC" entity-name="TrackingCode"/>
         <member-entity entity-alias="TCV" entity-name="TrackingCodeVisit"/>
@@ -558,7 +558,7 @@ under the License.
         </view-link>
       </view-entity>
       <view-entity entity-name="TrackingCodeAndOrderHeader"
-                   package-name="org.ofbiz.marketing.reports"
+                   package-name="org.apache.ofbiz.marketing.reports"
                    title="View entity for reporting number of orders and total order amounts">
         <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
         <member-entity entity-alias="OH" entity-name="OrderHeader"/>
@@ -571,7 +571,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="TrackingCodeOrderAndOrderHeader"
-                 package-name="org.ofbiz.marketing.reports"
+                 package-name="org.apache.ofbiz.marketing.reports"
                  never-cache="true"
                  title="Order Header And Tracking Code Order View Entity">
       <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
@@ -590,7 +590,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="TrackingCodeOrderReturnAndReturnHeader"
-                 package-name="org.ofbiz.marketing.reports"
+                 package-name="org.apache.ofbiz.marketing.reports"
                  never-cache="true"
                  title="Return Header And Tracking Code Order Return View Entity">
       <member-entity entity-alias="TCO" entity-name="TrackingCodeOrderReturn"/>
@@ -611,7 +611,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="MarketingCampaignAndVisit"
-                 package-name="org.ofbiz.marketing.reports"
+                 package-name="org.apache.ofbiz.marketing.reports"
                  title="View entity for reporting number of visits for a marketing campaign.  Note that because
          marketingCampaignId is a field of TrackingCode, this is really very similar to TrackingCodeAndVisit,
          except the group-by is with marketingCampaignId instead of trackingCodeId">
@@ -625,7 +625,7 @@ under the License.
         </view-link>
       </view-entity>
       <view-entity entity-name="MarketingCampaignAndOrderHeader"
-                   package-name="org.ofbiz.marketing.reports"
+                   package-name="org.apache.ofbiz.marketing.reports"
                    title="View entity for reporting number of orders and total order amounts">
         <member-entity entity-alias="TC" entity-name="TrackingCode"/>
         <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
@@ -642,11 +642,11 @@ under the License.
         </view-link>
     </view-entity>
   <!-- ========================================================= -->
-  <!-- org.ofbiz.marketing.opportunity -->
+  <!-- org.apache.ofbiz.marketing.opportunity -->
   <!-- ========================================================= -->
 
     <entity entity-name="SalesOpportunity"
-            package-name="org.ofbiz.marketing.opportunity"
+            package-name="org.apache.ofbiz.marketing.opportunity"
             title="Main entity of information about sales opportunities">
         <field name="salesOpportunityId" type="id-ne"></field>
         <field name="opportunityName" type="name"></field>
@@ -681,7 +681,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesOpportunityHistory"
-            package-name="org.ofbiz.marketing.opportunity"
+            package-name="org.apache.ofbiz.marketing.opportunity"
             title="Tracks a history of sales opportunity information">
         <field name="salesOpportunityHistoryId" type="id-ne"></field>
         <field name="salesOpportunityId" type="id-ne"></field>
@@ -713,7 +713,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesOpportunityRole"
-            package-name="org.ofbiz.marketing.opportunity"
+            package-name="org.apache.ofbiz.marketing.opportunity"
             title="Describes roles of different parties involved in a sales opportunity">
         <field name="salesOpportunityId" type="id-ne"></field>
         <field name="partyId" type="id-ne"></field>
@@ -737,7 +737,7 @@ under the License.
         </relation>
     </entity>
 
-    <view-entity entity-name="SalesOpportunityAndRole" package-name="org.ofbiz.marketing.opportunity" title="SalesOpportunity And Role View Entity">
+    <view-entity entity-name="SalesOpportunityAndRole" package-name="org.apache.ofbiz.marketing.opportunity" title="SalesOpportunity And Role View Entity">
       <member-entity entity-alias="SO" entity-name="SalesOpportunity"/>
       <member-entity entity-alias="SR" entity-name="SalesOpportunityRole"/>
       <alias-all entity-alias="SO"/>
@@ -749,7 +749,7 @@ under the License.
     </view-entity>
 
     <entity entity-name="SalesOpportunityStage"
-            package-name="org.ofbiz.marketing.opportunity"
+            package-name="org.apache.ofbiz.marketing.opportunity"
             title="Describes stages of a sales opportunity with associated probability factors.">
         <field name="opportunityStageId" type="id-ne"></field>
         <field name="description" type="description"/>
@@ -759,7 +759,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesOpportunityWorkEffort"
-            package-name="org.ofbiz.marketing.opportunity"
+            package-name="org.apache.ofbiz.marketing.opportunity"
             title="Relates sales opportunities to their work efforts.">
         <field name="salesOpportunityId" type="id-ne"></field>
         <field name="workEffortId" type="id-ne"></field>
@@ -774,7 +774,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesOpportunityQuote"
-            package-name="org.ofbiz.marketing.opportunity"
+            package-name="org.apache.ofbiz.marketing.opportunity"
             title="Relates sales opportunities to their quotes.">
         <field name="salesOpportunityId" type="id-ne"></field>
         <field name="quoteId" type="id-ne"></field>
@@ -789,7 +789,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesForecast"
-            package-name="org.ofbiz.marketing.opportunity"
+            package-name="org.apache.ofbiz.marketing.opportunity"
             title="Stores sales forecast data for sales opportunities.">
         <field name="salesForecastId" type="id-ne"></field>
         <field name="parentSalesForecastId" type="id"></field>
@@ -831,7 +831,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesForecastDetail"
-            package-name="org.ofbiz.marketing.opportunity"
+            package-name="org.apache.ofbiz.marketing.opportunity"
             title="Stores Details of Resourses of Sales Forecast for simulation of MRP">
         <field name="salesForecastId" type="id-ne"/>
         <field name="salesForecastDetailId" type="id-ne"/>
@@ -857,7 +857,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesForecastHistory"
-            package-name="org.ofbiz.marketing.opportunity"
+            package-name="org.apache.ofbiz.marketing.opportunity"
             title="Keeps a record of changes to a sales forecast.">
         <field name="salesForecastHistoryId" type="id-ne"></field>
         <field name="salesForecastId" type="id-ne"></field>
@@ -898,7 +898,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SalesOpportunityCompetitor"
-            package-name="org.ofbiz.marketing.opportunity"
+            package-name="org.apache.ofbiz.marketing.opportunity"
             title="Sales opportunity competitors record">
         <field name="salesOpportunityId" type="id-ne"></field>
         <field name="competitorPartyId" type="id-ne"></field>
@@ -912,7 +912,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SalesOpportunityTrckCode"
-            package-name="org.ofbiz.marketing.opportunity"
+            package-name="org.apache.ofbiz.marketing.opportunity"
             title="Sales opportunity traking code">
         <field name="salesOpportunityId" type="id-ne"></field>
         <field name="trackingCodeId" type="id-ne"></field>
@@ -924,7 +924,7 @@ under the License.
         </relation>
     </entity>
     <view-entity entity-name="SalesForecastAndCustomTimePeriod"
-            package-name="org.ofbiz.marketing.opportunity"
+            package-name="org.apache.ofbiz.marketing.opportunity"
             title="View for selecting the forecast with its time period.">
       <member-entity entity-alias="SF" entity-name="SalesForecast"/>
       <member-entity entity-alias="CTP" entity-name="CustomTimePeriod"/>

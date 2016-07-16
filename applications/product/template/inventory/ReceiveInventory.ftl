@@ -154,7 +154,7 @@ under the License.
                   </#if>
                 </td>
               </tr>
-              <#assign isSerialized = Static["org.ofbiz.product.product.ProductWorker"].isSerialized(delegator, product.productId)!/>
+              <#assign isSerialized = Static["org.apache.ofbiz.product.product.ProductWorker"].isSerialized(delegator, product.productId)!/>
               <#if isSerialized?has_content>
                 <tr>
                   <td width="14%">&nbsp;</td>
@@ -186,7 +186,7 @@ under the License.
                     <#if supplierPartyIds?has_content>
                       <#list supplierPartyIds as supplierPartyId>
                         <option value="${supplierPartyId}" <#if supplierPartyId == parameters.partyId!> selected="selected"</#if>>
-                          [${supplierPartyId}] ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, supplierPartyId, true)}
+                          [${supplierPartyId}] ${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, supplierPartyId, true)}
                         </option>
                       </#list>
                     </#if>
@@ -214,7 +214,7 @@ under the License.
               </tr>
 
               <#-- facility location(s) -->
-              <#assign facilityLocations = (product.getRelated("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))!/>
+              <#assign facilityLocations = (product.getRelated("ProductFacilityLocation", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))!/>
               <tr>
                 <td width="14%">&nbsp;</td>
                 <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductFacilityLocation}</td>
@@ -424,7 +424,7 @@ under the License.
                           <td align="right">${uiLabelMap.ProductLocation}:</td>
                           <#-- location(s) -->
                           <td align="right">
-                            <#assign facilityLocations = (orderItem.getRelated("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))!/>
+                            <#assign facilityLocations = (orderItem.getRelated("ProductFacilityLocation", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))!/>
                             <#if facilityLocations?has_content>
                               <select name="locationSeqId_o_${rowCount}">
                                 <#list facilityLocations as productFacilityLocation>
@@ -483,7 +483,7 @@ under the License.
                           </td>
                           <tr>
                             <td width="45%">
-                              <#assign isSerialized = Static["org.ofbiz.product.product.ProductWorker"].isSerialized(delegator, product.productId)!/>
+                              <#assign isSerialized = Static["org.apache.ofbiz.product.product.ProductWorker"].isSerialized(delegator, product.productId)!/>
                               <#if isSerialized?has_content>
                                 ${uiLabelMap.ProductSerialNumber} :&nbsp;
                                 <input type="text" name="serialNumber_o_${rowCount}" value="" />

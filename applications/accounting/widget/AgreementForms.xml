@@ -438,7 +438,7 @@ under the License.
         <field name="partyId"><hidden value="${agreement.partyIdTo}"/></field>
         <field name="currencyUomId"><hidden value="${agreementItem.currencyUomId}"/></field>
         <field name="availableFromDate" use-when="agreementProductAppl==null">
-            <!--<date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>-->
+            <!--<date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>-->
             <date-time default-value="${agreement.fromDate}"/>
         </field>
         <field name="availableFromDate" use-when="agreementProductAppl!=null">

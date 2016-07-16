@@ -17,17 +17,17 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.util.EntityFindOptions;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityFieldValue;
-import org.ofbiz.entity.condition.EntityFunction;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.entity.util.EntityFindOptions;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityConditionList;
+import org.apache.ofbiz.entity.condition.EntityExpr;
+import org.apache.ofbiz.entity.condition.EntityFieldValue;
+import org.apache.ofbiz.entity.condition.EntityFunction;
+import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 def mainAndConds = [];
 def orExprs = [];

@@ -111,7 +111,7 @@ under the License.
                 String password = (String) userLoginContext.get("currentPassword");
                 String confirmPassword = (String) userLoginContext.get("currentPasswordVerify");
                 String passwordHint = (String) userLoginContext.get("passwordHint");
-                org.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
+                org.apache.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
             </script>
         <else>
             <if-compare field="require_login" operator="equals" value="true">
@@ -314,8 +314,8 @@ under the License.
             <!-- If password encryption is enabled, encrpyt it now -->
             <set field="delegator" from-field="parameters.delegator" type="Object"/>
             <script>groovy:
-                boolean useEncryption = "true".equals(org.ofbiz.entity.util.EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
-                if (useEncryption) { newUserLogin.set("currentPassword", org.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
+                boolean useEncryption = "true".equals(org.apache.ofbiz.entity.util.EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
+                if (useEncryption) { newUserLogin.set("currentPassword", org.apache.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
             </script>
 
             <!-- create the UserLogin manually to get around ordering and security constraints in the service -->
@@ -324,13 +324,13 @@ under the License.
             <set-current-user-login value-field="newUserLogin"/>
             
             <!-- On successful user creation, create password history record if configured -->
-            <call-class-method method-name="getPropertyValue" class-name="org.ofbiz.base.util.UtilProperties" ret-field="autoPasswordChangeEnabled">
+            <call-class-method method-name="getPropertyValue" class-name="org.apache.ofbiz.base.util.UtilProperties" ret-field="autoPasswordChangeEnabled">
                 <string value="security"/>
                 <string value="user.auto.change.password.enable"/>
             </call-class-method>
             <if-compare-field field="autoPasswordChangeEnabled" operator="equals" to-field="true">
-                <call-class-method method-name="createUserLoginPasswordHistory" class-name="org.ofbiz.common.login.LoginServices">
-                    <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+                <call-class-method method-name="createUserLoginPasswordHistory" class-name="org.apache.ofbiz.common.login.LoginServices">
+                    <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
                     <string value="${newUserLogin.userLoginId}"/>
                     <string value="${newUserLogin.currentPassword}"/>
                 </call-class-method>

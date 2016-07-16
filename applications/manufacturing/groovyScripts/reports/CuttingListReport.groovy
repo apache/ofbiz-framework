@@ -18,9 +18,9 @@
  */
 
 import java.awt.Dimension
-import org.ofbiz.entity.util.*
-import org.ofbiz.manufacturing.jobshopmgt.ProductionRun
-import org.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun
+import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper
 
 if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
     context.hasPermission = Boolean.TRUE;

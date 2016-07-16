@@ -27,7 +27,7 @@ under the License.
                         <fo:block>
                             <fo:block font-weight="bold">${uiLabelMap.OrderAddress}: </fo:block>
                             <#if quote.partyId??>
-                                <#assign quotePartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", quote.partyId, "compareDate", quote.issueDate, "userLogin", userLogin))/>
+                                <#assign quotePartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", quote.partyId, "compareDate", quote.issueDate, "userLogin", userLogin))/>
                                 <fo:block>${quotePartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}</fo:block>
                             <#else>
                                 <fo:block>[${uiLabelMap.OrderPartyNameNotFound}]</fo:block>
@@ -75,7 +75,7 @@ under the License.
                 </fo:table-row>
                 <fo:table-row>
                     <fo:table-cell><fo:block>${uiLabelMap.CommonQuoteTerms}:</fo:block></fo:table-cell>
-                    <#assign quoteLevelTerms = Static["org.ofbiz.entity.util.EntityUtil"].filterByAnd(quoteTerms, {"quoteItemSeqId": "_NA_"})!>
+                    <#assign quoteLevelTerms = Static["org.apache.ofbiz.entity.util.EntityUtil"].filterByAnd(quoteTerms, {"quoteItemSeqId": "_NA_"})!>
                     <#if quoteLevelTerms?has_content && quoteLevelTerms.size() gt 0>
                         <fo:table-cell>
                             <#list quoteLevelTerms as quoteLevelTerm>

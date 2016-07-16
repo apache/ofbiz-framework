@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.*
 
 //default this to true, ie only show active
 activeOnly = !"false".equals(request.getParameter("activeOnly"));

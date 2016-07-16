@@ -18,14 +18,14 @@
  */
 
 import java.lang.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.accounting.payment.*;
-import org.ofbiz.order.order.*;
-import org.ofbiz.party.contact.*;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.store.*;
-import org.ofbiz.webapp.website.WebSiteWorker;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.accounting.payment.*;
+import org.apache.ofbiz.order.order.*;
+import org.apache.ofbiz.party.contact.*;
+import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.store.*;
+import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 cart = session.getAttribute("shoppingCart");
 context.cart = cart;

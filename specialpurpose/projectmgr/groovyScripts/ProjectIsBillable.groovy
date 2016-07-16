@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtil;
  
 projectMembers = from("WorkEffortPartyAssignment").where("workEffortId", context.projectId).filterByDate().queryList();
 

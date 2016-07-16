@@ -18,7 +18,7 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*;
 
 // get last request from this user and use that project/task assignment as default on the screen
 

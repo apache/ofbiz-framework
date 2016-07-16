@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#assign maxToShow = 4/>
-<#assign searchOptionsHistoryList = Static["org.ofbiz.product.product.ProductSearchSession"].getSearchOptionsHistoryList(session)!/>
+<#assign searchOptionsHistoryList = Static["org.apache.ofbiz.product.product.ProductSearchSession"].getSearchOptionsHistoryList(session)!/>
 <#if searchOptionsHistoryList?has_content>
     <#if (searchOptionsHistoryList?size > maxToShow)><#assign limit=maxToShow/><#else><#assign limit=(searchOptionsHistoryList?size-1)/></#if>
     <div id="minilastproductsearches" class="screenlet">

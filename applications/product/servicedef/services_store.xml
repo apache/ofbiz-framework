@@ -56,18 +56,18 @@ under the License.
             location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="isStoreInventoryRequired" auth="false">
         <description>Checks if Store Inventory is Required</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
-        <attribute name="productStore" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="productStore" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
-        <attribute name="product" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="requireInventory" type="String" mode="OUT" optional="false"><!-- Y/N --></attribute>
     </service>
     <service name="isStoreInventoryAvailable" engine="simple"
             location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailable" auth="false">
         <description>Checks if Store Inventory is Required</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
-        <attribute name="productStore" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="productStore" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
-        <attribute name="product" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"></attribute>
         <attribute name="available" type="String" mode="OUT" optional="false"><!-- Y/N --></attribute>
     </service>
@@ -75,9 +75,9 @@ under the License.
             location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailableOrNotRequired" auth="false">
         <description>Checks if Store Inventory is Required</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
-        <attribute name="productStore" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="productStore" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
-        <attribute name="product" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"></attribute>
         <attribute name="availableOrNotRequired" type="String" mode="OUT" optional="false"><!-- Y/N --></attribute>
     </service>

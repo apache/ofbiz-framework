@@ -38,7 +38,7 @@ under the License.
         <attribute name="productStoreId" mode="OUT" type="String" optional="false"/>
     </service>
     <service name="exportCategoriesSelectedToEbayStore" engine="java" transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="exportCategoriesSelectedToEbayStore" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="exportCategoriesSelectedToEbayStore" auth="true">
         <description>Export categories in store to eBay store</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -46,38 +46,38 @@ under the License.
     </service>
     <!-- Store output -->
     <service name="getEbayStoreOutput" engine="java" transaction-timeout="7200"  
-        location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreOutput" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreOutput" auth="true">
         <description>get ebay store description</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="ebayStore" type="Map" mode="OUT" optional="true"/>
     </service>
     <service name="retrievePredesignedLogoOption" engine="java" transaction-timeout="7200"  
-        location="org.ofbiz.ebaystore.EbayStore" invoke="retrievePredesignedLogoOption" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="retrievePredesignedLogoOption" auth="true">
         <description>get ebay store logos description</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="storeLogoOptList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="retrieveBasicThemeArray" engine="java" transaction-timeout="7200"  
-        location="org.ofbiz.ebaystore.EbayStore" invoke="retrieveBasicThemeArray" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="retrieveBasicThemeArray" auth="true">
         <description>get ebay store Basic theme Array  description</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="storeThemeList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="retrieveAdvancedThemeArray" engine="java" transaction-timeout="7200"  
-        location="org.ofbiz.ebaystore.EbayStore" invoke="retrieveAdvancedThemeArray" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="retrieveAdvancedThemeArray" auth="true">
         <description>get ebay store Advanced theme Array  description</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="storeThemeList" type="List" mode="OUT" optional="true"/>
         <attribute name="storeAdvancedThemeColorOptList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="retrieveStoreFontTheme" engine="java" transaction-timeout="7200"  
-        location="org.ofbiz.ebaystore.EbayStore" invoke="retrieveStoreFontTheme" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="retrieveStoreFontTheme" auth="true">
         <description>get ebay store Advanced theme Array  description</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="advanceFontTheme" type="Map" mode="OUT" optional="true"/>
     </service>
     <service name="setEbayStoreInput" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="setEbayStoreInput" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="setEbayStoreInput" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="themeType" mode="IN" type="String" optional="false"/>
         <attribute name="storeName" mode="IN" type="String" optional="false"/>
@@ -111,39 +111,39 @@ under the License.
         <attribute name="ebayStore" type="Map" mode="OUT" optional="true"/>
     </service>
     <!-- eBay account -->
-    <service name="getEbayStoreUser" engine="java" location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreUser" auth="true" transaction-timeout="3600">
+    <service name="getEbayStoreUser" engine="java" location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreUser" auth="true" transaction-timeout="3600">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="userLoginId" mode="OUT" type="String" optional="true"/>
     </service>
     <service name="getEbayUser" engine="java" transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayAccount" invoke="getEbayUser" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayAccount" invoke="getEbayUser" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="email" mode="OUT" type="String" optional="true"/>
         <attribute name="registrationAddress" mode="OUT" type="Map" optional="true"/>
         <attribute name="status" mode="OUT" type="String" optional="true"/>
     </service>
     <service name="getEbayAccount" engine="java" transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayAccount" invoke="getEbayAccount" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayAccount" invoke="getEbayAccount" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="accountList" mode="OUT" type="List" optional="true"/>
     </service>
     <service name="getEbayUserPreference" engine="java" transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayAccount" invoke="getEbayUserPreference" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayAccount" invoke="getEbayUserPreference" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="userPreferenceList" mode="OUT" type="List" optional="true"/>
     </service>
     <!-- eBay Feedback -->
     <service name="loadFeedback" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayFeedback" invoke="loadFeedback" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayFeedback" invoke="loadFeedback" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="getItemsAwaitingFeedback" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayFeedback" invoke="getItemsAwaitingFeedback" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayFeedback" invoke="getItemsAwaitingFeedback" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="itemsAwaitingFeedback" mode="OUT" type="List" optional="true"/>
     </service>
     <service name="leaveFeedback" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayFeedback" invoke="leaveFeedback" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayFeedback" invoke="leaveFeedback" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="transactionId" mode="IN" type="String" optional="false"/>
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
@@ -159,12 +159,12 @@ under the License.
         <attribute name="AqItemAsDescribedId" mode="IN" type="String" optional="true"></attribute>
     </service>
     <service name="getEbayActiveItems" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayActiveItems" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getEbayActiveItems" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="activeItems" mode="OUT" type="List" optional="true"/>
     </service>
     <service name="getEbaySoldItems" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="getEbaySoldItems" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getEbaySoldItems" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="status" mode="IN" type="String" optional="true"/>
         <attribute name="period" mode="IN" type="String" optional="true"/>
@@ -204,7 +204,7 @@ under the License.
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="updateEbayStoreInventory" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStoreInventoryServices" invoke="updateEbayStoreInventory" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStoreInventoryServices" invoke="updateEbayStoreInventory" auth="true">
         <description>update  Inventory on ebay store inventory</description>
         <attribute name="productStoreId" type="String" mode="INOUT" optional="false"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
@@ -212,20 +212,20 @@ under the License.
         <attribute name="facilityId" type="String" mode="INOUT" optional="false"></attribute>
     </service>
     <service name="getFolderInEbayStoreInventory" engine="java" transaction-timeout="7200"  
-        location="org.ofbiz.ebaystore.EbayStoreInventoryServices" invoke="getFolderInEbayStoreInventory" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStoreInventoryServices" invoke="getFolderInEbayStoreInventory" auth="true">
         <description>get ebay folder in ebay store inventory</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="folderId" type="String" mode="OUT" optional="false"></attribute>
     </service>
     <service name="updateEbayInventoryStatusByProductId" default-entity-name="EbayProductStoreInventory" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStoreInventoryServices" invoke="updateEbayInventoryStatusByProductId" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStoreInventoryServices" invoke="updateEbayInventoryStatusByProductId" auth="true">
         <description>update status   Inventory from ebay store inventory</description>
         <auto-attributes mode="INOUT" optional="false" include="pk"></auto-attributes>
         <attribute name="folderId" type="String" mode="INOUT" optional="false"></attribute>
         <attribute name="ebayProductId" type="Long" mode="IN" optional="false"></attribute>
     </service>
     <service name="updateEbayInventoryStatus" engine="java"  transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStoreInventoryServices" invoke="updateEbayInventoryStatus" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStoreInventoryServices" invoke="updateEbayInventoryStatus" auth="true">
         <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="facilityId" type="String" mode="IN" optional="false"></attribute>
     </service>
@@ -237,7 +237,7 @@ under the License.
         <attribute name="actionType" type="String" mode="IN" optional="false"></attribute>
     </service>
     <service name="exportProductsFromEbayStore" engine="java" transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="exportProductsFromEbayStore" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="exportProductsFromEbayStore" auth="true">
         <description>Export categories in store to eBay store</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
@@ -273,7 +273,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="addEbayDispute" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="addEbayDispute" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="addEbayDispute" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
         <attribute name="transactionId" mode="IN" type="String" optional="false"/>
@@ -282,13 +282,13 @@ under the License.
         <attribute name="disputeId" mode="OUT" type="String" optional="false"/>
     </service>
     <service name="checkEbaySecondChanceOffer" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="checkEbaySecondChanceOffer" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="checkEbaySecondChanceOffer" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"></attribute>
         <attribute name="itemId" mode="IN" type="String" optional="false"></attribute>
         <attribute name="isSecondChance" mode="OUT" type="Boolean" optional="false"></attribute>
     </service>
     <service name="addEbaySecondChanceOffer" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="addEbaySecondChanceOffer" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="addEbaySecondChanceOffer" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
         <attribute name="duration" mode="IN" type="String" optional="false"/>
@@ -297,25 +297,25 @@ under the License.
         <attribute name="sellerMessage" mode="IN" type="String" optional="true"/>
     </service>
     <service name="getEbayAllBidders" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayAllBidders" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getEbayAllBidders" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
         <attribute name="allBidders" mode="OUT" type="List" optional="true"/>
     </service>
     <service name="verifyEbayAddSecondChanceItem" engine="java"  transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="verifyEbayAddSecondChanceItem" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="verifyEbayAddSecondChanceItem" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
         <attribute name="checkVerify" mode="OUT" type="Boolean" optional="false"/>
     </service>
     <service name="startEbayAutoPreference" engine="java" transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStoreHelper" invoke="startEbayAutoPreference" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStoreHelper" invoke="startEbayAutoPreference" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="autoPrefEnumId" mode="IN" type="String" optional="false"/>
         <attribute name="serviceName" mode="IN" type="String" optional="true"/>
     </service>
     <service name="stopEbayAutoPreference" engine="java" transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStoreHelper" invoke="stopEbayAutoPreference" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStoreHelper" invoke="stopEbayAutoPreference" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="autoPrefEnumId" mode="IN" type="String" optional="false"/>
         <attribute name="serviceName" mode="IN" type="String" optional="true"/>
@@ -332,63 +332,63 @@ under the License.
         <attribute name="serviceName" mode="IN" type="String" optional="false"/>
     </service>
     <service name="autoPrefLeaveFeedbackOption" engine="java" transaction-timeout="10800"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoPrefLeaveFeedbackOption" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoPrefLeaveFeedbackOption" auth="false">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="autoSendFeedbackReminderEmail" engine="java" transaction-timeout="10800"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendFeedbackReminderEmail" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendFeedbackReminderEmail" auth="false">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="automaticEbayRelistSoldItems" engine="java"  transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="automaticEbayRelistSoldItems" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="automaticEbayRelistSoldItems" auth="false">
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="automaticEbayDisputeNotComplete" engine="java"  transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="automaticEbayDisputeNotComplete" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="automaticEbayDisputeNotComplete" auth="false">
         <description>Create Dispute if checkout has not been completed</description>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="automaticEbayDisputeNotPay" engine="java"  transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="automaticEbayDisputeNotPay" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="automaticEbayDisputeNotPay" auth="false">
         <description>Create Dispute if checkout has been completed but no payment has been received</description>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="autoSendPaymentReceivedEmail" engine="java"  transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendPaymentReceivedEmail" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendPaymentReceivedEmail" auth="false">
         <description>automatically service sending an email when ebay seller has been received payment from ebay buyer</description>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="runCombineOrders" engine="java" transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="runCombineOrders" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="runCombineOrders" auth="false">
         <description>Automatic service to combine orders from condition in automatically preferences screen</description>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="autoSendWinningBuyerNotification" engine="java" transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendWinningBuyerNotification" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendWinningBuyerNotification" auth="false">
         <description>Automatic service to send notification email to winning buyer on eBay</description>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="autoSendItemDispatchedNotification" engine="java" transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendItemDispatchedNotification" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendItemDispatchedNotification" auth="false">
         <description>Automatic service to send item dispatched notification email when user mark sold listing as dispatched</description>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="autoBlockItemsOutOfStock" engine="java" transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoBlockItemsOutOfStock" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoBlockItemsOutOfStock" auth="false">
         <description>Automatic service to send item dispatched notification email when user mark sold listing as dispatched</description>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="exportProductEachItem" engine="java" transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStoreHelper" invoke="exportProductEachItem" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreHelper" invoke="exportProductEachItem" auth="false">
         <description>Export Product Each Item</description>
         <attribute name="itemObject" mode="IN" type="Object" optional="false"/>
     </service>
@@ -404,18 +404,18 @@ under the License.
         <attribute name="listingXml" mode="IN" type="String" optional="true" allow-html="any"/>
     </service>
     <service name="setEbayProductListingAttribute" engine="java" transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStoreHelper" invoke="setEbayProductListingAttribute" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStoreHelper" invoke="setEbayProductListingAttribute" auth="true">
         <attribute name="productListingId" mode="IN" type="String" optional="false"/>
         <attribute name="attributeMapList" mode="IN" type="java.util.HashMap" optional="false"/>
     </service>
     <service name="autoRelistingItems" engine="java" transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoRelistingItems" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoRelistingItems" auth="false">
         <description>Automatic service to re-listing items when They are end item</description>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="uploadTrackingInfoBackToEbay" engine="java" transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStoreHelper" invoke="uploadTrackingInfoBackToEbay" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStoreHelper" invoke="uploadTrackingInfoBackToEbay" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
@@ -427,7 +427,7 @@ under the License.
         <attribute name="logMessage" mode="IN" type="String" optional="false"/>
     </service>
     <service name="ebayBestOfferPrefCond" engine="java"
-        location="org.ofbiz.ebaystore.EbayBestOfferAutoPref" invoke="ebayBestOfferPrefCond" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayBestOfferAutoPref" invoke="ebayBestOfferPrefCond" auth="true">
         <attribute name="productStoreId" mode="IN" type="String"/>
         <attribute name="enabled" mode="IN" type="String" default-value="N" optional="true"></attribute>
         <!--<attribute name="userLogin" mode="IN" type="String"></attribute>-->
@@ -453,12 +453,12 @@ under the License.
         <attribute name="condition" mode="IN" type="String" optional="false"/>
     </service>
     <service name="autoBestOffer" engine="java" transaction-timeout="36000"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoBestOffer" auth="false">
+        location="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoBestOffer" auth="false">
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="getMyeBaySelling" engine="java" transaction-timeout="36000"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="getMyeBaySelling" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getMyeBaySelling" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="entriesPerPage" mode="IN" type="String" optional="true"/>
         <attribute name="pageNumber" mode="IN" type="String" optional="true"/>
@@ -473,7 +473,7 @@ under the License.
         <attribute name="scheduledSize" mode="OUT" type="Integer" optional="true"/>
     </service>
     <service name="getEbayStoreProductItem" engine="java" transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreProductItem" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreProductItem" auth="true">
         <description>Get item data (title, description, price information, and so on) for the specified item ID</description>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
@@ -485,7 +485,7 @@ under the License.
         <attribute name="pictureURL" mode="OUT" type="String" optional="true"/>
     </service>
     <service name="reviseEbayStoreProductItem" engine="java" transaction-timeout="3600"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="reviseEbayStoreProductItem" auth="true">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="reviseEbayStoreProductItem" auth="true">
         <description>Change the properties of a currently active listing</description>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
@@ -499,7 +499,7 @@ under the License.
         <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
     </service>
     <service name="listBestOfferIncludeMessage" engine="java" transaction-timeout="10000"
-        location="org.ofbiz.ebaystore.EbayStoreCustomerService" invoke="listBestOfferIncludeMessage">
+        location="org.apache.ofbiz.ebaystore.EbayStoreCustomerService" invoke="listBestOfferIncludeMessage">
         <description>List customer offer data</description>
         <attribute name="userId" mode="IN" type="String"></attribute>
         <attribute name="itemId" mode="IN" type="String"></attribute>
@@ -513,7 +513,7 @@ under the License.
         <attribute name="itemName" mode="OUT" type="String" optional="true"></attribute>
     </service>
     <service name="updateContactStatus" engine="java" transaction-timeout="10000"
-        location="org.ofbiz.ebaystore.EbayStoreCustomerService" invoke="updateContactStatus">
+        location="org.apache.ofbiz.ebaystore.EbayStoreCustomerService" invoke="updateContactStatus">
         <description>List customer offer data</description>
         <attribute name="userId" mode="INOUT" type="String"></attribute>
         <attribute name="itemId" mode="INOUT" type="String"></attribute>
@@ -527,20 +527,20 @@ under the License.
         <attribute name="contactSetting" mode="IN" type="String"></attribute>
     </service>
     <service name="deleteContactAlert" engine="java" transaction-timeout="10000"
-        location="org.ofbiz.ebaystore.EbayStoreCustomerService" invoke="deleteContactAlert">
+        location="org.apache.ofbiz.ebaystore.EbayStoreCustomerService" invoke="deleteContactAlert">
         <description>Delete customer offer data</description>
         <attribute name="userId" mode="IN" type="String"></attribute>
         <attribute name="itemId" mode="IN" type="String"></attribute>
         <attribute name="productStoreId" mode="INOUT" type="String"></attribute>
     </service>
     <service name="geteBayClosedItem" engine="java" transaction-timeout="12000"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="geteBayClosedItem">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="geteBayClosedItem">
         <description>List closed item in store</description>
         <attribute name="productStoreId" mode="IN" type="String" optional="true"></attribute>
         <attribute name="closedItemList" mode="OUT" type="List"></attribute>
     </service>
     <service name="getEbayOrders" engine="java" transaction-timeout="120000"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayOrders">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getEbayOrders">
         <description>List closed item in store</description>
         <attribute name="productStoreId" mode="INOUT" type="String" optional="false"></attribute>
         <attribute name="itemId" mode="IN" type="String" optional="false"></attribute>
@@ -554,13 +554,13 @@ under the License.
         <attribute name="paymentMethod" mode="OUT" type="String" optional="true"></attribute>
     </service>
     <service name="getOrderTransactionList" engine="java" transaction-timeout="12000"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="getOrderTransactionList">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getOrderTransactionList">
         <description>List closed item in store</description>
         <attribute name="productStoreId" mode="INOUT" type="String" optional="true"></attribute>
         <attribute name="orderList" mode="OUT" type="List" optional="true"></attribute>
     </service>
     <service name="getSellerTransaction" engine="java" transaction-timeout="12000"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="getSellerTransaction">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getSellerTransaction">
         <description>List closed item in store</description>
         <attribute name="productStoreId" mode="INOUT" type="String" optional="true"></attribute>
         <attribute name="timeTo" mode="IN" type="String" optional="true"></attribute>
@@ -568,7 +568,7 @@ under the License.
         <attribute name="orderList" mode="OUT" type="List"></attribute>
     </service>
     <service name="getEbayStoreTransaction" engine="java" transaction-timeout="12000"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreTransaction">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreTransaction">
         <description>List closed item in store</description>
         <attribute name="productStoreId" mode="INOUT" type="String" optional="false"></attribute>
         <attribute name="fromDate" mode="IN" type="String" optional="false"></attribute>
@@ -578,7 +578,7 @@ under the License.
         <attribute name="transactionsList" mode="OUT" type="List" optional="true"></attribute>
     </service>
     <service name="getEbayStoreOrder" engine="java" transaction-timeout="12000"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreOrder">
+        location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreOrder">
         <description>Import transaction from ebay to OFBiz</description>
         <attribute name="productStoreId" mode="INOUT" type="String" optional="false"></attribute>
         <attribute name="fromDate" mode="IN" type="String" optional="false"></attribute>
@@ -587,7 +587,7 @@ under the License.
         <attribute name="orderList" mode="OUT" type="List" optional="true"></attribute>
     </service>
     <service name="EbayStoreImportTransaction" engine="java" transaction-timeout="12000"
-        location="org.ofbiz.ebaystore.EbayStoreOrder" invoke="EbayStoreImportTransaction">
+        location="org.apache.ofbiz.ebaystore.EbayStoreOrder" invoke="EbayStoreImportTransaction">
         <description>List closed item in store</description>
         <attribute name="productStoreId" mode="INOUT" type="String" optional="false"></attribute>
         <attribute name="externalId" mode="IN" type="String" optional="false"></attribute>
@@ -622,7 +622,7 @@ under the License.
         <attribute name="formSelect" mode="OUT" type="String" optional="false"></attribute>
     </service>
     <service name="EbayStoreCreateTransactionShoppingCart" engine="java" transaction-timeout="12000"
-        location="org.ofbiz.ebaystore.EbayStoreOrder" invoke="EbayStoreCreateTransactionShoppingCart">
+        location="org.apache.ofbiz.ebaystore.EbayStoreOrder" invoke="EbayStoreCreateTransactionShoppingCart">
         <description>Create Shopping Cart to store transaction from Ebay</description>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"></attribute>
         <attribute name="externalId" mode="IN" type="String" optional="false"></attribute>
@@ -656,7 +656,7 @@ under the License.
         <attribute name="shippingAddressCountry" mode="IN" type="String" optional="true"></attribute>
     </service>
     <service name="EbayStoreImportOrder" engine="java" transaction-timeout="12000"
-        location="org.ofbiz.ebaystore.EbayStoreOrder" invoke="EbayStoreImportOrder">
+        location="org.apache.ofbiz.ebaystore.EbayStoreOrder" invoke="EbayStoreImportOrder">
         <description>Import order from ebay to OFBiz</description>
         <attribute name="orderId" mode="IN" type="String" optional="true"></attribute>
         <attribute name="externalId" mode="IN" type="String" optional="false"></attribute>
@@ -677,7 +677,7 @@ under the License.
         <attribute name="formSelect" mode="OUT" type="String" optional="true"></attribute>
     </service>
     <service name="EbayStoreCreateOrderShoppingCart" engine="java" transaction-timeout="12000"
-        location="org.ofbiz.ebaystore.EbayStoreOrder" invoke="EbayStoreCreateOrderShoppingCart">
+        location="org.apache.ofbiz.ebaystore.EbayStoreOrder" invoke="EbayStoreCreateOrderShoppingCart">
         <description>Import order from ebay to OFBiz</description>
         <attribute name="productStoreId" mode="IN" type="String"></attribute>
         <attribute name="orderId" mode="IN" type="String" optional="true"></attribute>

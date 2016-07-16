@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.category.*;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.category.*;
 
 catalogId = CatalogWorker.getCurrentCatalogId(request);
 bestSellerCates = [];

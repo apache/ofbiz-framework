@@ -19,8 +19,8 @@
 
 import java.util.*;
 import java.lang.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
 
 if (parameters.workEffortId) {
     workEffortId = parameters.workEffortId;

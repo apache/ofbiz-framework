@@ -94,7 +94,7 @@ under the License.
     <service name="getProductAverageCost" engine="simple" 
             location="component://product/minilang/product/cost/CostServices.xml" invoke="getProductAverageCost" auth="true">
         <description>Get Average cost of a product</description>
-        <attribute name="inventoryItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="inventoryItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="unitCost" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 </services>

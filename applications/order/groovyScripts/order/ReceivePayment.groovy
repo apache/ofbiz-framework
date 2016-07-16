@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.base.util.*;
 
 orderId = request.getParameter("orderId");
 paymentMethodTypes = from("PaymentMethodType").where(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE")).queryList();

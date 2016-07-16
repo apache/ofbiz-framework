@@ -110,7 +110,7 @@ under the License.
 
     <div>
         <form method="post" action="" name="searchShowParams">
-          <#assign searchParams = Static["org.ofbiz.product.product.ProductSearchSession"].makeSearchParametersString(session)>
+          <#assign searchParams = Static["org.apache.ofbiz.product.product.ProductSearchSession"].makeSearchParametersString(session)>
           <span class="label">${uiLabelMap.ProductPlainSearchParameters}:</span><input type="text" size="60" name="searchParameters" value="${StringUtil.wrapString(searchParams)}" />
           <br />
           <span class="label">${uiLabelMap.ProductHtmlSearchParameters}:</span><input type="text" size="60" name="searchParameters" value="${StringUtil.wrapString(searchParams)?html}" />

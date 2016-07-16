@@ -20,8 +20,8 @@
 // PRunsComponentsByFeature
 // ReportF
 
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.product.category.CategoryWorker;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.product.category.CategoryWorker;
 
 if (productCategoryIdPar) {
     category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne();

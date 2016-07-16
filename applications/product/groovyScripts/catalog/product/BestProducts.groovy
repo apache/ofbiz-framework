@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.product.product.ProductContentWrapper;
 
 bestSellingProducts = [];
 exprList = [];

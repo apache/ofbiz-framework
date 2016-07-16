@@ -98,8 +98,8 @@ under the License.
         </if-not-empty>
 
         <call-object-method obj-field="shoppingCart" method-name="setUserLogin">
-            <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
-            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+            <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
+            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
         </call-object-method>
         <call-object-method obj-field="shoppingCart" method-name="addContactMech">
             <string value="SHIPPING_LOCATION"/>
@@ -183,13 +183,13 @@ under the License.
         </call-service>
         <!-- Set Payment Method-->
         <set field="cardSecurityCode" from-field="parameters.billToCardSecurityCode" set-if-null="true" set-if-empty="true"/>
-        <create-object class-name="org.ofbiz.order.shoppingcart.CheckOutHelper" field="checkOutHelper">
-            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-            <field field="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart"/>
+        <create-object class-name="org.apache.ofbiz.order.shoppingcart.CheckOutHelper" field="checkOutHelper">
+            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
+            <field field="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart"/>
         </create-object>
         <set field="callResult" value="${groovy:checkOutHelper.finalizeOrderEntryPayment(paymentMethodId, null, false, false)}"/>
-        <set field="cartPaymentInfo" value="${groovy: org.ofbiz.order.shoppingcart.ShoppingCart.CartPaymentInfo cpi = shoppingCart.getPaymentInfo(paymentMethodId, null, null, null, true); cpi.securityCode = cardSecurityCode; return cpi;}"/>
+        <set field="cartPaymentInfo" value="${groovy: org.apache.ofbiz.order.shoppingcart.ShoppingCart.CartPaymentInfo cpi = shoppingCart.getPaymentInfo(paymentMethodId, null, null, null, true); cpi.securityCode = cardSecurityCode; return cpi;}"/>
         <check-errors/>
     </simple-method>
 
@@ -208,8 +208,8 @@ under the License.
         </else>
         </if-empty>
         <call-object-method obj-field="shoppingCart" method-name="setUserLogin">
-            <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
-            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+            <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
+            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
         </call-object-method>
     </simple-method>
 </simple-methods>

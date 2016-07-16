@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.base.util.*;
 
 cond = EntityCondition.makeCondition([
         EntityCondition.makeCondition ("projectTypeId", EntityOperator.EQUALS, "SCRUM_PROJECT"),

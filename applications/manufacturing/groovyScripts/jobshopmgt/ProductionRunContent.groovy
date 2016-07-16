@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.content.content.ContentWorker;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.GenericValue;
 
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;
 context.productionRunId = productionRunId;

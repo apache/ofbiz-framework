@@ -23,24 +23,24 @@ under the License.
     <description>Define the following handlers</description>
 
     <!-- event handlers -->
-    <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
-    <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
-    <handler name="xmlrpc" type="request" class="org.ofbiz.webapp.event.XmlRpcEventHandler"/>
-    <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
-    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
-    <handler name="service-stream" type="request" class="org.ofbiz.webapp.event.ServiceStreamHandler"/>
-    <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
-    <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
-    <handler name="rome" type="request" class="org.ofbiz.webapp.event.RomeEventHandler"/>
-    <handler name="script" type="request" class="org.ofbiz.webapp.event.ScriptEventHandler"/>
+    <handler name="java" type="request" class="org.apache.ofbiz.webapp.event.JavaEventHandler"/>
+    <handler name="soap" type="request" class="org.apache.ofbiz.webapp.event.SOAPEventHandler"/>
+    <handler name="xmlrpc" type="request" class="org.apache.ofbiz.webapp.event.XmlRpcEventHandler"/>
+    <handler name="service" type="request" class="org.apache.ofbiz.webapp.event.ServiceEventHandler"/>
+    <handler name="service-multi" type="request" class="org.apache.ofbiz.webapp.event.ServiceMultiEventHandler"/>
+    <handler name="service-stream" type="request" class="org.apache.ofbiz.webapp.event.ServiceStreamHandler"/>
+    <handler name="simple" type="request" class="org.apache.ofbiz.webapp.event.SimpleEventHandler"/>
+    <handler name="groovy" type="request" class="org.apache.ofbiz.webapp.event.GroovyEventHandler"/>
+    <handler name="rome" type="request" class="org.apache.ofbiz.webapp.event.RomeEventHandler"/>
+    <handler name="script" type="request" class="org.apache.ofbiz.webapp.event.ScriptEventHandler"/>
 
     <!-- view handlers -->
-    <handler name="screen" type="view" class="org.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
-    <handler name="screenxml" type="view" class="org.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
-    <handler name="screentext" type="view" class="org.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
-    <handler name="screencsv" type="view" class="org.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
-    <handler name="screenxls" type="view" class="org.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
-    <handler name="screenfop" type="view" class="org.ofbiz.widget.renderer.fo.ScreenFopViewHandler"/>
-    <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
-    <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
+    <handler name="screen" type="view" class="org.apache.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
+    <handler name="screenxml" type="view" class="org.apache.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
+    <handler name="screentext" type="view" class="org.apache.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
+    <handler name="screencsv" type="view" class="org.apache.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
+    <handler name="screenxls" type="view" class="org.apache.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
+    <handler name="screenfop" type="view" class="org.apache.ofbiz.widget.renderer.fo.ScreenFopViewHandler"/>
+    <handler name="jsp" type="view" class="org.apache.ofbiz.webapp.view.JspViewHandler"/>
+    <handler name="http" type="view" class="org.apache.ofbiz.webapp.view.HttpViewHandler"/>
 </site-conf>

@@ -135,7 +135,7 @@ under the License.
         <entity-one entity-name="Product" auto-field-map="true" value-field="product"/>
         <set from-field="product.requirementMethodEnumId" field="requirementMethodId"/>
         <if-empty field="requirementMethodId">
-            <set field="isMarketingPkg" value="${groovy: org.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG')}" type="Boolean"/>
+            <set field="isMarketingPkg" value="${groovy: org.apache.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG')}" type="Boolean"/>
             <if>
                 <condition>
                     <and>

@@ -23,9 +23,9 @@ under the License.
 
     <form name="lookupparty" type="single" target="findparty" focus-field-name="partyId">
         <actions>
-            <set field="states" value="${groovy: org.ofbiz.common.CommonWorkers.getStateList(delegator)}"/>
+            <set field="states" value="${groovy: org.apache.ofbiz.common.CommonWorkers.getStateList(delegator)}"/>
             <!-- Here is some alternate code to get states limited to a region
-                <set field="states" value="${groovy: org.ofbiz.common.CommonWorkers.getAssociatedStateList(delegator,requestParameters.CUSTOMER_COUNTRY)}"/>
+                <set field="states" value="${groovy: org.apache.ofbiz.common.CommonWorkers.getAssociatedStateList(delegator,requestParameters.CUSTOMER_COUNTRY)}"/>
             -->
         </actions>
         <field name="statusId"><hidden value="PARTY_ENABLED"/></field>
@@ -153,7 +153,7 @@ under the License.
         <field name="userLoginId" use-when="userLoginSize == 1"><display description="${logins[0].userLoginId}"/></field>
         <field name="userLoginId" use-when="userLoginSize == 0"><display description="(${uiLabelMap.CommonNone})"/></field>
         <field name="externalId"><display description="${externalId}"/></field>
-        <field name="name"><display description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, true)}"/></field>
+        <field name="name"><display description="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, true)}"/></field>
         <field name="partyTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="PartyType"/></field>
         <field name="mainRole" title="${uiLabelMap.PartyMainRole}"><display description="${mainRole.description}"/></field>
         <field name="createdDate" sort-field="true"><display type="date"/></field>
@@ -1107,9 +1107,9 @@ under the License.
             <set field="actualCurrencyUomId" from-field="actualCurrencyUomId" default-value="${defaultOrganizationPartyCurrencyUomId}"/>
         </actions>
         <row-actions>
-            <set field="total" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator, invoiceId, actualCurrency)}"/>
-            <set field="amountToApply" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId, actualCurrency)}"/>
-            <set field="amountApplied" value="${groovy:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(delegator,invoiceId, org.ofbiz.base.util.UtilDateTime.nowTimestamp(), actualCurrency)}"/>
+            <set field="total" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator, invoiceId, actualCurrency)}"/>
+            <set field="amountToApply" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId, actualCurrency)}"/>
+            <set field="amountApplied" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(delegator,invoiceId, org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp(), actualCurrency)}"/>
         </row-actions>
         <field name="invoiceId">
             <display-entity entity-name="Invoice" description=" " also-hidden="true">

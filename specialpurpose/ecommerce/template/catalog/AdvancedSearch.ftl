@@ -16,8 +16,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign searchOptionsHistoryList = Static["org.ofbiz.product.product.ProductSearchSession"].getSearchOptionsHistoryList(session)/>
-<#assign currentCatalogId = Static["org.ofbiz.product.catalog.CatalogWorker"].getCurrentCatalogId(request)/>
+<#assign searchOptionsHistoryList = Static["org.apache.ofbiz.product.product.ProductSearchSession"].getSearchOptionsHistoryList(session)/>
+<#assign currentCatalogId = Static["org.apache.ofbiz.product.catalog.CatalogWorker"].getCurrentCatalogId(request)/>
 <h2>${uiLabelMap.ProductAdvancedSearchInCategory}</h2>
 <form id="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>">
   <fieldset class="inline">
@@ -41,7 +41,7 @@ under the License.
       <label for="SEARCH_OPERATOR_ALL">${uiLabelMap.CommonAll}</label> <input type="radio" name="SEARCH_OPERATOR" id="SEARCH_OPERATOR_ALL" value="AND" <#if searchOperator == "AND">checked="checked"</#if> />
     </div>
     <#list productFeatureTypeIdsOrdered as productFeatureTypeId>
-      <#assign findPftMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", productFeatureTypeId)>
+      <#assign findPftMap = Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", productFeatureTypeId)>
       <#assign productFeatureType = delegator.findOne("ProductFeatureType", findPftMap, true)>
       <#assign productFeatures = productFeaturesByTypeMap[productFeatureTypeId]>
       <div>

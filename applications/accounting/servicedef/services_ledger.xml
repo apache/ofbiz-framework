@@ -557,7 +557,7 @@ under the License.
         <attribute name="customTimePeriodList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="findLastClosedDate" engine="java"
-        location="org.ofbiz.accounting.period.PeriodServices" invoke="findLastClosedDate" auth="true">
+        location="org.apache.ofbiz.accounting.period.PeriodServices" invoke="findLastClosedDate" auth="true">
         <description>Find the last date before findDate whose TimePeriod is marked isClosed="Y" for organizationPartyId and periodTypeId combination.
             If none are found, ie, no closed CustomTimePeriod exists, then return the earliest date available for any
             CustomTimePeriod of the organizationPartyId and periodTypeId.
@@ -567,7 +567,7 @@ under the License.
         <attribute name="findDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="periodTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="lastClosedDate" type="Timestamp" mode="OUT" optional="true"/>
-        <attribute name="lastClosedTimePeriod" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="lastClosedTimePeriod" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
     <service name="getPreviousTimePeriod" engine="simple" invoke="getPreviousTimePeriod"
         location="component://accounting/minilang/period/PeriodServices.xml" auth="true">
@@ -676,7 +676,7 @@ under the License.
     </service>
 
     <service name="createUpdateCostCenter" engine="java" auth="true" invoke="createUpdateCostCenter" 
-        location="org.ofbiz.accounting.ledger.GeneralLedgerServices">
+        location="org.apache.ofbiz.accounting.ledger.GeneralLedgerServices">
         <description>Create Update CostCenters</description>
         <attribute name="glAccountId" mode="IN" type="String"/>
         <attribute name="amountPercentageMap" type="Map" string-map-prefix="amp_" mode="IN" optional="true"/>

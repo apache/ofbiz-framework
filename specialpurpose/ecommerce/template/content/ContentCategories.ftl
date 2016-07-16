@@ -24,7 +24,7 @@ under the License.
 <#assign forumTrail=[]/>
 <#assign firstContentId=""/>
 <#if forumTrailCsv?has_content>
-  <#assign forumTrail=Static["org.ofbiz.base.util.StringUtil"].split(forumTrailCsv, ",") />
+  <#assign forumTrail=Static["org.apache.ofbiz.base.util.StringUtil"].split(forumTrailCsv, ",") />
   <#if 0 < forumTrail?size>
     <#assign firstContentId=forumTrail[0]?string/>
   </#if>

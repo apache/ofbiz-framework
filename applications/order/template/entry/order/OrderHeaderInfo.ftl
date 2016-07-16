@@ -41,7 +41,7 @@ under the License.
                 </td>
                 <td width="5">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(orderForParty, false)} [${orderForParty.partyId}]
+                    ${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(orderForParty, false)} [${orderForParty.partyId}]
                 </td>
             </tr>
             <tr><td colspan="7"><hr /></td></tr>

@@ -100,8 +100,8 @@ under the License.
                     <#else>
                       <td colspan="2">${uiLabelMap.PartyUnknown}</td>
                     </#if>
-                    <td>${Static["org.ofbiz.party.party.PartyWorker"].makeMatchingString(delegator, match.address1)}</td>
-                    <td>${Static["org.ofbiz.party.party.PartyWorker"].makeMatchingString(delegator, match.address2?default("N/A"))}</td>
+                    <td>${Static["org.apache.ofbiz.party.party.PartyWorker"].makeMatchingString(delegator, match.address1)}</td>
+                    <td>${Static["org.apache.ofbiz.party.party.PartyWorker"].makeMatchingString(delegator, match.address2?default("N/A"))}</td>
                     <td>${match.city}</td>
                     <td>${match.postalCode}</td>
                     <td class="button-col"><a href="<@ofbizUrl>viewprofile?partyId=${match.partyId}</@ofbizUrl>">${match.partyId}</a></td>

@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*
-import org.ofbiz.base.util.string.*
-import org.ofbiz.entity.util.EntityUtilProperties
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.string.*
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 if (productCategory) {
     context.productCategoryType = productCategory.getRelatedOne("ProductCategoryType", false);

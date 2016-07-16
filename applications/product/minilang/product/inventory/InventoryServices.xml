@@ -687,7 +687,7 @@ under the License.
         <set field="quantityOnHandTotal" value="0" type="BigDecimal"/>
         <set from-field="parameters.productId" field="lookupMktgPkgParams.productId"/>
         <entity-one entity-name="Product" value-field="product"/>
-        <set field="isMarketingPkgAuto" value="${groovy: org.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG_AUTO')}" type="Boolean"/>
+        <set field="isMarketingPkgAuto" value="${groovy: org.apache.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG_AUTO')}" type="Boolean"/>
         <if-compare field="isMarketingPkgAuto" operator="equals" value="true" type="Boolean">
             <set field="productIdMap.productId" from-field="product.productId"/>
             <call-service service-name="getProductInventoryAvailable" in-map-name="productIdMap">

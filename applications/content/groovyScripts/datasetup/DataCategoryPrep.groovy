@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*
-import org.ofbiz.content.data.DataResourceWorker
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.content.data.DataResourceWorker
 
 /**
  * This script calls two methods in DataResourceWorker to build an indented

@@ -29,15 +29,15 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}"/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}"/></field>
         <field name="submitButton" title="${uiLabelMap.EbayImportSearchSingleTransactionFromEbay}"><submit button-type="button"/></field>
     </form>
     <form name="ListOrdersFromEbay" type="multi" use-row-submit="true" list-name="orderList" target="ImportOrderFromEbay"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <set field="canImportOrder" value="${groovy: org.ofbiz.base.util.UtilValidate.isEmpty(orderId) &amp;&amp; org.ofbiz.base.util.UtilValidate.isEmpty(errorMessage)}" type="Boolean"/>
-            <set field="allowProductIdChange" value="${groovy: org.ofbiz.base.util.UtilValidate.isEmpty(orderId) &amp;&amp; org.ofbiz.base.util.UtilValidate.isNotEmpty(errorMessage)}" type="Boolean"/>
+            <set field="canImportOrder" value="${groovy: org.apache.ofbiz.base.util.UtilValidate.isEmpty(orderId) &amp;&amp; org.apache.ofbiz.base.util.UtilValidate.isEmpty(errorMessage)}" type="Boolean"/>
+            <set field="allowProductIdChange" value="${groovy: org.apache.ofbiz.base.util.UtilValidate.isEmpty(orderId) &amp;&amp; org.apache.ofbiz.base.util.UtilValidate.isNotEmpty(errorMessage)}" type="Boolean"/>
         </row-actions>
         <field name="productStoreId"><hidden/></field>
         <field name="externalId" title="${uiLabelMap.EbayImportEbayItem}"><display/></field>
@@ -97,17 +97,17 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}"/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
     
     <form name="ListEbayOrders" type="multi" use-row-submit="true" list-name="orderList" target="importEbayOrders"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <set field="canImportOrder" value="${groovy: org.ofbiz.base.util.UtilValidate.isEmpty(orderId)}" type="Boolean"/>
-            <set field="isEbayOrder" value="${groovy: org.ofbiz.base.util.UtilValidate.isNotEmpty(isEbayOrder)}" type="Boolean"/>
-            <set field="isEbayTransaction" value="${groovy: org.ofbiz.base.util.UtilValidate.isNotEmpty(isEbayTransaction)}" type="Boolean"/>
+            <set field="canImportOrder" value="${groovy: org.apache.ofbiz.base.util.UtilValidate.isEmpty(orderId)}" type="Boolean"/>
+            <set field="isEbayOrder" value="${groovy: org.apache.ofbiz.base.util.UtilValidate.isNotEmpty(isEbayOrder)}" type="Boolean"/>
+            <set field="isEbayTransaction" value="${groovy: org.apache.ofbiz.base.util.UtilValidate.isNotEmpty(isEbayTransaction)}" type="Boolean"/>
         </row-actions>
         <field name="productStoreId"><hidden/></field>
        <field name="externalId" title="${uiLabelMap.EbayEbayOrderIdOrTransactionId}" use-when="${isEbayOrder}" tooltip="eBay Order"><display/></field>

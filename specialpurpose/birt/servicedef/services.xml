@@ -25,7 +25,7 @@ under the License.
     <version>1.0</version>
 
     <!--BIRT Email Services -->
-    <service name="sendBirtMail" engine="java" location="org.ofbiz.birt.email.BirtEmailServices" invoke="sendBirtMail">
+    <service name="sendBirtMail" engine="java" location="org.apache.ofbiz.birt.email.BirtEmailServices" invoke="sendBirtMail">
         <description>BIRT Email Service</description>
         <implements service="sendMailInterface"/>
         <attribute name="bodyText" type="String" mode="IN" optional="true"/>

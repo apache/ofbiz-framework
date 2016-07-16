@@ -65,7 +65,7 @@ under the License.
                 </tr>
                 <#list orderItemList as orderItem>
                     <#if orderItem.productId??> <#-- a null product may come from a quote -->
-                      <#assign orderItemContentWrapper = Static["org.ofbiz.order.order.OrderContentWrapper"].makeOrderContentWrapper(orderItem, request)>
+                      <#assign orderItemContentWrapper = Static["org.apache.ofbiz.order.order.OrderContentWrapper"].makeOrderContentWrapper(orderItem, request)>
                       <tr><td colspan="8"><hr /></td></tr>
                       <tr>
                           <#assign orderItemType = orderItem.getRelatedOne("OrderItemType", false)!>
@@ -94,7 +94,7 @@ under the License.
                                       <p>${uiLabelMap.ProductProduct}&nbsp;${orderItemName}</p>
                                       <#if productId??>
                                           <#assign product = orderItem.getRelatedOne("Product", true)>
-                                          <#if product.salesDiscontinuationDate?? && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
+                                          <#if product.salesDiscontinuationDate?? && Static["org.apache.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
                                               <span class="alert">${uiLabelMap.OrderItemDiscontinued}: ${product.salesDiscontinuationDate}</span>
                                           </#if>
                                       </#if>
@@ -170,11 +170,11 @@ under the License.
                                   </#if>
                               </td>
                               <td class="align-text" valign="top" nowrap="nowrap">
-                                  <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false) isoCode=currencyUomId/>
+                                  <@ofbizCurrency amount=Static["org.apache.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false) isoCode=currencyUomId/>
                               </td>
                               <td class="align-text" valign="top" nowrap="nowrap">
                                   <#if orderItem.statusId != "ITEM_CANCELLED">
-                                  <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemSubTotal(orderItem, orderAdjustments) isoCode=currencyUomId/>
+                                  <@ofbizCurrency amount=Static["org.apache.ofbiz.order.order.OrderReadHelper"].getOrderItemSubTotal(orderItem, orderAdjustments) isoCode=currencyUomId/>
                                   <#else>
                                   <@ofbizCurrency amount=0.00 isoCode=currencyUomId/>
                                   </#if>
@@ -204,7 +204,7 @@ under the License.
                         </tr>
                       </#if>
                       <#-- now show adjustment details per line item -->
-                      <#assign orderItemAdjustments = Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentList(orderItem, orderAdjustments)>
+                      <#assign orderItemAdjustments = Static["org.apache.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentList(orderItem, orderAdjustments)>
                       <#if orderItemAdjustments?? && orderItemAdjustments?has_content>
                           <#list orderItemAdjustments as orderItemAdjustment>
                               <#assign adjustmentType = orderItemAdjustment.getRelatedOne("OrderAdjustmentType", true)>
@@ -230,7 +230,7 @@ under the License.
                                   <td>&nbsp;</td>
                                   <td>&nbsp;</td>
                                   <td class="align-text">
-                                      <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
+                                      <@ofbizCurrency amount=Static["org.apache.ofbiz.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
                                   </td>
                                   <td colspan="3">&nbsp;</td>
                               </tr>
@@ -297,7 +297,7 @@ under the License.
         </#if>
         <#list orderHeaderAdjustments as orderHeaderAdjustment>
             <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType", false)>
-            <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
+            <#assign adjustmentAmount = Static["org.apache.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
             <#assign orderAdjustmentId = orderHeaderAdjustment.get("orderAdjustmentId")>
             <#assign productPromoCodeId = ''>
             <#if adjustmentType.get("orderAdjustmentTypeId") == "PROMOTION_ADJUSTMENT" && orderHeaderAdjustment.get("productPromoId")?has_content>

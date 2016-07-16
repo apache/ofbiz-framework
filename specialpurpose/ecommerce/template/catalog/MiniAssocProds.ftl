@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign associatedProducts = Static["org.ofbiz.order.shoppingcart.product.ProductDisplayWorker"].getRandomCartProductAssoc(request, true)!>
+<#assign associatedProducts = Static["org.apache.ofbiz.order.shoppingcart.product.ProductDisplayWorker"].getRandomCartProductAssoc(request, true)!>
 <#if associatedProducts?has_content>
 <div id="miniassocproducts" class="screenlet">
     <h3>${uiLabelMap.EcommerceYouMightLike}...</h3>

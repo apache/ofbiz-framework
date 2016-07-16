@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*
-import org.ofbiz.entity.util.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
 
 webSiteContent = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT").orderBy("-fromDate").cache().filterByDate().queryFirst();
 if (webSiteContent) {

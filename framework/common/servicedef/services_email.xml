@@ -49,7 +49,7 @@ under the License.
         <attribute name="emailType" type="String" mode="INOUT" optional="true"/>
         <attribute name="orderId" type="String" mode="INOUT" optional="true"/>
         <attribute name="custRequestId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/><!-- mail can be disabled in general.properties so no output -->
+        <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/><!-- mail can be disabled in general.properties so no output -->
         <!--  used for parsing and ECAs -->
         <attribute name="communicationEventId" type="String" mode="INOUT" optional="true"/>        
     </service>
@@ -70,30 +70,30 @@ under the License.
         <override name="contentType" mode="INOUT"/>
     </service>
     <service name="sendMail" engine="java"
-        location="org.ofbiz.common.email.EmailServices" invoke="sendMail">
+        location="org.apache.ofbiz.common.email.EmailServices" invoke="sendMail">
         <description>Send E-Mail Service.  partyId and communicationEventId aren't used by sendMail
             but are passed down to storeEmailAsCommunication during the SECA chain.  See sendMailInterface for more comments.</description>
         <implements service="sendMailOnePartInterface"/>
     </service>
     <service name="sendMailHiddenInLog" engine="java" hideResultInLog="true"
-        location="org.ofbiz.common.email.EmailServices" invoke="sendMail">
+        location="org.apache.ofbiz.common.email.EmailServices" invoke="sendMail">
         <description>Send E-Mail Service.  partyId and communicationEventId aren't used by sendMail
             but are passed down to storeEmailAsCommunication during the SECA chain.  See sendMailInterface for more comments.</description>
         <implements service="sendMailOnePartInterface"/>
         <attribute name="hideInLog" type="Boolean" mode="IN" optional="true"/>                
     </service>
     <service name="sendMailMultiPart" engine="java"
-        location="org.ofbiz.common.email.EmailServices" invoke="sendMail">
+        location="org.apache.ofbiz.common.email.EmailServices" invoke="sendMail">
         <description>Send Multi-Part E-Mail Service</description>
         <implements service="sendMailMultiPartInterface"/>
     </service>
     <service name="sendMailMultiPartHiddenInLog" engine="java" hideResultInLog="true"
-        location="org.ofbiz.common.email.EmailServices" invoke="sendMail">
+        location="org.apache.ofbiz.common.email.EmailServices" invoke="sendMail">
         <description>Send Multi-Part E-Mail Service</description>
         <implements service="sendMailMultiPartInterface"/>
     </service>
     <service name="sendMailFromUrl" engine="java"
-            location="org.ofbiz.common.email.EmailServices" invoke="sendMailFromUrl">
+            location="org.apache.ofbiz.common.email.EmailServices" invoke="sendMailFromUrl">
         <description>Send E-Mail From URL Service</description>
         <implements service="sendMailInterface"/>
         <attribute name="bodyUrl" type="String" mode="IN" optional="false"/>
@@ -116,13 +116,13 @@ under the License.
         <attribute name="body" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="sendMailFromScreen" max-retry="3" engine="java"
-        location="org.ofbiz.common.email.EmailServices" invoke="sendMailFromScreen">
+        location="org.apache.ofbiz.common.email.EmailServices" invoke="sendMailFromScreen">
         <description>Send E-Mail From Screen Widget Service</description>
         <implements service="sendMailFromScreenInterface"/>
         <attribute name="hideInLog" type="Boolean" mode="IN" optional="true"/>                        
     </service>
     <service name="sendMailHiddenInLogFromScreen" max-retry="3" engine="java" hideResultInLog="true"
-        location="org.ofbiz.common.email.EmailServices" invoke="sendMailHiddenInLogFromScreen">
+        location="org.apache.ofbiz.common.email.EmailServices" invoke="sendMailHiddenInLogFromScreen">
         <description>Send E-Mail hidden in log (password, etc.) From Screen Widget Service</description>
         <implements service="sendMailFromScreenInterface"/>
     </service>
@@ -159,13 +159,13 @@ under the License.
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="sendGenericNotificationEmail" engine="java"
-            location="org.ofbiz.common.email.NotificationServices" invoke="sendNotification">
+            location="org.apache.ofbiz.common.email.NotificationServices" invoke="sendNotification">
         <description>Generic Template Based Notification Service</description>
         <implements service="sendNotificationInterface"/>
     </service>
     <!-- this service does not seem to exist, is not in the EmailServices.java file
     <service name="storeForwardedEmail" engine="java"
-            location="org.ofbiz.common.email.EmailServices" invoke="storeForwardedEmail" auth="true">
+            location="org.apache.ofbiz.common.email.EmailServices" invoke="storeForwardedEmail" auth="true">
         <description>Process incoming email. Try to determine partyIdFrom from email address.</description>
         <implements service="mailProcessInterface"/>
     </service>

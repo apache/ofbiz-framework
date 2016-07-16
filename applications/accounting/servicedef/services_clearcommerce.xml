@@ -26,28 +26,28 @@ under the License.
 
     <!-- ClearCommerce Implementations -->
     <service name="clearCommerceCCAuth" engine="java"
-            location="org.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccAuth">
+            location="org.apache.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccAuth">
         <description>ClearCommerce Credit Card Authorization</description>
         <implements service="ccAuthInterface"/>
         <attribute name="ccAction" type="String" mode="IN" optional="true"/>
     </service>
     <service name="clearCommerceCCCapture" engine="java"
-            location="org.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccCapture">
+            location="org.apache.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccCapture">
         <description>ClearCommerce Credit Card Capture</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="clearCommerceCCRelease" engine="java"
-            location="org.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccRelease">
+            location="org.apache.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccRelease">
         <description>ClearCommerce Credit Card Release</description>
         <implements service="paymentReleaseInterface"/>
     </service>
     <service name="clearCommerceCCRefund" engine="java"
-            location="org.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccRefund">
+            location="org.apache.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccRefund">
         <description>ClearCommerce Credit Card Refund</description>
         <implements service="paymentRefundInterface"/>
     </service>
     <service name="clearCommerceCCCredit" engine="java"
-        location="org.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccCredit">
+        location="org.apache.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccCredit">
         <description>ClearCommerce Credit Card Credit</description>
         <implements service="ccCreditInterface"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
@@ -58,7 +58,7 @@ under the License.
 
     </service>
     <service name="clearCommerceCCReport" engine="java"
-        location="org.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccReport">
+        location="org.apache.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccReport">
         <description>Reporting facility</description>
         <implements service="ccAuthInterface"/>
     </service>

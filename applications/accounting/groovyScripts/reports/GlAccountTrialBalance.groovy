@@ -17,10 +17,10 @@
  * under the License.
  */
 import java.sql.Timestamp;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilNumber;
-import org.ofbiz.accounting.util.UtilAccounting;
+import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilNumber;
+import org.apache.ofbiz.accounting.util.UtilAccounting;
 import com.ibm.icu.util.Calendar;
 
 if (parameters.get('ApplicationDecorator|organizationPartyId')) {

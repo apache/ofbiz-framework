@@ -18,9 +18,9 @@
  */
 
 import java.util.List;
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.string.*;
-import org.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.string.*;
+import org.apache.ofbiz.base.util.UtilMisc;
 
 locales = [] as LinkedList;
 availableLocales = UtilMisc.availableLocales()

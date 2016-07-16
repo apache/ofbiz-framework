@@ -20,7 +20,7 @@
 // PRunsProductsStacks
 // ReportC
 
-import org.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
 if (productCategoryIdPar) {
     category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne();

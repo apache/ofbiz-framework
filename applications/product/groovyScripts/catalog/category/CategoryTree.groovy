@@ -21,7 +21,7 @@
  * This script is also referenced by the ecommerce's screens and
  * should not contain order component's specific code.
  */
-import org.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
 // Put the result of CategoryWorker.getRelatedCategories into the separateRootType function as attribute.
 // The separateRootType function will return the list of category of given catalog.

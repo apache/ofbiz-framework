@@ -250,7 +250,7 @@ under the License.
                     <#if creditCard.middleNameOnCard?has_content>${creditCard.middleNameOnCard}&nbsp;</#if>
                     ${creditCard.lastNameOnCard}
                     <#if creditCard.suffixOnCard?has_content>&nbsp;${creditCard.suffixOnCard}</#if>
-                    &nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
+                    &nbsp;${Static["org.apache.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                     <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                     <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate.toString()})</#if>
                     <#if paymentMethod.thruDate??>(${uiLabelMap.CommonDelete}:&nbsp;${paymentMethod.thruDate.toString()})</#if>
@@ -492,7 +492,7 @@ under the License.
           <#if (contactListParty.statusId! == "CLPT_ACCEPTED")>            
             <form method="post" action="<@ofbizUrl>updateContactListParty</@ofbizUrl>" name="clistRejectForm${contactListParty_index}">
             <div>
-              <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
+              <#assign productStoreId = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
               <input type="hidden" name="productStoreId" value="${productStoreId!}" />
               <input type="hidden" name="partyId" value="${party.partyId}"/>
               <input type="hidden" name="contactListId" value="${contactListParty.contactListId}"/>
@@ -570,7 +570,7 @@ under the License.
           <td valign="top"><div>${survey.surveyName!}&nbsp;-&nbsp;${survey.description!}</div></td>
           <td>&nbsp;</td>
           <td valign="top">
-            <#assign responses = Static["org.ofbiz.product.store.ProductStoreWorker"].checkSurveyResponse(request, survey.surveyId)?default(0)>
+            <#assign responses = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].checkSurveyResponse(request, survey.surveyId)?default(0)>
             <#if (responses < 1)>${uiLabelMap.EcommerceNotCompleted}<#else>${uiLabelMap.EcommerceCompleted}</#if>
           </td>
           <#if (responses == 0 || survey.allowMultiple?default("N") == "Y")>

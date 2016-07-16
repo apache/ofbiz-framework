@@ -83,7 +83,7 @@
             </tr>
             <tr>
                 <td class="label">From Date</td>
-                <td><@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="" value="${Static['org.ofbiz.base.util.UtilDateTime'].nowTimestamp()}" size="20" maxlength="50" id="fromDate" dateType="timestamp" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/></td>
+                <td><@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="" value="${Static['org.apache.ofbiz.base.util.UtilDateTime'].nowTimestamp()}" size="20" maxlength="50" id="fromDate" dateType="timestamp" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/></td>
             </tr>
             <tr>
                 <td class="label">Thru Date</td>

@@ -24,13 +24,13 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-  <#assign productCompareList = Static["org.ofbiz.product.product.ProductEvents"].getProductCompareList(request)/>
+  <#assign productCompareList = Static["org.apache.ofbiz.product.product.ProductEvents"].getProductCompareList(request)/>
   <#if productCompareList?has_content>
     <table>
     <#list productCompareList as product>
       <tr>
         <td>
-          ${Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", request, "html")}
+          ${Static["org.apache.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", request, "html")}
         </td>
         <td>
           <form method="post" action="<@ofbizUrl>removeFromCompare</@ofbizUrl>" name="removeFromCompare${product_index}form">

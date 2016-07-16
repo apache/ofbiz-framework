@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilMisc;
 
 taxAuthorities = from('TaxAuthority').orderBy("taxAuthGeoId", "taxAuthPartyId").queryList();
 

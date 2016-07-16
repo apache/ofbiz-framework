@@ -17,11 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.security.Security;
-import org.ofbiz.webapp.stats.*;
+import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.webapp.stats.*;
 
 clearBins = parameters.clear;
 if ("true".equals(clearBins)) {

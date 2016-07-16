@@ -52,7 +52,7 @@ under the License.
 
         <if-empty field="newEntity.mimeTypeId">
             <if-not-empty field="parameters.uploadedFile">
-                <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getMimeTypeWithByteBuffer" ret-field="newEntity.mimeTypeId">
+                <call-class-method class-name="org.apache.ofbiz.content.data.DataResourceWorker" method-name="getMimeTypeWithByteBuffer" ret-field="newEntity.mimeTypeId">
                     <field field="parameters.uploadedFile" type="java.nio.ByteBuffer"/>
                 </call-class-method>
             </if-not-empty>
@@ -563,8 +563,8 @@ under the License.
         </if>
         <check-errors/>
         <set field="absolute" value="true" type="Boolean"/>
-        <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.apache.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="absolute" type="boolean"/>
         </call-class-method>
         <log level="info" message="[attachLocalFileToDataResource] - Found Subdir : ${uploadPath}"/>
@@ -633,8 +633,8 @@ under the License.
         <check-errors/>
 
         <set field="absolute" value="false" type="Boolean"/>
-        <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.apache.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="absolute" type="boolean"/>
         </call-class-method>
         <log level="info" message="[attachLocalFileToDataResource] - Found Subdir : ${uploadPath}"/>

@@ -39,8 +39,8 @@ under the License.
               <#list workEffortNoteandDetails as note>
                 <tr>
                   <td valign="top" width="35%">
-                    <div>&nbsp;<b>${uiLabelMap.CommonBy}: </b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</div>
-                    <div>&nbsp;<b>${uiLabelMap.CommonAt}: </b>${Static["org.ofbiz.base.util.UtilDateTime"].timeStampToString(note.noteDateTime!,"dd-MM-yyyy HH:mm",Static["java.util.TimeZone"].getDefault(),context.get("locale"))}</div>
+                    <div>&nbsp;<b>${uiLabelMap.CommonBy}: </b>${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</div>
+                    <div>&nbsp;<b>${uiLabelMap.CommonAt}: </b>${Static["org.apache.ofbiz.base.util.UtilDateTime"].timeStampToString(note.noteDateTime!,"dd-MM-yyyy HH:mm",Static["java.util.TimeZone"].getDefault(),context.get("locale"))}</div>
                   </td>
                   <td valign="top" width="50%">
                     <div>${note.noteInfo!}</div>

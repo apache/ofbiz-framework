@@ -55,7 +55,7 @@ function submitForm(form, mode, value) {
           <#if (shipGroups.size() > 0)>
             <#assign groupIdx = 0>
             <#list shipGroups as group>
-              <#assign shipEstimateWrapper = Static["org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper"].getWrapper(dispatcher, cart, groupIdx)>
+              <#assign shipEstimateWrapper = Static["org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper"].getWrapper(dispatcher, cart, groupIdx)>
               <#assign carrierShipmentMethods = shipEstimateWrapper.getShippingMethods()>
               <#assign groupNumber = groupIdx + 1>
               <form method="post" action="#" name="editgroupform${groupIdx}" style="margin: 0;">
@@ -176,7 +176,7 @@ function submitForm(form, mode, value) {
                     <#if cartLine.getProductId()??>
                       <#-- product item -->
                       <#-- start code to display a small image of the product -->
-                      <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher, "url")!>
+                      <#assign smallImageUrl = Static["org.apache.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher, "url")!>
                       <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
                       <#if smallImageUrl?string?has_content>
                         <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>">
@@ -198,7 +198,7 @@ function submitForm(form, mode, value) {
 
                       <#-- if inventory is not required check to see if it is out of stock and needs to have a message shown about that... -->
                       <#assign itemProduct = cartLine.getProduct()>
-                      <#assign isStoreInventoryNotRequiredAndNotAvailable = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequiredAndAvailable(request, itemProduct, cartLine.getQuantity(), false, false)>
+                      <#assign isStoreInventoryNotRequiredAndNotAvailable = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequiredAndAvailable(request, itemProduct, cartLine.getQuantity(), false, false)>
                       <#if isStoreInventoryNotRequiredAndNotAvailable && itemProduct.inventoryMessage?has_content>
                         <b>(${itemProduct.inventoryMessage})</b>
                       </#if>

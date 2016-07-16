@@ -23,13 +23,13 @@ under the License.
     <version>1.0</version>
 
     <service name="posLogin" engine="java"
-             location="org.ofbiz.webpos.WebPosEvents" invoke="posLogin">
+             location="org.apache.ofbiz.webpos.WebPosEvents" invoke="posLogin">
         <description>Login for Web Pos</description>
         <attribute type="String" mode="IN" name="posTerminalId" optional="false"/>
     </service>
 
     <service name="existsWebPosSession" engine="java"
-             location="org.ofbiz.webpos.WebPosEvents" invoke="existsWebPosSession">
+             location="org.apache.ofbiz.webpos.WebPosEvents" invoke="existsWebPosSession">
         <description>Check if exists a Web Pos Session</description>
     </service>
 </services>

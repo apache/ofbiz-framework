@@ -26,32 +26,32 @@ under the License.
 
     <!-- Authorize.NET Implementations -->
     <service name="aimCCAuth" engine="java"
-            location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccAuth">
+            location="org.apache.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccAuth">
         <description>Authorize.NET Payment Authorization</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="aimCCAuthCapture" engine="java"
-            location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccAuthCapture">
+            location="org.apache.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccAuthCapture">
         <description>Authorize.NET Payment Authorize and Capture service</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="aimCCCapture" engine="java"
-            location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccCapture">
+            location="org.apache.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccCapture">
         <description>Authorize.NET Payment Capture Service</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="aimCCRelease" engine="java"
-            location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccRelease">
+            location="org.apache.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccRelease">
         <description>Authorize.NET Payment Release Service - NOT IMPLEMENTED YET</description>
         <implements service="paymentReleaseInterface"/>
     </service>
     <service name="aimCCRefund" engine="java"
-            location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccRefund">
+            location="org.apache.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccRefund">
         <description>Authorize.NET Payment Refund Service</description>
         <implements service="paymentRefundInterface"/>
     </service>
     <service name="aimCCCredit" engine="java"
-            location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccCredit">
+            location="org.apache.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccCredit">
         <description>Authorize.NET Credit Service - NOT IMPLEMENTED YET</description>
         <implements service="ccCreditInterface"/>
     </service>

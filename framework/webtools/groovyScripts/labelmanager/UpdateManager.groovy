@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.webtools.labelmanager.*;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.webtools.labelmanager.*;
 
 LabelManagerFactory factory = LabelManagerFactory.getInstance();
 factory.findMatchingLabels(null, parameters.sourceFileName, parameters.sourceKey, null)

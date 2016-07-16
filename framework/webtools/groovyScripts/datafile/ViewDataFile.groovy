@@ -19,9 +19,9 @@
 
 import java.util.*;
 import java.net.*;
-import org.ofbiz.security.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.datafile.*;
+import org.apache.ofbiz.security.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.datafile.*;
 
 uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
 messages = [];

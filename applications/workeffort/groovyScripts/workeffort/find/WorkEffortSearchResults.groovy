@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.workeffort.workeffort.WorkEffortSearchEvents;
-import org.ofbiz.workeffort.workeffort.WorkEffortSearchSession;
+import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchEvents;
+import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchSession;
 
 // note: this can be run multiple times in the same request without causing problems, will check to see on its own if it has run again
 WorkEffortSearchSession.processSearchParameters(parameters, request);

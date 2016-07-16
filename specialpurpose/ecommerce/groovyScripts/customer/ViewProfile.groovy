@@ -19,13 +19,13 @@
 
 import java.lang.*;
 import java.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.party.contact.ContactMechWorker;
-import org.ofbiz.product.store.ProductStoreWorker;
-import org.ofbiz.accounting.payment.PaymentWorker;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.party.contact.ContactMechWorker;
+import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.accounting.payment.PaymentWorker;
 
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 context.productStoreId = productStoreId;

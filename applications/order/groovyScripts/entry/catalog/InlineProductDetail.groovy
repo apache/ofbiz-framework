@@ -20,22 +20,22 @@
 import java.lang.*;
 import java.util.*;
 import java.text.NumberFormat;
-import org.ofbiz.base.util.*;
-import org.ofbiz.service.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.webapp.taglib.ContentUrlTag;
-import org.ofbiz.webapp.stats.VisitHandler;
-import org.ofbiz.webapp.website.WebSiteWorker
-import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.category.*;
-import org.ofbiz.product.product.ProductWorker;
-import org.ofbiz.product.product.ProductContentWrapper;
-import org.ofbiz.product.product.ProductSearch;
-import org.ofbiz.product.product.ProductSearchSession;
-import org.ofbiz.product.store.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.service.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
+import org.apache.ofbiz.webapp.stats.VisitHandler;
+import org.apache.ofbiz.webapp.website.WebSiteWorker
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.category.*;
+import org.apache.ofbiz.product.product.ProductWorker;
+import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.product.product.ProductSearch;
+import org.apache.ofbiz.product.product.ProductSearchSession;
+import org.apache.ofbiz.product.store.*;
 
 inlineProductId = request.getAttribute("inlineProductId");
 inlineCounter = request.getAttribute("inlineCounter");

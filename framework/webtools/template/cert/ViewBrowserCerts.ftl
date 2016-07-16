@@ -31,7 +31,7 @@ under the License.
     <#if (clientCerts?has_content)>
       <table class="basic-table">
         <#list clientCerts as cert>
-          <#assign certString = Static["org.ofbiz.base.util.KeyStoreUtil"].certToString(cert)!>
+          <#assign certString = Static["org.apache.ofbiz.base.util.KeyStoreUtil"].certToString(cert)!>
           <#if (certString?has_content)>
             <tr>
               <td class="label">${uiLabelMap.WebtoolsCertsCert}</td>
@@ -48,7 +48,7 @@ under the License.
 ${certString}
 
 -----BEGIN PUBLIC KEY HEX-----
-${Static["org.ofbiz.base.util.KeyStoreUtil"].pemToPkHex(certString)}
+${Static["org.apache.ofbiz.base.util.KeyStoreUtil"].pemToPkHex(certString)}
 -----END PUBLIC KEY HEX-----
 
                 </textarea>

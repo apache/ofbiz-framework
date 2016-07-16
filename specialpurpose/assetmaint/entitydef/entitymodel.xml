@@ -28,7 +28,7 @@
     <description>None</description>
     <version>1.0</version>
 
-    <view-entity entity-name="FixedAssetAndIdent" package-name="org.ofbiz.specialpurpose.assetmaint"
+    <view-entity entity-name="FixedAssetAndIdent" package-name="org.apache.ofbiz.specialpurpose.assetmaint"
         title="FixedAsset and FixedAssetIdent View Entity">
         <member-entity entity-alias="FA" entity-name="FixedAsset"/>
         <member-entity entity-alias="FAI" entity-name="FixedAssetIdent"/>
@@ -39,7 +39,7 @@
         </view-link>
     </view-entity>
     <view-entity entity-name="FixedAssetMaintWorkEffortAndPartyAssignment"
-        package-name="org.ofbiz.specialpurpose.assetmaint"
+        package-name="org.apache.ofbiz.specialpurpose.assetmaint"
         title="View of FixedAssetMaint and WorkEffort and WorkEffortPartyAssignment">
         <member-entity entity-alias="FAM" entity-name="FixedAssetMaint"/>
         <member-entity entity-alias="WE" entity-name="WorkEffort"/>
@@ -67,7 +67,7 @@
         </relation>
     </view-entity>
     <view-entity entity-name="FixedAssetMaintWorkEffortAndTimeEntry"
-        package-name="org.ofbiz.specialpurpose.assetmaint"
+        package-name="org.apache.ofbiz.specialpurpose.assetmaint"
         title="View of FixedAssetMaint and WorkEffort and TimeEntry">
         <member-entity entity-alias="FAM" entity-name="FixedAssetMaint"/>
         <member-entity entity-alias="WE" entity-name="WorkEffort"/>
@@ -91,7 +91,7 @@
         </relation>
     </view-entity>
     <view-entity entity-name="ItemIssuanceInventoryItemAndProduct"
-        package-name="org.ofbiz.specialpurpose.assetmaint"
+        package-name="org.apache.ofbiz.specialpurpose.assetmaint"
         title="View of Item Issuance,Inventory Item and Product">
         <member-entity entity-alias="IMIE" entity-name="ItemIssuance"/>
         <member-entity entity-alias="IYIM" entity-name="InventoryItem"/>
@@ -131,7 +131,7 @@
         </relation>
     </view-entity>
     <view-entity entity-name="ProductInventoryItemAndItemIssuance"
-        package-name="org.ofbiz.specialpurpose.assetmaint"
+        package-name="org.apache.ofbiz.specialpurpose.assetmaint"
         title="View of Product,Inventory Item and ItemIssuance">
         <member-entity entity-alias="PT" entity-name="Product"/>
         <member-entity entity-alias="IYIM" entity-name="InventoryItem"/>

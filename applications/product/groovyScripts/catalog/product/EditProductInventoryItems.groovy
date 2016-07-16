@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*
-import org.ofbiz.entity.util.EntityTypeUtil
-import org.ofbiz.product.inventory.InventoryWorker
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.EntityTypeUtil
+import org.apache.ofbiz.product.inventory.InventoryWorker
 
 if (product) {
     boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG");

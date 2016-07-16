@@ -22,7 +22,7 @@
  * should not contain order component's specific code.
  */
 
-import org.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.catalog.*;
 
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
 searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId);

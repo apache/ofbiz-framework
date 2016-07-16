@@ -24,31 +24,31 @@ under the License.
     <version>1.0</version>
 
     <service name="indexContentTree" auth="true" engine="java" validate="true" transaction-timeout="7200"
-             location="org.ofbiz.content.search.SearchServices" invoke="indexContentTree">
+             location="org.apache.ofbiz.content.search.SearchServices" invoke="indexContentTree">
         <description>Index content under publish point</description>
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
     </service>
 
-    <service name="indexProduct" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProduct">
+    <service name="indexProduct" engine="java" location="org.apache.ofbiz.content.search.SearchServices" invoke="indexProduct">
         <description>Submit for indexing the specified productId</description>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
     </service>
 
     <!-- Services to locate and submit for indexing all products affected by an associated data change -->
-    <service name="indexProductsFromFeature" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProductsFromFeature">
+    <service name="indexProductsFromFeature" engine="java" location="org.apache.ofbiz.content.search.SearchServices" invoke="indexProductsFromFeature">
         <attribute name="productFeatureId" mode="IN" type="String" optional="false"/>
     </service>
-    <service name="indexProductsFromProductAssoc" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProductsFromProductAssoc">
+    <service name="indexProductsFromProductAssoc" engine="java" location="org.apache.ofbiz.content.search.SearchServices" invoke="indexProductsFromProductAssoc">
         <attribute name="productId" mode="IN" type="String"/>
         <attribute name="productIdTo" mode="IN" type="String"/>
     </service>
-    <service name="indexProductsFromDataResource" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProductsFromDataResource">
+    <service name="indexProductsFromDataResource" engine="java" location="org.apache.ofbiz.content.search.SearchServices" invoke="indexProductsFromDataResource">
         <attribute name="dataResourceId" mode="IN" type="String"/>
     </service>
-    <service name="indexProductsFromContent" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProductsFromContent">
+    <service name="indexProductsFromContent" engine="java" location="org.apache.ofbiz.content.search.SearchServices" invoke="indexProductsFromContent">
         <attribute name="contentId" mode="IN" type="String"/>
     </service>
-    <service name="indexProductsFromCategory" engine="java" location="org.ofbiz.content.search.SearchServices" invoke="indexProductsFromCategory">
+    <service name="indexProductsFromCategory" engine="java" location="org.apache.ofbiz.content.search.SearchServices" invoke="indexProductsFromCategory">
         <attribute name="productCategoryId" mode="IN" type="String"/>
     </service>
 

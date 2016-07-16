@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.EntityCondition
-import org.ofbiz.entity.condition.EntityOperator
-import org.ofbiz.party.party.PartyHelper;
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.party.party.PartyHelper;
 
 partyNameList = [];
 parties.each { party ->

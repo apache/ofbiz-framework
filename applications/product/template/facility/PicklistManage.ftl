@@ -118,7 +118,7 @@ under the License.
         <hr />
         <#-- PicklistBin -->
         <#list picklistInfo.picklistBinInfoList! as picklistBinInfo>
-          <#assign isBinComplete = Static["org.ofbiz.shipment.picklist.PickListServices"].isBinComplete(delegator, picklistBinInfo.picklistBin.picklistBinId)/>
+          <#assign isBinComplete = Static["org.apache.ofbiz.shipment.picklist.PickListServices"].isBinComplete(delegator, picklistBinInfo.picklistBin.picklistBinId)/>
           <#if (!isBinComplete)>
             <div style="margin-left: 15px;">
               <span class="label">${uiLabelMap.ProductBinNum}</span> ${picklistBinInfo.picklistBin.binLocationNumber}&nbsp;(${picklistBinInfo.picklistBin.picklistBinId})

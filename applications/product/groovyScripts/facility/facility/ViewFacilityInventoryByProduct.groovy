@@ -19,14 +19,14 @@
 
 import java.util.*
 import java.sql.Timestamp
-import org.ofbiz.base.util.*
-import org.ofbiz.entity.*
-import org.ofbiz.entity.condition.*
-import org.ofbiz.entity.transaction.*
-import org.ofbiz.entity.model.DynamicViewEntity
-import org.ofbiz.entity.model.ModelKeyMap
-import org.ofbiz.entity.util.EntityFindOptions
-import org.ofbiz.product.inventory.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.transaction.*
+import org.apache.ofbiz.entity.model.DynamicViewEntity
+import org.apache.ofbiz.entity.model.ModelKeyMap
+import org.apache.ofbiz.entity.util.EntityFindOptions
+import org.apache.ofbiz.product.inventory.*
 
 action = request.getParameter("action");
 statusId = request.getParameter("statusId");

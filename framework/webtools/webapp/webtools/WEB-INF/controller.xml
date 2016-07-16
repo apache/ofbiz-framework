@@ -26,7 +26,7 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/tempexpr-controller.xml"/>
     <description>WebTools Site Configuration File</description>
 
-    <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
+    <handler name="ftl" type="view" class="org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -36,7 +36,7 @@ under the License.
     <!-- Events to run on every request after all other processing (chains exempt) -->
     <!--
     <postprocessor>
-        <event name="test" type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
+        <event name="test" type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
     -->
 
@@ -44,7 +44,7 @@ under the License.
 
     <!-- Begin Utility Requests -->
     <request-map uri="httpService">
-        <event type="java" path="org.ofbiz.service.engine.HttpEngine" invoke="httpEngine"/>
+        <event type="java" path="org.apache.ofbiz.service.engine.HttpEngine" invoke="httpEngine"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>
@@ -97,7 +97,7 @@ under the License.
         <response name="success" type="view" value="main"/>
     </request-map>
     <request-map uri="chain">
-        <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
+        <event type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
         <response name="success" type="request" value="/view"/>
         <response name="error" type="view" value="error"/>
     </request-map>
@@ -123,7 +123,7 @@ under the License.
     </request-map>
     <request-map uri="UpdateGeneric">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webtools.GenericWebEvent" invoke="updateGeneric"/>
+        <event type="java" path="org.apache.ofbiz.webtools.GenericWebEvent" invoke="updateGeneric"/>
         <response name="success" type="view" value="ViewGeneric"/>
         <response name="error" type="view" value="ViewGeneric"/>
     </request-map>
@@ -169,13 +169,13 @@ under the License.
     </request-map>
     <request-map uri="FindUtilCacheClear">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webtools.UtilCacheEvents" invoke="clearEvent"/>
+        <event type="java" path="org.apache.ofbiz.webtools.UtilCacheEvents" invoke="clearEvent"/>
         <response name="success" type="view" value="FindUtilCache"/>
         <response name="error" type="view" value="FindUtilCache"/>
     </request-map>
     <request-map uri="FindUtilCacheClearAll">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webtools.UtilCacheEvents" invoke="clearAllEvent"/>
+        <event type="java" path="org.apache.ofbiz.webtools.UtilCacheEvents" invoke="clearAllEvent"/>
         <response name="success" type="view" value="FindUtilCache"/>
         <response name="error" type="view" value="FindUtilCache"/>
     </request-map>
@@ -191,13 +191,13 @@ under the License.
     </request-map>
     <request-map uri="EditUtilCacheUpdate">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webtools.UtilCacheEvents" invoke="updateEvent"/>
+        <event type="java" path="org.apache.ofbiz.webtools.UtilCacheEvents" invoke="updateEvent"/>
         <response name="success" type="view" value="EditUtilCache"/>
         <response name="error" type="view" value="EditUtilCache"/>
     </request-map>
     <request-map uri="EditUtilCacheClear">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webtools.UtilCacheEvents" invoke="clearEvent"/>
+        <event type="java" path="org.apache.ofbiz.webtools.UtilCacheEvents" invoke="clearEvent"/>
         <response name="success" type="view" value="EditUtilCache"/>
         <response name="error" type="view" value="EditUtilCache"/>
     </request-map>
@@ -207,7 +207,7 @@ under the License.
     </request-map>
     <request-map uri="FindUtilCacheElementsRemoveElement">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webtools.UtilCacheEvents" invoke="removeElementEvent"/>
+        <event type="java" path="org.apache.ofbiz.webtools.UtilCacheEvents" invoke="removeElementEvent"/>
         <response name="success" type="view" value="FindUtilCacheElements"/>
         <response name="error" type="view" value="FindUtilCacheElements"/>
     </request-map>
@@ -311,14 +311,14 @@ under the License.
     </request-map>
     <request-map uri="scheduleService">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="scheduleService"/>
+        <event type="java" path="org.apache.ofbiz.webapp.event.CoreEvents" invoke="scheduleService"/>
         <response name="success" type="view" value="FindJob"/>
         <response name="sync_success" type="view" value="serviceResult"/>
         <response name="error" type="view" value="scheduleJob"/>
     </request-map>
     <request-map uri="scheduleServiceSync">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="scheduleService"/>
+        <event type="java" path="org.apache.ofbiz.webapp.event.CoreEvents" invoke="scheduleService"/>
         <response name="success" type="view" value="serviceResult"/>
         <response name="sync_success" type="view" value="serviceResult"/>
         <response name="error" type="view" value="runService"/>
@@ -329,7 +329,7 @@ under the License.
     </request-map>
     <request-map uri="saveServiceResultsToSession">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="saveServiceResultsToSession"/>
+        <event type="java" path="org.apache.ofbiz.webapp.event.CoreEvents" invoke="saveServiceResultsToSession"/>
         <response name="success" type="view" value="runService"/>
         <response name="error" type="view" value="error"/>
     </request-map>
@@ -379,7 +379,7 @@ under the License.
 
     <request-map uri="RunTest">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webtools.artifactinfo.RunTestEvents" invoke="runTest"/>
+        <event type="java" path="org.apache.ofbiz.webtools.artifactinfo.RunTestEvents" invoke="runTest"/>
         <response name="success" type="request-redirect" value="TestSuiteInfo"/>
     </request-map>
     <!-- EntitySQL requests -->

@@ -27,7 +27,7 @@ under the License.
             <#list quoteRoles as quoteRole>
                 <#assign roleType = quoteRole.getRelatedOne("RoleType", false)>
                 <#assign party = quoteRole.getRelatedOne("Party", false)>
-                <#assign rolePartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", quoteRole.partyId, "compareDate", quote.issueDate, "userLogin", userLogin))/>
+                <#assign rolePartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", quoteRole.partyId, "compareDate", quote.issueDate, "userLogin", userLogin))/>
                 <tr>
                     <td align="right" valign="top" width="15%" class="label">
                         &nbsp;${roleType.get("description",locale)!}

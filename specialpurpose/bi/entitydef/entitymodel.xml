@@ -29,7 +29,7 @@ under the License.
     <!-- ========================================================= -->
     <!-- Dimensions                                                -->
     <!-- ========================================================= -->
-    <entity entity-name="DateDimension" package-name="org.ofbiz.bi.dimension" title="Date Dimension">
+    <entity entity-name="DateDimension" package-name="org.apache.ofbiz.bi.dimension" title="Date Dimension">
         <description>Date (days) dimension. The natural key is [dateValue]</description>
         <field name="dimensionId" type="id-ne">
             <description>Unique identifier of the Date dimension record</description>
@@ -76,7 +76,7 @@ under the License.
         <prim-key field="dimensionId"/>
     </entity>
 
-    <entity entity-name="CurrencyDimension" package-name="org.ofbiz.bi.dimension" title="Currency Dimension">
+    <entity entity-name="CurrencyDimension" package-name="org.apache.ofbiz.bi.dimension" title="Currency Dimension">
         <description>Currency dimension. The natural key is [currencyId]</description>
         <field name="dimensionId" type="id-ne">
             <description>Unique identifier of the Currency dimension record</description>
@@ -90,7 +90,7 @@ under the License.
         <prim-key field="dimensionId"/>
     </entity>
 
-    <entity entity-name="ProductDimension" package-name="org.ofbiz.bi.dimension.product" title="Product Dimension">
+    <entity entity-name="ProductDimension" package-name="org.apache.ofbiz.bi.dimension.product" title="Product Dimension">
         <description>Product dimension. The natural key is [productId]</description>
         <field name="dimensionId" type="id-ne">
             <description>Unique identifier of the Product dimension record</description>
@@ -109,7 +109,7 @@ under the License.
     <!-- ========================================================= -->
     <!-- Facts                                                     -->
     <!-- ========================================================= -->
-    <entity entity-name="SalesInvoiceItemFact" package-name="org.ofbiz.bi.fact.accounting" title="Sales Invoice Item Fact">
+    <entity entity-name="SalesInvoiceItemFact" package-name="org.apache.ofbiz.bi.fact.accounting" title="Sales Invoice Item Fact">
         <description>A transaction fact entity with invoice item grain.</description>
         <field name="invoiceId" type="id-ne"></field> <!-- degenerate dimension -->
         <field name="invoiceItemSeqId" type="id-ne"></field> <!-- degenerate dimension -->
@@ -193,7 +193,7 @@ under the License.
 
     </entity>
 
-    <entity entity-name="SalesOrderItemFact" package-name="org.ofbiz.bi.fact.order" title="Sales Order Item Fact">
+    <entity entity-name="SalesOrderItemFact" package-name="org.apache.ofbiz.bi.fact.order" title="Sales Order Item Fact">
         <description>A transaction fact entity with order item grain.</description>
         <field name="orderId" type="id-ne"></field> <!-- degenerate dimension -->
         <field name="orderItemSeqId" type="id-ne"></field> <!-- degenerate dimension -->
@@ -278,7 +278,7 @@ under the License.
 
     </entity>
 
-    <entity entity-name="InventoryItemFact" package-name="org.ofbiz.bi.fact.product" title="Inventory Item Fact">
+    <entity entity-name="InventoryItemFact" package-name="org.apache.ofbiz.bi.fact.product" title="Inventory Item Fact">
         <description>A transaction fact entity with inventory item.</description>
         <field name="inventoryItemId" type="id-ne"></field>
         <field name="facilityId" type="id-ne"></field>
@@ -305,7 +305,7 @@ under the License.
     <!-- ========================================================= -->
     <!-- Star Schemas                                              -->
     <!-- ========================================================= -->
-    <view-entity entity-name="SalesInvoiceItemStarSchema" package-name="org.ofbiz.bi.starschema.accounting" title="Sales Invoice Item Star Schema">
+    <view-entity entity-name="SalesInvoiceItemStarSchema" package-name="org.apache.ofbiz.bi.starschema.accounting" title="Sales Invoice Item Star Schema">
         <description>Invoice Item star schema (Profit and Loss Statement).</description>
 
         <member-entity entity-alias="SIIF" entity-name="SalesInvoiceItemFact"/>
@@ -349,7 +349,7 @@ under the License.
         </view-link>
     </view-entity>
 
-    <view-entity entity-name="SalesOrderItemStarSchema" package-name="org.ofbiz.bi.starschema.order" title="Sales Order Item Star Schema">
+    <view-entity entity-name="SalesOrderItemStarSchema" package-name="org.apache.ofbiz.bi.starschema.order" title="Sales Order Item Star Schema">
         <description>Order Item star schema (Profit and Loss Statement).</description>
 
         <member-entity entity-alias="SOIF" entity-name="SalesOrderItemFact"/>
@@ -406,7 +406,7 @@ under the License.
         </view-link>
     </view-entity>
 
-    <view-entity entity-name="InventoryItemSchema" package-name="org.ofbiz.bi.starschema.product" title="Inventory Item Schema">
+    <view-entity entity-name="InventoryItemSchema" package-name="org.apache.ofbiz.bi.starschema.product" title="Inventory Item Schema">
         <description>"Inventory Item Schema.</description>
         <member-entity entity-alias="IIF" entity-name="InventoryItemFact"/>
         <!--member-entity entity-alias="SIIF" entity-name="SalesOrderItemFact"/-->

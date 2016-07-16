@@ -182,10 +182,10 @@ under the License.
           <#if (postalAddress??) && (postalAddress.countryGeoId??)>
             <#assign defaultCountryGeoId = postalAddress.countryGeoId>
           <#else>
-            <#assign defaultCountryGeoId = Static["org.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "country.geo.id.default", delegator)>
+            <#assign defaultCountryGeoId = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "country.geo.id.default", delegator)>
           </#if>
           <option selected="selected" value="${defaultCountryGeoId}">
-          <#assign countryGeo = delegator.findOne("Geo",Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId), false)>
+          <#assign countryGeo = delegator.findOne("Geo",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId), false)>
             ${countryGeo.get("geoName",locale)}
           </option>
           </select>

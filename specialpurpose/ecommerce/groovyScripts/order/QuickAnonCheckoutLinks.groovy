@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
 
 shoppingCart = ShoppingCartEvents.getCartObject(request);
 

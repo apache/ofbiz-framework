@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*
-import org.ofbiz.base.util.string.*
-import org.ofbiz.entity.*
-import org.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.string.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 // make the image file formats
 context.tenantId = delegator.getDelegatorTenantId();

@@ -21,12 +21,12 @@
  * This script is also referenced by the ecommerce's screens and
  * should not contain order component's specific code.
  */
-import org.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.category.*;
-import org.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.category.*;
+import org.apache.ofbiz.entity.*;
 
 List fillTree(rootCat ,CatLvl, parentCategoryId) {
     if(rootCat) {

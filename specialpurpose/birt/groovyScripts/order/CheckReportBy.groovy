@@ -18,7 +18,7 @@
  */
 
 import javax.servlet.http.HttpServletRequest;
-import org.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilValidate;
 
 reportBy = parameters.reportBy;
 exportType = parameters.exportType;

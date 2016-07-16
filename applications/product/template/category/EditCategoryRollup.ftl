@@ -56,7 +56,7 @@ under the License.
                     <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                         <td><#if curCategory?has_content>
                                 <a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" >
-                                    <#assign catContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)!>
+                                    <#assign catContentWrapper = Static["org.apache.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)!>
                                     <#if catContentWrapper?has_content>
                                         ${catContentWrapper.get("CATEGORY_NAME", "html")!catContentWrapper.get("DESCRIPTION", "html")!curCategory.categoryName!curCategory.description!}
                                     <#else>
@@ -164,7 +164,7 @@ under the License.
                         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                             <td><#if curCategory?has_content>
                                     <a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" >
-                                        <#assign catContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)!>
+                                        <#assign catContentWrapper = Static["org.apache.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)!>
                                         <#if catContentWrapper?has_content>
                                             ${catContentWrapper.get("CATEGORY_NAME", "html")!catContentWrapper.get("DESCRIPTION", "html")!curCategory.categoryName!curCategory.description!}
                                         <#else>

@@ -28,7 +28,7 @@ under the License.
     <version></version>
 
     <view-entity entity-name="ScrumProjectSprintBacklog"
-            package-name="org.ofbiz.scrum"
+            package-name="org.apache.ofbiz.scrum"
             title="Project Sprint Backlog">
         <member-entity entity-alias="WAC" entity-name="WorkEffortAndChild"/>
         <member-entity entity-alias="CAW" entity-name="CustRequestWorkEffort"/>
@@ -45,7 +45,7 @@ under the License.
     </view-entity>
     
     <view-entity entity-name="ProductBacklog"
-            package-name="org.ofbiz.order.request"
+            package-name="org.apache.ofbiz.order.request"
             title="Customer Request And WorkEffort View Entity">
         <member-entity entity-alias="CRW" entity-name="CustRequestWorkEffort"/>
         <member-entity entity-alias="CR" entity-name="CustRequest"/>
@@ -91,7 +91,7 @@ under the License.
     </extend-entity>
     
     <view-entity entity-name="ScrumProjectSprintBacklogAndTask"
-            package-name="org.ofbiz.scrum"
+            package-name="org.apache.ofbiz.scrum"
             title="Project Sprint Backlog and Task View">
         <member-entity entity-alias="WAC" entity-name="WorkEffortAndChild"/>
         <member-entity entity-alias="CAW" entity-name="CustRequestWorkEffort"/>
@@ -111,7 +111,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="CustRequestAndCustRequestItem" 
-            package-name="org.ofbiz.scrum"
+            package-name="org.apache.ofbiz.scrum"
             title="Customer Request and Customer Request Item">
         <member-entity entity-alias="CQI" entity-name="CustRequestItem"></member-entity>
         <member-entity entity-alias="CQ" entity-name="CustRequest"></member-entity>
@@ -123,7 +123,7 @@ under the License.
         </view-link>
     </view-entity>
     
-    <view-entity entity-name="ProjectSprintBacklogAndTask" package-name="org.ofbiz.scrum">
+    <view-entity entity-name="ProjectSprintBacklogAndTask" package-name="org.apache.ofbiz.scrum">
         <member-entity entity-alias="WE_PROJ" entity-name="WorkEffort"/>
         <member-entity entity-alias="WE_SPRI" entity-name="WorkEffort"/>
         <member-entity entity-alias="CW_SPRI" entity-name="CustRequestWorkEffort"/>
@@ -168,7 +168,7 @@ under the License.
         </view-link>
     </view-entity>
 
-    <view-entity entity-name="ProjectSprintBacklogTaskAndTimeEntryTimeSheet" package-name="org.ofbiz.scrum">
+    <view-entity entity-name="ProjectSprintBacklogTaskAndTimeEntryTimeSheet" package-name="org.apache.ofbiz.scrum">
         <member-entity entity-alias="WE_PROJ" entity-name="WorkEffort"/>
         <member-entity entity-alias="WEGSD" entity-name="WorkEffortGoodStandard"/>
         <member-entity entity-alias="WE_SPRI" entity-name="WorkEffort"/>
@@ -246,7 +246,7 @@ under the License.
         </entity-condition>
     </view-entity>
 
-    <view-entity entity-name="WorkEffortAndProduct" package-name="org.ofbiz.scrum">
+    <view-entity entity-name="WorkEffortAndProduct" package-name="org.apache.ofbiz.scrum">
         <member-entity entity-alias="WE" entity-name="WorkEffort"></member-entity>
         <member-entity entity-alias="WEGS" entity-name="WorkEffortGoodStandard"></member-entity>
         <member-entity entity-alias="PD" entity-name="Product"></member-entity>
@@ -270,7 +270,7 @@ under the License.
         </view-link>
     </view-entity>
 
-    <view-entity entity-name="ProjectSprintBacklogTaskAndParty" package-name="org.ofbiz.scrum">
+    <view-entity entity-name="ProjectSprintBacklogTaskAndParty" package-name="org.apache.ofbiz.scrum">
         <member-entity entity-alias="WE_PROJ" entity-name="WorkEffort"/>
         <member-entity entity-alias="WE_SPRI" entity-name="WorkEffort"/>
         <member-entity entity-alias="CR" entity-name="CustRequest"/>
@@ -332,7 +332,7 @@ under the License.
     </view-entity>
     
     <view-entity entity-name="ScrumPersonAndCompany"
-            package-name="org.ofbiz.scrum" 
+            package-name="org.apache.ofbiz.scrum" 
             title="person -> partyrelationship -> company">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="P" entity-name="Person"/>
@@ -373,7 +373,7 @@ under the License.
         </entity-condition>
     </view-entity>
     <view-entity entity-name="ProductAndRole"
-            package-name="org.ofbiz.scrum"
+            package-name="org.apache.ofbiz.scrum"
             title="Product and PartyRole View Entity">
         <member-entity entity-alias="PR" entity-name="ProductRole"/>
         <member-entity entity-alias="PD" entity-name="Product"/>
@@ -402,7 +402,7 @@ under the License.
     </extend-entity>
     
     <view-entity entity-name="ScrumRolesPersonAndCompany"
-            package-name="org.ofbiz.scrum"
+            package-name="org.apache.ofbiz.scrum"
             title="PartyRole and PartyRelationship View Entity">
         <member-entity entity-alias="PR" entity-name="PartyRole"/>
         <member-entity entity-alias="PRS" entity-name="PartyRelationship"/>
@@ -444,7 +444,7 @@ under the License.
     </view-entity>
     
     <view-entity entity-name="ProjectSprint"
-            package-name="org.ofbiz.scrum"
+            package-name="org.apache.ofbiz.scrum"
             title="ProjectSprint View">
         <member-entity entity-alias="WE_PROJ" entity-name="WorkEffort"/><!--project -->
         <member-entity entity-alias="WEGSD" entity-name="WorkEffortGoodStandard"/><!-- get workEffort associate with product -->
@@ -475,7 +475,7 @@ under the License.
     </view-entity>
     
     <view-entity entity-name="ScrumPersonAndCompanyAndSecurityGroup"
-            package-name="org.ofbiz.scrum" 
+            package-name="org.apache.ofbiz.scrum" 
             title="security group ->  person -> partyrelationship -> company">
         <member-entity entity-alias="SG" entity-name="SecurityGroup"/>
         <member-entity entity-alias="SU" entity-name="UserLoginSecurityGroup"/>
@@ -535,7 +535,7 @@ under the License.
     </view-entity>
     
     <view-entity entity-name="UnPlannedBacklogsAndTasks" 
-            package-name="org.ofbiz.scrum"
+            package-name="org.apache.ofbiz.scrum"
             title="UnPlanned Backlog Items ->  tasks">
         <member-entity entity-alias="CW" entity-name="CustRequestWorkEffort"/>
         <member-entity entity-alias="CR" entity-name="CustRequest"/>
@@ -572,7 +572,7 @@ under the License.
         </entity-condition>
     </view-entity>
     <view-entity entity-name="UnPlannedBacklogsTaskAndTimeEntryTimeSheet" 
-            package-name="org.ofbiz.scrum"
+            package-name="org.apache.ofbiz.scrum"
             title="UnPlanned Backlog Items ->  tasks">
         <member-entity entity-alias="CW" entity-name="CustRequestWorkEffort"/>
         <member-entity entity-alias="CR" entity-name="CustRequest"/>
@@ -624,7 +624,7 @@ under the License.
     </view-entity>
     
     <view-entity entity-name="CancelledBacklogsTaskAndTimeEntryTimeSheet" 
-            package-name="org.ofbiz.scrum"
+            package-name="org.apache.ofbiz.scrum"
             title="UnPlanned Backlog Items ->  tasks">
         <member-entity entity-alias="CW" entity-name="CustRequestWorkEffort"/>
         <member-entity entity-alias="CR" entity-name="CustRequest"/>
@@ -679,7 +679,7 @@ under the License.
         </entity-condition>
     </view-entity>
     <view-entity entity-name="ScrumMemberUserLoginAndSecurityGroup"
-            package-name="org.ofbiz.scrum"
+            package-name="org.apache.ofbiz.scrum"
             never-cache="true"
             title="Party, UserLogin And SecurityGroup View Entity">
         <member-entity entity-alias="SG" entity-name="SecurityGroup"/>

@@ -26,16 +26,16 @@ under the License.
 
     <!-- USPS Webtools API Services -->
     <service name="uspsRateInquire" engine="java"
-            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsRateInquire" auth="false">
+            location="org.apache.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsRateInquire" auth="false">
         <implements service="calcShipmentEstimateInterface"/>
     </service>
     <service name="uspsInternationalRateInquire" engine="java"
-            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsInternationalRateInquire" auth="false">
+            location="org.apache.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsInternationalRateInquire" auth="false">
         <implements service="calcShipmentEstimateInterface"/>
     </service>
 
     <service name="uspsTrackConfirm" engine="java"
-            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsTrackConfirm">
+            location="org.apache.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsTrackConfirm">
         <attribute name="trackingId" type="String" mode="IN" optional="false"/>
         <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
         <attribute name="configProps" type="String" mode="IN" optional="false"/>
@@ -43,7 +43,7 @@ under the License.
         <attribute name="trackingDetailList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="uspsAddressValidation" engine="java"
-            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsAddressValidation">
+            location="org.apache.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsAddressValidation">
         <attribute name="firmName" type="String" mode="INOUT" optional="true"/>
         <attribute name="address1" type="String" mode="INOUT" optional="false"/>
         <attribute name="address2" type="String" mode="INOUT" optional="true"/>
@@ -56,7 +56,7 @@ under the License.
         <attribute name="returnText" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="uspsCityStateLookup" engine="java"
-            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsCityStateLookup">
+            location="org.apache.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsCityStateLookup">
         <attribute name="zip5" type="String" mode="IN" optional="false"/>
         <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
         <attribute name="configProps" type="String" mode="IN" optional="false"/>
@@ -64,7 +64,7 @@ under the License.
         <attribute name="state" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="uspsPriorityMailStandard" engine="java"
-            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsPriorityMailStandard">
+            location="org.apache.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsPriorityMailStandard">
         <attribute name="originZip" type="String" mode="IN" optional="false"/>
         <attribute name="destinationZip" type="String" mode="IN" optional="false"/>
         <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
@@ -72,7 +72,7 @@ under the License.
         <attribute name="days" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="uspsPackageServicesStandard" engine="java"
-            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsPackageServicesStandard">
+            location="org.apache.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsPackageServicesStandard">
         <attribute name="originZip" type="String" mode="IN" optional="false"/>
         <attribute name="destinationZip" type="String" mode="IN" optional="false"/>
         <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
@@ -80,7 +80,7 @@ under the License.
         <attribute name="days" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="uspsDomesticRate" engine="java"
-            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsDomesticRate">
+            location="org.apache.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsDomesticRate">
         <attribute name="service" type="String" mode="IN" optional="false"/>
         <attribute name="originZip" type="String" mode="IN" optional="false"/>
         <attribute name="destinationZip" type="String" mode="IN" optional="false"/>
@@ -97,11 +97,11 @@ under the License.
         <attribute name="restrictionDesc" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="uspsUpdateShipmentRateInfo" engine="java"
-            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsUpdateShipmentRateInfo">
+            location="org.apache.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsUpdateShipmentRateInfo">
         <auto-attributes entity-name="ShipmentRouteSegment" include="pk" mode="IN" optional="false"/>
     </service>
     <service name="uspsDeliveryConfirmation" engine="java"
-            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsDeliveryConfirmation">
+            location="org.apache.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsDeliveryConfirmation">
         <auto-attributes entity-name="ShipmentRouteSegment" include="pk" mode="IN" optional="false"/>
     </service>
 </services>

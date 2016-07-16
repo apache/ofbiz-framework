@@ -18,7 +18,7 @@
  */
 
 import java.sql.Timestamp;
-import org.ofbiz.workeffort.workeffort.WorkEffortSearchSession;
+import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchSession;
 
 searchOperator = parameters.get("SEARCH_OPERATOR");
 if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {

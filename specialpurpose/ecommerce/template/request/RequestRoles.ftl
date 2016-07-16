@@ -32,7 +32,7 @@ under the License.
                   </td>
                   <td width="5%">&nbsp;</td>
                   <td valign="top" width="80%">
-                      ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(party)}
+                      ${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(party)}
                   </td>
               </tr>
               <#if requestParties.size() != row>

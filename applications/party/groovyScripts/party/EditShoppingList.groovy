@@ -17,11 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.product.catalog.CatalogWorker;
-import org.ofbiz.webapp.website.WebSiteWorker;
-import org.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.product.catalog.CatalogWorker;
+import org.apache.ofbiz.webapp.website.WebSiteWorker;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);

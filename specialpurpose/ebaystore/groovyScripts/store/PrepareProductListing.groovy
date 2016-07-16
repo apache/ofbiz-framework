@@ -19,15 +19,15 @@
  
  import java.lang.*;
  import java.util.*;
- import org.ofbiz.base.util.*;
- import org.ofbiz.entity.*;
- import org.ofbiz.service.*;
- import org.ofbiz.product.catalog.*;
- import org.ofbiz.product.category.*;
- import org.ofbiz.product.product.ProductWorker;
- import org.ofbiz.product.product.ProductContentWrapper;
- import org.ofbiz.product.catalog.*;
- import org.ofbiz.ebaystore.EbayStoreHelper;
+ import org.apache.ofbiz.base.util.*;
+ import org.apache.ofbiz.entity.*;
+ import org.apache.ofbiz.service.*;
+ import org.apache.ofbiz.product.catalog.*;
+ import org.apache.ofbiz.product.category.*;
+ import org.apache.ofbiz.product.product.ProductWorker;
+ import org.apache.ofbiz.product.product.ProductContentWrapper;
+ import org.apache.ofbiz.product.catalog.*;
+ import org.apache.ofbiz.ebaystore.EbayStoreHelper;
  import com.ebay.sdk.ApiContext;
  import com.ebay.sdk.call.AddItemCall;
  import com.ebay.soap.eBLBaseComponents.ItemType;
@@ -40,7 +40,7 @@
  import com.ebay.soap.eBLBaseComponents.SiteCodeType;
  import com.ebay.soap.eBLBaseComponents.ShippingServiceDetailsType;
  import com.ebay.soap.eBLBaseComponents.ShippingLocationDetailsType;
- import org.ofbiz.ebaystore.EbayEvents;
+ import org.apache.ofbiz.ebaystore.EbayEvents;
  import com.ebay.sdk.ApiException;
  import com.ebay.sdk.SdkException;
 

@@ -18,7 +18,7 @@
  */
 
 import java.sql.Timestamp;
-import org.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.Debug;
 
 def module = "IncomeStatementParameters.groovy";
 

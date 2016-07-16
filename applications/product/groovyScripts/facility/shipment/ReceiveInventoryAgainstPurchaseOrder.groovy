@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*
-import org.ofbiz.entity.util.*
-import org.ofbiz.service.ServiceUtil
-import org.ofbiz.base.util.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.base.util.*
 
 shipmentId = request.getParameter("shipmentId");
 orderId = request.getParameter("purchaseOrderId");

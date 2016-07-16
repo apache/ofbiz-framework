@@ -22,10 +22,10 @@ under the License.
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-case case-name="stockMove-test">
-        <junit-test-suite class-name="org.ofbiz.product.test.StockMovesTest"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.test.StockMovesTest"/>
     </test-case>
     <test-case case-name="inventoryItemTransfer-test">
-        <junit-test-suite class-name="org.ofbiz.product.test.InventoryItemTransferTest"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.test.InventoryItemTransferTest"/>
     </test-case>
     <test-case case-name="inventory-tests">
         <simple-method-test location="component://product/minilang/product/test/InventoryTests.xml"/>
@@ -40,7 +40,7 @@ under the License.
     </test-case>
 
     <test-case case-name="issuance-tests">
-        <junit-test-suite class-name="org.ofbiz.shipment.test.IssuanceTest"/>
+        <junit-test-suite class-name="org.apache.ofbiz.shipment.test.IssuanceTest"/>
     </test-case>
 
 </test-suite>

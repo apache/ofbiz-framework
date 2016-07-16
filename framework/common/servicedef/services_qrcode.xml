@@ -25,7 +25,7 @@ under the License.
     <version>1.0</version>
 
     <service name="generateQRCodeImage" engine="java" require-new-transaction="true" max-retry="3"
-        auth="false" location="org.ofbiz.common.qrcode.QRCodeServices"
+        auth="false" location="org.apache.ofbiz.common.qrcode.QRCodeServices"
         invoke="generateQRCodeImage">
         <description>Generate a QRCode image according to </description>
         <attribute name="message" type="String" mode="IN" optional="false"/>

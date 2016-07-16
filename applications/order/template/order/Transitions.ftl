@@ -87,7 +87,7 @@ under the License.
                   <select name="approvalCode">
                     <#list wfTransitions as trans>
                       <#if trans.extendedAttributes?has_content>
-                        <#assign attrs = Static["org.ofbiz.base.util.StringUtil"].strToMap(trans.extendedAttributes)>
+                        <#assign attrs = Static["org.apache.ofbiz.base.util.StringUtil"].strToMap(trans.extendedAttributes)>
                         <#if attrs.approvalCode??>
                           <option value="${attrs.approvalCode}">${trans.transitionName}</option>
                         </#if>

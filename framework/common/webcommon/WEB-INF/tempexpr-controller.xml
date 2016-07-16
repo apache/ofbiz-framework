@@ -22,7 +22,7 @@ under the License.
         xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
     <description>Temporal Expression Events Configuration File</description>
     
-    <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
+    <handler name="service" type="request" class="org.apache.ofbiz.webapp.event.ServiceEventHandler"/>
 
     <!-- Temporal expression event mapping -->
     <request-map uri="createTemporalExpression">

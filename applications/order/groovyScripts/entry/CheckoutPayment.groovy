@@ -17,12 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.accounting.payment.*;
-import org.ofbiz.party.contact.*;
-import org.ofbiz.product.store.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.accounting.payment.*;
+import org.apache.ofbiz.party.contact.*;
+import org.apache.ofbiz.product.store.*;
 
 cart = session.getAttribute("shoppingCart");
 currencyUomId = cart.getCurrency();
@@ -68,7 +68,7 @@ while (productStorePaymentSettingIter.hasNext()) {
 }
 
 if (checkIdealPayment) {
-    issuerList = org.ofbiz.accounting.thirdparty.ideal.IdealEvents.getIssuerList();
+    issuerList = org.apache.ofbiz.accounting.thirdparty.ideal.IdealEvents.getIssuerList();
     if (issuerList) {
         context.issuerList = issuerList;
     }

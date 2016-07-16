@@ -439,7 +439,7 @@ under the License.
                 <result-to-result result-name="finAccountTransId"/>
             </call-service>
             <iterate list="payments" entry="payment">
-                <set field="isReceipt" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
+                <set field="isReceipt" value="${groovy:org.apache.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
                 <if-compare field="isReceipt" operator="equals" value="false" type="Boolean">
                     <add-error>
                         <fail-property resource="AccountingUiLabels" property="AccountingCannotIncludeApPaymentError"/>
@@ -457,8 +457,8 @@ under the License.
             </call-service>
         <else>
             <iterate list="payments" entry="payment">
-                <set field="isReceipt" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
-                <set field="isDisbursement" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}" type="Boolean"/>
+                <set field="isReceipt" value="${groovy:org.apache.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
+                <set field="isDisbursement" value="${groovy:org.apache.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}" type="Boolean"/>
                 <if-compare field="isReceipt" operator="equals" value="true" type="Boolean">
                     <set field="createFinAccountTransMap.finAccountTransTypeId" value="DEPOSIT"/>
                 <else>
@@ -675,8 +675,8 @@ under the License.
         <if-empty field="currencyUomId">
             <property-to-field resource="general" property="currency.uom.id.default" field="currencyUomId"/>
         </if-empty>
-        <set field="finAccountTransRunningTotal" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
-        <set field="endingBalance" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(endingBalance, currencyUomId, parameters.locale)}"/>
+        <set field="finAccountTransRunningTotal" value="${groovy:org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
+        <set field="endingBalance" value="${groovy:org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(endingBalance, currencyUomId, parameters.locale)}"/>
         <field-to-result field="finAccountTransRunningTotal"/>
         <field-to-result field="endingBalance"/>
     </simple-method>
@@ -1057,7 +1057,7 @@ under the License.
         <entity-and entity-name="FinAccountTrans" list="finAccountTransList">
             <field-map field-name="glReconciliationId"/>
         </entity-and>
-        <set field="finAccountTransIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(finAccountTransList, 'finAccountTransId', true);}" type="List"/>
+        <set field="finAccountTransIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(finAccountTransList, 'finAccountTransId', true);}" type="List"/>
         <entity-condition entity-name="FinAccountTrans" list="finAccountTransactions">
             <condition-list>
                 <condition-expr field-name="finAccountTransId" operator="in" from-field="finAccountTransIds"/>
@@ -1100,7 +1100,7 @@ under the License.
             <field-to-list field="payment" list="payments"/>
         </else>
         </if-empty>
-        <set field="paymentIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(payments, 'paymentId', true);}" type="List"/>
+        <set field="paymentIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(payments, 'paymentId', true);}" type="List"/>
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
             <condition-expr field-name="paymentId" operator="in" from-field="paymentIds"/>
             <order-by field-name="acctgTransId"/>
@@ -1119,8 +1119,8 @@ under the License.
     
     <simple-method method-name="autoFinAccountReconciliation" short-description="Auto Reconcile Financial(bank) Account Transactions">
         <now-timestamp field="nowTimestamp"/>
-        <set field="reconciliationDayStart" value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}" type="Timestamp"/>
-        <set field="reconciliationDayEnd" value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}" type="Timestamp"/>
+        <set field="reconciliationDayStart" value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}" type="Timestamp"/>
+        <set field="reconciliationDayEnd" value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}" type="Timestamp"/>
         <entity-condition entity-name="GlReconciliation" list="glReconciliation">
             <condition-list combine="and">
                 <condition-expr field-name="reconciledDate" operator="greater-equals" from-field="reconciliationDayStart"/>
@@ -1128,7 +1128,7 @@ under the License.
                 <condition-expr field-name="statusId" operator="equals" value="GLREC_CREATED"/>
             </condition-list>
         </entity-condition>
-        <set field="glReconciliationIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(glReconciliation, 'glReconciliationId', true);}" type="List"/>
+        <set field="glReconciliationIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(glReconciliation, 'glReconciliationId', true);}" type="List"/>
         <entity-condition entity-name="FinAccountTrans" list="finAccountTransList">
             <condition-expr field-name="glReconciliationId" operator="in" from-field="glReconciliationIds"/>
         </entity-condition>

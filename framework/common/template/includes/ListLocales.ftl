@@ -26,7 +26,7 @@ under the License.
   </div>
   <table cellspacing="0" class="basic-table hover-bar">
     <#assign altRow = true>
-    <#assign availableLocales = Static["org.ofbiz.base.util.UtilMisc"].availableLocales()/>
+    <#assign availableLocales = Static["org.apache.ofbiz.base.util.UtilMisc"].availableLocales()/>
     <#list availableLocales as availableLocale>
       <#assign altRow = !altRow>
       <#assign langAttr = availableLocale.toString()?replace("_", "-")>

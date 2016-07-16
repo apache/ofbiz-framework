@@ -610,7 +610,7 @@
                                         </then>
                                         <else>
                                             <!-- translate the date into the day number -->
-                                            <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getIntervalInDays" ret-field="dayNumber">
+                                            <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getIntervalInDays" ret-field="dayNumber">
                                                 <field field="timesheet.fromDate" type="java.sql.Timestamp" />
                                                 <field field="timeEntry.fromDate" type="java.sql.Timestamp" />
                                             </call-class-method>
@@ -674,7 +674,7 @@
                                             type="Double" />
                                     </else>
                                 </if-empty>
-                                <call-class-method class-name="org.ofbiz.base.util.UtilDateTime"
+                                <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime"
                                     method-name="addDaysToTimestamp" ret-field="fromDate">
                                     <field field="timesheet.fromDate" type="java.sql.Timestamp" />
                                     <field field="dayNr" type="int" />
@@ -738,11 +738,11 @@
                         </if-compare>
                     </if-compare>
                     <now-timestamp field="nowTimestamp" />
-                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime"
+                    <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime"
                         method-name="getDayStart" ret-field="dayStart">
                         <field field="nowTimestamp" type="java.sql.Timestamp" />
                     </call-class-method>
-                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime"
+                    <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime"
                         method-name="getDayEnd" ret-field="dayEnd">
                         <field field="nowTimestamp" type="java.sql.Timestamp" />
                     </call-class-method>
@@ -1305,7 +1305,7 @@
             <check-errors />
         </if-empty>
         <set field="orderBy" value="${groovy: orderBy = ['productId','custRequestId','taskId','fromDate']}" type="List"/>
-        <call-class-method method-name="sortMaps" class-name="org.ofbiz.base.util.UtilMisc" ret-field="tasks">
+        <call-class-method method-name="sortMaps" class-name="org.apache.ofbiz.base.util.UtilMisc" ret-field="tasks">
             <field field="tasks" type="List"/>
             <field field="orderBy" type="List"/>
         </call-class-method>
@@ -2547,7 +2547,7 @@
                 <field-map field-name="partyId" from-field="user.partyId"/>
                 <field-map field-name="roleTypeId" value="OWNER"/>
             </entity-and>
-            <set field="contentIds" type="List" value="${groovy:return org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(contentRoles, &quot;contentId&quot;, true)}"/>
+            <set field="contentIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(contentRoles, &quot;contentId&quot;, true)}"/>
             <entity-condition list="listIt" entity-name="WorkEffortAndContentDataResource">
                 <condition-list combine="and">
                     <condition-expr field-name="workEffortId" from-field="parameters.taskId"/>
@@ -2611,13 +2611,13 @@
             <set field="hourInput" from-field="parameters.hours" default-value="0.0" type="Double"/>
             <!-- create time entry -->
             <now-timestamp field="nowDate"/>
-            <call-class-method method-name="getDayStart" class-name="org.ofbiz.base.util.UtilDateTime" ret-field="nowStartDate">
+            <call-class-method method-name="getDayStart" class-name="org.apache.ofbiz.base.util.UtilDateTime" ret-field="nowStartDate">
                 <field field="nowDate" type="Timestamp"/>
             </call-class-method>
-            <call-class-method method-name="getWeekStart" class-name="org.ofbiz.base.util.UtilDateTime" ret-field="weekStartDate">
+            <call-class-method method-name="getWeekStart" class-name="org.apache.ofbiz.base.util.UtilDateTime" ret-field="weekStartDate">
                 <field field="nowDate" type="Timestamp"/>
             </call-class-method>
-            <call-class-method method-name="dayNumber" class-name="org.ofbiz.base.util.UtilDateTime" ret-field="dayNumber">
+            <call-class-method method-name="dayNumber" class-name="org.apache.ofbiz.base.util.UtilDateTime" ret-field="dayNumber">
                 <field field="nowDate" type="Timestamp"/>
             </call-class-method>
             <entity-and entity-name="Timesheet" list="timesheetList">

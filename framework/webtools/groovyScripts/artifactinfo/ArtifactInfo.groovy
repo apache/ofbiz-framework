@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.webtools.artifactinfo.*;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.webtools.artifactinfo.*;
+import org.apache.ofbiz.base.util.*;
 
 name = parameters.name;
 location = parameters.location;

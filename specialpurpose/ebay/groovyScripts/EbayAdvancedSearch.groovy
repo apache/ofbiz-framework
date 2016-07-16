@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.product.catalog.CatalogWorker;
-import org.ofbiz.product.category.CategoryWorker;
-import org.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.product.catalog.CatalogWorker;
+import org.apache.ofbiz.product.category.CategoryWorker;
+import org.apache.ofbiz.product.store.ProductStoreWorker;
 
 categoryIds = [];
 prodCatalogList = [];

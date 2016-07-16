@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<XPage class="org.ofbiz.pos.screen.PosScreen" resource="">
+<XPage class="org.apache.ofbiz.pos.screen.PosScreen" resource="">
     <Components>
         <Panel name="mainPanel" x="0" y="0" w="800" h="600" style="input" border="0">
             <Panel name="inputPanel" x="0" y="0" w="800" h="38" style="input" border="0">

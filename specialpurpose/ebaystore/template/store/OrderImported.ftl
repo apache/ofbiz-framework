@@ -62,7 +62,7 @@ function uploadTrackingCode(orderId, productStoreId) {
         <#if orderList?has_content>
           <#assign alt_row = false>
           <#list orderList as orderHeader>
-            <#assign orh = Static["org.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
+            <#assign orh = Static["org.apache.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
             <#assign statusItem = orderHeader.getRelatedOne("StatusItem", true)>
             <#assign orderType = orderHeader.getRelatedOne("OrderType", true)>
             <#if orderType.orderTypeId == "PURCHASE_ORDER">
@@ -77,7 +77,7 @@ function uploadTrackingCode(orderId, productStoreId) {
               <td>
                 <div>
                   <#if displayParty?has_content>
-                      <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
+                      <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
                       ${displayPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}
                   <#else>
                     ${uiLabelMap.CommonNA}

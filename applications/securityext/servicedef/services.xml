@@ -26,7 +26,7 @@ under the License.
 
     <!-- certificate services -->
     <service name="importIssuerProvision" engine="java" auth="true"
-            location="org.ofbiz.securityext.cert.CertificateServices" invoke="importIssuerCertificate">
+            location="org.apache.ofbiz.securityext.cert.CertificateServices" invoke="importIssuerCertificate">
         <description>Import an x.509 certificate into a defined keystore and create the provision data</description>
         <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
         <attribute name="componentName" type="String" mode="IN" optional="false"/>

@@ -18,7 +18,7 @@
  */
 
 import java.util.HashMap;
-import org.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilHttp;
 
 tryEntity = true;
 errorMessage = parameters._ERROR_MESSAGE_;

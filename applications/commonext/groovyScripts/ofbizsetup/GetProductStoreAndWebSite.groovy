@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- import org.ofbiz.entity.util.EntityUtil;
+ import org.apache.ofbiz.entity.util.EntityUtil;
  
  productStoreId = null;
  

@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.content.survey.*
-import org.ofbiz.base.util.*
+import org.apache.ofbiz.content.survey.*
+import org.apache.ofbiz.base.util.*
 
 surveyResponseId = parameters.surveyResponseId;
 partyId = null;

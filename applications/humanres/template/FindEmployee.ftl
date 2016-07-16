@@ -195,7 +195,7 @@ under the License.
                     <#elseif partyRow.getModelEntity().isField("groupName") && partyRow.groupName?has_content>
                         ${partyRow.groupName}
                     <#else>
-                    <#assign partyName = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(partyRow, true)>
+                    <#assign partyName = Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(partyRow, true)>
                     <#if partyName?has_content>
                         ${partyName}
                     <#else>

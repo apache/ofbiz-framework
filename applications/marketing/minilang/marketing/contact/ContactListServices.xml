@@ -188,7 +188,7 @@ under the License.
     </simple-method>
     <simple-method method-name="unsubscribeContactListParty" short-description="Unsubscribe for contact list" login-required="false">
         <!-- check valid email -->
-        <call-class-method method-name="isEmail" class-name="org.ofbiz.base.util.UtilValidate" ret-field="isEmail">
+        <call-class-method method-name="isEmail" class-name="org.apache.ofbiz.base.util.UtilValidate" ret-field="isEmail">
             <field field="parameters.email"/>
         </call-class-method>
         <if-compare operator="equals" value="false" field="isEmail" type="Boolean">

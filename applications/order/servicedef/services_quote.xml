@@ -36,7 +36,7 @@ under the License.
     <service name="quoteSequenceEnforced" engine="simple"
         location="component://order/minilang/quote/QuoteServices.xml" invoke="quoteSequenceEnforced">
         <implements service="getNextQuoteId" optional="true"/>
-        <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
+        <attribute name="partyAcctgPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
         <override name="quoteId" type="Long" mode="OUT"/>
     </service>
 
@@ -206,7 +206,7 @@ under the License.
     <service name="createQuoteFromCart" engine="simple" auth="true"
             location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteFromCart">
         <description>Creates a new quote from a shopping cart</description>
-        <attribute name="cart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="cart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="applyStorePromotions" type="String" mode="IN" optional="true"/>
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
     </service>
@@ -225,7 +225,7 @@ under the License.
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="sendQuoteReportMail" engine="java" require-new-transaction="true" max-retry="3"
-            location="org.ofbiz.order.quote.QuoteServices" invoke="sendQuoteReportMail">
+            location="org.apache.ofbiz.order.quote.QuoteServices" invoke="sendQuoteReportMail">
         <description>Send a quote report mail</description>
         <attribute name="emailType" type="String" mode="INOUT" optional="false"/>
         <attribute name="quoteId" type="String" mode="IN" optional="false"/>
@@ -234,11 +234,11 @@ under the License.
         <attribute name="note" type="String" mode="IN" optional="true"/>
         <attribute name="body" type="String" mode="OUT" optional="true"/>
         <attribute name="subject" type="String" mode="OUT" optional="true"/>
-        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/>
+        <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
      <service name="storeQuote" engine="java" default-entity-name="Quote" validate="true" auth="true"
-            location="org.ofbiz.order.quote.QuoteServices" invoke="storeQuote">
+            location="org.apache.ofbiz.order.quote.QuoteServices" invoke="storeQuote">
         <description>Creates quote entities</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="quoteItems" type="List" mode="IN" optional="true"/>

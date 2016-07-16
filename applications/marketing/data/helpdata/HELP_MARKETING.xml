@@ -53,7 +53,7 @@
             used to measure the response when the readers of the email mailing
             click on a link where a trackingcode is specified.
             For more info look at the program:
-            applications/marketing/src/org/ofbiz/marketing/tracking/TrackingCodeEvents.java
+            applications/marketing/src/org/apache/ofbiz/marketing/tracking/TrackingCodeEvents.java
         </para>
         <para>
             Opportunities resulting from these actions can be entered in the SFA

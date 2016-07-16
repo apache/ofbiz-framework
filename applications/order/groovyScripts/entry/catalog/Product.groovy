@@ -19,14 +19,14 @@
 
 import java.lang.*;
 import java.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.service.*;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.category.*;
-import org.ofbiz.product.product.ProductWorker;
-import org.ofbiz.product.product.ProductContentWrapper;
-import org.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.service.*;
+import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.category.*;
+import org.apache.ofbiz.product.product.ProductWorker;
+import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
 contentPathPrefix = CatalogWorker.getContentPathPrefix(request);
 catalogName = CatalogWorker.getCatalogName(request);

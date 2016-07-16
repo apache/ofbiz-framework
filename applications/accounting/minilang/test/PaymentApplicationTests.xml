@@ -52,12 +52,12 @@ under the License.
         </assert>
         <check-errors/>
         <!-- both payment and invoice should be completely applied -->
-        <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method method-name="getPaymentNotApplied" class-name="org.apache.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="serviceInMap.paymentId"/>
         </call-class-method>
-        <call-class-method method-name="getInvoiceNotApplied" class-name="org.ofbiz.accounting.invoice.InvoiceWorker" ret-field="notAppliedInvoice">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method method-name="getInvoiceNotApplied" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker" ret-field="notAppliedInvoice">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="serviceInMap.invoiceId"/>
         </call-class-method>
         <set field="zero" value="0" type="BigDecimal"/>
@@ -87,8 +87,8 @@ under the License.
         <entity-one entity-name="PaymentApplication" value-field="paymentApplication">
             <field-map field-name="paymentApplicationId" from-field="paymentApplicationId"/>
         </entity-one>
-        <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method method-name="getPaymentNotApplied" class-name="org.apache.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="serviceInMap.paymentId"/>
         </call-class-method>
         <entity-one value-field="payment" entity-name="Payment">
@@ -102,14 +102,14 @@ under the License.
         </assert>
         <check-errors/>
         <!-- both payment and invoice should be completely applied -->
-        <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method method-name="getPaymentNotApplied" class-name="org.apache.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="serviceInMap.paymentId"/>
         </call-class-method>
         <entity-one entity-name="BillingAccount" value-field="billingAccount">
             <field-map field-name="billingAccountId" from-field="serviceInMap.billingAccountId"/>
         </entity-one>
-        <call-class-method method-name="getBillingAccountBalance" class-name="org.ofbiz.order.order.OrderReadHelper" ret-field="appliedBillling">
+        <call-class-method method-name="getBillingAccountBalance" class-name="org.apache.ofbiz.order.order.OrderReadHelper" ret-field="appliedBillling">
             <field field="billingAccount" type="GenericValue"/>
         </call-class-method>
         <set field="zero" value="0" type="BigDecimal"/>
@@ -138,8 +138,8 @@ under the License.
         <entity-one entity-name="PaymentApplication" value-field="paymentApplication">
             <field-map field-name="paymentApplicationId" from-field="paymentApplicationId"/>
         </entity-one>
-        <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method method-name="getPaymentNotApplied" class-name="org.apache.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="serviceInMap.paymentId"/>
         </call-class-method>
         <entity-one value-field="payment" entity-name="Payment">
@@ -153,12 +153,12 @@ under the License.
         </assert>
         <check-errors/>
         <!-- both payment and invoice should be completely applied -->
-        <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method method-name="getPaymentNotApplied" class-name="org.apache.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="serviceInMap.paymentId"/>
         </call-class-method>
-        <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedToPayment">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method method-name="getPaymentNotApplied" class-name="org.apache.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedToPayment">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="serviceInMap.toPaymentId"/>
         </call-class-method>
         <set field="zero" value="0" type="BigDecimal"/>
@@ -197,8 +197,8 @@ under the License.
         </assert>
         <check-errors/>
         <!-- payment should be completely applied -->
-        <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        <call-class-method method-name="getPaymentNotApplied" class-name="org.apache.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
+            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
             <field field="serviceInMap.paymentId"/>
         </call-class-method>
         <set field="zero" value="0" type="BigDecimal"/>

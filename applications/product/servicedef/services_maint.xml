@@ -51,24 +51,24 @@ under the License.
     <!-- ========================================= -->
     <!-- These are generally run manually, but some can be run on a schedule as well. -->
     <service name="discVirtualsWithDiscVariants" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="discVirtualsWithDiscVariants" auth="true" transaction-timeout="36000" require-new-transaction="true">
+            location="org.apache.ofbiz.product.product.ProductUtilServices" invoke="discVirtualsWithDiscVariants" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Discontinue Virtuals With Discontinued Variants</description>
     </service>
     <service name="removeCategoryMembersOfDiscProducts" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="removeCategoryMembersOfDiscProducts" auth="true" transaction-timeout="36000" require-new-transaction="true">
+            location="org.apache.ofbiz.product.product.ProductUtilServices" invoke="removeCategoryMembersOfDiscProducts" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Remove Category Members Of Discontinued Products</description>
     </service>
     <service name="removeDuplicateOpenEndedCategoryMembers" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="removeDuplicateOpenEndedCategoryMembers" auth="true" transaction-timeout="36000" require-new-transaction="true">
+            location="org.apache.ofbiz.product.product.ProductUtilServices" invoke="removeDuplicateOpenEndedCategoryMembers" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Remove Duplicate, excluding fromDate, Category Members that have no thruDate</description>
     </service>
 
     <service name="makeStandAloneFromSingleVariantVirtuals" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="makeStandAloneFromSingleVariantVirtuals" auth="true" transaction-timeout="36000" require-new-transaction="true">
+            location="org.apache.ofbiz.product.product.ProductUtilServices" invoke="makeStandAloneFromSingleVariantVirtuals" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Make Stand Alone From Single Variant Virtuals</description>
     </service>
     <service name="mergeVirtualWithSingleVariant" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="mergeVirtualWithSingleVariant" auth="true" transaction-timeout="36000" require-new-transaction="true">
+            location="org.apache.ofbiz.product.product.ProductUtilServices" invoke="mergeVirtualWithSingleVariant" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>A service to be called by the make stand alone service to do the operation for one product.</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="removeOld" type="Boolean" mode="IN" optional="false"/>
@@ -76,17 +76,17 @@ under the License.
     </service>
 
     <service name="setAllProductImageNames" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="setAllProductImageNames" auth="true" transaction-timeout="36000" require-new-transaction="true">
+            location="org.apache.ofbiz.product.product.ProductUtilServices" invoke="setAllProductImageNames" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Set All Product Image Names; pattern example: /images/products/${size}/${productId}.jpg; defaults to values in the catalog.properties file (image.url.prefix + / + image.filename.format)</description>
         <attribute name="pattern" type="String" mode="IN" optional="true"/>
     </service>
     <service name="clearAllVirtualProductImageNames" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="clearAllVirtualProductImageNames" auth="true" transaction-timeout="36000" require-new-transaction="true">
+            location="org.apache.ofbiz.product.product.ProductUtilServices" invoke="clearAllVirtualProductImageNames" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Set All Product Image Names</description>
     </service>
 
     <service name="attachProductFeaturesToCategory" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="attachProductFeaturesToCategory" auth="true" transaction-timeout="36000" require-new-transaction="true">
+            location="org.apache.ofbiz.product.product.ProductUtilServices" invoke="attachProductFeaturesToCategory" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Attach Product Features To Category Through Groups</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="doSubCategories" type="String" mode="IN" optional="true"/>
@@ -116,7 +116,7 @@ under the License.
     </service>
     
     <service name="getCategoryTrail" engine="java"
-      location="org.ofbiz.product.category.CategoryWorker" invoke="getCategoryTrail">
+      location="org.apache.ofbiz.product.category.CategoryWorker" invoke="getCategoryTrail">
         <description> Returns a complete category trail - can be used for exporting proper category trees. 
         This is mostly useful when used in combination with breadcrumbs,  for building a facetted index tree, 
         or to export a category tree for migration to another system.
@@ -160,7 +160,7 @@ under the License.
     <!-- Promotion Maintenance Services -->
     <!-- ============================== -->
     <service name="purgeOldStoreAutoPromos" engine="java"
-            location="org.ofbiz.product.promo.PromoServices" invoke="purgeOldStoreAutoPromos" auth="true">
+            location="org.apache.ofbiz.product.promo.PromoServices" invoke="purgeOldStoreAutoPromos" auth="true">
         <description>Purge Expired ProductStorePromoAppl Records, by store or global if productStoreId is null</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
     </service>
@@ -175,6 +175,6 @@ under the License.
     <service name="updateOldInventoryToDetailSingle" engine="simple" require-new-transaction="true"
             location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailSingle" auth="true">
         <description>Update Old Inventory To Detail</description>
-        <attribute name="inventoryItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="inventoryItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>
 </services>

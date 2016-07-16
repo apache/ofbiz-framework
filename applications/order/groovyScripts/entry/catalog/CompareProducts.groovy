@@ -17,13 +17,13 @@
  * under the License.
  */
 
-import org.ofbiz.product.product.*;
-import org.ofbiz.order.shoppingcart.*;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.store.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.product.product.*;
+import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.store.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.base.util.*;
 
 compareList = ProductEvents.getProductCompareList(request);
 context.compareList = compareList;

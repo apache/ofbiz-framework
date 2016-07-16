@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
-import org.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker;
+import org.apache.ofbiz.order.shoppingcart.*;
 
 shoppingCart = ShoppingCartEvents.getCartObject(request);
 mode = shoppingCart.getOrderType();

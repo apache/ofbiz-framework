@@ -36,14 +36,14 @@ under the License.
     <service name="invoiceSequenceEnforced" engine="simple"
         location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="invoiceSequenceEnforced">
         <implements service="getNextInvoiceId"/>
-        <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
+        <attribute name="partyAcctgPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
         <override name="invoiceId" type="Long" mode="OUT"/>
     </service>
 
     <service name="invoiceSequenceRestart" engine="simple"
         location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="invoiceSequenceRestart">
         <implements service="getNextInvoiceId"/>
-        <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
+        <attribute name="partyAcctgPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
     </service>
 
     <!-- Invoice services -->
@@ -71,7 +71,7 @@ under the License.
         <description>Retrieve an existing Invoice/Items</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="VIEW"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
-        <attribute name="invoice" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
+        <attribute name="invoice" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
         <attribute name="invoiceItems" type="List" mode="OUT"/><!-- list of invoiceItem GenericValues -->
     </service>
     <service name="updateInvoice" engine="simple" default-entity-name="Invoice"
@@ -161,7 +161,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="createInvoiceForOrderAllItems" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoiceForOrderAllItems">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoiceForOrderAllItems">
         <description>
             Create an invoice from existing order using all order items
             orderId = The orderId to associate the invoice with
@@ -170,7 +170,7 @@ under the License.
         <attribute name="invoiceId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createInvoiceForOrder" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoiceForOrder">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoiceForOrder">
         <description>
             Create an invoice from existing order
             orderId = The orderId to associate the invoice with
@@ -183,7 +183,7 @@ under the License.
         <attribute name="invoiceTypeId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createInvoiceFromReturn" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoiceFromReturn">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoiceFromReturn">
         <description>
             Create an invoice from a return
             returnId = The returnId to associate the invoice with
@@ -194,7 +194,7 @@ under the License.
         <attribute name="invoiceId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createCommissionInvoices" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createCommissionInvoices">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="createCommissionInvoices">
         <description>
             Create commission invoice for the list of sales invoices.  
             Returns a List of Maps, one for each invoice created containing: 
@@ -216,14 +216,14 @@ under the License.
         <attribute name="invoiceId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="readyInvoices" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="readyInvoices">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="readyInvoices">
         <description>
             Sets status of each invoice in the list of invoices to INVOICE_READY.
         </description>
         <attribute name="invoicesCreated" type="List" mode="IN" optional="false"/>
     </service>
     <service name="createInvoicesFromShipment" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoicesFromShipment">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoicesFromShipment">
         <description>
             Create invoice(s) from a Shipment
             All the order items associated with the shipment will be selected and
@@ -235,13 +235,13 @@ under the License.
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="setInvoicesToReadyFromShipment" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="setInvoicesToReadyFromShipment">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="setInvoicesToReadyFromShipment">
         <description>Set invoice(s) to Ready from Shipment</description>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createSalesInvoicesFromDropShipment" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createSalesInvoicesFromDropShipment">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="createSalesInvoicesFromDropShipment">
         <description>
             Create sales invoice(s) from a drop shipment by wrapping a call to
             createInvoicesFromShipments with the createSalesInvoicesForDropShipments parameter
@@ -250,7 +250,7 @@ under the License.
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="createInvoicesFromShipments" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoicesFromShipments">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoicesFromShipments">
         <description>
             Create invoice(s) from a shipment list.
             All the order items associated with the shipments will be selected and
@@ -266,7 +266,7 @@ under the License.
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="createInvoicesFromReturnShipment" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoicesFromReturnShipment">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoicesFromReturnShipment">
         <description>
             Create invoice(s) from a return Shipment
             invoicesCreated = List of invoiceIds which were created by this service
@@ -286,7 +286,7 @@ under the License.
         <attribute name="other" type="String" mode="IN" optional="true"/><!-- to send the invoice in the 'other' currency (y) -->
     </service>
     <service name="checkInvoicePaymentApplications" engine="java"
-            location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="checkInvoicePaymentApplications">
+            location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="checkInvoicePaymentApplications">
         <description>Checks to see if the payments applied to an invoice total up to the invoice total; if so sets to PAID</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
@@ -298,9 +298,9 @@ under the License.
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="calculateInvoicedAdjustmentTotal" engine="java"
-            location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="calculateInvoicedAdjustmentTotal">
+            location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="calculateInvoicedAdjustmentTotal">
         <description>Calculate the previously invoiced amount for an OrderAdjustment</description>
-        <attribute name="orderAdjustment" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderAdjustment" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="invoicedTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
@@ -436,7 +436,7 @@ under the License.
         <attribute name="isForeign" type="Boolean" mode="OUT" optional="false"/>
     </service>
     <service name="importInvoice" engine="java"
-        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="importInvoice" auth="true">
+        location="org.apache.ofbiz.accounting.invoice.InvoiceServices" invoke="importInvoice" auth="true">
         <description>Import an invoice with invoiceitems in csv format</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
         <attribute mode="INOUT" name="organizationPartyId" type="String" optional="false"/>

@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.accounting.payment.PaymentWorker;
-import org.ofbiz.party.contact.ContactMechWorker;
+import org.apache.ofbiz.accounting.payment.PaymentWorker;
+import org.apache.ofbiz.party.contact.ContactMechWorker;
 
 partyId = parameters.partyId ?: parameters.party_id;
 context.partyId = partyId;

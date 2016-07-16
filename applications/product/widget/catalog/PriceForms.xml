@@ -67,7 +67,7 @@
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="timestamp"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>        
-        <field use-when="org.ofbiz.base.util.UtilValidate.isEmpty(productPriceConds) &amp;&amp; org.ofbiz.base.util.UtilValidate.isEmpty(productPriceActions)"
+        <field use-when="org.apache.ofbiz.base.util.UtilValidate.isEmpty(productPriceConds) &amp;&amp; org.apache.ofbiz.base.util.UtilValidate.isEmpty(productPriceActions)"
             name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteProductPriceRule" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="productPriceRuleId"/>

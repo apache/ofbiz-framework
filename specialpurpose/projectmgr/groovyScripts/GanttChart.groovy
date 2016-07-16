@@ -19,13 +19,13 @@
 
 import java.util.*;
 import java.lang.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityConditionList;
+import org.apache.ofbiz.entity.condition.EntityExpr;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 import java.math.*;
 
 projectId = parameters.projectId;

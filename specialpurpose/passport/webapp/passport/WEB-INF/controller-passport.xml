@@ -24,14 +24,14 @@ under the License.
     <!-- GitHub requests -->
     <request-map uri="gitHubRedirect">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.passport.event.GitHubEvents" invoke="gitHubRedirect"/>
+        <event type="java" path="org.apache.ofbiz.passport.event.GitHubEvents" invoke="gitHubRedirect"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     
     <request-map uri="githubResponse">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.passport.event.GitHubEvents" invoke="parseGitHubResponse"/>
+        <event type="java" path="org.apache.ofbiz.passport.event.GitHubEvents" invoke="parseGitHubResponse"/>
         <response name="success" type="request" value="login">
             <redirect-parameter name="USERNAME"/>
             <redirect-parameter name="PASSWORD"/>
@@ -42,14 +42,14 @@ under the License.
     <!-- LinkedIn requests -->
     <request-map uri="linkedInRedirect">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.passport.event.LinkedInEvents" invoke="linkedInRedirect"/>
+        <event type="java" path="org.apache.ofbiz.passport.event.LinkedInEvents" invoke="linkedInRedirect"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     
     <request-map uri="linkedInResponse">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.passport.event.LinkedInEvents" invoke="parseLinkedInResponse"/>
+        <event type="java" path="org.apache.ofbiz.passport.event.LinkedInEvents" invoke="parseLinkedInResponse"/>
         <response name="success" type="request" value="login">
             <redirect-parameter name="USERNAME"/>
             <redirect-parameter name="PASSWORD"/>

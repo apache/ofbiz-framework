@@ -70,7 +70,7 @@ under the License.
                     <input type="hidden" name="keepAddressBook" value="Y" />
                     <input type="hidden" name="setDefaultShipping" value="Y" />
                     <input type="hidden" name="userLoginId" id="userLoginId" value="${userLogin.userLoginId!}" />
-                    <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
+                    <#assign productStoreId = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
                     <input type="hidden" name="productStoreId" value="${productStoreId!}" />
                   <#else>
                     <input type="hidden" name="keepAddressBook" value="N" />
@@ -295,7 +295,7 @@ under the License.
                   <#if userLogin??>
                     <input type="hidden" name="keepAddressBook" value="Y" />
                     <input type="hidden" name="setDefaultBilling" value="Y" />
-                    <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
+                    <#assign productStoreId = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
                     <input type="hidden" name="productStoreId" value="${productStoreId!}" />
                   <#else>
                     <input type="hidden" name="keepAddressBook" value="N" />

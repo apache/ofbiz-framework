@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.base.util.Debug;
+import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.base.util.Debug;
 
 Debug.logInfo("-=-=-=- TEST GROOVY SERVICE -=-=-=-", "");
 result = ServiceUtil.returnSuccess();

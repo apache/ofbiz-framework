@@ -209,39 +209,39 @@ under the License.
     </service>
     <!-- Services for finding Assigned WorkEfforts -->
     <service name="getWorkEffortAssignedEventsForRole" engine="java"
-            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedEventsForRole">
+            location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedEventsForRole">
         <description>Get the active WorkEffort Events where the logged in user is assigned in the specidied role.</description>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="events" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="getWorkEffortAssignedEventsForRoleOfAllParties" engine="java"
-            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedEventsForRoleOfAllParties">
+            location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedEventsForRoleOfAllParties">
         <description>Get the active WorkEffort Events in the specified role for all the parties.</description>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="events" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="getWorkEffortAssignedTasks" engine="java"
-            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedTasks">
+            location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedTasks">
         <description>Get WorkEffort Assigned Tasks : workEffort assign to userLogin.partyId and with
             workEffortTypeId = TASK and currentStatusId not in (CAL_DECLINED, CAL_DELEGATED, CAL_COMPLETED, CAL_CANCELLED) and partyAssign.statusId != PRTYASGN_UNASSIGNED
             OR  workEffortTypeId = PROD_ORDER_TASK and currentStatusId not in (PRUN_CANCELLED, PRUN_COMPLETED, PRUN_CLOSED)</description>
         <attribute name="tasks" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="getWorkEffortAssignedActivities" engine="java"
-            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedActivities">
+            location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedActivities">
         <description>Get WorkEffort Assigned Activities : workEffort assign to userLogin.partyId and with
             workEffortTypeId = ACTIVITY and currentStatusId not in (WF_COMPLETED, WF_TERMINATED, WF_ABORTED)
             and partyAssign.statusId not in (CAL_DECLINED, CAL_DELEGATED, CAL_COMPLETED, CAL_CANCELLED, PRTYASGN_UNASSIGNED)</description>
         <attribute name="activities" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="getWorkEffortAssignedActivitiesByRole" engine="java"
-            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedActivitiesByRole">
+            location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedActivitiesByRole">
         <description>Get WorkEffort Assigned Activities By Role : same condition as getWorkEffortAssignedActivities but on view WorkEffortPartyAssignByRole
             to be able to have all party roles</description>
         <attribute name="roleActivities" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="getWorkEffortAssignedActivitiesByGroup" engine="java"
-            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedActivitiesByGroup">
+            location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedActivitiesByGroup">
         <description>Get WorkEffort Assigned Activities By Group : same condition as getWorkEffortAssignedActivities but on view WorkEffortPartyAssignByGroup
             to be able to have all parties associated to userLogin.partyId by PartyRelationship</description>
         <attribute name="groupActivities" type="java.util.List" mode="OUT" optional="false"/>
@@ -249,18 +249,18 @@ under the License.
 
     <!-- Worker services -->
     <service name="getWorkEffort" engine="java"
-            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffort">
+            location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffort">
         <description>Get WorkEffort</description>
         <attribute name="workEffortId" type="java.lang.String" mode="INOUT" optional="true"/>
         <attribute name="currentStatusId" type="java.lang.String" mode="IN" optional="true"/>
-        <attribute name="workEffort" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="workEffort" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="canView" type="java.lang.Boolean" mode="OUT" optional="true"/>
         <attribute name="tryEntity" type="java.lang.Boolean" mode="OUT" optional="true"/>
-        <attribute name="currentStatusItem" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="currentStatusItem" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="partyAssigns" type="java.util.Collection" mode="OUT" optional="true"/>
     </service>
     <service name="getWorkEffortEventsByPeriod" auth="true" engine="java"
-            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortEventsByPeriod">
+            location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortEventsByPeriod">
         <description>Get WorkEffort Events by a period specified by periodType attribute (one of the
           java.util.Calendar field values). Return a Map with periodStart as the key and a Collection of events for that period as value
           If filterOutCanceledEvents is set to Boolean(true) then workEfforts with currentStatusId=EVENT_CANCELLED will not be returned.
@@ -284,13 +284,13 @@ under the License.
         <attribute name="maxConcurrentEntries" type="java.lang.Integer" mode="OUT" optional="false"/>
     </service>
     <service name="removeDuplicateWorkEfforts" auth="true" engine="java"
-            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="removeDuplicateWorkEfforts">
+            location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="removeDuplicateWorkEfforts">
         <description>Removes duplicate work efforts from a list of work efforts.</description>
         <attribute name="workEffortIterator" type="java.util.ListIterator" mode="IN" optional="true"/>
         <attribute name="workEfforts" type="java.util.List" mode="INOUT" optional="true"/>
     </service>
     <service name="getProductManufacturingSummaryByFacility" engine="java"
-            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getProductManufacturingSummaryByFacility">
+            location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getProductManufacturingSummaryByFacility">
         <description>
             Create a map with an entry for each facility. The value is another map with information about
             the manufacturing orders running in the facility for the given product:
@@ -643,7 +643,7 @@ under the License.
                 location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="indexWorkEffortKeywords">
         <description>Index the Keywords for a WorkEffort</description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
-        <attribute name="workEffortInstance" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="workEffortInstance" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="createWorkEffortKeyword" default-entity-name="WorkEffortKeyword" engine="simple"
                 location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortKeyword" auth="true">
@@ -797,11 +797,11 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="processWorkEffortEventReminders" engine="java"
-            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="processWorkEffortEventReminders" auth="true">
+            location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="processWorkEffortEventReminders" auth="true">
         <description>Process work effort event reminders. This service is run by the job scheduler.</description>
     </service>
     <service name="processWorkEffortEventReminder" engine="java"
-            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="processWorkEffortEventReminder" auth="true">
+            location="org.apache.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="processWorkEffortEventReminder" auth="true">
         <description>Send a work effort event reminder</description>
         <attribute name="reminder" mode="IN" type="GenericValue"/>
         <attribute name="bodyParameters" mode="IN" type="Map"/>

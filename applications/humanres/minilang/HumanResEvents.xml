@@ -68,7 +68,7 @@
             <check-errors/>
         </if-empty>
         <set field="dateValue" from-field="parameters.estimatedStartDate" type="Timestamp"/>
-        <call-class-method method-name="getDayEnd" class-name="org.ofbiz.base.util.UtilDateTime" ret-field="dateEnd">
+        <call-class-method method-name="getDayEnd" class-name="org.apache.ofbiz.base.util.UtilDateTime" ret-field="dateEnd">
             <field field="dateValue" type="java.sql.Timestamp"/>
         </call-class-method>
         <set field="parameters.estimatedCompletionDate" from-field="dateEnd"/>

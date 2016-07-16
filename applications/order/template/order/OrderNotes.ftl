@@ -39,9 +39,9 @@ under the License.
                 <tr>
                   <td valign="top" width="35%">
                     <#if note.noteParty?has_content>
-                      <div>&nbsp;<span class="label">${uiLabelMap.CommonBy}</span>&nbsp;${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</div>
+                      <div>&nbsp;<span class="label">${uiLabelMap.CommonBy}</span>&nbsp;${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</div>
                     </#if>
-                    <div>&nbsp;<span class="label">${uiLabelMap.CommonAt}</span>&nbsp;<#if note.noteDateTime?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(note.noteDateTime, "", locale, timeZone)!}</#if></div>
+                    <div>&nbsp;<span class="label">${uiLabelMap.CommonAt}</span>&nbsp;<#if note.noteDateTime?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(note.noteDateTime, "", locale, timeZone)!}</#if></div>
                   </td>
                   <td valign="top" width="50%">
                     ${note.noteInfo?replace("\n", "<br/>")}

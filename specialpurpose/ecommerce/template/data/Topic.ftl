@@ -32,7 +32,7 @@ under the License.
     <#assign internalName=.node.@name[0]/>
     <#assign internalNameParts=internalName?split(".")/>
     <#assign firstPart=internalNameParts[0] />
-    <#assign nowStamp=Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp()/>
+    <#assign nowStamp=Static["org.apache.ofbiz.base.util.UtilDateTime"].nowTimestamp()/>
     <#if firstPart == "WIDGETS">
         <ContentAssoc contentId="CNTWIDGETS" contentIdTo="${contentId}" contentAssocTypeId="SUB_CONTENT" fromDate="${nowStamp?string("yyyy-MM-dd HH:mm:ss")}"/>
     </#if>

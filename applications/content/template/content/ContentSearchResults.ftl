@@ -55,7 +55,7 @@ under the License.
       <table width="100%" cellpadding="0" cellspacing="0">
         <#assign listIndex = lowIndex>
         <#list contentIds as contentId><#-- note that there is no boundary range because that is being done before the list is put in the content -->
-          <#assign content = delegator.findOne("Content", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentId), false)>
+          <#assign content = delegator.findOne("Content", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("contentId", contentId), false)>
           <tr>
             <td>
               <a href="<@ofbizUrl>editContent?contentId=${contentId}</@ofbizUrl>" class="buttontext">${contentId} ${(content.contentName)!}</a>

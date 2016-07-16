@@ -24,11 +24,11 @@ import java.util.List;
 import java.util.Map;
 import java.sql.Timestamp;
 
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.service.RunningService;
-import org.ofbiz.service.engine.GenericEngine;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.service.RunningService;
+import org.apache.ofbiz.service.engine.GenericEngine;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilProperties;
 
 uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
 uiLabelMap.addBottomResourceBundle("CommonUiLabels");

@@ -42,16 +42,16 @@ under the License.
     </service>
 
     <service name="echoService" engine="java" validate="false"
-            location="org.ofbiz.common.CommonServices" invoke="echoService">
+            location="org.apache.ofbiz.common.CommonServices" invoke="echoService">
         <description>Echos back all passed parameters</description>
     </service>
     <service name="returnErrorService" engine="java" validate="false"
-            location="org.ofbiz.common.CommonServices" invoke="returnErrorService">
+            location="org.apache.ofbiz.common.CommonServices" invoke="returnErrorService">
         <description>Always returns error</description>
     </service>
 
     <service name="forceGarbageCollection" engine="java"
-            location="org.ofbiz.common.CommonServices" invoke="forceGc">
+            location="org.apache.ofbiz.common.CommonServices" invoke="forceGc">
        <description>Force the JVM to run the GC</description>
        <required-permissions join-type="AND">
            <check-permission permission="UTIL_CACHE_EDIT"/>
@@ -59,7 +59,7 @@ under the License.
     </service>
 
     <service name="createNote" engine="java"
-        location="org.ofbiz.common.CommonServices" invoke="createNote">
+        location="org.apache.ofbiz.common.CommonServices" invoke="createNote">
         <description>Create a new note record</description>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="noteName" type="String" mode="IN" optional="true"/>
@@ -75,7 +75,7 @@ under the License.
     </service>
 
     <service name="adjustDebugLevels" engine="java"
-             location="org.ofbiz.common.CommonServices" invoke="adjustDebugLevels" auth="true">
+             location="org.apache.ofbiz.common.CommonServices" invoke="adjustDebugLevels" auth="true">
         <description>Sets/Updates cached debugging levels</description>
         <attribute name="fatal" type="String" mode="IN" optional="true"/>
         <attribute name="error" type="String" mode="IN" optional="true"/>
@@ -87,7 +87,7 @@ under the License.
     </service>
 
     <service name="displayXaDebugInfo" engine="java"
-            location="org.ofbiz.common.CommonServices" invoke="displayXaDebugInfo" auth="true">
+            location="org.apache.ofbiz.common.CommonServices" invoke="displayXaDebugInfo" auth="true">
         <required-permissions join-type="AND">
             <check-permission permission="SERVICE_INVOKE_ANY"/>
         </required-permissions>
@@ -184,20 +184,20 @@ under the License.
 
     <!-- Status services -->
     <service name="getStatusItems" engine="java"
-            location="org.ofbiz.common.status.StatusServices" invoke="getStatusItems" auth="false">
+            location="org.apache.ofbiz.common.status.StatusServices" invoke="getStatusItems" auth="false">
         <description>Gets all StatusItem entries for the supplied StatusTypeId's</description>
         <attribute name="statusTypeIds" type="List" mode="IN" optional="false"/>
         <attribute name="statusItems" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="getStatusValidChangeToDetails" engine="java"
-            location="org.ofbiz.common.status.StatusServices" invoke="getStatusValidChangeToDetails" auth="false">
+            location="org.apache.ofbiz.common.status.StatusServices" invoke="getStatusValidChangeToDetails" auth="false">
         <description>Gets all StatusValidChangeToDetails entries for the supplied statusId</description>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="statusValidChangeToDetails" type="List" mode="OUT" optional="true"/>
     </service>
 
     <!-- Lookup services -->
-    <service name="prepareFind" auth="false" engine="java" invoke="prepareFind" location="org.ofbiz.common.FindServices">
+    <service name="prepareFind" auth="false" engine="java" invoke="prepareFind" location="org.apache.ofbiz.common.FindServices">
         <description>Generic service to return a entity conditions</description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
@@ -210,22 +210,22 @@ under the License.
         <attribute name="queryString" type="String" mode="OUT" optional="true"/>
         <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
         <attribute name="orderByList" type="java.util.List" mode="OUT" optional="true"/>
-        <attribute name="entityConditionList" type="org.ofbiz.entity.condition.EntityConditionList" mode="OUT" optional="true"/>
+        <attribute name="entityConditionList" type="org.apache.ofbiz.entity.condition.EntityConditionList" mode="OUT" optional="true"/>
     </service>
-    <service name="executeFind" auth="false" engine="java" invoke="executeFind" location="org.ofbiz.common.FindServices">
+    <service name="executeFind" auth="false" engine="java" invoke="executeFind" location="org.apache.ofbiz.common.FindServices">
         <description>Generic service to return an entity iterator</description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="fieldList" type="java.util.List" mode="IN" optional="true"/>
         <attribute name="orderByList" type="java.util.List" mode="IN" optional="true"/>
         <attribute name="maxRows" mode="IN" type="Integer" optional="true"/>
-        <attribute name="entityConditionList" type="org.ofbiz.entity.condition.EntityConditionList" mode="IN" optional="true"/>
+        <attribute name="entityConditionList" type="org.apache.ofbiz.entity.condition.EntityConditionList" mode="IN" optional="true"/>
         <attribute name="noConditionFind" type="String" mode="IN" optional="true"><!-- find with no condition (empty entityConditionList) only done when this is Y --></attribute>
         <attribute name="distinct" type="String" mode="IN" optional="true"><!-- distinct find only done when this is Y --></attribute>
-        <attribute name="listIt" type="org.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
+        <attribute name="listIt" type="org.apache.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
         <attribute name="listSize" type="Integer" mode="OUT" optional="true"/>
     </service>
 
-    <service name="performFind" auth="false" engine="java" invoke="performFind" location="org.ofbiz.common.FindServices">
+    <service name="performFind" auth="false" engine="java" invoke="performFind" location="org.apache.ofbiz.common.FindServices">
         <description>Generic service to return an entity iterator.  set filterByDate to Y to exclude expired records.
            set noConditionFind to Y to find without conditions.  </description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
@@ -240,13 +240,13 @@ under the License.
         <attribute name="thruDateName" type="String" mode="IN" optional="true"/>
         <attribute name="viewIndex" type="Integer" mode="IN" optional="true"/>
         <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
-        <attribute name="listIt" type="org.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
+        <attribute name="listIt" type="org.apache.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
         <attribute name="listSize" type="Integer" mode="OUT" optional="true"/>
         <attribute name="queryString" type="String" mode="OUT" optional="true"/>
         <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
 
-    <service name="performFindList" auth="false" engine="java" invoke="performFindList" location="org.ofbiz.common.FindServices">
+    <service name="performFindList" auth="false" engine="java" invoke="performFindList" location="org.apache.ofbiz.common.FindServices">
         <description>Generic service to return an partial list.  set filterByDate to Y to exclude expired records.
             set noConditionFind to Y to find without conditions. 
             If used in a form, it is necessary to assign a value (true makes sense) to override-list-size attribute so that 
@@ -266,14 +266,14 @@ under the License.
         <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
 
-    <service name="performFindItem" auth="false" engine="java" invoke="performFindItem" location="org.ofbiz.common.FindServices">
+    <service name="performFindItem" auth="false" engine="java" invoke="performFindItem" location="org.apache.ofbiz.common.FindServices">
         <description>Generic service to return an single GenericValue.  set filterByDate to Y to exclude expired records.</description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
         <attribute name="orderBy" type="String" mode="IN" optional="true"/>
         <attribute name="filterByDate" type="String" mode="IN" optional="true"/>
         <attribute name="filterByDateValue" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="item" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="item" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="queryString" type="String" mode="OUT" optional="true"/>
         <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
@@ -347,7 +347,7 @@ under the License.
     
     <service name="getFileUploadProgressStatus" engine="simple" location="component://common/minilang/CommonServices.xml" invoke="getFileUploadProgressStatus" auth="false">
         <description>Look up progress made in File Upload process</description>
-        <attribute name="uploadProgressListener" mode="IN" type="org.ofbiz.webapp.event.FileUploadProgressListener" optional="true"/>
+        <attribute name="uploadProgressListener" mode="IN" type="org.apache.ofbiz.webapp.event.FileUploadProgressListener" optional="true"/>
         <attribute name="contentLength" mode="OUT" type="Long" optional="true"/>
         <attribute name="bytesRead" mode="OUT" type="Long" optional="true"/>
         <attribute name="readPercent" mode="OUT" type="Integer" optional="true"/>
@@ -366,22 +366,22 @@ under the License.
         <attribute name="defaultTimeout" type="Integer" mode="IN" optional="true"/>
     </service>
     <service name="ftpPutFile" engine="java" use-transaction="false"
-        location="org.ofbiz.common.FtpServices" invoke="putFile">
+        location="org.apache.ofbiz.common.FtpServices" invoke="putFile">
         <implements service="ftpInterface"/>
         <attribute name="siteCommands" type="List" mode="IN" optional="true"/>
     </service>
     <service name="ftpGetFile" engine="java" use-transaction="false"
-        location="org.ofbiz.common.FtpServices" invoke="getFile">
+        location="org.apache.ofbiz.common.FtpServices" invoke="getFile">
         <implements service="ftpInterface"/>
     </service>
 
     <!-- UserLogin services -->
-    <service name="userLogin" engine="java" location="org.ofbiz.common.login.LoginServices" invoke="userLogin">
+    <service name="userLogin" engine="java" location="org.apache.ofbiz.common.login.LoginServices" invoke="userLogin">
         <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>
         <implements service="authenticationInterface"/>
     </service>
     <service name="createUserLogin" engine="java" auth="false"
-        location="org.ofbiz.common.login.LoginServices" invoke="createUserLogin">
+        location="org.apache.ofbiz.common.login.LoginServices" invoke="createUserLogin">
         <description>Create a UserLogin</description>
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
         <attribute name="enabled" type="String" mode="IN" optional="true"/>
@@ -394,23 +394,23 @@ under the License.
         <attribute name="securityQuestion" type="String" mode="IN" optional="true"/>
         <attribute name="securityAnswer" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="updateUserLoginId" engine="java" location="org.ofbiz.common.login.LoginServices" invoke="updateUserLoginId" auth="true">
+    <service name="updateUserLoginId" engine="java" location="org.apache.ofbiz.common.login.LoginServices" invoke="updateUserLoginId" auth="true">
         <description>Update a UserLoginId by creating a new one and expiring the old one</description>
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
-        <attribute name="newUserLogin" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
+        <attribute name="newUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
     </service>
     <service name="updatePassword" engine="java" default-entity-name="UserLogin"
-        location="org.ofbiz.common.login.LoginServices" invoke="updatePassword" auth="true">
+        location="org.apache.ofbiz.common.login.LoginServices" invoke="updatePassword" auth="true">
         <description>Update a UserLogin Password</description>
         <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
         <attribute name="currentPassword" type="String" mode="IN" optional="true"/>
         <attribute name="newPassword" type="String" mode="IN" optional="true"/>
         <attribute name="newPasswordVerify" type="String" mode="IN" optional="true"/>
         <attribute name="passwordHint" type="String" mode="IN" optional="true"/>
-        <attribute name="updatedUserLogin" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
+        <attribute name="updatedUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
     </service>
     <service name="updateUserLoginSecurity" engine="java" default-entity-name="UserLogin"
-        location="org.ofbiz.common.login.LoginServices" invoke="updateUserLoginSecurity" auth="true">
+        location="org.apache.ofbiz.common.login.LoginServices" invoke="updateUserLoginSecurity" auth="true">
         <description>Update UserLogin Security Settings</description>
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
         <attribute name="enabled" type="String" mode="IN" optional="false"/>
@@ -441,7 +441,7 @@ under the License.
 
     <!-- User preferences services -->
     <service name="copyUserPrefGroup" engine="java"
-            location="org.ofbiz.common.preferences.PreferenceServices" invoke="copyUserPreferenceGroup" auth="true" use-transaction="true">
+            location="org.apache.ofbiz.common.preferences.PreferenceServices" invoke="copyUserPreferenceGroup" auth="true" use-transaction="true">
         <description>Copies the preferences from one userLoginId and preference group to another.
             If no userPrefLoginId is specified, preferences are copied to current user's preferences.</description>
         <permission-service service-name="preferenceCopyPermission"/>
@@ -451,7 +451,7 @@ under the License.
     </service>
 
     <service name="getUserPreference" engine="java"
-            location="org.ofbiz.common.preferences.PreferenceServices" invoke="getUserPreference">
+            location="org.apache.ofbiz.common.preferences.PreferenceServices" invoke="getUserPreference">
         <description>
             Gets a single user preference.
             If not found for the specific userLogin, find it for the _NA_ userlogin.
@@ -465,7 +465,7 @@ under the License.
     </service>
 
     <service name="getUserPreferenceGroup" engine="java"
-            location="org.ofbiz.common.preferences.PreferenceServices" invoke="getUserPreferenceGroup">
+            location="org.apache.ofbiz.common.preferences.PreferenceServices" invoke="getUserPreferenceGroup">
         <description>Gets a group of user preferences.</description>
         <attribute name="userPrefGroupTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="userPrefLoginId" type="String" mode="IN" optional="true"/>
@@ -473,7 +473,7 @@ under the License.
     </service>
 
     <service name="setUserPreference" engine="java"
-            location="org.ofbiz.common.preferences.PreferenceServices" invoke="setUserPreference" auth="true">
+            location="org.apache.ofbiz.common.preferences.PreferenceServices" invoke="setUserPreference" auth="true">
         <description>Sets a single user preference.</description>
         <permission-service service-name="preferenceGetSetPermission" main-action="CREATE"/>
         <attribute name="userPrefTypeId" type="String" mode="IN" optional="false"/>
@@ -482,7 +482,7 @@ under the License.
         <attribute name="userPrefLoginId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="removeUserPreference" engine="java"
-        location="org.ofbiz.common.preferences.PreferenceServices" invoke="removeUserPreference" auth="true">
+        location="org.apache.ofbiz.common.preferences.PreferenceServices" invoke="removeUserPreference" auth="true">
         <description>Sets a single user preference.</description>
         <permission-service service-name="preferenceGetSetPermission" main-action="CREATE"/>
         <attribute name="userPrefTypeId" type="String" mode="IN" optional="false"/>
@@ -490,7 +490,7 @@ under the License.
     </service>
     
     <service name="setUserPreferenceGroup" engine="java"
-            location="org.ofbiz.common.preferences.PreferenceServices" invoke="setUserPreferenceGroup" auth="true">
+            location="org.apache.ofbiz.common.preferences.PreferenceServices" invoke="setUserPreferenceGroup" auth="true">
         <description>Sets a group of user preferences.</description>
         <permission-service service-name="preferenceGetSetPermission" main-action="CREATE"/>
         <attribute name="userPrefMap" type="Map" mode="IN" optional="false"/>
@@ -499,14 +499,14 @@ under the License.
     </service>
 
     <service name="preferenceGetSetPermission" engine="java"
-            location="org.ofbiz.common.preferences.PreferenceWorker" invoke="checkPermission">
+            location="org.apache.ofbiz.common.preferences.PreferenceWorker" invoke="checkPermission">
         <description>User preference get/set permission checking.</description>
         <implements service="permissionInterface"/>
         <attribute name="userPrefLoginId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="preferenceCopyPermission" engine="java"
-            location="org.ofbiz.common.preferences.PreferenceWorker" invoke="checkCopyPermission">
+            location="org.apache.ofbiz.common.preferences.PreferenceWorker" invoke="checkCopyPermission">
         <description>User preference copy permission checking.</description>
         <implements service="permissionInterface"/>
     </service>
@@ -802,24 +802,24 @@ under the License.
     </service>
     
     <service name="createJsLanguageFileMapping" engine="java" auth="false" use-transaction="false"
-        location="org.ofbiz.common.JsLanguageFileMappingCreator" invoke="createJsLanguageFileMapping">
+        location="org.apache.ofbiz.common.JsLanguageFileMappingCreator" invoke="createJsLanguageFileMapping">
         <description>Create or update the JsLanguageFilesMapping.java. You still need to compile thereafter</description>
         <attribute name="encoding" mode="IN" type="String" optional="true" default-value="UTF-8"></attribute>
     </service>
 
     <!-- Metrics services -->
     <service name="getAllMetrics" auth="true" use-transaction="false"
-            engine="java" location="org.ofbiz.common.CommonServices" invoke="getAllMetrics">
+            engine="java" location="org.apache.ofbiz.common.CommonServices" invoke="getAllMetrics">
         <description>
             Get all metrics. Returns a List of Maps - one Map per metric. Each Map includes the following keys:
-            name, serviceRate, threshold, totalEvents. See org.ofbiz.base.metrics.Metrics.
+            name, serviceRate, threshold, totalEvents. See org.apache.ofbiz.base.metrics.Metrics.
         </description>
         <attribute name="metricsList" mode="OUT" type="java.util.List" optional="false" />
     </service>
 
     <service name="resetMetric" auth="true" use-transaction="false"
-         engine="java" location="org.ofbiz.common.CommonServices" invoke="resetMetric">
-        <description>Resets a metric. See org.ofbiz.base.metrics.Metrics.</description>
+         engine="java" location="org.apache.ofbiz.common.CommonServices" invoke="resetMetric">
+        <description>Resets a metric. See org.apache.ofbiz.base.metrics.Metrics.</description>
         <attribute name="name" mode="IN" type="String" optional="false"/>
     </service>
 

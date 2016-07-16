@@ -26,26 +26,26 @@ under the License.
 
     <!-- dead lock retry testing services -->
     <service name="testServiceDeadLockRetry" engine="java" auth="false"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetry">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetry">
         <implements service="testServiceInterface"/>
     </service>
     <service name="testServiceDeadLockRetryThreadA" engine="java" auth="false"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetryThreadA">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetryThreadA">
     </service>
     <service name="testServiceDeadLockRetryThreadB" engine="java" auth="false"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetryThreadB">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetryThreadB">
     </service>
 
     <!-- lock wait timeout retry testing services -->
     <service name="testServiceLockWaitTimeoutRetry" engine="java" auth="false"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetry">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetry">
         <implements service="testServiceInterface"/>
     </service>
     <service name="testServiceLockWaitTimeoutRetryGrabber" engine="java" auth="false" transaction-timeout="6"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryGrabber">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryGrabber">
     </service>
     <service name="testServiceLockWaitTimeoutRetryWaiter" engine="java" auth="false" transaction-timeout="2"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryWaiter">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryWaiter">
     </service>
 
     <!-- testing different entity-auto call-->
@@ -118,42 +118,42 @@ under the License.
 
     <!-- lock wait timeout retry testing services - a scenario that we can't do automatically with the single service because the parent owns the tx we have to have end before it will succeed -->
     <service name="testServiceLockWaitTimeoutRetryCantRecover" engine="java" auth="false" transaction-timeout="2"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryCantRecover">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryCantRecover">
         <implements service="testServiceInterface"/>
     </service>
     <service name="testServiceLockWaitTimeoutRetryCantRecoverWaiter" engine="java" auth="false" transaction-timeout="4"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryCantRecoverWaiter">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryCantRecoverWaiter">
     </service>
 
     <!-- make sure that if rollback only is set on the tx of the parent service you can still run a child service in a separate tx -->
     <service name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper" engine="java" auth="false"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper">
         <implements service="testServiceInterface"/>
     </service>
     <service name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent" engine="java" auth="false"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent">
     </service>
     <service name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService" engine="java" auth="false" require-new-transaction="true"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService">
     </service>
 
     <!-- make sure services are running on global-commit and global-rollback -->
     <service name="testServiceEcaGlobalEventExec" engine="java" auth="false"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExec">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExec">
         <implements service="testServiceInterface"/>
     </service>
     <service name="testServiceEcaGlobalEventExecOnCommit" engine="java" auth="false"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExecOnCommit">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExecOnCommit">
     </service>
     <service name="testServiceEcaGlobalEventExecToRollback" engine="java" auth="false"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExecToRollback">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExecToRollback">
     </service>
     <service name="testServiceEcaGlobalEventExecOnRollback" engine="java" auth="false"
-        location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExecOnRollback">
+        location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExecOnRollback">
     </service>
 
     <!-- Call xml rpc from engine -->
-    <service name="testXmlRpcAdd" engine="java" auth="false" location="org.ofbiz.service.test.XmlRpcTests" invoke="testXmlRpcAdd" export="true">
+    <service name="testXmlRpcAdd" engine="java" auth="false" location="org.apache.ofbiz.service.test.XmlRpcTests" invoke="testXmlRpcAdd" export="true">
         <attribute name="num1" mode="IN" type="Integer"/>
         <attribute name="num2" mode="IN" type="Integer"/>
         <attribute name="resulting" mode="OUT" type="Integer"/>
@@ -163,7 +163,7 @@ under the License.
         <attribute name="num2" mode="IN" type="Integer"/>
         <attribute name="resulting" mode="OUT" type="Integer"/>
     </service>
-    <service name="testXmlRpcClientAdd" engine="java" auth="false" location="org.ofbiz.service.test.XmlRpcTests" invoke="testXmlRpcClientAdd">
+    <service name="testXmlRpcClientAdd" engine="java" auth="false" location="org.apache.ofbiz.service.test.XmlRpcTests" invoke="testXmlRpcClientAdd">
         <implements service="testServiceInterface"/>
     </service>
 </services>

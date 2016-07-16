@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.condition.*
 
 relationshipEnums = from("Enumeration").where("enumTypeId", "KW_THES_REL").orderBy("sequenceId").cache(true).queryList();
 

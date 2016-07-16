@@ -35,13 +35,13 @@ under the License.
     </context-param>
     <context-param>
         <param-name>requestHandlerFactoryClass</param-name>
-        <param-value>org.ofbiz.workeffort.workeffort.ICalHandlerFactory</param-value>
+        <param-value>org.apache.ofbiz.workeffort.workeffort.ICalHandlerFactory</param-value>
     </context-param>
 
     <filter>
         <display-name>ContextFilter</display-name>
         <filter-name>ContextFilter</filter-name>
-        <filter-class>org.ofbiz.webapp.control.ContextFilter</filter-class>
+        <filter-class>org.apache.ofbiz.webapp.control.ContextFilter</filter-class>
         <init-param>
             <param-name>disableContextSecurity</param-name>
             <param-value>N</param-value>
@@ -66,19 +66,19 @@ under the License.
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <listener>
-        <listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class>
+        <listener-class>org.apache.ofbiz.webapp.control.ControlEventListener</listener-class>
     </listener>
     <listener>
-        <listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class>
+        <listener-class>org.apache.ofbiz.webapp.control.LoginEventListener</listener-class>
     </listener>
     <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
-    <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
+    <!-- <listener><listener-class>org.apache.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
 
     <servlet>
         <description>iCalendar WebDAV Servlet</description>
         <display-name>iCalendarServlet</display-name>
         <servlet-name>iCalendarServlet</servlet-name>
-        <servlet-class>org.ofbiz.webapp.webdav.WebDavServlet</servlet-class>
+        <servlet-class>org.apache.ofbiz.webapp.webdav.WebDavServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>

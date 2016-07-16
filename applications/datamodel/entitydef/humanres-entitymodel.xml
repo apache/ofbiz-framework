@@ -30,18 +30,18 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.ofbiz.humanres.ability -->
-  <!--  - org.ofbiz.humanres.employment -->
-  <!--  - org.ofbiz.humanres.position -->
+  <!--  - org.apache.ofbiz.humanres.ability -->
+  <!--  - org.apache.ofbiz.humanres.employment -->
+  <!--  - org.apache.ofbiz.humanres.position -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.humanres.ability -->
+  <!-- org.apache.ofbiz.humanres.ability -->
   <!-- ========================================================= -->
 
     <entity entity-name="PartyQual"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Party Qualification Entity">
         <field name="partyId" type="id-ne"></field>
         <field name="partyQualTypeId" type="id-ne"></field>
@@ -69,7 +69,7 @@ under the License.
     </entity>
 
     <entity entity-name="PartyQualType"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Party Qualification Type Entity">
       <field name="partyQualTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id-ne"></field>
@@ -81,7 +81,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PartyResume"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Resume Entity">
       <field name="resumeId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
@@ -97,7 +97,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PartySkill"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Party Skill Entity">
       <field name="partyId" type="id-ne"></field>
       <field name="skillTypeId" type="id-ne"></field>
@@ -115,7 +115,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PerfRatingType"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Performance Rating Type Entity">
       <field name="perfRatingTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id-ne"></field>
@@ -127,7 +127,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PerfReview"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Employee Performance Review Entity">
       <field name="employeePartyId" type="id-ne"></field>
       <field name="employeeRoleTypeId" type="id-ne"></field>
@@ -164,7 +164,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PerfReviewItem"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Performance Review Item Entity">
       <field name="employeePartyId" type="id-ne"></field>
       <field name="employeeRoleTypeId" type="id"></field>
@@ -197,7 +197,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PerfReviewItemType"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Performance Review Item Type Entity">
       <field name="perfReviewItemTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id-ne"></field>
@@ -209,7 +209,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PerformanceNote"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Performance Note Entity">
       <field name="partyId" type="id-ne"></field>
       <field name="roleTypeId" type="id-ne"></field>
@@ -229,7 +229,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PersonTraining"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Person Training Entity">
       <field name="partyId" type="id-ne"></field>
       <field name="trainingRequestId" type="id-ne"></field>
@@ -260,7 +260,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ResponsibilityType"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Responsibility Type Entity">
       <field name="responsibilityTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id"></field>
@@ -272,7 +272,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="SkillType"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Skill Type Entity">
       <field name="skillTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id-ne"></field>
@@ -284,7 +284,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="TrainingClassType"
-            package-name="org.ofbiz.humanres.ability"
+            package-name="org.apache.ofbiz.humanres.ability"
             title="Training Class Type Entity">
       <field name="trainingClassTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id"></field>
@@ -297,11 +297,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.humanres.employment -->
+  <!-- org.apache.ofbiz.humanres.employment -->
   <!-- ========================================================= -->
 
     <entity entity-name="BenefitType"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Benefit Type Entity">
       <field name="benefitTypeId" type="id-ne"></field>
       <field name="benefitName" type="name"></field>
@@ -315,7 +315,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="BenefitTypeAndParty"
-             package-name="org.ofbiz.humanres.employment"
+             package-name="org.apache.ofbiz.humanres.employment"
              title="Benefit Type Entity">
       <member-entity entity-alias="BT" entity-name="BenefitType"/>
       <member-entity entity-alias="PB" entity-name="PartyBenefit"/>
@@ -328,7 +328,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="Employment"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Employment Entity">
       <field name="roleTypeIdFrom" type="id-ne"></field>
       <field name="roleTypeIdTo" type="id-ne"></field>
@@ -369,7 +369,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="EmploymentAndPerson"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Employment and Person Entity">
         <member-entity entity-alias="EMPLMNT" entity-name="Employment"/>
         <member-entity entity-alias="PERS" entity-name="Person"/>
@@ -381,7 +381,7 @@ under the License.
     </view-entity>
 
     <entity entity-name="EmploymentApp"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Employment Application Entity">
       <field name="applicationId" type="id-ne"></field>
       <field name="emplPositionId" type="id"></field>
@@ -416,7 +416,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EmploymentAppSourceType"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Employment Application Source Type Entity">
       <field name="employmentAppSourceTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id-ne"></field>
@@ -428,7 +428,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EmplLeave"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Employee Leave Entity">
         <field name="partyId" type="id-ne"/>
         <field name="leaveTypeId" type="id-ne"/>
@@ -458,7 +458,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="EmplLeaveType"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             default-resource-name="HumanResEntityLabels"
             title="Employee Leave Type Entity">
         <field name="leaveTypeId" type="id-ne"/>
@@ -471,7 +471,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="PartyBenefit"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Party Benefit Entity">
       <field name="roleTypeIdFrom" type="id-ne"></field>
       <field name="roleTypeIdTo" type="id-ne"></field>
@@ -512,7 +512,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PayGrade"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Pay Grade Entity">
       <field name="payGradeId" type="id-ne"></field>
       <field name="payGradeName" type="name"></field>
@@ -520,7 +520,7 @@ under the License.
       <prim-key field="payGradeId"/>
     </entity>
     <entity entity-name="PayHistory"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Pay History Entity">
       <field name="roleTypeIdFrom" type="id-ne"></field>
       <field name="roleTypeIdTo" type="id-ne"></field>
@@ -558,7 +558,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PayrollPreference"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Payroll Preference Entity">
       <field name="partyId" type="id-ne"></field>
       <field name="roleTypeId" type="id-ne"></field>
@@ -594,7 +594,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="SalaryStep" table-name="SALARY_STEP_NEW"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Salary Step Entity">
       <field name="salaryStepSeqId" type="id-ne"></field>
       <field name="payGradeId" type="id-ne"></field>
@@ -612,14 +612,14 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="TerminationReason"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Termination Reason Entity">
       <field name="terminationReasonId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="terminationReasonId"/>
     </entity>
     <entity entity-name="TerminationType"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Termination Type Entity">
       <field name="terminationTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id-ne"></field>
@@ -631,7 +631,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="UnemploymentClaim"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             title="Unemployment Claim Entity">
       <field name="unemploymentClaimId" type="id-ne"></field>
       <field name="unemploymentClaimDate" type="date-time"></field>
@@ -657,11 +657,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.humanres.position -->
+  <!-- org.apache.ofbiz.humanres.position -->
   <!-- ========================================================= -->
 
     <entity entity-name="EmplPosition"
-            package-name="org.ofbiz.humanres.position"
+            package-name="org.apache.ofbiz.humanres.position"
             title="EmplPosition Entity">
       <field name="emplPositionId" type="id-ne"></field>
       <field name="statusId" type="id"></field>
@@ -693,7 +693,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EmplPositionClassType"
-            package-name="org.ofbiz.humanres.position"
+            package-name="org.apache.ofbiz.humanres.position"
             title="EmplPosition Classification Type Entity">
       <field name="emplPositionClassTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id-ne"></field>
@@ -705,7 +705,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EmplPositionFulfillment"
-            package-name="org.ofbiz.humanres.position"
+            package-name="org.apache.ofbiz.humanres.position"
             title="EmplPosition Fulfillment Entity">
       <field name="emplPositionId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
@@ -723,7 +723,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="EmplPositionAndFulfillment"
-            package-name="org.ofbiz.humanres.position"
+            package-name="org.apache.ofbiz.humanres.position"
             title="EmplPosition Fulfillment Entity">
       <member-entity entity-alias="EMPPOS" entity-name="EmplPosition"></member-entity>
       <member-entity entity-alias="EPF" entity-name="EmplPositionFulfillment"></member-entity>
@@ -739,7 +739,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="EmplPositionReportingStruct"
-            package-name="org.ofbiz.humanres.position"
+            package-name="org.apache.ofbiz.humanres.position"
             title="EmplPosition Reporting Structure Entity">
       <field name="emplPositionIdReportingTo" type="id-ne"></field>
       <field name="emplPositionIdManagedBy" type="id-ne"></field>
@@ -758,7 +758,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EmplPositionResponsibility"
-            package-name="org.ofbiz.humanres.position"
+            package-name="org.apache.ofbiz.humanres.position"
             title="EmplPosition Responsibility Entity">
       <field name="emplPositionId" type="id-ne"></field>
       <field name="responsibilityTypeId" type="id-ne"></field>
@@ -776,7 +776,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EmplPositionType"
-            package-name="org.ofbiz.humanres.position"
+            package-name="org.apache.ofbiz.humanres.position"
             title="EmplPosition Type Entity">
       <field name="emplPositionTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id-ne"></field>
@@ -788,7 +788,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EmplPositionTypeClass"
-            package-name="org.ofbiz.humanres.position"
+            package-name="org.apache.ofbiz.humanres.position"
             title="EmplPosition Type Class Entity">
       <field name="emplPositionTypeId" type="id-ne"></field>
       <field name="emplPositionClassTypeId" type="id-ne"></field>
@@ -806,7 +806,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ValidResponsibility"
-            package-name="org.ofbiz.humanres.position"
+            package-name="org.apache.ofbiz.humanres.position"
             title="Valid Responsibility Entity">
       <field name="emplPositionTypeId" type="id-ne"></field>
       <field name="responsibilityTypeId" type="id-ne"></field>
@@ -824,7 +824,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EmplPositionTypeRate" table-name="EMPL_POSITION_TYPE_RATE_NEW"
-            package-name="org.ofbiz.humanres.position"
+            package-name="org.apache.ofbiz.humanres.position"
             title="EmplPosition Type Rate Entity">
     <field name="emplPositionTypeId" type="id-ne"/>
     <field name="rateTypeId" type="id-ne"/>
@@ -848,7 +848,7 @@ under the License.
     </relation>
   </entity>
   <view-entity entity-name="EmplPositionTypeRateAndAmount"
-        package-name="org.ofbiz.humanres.position"
+        package-name="org.apache.ofbiz.humanres.position"
         title="EmplPosition Type Rate Entity and Rate Amount">
     <member-entity entity-alias="EPTR" entity-name="EmplPositionTypeRate"/>
     <member-entity entity-alias="RA" entity-name="RateAmount"/>
@@ -865,10 +865,10 @@ under the License.
   </view-entity>
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.humanres.recruitment -->
+    <!-- org.apache.ofbiz.humanres.recruitment -->
     <!-- ========================================================= -->
     <entity entity-name="JobRequisition"
-            package-name="org.ofbiz.humanres.recruitment"
+            package-name="org.apache.ofbiz.humanres.recruitment"
             title="Entity for storing data about recruitment">
         <field name="jobRequisitionId" type="id-ne"></field>
         <field name="durationMonths" type="numeric"></field>
@@ -896,7 +896,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="JobInterview"
-            package-name="org.ofbiz.humanres.recruitment"
+            package-name="org.apache.ofbiz.humanres.recruitment"
             title="Entity for storing data about Interviews conducted">
         <field name="jobInterviewId" type="id-ne"></field>
         <field name="jobIntervieweePartyId" type="id"></field>
@@ -924,14 +924,14 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="JobInterviewType" 
-            package-name="org.ofbiz.humanres.recruitment"
+            package-name="org.apache.ofbiz.humanres.recruitment"
             title="Entity for storing data about Interview Types">
         <field name="jobInterviewTypeId" type="id-ne"></field>
         <field name="description" type="description"></field>
         <prim-key field="jobInterviewTypeId"/>
     </entity>
     <view-entity entity-name="EmplPositionFulfillmentAndReportingStruct"
-            package-name="org.ofbiz.humanres.recruitment"
+            package-name="org.apache.ofbiz.humanres.recruitment"
             title="To view the employment details of an employee">
       <member-entity entity-alias="EMPPOS" entity-name="EmplPosition"/>
       <member-entity entity-alias="EMPPOSFUL" entity-name="EmplPositionFulfillment"/>
@@ -949,13 +949,13 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="TrainingRequest"
-            package-name="org.ofbiz.humanres.trainings"
+            package-name="org.apache.ofbiz.humanres.trainings"
             title="Training Request Entity">
         <field name="trainingRequestId" type="id-ne"></field>
         <prim-key field="trainingRequestId"/>
     </entity>
     <entity entity-name="EmplLeaveReasonType"
-            package-name="org.ofbiz.humanres.employment"
+            package-name="org.apache.ofbiz.humanres.employment"
             default-resource-name="HumanResEntityLabels"
             title="Leave Reason Type Entity">
         <field name="emplLeaveReasonTypeId" type="id-ne"/>

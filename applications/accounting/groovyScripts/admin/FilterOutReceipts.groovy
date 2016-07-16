@@ -18,6 +18,6 @@
  */
  // simple script to filter out receipts in a list of payments
 
-import org.ofbiz.accounting.util.UtilAccounting;
+import org.apache.ofbiz.accounting.util.UtilAccounting;
 
 context.payments.removeAll{UtilAccounting.isReceipt(it)};

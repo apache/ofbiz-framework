@@ -245,7 +245,7 @@ under the License.
     
     <simple-method method-name="updateStatusImageManagement" short-description="Update Status Image Management">
         <now-timestamp field="nowTimestamp"/>
-        <set field="parameters.checkStatusId" value="${groovy: import org.ofbiz.base.util.StringUtil;
+        <set field="parameters.checkStatusId" value="${groovy: import org.apache.ofbiz.base.util.StringUtil;
         checkStatusVal = parameters.checkStatusId; 
         statusId = StringUtil.split(checkStatusVal, &quot;/&quot;);
         if (statusId) return statusId[0];

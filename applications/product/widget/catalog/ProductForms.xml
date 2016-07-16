@@ -902,7 +902,7 @@ under the License.
             </drop-down>
         </field>
         <field name="availableFromDate" use-when="supplierProduct==null">
-            <date-time default-value="${groovy: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
+            <date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
         </field>
         <field name="availableFromDate" use-when="supplierProduct!=null">
             <display/>
@@ -1137,7 +1137,7 @@ under the License.
         <field use-when="fixedAssetId==null" name="fixedAssetId" title="${uiLabelMap.AccountingFixedAssetId}"><text size="20" maxlength="20"/></field>
 
 
-        <!-- <auto-fields-service  service-name="org.ofbiz.accounting.fixedasset.FixedAssetServices.xml#addFixedAssetProduct"
+        <!-- <auto-fields-service  service-name="org.apache.ofbiz.accounting.fixedasset.FixedAssetServices.xml#addFixedAssetProduct"
             map-name="fixedAssetProduct"/> -->
 
         <field name="productId"><hidden/></field>
@@ -2152,7 +2152,7 @@ under the License.
             <display-entity entity-name="GlAccountType" key-field-name="glAccountTypeId"/>
         </field>
         <field name="organizationPartyId" title="${uiLabelMap.ProductOrganization}">
-            <display description="${groovy: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, organizationPartyId, true);} [${organizationPartyId}]"/>
+            <display description="${groovy: org.apache.ofbiz.party.party.PartyHelper.getPartyName(delegator, organizationPartyId, true);} [${organizationPartyId}]"/>
         </field>
         <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
             <drop-down allow-empty="false">
@@ -2307,7 +2307,7 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.ProductDealStartDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.ProductDealEndDate}"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="editLink" use-when="${groovy: return reqOrderQty.compareTo(soldOrderQty)!= 0;}&amp;&amp;${groovy: return thruDate.compareTo(org.ofbiz.base.util.UtilDateTime.nowTimestamp()) == 1}" title=" " widget-style="buttontext">
+        <field name="editLink" use-when="${groovy: return reqOrderQty.compareTo(soldOrderQty)!= 0;}&amp;&amp;${groovy: return thruDate.compareTo(org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()) == 1}" title=" " widget-style="buttontext">
             <hyperlink target="EditProductGroupOrder" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="productId"/>
                 <parameter param-name="groupOrderId"/>

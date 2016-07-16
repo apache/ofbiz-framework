@@ -38,19 +38,19 @@ under the License.
 <#assign viewSz = requestParameters.viewSize! />
 </#if>
 <#assign nodeTrailCsv=requestParameters.nodeTrailCsv!/>
-<#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in showcontenttree, nodeTrailCsv(0):" + nodeTrailCsv, "")/>
+<#assign dummy=Static["org.apache.ofbiz.base.util.Debug"].logInfo("in showcontenttree, nodeTrailCsv(0):" + nodeTrailCsv, "")/>
 <#assign nodeTrail=[]/>
 <#assign firstContentId=""/>
 <#if nodeTrailCsv?has_content>
-  <#assign nodeTrail=Static["org.ofbiz.base.util.StringUtil"].split(nodeTrailCsv, ",") />
+  <#assign nodeTrail=Static["org.apache.ofbiz.base.util.StringUtil"].split(nodeTrailCsv, ",") />
   <#if 0 < nodeTrail?size>
     <#assign firstContentId=nodeTrail[0]?string/>
   </#if>
 </#if>
 
 <#--
-<#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in showcontenttree, siteId:" + siteId, "")/>
-<#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in showcontenttree, nodeTrail:" + nodeTrail, "")/>
+<#assign dummy=Static["org.apache.ofbiz.base.util.Debug"].logInfo("in showcontenttree, siteId:" + siteId, "")/>
+<#assign dummy=Static["org.apache.ofbiz.base.util.Debug"].logInfo("in showcontenttree, nodeTrail:" + nodeTrail, "")/>
 -->
 
 <div>
@@ -87,7 +87,7 @@ under the License.
 
         <!-- Look for content first -->
         <@loopSubContent contentId=contentIdx viewIndex=viewIdx viewSize=viewSz contentAssocTypeId="PUBLISH_LINK" returnAfterPickWhen="1==1">
-            <#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in showcontenttree, nodeTrailCsv(1):" + nodeTrailCsv, "")/>
+            <#assign dummy=Static["org.apache.ofbiz.base.util.Debug"].logInfo("in showcontenttree, nodeTrailCsv(1):" + nodeTrailCsv, "")/>
             <#local thisCsv=thisNodeTrailCsv + "," + subContentId />
             <a class="tabButton" href="<@ofbizUrl>viewcontent?contentId=${subContentId!}&nodeTrailCsv=${thisCsv}</@ofbizUrl>">${uiLabelMap.CommonView}</a>  ${content.description!}<br />
         </@loopSubContent>

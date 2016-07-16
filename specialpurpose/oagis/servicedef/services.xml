@@ -65,7 +65,7 @@ under the License.
 
     <!-- Routing service to handle all incoming messages and send them to the appropriate processing service -->
     <service name="oagisMessageHandler" engine="java" transaction-timeout="300"
-        location="org.ofbiz.oagis.OagisServices" invoke="oagisMessageHandler" auth="false">
+        location="org.apache.ofbiz.oagis.OagisServices" invoke="oagisMessageHandler" auth="false">
         <implements service="serviceStreamInterface"/>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="isErrorRetry" type="Boolean" mode="IN" optional="true"/>
@@ -73,7 +73,7 @@ under the License.
     </service>
 
     <service name="oagisReReceiveMessage" engine="java" transaction-timeout="300"
-        location="org.ofbiz.oagis.OagisServices" invoke="oagisReReceiveMessage" auth="false">
+        location="org.apache.ofbiz.oagis.OagisServices" invoke="oagisReReceiveMessage" auth="false">
         <attribute name="logicalId" type="String" mode="IN" optional="true"/>
         <attribute name="component" type="String" mode="IN" optional="true"/>
         <attribute name="task" type="String" mode="IN" optional="true"/>
@@ -82,7 +82,7 @@ under the License.
 
     <!-- Confirm BOD Messages, general flow and error handling -->
     <service name="oagisSendConfirmBod" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisServices" invoke="oagisSendConfirmBod" auth="true">
+        location="org.apache.ofbiz.oagis.OagisServices" invoke="oagisSendConfirmBod" auth="true">
         <description>Send ConfirmBod</description>
         <attribute name="sendToUrl" type="String" mode="IN" optional="true"/>
         <attribute name="saveToFilename" type="String" mode="IN" optional="true"/>
@@ -96,7 +96,7 @@ under the License.
         <attribute name="origRefId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="oagisReceiveConfirmBod" engine="java" transaction-timeout="300"
-        location="org.ofbiz.oagis.OagisServices" invoke="oagisReceiveConfirmBod" auth="true">
+        location="org.apache.ofbiz.oagis.OagisServices" invoke="oagisReceiveConfirmBod" auth="true">
         <description>Process incoming ConfirmBod</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
@@ -105,7 +105,7 @@ under the License.
     <!-- ==================================== -->
     <!-- Outgoing Message Services -->
     <service name="oagisSendProcessShipment" max-retry="0" engine="java"
-        location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendProcessShipment">
+        location="org.apache.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendProcessShipment">
         <description>Prepare and Optionally Send OAGIS Process Shipment Message.
             Note on usage: you can pass in either sendToUrl, saveToFilename, or outputStream.
             If none are passed in the URL in oagis.properties will be used at the target for the message.</description>
@@ -116,12 +116,12 @@ under the License.
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="oagisSendProcessShipmentsFromBackOrderSet" engine="java"
-        location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendProcessShipmentsFromBackOrderSet">
+        location="org.apache.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendProcessShipmentsFromBackOrderSet">
         <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="IN" optional="true"/>
     </service>
 
     <service name="oagisSendReceiveDelivery" max-retry="0" engine="java"
-        location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendReceiveDelivery">
+        location="org.apache.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendReceiveDelivery">
         <description>Prepare and Send Receive Delivery</description>
         <attribute name="sendToUrl" type="String" mode="IN" optional="true"/>
         <attribute name="saveToFilename" type="String" mode="IN" optional="true"/>
@@ -133,7 +133,7 @@ under the License.
     <!-- ==================================== -->
     <!-- Incoming Message Services -->
     <service name="oagisReceiveSyncInventory" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisInventoryServices" invoke="oagisReceiveSyncInventory" auth="true">
+        location="org.apache.ofbiz.oagis.OagisInventoryServices" invoke="oagisReceiveSyncInventory" auth="true">
         <description>Process incoming Inventory Sync message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
@@ -142,7 +142,7 @@ under the License.
 
     <!-- DEJ20070808 added max-rety=3 because this is run async persisted just in case there is a transaction problem under heavy load -->
     <service name="oagisReceiveShowShipment" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisReceiveShowShipment" auth="true">
+        location="org.apache.ofbiz.oagis.OagisShipmentServices" invoke="oagisReceiveShowShipment" auth="true">
         <description>Process incoming Show Shipment message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
@@ -150,14 +150,14 @@ under the License.
     </service>
 
     <service name="oagisReceiveAcknowledgeDeliveryPo" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisInventoryServices" invoke="oagisReceiveAcknowledgeDeliveryPo" auth="true">
+        location="org.apache.ofbiz.oagis.OagisInventoryServices" invoke="oagisReceiveAcknowledgeDeliveryPo" auth="true">
         <description>Process Acknowledge Delivery for PO message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
         <attribute name="isErrorRetry" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="oagisReceiveAcknowledgeDeliveryRma" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisInventoryServices" invoke="oagisReceiveAcknowledgeDeliveryRma" auth="true">
+        location="org.apache.ofbiz.oagis.OagisInventoryServices" invoke="oagisReceiveAcknowledgeDeliveryRma" auth="true">
         <description>Process Acknowledge Delivery for RMA message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
@@ -165,7 +165,7 @@ under the License.
         <attribute name="inventoryItemIdList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="oagisReceiveAcknowledgeDeliveryStatus" engine="java" transaction-timeout="300" max-retry="3"
-        location="org.ofbiz.oagis.OagisInventoryServices" invoke="oagisReceiveAcknowledgeDeliveryStatus" auth="true">
+        location="org.apache.ofbiz.oagis.OagisInventoryServices" invoke="oagisReceiveAcknowledgeDeliveryStatus" auth="true">
         <description>Process Acknowledge Delivery for Status message</description>
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>

@@ -20,7 +20,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="openTerminal" short-description="Open Terminal" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -47,7 +47,7 @@ under the License.
                     <else>
                         <make-value value-field="terminalState" entity-name="PosTerminalState"/>
                         <call-object-method obj-field="webPosSession" method-name="getId" ret-field="terminalState.posTerminalId"/>
-                        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="nowTimestamp" ret-field="terminalState.openedDate"/>
+                        <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="nowTimestamp" ret-field="terminalState.openedDate"/>
                         <call-object-method obj-field="webPosSession" method-name="getUserLoginId" ret-field="terminalState.openedByUserLoginId"/>
                         <call-object-method obj-field="webPosTransaction" method-name="getTransactionId" ret-field="terminalState.startingTxId"/>
                         <set from-field="context.startingDrawerAmount" field="terminalState.startingDrawerAmount" type="BigDecimal"/>
@@ -75,7 +75,7 @@ under the License.
     
     <simple-method method-name="closeTerminal" short-description="Close Terminal" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -172,7 +172,7 @@ under the License.
                     <set field="terminalState.actualEndingCc" from-field="context.endingDrawerCcAmount" type="BigDecimal"/>
                     <set field="terminalState.actualEndingGc" from-field="context.endingDrawerGcAmount" type="BigDecimal"/>
                     <set field="terminalState.actualEndingOther" from-field="context.endingDrawerOtherAmount" type="BigDecimal"/>
-                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="nowTimestamp" ret-field="terminalState.closedDate"/>
+                    <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="nowTimestamp" ret-field="terminalState.closedDate"/>
                     <call-object-method obj-field="webPosTransaction" method-name="getTransactionId" ret-field="terminalState.endingTxId"/>
                     <store-value value-field="terminalState"/>
                     <check-errors/>
@@ -197,7 +197,7 @@ under the License.
     
     <simple-method method-name="voidOrder" short-description="Void Order" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -265,7 +265,7 @@ under the License.
     
     <simple-method method-name="shutdown" short-description="Shutdown" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -288,7 +288,7 @@ under the License.
     
     <simple-method method-name="paidOutAndIn" short-description="Paid Out and In" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -349,7 +349,7 @@ under the License.
     
     <simple-method method-name="modifyPrice" short-description="Modify Price" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>

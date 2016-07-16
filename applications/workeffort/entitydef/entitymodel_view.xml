@@ -27,7 +27,7 @@ under the License.
     <description>None</description>
     <version>1.0</version>
     <view-entity entity-name="WorkEffortAndChild"
-        package-name="org.ofbiz.workeffort.workeffort"
+        package-name="org.apache.ofbiz.workeffort.workeffort"
         title="WorkEffort for use in tree relationships">
         <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
         <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
@@ -46,7 +46,7 @@ under the License.
     </view-entity>
 
     <view-entity entity-name="WorkEffortAndFulfillment"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="WorkEffort Requirement View Entity">
       <member-entity entity-alias="WEF" entity-name="WorkEffort"/>
       <member-entity entity-alias="WRF" entity-name="WorkRequirementFulfillment"/>
@@ -168,7 +168,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortAndFixedAssetAssign"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort And Fixed Asset Assignment View Entity">
       <member-entity entity-alias="WEFAA" entity-name="WorkEffortFixedAssetAssign"/>
       <member-entity entity-alias="WE" entity-name="WorkEffort"/>
@@ -195,7 +195,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortAndPartyAssign"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort And Party Assignment Entity">
       <member-entity entity-alias="WE" entity-name="WorkEffort"/>
       <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
@@ -234,7 +234,7 @@ under the License.
       </relation>
     </view-entity>
   <view-entity entity-name="WorkEffortAndPartyAssignAndType"
-    package-name="org.ofbiz.workeffort.workeffort"
+    package-name="org.apache.ofbiz.workeffort.workeffort"
     title="Work Effort And Party Assignment Entity">
     <member-entity entity-alias="WE" entity-name="WorkEffort"/>
     <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
@@ -278,7 +278,7 @@ under the License.
     </relation>
   </view-entity>
   <view-entity entity-name="WorkEffortPartyAssignAndRoleType"
-    package-name="org.ofbiz.workeffort.workeffort"
+    package-name="org.apache.ofbiz.workeffort.workeffort"
       title="Work Effort Party Assignment And Roletype">
       <description>To be able to have a dropdown listing with all roles a party has on this workeffort.</description>
       <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
@@ -292,7 +292,7 @@ under the License.
       </view-link>
     </view-entity>
     <view-entity entity-name="WorkEffortAssocView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort Association Entity with Name">
       <member-entity entity-alias="WA" entity-name="WorkEffortAssoc"/>
       <member-entity entity-alias="WETO" entity-name="WorkEffort"/>
@@ -315,7 +315,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortAssocFromView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort Association From (Parent) View">
       <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
       <member-entity entity-alias="WEFROM" entity-name="WorkEffort"/>
@@ -328,7 +328,7 @@ under the License.
       </view-link>
     </view-entity>
     <view-entity entity-name="WorkEffortAssocToView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort Association To (Child) View">
       <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
       <member-entity entity-alias="WETO" entity-name="WorkEffort"/>
@@ -342,7 +342,7 @@ under the License.
     </view-entity>
 
     <view-entity entity-name="WorkEffortFindView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Find Work Efforts View">
       <member-entity entity-alias="WE" entity-name="WorkEffort"/>
       <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
@@ -367,7 +367,7 @@ under the License.
     </view-entity>
 
     <view-entity entity-name="WorkEffortNoteAndData"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort Note And Note Data Entity">
       <member-entity entity-alias="WEN" entity-name="WorkEffortNote"/>
       <member-entity entity-alias="ND" entity-name="NoteData"/>
@@ -395,7 +395,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortPartyAssignByGroup"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort And Party Assignment By Group Entity">
       <description>Includes PartyRelationship Link so that a partyId can be specified to find all PartyAssignments for all groups the party is in.</description>
       <member-entity entity-alias="WE" entity-name="WorkEffort"/>
@@ -450,7 +450,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortPartyAssignByRole"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort And Party Assignment By Role Entity">
       <description>Also includes PartyRole Link so that if a partyId is specified it will find all PartyAssignments for all roles a party is in; does not link on the partyId of the PartyAssignment</description>
       <member-entity entity-alias="WE" entity-name="WorkEffort"/>
@@ -494,7 +494,7 @@ under the License.
       </relation>
     </view-entity>
 
-  <view-entity entity-name="WorkEffortAndGoods" package-name="org.ofbiz.workeffort.workeffort"
+  <view-entity entity-name="WorkEffortAndGoods" package-name="org.apache.ofbiz.workeffort.workeffort"
         title="WorkEffort and related WorkEffortGoodStandard">
       <description>WorkEffort and its WorkEffortGoodStandard</description>
       <member-entity entity-alias="WE" entity-name="WorkEffort"></member-entity>
@@ -509,7 +509,7 @@ under the License.
       </view-link>
     </view-entity>
 
-    <view-entity entity-name="WorkEffortProductGoods" package-name="org.ofbiz.workeffort.workeffort"
+    <view-entity entity-name="WorkEffortProductGoods" package-name="org.apache.ofbiz.workeffort.workeffort"
             title="WorkEffort and related WorkEffortGoodStandard with Product">
         <member-entity entity-alias="WE" entity-name="WorkEffort"/>
         <member-entity entity-alias="WEGS" entity-name="WorkEffortGoodStandard"/>
@@ -534,7 +534,7 @@ under the License.
         </view-link>
     </view-entity>
     
-    <view-entity entity-name="WorkEffortAndContentDataResource" package-name="org.ofbiz.workeffort.workeffort"
+    <view-entity entity-name="WorkEffortAndContentDataResource" package-name="org.apache.ofbiz.workeffort.workeffort"
          title="WorkEffort and Content and DataResource View Entity">
         <member-entity entity-alias="WECO" entity-name="WorkEffortContent"/>
         <member-entity entity-alias="CO" entity-name="Content"/>
@@ -580,7 +580,7 @@ under the License.
         </relation>
     </view-entity>
 
-  <view-entity entity-name="WorkEffortAndInventoryAssign" package-name="org.ofbiz.workeffort.workeffort"
+  <view-entity entity-name="WorkEffortAndInventoryAssign" package-name="org.apache.ofbiz.workeffort.workeffort"
         title="Inventory Item and Product assigned for WorkEffort">
       <description>Inventory Item and Product assigned for WorkEffort</description>
       <member-entity entity-alias="WEIA" entity-name="WorkEffortInventoryAssign"></member-entity>
@@ -594,7 +594,7 @@ under the License.
         <key-map field-name="inventoryItemId"></key-map>
       </view-link>
     </view-entity>
-    <view-entity entity-name="WorkEffortAndInventoryProduced" package-name="org.ofbiz.workeffort.workeffort"
+    <view-entity entity-name="WorkEffortAndInventoryProduced" package-name="org.apache.ofbiz.workeffort.workeffort"
         title="Inventory Item and Product produced by WorkEffort">
       <description>Inventory Item and Product produced by WorkEffort</description>
       <member-entity entity-alias="WEIP" entity-name="WorkEffortInventoryProduced"></member-entity>
@@ -610,7 +610,7 @@ under the License.
       </view-link>
     </view-entity>
     <view-entity entity-name="WorkEffortPartyAssignView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort And Party Assignment and PartyNameView">
       <description>Ties WEPA to the party info.</description>
       <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
@@ -659,7 +659,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortCommunicationEventView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort And CommunicationEvent">
       <description>Ties WECommEvent to CommunicationEvent.</description>
       <member-entity entity-alias="CEWE" entity-name="CommunicationEventWorkEff"/>
@@ -677,7 +677,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortShoppingListView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort And ShoppingList">
       <description>Ties ShoppingListWE to ShoppingList.</description>
       <member-entity entity-alias="SLWE" entity-name="ShoppingListWorkEffort"/>
@@ -700,7 +700,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortQuoteView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort And Quote">
       <description>Ties QuoteWE to Quote.</description>
       <member-entity entity-alias="QWE" entity-name="QuoteWorkEffort"/>
@@ -723,7 +723,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortOrderHeaderView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort And OrderHeader">
       <description>Ties OrderHeaderWE to OrderHeader.</description>
       <member-entity entity-alias="OHWE" entity-name="OrderHeaderWorkEffort"/>
@@ -757,7 +757,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortCustRequestView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort And CustRequest">
       <description>Ties CustRequestWE to CustRequest and WorkEffort.</description>
       <member-entity entity-alias="CRWE" entity-name="CustRequestWorkEffort"/>
@@ -809,7 +809,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortCustRequestItemView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort And CustRequest">
       <description>Ties CustRequestWE to CustRequest.</description>
       <member-entity entity-alias="CRIWE" entity-name="CustRequestItemWorkEffort"/>
@@ -837,7 +837,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortRequirementView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="WorkRequirementFulfillment And Requirement">
       <description>Ties WorkRequirementFulfillment to Requirement.</description>
       <member-entity entity-alias="WRF" entity-name="WorkRequirementFulfillment"/>
@@ -872,7 +872,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortAndSalesOpportunity"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Sales opportunity and associated work effort">
       <member-entity entity-alias="SOWE" entity-name="SalesOpportunityWorkEffort"/>
       <member-entity entity-alias="SO" entity-name="SalesOpportunity"/>
@@ -899,7 +899,7 @@ under the License.
     </view-entity>
 
     <view-entity entity-name="WorkEffortContentAndInfo"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="WorkEffortContent, Content and DataResource View Entity">
       <member-entity entity-alias="WC" entity-name="WorkEffortContent"/>
       <member-entity entity-alias="CO" entity-name="Content"/>
@@ -931,7 +931,7 @@ under the License.
     </view-entity>
 
     <view-entity entity-name="WorkEffortContactMechView"
-            package-name="org.ofbiz.workeffort.workeffort"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort Contact Mech View Entity">
       <member-entity entity-alias="WECM" entity-name="WorkEffortContactMech"/>
       <member-entity entity-alias="CM" entity-name="ContactMech"/>
@@ -942,7 +942,7 @@ under the License.
       </view-link>
     </view-entity>
     
-    <view-entity entity-name="WorkEffortAndTimeEntry" package-name="org.ofbiz.workeffort.workeffort"
+    <view-entity entity-name="WorkEffortAndTimeEntry" package-name="org.apache.ofbiz.workeffort.workeffort"
         title="WorkEffort and TimeEntry View Entity">
         <member-entity entity-alias="WE" entity-name="WorkEffort"/>
         <member-entity entity-alias="TE" entity-name="TimeEntry"/>

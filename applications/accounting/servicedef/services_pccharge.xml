@@ -26,22 +26,22 @@ under the License.
 
     <!-- PCCharge Implementations -->
     <service name="pcChargeCCAuth" engine="java"
-            location="org.ofbiz.accounting.thirdparty.gosoftware.PcChargeServices" invoke="ccAuth">
+            location="org.apache.ofbiz.accounting.thirdparty.gosoftware.PcChargeServices" invoke="ccAuth">
         <description>PCCharge Credit Card Pre-Authorization/Sale</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="pcChargeCCCapture" engine="java"
-            location="org.ofbiz.accounting.thirdparty.gosoftware.PcChargeServices" invoke="ccCapture">
+            location="org.apache.ofbiz.accounting.thirdparty.gosoftware.PcChargeServices" invoke="ccCapture">
         <description>PCCharge Credit Card Post-Authorization</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="pcChargeCCRelease" engine="java"
-            location="org.ofbiz.accounting.thirdparty.gosoftware.PcChargeServices" invoke="ccRelease">
+            location="org.apache.ofbiz.accounting.thirdparty.gosoftware.PcChargeServices" invoke="ccRelease">
         <description>PCCharge Credit Card Void</description>
         <implements service="paymentReleaseInterface"/>
     </service>
     <service name="pcChargeCCRefund" engine="java"
-            location="org.ofbiz.accounting.thirdparty.gosoftware.PcChargeServices" invoke="ccRefund">
+            location="org.apache.ofbiz.accounting.thirdparty.gosoftware.PcChargeServices" invoke="ccRefund">
         <description>PCCharge Credit Card Refund</description>
         <implements service="paymentRefundInterface"/>
     </service>

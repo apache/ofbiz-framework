@@ -26,7 +26,7 @@ under the License.
     <include location="component://humanres/webapp/humanres/WEB-INF/controller.xml"/>
     <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
     <description>scrum Component Site Configuration File</description>
-    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
+    <handler name="service-multi" type="request" class="org.apache.ofbiz.webapp.event.ServiceMultiEventHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -36,11 +36,11 @@ under the License.
     <!-- Events to run on every request after all other processing (chains exempt) -->
     <!--
     <postprocessor>
-        <event name="test" type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
+        <event name="test" type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
     -->
     <after-login>
-        <event name="timeSheetChecker" type="java" path="org.ofbiz.scrum.ScrumEvents" invoke="timeSheetChecker"/>
+        <event name="timeSheetChecker" type="java" path="org.apache.ofbiz.scrum.ScrumEvents" invoke="timeSheetChecker"/>
     </after-login>
     
     <!-- Request Mappings -->

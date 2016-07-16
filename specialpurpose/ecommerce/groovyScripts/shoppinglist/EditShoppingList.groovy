@@ -18,18 +18,18 @@
  */
 
 import java.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
-import org.ofbiz.order.shoppingcart.shipping.*;
-import org.ofbiz.order.shoppinglist.*;
-import org.ofbiz.party.contact.*;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.store.*;
-import org.ofbiz.service.calendar.*;
-import org.ofbiz.webapp.website.WebSiteWorker;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.apache.ofbiz.order.shoppingcart.shipping.*;
+import org.apache.ofbiz.order.shoppinglist.*;
+import org.apache.ofbiz.party.contact.*;
+import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.store.*;
+import org.apache.ofbiz.service.calendar.*;
+import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 if (userLogin) 
 {

@@ -385,7 +385,7 @@ under the License.
             <set field="supplierCurrencyUomId" from-field="supplierParty.preferredCurrencyUomId"/>
         </row-actions>
         <field name="partyId">
-            <display description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
+            <display description="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
         </field>
         <field name="supplierCurrencyUomId"><display/></field>
         <field name="productId" title="${uiLabelMap.OrderVendorRequirementCount}" widget-area-style="align-text"><display also-hidden="false"/></field>

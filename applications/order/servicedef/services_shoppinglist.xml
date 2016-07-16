@@ -60,18 +60,18 @@ under the License.
         <attribute name="productStoreGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
-        <attribute name="autoUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="autoUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="totalPrice" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
     <service name="runShoppingListAutoReorder" engine="java" auth="true" use-transaction="false"
-            location="org.ofbiz.order.shoppinglist.ShoppingListServices" invoke="createListReorders">
+            location="org.apache.ofbiz.order.shoppinglist.ShoppingListServices" invoke="createListReorders">
         <description>A service designed to be automatically run by job scheduler to create orders from auto-order shopping lists.
             This is done by looking for all auto-order shopping lists which are active
             comparing the lastOrderedDate and the defined recurrenceInfo with the time when the service is run.</description>
     </service>
     <service name="createShoppingListRecurrence" engine="java" auth="true"
-            location="org.ofbiz.order.shoppinglist.ShoppingListServices" invoke="setShoppingListRecurrence">
+            location="org.apache.ofbiz.order.shoppinglist.ShoppingListServices" invoke="setShoppingListRecurrence">
         <description>Creates Recurrence Info For Auto-Reorder Lists</description>
         <attribute name="startDateTime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="endDateTime" type="Timestamp" mode="IN" optional="true"/>
@@ -80,14 +80,14 @@ under the License.
         <attribute name="recurrenceInfoId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="splitShipmentMethodString" engine="java" auth="false"
-            location="org.ofbiz.order.shoppinglist.ShoppingListServices" invoke="splitShipmentMethodString">
+            location="org.apache.ofbiz.order.shoppinglist.ShoppingListServices" invoke="splitShipmentMethodString">
         <description>Splits the shipping method string</description>
         <attribute name="shippingMethodString" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentMethodTypeId" type="String" mode="OUT" optional="true"/>
         <attribute name="carrierPartyId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="makeShoppingListFromOrder" engine="java" auth="true"
-            location="org.ofbiz.order.shoppinglist.ShoppingListServices" invoke="makeListFromOrder">
+            location="org.apache.ofbiz.order.shoppinglist.ShoppingListServices" invoke="makeListFromOrder">
         <description>Create/Update a shopping list from an order</description>
         <implements service="createShoppingListRecurrence"/>
         <attribute name="shoppingListTypeId" type="String" mode="IN" optional="true"/>
@@ -145,7 +145,7 @@ under the License.
     </service>
 
     <service name="autoDeleteAutoSaveShoppingList" engine="java" auth="true" max-retry="3" transaction-timeout="3600"
-            location="org.ofbiz.order.shoppinglist.ShoppingListServices" invoke="autoDeleteAutoSaveShoppingList">
+            location="org.apache.ofbiz.order.shoppinglist.ShoppingListServices" invoke="autoDeleteAutoSaveShoppingList">
             <description>
                 Automatic delete auto save shopping list for anonymous users that are not updated in last 30 days.
                 Default to 30 days unless no configuration is specified.

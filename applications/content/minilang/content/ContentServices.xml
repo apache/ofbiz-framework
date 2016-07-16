@@ -972,8 +972,8 @@
 
     <simple-method method-name="forceIndexContentKeywords" short-description="induce all the keywords of a content">
         <entity-one entity-name="Content" value-field="content"/>
-        <call-class-method class-name="org.ofbiz.content.content.ContentKeywordIndex" method-name="forceIndexKeywords">
-            <field field="content" type="org.ofbiz.entity.GenericValue"/>
+        <call-class-method class-name="org.apache.ofbiz.content.content.ContentKeywordIndex" method-name="forceIndexKeywords">
+            <field field="content" type="org.apache.ofbiz.entity.GenericValue"/>
         </call-class-method>
     </simple-method>
     
@@ -993,8 +993,8 @@
         </if-empty>
 
         <!-- induce keywords-->
-        <call-class-method class-name="org.ofbiz.content.content.ContentKeywordIndex" method-name="indexKeywords">
-            <field field="contentInstance" type="org.ofbiz.entity.GenericValue"/>
+        <call-class-method class-name="org.apache.ofbiz.content.content.ContentKeywordIndex" method-name="indexKeywords">
+            <field field="contentInstance" type="org.apache.ofbiz.entity.GenericValue"/>
         </call-class-method>
     </simple-method>
 
@@ -1056,7 +1056,7 @@
             <filter-list-by-date list="contentAssocDataResources" from-field-name="caFromDate" thru-field-name="caThruDate"/>
             <if-empty field="contentAssocDataResources">
                 <if-not-empty field="content.contentName">
-                    <call-class-method method-name="invalidCharacter" class-name="org.ofbiz.common.UrlServletHelper" ret-field="uri">
+                    <call-class-method method-name="invalidCharacter" class-name="org.apache.ofbiz.common.UrlServletHelper" ret-field="uri">
                         <field field="content.contentName"/>
                     </call-class-method>
                     <if-not-empty field="uri">
@@ -1089,7 +1089,7 @@
             <else>
                 <if-empty field="contentAssocDataResources[0].drObjectInfo">
                     <if-not-empty field="content.contentName">
-                        <call-class-method method-name="invalidCharacter" class-name="org.ofbiz.common.UrlServletHelper" ret-field="uri">
+                        <call-class-method method-name="invalidCharacter" class-name="org.apache.ofbiz.common.UrlServletHelper" ret-field="uri">
                             <field field="content.contentName"/>
                         </call-class-method>
                         <if-not-empty field="uri">

@@ -19,13 +19,13 @@ under the License.
 <#assign focusOnQuantity = requestParameters.focusOnQuantity!/>
 <#assign cartLineIndex = requestParameters.cartLineIndex!/>
 <#if cartLineIndex?? && cartLineIndex?has_content>
-  <#assign isInteger = Static["org.ofbiz.base.util.UtilValidate"].isInteger(cartLineIndex)>
+  <#assign isInteger = Static["org.apache.ofbiz.base.util.UtilValidate"].isInteger(cartLineIndex)>
   <#if isInteger>
     <#assign idx = cartLineIndex?number>
     <#assign cartLine = shoppingCart.findCartItem(idx)!>
     <#if cartLine?? && cartLine?has_content>
       <#if cartLine.getProductId()??>
-        <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher, "url")!>
+        <#assign smallImageUrl = Static["org.apache.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher, "url")!>
         <#if !smallImageUrl?string?has_content>
           <#assign smallImageUrl = "/images/defaultImage.jpg">
         </#if>

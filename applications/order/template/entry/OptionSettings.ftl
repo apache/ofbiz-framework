@@ -56,7 +56,7 @@ under the License.
     <#assign chosenShippingMethod = cart.getShipmentMethodTypeId(shipGroupIndex) + '@' + cart.getCarrierPartyId(shipGroupIndex)>
 </#if>
 <#assign supplierPartyId = cart.getSupplierPartyId(shipGroupIndex)!>
-<#assign supplier =  delegator.findOne("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", supplierPartyId), false)! />
+<#assign supplier =  delegator.findOne("PartyGroup", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", supplierPartyId), false)! />
 
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
               <tr><td colspan="2"><hr /></td></tr>
@@ -71,7 +71,7 @@ under the License.
                     <h2>${uiLabelMap.ProductShipmentMethod}</h2>
                   </td>
                 </tr>
-                <#assign shipEstimateWrapper = Static["org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper"].getWrapper(dispatcher, cart, 0)>
+                <#assign shipEstimateWrapper = Static["org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper"].getWrapper(dispatcher, cart, 0)>
                 <#assign carrierShipmentMethods = shipEstimateWrapper.getShippingMethods()>
                 <#list carrierShipmentMethods as carrierShipmentMethod>
                 <tr>

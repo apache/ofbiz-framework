@@ -25,7 +25,7 @@ under the License.
         <legend>${uiLabelMap.PartyContactInformation}</legend>
         <input type="hidden" name="roleTypeId" value="CUSTOMER" />
         <input type="hidden" name="emailContactMechPurposeTypeId" value="PRIMARY_EMAIL" />
-        <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
+        <#assign productStoreId = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
         <input type="hidden" name="productStoreId" value="${productStoreId!}" />
           <div>
             <label for="firstName">${uiLabelMap.PartyFirstName}* <span id="advice-required-firstName" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>

@@ -17,14 +17,14 @@ specific language governing permissions and limitations
 under the License.
 --%>
 
-<%@ page import="org.ofbiz.product.catalog.*" %>
-<%@ page import="org.ofbiz.product.product.*" %>
-<%@ page import="org.ofbiz.entity.*" %>
-<%@ page import="org.ofbiz.base.util.*" %>
+<%@ page import="org.apache.ofbiz.product.catalog.*" %>
+<%@ page import="org.apache.ofbiz.product.product.*" %>
+<%@ page import="org.apache.ofbiz.entity.*" %>
+<%@ page import="org.apache.ofbiz.base.util.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.math.BigDecimal" %>
 
-<jsp:useBean id="delegator" type="org.ofbiz.entity.GenericDelegator" scope="request" />
+<jsp:useBean id="delegator" type="org.apache.ofbiz.entity.GenericDelegator" scope="request" />
 
 <%
   List<GenericValue> products = delegator.findList("Product", null, null, null, null, false);

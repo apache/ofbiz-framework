@@ -93,9 +93,9 @@ under the License.
     </service>
 
     <service name="getRequirementsForSupplier" engine="java"
-            location="org.ofbiz.order.requirement.RequirementServices" invoke="getRequirementsForSupplier">
+            location="org.apache.ofbiz.order.requirement.RequirementServices" invoke="getRequirementsForSupplier">
         <description>Retrieves requirements information for suppliers</description>
-        <attribute mode="IN" name="requirementConditions" type="org.ofbiz.entity.condition.EntityCondition" optional="true"/>
+        <attribute mode="IN" name="requirementConditions" type="org.apache.ofbiz.entity.condition.EntityCondition" optional="true"/>
         <attribute mode="IN" name="partyId" type="String" optional="true"/>
         <attribute mode="IN" name="unassignedRequirements" type="String" optional="true"/>
         <attribute mode="IN" name="currencyUomId" type="String" optional="true"/>
@@ -158,7 +158,7 @@ under the License.
     </service>
 
     <service name="approveRequirement" engine="java"
-            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="approveRequirement" auth="true">
+            location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="approveRequirement" auth="true">
         <description>Approves a requirement.</description>
         <attribute mode="IN" name="requirementId" optional="false" type="String"/>
         <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
@@ -179,14 +179,14 @@ under the License.
     </service>
 
     <service name="createAutoRequirementsForOrder" engine="java"
-            location="org.ofbiz.order.requirement.RequirementServices" invoke="createAutoRequirementsForOrder" auth="true">
+            location="org.apache.ofbiz.order.requirement.RequirementServices" invoke="createAutoRequirementsForOrder" auth="true">
         <description>
             Creates requirements for any products with requirementMethodEnumId PRODRQM_AUTO in the given sales order.
         </description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createATPRequirementsForOrder" engine="java"
-            location="org.ofbiz.order.requirement.RequirementServices" invoke="createATPRequirementsForOrder" auth="true">
+            location="org.apache.ofbiz.order.requirement.RequirementServices" invoke="createATPRequirementsForOrder" auth="true">
         <description>
             Creates requirements for any products with requirementMethodEnumId PRODRQM_ATP in the given sales order when
             the ATP falls below or is below the minimum stock for the order facility.  ProductFacility.minimumStock must

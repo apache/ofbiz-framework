@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.condition.*;
 
 ppCond = EntityCondition.makeCondition("portletCategoryId", EntityOperator.EQUALS, parameters.portletCategoryId);
 categories = delegator.findList("PortletPortletCategory", ppCond, null, null, null, false);

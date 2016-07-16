@@ -27,12 +27,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.security.*;
-import org.ofbiz.service.*;
-import org.ofbiz.entity.model.*;
-import org.ofbiz.base.util.collections.LifoSet;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.security.*;
+import org.apache.ofbiz.service.*;
+import org.apache.ofbiz.entity.model.*;
+import org.apache.ofbiz.base.util.collections.LifoSet;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

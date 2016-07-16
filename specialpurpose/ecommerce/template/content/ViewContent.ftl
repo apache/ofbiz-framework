@@ -22,7 +22,7 @@ under the License.
 <#-- Do this so that we don't have to find the content twice (again in renderSubContent) -->
 <#assign subContentId=requestParameters.contentId!/>
 <#assign nodeTrailCsv=requestParameters.nodeTrailCsv!/>
-<#-- <#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in viewcontent, nodeTrailCsv:" + nodeTrailCsv, "")/> -->
+<#-- <#assign dummy=Static["org.apache.ofbiz.base.util.Debug"].logInfo("in viewcontent, nodeTrailCsv:" + nodeTrailCsv, "")/> -->
 <#if ancestorList?has_content && (0 < ancestorList?size) >
     <#assign lastContent=ancestorList?last />
     <#assign firstContent=ancestorList[0] />
@@ -41,7 +41,7 @@ under the License.
 <#assign globalNodeTrail=[]/>
 <#assign firstContentId=""/>
 <#if nodeTrailCsv?has_content>
-  <#assign globalNodeTrail=Static["org.ofbiz.base.util.StringUtil"].split(nodeTrailCsv, ",") />
+  <#assign globalNodeTrail=Static["org.apache.ofbiz.base.util.StringUtil"].split(nodeTrailCsv, ",") />
   <#if 0 < globalNodeTrail?size>
     <#assign firstContentId=globalNodeTrail[0]?string/>
   </#if>
@@ -54,9 +54,9 @@ under the License.
       <#assign subContent=lastNode.value/>
     </#if>
 <#else>
-    <#assign subContent = delegator.findOne("Content", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", subContentId), true)/>
+    <#assign subContent = delegator.findOne("Content", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("contentId", subContentId), true)/>
 </#if>
-<#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in viewcontent, subContent:" + subContent, "")/>
+<#assign dummy=Static["org.apache.ofbiz.base.util.Debug"].logInfo("in viewcontent, subContent:" + subContent, "")/>
 <br />
 <h1>${uiLabelMap.EcommerceContentFor} [${subContentId}] ${subContent.contentName!} - ${subContent.description!}:</h1><br />
 <table border="0" class="blogtext">

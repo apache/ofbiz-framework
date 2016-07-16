@@ -23,10 +23,10 @@ import org.apache.lucene.document.Document
 import org.apache.lucene.index.Term
 import org.apache.lucene.queryparser.classic.QueryParser
 import org.apache.lucene.store.FSDirectory
-import org.ofbiz.base.util.Debug
-import org.ofbiz.base.util.UtilHttp
-import org.ofbiz.content.search.SearchWorker
-import org.ofbiz.product.feature.ParametricSearch
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilHttp
+import org.apache.ofbiz.content.search.SearchWorker
+import org.apache.ofbiz.product.feature.ParametricSearch
 import org.apache.lucene.search.*
 import org.apache.lucene.index.DirectoryReader
 import org.apache.lucene.store.Directory

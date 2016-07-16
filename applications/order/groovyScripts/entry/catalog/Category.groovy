@@ -22,12 +22,12 @@
  * should not contain order component's specific code.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.category.CategoryWorker;
-import org.ofbiz.product.category.CategoryContentWrapper;
-import org.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.category.CategoryWorker;
+import org.apache.ofbiz.product.category.CategoryContentWrapper;
+import org.apache.ofbiz.product.store.ProductStoreWorker;
 
 detailScreen = "categorydetail";
 catalogName = CatalogWorker.getCatalogName(request);

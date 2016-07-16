@@ -791,7 +791,7 @@ under the License.
                                                     </condition-list>
                                                     <select-field field-name="taskId"/>
                                                 </entity-condition>
-                                                <set field="taskIds" type="List" value="${groovy:return org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(plannedTasks, &quot;taskId&quot;, true)}"/>
+                                                <set field="taskIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(plannedTasks, &quot;taskId&quot;, true)}"/>
                                                 <entity-condition list="unplannedTasks" entity-name="UnPlannedBacklogsAndTasks">
                                                     <condition-list combine="and">
                                                         <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
@@ -804,7 +804,7 @@ under the License.
                                                     </condition-list>
                                                     <select-field field-name="workEffortId"/>
                                                 </entity-condition>
-                                                <set field="workEffortIds" type="List" value="${groovy:return org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(unplannedTasks, &quot;workEffortId&quot;, true)}"/>
+                                                <set field="workEffortIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(unplannedTasks, &quot;workEffortId&quot;, true)}"/>
                                                 <entity-condition list="listIt" entity-name="WorkEffortAndContentDataResource">
                                                     <condition-list combine="and">
                                                         <condition-expr field-name="workEffortContentTypeId" value="TASK_SUB_INFO"/>
@@ -999,7 +999,7 @@ under the License.
             <entity-and list="noteDataList" entity-name="NoteData">
                 <field-map field-name="noteName" value="How to test"/>
             </entity-and>
-            <set field="noteIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(noteDataList, 'noteId', true);}" type="List"/>
+            <set field="noteIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(noteDataList, 'noteId', true);}" type="List"/>
             <entity-condition list="custNoteList" entity-name="CustRequestNote" >
                 <condition-list combine="and">
                     <condition-expr field-name="custRequestId" from-field="custRequestId"/>
@@ -1699,7 +1699,7 @@ under the License.
                                                         </condition-list>
                                                     </condition-list>
                                                 </entity-condition>
-                                                <set field="custRequestIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(backlogList, 'custRequestId', true);}" type="List"/>
+                                                <set field="custRequestIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(backlogList, 'custRequestId', true);}" type="List"/>
                                                 <entity-condition list="plannedTasks" entity-name="ProjectSprintBacklogAndTask">
                                                     <condition-list combine="and">
                                                         <condition-expr field-name="custRequestId" operator="in" from-field="custRequestIds"/>
@@ -1713,7 +1713,7 @@ under the License.
                                                     </condition-list>
                                                     <select-field field-name="taskId"/>
                                                 </entity-condition>
-                                                <set field="taskIds" type="List" value="${groovy:return org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(plannedTasks, &quot;taskId&quot;, true)}"/>
+                                                <set field="taskIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(plannedTasks, &quot;taskId&quot;, true)}"/>
                                                 <entity-condition list="unplannedTasks" entity-name="UnPlannedBacklogsAndTasks">
                                                     <condition-list combine="and">
                                                         <condition-expr field-name="custRequestId" operator="in" from-field="custRequestIds"/>
@@ -1726,7 +1726,7 @@ under the License.
                                                     </condition-list>
                                                     <select-field field-name="workEffortId"/>
                                                 </entity-condition>
-                                                <set field="workEffortIds" type="List" value="${groovy:return org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(unplannedTasks, &quot;workEffortId&quot;, true)}"/>
+                                                <set field="workEffortIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(unplannedTasks, &quot;workEffortId&quot;, true)}"/>
                                                 <set field="parameters.custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
                                                 <set field="parameters.noConditionFind" value="Y"/>
                                                 <entity-condition list="listIt" entity-name="WorkEffortAndContentDataResource">

@@ -17,11 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.*
-import org.ofbiz.product.catalog.*
-import org.ofbiz.product.feature.*
-import org.ofbiz.product.product.*
-import org.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.product.catalog.*
+import org.apache.ofbiz.product.feature.*
+import org.apache.ofbiz.product.product.*
+import org.apache.ofbiz.product.store.ProductStoreWorker;
 searchCategoryId = parameters.SEARCH_CATEGORY_ID;
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 if ((!searchCategoryId || searchCategoryId.length() == 0) && !productStoreId) {

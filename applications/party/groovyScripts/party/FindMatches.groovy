@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.party.party.PartyWorker;
+import org.apache.ofbiz.party.party.PartyWorker;
 
 match = parameters.match;
 if (match) {

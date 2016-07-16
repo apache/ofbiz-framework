@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityCondition;
 
 // get physicalInventoryAndVarianceDatas if this is a NON_SERIAL_INV_ITEM
 if (inventoryItem && "NON_SERIAL_INV_ITEM".equals(inventoryItem.inventoryItemTypeId)) {

@@ -35,7 +35,7 @@ under the License.
             </div>
             
         <#--
-          <#assign result = dispatcher.runSync("getPublicForumMessage", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentId, "userLogin", userLogin))/>
+          <#assign result = dispatcher.runSync("getPublicForumMessage", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("contentId", contentId, "userLogin", userLogin))/>
           <#if (result.resultData)??>
             <div class="tableheadtext">
                 ${uiLabelMap.CommonTitle}: ${result.resultData.content.description!} ${uiLabelMap.CommonBy}:${result.resultData.content.createdByUserLogin} ${uiLabelMap.CommonAt}: ${result.resultData.content.createdDate.toString().substring(0,16)}

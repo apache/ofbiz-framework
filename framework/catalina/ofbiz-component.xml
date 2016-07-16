@@ -26,7 +26,7 @@ under the License.
     <classpath type="jar" location="build/lib/*"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
 
-    <container name="catalina-container" loaders="main" class="org.ofbiz.catalina.container.CatalinaContainer">
+    <container name="catalina-container" loaders="main" class="org.apache.ofbiz.catalina.container.CatalinaContainer">
         <!-- configuration for the Tomcat server -->
         <property name="use-naming" value="false"/>
         <property name="debug" value="0"/>
@@ -137,7 +137,7 @@ under the License.
             <property name="compression" value="on"/>
             <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
             <!-- SSL connector attributes -->
-            <property name="sslImplementationName" value="org.ofbiz.catalina.container.SSLImpl"/>
+            <property name="sslImplementationName" value="org.apache.ofbiz.catalina.container.SSLImpl"/>
             <property name="algorithm" value="SunX509"/>
             <!-- the clientAuth to "want" in order to receive certs from the client;
                 note that this isn't set this way by default because with certain browsers
@@ -153,7 +153,7 @@ under the License.
             <property name="ciphers" value=""/>
         </property>
     </container>
-    <container name="catalina-container-test" loaders="test" class="org.ofbiz.catalina.container.CatalinaContainer">
+    <container name="catalina-container-test" loaders="test" class="org.apache.ofbiz.catalina.container.CatalinaContainer">
         <!-- static configuration for tomcat -->
         <property name="use-naming" value="false"/>
         <property name="debug" value="0"/>
@@ -204,7 +204,7 @@ under the License.
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
             <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
-            <property name="sslImplementationName" value="org.ofbiz.catalina.container.SSLImpl"/>
+            <property name="sslImplementationName" value="org.apache.ofbiz.catalina.container.SSLImpl"/>
             <property name="algorithm" value="SunX509"/>
             <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
             <property name="keystorePass" value="changeit"/>

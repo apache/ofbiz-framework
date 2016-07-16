@@ -33,12 +33,12 @@ under the License.
                        </#if>
                        <#assign productCategoryId = productCategory.productCategoryId/>
                        <#assign categoryImageUrl = "/images/defaultImage.jpg">
-                       <#assign productCategoryMembers = delegator.findByAnd("ProductCategoryAndMember", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", productCategoryId), Static["org.ofbiz.base.util.UtilMisc"].toList("-quantity"), false)>
+                       <#assign productCategoryMembers = delegator.findByAnd("ProductCategoryAndMember", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", productCategoryId), Static["org.apache.ofbiz.base.util.UtilMisc"].toList("-quantity"), false)>
                        <#if productCategory.categoryImageUrl?has_content>
                             <#assign categoryImageUrl = productCategory.categoryImageUrl/>
                        <#elseif productCategoryMembers?has_content>
-                            <#assign productCategoryMember = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(productCategoryMembers)/>
-                            <#assign product = delegator.findOne("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", productCategoryMember.productId), false)/>
+                            <#assign productCategoryMember = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(productCategoryMembers)/>
+                            <#assign product = delegator.findOne("Product", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productId", productCategoryMember.productId), false)/>
                             <#if product.smallImageUrl?has_content>
                                 <#assign categoryImageUrl = product.smallImageUrl/>
                             </#if>
@@ -67,7 +67,7 @@ under the License.
                                                 <#break>
                                             </#if>
                                             <#if productCategoryMember?has_content>
-                                                <#assign product = delegator.findOne("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", productCategoryMember.productId), false)>
+                                                <#assign product = delegator.findOne("Product", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productId", productCategoryMember.productId), false)>
                                                 <li class="browsecategorytext">
                                                     <a class="linktext" href="<@ofbizCatalogAltUrl productCategoryId="PROMOTIONS" productId="${product.productId}"/>">
                                                         ${product.productName!product.productId}

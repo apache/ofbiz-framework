@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.base.util.*
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.model.ModelEntity;
+import org.apache.ofbiz.base.util.*
 import org.w3c.dom.Document;
 
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
@@ -37,7 +37,7 @@ if (UtilValidate.isEmpty(parameters.groovyProgram)) {
 // Use the List variable recordValues to fill it with GenericValue maps.
 // full groovy syntaxt is available
 
-import org.ofbiz.entity.util.EntityFindOptions;
+import org.apache.ofbiz.entity.util.EntityFindOptions;
 
 // example:
 
@@ -59,8 +59,8 @@ if (products != null) {
 
 // Add imports for script.
 def importCustomizer = new ImportCustomizer()
-importCustomizer.addImport("org.ofbiz.entity.GenericValue");
-importCustomizer.addImport("org.ofbiz.entity.model.ModelEntity");
+importCustomizer.addImport("org.apache.ofbiz.entity.GenericValue");
+importCustomizer.addImport("org.apache.ofbiz.entity.model.ModelEntity");
 def configuration = new CompilerConfiguration()
 configuration.addCompilationCustomizers(importCustomizer)
 

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.service.*;
+import org.apache.ofbiz.service.*;
 
 context.invoicePaymentInfoList = []
 

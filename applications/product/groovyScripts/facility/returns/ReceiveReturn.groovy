@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.base.util.*;
 
 facilityId = request.getParameter("facilityId");
 returnId = request.getParameter("returnId");

@@ -17,7 +17,7 @@
  * under the License.
  */
 import java.net.URI;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*;
 import org.w3c.dom.*;
 import java.io.ByteArrayOutputStream;
 import org.apache.commons.lang.StringEscapeUtils;

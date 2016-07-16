@@ -249,7 +249,7 @@ under the License.
         </entity-and>
         <first-from-list entry="productionRunTask" list="productionRunTasks"/>
 
-        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getInterval" ret-field="originalProductionRunEstimatedTime">
+        <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getInterval" ret-field="originalProductionRunEstimatedTime">
             <field field="productionRunHeader.estimatedStartDate" type="Timestamp"/>
             <field field="productionRunHeader.estimatedCompletionDate" type="Timestamp"/>
         </call-class-method>
@@ -263,7 +263,7 @@ under the License.
 
         <refresh-value value-field="productionRunHeader"/>
         <refresh-value value-field="productionRunTask"/>
-        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getInterval" ret-field="newProductionRunEstimatedTime">
+        <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getInterval" ret-field="newProductionRunEstimatedTime">
             <field field="productionRunHeader.estimatedStartDate" type="Timestamp"/>
             <field field="productionRunHeader.estimatedCompletionDate" type="Timestamp"/>
         </call-class-method>

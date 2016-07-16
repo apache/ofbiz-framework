@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
 // executes only on startup when only the basic parameters.portalPageId (from commonscreens.xml) is available
 if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {

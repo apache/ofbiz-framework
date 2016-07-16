@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 if (context.noConditionFind == null) {
     context.noConditionFind = parameters.noConditionFind;

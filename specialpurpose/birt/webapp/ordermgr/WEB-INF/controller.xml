@@ -24,7 +24,7 @@ under the License.
 
     <description>Extended Order Manager Controller Configuration File</description>
 
-    <handler name="birt" type="view" class="org.ofbiz.birt.webapp.view.BirtViewHandler"/>
+    <handler name="birt" type="view" class="org.apache.ofbiz.birt.webapp.view.BirtViewHandler"/>
 
 
 

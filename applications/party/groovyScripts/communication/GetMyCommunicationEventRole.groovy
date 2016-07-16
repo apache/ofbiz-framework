@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.component.ComponentConfig;
 
 if (parameters.communicationEventId) {
     context.communicationEventRole = from("CommunicationEventRole")

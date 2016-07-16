@@ -23,13 +23,13 @@
 
 import java.sql.Timestamp;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.party.contact.*;
-import org.ofbiz.order.order.OrderReadHelper;
-import org.ofbiz.party.content.PartyContentWrapper;
-import org.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.party.contact.*;
+import org.apache.ofbiz.order.order.OrderReadHelper;
+import org.apache.ofbiz.party.content.PartyContentWrapper;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 orderHeader = parameters.orderHeader;
 orderId = parameters.orderId;

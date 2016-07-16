@@ -17,13 +17,13 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.order.order.OrderReadHelper;
-import org.ofbiz.shipment.verify.VerifyPickSession;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.order.order.OrderReadHelper;
+import org.apache.ofbiz.shipment.verify.VerifyPickSession;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 
 verifyPickSession = session.getAttribute("verifyPickSession");
 if (!verifyPickSession) {

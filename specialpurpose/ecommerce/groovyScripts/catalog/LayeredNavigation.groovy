@@ -17,13 +17,13 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.product.catalog.CatalogWorker;
-import org.ofbiz.product.category.CategoryContentWrapper;
-import org.ofbiz.product.category.CategoryWorker;
-import org.ofbiz.product.product.ProductSearch;
-import org.ofbiz.product.product.ProductSearchSession;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.product.catalog.CatalogWorker;
+import org.apache.ofbiz.product.category.CategoryContentWrapper;
+import org.apache.ofbiz.product.category.CategoryWorker;
+import org.apache.ofbiz.product.product.ProductSearch;
+import org.apache.ofbiz.product.product.ProductSearchSession;
 
 searchCategoryId = parameters.searchCategoryId;
 if (!searchCategoryId) {

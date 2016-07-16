@@ -22,6 +22,6 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="widget-tests">
-        <junit-test-suite class-name="org.ofbiz.widget.test.WidgetMacroLibraryTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.widget.test.WidgetMacroLibraryTests"/>
     </test-case>
 </test-suite>

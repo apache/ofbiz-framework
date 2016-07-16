@@ -97,7 +97,7 @@ Doc.B
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="8pt">${Static["org.ofbiz.base.util.UtilDateTime"].nowDateString("dd/MM/yyyy")}</fo:inline>
+                                <fo:inline font-size="8pt">${Static["org.apache.ofbiz.base.util.UtilDateTime"].nowDateString("dd/MM/yyyy")}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>

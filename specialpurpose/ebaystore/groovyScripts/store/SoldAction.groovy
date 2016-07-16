@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*;
 
 actionList = [];
 hasAction = false;

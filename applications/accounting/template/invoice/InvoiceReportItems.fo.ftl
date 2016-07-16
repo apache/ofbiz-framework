@@ -96,12 +96,12 @@ under the License.
         <#-- if the item has a description, then use its description.  Otherwise, use the description of the invoiceItemType -->
         <#list invoiceItems as invoiceItem>
             <#assign itemType = invoiceItem.getRelatedOne("InvoiceItemType", false)>
-            <#assign isItemAdjustment = Static["org.ofbiz.entity.util.EntityTypeUtil"].hasParentType(delegator, "InvoiceItemType", "invoiceItemTypeId", itemType.getString("invoiceItemTypeId"), "parentTypeId", "INVOICE_ADJ")/>
+            <#assign isItemAdjustment = Static["org.apache.ofbiz.entity.util.EntityTypeUtil"].hasParentType(delegator, "InvoiceItemType", "invoiceItemTypeId", itemType.getString("invoiceItemTypeId"), "parentTypeId", "INVOICE_ADJ")/>
 
             <#assign taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", false)!>
             <#assign itemBillings = invoiceItem.getRelated("OrderItemBilling", null, null, false)!>
             <#if itemBillings?has_content>
-                <#assign itemBilling = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(itemBillings)>
+                <#assign itemBilling = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(itemBillings)>
                 <#if itemBilling?has_content>
                     <#assign itemIssuance = itemBilling.getRelatedOne("ItemIssuance", false)!>
                     <#if itemIssuance?has_content>
@@ -129,7 +129,7 @@ under the License.
                 </fo:table-row>
                 <fo:table-row height="14px">
                    <fo:table-cell number-columns-spanned="5">
-                        <fo:block font-weight="bold"> ${uiLabelMap.ProductShipmentId}: ${newShipmentId}<#if issuedDateTime??> ${uiLabelMap.CommonDate}: ${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(issuedDateTime)}</#if></fo:block>
+                        <fo:block font-weight="bold"> ${uiLabelMap.ProductShipmentId}: ${newShipmentId}<#if issuedDateTime??> ${uiLabelMap.CommonDate}: ${Static["org.apache.ofbiz.base.util.UtilDateTime"].toDateString(issuedDateTime)}</#if></fo:block>
                    </fo:table-cell>
                 </fo:table-row>
                 <#assign currentShipmentId = newShipmentId>
@@ -149,7 +149,7 @@ under the License.
                         <fo:block> <#if invoiceItem.quantity??><@ofbizCurrency amount=invoiceItem.amount! isoCode=invoice.currencyUomId!/></#if> </fo:block>
                     </fo:table-cell>
                     <fo:table-cell text-align="right">
-                        <fo:block> <@ofbizCurrency amount=(Static["org.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId!/> </fo:block>
+                        <fo:block> <@ofbizCurrency amount=(Static["org.apache.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId!/> </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
             <#else>
@@ -165,7 +165,7 @@ under the License.
                         <fo:block text-align="right">${description!}</fo:block>
                     </fo:table-cell>
                     <fo:table-cell text-align="right" number-columns-spanned="3">
-                        <fo:block> <@ofbizCurrency amount=(Static["org.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId!/> </fo:block>
+                        <fo:block> <@ofbizCurrency amount=(Static["org.apache.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId!/> </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
             </#if>
@@ -232,7 +232,7 @@ under the License.
     <fo:table-body font-size="10pt">
 
     <#list vatTaxIds as vatTaxId>
-    <#assign taxRate = delegator.findOne("TaxAuthorityRateProduct", Static["org.ofbiz.base.util.UtilMisc"].toMap("taxAuthorityRateSeqId", vatTaxId), true)/>
+    <#assign taxRate = delegator.findOne("TaxAuthorityRateProduct", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("taxAuthorityRateSeqId", vatTaxId), true)/>
     <fo:table-row>
         <fo:table-cell>
           <fo:block/>

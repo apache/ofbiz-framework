@@ -17,16 +17,16 @@
  * under the License.
  */
 
- import org.ofbiz.entity.condition.*;
- import org.ofbiz.entity.util.*;
- import org.ofbiz.entity.*;
- import org.ofbiz.base.util.*;
- import org.ofbiz.entity.transaction.TransactionUtil;
- import org.ofbiz.entity.util.EntityListIterator;
- import org.ofbiz.entity.GenericEntity;
- import org.ofbiz.entity.model.ModelField;
- import org.ofbiz.entity.model.ModelEntity;
- import org.ofbiz.entity.model.ModelReader;
+ import org.apache.ofbiz.entity.condition.*;
+ import org.apache.ofbiz.entity.util.*;
+ import org.apache.ofbiz.entity.*;
+ import org.apache.ofbiz.base.util.*;
+ import org.apache.ofbiz.entity.transaction.TransactionUtil;
+ import org.apache.ofbiz.entity.util.EntityListIterator;
+ import org.apache.ofbiz.entity.GenericEntity;
+ import org.apache.ofbiz.entity.model.ModelField;
+ import org.apache.ofbiz.entity.model.ModelEntity;
+ import org.apache.ofbiz.entity.model.ModelReader;
 
 try {
     viewIndex = Integer.valueOf((String)parameters.get("VIEW_INDEX")).intValue();

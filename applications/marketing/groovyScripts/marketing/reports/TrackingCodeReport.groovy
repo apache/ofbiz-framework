@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.EntityOperator
-import org.ofbiz.entity.condition.EntityCondition
-import org.ofbiz.marketing.report.ReportHelper
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.marketing.report.ReportHelper
 
 // query for both number of visits and number of orders
 

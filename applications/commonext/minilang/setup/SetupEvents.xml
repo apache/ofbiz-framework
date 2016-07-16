@@ -243,12 +243,12 @@
         <now-timestamp field="nowTimestamp"/>
         <set field="endMonth" value="12"/>
         <set field="endDate" value="31"/>
-        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getYearStart" ret-field="fromDateStamp">
+        <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getYearStart" ret-field="fromDateStamp">
             <field field="nowTimestamp" type="java.sql.Timestamp"/>
         </call-class-method>
         <set field="curYearString" value="${str:toString(date:year(fromDateStamp, util:defaultTimeZone(), util:defaultLocale()))}"/>
         <set field="customTimePeriodCtx.fromDate" from-field="fromDateStamp" type="Timestamp"/>
-        <set field="customTimePeriodCtx.thruDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.toSqlDate(endMonth ,endDate , curYearString)}" type="Timestamp"/>
+        <set field="customTimePeriodCtx.thruDate" value="${groovy:org.apache.ofbiz.base.util.UtilDateTime.toSqlDate(endMonth ,endDate , curYearString)}" type="Timestamp"/>
         <set field="customTimePeriodCtx.isClosed" value="N"/>
         <set field="customTimePeriodCtx.organizationPartyId" from-field="tempMap.partyId"/>
         <set field="customTimePeriodCtx.periodName" from-field="curYearString"/>

@@ -46,8 +46,8 @@ under the License.
                     <#assign orderItemType = orderItem.getRelatedOne("OrderItemType", false)!>
                     <#assign productId = orderItem.productId!>
                     <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0))>
-                    <#assign itemAdjustment = Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false)>
-                    <#assign internalImageUrl = Static["org.ofbiz.product.imagemanagement.ImageManagementHelper"].getInternalImageUrl(request, productId!)!>
+                    <#assign itemAdjustment = Static["org.apache.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false)>
+                    <#assign internalImageUrl = Static["org.apache.ofbiz.product.imagemanagement.ImageManagementHelper"].getInternalImageUrl(request, productId!)!>
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block>
@@ -80,7 +80,7 @@ under the License.
                         <fo:table-cell text-align="right">
                             <fo:block>
                                 <#if orderItem.statusId != "ITEM_CANCELLED">
-                                    <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemSubTotal(orderItem, orderAdjustments) isoCode=currencyUomId/>
+                                    <@ofbizCurrency amount=Static["org.apache.ofbiz.order.order.OrderReadHelper"].getOrderItemSubTotal(orderItem, orderAdjustments) isoCode=currencyUomId/>
                                 <#else>
                                     <@ofbizCurrency amount=0.00 isoCode=currencyUomId/>
                                 </#if>
@@ -100,7 +100,7 @@ under the License.
                 </#list>
                 <#list orderHeaderAdjustments as orderHeaderAdjustment>
                     <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType", false)>
-                    <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
+                    <#assign adjustmentAmount = Static["org.apache.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
                     <#if adjustmentAmount != 0>
                         <fo:table-row>
                             <fo:table-cell><fo:block></fo:block></fo:table-cell>
@@ -199,7 +199,7 @@ under the License.
                                 <fo:table-cell number-columns-spanned="2">
                                     <fo:block>
                                     <#if note.noteParty?has_content>
-                                        <#assign notePartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", note.noteParty, "compareDate", note.noteDateTime, "lastNameFirst", "Y", "userLogin", userLogin))/>
+                                        <#assign notePartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", note.noteParty, "compareDate", note.noteDateTime, "lastNameFirst", "Y", "userLogin", userLogin))/>
                                         ${uiLabelMap.CommonBy}: ${notePartyNameResult.fullName?default("${uiLabelMap.OrderPartyNameNotFound}")}
                                     </#if>
                                     </fo:block>

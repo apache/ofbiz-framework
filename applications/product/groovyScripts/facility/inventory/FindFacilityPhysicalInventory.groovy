@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.service.ServiceUtil
-import org.ofbiz.entity.condition.*
+import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.entity.condition.*
 
 facilityId = parameters.facilityId;
 

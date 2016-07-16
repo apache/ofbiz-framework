@@ -24,10 +24,10 @@
 // view entitities chained together, RequirementByPartyCount and
 // ProductRequirementCount (see order entitymodel_view.xml).
 
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.condition.*;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.entity.condition.*;
 
 conditions = EntityCondition.makeCondition([
             EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER"),

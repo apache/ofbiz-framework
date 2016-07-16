@@ -305,7 +305,7 @@ function getConfigDetails(event) {
           <input type='hidden' name="product_id" value='${product.productId}' />
           <input type='hidden' name="add_product_id" value='${product.productId}' />
           <#if productNotAvailable??>
-            <#assign isStoreInventoryRequired = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
+            <#assign isStoreInventoryRequired = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
             <#if isStoreInventoryRequired>
               <div class='tabletext'><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
               <#assign inStock = false>
@@ -394,7 +394,7 @@ function getConfigDetails(event) {
             <#list imageKeys as key>
               <#assign swatchProduct = imageMap.get(key)>
               <#if swatchProduct?has_content && indexer < maxIndex>
-                <#assign imageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request, "url")!>
+                <#assign imageUrl = Static["org.apache.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request, "url")!>
                 <#if !imageUrl?string?has_content>
                   <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL", "url")!>
                 </#if>

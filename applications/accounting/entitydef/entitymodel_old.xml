@@ -29,15 +29,15 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:          -->
-    <!--  org.ofbiz.accounting.payment -->
+    <!--  org.apache.ofbiz.accounting.payment -->
     <!-- ========================================================= -->
 
 
     <!-- ========================================================= -->
-    <!-- org.ofbiz.accounting.payment -->
+    <!-- org.apache.ofbiz.accounting.payment -->
     <!-- ========================================================= -->
     <entity entity-name="OldValueLinkFulfillment" table-name="VALUE_LINK_FULFILLMENT"
-            package-name="org.ofbiz.accounting.payment"
+            package-name="org.apache.ofbiz.accounting.payment"
             title="Value Link Fulfillment History">
       <field name="fulfillmentId" type="id-ne"></field>
       <field name="typeEnumId" type="id-ne"></field>
@@ -72,7 +72,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="OldPartyRate" table-name="PARTY_RATE"
-            package-name="org.ofbiz.workeffort.timesheet"
+            package-name="org.apache.ofbiz.workeffort.timesheet"
             title="Party Rate Entity">
       <field name="partyId" type="id-ne"></field>
       <field name="rateTypeId" type="id-ne"></field>

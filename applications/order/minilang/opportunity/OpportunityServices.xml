@@ -87,7 +87,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <if-compare field="parameters.opportunityStageId" operator="equals" value="SOSTG_CLOSED">
             <if-empty field="parameters.estimatedCloseDate">
                 <now-timestamp field="nowTimestamp"/>
-                <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayStart" ret-field="parameters.estimatedCloseDate">
+                <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getDayStart" ret-field="parameters.estimatedCloseDate">
                     <field field="nowTimestamp" type="java.sql.Timestamp"/>
                 </call-class-method>
             </if-empty>

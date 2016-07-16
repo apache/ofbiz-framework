@@ -20,7 +20,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="setPartyToCart" short-description="Set party to cart" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -34,8 +34,8 @@ under the License.
                 <set field="delegator" from-field="parameters.delegator"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="showOld" value="false" type="Boolean"/>
-                <call-class-method class-name="org.ofbiz.party.contact.ContactMechWorker" method-name="getPartyContactMechValueMaps" ret-field="partyContactMechValueMaps">
-                    <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+                <call-class-method class-name="org.apache.ofbiz.party.contact.ContactMechWorker" method-name="getPartyContactMechValueMaps" ret-field="partyContactMechValueMaps">
+                    <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
                     <field field="partyId" type="String"/>
                     <field field="showOld" type="boolean"/>
                 </call-class-method>
@@ -61,8 +61,8 @@ under the License.
                     <call-object-method obj-field="webPosSession" method-name="getUserLogin" ret-field="userLogin"/>
                     <call-object-method obj-field="webPosSession" method-name="getDispatcher" ret-field="dispatcher"/>
                     <call-object-method obj-field="cart" method-name="setUserLogin">
-                        <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
-                        <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+                        <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
+                        <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
                     </call-object-method>
                     <set field="contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
                     <call-object-method obj-field="cart" method-name="addContactMech">
@@ -96,14 +96,14 @@ under the License.
     
     <simple-method method-name="addCartItem" short-description="Add Cart Item" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
         <if-not-empty field="webPosSession">
             <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
             <check-errors/>
-            <call-class-method class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" method-name="addToCart">
+            <call-class-method class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" method-name="addToCart">
                 <field field="request" type="javax.servlet.http.HttpServletRequest"/>
                 <field field="response" type="javax.servlet.http.HttpServletResponse"/>
             </call-class-method>
@@ -114,7 +114,7 @@ under the License.
     
     <simple-method method-name="updateCartItem" short-description="Update Cart Item" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -136,8 +136,8 @@ under the License.
                     <set field="updateProductPrice" value="false" type="Boolean"/>
                     <call-object-method obj-field="cartItem" method-name="setQuantity">
                         <field field="quantity" type="BigDecimal"/>
-                        <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
-                        <field field="cart" type="org.ofbiz.order.shoppingcart.ShoppingCart"/>
+                        <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+                        <field field="cart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart"/>
                         <field field="triggerExternalOps" type="boolean"/>
                         <field field="resetShipGroup" type="boolean"/>
                         <field field="updateProductPrice" type="boolean"/>
@@ -155,7 +155,7 @@ under the License.
     
     <simple-method method-name="deleteCartItem" short-description="Delete Cart Item" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -169,7 +169,7 @@ under the License.
                 <set field="dispatcher" from-field="parameters.dispatcher"/>
                 <call-object-method obj-field="cart" method-name="removeCartItem">
                     <field field="cartLineIndex" type="int"/>
-                    <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+                    <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
                 </call-object-method>
                 <call-object-method obj-field="webPosTransaction" method-name="calcTax"/>
                 <check-errors/>
@@ -190,12 +190,12 @@ under the License.
             <check-errors/>
         <else>
             <script>groovy:
-                    webPosSession = org.ofbiz.webpos.WebPosEvents.getWebPosSession(request, null);
+                    webPosSession = org.apache.ofbiz.webpos.WebPosEvents.getWebPosSession(request, null);
                     if (webPosSession != null) {
                         parameters.put("webPosSession", webPosSession);
-                        parameters.put("productStoreId", org.ofbiz.product.store.ProductStoreWorker.getProductStoreId(request));
-                        parameters.put("catalogId", org.ofbiz.product.catalog.CatalogWorker.getCurrentCatalogId(request));
-                        parameters.put("webSiteId", org.ofbiz.webapp.website.WebSiteWorker.getWebSiteId(request));
+                        parameters.put("productStoreId", org.apache.ofbiz.product.store.ProductStoreWorker.getProductStoreId(request));
+                        parameters.put("catalogId", org.apache.ofbiz.product.catalog.CatalogWorker.getCurrentCatalogId(request));
+                        parameters.put("webSiteId", org.apache.ofbiz.webapp.website.WebSiteWorker.getWebSiteId(request));
                         session = request.getSession();
                         parameters.put("autoUserLogin", session.getAttribute("autoUserLogin"));
                         cart = webPosSession.getCart();
@@ -234,7 +234,7 @@ under the License.
         <set field="amount" from-field="parameters.amount" type="BigDecimal" default-value="0"/>
         <set field="isoCode" from-field="parameters.currencyId" type="String"/>
         <set field="maximumFractionDigits" value="2" type="Integer"/>
-        <call-class-method class-name="org.ofbiz.base.util.UtilFormatOut" method-name="formatCurrency" ret-field="formattedAmount">
+        <call-class-method class-name="org.apache.ofbiz.base.util.UtilFormatOut" method-name="formatCurrency" ret-field="formattedAmount">
             <field field="amount" type="BigDecimal"/>
             <field field="isoCode" type="String"/>
             <field field="locale" type="Locale"/>
@@ -254,7 +254,7 @@ under the License.
             <set field="amount" from-field="productFeaturePrice.price" type="BigDecimal" default-value="0"/>
             <set field="isoCode" from-field="productFeaturePrice.currencyUomId" type="String"/>
             <set field="maximumFractionDigits" value="2" type="Integer"/>
-            <call-class-method class-name="org.ofbiz.base.util.UtilFormatOut" method-name="formatCurrency" ret-field="formattedFeaturePrice">
+            <call-class-method class-name="org.apache.ofbiz.base.util.UtilFormatOut" method-name="formatCurrency" ret-field="formattedFeaturePrice">
                 <field field="amount" type="BigDecimal"/>
                 <field field="isoCode" type="String"/>
                 <field field="locale" type="Locale"/>
@@ -266,7 +266,7 @@ under the License.
     
     <simple-method method-name="removeSalesRep" short-description="Remove Sales Rep from cart" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -305,7 +305,7 @@ under the License.
     
     <simple-method method-name="addSalesRep" short-description="Add Sales Rep to cart" login-required="true">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -329,7 +329,7 @@ under the License.
     
     <simple-method method-name="getShipMethods" short-description="Get shipping methods" login-required="false">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -338,7 +338,7 @@ under the License.
             <check-errors/>
             <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
             <script>groovy:
-                    import org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
+                    import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
                     shippingEstWpr = ShippingEstimateWrapper.getWrapper(dispatcher, shoppingCart, 0);
                     parameters.put("shippingEstWpr", shippingEstWpr);
             </script>
@@ -354,7 +354,7 @@ under the License.
             </if-not-empty>
             <iterate list="carrierShipmentMethodList"  entry="carrierShipmentMethod">
                 <call-object-method obj-field="shippingEstWpr" method-name="getShippingEstimate" ret-field="shippingEst">
-                    <field field="carrierShipmentMethod" type="org.ofbiz.entity.GenericValue"/>
+                    <field field="carrierShipmentMethod" type="org.apache.ofbiz.entity.GenericValue"/>
                 </call-object-method>
                 <if-empty field="shippingEst">
                     <set field="shippingEst" value="-1" type="Integer"/>
@@ -382,7 +382,7 @@ under the License.
 
     <simple-method method-name="setShipMethod" short-description="Set ship method" login-required="false">
         <clear-field field="posTerminalId"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="posTerminalId" type="String"/>
         </call-class-method>
@@ -429,27 +429,27 @@ under the License.
             <set field="delegator" from-field="parameters.delegator" type="Object"/>
             <set field="locale" from-field="parameters.locale" type="Object"/>
             <script>groovy:
-                Map shipCost = org.ofbiz.order.shoppingcart.shipping.ShippingEvents.getShipGroupEstimate(dispatcher, delegator, shoppingCart, 0);
+                Map shipCost = org.apache.ofbiz.order.shoppingcart.shipping.ShippingEvents.getShipGroupEstimate(dispatcher, delegator, shoppingCart, 0);
                 shippingTotal = shipCost.get("shippingTotal");
                 if (shippingTotal == null) {
                     shippingTotal = BigDecimal.ZERO;
                 }
                 shoppingCart.setItemShipGroupEstimate(shippingTotal, 0);
-                parameters.put("shippingTotal", org.ofbiz.base.util.UtilFormatOut.formatCurrency(shippingTotal, isoCode, locale));
+                parameters.put("shippingTotal", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shippingTotal, isoCode, locale));
 
                 // Calculate and add the tax adjustments
                 webPosTransaction.calcTax();
 
                 salesTax = shoppingCart.getTotalSalesTax();
-                totalSalesTax = org.ofbiz.base.util.UtilFormatOut.formatCurrency(salesTax, isoCode, locale);
+                totalSalesTax = org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(salesTax, isoCode, locale);
                 parameters.put("totalSalesTax", totalSalesTax);
 
-                cartGrandTotal = org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getGrandTotal(), isoCode, locale);
+                cartGrandTotal = org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getGrandTotal(), isoCode, locale);
                 parameters.put("cartGrandTotal", cartGrandTotal);
             </script>
-            <call-class-method method-name="doPromotions" class-name="org.ofbiz.order.shoppingcart.product.ProductPromoWorker">
-                <field field="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart"/>
-                <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+            <call-class-method method-name="doPromotions" class-name="org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker">
+                <field field="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart"/>
+                <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
             </call-class-method>
             <field-to-request field="parameters.shippingTotal" request-name="shippingTotal"/>
             <field-to-request field="parameters.cartGrandTotal" request-name="cartGrandTotal"/>

@@ -20,8 +20,8 @@
 // The only required parameter is "productionRunId".
 // The "actionForm" parameter triggers actions (see "ProductionRunSimpleEvents.xml").
 
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
 productionRunId = parameters.productionRunId;
 if (productionRunId) {

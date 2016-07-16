@@ -17,12 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.accounting.payment.*;
-import org.ofbiz.order.shoppingcart.*;
-import org.ofbiz.party.contact.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.accounting.payment.*;
+import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.party.contact.*;
 
 cart = ShoppingCartEvents.getCartObject(request);
 context.cart = cart;

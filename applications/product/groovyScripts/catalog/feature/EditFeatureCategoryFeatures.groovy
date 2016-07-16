@@ -17,11 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*
-import org.ofbiz.entity.condition.*
-import org.ofbiz.entity.util.EntityFindOptions
-import org.ofbiz.base.util.*
-import org.ofbiz.entity.transaction.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.EntityFindOptions
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.transaction.*
 
 module = "EditFeatureCategoryFeatures.groovy";
 

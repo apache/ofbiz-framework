@@ -22,9 +22,9 @@ under the License.
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-case case-name="purchaseOrder-test">
-        <junit-test-suite class-name="org.ofbiz.order.test.PurchaseOrderTest"/>
+        <junit-test-suite class-name="org.apache.ofbiz.order.test.PurchaseOrderTest"/>
     </test-case>
     <test-case case-name="salesOrder-test">
-        <junit-test-suite class-name="org.ofbiz.order.test.SalesOrderTest"/>
+        <junit-test-suite class-name="org.apache.ofbiz.order.test.SalesOrderTest"/>
     </test-case>
 </test-suite>

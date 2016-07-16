@@ -26,27 +26,27 @@ under the License.
 
     <!-- SecurePay Implementations -->
     <service name="ofbScAuthorize" engine="java"
-            location="org.ofbiz.accounting.thirdparty.securepay.SecurePayPaymentServices" invoke="doAuth">
+            location="org.apache.ofbiz.accounting.thirdparty.securepay.SecurePayPaymentServices" invoke="doAuth">
         <description>SecurePay Credit Card Authorization</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="ofbScCapture" engine="java"
-             location="org.ofbiz.accounting.thirdparty.securepay.SecurePayPaymentServices" invoke="doCapture">
+             location="org.apache.ofbiz.accounting.thirdparty.securepay.SecurePayPaymentServices" invoke="doCapture">
         <description>SecurePay Credit Card Capture</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="ofbScRelease" engine="java"
-             location="org.ofbiz.accounting.thirdparty.securepay.SecurePayPaymentServices" invoke="doVoid">
+             location="org.apache.ofbiz.accounting.thirdparty.securepay.SecurePayPaymentServices" invoke="doVoid">
         <description>SecurePay Order Payment Void</description>
         <implements service="paymentReleaseInterface"/>
     </service>
     <service name="ofbScRefund" engine="java"
-            location="org.ofbiz.accounting.thirdparty.securepay.SecurePayPaymentServices" invoke="doRefund">
+            location="org.apache.ofbiz.accounting.thirdparty.securepay.SecurePayPaymentServices" invoke="doRefund">
         <description>SecurePay Credit Card Refund</description>
         <implements service="paymentRefundInterface"/>
     </service>
     <service name="ofbScCCCredit" engine="java"
-             location="org.ofbiz.accounting.thirdparty.securepay.SecurePayPaymentServices" invoke="doCredit">
+             location="org.apache.ofbiz.accounting.thirdparty.securepay.SecurePayPaymentServices" invoke="doCredit">
         <description>SecurePay Credit Card Credit</description>
         <implements service="ccCreditInterface"/>
     </service>

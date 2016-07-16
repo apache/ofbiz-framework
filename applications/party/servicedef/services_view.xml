@@ -26,7 +26,7 @@ under the License.
 
     <!-- Party view services -->
     <service name="findParty" engine="java"
-        location="org.ofbiz.party.party.PartyServices" invoke="findParty">
+        location="org.apache.ofbiz.party.party.PartyServices" invoke="findParty">
         <description>General Party Find Service, Used in the findparty page in the Party Manager, etc</description>
         <attribute name="extInfo" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/> <!-- can be null or ANY to include any -->
@@ -58,9 +58,9 @@ under the License.
 
         <attribute name="roleTypes" type="List" mode="OUT" optional="false"/>
         <attribute name="partyTypes" type="List" mode="OUT" optional="false"/>
-        <attribute name="currentRole" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
-        <attribute name="currentPartyType" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
-        <attribute name="currentStateGeo" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="currentRole" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="currentPartyType" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="currentStateGeo" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="viewIndex" type="Integer" mode="OUT" optional="false"/>
         <attribute name="viewSize" type="Integer" mode="OUT" optional="false"/>
         <attribute name="partyList" type="List" mode="OUT" optional="false"/>
@@ -72,12 +72,12 @@ under the License.
     </service>
 
     <service name="performFindParty" engine="java"
-        location="org.ofbiz.party.party.PartyServices" invoke="performFindParty">
+        location="org.apache.ofbiz.party.party.PartyServices" invoke="performFindParty">
         <description>General Party Find Service, duplicated for screen widget purpose, Used in the new findparty page in the Party Manager, etc</description>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/> <!-- can be null or ANY to include any -->
         <attribute name="noConditionFind" type="String" mode="IN" optional="true" default-value="N"/>
         <attribute name="extInfo" type="String" mode="IN" optional="true"/>
-        <attribute name="extCond" type="org.ofbiz.entity.condition.EntityCondition" mode="IN" optional="true">
+        <attribute name="extCond" type="org.apache.ofbiz.entity.condition.EntityCondition" mode="IN" optional="true">
             <description>EntityCondition that can be send to this service to manage complex search case</description>
         </attribute>
         <attribute name="partyId" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this, can do partial, case insensitive, etc -->
@@ -105,42 +105,42 @@ under the License.
         <attribute name="ownerPartyIds" type="List" mode="IN" optional="true"/><!-- Lead Owners Parties -->
         <attribute name="sortField" type="String" mode="IN" optional="true"/>
 
-        <attribute name="listIt" type="org.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
+        <attribute name="listIt" type="org.apache.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
     </service>
 
     <service name="getPartyContactMechValueMaps" engine="java"
             transaction-timeout="7200"
-            location="org.ofbiz.party.contact.ContactMechServices" invoke="getPartyContactMechValueMaps" auth="true">
+            location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="getPartyContactMechValueMaps" auth="true">
         <description>Get Contact Mechs associated with party. It produces a list of Maps (valueMaps) which can contain a list of contactMechPurposes, a partyContactMech Map, contactMechtype Map and a contactMech Map</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="showOld" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="valueMaps" type="java.util.List" mode="OUT" optional="true"/>
     </service>
     <service name="getPerson" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="getPerson">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPerson">
         <description>Gets a person entity from the cache/database</description>
         <attribute name="partyId" type="String" mode="IN"/>
-        <attribute name="lookupPerson" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
+        <attribute name="lookupPerson" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
     </service>
 
     <service name="getPartyFromEmail" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="getPartyFromEmail">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromEmail">
         <description>Gets a collection of parties from an email address</description>
         <attribute name="email" type="String" mode="IN"/>
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
     </service>
 
     <service name="getPartyFromUserLogin" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="getPartyFromUserLogin">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromUserLogin">
         <description>Gets a collection of parties from an email address</description>
         <attribute name="userLoginId" type="String" mode="IN"/>
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
     </service>
 
     <service name="getPartyFromName" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="getPartyFromPerson">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromPerson">
         <description>Gets a collection of parties from a first/last name</description>
         <attribute name="firstName" type="String" mode="IN" optional="true"/>
         <attribute name="lastName" type="String" mode="IN" optional="true"/>
@@ -148,14 +148,14 @@ under the License.
     </service>
 
     <service name="getPartyFromGroupName" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="getPartyFromPartyGroup">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromPartyGroup">
         <description>Gets a collection of parties from a party group namee</description>
         <attribute name="groupName" type="String" mode="IN" optional="false"/>
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
     </service>
 
 	<service name="getPartyFromExternalId" engine="java"
-            location="org.ofbiz.party.party.PartyServices" invoke="getPartyFromExternalId">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromExternalId">
         <description>Gets a list of parties from a party externalId </description>
         <attribute name="externalId" type="String" mode="IN" optional="false"/>
         <attribute name="parties" type="java.util.List" mode="OUT" optional="true"/>

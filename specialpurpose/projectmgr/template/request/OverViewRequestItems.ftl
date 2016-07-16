@@ -81,7 +81,7 @@ under the License.
                                  <#else>
                                      <#assign row="alternate-row">
                             </#if>
-                            <#assign partyNameView = delegator.findOne("PartyNameView", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", custRequestItemNoteViewList.partyId), false)!/>
+                            <#assign partyNameView = delegator.findOne("PartyNameView", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", custRequestItemNoteViewList.partyId), false)!/>
                             <tr class="${row}">
                                 <td>
                                 </td>

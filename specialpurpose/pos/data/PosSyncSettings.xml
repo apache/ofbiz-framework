@@ -24,54 +24,54 @@ under the License.
 <!-- MCS->PSS Central Server to Per Store Server -->
     <EntityGroup entityGroupId="5500" entityGroupName="POS: Central Server to Per Store Server"/>
     <!-- these are used to update sync settings on the POS terminals from the central server -->
-    <EntityGroupEntry entityGroupId="5500" entityOrPackage="org.ofbiz.entity.group" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5500" entityOrPackage="org.apache.ofbiz.entity.group" applEnumId="ESIA_INCLUDE"/>
     <!-- this is the general product information needed for pricing, promotions, basic product info, etc; the per store server will also include inventory, etc information -->
-    <EntityGroupEntry entityGroupId="5500" entityOrPackage="org.ofbiz.product" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5500" entityOrPackage="org.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5500" entityOrPackage="org.ofbiz.party.contact" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5500" entityOrPackage="org.apache.ofbiz.product" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5500" entityOrPackage="org.apache.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5500" entityOrPackage="org.apache.ofbiz.party.contact" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5500" entityOrPackage="PosTerminal" applEnumId="ESIA_INCLUDE"/>
 
 <!-- PSS->POS Per Store Server to POS Terminal -->
     <EntityGroup entityGroupId="5501" entityGroupName="POS: Per Store Server to POS Terminal"/>
     <!-- these are used to update sync settings on the POS terminals from the central server -->
-    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.entity.group" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.apache.ofbiz.entity.group" applEnumId="ESIA_INCLUDE"/>
     <!-- this is the general product information needed for pricing, promotions, basic product info, etc -->
-    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.product.product" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.product.price" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.product.promo" applEnumId="ESIA_INCLUDE"/>
-    <!-- org.ofbiz.product.category is needed for certain promotions, probably won't be used much for category browsing in the POS -->
-    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.product.category" applEnumId="ESIA_INCLUDE"/>
-    <!-- org.ofbiz.party.party may be needed for certain promotions -->
-    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.specialpurpose.pos.PosTerminal" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.apache.ofbiz.product.product" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.apache.ofbiz.product.price" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.apache.ofbiz.product.promo" applEnumId="ESIA_INCLUDE"/>
+    <!-- org.apache.ofbiz.product.category is needed for certain promotions, probably won't be used much for category browsing in the POS -->
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.apache.ofbiz.product.category" applEnumId="ESIA_INCLUDE"/>
+    <!-- org.apache.ofbiz.party.party may be needed for certain promotions -->
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.apache.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.apache.ofbiz.specialpurpose.pos.PosTerminal" applEnumId="ESIA_INCLUDE"/>
 
 <!-- POS->PSS POS Terminal to Per Store Server -->
     <EntityGroup entityGroupId="5505" entityGroupName="POS: POS Terminal to Per Store Server"/>
-    <!-- org.ofbiz.party.party may be needed for order related information, like party roles or contact info etc -->
-    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.party.contact" applEnumId="ESIA_INCLUDE"/>
+    <!-- org.apache.ofbiz.party.party may be needed for order related information, like party roles or contact info etc -->
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.apache.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.apache.ofbiz.party.contact" applEnumId="ESIA_INCLUDE"/>
     <!-- all order and related information, including payment, etc info -->
-    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.order" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.accounting.invoice" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.accounting.payment" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.apache.ofbiz.order" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.apache.ofbiz.accounting.invoice" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.apache.ofbiz.accounting.payment" applEnumId="ESIA_INCLUDE"/>
     <!-- NOTE: no inventory information will be on the POS terminal, so don't send any over -->
-    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.pos.PosTerminalLog" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.pos.PosTerminalState" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.apache.ofbiz.pos.PosTerminalLog" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.apache.ofbiz.pos.PosTerminalState" applEnumId="ESIA_INCLUDE"/>
 
 <!-- PSS->MCS Per Store Server to Central Server -->
     <EntityGroup entityGroupId="5506" entityGroupName="POS: Per Store Server to Central Server"/>
-    <!-- org.ofbiz.party.party may be needed for order related information, like party roles or contact info etc -->
-    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.party.contact" applEnumId="ESIA_INCLUDE"/>
+    <!-- org.apache.ofbiz.party.party may be needed for order related information, like party roles or contact info etc -->
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.apache.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.apache.ofbiz.party.contact" applEnumId="ESIA_INCLUDE"/>
     <!-- all order and related information, including payment, etc info -->
-    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.order" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.accounting.invoice" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.accounting.payment" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.apache.ofbiz.order" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.apache.ofbiz.accounting.invoice" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.apache.ofbiz.accounting.payment" applEnumId="ESIA_INCLUDE"/>
     <!-- include inventory and issuance info -->
-    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.shipment.issuance" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.product.inventory" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.pos.PosTerminalLog" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.pos.PosTerminalState" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.apache.ofbiz.shipment.issuance" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.apache.ofbiz.product.inventory" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.apache.ofbiz.pos.PosTerminalLog" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.apache.ofbiz.pos.PosTerminalState" applEnumId="ESIA_INCLUDE"/>
 
 
 <!-- Some examples of EntitySync settings for pulling and pushing data around -->

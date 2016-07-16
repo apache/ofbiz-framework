@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign countries = Static["org.ofbiz.common.CommonWorkers"].getCountryList(delegator)>
+<#assign countries = Static["org.apache.ofbiz.common.CommonWorkers"].getCountryList(delegator)>
 <#list countries as country>
   <#if defaultCountryGeoId??>
     <option value='${country.geoId}' ${(country.geoId==defaultCountryGeoId)?string("selected=\"selected\"","")}>${country.get("geoName",locale)?default(country.geoId)}</option>

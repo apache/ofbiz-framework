@@ -17,8 +17,8 @@
  * under the License.
  */
 import java.math.BigDecimal;
-import org.ofbiz.order.order.OrderReadHelper;
-import org.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.order.order.OrderReadHelper;
+import org.apache.ofbiz.base.util.UtilMisc;
 
 orderId = context.orderId;
 orderPaymentPreferenceId = context.orderPaymentPreferenceId;

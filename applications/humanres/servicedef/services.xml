@@ -654,11 +654,11 @@ under the License.
         <permission-service service-name="humanResManagerPermission" main-action="VIEW"/>
         <attribute name="partyId" type="String" mode="IN"/>
         <attribute name="partyBenefitTypes" type="java.util.List" mode="OUT" optional="true"/>
-        <attribute name="employment" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
-        <attribute name="emplPosition" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
-        <attribute name="emplPositionType" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
-        <attribute name="emplPositionRateType" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
-        <attribute name="emplPositionRateAmount" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="employment" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="emplPosition" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="emplPositionType" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="emplPositionRateType" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="emplPositionRateAmount" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
 
     <service name="createJobRequisition" engine="entity-auto" default-entity-name="JobRequisition" invoke="create" auth="true">

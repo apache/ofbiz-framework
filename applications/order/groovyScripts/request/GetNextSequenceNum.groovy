@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.GenericValue;
 
 long nextSequenceNum = 10;
 if (!custRequestItem && custRequest) {

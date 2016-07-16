@@ -19,10 +19,10 @@
 
 import java.util.*;
 import java.lang.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.base.util.*;
 
 allProjects = select("workEffortId").from("WorkEffortAndPartyAssign").where("workEffortTypeId", "PROJECT", "partyId", parameters.partyId).orderBy("workEffortName").cache(true).queryList();
 

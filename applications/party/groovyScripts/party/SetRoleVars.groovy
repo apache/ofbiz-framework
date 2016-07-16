@@ -16,8 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- import org.ofbiz.entity.*;
- import org.ofbiz.entity.util.EntityUtil;
+ import org.apache.ofbiz.entity.*;
+ import org.apache.ofbiz.entity.util.EntityUtil;
 
 roleTypeId = parameters.roleTypeId;
 roleTypeAndParty = from("RoleTypeAndParty").where("partyId", parameters.partyId, "roleTypeId", roleTypeId).queryFirst();

@@ -131,7 +131,7 @@ under the License.
                             <td>${(product.internalName)!} [${orderItem.productId?default("N/A")}]</div></td>
                             <td>
                                 <div>
-                                    <#assign upcaLookup = Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", product.productId, "goodIdentificationTypeId", "UPCA")/>
+                                    <#assign upcaLookup = Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productId", product.productId, "goodIdentificationTypeId", "UPCA")/>
                                     <#assign upca = delegator.findOne("GoodIdentification", upcaLookup, true)!/>
                                     <#if upca?has_content>
                                         ${upca.idValue!}

@@ -32,7 +32,7 @@ under the License.
     <!-- Events to run on every request after all other processing (chains exempt) -->
     <!--
     <postprocessor>
-        <event name="test" type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
+        <event name="test" type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
     -->
 
@@ -1810,7 +1810,7 @@ under the License.
     </request-map>
     <request-map uri="EditGlReconciliation">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.accounting.GlEvents" invoke="createReconcileAccount"/>
+        <event type="java" path="org.apache.ofbiz.accounting.GlEvents" invoke="createReconcileAccount"/>
         <response name="success" type="view" value="EditGlReconciliation"/>
         <response name="error" type="view" value="FindGlAccountReconciliation"/>
     </request-map>

@@ -334,7 +334,7 @@ general.properties). The following project parameters are passed:
 
 - tenantId: mandatory
 - tenantName: mandatory, name of the tenant
-- domainName: optional, default is org.ofbiz
+- domainName: optional, default is org.apache.ofbiz
 - tenantReaders: optional, default value is seed,seed-initial,demo
 - dbPlatform: optional, D(Derby), M(MySQL), O(Oracle), P(PostgreSQL) (default D) 
 - dbIp: optional, ip address of the database
@@ -398,13 +398,13 @@ listens on port __5005__
 
 listens on port __5005__
 
-`gradlew "ofbiz --test component=widget --test suitename=org.ofbiz.widget.test.WidgetMacroLibraryTests"`
+`gradlew "ofbiz --test component=widget --test suitename=org.apache.ofbiz.widget.test.WidgetMacroLibraryTests"`
 
 #### Execute an integration test suite in debug mode
 
 listens on port __5005__
 
-`gradlew "ofbizDebug --test component=widget --test suitename=org.ofbiz.widget.test.WidgetMacroLibraryTests"`
+`gradlew "ofbizDebug --test component=widget --test suitename=org.apache.ofbiz.widget.test.WidgetMacroLibraryTests"`
 
 * * * * * * * * * * * *
 

@@ -89,7 +89,7 @@ under the License.
                 String password = (String) userLoginContext.get("currentPassword");
                 String confirmPassword = (String) userLoginContext.get("currentPasswordVerify");
                 String passwordHint = (String) userLoginContext.get("passwordHint");
-                org.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
+                org.apache.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
             </script>
         <else>
             <if-compare field="require_login" operator="equals" value="true">
@@ -349,8 +349,8 @@ under the License.
         <if-not-empty field="newUserLogin">
             <!-- If password encryption is enabled, encrpyt it now -->
             <script>groovy:
-                boolean useEncryption = "true".equals(org.ofbiz.base.util.UtilProperties.getPropertyValue("security", "password.encrypt"));
-                if (useEncryption) { newUserLogin.set("currentPassword", org.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
+                boolean useEncryption = "true".equals(org.apache.ofbiz.base.util.UtilProperties.getPropertyValue("security", "password.encrypt"));
+                if (useEncryption) { newUserLogin.set("currentPassword", org.apache.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
             </script>
             <!-- create the UserLogin manually to get around ordering and security constraints in the service -->
             <set field="userLoginContext.partyId" from-field="partyId"/>

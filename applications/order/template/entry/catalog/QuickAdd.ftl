@@ -24,7 +24,7 @@ under the License.
             <option value='${productCategory.productCategoryId}'>${productCategory.categoryName!}</option>
             <option value='${productCategory.productCategoryId}'>--</option>
             <#list quickAddCats as quickAddCatalogId>
-              <#assign loopCategory = delegator.findOne("ProductCategory", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", quickAddCatalogId), true)>
+              <#assign loopCategory = delegator.findOne("ProductCategory", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", quickAddCatalogId), true)>
               <#if loopCategory?has_content>
                 <option value='${quickAddCatalogId}'>${loopCategory.categoryName!}</option>
               </#if>

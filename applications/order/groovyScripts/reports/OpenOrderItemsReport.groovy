@@ -23,11 +23,11 @@
  */
 
 
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
 
 productStoreId = ObjectType.simpleTypeConvert(parameters.productStoreId, "List", null, null);
 orderTypeId = ObjectType.simpleTypeConvert(parameters.orderTypeId, "List", null, null);

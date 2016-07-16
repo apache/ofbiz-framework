@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.condition.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.condition.*;
 import java.sql.Timestamp;
 import java.util.Map;
 

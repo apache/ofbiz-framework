@@ -16,11 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.webpos.WebPosEvents;
-import org.ofbiz.webpos.session.WebPosSession;
-import org.ofbiz.webpos.transaction.WebPosTransaction;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.webpos.WebPosEvents;
+import org.apache.ofbiz.webpos.session.WebPosSession;
+import org.apache.ofbiz.webpos.transaction.WebPosTransaction;
 
 webPosSession = WebPosEvents.getWebPosSession(request, null);
 if (webPosSession) {

@@ -99,7 +99,7 @@ under the License.
              <#assign statusItem = orderPaymentStatus.getRelatedOne("StatusItem", false)!>
              <#if statusItem?has_content>
                 <div>
-                  ${statusItem.get("description",locale)} <#if orderPaymentStatus.statusDatetime?has_content>- ${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderPaymentStatus.statusDatetime, "", locale, timeZone)!}</#if>
+                  ${statusItem.get("description",locale)} <#if orderPaymentStatus.statusDatetime?has_content>- ${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderPaymentStatus.statusDatetime, "", locale, timeZone)!}</#if>
                   &nbsp;
                   ${uiLabelMap.CommonBy} - [${orderPaymentStatus.statusUserLogin!}]
                 </div>
@@ -212,7 +212,7 @@ under the License.
                         <#list gatewayResponses as gatewayResponse>
                           <#assign transactionCode = gatewayResponse.getRelatedOne("TranCodeEnumeration", false)>
                           ${(transactionCode.get("description",locale))?default("Unknown")}:
-                          <#if gatewayResponse.transactionDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(gatewayResponse.transactionDate, "", locale, timeZone)!} </#if>
+                          <#if gatewayResponse.transactionDate?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(gatewayResponse.transactionDate, "", locale, timeZone)!} </#if>
                           <@ofbizCurrency amount=gatewayResponse.amount isoCode=currencyUomId/><br />
                           (<span class="label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum!}
                           <span class="label">${uiLabelMap.OrderAvs}</span>&nbsp;${gatewayResponse.gatewayAvsResult?default("N/A")}
@@ -348,7 +348,7 @@ under the License.
                         ${creditCard.expireDate}
                         &nbsp;[<#if oppStatusItem??>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                       <#else>
-                        ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
+                        ${Static["org.apache.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                         &nbsp;[<#if oppStatusItem??>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                       </#if>
                       <br />
@@ -372,7 +372,7 @@ under the License.
                       <#list gatewayResponses as gatewayResponse>
                         <#assign transactionCode = gatewayResponse.getRelatedOne("TranCodeEnumeration", false)>
                         ${(transactionCode.get("description",locale))?default("Unknown")}:
-                        <#if gatewayResponse.transactionDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(gatewayResponse.transactionDate, "", locale, timeZone)!} </#if>
+                        <#if gatewayResponse.transactionDate?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(gatewayResponse.transactionDate, "", locale, timeZone)!} </#if>
                         <@ofbizCurrency amount=gatewayResponse.amount isoCode=currencyUomId/><br />
                         (<span class="label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum!}
                         <span class="label">${uiLabelMap.OrderAvs}</span>&nbsp;${gatewayResponse.gatewayAvsResult?default("N/A")}
@@ -599,7 +599,7 @@ under the License.
                    <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_VIEW", session)>
                      ${creditCard.cardType!} <@maskSensitiveNumber cardNumber=creditCard.cardNumber!/> ${creditCard.expireDate!}
                    <#else>
-                     ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
+                     ${Static["org.apache.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                    </#if>
                  </#if>
                <#else>

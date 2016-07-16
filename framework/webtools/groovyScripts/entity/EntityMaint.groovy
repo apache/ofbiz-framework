@@ -16,18 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.Delegator
-import org.ofbiz.entity.DelegatorFactory
-import org.ofbiz.entity.GenericValue
-import org.ofbiz.entity.condition.EntityComparisonOperator
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.model.ModelGroupReader;
-import org.ofbiz.entity.model.ModelReader;
-import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.model.ModelViewEntity
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator
+import org.apache.ofbiz.entity.DelegatorFactory
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.condition.EntityComparisonOperator
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.model.ModelGroupReader;
+import org.apache.ofbiz.entity.model.ModelReader;
+import org.apache.ofbiz.entity.model.ModelEntity;
+import org.apache.ofbiz.entity.model.ModelViewEntity
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.UtilProperties;
 
 if (delegator.getDelegatorTenantId() == null) {
     mgr = delegator.getModelGroupReader();

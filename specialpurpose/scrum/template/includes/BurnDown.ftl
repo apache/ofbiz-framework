@@ -17,12 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign sprint = delegator.findOne("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortId", parameters.get("sprintId")), false)! />
-<#assign actualStartDay = Static["org.ofbiz.base.util.UtilDateTime"].getDayStart(sprint.actualStartDate, timeZone, locale)/>
-<#assign actualCompletionDay = Static["org.ofbiz.base.util.UtilDateTime"].getDayStart(sprint.actualCompletionDate, timeZone, locale)/>
+<#assign sprint = delegator.findOne("WorkEffort", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("workEffortId", parameters.get("sprintId")), false)! />
+<#assign actualStartDay = Static["org.apache.ofbiz.base.util.UtilDateTime"].getDayStart(sprint.actualStartDate, timeZone, locale)/>
+<#assign actualCompletionDay = Static["org.apache.ofbiz.base.util.UtilDateTime"].getDayStart(sprint.actualCompletionDate, timeZone, locale)/>
 <#assign dayNumber = ((actualCompletionDay.getTime() - actualStartDay.getTime())/1000/60/60/24) + 1/>
 <#assign estimatedHrs = sprint.estimatedMilliSeconds/1000/60/60/>
-<#assign members = delegator.findByAnd("WorkEffortPartyAssignment", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortId", parameters.get("sprintId")), null, false)/>
+<#assign members = delegator.findByAnd("WorkEffortPartyAssignment", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("workEffortId", parameters.get("sprintId")), null, false)/>
 <#if members.size() &gt; 0 >
     <#assign maxHours = estimatedHrs * members.size()/>
     <div id="params_birtReport" style='display:none'>

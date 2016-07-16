@@ -106,14 +106,14 @@ function enableSubmitButton() {
       <#-- Header Ends-->
       <#assign alt_row = false>
       <#list invoices as invoice>
-        <#assign invoicePaymentInfoList = dispatcher.runSync("getInvoicePaymentInfoList", Static["org.ofbiz.base.util.UtilMisc"].toMap("invoiceId", invoice.invoiceId, "userLogin", userLogin))/>
+        <#assign invoicePaymentInfoList = dispatcher.runSync("getInvoicePaymentInfoList", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("invoiceId", invoice.invoiceId, "userLogin", userLogin))/>
         <#assign invoicePaymentInfo = invoicePaymentInfoList.get("invoicePaymentInfoList").get(0)!>
         <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : invoice.statusId}, false)!/>
         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
           <td><label><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:enableSubmitButton();"/></label></td>
           <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
-          <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyIdFrom}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)!}</a></td>
-          <td><a href="/partymgr/control/viewprofile?partyId=${invoice.invoiceRolePartyId}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.invoiceRolePartyId, false)!}</a></td>
+          <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyIdFrom}">${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)!}</a></td>
+          <td><a href="/partymgr/control/viewprofile?partyId=${invoice.invoiceRolePartyId}">${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.invoiceRolePartyId, false)!}</a></td>
           <td>${statusItem.get("description")!}</td>
           <td>${invoice.get("referenceNumber")!}</td>
           <td>${invoice.get("description")!}</td>

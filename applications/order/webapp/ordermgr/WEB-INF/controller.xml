@@ -33,7 +33,7 @@ under the License.
     <!-- Events to run on every request after all other processing (chains exempt) -->
     <!--
     <postprocessor>
-        <event name="test" type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
+        <event name="test" type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
     -->
 
@@ -192,7 +192,7 @@ under the License.
     </request-map>
     <request-map uri="cancelSelectedOrderItems">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.order.OrderEvents" invoke="cancelSelectedOrderItems"/>
+        <event type="java" path="org.apache.ofbiz.order.order.OrderEvents" invoke="cancelSelectedOrderItems"/>
         <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
@@ -223,14 +223,14 @@ under the License.
 
     <request-map uri="addpromocode">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addProductPromoCode"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addProductPromoCode"/>
         <response name="success" type="view" value="showcart"/>
         <response name="error" type="view" value="showcart"/>
     </request-map>
 
     <request-map uri="getConfigDetailsEvent">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="getConfigDetailsEvent"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="getConfigDetailsEvent"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
@@ -246,7 +246,7 @@ under the License.
     </request-map>
     <request-map uri="receiveOfflinePayments">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.OrderManagerEvents" invoke="receiveOfflinePayment"/>
+        <event type="java" path="org.apache.ofbiz.order.OrderManagerEvents" invoke="receiveOfflinePayment"/>
         <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="receivepayment"/>
     </request-map>
@@ -435,7 +435,7 @@ under the License.
     <!-- Order Entry Requests -->
     <request-map uri="orderentry">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="routeOrderEntry"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="routeOrderEntry"/>
         <response name="init" type="view" value="checkinits"/>
         <response name="agreements" type="view" value="orderagreements"/>
         <response name="cart" type="view" value="showcart"/>
@@ -443,7 +443,7 @@ under the License.
     </request-map>
     <request-map uri="initorderentry">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="initializeOrderEntry"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="initializeOrderEntry"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="view" value="checkinits"/>
     </request-map>
@@ -458,38 +458,38 @@ under the License.
     <request-map uri="setOrderCurrencyAgreementShipDates">
         <description>Handles setting the currency, agreement and shipment dates of an order.</description>
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setOrderCurrencyAgreementShipDates"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setOrderCurrencyAgreementShipDates"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderagreements"/>
     </request-map>
     <request-map uri="setOrderAgreement">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="selectAgreement"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="selectAgreement"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderagreements"/>
     </request-map>
     <request-map uri="setOrderCurrency">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setCurrency"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setCurrency"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderagreements"/>
     </request-map>
     <request-map uri="setOrderName">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setOrderName"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setOrderName"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="setPoNumber">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setPoNumber"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setPoNumber"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
 
     <request-map uri="additem">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCart"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCart"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="survey" type="view" value="survey"/>
         <response name="product" type="view" value="product"/>
@@ -497,19 +497,19 @@ under the License.
     </request-map>
     <request-map uri="additemsurvey">
         <security https="true" auth="true"/>
-        <event type="java" invoke="createSurveyResponseAndRestoreParameters" path="org.ofbiz.content.survey.SurveyEvents"/>
+        <event type="java" invoke="createSurveyResponseAndRestoreParameters" path="org.apache.ofbiz.content.survey.SurveyEvents"/>
         <response name="success" type="request" value="additem"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="addRequirementsToCart">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCartBulkRequirements"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCartBulkRequirements"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="quickAddRequirementsToCart">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCartBulkRequirements"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCartBulkRequirements"/>
         <response name="success" type="request" value="quickCheckoutOrderWithDefaultOptions"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
@@ -519,13 +519,13 @@ under the License.
     </request-map>
     <request-map uri="createQuoteFromCart">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="createQuoteFromCart"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="createQuoteFromCart"/>
         <response name="success" type="request" value="ViewQuote"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="createCustRequestFromCart">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="createCustRequestFromCart"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="createCustRequestFromCart"/>
         <response name="success" type="request" value="ViewRequest"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
@@ -557,13 +557,13 @@ under the License.
     </request-map>
     <request-map uri="addAllFromShoppingList">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="addListToCart"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="addListToCart"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="view" value="checkinits"/>
     </request-map>
     <request-map uri="addBulkToShoppingList">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="addBulkFromCart"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="addBulkFromCart"/>
         <response name="success" type="request" value="addFromShoppingList"/>
         <response name="error" type="view" value="checkinits"/>
     </request-map>
@@ -575,13 +575,13 @@ under the License.
     </request-map>
     <request-map uri="loadCartFromShoppingList">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="loadCartFromShoppingList"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="loadCartFromShoppingList"/>
         <response name="success" type="view" value="showcart"/>
         <response name="error" type="view" value="checkinits"/>
     </request-map>
     <request-map uri="loadCartFromOrder">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="loadCartFromOrder"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="loadCartFromOrder"/>
         <response name="success" type="request" value="finalizeOrder"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
@@ -597,57 +597,57 @@ under the License.
     </request-map>
     <request-map uri="addGiftCertificateSurvey">
         <security https="true" auth="false"/>
-        <event type="java" invoke="createSurveyResponseAndRestoreParameters" path="org.ofbiz.content.survey.SurveyEvents"/>
+        <event type="java" invoke="createSurveyResponseAndRestoreParameters" path="org.apache.ofbiz.content.survey.SurveyEvents"/>
         <response name="success" type="request" value="additem"/>
         <response name="error" type="view" value="AddGiftCertificate"/>
     </request-map>
     <!-- Create a replacement order from an existing order against a lost shipment etc. -->
     <request-map uri="loadCartForReplacementOrder">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="loadCartFromOrder"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="loadCartFromOrder"/>
         <response name="success" type="request" value="createReplacementOrder"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
     <request-map uri="createReplacementOrder">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="createReplacementOrder"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="createReplacementOrder"/>
         <response name="success" type="request" value="clearCartForReplacementOrder"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
     <request-map uri="clearCartForReplacementOrder">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="destroyCart"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="destroyCart"/>
         <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="orderview"/>
      </request-map>
 
     <request-map uri="addseperator">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addSeparator"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addSeparator"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="modifycart">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="modifyCart"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="modifyCart"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="emptycart">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="destroyCart"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="destroyCart"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="doManualPromotions">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="doManualPromotions"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="doManualPromotions"/>
         <response name="success" type="view" value="showcart"/>
         <response name="error" type="view" value="showcart"/>
     </request-map>
 
     <request-map uri="setDesiredAlternateGwpProductId">
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setDesiredAlternateGwpProductId"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setDesiredAlternateGwpProductId"/>
         <response name="success" type="view" value="showcart"/>
         <response name="error" type="view" value="showcart"/>
     </request-map>
@@ -662,7 +662,7 @@ under the License.
     </request-map>
     <request-map uri="removePromotion">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="removePromotion"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="removePromotion"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
@@ -676,7 +676,7 @@ under the License.
     </request-map>
     <request-map uri="keywordsearch">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.product.ProductSearchSession" invoke="checkDoKeywordOverride"/>
+        <event type="java" path="org.apache.ofbiz.product.product.ProductSearchSession" invoke="checkDoKeywordOverride"/>
         <response name="success" type="view" value="keywordsearch"/>
         <response name="none" type="none" value=""/>
     </request-map>
@@ -687,28 +687,28 @@ under the License.
 
     <request-map uri="addtocartbulk">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCartBulk"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCartBulk"/>
         <response name="success" type="view" value="keywordsearch"/>
         <response name="error" type="view" value="keywordsearch"/>
     </request-map>
 
     <request-map uri="addCategoryDefaults">
         <security https="false" auth="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addCategoryDefaults"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addCategoryDefaults"/>
         <response name="success" type="view" value="showcart"/>
         <response name="error" type="view" value="showcart"/>
     </request-map>
 
     <request-map uri="BulkAddProducts">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="bulkAddProducts"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="bulkAddProducts"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
 
     <request-map uri="bulkAddProductsInApprovedOrder">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="bulkAddProductsInApprovedOrder"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="bulkAddProductsInApprovedOrder"/>
         <response name="success" type="request-redirect"  value="orderview"><redirect-parameter name="orderId"/></response>
         <response name="error" type="request" value="orderview"/>
     </request-map>
@@ -725,17 +725,17 @@ under the License.
     <!-- Product Comparison Requests -->
     <request-map uri="addToCompare">
         <security auth="true" https="true"/>
-        <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="addProductToComparisonList"/>
+        <event type="java" path="org.apache.ofbiz.product.product.ProductEvents" invoke="addProductToComparisonList"/>
         <response name="success" type="view-last"/>
     </request-map>
     <request-map uri="removeFromCompare">
         <security auth="true" https="true"/>
-        <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="removeProductFromComparisonList"/>
+        <event type="java" path="org.apache.ofbiz.product.product.ProductEvents" invoke="removeProductFromComparisonList"/>
         <response name="success" type="view-last"/>
     </request-map>
     <request-map uri="clearCompareList">
         <security auth="true" https="true"/>
-        <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="clearProductComparisonList"/>
+        <event type="java" path="org.apache.ofbiz.product.product.ProductEvents" invoke="clearProductComparisonList"/>
         <response name="success" type="view-last"/>
     </request-map>
     <request-map uri="compareProducts">
@@ -745,7 +745,7 @@ under the License.
 
     <request-map uri="finalizeOrder">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="finalizeOrderEntry"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="finalizeOrderEntry"/>
         <response name="addparty" type="view" value="setAdditionalParty"/>
         <response name="customer" type="view" value="custsetting"/>
         <response name="shipping" type="view" value="shipsetting"/>
@@ -764,19 +764,19 @@ under the License.
         will know the full shipping & tax charges when trying to split payments between various payment methods -->
     <request-map uri="calcShippingBeforePayment">
         <security direct-request="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.shipping.ShippingEvents" invoke="getShipEstimate"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.shipping.ShippingEvents" invoke="getShipEstimate"/>
         <response name="success" type="request" value="calcTaxBeforePayment"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="calcTaxBeforePayment">
         <security direct-request="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="calcTax"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="calcTax"/>
         <response name="success" type="request" value="validatePaymentMethodsBeforePayment"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="validatePaymentMethodsBeforePayment">
         <security direct-request="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="checkPaymentMethods"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="checkPaymentMethods"/>
         <response name="success" type="view" value="billsetting"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
@@ -792,19 +792,19 @@ under the License.
     <request-map uri="updateCheckoutOptions">
         <description>When user selects a shipping method, this automatically reloads quick checkout page with shipping estimates filled in.</description>
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setPartialCheckOutOptions"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setPartialCheckOutOptions"/>
         <response name="success" type="view" value="checkoutshippingaddress"/>
         <response name="error" type="view" value="showcart"/>
     </request-map>
     <request-map uri="cartUpdateShipToCustomerParty">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setCartShipToCustomerParty"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setCartShipToCustomerParty"/>
         <response name="success" type="view" value="quickcheckout"/>
         <response name="error" type="view" value="showcart"/>
     </request-map>
     <request-map uri="checkout">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setQuickCheckOutOptions"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setQuickCheckOutOptions"/>
         <response name="success" type="request" value="calcShipping"/>
         <response name="error" type="view-last"/>
     </request-map>
@@ -866,26 +866,26 @@ under the License.
     </request-map>
     <request-map uri="addAdditionalParty">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addAdditionalParty"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addAdditionalParty"/>
         <response name="success" type="view" value="setAdditionalParty"/>
         <response name="error" type="view" value="setAdditionalParty"/>
     </request-map>
     <request-map uri="removeAdditionalParty">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="removeAdditionalParty"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="removeAdditionalParty"/>
         <response name="success" type="view" value="setAdditionalParty"/>
         <response name="error" type="view" value="setAdditionalParty"/>
     </request-map>
 
     <request-map uri="calcShipping">
         <security direct-request="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.shipping.ShippingEvents" invoke="getShipEstimate"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.shipping.ShippingEvents" invoke="getShipEstimate"/>
         <response name="success" type="request" value="calcTax"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="calcTax">
         <security direct-request="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="calcTax"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="calcTax"/>
         <response name="success" type="view" value="confirm"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
@@ -989,7 +989,7 @@ under the License.
     </request-map>
     <request-map uri="processorder">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="createOrder"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="createOrder"/>
         <response name="sales_order" type="request" value="checkBlackList"/>
         <response name="work_order" type="request" value="checkBlackList"/>
         <response name="purchase_order" type="request" value="clearpocart"/>
@@ -997,33 +997,33 @@ under the License.
     </request-map>
     <request-map uri="checkBlackList">
         <security direct-request="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="checkOrderBlacklist"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="checkOrderBlacklist"/>
         <response name="success" type="request" value="processpayment"/>
         <response name="failed" type="request" value="failedBlacklist"/>
         <response name="error" type="view" value="confirm"/>
     </request-map>
     <request-map uri="failedBlacklist">
         <security direct-request="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="failedBlacklistCheck"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="failedBlacklistCheck"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
     <request-map uri="processpayment">
         <security direct-request="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="processPayment"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="processPayment"/>
         <response name="success" type="request" value="clearcart"/>
         <response name="fail" type="view" value="confirm"/>
         <response name="error" type="view" value="confirm"/>
     </request-map>
     <request-map uri="clearcart">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="destroyCart"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="destroyCart"/>
         <response name="success" type="request" value="emailorder"/>
         <response name="error" type="view" value="confirm"/>
     </request-map>
     <request-map uri="clearpocart">
         <security https="true" direct-request="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="destroyCart"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="destroyCart"/>
         <response name="success" type="view" value="ordercomplete"/>
         <response name="error" type="view" value="confirm"/>
     </request-map>
@@ -1039,13 +1039,13 @@ under the License.
     </request-map>
     <request-map uri="addOrderTerm">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addOrderTerm"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addOrderTerm"/>
         <response name="success" type="view" value="orderTerm"/>
         <response name="error" type="view" value="orderTerm"/>
     </request-map>
     <request-map uri="removeCartOrderTerm">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="removeOrderTerm"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="removeOrderTerm"/>
         <response name="success" type="view" value="orderTerm"/>
         <response name="error" type="view" value="orderTerm"/>
     </request-map>
@@ -1254,13 +1254,13 @@ under the License.
     </request-map>
     <request-map uri="quickPurchaseOrderEntry">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="quickInitPurchaseOrder"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="quickInitPurchaseOrder"/>
         <response name="success" type="request" value="quickAddRequirementsToCart"/>
         <response name="error" type="view" value="ApprovedProductRequirements"/>
     </request-map>
     <request-map uri="quickCheckoutOrderWithDefaultOptions">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="quickCheckoutOrderWithDefaultOptions"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="quickCheckoutOrderWithDefaultOptions"/>
         <response name="success" type="request" value="calcTax"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
@@ -1545,7 +1545,7 @@ under the License.
     </request-map>
     <request-map uri="loadCartFromQuote">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="loadCartFromQuote"/>
+        <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="loadCartFromQuote"/>
         <response name="success" type="request" value="finalizeOrder"/>
         <response name="error" type="view" value="EditQuote"/>
     </request-map>
@@ -1834,19 +1834,19 @@ under the License.
 
     <request-map uri="clearSearchOptionsHistoryList">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.product.ProductSearchSession" invoke="clearSearchOptionsHistoryList"/>
+        <event type="java" path="org.apache.ofbiz.product.product.ProductSearchSession" invoke="clearSearchOptionsHistoryList"/>
         <response name="success" type="view" value="advancedsearch"/>
         <response name="error" type="view" value="advancedsearch"/>
     </request-map>
     <request-map uri="setCurrentSearchFromHistory">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.product.ProductSearchSession" invoke="setCurrentSearchFromHistory"/>
+        <event type="java" path="org.apache.ofbiz.product.product.ProductSearchSession" invoke="setCurrentSearchFromHistory"/>
         <response name="success" type="view" value="advancedsearch"/>
         <response name="error" type="view" value="advancedsearch"/>
     </request-map>
     <request-map uri="setCurrentSearchFromHistoryAndSearch">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.product.ProductSearchSession" invoke="setCurrentSearchFromHistory"/>
+        <event type="java" path="org.apache.ofbiz.product.product.ProductSearchSession" invoke="setCurrentSearchFromHistory"/>
         <response name="success" type="request" value="keywordsearch"/>
         <response name="error" type="view" value="advancedsearch"/>
     </request-map>
@@ -1904,7 +1904,7 @@ under the License.
         These are just examples of reports developed using JasperReport and not really
         useful reports. In order to run them you'll have to follow the notes in the
         OPTIONAL_LIBRARIES files, add the following entry:
-        <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
+        <handler name="jasperreportspdf" type="view" class="org.apache.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
         to the handler section of this file and uncomment the following lines:
     <request-map uri="orderreportjasper.pdf"><security https="true" auth="true"/>
         <event type="groovy" path="/reports/" invoke="OrderReportPrepare.groovy"/> TODO: path to be changed

@@ -199,7 +199,7 @@ under the License.
                             com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance();
                             cal.setTimeInMillis(orderDate.getTime());
                             cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
-                            return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
+                            return org.apache.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
                             </script>
 
                             <!-- create or update OrderItemShipGrpInvRes record -->
@@ -267,7 +267,7 @@ under the License.
                             com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance();
                             cal.setTimeInMillis(orderDate.getTime());
                             cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
-                            return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
+                            return org.apache.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
                             </script>
 
                             <!-- create OrderItemShipGrpInvRes record -->
@@ -509,7 +509,7 @@ under the License.
         com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance();
         cal.setTimeInMillis(orderDate.getTime());
         cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
-        return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
+        return org.apache.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
         </script>
     </simple-method>
 

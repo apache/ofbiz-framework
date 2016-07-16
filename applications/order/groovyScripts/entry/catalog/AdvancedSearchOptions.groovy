@@ -22,12 +22,12 @@
  * should not contain order component's specific code.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.feature.*;
-import org.ofbiz.product.product.*;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.product.feature.*;
+import org.apache.ofbiz.product.product.*;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 
 searchCategoryId = parameters.SEARCH_CATEGORY_ID;
 if (!searchCategoryId) {

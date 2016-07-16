@@ -18,9 +18,9 @@
  */
 
 import java.util.HashMap;
-import org.ofbiz.party.contact.ContactMechWorker;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.party.contact.ContactMechWorker;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilMisc;
 
 /* puts the following in the context: "contactMech", "contactMechId",
         "partyContactMech", "partyContactMechPurposes", "contactMechTypeId",

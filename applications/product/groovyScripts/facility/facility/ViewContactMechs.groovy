@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*
-import org.ofbiz.party.contact.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.party.contact.*
 
 context.nowStr = UtilDateTime.nowTimestamp();
 

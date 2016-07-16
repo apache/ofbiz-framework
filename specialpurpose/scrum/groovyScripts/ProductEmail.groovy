@@ -19,11 +19,11 @@
 
 import java.util.*;
 import java.lang.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.util.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.util.*;
 
 productId = parameters.productId;
 loginPartyId = userLogin.partyId;

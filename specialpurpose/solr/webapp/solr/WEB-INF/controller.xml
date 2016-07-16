@@ -8,32 +8,32 @@
 
     <description>Solr Configuration File</description>
 
-    <handler name="simplecontent" type="view" class="org.ofbiz.content.view.SimpleContentViewHandler"/>
-    <handler name="jsp" type="view" class="org.ofbiz.ecommerce.webapp.view.JspViewHandler"/>
+    <handler name="simplecontent" type="view" class="org.apache.ofbiz.content.view.SimpleContentViewHandler"/>
+    <handler name="jsp" type="view" class="org.apache.ofbiz.ecommerce.webapp.view.JspViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <preprocessor>
-        <event name="checkExternalLoginKey" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey" />
+        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey" />
     </preprocessor>
     
     <!-- Security Mappings -->
     <request-map uri="checkLogin" edit="false">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.solr.control.OFBizSolrLoginWorker" invoke="extensionCheckLogin"/>
+        <event type="java" path="org.apache.ofbiz.solr.control.OFBizSolrLoginWorker" invoke="extensionCheckLogin"/>
         <response name="success" type="none"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     <request-map uri="login">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.solr.control.OFBizSolrLoginWorker" invoke="login"/>
+        <event type="java" path="org.apache.ofbiz.solr.control.OFBizSolrLoginWorker" invoke="login"/>
         <response name="success" type="none"/>
         <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     <request-map uri="logout">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
         <response name="success" type="view" value="login"/>
         <response name="error" type="view" value="login"/>
     </request-map>

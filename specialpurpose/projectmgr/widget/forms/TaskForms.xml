@@ -523,7 +523,7 @@
         </actions>
         <field name="noteId"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
-        <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${groovy: org.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
+        <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${groovy: org.apache.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
 
         <field name="internalNote" widget-style="buttontext" title="${uiLabelMap.ProjectMgrPrivateOrPublic}" use-when="internalNote.equals(&quot;N&quot;)">
             <hyperlink target="updateTaskNote" description="${uiLabelMap.OrderNotesPrivate}">

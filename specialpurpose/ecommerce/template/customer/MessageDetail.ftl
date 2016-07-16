@@ -19,10 +19,10 @@ under the License.
 
 <#assign delegator = requestAttributes.delegator>
 <#if communicationEvent.partyIdFrom??>
-    <#assign fromName = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdFrom, true)>
+    <#assign fromName = Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdFrom, true)>
 </#if>
 <#if communicationEvent.partyIdTo??>
-    <#assign toName = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdTo, true)>
+    <#assign toName = Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdTo, true)>
 </#if>
 
 <div class="screenlet">

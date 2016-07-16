@@ -63,7 +63,7 @@ under the License.
         <description>Get accounting preferences for a party (organization)</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="VIEW"/>
         <attribute type="String" mode="IN" name="organizationPartyId" optional="false"/>
-        <attribute name="partyAccountingPreference" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="partyAccountingPreference" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
     <service name="setAcctgCompany" engine="simple"
         location="component://accounting/minilang/admin/AcctgAdminServices.xml" invoke="setAcctgCompany" auth="true">

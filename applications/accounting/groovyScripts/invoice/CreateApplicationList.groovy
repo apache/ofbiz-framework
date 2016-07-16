@@ -19,11 +19,11 @@
 
 import java.util.*;
 import java.math.BigDecimal;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.collections.*;
-import org.ofbiz.accounting.invoice.*;
-import org.ofbiz.accounting.payment.*;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.collections.*;
+import org.apache.ofbiz.accounting.invoice.*;
+import org.apache.ofbiz.accounting.payment.*;
 import java.text.DateFormat;
 import java.text.*;
 import java.text.NumberFormat;

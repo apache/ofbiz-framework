@@ -30,7 +30,7 @@ under the License.
         -->
         <!-- Step 1 -->
         <script>groovy:
-            import org.ofbiz.base.util.UtilProperties;
+            import org.apache.ofbiz.base.util.UtilProperties;
             UtilProperties.setPropertyValueInMemory("accounting", "create.invoice.per.shipment", "N");
         </script>
         <log level="info" message="===== >>> Set Accounting.properties / create.invoice.per.shipment = N"/>
@@ -38,7 +38,7 @@ under the License.
         <field-to-session field="nullField" session-name="orderMode"/>
         <set field="request" from-field="parameters.request"/>
         <set field="response" from-field="parameters.response"/>
-        <call-class-method method-name="routeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="routeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -54,12 +54,12 @@ under the License.
             session = request.getSession();
             session.setAttribute("userLogin", userLogin);
         </script>
-        <call-class-method method-name="initializeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="initializeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : initializeOrderEntry, Response : ${result}"/>
-        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -67,7 +67,7 @@ under the License.
         <script>groovy:
             request.setParameter("add_product_id", "GZ-1000");
         </script>
-        <call-class-method method-name="addToCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="addToCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -81,23 +81,23 @@ under the License.
             request.setParameter("may_split", "false");
         </script>
         <field-to-request field="nullField" request-name="shoppingCart"/>
-        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : setQuickCheckOutOptions, Response : ${result}"/>
-        <call-class-method method-name="createOrder" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="createOrder" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : createOrder, Response : ${result}"/>
-        <call-class-method method-name="processPayment" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="processPayment" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : processPayment, Response : ${result}"/>
         <call-service-asynch service-name="sendOrderConfirmation"/>
-        <call-class-method method-name="destroyCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="destroyCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -110,7 +110,7 @@ under the License.
         <first-from-list entry="orderHeader" list="orderHeaders"/>
         <log level="info" message="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx : ${orderHeader}"/>
         <script>groovy:
-            import org.ofbiz.shipment.packing.PackingSession;
+            import org.apache.ofbiz.shipment.packing.PackingSession;
             packingSession = new PackingSession(dispatcher, userLogin);
             packingSession.setPrimaryOrderId(orderHeader.get("orderId"));
             packingSession.setPrimaryShipGroupSeqId("00001");
@@ -157,7 +157,7 @@ under the License.
         -->
         <!-- Step 1 -->
         <script>groovy:
-            import org.ofbiz.base.util.UtilProperties;
+            import org.apache.ofbiz.base.util.UtilProperties;
             UtilProperties.setPropertyValueInMemory("accounting", "create.invoice.per.shipment", "Y");
         </script>
         <log level="info" message="===== >>> Set Accounting.properties / create.invoice.per.shipment = Y"/>
@@ -165,7 +165,7 @@ under the License.
         <field-to-session field="nullField" session-name="orderMode"/>
         <set field="request" from-field="parameters.request"/>
         <set field="response" from-field="parameters.response"/>
-        <call-class-method method-name="routeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="routeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -181,12 +181,12 @@ under the License.
             session = request.getSession();
             session.setAttribute("userLogin", userLogin);
         </script>
-        <call-class-method method-name="initializeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="initializeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : initializeOrderEntry, Response = ${result}"/>
-        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -194,7 +194,7 @@ under the License.
         <script>groovy:
             request.setParameter("add_product_id", "GZ-1000");
         </script>
-        <call-class-method method-name="addToCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="addToCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -208,23 +208,23 @@ under the License.
             request.setParameter("may_split", "false");
         </script>
         <field-to-request field="nullField" request-name="shoppingCart"/>
-        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : setQuickCheckOutOptions, Response = ${result}"/>
-        <call-class-method method-name="createOrder" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="createOrder" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : createOrder, Response = ${result}"/>
-        <call-class-method method-name="processPayment" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="processPayment" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : processPayment, Response = ${result}"/>
         <call-service-asynch service-name="sendOrderConfirmation"/>
-        <call-class-method method-name="destroyCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="destroyCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -236,7 +236,7 @@ under the License.
         </entity-condition>
         <first-from-list entry="orderHeader" list="orderHeaders"/>
         <script>groovy:
-            import org.ofbiz.shipment.packing.PackingSession;
+            import org.apache.ofbiz.shipment.packing.PackingSession;
             packingSession = new PackingSession(dispatcher, userLogin);
             packingSession.setPrimaryOrderId(orderHeader.get("orderId"));
             packingSession.setPrimaryShipGroupSeqId("00001");
@@ -283,7 +283,7 @@ under the License.
         <field-to-session field="nullField" session-name="orderMode"/>
         <set field="request" from-field="parameters.request"/>
         <set field="response" from-field="parameters.response"/>
-        <call-class-method method-name="routeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="routeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -299,12 +299,12 @@ under the License.
             session = request.getSession();
             session.setAttribute("userLogin", userLogin);
         </script>
-        <call-class-method method-name="initializeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="initializeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : initializeOrderEntry, Response = ${result}"/>
-        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -312,7 +312,7 @@ under the License.
         <script>groovy:
             request.setParameter("add_product_id", "GZ-2644");
         </script>
-        <call-class-method method-name="addToCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="addToCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -326,23 +326,23 @@ under the License.
             request.setParameter("may_split", "false");
         </script>
         <field-to-request field="nullField" request-name="shoppingCart"/>
-        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : setQuickCheckOutOptions, Response = ${result}"/>
-        <call-class-method method-name="createOrder" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="createOrder" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : createOrder, Response = ${result}"/>
-        <call-class-method method-name="processPayment" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="processPayment" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : processPayment, Response = ${result}"/>
         <call-service-asynch service-name="sendOrderConfirmation"/>
-        <call-class-method method-name="destroyCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="destroyCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -361,7 +361,7 @@ under the License.
         <log level="info" message="===== >>> Service : updateOrderHeader / invoicePerShipment = N,  Response = ${responseMessage}"/>
         <!-- Step 2 -->
         <script>groovy:
-            import org.ofbiz.shipment.packing.PackingSession;
+            import org.apache.ofbiz.shipment.packing.PackingSession;
             packingSession = new PackingSession(dispatcher, userLogin);
             packingSession.setPrimaryOrderId(orderHeader.get("orderId"));
             packingSession.setPrimaryShipGroupSeqId("00001");
@@ -408,7 +408,7 @@ under the License.
         <field-to-session field="nullField" session-name="orderMode"/>
         <set field="request" from-field="parameters.request"/>
         <set field="response" from-field="parameters.response"/>
-        <call-class-method method-name="routeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="routeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -424,12 +424,12 @@ under the License.
             session = request.getSession();
             session.setAttribute("userLogin", userLogin);
         </script>
-        <call-class-method method-name="initializeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="initializeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : initializeOrderEntry, Response = ${result}"/>
-        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -437,7 +437,7 @@ under the License.
         <script>groovy:
             request.setParameter("add_product_id", "GZ-2644");
         </script>
-        <call-class-method method-name="addToCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="addToCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -451,23 +451,23 @@ under the License.
             request.setParameter("may_split", "false");
         </script>
         <field-to-request field="nullField" request-name="shoppingCart"/>
-        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : setQuickCheckOutOptions, Response = ${result}"/>
-        <call-class-method method-name="createOrder" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="createOrder" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : createOrder, Response = ${result}"/>
-        <call-class-method method-name="processPayment" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="processPayment" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : processPayment, Response = ${result}"/>
         <call-service-asynch service-name="sendOrderConfirmation"/>
-        <call-class-method method-name="destroyCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="destroyCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -486,7 +486,7 @@ under the License.
         <log level="info" message="===== >>> Service : updateOrderHeader / invoicePerShipment = Y,  Response = ${responseMessage}"/>
         <!-- Step 2 -->
         <script>groovy:
-            import org.ofbiz.shipment.packing.PackingSession;
+            import org.apache.ofbiz.shipment.packing.PackingSession;
             packingSession = new PackingSession(dispatcher, userLogin);
             packingSession.setPrimaryOrderId(orderHeader.get("orderId"));
             packingSession.setPrimaryShipGroupSeqId("00001");

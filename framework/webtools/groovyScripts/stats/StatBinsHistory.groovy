@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.security.Security;
-import org.ofbiz.webapp.stats.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.webapp.stats.*;
 
 id = parameters.statsId;
 typeStr = parameters.type;

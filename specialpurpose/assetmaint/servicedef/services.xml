@@ -20,7 +20,7 @@ under the License.
     <version>1.0</version>
 
     <service name="addPartFixedAssetMaint" engine="java"
-                location="org.ofbiz.assetmaint.FixedAssetMaintServices" invoke="addPartFixedAssetMaint" auth="true">
+                location="org.apache.ofbiz.assetmaint.FixedAssetMaintServices" invoke="addPartFixedAssetMaint" auth="true">
         <description>Add Part item to a FixedAssetMaint</description>
         <attribute type="String" mode="IN" name="fixedAssetId" optional="false"/>
         <attribute type="String" mode="IN" name="maintHistSeqId" optional="false"/>

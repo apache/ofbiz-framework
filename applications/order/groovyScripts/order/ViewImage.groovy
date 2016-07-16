@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.order.order.*;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.order.order.*;
 
 orderId = request.getParameter("orderId");
 orderItemSeqId = request.getParameter("orderItemSeqId");

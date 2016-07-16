@@ -38,7 +38,7 @@ under the License.
         <#assign contentIdTo="ECMC" + .node.@id[0]/>
         <#assign assocType="PUBLISH_LINK"/>
     </#if>
-    <#assign nowStamp=Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp()/>
+    <#assign nowStamp=Static["org.apache.ofbiz.base.util.UtilDateTime"].nowTimestamp()/>
     <ContentAssoc contentIdTo="${contentIdTo}" contentId="${contentId}" contentAssocTypeId="${assocType}" fromDate="${nowStamp?string("yyyy-MM-dd HH:mm:ss")}"/>
 </#macro>
 

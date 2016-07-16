@@ -17,14 +17,14 @@
  * under the License.
  */
 
-import org.ofbiz.entity.jdbc.SQLProcessor;
+import org.apache.ofbiz.entity.jdbc.SQLProcessor;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.model.ModelGroupReader;
+import org.apache.ofbiz.entity.*;
+import org.apache.ofbiz.entity.model.ModelGroupReader;
 
 sqlCommand = context.request.getParameter("sqlCommand");
 
