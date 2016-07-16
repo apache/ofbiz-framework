@@ -407,7 +407,6 @@ public class PaymentMethodServices {
         }
 
         if (isModified) {
-            // Debug.logInfo("yes, is modified", module);
             if (newPartyContactMechPurpose != null) toBeStored.add(newPartyContactMechPurpose);
 
             // set thru date on old paymentMethod

@@ -436,7 +436,6 @@ public class InvoiceServices {
                 createInvoiceItemContext.put("productId", orderItem.get("productId"));
                 createInvoiceItemContext.put("productFeatureId", orderItem.get("productFeatureId"));
                 createInvoiceItemContext.put("overrideGlAccountId", orderItem.get("overrideGlAccountId"));
-                //createInvoiceItemContext.put("uomId", "");
                 createInvoiceItemContext.put("userLogin", userLogin);
 
                 String itemIssuanceId = null;
@@ -577,7 +576,6 @@ public class InvoiceServices {
                         createInvoiceItemAdjContext.put("overrideGlAccountId", adj.get("overrideGlAccountId"));
                         createInvoiceItemAdjContext.put("parentInvoiceId", invoiceId);
                         createInvoiceItemAdjContext.put("parentInvoiceItemSeqId", parentInvoiceItemSeqId);
-                        //createInvoiceItemAdjContext.put("uomId", "");
                         createInvoiceItemAdjContext.put("userLogin", userLogin);
                         createInvoiceItemAdjContext.put("taxAuthPartyId", adj.get("taxAuthPartyId"));
                         createInvoiceItemAdjContext.put("taxAuthGeoId", adj.get("taxAuthGeoId"));
@@ -2307,10 +2305,6 @@ public class InvoiceServices {
                 createInvoiceItemContext.put("quantity", BigDecimal.ONE);
                 createInvoiceItemContext.put("amount", amount);
                 createInvoiceItemContext.put("overrideGlAccountId", adj.get("overrideGlAccountId"));
-                //createInvoiceItemContext.put("productId", orderItem.get("productId"));
-                //createInvoiceItemContext.put("productFeatureId", orderItem.get("productFeatureId"));
-                //createInvoiceItemContext.put("uomId", "");
-                //createInvoiceItemContext.put("taxableFlag", product.get("taxable"));
                 createInvoiceItemContext.put("taxAuthPartyId", adj.get("taxAuthPartyId"));
                 createInvoiceItemContext.put("taxAuthGeoId", adj.get("taxAuthGeoId"));
                 createInvoiceItemContext.put("taxAuthorityRateSeqId", adj.get("taxAuthorityRateSeqId"));
@@ -2363,10 +2357,6 @@ public class InvoiceServices {
                 createInvoiceItemContext.put("quantity", BigDecimal.ONE);
                 createInvoiceItemContext.put("amount", amount);
                 createInvoiceItemContext.put("overrideGlAccountId", adj.get("overrideGlAccountId"));
-                //createInvoiceItemContext.put("productId", orderItem.get("productId"));
-                //createInvoiceItemContext.put("productFeatureId", orderItem.get("productFeatureId"));
-                //createInvoiceItemContext.put("uomId", "");
-                //createInvoiceItemContext.put("taxableFlag", product.get("taxable"));
                 createInvoiceItemContext.put("taxAuthPartyId", adj.get("taxAuthPartyId"));
                 createInvoiceItemContext.put("taxAuthGeoId", adj.get("taxAuthGeoId"));
                 createInvoiceItemContext.put("taxAuthorityRateSeqId", adj.get("taxAuthorityRateSeqId"));
@@ -2811,7 +2801,6 @@ public class InvoiceServices {
                     }
                     invoiceItemApplyAvailable = invoiceItem.getBigDecimal("amount").multiply(quantity).setScale(DECIMALS,ROUNDING).subtract(InvoiceWorker.getInvoiceItemApplied(invoiceItem));
                     // check here for too much application if a new record is added
-                    // (paymentApplicationId == null)
                     if (paymentApplicationId == null && amountApplied.compareTo(invoiceItemApplyAvailable) > 0) {
                         // new record
                         errorMessageList.add("Invoice(" + invoiceId + ") item(" + invoiceItemSeqId + ") has  " + invoiceItemApplyAvailable + " to apply but " + amountApplied + " is requested\n");
@@ -3197,27 +3186,6 @@ public class InvoiceServices {
                             storePaymentApplication(delegator, paymentApplication,locale);
                         }
 
-                        // check if either the invoice or the payment is fully
-                        // applied, when yes change the status to paid
-                        // which triggers the ledger routines....
-                        /*
-                         * if
-                         * (InvoiceWorker.getInvoiceTotal(invoice).equals(InvoiceWorker.getInvoiceApplied(invoice))) {
-                         * try { dispatcher.runSync("setInvoiceStatus",
-                         * UtilMisc.toMap("invoiceId",invoiceId,"statusId","INVOICE_PAID")); }
-                         * catch (GenericServiceException e1) {
-                         * Debug.logError(e1, "Error updating invoice status",
-                         * module); } }
-                         *
-                         * if
-                         * (payment.getBigDecimal("amount").equals(PaymentWorker.getPaymentApplied(payment))) {
-                         * GenericValue appliedPayment = (GenericValue)
-                         * delegator.makeValue("Payment",
-                         * UtilMisc.toMap("paymentId",paymentId,"statusId","INVOICE_PAID"));
-                         * try { appliedPayment.store(); } catch
-                         * (GenericEntityException e) {
-                         * ServiceUtil.returnError(e.getMessage()); } }
-                         */
                     }
 
                     if (errorMessageList.size() > 0) {

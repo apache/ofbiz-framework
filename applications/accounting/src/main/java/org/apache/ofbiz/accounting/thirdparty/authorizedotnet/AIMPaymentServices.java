@@ -132,7 +132,6 @@ public class AIMPaymentServices {
         // PRIOR_AUTH_CAPTURE is the right one to use, since we already have an authorization from the authTransaction.
         // CAPTURE_ONLY is a "force" transaction to be used if there is no prior authorization
         props.put("transType", "PRIOR_AUTH_CAPTURE");
-        //props.put("transType","CAPTURE_ONLY");
         props.put("cardtype", creditCard.get("cardType"));
         buildCaptureTransaction(context,props,request);
         Map<String, Object> validateResults = validateRequest(context, props, request);

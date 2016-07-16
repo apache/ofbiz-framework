@@ -406,8 +406,6 @@ public class ValueLinkApi {
         // initialize the parameter spec
         DHPublicKey publicKey = (DHPublicKey) this.getValueLinkPublicKey();
         DHParameterSpec dhParamSpec = publicKey.getParams();
-        //Debug.logInfo(dhParamSpec.getP().toString() + " / " + dhParamSpec.getG().toString(), module);
-
         // create the public/private key pair using parameters defined by valuelink
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DH");
         keyGen.initialize(dhParamSpec);

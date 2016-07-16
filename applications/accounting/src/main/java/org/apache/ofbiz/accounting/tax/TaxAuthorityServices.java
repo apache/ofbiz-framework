@@ -252,15 +252,12 @@ public class TaxAuthorityServices {
             Debug.logWarning("shippingAddress was null, adding nothing to taxAuthoritySet", module);
         }
 
-        //Debug.logInfo("Tax calc geoIdByTypeMap before expand:" + geoIdByTypeMap + "; this is for shippingAddress=" + shippingAddress, module);
         // get the most granular, or all available, geoIds and then find parents by GeoAssoc with geoAssocTypeId="REGIONS" and geoIdTo=<granular geoId> and find the GeoAssoc.geoId
         geoIdByTypeMap = GeoWorker.expandGeoRegionDeep(geoIdByTypeMap, delegator);
-        //Debug.logInfo("Tax calc geoIdByTypeMap after expand:" + geoIdByTypeMap, module);
 
         List<GenericValue> taxAuthorityRawList = EntityQuery.use(delegator)
                 .from("TaxAuthority").where(EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.IN, geoIdByTypeMap.values())).cache().queryList();
         taxAuthoritySet.addAll(taxAuthorityRawList);
-        //Debug.logInfo("Tax calc taxAuthoritySet after expand:" + taxAuthoritySet, module);
     }
 
     private static List<GenericValue> getTaxAdjustments(Delegator delegator, GenericValue product, GenericValue productStore, 
@@ -442,8 +439,6 @@ public class TaxAuthorityServices {
                                     .orderBy("-fromDate").filterByDate().queryFirst();
                     	}
                     }
-                    //Debug.logInfo("=================== productId=" + product.getString("productId"), module);
-                    //Debug.logInfo("=================== productPrice=" + productPrice, module);
                 }
                 GenericValue taxAdjValue = delegator.makeValue("OrderAdjustment");
 
@@ -497,9 +492,6 @@ public class TaxAuthorityServices {
                     BigDecimal price = productPrice.getBigDecimal("price");
                     BigDecimal baseSubtotal = price.multiply(itemQuantity);
                     BigDecimal baseTaxAmount = (baseSubtotal.multiply(taxRate)).divide(PERCENT_SCALE, salestaxCalcDecimals, salestaxRounding);
-                    //Debug.logInfo("=================== priceWithTax=" + priceWithTax, module);
-                    //Debug.logInfo("=================== enteredTotalPriceWithTax=" + enteredTotalPriceWithTax, module);
-                    //Debug.logInfo("=================== calcedTotalPriceWithTax=" + calcedTotalPriceWithTax, module);
                     
                     // tax is not already in price so we want to add it in, but this is a VAT situation so adjust to make it as accurate as possible
 
@@ -519,7 +511,6 @@ public class TaxAuthorityServices {
                         //     to get it down to match the entered amount
                         // so, subtract the calculated amount from the entered amount (ie: correction = entered - calculated)
                         BigDecimal correctionAmount = enteredTotalPriceWithTax.subtract(calcedTotalPriceWithTax);
-                        //Debug.logInfo("=================== correctionAmount=" + correctionAmount, module);
                         
                         GenericValue correctionAdjValue = delegator.makeValue("OrderAdjustment");
                         correctionAdjValue.set("taxAuthorityRateSeqId", taxAuthorityRateProduct.getString("taxAuthorityRateSeqId"));
@@ -572,7 +563,6 @@ public class TaxAuthorityServices {
             GenericValue taxAuthorityAssoc = EntityQuery.use(delegator).from("TaxAuthorityAssoc")
                     .where("toTaxAuthGeoId", taxAuthGeoId, "toTaxAuthPartyId", taxAuthPartyId, "taxAuthorityAssocTypeId", "EXEMPT_INHER")
                     .orderBy("-fromDate").filterByDate().queryFirst();
-            // Debug.logInfo("Parent assoc to " + taxAuthGeoId + " : " + taxAuthorityAssoc, module);
             if (taxAuthorityAssoc != null) {
                 handlePartyTaxExempt(adjValue, billToPartyIdSet, taxAuthorityAssoc.getString("taxAuthGeoId"), taxAuthorityAssoc.getString("taxAuthPartyId"), taxAmount, nowTimestamp, delegator);
             }

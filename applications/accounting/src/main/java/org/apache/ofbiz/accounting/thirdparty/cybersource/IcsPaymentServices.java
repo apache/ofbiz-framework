@@ -332,8 +332,6 @@ public class IcsPaymentServices {
         request.put("purchaseTotals_currency", currency);
 
         // TODO: add support for verbal authorizations
-        //request.put("ccCaptureService_authType", null);   -- should be 'verbal'
-        //request.put("ccCaptureService_verbalAuthCode", null); -- code from verbal auth
         if (merchantDesc != null) {
             request.put("invoiceHeader_merchantDescriptor", merchantDesc);        // merchant description
         }
