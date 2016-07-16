@@ -366,7 +366,6 @@ public class CCPaymentServices {
         Debug.set(Debug.VERBOSE, true);
         //Document reportResponseDoc = null;
         try {
-            //reportResponseDoc =
             sendRequest(requestDocument, (String) context.get("paymentConfig"), delegator);
         } catch (ClearCommerceException cce) {
             return ServiceUtil.returnError(cce.getMessage());
@@ -916,11 +915,6 @@ public class CCPaymentServices {
             Debug.logInfo(hce, module);
             throw new ClearCommerceException("ClearCommerce connection problem", hce);
         }
-
-        // Note: if Debug.verboseOn(), HttpClient will log this...set on with:         Debug.set(Debug.VERBOSE, true);
-       // if (Debug.verboseOn()) {
-       //    Debug.logVerbose("ClearCommerce response: " + response, module);
-       // }
 
         Document responseDocument = null;
         try {

@@ -158,8 +158,6 @@ public final class SagePayUtil {
         HttpPost httpPost = new HttpPost(uri);
         httpPost.addHeader("User-Agent", "HTTP Client");
         httpPost.addHeader("Content-type", "application/x-www-form-urlencoded");
-        //postMethod.addHeader("Content-Length", "0");
-
         List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
         Set<String> keys = parameters.keySet();
         for (String key : keys) {

@@ -478,8 +478,6 @@ public class PaymentGatewayServices {
 
         // get the visit record to obtain the client's IP address
         GenericValue orderHeader = orh.getOrderHeader();
-        //if (orderHeader == null) {}
-
         String visitId = orderHeader.getString("visitId");
         GenericValue visit = null;
         if (visitId != null) {
@@ -2603,7 +2601,6 @@ public class PaymentGatewayServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "AccountingPaymentCreationError", locale));
             }
-            //Debug.logInfo("Payment created : " + paymentId, module);
 
             if (paymentId == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -2904,8 +2901,6 @@ public class PaymentGatewayServices {
 
         return true;
     }
-
-    // safe payment gateway response store
 
     /**
      * Saves either a PaymentGatewayResponse or PaymentGatewayRespMsg value and ensures that the value

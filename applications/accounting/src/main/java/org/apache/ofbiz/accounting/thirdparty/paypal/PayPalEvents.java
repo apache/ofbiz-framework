@@ -294,13 +294,6 @@ public class PayPalEvents {
             return "error";
         }
 
-        /*  get payment data
-        String paymentCurrency = request.getParameter("mc_currency");
-        String paymentAmount = request.getParameter("mc_gross");
-        String paymentFee = request.getParameter("mc_fee");
-        String transactionId = request.getParameter("txn_id");
-        */
-
         // get the transaction status
         String paymentStatus = request.getParameter("payment_status");
 

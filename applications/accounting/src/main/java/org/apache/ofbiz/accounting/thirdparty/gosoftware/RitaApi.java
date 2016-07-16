@@ -179,52 +179,6 @@ public class RitaApi {
             HttpClient http = new HttpClient(urlString);
             http.setDebug(true);
 
-            /*
-            SocketFactory sf = null;
-            if (ssl) {
-                sf = SSLSocketFactory.getDefault();
-            } else {
-                sf = SocketFactory.getDefault();
-            }
-            Socket sock = sf.createSocket(host, port);
-
-            // get the streams
-            BufferedReader br = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            PrintStream ps = new PrintStream(sock.getOutputStream());
-
-            // send the request
-            ps.print(this.toString());
-            ps.flush();
-
-            // the output map
-            LinkedHashMap docMap = new LinkedHashMap();
-            String line;
-
-            // read the response
-            while ((line = br.readLine()) != null) {
-                Debug.logInfo(line, module);
-                if (!line.trim().equals(".")) {
-                    String[] lineSplit = line.trim().split(" ");
-                    if (lineSplit != null && lineSplit.length == 2) {
-                        docMap.put(lineSplit[0], lineSplit[1]);
-                    } else {
-                        Debug.logWarning("Line split error - " + line, module);
-                    }
-                } else {
-                    break;
-                }
-            }
-            Debug.logInfo("Reading finished.", module);
-
-            // send session finished signal
-            ps.print("..\r\n");
-            ps.flush();
-
-            // close the streams
-            ps.close();
-            br.close();
-            */
-
             Map<String, String> docMap = new HashMap<String, String>();
             String resp = null;
             try {

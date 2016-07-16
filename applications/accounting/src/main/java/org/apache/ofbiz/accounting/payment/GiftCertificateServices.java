@@ -355,7 +355,6 @@ public class GiftCertificateServices {
         }
 
         // TODO: get the real currency from context
-        //String currencyUom = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         // get the balance
         BigDecimal balance = finAccount.get("availableBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("availableBalance");
 
@@ -661,7 +660,6 @@ public class GiftCertificateServices {
         refundCtx.put("productStoreId", productStoreId);
         refundCtx.put("currency", currency);
         refundCtx.put("partyId", partyId);
-        //reloadCtx.put("orderId", orderId);
         refundCtx.put("cardNumber", giftCard.get("cardNumber"));
         refundCtx.put("pinNumber", giftCard.get("pinNumber"));
         refundCtx.put("amount", amount);
@@ -837,11 +835,9 @@ public class GiftCertificateServices {
         for (int i = 0; i < qtyLoop; i++) {
             // create a gift certificate
             Map<String, Object> createGcCtx = new HashMap<String, Object>();
-            //createGcCtx.put("paymentConfig", paymentConfig);
             createGcCtx.put("productStoreId", productStoreId);
             createGcCtx.put("currency", currency);
             createGcCtx.put("partyId", partyId);
-            //createGcCtx.put("orderId", orderId);
             createGcCtx.put("initialAmount", amount);
             createGcCtx.put("userLogin", userLogin);
 
@@ -1060,7 +1056,6 @@ public class GiftCertificateServices {
         reloadCtx.put("productStoreId", productStoreId);
         reloadCtx.put("currency", currency);
         reloadCtx.put("partyId", partyId);
-        //reloadCtx.put("orderId", orderId);
         reloadCtx.put("cardNumber", cardNumber);
         reloadCtx.put("pinNumber", pinNumber);
         reloadCtx.put("amount", amount);
@@ -1385,12 +1380,9 @@ public class GiftCertificateServices {
         // create the payment for the transaction
         Map<String, Object> paymentCtx = UtilMisc.<String, Object>toMap("paymentTypeId", paymentType);
         paymentCtx.put("paymentMethodTypeId", paymentMethodType);
-        //paymentCtx.put("paymentMethodId", "");
-        //paymentCtx.put("paymentGatewayResponseId", "");
         paymentCtx.put("partyIdTo", partyIdTo);
         paymentCtx.put("partyIdFrom", partyIdFrom);
         paymentCtx.put("statusId", "PMNT_RECEIVED");
-        //paymentCtx.put("paymentPreferenceId", "");
         paymentCtx.put("currencyUomId", currencyUom);
         paymentCtx.put("amount", amount);
         paymentCtx.put("userLogin", userLogin);
