@@ -331,12 +331,37 @@ under the License.
         </field>
     </form>
 
-    <form name="ViewCertificate" type="single" target="ViewCertificate"
+    <form name="EditCertificate" type="single" target="ViewCertificate"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="certString">
             <textarea rows="10"/>
         </field>
         <field name="View Cert" title="${uiLabelMap.ViewCert}"><submit/></field>
+    </form>
+    
+    <form name="ViewCertificate" type="single" target="ViewCertificate"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="certType" title="${uiLabelMap.CertType}">
+            <display/>
+        </field>
+        <field name="certName" title="${uiLabelMap.CertName}">
+            <display/>
+        </field>
+        <field name="certSerialNumber" title="${uiLabelMap.CertSerialNumber}">
+            <display/>
+        </field>
+    </form>
+    
+    <form name="CertToKeystore" type="list" list-name="stores" use-row-submit="true"
+        separate-columns="true" target="importIssuerProvision" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="certString"><hidden/></field>
+        <field name="componentName" title="${uiLabelMap.CertComponent}"><display/></field>
+        <field name="keystoreName" title="${uiLabelMap.CertKeyStore}"><display/></field>
+        <field name="alias" title="${uiLabelMap.CertKeyAlias}"><text/></field>
+        <field name="importIssuer" title="${uiLabelMap.CertImportIssuer}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext" >
+            <submit button-type="button"/>
+        </field>
     </form>
 
 </forms>

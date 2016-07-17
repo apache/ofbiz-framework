@@ -232,7 +232,7 @@ under the License.
                             <label text="${uiLabelMap.PageTitleEditIssuerProvisions}"/>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleAddIssuerProvisions}">
-                            <include-form name="ViewCertificate" location="component://common/widget/SecurityForms.xml"/>
+                            <include-form name="EditCertificate" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.CertIssuers}">
                             <include-form name="CertIssuerList" location="component://common/widget/SecurityForms.xml"/>
@@ -333,19 +333,21 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleImportCertificate"/>
                 <set field="tabButtonItem" value="EditCertIssuerProvisions"/>
+                <set field="certString" from-field="requestParameters.certString"/>
+                <script location="component://common/webcommon/WEB-INF/actions/certs/CertKeystore.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="page-title">
                             <label text="${uiLabelMap.PageTitleImportCertificate}"/>
-                        </container>
-                        <container style="widget-container">
-                            <platform-specific>
-                                <html>
-                                    <html-template location="component://common/template/includes/ViewCertificate.ftl"/>
-                                </html>
-                            </platform-specific>
+                        <screenlet title="${uiLabelMap.PageTitleAddIssuerProvisions}">
+                            <include-form name="EditCertificate" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.CertSaveToKeyStore}">
+                            <include-form location="component://common/widget/SecurityForms.xml" name="ViewCertificate"/>
+                            <include-form location="component://common/widget/SecurityForms.xml" name="CertToKeystore"/>
+                        </screenlet>
                         </container>
                     </decorator-section>
                 </decorator-screen>
