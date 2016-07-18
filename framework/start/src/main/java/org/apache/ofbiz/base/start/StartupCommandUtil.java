@@ -22,9 +22,11 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.cli.CommandLine;
@@ -264,8 +266,8 @@ final class StartupCommandUtil {
     }
 
     private static final List<StartupCommand> mapCommonsCliOptionsToStartupCommands(final CommandLine commandLine) {
-        List<Option> optionList = Arrays.asList(commandLine.getOptions()); 
-        return optionList.stream()
+        Set<Option> uniqueOptions = new HashSet<Option>(Arrays.asList(commandLine.getOptions())); 
+        return uniqueOptions.stream()
                 .map(option -> new StartupCommand.Builder(option.getLongOpt())
                     .properties(populateMapFromProperties(commandLine.getOptionProperties(option.getLongOpt())))
                     .build())
