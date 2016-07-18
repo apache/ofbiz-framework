@@ -236,6 +236,15 @@ sourceSets {
             exclude excludedJavaSources
         }
     }
+
+    test {
+        java {
+            srcDirs = getDirectoryInActiveComponentsIfExists('src/test/java')
+        }
+        resources {
+            srcDirs = getDirectoryInActiveComponentsIfExists('src/test/java')
+        }
+    }
 }
 
 jar {
