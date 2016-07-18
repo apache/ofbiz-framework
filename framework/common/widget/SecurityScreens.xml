@@ -334,7 +334,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleImportCertificate"/>
                 <set field="tabButtonItem" value="EditCertIssuerProvisions"/>
                 <set field="certString" from-field="requestParameters.certString"/>
-                <script location="component://common/webcommon/WEB-INF/actions/certs/CertKeystore.groovy"/>
+                <script location="component://common/groovyScripts/CertKeystore.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
