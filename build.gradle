@@ -179,7 +179,7 @@ dependencies {
     compile 'xml-apis:xml-apis:1.4.01'
     compile 'mysql:mysql-connector-java:5.1.36'
     compile 'postgresql:postgresql:9.0-801.jdbc4'
-    
+
 
     // plugin libs
     subprojects.each { subProject ->
@@ -275,8 +275,8 @@ eclipse.classpath.file.whenMerged { classpath ->
         }
     }
     classpath.entries.removeAll { entry ->
-        /* remove "src" entries in .classpath named: 
-         *   /framework, /applications, /specialpurpose and /hot-deploy 
+        /* remove "src" entries in .classpath named:
+         *   /framework, /applications, /specialpurpose and /hot-deploy
          */
         entry.kind == 'src' &&
             entry.path ==~ /(\/+framework)$/ ||
@@ -297,7 +297,7 @@ eclipse.classpath.file.whenMerged { classpath ->
         def relativeDir = configDir.toString() - rootDir.toString() - osDirSeparator
         def eclipseConfigSrc = osName.contains('windows') ? relativeDir.replaceAll("\\\\", "/") : relativeDir
         classpath.entries.removeAll { entry ->
-            entry.kind == 'src' && 
+            entry.kind == 'src' &&
             entry.path == eclipseConfigSrc
         }
     }
@@ -326,14 +326,14 @@ task testIntegration(group: ofbizServer) {
     description 'Run OFBiz integration tests; You must run loadDefault before running this task'
 }
 
-task terminateOfbiz(group: ofbizServer, 
+task terminateOfbiz(group: ofbizServer,
     description: 'Force termination of any running OFBiz servers, only use if \"--shutdown\" command fails') << {
     def os = System.getProperty("os.name").toLowerCase()
     if (os.contains("windows")) {
         Runtime.getRuntime().exec("wmic process where \"CommandLine Like \'%org.apache.ofbiz.base.start.Start%\'\" Call Terminate")
     } else {
         def processOutput = new ByteArrayOutputStream()
-        exec { 
+        exec {
             commandLine 'ps', 'ax'
             standardOutput = processOutput
         }
@@ -569,7 +569,7 @@ task createTestReports(group: sysadminGroup, description: 'Generate HTML reports
         report(format:'frames', todir:'./runtime/logs/test-results/html')
     }
 }
-/* 
+/*
  * TODO replace this code with something more declarative.
  * We are using it so that if tests fail we still get HTML reports
  */
@@ -624,19 +624,19 @@ task cleanAntBuild(type: Delete, description: "Sort Term Task: clean old build d
     FileCollection applicationsBuildDirs = files("${rootDir}/applications/content/build.xml", "${rootDir}/applications/party/build.xml", "${rootDir}/applications/workeffort/build.xml",
         "${rootDir}/applications/product/build.xml", "${rootDir}/applications/marketing/build.xml", "${rootDir}/applications/order/build.xml", "${rootDir}/applications/manufacturing/build.xml",
         "${rootDir}/applications/accounting/build.xml", "${rootDir}/applications/securityext/build.xml", "${rootDir}/applications/ humanres/build.xml")
-    
-    
+
+
     FileCollection frameworkBuildDirs = files("${rootDir}/framework/start/build.xml,base/build.xml", "${rootDir}/framework/entity/build.xml", "${rootDir}/framework/geronimo/build.xml",
         "${rootDir}/framework/catalina/build.xml", "${rootDir}/framework/security/build.xml", "${rootDir}/framework/service/build.xml", "${rootDir}/framework/entityext/build.xml",
         "${rootDir}/framework/minilang/build.xml", "${rootDir}/framework/webapp/build.xml", "${rootDir}/framework/widget/build.xml", "${rootDir}/framework/common/build.xml",
         "${rootDir}/framework/datafile/build.xml", "${rootDir}/framework/testtools/build.xml", "${rootDir}/framework/webtools/build.xml")
-        
+
     FileCollection specialpurposeBuildDirs = files("${rootDir}/specialpurpose/assetmaint/build.xml", "${rootDir}/specialpurpose/birt/build.xml", "${rootDir}/specialpurpose/ebay/build.xml",
         "${rootDir}/specialpurpose/ebaystore/build.xml", "${rootDir}/specialpurpose/ecommerce/build.xml", "${rootDir}/specialpurpose/example/build.xml", "${rootDir}/specialpurpose/hhfacility/build.xml",
         "${rootDir}/specialpurpose/ldap/build.xml", "${rootDir}/specialpurpose/lucene/build.xml", "${rootDir}/specialpurpose/solr/build.xml", "${rootDir}/specialpurpose/oagis/build.xml",
         "${rootDir}/specialpurpose/pos/build.xml", "${rootDir}/specialpurpose/projectmgr/build.xml", "${rootDir}/specialpurpose/scrum/build.xml", "${rootDir}/specialpurpose/bi/build.xml",
         "${rootDir}/specialpurpose/ webpos/build.xml", "${rootDir}/specialpurpose/passport/build.xml")
-        
+
     FileCollection buildDirs =  files("ofbiz.jar") + applicationsBuildDirs + frameworkBuildDirs + specialpurposeBuildDirs
 
     delete(buildDirs)
@@ -663,7 +663,7 @@ task gitInfoFooter(group: committerGroup, description: 'Update the Git Branch-re
     def branch
     def revision
     def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
-    File gitFooterFile = new File("${rootDir}/runtime/GitInfo.ftl")  
+    File gitFooterFile = new File("${rootDir}/runtime/GitInfo.ftl")
 
     def branchOutput = new ByteArrayOutputStream()
     exec{
@@ -706,7 +706,7 @@ task svnInfoFooter(group: committerGroup, description: 'Update the Subversion re
 
 /* without executing this task, a test would fail that is named
  * org.apache.ofbiz.base.util.test.UtilObjectTests.testGetObjectFromFactory()
- * 
+ *
  * The test fails because it requires defining a service provider, read more below.
  * http://docs.oracle.com/javase/8/docs/technotes/guides/jar/jar.html#Service_Provider
  */
@@ -771,7 +771,7 @@ def createOfbizCommandTask(taskName, arguments, jvmArguments, isDebugMode) {
     def ofbizJarName = buildDir.toString()+'/libs/'+project.name+'.jar'
 
     task(type: JavaExec, dependsOn: build, taskName) {
-        jvmArgs(jvmArguments) 
+        jvmArgs(jvmArguments)
         debug = isDebugMode
         classpath = files(ofbizJarName)
         main = ofbizMainClass
@@ -781,7 +781,7 @@ def createOfbizCommandTask(taskName, arguments, jvmArguments, isDebugMode) {
     }
 }
 
-def createOfbizBackgroundCommandTask(taskName) {   
+def createOfbizBackgroundCommandTask(taskName) {
     def os = System.getProperty("os.name").toLowerCase()
     def sourceTask = taskName.tokenize().first()
     def arguments = (taskName - sourceTask)
@@ -811,7 +811,7 @@ def createOfbizBackgroundCommandTask(taskName) {
 def spawnProcess(command, arguments) {
     ProcessBuilder pb = new ProcessBuilder(command, arguments)
     File consoleLog = file("${rootDir}/runtime/logs/console.log");
-    
+
     pb.directory(file("${rootDir}"))
     pb.redirectErrorStream(true)
     pb.redirectOutput(ProcessBuilder.Redirect.appendTo(consoleLog))
