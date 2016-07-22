@@ -18,12 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <Party partyId="BLOG_GUEST" partyTypeId="PERSON"/>
+    <Party partyId="BLOG_GUEST" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="BLOG_GUEST" lastName="Guest" firstName="Blog"/>
     <UserLogin userLoginId="blog_guest" partyId="BLOG_GUEST"/>
     <PartyRole partyId="BLOG_GUEST" roleTypeId="_NA_"/>
+    <PartyStatus partyId="BLOG_GUEST" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
-    <Party partyId="BLOG_ADMIN" partyTypeId="PERSON"/>
+    <Party partyId="BLOG_ADMIN" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="BLOG_ADMIN" lastName="Admin" firstName="Blog"/>
     <UserLogin userLoginId="blog_admin" partyId="BLOG_ADMIN"/>
     <PartyRole partyId="BLOG_ADMIN" roleTypeId="CONTENT_ADMIN"/>
@@ -31,21 +32,24 @@ under the License.
     <PartyRole partyId="BLOG_ADMIN" roleTypeId="CONTENT_EDITOR"/>
     <PartyRole partyId="BLOG_ADMIN" roleTypeId="CONTENT_PUBLISHER"/>
     <PartyRole partyId="BLOG_ADMIN" roleTypeId="_NA_"/>
+    <PartyStatus partyId="BLOG_ADMIN" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
-    <Party partyId="BLOG_AUTHOR" partyTypeId="PERSON"/>
+    <Party partyId="BLOG_AUTHOR" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="BLOG_AUTHOR" lastName="Author" firstName="Blog"/>
     <UserLogin userLoginId="blog_author" partyId="BLOG_AUTHOR"/>
     <PartyRole partyId="BLOG_AUTHOR" roleTypeId="CONTENT_AUTHOR"/>
     <PartyRole partyId="BLOG_AUTHOR" roleTypeId="CONTENT_PUBLISHER"/>
     <PartyRole partyId="BLOG_AUTHOR" roleTypeId="_NA_"/>
+    <PartyStatus partyId="BLOG_AUTHOR" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
-    <Party partyId="BLOG_EDITOR" partyTypeId="PERSON"/>
+    <Party partyId="BLOG_EDITOR" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="BLOG_EDITOR" lastName="Editor" firstName="Blog"/>
     <UserLogin userLoginId="blog_editor" partyId="BLOG_EDITOR"/>
     <PartyRole partyId="BLOG_EDITOR" roleTypeId="CONTENT_EDITOR"/>
     <PartyRole partyId="BLOG_EDITOR" roleTypeId="CONTENT_EDITOR"/>
     <PartyRole partyId="BLOG_EDITOR" roleTypeId="CONTENT_PUBLISHER"/>
     <PartyRole partyId="BLOG_EDITOR" roleTypeId="_NA_"/>
+    <PartyStatus partyId="BLOG_EDITOR" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <ContactMech contactMechId="ADMIN_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
     <PartyContactMech partyId="BLOG_ADMIN" contactMechId="ADMIN_CONTACT" fromDate="2001-05-13 12:00:00.0"/>

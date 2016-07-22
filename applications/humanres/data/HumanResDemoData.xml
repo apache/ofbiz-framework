@@ -18,7 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <Party partyId="DemoEmployee"/><PartyRole partyId="DemoEmployee" roleTypeId="EMPLOYEE"/><!-- data completed by components loaded later -->
+    <Party partyId="DemoEmployee" statusId="PARTY_ENABLED"/>
+    <PartyRole partyId="DemoEmployee" roleTypeId="EMPLOYEE"/><!-- data completed by components loaded later -->
+    <PartyStatus partyId="DemoEmployee" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_MONTH" workEffortId="_NA_" partyId="DemoEmployee" emplPositionTypeId="_NA_" fromDate="2000-01-30 17:58:56.038" rateAmount="2300"/>
     <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_MONTH" workEffortId="_NA_" partyId="_NA_" emplPositionTypeId="PROGRAMMER" fromDate="2000-01-30 17:58:56.038" rateAmount="2000"/>
@@ -26,10 +28,11 @@ under the License.
     <EmplPositionFulfillment emplPositionId="DEMO100" partyId="DemoEmployee" fromDate="2009-01-30 17:58:02.745"/>
     <EmplPositionTypeRate emplPositionTypeId="PROGRAMMER" rateTypeId="AVERAGE_PAY_RATE" fromDate="2009-01-30 17:58:56.038"/>
     <Employment roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" partyIdFrom="Company" partyIdTo="DemoEmployee" fromDate="2000-01-30 17:50:15.767"/>
-    
-    <Party partyId="DemoApprover" partyTypeId="PERSON"/>
+
+    <Party partyId="DemoApprover" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoApprover" firstName="Demo" lastName="Approver"/>
-    
+    <PartyStatus partyId="DemoApprover" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
     <UserLogin userLoginId="demoapprover" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="DemoApprover"/>
     <UserLoginSecurityGroup groupId="HUMANRES_APPROVER" userLoginId="demoapprover" fromDate="2001-01-01 12:00:00.0"/>
 

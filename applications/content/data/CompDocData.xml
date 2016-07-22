@@ -27,11 +27,12 @@ under the License.
 
     <RoleType roleTypeId="APPROVER" description="Approver"/>
     <RoleType roleTypeId="REVIEWER" description="Reviewer"/>
-    <Party partyId="approver" partyTypeId="PERSON"/>
+    <Party partyId="approver" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person firstName="Robert" lastName="Smith" partyId="approver" personalTitle="Captain"/>
     <PartyRole partyId="approver" roleTypeId="APPROVER"/>
     <PartyRole partyId="approver" roleTypeId="REVIEWER"/>
     <PartyRole partyId="admin" roleTypeId="APPROVER"/>
+    <PartyStatus partyId="approver" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="approver" partyId="approver"/>
     <UserLoginSecurityGroup groupId="COMPDOCADMIN" userLoginId="approver" fromDate="2006-01-01 12:00:00.0"/>
 

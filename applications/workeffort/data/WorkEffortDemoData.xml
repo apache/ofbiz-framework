@@ -29,6 +29,7 @@ under the License.
 
     <Party partyId="WorkEffortUser" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="WorkEffortUser" firstName="WorkEffort" lastName="User" />
+    <PartyStatus partyId="WorkEffortUser" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="WorkEffortUser" partyId="WorkEffortUser" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" />
     <UserLoginSecurityGroup groupId="WORKEFFORT_USER" userLoginId="WorkEffortUser" fromDate="2011-01-01 00:00:00.0" />
 
@@ -41,9 +42,9 @@ under the License.
     <WorkEffortAssoc workEffortIdFrom="CALENDAR_PUB_DEMO" workEffortIdTo="STAFF_MTG" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
 
     <!--  Project Manager demo data -->
-    <Party partyId="DemoEmployee1"/><!-- further defined in the projectmanager -->
-    <Party partyId="DemoEmployee2"/>
-    <Party partyId="DemoEmployee3"/>
+    <Party partyId="DemoEmployee1" statusId="PARTY_ENABLED"/><!-- further defined in the projectmanager -->
+    <Party partyId="DemoEmployee2" statusId="PARTY_ENABLED"/>
+    <Party partyId="DemoEmployee3" statusId="PARTY_ENABLED"/>
 
     <PartyRole partyId="DemoEmployee1" roleTypeId="CAL_OWNER"/>
     <PartyRole partyId="DemoEmployee2" roleTypeId="CAL_ATTENDEE"/>

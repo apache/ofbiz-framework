@@ -20,13 +20,16 @@
 <entity-engine-xml>
 
     <!-- allow admin and demo employee to read company EMail -->
-    <Party partyId="admin"/>
-    <Party partyId="Company"/>
-    <Party partyId="DemoEmployee"/>
+    <Party partyId="admin" statusId="PARTY_ENABLED"/>
+    <Party partyId="Company" statusId="PARTY_ENABLED"/>
+    <Party partyId="DemoEmployee" statusId="PARTY_ENABLED"/>
     <PartyRole partyId="admin" roleTypeId="EMAIL_ADMIN"/>
     <PartyRole partyId="Company" roleTypeId="_NA_"/>
-    <PartyRelationship partyIdFrom="admin" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
     <PartyRole partyId="DemoEmployee" roleTypeId="EMAIL_ADMIN"/>
+    <PartyStatus partyId="admin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="Company" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="DemoEmployee" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="admin" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
     <PartyRelationship partyIdFrom="DemoEmployee" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
 
     <ContactMech contactMechId="admin" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
@@ -34,8 +37,9 @@
     <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0"/>
 
     <!-- Party Identification numbers-->
-    <Party partyId="DemoSupplier"/>
+    <Party partyId="DemoSupplier" statusId="PARTY_ENABLED"/>
     <PartyRole partyId="DemoSupplier" roleTypeId="ACCOUNT"/>
+    <PartyStatus partyId="DemoSupplier" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyIdentificationType partyIdentificationTypeId="SIRET" description="French company identification number (SIRET)"/>
     <PartyIdentification partyId="DemoSupplier" partyIdentificationTypeId="SIRET" idValue="1234 5678 90123"/>
 
