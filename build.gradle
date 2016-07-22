@@ -326,6 +326,11 @@ task testIntegration(group: ofbizServer) {
     description 'Run OFBiz integration tests; You must run loadDefault before running this task'
 }
 
+task stop(group: ofbizServer) {
+    dependsOn 'ofbiz --shutdown'
+    description 'Stop currently running instance'
+}
+
 task terminateOfbiz(group: ofbizServer,
     description: 'Force termination of any running OFBiz servers, only use if \"--shutdown\" command fails') << {
     def os = System.getProperty("os.name").toLowerCase()
