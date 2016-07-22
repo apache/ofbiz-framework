@@ -22,11 +22,12 @@
     <!-- ===================== -->
     <!-- Ebay Store Demo1 Data -->
     <!-- ===================== -->
-    <Party partyId="DemoEbayAccount1" partyTypeId="PERSON"/>
+    <Party partyId="DemoEbayAccount1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoEbayAccount1" firstName="Demo1 ebay account" lastName="AU"/>
     <PartyRole partyId="DemoEbayAccount1" roleTypeId="EBAY_ACCOUNT"/>
     <PartyRole partyId="DemoEbayAccount1" roleTypeId="VENDOR"/>
     <PartyRole partyId="DemoEbayAccount1" roleTypeId="OWNER"/>
+    <PartyStatus partyId="DemoEbayAccount1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="testuser_ofbiz1" partyId="DemoEbayAccount1" currentPassword="{SHA}bbf272ce445e1c48d94096afdba6a7888c1df1fe"/>
     <ProductStore productStoreId="90101" storeName="OFBiz Ebay Store1-AU" companyName="Apache Ofbiz" title="Test OFBiz store1"
         subtitle="Part of the Apache OFBiz Family of Open Source Software" payToPartyId="DemoEbayAccount1" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
@@ -102,11 +103,12 @@
     <!-- ===================== -->
     <!-- Ebay Store Demo2 Data -->
     <!-- ===================== -->
-    <Party partyId="DemoEbayAccount2" partyTypeId="PERSON"/>
+    <Party partyId="DemoEbayAccount2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoEbayAccount2" firstName="Demo2 ebay account" lastName="AU"/>
     <PartyRole partyId="DemoEbayAccount2" roleTypeId="EBAY_ACCOUNT"/>
     <PartyRole partyId="DemoEbayAccount2" roleTypeId="VENDOR"/>
     <PartyRole partyId="DemoEbayAccount2" roleTypeId="OWNER"/>
+    <PartyStatus partyId="DemoEbayAccount2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin userLoginId="testuser_ofbiz2" partyId="DemoEbayAccount2" currentPassword="{SHA}bbf272ce445e1c48d94096afdba6a7888c1df1fe"/>
     <ProductStore productStoreId="90102" storeName="OFBiz Ebay Store2-AU" companyName="Apache Ofbiz" title="Test OFBiz store2"
         subtitle="Part of the Apache OFBiz Family of Open Source Software" payToPartyId="DemoEbayAccount2" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"

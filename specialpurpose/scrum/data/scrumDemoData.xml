@@ -19,13 +19,10 @@ under the License.
 -->
 <entity-engine-xml>
 
-    <Party partyId="admin" partyTypeId="PERSON"/>
+    <Party partyId="admin" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person firstName="THE" lastName="ADMINISTRATOR" middleName="PRIVILEGED" partyId="admin" personalTitle="Mr."/>
-
-    <!-- demo SCRUM Team -->
-    <Party partyId="admin"/>
     <PartyRole partyId="admin" roleTypeId="SHAREHOLDER"/>
-    
+
     <Party partyId="DemoCustomer-1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Party partyId="SCRUMASTER" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Party partyId="SCRUMTEAM-1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
@@ -36,7 +33,19 @@ under the License.
     <Party partyId="DemoCustomer-2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Party partyId="DemoStakeholder" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Party partyId="SCRUMADMIN" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    
+
+    <PartyStatus partyId="admin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="DemoCustomer-1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMASTER" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMTEAM-1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMTEAM-2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMTEAM-3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMTEAM-4" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMTESTADMIN" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="DemoCustomer-2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="DemoStakeholder" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMADMIN" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
     <PartyRole partyId="DemoCustomer-1" roleTypeId="SCRUM_MEMBER"/>
     <PartyRole partyId="SCRUMASTER" roleTypeId="SCRUM_MEMBER"/>
     <PartyRole partyId="SCRUMTEAM-1" roleTypeId="SCRUM_MEMBER"/>
@@ -47,7 +56,7 @@ under the License.
     <PartyRole partyId="DemoCustomer-2" roleTypeId="SCRUM_MEMBER"/>
     <PartyRole partyId="DemoStakeholder" roleTypeId="SCRUM_MEMBER"/>
     <PartyRole partyId="SCRUMADMIN" roleTypeId="SCRUM_MEMBER"/>
-    
+
     <PartyRole partyId="DemoCustomer-1" roleTypeId="PRODUCT_OWNER"/>
     <PartyRole partyId="DemoCustomer-1" roleTypeId="SCRUM_TEAM"/>
     <PartyRole partyId="SCRUMASTER" roleTypeId="SCRUM_MASTER"/>
@@ -120,11 +129,12 @@ under the License.
     <!-- Company -->
     <PartyRole partyId="Company" roleTypeId="ACCOUNT"/>
     
-    <Party partyId="DemoScrumCompany"/>
+    <Party partyId="DemoScrumCompany" statusId="PARTY_ENABLED"/>
     <PartyRole partyId="DemoScrumCompany" roleTypeId="ORGANIZATION_ROLE"/>
     <PartyRole partyId="DemoScrumCompany" roleTypeId="ACCOUNT"/>
     <PartyRole partyId="DemoCustomer-1" roleTypeId="CONTACT"/>
     <PartyRole partyId="DemoScrumCompany" roleTypeId="PRODUCT_OWNER_COMP" lastUpdatedStamp="2010-11-17 14:50:12.197" lastUpdatedTxStamp="2010-11-17 14:50:11.775" createdStamp="2010-11-17 14:50:12.197" createdTxStamp="2010-11-17 14:50:11.775"/>
+    <PartyStatus partyId="DemoScrumCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGroup partyId="DemoScrumCompany" groupName="Demo Scrum Company"/>
     
     <ContactMech contactMechId="SCRUM_CONTACT07" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumCompany@example.com"/>
@@ -143,11 +153,12 @@ under the License.
     <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="ACCOUNT" partyIdTo="SCRUMTEAM-1" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
     
     <!-- Company -->
-    <Party partyId="DemoScrumCompany2"/>
+    <Party partyId="DemoScrumCompany2" statusId="PARTY_ENABLED"/>
     <PartyRole partyId="DemoScrumCompany2" roleTypeId="ORGANIZATION_ROLE"/>
     <PartyRole partyId="DemoScrumCompany2" roleTypeId="ACCOUNT"/>
     <PartyRole partyId="DemoCustomer-2" roleTypeId="CONTACT"/>
     <PartyRole partyId="DemoScrumCompany2" roleTypeId="PRODUCT_OWNER_COMP" lastUpdatedStamp="2010-11-17 14:50:12.197" lastUpdatedTxStamp="2010-11-17 14:50:11.775" createdStamp="2010-11-17 14:50:12.197" createdTxStamp="2010-11-17 14:50:11.775"/>
+    <PartyStatus partyId="DemoScrumCompany2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGroup partyId="DemoScrumCompany2" groupName="Demo Scrum Company 2"/>
     <PartyRelationship partyIdFrom="DemoScrumCompany2" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer-2" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
     
