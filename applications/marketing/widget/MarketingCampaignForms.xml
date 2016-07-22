@@ -63,7 +63,7 @@ under the License.
         <field name="cancelLink" widget-style="buttontext" title=" "><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field>
     </form>
 
-   <form name="ListMarketingCampaign" type="list" paginate-target="listMarketingCampaign"
+   <form name="ListMarketingCampaign" type="list" paginate-target="FindMarketingCampaign"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="MarketingCampaign"/>
