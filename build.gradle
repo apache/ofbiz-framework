@@ -784,7 +784,7 @@ def createOfbizBackgroundCommandTask(taskName) {
     }
 
     if (os.contains("windows")) {
-        gradleRunner = 'gradlew'
+        gradleRunner = 'gradlew.bat'
     } else {
         gradleRunner = './gradlew'
     }
