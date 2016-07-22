@@ -29,6 +29,7 @@ under the License.
     <UserLogin userLoginId="DemoEmployee" partyId="DemoEmployee"/>
     <PartyRole partyId="DemoEmployee" roleTypeId="EMPLOYEE"/>
     <PartyRole partyId="DemoEmployee" roleTypeId="PROVIDER_ANALYST"/>
+    <PartyStatus partyId="DemoEmployee" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="DemoEmployee" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="DemoEmployee" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="DemoEmployee" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
@@ -41,6 +42,7 @@ under the License.
     <UserLogin userLoginId="DemoEmployee1" partyId="DemoEmployee1"/>
     <PartyRole partyId="DemoEmployee1" roleTypeId="EMPLOYEE"/>
     <PartyRole partyId="DemoEmployee1" roleTypeId="PROVIDER_MANAGER"/>
+    <PartyStatus partyId="DemoEmployee1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
@@ -53,6 +55,7 @@ under the License.
     <UserLogin userLoginId="DemoEmployee2"  partyId="DemoEmployee2"/>
     <PartyRole partyId="DemoEmployee2" roleTypeId="PROVIDER_ANALYST"/>
     <PartyRole partyId="DemoEmployee2" roleTypeId="EMPLOYEE"/>
+    <PartyStatus partyId="DemoEmployee2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
@@ -65,6 +68,7 @@ under the License.
     <UserLogin userLoginId="DemoEmployee3"  partyId="DemoEmployee3"/>
     <PartyRole partyId="DemoEmployee3" roleTypeId="PROVIDER_ANALYST"/>
     <PartyRole partyId="DemoEmployee3" roleTypeId="EMPLOYEE"/>
+    <PartyStatus partyId="DemoEmployee3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="DemoEmployee3" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="DemoEmployee3" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="DemoEmployee3" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
@@ -77,6 +81,7 @@ under the License.
     <UserLogin userLoginId="DemoCustomer1"  partyId="DemoCustomer1"/>
     <PartyRole partyId="DemoCustomer1" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustomer1" roleTypeId="CLIENT_MANAGER"/>
+    <PartyStatus partyId="DemoCustomer1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
@@ -89,6 +94,7 @@ under the License.
     <UserLogin userLoginId="DemoCustomer2"  partyId="DemoCustomer2"/>
     <PartyRole partyId="DemoCustomer2" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustomer2" roleTypeId="CLIENT_MANAGER"/>
+    <PartyStatus partyId="DemoCustomer2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="DemoCustomer2" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer2" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
@@ -101,6 +107,7 @@ under the License.
     <UserLogin userLoginId="DemoCustomer3"  partyId="DemoCustomer3"/>
     <PartyRole partyId="DemoCustomer3" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustomer3" roleTypeId="CLIENT_BILLING"/>
+    <PartyStatus partyId="DemoCustomer3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="DemoCustomer3" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer3" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer3" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>

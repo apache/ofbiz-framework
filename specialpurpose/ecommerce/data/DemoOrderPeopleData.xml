@@ -20,23 +20,26 @@ under the License.
 
 <entity-engine-xml>
     <!-- this person can view any order but only place purchase orders -->
-    <Party partyId="DemoBuyer" partyTypeId="PERSON"/>
+    <Party partyId="DemoBuyer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoBuyer" firstName="Demo" lastName="Buyer"/>
     <PartyRole partyId="DemoBuyer" roleTypeId="BUYER"/>
+    <PartyStatus partyId="DemoBuyer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin partyId="DemoBuyer" userLoginId="DemoBuyer"/>
     <UserLoginSecurityGroup userLoginId="DemoBuyer" groupId="ORDERPURCH" fromDate="2001-05-13 00:00:00"/>
 
     <!-- this person can create sales orders for any store -->
-    <Party partyId="DemoRepAll" partyTypeId="PERSON"/>
+    <Party partyId="DemoRepAll" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoRepAll" firstName="Demo" lastName="Sales Rep for All Stores"/>
     <PartyRole partyId="DemoRepAll" roleTypeId="SALES_REP"/>
+    <PartyStatus partyId="DemoRepAll" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin partyId="DemoRepAll" userLoginId="DemoRepAll"/>
     <UserLoginSecurityGroup userLoginId="DemoRepAll" groupId="ORDERENTRY_ALL" fromDate="2001-05-13 00:00:00"/>
 
     <!-- this person can only create sales orders for stores for which he is a sales rep -->
-    <Party partyId="DemoRepStore" partyTypeId="PERSON"/>
+    <Party partyId="DemoRepStore" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoRepStore" firstName="Demo" lastName="Sales Rep for Specified Stores Only"/>
     <PartyRole partyId="DemoRepStore" roleTypeId="SALES_REP"/>
+    <PartyStatus partyId="DemoRepStore" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <UserLogin partyId="DemoRepStore" userLoginId="DemoRepStore"/>
     <UserLoginSecurityGroup userLoginId="DemoRepStore" groupId="ORDERENTRY" fromDate="2001-05-13 00:00:00"/>
     <ProductStoreRole partyId="DemoRepStore" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/>
@@ -53,12 +56,13 @@ under the License.
     <!-- Some Demo Customers -->
 
     <!-- DemoCustCompany -->
-    <Party partyId="DemoCustCompany" partyTypeId="PARTY_GROUP"/>
+    <Party partyId="DemoCustCompany" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="DemoCustCompany" groupName="Demo Customer Company"/>
     <UserLogin partyId="DemoCustCompany" userLoginId="DemoCustCompany"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_"/>
+    <PartyStatus partyId="DemoCustCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
 
     <ContactMech contactMechId="9010" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="9010" toName="Demo Customer Company" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
@@ -89,12 +93,13 @@ under the License.
     <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" fromDate="2001-05-13 00:00:00.000" partyTaxId="98-7654321" isExempt="N"/>
 
     <!-- DemoCustAgent -->
-    <Party partyId="DemoCustAgent" partyTypeId="PERSON"/>
+    <Party partyId="DemoCustAgent" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoCustAgent" firstName="Demo" lastName="Agent"/>
     <UserLogin partyId="DemoCustAgent" userLoginId="DemoCustAgent"/>
     <PartyRole partyId="DemoCustAgent" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustAgent" roleTypeId="AGENT"/>
     <PartyRole partyId="DemoCustAgent" roleTypeId="_NA_"/>
+    <PartyStatus partyId="DemoCustAgent" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <ContactMech contactMechId="9011" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="9011" toName="Demo Customer Agent" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
     <PartyContactMech partyId="DemoCustAgent" contactMechId="9011" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
@@ -114,12 +119,13 @@ under the License.
         fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="GROUP_ROLLUP" comments="Specifies the DemoCustAgent is a member of the DemoCustCompany, for Price Rules, Promos, etc"/>
 
     <!-- DemoCustomer -->
-    <Party partyId="DemoCustomer" partyTypeId="PERSON"/>
+    <Party partyId="DemoCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoCustomer" firstName="Demo" lastName="Customer"/>
     <UserLogin partyId="DemoCustomer" userLoginId="DemoCustomer"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="CONTACT"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyStatus partyId="DemoCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGeoPoint partyId="DemoCustomer" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
     <UserLoginSecurityGroup groupId="ECOMMERCE_CUSTOMER" userLoginId="DemoCustomer" fromDate="2000-01-01 00:00:00.0"/>
@@ -153,6 +159,7 @@ under the License.
     <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer"/>
     <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyStatus partyId="EuroCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGeoPoint partyId="EuroCustomer" geoPointId="9001" fromDate="2009-01-09 00:00:00.000"/>
 
     <ContactMech contactMechId="EUROCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
@@ -179,6 +186,7 @@ under the License.
     <UserLogin partyId="FrenchCustomer" userLoginId="FrenchCustomer"/>
     <PartyRole partyId="FrenchCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="FrenchCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyStatus partyId="FrenchCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGeoPoint partyId="FrenchCustomer" geoPointId="9002" fromDate="2009-01-09 00:00:00.000"/>
 
     <ContactMech contactMechId="FRENCHCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
