@@ -1,0 +1,6 @@
+dependencies {
+    pluginLibsCompile('org.eclipse.birt.runtime:viewservlets:4.5.0') {
+        exclude group: 'org.eclipse.birt.runtime.3_7_1', module: 'derby'
+        exclude group: 'org.eclipse.birt.runtime.3_7_1', module: 'org.apache.batik.pdf'
+    }
+}
