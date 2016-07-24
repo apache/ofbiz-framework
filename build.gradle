@@ -57,7 +57,7 @@ configurations {
 }
 
 dependencies {
-    // general framework libs
+    // general framework compile libs
     compile 'apache-xerces:resolver:2.9.1'
     compile 'apache-xerces:xercesImpl:2.9.1'
     compile 'avalon-framework:avalon-framework-impl:4.2.0'
@@ -177,9 +177,10 @@ dependencies {
     compile 'xalan:xalan:2.7.2'
     compile 'xml-apis:xml-apis-ext:1.3.04'
     compile 'xml-apis:xml-apis:1.4.01'
-    compile 'mysql:mysql-connector-java:5.1.36'
-    compile 'postgresql:postgresql:9.0-801.jdbc4'
 
+    // general framework runtime libs
+    runtime 'mysql:mysql-connector-java:5.1.36'
+    runtime 'postgresql:postgresql:9.0-801.jdbc4'
 
     // plugin libs
     subprojects.each { subProject ->
