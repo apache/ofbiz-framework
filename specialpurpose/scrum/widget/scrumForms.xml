@@ -812,15 +812,13 @@ under the License.
             </drop-down>
         </field>
         <field name="custRequestTypeId" title="${uiLabelMap.ScrumPlanned}">
-            <drop-down allow-empty="false">
-                <option key="${uiLabelMap.CommonAny}" description=" "/>
+            <drop-down allow-empty="true">
                 <option key="RF_PROD_BACKLOG" description="${uiLabelMap.CommonY}"/>
                 <option key="RF_UNPLAN_BACKLOG" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
-            <drop-down allow-empty="false">
-                <option key="${uiLabelMap.CommonAny}" description=" "/>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CUSTREQ_STTS"/>
                     <entity-constraint name="statusId" operator="not-equals" value="CRQ_PENDING"/>
