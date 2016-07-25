@@ -32,7 +32,6 @@ conditionBacklogList = [];
 orConditionBacklogList = [];
 mainConditionBacklogList = [];
 orConditionsBacklog =  null;
-parameters.custRequestTypeId = parameters.custRequestTypeId ?: "Any";
 description = parameters.description;
 custRequestId = parameters.custRequestId;
 orderBy = "custRequestDate";
@@ -42,7 +41,7 @@ if ((parameters.billed != null)||(parameters.parentCustRequestId != null)||(para
     if(UtilValidate.isNotEmpty(parameters.productId)){
         conditionBacklogList.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId));
     }
-    if("Any".equals(parameters.custRequestTypeId)){
+    if(UtilValidate.isEmpty(parameters.custRequestTypeId)){
         orConditionBacklogList.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_UNPLAN_BACKLOG"));
         orConditionBacklogList.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_PROD_BACKLOG"));
         orConditionsBacklog = EntityCondition.makeCondition(orConditionBacklogList, EntityOperator.OR);
@@ -58,7 +57,7 @@ if ((parameters.billed != null)||(parameters.parentCustRequestId != null)||(para
     	conditionBacklogList.add(EntityCondition.makeCondition("billed", EntityOperator.EQUALS, parameters.billed));
     }
     
-    if(!"Any".equals(parameters.statusId)){
+    if(UtilValidate.isNotEmpty(parameters.statusId)){
         orderBy = "custSequenceNum";
         conditionBacklogList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameters.statusId));
     }
