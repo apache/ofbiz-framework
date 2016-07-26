@@ -327,6 +327,11 @@ task testIntegration(group: ofbizServer) {
     description 'Run OFBiz integration tests; You must run loadDefault before running this task'
 }
 
+task start(group: ofbizServer) {
+    dependsOn 'ofbiz --start'
+    description 'Start an OFBiz instance'
+}
+
 task stop(group: ofbizServer) {
     dependsOn 'ofbiz --shutdown'
     description 'Stop currently running instance'
