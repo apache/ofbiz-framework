@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- To know more about this setting please read the documentation http://cwiki.apache.org/confluence/x/bgFk -->
+
+<entity-engine-xml>
+<!-- MCS->PSS Central Server to Per Store Server -->
+    <EntityGroup entityGroupId="5500" entityGroupName="POS: Central Server to Per Store Server"/>
+    <!-- these are used to update sync settings on the POS terminals from the central server -->
+    <EntityGroupEntry entityGroupId="5500" entityOrPackage="org.ofbiz.entity.group" applEnumId="ESIA_INCLUDE"/>
+    <!-- this is the general product information needed for pricing, promotions, basic product info, etc; the per store server will also include inventory, etc information -->
+    <EntityGroupEntry entityGroupId="5500" entityOrPackage="org.ofbiz.product" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5500" entityOrPackage="org.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5500" entityOrPackage="org.ofbiz.party.contact" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5500" entityOrPackage="PosTerminal" applEnumId="ESIA_INCLUDE"/>
+
+<!-- PSS->POS Per Store Server to POS Terminal -->
+    <EntityGroup entityGroupId="5501" entityGroupName="POS: Per Store Server to POS Terminal"/>
+    <!-- these are used to update sync settings on the POS terminals from the central server -->
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.entity.group" applEnumId="ESIA_INCLUDE"/>
+    <!-- this is the general product information needed for pricing, promotions, basic product info, etc -->
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.product.product" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.product.price" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.product.promo" applEnumId="ESIA_INCLUDE"/>
+    <!-- org.ofbiz.product.category is needed for certain promotions, probably won't be used much for category browsing in the POS -->
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.product.category" applEnumId="ESIA_INCLUDE"/>
+    <!-- org.ofbiz.party.party may be needed for certain promotions -->
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.specialpurpose.pos.PosTerminal" applEnumId="ESIA_INCLUDE"/>
+
+<!-- POS->PSS POS Terminal to Per Store Server -->
+    <EntityGroup entityGroupId="5505" entityGroupName="POS: POS Terminal to Per Store Server"/>
+    <!-- org.ofbiz.party.party may be needed for order related information, like party roles or contact info etc -->
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.party.contact" applEnumId="ESIA_INCLUDE"/>
+    <!-- all order and related information, including payment, etc info -->
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.order" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.accounting.invoice" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.accounting.payment" applEnumId="ESIA_INCLUDE"/>
+    <!-- NOTE: no inventory information will be on the POS terminal, so don't send any over -->
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.pos.PosTerminalLog" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5505" entityOrPackage="org.ofbiz.pos.PosTerminalState" applEnumId="ESIA_INCLUDE"/>
+
+<!-- PSS->MCS Per Store Server to Central Server -->
+    <EntityGroup entityGroupId="5506" entityGroupName="POS: Per Store Server to Central Server"/>
+    <!-- org.ofbiz.party.party may be needed for order related information, like party roles or contact info etc -->
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.party.contact" applEnumId="ESIA_INCLUDE"/>
+    <!-- all order and related information, including payment, etc info -->
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.order" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.accounting.invoice" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.accounting.payment" applEnumId="ESIA_INCLUDE"/>
+    <!-- include inventory and issuance info -->
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.shipment.issuance" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.product.inventory" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.pos.PosTerminalLog" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.pos.PosTerminalState" applEnumId="ESIA_INCLUDE"/>
+
+
+<!-- Some examples of EntitySync settings for pulling and pushing data around -->
+    <!-- POS example meant to be used for pulling data from MCS to PSS -->
+    <!-- NOTE: for pulling setup the EntitySync record lives on the server the data is pulled from and should ONLY BE USED FOR ONE CLIENT! -->
+    <EntitySync entitySyncId="5500" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000"
+            keepRemoveInfoHours="24" forPullOnly="Y"/>
+    <EntitySyncIncludeGroup entitySyncId="5500" entityGroupId="5500"/>
+    <!-- POS example meant to be used for pushing data from PSS to MCS -->
+    <EntitySync entitySyncId="5506" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000" targetServiceName="remoteStoreEntitySyncDataRmi"
+            keepRemoveInfoHours="24" forPushOnly="Y"/>
+    <EntitySyncIncludeGroup entitySyncId="5506" entityGroupId="5506"/>
+
+    <!-- POS example meant to be used for pushing data from POS to PSS -->
+    <EntitySync entitySyncId="5505" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000" targetServiceName="remoteStoreEntitySyncDataRmi"
+            keepRemoveInfoHours="24" forPushOnly="Y"/>
+    <EntitySyncIncludeGroup entitySyncId="5505" entityGroupId="5505"/>
+    <!-- POS example meant to be used for pulling data from PSS to POS -->
+    <!-- NOTE: for pulling setup the EntitySync record lives on the server the data is pulled from and should ONLY BE USED FOR ONE CLIENT! -->
+    <EntitySync entitySyncId="5501" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000"
+            keepRemoveInfoHours="24" forPullOnly="Y"/>
+    <EntitySyncIncludeGroup entitySyncId="5501" entityGroupId="5501"/>
+
+    <!-- POS Push Scheduled Service -->
+    <!--
+    <RecurrenceRule recurrenceRuleId="POSPUSH" untilDateTime="" frequency="MINUTELY" intervalNumber="5" countNumber="-1"/>
+    <RecurrenceInfo recurrenceInfoId="POSPUSH" startDateTime="2000-01-01 00:00:00.000" recurrenceRuleId="POSPUSH" recurrenceCount="0"/>
+    <RuntimeData runtimeDataId="POSPUSH">
+        <runtimeInfo><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<ofbiz-ser>
+  <map-HashMap>
+    <map-Entry>
+      <map-Key>
+        <std-String value="entitySyncId"/>
+      </map-Key>
+      <map-Value>
+        <std-String value="5505"/>
+      </map-Value>
+    </map-Entry>
+  </map-HashMap>
+</ofbiz-ser>
+        ]]></runtimeInfo>
+    </RuntimeData>
+    <JobSandbox jobId="POSPUSH" jobName="Push POS Orders" runtimeDataId="POSPUSH" runTime="2000-01-01 00:00:00.000" serviceName="runEntitySync" poolId="pool" runAsUser="system" recurrenceInfoId="POSPUSH"/>
+    -->
+
+    <!-- POS-1 PULL Scheduled Service -->
+    <!--
+    <RecurrenceRule recurrenceRuleId="POS1PULL" untilDateTime="" frequency="HOURLY" intervalNumber="2" countNumber="-1"/>
+    <RecurrenceInfo recurrenceInfoId="POS1PULL" startDateTime="2000-01-01 00:15:00.000" recurrenceRuleId="POS1PULL" recurrenceCount="0"/>
+    <RuntimeData runtimeDataId="POS1PULL">
+        <runtimeInfo><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<ofbiz-ser>
+  <map-HashMap>
+    <map-Entry>
+      <map-Key>
+        <std-String value="entitySyncId"/>
+      </map-Key>
+      <map-Value>
+        <std-String value="5501"/>
+      </map-Value>
+    </map-Entry>
+    <map-Entry>
+      <map-Key>
+        <std-String value="remotePullAndReportEntitySyncDataName"/>
+      </map-Key>
+      <map-Value>
+        <std-String value="remotePullAndReportEntitySyncDataRmi"/>
+      </map-Value>
+    </map-Entry>
+  </map-HashMap>
+</ofbiz-ser>
+        ]]></runtimeInfo>
+    </RuntimeData>
+    <JobSandbox jobId="POS1PULL" jobName="Pull POS Catalog" runtimeDataId="POS1PULL" runTime="2000-01-01 00:00:00.000" serviceName="runPullEntitySync" poolId="pool" runAsUser="system" recurrenceInfoId="POS1PULL"/>
+    -->
+
+</entity-engine-xml>
+

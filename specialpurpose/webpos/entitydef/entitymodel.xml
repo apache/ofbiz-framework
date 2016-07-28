@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Apache OFBiz Component</title>
+    <description>None</description>
+    <version>1.0</version>
+
+  <!-- ========================================================= -->
+  <!-- ======================== Data Model ===================== -->
+  <!-- The modules in this file are as follows:                  -->
+  <!--  - org.ofbiz.specialpurpose.pos -->
+  <!-- ========================================================= -->
+
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.specialpurpose.pos -->
+  <!-- ========================================================= -->
+    <entity entity-name="PosTerminal"
+            package-name="org.ofbiz.specialpurpose.pos"
+            title="Pos Terminal">
+      <field name="posTerminalId" type="id-ne"></field>
+      <field name="facilityId" type="id"></field>
+      <field name="pushEntitySyncId" type="id"></field>
+      <field name="terminalName" type="name"></field>
+      <prim-key field="posTerminalId"/>
+    </entity>
+    <entity entity-name="PosTerminalLog"
+            package-name="org.ofbiz.specialpurpose.pos"
+            title="Pos Terminal Log">
+      <field name="posTerminalLogId" type="id-ne"></field>
+      <field name="posTerminalId" type="id-ne"></field>
+      <field name="transactionId" type="id"></field>
+      <field name="itemCount" type="numeric"></field>
+      <field name="orderId" type="id"></field>
+      <field name="returnId" type="id"></field>
+      <field name="userLoginId" type="id-vlong"/>
+      <field name="statusId" type="id"></field>
+      <field name="logStartDateTime" type="date-time"/>
+      <field name="logEndDateTime" type="date-time"/>
+      <prim-key field="posTerminalLogId"/>
+      <relation type="one" fk-name="POS_LOG_POS" rel-entity-name="PosTerminal">
+          <key-map field-name="posTerminalId"/>
+      </relation>
+      <relation type="one" fk-name="POS_LOG_ORDER" rel-entity-name="OrderHeader">
+          <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="POS_LOG_RETURN" rel-entity-name="ReturnHeader">
+          <key-map field-name="returnId"/>
+      </relation>
+      <relation type="one" fk-name="POS_LOG_STTS" rel-entity-name="StatusItem">
+          <key-map field-name="statusId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PosTerminalState"
+            package-name="org.ofbiz.specialpurpose.pos"
+            title="Pos Terminal State">
+      <field name="posTerminalId" type="id-ne"></field>
+      <field name="openedDate" type="date-time"></field>
+      <field name="closedDate" type="date-time"></field>
+      <field name="startingTxId" type="id-long"></field>
+      <field name="endingTxId" type="id-long"></field>
+      <field name="openedByUserLoginId" type="id-vlong"></field>
+      <field name="closedByUserLoginId" type="id-vlong"></field>
+      <field name="startingDrawerAmount" type="currency-amount"></field>
+      <field name="actualEndingCash" type="currency-amount"></field>
+      <field name="actualEndingCheck" type="currency-amount"></field>
+      <field name="actualEndingCc" type="currency-amount"></field>
+      <field name="actualEndingGc" type="currency-amount"></field>
+      <field name="actualEndingOther" type="currency-amount"></field>
+      <prim-key field="posTerminalId"/>
+      <prim-key field="openedDate"/>
+      <relation type="one" fk-name="POS_STATE_POS" rel-entity-name="PosTerminal">
+          <key-map field-name="posTerminalId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PosTerminalInternTx"
+            package-name="org.ofbiz.specialpurpose.pos"
+            title="Pos Terminal Internal Transaction">
+      <field name="posTerminalLogId" type="id-ne"></field>
+      <field name="paidAmount" type="currency-amount"></field>
+      <field name="reasonComment" type="comment"/>
+      <field name="reasonEnumId" type="id"/>
+      <prim-key field="posTerminalLogId"/>
+      <relation type="one" fk-name="POS_TRA_POS" rel-entity-name="PosTerminalLog">
+          <key-map field-name="posTerminalLogId"/>
+      </relation>
+      <relation type="one" fk-name="POS_TRA_PAYENUM" rel-entity-name="Enumeration">
+          <key-map field-name="reasonEnumId" rel-field-name="enumId"/>
+      </relation>
+    </entity>
+</entitymodel>
