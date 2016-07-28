@@ -75,7 +75,6 @@ under the License.
 
     <EnumerationType description="Order Sales Channel" enumTypeId="ORDER_SALES_CHANNEL" hasTable="N" parentTypeId=""/>
     <Enumeration description="Web Channel" enumCode="WEB_CHANNEL" enumId="WEB_SALES_CHANNEL" sequenceId="01" enumTypeId="ORDER_SALES_CHANNEL"/>
-    <Enumeration description="POS Channel" enumCode="POS_CHANNEL" enumId="POS_SALES_CHANNEL" sequenceId="02" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="Fax Channel" enumCode="FAX_CHANNEL" enumId="FAX_SALES_CHANNEL" sequenceId="03" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="Phone Channel" enumCode="PHONE_CHANNEL" enumId="PHONE_SALES_CHANNEL" sequenceId="04" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="E-Mail Channel" enumCode="EMAIL_CHANNEL" enumId="EMAIL_SALES_CHANNEL" sequenceId="05" enumTypeId="ORDER_SALES_CHANNEL"/>

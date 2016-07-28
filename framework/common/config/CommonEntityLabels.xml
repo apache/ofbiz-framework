@@ -1637,22 +1637,6 @@
         <value xml:lang="zh">电话渠道</value>
         <value xml:lang="zh-TW">電話通路</value>
     </property>
-    <property key="Enumeration.description.POS_SALES_CHANNEL">
-        <value xml:lang="de">Verkaufskanal: POS</value>
-        <value xml:lang="en">POS Channel</value>
-        <value xml:lang="es">Punto de venta</value>
-        <value xml:lang="fr">Canal de vente : Point de Vente</value>
-        <value xml:lang="it">Canale POS</value>
-        <value xml:lang="ja">POSチャネル</value>
-        <value xml:lang="pt">Canal POS</value>
-        <value xml:lang="pt-BR">Canal de ponto de venda</value>
-        <value xml:lang="ro">Canal POS</value>
-        <value xml:lang="ru">Розничные продажи</value>
-        <value xml:lang="th">ช่องทางจุดการขาย</value>
-        <value xml:lang="vi">Kênh POS</value>
-        <value xml:lang="zh">POS渠道</value>
-        <value xml:lang="zh-TW">POS通路</value>
-    </property>
     <property key="Enumeration.description.POTT_CFR">
         <value xml:lang="ar">التكلفة والنقل</value>
         <value xml:lang="de">Kosten und Fracht</value>

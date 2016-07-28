@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd">
 
     <!-- load the ofbiz component container (always first) -->
-    <container name="component-container" loaders="main,rmi,pos,load-data" class="org.apache.ofbiz.base.container.ComponentContainer"/>
+    <container name="component-container" loaders="main,rmi,load-data" class="org.apache.ofbiz.base.container.ComponentContainer"/>
 
     <container name="component-container-test" loaders="test" class="org.apache.ofbiz.base.container.ComponentContainer"/>
 

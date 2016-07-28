@@ -44,7 +44,7 @@ under the License.
     <keystore name="rmitrust" type="jks" password="changeit" is-truststore="true"
               is-certstore="false" loader="main" location="config/rmitrust.jks"/>
 
-    <container name="service-container" loaders="main,rmi,pos,load-data,test" class="org.apache.ofbiz.service.ServiceContainer">
+    <container name="service-container" loaders="main,rmi,load-data,test" class="org.apache.ofbiz.service.ServiceContainer">
         <property name="dispatcher-factory" value="org.apache.ofbiz.service.GenericDispatcherFactory"/>
     </container>
 

@@ -480,7 +480,7 @@ under the License.
     <service name="issueImmediatelyFulfilledOrder" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryIssueServices.xml" invoke="issueImmediatelyFulfilledOrder" auth="false">
         <description>
-            Issues the Inventory for an Order that was Immediately Fulfilled, like in a POS environment.
+            Issues the Inventory for an Order that was Immediately Fulfilled.
             Note that this skips the normal inventory reservation process, and the shipment process (no shipment is created).
         </description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>

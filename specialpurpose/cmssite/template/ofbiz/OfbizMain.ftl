@@ -73,7 +73,6 @@ under the License.
 
          <li>general work effort management (events, tasks, projects, requests, etc)</li>
          <li>content management (for product content, web sites, general content, blogging, forums, etc)</li>
-         <li>a maturing Point Of Sales (POS) module using <b><a href="http://www.xoetrope.com/xui" target="_blank">XUI</a></b> as rich client interface</li>
          <li>and much more all in an open source package!</li>
         </ul>
 
