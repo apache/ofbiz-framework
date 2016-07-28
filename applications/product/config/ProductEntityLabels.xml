@@ -4299,11 +4299,11 @@
         <value xml:lang="zh-TW">如果是,則不會發送任何新建的訂單,也不會對信用卡收費等.</value>
     </property>
     <property key="FieldDescription.ProductStore.isImmediatelyFulfilled">
-        <value xml:lang="de">Wenn eingeschaltet, werden Bestellungen sofort durch systemgenerierte Prozesse ausgeführt (z.B. für POS Käufe). Wenn ausgeschaltet, werden sie für eine manuelle Prüfung zurückgehalten.</value>
-        <value xml:lang="en">If Yes, the order will be immediately fulfilled through system-generated processes in ofbiz (e.g. for POS sales).  If no, it will be held for manual review.</value>
-        <value xml:lang="fr">Si Oui, toutes les commandes seront automatiquement remplies par le système (e.g. Les ventes du POS). Si Non, les commandes seront retenues à des fins de traitement manuel.</value>
+        <value xml:lang="de">Wenn eingeschaltet, werden Bestellungen sofort durch systemgenerierte Prozesse ausgeführt. Wenn ausgeschaltet, werden sie für eine manuelle Prüfung zurückgehalten.</value>
+        <value xml:lang="en">If Yes, the order will be immediately fulfilled through system-generated processes in ofbiz.  If no, it will be held for manual review.</value>
+        <value xml:lang="fr">Si Oui, toutes les commandes seront automatiquement remplies par le système. Si Non, les commandes seront retenues à des fins de traitement manuel.</value>
         <value xml:lang="ja">はいの場合、ofbizではシステムに生成されるプロセスで注文がすぐ実行されます。いいえの場合は、手動で確認されるまで保留されます。</value>
-        <value xml:lang="vi">Nếu có, đặt hàng sẽ được tự động điền đầy đủ ngay lập tức thông qua hệ thống xử lý của Ofbiz (ví dụ như hệ thống bán hàng POS). Nếu không, nó sẽ dẫn đến phần xem xét thủ công</value>
+        <value xml:lang="vi">Nếu có, đặt hàng sẽ được tự động điền đầy đủ ngay lập tức thông qua hệ thống xử lý của Ofbiz. Nếu không, nó sẽ dẫn đến phần xem xét thủ công</value>
         <value xml:lang="zh">如果是，则会在OFBiz中通过系统生成过程立即执行（如POS销售）。如果否，则会等待人工检查。</value>
         <value xml:lang="zh-TW">如果是,則會在OFBiz中通過系統產生過程立即責任履行(如POS銷售).如果否,則會等待人工檢查.</value>
     </property>

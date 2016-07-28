@@ -52,7 +52,7 @@ final class StartupCommandUtil {
      * Make sure of defining the same set of values in:
      * 
      * - The StartupOptions in the StartupOption enum
-     * - The commons-cli options (e.g. BOTH, HELP, etc ...)
+     * - The commons-cli options (e.g. HELP, START, etc ...)
      * - The getOfbizStartupOptions method
      * 
      * Keeping these items in sync means that OFBiz behaves correctly
@@ -61,11 +61,9 @@ final class StartupCommandUtil {
      */
 
     public enum StartupOption {
-        BOTH("both"),
         HELP("help"),
         LOAD_DATA("load-data"),
         PORTOFFSET("portoffset"),
-        POS("pos"),
         SHUTDOWN("shutdown"),
         START("start"),
         STATUS("status"),
@@ -81,11 +79,6 @@ final class StartupCommandUtil {
         }
     }
 
-    private static final Option BOTH = Option.builder("b")
-            .longOpt(StartupOption.BOTH.getName())
-            .desc("Runs simultaneously both the POS (Point of Sales) application and OFBiz server")
-            .hasArg(false)
-            .build();
     private static final Option HELP = Option.builder("?")
             .longOpt(StartupOption.HELP.getName())
             .desc("Prints this help screen to the user")
@@ -117,11 +110,6 @@ final class StartupCommandUtil {
             .hasArg()
             .argName("offset")
             .optionalArg(false)
-            .build();
-    private static final Option POS = Option.builder("p")
-            .longOpt(StartupOption.POS.getName())
-            .desc("Runs the POS (Point of Sales) application")
-            .hasArg(false)
             .build();
     private static final Option SHUTDOWN = Option.builder("d")
             .longOpt(StartupOption.SHUTDOWN.getName())
@@ -249,10 +237,8 @@ final class StartupCommandUtil {
 
     private static final Options getOfbizStartupOptions() {
         OptionGroup ofbizCommandOptions = new OptionGroup();
-        ofbizCommandOptions.addOption(BOTH);
         ofbizCommandOptions.addOption(HELP);
         ofbizCommandOptions.addOption(LOAD_DATA);
-        ofbizCommandOptions.addOption(POS);
         ofbizCommandOptions.addOption(SHUTDOWN);
         ofbizCommandOptions.addOption(START);
         ofbizCommandOptions.addOption(STATUS);

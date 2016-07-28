@@ -172,14 +172,8 @@ public final class Config {
                 ){
             fileName = "start";
         } else if(ofbizCommands.stream().anyMatch(
-                option -> option.getName() == StartupCommandUtil.StartupOption.BOTH.getName())) {
-            fileName = "both";
-        } else if(ofbizCommands.stream().anyMatch(
                 option -> option.getName() == StartupCommandUtil.StartupOption.LOAD_DATA.getName())) {
             fileName = "load-data";
-        } else if(ofbizCommands.stream().anyMatch(
-                option -> option.getName() == StartupCommandUtil.StartupOption.POS.getName())) {
-            fileName = "pos";
         } else if(ofbizCommands.stream().anyMatch(
                 option -> option.getName() == StartupCommandUtil.StartupOption.TEST.getName())) {
             fileName = "test";

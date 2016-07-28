@@ -532,9 +532,9 @@ public class InvoiceServices {
 
                     // If the absolute invoiced amount >= the abs of the adjustment amount, the full amount has already been invoiced,
                     //  so skip this adjustment
-                    if (adj.get("amount") == null) { // JLR 17/4/7 : fix a bug coming from POS in case of use of a discount (on item(s) or sale, item(s) here) and a cash amount higher than total (hence issuing change)
-                        continue;
-                    }
+//                    if (adj.get("amount") == null) { // JLR 17/4/7 : fix a bug coming from POS in case of use of a discount (on item(s) or sale, item(s) here) and a cash amount higher than total (hence issuing change)
+//                        continue;
+//                    }
                     if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING).abs()) > 0) {
                         continue;
                     }
@@ -663,14 +663,14 @@ public class InvoiceServices {
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Accounting trouble calling calculateInvoicedAdjustmentTotal service", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                            "AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService", locale));                    
+                            "AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService", locale));
                 }
 
                 // If the absolute invoiced amount >= the abs of the adjustment amount, the full amount has already been invoiced,
                 //  so skip this adjustment
-                if (null == adj.get("amount")) { // JLR 17/4/7 : fix a bug coming from POS in case of use of a discount (on item(s) or sale, sale here) and a cash amount higher than total (hence issuing change)
-                    continue;
-                }
+//                if (null == adj.get("amount")) { // JLR 17/4/7 : fix a bug coming from POS in case of use of a discount (on item(s) or sale, sale here) and a cash amount higher than total (hence issuing change)
+//                    continue;
+//                }
                 if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING).abs()) > 0) {
                     continue;
                 }

@@ -212,17 +212,6 @@
         <value xml:lang="zh">会员管理组，具有全部会员权限。</value>
         <value xml:lang="zh-TW">團體管理群組,具有全部團體權限.</value>
     </property>
-    <property key="SecurityGroup.description.POSCLERK">
-        <value xml:lang="en">POS Clerk</value>
-        <value xml:lang="es">Cajero</value>
-        <value xml:lang="fr">Employé POS</value>
-        <value xml:lang="it">Impiegato POS</value>
-        <value xml:lang="ja">POS事務</value>
-        <value xml:lang="ru">Служащий POS</value>
-        <value xml:lang="th">พนักงาน ณ.จุดขาย</value>
-        <value xml:lang="zh">柜员机操作员</value>
-        <value xml:lang="zh-TW">POS機操作員</value>
-    </property>
     <property key="SecurityGroup.description.PROJECTADMIN">
         <value xml:lang="en">Project Admin group, has update access to own projects.</value>
         <value xml:lang="it">Gruppo permesso amministrazione progetti, ha accesso in aggiornamento come proprietario progetti.</value>

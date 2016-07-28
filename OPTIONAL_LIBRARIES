@@ -37,24 +37,6 @@ on the old Undersun SVN server in the specialized/libraries component directory.
     and rename the ZIP file that comes with it as jimi-xxx.jar, then copy it into the same directory as fop.jar, which at this time
     is ${ofbiz.home}/framework/webapp/lib/
 
--=- POS _______________________________________________________________________________________________________________________________________________________
-
--GTK Swing (LGPL):
-  http://sourceforge.net/projects/gtkswing/
-  TO DEPLOY: base/config/pos-containers.xml:org.gtk.java.swing.plaf.gtk.GtkLookAndFeel for look and feel
--JavaPOS hardware drivers
-  TO DEPLOY: specialpurpose/pos/lib/
-
-  Epson Printer TM-T88III (Proprietay licence) needs jpos18-controls.jar (version specific)
-  https://www.epson-pos.com/cgi-bin/sdssm/main/td_login.jsp
-     epsonJposService180.jar
-     epsonJposServiceCommon.jar
-
- Star (Proprietay licence)
- http://www.star-micronics.co.jp/service/s_print/starjavapos_win32-linux-macosx_yyyymmdd.zip.htm
-     starjavapos.jar
-
-
 -=- Office (Word, etc) File Handling __________________________________________________________________________________________________________________________
 
 -OpenOffice UNO (LGPL)

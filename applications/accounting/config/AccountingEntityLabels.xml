@@ -5287,36 +5287,6 @@
         <value xml:lang="zh">工资支票</value>
         <value xml:lang="zh-TW">工資支票</value>
     </property>
-    <property key="PaymentType.description.POS_PAID_IN">
-        <value xml:lang="de">Kasseneinzahlung</value>
-        <value xml:lang="en">POS Paid In</value>
-        <value xml:lang="fr">Reçu en caisse</value>
-        <value xml:lang="hi-IN">Pos भुगतान किया</value>
-        <value xml:lang="it">Pagamento POS Ingresso</value>
-        <value xml:lang="ja">POS払入</value>
-        <value xml:lang="nl">PoS - In</value>
-        <value xml:lang="pt">POS Pago em</value>
-        <value xml:lang="ru">Вход. оплата POS</value>
-        <value xml:lang="th">ชำระ ณ จุดขาย</value>
-        <value xml:lang="vi">Thanh toán Vào (của POS)</value>
-        <value xml:lang="zh">提款机收款</value>
-        <value xml:lang="zh-TW">提款機收款</value>
-    </property>
-    <property key="PaymentType.description.POS_PAID_OUT">
-        <value xml:lang="de">Kassenauszahlung</value>
-        <value xml:lang="en">POS Paid Out</value>
-        <value xml:lang="fr">Sortie de caisse</value>
-        <value xml:lang="hi-IN">Pos बाहर को शुल्कित</value>
-        <value xml:lang="it">Pagamento POS Uscita</value>
-        <value xml:lang="ja">POS払出</value>
-        <value xml:lang="nl">PoS - Uit</value>
-        <value xml:lang="pt">POS pago</value>
-        <value xml:lang="ru">Исход. оплата POS</value>
-        <value xml:lang="th">ชำระนอกจุดขาย</value>
-        <value xml:lang="vi">Thanh toán Ra (của POS)</value>
-        <value xml:lang="zh">提款机退款</value>
-        <value xml:lang="zh-TW">提款機退款</value>
-    </property>
     <property key="PaymentType.description.RECEIPT">
         <value xml:lang="ar">وصل</value>
         <value xml:lang="de">Quittung</value>

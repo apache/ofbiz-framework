@@ -27,7 +27,6 @@ License.
     <listitem><para>Customer Deposit</para></listitem>
     <listitem><para>Customer Payment</para></listitem>
     <listitem><para>Interest In</para></listitem>
-    <listitem><para>POS In (POS = Point of Sale)</para></listitem>
     </itemizedlist>
     <para>Examples of outgoing payment types are as follows:</para>
     <itemizedlist>
@@ -47,7 +46,7 @@ License.
         <listitem><para>
             Select the 'Payment Type Id' from the drop down box (NOTE: This
             is currently limited to the following: Customer Deposit, Customer
-            Payment, Interest In, POS Paid In and Gift Certificate Deposit)
+            Payment, Interest In and Gift Certificate Deposit)
         </para></listitem>
         <listitem><para>Enter the payment amount in the 'Amount' field</para></listitem>
         <listitem><para>Enter or use the lookup to find the 'From Party Id'</para></listitem>
