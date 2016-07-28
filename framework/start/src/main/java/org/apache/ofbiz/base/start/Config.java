@@ -51,7 +51,6 @@ public final class Config {
     public final List<Map<String, String>> loaders;
     public final String logDir;
     public final boolean shutdownAfterLoad;
-    public final String splashLogo;
     public final boolean useShutdownHook;
     public final String classpathAddComponent;
     public final String classpathAddFilesFromPath;
@@ -77,7 +76,6 @@ public final class Config {
         loaders = getLoaders(props);
         logDir = getAbsolutePath(props, "ofbiz.log.dir", "runtime/logs", ofbizHome);
         shutdownAfterLoad = isShutdownAfterLoad(props);
-        splashLogo = props.getProperty("ofbiz.start.splash.logo", null);
         useShutdownHook = isUseShutdownHook(props);
         classpathAddComponent = props.getProperty("ofbiz.start.classpath.addComponent");
         classpathAddFilesFromPath = props.getProperty("ofbiz.start.classpath.addFilesFromPath");
