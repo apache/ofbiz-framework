@@ -24,4 +24,4 @@ set OFBIZ_HOME=%~p0..\
 rem ### Simple easy to read line
 cd %OFBIZ_HOME%
 echo on
-svn up && gradlew cleanAll loadDefault test
+svn up && gradlew cleanAll loadDefault testIntegration
