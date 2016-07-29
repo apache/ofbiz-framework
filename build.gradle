@@ -179,8 +179,8 @@ dependencies {
     compile 'xml-apis:xml-apis:1.4.01'
 
     // general framework runtime libs
-    runtime 'mysql:mysql-connector-java:5.1.36'
-    runtime 'postgresql:postgresql:9.0-801.jdbc4'
+//    runtime 'mysql:mysql-connector-java:5.1.36'
+//    runtime 'postgresql:postgresql:9.0-801.jdbc4'
 
     // plugin libs
     subprojects.each { subProject ->
