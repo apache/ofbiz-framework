@@ -22,13 +22,8 @@ import org.apache.tools.ant.filters.ReplaceTokens
  * Project setup
  * ======================================================== */
 
-plugins {
-    id "org.owasp.dependencycheck" version "1.4.0"
-}
-
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: "org.owasp.dependencycheck"
 
 apply from: 'common.gradle'
 
