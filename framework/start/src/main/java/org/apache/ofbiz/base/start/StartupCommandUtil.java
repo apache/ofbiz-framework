@@ -67,8 +67,7 @@ final class StartupCommandUtil {
         SHUTDOWN("shutdown"),
         START("start"),
         STATUS("status"),
-        TEST("test"),
-        TEST_LIST("testlist");
+        TEST("test");
         
         private String name;
         private StartupOption(String name) {
@@ -140,25 +139,6 @@ final class StartupCommandUtil {
             .optionalArg(true)
             .argName("key=value")
             .build();
-    private static final Option TEST_LIST = Option.builder("x")
-            .longOpt(StartupOption.TEST_LIST.getName())
-            .desc("Generates an ant build script or a text file of all tests in ofbiz."
-                    + System.lineSeparator()
-                    + "The ant build script can run all test suites in isolation."
-                    + System.lineSeparator()
-                    + "The text file contains all tests in the format <component>:<suite-name>."
-                    + System.lineSeparator()
-                    + "The file arg determines the output file, and mode determines ant or text e.g:"
-                    + System.lineSeparator()
-                    + "--testlist file=runtime/test-list-build.xml"
-                    + System.lineSeparator()
-                    + "and"
-                    + System.lineSeparator()
-                    + "--testlist mode=ant or --testlist mode=text")
-            .numberOfArgs(2)
-            .valueSeparator('=')
-            .argName("key=value")
-            .build();
 
     static final List<StartupCommand> parseOfbizCommands(final String[] args) throws StartupException {
         CommandLine commandLine = null;
@@ -213,7 +193,6 @@ final class StartupCommandUtil {
         List<String> loaderArgs = new ArrayList<String>();
         final String LOAD_DATA = StartupCommandUtil.StartupOption.LOAD_DATA.getName();
         final String TEST = StartupCommandUtil.StartupOption.TEST.getName();
-        final String TEST_LIST = StartupCommandUtil.StartupOption.TEST_LIST.getName();
         
         if(ofbizCommands.stream().anyMatch(command -> command.getName().equals(LOAD_DATA))) {
             retrieveCommandArguments(ofbizCommands, LOAD_DATA).entrySet().stream().forEach(entry -> 
@@ -221,10 +200,6 @@ final class StartupCommandUtil {
         } else if(ofbizCommands.stream().anyMatch(command -> command.getName().equals(TEST))) {
             retrieveCommandArguments(ofbizCommands, TEST).entrySet().stream().forEach(entry -> 
             loaderArgs.add("-" + entry.getKey() + "=" + entry.getValue()));
-        } else if(ofbizCommands.stream().anyMatch(command -> command.getName().equals(TEST_LIST))) {
-            Map<String,String> testListArgs = retrieveCommandArguments(ofbizCommands, TEST_LIST);
-            loaderArgs.add(testListArgs.get("file"));
-            loaderArgs.add("-" + testListArgs.get("mode"));
         }
         return loaderArgs;
     }
@@ -243,7 +218,6 @@ final class StartupCommandUtil {
         ofbizCommandOptions.addOption(START);
         ofbizCommandOptions.addOption(STATUS);
         ofbizCommandOptions.addOption(TEST);
-        ofbizCommandOptions.addOption(TEST_LIST);
 
         Options options = new Options();
         options.addOptionGroup(ofbizCommandOptions);
@@ -271,18 +245,8 @@ final class StartupCommandUtil {
         if(!commandLine.getArgList().isEmpty()) {
             throw new StartupException("unrecognized options / properties: " + commandLine.getArgList());
         }
-        // TEST_LIST validation
-        if(commandLine.hasOption(StartupOption.TEST_LIST.getName())) {
-            Properties optionProperties = commandLine.getOptionProperties(StartupOption.TEST_LIST.getName());
-            if(!optionProperties.containsKey("file")
-                    || !optionProperties.containsKey("mode") ) {
-                throw new StartupException("You must pass both file and mode arguments to --" + StartupOption.TEST_LIST.getName());
-            } else if (!optionProperties.get("mode").toString().equals("text")
-                    && !optionProperties.get("mode").toString().equals("ant")) {
-                throw new StartupException("mode only accepts text or ant in the option --"  + StartupOption.TEST_LIST.getName());
-            }
         // PORTOFFSET validation
-        } else if(commandLine.hasOption(StartupOption.PORTOFFSET.getName())) {
+        if(commandLine.hasOption(StartupOption.PORTOFFSET.getName())) {
             Properties optionProperties = commandLine.getOptionProperties(StartupOption.PORTOFFSET.getName());
             try {
                 int portOffset = Integer.parseInt(optionProperties.keySet().iterator().next().toString());
@@ -293,6 +257,5 @@ final class StartupCommandUtil {
                 throw new StartupException("you can only pass positive integers to the option --" + StartupOption.PORTOFFSET.getName(), e);
             }
         }
-        //TODO add more validations
     }
 }

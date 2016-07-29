@@ -175,9 +175,6 @@ public final class Config {
         } else if(ofbizCommands.stream().anyMatch(
                 option -> option.getName() == StartupCommandUtil.StartupOption.TEST.getName())) {
             fileName = "test";
-        } else if(ofbizCommands.stream().anyMatch(
-                option -> option.getName() == StartupCommandUtil.StartupOption.TEST_LIST.getName())) {
-            fileName = "testlist";
         }
         return fileName;
     }
