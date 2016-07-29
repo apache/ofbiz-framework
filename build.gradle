@@ -33,7 +33,7 @@ apply plugin: "org.owasp.dependencycheck"
 apply from: 'common.gradle'
 
 // java settings
-def jvmArguments = ['-Xms128M', '-Xmx512M']
+def jvmArguments = ['-Xms128M', '-Xmx1024M']
 ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 javadoc.failOnError = false
 sourceCompatibility = '1.8'
@@ -641,6 +641,9 @@ task cleanAnt(group: cleanupGroup, type: Delete, description: "clean old artifac
     delete 'ofbiz.jar'
 }
 
+//  Keep this task below all other clean tasks  The location of
+//  declaration is important because it means that it will automatically
+//  run whenever the task cleanAll executes (dependency matched by regex)
 def cleanTasks = getTasksMatchingRegex(/^clean.+/)
 task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
     description 'Execute all cleaning tasks.'
