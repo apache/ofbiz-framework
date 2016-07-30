@@ -13,15 +13,6 @@ on the old Undersun SVN server in the specialized/libraries component directory.
   http://www.mozilla.org/js
   TO BUILD comment out exclude: base/build.xml:org/apache/ofbiz/base/util/OfbizJsBsfEngine.java
 
--applets (Netscape javascript plugin : Sun Binary Code License Agreement - BCLA)
-  Developpers : http://wp.netscape.com/eng/mozilla/3.0/handbook/javascript/packages.htm
-  This link is also interesting : http://forum.java.sun.com/thread.jspa?threadID=516303&tstart=225
-  NOTE: applications/product/src/ShipmentScaleApplet.java needs  netscape.javascript.JSObject
-     If you're using the Sun JDK/JRE 1.4 or greater, the jar is located under jre/lib and it's called plugin.jar.
-     You may also find it in the old Undersun SVN server in the specialized/libraries component directory.
-  TO BUILD: Copy plugin.jar in framework/base/lib. This seems only needed under Windows.
-
-
 -=- Reporting: ________________________________________________________________________________________________________________________________________________
 
 -JasperReports (LGPL):

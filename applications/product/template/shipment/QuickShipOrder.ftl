@@ -16,13 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script language="JavaScript" type="text/javascript">
-// function called from ShipmentScaleApplet when a weight is read
-function setWeight(weight) {
-  document.weightForm.weight.value = weight;
-}
-</script>
-
 <#if security.hasEntityPermission("FACILITY", "_VIEW", session)>
   <h1>${uiLabelMap.ProductQuickShipOrderFrom} ${facility.facilityName!} [${uiLabelMap.CommonId}:${facilityId!}]</h1>
   <div class="button-bar">
@@ -156,12 +149,6 @@ function setWeight(weight) {
           <script language="JavaScript" type="text/javascript">
             document.weightForm.weight.focus();
           </script>
-          <#-- todo embed the applet
-          <applet code="ShipmentScaleApplet.class" codebase="/images/" name="Package Weight Reader" width="0" height="0" MAYSCRIPT>
-            <param name="serialPort" value="com1">
-            <param name="fakeWeight" value="22">
-          </applet>
-          -->
         </#if>
       <#else>
         <div class="alert">${uiLabelMap.ProductErrorNoPackagesFoundForShipment} !</div>
