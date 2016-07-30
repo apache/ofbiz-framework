@@ -71,9 +71,9 @@
     <Facility facilityId="MyRetailStore" productStoreId="9100" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM"/>
 
     <!-- Use these SKUs in the POS terminal -->
-    <GoodIdentification goodIdentificationTypeId="SKU" productId="GZ-1000" idValue="12345" lastUpdatedStamp="2005-07-12 06:31:15.251" lastUpdatedTxStamp="2005-07-12 06:31:14.897" createdStamp="2005-07-12 06:31:15.251" createdTxStamp="2005-07-12 06:31:14.897"/>
-    <GoodIdentification goodIdentificationTypeId="OTHER_ID" productId="GZ-1001" idValue="12345" lastUpdatedStamp="2005-07-12 06:31:15.251" lastUpdatedTxStamp="2005-07-12 06:31:14.897" createdStamp="2005-07-12 06:31:15.251" createdTxStamp="2005-07-12 06:31:14.897"/>
-    <GoodIdentification goodIdentificationTypeId="SKU" productId="GZ-1001" idValue="67890" lastUpdatedStamp="2005-07-12 06:31:32.803" lastUpdatedTxStamp="2005-07-12 06:31:32.749" createdStamp="2005-07-12 06:31:32.803" createdTxStamp="2005-07-12 06:31:32.749"/>
+    <GoodIdentification goodIdentificationTypeId="SKU" productId="GZ-1000" idValue="12345"/>
+    <GoodIdentification goodIdentificationTypeId="OTHER_ID" productId="GZ-1001" idValue="12345"/>
+    <GoodIdentification goodIdentificationTypeId="SKU" productId="GZ-1001" idValue="67890"/>
 
 
     <!-- use this one when the scheduled PUSH service is enabled
