@@ -18,6 +18,7 @@
  */
 
 apply from: 'common.gradle'
+rootProject.name = 'ofbiz'
 
 iterateOverActiveComponents { File component ->
     def osName = System.getProperty('os.name').toLowerCase()
