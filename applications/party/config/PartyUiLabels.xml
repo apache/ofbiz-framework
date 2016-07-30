@@ -12717,6 +12717,9 @@
         <value xml:lang="zh">添加税务信息</value>
         <value xml:lang="zh-TW">增加稅務資訊</value>
     </property>
+    <property key="PartyTaxAuthPartyAndGeoNotAvailable">
+        <value xml:lang="en">Tax authority is not availble for provided Tax Authority Party and Tax Authority Geo.</value>
+    </property>
     <property key="PartyTaxAuthInfos">
         <value xml:lang="ar">معلومات الضريبة</value>
         <value xml:lang="de">Steuerangaben</value>
