@@ -218,7 +218,6 @@ excludedJavaSources.add 'org/apache/ofbiz/content/report/JRMapCollectionDataSour
 excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareException.java'
 excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareServices.java'
 excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareUTL.java'
-excludedJavaSources.add 'ShipmentScaleApplet.java'
 excludedJavaSources.add 'org/apache/ofbiz/securityext/thirdparty/truition/TruitionCoReg.java'
 excludedJavaSources.add 'org/apache/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java'
 excludedJavaSources.add 'org/apache/ofbiz/webapp/view/JasperReportsPdfViewHandler.java'
