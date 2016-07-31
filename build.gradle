@@ -632,9 +632,11 @@ task cleanAnt(group: cleanupGroup, type: Delete, description: "clean old artifac
     delete 'ofbiz.jar'
 }
 
-//  Keep this task below all other clean tasks  The location of
-//  declaration is important because it means that it will automatically
-//  run whenever the task cleanAll executes (dependency matched by regex)
+/*
+ * Keep this task below all other clean tasks  The location of
+ * declaration is important because it means that it will automatically
+ * run whenever the task cleanAll executes (dependency matched by regex)
+ */
 def cleanTasks = getTasksMatchingRegex(/^clean.+/)
 task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
     description 'Execute all cleaning tasks.'
