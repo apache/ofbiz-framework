@@ -788,7 +788,6 @@ under the License.
         <field name="custRequestId" title="${uiLabelMap.ScrumProductBacklogId}"><text-find/></field>
         <field name="fromPartyId" title="${uiLabelMap.ScrumRequesterName}" position="2">
             <drop-down allow-empty="true">
-                <option key=""/>
                 <list-options key-name="partyId" list-name="requesterList" description="${lastName} ${firstName} ${middleName}"/>
             </drop-down>
         </field>
@@ -863,8 +862,7 @@ under the License.
             <date-time type="date"/>
         </field>
         <field name="custRequestTypeId" title="${uiLabelMap.ScrumPlanned}">
-            <drop-down allow-empty="false">
-                <option key="${uiLabelMap.CommonAny}" description=" "/>
+            <drop-down allow-empty="true">
                 <option key="RF_PROD_BACKLOG" description="${uiLabelMap.CommonY}"/>
                 <option key="RF_UNPLAN_BACKLOG" description="${uiLabelMap.CommonN}"/>
             </drop-down>
@@ -876,8 +874,7 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <drop-down allow-empty="false">
-                <option key="${uiLabelMap.CommonAny}" description=" "/>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CUSTREQ_STTS"/>
                     <entity-constraint name="statusId" operator="not-equals" value="CRQ_PENDING"/>
@@ -888,6 +885,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     

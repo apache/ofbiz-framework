@@ -32,58 +32,60 @@ conditionBacklogList = [];
 orConditionBacklogList = [];
 mainConditionBacklogList = [];
 orConditionsBacklog =  null;
-description = parameters.description;
-custRequestId = parameters.custRequestId;
 orderBy = "custRequestDate";
 
-if ((parameters.billed != null)||(parameters.parentCustRequestId != null)||(parameters.description != null)
-    ||(parameters.fromPartyId != null)||(parameters.custRequestDate != null)||(parameters.custRequestId != null)||(viewIndex > 0)) {
-    if(UtilValidate.isNotEmpty(parameters.productId)){
+// Prevents the query on all records when loading the screen for the first time
+if ("Y".equals(parameters.noConditionFind)) {
+    if(parameters.productId){
         conditionBacklogList.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId));
     }
-    if(UtilValidate.isEmpty(parameters.custRequestTypeId)){
+    
+    if(parameters.custRequestTypeId){
+        conditionBacklogList.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, parameters.custRequestTypeId));
+    }else{
+        // Adding both possibilities to the condition
         orConditionBacklogList.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_UNPLAN_BACKLOG"));
         orConditionBacklogList.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_PROD_BACKLOG"));
         orConditionsBacklog = EntityCondition.makeCondition(orConditionBacklogList, EntityOperator.OR);
-    }else{
-        conditionBacklogList.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, parameters.custRequestTypeId));
     }
     
-    if(UtilValidate.isEmpty(parameters.billed)){
-    	orConditionBacklogList.add(EntityCondition.makeCondition("billed", EntityOperator.EQUALS, "Y"));
-    	orConditionBacklogList.add(EntityCondition.makeCondition("billed", EntityOperator.EQUALS, "N"));
-    	orConditionsBacklog = EntityCondition.makeCondition(orConditionBacklogList, EntityOperator.OR);
+    if(parameters.billed){
+        conditionBacklogList.add(EntityCondition.makeCondition("billed", EntityOperator.EQUALS, parameters.billed));
     }else{
-    	conditionBacklogList.add(EntityCondition.makeCondition("billed", EntityOperator.EQUALS, parameters.billed));
+        // Adding both choices to the condition
+        orConditionBacklogList.add(EntityCondition.makeCondition("billed", EntityOperator.EQUALS, "Y"));
+        orConditionBacklogList.add(EntityCondition.makeCondition("billed", EntityOperator.EQUALS, "N"));
+        orConditionsBacklog = EntityCondition.makeCondition(orConditionBacklogList, EntityOperator.OR);
     }
     
-    if(UtilValidate.isNotEmpty(parameters.statusId)){
+    if(parameters.statusId){
         orderBy = "custSequenceNum";
         conditionBacklogList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameters.statusId));
     }
     
-    if(UtilValidate.isNotEmpty(parameters.parentCustRequestId)){
-    	conditionBacklogList.add(EntityCondition.makeCondition("parentCustRequestId", EntityOperator.EQUALS, parameters.parentCustRequestId));
-    }
-    if(UtilValidate.isNotEmpty(parameters.description)){
-    	conditionBacklogList.add(EntityCondition.makeCondition("description", EntityOperator.LIKE, "%" + description + "%"));
+    if(parameters.parentCustRequestId){
+        conditionBacklogList.add(EntityCondition.makeCondition("parentCustRequestId", EntityOperator.EQUALS, parameters.parentCustRequestId));
     }
     
-    if(UtilValidate.isNotEmpty(parameters.fromPartyId)){
-    	conditionBacklogList.add(EntityCondition.makeCondition("fromPartyId", EntityOperator.LIKE, "%" + parameters.fromPartyId + "%"));
+    if(parameters.description){
+        conditionBacklogList.add(EntityCondition.makeCondition("description", EntityOperator.LIKE, "%" + parameters.description + "%"));
     }
     
-    if (UtilValidate.isNotEmpty(parameters.custRequestDate)){
-    	fromDate = parameters.custRequestDate;
-    	fromDate = fromDate + " " + "00:00:00.000";
-    	conditionBacklogList.add(EntityCondition.makeCondition("custRequestDate", EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)));
-    	thruDate = parameters.custRequestDate;
-    	thruDate = thruDate + " " + "23:59:59.999";
-    	conditionBacklogList.add(EntityCondition.makeCondition("custRequestDate", EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)));
+    if(parameters.fromPartyId){
+        conditionBacklogList.add(EntityCondition.makeCondition("fromPartyId", EntityOperator.LIKE, "%" + parameters.fromPartyId + "%"));
     }
     
-    if(UtilValidate.isNotEmpty(parameters.custRequestId)){
-    	conditionBacklogList.add(EntityCondition.makeCondition("custRequestId", EntityOperator.LIKE, custRequestId + "%"));
+    if (parameters.custRequestDate){
+        fromDate = parameters.custRequestDate;
+        fromDate = fromDate + " " + "00:00:00.000";
+        conditionBacklogList.add(EntityCondition.makeCondition("custRequestDate", EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)));
+        thruDate = parameters.custRequestDate;
+        thruDate = thruDate + " " + "23:59:59.999";
+        conditionBacklogList.add(EntityCondition.makeCondition("custRequestDate", EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)));
+    }
+    
+    if(parameters.custRequestId){
+        conditionBacklogList.add(EntityCondition.makeCondition("custRequestId", EntityOperator.LIKE, parameters.custRequestId + "%"));
     }
     
     conditionsBacklog = EntityCondition.makeCondition(conditionBacklogList, EntityOperator.AND);
@@ -94,11 +96,13 @@ if ((parameters.billed != null)||(parameters.parentCustRequestId != null)||(para
     
     mainConditionBacklogList.add(conditionsBacklog);
     
+    // Request
     backlogList = select("custRequestId","custRequestTypeId", "custSequenceNum", "statusId", "description", "custEstimatedMilliSeconds", "custRequestName", "parentCustRequestId","productId","billed","custRequestDate","fromPartyId")
                     .from("CustRequestAndCustRequestItem")
                     .where(mainConditionBacklogList)
                     .orderBy("-custRequestTypeId", orderBy)
                     .queryList();
+                    
     def countSequenceBacklog = 1;
     def backlogItems = [];
     backlogList.each() { backlogItem ->
@@ -126,7 +130,7 @@ if ((parameters.billed != null)||(parameters.parentCustRequestId != null)||(para
         countSequenceBacklog ++;
     }
     
-    //re-order category list item
+    // re-order category list item
     if ("N".equals(parameters.sequence)) {
         backlogItems = UtilMisc.sortMaps(backlogItems, ["parentCustRequestId"]);
     }
