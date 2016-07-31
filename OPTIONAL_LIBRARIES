@@ -19,7 +19,6 @@ on the old Undersun SVN server in the specialized/libraries component directory.
   http://sourceforge.net/projects/jasperreports
   TO BUILD comment out excludes:
     framework/webapp/build.xml:org/apache/ofbiz/webapp/view/JasperReportsPdfViewHandler.java,org/apache/ofbiz/webapp/view/JasperReportsXmlViewHandler.java
-    applications/content/build.xml:org/apache/ofbiz/content/report/JREntityListIteratorDataSource.java,org/apache/ofbiz/content/report/JRMapCollectionDataSource.java
 
 - JIMI (used by FOP ):
   http://java.sun.com/products/jimi
