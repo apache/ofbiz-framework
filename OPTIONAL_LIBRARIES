@@ -15,11 +15,6 @@ on the old Undersun SVN server in the specialized/libraries component directory.
 
 -=- Reporting: ________________________________________________________________________________________________________________________________________________
 
--JasperReports (LGPL):
-  http://sourceforge.net/projects/jasperreports
-  TO BUILD comment out excludes:
-    framework/webapp/build.xml:org/apache/ofbiz/webapp/view/JasperReportsPdfViewHandler.java,org/apache/ofbiz/webapp/view/JasperReportsXmlViewHandler.java
-
 - JIMI (used by FOP ):
   http://java.sun.com/products/jimi
     FOP may require a library called JIMI to print certain graphical formats such as GIFs.  Jimi is a Sun library which cannot
