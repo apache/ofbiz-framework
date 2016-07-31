@@ -1094,26 +1094,6 @@
         <value xml:lang="zh">关联到这个数据资源的内容记录</value>
         <value xml:lang="zh-TW">結合到這個資料資源的內容記錄</value>
     </property>
-    <property key="ContentConvertingDocumentByteBuffer">
-        <value xml:lang="en">Error converting document byte buffer: </value>
-        <value xml:lang="fr">Erreur dans la conversion de document sur les tampons de donnée : </value>
-        <value xml:lang="it">Errore durante la conversione del documento in byte buffer: </value>
-        <value xml:lang="ja">ドキュメントバイトバッファ変換中にエラー: </value>
-        <value xml:lang="pt">Erro ao converter buffer de bytes do documento: </value>
-        <value xml:lang="vi">Lỗi khi chuyển đổi dữ liệu tài liệu:</value>
-        <value xml:lang="zh">转换文档字节缓存时出错：</value>
-        <value xml:lang="zh-TW">轉換檔時字元組緩衝區出錯:</value>
-    </property>
-    <property key="ContentConvertingDocumentError">
-        <value xml:lang="en">Error converting document: ${errorString}</value>
-        <value xml:lang="fr">Erreur dans la conversion du document : ${errorString}</value>
-        <value xml:lang="it">Errore durante la conversione del documento: ${errorString}</value>
-        <value xml:lang="ja">ドキュメント変換中にエラー: ${errorString}</value>
-        <value xml:lang="pt">Erro ao converter o documento: ${errorString}</value>
-        <value xml:lang="vi">Lỗi khi chuyển đổi tài liệu: ${errorString}</value>
-        <value xml:lang="zh">转换文档时出错：${errorString}</value>
-        <value xml:lang="zh-TW">轉換檔時出錯:${errorString}</value>
-    </property>
     <property key="ContentCreateContentAssocMethodError">
         <value xml:lang="en">Not 2 out of ContentId/To/From</value>
         <value xml:lang="fr">Not 2 out of ContentId/To/From</value>
@@ -2129,6 +2109,9 @@
         <value xml:lang="vi">Biểu mẫu hiển thị dữ liệu</value>
         <value xml:lang="zh">Mime类型模板</value>
         <value xml:lang="zh-TW">Mime類型模板</value>
+    </property>
+    <property key="ContentMimeTypeNotSupported">
+        <value xml:lang="en">Mime Type not supported</value>
     </property>
     <property key="ContentNavigate">
         <value xml:lang="da">Naviger</value>
