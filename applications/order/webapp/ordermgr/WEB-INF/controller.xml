@@ -1900,31 +1900,6 @@ under the License.
         <response name="error" type="view" value="orderview"/>
     </request-map>
 
-    <!--
-        These are just examples of reports developed using JasperReport and not really
-        useful reports. In order to run them you'll have to follow the notes in the
-        OPTIONAL_LIBRARIES files, add the following entry:
-        <handler name="jasperreportspdf" type="view" class="org.apache.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
-        to the handler section of this file and uncomment the following lines:
-    <request-map uri="orderreportjasper.pdf"><security https="true" auth="true"/>
-        <event type="groovy" path="/reports/" invoke="OrderReportPrepare.groovy"/> TODO: path to be changed
-        <response name="success" type="view" value="orderreportjasper"/>
-    </request-map>
-    <request-map uri="orderitemreportjasper.pdf"><security https="true" auth="true"/>
-        <event type="groovy" path="/reports/" invoke="OrderReportPrepare.groovy"/> TODO: path to be changed
-        <response name="success" type="view" value="orderitemreportjasper"/>
-    </request-map>
-    <request-map uri="orderreportlist">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="orderreportlist"/>
-    </request-map>
-
-
-    <view-map name="orderreportlist" type="screen" page="component://order/widget/ordermgr/OrderReportScreens.xml#OrderReportList"/>
-    <view-map name="orderreportjasper" type="jasperreportspdf" page="/reports/orderreport.xml" content-type="application/pdf" encoding="none"/>
-    <view-map name="orderitemreportjasper" type="jasperreportspdf" page="/reports/orderitemreport.xml" content-type="application/pdf" encoding="none"/>
-    -->
-
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
