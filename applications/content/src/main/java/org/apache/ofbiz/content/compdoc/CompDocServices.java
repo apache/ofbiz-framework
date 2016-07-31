@@ -263,8 +263,6 @@ public class CompDocServices {
 
         String contentId = (String) context.get("contentId");
         String contentRevisionSeqId = (String) context.get("contentRevisionSeqId");
-        String oooHost = (String) context.get("oooHost");
-        String oooPort = (String) context.get("oooPort");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         try {
