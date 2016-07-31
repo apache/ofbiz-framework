@@ -213,8 +213,6 @@ excludedJavaSources.add 'org/apache/ofbiz/content/openoffice/OpenOfficeByteArray
 excludedJavaSources.add 'org/apache/ofbiz/content/openoffice/OpenOfficeByteArrayOutputStream.java'
 excludedJavaSources.add 'org/apache/ofbiz/content/openoffice/OpenOfficeServices.java'
 excludedJavaSources.add 'org/apache/ofbiz/content/openoffice/OpenOfficeWorker.java'
-excludedJavaSources.add 'org/apache/ofbiz/content/report/JREntityListIteratorDataSource.java'
-excludedJavaSources.add 'org/apache/ofbiz/content/report/JRMapCollectionDataSource.java'
 excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareException.java'
 excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareServices.java'
 excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareUTL.java'
