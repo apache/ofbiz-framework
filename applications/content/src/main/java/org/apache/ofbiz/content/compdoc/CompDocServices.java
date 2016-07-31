@@ -135,8 +135,6 @@ public class CompDocServices {
 
         String contentId = (String) context.get("contentId");
         String contentRevisionSeqId = (String) context.get("contentRevisionSeqId");
-        String oooHost = (String) context.get("oooHost");
-        String oooPort = (String) context.get("oooPort");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         try {
@@ -223,21 +221,7 @@ public class CompDocServices {
                         }
                     }
                 } else {
-                    ByteBuffer inByteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
-
-                    Map<String, Object> convertInMap = UtilMisc.<String, Object>toMap("userLogin", userLogin, "inByteBuffer", inByteBuffer, "inputMimeType", inputMimeType, "outputMimeType", "application/pdf");
-                    if (UtilValidate.isNotEmpty(oooHost)) convertInMap.put("oooHost", oooHost);
-                    if (UtilValidate.isNotEmpty(oooPort)) convertInMap.put("oooPort", oooPort);
-
-                    Map<String, Object> convertResult = dispatcher.runSync("convertDocumentByteBuffer", convertInMap);
-
-                    if (ServiceUtil.isError(convertResult)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentConvertingDocumentByteBuffer", locale), null, null, convertResult);
-                    }
-
-                    ByteBuffer outByteBuffer = (ByteBuffer) convertResult.get("outByteBuffer");
-                    inputByteArray = outByteBuffer.array();
-                    reader = new PdfReader(inputByteArray);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentMimeTypeNotSupported", locale));
                 }
                 if (reader != null) {
                     int n = reader.getNumberOfPages();
@@ -363,21 +347,7 @@ public class CompDocServices {
                     }
                 }
             } else {
-                ByteBuffer inByteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
-
-                Map<String, Object> convertInMap = UtilMisc.<String, Object>toMap("userLogin", userLogin, "inByteBuffer", inByteBuffer,
-                        "inputMimeType", inputMimeType, "outputMimeType", "application/pdf");
-                if (UtilValidate.isNotEmpty(oooHost)) convertInMap.put("oooHost", oooHost);
-                if (UtilValidate.isNotEmpty(oooPort)) convertInMap.put("oooPort", oooPort);
-
-                Map<String, Object> convertResult = dispatcher.runSync("convertDocumentByteBuffer", convertInMap);
-
-                if (ServiceUtil.isError(convertResult)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentConvertingDocumentByteBuffer", locale), null, null, convertResult);
-                }
-
-                ByteBuffer outByteBuffer = (ByteBuffer) convertResult.get("outByteBuffer");
-                inputByteArray = outByteBuffer.array();
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentMimeTypeNotSupported", locale));
             }
 
             ByteBuffer outByteBuffer = ByteBuffer.wrap(inputByteArray);

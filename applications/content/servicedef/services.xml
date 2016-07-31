@@ -786,46 +786,6 @@
         <attribute name="mostRecentRevisionSeqId" type="String" mode="OUT" optional="true"/>
     </service>
 
-    <!-- Open Office Services -->
-    <service name="convertDocumentByteBuffer" auth="false" engine="java" transaction-timeout="7200"
-        location="org.apache.ofbiz.content.openoffice.OpenOfficeServices" invoke="convertDocumentByteBuffer">
-        <description>Use OpenOffice to convert between document types</description>
-        <attribute name="oooHost" type="String" mode="IN" optional="true"/>
-        <attribute name="oooPort" type="String" mode="IN" optional="true"/>
-        <attribute name="inputMimeType" type="String" mode="IN" optional="true"/>
-        <attribute name="outputMimeType" type="String" mode="IN" optional="true"/>
-        <attribute name="inByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
-        <attribute name="outByteBuffer" type="java.nio.ByteBuffer" mode="OUT" optional="false"/>
-    </service>
-    <service name="convertDocument" auth="false" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.openoffice.OpenOfficeServices" invoke="convertDocument">
-        <description>Use OpenOffice to convert between document types</description>
-        <attribute name="oooHost" type="String" mode="IN" optional="true"/>
-        <attribute name="oooPort" type="String" mode="IN" optional="true"/>
-        <attribute name="filenameFrom" type="String" mode="IN" optional="false"/>
-        <attribute name="filenameTo" type="String" mode="IN" optional="false"/>
-        <attribute name="convertFilterName" type="String" mode="IN" optional="true"/>
-    </service>
-    <service name="convertDocumentFileToFile" auth="false" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.openoffice.OpenOfficeServices" invoke="convertDocumentFileToFile">
-        <description>Use OpenOffice to convert between document types</description>
-        <attribute name="oooHost" type="String" mode="IN" optional="true"/>
-        <attribute name="oooPort" type="String" mode="IN" optional="true"/>
-        <attribute name="filenameFrom" type="String" mode="IN" optional="false"/>
-        <attribute name="filenameTo" type="String" mode="IN" optional="false"/>
-        <attribute name="inputMimeType" type="String" mode="IN" optional="true"/>
-        <attribute name="outputMimeType" type="String" mode="IN" optional="true"/>
-    </service>
-    <service name="compareDocuments" auth="false" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.openoffice.OpenOfficeServices" invoke="compareDocuments">
-        <description>Use OpenOffice to compare two documents</description>
-        <attribute name="oooHost" type="String" mode="IN" optional="true"/>
-        <attribute name="oooPort" type="String" mode="IN" optional="true"/>
-        <attribute name="filenameFrom" type="String" mode="IN" optional="false"/>
-        <attribute name="filenameOriginal" type="String" mode="IN" optional="false"/>
-        <attribute name="filenameOut" type="String" mode="IN" optional="false"/>
-    </service>
-
     <!-- CompDoc Rendering Services  -->
     <service name="renderCompDocPdf" engine="java"
         location="org.apache.ofbiz.content.compdoc.CompDocServices"

@@ -22,26 +22,6 @@ on the old Undersun SVN server in the specialized/libraries component directory.
     and rename the ZIP file that comes with it as jimi-xxx.jar, then copy it into the same directory as fop.jar, which at this time
     is ${ofbiz.home}/framework/webapp/lib/
 
--=- Office (Word, etc) File Handling __________________________________________________________________________________________________________________________
-
--OpenOffice UNO (LGPL)
-  http://udk.openoffice.org/
-  applications/content/lib/uno:
-    XFlatXml.jar
-    XMergeBridge.jar
-    XSLTFilter.jar
-    XSLTValidate.jar
-    htmlsoff.jar
-    java_uno.jar
-    java_uno_accessbridge.jar
-    juh.jar
-    jurt.jar
-    jut.jar
-    officebean.jar
-    ridl.jar
-    unoil.jar
-  TO BUILD comment out exclude: applications/content/build.xml:org/apache/ofbiz/content/openoffice/*
-
 -=- Accounting: Payment Processing ____________________________________________________________________________________________________________________________
 
 -CyberSource
