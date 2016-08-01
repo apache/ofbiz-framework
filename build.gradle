@@ -384,7 +384,7 @@ task loadTenant(group: ofbizServer, description: 'Load data using tenantId') {
         executeLoadTenant.args "component=${tenantComponent}"
     }
 
-    doLast {
+    executeLoadTenant.doFirst {
         if(!project.hasProperty('tenantId')) {
             throw new GradleException('Missing project property tenantId')
         }
