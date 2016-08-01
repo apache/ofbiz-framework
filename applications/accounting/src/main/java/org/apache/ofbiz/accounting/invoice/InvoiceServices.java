@@ -530,11 +530,10 @@ public class InvoiceServices {
                                 "AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService", locale));
                     }
 
-                    // If the absolute invoiced amount >= the abs of the adjustment amount, the full amount has already been invoiced,
-                    //  so skip this adjustment
-//                    if (adj.get("amount") == null) { // JLR 17/4/7 : fix a bug coming from POS in case of use of a discount (on item(s) or sale, item(s) here) and a cash amount higher than total (hence issuing change)
+//                    if (adj.get("amount") == null) { TODO check usage with webPos. Was: fix a bug coming from POS in case of use of a discount (on item(s) or sale, item(s) here) and a cash amount higher than total (hence issuing change)
 //                        continue;
 //                    }
+                    // If the absolute invoiced amount >= the abs of the adjustment amount, the full amount has already been invoiced, so skip this adjustment
                     if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING).abs()) > 0) {
                         continue;
                     }
@@ -666,11 +665,10 @@ public class InvoiceServices {
                             "AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService", locale));
                 }
 
-                // If the absolute invoiced amount >= the abs of the adjustment amount, the full amount has already been invoiced,
-                //  so skip this adjustment
-//                if (null == adj.get("amount")) { // JLR 17/4/7 : fix a bug coming from POS in case of use of a discount (on item(s) or sale, sale here) and a cash amount higher than total (hence issuing change)
+//                if (null == adj.get("amount")) { TODO check usage with webPos. Was: fix a bug coming from POS in case of use of a discount (on item(s) or sale, sale here) and a cash amount higher than total (hence issuing change)
 //                    continue;
 //                }
+                // If the absolute invoiced amount >= the abs of the adjustment amount, the full amount has already been invoiced, so skip this adjustment
                 if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING).abs()) > 0) {
                     continue;
                 }
@@ -1929,7 +1927,7 @@ public class InvoiceServices {
 
                             if (isNonPhysicalItemToReturn) {
                                 if (UtilValidate.isEmpty(billItems)) {
-                                    billItems = new ArrayList();
+                                    billItems = new ArrayList<GenericValue>();
                                 }
 
                                 billItems.add(returnItem);
