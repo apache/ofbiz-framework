@@ -63,9 +63,11 @@ import org.w3c.dom.Element;
  * method).</p>
  */
 @SuppressWarnings("serial")
-public class UtilProperties implements Serializable {
+public final class UtilProperties implements Serializable {
 
     public static final String module = UtilProperties.class.getName();
+
+    private UtilProperties() {}
 
     /**
      * A cache for storing Properties instances. Each Properties instance is keyed by its URL.
@@ -666,7 +668,7 @@ public class UtilProperties implements Serializable {
         return getMessage(resource, name, UtilGenerics.toMap(String.class, context), locale);
     }
 
-    protected static Set<String> resourceNotFoundMessagesShown = new HashSet<String>();
+    private static Set<String> resourceNotFoundMessagesShown = new HashSet<String>();
     /** Returns the specified resource/properties file as a ResourceBundle
      * @param resource The name of the resource - can be a file, class, or URL
      * @param locale The locale that the given resource will correspond to
