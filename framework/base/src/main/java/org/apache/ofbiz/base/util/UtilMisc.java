@@ -45,11 +45,11 @@ import org.apache.ofbiz.base.util.collections.MapComparator;
 /**
  * UtilMisc - Misc Utility Functions
  */
-public class UtilMisc {
+public final class UtilMisc {
 
     public static final String module = UtilMisc.class.getName();
 
-    public static final BigDecimal ZERO_BD = BigDecimal.ZERO;
+    private static final BigDecimal ZERO_BD = BigDecimal.ZERO;
 
     private UtilMisc () {}
 
