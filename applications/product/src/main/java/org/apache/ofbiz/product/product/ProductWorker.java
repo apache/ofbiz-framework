@@ -53,12 +53,12 @@ import org.apache.ofbiz.service.ModelService;
 /**
  * Product Worker class to reduce code in JSPs.
  */
-public class ProductWorker {
+public final class ProductWorker {
 
     public static final String module = ProductWorker.class.getName();
-    public static final String resource = "ProductUiLabels";
+    private static final String resource = "ProductUiLabels";
 
-    public static final MathContext generalRounding = new MathContext(10);
+    private static final MathContext generalRounding = new MathContext(10);
 
     private ProductWorker () {}
 
