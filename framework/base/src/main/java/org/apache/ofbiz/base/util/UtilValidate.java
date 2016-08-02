@@ -60,18 +60,20 @@ import com.ibm.icu.util.Calendar;
  * <br/> included as Starter Application 1.0.0 in LivePayment.
  * <br/> ==============================================================================
  */
-public class UtilValidate {
+public final class UtilValidate {
 
     public static final String module = UtilValidate.class.getName();
 
+    private UtilValidate() {}
+
     /** boolean specifying by default whether or not it is okay for a String to be empty */
-    public static final boolean defaultEmptyOK = true;
+    private static final boolean defaultEmptyOK = true;
 
     /** digit characters */
     public static final String digits = "0123456789";
 
     /** hex digit characters */
-    public static final String hexDigits = digits + "abcdefABCDEF";
+    private static final String hexDigits = digits + "abcdefABCDEF";
 
     /** lower-case letter characters */
     public static final String lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
@@ -83,7 +85,7 @@ public class UtilValidate {
     public static final String letters = lowercaseLetters + uppercaseLetters;
 
     /** whitespace characters */
-    public static final String whitespace = " \t\n\r";
+    private static final String whitespace = " \t\n\r";
 
     /** decimal point character differs by language and culture */
     public static final String decimalPointDelimiter = ".";
@@ -129,38 +131,38 @@ public class UtilValidate {
     /** non-digit characters which are allowed in credit card numbers */
     public static final String creditCardDelimiters = " -";
 
-    public static final String isNotEmptyMsg = "This field cannot be empty, please enter a value.";
-    public static final String isStateCodeMsg = "The State Code must be a valid two character U.S. state abbreviation(like CA for California).";
-    public static final String isContiguousStateCodeMsg = "The State Code must be a valid two character U.S. state abbreviation for one of the 48 contiguous United States (like CA for California).";
-    public static final String isZipCodeMsg = "The ZIP Code must be a 5 or 9 digit U.S. ZIP Code(like 94043).";
-    public static final String isUSPhoneMsg = "The US Phone must be a 10 digit U.S. phone number(like 415-555-1212).";
-    public static final String isUSPhoneAreaCodeMsg = "The Phone Number Area Code must be 3 digits.";
-    public static final String isUSPhoneMainNumberMsg = "The Phone Number must be 7 digits.";
-    public static final String isContiguousZipCodeMsg = "Zip Code is not a valid Zip Code for one of the 48 contiguous United States .";
-    public static final String isInternationalPhoneNumberMsg = "The World Phone must be a valid international phone number.";
-    public static final String isSSNMsg = "The SSN must be a 9 digit U.S. social security number(like 123-45-6789).";
-    public static final String isEmailMsg = "The Email must be a valid email address(like john@email.com). Please re-enter it now.";
-    public static final String isAnyCardMsg = "The credit card number is not a valid card number.";
-    public static final String isCreditCardPrefixMsg = " is not a valid ";
-    public static final String isCreditCardSuffixMsg = " credit card number.";
-    public static final String isDayMsg = "The Day must be a day number between 1 and 31. ";
-    public static final String isMonthMsg = "The Month must be a month number between 1 and 12. ";
-    public static final String isYearMsg = "The Year must be a 2 or 4 digit year number. ";
-    public static final String isDatePrefixMsg = "The Day, Month, and Year for ";
-    public static final String isDateSuffixMsg = " do not form a valid date.  Please reenter them now.";
-    public static final String isHourMsg = "The Hour must be a number between 0 and 23.";
-    public static final String isMinuteMsg = "The Minute must be a number between 0 and 59.";
-    public static final String isSecondMsg = "The Second must be a number between 0 and 59.";
-    public static final String isTimeMsg = "The Time must be a valid time formed like: HH:MM or HH:MM:SS.";
-    public static final String isDateMsg = "The Date must be a valid date formed like: MM/YY, MM/YYYY, MM/DD/YY, or MM/DD/YYYY.";
-    public static final String isDateAfterToday = "The Date must be a valid date after today, and formed like: MM/YY, MM/YYYY, MM/DD/YY, or MM/DD/YYYY.";
-    public static final String isIntegerMsg = "The Number must be a valid unsigned whole decimal number.";
-    public static final String isSignedIntegerMsg = "The Number must be a valid signed whole decimal number.";
-    public static final String isLongMsg = "The Number must be a valid unsigned whole decimal number.";
-    public static final String isSignedLongMsg = "The Number must be a valid signed whole decimal number.";
-    public static final String isFloatMsg = "The Number must be a valid unsigned decimal number.";
-    public static final String isSignedFloatMsg = "The Number must be a valid signed decimal number.";
-    public static final String isSignedDoubleMsg = "The Number must be a valid signed decimal number.";
+    private static final String isNotEmptyMsg = "This field cannot be empty, please enter a value.";
+    private static final String isStateCodeMsg = "The State Code must be a valid two character U.S. state abbreviation(like CA for California).";
+    private static final String isContiguousStateCodeMsg = "The State Code must be a valid two character U.S. state abbreviation for one of the 48 contiguous United States (like CA for California).";
+    private static final String isZipCodeMsg = "The ZIP Code must be a 5 or 9 digit U.S. ZIP Code(like 94043).";
+    private static final String isUSPhoneMsg = "The US Phone must be a 10 digit U.S. phone number(like 415-555-1212).";
+    private static final String isUSPhoneAreaCodeMsg = "The Phone Number Area Code must be 3 digits.";
+    private static final String isUSPhoneMainNumberMsg = "The Phone Number must be 7 digits.";
+    private static final String isContiguousZipCodeMsg = "Zip Code is not a valid Zip Code for one of the 48 contiguous United States .";
+    private static final String isInternationalPhoneNumberMsg = "The World Phone must be a valid international phone number.";
+    private static final String isSSNMsg = "The SSN must be a 9 digit U.S. social security number(like 123-45-6789).";
+    private static final String isEmailMsg = "The Email must be a valid email address(like john@email.com). Please re-enter it now.";
+    private static final String isAnyCardMsg = "The credit card number is not a valid card number.";
+    private static final String isCreditCardPrefixMsg = " is not a valid ";
+    private static final String isCreditCardSuffixMsg = " credit card number.";
+    private static final String isDayMsg = "The Day must be a day number between 1 and 31. ";
+    private static final String isMonthMsg = "The Month must be a month number between 1 and 12. ";
+    private static final String isYearMsg = "The Year must be a 2 or 4 digit year number. ";
+    private static final String isDatePrefixMsg = "The Day, Month, and Year for ";
+    private static final String isDateSuffixMsg = " do not form a valid date.  Please reenter them now.";
+    private static final String isHourMsg = "The Hour must be a number between 0 and 23.";
+    private static final String isMinuteMsg = "The Minute must be a number between 0 and 59.";
+    private static final String isSecondMsg = "The Second must be a number between 0 and 59.";
+    private static final String isTimeMsg = "The Time must be a valid time formed like: HH:MM or HH:MM:SS.";
+    private static final String isDateMsg = "The Date must be a valid date formed like: MM/YY, MM/YYYY, MM/DD/YY, or MM/DD/YYYY.";
+    private static final String isDateAfterToday = "The Date must be a valid date after today, and formed like: MM/YY, MM/YYYY, MM/DD/YY, or MM/DD/YYYY.";
+    private static final String isIntegerMsg = "The Number must be a valid unsigned whole decimal number.";
+    private static final String isSignedIntegerMsg = "The Number must be a valid signed whole decimal number.";
+    private static final String isLongMsg = "The Number must be a valid unsigned whole decimal number.";
+    private static final String isSignedLongMsg = "The Number must be a valid signed whole decimal number.";
+    private static final String isFloatMsg = "The Number must be a valid unsigned decimal number.";
+    private static final String isSignedFloatMsg = "The Number must be a valid signed decimal number.";
+    private static final String isSignedDoubleMsg = "The Number must be a valid signed decimal number.";
 
     /** An array of ints representing the number of days in each month of the year.
      *  Note: February varies depending on the year */
