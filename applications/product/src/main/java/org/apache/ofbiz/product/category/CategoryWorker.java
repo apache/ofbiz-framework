@@ -51,7 +51,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 /**
  * CategoryWorker - Worker class to reduce code in JSPs.
  */
-public class CategoryWorker {
+public final class CategoryWorker {
 
     public static final String module = CategoryWorker.class.getName();
 
