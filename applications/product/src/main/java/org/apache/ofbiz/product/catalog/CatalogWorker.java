@@ -44,7 +44,7 @@ import org.apache.ofbiz.product.store.ProductStoreWorker;
 /**
  * CatalogWorker - Worker class for catalog related functionality
  */
-public class CatalogWorker {
+public final class CatalogWorker {
 
     public static final String module = CatalogWorker.class.getName();
 
