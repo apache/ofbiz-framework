@@ -4,7 +4,7 @@
 
 cd /home/ofbizDemo/trunk
 svn up
-./gradlew "ofbiz --shutdown" 
+./gradlew terminateOfbiz
 ./gradlew cleanAll 
 ./gradlew loadDefault 
 ./gradlew svnInfoFooter 
