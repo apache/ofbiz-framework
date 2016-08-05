@@ -137,11 +137,11 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
         if (base == null || this.isEmpty) {
             return null;
         }
-        if (locale != null && !base.containsKey(UelUtil.localizedMapLocaleKey)) {
+        if (locale != null && !base.containsKey(UelUtil.getLocalizedMapLocaleKey())) {
             // This method is a hot spot, so placing the cast here instead of in another class.
             // Map<String, Object> writableMap = UtilGenerics.cast(base);
             Map<String, Object> writableMap = (Map<String, Object>) base;
-            writableMap.put(UelUtil.localizedMapLocaleKey, locale);
+            writableMap.put(UelUtil.getLocalizedMapLocaleKey(), locale);
         }
         Object obj = null;
         try {
