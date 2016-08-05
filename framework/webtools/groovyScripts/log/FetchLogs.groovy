@@ -18,16 +18,24 @@
 */
 
 import org.apache.ofbiz.base.util.FileUtil;
+import org.apache.ofbiz.base.util.UtilProperties;
 
-ofbizHomeStr = System.getProperty("ofbiz.home");
-ofbizHomeStr = ofbizHomeStr + "/runtime/logs/";
-File runTimeLogDir = FileUtil.getFile(ofbizHomeStr);
-File[] listLogFiles = runTimeLogDir.listFiles(); 
+String ofbizLogDir = UtilProperties.getPropertyValue("debug", "log4j.appender.css.dir", "runtime/logs/");
+if (!ofbizLogDir.startsWith("/")) {
+    ofbizLogDir = System.getProperty("ofbiz.home") + "/" + ofbizLogDir;
+}
+if (!ofbizLogDir.endsWith("/")) {
+    ofbizLogDir.concat("/");
+}
+
+File runTimeLogDir = FileUtil.getFile(ofbizLogDir);
+File[] listLogFiles = runTimeLogDir.listFiles();
+String ofbizLogRegExp = UtilProperties.getPropertyValue("debug", "log4j.appender.css.fileNameRegExp", "[(ofbiz)|(error)].*");
 List listLogFileNames = []
 for (int i = 0; i < listLogFiles.length; i++) {
     if (listLogFiles[i].isFile()) {
         logFileName = listLogFiles[i].getName();
-        if (logFileName.startsWith("ofbiz")) {
+        if (logFileName.matches(ofbizLogRegExp)) {
             listLogFileNames.add(logFileName);
         }
     }
@@ -35,27 +43,27 @@ for (int i = 0; i < listLogFiles.length; i++) {
 context.listLogFileNames = listLogFileNames;
 
 if (parameters.logFileName) {
-    logFileName = ofbizHomeStr + parameters.logFileName;
     List logLines = [];
-    File logFile = FileUtil.getFile(logFileName);
-    logFile.eachLine { line ->
-        type = '';
-        if (line.contains(":INFO ] ")) {
-            type = 'INFO';
-        } else if (line.contains(":WARN ] ")) {
-            type = 'WARN';
-        } else if (line.contains(":ERROR] ")) {
-            type = 'ERROR';
-        } else if (line.contains(":DEBUG] ")) {
-            type = 'DEBUG';
-        }
-        if (parameters.searchString) {
-            if (line.contains(parameters.searchString)) {
-                logLines.add([type: type, line:line]);
+    try {
+        File logFile = FileUtil.getFile(ofbizLogDir.concat(parameters.logFileName));
+        logFile.eachLine { line ->
+            if (parameters.searchString) {
+                if (!line.contains(parameters.searchString)) {
+                    return;
+                }
             }
-        } else {
+            type = '';
+            if (line.contains(" |I| ")) {
+                type = 'INFO';
+            } else if (line.contains(" |W| ")) {
+                type = 'WARN';
+            } else if (line.contains(" |E| ")) {
+                type = 'ERROR';
+            } else if (line.contains(" |D| ")) {
+                type = 'DEBUG';
+            }
             logLines.add([type: type, line:line]);
         }
-    }
+    } catch (Exception exc) {}
     context.logLines = logLines;
 }
