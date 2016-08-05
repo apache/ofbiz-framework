@@ -20,4 +20,4 @@ rem #####################################################################
 
 rem to revert back a revision in local copy.
 echo on
-svn up && gradlew clean build
+svn up && gradlew clean eclipse build
