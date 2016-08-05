@@ -27,8 +27,5 @@ under the License.
     <!-- place the config directory on the classpath to access configuration files -->
     <classpath type="dir" location="config"/>
 
-    <!-- load single or multiple external libraries -->
-    <classpath type="jar" location="build/lib/*"/>
-    <classpath type="jar" location="lib/*"/>
 
 </ofbiz-component>

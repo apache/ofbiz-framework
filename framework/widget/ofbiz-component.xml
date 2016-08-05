@@ -24,6 +24,6 @@ under the License.
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
     <classpath type="dir" location="dtd"/>
-    <classpath type="jar" location="build/lib/*"/>
+
     <test-suite loader="main" location="testdef/widgettests.xml"/>
 </ofbiz-component>
