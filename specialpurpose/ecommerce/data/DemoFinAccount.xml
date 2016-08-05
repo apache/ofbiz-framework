@@ -19,10 +19,10 @@
 
 <entity-engine-xml>
     <!-- survey -->
-    <Survey surveyId="1100" description="Account Activation" isAnonymous="Y" allowMultiple="Y" allowUpdate="N" lastUpdatedStamp="2003-12-05 16:49:33.835" lastUpdatedTxStamp="2003-12-05 16:49:33.835"/>
-    <SurveyQuestionCategory surveyQuestionCategoryId="1100" description="Account Activation Questions" lastUpdatedStamp="2003-12-04 21:40:23.207" lastUpdatedTxStamp="2003-12-04 21:40:20.607"/>
-    <SurveyQuestion surveyQuestionId="1100" surveyQuestionCategoryId="1100" surveyQuestionTypeId="TEXT_LONG" description="activationSerialNumber" question="Activation Serial Number:" lastUpdatedStamp="2003-12-04 21:40:23.216" lastUpdatedTxStamp="2003-12-04 21:40:20.607"/>
-    <SurveyQuestionAppl surveyId="1100" surveyQuestionId="1100" fromDate="2001-01-01 00:00:00.0" requiredField="Y" sequenceNum="1" lastUpdatedStamp="2003-12-04 21:40:23.233" lastUpdatedTxStamp="2003-12-04 21:40:20.607"/>
+    <Survey surveyId="1100" description="Account Activation" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    <SurveyQuestionCategory surveyQuestionCategoryId="1100" description="Account Activation Questions"/>
+    <SurveyQuestion surveyQuestionId="1100" surveyQuestionCategoryId="1100" surveyQuestionTypeId="TEXT_LONG" description="activationSerialNumber" question="Activation Serial Number:"/>
+    <SurveyQuestionAppl surveyId="1100" surveyQuestionId="1100" fromDate="2001-01-01 00:00:00.0" requiredField="Y" sequenceNum="1"/>
 
     <!-- settings -->
     <ProductStoreFinActSetting productStoreId="9000" finAccountTypeId="DEPOSIT_ACCOUNT" requirePinCode="N" validateGCFinAcct="Y" allowAuthToNegative="Y" replenishThreshold="0.0"
@@ -80,7 +80,7 @@
     <ProductFeatureAppl productId="FA-001-O" productFeatureId="2104" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>
 
     <!-- survey appl -->
-    <ProductStoreSurveyAppl productStoreSurveyId="1100" productStoreId="9000" surveyApplTypeId="CART_ADD" surveyId="1100" productId="FA-001" fromDate="2003-11-24 16:00:02.467" surveyTemplate="/applications/content/template/survey/GenericSurvey.ftl" lastUpdatedStamp="2003-12-04 21:40:23.27" lastUpdatedTxStamp="2003-12-04 21:40:20.607"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="1100" productStoreId="9000" surveyApplTypeId="CART_ADD" surveyId="1100" productId="FA-001" fromDate="2003-11-24 16:00:02.467" surveyTemplate="/applications/content/template/survey/GenericSurvey.ftl"/>
 
     <!-- fulfillment service -->
     <Content contentId="FA_ACTIVATION" customMethodId="FIN_PURCH_OFBIZ"/>

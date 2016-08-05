@@ -19,16 +19,16 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <DataResource dataResourceId="RELATED_1" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-30 07:57:39.734" createdStamp="2004-03-30 07:57:39.734"/>
-    <ElectronicText dataResourceId="RELATED_1" lastUpdatedStamp="2004-03-30 07:57:39.694" createdStamp="2004-03-30 07:57:39.694">
+    <DataResource dataResourceId="RELATED_1" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin"/>
+    <ElectronicText dataResourceId="RELATED_1">
         <textData><![CDATA[
 Al Byers in this marvelous display of technical manual writing has show the way for us all to reach for the stars.
         ]]></textData>
     </ElectronicText>
-    <Content contentId="RELATED_1" contentTypeId="DOCUMENT" ownerContentId="ECMC180000" dataResourceId="RELATED_1" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Re:How to operate the Rocket Launcher Widget - Marvelous" description="Re:How to operate the Rocket Launcher Widget - Marvelous" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-30 07:57:53.174" createdStamp="2004-03-30 07:57:39.671"/>
+    <Content contentId="RELATED_1" contentTypeId="DOCUMENT" ownerContentId="ECMC180000" dataResourceId="RELATED_1" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Re:How to operate the Rocket Launcher Widget - Marvelous" description="Re:How to operate the Rocket Launcher Widget - Marvelous" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin"/>
 
-    <DataResource dataResourceId="RELATED_2" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-30 07:57:39.734" createdStamp="2004-03-30 07:57:39.734"/>
-    <ElectronicText dataResourceId="RELATED_2" lastUpdatedStamp="2004-03-30 07:57:39.694" createdStamp="2004-03-30 07:57:39.694">
+    <DataResource dataResourceId="RELATED_2" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin"/>
+    <ElectronicText dataResourceId="RELATED_2">
         <textData><![CDATA[
 This poor attempt at a maintenance document is so flawed that I don't know where to begin.
 For instance, he never mentions the need for all spectators to wear hardhats.
@@ -36,10 +36,10 @@ I wonder how Al Byers sleeps a night knowing that because of his negligence some
 even someone that he loves, could be terminated by a reentrant space vehicle.
         ]]></textData>
     </ElectronicText>
-    <Content contentId="RELATED_2" contentTypeId="DOCUMENT" ownerContentId="ECMC180000" dataResourceId="RELATED_2" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Re:How to operate the Rocket Launcher Widget - Ridiculous" description="Re:How to operate the Rocket Launcher Widget - Ridiculous" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-30 07:57:53.174" createdStamp="2004-03-30 07:57:39.671"/>
+    <Content contentId="RELATED_2" contentTypeId="DOCUMENT" ownerContentId="ECMC180000" dataResourceId="RELATED_2" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Re:How to operate the Rocket Launcher Widget - Ridiculous" description="Re:How to operate the Rocket Launcher Widget - Ridiculous" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin"/>
 
-    <DataResource dataResourceId="RELATED_3" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-30 07:57:39.734" createdStamp="2004-03-30 07:57:39.734"/>
-    <ElectronicText dataResourceId="RELATED_3" lastUpdatedStamp="2004-03-30 07:57:39.694" createdStamp="2004-03-30 07:57:39.694">
+    <DataResource dataResourceId="RELATED_3" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin"/>
+    <ElectronicText dataResourceId="RELATED_3">
         <textData><![CDATA[
 While truly visionary, one has to ask the question why are the national defense aspects of this futuristic
 technology mentioned?
@@ -47,10 +47,10 @@ Surely no one can overlook the possibilities for making this nation and the worl
 There is no reason why every community could not have a battery of these stations - if not in a fixed location, at least on a mobile launcher that could be hooked up to an SUV and towed from one driveway to another on a random schedule.
         ]]></textData>
     </ElectronicText>
-    <Content contentId="RELATED_3" contentTypeId="DOCUMENT" ownerContentId="ECMC180001" dataResourceId="RELATED_3" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Re:Future Directions in Rocket Launcher Widgets" description="Re:Future Directions in Rocket Launcher Widgets" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-30 07:57:53.174" createdStamp="2004-03-30 07:57:39.671"/>
+    <Content contentId="RELATED_3" contentTypeId="DOCUMENT" ownerContentId="ECMC180001" dataResourceId="RELATED_3" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Re:Future Directions in Rocket Launcher Widgets" description="Re:Future Directions in Rocket Launcher Widgets" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin"/>
 
-    <DataResource dataResourceId="RELATED_4" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-30 07:57:39.734" createdStamp="2004-03-30 07:57:39.734"/>
-    <ElectronicText dataResourceId="RELATED_4" lastUpdatedStamp="2004-03-30 07:57:39.694" createdStamp="2004-03-30 07:57:39.694">
+    <DataResource dataResourceId="RELATED_4" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin"/>
+    <ElectronicText dataResourceId="RELATED_4">
         <textData><![CDATA[
 Shame on Al Byers.
 When is enough enough?
@@ -58,7 +58,7 @@ Just how many scrapbooks not being done for lack of construction paper does it t
 get the idea that there are more important things in life than shooting for the stars.
         ]]></textData>
     </ElectronicText>
-    <Content contentId="RELATED_4" contentTypeId="DOCUMENT" ownerContentId="ECMC180001" dataResourceId="RELATED_4" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Re:Future Directions in Rocket Launcher Widgets" description="Re:Future Directions in Rocket Launcher Widgets" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-30 07:57:53.174" createdStamp="2004-03-30 07:57:39.671"/>
+    <Content contentId="RELATED_4" contentTypeId="DOCUMENT" ownerContentId="ECMC180001" dataResourceId="RELATED_4" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Re:Future Directions in Rocket Launcher Widgets" description="Re:Future Directions in Rocket Launcher Widgets" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin"/>
 
 
     <ContentAssoc contentId="RELATED_1" contentIdTo="ECMC180000" contentAssocTypeId="RELATED_CONTENT" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
