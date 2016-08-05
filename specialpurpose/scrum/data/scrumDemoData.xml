@@ -133,7 +133,7 @@ under the License.
     <PartyRole partyId="DemoScrumCompany" roleTypeId="ORGANIZATION_ROLE"/>
     <PartyRole partyId="DemoScrumCompany" roleTypeId="ACCOUNT"/>
     <PartyRole partyId="DemoCustomer-1" roleTypeId="CONTACT"/>
-    <PartyRole partyId="DemoScrumCompany" roleTypeId="PRODUCT_OWNER_COMP" lastUpdatedStamp="2010-11-17 14:50:12.197" lastUpdatedTxStamp="2010-11-17 14:50:11.775" createdStamp="2010-11-17 14:50:12.197" createdTxStamp="2010-11-17 14:50:11.775"/>
+    <PartyRole partyId="DemoScrumCompany" roleTypeId="PRODUCT_OWNER_COMP"/>
     <PartyStatus partyId="DemoScrumCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGroup partyId="DemoScrumCompany" groupName="Demo Scrum Company"/>
     
@@ -157,7 +157,7 @@ under the License.
     <PartyRole partyId="DemoScrumCompany2" roleTypeId="ORGANIZATION_ROLE"/>
     <PartyRole partyId="DemoScrumCompany2" roleTypeId="ACCOUNT"/>
     <PartyRole partyId="DemoCustomer-2" roleTypeId="CONTACT"/>
-    <PartyRole partyId="DemoScrumCompany2" roleTypeId="PRODUCT_OWNER_COMP" lastUpdatedStamp="2010-11-17 14:50:12.197" lastUpdatedTxStamp="2010-11-17 14:50:11.775" createdStamp="2010-11-17 14:50:12.197" createdTxStamp="2010-11-17 14:50:11.775"/>
+    <PartyRole partyId="DemoScrumCompany2" roleTypeId="PRODUCT_OWNER_COMP"/>
     <PartyStatus partyId="DemoScrumCompany2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGroup partyId="DemoScrumCompany2" groupName="Demo Scrum Company 2"/>
     <PartyRelationship partyIdFrom="DemoScrumCompany2" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer-2" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
@@ -170,10 +170,10 @@ under the License.
     <Product productId="DEMO-PRODUCT-1" internalName="Demo Product 1" productTypeId="SCRUM_ITEM" createdDate="2010-07-23 11:44:08.418" introductionDate="2010-07-23 11:44:08.418" supportDiscontinuationDate=""/>
     
     <!-- Product Role -->
-    <ProductRole productId="DEMO-PRODUCT-1" partyId="DemoCustomer-1" roleTypeId="PRODUCT_OWNER" fromDate="2010-11-18 14:50:01.259" lastUpdatedStamp="2010-11-18 14:50:01.259" lastUpdatedTxStamp="2010-11-18 14:50:01.218" createdStamp="2010-11-18 14:50:01.259" createdTxStamp="2010-11-18 14:50:01.218"/>
-    <ProductRole productId="DEMO-PRODUCT-1" partyId="DemoScrumCompany" roleTypeId="PRODUCT_OWNER_COMP" fromDate="2010-11-18 14:50:01.22" lastUpdatedStamp="2010-11-18 14:50:01.26" lastUpdatedTxStamp="2010-11-18 14:50:01.218" createdStamp="2010-11-18 14:50:01.26" createdTxStamp="2010-11-18 14:50:01.218"/>
-    <ProductRole productId="DEMO-PRODUCT-1" partyId="SCRUMASTER" roleTypeId="SCRUM_MASTER" fromDate="2010-11-18 14:50:01.23" lastUpdatedStamp="2010-11-18 14:50:01.27" lastUpdatedTxStamp="2010-11-18 14:50:01.217" createdStamp="2010-11-18 14:50:01.27" createdTxStamp="2010-11-18 14:50:01.217"/>
-    <ProductRole productId="DEMO-PRODUCT-1" partyId="DemoStakeholder" roleTypeId="STAKEHOLDER" fromDate="2010-11-18 14:50:01.21" lastUpdatedStamp="2010-11-18 14:50:01.28" lastUpdatedTxStamp="2010-11-18 14:50:01.216" createdStamp="2010-11-18 14:50:01.28" createdTxStamp="2010-11-18 14:50:01.218"/>
+    <ProductRole productId="DEMO-PRODUCT-1" partyId="DemoCustomer-1" roleTypeId="PRODUCT_OWNER" fromDate="2010-11-18 14:50:01.259"/>
+    <ProductRole productId="DEMO-PRODUCT-1" partyId="DemoScrumCompany" roleTypeId="PRODUCT_OWNER_COMP" fromDate="2010-11-18 14:50:01.22"/>
+    <ProductRole productId="DEMO-PRODUCT-1" partyId="SCRUMASTER" roleTypeId="SCRUM_MASTER" fromDate="2010-11-18 14:50:01.23"/>
+    <ProductRole productId="DEMO-PRODUCT-1" partyId="DemoStakeholder" roleTypeId="STAKEHOLDER" fromDate="2010-11-18 14:50:01.21"/>
     
     <!-- Demo Product Backlog Items --> 
     <CustRequest custRequestId="TEST1" custRequestTypeId="RF_PROD_BACKLOG" statusId="CRQ_REVIEWED" custRequestName="Product Backlog" description="As a product owner I want to easily create and update a project." custRequestDate="2010-07-23 11:44:08.418" createdDate="2010-07-23 11:44:08.418" custSequenceNum="1" fromPartyId="DemoCustomer-1" billed="Y"/>
@@ -201,8 +201,8 @@ under the License.
     <CustRequestItem custRequestId="TEST11" custRequestItemSeqId="TESTSEQ11" productId="DEMO-PRODUCT-1" sequenceNum="11" statusId="CRQ_ACCEPTED"/>
     
     <!--Default Task -->
-    <WorkEffort workEffortId="DEFAULT-TASK-1" workEffortTypeId="SCRUM_TASK_IMPL" currentStatusId="STS_CREATED" workEffortPurposeTypeId="SCRUM_DEFAULT_TASK" workEffortName="Implementation" description="Implementation" estimatedMilliSeconds="0.0" revisionNumber="1" createdStamp="2010-09-13 00:00:00.000"/>
-    <WorkEffort workEffortId="DEFAULT-TASK-2" workEffortTypeId="SCRUM_TASK_TEST" currentStatusId="STS_CREATED" workEffortPurposeTypeId="SCRUM_DEFAULT_TASK" workEffortName="Test" description="Test" estimatedMilliSeconds="0.0" revisionNumber="1" createdStamp="2010-09-13 00:00:00.000"/>
+    <WorkEffort workEffortId="DEFAULT-TASK-1" workEffortTypeId="SCRUM_TASK_IMPL" currentStatusId="STS_CREATED" workEffortPurposeTypeId="SCRUM_DEFAULT_TASK" workEffortName="Implementation" description="Implementation" estimatedMilliSeconds="0.0" revisionNumber="1"/>
+    <WorkEffort workEffortId="DEFAULT-TASK-2" workEffortTypeId="SCRUM_TASK_TEST" currentStatusId="STS_CREATED" workEffortPurposeTypeId="SCRUM_DEFAULT_TASK" workEffortName="Test" description="Test" estimatedMilliSeconds="0.0" revisionNumber="1"/>
     
     <!-- Demo Project -->
     <WorkEffort workEffortId="DEMO-PROJECT-1" workEffortTypeId="SCRUM_PROJECT" workEffortName="Demo Project 1" description="Demo Project 1" currentStatusId="SPJ_ACTIVE" estimatedStartDate="2010-08-01 09:09:09.929" createdDate="2010-07-26 14:39:54.929"/>
@@ -221,8 +221,8 @@ under the License.
     <WorkEffortPartyAssignment workEffortId="DEMO-SPRINT-1" partyId="SCRUMTEAM-4" statusId="PRTYASGN_ASSIGNED" roleTypeId="SCRUM_TEAM" fromDate="2010-09-13 00:00:00.000"/>
     
     <!-- Sprint Backlog Items-->
-    <CustRequest custRequestId="SCRUM-MEETINGS" custRequestTypeId="RF_SCRUM_MEETINGS" statusId="CRQ_REVIEWED" fromPartyId="admin" custRequestName="Scrum Meeting" description="Scrum Meeting" createdStamp="2010-09-13 00:00:00.000"/>
-    <CustRequestItem custRequestId="SCRUM-MEETINGS" custRequestItemSeqId="MEETING-1" productId="DEMO-PRODUCT-1" createdStamp="2010-09-13 00:00:00.000" statusId="CRQ_ACCEPTED"/>
+    <CustRequest custRequestId="SCRUM-MEETINGS" custRequestTypeId="RF_SCRUM_MEETINGS" statusId="CRQ_REVIEWED" fromPartyId="admin" custRequestName="Scrum Meeting" description="Scrum Meeting"/>
+    <CustRequestItem custRequestId="SCRUM-MEETINGS" custRequestItemSeqId="MEETING-1" productId="DEMO-PRODUCT-1" statusId="CRQ_ACCEPTED"/>
     
     <CustRequestWorkEffort custRequestId="TEST1" workEffortId="DEMO-SPRINT-1"/>
     <CustRequestWorkEffort custRequestId="TEST2" workEffortId="DEMO-SPRINT-1"/>
@@ -258,8 +258,8 @@ under the License.
     <CommunicationEventProduct communicationEventId="DEMO-COM-PRODUCT-2" productId="DEMO-PRODUCT-1" />
     
     <!-- Demo CommunicationEvent Backlog -->
-    <CommunicationEvent communicationEventId="DEMO-COM-BACKLOG-1" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_COMPLETE" contactMechIdFrom="admin" contactMechIdTo="SCRUM_CONTACT01" roleTypeIdFrom="ORIGINATOR" roleTypeIdTo="ADDRESSEE" partyIdFrom="admin" partyIdTo="DemoCustomer-1" entryDate="2010-11-10 15:31:08.394" subject="CR#TEST1 - Product Backlog" contentMimeTypeId="text/plain" content="Demo Communication Test1" lastUpdatedStamp="2010-11-10 15:39:52.805" lastUpdatedTxStamp="2010-11-10 15:39:52.679" createdStamp="2010-11-10 15:31:08.394" createdTxStamp="2010-11-10 15:31:08.358"/>
-    <CustRequestCommEvent custRequestId="TEST1" communicationEventId="DEMO-COM-BACKLOG-1" lastUpdatedStamp="2010-11-10 15:31:08.607" lastUpdatedTxStamp="2010-11-10 15:31:08.358" createdStamp="2010-11-10 15:31:08.607" createdTxStamp="2010-11-10 15:31:08.358"/>
+    <CommunicationEvent communicationEventId="DEMO-COM-BACKLOG-1" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_COMPLETE" contactMechIdFrom="admin" contactMechIdTo="SCRUM_CONTACT01" roleTypeIdFrom="ORIGINATOR" roleTypeIdTo="ADDRESSEE" partyIdFrom="admin" partyIdTo="DemoCustomer-1" entryDate="2010-11-10 15:31:08.394" subject="CR#TEST1 - Product Backlog" contentMimeTypeId="text/plain" content="Demo Communication Test1"/>
+    <CustRequestCommEvent custRequestId="TEST1" communicationEventId="DEMO-COM-BACKLOG-1"/>
     
     <!-- Time sheet -->
     <Timesheet timesheetId="DEMO-TIMESHEET1" partyId="SCRUMTEAM-1" fromDate="2010-10-25 00:00:00.000" thruDate="2010-10-31 23:59:59.000" statusId="TIMESHEET_IN_PROCESS" />
@@ -271,17 +271,17 @@ under the License.
     <TimeEntry timeEntryId="DEMO-TIMEENTRY2" partyId="SCRUMTEAM-1" fromDate="2010-10-20 00:00:00.000" rateTypeId="STANDARD" workEffortId="DEMO-TASK-4" timesheetId="DEMO-TIMESHEET3" hours="8" planHours="8"/>
     
     <!-- Demo Product Content -->
-    <DataResource dataResourceId="DemoContentProduct" dataResourceTypeId="LOCAL_FILE" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="DEMO-CONTENT.xml" mimeTypeId="application/octet-stream" objectInfo="component://scrum/data/helpdata/DEMO-CONTENT.xml" createdDate="2010-11-01 13:35:33.211" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:33.211" lastModifiedByUserLogin="admin" lastUpdatedStamp="2010-11-01 13:35:34.132" lastUpdatedTxStamp="2010-11-01 13:35:32.95" createdStamp="2010-11-01 13:35:33.282" createdTxStamp="2010-11-01 13:35:32.95"/>
-    <Content contentId="DemoContentProduct" contentTypeId="DOCUMENT" dataResourceId="DemoContentProduct" statusId="CTNT_INITIAL_DRAFT" contentName="DEMO-CONTENT" mimeTypeId="application/octet-stream" createdDate="2010-11-01 13:35:34.357" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:35.486" lastModifiedByUserLogin="admin" lastUpdatedStamp="2010-11-01 13:35:35.487" lastUpdatedTxStamp="2010-11-01 13:35:32.95" createdStamp="2010-11-01 13:35:34.357" createdTxStamp="2010-11-01 13:35:32.95"/>
-    <ProductContent productId="DEMO-PRODUCT-1" contentId="DemoContentProduct" productContentTypeId="SPECIFICATION" fromDate="2010-11-01 13:35:34.751" lastUpdatedStamp="2010-11-01 13:35:34.847" lastUpdatedTxStamp="2010-11-01 13:35:32.95" createdStamp="2010-11-01 13:35:34.847" createdTxStamp="2010-11-01 13:35:32.95"/>
+    <DataResource dataResourceId="DemoContentProduct" dataResourceTypeId="LOCAL_FILE" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="DEMO-CONTENT.xml" mimeTypeId="application/octet-stream" objectInfo="component://scrum/data/helpdata/DEMO-CONTENT.xml" createdDate="2010-11-01 13:35:33.211" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:33.211" lastModifiedByUserLogin="admin"/>
+    <Content contentId="DemoContentProduct" contentTypeId="DOCUMENT" dataResourceId="DemoContentProduct" statusId="CTNT_INITIAL_DRAFT" contentName="DEMO-CONTENT" mimeTypeId="application/octet-stream" createdDate="2010-11-01 13:35:34.357" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:35.486" lastModifiedByUserLogin="admin"/>
+    <ProductContent productId="DEMO-PRODUCT-1" contentId="DemoContentProduct" productContentTypeId="SPECIFICATION" fromDate="2010-11-01 13:35:34.751"/>
     
     <!-- Demo Backlog Content -->
-    <DataResource dataResourceId="DemoContentBacklog" dataResourceTypeId="LOCAL_FILE" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="DEMO-CONTENT.xml" mimeTypeId="application/octet-stream" objectInfo="component://scrum/data/helpdata/DEMO-CONTENT.xml" createdDate="2010-11-01 13:35:33.211" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:33.211" lastModifiedByUserLogin="admin" lastUpdatedStamp="2010-11-02 10:32:02.22" lastUpdatedTxStamp="2010-11-02 10:32:02.218" createdStamp="2010-11-01 13:35:33.282" createdTxStamp="2010-11-01 13:35:32.95"/>
-    <Content contentId="DemoContentBacklog" contentTypeId="DOCUMENT" dataResourceId="DemoContentBacklog" statusId="CTNT_INITIAL_DRAFT" contentName="DEMO-CONTENT" mimeTypeId="application/octet-stream" createdDate="2010-11-01 13:35:34.357" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:35.486" lastModifiedByUserLogin="admin" lastUpdatedStamp="2010-11-02 10:32:02.228" lastUpdatedTxStamp="2010-11-02 10:32:02.218" createdStamp="2010-11-01 13:35:34.357" createdTxStamp="2010-11-01 13:35:32.95"/>
-    <CustRequestContent custRequestId="TEST1" contentId="DemoContentBacklog" fromDate="2010-11-02 10:37:42.358" lastUpdatedStamp="2010-11-02 10:37:42.358" lastUpdatedTxStamp="2010-11-02 10:37:41.452" createdStamp="2010-11-02 10:37:42.358" createdTxStamp="2010-11-02 10:37:41.452"/>
+    <DataResource dataResourceId="DemoContentBacklog" dataResourceTypeId="LOCAL_FILE" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="DEMO-CONTENT.xml" mimeTypeId="application/octet-stream" objectInfo="component://scrum/data/helpdata/DEMO-CONTENT.xml" createdDate="2010-11-01 13:35:33.211" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:33.211" lastModifiedByUserLogin="admin"/>
+    <Content contentId="DemoContentBacklog" contentTypeId="DOCUMENT" dataResourceId="DemoContentBacklog" statusId="CTNT_INITIAL_DRAFT" contentName="DEMO-CONTENT" mimeTypeId="application/octet-stream" createdDate="2010-11-01 13:35:34.357" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:35.486" lastModifiedByUserLogin="admin"/>
+    <CustRequestContent custRequestId="TEST1" contentId="DemoContentBacklog" fromDate="2010-11-02 10:37:42.358"/>
     
     <!-- Demo Project Content -->
-    <DataResource dataResourceId="DemoContentProject" dataResourceTypeId="LOCAL_FILE" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="DEMO-CONTENT.xml" mimeTypeId="application/octet-stream" objectInfo="component://scrum/data/helpdata/DEMO-CONTENT.xml" createdDate="2010-11-01 13:35:33.211" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:33.211" lastModifiedByUserLogin="admin" lastUpdatedStamp="2010-11-02 10:32:02.22" lastUpdatedTxStamp="2010-11-02 10:32:02.218" createdStamp="2010-11-01 13:35:33.282" createdTxStamp="2010-11-01 13:35:32.95"/>
-    <Content contentId="DemoContentProject" contentTypeId="DOCUMENT" dataResourceId="DemoContentProject" statusId="CTNT_INITIAL_DRAFT" contentName="DEMO-CONTENT" mimeTypeId="application/octet-stream" createdDate="2010-11-01 13:35:34.357" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:35.486" lastModifiedByUserLogin="admin" lastUpdatedStamp="2010-11-02 10:32:02.228" lastUpdatedTxStamp="2010-11-02 10:32:02.218" createdStamp="2010-11-01 13:35:34.357" createdTxStamp="2010-11-01 13:35:32.95"/>
-    <WorkEffortContent workEffortId="DEMO-PROJECT-1" contentId="DemoContentProject" workEffortContentTypeId="PROJECT_SPEC" fromDate="2010-11-05 15:50:39.392" lastUpdatedStamp="2010-11-05 15:50:39.431" lastUpdatedTxStamp="2010-11-05 15:50:38.611" createdStamp="2010-11-05 15:50:39.431" createdTxStamp="2010-11-05 15:50:38.611"/>
+    <DataResource dataResourceId="DemoContentProject" dataResourceTypeId="LOCAL_FILE" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="DEMO-CONTENT.xml" mimeTypeId="application/octet-stream" objectInfo="component://scrum/data/helpdata/DEMO-CONTENT.xml" createdDate="2010-11-01 13:35:33.211" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:33.211" lastModifiedByUserLogin="admin"/>
+    <Content contentId="DemoContentProject" contentTypeId="DOCUMENT" dataResourceId="DemoContentProject" statusId="CTNT_INITIAL_DRAFT" contentName="DEMO-CONTENT" mimeTypeId="application/octet-stream" createdDate="2010-11-01 13:35:34.357" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:35.486" lastModifiedByUserLogin="admin"/>
+    <WorkEffortContent workEffortId="DEMO-PROJECT-1" contentId="DemoContentProject" workEffortContentTypeId="PROJECT_SPEC" fromDate="2010-11-05 15:50:39.392"/>
 </entity-engine-xml>
