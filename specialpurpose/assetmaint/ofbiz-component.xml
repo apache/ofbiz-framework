@@ -27,9 +27,6 @@
     <!-- place the config directory on the classpath to access configuration files -->
     <classpath type="dir" location="config"/>
 
-    <!-- load single or multiple external libraries -->
-    <classpath type="jar" location="build/lib/*"/>
-
     <!-- entity resources: model(s), eca(s), group, and data definitions -->
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/AssetMaintSecurityPermissionSeedData.xml"/>

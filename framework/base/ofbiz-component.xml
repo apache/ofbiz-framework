@@ -23,13 +23,8 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="dtd"/>
-    <classpath type="jar" location="build/lib/*"/>
     <classpath type="dir" location="config"/>
     <classpath type="jar" location="lib/*"/>
-    <classpath type="jar" location="lib/ant/*"/>
-    <classpath type="jar" location="lib/commons/*"/>
-    <classpath type="jar" location="lib/j2eespecs/*"/>
-    <classpath type="jar" location="lib/scripting/*"/>
 
     <test-suite loader="main" location="testdef/basetests.xml"/>
 

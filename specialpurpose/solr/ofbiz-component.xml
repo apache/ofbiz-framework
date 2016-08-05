@@ -24,12 +24,8 @@ under the License.
 
     <resource-loader name="main" type="component" />
     
-    <classpath type="dir" location="conf"/>
     <classpath type="dir" location="config"/>
-    <classpath type="jar" location="build/lib/*"/>
-    <classpath type="jar" location="lib/compile/*"/>
-    <classpath type="jar" location="lib/runtime/*"/>
-    
+
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/solrservices.xml"/>

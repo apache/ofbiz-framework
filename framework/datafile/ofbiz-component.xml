@@ -23,5 +23,4 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="dtd"/>
-    <classpath type="jar" location="build/lib/*"/>
 </ofbiz-component>
