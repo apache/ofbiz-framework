@@ -34,8 +34,8 @@ under the License.
 
     <Invoice invoiceId="demo10000" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="AcctBuyer" statusId="INVOICE_IN_PROCESS" invoiceDate="2006-04-25 12:46:27.122" dueDate="2006-05-25 12:46:27.122" description="This is the first invoice number to AcctBuyer" currencyUomId="USD"/>
     <InvoiceItem invoiceId="demo10000" invoiceItemSeqId="00001" invoiceItemTypeId="INV_SPROD_ITEM" uomId="USD" taxableFlag="Y" amount="20.0" description="this was e service for a product"/>
-    <InvoiceItem invoiceId="demo10000" invoiceItemSeqId="00002" invoiceItemTypeId="INV_PROD_ITEM" uomId="USD" taxableFlag="Y" amount="269.99" description="Big Gizmo w/ Legs" lastUpdatedStamp="2006-04-25 12:48:07.529" lastUpdatedTxStamp="2006-04-25 12:48:07.443" createdStamp="2006-04-25 12:47:49.766" createdTxStamp="2006-04-25 12:47:49.401"/>
-    <InvoiceItem invoiceId="demo10000" invoiceItemSeqId="00003" invoiceItemTypeId="INV_SALES_TAX" uomId="USD" taxableFlag="Y" amount="33.55" description="sales tax" lastUpdatedStamp="2006-04-25 12:49:06.04" lastUpdatedTxStamp="2006-04-25 12:49:06.038" createdStamp="2006-04-25 12:49:06.04" createdTxStamp="2006-04-25 12:49:06.038"/>
+    <InvoiceItem invoiceId="demo10000" invoiceItemSeqId="00002" invoiceItemTypeId="INV_PROD_ITEM" uomId="USD" taxableFlag="Y" amount="269.99" description="Big Gizmo w/ Legs"/>
+    <InvoiceItem invoiceId="demo10000" invoiceItemSeqId="00003" invoiceItemTypeId="INV_SALES_TAX" uomId="USD" taxableFlag="Y" amount="33.55" description="sales tax"/>
     <Invoice invoiceId="demo10001" invoiceTypeId="PURCHASE_INVOICE" partyIdFrom="AcctBigSupplier" partyId="Company" statusId="INVOICE_IN_PROCESS" invoiceDate="2006-04-25 12:50:50.655" dueDate="2006-05-25 12:50:50.655" description="Another invoice" currencyUomId="USD"/>
     <InvoiceItem invoiceId="demo10001" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_WE_ITEM" uomId="USD" taxableFlag="Y" amount="33.99" description="Service received"/>
     <InvoiceItem invoiceId="demo10001" invoiceItemSeqId="00002" invoiceItemTypeId="PINV_SURCHARGE_ADJ" uomId="USD" taxableFlag="Y" amount="2.44" description="Service received"/>
