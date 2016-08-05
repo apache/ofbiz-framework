@@ -83,10 +83,11 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
  * Utilities methods to simplify dealing with JAXP & DOM XML parsing
  *
  */
-public class UtilXml {
+public final class UtilXml {
 
     public static final String module = UtilXml.class.getName();
     private static final XStream xstream = createXStream();
+    private UtilXml () {}
 
     private static XStream createXStream() {
         XStream xstream = new XStream();
