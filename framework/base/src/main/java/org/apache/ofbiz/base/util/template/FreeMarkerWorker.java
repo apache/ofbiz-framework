@@ -73,11 +73,13 @@ import freemarker.template.Version;
 /** FreeMarkerWorker - Freemarker Template Engine Utilities.
  *
  */
-public class FreeMarkerWorker {
+public final class FreeMarkerWorker {
 
     public static final String module = FreeMarkerWorker.class.getName();
 
     public static final Version version = Configuration.VERSION_2_3_24;
+
+    private FreeMarkerWorker () {}
 
     // use soft references for this so that things from Content records don't kill all of our memory, or maybe not for performance reasons... hmmm, leave to config file...
     private static final UtilCache<String, Template> cachedTemplates = UtilCache.createUtilCache("template.ftl.general", 0, 0, false);
@@ -138,9 +140,9 @@ public class FreeMarkerWorker {
     }
 
     /**
-     * Protected helper method.
+     * Public helper method.
      */
-    protected static void loadTransforms(ClassLoader loader, Properties props, Configuration config) {
+    public static void loadTransforms(ClassLoader loader, Properties props, Configuration config) {
         for (Iterator<Object> i = props.keySet().iterator(); i.hasNext();) {
             String key = (String) i.next();
             String className = props.getProperty(key);
