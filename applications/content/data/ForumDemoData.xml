@@ -44,7 +44,7 @@ under the License.
     <!-- Threads -->
     <Content contentId="thread10021" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="TEMPLATE_TEXT_ONLY" statusId="CTNT_PUBLISHED" contentName="This is a Thread" description="Gizmo useless?" childBranchCount="2" createdDate="2006-05-02 13:36:31.937" createdByUserLogin="admin"/>
     <ContentAssoc contentIdTo="thread10021" contentId="GIZMOS" contentAssocTypeId="PUBLISH_LINK" fromDate="2006-05-02 13:36:32.036" createdDate="2006-05-02 13:36:32.055" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.055" lastModifiedByUserLogin="admin"/>
-    <ContentPurpose contentId="thread10021" contentPurposeTypeId="ARTICLE" lastUpdatedStamp="2006-05-03 11:08:10.788" lastUpdatedTxStamp="2006-05-03 11:08:10.751" createdStamp="2006-05-03 11:08:10.788" createdTxStamp="2006-05-03 11:08:10.751"/>
+    <ContentPurpose contentId="thread10021" contentPurposeTypeId="ARTICLE"/>
     <!-- Messages -->
     <DataResource dataResourceId="msg10002" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2006-05-02 13:36:32.264" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.264" lastModifiedByUserLogin="admin"/>
     <Content contentId="msg10002" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="msg10002" statusId="CTNT_PUBLISHED" contentName="This is a message" description="Gizmo useless?" childBranchCount="1" createdDate="2006-05-02 13:36:32.417" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.417" lastModifiedByUserLogin="admin"/>

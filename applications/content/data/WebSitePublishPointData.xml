@@ -19,11 +19,11 @@ under the License.
 -->
 <entity-engine-xml>
     <Content contentId="CONTENT_SITE" contentTypeId="WEB_SITE_PUB_PT" contentName="WebStore" description="Ecommerce Webstore"/>
-    <Content contentId="FORUM_1" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CONTENT_SITE" contentName="Test Forum 1" createdDate="2004-02-18 23:26:50.935" createdByUserLogin="admin" lastModifiedDate="2004-02-19 13:19:02.124" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-19 13:19:02.132" lastUpdatedTxStamp="2004-02-19 13:19:02.132" createdStamp="2004-02-18 23:26:50.936" createdTxStamp="2004-02-18 23:26:50.936"/>
-    <ContentAssoc contentId="FORUM_1" contentIdTo="CONTENT_SITE" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 15:57:50.322" createdDate="2004-03-01 15:58:29.832" createdByUserLogin="admin" lastModifiedDate="2004-03-01 15:58:29.832" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-01 15:58:29.843" lastUpdatedTxStamp="2004-03-01 15:58:29.843" createdStamp="2004-03-01 15:58:29.843" createdTxStamp="2004-03-01 15:58:29.843"/>
+    <Content contentId="FORUM_1" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CONTENT_SITE" contentName="Test Forum 1" createdDate="2004-02-18 23:26:50.935" createdByUserLogin="admin" lastModifiedDate="2004-02-19 13:19:02.124" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentId="FORUM_1" contentIdTo="CONTENT_SITE" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 15:57:50.322" createdDate="2004-03-01 15:58:29.832" createdByUserLogin="admin" lastModifiedDate="2004-03-01 15:58:29.832" lastModifiedByUserLogin="admin"/>
 
-    <Content contentId="FORMUM_2" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CONTENT_SITE" contentName="Test Forum 2" createdDate="2004-02-18 23:26:50.935" createdByUserLogin="admin" lastModifiedDate="2004-02-19 13:19:02.124" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-19 13:19:02.132" lastUpdatedTxStamp="2004-02-19 13:19:02.132" createdStamp="2004-02-18 23:26:50.936" createdTxStamp="2004-02-18 23:26:50.936"/>
-    <ContentAssoc contentId="FORMUM_2" contentIdTo="CONTENT_SITE" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 15:57:50.322" createdDate="2004-03-01 15:58:29.832" createdByUserLogin="admin" lastModifiedDate="2004-03-01 15:58:29.832" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-01 15:58:29.843" lastUpdatedTxStamp="2004-03-01 15:58:29.843" createdStamp="2004-03-01 15:58:29.843" createdTxStamp="2004-03-01 15:58:29.843"/>
+    <Content contentId="FORMUM_2" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CONTENT_SITE" contentName="Test Forum 2" createdDate="2004-02-18 23:26:50.935" createdByUserLogin="admin" lastModifiedDate="2004-02-19 13:19:02.124" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentId="FORMUM_2" contentIdTo="CONTENT_SITE" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 15:57:50.322" createdDate="2004-03-01 15:58:29.832" createdByUserLogin="admin" lastModifiedDate="2004-03-01 15:58:29.832" lastModifiedByUserLogin="admin"/>
 
     <ContentPurpose contentId="CONTENT_SITE" contentPurposeTypeId="ARTICLE"/>
     <ContentPurpose contentId="CONTENT_SITE" contentPurposeTypeId="RESPONSE"/>
