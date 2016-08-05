@@ -28,8 +28,8 @@
     <ContactMech contactMechId="sfa100" contactMechTypeId="POSTAL_ADDRESS"/>
     <ContactMech contactMechId="sfa101" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMech contactMechId="sfa102" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
-    <PostalAddress contactMechId="sfa100" address1="151 Madison street." city="Edison" postalCode="32451" countryGeoId="USA" stateProvinceGeoId="CA" lastUpdatedStamp="2008-05-23 11:57:40.936" lastUpdatedTxStamp="2008-05-23 11:57:39.476" createdStamp="2008-05-23 11:57:40.936" createdTxStamp="2008-05-23 11:57:39.476"/>    
-    <TelecomNumber contactMechId="sfa101" countryCode="1" areaCode="33" contactNumber="12456" lastUpdatedStamp="2008-05-23 11:57:41.179" lastUpdatedTxStamp="2008-05-23 11:57:39.476" createdStamp="2008-05-23 11:57:41.179" createdTxStamp="2008-05-23 11:57:39.476"/>
+    <PostalAddress contactMechId="sfa100" address1="151 Madison street." city="Edison" postalCode="32451" countryGeoId="USA" stateProvinceGeoId="CA"/>    
+    <TelecomNumber contactMechId="sfa101" countryCode="1" areaCode="33" contactNumber="12456"/>
     <PartyContactMech partyId="sfa100" contactMechId="sfa100" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMech partyId="sfa100" contactMechId="sfa101" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMech partyId="sfa100" contactMechId="sfa102" fromDate="2000-01-01 00:00:00.000"/>
@@ -147,13 +147,13 @@
     <PartyRelationship partyIdFrom="DemoLeadOwnersGroup" roleTypeIdFrom="INTERNAL_ORGANIZATIO" partyIdTo="DemoLeadOwner" roleTypeIdTo="OWNER" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWN_GRP_MEMBER"/>
     <PartyRelationship partyIdFrom="DemoLeadOwnersGroup" roleTypeIdFrom="INTERNAL_ORGANIZATIO" partyIdTo="DemoLeadOwner1" roleTypeIdTo="OWNER" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWN_GRP_MEMBER"/>
 
-    <SalesOpportunityStage opportunityStageId="SOSTG_PROSPECT" description="Prospect" defaultProbability="0.050000" sequenceNum="1" lastUpdatedStamp="2009-04-20 10:23:33.982" lastUpdatedTxStamp="2009-04-20 10:23:33.972" createdStamp="2009-04-20 10:23:33.982" createdTxStamp="2009-04-20 10:23:33.972"/>
-    <SalesOpportunityStage opportunityStageId="SOSTG_PROPOSAL" description="Proposal" defaultProbability="0.200000" sequenceNum="2" lastUpdatedStamp="2009-04-20 10:23:33.98" lastUpdatedTxStamp="2009-04-20 10:23:33.972" createdStamp="2009-04-20 10:23:33.98" createdTxStamp="2009-04-20 10:23:33.972"/>
-    <SalesOpportunityStage opportunityStageId="SOSTG_QUOTED" description="Quoted" defaultProbability="0.400000" sequenceNum="3" lastUpdatedStamp="2009-04-20 10:23:33.983" lastUpdatedTxStamp="2009-04-20 10:23:33.972" createdStamp="2009-04-20 10:23:33.983" createdTxStamp="2009-04-20 10:23:33.972"/>
-    <SalesOpportunityStage opportunityStageId="SOSTG_CLOSED" description="Closed" defaultProbability="1.000000" sequenceNum="4" lastUpdatedStamp="2009-04-20 10:23:33.978" lastUpdatedTxStamp="2009-04-20 10:23:33.972" createdStamp="2009-04-20 10:23:33.978" createdTxStamp="2009-04-20 10:23:33.972"/>
+    <SalesOpportunityStage opportunityStageId="SOSTG_PROSPECT" description="Prospect" defaultProbability="0.050000" sequenceNum="1"/>
+    <SalesOpportunityStage opportunityStageId="SOSTG_PROPOSAL" description="Proposal" defaultProbability="0.200000" sequenceNum="2"/>
+    <SalesOpportunityStage opportunityStageId="SOSTG_QUOTED" description="Quoted" defaultProbability="0.400000" sequenceNum="3"/>
+    <SalesOpportunityStage opportunityStageId="SOSTG_CLOSED" description="Closed" defaultProbability="1.000000" sequenceNum="4"/>
 
-    <Enumeration enumId="SLSOPP_ECOMMERCE" enumTypeId="SLSOPP_TYP_ENUM" description="Ecommerce"/> 
-    <Enumeration enumId="SLSOPP_ERP" enumTypeId="SLSOPP_TYP_ENUM" description="ERP"/> 
+    <Enumeration enumId="SLSOPP_ECOMMERCE" enumTypeId="SLSOPP_TYP_ENUM" description="Ecommerce"/>
+    <Enumeration enumId="SLSOPP_ERP" enumTypeId="SLSOPP_TYP_ENUM" description="ERP"/>
     <Enumeration enumId="SLSOPP_INSTALL" enumTypeId="SLSOPP_TYP_ENUM" description="Installation"/> 
     <Enumeration enumId="SLSOPP_CUSTM" enumTypeId="SLSOPP_TYP_ENUM" description="Customization"/> 
     <Enumeration enumId="SLSOPP_SUPPORT" enumTypeId="SLSOPP_TYP_ENUM" description="Support plan"/> 
