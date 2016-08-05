@@ -98,10 +98,8 @@ under the License.
              <actions>
                  <set field="titleProperty" value="PageTitleLogView"/>
                  <set field="tabButtonItem" value="logView"/>
-                 <!-- TODO: the following command is not really working (and the default value is always used);
-                              my guess is that the base/config/debug.properties file is not found in the classpath -->
-                 <property-to-field resource="debug" property="log4j.appender.css.File" field="logFileName" default="runtime/logs/ofbiz.log" no-locale="true"/>
-                 <script location="component://webtools/groovyScripts/log/LogView.groovy"/>
+                 <property-to-field field="parameters.logFileName" resource="debug" property="log4j.appender.css.defaultFile" default="ofbiz.log" no-locale="true"/>
+                 <script location="component://webtools/groovyScripts/log/FetchLogs.groovy"/>
              </actions>
              <widgets>
                  <decorator-screen name="log-decorator">
@@ -117,6 +115,9 @@ under the License.
                              <platform-specific>
                                  <html><html-template location="component://webtools/template/log/LogContent.ftl"/></html>
                              </platform-specific>
+                             <container style="button-bar">
+                                 <link target="javascript: window.location.reload();" text="${uiLabelMap.CommonRefresh}" style="buttontext refresh" url-mode="plain"/>
+                             </container>
                          </screenlet>
                      </decorator-section>
                  </decorator-screen>
@@ -138,6 +139,9 @@ under the License.
                              <platform-specific>
                                  <html><html-template location="component://webtools/template/log/FetchLogs.ftl"/></html>
                              </platform-specific>
+                             <container style="button-bar">
+                                 <link target="javascript: window.location.reload();" text="${uiLabelMap.CommonRefresh}" style="buttontext refresh" url-mode="plain"/>
+                             </container>
                          </screenlet>
                      </decorator-section>
                  </decorator-screen>
