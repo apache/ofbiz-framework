@@ -24,19 +24,18 @@ under the License.
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
 
-
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoPosData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/WebPosSecurityPermissionSeedData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/WebPosSecurityGroupDemoData.xml"/>
 
-    <!-- Not sure all the POS gone data are needed here, adding them all for now, we will prune later -->    
+    <!-- Not sure all the POS gone data are needed here, adding them all for now, we will prune later -->
     <entity-resource type="data" reader-name="seed" loader="main" location="data/PosSecurityData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/PosTypeData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRetail.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoPosData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/PosSyncSettings.xml"/>
-    
+
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
-    
+
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_cart.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_customer.xml"/>
