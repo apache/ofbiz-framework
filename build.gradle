@@ -33,6 +33,7 @@ ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 javadoc.failOnError = false
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
+compileJava.options.encoding = 'UTF-8'
 
 // root and subproject settings
 defaultTasks 'build'
@@ -306,6 +307,7 @@ def cleanupGroup = 'Cleaning'
 def ofbizServer = 'OFBiz Server'
 def sysadminGroup = 'System Administration'
 def committerGroup = 'OFBiz committers'
+def developerGroup = 'OFBiz developers'
 
 // ========== OFBiz Server tasks ==========
 
@@ -636,6 +638,12 @@ task cleanAnt(group: cleanupGroup, type: Delete, description: "clean old artifac
 def cleanTasks = getTasksMatchingRegex(/^clean.+/)
 task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
     description 'Execute all cleaning tasks.'
+}
+
+// ========== Tasks for OFBiz developers ==========
+task debug(group: developerGroup) {
+    dependsOn 'ofbiz ofbizDebug'
+    description 'Debug an OFBiz instance'
 }
 
 // ========== Tasks for OFBiz committers ==========
