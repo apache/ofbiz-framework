@@ -33,7 +33,7 @@ ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 javadoc.failOnError = false
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
-compileJava.options.encoding = 'UTF-8'
+System.setProperty("file.encoding", "UTF-8")
 
 // root and subproject settings
 defaultTasks 'build'
