@@ -22,98 +22,96 @@ set -e
 # this script requires a posix shell; namely, $(( math evaluation.
 
 help() {
-	cat << _EOF_
+    cat << _EOF_
 $0 [options]
 
-mergefromtrunk.sh merge \$rev		Apply revision \$rev from trunk.
-mergefromtrunk.sh test			Run test suite(clean-all, load-demo, run-tests).
-mergefromtrunk.sh commit		Commit current fix to svn.
-mergefromtrunk.sh abort			Abort current merge session.
+mergefromtrunk.sh merge \$rev        Apply revision \$rev from trunk.
+mergefromtrunk.sh test            Run test suite(clean-all, load-demo, run-tests).
+mergefromtrunk.sh commit        Commit current fix to svn.
+mergefromtrunk.sh abort            Abort current merge session.
 
--h | --help		Show this help.
+-h | --help        Show this help.
 _EOF_
 }
 
 cmd=""
 rev=""
 while [ $# -gt 0 ]; do
-	case "$1" in
-		(-h|--help)
-			help
-			exit 0
-			;;
-		(-*)
-			echo "Unknown arg ($1)." 1>&2
-			help 1>&2
-			exit 1
-			;;
-		(*)
-			if [ z = "z$cmd" ]; then
-				cmd="$1"
-			else
-				case "$cmd" in
-					(merge)
-						rev="$1"
-						;;
-					(*)
-						echo "Too many arguments." 1>&2
-						help 1>&2
-						exit 1
-						;;
-				esac
-			fi
-			;;
-	esac
-	shift
+    case "$1" in
+        (-h|--help)
+            help
+            exit 0
+            ;;
+        (-*)
+            echo "Unknown arg ($1)." 1>&2
+            help 1>&2
+            exit 1
+            ;;
+        (*)
+            if [ z = "z$cmd" ]; then
+                cmd="$1"
+            else
+                case "$cmd" in
+                    (merge)
+                        rev="$1"
+                        ;;
+                    (*)
+                        echo "Too many arguments." 1>&2
+                        help 1>&2
+                        exit 1
+                        ;;
+                esac
+            fi
+            ;;
+    esac
+    shift
 done
 case "$cmd" in
-	(merge)
-		if [ z = "z$rev" ]; then
-			echo "Need a revision." 1>&2
-			help 1>&2
-			exit 1
-		fi
-		if [ -d runtime/merge-state ]; then
-			echo "Merge session already started." 1>&2
-			help 1>&2
-			exit 1
-		fi
-		mkdir -p runtime/merge-state
-		echo "$rev" > runtime/merge-state/revision
-		# do not run any of the following commands in a complex
-		# chained pipe; if one of the commands in the pipe fails,
-		# it isn't possible to detect the failure.
-		printf "Applied fix from trunk for revision: %s \n===\n\n" "$rev" > runtime/merge-state/log-message
-		svn log https://svn.apache.org/repos/asf/ofbiz/trunk -r "$rev" > runtime/merge-state/log.txt
-		set -- $(wc -l runtime/merge-state/log.txt)
-		head -n $(($1 - 1)) < runtime/merge-state/log.txt > runtime/merge-state/log.txt.head
-		tail -n $(($1 - 4)) < runtime/merge-state/log.txt.head >> runtime/merge-state/log-message
-		prevRev=$(($rev - 1))
-		svn up
-		svn merge -r "$prevRev:$rev" https://svn.apache.org/repos/asf/ofbiz/trunk
-		;;
-	(test)
-		./gradlew cleanAll
-		./gradlew loadDefault
-		./gradlew test
-		;;
-	(commit)
-		svn commit -F runtime/merge-state/log-message
-		rm -rf runtime/merge-state
-		;;
-	(abort)
-		svn resolved . -R
-		svn revert . -R
-		rm -rf runtime/merge-state
-		;;
-	("")
-		echo "Need a command and a revision." 1>&2
-		help 1>&2
-		exit 1
-		;;
-	(*)
-		echo "Unknown command($cmd)." 1>&2
-		help 1>&2
-		exit 1
-		;;
+    (merge)
+        if [ z = "z$rev" ]; then
+            echo "Need a revision." 1>&2
+            help 1>&2
+            exit 1
+        fi
+        if [ -d runtime/merge-state ]; then
+            echo "Merge session already started." 1>&2
+            help 1>&2
+            exit 1
+        fi
+        mkdir -p runtime/merge-state
+        echo "$rev" > runtime/merge-state/revision
+        # do not run any of the following commands in a complex
+        # chained pipe; if one of the commands in the pipe fails,
+        # it isn't possible to detect the failure.
+        printf "Applied fix from trunk for revision: %s \n===\n\n" "$rev" > runtime/merge-state/log-message
+        svn log https://svn.apache.org/repos/asf/ofbiz/trunk -r "$rev" > runtime/merge-state/log.txt
+        set -- $(wc -l runtime/merge-state/log.txt)
+        head -n $(($1 - 1)) < runtime/merge-state/log.txt > runtime/merge-state/log.txt.head
+        tail -n $(($1 - 4)) < runtime/merge-state/log.txt.head >> runtime/merge-state/log-message
+        prevRev=$(($rev - 1))
+        svn up
+        svn merge -r "$prevRev:$rev" https://svn.apache.org/repos/asf/ofbiz/trunk
+        ;;
+    (test)
+        ./gradlew cleanAll loadDefault testIntegration
+        ;;
+    (commit)
+        svn commit -F runtime/merge-state/log-message
+        rm -rf runtime/merge-state
+        ;;
+    (abort)
+        svn resolved . -R
+        svn revert . -R
+        rm -rf runtime/merge-state
+        ;;
+    ("")
+        echo "Need a command and a revision." 1>&2
+        help 1>&2
+        exit 1
+        ;;
+    (*)
+        echo "Unknown command($cmd)." 1>&2
+        help 1>&2
+        exit 1
+        ;;
 esac
