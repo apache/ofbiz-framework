@@ -310,7 +310,6 @@ def cleanupGroup = 'Cleaning'
 def ofbizServer = 'OFBiz Server'
 def sysadminGroup = 'System Administration'
 def committerGroup = 'OFBiz committers'
-def developerGroup = 'OFBiz developers'
 
 // ========== OFBiz Server tasks ==========
 
