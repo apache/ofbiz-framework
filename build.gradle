@@ -252,7 +252,7 @@ jar {
         attributes(
             "Implementation-Title": project.name,
             "Main-Class": ofbizMainClass,
-            "Class-Path": getJarManifestClasspathForCurrentOs()
+            "Class-Path": getJarManifestClasspathForCurrentOs(os)
         )
     }
 }
@@ -818,7 +818,7 @@ def generateFileFromTemplate(templateFileInFullPath, targetDirectory, filterToke
     }
 }
 
-def getJarManifestClasspathForCurrentOs() {
+def getJarManifestClasspathForCurrentOs(os) {
     def osClassPath = ''
     if(os.contains('windows')) {
         configurations.runtime.files.each { cpEntry ->
