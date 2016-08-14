@@ -27,6 +27,9 @@ apply plugin: 'eclipse'
 
 apply from: 'common.gradle'
 
+// operating system property
+def os = System.getProperty('os.name').toLowerCase()
+
 // java settings
 def jvmArguments = ['-Xms128M', '-Xmx1024M',
     "-javaagent:${rootDir}/tools/security/notsoserial/notsoserial-1.0-SNAPSHOT.jar",
@@ -260,8 +263,7 @@ eclipse.classpath.file.whenMerged { classpath ->
      * in the .classpath file which are generated automatically
      * due to the settings in the sourceSets block
      */
-    def osName = System.getProperty('os.name').toLowerCase()
-    def osDirSeparator = osName.contains('windows') ? '\\' : '/'
+    def osDirSeparator = os.contains('windows') ? '\\' : '/'
 
     iterateOverActiveComponents { component ->
         def componentName = component.toString() - rootDir.toString()
@@ -292,7 +294,7 @@ eclipse.classpath.file.whenMerged { classpath ->
          * be able to remove it from the file
          */
         def relativeDir = configDir.toString() - rootDir.toString() - osDirSeparator
-        def eclipseConfigSrc = osName.contains('windows') ? relativeDir.replaceAll("\\\\", "/") : relativeDir
+        def eclipseConfigSrc = os.contains('windows') ? relativeDir.replaceAll("\\\\", "/") : relativeDir
         classpath.entries.removeAll { entry ->
             entry.kind == 'src' &&
             entry.path == eclipseConfigSrc
@@ -325,8 +327,7 @@ task testIntegration(group: ofbizServer) {
 
 task terminateOfbiz(group: ofbizServer,
     description: 'Force termination of any running OFBiz servers, only use if \"--shutdown\" command fails') << {
-    def os = System.getProperty("os.name").toLowerCase()
-    if (os.contains("windows")) {
+    if (os.contains('windows')) {
         Runtime.getRuntime().exec("wmic process where \"CommandLine Like \'%org.apache.ofbiz.base.start.Start%\'\" Call Terminate")
     } else {
         def processOutput = new ByteArrayOutputStream()
@@ -757,8 +758,7 @@ def createOfbizBackgroundCommandTask(taskName) {
     def sourceTask = taskName.tokenize().first()
     def arguments = (taskName - sourceTask)
 
-    def osName = System.getProperty('os.name').toLowerCase()
-    def gradleRunner = osName.contains('windows') ? 'gradlew.bat' : './gradlew'
+    def gradleRunner = os.contains('windows') ? 'gradlew.bat' : './gradlew'
 
     task (taskName) {
         doLast {
@@ -820,7 +820,7 @@ def generateFileFromTemplate(templateFileInFullPath, targetDirectory, filterToke
 
 def getJarManifestClasspathForCurrentOs() {
     def osClassPath = ''
-    if(System.getProperty('os.name').toLowerCase().contains('windows')) {
+    if(os.contains('windows')) {
         configurations.runtime.files.each { cpEntry ->
             osClassPath += '\\' + cpEntry.toString() + ' '
         }
