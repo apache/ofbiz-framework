@@ -95,10 +95,7 @@ There are two types of tasks designed for OFBiz in Gradle:
   tasks start with one of the following words:
   - __ofbiz__ : standard server commands
   - __ofbizDebug__ : server commands running in remote debug mode
-  - __ofbizSecure__ : server commands running in secure mode using notsoserial API
   - __ofbizBackground__ ; server commands running in a background forked process
-  - __ofbizBackgroundSecure__ : server commands running in a background forked
-    process in secure mode using the notsoserial API
 
 Tips: 
 
@@ -119,8 +116,6 @@ Tips:
 #### Example OFBiz server tasks
 
 `gradlew "ofbiz --help"`
-
-`gradlew "ofbizSecure --start --portoffset 10000"`
 
 `gradlew "ofbizDebug --test"`
 
@@ -216,17 +211,6 @@ OR
 
 `gradlew ofbizDebug`
 
-#### Start OFBiz in secure mode
-
-Starts OFBiz in secure mode using the notsoserial API to prevent
-Java serialization security issues
-
-`gradlew "ofbizSecure --start"`
-
-OR
-
-`gradlew ofbizSecure`
-
 #### Start OFBiz on a different port
 
 Start OFBiz of the network port offsetted by the range
@@ -248,17 +232,6 @@ OR
 You can also offset the port, for example:
 
 `gradlew "ofbizBackground --start --portoffset 10000"`
-
-#### Start OFBiz in the background in secure mode
-
-Start OFBiz in secure mode in the background by forking it to a new
-process and redirecting the output to __runtime/logs/console.log__
-
-`gradlew "ofbizBackgroundSecure --start"`
-
-OR
-
-`gradlew ofbizBackgroundSecure`
 
 * * * * * * * * * * * *
 

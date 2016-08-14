@@ -157,7 +157,7 @@ final class StartupCommandUtil {
         formatter.printHelp(
                 new PrintWriter(printStream, true),
                 HelpFormatter.DEFAULT_WIDTH + 6,
-                "ofbiz|ofbizDebug|ofbizSecure|ofbizBackground|ofbizBackgroundSecure",
+                "ofbiz|ofbizDebug|ofbizBackground",
                 System.lineSeparator() + "Executes OFBiz command e.g. start, shutdown, check status, etc",
                 getOfbizStartupOptions(),
                 HelpFormatter.DEFAULT_LEFT_PAD,

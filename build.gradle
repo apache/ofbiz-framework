@@ -28,7 +28,11 @@ apply plugin: 'eclipse'
 apply from: 'common.gradle'
 
 // java settings
-def jvmArguments = ['-Xms128M', '-Xmx1024M']
+def jvmArguments = ['-Xms128M', '-Xmx1024M',
+    "-javaagent:${rootDir}/tools/security/notsoserial/notsoserial-1.0-SNAPSHOT.jar",
+    "-Dnotsoserial.whitelist=${rootDir}/tools/security/notsoserial/empty.txt",
+    "-Dnotsoserial.dryrun=${rootDir}/tools/security/notsoserial/is-deserialized.txt",
+    "-Dnotsoserial.trace=${rootDir}/tools/security/notsoserial/deserialize-trace.txt"]
 ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 javadoc.failOnError = false
 sourceCompatibility = '1.8'
@@ -725,26 +729,8 @@ tasks.addRule('Pattern: ofbizDebug <Commands>: Execute OFBiz startup commands in
     }
 }
 
-tasks.addRule('Pattern: ofbizSecure <Commands>: Execute OFBiz startup commands pre-loading the notsoserial Java agent') { String taskName ->
-    if(taskName ==~ /^ofbizSecure\s.*/ || taskName == 'ofbizSecure') {
-        def arguments = (taskName - 'ofbizSecure').toLowerCase().tokenize(' ')
-        jvmArguments.add('-server')
-        jvmArguments.add("-javaagent:${rootDir}/tools/security/notsoserial/notsoserial-1.0-SNAPSHOT.jar")
-        jvmArguments.add("-Dnotsoserial.whitelist=${rootDir}/tools/security/notsoserial/empty.txt")
-        jvmArguments.add("-Dnotsoserial.dryrun=${rootDir}/tools/security/notsoserial/is-deserialized.txt")
-        jvmArguments.add("-Dnotsoserial.trace=${rootDir}/tools/security/notsoserial/deserialize-trace.txt")
-        createOfbizCommandTask(taskName, arguments, jvmArguments, false)
-    }
-}
-
 tasks.addRule('Pattern: ofbizBackground <Commands>: Execute OFBiz startup commands in background and output to console.log') { String taskName ->
     if(taskName ==~ /^ofbizBackground\s.*/ || taskName == 'ofbizBackground') {
-        createOfbizBackgroundCommandTask(taskName)
-    }
-}
-
-tasks.addRule('Pattern: ofbizBackgroundSecure <Commands>: Execute OFBiz startup commands in background (secure mode) and output to console.log') { String taskName ->
-    if(taskName ==~ /^ofbizBackgroundSecure\s.*/ || taskName == 'ofbizBackgroundSecure') {
         createOfbizBackgroundCommandTask(taskName)
     }
 }
@@ -773,24 +759,12 @@ def createOfbizBackgroundCommandTask(taskName) {
     def sourceTask = taskName.tokenize().first()
     def arguments = (taskName - sourceTask)
 
-    def targetTask
-    def gradleRunner
-
-    if(sourceTask == 'ofbizBackground') {
-        targetTask = 'ofbiz'
-    } else if(sourceTask == 'ofbizBackgroundSecure') {
-        targetTask = 'ofbizSecure'
-    }
-
-    if (os.contains("windows")) {
-        gradleRunner = 'gradlew.bat'
-    } else {
-        gradleRunner = './gradlew'
-    }
+    def osName = System.getProperty('os.name').toLowerCase()
+    def gradleRunner = osName.contains('windows') ? 'gradlew.bat' : './gradlew'
 
     task (taskName) {
         doLast {
-            spawnProcess(gradleRunner, "${targetTask} ${arguments}")
+            spawnProcess(gradleRunner, "ofbiz ${arguments}")
         }
     }
 }
