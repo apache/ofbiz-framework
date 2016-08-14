@@ -723,7 +723,7 @@ tasks.addRule('Pattern: ofbiz <Commands>: Execute OFBiz startup commands') { Str
 }
 
 tasks.addRule('Pattern: ofbizDebug <Commands>: Execute OFBiz startup commands in remote debug mode') { String taskName ->
-    if(taskName ==~ /^ofbizDebug\s.*/ || taskName == 'ofbizDebug' || taskName == 'debug') {
+    if(taskName ==~ /^ofbizDebug\s.*/ || taskName == 'ofbizDebug') {
         def arguments = (taskName - 'ofbizDebug').toLowerCase().tokenize(' ')
         createOfbizCommandTask(taskName, arguments, jvmArguments, true)
     }
