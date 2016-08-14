@@ -754,7 +754,6 @@ def createOfbizCommandTask(taskName, arguments, jvmArguments, isDebugMode) {
 }
 
 def createOfbizBackgroundCommandTask(taskName) {
-    def os = System.getProperty("os.name").toLowerCase()
     def sourceTask = taskName.tokenize().first()
     def arguments = (taskName - sourceTask)
 
