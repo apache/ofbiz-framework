@@ -5,4 +5,4 @@ cd /home/ofbizDemo/trunk && svn up
 ./gradlew cleanAll 
 ./gradlew loadDefault 
 ./gradlew svnInfoFooter 
-./gradlew "ofbizBackgroundSecure --start" 
+./gradlew ofbizBackground 

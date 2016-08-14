@@ -2,11 +2,11 @@
 
 cd /home/ofbizDemo/trunk
     svn up
-    ./ant stop
-    ./ant clean-all
-    ./ant load-demo
-    ./ant svninfo
-    ./ant start-batch-secure
+    ./gradlew terminateOfbiz
+    ./gradlew cleanAll 
+    ./gradlew loadDefault 
+    ./gradlew svnInfoFooter 
+    ./gradlew ofbizBackground
 
 cd /home/ofbizDemo/branch13.7
     svn up
