@@ -3836,17 +3836,17 @@
         <value xml:lang="zh-TW">沒有出現</value>
     </property>
     <property key="WebtoolsNoteAntRunInstall">
-        <value xml:lang="de">HINWEIS: Sofern Sie das Installationsskript zum Daten lagen noch nicht haben laufen lassen, geben Sie bitte im OFBIZ_HOME Verzeichnis "ant load-demo" oder "java -jar ofbiz.jar load-data" ein.</value>
-        <value xml:lang="en">NOTE: If you have not already run the installation data loading script, from the ofbiz home directory run "ant load-demo" or "java -jar ofbiz.jar load-data"</value>
-        <value xml:lang="fr">NOTE: Si vous n'avez pas déjà exécuté le script de chargement des données d'installation : à partir du répertoire racine d'ofbiz, exécutez "ant load-demo" ou "java -jar ofbiz.jar load-data"</value>
-        <value xml:lang="it">NOTA: Se non hai ancora eseguito lo script di installazione di caricamento dei dati, esegui dalla home directory di ofbiz "ant load-demo" o "java -jar ofbiz.jar load-data"</value>
-        <value xml:lang="ja">注意: データをロードするインストールスクリプトをまだ実行していない場合、ofbizホームディレクトリで"ant load-demo"または"java -jar ofbiz.jar load-data"を実行してください</value>
-        <value xml:lang="pt">NOTA: Se vocÃª ainda nÃ£o executou o script de carregamento e instalaÃ§Ã£o de dados, a partir do diretÃ³rio home do OFBiz executar "ant load-demo" ou "ofbiz.jar java-jar-install"</value>
-        <value xml:lang="ro">NOTA: Daca inca nu ai executat script_ul de instalare incarcare date, executa de la home directory ofbiz "ant load-demo" sau "java -jar ofbiz.jar load-data"</value>
-        <value xml:lang="th">หมายเหตุ: ถ้าคุณไม่ได้ทำการดำเนินงานติดตั้ง data loading script จาก ofbiz home directory ให้ใช้คำสั่ง "ant load-demo" หรือ "java -jar ofbiz.jar load-data"</value>
-        <value xml:lang="vi">Ghi chú: nếu bạn đã chạy quá trình tải dữ liệu, từ thư mục gốc của Ofbiz bạn hãy chạy "ant load-demo" hoặc "java -jar ofbiz.jar load-data"</value>
-        <value xml:lang="zh">注意：如果你还没有运行安装数据载入脚本，那么你可以在OFBiz目录下运行"ant load-demo"或"java -jar ofbiz.jar load-data"</value>
-        <value xml:lang="zh-TW">注意:如果你還沒有執行安裝資料載入腳本,那麼你可以在OFBiz目錄下執行"ant load-demo"或"java -jar ofbiz.jar load-data"</value>
+        <value xml:lang="de">HINWEIS: Sofern Sie das Installationsskript zum Daten lagen noch nicht haben laufen lassen, geben Sie bitte im OFBIZ_HOME Verzeichnis "gradlew loadDefault" oder "java -jar build/libs/ofbiz.jar -l" ein.</value>
+        <value xml:lang="en">NOTE: If you have not already run the installation data loading script, from the ofbiz home directory run "gradlew loadDefault" or "java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="fr">NOTE: Si vous n'avez pas déjà exécuté le script de chargement des données d'installation : à partir du répertoire racine d'ofbiz, exécutez "gradlew loadDefault" ou "java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="it">NOTA: Se non hai ancora eseguito lo script di installazione di caricamento dei dati, esegui dalla home directory di ofbiz "gradlew loadDefault" o "java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="ja">注意: データをロードするインストールスクリプトをまだ実行していない場合、ofbizホームディレクトリで"gradlew loadDefault"または"java -jar build/libs/ofbiz.jar -l"を実行してください</value>
+        <value xml:lang="pt">NOTA: Se vocÃª ainda nÃ£o executou o script de carregamento e instalaÃ§Ã£o de dados, a partir do diretÃ³rio home do OFBiz executar "gradlew loadDefault" ou "ofbiz.jar java-jar-install"</value>
+        <value xml:lang="ro">NOTA: Daca inca nu ai executat script_ul de instalare incarcare date, executa de la home directory ofbiz "gradlew loadDefault" sau "java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="th">หมายเหตุ: ถ้าคุณไม่ได้ทำการดำเนินงานติดตั้ง data loading script จาก ofbiz home directory ให้ใช้คำสั่ง "gradlew loadDefault" หรือ "java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="vi">Ghi chú: nếu bạn đã chạy quá trình tải dữ liệu, từ thư mục gốc của Ofbiz bạn hãy chạy "gradlew loadDefault" hoặc "java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="zh">注意：如果你还没有运行安装数据载入脚本，那么你可以在OFBiz目录下运行"gradlew loadDefault"或"java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="zh-TW">注意:如果你還沒有執行安裝資料載入腳本,那麼你可以在OFBiz目錄下執行"gradlew loadDefault"或"java -jar build/libs/ofbiz.jar -l"</value>
     </property>
     <property key="WebtoolsNoteForeighKeysMayAlsoBeCreated">
         <value xml:lang="de">HINWEIS: Fremdschlüssel können mit der Datenbank-Check/-Update Funktion ebenfalls generiert werden, sofern die check-fks-on-start und andere Optionen auf der Datensource entsprechend gesetzt sind.</value>

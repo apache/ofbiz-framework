@@ -62,7 +62,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <group-map group-name="org.apache.ofbiz.tenant" datasource-name="localderbytenant"/>
     </delegator>
 
-    <!-- be sure that your default delegator (or the one you use) uses the same datasource for test. You must run "ant load-demo" before running "ant run-tests" -->
+    <!-- be sure that your default delegator (or the one you use) uses the same datasource for test. You must run "gradlew loadDefault" before running "gradlew testIntegration" -->
     <delegator name="test" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
         <group-map group-name="org.apache.ofbiz" datasource-name="localderby"/>
         <group-map group-name="org.apache.ofbiz.olap" datasource-name="localderbyolap"/>
@@ -123,6 +123,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
      * Serializable (NOT Recommended)
      * Not set uses database default
     -->
+    
     <datasource name="localhsql"
             helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
             field-type-name="hsql"
