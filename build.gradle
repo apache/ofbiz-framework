@@ -28,7 +28,7 @@ apply plugin: 'eclipse'
 apply from: 'common.gradle'
 
 // operating system property
-def os = System.getProperty('os.name').toLowerCase()
+ext.os = System.getProperty('os.name').toLowerCase()
 
 // java settings
 def jvmArguments = ['-Xms128M', '-Xmx1024M',
@@ -252,7 +252,7 @@ jar {
         attributes(
             "Implementation-Title": project.name,
             "Main-Class": ofbizMainClass,
-            "Class-Path": getJarManifestClasspathForCurrentOs(os)
+            "Class-Path": getJarManifestClasspathForCurrentOs()
         )
     }
 }
@@ -731,8 +731,7 @@ tasks.addRule('Pattern: ofbizDebug <Commands>: Execute OFBiz startup commands in
 
 tasks.addRule('Pattern: ofbizBackground <Commands>: Execute OFBiz startup commands in background and output to console.log') { String taskName ->
     if(taskName ==~ /^ofbizBackground\s.*/ || taskName == 'ofbizBackground') {
-        def arguments = (taskName - 'ofbizBackground').toLowerCase().tokenize(' ')
-        createOfbizCommandTask(taskName, arguments, jvmArguments, false)
+        createOfbizBackgroundCommandTask(taskName)
     }
 }
 
@@ -819,7 +818,7 @@ def generateFileFromTemplate(templateFileInFullPath, targetDirectory, filterToke
     }
 }
 
-def getJarManifestClasspathForCurrentOs(os) {
+def getJarManifestClasspathForCurrentOs() {
     def osClassPath = ''
     if(os.contains('windows')) {
         configurations.runtime.files.each { cpEntry ->
