@@ -102,11 +102,10 @@ public class EntityDataLoadContainer implements Container {
            file (import a specific XML file)
 
            Example:
-           $ java -jar ofbiz.jar -load-data -readers=seed,demo,ext -timeout=7200 -delegator=default -group=org.apache.ofbiz
-           $ java -jar ofbiz.jar -load-data -file=/tmp/dataload.xml
-           Currently no dashes before load-data, see OFBIZ-5872
-               $ java -jar ofbiz.jar load-data -readers=seed,demo,ext -timeout=7200 -delegator=default -group=org.apache.ofbiz
-               $ java -jar ofbiz.jar load-data -file=/tmp/dataload.xml
+           $ java -jar build/libs/ofbiz.jar --load-data -readers=seed,demo,ext -timeout=7200 -delegator=default -group=org.apache.ofbiz
+           $ java -jar build/libs/ofbiz.jar --load-data -file=/tmp/dataload.xml
+           $ java -jar build/libs/ofbiz.jar --load-data -readers=seed,demo,ext -timeout=7200 -delegator=default -group=org.apache.ofbiz
+           $ java -jar build/libs/ofbiz.jar --load-data -file=/tmp/dataload.xml
         */
         if (args != null) {
             for (String argument: args) {
@@ -176,10 +175,9 @@ public class EntityDataLoadContainer implements Container {
                         createConstraints = true;
                     }
                 } else if ("help".equalsIgnoreCase(argumentName)) {
-                    //"java -jar ofbiz.jar -load-data [options]\n" +
-                    // Currently no dashes before load-data, see OFBIZ-5872
+                    //"java -jar build/libs/ofbiz.jar --load-data [options]\n" +
                     String helpStr = "\n--------------------------------------\n" +
-                    "java -jar ofbiz.jar load-data [options]\n" +
+                    "java -jar build/libs/ofbiz.jar --load-data [options]\n" +
                     "-component=[name] .... only load from a specific component\n" +
                     "-delegator=[name] .... use the defined delegator (default-no-eca)\n" +
                     "-group=[name] ........ override the entity group (org.apache.ofbiz)\n" +
