@@ -90,7 +90,7 @@ checkUser() {
 
 # OFBiz processes running
 running() {
-    OFBIZ_PROCS=`/bin/ps h -o pid,args -C java -u $OFBIZUSER | /bin/grep -e "-jar ofbiz.jar" | /bin/egrep -o "^[[:space:]]*[[:digit:]]*"`
+    OFBIZ_PROCS=`/bin/ps h -o pid,args -C java -u $OFBIZUSER | /bin/grep -e "-jar build/libs/ofbiz.jar" | /bin/egrep -o "^[[:space:]]*[[:digit:]]*"`
 }
 
 #========= main program ===============
