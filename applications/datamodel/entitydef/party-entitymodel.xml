@@ -566,50 +566,6 @@ under the License.
             <key-map field-name="agreementId"/>
         </view-link>
     </view-entity>
-    <view-entity entity-name="AgreementAndRole"
-        package-name="org.apache.ofbiz.party.agreement"
-        title="Agreement and AgreementRole View Entity">
-        <member-entity entity-alias="AGR" entity-name="Agreement"/>
-        <member-entity entity-alias="AR" entity-name="AgreementRole"/>
-        <alias-all entity-alias="AGR"/>
-        <alias-all entity-alias="AR"/>
-        <view-link entity-alias="AGR" rel-entity-alias="AR">
-            <key-map field-name="agreementId"/>
-        </view-link>
-        <relation type="one-nofk" rel-entity-name="Party">
-            <key-map field-name="partyId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="RoleType">
-            <key-map field-name="roleTypeId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
-        </relation>
-        <relation type="one-nofk" title="To" rel-entity-name="Party">
-            <key-map field-name="partyIdTo" rel-field-name="partyId"/>
-        </relation>
-        <relation type="one-nofk" title="To" rel-entity-name="RoleType">
-            <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
-        </relation>
-        <relation type="one-nofk" title="To" rel-entity-name="PartyRole">
-            <key-map field-name="partyIdTo" rel-field-name="partyId"/>
-            <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
-        </relation>
-        <relation type="one-nofk" title="From" rel-entity-name="Party">
-            <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-        </relation>
-        <relation type="one-nofk" title="From" rel-entity-name="RoleType">
-            <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
-        </relation>
-        <relation type="one-nofk" title="From" rel-entity-name="PartyRole">
-            <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-            <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
-        </relation>
-        <relation type="many" rel-entity-name="AgreementRole">
-            <key-map field-name="agreementId"/>
-        </relation>
-    </view-entity>
 
   <!-- ========================================================= -->
   <!-- org.apache.ofbiz.party.communication -->
