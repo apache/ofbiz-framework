@@ -731,7 +731,8 @@ tasks.addRule('Pattern: ofbizDebug <Commands>: Execute OFBiz startup commands in
 
 tasks.addRule('Pattern: ofbizBackground <Commands>: Execute OFBiz startup commands in background and output to console.log') { String taskName ->
     if(taskName ==~ /^ofbizBackground\s.*/ || taskName == 'ofbizBackground') {
-        createOfbizBackgroundCommandTask(taskName)
+        def arguments = (taskName - 'ofbizBackground').toLowerCase().tokenize(' ')
+        createOfbizCommandTask(taskName, arguments, jvmArguments, false)
     }
 }
 
