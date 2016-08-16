@@ -84,7 +84,7 @@
         <value xml:lang="hi-IN">संपत्ति का रखरखाव</value>
         <value xml:lang="it">Manutenzione</value>
         <value xml:lang="ja">資産</value>
-        <value xml:lang="nl">Vermogensbeheer</value>
+        <value xml:lang="nl">Activa beheer</value>
         <value xml:lang="pt-BR">Manutenção de Ativos</value>
         <value xml:lang="ru">Обслуживание</value>
         <value xml:lang="th">การรักษาทรัพย์สิน</value>
@@ -379,6 +379,22 @@
         <value xml:lang="zh">新建ID</value>
         <value xml:lang="zh-CN">添加标识</value>
         <value xml:lang="zh-TW">新增識別</value>
+    </property>
+    <property key="CommonAddition">
+        <value xml:lang="en">Addition</value>
+        <value xml:lang="nl">Toevoeging</value>
+    </property>
+    <property key="CommonAdditions">
+        <value xml:lang="en">Additions</value>
+        <value xml:lang="nl">Toevoegingen</value>
+    </property>
+    <property key="CommonAdjustment">
+        <value xml:lang="en">Adjustment</value>
+        <value xml:lang="nl">Aanpassing</value>
+    </property>
+    <property key="CommonAdjustments">
+        <value xml:lang="en">Adjustments</value>
+        <value xml:lang="nl">Aanpassingen</value>
     </property>
     <property key="CommonAddNew">
         <value xml:lang="ar">إضافة الجديد</value>
@@ -882,6 +898,10 @@
         <value xml:lang="zh-CN">应用</value>
         <value xml:lang="zh-TW">套用</value>
     </property>
+    <property key="CommonApprove">
+        <value xml:lang="en">Approve</value>
+        <value xml:lang="nl">Goedkeuren</value>
+    </property>
     <property key="CommonApproved">
         <value xml:lang="ar">مصدق</value>
         <value xml:lang="cs">Schválený</value>
@@ -942,6 +962,10 @@
         <value xml:lang="zh-CN">区域</value>
         <value xml:lang="zh-TW">地區</value>
     </property>
+    <property key="CommonSurfaceArea">
+        <value xml:lang="en">Surface Area</value>
+        <value xml:lang="nl">Oppervlakte</value>
+    </property>
     <property key="CommonAreaCode">
         <value xml:lang="ar">رمز المساحة</value>
         <value xml:lang="cs">Kód oblasti</value>
@@ -961,6 +985,10 @@
         <value xml:lang="zh">地区编码</value>
         <value xml:lang="zh-CN">区域代码</value>
         <value xml:lang="zh-TW">地區代碼</value>
+    </property>
+    <property key="CommonAs">
+        <value xml:lang="en">As</value>
+        <value xml:lang="nl">Als</value>
     </property>
     <property key="CommonAsk">
         <value xml:lang="en">Ask if you don't understand this message</value>
@@ -1068,6 +1096,14 @@
         <value xml:lang="zh">至</value>
         <value xml:lang="zh-CN">注</value>
         <value xml:lang="zh-TW">至</value>
+    </property>
+    <property key="CommonAttribute">
+        <value xml:lang="en">Attribute</value>
+        <value xml:lang="nl">Attribuut</value>
+    </property>
+    <property key="CommonAttributes">
+        <value xml:lang="en">Attributes</value>
+        <value xml:lang="nl">Attritbuten</value>
     </property>
     <property key="CommonAugust">
         <value xml:lang="ar">أغسطس</value>
@@ -1546,6 +1582,10 @@
         <value xml:lang="zh-CN">改变</value>
         <value xml:lang="zh-TW">修改</value>
     </property>
+    <property key="CommonChangePassword">
+        <value xml:lang="en">Change Password</value>
+        <value xml:lang="nl">Wachtwoord wijzigen</value>
+    </property>
     <property key="CommonCharactorsLeft">
         <value xml:lang="ar">الأحرف المتبقية</value>
         <value xml:lang="cs">Zbývá znaků</value>
@@ -1666,6 +1706,10 @@
         <value xml:lang="zh-CN">你可以不用建立帐户就结帐</value>
         <value xml:lang="zh-TW">你可以直接結帳而不需要新建一個帳號</value>
     </property>
+    <property key="CommonChild">
+        <value xml:lang="en">Child</value>
+        <value xml:lang="nl">Kind</value>
+    </property>
     <property key="CommonChooseLanguage">
         <value xml:lang="ar">اختر اللغة</value>
         <value xml:lang="cs">Vyběr jazyka</value>
@@ -1707,6 +1751,10 @@
         <value xml:lang="zh">城市</value>
         <value xml:lang="zh-CN">城市</value>
         <value xml:lang="zh-TW">城市</value>
+    </property>
+    <property key="CommonClass">
+        <value xml:lang="en">Class</value>
+        <value xml:lang=“nl>Klasse</value>
     </property>
     <property key="CommonClear">
         <value xml:lang="ar">محو</value>
@@ -2214,6 +2262,9 @@
         <value xml:lang="zh-CN">复制</value>
         <value xml:lang="zh-TW">複製</value>
     </property>
+    <property key="CommonContributor">
+        <value xml:lang="en">Contributor</value>
+    </property>
     <property key="CommonCopyright">
         <value xml:lang="ar">حقوق الطبع</value>
         <value xml:lang="cs">Copyright</value>
@@ -2653,6 +2704,10 @@
         <value xml:lang="vi">Ngày</value>
         <value xml:lang="zh">日期</value>
         <value xml:lang="zh-TW">日期</value>
+    </property>
+    <property key="CommonDateTime">
+        <value xml:lang="en">Date - time</value>
+        <value xml:lang="nl">Datum - tijd</value>
     </property>
     <property key="CommonDay">
         <value xml:lang="ar">يوم</value>
@@ -3119,15 +3174,16 @@
         <value xml:lang="zh-TW">元素找到了</value>
     </property>
     <property key="CommonElevation">
-        <value xml:lang="ar">الإرتفاع: </value>
-        <value xml:lang="cs">Výška: </value>
-        <value xml:lang="de">Höhe: </value>
-        <value xml:lang="en">Elevation: </value>
-        <value xml:lang="es">Elevación: </value>
-        <value xml:lang="fr">Altitude/Hauteur :</value>
-        <value xml:lang="hi-IN">ऊंचाई: </value>
-        <value xml:lang="it">Altitudine: </value>
+        <value xml:lang="ar">الإرتفاع</value>
+        <value xml:lang="cs">Výška</value>
+        <value xml:lang="de">Höhe</value>
+        <value xml:lang="en">Elevation</value>
+        <value xml:lang="es">Elevación</value>
+        <value xml:lang="fr">Altitude/Hauteur</value>
+        <value xml:lang="hi-IN">ऊंचाई</value>
+        <value xml:lang="it">Altitudine</value>
         <value xml:lang="ja">高度:</value>
+        <value xml:lang="nl">Hoogte</value>
         <value xml:lang="pt-BR">Elevação:</value>
         <value xml:lang="ru">Высота:</value>
         <value xml:lang="vi">Độ cao:</value>
@@ -3438,6 +3494,14 @@
         <value xml:lang="zh-CN">电子邮件</value>
         <value xml:lang="zh-TW">電子郵件</value>
     </property>
+    <property key="CommonNotification">
+        <value xml:lang="en">Notification</value>
+        <value xml:lang="nl">Notificatie</value>
+    </property>
+    <property key="CommonNotifications">
+        <value xml:lang="en">Notifications</value>
+        <value xml:lang="nl">Notificaties</value>
+    </property>
     <property key="CommonEmptyHeader">
     <!-- do not  remove this! -->
         <value xml:lang="en" xml:space="preserve"> </value>
@@ -3718,6 +3782,14 @@
         <value xml:lang="vi">Ngày bắt đầu dự tính</value>
         <value xml:lang="zh">预计开始日期</value>
         <value xml:lang="zh-TW">預計開始日期</value>
+    </property>
+    <property key="CommonEvent">
+        <value xml:lang="de">Ereigni</value>
+        <value xml:lang="en">Event</value>
+        <value xml:lang="es">Evento</value>
+        <value xml:lang="fr">Évènement</value>
+        <value xml:lang="it">Evento</value>
+        <value xml:lang="nl">Gebeurtenis</value>
     </property>
     <property key="CommonEventDate">
         <value xml:lang="ar">تاريخ الحدث</value>
@@ -4029,6 +4101,9 @@
         <value xml:lang="zh">外部设备用户操作</value>
         <value xml:lang="zh-TW">外部設備使用者操作</value>
     </property>
+    <property key="CommonFacility">
+        <value xml:lang="en">Facility</value>
+    </property>
     <property key="CommonFalse">
         <value xml:lang="ar">خطأ</value>
         <value xml:lang="cs">Nepravda</value>
@@ -4298,6 +4373,12 @@
         <value xml:lang="vi">Đầu tiên</value>
         <value xml:lang="zh">第一个</value>
         <value xml:lang="zh-TW">最前</value>
+    </property>
+    <property key="CommonFixedAsset">
+        <value xml:lang="en">Fixed Asset</value>
+    </property>
+    <property key="CommonFixedAssets">
+        <value xml:lang="en">Fixed Assets</value>
     </property>
     <property key="CommonFollowingErrorsOccurred">
         <value xml:lang="ar">الأخطاء التالية حدثت</value>
@@ -5252,6 +5333,10 @@
         <value xml:lang="zh">高</value>
         <value xml:lang="zh-TW">高</value>
     </property>
+    <property key="CommonHold">
+        <value xml:lang="en">Hold</value>
+        <value xml:lang="nl">In wacht</value>
+    </property>
     <property key="CommonHome">
         <value xml:lang="ar">الصفحة الرئيسية</value>
         <value xml:lang="cs">Výchozí stránka</value>
@@ -5628,6 +5713,10 @@
         <value xml:lang="zh-CN">库存</value>
         <value xml:lang="zh-TW">庫存</value>
     </property>
+    <property key="CommonInvoice">
+        <value xml:lang="en">Invoice</value>
+        <value xml:lang="nl">Factuur</value>
+    </property>
     <property key="CommonIsA">
         <value xml:lang="ar">هو</value>
         <value xml:lang="cs">je</value>
@@ -5878,19 +5967,19 @@
     </property>
     <property key="CommonLatitude">
         <value xml:lang="ar">خط العرض</value>
-        <value xml:lang="cs">Zeměpisná šířka: </value>
-        <value xml:lang="de">Breitengrad: </value>
-        <value xml:lang="en">Latitude: </value>
-        <value xml:lang="es">Latitud: </value>
-        <value xml:lang="fr">Latitude : </value>
-        <value xml:lang="hi-IN">अक्षांश：</value>
-        <value xml:lang="it">Latitudine: </value>
-        <value xml:lang="ja">緯度:</value>
-        <value xml:lang="pt-BR">Latitude:</value>
-        <value xml:lang="ru">Широта: </value>
-        <value xml:lang="vi">Rộng: </value>
-        <value xml:lang="zh">纬度：</value>
-        <value xml:lang="zh-TW">緯度:</value>
+        <value xml:lang="cs">Zeměpisná šířka</value>
+        <value xml:lang="de">Breitengrad</value>
+        <value xml:lang="en">Latitude</value>
+        <value xml:lang="es">Latitud</value>
+        <value xml:lang="fr">Latitude</value>
+        <value xml:lang="hi-IN">अक्षांश</value>
+        <value xml:lang="it">Latitudine</value>
+        <value xml:lang="ja">緯度</value>
+        <value xml:lang="pt-BR">Latitude</value>
+        <value xml:lang="ru">Широта</value>
+        <value xml:lang="vi">Rộng</value>
+        <value xml:lang="zh">纬度</value>
+        <value xml:lang="zh-TW">緯度</value>
     </property>
     <property key="CommonLength">
         <value xml:lang="ar">الطول</value>
@@ -5904,7 +5993,7 @@
         <value xml:lang="ja">長さ</value>
         <value xml:lang="pt-BR">Comprimento</value>
         <value xml:lang="ru">Длина</value>
-        <value xml:lang="vi">Dài: </value>
+        <value xml:lang="vi">Dài</value>
         <value xml:lang="zh">长度</value>
         <value xml:lang="zh-TW">長度</value>
     </property>
@@ -5962,6 +6051,9 @@
         <value xml:lang="vi">Liên kết (link)</value>
         <value xml:lang="zh">链接</value>
         <value xml:lang="zh-TW">連結</value>
+    </property>
+    <property key="CommonLinks">
+        <value xml:lang="en">Links</value>
     </property>
     <property key="CommonList">
         <value xml:lang="ar">قائمة</value>
@@ -6112,17 +6204,18 @@
     </property>
     <property key="CommonLongitude">
         <value xml:lang="ar">خط الطول</value>
-        <value xml:lang="cs">Zeměpisná délka: </value>
-        <value xml:lang="de">Längengrad: </value>
-        <value xml:lang="en">Longitude: </value>
-        <value xml:lang="es">Longitud: </value>
-        <value xml:lang="fr">Longitude : </value>
-        <value xml:lang="hi-IN">देशांतर ：</value>
-        <value xml:lang="it">Longitudine: </value>
-        <value xml:lang="ja">経度:</value>
+        <value xml:lang="cs">Zeměpisná délka</value>
+        <value xml:lang="de">Längengrad</value>
+        <value xml:lang="en">Longitude</value>
+        <value xml:lang="es">Longitud</value>
+        <value xml:lang="fr">Longitude </value>
+        <value xml:lang="hi-IN">देशांतर</value>
+        <value xml:lang="it">Longitudine</value>
+        <value xml:lang="ja">経度</value>
+        <value xml:lang="nl">lengetgraad</value>
         <value xml:lang="pt-BR">Longitude:</value>
         <value xml:lang="ru">Ввод</value>
-        <value xml:lang="vi">Kinh độ: </value>
+        <value xml:lang="vi">Kinh độ</value>
         <value xml:lang="zh">经度：</value>
         <value xml:lang="zh-TW">經度:</value>
     </property>
@@ -6988,6 +7081,10 @@
         <value xml:lang="zh-CN">名称</value>
         <value xml:lang="zh-TW">名稱</value>
     </property>
+    <property key="CommonNames">
+        <value xml:lang="en">Name</value>
+        <value xml:lang="nl">Naam</value>
+    </property>
     <property key="CommonNbr">
         <value xml:lang="ar">#</value>
         <value xml:lang="de">Nr</value>
@@ -7837,6 +7934,7 @@
         <value xml:lang="hi-IN">संख्या</value>
         <value xml:lang="it">Numero</value>
         <value xml:lang="ja">数</value>
+        <value xml:lang="nl">Nummer</value>
         <value xml:lang="pt-BR">Número</value>
         <value xml:lang="ru">Номер </value>
         <value xml:lang="th">หมายเลข</value>
@@ -8245,6 +8343,9 @@
         <value xml:lang="zh">上级</value>
         <value xml:lang="zh-TW">上層</value>
     </property>
+    <property key="CommonParty">
+        <value xml:lang="en">Party</value>
+    </property>
     <property key="CommonPartyGroupName">
         <value xml:lang="ar">إسم المجموعة</value>
         <value xml:lang="cs">Název partnera</value>
@@ -8419,6 +8520,11 @@
         <value xml:lang="hi-IN">पीडीऍफ़(PDF)</value>
         <value xml:lang="zh">PDF</value>
     </property>
+    <property key="CommonPer">
+        <value xml:lang="en">Per</value>
+        <value xml:lang="nl">Per</value>
+
+    </property>
     <property key="CommonPerform">
         <value xml:lang="ar">إحراء</value>
         <value xml:lang="cs">Provést</value>
@@ -8438,6 +8544,10 @@
         <value xml:lang="zh">执行</value>
         <value xml:lang="zh-CN">执行</value>
         <value xml:lang="zh-TW">執行</value>
+    </property>
+    <property key="CommonPercentage">
+        <value xml:lang="en">Percentage</value>
+        <value xml:lang="nl">Procent</value>
     </property>
     <property key="CommonPeriod">
         <value xml:lang="en">Period</value>
@@ -8904,26 +9014,6 @@
         <value xml:lang="en">Prices</value>
         <value xml:lang="nl">Prijzen</value>
         <value xml:lang="zh">价格</value>
-    </property>
-    <property key="CommonAdjustment">
-        <value xml:lang="en">Adjustment</value>
-        <value xml:lang="nl">Aanpassing</value>
-        <value xml:lang="zh">调整</value>
-    </property>
-    <property key="CommonAdjustments">
-        <value xml:lang="en">Adjustments</value>
-        <value xml:lang="nl">Aanpassingen</value>
-        <value xml:lang="zh">调整</value>
-    </property>
-    <property key="CommonAttribute">
-        <value xml:lang="en">Attribute</value>
-        <value xml:lang="nl">Attribuut</value>
-        <value xml:lang="zh">属性</value>
-    </property>
-    <property key="CommonAttributes">
-        <value xml:lang="en">Attributes</value>
-        <value xml:lang="nl">Attritbuten</value>
-        <value xml:lang="zh">属性</value>
     </property>
     <property key="CommonWorkEffort">
         <value xml:lang="en">Work Effort</value>
@@ -10027,6 +10117,7 @@
         <value xml:lang="hi-IN">खोजने के लिए विकल्प</value>
         <value xml:lang="it">Opzioni di ricerca</value>
         <value xml:lang="ja">検索オプション</value>
+        <value xml:lang="nl">Zoekmogelijkheden</value>
         <value xml:lang="pt-BR">Opções de pesquisa</value>
         <value xml:lang="ru">Опции поиска</value>
         <value xml:lang="vi">Tuỳ chọn tìm kiếm</value>
@@ -11082,6 +11173,10 @@
         <value xml:lang="zh">子项</value>
         <value xml:lang="zh-CN">子标题</value>
         <value xml:lang="zh-TW">子標題</value>
+    </property>
+    <property key="CommonStreet">
+        <value xml:lang="en">Street</value>
+        <value xml:lang="nl">Straat</value>
     </property>
     <property key="CommonSubTotal">
         <value xml:lang="ar">المجموع الأولي</value>
@@ -13342,6 +13437,14 @@
         <value xml:lang="zh">样例扩展</value>
         <value xml:lang="zh-TW">擴充範例</value>
     </property>
+    <property key="ExternalOrganisation">
+        <value xml:lang="en">External Organisation</value>
+        <value xml:lang="nl">Externe organisatie</value>
+    </property>
+    <property key="ExternalPerson">
+        <value xml:lang="en">External Person</value>
+        <value xml:lang="nl">Extern persoon</value>
+    </property>
     <property key="Facility">
         <value xml:lang="ar">مرفق</value>
         <value xml:lang="cs">Zařízení/Sklady</value>
@@ -14485,6 +14588,18 @@
         <value xml:lang="zh">人力资源应用程序</value>
         <value xml:lang="zh-TW">人力資源應用程式</value>
     </property>
+    <property key="InternalOrganisation">
+        <value xml:lang="en">Internal Organisation</value>
+        <value xml:lang="nl">Interne organisatie</value>
+    </property>
+    <property key="InternalPerson">
+        <value xml:lang="en">Internal Person</value>
+        <value xml:lang="nl">Intern persoon</value>
+    </property>
+    <property key="InternalTeam">
+        <value xml:lang="en">Internal Team</value>
+        <value xml:lang="nl">Intern team</value>
+    </property>
     <property key="IS Mgr">
         <value xml:lang="cs">Inf.Syst.</value>
         <value xml:lang="de">Infosystem</value>
@@ -14987,6 +15102,10 @@
         <value xml:lang="vi">Quản trị dự án (PM)</value>
         <value xml:lang="zh">项目</value>
         <value xml:lang="zh-TW">專案</value>
+    </property>
+    <property key="CommonRetrieve">
+        <value xml:lang="en">Retrieve</value>
+        <value xml:lang="nl">Ophalen</value>
     </property>
     <property key="SFA">
         <value xml:lang="ar">ميكنة فريق المبيعات</value>
