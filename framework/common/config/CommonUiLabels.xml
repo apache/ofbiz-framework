@@ -1754,7 +1754,7 @@
     </property>
     <property key="CommonClass">
         <value xml:lang="en">Class</value>
-        <value xml:lang=“nl>Klasse</value>
+        <value xml:lang="nl">Klasse</value>
     </property>
     <property key="CommonClear">
         <value xml:lang="ar">محو</value>
@@ -1993,7 +1993,7 @@
         <value xml:lang="hi-IN">कंपनी(Company)</value>
         <value xml:lang="it">Azienda</value>
         <value xml:lang="ja">会社</value>
-        <value xml:lang="nl">Vennootschap</value>
+        <value xml:lang="nl">Onderneming</value>
         <value xml:lang="pt-BR">Companhia</value>
         <value xml:lang="ru">Компания</value>
         <value xml:lang="vi">Công ty</value>
