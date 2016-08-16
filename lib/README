@@ -1,0 +1,6 @@
+Place your custom jar files in here.
+
+If you want to use a public open source library, it is recommended
+that you do not place the library in here. Instead declare it as a
+dependency in your build scripts (build.gradle files) by finding the
+appropriate library in jcenter (https://bintray.com/bintray/jcenter)
