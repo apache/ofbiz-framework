@@ -951,6 +951,10 @@
         <value xml:lang="zh">雇员数量</value>
         <value xml:lang="zh-TW">員工數量</value>
     </property>
+    <property key="MarketingNoPartyLoad">
+        <value xml:lang="en">No party load</value>
+        <value xml:lang="fr">Aucun acteur chargé</value>
+    </property>
     <property key="MarketingOrderAmount">
         <value xml:lang="de">Auftragssumme</value>
         <value xml:lang="en">Amount of Orders</value>
@@ -994,6 +998,14 @@
         <value xml:lang="vi">Chiến dịch cấp quản lý trên</value>
         <value xml:lang="zh">上级攻势标识</value>
         <value xml:lang="zh-TW">上級活動識別</value>
+    </property>
+    <property key="MarketingPartiesLoaded">
+        <value xml:lang="en">Parties Loaded</value>
+        <value xml:lang="fr">Acteurs chargés</value>
+    </property>
+    <property key="MarketingPartiesNoLoadedAlreadyExist">
+        <value xml:lang="en">Parties no loaded because they already exist on the system</value>
+        <value xml:lang="fr">Acteurs non chargés car déjà présent dans le système</value>
     </property>
     <property key="MarketingPartyStatusReport">
         <value xml:lang="de">Statusbericht Akteur</value>
