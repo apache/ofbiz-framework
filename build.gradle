@@ -656,11 +656,17 @@ task copyDtds(group: committerGroup, description: 'Copy all DTDs from OFBiz inst
     }
 }
 
-task gitInfoFooter(group: committerGroup, description: 'Update the Git Branch-revision info in the footer') << {
+task gitInfoFooter(group: committerGroup, description: 'Update the Git Branch-revision info in the footer if Git is used') << {
     def branch
     def revision
     def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
     File gitFooterFile = new File("${rootDir}/runtime/GitInfo.ftl")
+    def gitFolder = new File('.git')
+    
+    if(!gitFolder.exists()) {
+      println ("Git is not used")
+      return
+    }    
 
     def branchOutput = new ByteArrayOutputStream()
     exec{
@@ -682,10 +688,17 @@ task gitInfoFooter(group: committerGroup, description: 'Update the Git Branch-re
     gitFooterFile << "Java Version: ${org.gradle.internal.jvm.Jvm.current()}"
 }
 
-task svnInfoFooter(group: committerGroup, description: 'Update the Subversion revision info in the footer') << {
+task svnInfoFooter(group: committerGroup, description: 'Update the Subversion revision info in the footer if Subversion is used') << {
     def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
     File svnFooterFile = new File("${rootDir}/runtime/SvnInfo.ftl")
     def svnOutput = new ByteArrayOutputStream()
+    def svnFolder = new File('.svn')
+    
+    if(!svnFolder.exists()) {
+      println ("Subversion is not used")
+      return
+    }    
+    
     exec{
         commandLine 'svn', 'info', '--xml'
         standardOutput = svnOutput
