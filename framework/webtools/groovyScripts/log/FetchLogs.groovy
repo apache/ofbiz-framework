@@ -25,13 +25,13 @@ if (!ofbizLogDir.startsWith("/")) {
     ofbizLogDir = System.getProperty("ofbiz.home") + "/" + ofbizLogDir;
 }
 if (!ofbizLogDir.endsWith("/")) {
-    ofbizLogDir.concat("/");
+    ofbizLogDir = ofbizLogDir.concat("/");
 }
 
 File runTimeLogDir = FileUtil.getFile(ofbizLogDir);
 File[] listLogFiles = runTimeLogDir.listFiles();
 String ofbizLogRegExp = UtilProperties.getPropertyValue("debug", "log4j.appender.css.fileNameRegExp", "[(ofbiz)|(error)].*");
-List listLogFileNames = []
+List listLogFileNames = [];
 for (int i = 0; i < listLogFiles.length; i++) {
     if (listLogFiles[i].isFile()) {
         logFileName = listLogFiles[i].getName();
