@@ -99,5 +99,6 @@ under the License.
     <StatusValidChange statusId="LEAD_ASSIGNED" statusIdTo="PARTY_DISABLED" transitionName="Disabled"/>
 
     <EnumerationType enumTypeId="SLSOPP_TYP_ENUM" description="Sales Opportunity Type"/>
-    
+
+    <PartyIdentificationType description="VCard reference origin" partyIdentificationTypeId="VCARD_FN_ORIGIN" parentTypeId=""/>
 </entity-engine-xml>

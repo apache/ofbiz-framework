@@ -517,10 +517,11 @@ under the License.
     <!-- VCard services -->
     <service name="importVCard" engine="java" location="org.apache.ofbiz.sfa.vcard.VCard" invoke="importVCard" transaction-timeout="7200">
         <attribute name="infile" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="OUT" optional="false"/>
         <attribute name="partyType" type="String" mode="IN" optional="true"/>
         <attribute name="serviceContext" type="Map" mode="IN" optional="true"/>
         <attribute name="serviceName" type="String" mode="IN" optional="false"/>
+        <attribute name="partiesCreated" type="List" mode="OUT" optional="false"/>
+        <attribute name="partiesExist" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="exportVCard" engine="java" location="org.apache.ofbiz.sfa.vcard.VCard" invoke="exportVCard">
         <attribute name="partyId" type="String" mode="IN" optional="false"/>

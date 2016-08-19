@@ -131,7 +131,7 @@ under the License.
     <request-map uri="createLeadFromVCard">
         <security https="true" auth="true"/>
         <event type="service" invoke="importVCard"/>
-        <response name="success" type="request" value="viewprofile"/><!-- What would be the view in case a vCard has more than one contact -->
+        <response name="success" type="view" value="ViewPartiesCreatedByVCard"/>
         <response name="error" type="view" value="NewLeadFromVCard"/>
     </request-map>
     <request-map uri="quickAddLead">
@@ -180,7 +180,7 @@ under the License.
     <request-map uri="createContactFromVCard">
         <security https="true" auth="true"/>
         <event type="service" invoke="importVCard"/>
-        <response name="success" type="request" value="viewprofile"/><!-- What would be the view in case a vCard contains more than one contact -->
+        <response name="success" type="view" value="ViewPartiesCreatedByVCard"/>
         <response name="error" type="view" value="NewContactFromVCard"/>
     </request-map>
     <request-map uri="createVCardFromContact">
@@ -276,6 +276,7 @@ under the License.
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#main"/>
     <view-map name="viewprofile" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#ViewProfile"/>
+    <view-map name="ViewPartiesCreatedByVCard" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#ViewPartiesCreatedByVCard"/>
 
     <view-map name="FindSalesOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#FindSalesOpportunity"/>
     <view-map name="ViewSalesOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#ViewSalesOpportunity"/>

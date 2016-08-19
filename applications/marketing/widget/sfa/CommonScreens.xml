@@ -60,7 +60,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <include-portal-page id="${parameters.portalPageId}"/>
                     </decorator-section>
@@ -96,7 +96,7 @@ under the License.
                     </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <decorator-section-include name="body"/>
                     </decorator-section>
@@ -344,6 +344,41 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ViewPartiesCreatedByVCard">
+        <section>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <or>
+                                    <not><if-empty field="parameters.partiesCreated"/></not>
+                                    <not><if-empty field="parameters.partiesExist"/></not>
+                                </or>
+                            </condition>
+                            <actions>
+                                <set field="partiesCreated" from-field="parameters.partiesCreated"/>
+                                <set field="partiesExist" from-field="parameters.partiesExist"/>
+                            </actions>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.MarketingPartiesLoaded}">
+                                    <include-grid name="ViewPartiesCreatedByVCard" location="component://marketing/widget/sfa/forms/CommonForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.MarketingPartiesNoLoadedAlreadyExist}">
+                                    <include-grid name="ViewPartiesExistInVCard" location="component://marketing/widget/sfa/forms/CommonForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <container>
+                                    <label style="h3">${uiLabelMap.MarketingNoPartyLoad}</label>
+                                </container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="CommonCommunicationEventDecorator">
         <section>
             <actions>
@@ -381,7 +416,7 @@ under the License.
                             </decorator-section>
                             <decorator-section name="left-column">
                                 <include-screen name="leftbar"/>
-                            </decorator-section>                    
+                            </decorator-section>
                             <decorator-section name="body">
                                 <include-menu name="OpportunitySubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                 <decorator-section-include name="body"/>
@@ -401,7 +436,7 @@ under the License.
                     </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <include-menu name="AccountSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                         <decorator-section-include name="body"/>
@@ -419,7 +454,7 @@ under the License.
                     </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <include-menu name="ContactSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                         <decorator-section-include name="body"/>
@@ -463,7 +498,7 @@ under the License.
                     </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <include-menu name="EventSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                         <decorator-section-include name="body"/>

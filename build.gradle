@@ -66,6 +66,7 @@ configurations {
 dependencies {
     // general framework compile libs
     compile 'apache-xerces:xercesImpl:2.9.1'
+    compile 'com.googlecode.ez-vcard:ez-vcard:0.9.10'
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.0'
     compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20160628.1'
@@ -770,6 +771,7 @@ def createOfbizCommandTask(taskName, arguments, jvmArguments, isDebugMode) {
         arguments.each { argument ->
             args argument
         }
+
     }
 }
 
