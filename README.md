@@ -1,7 +1,7 @@
-Apache OFBiz
+Apache OFBiz®
 ============
 
-Welcome to __Apache OFBiz__! A powerful top level Apache software project.
+Welcome to __Apache OFBiz®__! A powerful top level Apache software project.
 OFBiz is an Enterprise Resource Planning (ERP) System written in Java and
 houses a large set of libraries, entities, services and features to run 
 all aspects of your business.
@@ -21,9 +21,10 @@ you can download from the below link.
 
 [JDK download](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
->_Note_: if you are using eclipse, make sure of running the appropriate eclipse
-command `gradlew eclipse`. This command will prepare OFBiz for eclipse with
-the correct classpath and settings.
+>_Note_: if you are using Eclipse, make sure of running the appropriate Eclipse
+command `gradlew eclipse` before creating the project in Eclipse.
+This command will prepare OFBiz for Eclipse with the correct classpath and settings 
+by creating the.classpath and .project files.
 
 Quick start
 -----------
@@ -63,7 +64,7 @@ You can log in with the user __admin__ and password __ofbiz__.
 
 >_Note_: the default configuration uses an embedded Java database
 (Apache Derby) and embedded application server components such as
-Tomcat, Geronimo (transaction manager), etc.
+Apache Tomcat®, Apache Geronimo (transaction manager), etc.
 
 * * * * * * * * * * * *
 
@@ -259,8 +260,13 @@ Example:
 
 #### Load default OFBiz data
 
-Load default data; meant for generic OFBiz development, 
-testing, demonstration, etc purposes
+Loads default data set; meant for initial loading of generic OFBiz data. 
+Can be applied for development, testing, demonstration, etc. purposes. 
+Be aware that executing this task can result in your data being overwritten in your database of choice. 
+Use with caution in production environments. 
+The default data set is defined by datasource using the read-data attribute, 
+followed by the name of the data set, into the datasource element of the 'entityengine.xml' file.
+
 
 `gradlew loadDefault`
 
