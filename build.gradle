@@ -434,11 +434,6 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
     }
 }
 
-task copyToExternalRuntimeLibs(group: ofbizServer, type: Copy, description: 'Copy runtime libs. To be possibly used in a QA, UAT or production environment') {
-    into "$rootDir/externalRuntimeLibs"
-    from configurations.runtime
-}
-
 // ========== System Administration tasks ==========
 task createComponent(group: sysadminGroup, description: 'Create the layout of an OFBiz component in the hot-deploy folder.') << {
 
