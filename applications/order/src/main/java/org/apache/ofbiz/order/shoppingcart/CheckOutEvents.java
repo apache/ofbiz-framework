@@ -42,7 +42,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.marketing.tracking.TrackingCodeEvents;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.order.order.OrderReadHelper;
 import org.apache.ofbiz.party.party.PartyWorker;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
@@ -52,6 +52,7 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.stats.VisitHandler;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
+
 
 /**
  * Events used for processing checkout and orders.
@@ -438,15 +439,28 @@ public class CheckOutEvents {
         session.removeAttribute("_QUICK_REORDER_PRODUCTS_");
 
         boolean areOrderItemsExploded = explodeOrderItems(delegator, cart);
-
-        //get the TrackingCodeOrder List
-        List<GenericValue> trackingCodeOrders = TrackingCodeEvents.makeTrackingCodeOrders(request);
+        
+      //get the TrackingCodeOrder List
+        String trackingEnabled = EntityUtilProperties.getPropertyValue("order","marketing.tracking.enable", delegator);
+        Map<String, Object> trackingCodeOrders = new HashMap<String, Object>();
+        if (trackingEnabled != null && trackingEnabled == "Y") {
+            //get the TrackingCodeOrder List
+            Map<String, Object> inMap = new HashMap<String, Object>();
+            inMap.put("request", request);
+            try {
+                trackingCodeOrders = dispatcher.runSync("makeTrackingCodeOrder",inMap);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+            }
+        }
+        
         String distributorId = (String) session.getAttribute("_DISTRIBUTOR_ID_");
         String affiliateId = (String) session.getAttribute("_AFFILIATE_ID_");
         String visitId = VisitHandler.getVisitId(session);
         String webSiteId = WebSiteWorker.getWebSiteId(request);
+        List<GenericValue> trackingCodeOrdersList = UtilGenerics.checkList(new ArrayList<GenericValue>());
 
-        callResult = checkOutHelper.createOrder(userLogin, distributorId, affiliateId, trackingCodeOrders, areOrderItemsExploded, visitId, webSiteId);
+        callResult = checkOutHelper.createOrder(userLogin, distributorId, affiliateId, trackingCodeOrdersList, areOrderItemsExploded, visitId, webSiteId);
         if (callResult != null) {
             ServiceUtil.getMessages(request, callResult, null);
             if (ServiceUtil.isError(callResult)) {

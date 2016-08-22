@@ -559,7 +559,7 @@ public class CheckOutHelper {
 
     // Create order event - uses createOrder service for processing
     public Map<String, Object> createOrder(GenericValue userLogin, String distributorId, String affiliateId,
-            List<GenericValue> trackingCodeOrders, boolean areOrderItemsExploded, String visitId, String webSiteId) {
+            List<GenericValue> trackingCodeOrdersList, boolean areOrderItemsExploded, String visitId, String webSiteId) {
         if (this.cart == null) {
             return null;
         }
@@ -575,7 +575,7 @@ public class CheckOutHelper {
         Map<String, Object> context = this.cart.makeCartMap(this.dispatcher, areOrderItemsExploded);
 
         //get the TrackingCodeOrder List
-        context.put("trackingCodeOrders", trackingCodeOrders);
+        context.put("trackingCodeOrders", trackingCodeOrdersList);
 
         if (distributorId != null) context.put("distributorId", distributorId);
         if (affiliateId != null) context.put("affiliateId", affiliateId);
