@@ -31,14 +31,14 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.webapp.stats.VisitHandler;
+import org.apache.ofbiz.webapp.website.WebSiteWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.product.category.CategoryWorker;
-import org.apache.ofbiz.webapp.stats.VisitHandler;
-import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * Events used for maintaining TrackingCode related information
@@ -285,7 +285,7 @@ public class TrackingCodeEvents {
         String prodCatalogId = trackingCode.getString("prodCatalogId");
         if (UtilValidate.isNotEmpty(prodCatalogId)) {
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
-            CategoryWorker.setTrail(request, new LinkedList<String>());
+            CategoryWorker.setTrail(request, new LinkedList());
         }
 
         // if forward/redirect is needed, do a response.sendRedirect and return null to tell the control servlet to not do any other requests/views

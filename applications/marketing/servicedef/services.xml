@@ -419,12 +419,6 @@ under the License.
         <attribute type="String" mode="IN" name="returnId" optional="false"/>
     </service>
 
-    <service name="makeTrackingCodeOrders" engine="java" location="org.apache.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="makeTrackingCodeOrders" auth="true">
-        <description>Makes a list of TrackingCodeOrder entities to be attached to the current order</description>
-        <attribute name="request" mode="IN" type="javax.servlet.http.HttpServletRequest"/>
-        <attribute name="trackingCodeOrders" type="List" mode="OUT" optional="false"/>
-    </service>
-
     <!-- marketing permission service -->
     <service name="marketingPermissionService" engine="simple"
              location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
