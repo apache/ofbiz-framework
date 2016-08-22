@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
@@ -293,6 +294,8 @@ public class FindServices {
     public static EntityCondition createSingleCondition(ModelField modelField, String operation, Object fieldValue, boolean ignoreCase, Delegator delegator, Map<String, ?> context) {
         EntityCondition cond = null;
         String fieldName = modelField.getName();
+        Locale locale = (Locale) context.get("locale");
+        TimeZone timeZone = (TimeZone) context.get("timeZone");
         EntityComparisonOperator<?, ?> fieldOp = null;
         if (operation != null) {
             if (operation.equals("contains")) {
@@ -317,13 +320,13 @@ public class FindServices {
                 fieldOp = EntityOperator.LESS_THAN_EQUAL_TO;
             } else if (operation.equals("greaterThanFromDayStart")) {
                 String timeStampString = (String) fieldValue;
-                Object startValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 0), delegator, context);
+                Object startValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 0, timeZone, locale), delegator, context);
                 return EntityCondition.makeCondition(fieldName, EntityOperator.GREATER_THAN_EQUAL_TO, startValue);
             } else if (operation.equals("sameDay")) {
                 String timeStampString = (String) fieldValue;
-                Object startValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 0), delegator, context);
+                Object startValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 0, timeZone, locale), delegator, context);
                 EntityCondition startCond = EntityCondition.makeCondition(fieldName, EntityOperator.GREATER_THAN_EQUAL_TO, startValue);
-                Object endValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 1), delegator, context);
+                Object endValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 1, timeZone, locale), delegator, context);
                 EntityCondition endCond = EntityCondition.makeCondition(fieldName, EntityOperator.LESS_THAN, endValue);
                 return EntityCondition.makeCondition(startCond, endCond);
             } else {
@@ -658,7 +661,7 @@ public class FindServices {
         return results;
     }
 
-    private static String dayStart(String timeStampString, int daysLater) {
+    private static String dayStart(String timeStampString, int daysLater, TimeZone timeZone, Locale locale) {
         String retValue = null;
         Timestamp ts = null;
         Timestamp startTs = null;
@@ -672,7 +675,7 @@ public class FindServices {
                 return retValue;
             }
         }
-        startTs = UtilDateTime.getDayStart(ts, daysLater);
+        startTs = UtilDateTime.getDayStart(ts, daysLater, timeZone, locale);
         retValue = startTs.toString();
         return retValue;
     }
