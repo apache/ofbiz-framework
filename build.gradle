@@ -355,9 +355,6 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
         if(!project.hasProperty('tenantId')) {
             throw new GradleException('Project property tenantId is missing')
         }
-        if(!project.hasProperty('tenantName')) {
-            throw new GradleException('Project property tenantName is missing')
-        }
         // dbPlatform values: D(Derby), M(MySQL), O(Oracle), P(PostgreSQL) (default D)
         if(project.hasProperty('dbPlatform')) {
             if(dbPlatform == 'D') {
@@ -376,7 +373,7 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
     task generateDatabaseTemplateFile(dependsOn: prepareAndValidateTenantArguments) << {
         def filterTokens = ['tenantId': tenantId,
-            'tenantName': tenantName,
+            'tenantName': project.hasProperty('tenantName')? "${tenantName}":"tenantId",
             'domainName': project.hasProperty('domainName')? "${domainName}":'org.apache.ofbiz',
             'db-IP': project.hasProperty('dbIp')? "${dbIp}":'',
             'db-User': project.hasProperty('dbUser')? "${dbUser}":'',
@@ -436,6 +433,16 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
 // ========== System Administration tasks ==========
 task createComponent(group: sysadminGroup, description: 'Create the layout of an OFBiz component in the hot-deploy folder.') << {
+
+    if(!project.hasProperty('componentResourceName')) {
+        ext.componentResourceName = componentName
+    }
+    if(!project.hasProperty('webappName')) {
+        ext.webappName = componentName
+    }
+    if(!project.hasProperty('basePermission')) {
+        ext.basePermission = componentName.toUpperCase()
+    }
 
     def filterTokens = ['component-name': componentName,
         'component-resource-name': componentResourceName,
