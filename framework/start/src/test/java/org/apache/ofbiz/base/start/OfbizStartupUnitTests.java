@@ -68,23 +68,4 @@ public class OfbizStartupUnitTests {
         assertThat(startupCommands.size(), equalTo(1));
         assertThat(startupCommands.get(0).getProperties().size(), equalTo(3));
     }
-
-    @Test
-    public void adminClientReturnsTheCorrectMessageIfServerIsDownOnStatus() throws StartupException {
-        Config config = sendRequestToAdminClient("--status");
-
-        assertThat(AdminClient.requestStatus(config), equalTo("OFBiz is Down"));
-    }
-
-    @Test
-    public void adminClientReturnsTheCorrectMessageIfServerIsDownOnShutdown() throws StartupException {
-        Config config = sendRequestToAdminClient("--shutdown");
-
-        assertThat(AdminClient.requestShutdown(config), equalTo("OFBiz is Down"));
-    }
-
-    private Config sendRequestToAdminClient(String request) throws StartupException {
-        List<StartupCommand> startupCommands = StartupCommandUtil.parseOfbizCommands(new String[]{request});
-        return new Config(startupCommands);
-    }
 }
