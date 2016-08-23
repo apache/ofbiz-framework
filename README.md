@@ -312,7 +312,7 @@ initial data with admin-user and password (needs multitenant=Y in
 general.properties). The following project parameters are passed:
 
 - tenantId: mandatory
-- tenantName: mandatory, name of the tenant
+- tenantName: optional, default is value of tenantId
 - domainName: optional, default is org.apache.ofbiz
 - tenantReaders: optional, default value is seed,seed-initial,demo
 - dbPlatform: optional, D(Derby), M(MySQL), O(Oracle), P(PostgreSQL) (default D) 
@@ -320,7 +320,7 @@ general.properties). The following project parameters are passed:
 - dbUser: optional, username of the database
 - dbPassword: optional, password of the database
 
-`gradlew createTenant -PtenantId=mytenant -PtenantName="My Name"`
+`gradlew createTenant -PtenantId=mytenant`
 
 `gradlew createTenant -PtenantId=mytenant -PtenantName="My Name" -PdomainName=com.example -PtenantReaders=seed,seed-initial,ext -PdbPlatform=M -PdbIp=127.0.0.1 -PdbUser=mydbuser -PdbPassword=mydbpass`
 
@@ -412,7 +412,16 @@ in a list of favorites for frequent reuse.
 
 #### Create a custom component in hot-deploy
 
-`gradlew createComponent -PcomponentName=Custom -PcomponentResourceName=Custom -PwebappName=customweb -PbasePermission=OFBTOOLS,CUSTOM_SECURITY`
+Create a new custom component. The following project parameters are passed:
+
+- componentName: mandatory
+- componentResourceName: optional, default is the value of componentName
+- webappName: optional, default is the value of componentName
+- basePermission: optional, default is the UPPERCASE value of componentName
+
+`gradlew createComponent -PcomponentName=Custom`
+
+`gradlew createComponent -PcomponentName=Custom -PcomponentResourceName=Custom -PwebappName=customweb -PbasePermission=MYSECURITY`
 
 #### Create an admin user account
 
