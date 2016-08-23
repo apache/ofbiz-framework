@@ -373,7 +373,7 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
     task generateDatabaseTemplateFile(dependsOn: prepareAndValidateTenantArguments) << {
         def filterTokens = ['tenantId': tenantId,
-            'tenantName': project.hasProperty('tenantName')? "${tenantName}":"tenantId",
+            'tenantName': project.hasProperty('tenantName')? "${tenantName}":tenantId,
             'domainName': project.hasProperty('domainName')? "${domainName}":'org.apache.ofbiz',
             'db-IP': project.hasProperty('dbIp')? "${dbIp}":'',
             'db-User': project.hasProperty('dbUser')? "${dbUser}":'',
