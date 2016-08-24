@@ -922,10 +922,6 @@ form .basic-table,
     text-shadow: #fff 0 1px 1px; /* Setting must be in px */
     /*text-transform:uppercase;*/
     width: auto;
-
-    /* IE7 */
-    *padding-top: 0.2em;
-    *padding-bottom: 0;
 }
 
 .basic-table .collapsed {
@@ -1512,16 +1508,6 @@ input[type="button"] {
     text-shadow: #fff 0 1px 1px; /* Setting must be in px */
     /*text-transform:uppercase;*/
     width: auto;
-
-    /* IE7 */
-    *padding-top: 0.2em;
-    *padding-bottom: 0;
-}
-
-button {
-    /* IE7 */
-    *padding-top: 0.1em;
-    *padding-bottom: 0.1em;
 }
 
 a.disabled,
@@ -1563,11 +1549,6 @@ input[type="week"] {
     padding: 0.2em 0.3em;
 
     height: 1.8em;
-
-    /* IE7 */
-    *padding-top: 0.2em;
-    *padding-bottom: 0.1em;
-    *height: auto;
 }
 
 /*
