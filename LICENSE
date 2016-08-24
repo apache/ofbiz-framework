@@ -10,117 +10,117 @@ OFBiz and the full text of the license used for each.
 For additional details, see the NOTICE file.
 =========================================================================
 The following libraries are licensed under the Apache License Version 2.0:
-framework/base/lib/ant-1.9.0-ant-launcher.jar
-framework/base/lib/ant-1.9.0-ant.jar
-framework/base/lib/ant-1.9.0-ant-junit.jar
-framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar
-framework/base/lib/avalon-framework-4.2.0.jar
-framework/base/lib/batik-all-1.8.jar
-framework/base/lib/barcode4j-2.1-barcode4j-fop-ext-complete.jar
-framework/base/lib/clhm-release-1.0-lru.jar
-framework/base/lib/fontbox-1.8.11.jar
-framework/base/lib/freemarker-2.3.24.jar
-framework/base/lib/guava-14.0.1.jar
-framework/base/lib/httpclient-4.3.6.jar
-framework/base/lib/httpclient-cache-4.3.6.jar
-framework/base/lib/httpcore-4.3.3.jar
-framework/base/lib/ivy-2.2.0.jar
-framework/base/lib/jackson-annotations-2.4.0.jar
-framework/base/lib/jackson-core-2.4.2.jar
-framework/base/lib/jackson-databind-2.4.2.jar
-framework/base/lib/jakarta-regexp-1.5.jar
-framework/base/lib/jempbox-1.8.11.jar
-framework/base/lib/jpim-0.1.jar
-framework/base/lib/juel-impl-2.2.7.jar
-framework/base/lib/juel-spi-2.2.7.jar
-framework/base/lib/log4j-1.2-api-2.3.jar
-framework/base/lib/log4j-api-2.3.jar
-framework/base/lib/log4j-core-2.3.jar
-framework/base/lib/log4j-nosql-2.3.jar
-framework/base/lib/log4j-slf4j-impl-2.3.jar
-framework/base/lib/nekohtml-1.9.16.jar
-framework/base/lib/pdfbox-1.8.12.jar
-framework/base/lib/resolver-2.9.1.jar
-framework/base/lib/serializer-2.9.1.jar
-framework/base/lib/shiro-core-1.2.5.jar
-framework/base/lib/tika-core-1.12.jar
-framework/base/lib/tika-parsers-1.12.jar
-framework/base/lib/ws-commons-java5-1.0.1.jar
-framework/base/lib/ws-commons-util-1.0.2.jar
-framework/base/lib/xercesImpl-2.9.1.jar
-framework/base/lib/xml-apis-2.9.1.jar
-framework/base/lib/xml-apis-ext-1.3.04.jar
-framework/base/lib/zxing-core-3.2.0.jar
-framework/base/lib/commons/commons-beanutils-core-1.8.3.jar
-framework/base/lib/commons/commons-codec-1.10.jar
-framework/base/lib/commons/commons-collections4-4.1.jar
-framework/base/lib/commons/commons-compress-1.11.jar
-framework/base/lib/commons/commons-csv-1.1.jar
-framework/base/lib/commons/commons-el-1.0.jar
-framework/base/lib/commons/commons-fileupload-1.3.1.jar
-framework/base/lib/commons/commons-io-2.4.jar
-framework/base/lib/commons/commons-lang-2.6.jar
-framework/base/lib/commons/commons-logging-1.2.jar
-framework/base/lib/commons/commons-net-3.3.jar
-framework/base/lib/commons/commons-pool2-2.3.jar
-framework/base/lib/commons/commons-validator-1.4.1.jar
-framework/base/lib/j2eespecs/geronimo-activation_1.0.2_spec-1.0.jar
-framework/base/lib/j2eespecs/geronimo-j2ee-connector_1.5_spec-2.0.0.jar
-framework/base/lib/j2eespecs/geronimo-jaxr_1.0_spec-1.0.jar
-framework/base/lib/j2eespecs/geronimo-jaxrpc_1.1_spec-1.0.jar
-framework/base/lib/j2eespecs/geronimo-jms_1.1_spec-1.1.1.jar
-framework/base/lib/j2eespecs/geronimo-jta_1.1_spec-1.1.1.jar
-framework/base/lib/j2eespecs/geronimo-saaj_1.3_spec-1.1.jar
-framework/base/lib/j2eespecs/annotations-api-3.0.jar
-framework/base/lib/j2eespecs/el-api-3.0.jar
-framework/base/lib/j2eespecs/jsp-api-2.3.jar
-framework/base/lib/j2eespecs/servlet-api-3.1.jar
-framework/base/lib/owasp-java-html-sanitizer-r239.jar
-framework/base/lib/scripting/bsf-2.4.0.jar
-framework/base/lib/scripting/jakarta-oro-2.0.8.jar
-framework/base/lib/scripting/groovy-all-2.4.5.jar
-framework/base/lib/scripting/jansi-1.2.1.jar
-framework/base/lib/xmlrpc-client-3.1.2.jar
-framework/base/lib/xmlrpc-common-3.1.2.jar
-framework/base/lib/xmlrpc-server-3.1.2.jar
-framework/catalina/lib/tomcat-8.0.36-catalina-ha.jar
-framework/catalina/lib/tomcat-8.0.36-catalina-tribes.jar
-framework/catalina/lib/tomcat-8.0.36-catalina.jar
-framework/catalina/lib/tomcat-8.0.36-jasper.jar
-framework/catalina/lib/tomcat-8.0.36-tomcat-api.jar
-framework/catalina/lib/tomcat-8.0.36-tomcat-coyote.jar
-framework/catalina/lib/tomcat-8.0.36-tomcat-jni.jar
-framework/catalina/lib/tomcat-8.0.36-tomcat-util-scan.jar
-framework/catalina/lib/tomcat-8.0.36-tomcat-util.jar
-framework/catalina/lib/tomcat-extras-8.0.36-tomcat-juli.jar
-framework/catalina/lib/tomcat-extras-8.0.36-tomcat-juli-adapters.jar
-framework/catalina/lib/tomcat-embed-websocket-8.0.36.jar
-framework/entity/lib/commons-dbcp2-2.1.jar
-framework/entity/lib/jdbc/derby-10.11.1.1.jar
-framework/geronimo/lib/geronimo-transaction-3.1.1.jar
+ant-1.9.0-ant-launcher.jar
+ant-1.9.0-ant.jar
+ant-1.9.0-ant-junit.jar
+ant-1.9.0-ant-apache-bsf.jar
+avalon-framework-4.2.0.jar
+batik-all-1.8.jar
+barcode4j-2.1-barcode4j-fop-ext-complete.jar
+clhm-release-1.0-lru.jar
+fontbox-1.8.11.jar
+freemarker-2.3.24.jar
+guava-14.0.1.jar
+httpclient-4.3.6.jar
+httpclient-cache-4.3.6.jar
+httpcore-4.3.3.jar
+ivy-2.2.0.jar
+jackson-annotations-2.4.0.jar
+jackson-core-2.4.2.jar
+jackson-databind-2.4.2.jar
+jakarta-regexp-1.5.jar
+jempbox-1.8.11.jar
+jpim-0.1.jar
+juel-impl-2.2.7.jar
+juel-spi-2.2.7.jar
+log4j-1.2-api-2.3.jar
+log4j-api-2.3.jar
+log4j-core-2.3.jar
+log4j-nosql-2.3.jar
+log4j-slf4j-impl-2.3.jar
+nekohtml-1.9.16.jar
+pdfbox-1.8.12.jar
+resolver-2.9.1.jar
+serializer-2.9.1.jar
+shiro-core-1.2.5.jar
+tika-core-1.12.jar
+tika-parsers-1.12.jar
+ws-commons-java5-1.0.1.jar
+ws-commons-util-1.0.2.jar
+xercesImpl-2.9.1.jar
+xml-apis-2.9.1.jar
+xml-apis-ext-1.3.04.jar
+zxing-core-3.2.0.jar
+commons-beanutils-core-1.8.3.jar
+commons-codec-1.10.jar
+commons-collections4-4.1.jar
+commons-compress-1.11.jar
+commons-csv-1.1.jar
+commons-el-1.0.jar
+commons-fileupload-1.3.1.jar
+commons-io-2.4.jar
+commons-lang-2.6.jar
+commons-logging-1.2.jar
+commons-net-3.3.jar
+commons-pool2-2.3.jar
+commons-validator-1.4.1.jar
+geronimo-activation_1.0.2_spec-1.0.jar
+geronimo-j2ee-connector_1.5_spec-2.0.0.jar
+geronimo-jaxr_1.0_spec-1.0.jar
+geronimo-jaxrpc_1.1_spec-1.0.jar
+geronimo-jms_1.1_spec-1.1.1.jar
+geronimo-jta_1.1_spec-1.1.1.jar
+geronimo-saaj_1.3_spec-1.1.jar
+annotations-api-3.0.jar
+el-api-3.0.jar
+jsp-api-2.3.jar
+servlet-api-3.1.jar
+owasp-java-html-sanitizer-r239.jar
+bsf-2.4.0.jar
+jakarta-oro-2.0.8.jar
+groovy-all-2.4.5.jar
+jansi-1.2.1.jar
+xmlrpc-client-3.1.2.jar
+xmlrpc-common-3.1.2.jar
+xmlrpc-server-3.1.2.jar
+tomcat-8.0.36-catalina-ha.jar
+tomcat-8.0.36-catalina-tribes.jar
+tomcat-8.0.36-catalina.jar
+tomcat-8.0.36-jasper.jar
+tomcat-8.0.36-tomcat-api.jar
+tomcat-8.0.36-tomcat-coyote.jar
+tomcat-8.0.36-tomcat-jni.jar
+tomcat-8.0.36-tomcat-util-scan.jar
+tomcat-8.0.36-tomcat-util.jar
+tomcat-extras-8.0.36-tomcat-juli.jar
+tomcat-extras-8.0.36-tomcat-juli-adapters.jar
+tomcat-embed-websocket-8.0.36.jar
+commons-dbcp2-2.1.jar
+derby-10.11.1.1.jar
+geronimo-transaction-3.1.1.jar
 framework/images/webapp/images/date/timezones*
 framework/resources/fonts/NotoSans/*
-framework/service/lib/axiom-api-1.2.17.jar
-framework/service/lib/axiom-impl-1.2.17.jar
-framework/service/lib/axis2-kernel-1.7.1.jar
-framework/service/lib/axis2-transport-http-1.7.1.jar
-framework/service/lib/axis2-transport-local-1.7.3.jar1
-framework/service/lib/neethi-3.0.3.jar
-framework/service/lib/woden-core-1.0M10.jar
-framework/service/lib/xmlschema-core-2.2.1.jar
-framework/start/lib/commons-cli-1.3.1.jar
-framework/testtools/lib/spring-core-4.2.3.jar
-framework/testtools/lib/spring-test-4.2.3.jar
-framework/webapp/lib/fop-2.1.jar
-framework/webapp/lib/xmlgraphics-commons-2.1.jar
-framework/webapp/lib/ezmorph-0.9.1.jar
-framework/webapp/lib/rome-0.9.jar
-framework/webapp/lib/serializer-2.7.0.jar
-framework/webapp/lib/xalan-2.7.1.jar
-applications/content/lib/poi-3.13-20150929.jar
-applications/product/lib/dozer-4.2.1.jar
+axiom-api-1.2.17.jar
+axiom-impl-1.2.17.jar
+axis2-kernel-1.7.1.jar
+axis2-transport-http-1.7.1.jar
+axis2-transport-local-1.7.3.jar1
+neethi-3.0.3.jar
+woden-core-1.0M10.jar
+xmlschema-core-2.2.1.jar
+commons-cli-1.3.1.jar
+spring-core-4.2.3.jar
+spring-test-4.2.3.jar
+fop-2.1.jar
+xmlgraphics-commons-2.1.jar
+ezmorph-0.9.1.jar
+rome-0.9.jar
+serializer-2.7.0.jar
+xalan-2.7.1.jar
+poi-3.13-20150929.jar
+dozer-4.2.1.jar
 tools/security/notsoserial/notsoserial-1.0-SNAPSHOT.jar
-specialpurpose/passport/lib/commons-httpclient-3.1.jar
+commons-httpclient-3.1.jar
 
 =========================================================================
                                  Apache License
@@ -332,65 +332,8 @@ specialpurpose/passport/lib/commons-httpclient-3.1.jar
 
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
-Apache Software License:
-framework/base/lib/ant/ant-contrib-1.0b3.jar
-=========================================================================
-Apache Software License
-
-Version 1.1
-
-Copyright (c) 2000 The Apache Software Foundation. All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-this list of conditions and the following disclaimer in the documentation
-and/or other materials provided with the distribution.
-
-3. The end-user documentation included with the redistribution, if any, must
-include the following acknowledgment:
-
-"This product includes software developed by the Apache Software Foundation
-(http://www.apache.org/)."
-
-Alternately, this acknowledgment may appear in the software itself, if and
-wherever such third-party acknowledgments normally appear.
-
-4. The names "Apache" and "Apache Software Foundation" must not be used to
-endorse or promote products derived from this software without prior written
-permission. For written permission, please contact apache@apache.org.
-
-5. Products derived from this software may not be called "Apache", nor may
-"Apache" appear in their name, without prior written permission of the Apache
-Software Foundation.
-
-THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESSED OR IMPLIED WARRANTIES,
-INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
-FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE APACHE
-SOFTWARE FOUNDATION OR ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
-EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-This software consists of voluntary contributions made by many individuals on
-behalf of the Apache Software Foundation. For more information on the Apache
-Software Foundation, please see <http://www.apache.org/>.
-
-Portions of this software are based upon public domain software originally
-written at the National Center for Supercomputing Applications, University of
-Illinois, Urbana-Champaign.
-
-=========================================================================
-The following libraries distributed with Apache OFBiz are licensed under the
 JDOM (Modified Apache)  License:
-framework/webapp/lib/jdom-1.1.jar
+jdom-1.1.jar
 =========================================================================
 The JDOM License
  Copyright (C) 2000-2004 Jason Hunter & Brett McLaughlin.
@@ -446,15 +389,15 @@ The JDOM License
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 BSD License:
-applications/content/lib/dom4j-1.6.1.jar
-framework/base/lib/hamcrest-all-1.2.jar
-framework/base/lib/httpunit-1.7.jar
-framework/base/lib/ical4j-1.0-rc2.jar
-framework/base/lib/javolution-5.4.3.jar
-framework/base/lib/jce-jdk13-154.jar
-framework/base/lib/xpp3-1.1.4c.jar
-framework/base/lib/xstream-1.4.9.jar
-framework/base/lib/esapi-2.1.0.jar
+dom4j-1.6.1.jar
+hamcrest-all-1.2.jar
+httpunit-1.7.jar
+ical4j-1.0-rc2.jar
+javolution-5.4.3.jar
+jce-jdk13-154.jar
+xpp3-1.1.4c.jar
+xstream-1.4.9.jar
+esapi-2.1.0.jar
 
 =========================================================================
 The BSD License
@@ -511,7 +454,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Mozilla Public License Version 1.1:
-framework/webapp/lib/iText-2.1.7.jar
+iText-2.1.7.jar
 =========================================================================
                           MOZILLA PUBLIC LICENSE
                                 Version 1.1
@@ -986,8 +929,8 @@ EXHIBIT A -Mozilla Public License.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Common Public License:
-framework/service/lib/wsdl4j-1.6.2.jar
-framework/base/lib/junit-dep-4.10.jar
+wsdl4j-1.6.2.jar
+junit-dep-4.10.jar
 =========================================================================
 Common Public License Version 1.0
 
@@ -1206,9 +1149,9 @@ any resulting litigation.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 MIT/X License:
-framework/base/lib/icu4j-57_1.jar
-framework/base/lib/jcl-over-slf4j-1.6.4.jar
-framework/base/lib/slf4j-api-1.6.4.jar
+icu4j-57_1.jar
+jcl-over-slf4j-1.6.4.jar
+slf4j-api-1.6.4.jar
 framework/images/webapp/images/jquery/*
 framework/images/webapp/images/date/date.format-1.2.3*.js
 =========================================================================
@@ -1236,7 +1179,7 @@ THE SOFTWARE.
 
 =========================================================================
 The Jython library is licensed under the BeOpen/CNRI as follows.
-framework/base/lib/scripting/jython-nooro.jar
+jython-nooro.jar
 =========================================================================
 Jython changes Software License.
 =========================================================================
@@ -1361,8 +1304,8 @@ JPython version 1.1.x
 =========================================================================
 The following library distributed with Apache OFBiz is licensed under the
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL):
-framework/base/lib/juel-2.1.1.jar (contains the javax.el package)
-framework/base/lib/mail-1.5.1.jar
+juel-2.1.1.jar (contains the javax.el package)
+mail-1.5.1.jar
 =========================================================================
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0 1.
 
@@ -1654,7 +1597,7 @@ of California, with venue lying in Santa Clara County, California.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Eclipse Public License - v 1.0:
-framework/catalina/lib/ecj-4.5.jar
+ecj-4.5.jar
 =========================================================================
 Eclipse Public License - v 1.0
 
