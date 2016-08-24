@@ -1099,6 +1099,12 @@ textarea {
     vertical-align: middle;
 }
 
+button {
+    /* IE7 */
+    *padding-top: 0.1em;
+    *padding-bottom: 0.1em;
+}
+
 a.disabled,
 button[disabled],
 input[type="reset"][disabled],
@@ -1138,6 +1144,11 @@ input[type="week"] {
     padding: 0.2em 0.3em;
 
     height: 1.8em;
+
+    /* IE7 */
+    *padding-top: 0.2em;
+    *padding-bottom: 0.1em;
+    *height: auto;
 }
 
 /*
