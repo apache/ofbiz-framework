@@ -1593,7 +1593,7 @@
         <value xml:lang="hi-IN">परिसंपत्तियां/संपत्ति</value>
         <value xml:lang="it">Cespiti</value>
         <value xml:lang="ja">資産</value>
-        <value xml:lang="nl">Activa</value>
+        <value xml:lang="nl">Bezittingen</value>
         <value xml:lang="pt">Ativos</value>
         <value xml:lang="ro">Bunuri(Mijloace)</value>
         <value xml:lang="ru">Актив</value>
@@ -1988,6 +1988,7 @@
         <value xml:lang="fr">Relevé d'identité bancaire</value>
         <value xml:lang="hi-IN">बैन्क खाता</value>
         <value xml:lang="ja">銀行アカウント</value>
+        <value xml:lang="nl">Bankrekening</value>
         <value xml:lang="pt">Conta Bancária</value>
         <value xml:lang="vi">Tài khoản ngân hàng</value>
         <value xml:lang="zh">银行账户</value>
@@ -2019,6 +2020,7 @@
         <value xml:lang="en">Bank Name is missing</value>
         <value xml:lang="fr">Nom de la banque manquant</value>
         <value xml:lang="ja">銀行名が正しくありません</value>
+        <value xml:lang="nl">Naam bank ontbreekt</value>
         <value xml:lang="pt">Nome do banco está vazio</value>
         <value xml:lang="vi">Tên ngân hàng chưa có</value>
         <value xml:lang="zh">缺少银行名称</value>
@@ -2031,6 +2033,7 @@
         <value xml:lang="fr">Rapprochement bancaire</value>
         <value xml:lang="hi-IN">बैन्क पुनर्मिलान</value>
         <value xml:lang="ja">銀行残高照合</value>
+        <value xml:lang="nl">Bank overeenstemming</value>
         <value xml:lang="pt">Reconciliação com o Banco</value>
         <value xml:lang="vi">Ngân hàng Đối ứng</value>
         <value xml:lang="zh">银行对账</value>
@@ -2662,6 +2665,7 @@
         <value xml:lang="fr">Annuler le rapprochement bancaire</value>
         <value xml:lang="hi-IN">बैन्क पुनर्मिलान रद्द करें</value>
         <value xml:lang="ja">銀行残高照合を取消</value>
+        <value xml:lang="nl">Annuleer bank overeenstemming</value>
         <value xml:lang="pt">Cancelar reconciliação de banco</value>
         <value xml:lang="vi">Hủy Đối ứng ngân hàng</value>
         <value xml:lang="zh">取消银行对账</value>
@@ -2674,6 +2678,7 @@
         <value xml:lang="fr">Annuler le service en tâche de fond de paiement</value>
         <value xml:lang="hi-IN">भुगतान का  बैच रद्द करे</value>
         <value xml:lang="ja">バッチ支払を取消</value>
+        <value xml:lang="nl">Annuleer bath-betaling</value>
         <value xml:lang="pt">Cancelar Lote de Pagamentos</value>
         <value xml:lang="vi">Hủy lô thanh toán</value>
         <value xml:lang="zh">取消批量支付</value>
@@ -2686,6 +2691,7 @@
         <value xml:lang="fr">Impossible d'annuler le service de paiement [${paymentGroupId}], il est associé au rapprochement comptable [${glReconciliationId}]</value>
         <value xml:lang="hi-IN">बैच भुगतान [${paymentGroupId}], glReconciliation [${glReconciliationId}] से जुड़ा है , इसे रद्द नहीं कर सकते |</value>
         <value xml:lang="ja">バッチ支払 [${paymentGroupId}] の取消はできません、GL残高照合 [${glReconciliationId}] に関連付けされています</value>
+        <value xml:lang="nl">Kan Batch betaling [${paymentGroupId}] niet annuleren, is gekoppeld aan glReconciliation [${glReconciliationId}]</value>
         <value xml:lang="pt">Não é possível cancelar pagamento em lote [$ {paymentGroupId}], está associada a glReconciliation [$ {glReconciliationId}]</value>
         <value xml:lang="vi">Hủy lô thanh toán [${paymentGroupId}], hiện đang liên quan tới Đối ứng sổ cái [${glReconciliationId}]</value>
         <value xml:lang="zh">无法取消批量支付 [${paymentGroupId}]，它被关联到了总账对账 [${glReconciliationId}]</value>
@@ -2698,6 +2704,7 @@
         <value xml:lang="fr">Annuler le traitement du chèque</value>
         <value xml:lang="hi-IN">चेक/हुंडी रद्द करे</value>
         <value xml:lang="ja">確認実行を取消</value>
+        <value xml:lang="nl">Annuleer cheque-run</value>
         <value xml:lang="pt">Cancelar verificação</value>
         <value xml:lang="vi">Hủy bỏ thực thi kiểm tra</value>
         <value xml:lang="zh">取消支票处理</value>
@@ -2710,6 +2717,7 @@
         <value xml:lang="fr">Annuler le statut de la transaction</value>
         <value xml:lang="hi-IN">लेन-देन की स्थिति रद्द करे</value>
         <value xml:lang="ja">取消トランザクションステータス</value>
+        <value xml:lang="nl">Annuleer transactie-status</value>
         <value xml:lang="pt">Cancelar Estado de Transações</value>
         <value xml:lang="vi">Hủy bỏ trạng thái Bút toán</value>
         <value xml:lang="zh">取消交易状态</value>
@@ -2841,6 +2849,7 @@
         <value xml:lang="en">Card Number is missing</value>
         <value xml:lang="fr">Numéro de carte manquant</value>
         <value xml:lang="ja">カード番号が正しくありません</value>
+        <value xml:lang="nl">Kaartnummer ontbreekt</value>
         <value xml:lang="pt">Número do cartão está vazio</value>
         <value xml:lang="vi">Số thẻ bị thiếu</value>
         <value xml:lang="zh">缺少卡号</value>
@@ -4172,6 +4181,7 @@
         <value xml:lang="en">Current Assets</value>
         <value xml:lang="fr">Actifs circulants</value>
         <value xml:lang="ja">流動資産</value>
+        <value xml:lang="nl">Vlottende activa</value>
         <value xml:lang="pt">Ativo Circulante</value>
         <value xml:lang="vi">Tài sản hiện tại</value>
         <value xml:lang="zh">流动资产</value>
@@ -4245,6 +4255,7 @@
         <value xml:lang="en">Current Liabilities</value>
         <value xml:lang="fr">Passifs circulants</value>
         <value xml:lang="ja">流動負債</value>
+        <value xml:lang="nl">Kortlopende Schulden</value>
         <value xml:lang="pt">Passivo Circulante</value>
         <value xml:lang="vi">Quy định pháp lý hiện tại</value>
         <value xml:lang="zh">流动性负债</value>
@@ -4602,6 +4613,7 @@
         <value xml:lang="fr">D</value>
         <value xml:lang="hi-IN">नामे</value>
         <value xml:lang="ja">借</value>
+        <value xml:lang="nl">Dt</value>
         <value xml:lang="pt">Dr.</value>
         <value xml:lang="vi">Debit</value>
         <value xml:lang="zh">借记</value>
@@ -5252,7 +5264,7 @@
         <value xml:lang="hi-IN">इक्विटी</value>
         <value xml:lang="it">Azioni</value>
         <value xml:lang="ja">普通株</value>
-        <value xml:lang="nl">Leningen</value>
+        <value xml:lang="nl">Eigen vermogen</value>
         <value xml:lang="pt">Ações</value>
         <value xml:lang="ro">Actiuni</value>
         <value xml:lang="ru">Собств. средства</value>
@@ -5521,6 +5533,7 @@
         <value xml:lang="fr">Exporter en CSV</value>
         <value xml:lang="hi-IN">सीएसवी के रूप में करे निर्यात</value>
         <value xml:lang="ja">CSV形式でエクスポート</value>
+        <value xml:lang="nl">CSV export</value>
         <value xml:lang="pt">Exportar como CSV</value>
         <value xml:lang="vi">Kết xuất ra định dạng CSV</value>
         <value xml:lang="zh">以CSV格式导出</value>
@@ -5534,6 +5547,7 @@
         <value xml:lang="fr">Exporter en PDF</value>
         <value xml:lang="hi-IN">पीडीएफ के रूप में करे निर्यात</value>
         <value xml:lang="ja">PDF形式でエクスポート</value>
+        <value xml:lang="nl">PDF export</value>
         <value xml:lang="pt">Exportar como PDF</value>
         <value xml:lang="vi">Kết xuất ra định dạng PDF</value>
         <value xml:lang="zh">以PDF格式导出</value>
@@ -7393,6 +7407,7 @@
         <value xml:lang="fr">Rapport des balances</value>
         <value xml:lang="hi-IN">जीएल(GL) खाता तलपट(Trial Balance) ब्यौरेवार विवरण</value>
         <value xml:lang="ja">GL勘定試算表</value>
+        <value xml:lang="nl">Proefbalans</value>
         <value xml:lang="pt">Relatório teste Balancete de conta razão</value>
         <value xml:lang="vi">Báo cáo tài khoản thử nghiệm</value>
         <value xml:lang="zh">总账账户试算余额报表</value>
@@ -9004,7 +9019,7 @@
         <value xml:lang="hi-IN">देयताएँ</value>
         <value xml:lang="it">Debiti</value>
         <value xml:lang="ja">負債</value>
-        <value xml:lang="nl">Passiva</value>
+        <value xml:lang="nl">Schulden</value>
         <value xml:lang="pt">Passivos</value>
         <value xml:lang="ro">Datorii-Debit</value>
         <value xml:lang="ru">Обязательства</value>
@@ -9145,6 +9160,7 @@
         <value xml:lang="en">Long Term Assets</value>
         <value xml:lang="fr">Actifs à long terme</value>
         <value xml:lang="ja">固定資産</value>
+        <value xml:lang="ja">Vaste activa</value>
         <value xml:lang="pt">Realizável a Longo Prazo</value>
         <value xml:lang="vi">Tài sản dài hạn</value>
         <value xml:lang="zh">长期资产</value>
@@ -10656,6 +10672,7 @@
         <value xml:lang="fr">Solde en cours</value>
         <value xml:lang="hi-IN">प्रारंभिक शेष</value>
         <value xml:lang="ja">期首残高</value>
+        <value xml:lang="nl">Beginbalans</value>
         <value xml:lang="pt">Balanço Abertura</value>
         <value xml:lang="vi">Hạn mức mở</value>
         <value xml:lang="zh">期初余额</value>
@@ -13309,6 +13326,7 @@
         <value xml:lang="hi-IN">पोस्टेड और अनपोस्टेड योग</value>
         <value xml:lang="it">Totali contabilizzati e non</value>
         <value xml:lang="ja">転記および未転記合計</value>
+        <value xml:lang="nl">Totalen: verwerkt + onverwerkt</value>
         <value xml:lang="pt">Totais Publicados e não publicados</value>
         <value xml:lang="vi">Tổng số công bố và không công bố</value>
         <value xml:lang="zh">已过账与未过账合计</value>
@@ -13334,7 +13352,7 @@
         <value xml:lang="hi-IN">कुल पोस्टेड</value>
         <value xml:lang="it">Totali Contabilizzati</value>
         <value xml:lang="ja">転記合計</value>
-        <value xml:lang="nl">Verwerkte totalen</value>
+        <value xml:lang="nl">Totalen: verwerkt</value>
         <value xml:lang="pt">Totais enviados</value>
         <value xml:lang="th">ผลรวมประกาศ</value>
         <value xml:lang="vi">Tổng số công bố</value>
@@ -15473,6 +15491,7 @@
         <value xml:lang="en">Total Liabilities and Equities</value>
         <value xml:lang="fr">Total du passif et Actions</value>
         <value xml:lang="ja">負債および正味資産合計</value>
+        <value xml:lang="nl">Totalen passiva en activa</value>
         <value xml:lang="pt">Total do Passivo e Ações</value>
         <value xml:lang="vi">Tổng Nợ Phải Trả và Cổ phiếu</value>
         <value xml:lang="zh">债务和股票证券合计</value>
@@ -15954,7 +15973,7 @@
         <value xml:lang="hi-IN">अनपोस्टेड योग</value>
         <value xml:lang="it">Prime Note Non Contabilizzate</value>
         <value xml:lang="ja">未転記合計</value>
-        <value xml:lang="nl">Totalen onverwerkt</value>
+        <value xml:lang="nl">Totalen: onverwerkt</value>
         <value xml:lang="pt">Totais não enviados</value>
         <value xml:lang="th">UnPosted Totals</value>
         <value xml:lang="vi">Tổng 'chưa gửi'</value>
