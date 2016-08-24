@@ -1522,6 +1522,10 @@ form .basic-table,
   text-decoration: none;
   width: auto;
 
+  /* IE7 */
+  *padding-top: 0.2em;
+  *padding-bottom: 0;
+
   &:hover {
     background-color: @main-color-theme;
     color: @white;
@@ -1944,6 +1948,9 @@ input[type="button"] {
   /*text-transform:uppercase;*/
   width: auto;
 
+  /* IE7 */
+  *padding-top: 0.2em;
+  *padding-bottom: 0;
   &:hover {
     color: @font-color-for-main;
     background-color: @main-color-theme;
