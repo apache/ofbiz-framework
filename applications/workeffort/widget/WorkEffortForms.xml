@@ -903,6 +903,36 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.PageTitleAddWorkEffortTimeToNewInvoice}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
+    <!-- WorkEffort Attribute -->
+    <form name="ListWorkEffortAttributes" target="updateWorkEffortAttribute"
+            type="list" header-row-style="header-row-2" odd-row-style="alternate-row"
+            default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="WorkEffortAttribute">
+                <condition-expr field-name="workEffortId" from-field="workEffortId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateWorkEffortAttribute" map-name="updateWorkEffortAttribute"/>
+        <field name="workEffortId"><hidden/></field>
+        <field name="attrName"><display/></field>
+        <field name="attrValue"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink target="deleteWorkEffortAttribute" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="attrName"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="EditWorkEffortAttribute" type="single" 
+            default-map-name="workEffortAttribute" target="createWorkEffortAttribute"
+            title="" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createWorkEffortAttribute"/>
+        <field name="workEffortId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+    </form>
+
     <!-- WorkEffort Note -->
     <form name="ListWorkEffortNotes" type="list" list-name="workEffortNotes"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
