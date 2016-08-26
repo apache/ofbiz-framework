@@ -921,7 +921,13 @@
         <value xml:lang="zh">添加人工服务指派费率</value>
         <value xml:lang="zh-TW">新增工作投入指派費率</value>
     </property>
+    <property key="PageTitleAddWorkEffortAttribute">
+        <value xml:lang="ar">اضافة سمة لمجهود العمل</value>
+        <value xml:lang="en">Add Work Effort Attribute</value>
+        <value xml:lang="fr">Ajouter un attribut à la tâche</value>
+    </property>
     <property key="PageTitleAddWorkEffortCommEvent">
+        <value xml:lang="ar">اضافة اتصال لمجهود العمل</value>
         <value xml:lang="de">Arbeitseinsatz Kommunikationsereignis hinzufügen</value>
         <value xml:lang="en">Add Work Effort Communication Event</value>
         <value xml:lang="es">Añadir evento de comunicación a esfuerzo de trabajo</value>
@@ -1436,6 +1442,11 @@
         <value xml:lang="zh">人工服务指派费率</value>
         <value xml:lang="zh-TW">工作投入指派費率</value>
     </property>
+    <property key="PageTitleListWorkEffortAttributes">
+        <value xml:lang="ar">سمات مجهود العمل</value>
+        <value xml:lang="en">Work Effort Attributes</value>
+        <value xml:lang="fr">Attributs de la tâche</value>
+    </property>
     <property key="PageTitleListWorkEffortCommEvents">
         <value xml:lang="en">Work Effort Communication Events</value>
         <value xml:lang="es">Eventos de comunicación</value>
@@ -1930,6 +1941,11 @@
         <value xml:lang="vi">Khách tham dự</value>
         <value xml:lang="zh">参加者</value>
         <value xml:lang="zh-TW">參加者</value>
+    </property>
+    <property key="WorkEffortAttributes">
+        <value xml:lang="ar">سمات</value>
+        <value xml:lang="en">Attributes</value>
+        <value xml:lang="fr">Attributs</value>
     </property>
     <property key="WorkEffortBanner3">
         <value xml:lang="de">Existierende Kommunikationsereignis ID unten eingeben</value>

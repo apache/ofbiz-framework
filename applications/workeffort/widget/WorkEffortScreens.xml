@@ -725,6 +725,27 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ListWorkEffortAttributes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListWorkEffortAttributes"/>
+                <set field="labelTitleProperty" from-field="titleProperty"/>
+                <set field="tabButtonItem" value="WorkEffortAttributes"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AddWorkEffortEventAttribute" title="${uiLabelMap.PageTitleAddWorkEffortAttribute}" collapsible="true">
+                            <include-form name="EditWorkEffortAttribute" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListWorkEffortAttributes" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="ListWorkEffortEventReminders">
         <section>
             <actions>

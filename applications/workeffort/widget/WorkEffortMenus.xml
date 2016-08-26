@@ -134,6 +134,11 @@ under the License.
                 <parameter param-name="workEffortId"/>
             </link>
         </menu-item>
+        <menu-item name="WorkEffortAttributes" title="${uiLabelMap.WorkEffortAttributes}">
+            <link target="ListWorkEffortAttributes">
+                <parameter param-name="workEffortId"/>
+            </link>
+        </menu-item>
         <menu-item name="WorkEffortEventReminders" title="${uiLabelMap.WorkEffortEventReminders}">
             <link target="listWorkEffortEventReminders">
                 <parameter param-name="workEffortId"/>
