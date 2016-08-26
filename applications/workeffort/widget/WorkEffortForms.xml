@@ -916,7 +916,7 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="attrName"><display/></field>
         <field name="attrValue"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="updateButton"><submit/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="deleteWorkEffortAttribute" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="workEffortId"/>
@@ -924,13 +924,12 @@ under the License.
             </hyperlink>
         </field>
     </form>
-
-    <form name="EditWorkEffortAttribute" type="single" 
+    <form name="EditWorkEffortAttribute" type="single"
             default-map-name="workEffortAttribute" target="createWorkEffortAttribute"
             title="" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createWorkEffortAttribute"/>
         <field name="workEffortId"><hidden/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+        <field name="createButton"><submit/></field>
     </form>
 
     <!-- WorkEffort Note -->
