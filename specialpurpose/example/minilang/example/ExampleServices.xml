@@ -39,6 +39,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.statusDate" from-field="nowTimestamp"/>
+        <set field="newEntity.changeByUserLoginId" from-field="userLogin.userLoginId"/>
         <create-value value-field="newEntity"/>
     </simple-method>
 
