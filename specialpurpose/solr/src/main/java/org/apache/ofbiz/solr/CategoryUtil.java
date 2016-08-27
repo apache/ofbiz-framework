@@ -37,9 +37,11 @@ import org.apache.ofbiz.service.DispatchContext;
 /**
  * Product category util class for solr.
  */
-public abstract class CategoryUtil {
+public final class CategoryUtil {
     
     public static final String module = CategoryUtil.class.getName();
+
+    private CategoryUtil () {}
 
     /**
      * Gets catalog IDs for specified product category.
