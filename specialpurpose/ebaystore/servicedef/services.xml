@@ -539,7 +539,7 @@ under the License.
         <attribute name="productStoreId" mode="IN" type="String" optional="true"></attribute>
         <attribute name="closedItemList" mode="OUT" type="List"></attribute>
     </service>
-    <service name="getEbayOrders" engine="java" transaction-timeout="120000"
+    <service name="getEbayStoreOrders" engine="java" transaction-timeout="120000"
         location="org.apache.ofbiz.ebaystore.EbayStore" invoke="getEbayOrders">
         <description>List closed item in store</description>
         <attribute name="productStoreId" mode="INOUT" type="String" optional="false"></attribute>

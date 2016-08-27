@@ -504,7 +504,7 @@
     </request-map>
     <request-map uri="getEbayOrders">
         <security https="true" auth="true"/>
-        <event type="service" invoke="getEbayOrders"/>
+        <event type="service" invoke="getEbayStoreOrders"/>
         <response name="success" type="view" value="OrderListing"/>
         <response name="error" type="view" value="OrderListing"/>
     </request-map>
