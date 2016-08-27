@@ -23,6 +23,7 @@
         <value xml:lang="de">Versandgruppe löschen</value>
         <value xml:lang="en">Delete this ship group</value>
         <value xml:lang="fr">Supprimer le groupe d'expédition</value>
+        <value xml:lang="nl">Verwijder verzendgroep</value>
         <value xml:lang="zh">删除这个运输组</value>
     </property>
     <property key="FormFieldTitle_addNote">
@@ -92,6 +93,7 @@
         <value xml:lang="fr">Date d'annulation de la commande</value>
         <value xml:lang="it">Cancella data back order</value>
         <value xml:lang="ja">注文取消日</value>
+        <value xml:lang="nl">Datum backorder annulering</value>
         <value xml:lang="pt-BR">Cancelar Data de pedido em espera</value>
         <value xml:lang="vi">Ngày hủy (đơn hàng đã trả lại)</value>
         <value xml:lang="zh">取消返回订单日期</value>
@@ -155,6 +157,7 @@
         <value xml:lang="fr">Date/heure fermée</value>
         <value xml:lang="it">Data ora chiusura</value>
         <value xml:lang="ja">クローズ日時</value>
+        <value xml:lang="nl">Datum-tijd sluiting</value>
         <value xml:lang="pt-BR">Dia e hora de fechamento</value>
         <value xml:lang="vi">Ngày giờ kết thúc (đóng)</value>
         <value xml:lang="zh">关闭日期</value>
@@ -167,6 +170,7 @@
         <value xml:lang="fr">Date d'achèvement</value>
         <value xml:lang="it">Data completamento</value>
         <value xml:lang="ja">完了日</value>
+        <value xml:lang="nl">Datum afgerond</value>
         <value xml:lang="pt-BR">Data de conclusão</value>
         <value xml:lang="vi">Ngày hoàn thành</value>
         <value xml:lang="zh">完成日期</value>
@@ -179,6 +183,7 @@
         <value xml:lang="fr">Réf. de configuration</value>
         <value xml:lang="it">Configurazione</value>
         <value xml:lang="ja">設定ID</value>
+        <value xml:lang="nl">Configuratie ID</value>
         <value xml:lang="pt-BR">ID de configuração</value>
         <value xml:lang="zh">配置标识</value>
         <value xml:lang="zh-TW">配置識別</value>
@@ -390,6 +395,7 @@
         <value xml:lang="fr">Statut des lignes en exception</value>
         <value xml:lang="it">Stato riga atteso</value>
         <value xml:lang="ja">期待アイテムステータス</value>
+        <value xml:lang="nl">Verwachte status item</value>
         <value xml:lang="pt-BR">Estado esperado par ao item</value>
         <value xml:lang="vi">Trạng thái hạng mục kỳ vọng</value>
         <value xml:lang="zh">期望的明细状态</value>
@@ -501,6 +507,7 @@
         <value xml:lang="fr">Commentaire interne</value>
         <value xml:lang="it">Commento interno</value>
         <value xml:lang="ja">内部コメント</value>
+        <value xml:lang="nl">Intern notitie</value>
         <value xml:lang="pt-BR">Comentário interno</value>
         <value xml:lang="vi">Diễn giải nội bộ</value>
         <value xml:lang="zh">内部评论</value>
@@ -662,6 +669,7 @@
         <value xml:lang="fr">Nouvelle carte de crédit</value>
         <value xml:lang="it">Nuova carta di credito</value>
         <value xml:lang="ja">新規クレジットカード</value>
+        <value xml:lang="nl">Nieuwe kredietkaart</value>
         <value xml:lang="pt-BR">Novo cartão de crédito</value>
         <value xml:lang="vi">Thêm thẻ tín dụng mới</value>
         <value xml:lang="zh">新建信用卡</value>
@@ -704,6 +712,7 @@
         <value xml:lang="fr">Date/heure ouverte</value>
         <value xml:lang="it">Data ora apertura</value>
         <value xml:lang="ja">オープン日時</value>
+        <value xml:lang="nl">Datum-tijd open</value>
         <value xml:lang="pt-BR">Data e hora de abertura</value>
         <value xml:lang="vi">Ngày giờ mở</value>
         <value xml:lang="zh">开启日期</value>
@@ -768,6 +777,7 @@
         <value xml:lang="fr">Réf. séq. de ligne de commande</value>
         <value xml:lang="it">Num.Seq. Riga Ordine</value>
         <value xml:lang="ja">注文アイテム連番ID</value>
+        <value xml:lang="nl">Volgno.</value>
         <value xml:lang="pt-BR">Nº de sequência do item do pedido</value>
         <value xml:lang="ro">Num.Secventa. Linie Comanda</value>
         <value xml:lang="ru">Послед. номер поз. заказа</value>
@@ -917,6 +927,7 @@
         <value xml:lang="fr">Quantité achetée</value>
         <value xml:lang="it">Quantità acquistata</value>
         <value xml:lang="ja">購入数量</value>
+        <value xml:lang="nl">Aantal gekocht</value>
         <value xml:lang="pt-BR">Quantidade comprada</value>
         <value xml:lang="vi">Số lượng đã mua</value>
         <value xml:lang="zh">采购数量</value>
@@ -1099,6 +1110,7 @@
         <value xml:lang="fr">Date de début de besoin</value>
         <value xml:lang="it">Data Inizio Fabbisogno</value>
         <value xml:lang="ja">要求開始日</value>
+        <value xml:lang="nl">Datum start</value>
         <value xml:lang="pt-BR">Data de início da solicitação</value>
         <value xml:lang="ro">Data Initiala Necesar</value>
         <value xml:lang="th">วันที่ต้องการเริ่มต้น</value>
@@ -1188,6 +1200,7 @@
         <value xml:lang="fr">Réf. de type d'en-tête de retour</value>
         <value xml:lang="it">Tipo testata reso</value>
         <value xml:lang="ja">返品ヘッダ種類</value>
+        <value xml:lang="nl">Soort retour</value>
         <value xml:lang="pt-BR">ID do tipo de cabeçalho de devolução</value>
         <value xml:lang="vi">Kiểu phần đầu hoàn trả (Return HeaderType)</value>
         <value xml:lang="zh">退货头类型标识</value>
@@ -1319,6 +1332,7 @@
         <value xml:lang="fr">Ligne de liste d'achat</value>
         <value xml:lang="it">Seq. riga lista d'acquisto</value>
         <value xml:lang="ja">買い物リストアイテム連番ID</value>
+        <value xml:lang="nl">Volgnummer</value>
         <value xml:lang="pt-BR">ID de sequência de item da lista de compras</value>
         <value xml:lang="vi">Số thứ tự hạng mục của danh sách mua sắm</value>
         <value xml:lang="zh">购物列表明细序列号</value>
@@ -1364,6 +1378,7 @@
         <value xml:lang="fr">Date de début</value>
         <value xml:lang="it">Data inizio</value>
         <value xml:lang="ja">開始日</value>
+        <value xml:lang="nl">Datum start</value>
         <value xml:lang="pt-BR">Data de início</value>
         <value xml:lang="vi">Ngày bắt đầu</value>
         <value xml:lang="zh">开始日期</value>
@@ -1854,6 +1869,7 @@
         <value xml:lang="fr">à la commande</value>
         <value xml:lang="it">all'ordine</value>
         <value xml:lang="ja">注文(先):</value>
+        <value xml:lang="nl">Toevoegen aan order</value>
         <value xml:lang="pt-BR">a encomendar</value>
         <value xml:lang="vi">đến Đơn hàng</value>
         <value xml:lang="zh">到订单</value>
@@ -1902,6 +1918,7 @@
         <value xml:lang="de">Zur Versandgruppe hinzufügen</value>
         <value xml:lang="en">Add to ship group</value>
         <value xml:lang="fr">Ajouter au groupe d'expédition</value>
+        <value xml:lang="nl">Voeg toe aan verzendgroep</value>
         <value xml:lang="zh">添加到运输组</value>
     </property>
     <property key="OrderAddToShoppingList">
@@ -5677,6 +5694,7 @@
         <value xml:lang="fr">Limiter à ${limit} par client. </value>
         <value xml:lang="it">Limite ${limit} per cliente. </value>
         <value xml:lang="ja">顧客1名様あたり ${limit} 限り。</value>
+        <value xml:lang="nl">Limiet - klant</value>
         <value xml:lang="pt-BR">Limite de ${limit} por cliente. </value>
         <value xml:lang="vi">Hạn mức ${limit} mỗi Khách hàng. </value>
         <value xml:lang="zh">限制每个客户${limit}个。</value>
@@ -5689,6 +5707,7 @@
         <value xml:lang="fr">Limiter à ${limit} par commande. </value>
         <value xml:lang="it">Limite ${limit} per ordine. </value>
         <value xml:lang="ja">1回の注文で ${limit} 限り。</value>
+        <value xml:lang="nl">Limit - order</value>
         <value xml:lang="pt-BR">Limite de ${limit} por pedido. </value>
         <value xml:lang="vi">Hạn mức ${limit} mỗi Đơn hàng. </value>
         <value xml:lang="zh">限制每个订单${limit}个。</value>
@@ -5701,6 +5720,7 @@
         <value xml:lang="fr">Limiter à ${limit} par promotion. </value>
         <value xml:lang="it">Limite ${limit} per promozione. </value>
         <value xml:lang="ja">1回のプロモーションで ${limit} 限り。</value>
+        <value xml:lang="nl">Limiet - promo</value>
         <value xml:lang="pt-BR">Limite de ${limit} por promoção. </value>
         <value xml:lang="vi">Hạn mức ${limit} mỗi Khuyến mãi. </value>
         <value xml:lang="zh">限制每个促销${limit}个。</value>
@@ -6024,6 +6044,7 @@
         <value xml:lang="en">My returns</value>
         <value xml:lang="fr">Mes retours</value>
         <value xml:lang="ja">私の返品</value>
+        <value xml:lang="nl">Mijn retouren</value>
         <value xml:lang="vi">Các hoàn trả của tôi</value>
         <value xml:lang="zh">我的退货</value>
         <value xml:lang="zh-TW">我的退貨</value>
@@ -10193,6 +10214,7 @@
     </property>
     <property key="OrderPromoAppliedSuccessfully">
         <value xml:lang="en">Promotion Code[${productPromoCodeId}] has been applied successfully</value>
+        <value xml:lang="nl">Promo ${productPromoCodeId] succesvol toegepast</value>
     </property>
     <property key="OrderPromotion">
         <value xml:lang="ar">ترويج</value>
@@ -10201,6 +10223,7 @@
         <value xml:lang="fr">Promotion</value>
         <value xml:lang="it">Promozione</value>
         <value xml:lang="ja">プロモーション</value>
+        <value xml:lang="nl">Promo</value>
         <value xml:lang="pt-BR">Promoção</value>
         <value xml:lang="vi">Khuyến mãi</value>
         <value xml:lang="zh">促销</value>
@@ -10774,6 +10797,7 @@
         <value xml:lang="hi-IN">कोट</value>
         <value xml:lang="it">Preventivo</value>
         <value xml:lang="ja">見積</value>
+        <value xml:lang="nl">Quote</value>
         <value xml:lang="pt-BR">Cotação</value>
         <value xml:lang="ro">Preventiv</value>
         <value xml:lang="ru">Коммерческое предложение</value>
@@ -10809,6 +10833,7 @@
         <value xml:lang="fr">Description de la cond. de réglement</value>
         <value xml:lang="it">Descrizione termini preventivo</value>
         <value xml:lang="ja">条件詳細</value>
+        <value xml:lang="nl">Omschrijving</value>
         <value xml:lang="vi">Miêu tả khái niệm</value>
         <value xml:lang="zh">条款描述</value>
         <value xml:lang="zh-TW">條款描述</value>
