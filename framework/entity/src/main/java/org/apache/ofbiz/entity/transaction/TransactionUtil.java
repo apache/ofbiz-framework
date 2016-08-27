@@ -60,7 +60,7 @@ import org.apache.ofbiz.entity.jdbc.CursorConnection;
  * <p>Transaction Utility to help with some common transaction tasks
  * <p>Provides a wrapper around the transaction objects to allow for changes in underlying implementations in the future.
  */
-public class TransactionUtil implements Status {
+public final class TransactionUtil implements Status {
     // Debug module name
     public static final String module = TransactionUtil.class.getName();
 
@@ -79,6 +79,7 @@ public class TransactionUtil implements Status {
     private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(new HashMap<Long, Exception>());
     private static Map<Long, List<Exception>> allThreadsTransactionBeginStackSave = Collections.<Long, List<Exception>>synchronizedMap(new HashMap<Long, List<Exception>>());
 
+    private TransactionUtil () {}
     public static <V> V doNewTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException) throws GenericEntityException {
         return noTransaction(inTransaction(callable, ifErrorMessage, timeout, printException)).call();
     }
