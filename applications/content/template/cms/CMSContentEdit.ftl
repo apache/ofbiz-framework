@@ -18,16 +18,6 @@ under the License.
 -->
 
 
-<#--
-<#include "publishlib.ftl" />
--->
-<#--
-<#import "publishlib.ftl" as publish/>
--->
-<#--
-${menuWrapper.renderMenuString()}
--->
-
 <#-- Main Heading -->
 <table width='100%' cellpadding='0' cellspacing='0' border='0'>
   <tr>
@@ -45,14 +35,6 @@ ${menuWrapper.renderMenuString()}
 <#if currentValue?has_content>
     <@renderTextData content=currentValue textData=textData! />
 </#if>
-<#--
-<#if textList?has_content>
-  <#list textList as map>
-    <@renderTextData content=map.entity textData=map.text />
-  </#list>
-</#if>
--->
-<#-- ============================================================= -->
 
 <br />
 <table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
@@ -167,66 +149,6 @@ ${menuWrapper.renderMenuString()}
     </td>
   </tr>
 </table>
-
-<#--
-<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <tr>
-    <td width='100%'>
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-          <td valign="middle">
-            <div class="boxhead">&nbsp;Image Information</div>
-          </td>
-          <td valign="middle" align="right">
-            <a href="<@ofbizUrl>EditAddImage?contentId=${imgContentId!}dataResourceId=${imgDataResourceId!}</@ofbizUrl>" class="submenutextright">Update</a>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td width='100%'>
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
-        <tr>
-          <td>
-  <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>Image</b></div></td><td>&nbsp;</td><td><div class='tabletext'>
-        <img src="<@ofbizUrl>img?imgId=${imgDataResourceId!}</@ofbizUrl>" alt="" />
-<div></td></tr>
-  </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
--->
-
-
-<#--
-<#macro contentTree currentValue >
-
-    <#assign contentId = currentValue.contentId/>
-    <#assign dataResourceId = currentValue.dataResourceId/>
-    <#assign currentTextData = "" />
-    <#if dataResourceId?has_content>
-        <#assign currentTextData=Static["org.apache.ofbiz.content.data.DataResourceWorker"].renderDataResourceAsText(delegator, dataResourceId, null, null, null, true) />
-        <#if currentTextData?has_content>
-            <@renderTextData contentId=contentId textData=currentTextData />
-        </#if>
-    </#if>
-    <#assign contentAssocViewList =Static["org.apache.ofbiz.content.content.ContentWorker"].getContentAssocViewList(delegator, contentId, null, "SUB_CONTENT", null, null)! />
-    <#list contentAssocViewList as contentAssocDataResourceView>
-        <#assign contentId2 = contentAssocDataResourceView.contentId/>
-        <#assign mapKey = contentAssocDataResourceView.mapKey/>
-        <#assign dataResourceId2 = contentAssocDataResourceView.dataResourceId/>
-        <#assign currentTextData=Static["org.apache.ofbiz.content.data.DataResourceWorker"].renderDataResourceAsText(delegator, dataResourceId2, null, null, null, true) />
-        <#if currentTextData?has_content>
-            <@renderTextData contentId=contentId2 mapKey=mapKey textData=currentTextData />
-        </#if>
-    </#list>
-</#macro>
--->
 
 <#macro renderTextData content textData >
     <#assign contentId=content.contentId!/>
