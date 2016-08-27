@@ -303,8 +303,6 @@ public class WorkEffortSearch {
             }
             dynamicViewEntity.addAlias("WEFF", "workEffortId", null, null, null, Boolean.valueOf(workEffortIdGroupBy), null);
 
-            // Debug.logInfo("WorkEffortSearch, whereCondition = " + whereCondition.toString(), module);
-
             EntityListIterator eli = null;
             try {
                 int maxRows = 0;
@@ -337,18 +335,6 @@ public class WorkEffortSearch {
             try {
                 boolean hasResults = false;
                 Object initialResult = null;
-
-                /* this method has been replaced by the following to address issue with SAP DB and possibly other DBs
-                if (resultOffset != null) {
-                    Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
-                    hasResults = eli.relative(resultOffset.intValue());
-                } else {
-                    initialResult = eli.next();
-                    if (initialResult != null) {
-                        hasResults = true;
-                    }
-                }
-                 */
 
                 initialResult = eli.next();
                 if (initialResult != null) {
@@ -399,21 +385,6 @@ public class WorkEffortSearch {
                     } else {
                         duplicatesFound++;
                     }
-
-                    /*
-                    StringBuilder lineMsg = new StringBuilder("Got search result line: ");
-                    Iterator<String> fieldsToSelectIter = fieldsToSelect.iterator();
-                    while (fieldsToSelectIter.hasNext()) {
-                        String fieldName = fieldsToSelectIter.next();
-                        lineMsg.append(fieldName);
-                        lineMsg.append("=");
-                        lineMsg.append(searchResult.get(fieldName));
-                        if (fieldsToSelectIter.hasNext()) {
-                            lineMsg.append(", ");
-                        }
-                    }
-                    Debug.logInfo(lineMsg.toString(), module);
-                    */
                 }
 
                 if (searchResult != null) {
