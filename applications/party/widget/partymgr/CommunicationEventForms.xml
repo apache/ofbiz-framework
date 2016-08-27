@@ -879,18 +879,12 @@ under the License.
         <field name="communicationEventTypeId"><hidden value="${communicationEvent.communicationEventTypeId}"/></field>
         <field name="parentCommEventId"><hidden value="${communicationEvent.parentCommEventId}"/></field>
         <field name="origCommEventId"><hidden value="${communicationEvent.origCommEventId}"/></field>
-        <field name="subject"><hidden/></field>
-        <field name="content"><hidden/></field>
-        <field name="partyIdTo"><hidden/></field>
-        <field name="datetimeStarted"><hidden/></field>
         <field name="my"><hidden value="${my}"/></field>
         <field name="contentId" title="${uiLabelMap.FormFieldTitle_existContentId}"><lookup target-form-name="LookupTreeContent"/></field>
         <field name="uploadedFile"><file/></field>
         <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupDetailContentTree"/></field>
-        <field name="send" title=" ">
-            <hyperlink also-hidden="true"
-                target-type="plain" description="${uiLabelMap.CommonUpload}"
-                target="javascript:(document.uploadContent.datetimeStarted.value=document.EditEmail.datetimeStarted.value),(document.uploadContent.partyIdTo.value=document.EditEmail.partyIdTo.value),(document.uploadContent.subject.value=document.EditEmail.subject.value),(document.uploadContent.content.value=document.EditEmail.content.value),(document.uploadContent.submit())"/>
+        <field name="send" title="${uiLabelMap.CommonUpload}">
+            <submit button-type="button"/>
         </field>
     </form>
     <form name="uploadContent1" type="upload" extends="uploadContent" target="uploadAttachFile">
