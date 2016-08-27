@@ -378,6 +378,13 @@ under the License.
         <action service="createATPRequirementsForOrder" mode="sync"/>
     </eca>
 
+    <eca service="changeOrderStatus" event="commit" run-on-error="false">
+        <condition field-name="oldStatusId" operator="equals" value="ORDER_CREATED"/>
+        <condition field-name="statusId" operator="equals" value="ORDER_APPROVED"/>
+        <condition field-name="orderTypeId" operator="equals" value="PURCHASE_ORDER"/>
+        <action service="updateRequirementsToOrdered" mode="sync"/>
+    </eca>
+
     <!-- WorkEffort -->
     <eca service="createQuoteWorkEffort" event="in-validate">
         <condition field-name="workEffortId" operator="is-empty"/>
