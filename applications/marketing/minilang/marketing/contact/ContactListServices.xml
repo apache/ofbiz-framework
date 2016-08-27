@@ -470,9 +470,11 @@ under the License.
              <make-value entity-name="ContactListCommStatus" value-field="lookedUpValue"/>
              <set-pk-fields map="parameters" value-field="lookedUpValue"/>
              <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+             <set field="lookedUpValue.changeByUserLoginId" from-field="userLogin.userLoginId"/>
              <create-value value-field="lookedUpValue"/>
              <else>
                  <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+                 <set field="lookedUpValue.changeByUserLoginId" from-field="userLogin.userLoginId"/>
                  <store-value value-field="lookedUpValue"/> 
              </else>
         </if-empty>                 

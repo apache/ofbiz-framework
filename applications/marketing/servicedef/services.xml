@@ -224,7 +224,9 @@ under the License.
     <!--  ContactList Comm Status Services -->
     <service name="updateContactListCommStatus" engine="simple" default-entity-name="ContactListCommStatus"
             location="component://marketing/minilang/marketing/contact/ContactListServices.xml" invoke="updateContactListCommStatus">
-        <auto-attributes include="all" mode="IN" optional="false"/>
+        <auto-attributes include="all" mode="IN" optional="false">
+            <exclude field-name="changeByUserLoginId"/>
+        </auto-attributes>
         <override name="partyId" optional="true"/>
         <override name="messageId" allow-html="any" optional="true"/>
     </service>
