@@ -681,4 +681,22 @@ under the License.
         <attribute name="glAccountId" mode="IN" type="String"/>
         <attribute name="amountPercentageMap" type="Map" string-map-prefix="amp_" mode="IN" optional="true"/>
     </service>
+
+    <!-- AcctgTransAttribute services -->
+    <service name="createAcctgTransAttribute" default-entity-name="AcctgTransAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create AcctgTransAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="updateAcctgTransAttribute" default-entity-name="AcctgTransAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update AcctgTransAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false" />
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="deleteAcctgTransAttribute" default-entity-name="AcctgTransAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete AcctgTransAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
