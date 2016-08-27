@@ -504,7 +504,6 @@ public class WorkEffortServices {
         Collection<String> partyIds = UtilGenerics.checkCollection(context.get("partyIds"));
         String facilityId = (String) context.get("facilityId");
         String fixedAssetId = (String) context.get("fixedAssetId");
-        // Debug.logInfo("======by period for fixedAsset: " + fixedAssetId + " facilityId: " + facilityId + "partyId: " + partyId + " entityExprList:" + (List) context.get("entityExprList"));
         String workEffortTypeId = (String) context.get("workEffortTypeId");
         Boolean filterOutCanceledEvents = (Boolean) context.get("filterOutCanceledEvents");
         if (filterOutCanceledEvents == null) {
@@ -527,7 +526,6 @@ public class WorkEffortServices {
 
         // get a timestamp (date) for the beginning of today and for beginning of numDays+1 days from now
         // Commenting this out because it interferes with periods that do not start at the beginning of the day
-        // Timestamp startStamp = UtilDateTime.getDayStart(startDay, timeZone, locale);
         Timestamp startStamp = startDay;
         Timestamp endStamp = UtilDateTime.adjustTimestamp(startStamp, periodType, 1, timeZone, locale);
         long periodLen = endStamp.getTime() - startStamp.getTime();
@@ -613,18 +611,9 @@ public class WorkEffortServices {
 
         entityExprList.addAll(periodCheckAndlList);
 
-        // (non cancelled) recurring events
-        /* Commenting this out. This condition adds ALL recurring events to ALL calendars.
-        List<EntityCondition> recurringEvents = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("tempExprId", EntityOperator.NOT_EQUAL, null));
-        if (filterOutCanceledEvents.booleanValue()) {
-            recurringEvents.addAll(cancelledCheckAndList);
-        }
-        */
-
         try {
             List<GenericValue> tempWorkEfforts = null;
             if (UtilValidate.isNotEmpty(partyIdsToUse)) {
-                // Debug.logInfo("=====conditions for party: " + eclTotal);
                 tempWorkEfforts = EntityQuery.use(delegator).from("WorkEffortAndPartyAssignAndType").where(entityExprList).orderBy("estimatedStartDate").filterByDate().queryList();
             } else {
                 tempWorkEfforts = EntityQuery.use(delegator).from("WorkEffort").where(entityExprList).orderBy("estimatedStartDate").queryList();
