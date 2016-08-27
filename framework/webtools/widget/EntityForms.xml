@@ -59,7 +59,7 @@ under the License.
             <set field="firstChar" value="${groovy: entityName.substring(0, 1)}"/>
         </row-actions>
         <field name="entityName">
-            <hyperlink id="${firstChar}" description="${entityName}" target="FindGeneric">
+            <hyperlink id="${firstChar}" description="${entityName} ${groovy: if (viewEntity == 'Y') return '(' + uiLabelMap.WebtoolsEntityView + ')'}" target="FindGeneric">
                <parameter param-name="entityName"/>
             </hyperlink>
         </field>
