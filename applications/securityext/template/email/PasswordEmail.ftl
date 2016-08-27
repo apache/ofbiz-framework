@@ -25,11 +25,6 @@ under the License.
   <br />
   <div>
       <form method="post" action="${baseEcommerceSecureUrl}/partymgr/control/passwordChange?USERNAME=${userLogin.userLoginId!}&password=${password!}&forgotPwdFlag=true&tenantId=${tenantId!}" name="loginform" id="loginform" target="_blank">
-      <#--form method="post" action="${baseEcommerceSecureUrl}/partymgr/control/passwordChange" name="loginform" id="loginform" target="_blank">
-        <input type="hidden" name="USERNAME" value="${userLogin.userLoginId!}" />
-        <input type="hidden"  name="password" value="${password!}" />
-        <input type="hidden"  name="tenantId" value="${tenantId!}" />
-        <input type="hidden" name="forgotPwdFlag" value="true" /--><#-- see OFBIZ-4983 -->
         <input type="submit" name="submit" value="${uiLabelMap.ResetPassword}" />
       </form>
   </div>
