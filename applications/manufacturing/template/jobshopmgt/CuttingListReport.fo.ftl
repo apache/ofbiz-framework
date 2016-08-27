@@ -20,7 +20,6 @@ under the License.
 <#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 <#-- do not display columns associated with values specified in the request, ie constraint values -->
-<#--<#assign showProductStore = !parameters.productStoreId?has_content>-->
 <fo:layout-master-set>
     <fo:simple-page-master master-name="main" page-height="11in" page-width="8.5in"
             margin-top="0.5in" margin-bottom="1in" margin-left="0.5in" margin-right="0.5in">

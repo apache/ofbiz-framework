@@ -44,13 +44,7 @@ Doc.B
         <fo:flow flow-name="xsl-region-body">
 
 <!--  nota: titolo    -->
-<!--        <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always"> -->
 
-<!--
-            <fo:block line-height="20pt" font-weight="bold" font-size="18pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
-                ${uiLabelMap.ManufacturingProductionRun}
-            </fo:block>
--->
 <!-- inizio riquadro -->
           <fo:table table-layout="fixed">
              <fo:table-column column-width="18.00cm"/>

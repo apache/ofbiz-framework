@@ -125,13 +125,6 @@ under the License.
             <#-- toggle the row color -->
             <#assign alt_row = !alt_row>
           </#list>
-          <#--
-          <#if grandTotalCost??>
-          <tr>
-            <td colspan="6" align="right">${grandTotalCost}</td>
-          </tr>
-          </#if>
-          -->
         <#else>
           <tr>
             <td colspan="6">${uiLabelMap.CommonNoElementFound}.</td>

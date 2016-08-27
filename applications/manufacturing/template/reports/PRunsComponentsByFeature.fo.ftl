@@ -213,10 +213,6 @@ under the License.
     </#list>
 </fo:table-body>
 </fo:table>
-<!--
-<fo:block space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" id="LastPage" line-height="1pt" font-size="1pt">
-</fo:block>
--->
 </fo:block>
 
 </fo:flow>
