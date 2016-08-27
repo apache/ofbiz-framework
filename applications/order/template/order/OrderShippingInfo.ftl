@@ -169,9 +169,6 @@ under the License.
 
         <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED">
           <#if orderHeader.statusId != "ORDER_SENT" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED" && orderHeader.statusId != "ORDER_CANCELLED">
-            <#--
-              <li><a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCancelAllItems}</a></li>
-            -->
             <li><a href="<@ofbizUrl>editOrderItems?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderEditItems}</a></li>
             <li>
             <form name="createOrderItemShipGroup" method="post" action="<@ofbizUrl>AddOrderItemShipGroup</@ofbizUrl>">

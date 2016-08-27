@@ -268,7 +268,6 @@ ${virtualJavaScript!}
       </#if>
     </td>
     <td align="right" valign="top" width="100%">
-    <#--    <h2>${productContentWrapper.get("PRODUCT_NAME", "html")!}</h2>  -->
         <#assign inStock = true>
         <#if product.isVirtual!?upper_case == "Y">
         <#if product.virtualVariantMethodEnum! == "VV_FEATURETREE" && featureLists?has_content>
@@ -353,39 +352,6 @@ ${virtualJavaScript!}
         <script language="JavaScript" type="text/javascript">eval("list"+ "${inlineCounter}" + "${featureOrderFirst}" + "()");</script>
       </#if>
 
-      <#-- Swatches (virtual products only) . For now commented out, before fixing a bug
-      <#if variantSample?? && 0 < variantSample.size()>
-        <#assign imageKeys = variantSample.keySet()>
-        <#assign imageMap = variantSample>
-        <p>&nbsp;</p>
-        <table cellspacing="0" cellpadding="0">
-          <tr>
-            <#assign maxIndex = 7>
-            <#assign indexer = 0>
-            <#list imageKeys as key>
-              <#assign swatchProduct = imageMap.get(key)>
-              <#if swatchProduct?has_content && indexer < maxIndex>
-                <#assign imageUrl = Static["org.apache.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request, "url")!>
-                <#if !imageUrl?string?has_content>
-                  <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL", "url")!>
-                </#if>
-                <#if !imageUrl?string?has_content>
-                  <#assign imageUrl = "/images/defaultImage.jpg">
-                </#if>
-                <td align="center" valign="bottom">
-                  <a href="javascript:getListInline('${inlineCounter}', 'FT${inlineCounter}${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix!}${imageUrl}</@ofbizContentUrl>" border="0" width="60" height="60" alt="" /></a>
-                  <br />
-                  <a href="javascript:getListInline('${inlineCounter}', 'FT${inlineCounter}${featureOrderFirst}','${indexer}',1);" class="linktext">${key}</a>
-                </td>
-              </#if>
-              <#assign indexer = indexer + 1>
-            </#list>
-            <#if (indexer > maxIndex)>
-              <div><b>${uiLabelMap.ProductMoreOptions}</b></div>
-            </#if>
-          </tr>
-        </table>
-      </#if>      -->
     </td>
   </tr>
 </table>

@@ -347,13 +347,6 @@ function makeExpDate() {
                   <input type="text" size="20" maxlength="30" name="cardNumber" value="${creditCard.cardNumber!}"/>
                 *</td>
               </tr>
-              <#--<tr>
-                <td width="26%" align="right" valign="top"><div>${uiLabelMap.OrderCardSecurityCode}</div></td>
-                <td width="5">&nbsp;</td>
-                <td width="74%">
-                  <input type="text" size="5" maxlength="10" name="cardSecurityCode" value=""/>
-                </td>
-              </tr>-->
               <tr>
                 <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingExpirationDate}</div></td>
                 <td width="5">&nbsp;</td>

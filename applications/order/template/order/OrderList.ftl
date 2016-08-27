@@ -93,7 +93,6 @@ under the License.
                     <label><input type="checkbox" name="viewapproved" value="Y" class="statuscheck" <#if state.hasStatus('viewapproved')>checked="checked"</#if> />${uiLabelMap.CommonApproved}</label>
                     <label><input type="checkbox" name="viewhold" value="Y" class="statuscheck" <#if state.hasStatus('viewhold')>checked="checked"</#if> />${uiLabelMap.CommonHeld}</label>
                     <label><input type="checkbox" name="viewcompleted" value="Y" class="statuscheck" <#if state.hasStatus('viewcompleted')>checked="checked"</#if> />${uiLabelMap.CommonCompleted}</label>
-                    <#--input type="checkbox" name="viewsent" value="Y" <#if state.hasStatus('viewsent')>checked="checked"</#if> />${uiLabelMap.CommonSent}-->
                     <label><input type="checkbox" name="viewrejected" value="Y" class="statuscheck" <#if state.hasStatus('viewrejected')>checked="checked"</#if> />${uiLabelMap.CommonRejected}</label>
                     <label><input type="checkbox" name="viewcancelled" value="Y" class="statuscheck" <#if state.hasStatus('viewcancelled')>checked="checked"</#if> />${uiLabelMap.CommonCancelled}</label>
                 </div>
@@ -194,7 +193,6 @@ under the License.
             <#if billToParty?has_content>
                 <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
                 <#assign billTo = billToPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")/>
-                <#-- <#assign billTo = Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(billToParty, true)!> -->
             <#else>
               <#assign billTo = ''/>
             </#if>

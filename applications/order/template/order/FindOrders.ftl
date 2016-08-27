@@ -651,28 +651,6 @@ document.lookuporder.orderId.focus();
                     ${uiLabelMap.CommonNA}
                   </#if>
                 </div>
-                <#--
-                <div>
-                <#if placingParty?has_content>
-                  <#assign partyId = placingParty.partyId>
-                  <#if placingParty.getEntityName() == "Person">
-                    <#if placingParty.lastName??>
-                      ${placingParty.lastName}<#if placingParty.firstName??>, ${placingParty.firstName}</#if>
-                    <#else>
-                      ${uiLabelMap.CommonNA}
-                    </#if>
-                  <#else>
-                    <#if placingParty.groupName??>
-                      ${placingParty.groupName}
-                    <#else>
-                      ${uiLabelMap.CommonNA}
-                    </#if>
-                  </#if>
-                <#else>
-                  ${uiLabelMap.CommonNA}
-                </#if>
-                </div>
-                -->
               </td>
               <td align="right">${orh.hasSurvey()?string.number}</td>
               <td align="right">${orh.getTotalOrderItemsQuantity()?string.number}</td>
