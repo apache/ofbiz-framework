@@ -683,7 +683,6 @@ ${setRequestAttribute("productValue", productValue)}
       ${setRequestAttribute("optProductId", commonFeatureResultId)}
       ${setRequestAttribute("listIndex", commonFeatureResultId_index)}
       ${setRequestAttribute("formNamePrefix", "cfeatcssl")}
-      <#-- ${setRequestAttribute("targetRequestName", targetRequestName)} -->
       ${screens.render(productsummaryScreen)}
     </div>
     <#if commonFeatureResultId_has_next>

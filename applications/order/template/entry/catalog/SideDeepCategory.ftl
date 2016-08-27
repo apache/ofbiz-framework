@@ -22,10 +22,6 @@ under the License.
 
 <#-- looping macro -->
 <#macro categoryList parentCategory category>
-  <#-- jleroux: This whole block does not make sense to me --> 
-  <#--if parentCategory.productCategoryId != category.productCategoryId>
-    <#local pStr = "/~pcategory=" + parentCategory.productCategoryId>
-  </#if-->
   <#if curCategoryId?? && curCategoryId == category.productCategoryId>
     <div class="browsecategorytext">
      <#if catContentWrappers?? && catContentWrappers[category.productCategoryId]?? && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME", "html")?has_content>

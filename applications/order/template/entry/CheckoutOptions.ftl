@@ -147,12 +147,6 @@ function submitForm(form, mode, value) {
                    </#if>
                  </table>
 
-                <#-- Party Tax Info -->
-                <#-- commented out by default because the TaxAuthority drop-down is just too wide...
-                <hr />
-                <div>&nbsp;${uiLabelMap.PartyTaxIdentification}</div>
-                ${screens.render("component://order/widget/ordermgr/OrderEntryOrderScreens.xml#customertaxinfo")}
-                -->
             </div>
         </div>
       </td>
