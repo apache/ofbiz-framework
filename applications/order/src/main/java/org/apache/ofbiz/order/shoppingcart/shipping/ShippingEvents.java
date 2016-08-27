@@ -176,13 +176,6 @@ public class ShippingEvents {
             carrierRoleTypeId = "CARRIER";
         }
 
-//  ShipmentCostEstimate entity allows null value for geoIdTo field. So if geoIdTo is null we should be using orderFlatPrice for shipping cost.
-//  So now calcShipmentCostEstimate service requires shippingContactMechId only if geoIdTo field has not null value.
-//        if (shippingContactMechId == null) {
-//            errorMessageList.add("Please Select Your Shipping Address.");
-//            return ServiceUtil.returnError(errorMessageList);
-//        }
-
         // if as supplier is associated, then we have a drop shipment and should use the origin shipment address of it
         String shippingOriginContactMechId = null;
         if (supplierPartyId != null) {

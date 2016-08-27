@@ -73,16 +73,6 @@ public final class OrderChangeHelper {
         try {
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, "ITEM_CREATED", ITEM_STATUS, DIGITAL_ITEM_STATUS);
             OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
-
-            /*
-            // call the service to check/run digital fulfillment
-            Map checkDigi = dispatcher.runSync("checkDigitalItemFulfillment", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
-            // this service will return a message with success if there were any problems. Get this message and return it to the user
-            String message = (String) checkDigi.get(ModelService.SUCCESS_MESSAGE);
-            if (UtilValidate.isNotEmpty(message)) {
-                throw new GeneralRuntimeException(message);
-            }
-            */
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, module);
             return false;
@@ -302,81 +292,10 @@ public final class OrderChangeHelper {
 
 
     public static boolean releaseInitialOrderHold(LocalDispatcher dispatcher, String orderId) {
-        /* NOTE DEJ20080609 commenting out this code because the old OFBiz Workflow Engine is being deprecated and this was only for that
-        // get the delegator from the dispatcher
-        Delegator delegator = dispatcher.getDelegator();
-
-        // find the workEffortId for this order
-        List workEfforts = null;
-        try {
-            workEfforts = EntityQuery.use(delegator).from("WorkEffort").where("currentStatusId", "WF_SUSPENDED", sourceReferenceId", orderId).queryList();
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Problems getting WorkEffort with order ref number: " + orderId, module);
-            return false;
-        }
-
-        if (workEfforts != null) {
-            // attempt to release the order workflow from 'Hold' status (resume workflow)
-            boolean allPass = true;
-            Iterator wei = workEfforts.iterator();
-            while (wei.hasNext()) {
-                GenericValue workEffort = (GenericValue) wei.next();
-                String workEffortId = workEffort.getString("workEffortId");
-                try {
-                    if (workEffort.getString("currentStatusId").equals("WF_SUSPENDED")) {
-                        WorkflowClient client = new WorkflowClient(dispatcher.getDispatchContext());
-                        client.resume(workEffortId);
-                    } else {
-                        Debug.logVerbose("Current : --{" + workEffort + "}-- not resuming", module);
-                    }
-                } catch (WfException e) {
-                    Debug.logError(e, "Problem resuming activity : " + workEffortId, module);
-                    allPass = false;
-                }
-            }
-            return allPass;
-        } else {
-            Debug.logWarning("No WF found for order ID : " + orderId, module);
-        }
-        return false;
-        */
         return true;
     }
 
     public static boolean abortOrderProcessing(LocalDispatcher dispatcher, String orderId) {
-        /* NOTE DEJ20080609 commenting out this code because the old OFBiz Workflow Engine is being deprecated and this was only for that
-        Debug.logInfo("Aborting workflow for order " + orderId, module);
-        Delegator delegator = dispatcher.getDelegator();
-
-        // find the workEffortId for this order
-        GenericValue workEffort = null;
-        try {
-            List workEfforts = EntityQuery.use(delegator).from("WorkEffort").where("workEffortTypeId", "WORK_FLOW", "sourceReferenceId", orderId).queryList();
-            if (workEfforts != null && workEfforts.size() > 1) {
-                Debug.logWarning("More then one workflow found for defined order: " + orderId, module);
-            }
-            workEffort = EntityUtil.getFirst(workEfforts);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Problems getting WorkEffort with order ref number: " + orderId, module);
-            return false;
-        }
-
-        if (workEffort != null) {
-            String workEffortId = workEffort.getString("workEffortId");
-            if (workEffort.getString("currentStatusId").equals("WF_RUNNING")) {
-                Debug.logInfo("WF is running; trying to abort", module);
-                WorkflowClient client = new WorkflowClient(dispatcher.getDispatchContext());
-                try {
-                    client.abortProcess(workEffortId);
-                } catch (WfException e) {
-                    Debug.logError(e, "Problem aborting workflow", module);
-                    return false;
-                }
-                return true;
-            }
-        }
-        return false;
-        */
         return true;
     }
 }

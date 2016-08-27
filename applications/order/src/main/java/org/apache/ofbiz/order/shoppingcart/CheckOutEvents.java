@@ -81,7 +81,6 @@ public class CheckOutEvents {
 
         HttpSession session = request.getSession();
 
-        //Locale locale = UtilHttp.getLocale(request);
         String curPage = request.getParameter("checkoutpage");
         Debug.logInfo("CheckoutPage: " + curPage, module);
 
@@ -261,7 +260,6 @@ public class CheckOutEvents {
 
     public static String setPartialCheckOutOptions(HttpServletRequest request, HttpServletResponse response) {
         // FIXME response need to be checked ?
-        // String resp = setCheckOutOptions(request, response);
         setCheckOutOptions(request, response);
         request.setAttribute("_ERROR_MESSAGE_", null);
         return "success";
@@ -290,7 +288,6 @@ public class CheckOutEvents {
 
     public static Map<String, Map<String, Object>> getSelectedPaymentMethods(HttpServletRequest request) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
-        //Locale locale = UtilHttp.getLocale(request);
         Map<String, Map<String, Object>> selectedPaymentMethods = new HashMap<String, Map<String, Object>>();
         String[] paymentMethods = request.getParameterValues("checkOutPaymentId");
 
@@ -696,9 +693,6 @@ public class CheckOutEvents {
         String isGift = null;
         String internalCode = null;
         String methodType = null;
-        //FIXME can be removed ?
-        // String singleUsePayment = null;
-        // String appendPayment = null;
         String shipBeforeDate = null;
         String shipAfterDate = null;
         String internalOrderNotes = null;
@@ -876,11 +870,6 @@ public class CheckOutEvents {
             Debug.logInfo("Changing mode from->to: " + mode + "->payment", module);
             mode = "payment";
         }
-        //FIXME can be removed ?
-        // singleUsePayment = request.getParameter("singleUsePayment");
-        // appendPayment = request.getParameter("appendPayment");
-        // boolean isSingleUsePayment = singleUsePayment != null && "Y".equalsIgnoreCase(singleUsePayment) ? true : false;
-        // boolean doAppendPayment = appendPayment != null && "Y".equalsIgnoreCase(appendPayment) ? true : false;
 
         if (mode.equals("payment")) {
             Map<String, Object> callResult = ServiceUtil.returnSuccess();

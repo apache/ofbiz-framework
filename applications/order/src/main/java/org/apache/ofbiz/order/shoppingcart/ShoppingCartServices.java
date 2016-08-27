@@ -310,22 +310,7 @@ public class ShoppingCartServices {
         for (GenericValue orderItemShipGroup: orderItemShipGroupList) {
             // should be sorted by shipGroupSeqId
             int newShipInfoIndex = cart.addShipInfo();
-
-            // shouldn't be gaps in it but allow for that just in case
-            /*
-            String cartShipGroupIndexStr = orderItemShipGroup.getString("shipGroupSeqId");
-            int cartShipGroupIndex = NumberUtils.toInt(cartShipGroupIndexStr);
-
-            if (newShipInfoIndex != (cartShipGroupIndex - 1)) {
-                int groupDiff = cartShipGroupIndex - cart.getShipGroupSize();
-                for (int i = 0; i < groupDiff; i++) {
-                    newShipInfoIndex = cart.addShipInfo();
-                }
-            }
-            */
-
             CartShipInfo cartShipInfo = cart.getShipInfo(newShipInfoIndex);
-
             cartShipInfo.shipAfterDate = orderItemShipGroup.getTimestamp("shipAfterDate");
             cartShipInfo.shipBeforeDate = orderItemShipGroup.getTimestamp("shipByDate");
             cartShipInfo.shipmentMethodTypeId = orderItemShipGroup.getString("shipmentMethodTypeId");
@@ -844,9 +829,6 @@ public class ShoppingCartServices {
                 Timestamp reservStart = quoteItem.getTimestamp("reservStart");
                 BigDecimal reservLength = quoteItem.getBigDecimal("reservLength");
                 BigDecimal reservPersons = quoteItem.getBigDecimal("reservPersons");
-                //String accommodationMapId = quoteItem.getString("accommodationMapId");
-                //String accommodationSpotId = quoteItem.getString("accommodationSpotId");
-
                 int itemIndex = -1;
                 if (quoteItem.get("productId") == null) {
                     // non-product item
@@ -885,11 +867,6 @@ public class ShoppingCartServices {
                 cartItem.setQuoteId(quoteItem.getString("quoteId"));
                 cartItem.setQuoteItemSeqId(quoteItem.getString("quoteItemSeqId"));
                 cartItem.setIsPromo(isPromo);
-                //cartItem.setDesiredDeliveryDate(quoteItem.getTimestamp("estimatedDeliveryDate"));
-                //cartItem.setStatusId(quoteItem.getString("statusId"));
-                //cartItem.setItemType(quoteItem.getString("orderItemTypeId"));
-                //cartItem.setProductCategoryId(quoteItem.getString("productCategoryId"));
-                //cartItem.setShoppingList(quoteItem.getString("shoppingListId"), quoteItem.getString("shoppingListItemSeqId"));
             }
 
         }
@@ -1038,12 +1015,6 @@ public class ShoppingCartServices {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
                 }
-                /*
-                BigDecimal amount = shoppingListItem.getBigDecimal("selectedAmount");
-                if (amount == null) {
-                    amount = BigDecimal.ZERO;
-                }
-                 */
                 BigDecimal modifiedPrice = shoppingListItem.getBigDecimal("modifiedPrice");
                 BigDecimal quantity = shoppingListItem.getBigDecimal("quantity");
                 if (quantity == null) {

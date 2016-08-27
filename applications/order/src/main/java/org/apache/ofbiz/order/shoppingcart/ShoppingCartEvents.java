@@ -676,8 +676,6 @@ public class ShoppingCartEvents {
         String orderId = request.getParameter("orderId");
         String itemGroupNumber = request.getParameter("itemGroupNumber");
         String[] itemIds = request.getParameterValues("item_id");
-        // not used yet: Locale locale = UtilHttp.getLocale(request);
-
         ShoppingCart cart = getCartObject(request);
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -710,8 +708,6 @@ public class ShoppingCartEvents {
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String controlDirective;
         Map<String, Object> result;
-        // not used yet: Locale locale = UtilHttp.getLocale(request);
-
         //Convert the params to a map to pass in
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
@@ -807,8 +803,6 @@ public class ShoppingCartEvents {
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String controlDirective;
         Map<String, Object> result;
-        // not used yet: Locale locale = UtilHttp.getLocale(request);
-
         //Convert the params to a map to pass in
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
@@ -866,8 +860,6 @@ public class ShoppingCartEvents {
         String controlDirective;
         Map<String, Object> result;
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-        // not used yet: Locale locale = UtilHttp.getLocale(request);
-
         //Delegate the cart helper
         result = cartHelper.deleteFromCart(paramMap);
         controlDirective = processResult(result, request);
@@ -891,8 +883,6 @@ public class ShoppingCartEvents {
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(null, dispatcher, cart);
         String controlDirective;
         Map<String, Object> result;
-        // not used yet: Locale locale = UtilHttp.getLocale(request);
-
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
 
         String removeSelectedFlag = request.getParameter("removeSelected");
@@ -1003,7 +993,6 @@ public class ShoppingCartEvents {
             cartList.add(currentCart);
             session.setAttribute("shoppingCartList", cartList);
             session.removeAttribute("shoppingCart");
-            //destroyCart(request, response);
         }
         ShoppingCart newCart = null;
         if (cartIndex >= 0 && cartIndex < cartList.size()) {
@@ -2007,8 +1996,6 @@ public class ShoppingCartEvents {
         String shipGroupSeqId = null;
 
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-        //FIXME can be removed ?
-        // String itemGroupNumber = request.getParameter("itemGroupNumber");
         int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
         if (rowCount < 1) {
             Debug.logWarning("No rows to process, as rowCount = " + rowCount, module);

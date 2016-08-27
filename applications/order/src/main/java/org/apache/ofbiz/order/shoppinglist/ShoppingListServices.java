@@ -470,8 +470,6 @@ public class ShoppingListServices {
                     Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
                     BigDecimal reservLength = null;
                     String configId = shoppingListItem.getString("configId");
-              //    String accommodationMapId = shoppingListItem.getString("accommodationMapId");
-              //    String accommodationSpotId = shoppingListItem.getString("accommodationSpotId");
 
                     if (shoppingListItem.get("reservLength") != null) {
                         reservLength = shoppingListItem.getBigDecimal("reservLength");
@@ -480,12 +478,6 @@ public class ShoppingListServices {
                     if (shoppingListItem.get("reservPersons") != null) {
                         reservPersons = shoppingListItem.getBigDecimal("reservPersons");
                     }
-               /*   if (shoppingListItem.get("accommodationMapId") != null) {
-                       accommodationMapId = shoppingListItem.getString("accommodationMapId");
-                    }
-                    if (shoppingListItem.get("accommodationSpotId") != null) {
-                       accommodationSpotId = shoppingListItem.getString("accommodationSpotId");
-                    }   */
                     if (UtilValidate.isNotEmpty(productId) && quantity != null) {
 
                     if (UtilValidate.isNotEmpty(configId)) {

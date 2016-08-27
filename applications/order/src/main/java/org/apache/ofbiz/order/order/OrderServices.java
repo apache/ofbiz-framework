@@ -722,7 +722,6 @@ public class OrderServices {
                 workOrderItemFulfillment.set("workEffortId", workEffortId);
                 workOrderItemFulfillment.set("orderId", orderId);
                 toBeStored.add(workOrderItemFulfillment);
-//                Debug.logInfo("Workeffort "+ workEffortId + " created for asset " + workEffort.get("fixedAssetId") + " and order "+ workOrderItemFulfillment.get("orderId") + "/" + workOrderItemFulfillment.get("orderItemSeqId") + " created", module);
 //
                 // now create the TechDataExcDay, when they do not exist, create otherwise update the capacity values
                 // please note that calendarId is the same for (TechData)Calendar, CalendarExcDay and CalendarExWeek
@@ -754,16 +753,11 @@ public class OrderServices {
                         techDataCalendarExcDay.set("exceptionDateStartTime", exceptionDateStartTime);
                         techDataCalendarExcDay.set("usedCapacity", BigDecimal.ZERO);  // initialise to zero
                         techDataCalendarExcDay.set("exceptionCapacity", fixedAsset.getBigDecimal("productionCapacity"));
-//                       Debug.logInfo(" techData excday record not found creating for calendarId: " + techDataCalendarExcDay.getString("calendarId") +
-//                               " and date: " + exceptionDateStartTime.toString(), module);
                     }
                     // add the quantity to the quantity on the date record
                     BigDecimal newUsedCapacity = techDataCalendarExcDay.getBigDecimal("usedCapacity").add(workEffort.getBigDecimal("quantityToProduce"));
                     // check to see if the requested quantity is available on the requested day but only when the maximum capacity is set on the fixed asset
                     if (fixedAsset.get("productionCapacity") != null)    {
-//                       Debug.logInfo("see if maximum not reached, available:  " + techDataCalendarExcDay.getString("exceptionCapacity") +
-//                               " already allocated: " + techDataCalendarExcDay.getString("usedCapacity") +
-//                                " Requested: " + workEffort.getString("quantityToProduce"), module);
                        if (newUsedCapacity.compareTo(techDataCalendarExcDay.getBigDecimal("exceptionCapacity")) > 0)    {
                             String errMsg = "ERROR: fixed_Asset_sold_out AssetId: " + workEffort.get("fixedAssetId") + " on date: " + techDataCalendarExcDay.getString("exceptionDateStartTime");
                             Debug.logError(errMsg, module);
@@ -773,9 +767,6 @@ public class OrderServices {
                     }
                     techDataCalendarExcDay.set("usedCapacity", newUsedCapacity);
                     tempList.add(techDataCalendarExcDay);
-//                  Debug.logInfo("Update success CalendarID: " + techDataCalendarExcDay.get("calendarId").toString() +
-//                            " and for date: " + techDataCalendarExcDay.get("exceptionDateStartTime").toString() +
-//                            " and for quantity: " + techDataCalendarExcDay.getDouble("usedCapacity").toString(), module);
                 }
             }
             if (tempList.size() > 0) {
@@ -926,33 +917,6 @@ public class OrderServices {
                 toBeStored.add(orderProductPromoCode);
             }
         }
-
-        /* DEJ20050529 the OLD way, where a single party had all roles... no longer doing things this way...
-        // define the roles for the order
-        List userOrderRoleTypes = null;
-        if ("SALES_ORDER".equals(orderTypeId)) {
-            userOrderRoleTypes = UtilMisc.toList("END_USER_CUSTOMER", "SHIP_TO_CUSTOMER", "BILL_TO_CUSTOMER", "PLACING_CUSTOMER");
-        } else if ("PURCHASE_ORDER".equals(orderTypeId)) {
-            userOrderRoleTypes = UtilMisc.toList("SHIP_FROM_VENDOR", "BILL_FROM_VENDOR", "SUPPLIER_AGENT");
-        } else {
-            // TODO: some default behavior
-        }
-
-        // now add the roles
-        if (userOrderRoleTypes != null) {
-            Iterator i = userOrderRoleTypes.iterator();
-            while (i.hasNext()) {
-                String roleType = (String) i.next();
-                String thisParty = partyId;
-                if (thisParty == null) {
-                    thisParty = "_NA_";  // will always set these roles so we can query
-                }
-                // make sure the party is in the role before adding
-                toBeStored.add(delegator.makeValue("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", roleType)));
-                toBeStored.add(delegator.makeValue("OrderRole", UtilMisc.toMap("orderId", orderId, "partyId", partyId, "roleTypeId", roleType)));
-            }
-        }
-        */
 
         // see the attributeRoleMap definition near the top of this file for attribute-role mappings
         Map<String, String> attributeRoleMap = salesAttributeRoleMap;
@@ -1610,11 +1574,6 @@ public class OrderServices {
                     "OrderErrorNoValidOrderHeaderFoundForOrderId", UtilMisc.toMap("orderId",orderId), locale));
         }
 
-        // don't charge tax on purchase orders, better we still do.....
-//        if ("PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {
-//            return ServiceUtil.returnSuccess();
-//        }
-
         // Retrieve the order tax adjustments
         List<GenericValue> orderTaxAdjustments = null;
         try {
@@ -1888,7 +1847,6 @@ public class OrderServices {
                     orderAdjustment.set("orderItemSeqId", DataModelConstants.SEQ_ID_NA);
                     orderAdjustment.set("createdDate", UtilDateTime.nowTimestamp());
                     orderAdjustment.set("createdByUserLogin", userLogin.getString("userLoginId"));
-                    //orderAdjustment.set("comments", "Shipping Re-Calc Adjustment");
                     try {
                         orderAdjustment.create();
                     } catch (GenericEntityException e) {
@@ -1955,15 +1913,11 @@ public class OrderServices {
         if (orderItems != null) {
             for (GenericValue item : orderItems) {
                 String statusId = item.getString("statusId");
-                //Debug.logInfo("Item Status: " + statusId, module);
                 if (!"ITEM_CANCELLED".equals(statusId)) {
-                    //Debug.logInfo("Not set to cancel", module);
                     allCanceled = false;
                     if (!"ITEM_COMPLETED".equals(statusId)) {
-                        //Debug.logInfo("Not set to complete", module);
                         allComplete = false;
                         if (!"ITEM_APPROVED".equals(statusId)) {
-                            //Debug.logInfo("Not set to approve", module);
                             allApproved = false;
                             break;
                         }
@@ -2425,7 +2379,6 @@ public class OrderServices {
 
             successResult.put("needsInventoryIssuance", orderHeader.get("needsInventoryIssuance"));
             successResult.put("grandTotal", orderHeader.get("grandTotal"));
-            //Debug.logInfo("For setOrderStatus orderHeader is " + orderHeader, module);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                     "OrderErrorCouldNotChangeOrderStatus",locale) + e.getMessage() + ").");
@@ -2467,7 +2420,6 @@ public class OrderServices {
         }
 
         successResult.put("orderStatusId", statusId);
-        //Debug.logInfo("For setOrderStatus successResult is " + successResult, module);
         return successResult;
     }
 
@@ -2478,7 +2430,6 @@ public class OrderServices {
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String trackingNumber = (String) context.get("trackingNumber");
-        //Locale locale = (Locale) context.get("locale");
 
         try {
             GenericValue shipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryOne();
@@ -2507,7 +2458,6 @@ public class OrderServices {
         String partyId = (String) context.get("partyId");
         String roleTypeId = (String) context.get("roleTypeId");
         Boolean removeOld = (Boolean) context.get("removeOld");
-        //Locale locale = (Locale) context.get("locale");
 
         if (removeOld != null && removeOld.booleanValue()) {
             try {
@@ -2546,8 +2496,6 @@ public class OrderServices {
         String orderId = (String) context.get("orderId");
         String partyId = (String) context.get("partyId");
         String roleTypeId = (String) context.get("roleTypeId");
-        //Locale locale = (Locale) context.get("locale");
-
         GenericValue testValue = null;
 
         try {
@@ -2794,10 +2742,6 @@ public class OrderServices {
         templateData.putAll(orderHeader);
         templateData.putAll(workEffort);
 
-        /* NOTE DEJ20080609 commenting out this code because the old OFBiz Workflow Engine is being deprecated and this was only for that
-        String omgStatusId = WfUtil.getOMGStatus(workEffort.getString("currentStatusId"));
-        templateData.put("omgStatusId", omgStatusId);
-        */
         templateData.put("omgStatusId", workEffort.getString("currentStatusId"));
 
         // get the assignments
@@ -2915,7 +2859,6 @@ public class OrderServices {
         String purpose[] = { "BILLING_LOCATION", "SHIPPING_LOCATION" };
         String outKey[] = { "billingAddress", "shippingAddress" };
         GenericValue orderHeader = null;
-        //Locale locale = (Locale) context.get("locale");
 
         try {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
@@ -3050,8 +2993,6 @@ public class OrderServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        //Locale locale = (Locale) context.get("locale");
-
         List<GenericValue> ordersToCheck = null;
 
         // create the query expressions
@@ -3106,8 +3047,6 @@ public class OrderServices {
                     cal.add(Calendar.DAY_OF_YEAR, daysTillCancel);
                     Date cancelDate = cal.getTime();
                     Date nowDate = new Date();
-                    //Debug.logInfo("Cancel Date : " + cancelDate, module);
-                    //Debug.logInfo("Current Date : " + nowDate, module);
                     if (cancelDate.equals(nowDate) || nowDate.after(cancelDate)) {
                         // cancel the order item(s)
                         Map<String, Object> svcCtx = UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", "ITEM_CANCELLED", "userLogin", userLogin);
@@ -4195,7 +4134,6 @@ public class OrderServices {
         try {
             saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, changeMap, calcTax, deleteItems);
             result = ServiceUtil.returnSuccess();
-            //result.put("shoppingCart", cart);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             result = ServiceUtil.returnError(e.getMessage());
@@ -4587,9 +4525,7 @@ public class OrderServices {
             Map<String, Object> paymentResp = null;
             try {
                 Debug.logInfo("Calling process payments...", module);
-                //Debug.set(Debug.VERBOSE, true);
                 paymentResp = CheckOutHelper.processPayment(orderId, orh.getOrderGrandTotal(), orh.getCurrency(), productStore, userLogin, false, false, dispatcher, delegator);
-                //Debug.set(Debug.VERBOSE, false);
             } catch (GeneralException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -4694,7 +4630,6 @@ public class OrderServices {
             // create the payment
             Map<String, Object> paymentParams = new HashMap<String, Object>();
             BigDecimal maxAmount = orderPaymentPreference.getBigDecimal("maxAmount");
-            //if (maxAmount > 0.0) {
                 paymentParams.put("paymentTypeId", "CUSTOMER_PAYMENT");
                 paymentParams.put("paymentMethodTypeId", orderPaymentPreference.getString("paymentMethodTypeId"));
                 paymentParams.put("paymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
@@ -4704,18 +4639,6 @@ public class OrderServices {
                 paymentParams.put("partyIdFrom", paymentFromId);
                 paymentParams.put("currencyUomId", productStore.getString("defaultCurrencyUomId"));
                 paymentParams.put("partyIdTo", payToPartyId);
-            /*}
-            else {
-                paymentParams.put("paymentTypeId", "CUSTOMER_REFUND"); // JLR 17/7/4 from a suggestion of Si cf. https://issues.apache.org/jira/browse/OFBIZ-828#action_12483045
-                paymentParams.put("paymentMethodTypeId", orderPaymentPreference.getString("paymentMethodTypeId")); // JLR 20/7/4 Finally reverted for now, I prefer to see an amount in payment, even negative
-                paymentParams.put("paymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
-                paymentParams.put("amount", Double.valueOf(Math.abs(maxAmount)));
-                paymentParams.put("statusId", "PMNT_RECEIVED");
-                paymentParams.put("effectiveDate", UtilDateTime.nowTimestamp());
-                paymentParams.put("partyIdFrom", payToPartyId);
-                paymentParams.put("currencyUomId", productStore.getString("defaultCurrencyUomId"));
-                paymentParams.put("partyIdTo", billToParty.getString("partyId"));
-            }*/
             if (paymentRefNum != null) {
                 paymentParams.put("paymentRefNum", paymentRefNum);
             }
@@ -4940,7 +4863,6 @@ public class OrderServices {
             Map<String, Object> ctx = new HashMap<String, Object>();
             ctx.put("userLogin", userLogin);
             ctx.put("screenLocation", screenLocation);
-            //ctx.put("contentType", "application/postscript");
             if (UtilValidate.isNotEmpty(printerName)) {
                 ctx.put("printerName", printerName);
             }
@@ -4969,7 +4891,6 @@ public class OrderServices {
             Map<String, Object> ctx = new HashMap<String, Object>();
             ctx.put("userLogin", userLogin);
             ctx.put("screenLocation", screenLocation);
-            //ctx.put("contentType", "application/postscript");
             ctx.put("fileName", "order_" + orderId + "_");
             ctx.put("screenContext", UtilMisc.toMap("orderId", orderId));
 

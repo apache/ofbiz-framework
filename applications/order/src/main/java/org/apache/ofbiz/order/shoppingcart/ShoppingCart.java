@@ -478,7 +478,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             if ((productSuppliers != null) && (productSuppliers.size() > 0)) {
                 supplierProduct = productSuppliers.get(0);
             }
-            //} catch (GenericServiceException e) {
         } catch (Exception e) {
             Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetSuppliersForProductError", locale) + e.getMessage(), module);
         }
@@ -570,7 +569,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         // Add the new item to the shopping cart if it wasn't found.
         ShoppingCartItem item = null;
         if (getOrderType().equals("PURCHASE_ORDER")) {
-            //GenericValue productSupplier = null;
             supplierProduct = getSupplierProduct(productId, quantity, dispatcher);
             if (supplierProduct != null || "_NA_".equals(this.getPartyId())) {
                  item = ShoppingCartItem.makePurchaseOrderItem(Integer.valueOf(0), productId, selectedAmount, quantity, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, this, supplierProduct, shipBeforeDate, shipAfterDate, cancelBackOrderDate);
@@ -729,22 +727,18 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         try {
             // Check for existing cart item
             for (ShoppingCartItem cartItem : cartLines) {
-                //Debug.logInfo("Checking cartItem with product [" + cartItem.getProductId() + "] becuase that is in group [" + (cartItem.getItemGroup()==null ? "no group" : cartItem.getItemGroup().getGroupNumber()) + "]", module);
 
                 if (UtilValidate.isNotEmpty(groupNumber) && !cartItem.isInItemGroup(groupNumber)) {
-                    //Debug.logInfo("Not using cartItem with product [" + cartItem.getProductId() + "] becuase not in group [" + groupNumber + "]", module);
                     continue;
                 }
                 if (CategoryWorker.isProductInCategory(delegator, cartItem.getProductId(), productCategoryId)) {
                     itemsToReturn.add(cartItem);
                 } else {
-                    //Debug.logInfo("Not using cartItem with product [" + cartItem.getProductId() + "] becuase not in category [" + productCategoryId + "]", module);
                 }
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting cart items that are in a category: " + e.toString(), module);
         }
-        //Debug.logInfo("Got [" + itemsToReturn.size() + "] cart items in category [" + productCategoryId + "] and item group [" + groupNumber + "]", module);
         return itemsToReturn;
     }
 
@@ -1273,10 +1267,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (UtilValidate.isEmpty(this.orderPartyId)) this.orderPartyId = endUserCustomerPartyId;
     }
 
-//    protected String billFromVendorPartyId = null;
-  //  protected String shipFromVendorPartyId = null;
-    //protected String supplierAgentPartyId = null;
-
     public String getBillFromVendorPartyId() {
         return this.billFromVendorPartyId != null ? this.billFromVendorPartyId : this.getPartyId();
     }
@@ -1378,7 +1368,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this.defaultItemComment = null;
         this.orderAdditionalEmails = null;
 
-        //this.viewCartOnAdd = false;
         this.readOnlyCart = false;
 
         this.lastListRestore = null;
@@ -2647,7 +2636,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             this.setAllGiftMessage("");
             this.setAllMaySplit(Boolean.TRUE);
             this.setAllIsGift(Boolean.FALSE);
-            //this.setInternalCode(internalCode);
         }
     }
 
@@ -2699,7 +2687,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns the total from the cart, including tax/shipping. */
     public BigDecimal getGrandTotal() {
         // sales tax and shipping are not stored as adjustments but rather as part of the ship group
-        // Debug.logInfo("Subtotal:" + this.getSubTotal() + " Shipping:" + this.getTotalShipping() + "SalesTax: "+ this.getTotalSalesTax() + " others: " + this.getOrderOtherAdjustmentTotal() + " global: " + this.getOrderGlobalAdjustments(), module);
         return this.getSubTotal().add(this.getTotalShipping()).add(this.getTotalSalesTax()).add(this.getOrderOtherAdjustmentTotal()).add(this.getOrderGlobalAdjustments());
     }
 
@@ -3563,7 +3550,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         synchronized (cartLines) {
             List<ShoppingCartItem> cartLineItems = new LinkedList<ShoppingCartItem>(cartLines);
             for (ShoppingCartItem item : cartLineItems) {
-                //Debug.logInfo("Item qty: " + item.getQuantity(), module);
                 try {
                     int thisIndex = items().indexOf(item);
                     List<ShoppingCartItem> explodedItems = item.explodeItem(this, dispatcher);
@@ -3594,7 +3580,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (dispatcher == null) return;
         synchronized (cartLines) {
             for (ShoppingCartItem item : shoppingCartItems) {
-                //Debug.logInfo("Item qty: " + item.getQuantity(), module);
                 try {
                     int thisIndex = items().indexOf(item);
                     List<ShoppingCartItem> explodedItems = item.explodeItem(this, dispatcher);
@@ -3736,29 +3721,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 Iterator<GenericValue> fsppas = this.freeShippingProductPromoActions.iterator();
 
                 while (fsppas.hasNext()) {
-                    //FIXME can be removed ?
-                    // GenericValue productPromoAction = fsppas.next();
-
                     // TODO - we need to change the way free shipping promotions work
-                    /*
-                    if ((productPromoAction.get("productId") == null || productPromoAction.getString("productId").equals(this.getShipmentMethodTypeId())) &&
-                        (productPromoAction.get("partyId") == null || productPromoAction.getString("partyId").equals(this.getCarrierPartyId()))) {
-                        Double shippingAmount = Double.valueOf(OrderReadHelper.calcOrderAdjustment(orderAdjustment, new BigDecimal(getSubTotal())).negate().doubleValue());
-                        // always set orderAdjustmentTypeId to SHIPPING_CHARGES for free shipping adjustments
-                        GenericValue fsOrderAdjustment = getDelegator().makeValue("OrderAdjustment",
-                                UtilMisc.toMap("orderItemSeqId", orderAdjustment.get("orderItemSeqId"), "orderAdjustmentTypeId", "SHIPPING_CHARGES", "amount", shippingAmount,
-                                    "productPromoId", productPromoAction.get("productPromoId"), "productPromoRuleId", productPromoAction.get("productPromoRuleId"),
-                                    "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId")));
-
-                        allAdjs.add(fsOrderAdjustment);
-
-                        // if free shipping IS applied to this orderAdjustment, break
-                        // out of the loop so that even if there are multiple free
-                        // shipping adjustments that apply to this orderAdjustment it
-                        // will only be compensated for once
-                        break;
-                    }
-                    */
                 }
             }
         }
@@ -3777,29 +3740,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         Iterator<GenericValue> fsppas = this.freeShippingProductPromoActions.iterator();
 
                         while (fsppas.hasNext()) {
-                            //FIXME can be removed ?
-                            // GenericValue productPromoAction = fsppas.next();
-
                             // TODO - fix the free shipping promotions!!
-                            /*
-                            if ((productPromoAction.get("productId") == null || productPromoAction.getString("productId").equals(item.getShipmentMethodTypeId())) &&
-                                (productPromoAction.get("partyId") == null || productPromoAction.getString("partyId").equals(item.getCarrierPartyId()))) {
-                                Double shippingAmount = Double.valueOf(OrderReadHelper.calcItemAdjustment(orderAdjustment, new BigDecimal(item.getQuantity()), new BigDecimal(item.getItemSubTotal())).negate().doubleValue());
-                                // always set orderAdjustmentTypeId to SHIPPING_CHARGES for free shipping adjustments
-                                GenericValue fsOrderAdjustment = getDelegator().makeValue("OrderAdjustment",
-                                        UtilMisc.toMap("orderItemSeqId", orderAdjustment.get("orderItemSeqId"), "orderAdjustmentTypeId", "SHIPPING_CHARGES", "amount", shippingAmount,
-                                            "productPromoId", productPromoAction.get("productPromoId"), "productPromoRuleId", productPromoAction.get("productPromoRuleId"),
-                                            "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId")));
-
-                                allAdjs.add(fsOrderAdjustment);
-
-                                // if free shipping IS applied to this orderAdjustment, break
-                                // out of the loop so that even if there are multiple free
-                                // shipping adjustments that apply to this orderAdjustment it
-                                // will only be compensated for once
-                                break;
-                            }
-                            */
                         }
                     }
                 }
@@ -4881,9 +4822,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             if (valueObj != null) {
                 // first create a BILLING_LOCATION for the payment method address if there is one
                 if ("PaymentMethod".equals(valueObj.getEntityName())) {
-                    //String paymentMethodTypeId = valueObj.getString("paymentMethodTypeId");
-                    //String paymentMethodId = valueObj.getString("paymentMethodId");
-                    //Map lookupFields = UtilMisc.toMap("paymentMethodId", paymentMethodId);
                     String billingAddressId = null;
 
                     GenericValue billingAddress = this.getBillingAddress(delegator);
