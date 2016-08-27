@@ -32,7 +32,6 @@ under the License.
 
         <field name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCode}">
             <drop-down allow-empty="true">
-                <option key="" description="- ${uiLabelMap.CommonAny} -"/>
                 <entity-options entity-name="TrackingCode" description="${trackingCodeId}">
                 </entity-options>
             </drop-down>
@@ -54,7 +53,6 @@ under the License.
 
          <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaign}">
             <drop-down allow-empty="true">
-                <option key="" description="- ${uiLabelMap.CommonAny} -"/>
                 <entity-options entity-name="MarketingCampaign" description="${campaignName}">
                 </entity-options>
             </drop-down>
@@ -81,7 +79,6 @@ under the License.
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
                 </entity-options>
@@ -89,7 +86,6 @@ under the License.
         </field>
         <field name="roleStatusId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupRole} ${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_ROL_STATUS"/>
                 </entity-options>
@@ -113,14 +109,12 @@ under the License.
         </field>
         <field name="contactListId" title="${uiLabelMap.PartyContactLists}">
             <drop-down allow-empty="true">
-                <option key="" description="- ${uiLabelMap.CommonAny} -"/>
                 <entity-options entity-name="ContactList" description="${contactListName}">
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="CONTACTLST_PARTY"/>
                 </entity-options>

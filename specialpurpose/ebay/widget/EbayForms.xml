@@ -161,8 +161,7 @@ under the License.
         <alt-target use-when="ebayConfig != null" target="updateEbayConfiguration"/>
         <field name="productStoreId" use-when="ebayConfig != null"><display/></field>
         <field name="productStoreId" title="${uiLabelMap.ProductProductStore}" use-when="ebayConfig == null">
-            <drop-down allow-empty="false">
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
@@ -178,8 +177,7 @@ under the License.
         <field name="apiServerUrl"><text size="40"/></field>
         <field name="customXml"><textarea cols="60" rows="5"/></field> 
         <field name="websiteId" field-name="webSiteId" parameter-name="webSiteId" title="${uiLabelMap.ProductWebSite}">
-            <drop-down no-current-selected-key="${ebayConfig.webSiteId}">
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+            <drop-down no-current-selected-key="${ebayConfig.webSiteId}" allow-empty="true">
                 <entity-options description="${siteName} [${webSiteId}]" entity-name="WebSite" key-field-name="webSiteId">
                     <entity-order-by field-name="siteName"/>
                 </entity-options>
@@ -234,8 +232,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productStoreId">
-            <drop-down allow-empty="false">
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
@@ -252,16 +249,14 @@ under the License.
     
     <form name="FindEbayConfig" type="single" target="FindEbayConfigurations">
         <field name="productStoreId" title="${uiLabelMap.ProductProductStore}">
-            <drop-down>
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="websiteId" field-name="webSiteId" parameter-name="webSiteId" title="${uiLabelMap.ProductWebSite}">
-            <drop-down no-current-selected-key="${parameters.webSiteId}">
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+            <drop-down no-current-selected-key="${parameters.webSiteId}" allow-empty="true">
                 <entity-options entity-name="WebSite" description="${siteName} [${webSiteId}]" key-field-name="webSiteId">
                     <entity-order-by field-name="siteName"/>
                 </entity-options>
