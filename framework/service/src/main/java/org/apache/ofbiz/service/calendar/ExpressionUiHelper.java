@@ -124,10 +124,10 @@ public class ExpressionUiHelper {
      * <code>description</code> entry and a <code>value</code> entry.
      */
     public static List<Map<String, Object>> getExpressionTypeList(Map<String, Object> uiLabelMap) {
-        int listSize = TemporalExpressionWorker.ExpressionTypeList.length;
+        int listSize = TemporalExpressionWorker.getExpressionTypeList().length;
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(listSize);
         for (int i = 0; i < listSize; i++) {
-            String exprType = TemporalExpressionWorker.ExpressionTypeList[i];
+            String exprType = TemporalExpressionWorker.getExpressionTypeList()[i];
             result.add(UtilMisc.toMap("description", uiLabelMap.get("TemporalExpression_" + exprType), "value", exprType));
         }
         return result;
