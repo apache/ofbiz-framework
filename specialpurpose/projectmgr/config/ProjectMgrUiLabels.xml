@@ -1396,6 +1396,7 @@
     <property key="ProjectMgrErrorTaskStatusWrongToBeComplete">
         <value xml:lang="en">Status of Task : ${parameters.workEffortId} is not correct, status cannot change to complete</value>
         <value xml:lang="fr">Le status de la tâche : ${parameters.workEffortId} n'est pas correct, il ne peut pas être passé à Terminé</value>
+        <value xml:lang="nl">Status van taak: ${parameters.workEffortId} is niet correct, Kan niet worden afgerond</value>
         <value xml:lang="zh">任务状态：${parameters.workEffortId}不正确，不能把状态改为完成</value>
         <value xml:lang="zh-TW">任務狀態:${parameters.workEffortId}不正確,不能把狀態改為完成</value>
     </property>
