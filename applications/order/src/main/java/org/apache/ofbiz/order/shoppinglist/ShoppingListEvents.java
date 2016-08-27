@@ -153,8 +153,6 @@ public class ShoppingListEvents {
                         ctx.put("reservStart", item.getReservStart());
                         ctx.put("reservLength", item.getReservLength());
                         ctx.put("reservPersons", item.getReservPersons());
-                  //    ctx.put("accommodationMapId", item.getAccommodationMapId());
-                  //    ctx.put("accommodationSpotId", item.getAccommodationSpotId());
                         if (item.getConfigWrapper() != null) {
                             ctx.put("configId", item.getConfigWrapper().getConfigId());
                         }
@@ -264,8 +262,6 @@ public class ShoppingListEvents {
             Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
             BigDecimal reservLength = shoppingListItem.getBigDecimal("reservLength");
             BigDecimal reservPersons = shoppingListItem.getBigDecimal("reservPersons");
-      //    String accommodationMapId = shoppingListItem.getString("accommodationMapId");
-      //    String accommodationSpotId = shoppingListItem.getString("accommodationSpotId");
             String configId = shoppingListItem.getString("configId");
             try {
                 String listId = shoppingListItem.getString("shoppingListId");

@@ -206,8 +206,6 @@ public class ShoppingCartItem implements java.io.Serializable {
             throw new CartItemModifyException(excMsg);
         }
 
-        // Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-
         // check to see if the product is fully configured
         if ("AGGREGATED".equals(product.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(product.getString("productTypeId"))) {
             if (configWrapper == null || !configWrapper.isCompleted()) {
@@ -550,23 +548,6 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Debug.logWarning(excMsg, module);
                 throw new CartItemModifyException(excMsg);
             }
-            /*
-            if (product.get("salesDiscWhenNotAvail") != null && "Y".equals(product.getString("salesDiscWhenNotAvail"))) {
-                // check atp and if <= 0 then the product is no more available because
-                // all the units in warehouse are reserved by other sales orders and no new purchase orders will be done
-                // for this product.
-                if (!newItem.isInventoryAvailableOrNotRequired(quantity, cart.getProductStoreId(), dispatcher)) {
-                    Map messageMap = UtilMisc.toMap("productName", product.getString("productName"),
-                                                    "productId", product.getString("productId"));
-
-                    String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_no_longer_available",
-                                                  messageMap , locale);
-
-                    Debug.logWarning(excMsg, module);
-                    throw new CartItemModifyException(excMsg);
-                }
-            }
-             */
 
             // check to see if the product is fully configured
             if ("AGGREGATED".equals(product.getString("productTypeId"))|| "AGGREGATED_SERVICE".equals(product.getString("productTypeId"))) {
@@ -914,7 +895,6 @@ public class ShoppingCartItem implements java.io.Serializable {
             String msg = UtilProperties.getMessage(resource_error, "item.fixed_Asset_not_found", messageMap , cart.getLocale());
             return msg;
         }
-        //Debug.logInfo("Checking availability for product: " + productId.toString() + " and related FixedAsset: " + fixedAssetProduct.getString("fixedAssetId"),module);
 
         // see if this fixed asset has a calendar, when no create one and attach to fixed asset
         // DEJ20050725 this isn't being used anywhere, commenting out for now and not assigning from the getRelatedOne: GenericValue techDataCalendar = null;
@@ -950,7 +930,6 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Debug.logWarning(e, module);
             }
             if (techDataCalendarExcDay == null) {
-                //Debug.logInfo(" No exception day record found, available: " + fixedAsset.getString("productionCapacity") + " Requested now: " + quantity, module);
                 if (fixedAsset.get("productionCapacity") != null && fixedAsset.getBigDecimal("productionCapacity").compareTo(quantity) < 0)
                     resultMessage = resultMessage.concat(exceptionDateStartTime.toString().substring(0, 10) + ", ");
             } else {
@@ -1063,64 +1042,6 @@ public class ShoppingCartItem implements java.io.Serializable {
                 shipGroupIndex = cart.getItemShipGroupIndex(itemId);
             }
             cart.clearItemShipInfo(this);
-
-            /*
-
-            // Deprecated in favour of ShoppingCart.createDropShipGroups(), called during checkout
-
-            int shipGroupIndex = -1;
-            if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
-                shipGroupIndex = 0;
-            } else {
-                if (_product != null && "PRODRQM_DS".equals(_product.getString("requirementMethodEnumId"))) {
-                    // this is a drop-ship only product: we need a ship group with supplierPartyId set
-                    Map supplierProductsResult = null;
-                    try {
-                        supplierProductsResult = dispatcher.runSync("getSuppliersForProduct", UtilMisc.toMap("productId", _product.getString("productId"),
-                                                                                                                 "quantity", Double.valueOf(quantity),
-                                                                                                                 "currencyUomId", cart.getCurrency(),
-                                                                                                                 "canDropShip", "Y",
-                                                                                                                 "userLogin", cart.getUserLogin()));
-                        List productSuppliers = (List)supplierProductsResult.get("supplierProducts");
-                        GenericValue supplierProduct = EntityUtil.getFirst(productSuppliers);
-                        if (supplierProduct != null) {
-                            String supplierPartyId = supplierProduct.getString("partyId");
-                            List shipGroups = cart.getShipGroups();
-                            for (int i = 0; i < shipGroups.size(); i++) {
-                                ShoppingCart.CartShipInfo csi = (ShoppingCart.CartShipInfo)shipGroups.get(i);
-                                if (supplierPartyId.equals(csi.getSupplierPartyId())) {
-                                    shipGroupIndex = i;
-                                    break;
-                                }
-                            }
-                            if (shipGroupIndex == -1) {
-                                // create a new ship group
-                                shipGroupIndex = cart.addShipInfo();
-                                cart.setSupplierPartyId(shipGroupIndex, supplierPartyId);
-                            }
-                        }
-                    } catch (Exception e) {
-                        Debug.logWarning("Error calling getSuppliersForProduct service, result is: " + supplierProductsResult, module);
-                    }
-                }
-
-                if (shipGroupIndex == -1) {
-                    List shipGroups = cart.getShipGroups();
-                    for (int i = 0; i < shipGroups.size(); i++) {
-                        ShoppingCart.CartShipInfo csi = (ShoppingCart.CartShipInfo)shipGroups.get(i);
-                        if (csi.getSupplierPartyId() == null) {
-                            shipGroupIndex = i;
-                            break;
-                        }
-                    }
-                    if (shipGroupIndex == -1) {
-                        // create a new ship group
-                        shipGroupIndex = cart.addShipInfo();
-                    }
-                }
-            }
-            cart.setItemShipGroupQty(this, quantity, shipGroupIndex);
-            */
             cart.setItemShipGroupQty(this, quantity, shipGroupIndex);
         }
     }
@@ -1378,8 +1299,6 @@ public class ShoppingCartItem implements java.io.Serializable {
                 }
 
                 this.promoQuantityUsed = this.promoQuantityUsed.add(promoQuantityToUse);
-                //Debug.logInfo("promoQuantityToUse=" + promoQuantityToUse + ", quantityDesired=" + quantityDesired + ", for promoCondAction: " + productPromoCondAction, module);
-                //Debug.logInfo("promoQuantityUsed now=" + promoQuantityUsed, module);
             }
 
             return promoQuantityToUse;
@@ -2072,13 +1991,11 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
         }
         rentalValue = rentalValue.add(new BigDecimal("100"));    // add final 100 percent for first person
-        //     Debug.logInfo("rental parameters....Nbr of persons:" + getReservPersons() + " extra% 2nd person:" + getReserv2ndPPPerc()+ " extra% Nth person:" + getReservNthPPPerc() + "  total rental adjustment:" + rentalValue/100 * getReservLength());
         return rentalValue.movePointLeft(2).multiply(getReservLength()); // return total rental adjustment
     }
 
     /** Returns the total line price. */
     public BigDecimal getItemSubTotal(BigDecimal quantity) {
-//        Debug.logInfo("Price" + getBasePrice() + " quantity" +  quantity + " Rental adj:" + getRentalAdjustment() + " other adj:" + getOtherAdjustments(), module);
           return getBasePrice().multiply(quantity).multiply(getRentalAdjustment()).add(getOtherAdjustments());
     }
 
@@ -2144,7 +2061,6 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (recurringAmount != null) {
             recurringAmount = recurringAmount.multiply(this.getQuantity());
             orderAdjustment.set("recurringAmount", recurringAmount);
-            //Debug.logInfo("Setting recurringAmount " + recurringAmount + " for " + orderAdjustment, module);
         }
 
         if (amount == null && recurringAmount == null) {
@@ -2167,8 +2083,6 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (oldAdditionalProductFeatureAndAppl != null) {
             removeFeatureAdjustment(oldAdditionalProductFeatureAndAppl.getString("productFeatureId"));
         }
-
-        //if (this.additionalProductFeatureAndAppls.size() == 0) this.additionalProductFeatureAndAppls = null;
 
         return oldAdditionalProductFeatureAndAppl;
     }

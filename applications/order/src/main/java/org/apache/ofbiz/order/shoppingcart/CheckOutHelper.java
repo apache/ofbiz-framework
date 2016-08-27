@@ -806,16 +806,10 @@ public class CheckOutHelper {
         List<BigDecimal> quantity = new ArrayList<BigDecimal>(totalItems);
         List<BigDecimal> shipAmt = new ArrayList<BigDecimal>(totalItems);
 
-        // Debug.logInfo("====== makeTaxContext passed in shipAddress=" + shipAddress, module);
-
         Iterator<ShoppingCartItem> it = csi.shipItemInfo.keySet().iterator();
         for (int i = 0; i < totalItems; i++) {
             ShoppingCartItem cartItem = it.next();
             ShoppingCart.CartShipInfo.CartShipItemInfo itemInfo = csi.getShipItemInfo(cartItem);
-
-            //Debug.logInfo("In makeTaxContext for item [" + i + "] in ship group [" + shipGroup + "] got cartItem: " + cartItem, module);
-            //Debug.logInfo("In makeTaxContext for item [" + i + "] in ship group [" + shipGroup + "] got itemInfo: " + itemInfo, module);
-
             product.add(i, cartItem.getProduct());
             amount.add(i, cartItem.getItemSubTotal(itemInfo.quantity));
             price.add(i, cartItem.getBasePrice());
@@ -831,7 +825,6 @@ public class CheckOutHelper {
         BigDecimal shipAmount = csi.shipEstimate;
         if (shipAddress == null) {
             shipAddress = cart.getShippingAddress(shipGroup);
-            // Debug.logInfo("====== makeTaxContext set shipAddress to cart.getShippingAddress(shipGroup): " + shipAddress, module);
         }
 
         if (shipAddress == null && skipEmptyAddresses) {

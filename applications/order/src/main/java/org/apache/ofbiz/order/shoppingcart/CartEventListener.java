@@ -42,7 +42,6 @@ public class CartEventListener implements HttpSessionListener {
 
     public void sessionCreated(HttpSessionEvent event) {
         //for this one do nothing when the session is created...
-        //HttpSession session = event.getSession();
     }
 
     public void sessionDestroyed(HttpSessionEvent event) {

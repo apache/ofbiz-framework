@@ -201,9 +201,6 @@ public class ShoppingCartHelper {
             }
             Debug.logInfo("carthelper productid " + productId,module);
             Debug.logInfo("parent productid " + pProductId,module);
-            //if (product != null && !"Y".equals(product.getString("isVariant")))
-            //    pProductId = null;
-
         }
 
         // Get the additional features selected for the product (if any)
@@ -324,7 +321,6 @@ public class ShoppingCartHelper {
                 // do not store rental items
                 if (orderItemTypeId.equals("RENTAL_ORDER_ITEM"))
                     continue;
-                // never read: int itemId = -1;
                 if (UtilValidate.isNotEmpty(productId) && orderItem.get("quantity") != null) {
                     BigDecimal amount = orderItem.getBigDecimal("selectedAmount");
                     ProductConfigWrapper configWrapper = null;
@@ -398,8 +394,6 @@ public class ShoppingCartHelper {
             String originalProductId = null;
             if (entry.getKey() instanceof String) {
                 String key = entry.getKey();
-                //Debug.logInfo("Bulk Key: " + key, module);
-
                 int ignIndex = key.indexOf(ignSeparator);
                 if (ignIndex > 0) {
                     itemGroupNumberToUse = key.substring(ignIndex + ignSeparator.length());
@@ -489,10 +483,6 @@ public class ShoppingCartHelper {
         // check if we are using per row submit
         boolean useRowSubmit = (!context.containsKey("_useRowSubmit"))? false :
                 "Y".equalsIgnoreCase((String)context.get("_useRowSubmit"));
-
-        // check if we are to also look in a global scope (no delimiter)
-        //boolean checkGlobalScope = (!context.containsKey("_checkGlobalScope"))? false :
-        //        "Y".equalsIgnoreCase((String)context.get("_checkGlobalScope"));
 
         // The number of multi form rows is retrieved
         int rowCount = UtilHttp.getMultiFormRowCount(context);

@@ -481,11 +481,6 @@ public class OrderReturnServices {
                     EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderHeader.getString("orderId")),
                     EntityCondition.makeCondition("orderItemStatusId", EntityOperator.IN, UtilMisc.toList("ITEM_APPROVED", "ITEM_COMPLETED"))
                ), EntityOperator.AND);
-            /*
-            EntityConditionList havingConditions = EntityCondition.makeCondition(UtilMisc.toList(
-                    EntityCondition.makeCondition("quantityIssued", EntityOperator.GREATER_THAN, Double.valueOf(0))
-               ), EntityOperator.AND);
-             */
             List<GenericValue> orderItemQuantitiesIssued = null;
             try {
                 orderItemQuantitiesIssued = EntityQuery.use(delegator).select("orderId", "orderItemSeqId", "quantityIssued").from("OrderItemQuantityReportGroupByItem").where(whereConditions).orderBy("orderItemSeqId").queryList();
@@ -1454,7 +1449,6 @@ public class OrderReturnServices {
                             // Set the response on each item
                             for (GenericValue item : items) {
                                 Map<String, Object> returnItemMap = UtilMisc.<String, Object>toMap("returnItemResponseId", responseId, "returnId", item.get("returnId"), "returnItemSeqId", item.get("returnItemSeqId"), "statusId", returnItemStatusId, "userLogin", userLogin);
-                                //Debug.logInfo("Updating item status", module);
                                 try {
                                     serviceResults = dispatcher.runSync("updateReturnItem", returnItemMap);
                                     if (ServiceUtil.isError(serviceResults)) {
@@ -1467,7 +1461,6 @@ public class OrderReturnServices {
                                             "OrderProblemUpdatingReturnItemReturnItemResponseId", locale));
                                 }
 
-                                //Debug.logInfo("Item status and return status history created", module);
                             }
 
                             // Create the payment applications for the return invoice
@@ -1757,26 +1750,6 @@ public class OrderReturnServices {
                     }
                     orderMap.put("orderContactMechs", contactMechs);
                 }
-
-                // make the shipment prefs
-                /*
-                 * OrderShipmentPreference is a deprecated entity
-                List shipmentPrefs = new ArrayList();
-                List orderSp = null;
-                try {
-                    orderSp = orderHeader.getRelated("OrderShipmentPreference", null, null, false);
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
-                if (orderSp != null) {
-                    Iterator orderSpi = orderSp.iterator();
-                    while (orderSpi.hasNext()) {
-                        GenericValue v = (GenericValue) orderSpi.next();
-                        shipmentPrefs.add(GenericValue.create(v));
-                    }
-                    orderMap.put("orderShipmentPreferences", shipmentPrefs);
-                }
-                 */
 
                 // make the order items
                 BigDecimal orderPriceTotal = BigDecimal.ZERO;
@@ -2324,7 +2297,6 @@ public class OrderReturnServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, BigDecimal> returnAmountByOrder = null;
         Map<String, Object> serviceResult = null;
-        //GenericValue orderHeader = null;
         try {
             serviceResult = dispatcher.runSync("getReturnAmountByOrder", org.apache.ofbiz.base.util.UtilMisc.toMap("returnId", returnId));
         } catch (GenericServiceException e) {

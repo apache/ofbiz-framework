@@ -156,23 +156,6 @@ public class TaxwareUTL {
         this.shipToAddress = v;
     }
 
-    /* deprecated : the taxCategory field does not exist anymore in OFBiz
-    public void addItem(GenericValue product, double linePrice, double itemShipping) {
-        Record record = outItem.makeRecord("outItem");
-
-        if (product.get("taxable") == null || product.getString("taxable").equalsIgnoreCase("Y")) {
-            if (product.get("taxCategory") != null)
-                record.set("COMMODITY_PRODUCT_CODE", product.get("taxCategory"));
-            else
-                record.set("COMMODITY_PRODUCT_CODE", "DEFAULT");
-            record.set("PART_NUMBER", product.get("productId"));
-            record.set("LINE_ITEM_AMOUNT", Double.valueOf(linePrice));
-            if (itemShipping > 0)
-                record.set("FREIGHT_AMOUNT", Double.valueOf(itemShipping));
-        }
-        records.add(record);
-    }*/
-
     public List getItemAdjustments() {
         return itemAdjustments;
     }

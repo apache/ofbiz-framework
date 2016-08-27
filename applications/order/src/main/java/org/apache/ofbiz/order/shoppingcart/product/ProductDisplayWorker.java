@@ -73,7 +73,6 @@ public final class ProductDisplayWorker {
 
             while (cartiter != null && cartiter.hasNext()) {
                 ShoppingCartItem item = cartiter.next();
-                // Collection upgradeProducts = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", item.getProductId(), "productAssocTypeId", "PRODUCT_UPGRADE"), null, true);
                 // since ProductAssoc records have a fromDate and thruDate, we can filter by now so that only assocs in the date range are included
                 List<GenericValue> complementProducts = EntityQuery.use(delegator).from("ProductAssoc").where("productId", item.getProductId(), "productAssocTypeId", "PRODUCT_COMPLEMENT").cache(true).filterByDate().queryList();
 
@@ -234,8 +233,6 @@ public final class ProductDisplayWorker {
             }
 
             // if desired check view allow category
-            //if (checkViewAllow) {
-                //Set prodKeySet = products.keySet();
                 String currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
                 String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, currentCatalogId);
                 if (viewProductCategoryId != null) {
@@ -248,18 +245,9 @@ public final class ProductDisplayWorker {
                         }
                     }
                 }
-            //}
 
             List<GenericValue> reorderProds = new LinkedList<GenericValue>();
             reorderProds.addAll(products.values());
-
-            /*
-             //randomly remove products while there are more than 5
-             while (reorderProds.size() > 5) {
-             int toRemove = (int)(Math.random()*(double)(reorderProds.size()));
-             reorderProds.remove(toRemove);
-             }
-             */
 
             // sort descending by new metric...
             BigDecimal occurancesModifier = BigDecimal.ONE;
