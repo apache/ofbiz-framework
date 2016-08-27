@@ -95,7 +95,6 @@ public class BOMNode {
         // If the date is null, set it to today.
         if (inDate == null) inDate = new Date();
         bomTypeId = partBomTypeId;
-//        Delegator delegator = product.getDelegator();
         List<GenericValue> rows = EntityQuery.use(delegator).from("ProductAssoc")
                 .where("productId", product.get("productId"),
                         "productAssocTypeId", partBomTypeId)
@@ -322,7 +321,6 @@ public class BOMNode {
         if (inDate == null) inDate = new Date();
 
         bomTypeId = partBomTypeId;
-//        Delegator delegator = product.getDelegator();
         List<GenericValue> rows = EntityQuery.use(delegator).from("ProductAssoc")
                 .where("productIdTo", product.get("productId"),
                         "productAssocTypeId", partBomTypeId)
@@ -345,7 +343,6 @@ public class BOMNode {
         for (GenericValue oneChild : children) {
             oneChildNode = new BOMNode(oneChild.getString("productId"), delegator, dispatcher, userLogin);
             // Configurator
-            //oneChildNode = configurator(oneChild, productFeatures, getRootNode().getProductForRules(), delegator);
             // If the node is null this means that the node has been discarded by the rules.
             if (oneChildNode != null) {
                 oneChildNode.setParentNode(this);
@@ -436,7 +433,7 @@ public class BOMNode {
                     this.quantity = calcQuantity;
                 }
             } catch (GenericServiceException e) {
-                //Debug.logError(e, "Problem calling the getManufacturingComponents service", module);
+                
             }
         } else {
             this.quantity = quantity.multiply(quantityMultiplier).multiply(scrapFactor);
@@ -576,7 +573,7 @@ public class BOMNode {
                     }
                 }
             } catch (GenericEntityException e) {
-                //Debug.logError(e, "Problem calling the getManufacturingComponents service", module);
+                
             }
         }
         return UtilMisc.toMap("productionRunId", productionRunId, "endDate", endDate);

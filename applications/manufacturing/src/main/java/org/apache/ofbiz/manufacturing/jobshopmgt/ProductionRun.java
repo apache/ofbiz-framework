@@ -421,7 +421,6 @@ public class ProductionRun {
                     // and put the value in totalTaskTime
                     Map<String, Object> estimateCalcServiceMap = UtilMisc.<String, Object>toMap("workEffort", task, "quantity", quantity, "productId", productId, "routingId", routingId);
                     Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("arguments", estimateCalcServiceMap);
-                    // serviceContext.put("userLogin", userLogin);
                     Map<String, Object> resultService = dispatcher.runSync(serviceName, serviceContext);
                     totalTaskTime = ((BigDecimal)resultService.get("totalTime")).doubleValue();
                 }

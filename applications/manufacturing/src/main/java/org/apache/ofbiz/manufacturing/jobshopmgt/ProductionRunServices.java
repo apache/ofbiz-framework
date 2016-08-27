@@ -186,12 +186,7 @@ public class ProductionRunServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        /* TODO: security management  and finishing cleaning (ex copy from PartyServices.java)
-        if (!security.hasEntityPermission(secEntity, secOperation, userLogin)) {
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, "You do not have permission to perform this operation for this party");
-            return partyId;
-        }
+        /* TODO: security management  and finishing cleaning (ex copy from PartyServices.java)        
          */
         // Mandatory input fields
         String productId = (String) context.get("productId");
@@ -1687,7 +1682,6 @@ public class ProductionRunServices {
                     if (unitCost.compareTo(ZERO) != 0) {
                         serviceContext.put("unitCost", unitCost);
                     }
-                    //serviceContext.put("serialNumber", productionRunId);
                     serviceContext.put("lotId", lotId);
                     serviceContext.put("locationSeqId", locationSeqId);
                     serviceContext.put("uomId",uomId);
@@ -2163,22 +2157,6 @@ public class ProductionRunServices {
 
         // Create a new TimeEntry
         try {
-            /*
-            String timeEntryId = delegator.getNextSeqId("TimeEntry");
-            Map timeEntryFields = UtilMisc.toMap("timeEntryId", timeEntryId,
-                                                 "workEffortId", workEffortId);
-            Double totalTime = Double.valueOf(addSetupTime.doubleValue() + addTaskTime.doubleValue());
-            timeEntryFields.put("partyId", partyId);
-            timeEntryFields.put("fromDate", fromDate);
-            timeEntryFields.put("thruDate", toDate);
-            timeEntryFields.put("hours", totalTime); // FIXME
-            //timeEntryFields.put("setupTime", addSetupTime); // FIXME
-            //timeEntryFields.put("quantityProduced", addQuantityProduced); // FIXME
-            //timeEntryFields.put("quantityRejected", addQuantityRejected); // FIXME
-            timeEntryFields.put("comments", comments);
-            GenericValue timeEntry = delegator.makeValue("TimeEntry", timeEntryFields);
-            timeEntry.create();
-            */
             Map<String, Object> serviceContext = new HashMap<String, Object>();
             serviceContext.clear();
             serviceContext.put("workEffortId", workEffortId);
@@ -2335,7 +2313,6 @@ public class ProductionRunServices {
         serviceContext.put("pRQuantity", quantity);
         serviceContext.put("startDate", UtilDateTime.nowTimestamp());
         serviceContext.put("facilityId", facilityId);
-        //serviceContext.put("workEffortName", "");
         serviceContext.put("userLogin", userLogin);
         Map<String, Object> resultService = null;
         try {
@@ -2348,7 +2325,6 @@ public class ProductionRunServices {
 
         Map<String, BigDecimal> components = new HashMap<String, BigDecimal>();
         for (ConfigOption co : config.getSelectedOptions()) {
-            //components.addAll(co.getComponents());
             for (GenericValue selComponent : co.getComponents()) {
                 BigDecimal componentQuantity = null;
                 if (selComponent.get("quantity") != null) {
@@ -2526,8 +2502,6 @@ public class ProductionRunServices {
 
                     serviceContext.put("pRQuantity", qtyToProduce);
                     serviceContext.put("startDate", UtilDateTime.nowTimestamp());
-                    //serviceContext.put("workEffortName", "");
-
                     resultService = dispatcher.runSync("createProductionRun", serviceContext);
 
                     String productionRunId = (String)resultService.get("productionRunId");
@@ -2977,12 +2951,6 @@ public class ProductionRunServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String inventoryItemId = (String)context.get("inventoryItemId");
         Locale locale = (Locale) context.get("locale");
-        /*
-        BigDecimal quantity = (BigDecimal)context.get("quantityAccepted");
-        if (quantity != null && quantity.BigDecimalValue() == 0) {
-            return ServiceUtil.returnSuccess();
-        }
-         */
         try {
             GenericValue inventoryItem = EntityQuery.use(delegator).from("InventoryItem").where("inventoryItemId", inventoryItemId).queryOne();
             if (inventoryItem == null) {
@@ -2998,11 +2966,6 @@ public class ProductionRunServices {
             if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG_AUTO")) {
                 Map<String, Object> serviceContext = UtilMisc.toMap("inventoryItemId", inventoryItemId,
                                                     "userLogin", userLogin);
-                /*
-                if (quantity != null) {
-                    serviceContext.put("quantity", quantity);
-                }
-                 */
                 dispatcher.runSync("decomposeInventoryItem", serviceContext);
             }
         } catch (Exception e) {
@@ -3162,7 +3125,6 @@ public class ProductionRunServices {
                 }
                 Map<String, Object> dateMap = UtilGenerics.checkMap(productMap.get(estimatedShipDate));
                 BigDecimal remainingQty = (BigDecimal)dateMap.get("remainingQty");
-                //List reservations = (List)dateMap.get("reservations");
                 remainingQty = remainingQty.add(qtyDiff);
                 dateMap.put("remainingQty", remainingQty);
             }
@@ -3211,7 +3173,6 @@ public class ProductionRunServices {
                 }
                 Map<String, Object> dateMap = UtilGenerics.checkMap(productMap.get(estimatedShipDate));
                 BigDecimal remainingQty = (BigDecimal)dateMap.get("remainingQty");
-                //List reservations = (List)dateMap.get("reservations");
                 remainingQty = remainingQty.add(orderQuantity);
                 dateMap.put("remainingQty", remainingQty);
             }
@@ -3220,7 +3181,6 @@ public class ProductionRunServices {
             List<EntityCondition> backordersCondList = new LinkedList<EntityCondition>();
             backordersCondList.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
             backordersCondList.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, BigDecimal.ZERO));
-            //backordersCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_CREATED"), EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.LESS_THAN, "ITEM_APPROVED")));
 
             List<GenericValue> backorders = EntityQuery.use(delegator).from("OrderItemAndShipGrpInvResAndItem")
                     .where(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.NOT_EQUAL, null),
@@ -3248,7 +3208,6 @@ public class ProductionRunServices {
                 // iterate and 'reserve'
                 for (Timestamp currentDate : subsetMap.keySet()) {
                     Map<String, Object> currentDateMap = UtilGenerics.checkMap(subsetMap.get(currentDate));
-                    //List reservations = (List)currentDateMap.get("reservations");
                     BigDecimal remainingQty = (BigDecimal)currentDateMap.get("remainingQty");
                     if (remainingQty.compareTo(ZERO) == 0) {
                         continue;

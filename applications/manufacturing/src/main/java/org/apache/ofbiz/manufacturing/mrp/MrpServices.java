@@ -75,7 +75,6 @@ public class MrpServices {
         List<GenericValue> listResult = null;
         try {
             listResult = EntityQuery.use(delegator).from("MrpEvent").queryList();
-            //int numOfRecordsRemoved = delegator.removeByCondition("MrpEvent", null);
         } catch (GenericEntityException e) {
             Debug.logError(e,"Error : findList(\"MrpEvent\", null, null, null, null, false)", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
@@ -104,7 +103,6 @@ public class MrpServices {
             try {
                 for (GenericValue tmpRequirement : listResult) {
                     listResultRoles.addAll(tmpRequirement.getRelated("RequirementRole", null, null, false));
-                    //int numOfRecordsRemoved = delegator.removeRelated("RequirementRole", tmpRequirement);
                 }
                 delegator.removeAll(listResultRoles);
                 delegator.removeAll(listResult);
@@ -567,7 +565,6 @@ public class MrpServices {
                 Timestamp eventDate = (routingTask == null || !routingTaskStartDate.containsKey(routingTask)) ? startDate : (Timestamp) routingTaskStartDate.get(routingTask);
                 // if the components is valid at the event Date create the Mrp requirement in the M entity
                 if (EntityUtil.isValueActive(productComponent, eventDate)) {
-                    //Map parameters = UtilMisc.toMap("productId", productComponent.getString("productIdTo"));
                     Map<String, Object> parameters = UtilMisc.<String, Object>toMap("productId", node.getProduct().getString("productId"));
                     parameters.put("mrpId", mrpId);
                     parameters.put("eventDate", eventDate);
