@@ -78,9 +78,9 @@ under the License.
         <field name="infoString" title="${uiLabelMap.PartyContactInformation}">
             <text size="15"/>
         </field>
-        <field name="partyClassificationGroupId" title=" " use-when="parentTypeId == null">
-            <drop-down allow-multiple="true" size="20" allow-empty="true">
-                <entity-options entity-name="PartyClassificationGroupAndType">
+        <field name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroup}" use-when="parentTypeId == null">
+            <drop-down allow-multiple="true" size="5" allow-empty="false">
+                <entity-options entity-name="PartyClassificationGroupAndType" key-field-name="partyClassificationTypeId">
                     <entity-order-by field-name="partyClassificationTypeId"/>
                 </entity-options>
             </drop-down>
@@ -99,6 +99,7 @@ under the License.
             <sort-field name="groupName"/>
             <sort-field name="roleTypeId"/>
             <sort-field name="partyTypeId"/>
+            <sort-field name="partyClassificationGroupId"/>
             <field-group title="${uiLabelMap.PartyPartyIdentification}" initially-collapsed="true">
                 <sort-field name="idValue"/>
                 <sort-field name="partyIdentificationTypeId"/>

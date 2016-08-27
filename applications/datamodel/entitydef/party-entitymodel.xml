@@ -2985,5 +2985,15 @@ under the License.
         </view-link>
     </view-entity>
     
+    <view-entity entity-name="PartyClassificationGroupAndType" package-name="org.ofbiz.party.party" title="PartyClassificationGroup and PartyClassificationTypeView">
+        <member-entity entity-alias="PCG" entity-name="PartyClassificationGroup"/>
+        <member-entity entity-alias="PCT" entity-name="PartyClassificationType"/>
+        <alias-all entity-alias="PCG"/>
+        <alias entity-alias="PCT" name="typeDescription" field="description"/>
+        <alias entity-alias="PCT" name="parentTypeId"/>
+        <view-link entity-alias="PCG" rel-entity-alias="PCT">
+            <key-map field-name="partyClassificationTypeId"/>
+        </view-link>
+    </view-entity>
     
 </entitymodel>
