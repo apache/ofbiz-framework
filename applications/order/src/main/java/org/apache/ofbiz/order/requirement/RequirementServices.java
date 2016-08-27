@@ -29,6 +29,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.order.order.OrderReadHelper;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -324,6 +325,33 @@ public class RequirementServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+        }
+        return ServiceUtil.returnSuccess();
+    }
+
+    public static Map<String, Object> updateRequirementsToOrdered (DispatchContext ctx, Map<String, ? extends Object> context) {
+        Delegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String orderId = (String) context.get("orderId");
+        OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
+        try {
+            for(GenericValue orderItem: orh.getOrderItems()){
+                GenericValue orderRequirementCommitment = EntityQuery.use(delegator).from("OrderRequirementCommitment")
+                        .where(UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId")))
+                        .queryFirst();
+                if (UtilValidate.isNotEmpty(orderRequirementCommitment)) {
+                    String requirementId = orderRequirementCommitment.getString("requirementId");
+                    /* Change status of requirement to ordered */
+                    Map<String, Object> inputMap = UtilMisc.<String, Object>toMap("userLogin", userLogin, "requirementId", requirementId, "statusId", "REQ_ORDERED", "quantity", orderItem.getBigDecimal("quantity"));
+                    // TODO: check service result for an error return
+                    dispatcher.runSync("updateRequirement", inputMap);
+                }
+            }
+        } catch(GenericEntityException e){
+            Debug.logError(e, module);
+        } catch(GenericServiceException e){
             Debug.logError(e, module);
         }
         return ServiceUtil.returnSuccess();

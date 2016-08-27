@@ -672,11 +672,8 @@ public class CheckOutHelper {
             String requirementId = shoppingCartItem.getRequirementId();
             if (requirementId != null) {
                 try {
-                    Map<String, Object> inputMap = UtilMisc.<String, Object>toMap("requirementId", requirementId, "statusId", "REQ_ORDERED");
-                    inputMap.put("userLogin", userLogin);
-                    // TODO: check service result for an error return
-                    dispatcher.runSync("updateRequirement", inputMap);
-                    inputMap = UtilMisc.toMap("userLogin", userLogin, "orderId", orderId, "orderItemSeqId", shoppingCartItem.getOrderItemSeqId(), "requirementId", requirementId, "quantity", shoppingCartItem.getQuantity());
+                    /* OrderRequirementCommitment records will map which POs which are created from which requirements. With the help of this mapping requirements will be updated to Ordered when POs will be approved.  */
+                    Map<String, Object> inputMap = UtilMisc.toMap("userLogin", userLogin, "orderId", orderId, "orderItemSeqId", shoppingCartItem.getOrderItemSeqId(), "requirementId", requirementId, "quantity", shoppingCartItem.getQuantity());
                     dispatcher.runSync("createOrderRequirementCommitment", inputMap);
                 } catch (Exception e) {
                     String service = e.getMessage();

@@ -194,5 +194,12 @@ under the License.
         </description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="updateRequirementsToOrdered" engine="java"
+             location="org.apache.ofbiz.order.requirement.RequirementServices" invoke="updateRequirementsToOrdered" auth="true">
+        <description>
+            Update requirement's status to Ordered after PO is approved.
+        </description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>
 
