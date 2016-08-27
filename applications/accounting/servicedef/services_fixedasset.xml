@@ -301,4 +301,20 @@ under the License.
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- AccommodationClass services -->
+    <service name="createAccommodationClass" default-entity-name="AccommodationClass" engine="entity-auto" invoke="create" auth="true">
+        <description>Create an AccommodationClass</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateAccommodationClass" default-entity-name="AccommodationClass" engine="entity-auto" invoke="update" auth="true">
+        <description>Update an AccommodationClass</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteAccommodationClass" default-entity-name="AccommodationClass" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an AccommodationClass</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
