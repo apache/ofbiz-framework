@@ -46,8 +46,7 @@ under the License.
     <form name="NetBeforeOverheadReport" type="single" target="NetBeforeOverheadReport.pdf" title=""
           header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
         <field name="productStoreId">
-            <drop-down allow-empty="false">
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
@@ -59,8 +58,7 @@ under the License.
     <form name="ProductDemandReport" type="single" target="ProductDemandReport.pdf" title=""
           header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
         <field name="productStoreId">
-            <drop-down allow-empty="false">
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
@@ -76,8 +74,7 @@ under the License.
     </form>
     <form name="SaleOrdersByChannel" type="single" target="OrdersByChannel.pdf" target-window="_BLANK">
         <field name="SalesChannel" title="${uiLabelMap.OrderSalesChannel}">
-            <drop-down allow-empty="false">
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" operator="equals" value="ORDER_SALES_CHANNEL"/>
                 </entity-options>
