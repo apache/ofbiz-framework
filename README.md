@@ -1,7 +1,7 @@
 Apache OFBiz®
 ============
 
-Welcome to __Apache OFBiz®__! A powerful top level Apache software project.w
+Welcome to __Apache OFBiz®__! A powerful top level Apache software project.
 OFBiz is an Enterprise Resource Planning (ERP) System written in Java and
 houses a large set of libraries, entities, services and features to run 
 all aspects of your business.
