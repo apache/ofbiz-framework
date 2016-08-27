@@ -331,4 +331,20 @@ under the License.
         <description>Delete a AccommodationMapType record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- AccommodationMap services -->
+    <service name="createAccommodationMap" default-entity-name="AccommodationMap" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a AccommodationMap</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateAccommodationMap" default-entity-name="AccommodationMap" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a AccommodationMap</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteAccommodationMap" default-entity-name="AccommodationMap" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a AccommodationMap</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
