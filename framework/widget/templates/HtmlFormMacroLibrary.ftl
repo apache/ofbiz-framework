@@ -909,7 +909,7 @@ Parameter: tabindex, String, optional - HTML tabindex number.
             });
         </script>
     <#else>
-    <a <#if linkStyle?has_content>class="${linkStyle}"</#if> 
+    <a <#if linkStyle?has_content && (description?has_content || imgSrc?has_content)>class="${linkStyle}"</#if>  
       href="${linkUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if>
       <#if action?has_content && event?has_content> ${event}="${action}"</#if>
       <#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}')"</#if>
