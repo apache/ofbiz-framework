@@ -64,6 +64,7 @@ under the License.
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="OrderHeaderAndShipGroups"/>
+                <set field="searchDistinct" value="true" type="Boolean"/>
                 <set field="searchFields" value="[orderId, orderName, toName]"/>
             </actions>
             <widgets>
