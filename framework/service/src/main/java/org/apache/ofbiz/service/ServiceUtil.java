@@ -55,10 +55,12 @@ import com.ibm.icu.util.Calendar;
 /**
  * Generic Service Utility Class
  */
-public class ServiceUtil {
+public final class ServiceUtil {
 
     public static final String module = ServiceUtil.class.getName();
-    public static final String resource = "ServiceErrorUiLabels";
+    private static final String resource = "ServiceErrorUiLabels";
+
+    private ServiceUtil () {}
 
     /** A little short-cut method to check to see if a service returned an error */
     public static boolean isError(Map<String, ? extends Object> results) {
@@ -727,5 +729,9 @@ public class ServiceUtil {
         }
 
         return outMap;
+    }
+
+    public static String getResource() {
+        return resource;
     }
 }

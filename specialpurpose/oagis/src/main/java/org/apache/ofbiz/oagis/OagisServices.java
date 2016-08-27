@@ -209,7 +209,7 @@ public class OagisServices {
             }
             dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoContext, 60, true);
         } catch (GenericServiceException e) {
-            String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
+            String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
             Debug.logError(e, errMsg, module);
         }
 
@@ -223,7 +223,7 @@ public class OagisServices {
             oagisMsgInfoContext.put("processingStatusId", "OAGMP_SENT");
             dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoContext, 60, true);
         } catch (GenericServiceException e) {
-            String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
+            String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
             Debug.logError(e, errMsg, module);
         }
         return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisServiceCompletedSuccessfully", locale));

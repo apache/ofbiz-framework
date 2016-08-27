@@ -549,7 +549,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             for (String missingKey: requiredButNull) {
                 String message = this.getParam(missingKey).getPrimaryFailMessage(locale);
                 if (message == null) {
-                    String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "ModelService.following_required_parameter_missing", locale);
+                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "ModelService.following_required_parameter_missing", locale);
                     message = errMsg + " [" + this.name + "." + missingKey + "]";
                 }
                 missingMsg.add(message);
@@ -625,7 +625,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             for (String key: missing) {
                 String msg = model.getParam(key).getPrimaryFailMessage(locale);
                 if (msg == null) {
-                    String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "ModelService.following_required_parameter_missing", locale) ;
+                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "ModelService.following_required_parameter_missing", locale) ;
                     msg = errMsg + " [" + mode + "] [" + model.name + "." + key + "]";
                 }
                 missingMsgs.add(msg);
