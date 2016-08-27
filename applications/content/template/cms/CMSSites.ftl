@@ -25,9 +25,6 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
 </script>
 
 
-<#--
-<#include "publishlib.ftl" />
--->
 <#if !rootForumId?has_content>
     <#assign rootForumId=requestParameters.rootForumId!/>
 </#if>

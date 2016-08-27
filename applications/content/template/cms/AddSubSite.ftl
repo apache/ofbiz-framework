@@ -48,10 +48,6 @@ function win_cancel() {
   </tr>
   <tr>
     <td colspan="2"><input type="submit" name="submitBtn" value="Create"/></td>
-    <#--
-    <td align="right"><a href="javascript:submit_add()">Create</a></td>
-    <td align="right"><a href="javascript:win_cancel()">Cancel</a></td>
-    -->
   </tr>
 </table>
 <input type="hidden" name="contentIdTo" value="${requestParameters.parentForumId}" />
