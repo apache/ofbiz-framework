@@ -28,11 +28,12 @@ import org.w3c.dom.Element;
  * JNDIConfigUtil
  *
  */
-public class JNDIConfigUtil {
+public final class JNDIConfigUtil {
 
     public static final String module = JNDIConfigUtil.class.getName();
-    public static final String JNDI_CONFIG_XML_FILENAME = "jndiservers.xml";
+    private static final String JNDI_CONFIG_XML_FILENAME = "jndiservers.xml";
     private static final ConcurrentHashMap<String, JndiServerInfo> jndiServerInfos = new ConcurrentHashMap<String, JndiServerInfo>();
+    private JNDIConfigUtil() {};
 
     private static Element getXmlRootElement() throws GenericConfigException {
         try {
