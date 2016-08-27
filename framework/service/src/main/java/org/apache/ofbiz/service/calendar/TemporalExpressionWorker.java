@@ -30,30 +30,32 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 
 /** TemporalExpression persistence worker. */
-public class TemporalExpressionWorker {
+public final class TemporalExpressionWorker {
 
     public final static String module = TemporalExpressionWorker.class.getName();
 
     // Temporal expression type constants
-    public final static String DateRange = "DATE_RANGE";
-    public final static String DayInMonth = "DAY_IN_MONTH";
-    public final static String DayOfMonthRange = "DAY_OF_MONTH_RANGE";
-    public final static String DayOfWeekRange = "DAY_OF_WEEK_RANGE";
-    public final static String Difference = "DIFFERENCE";
-    public final static String Frequency = "FREQUENCY";
-    public final static String HourRange = "HOUR_RANGE";
-    public final static String Intersection = "INTERSECTION";
-    public final static String MinuteRange = "MINUTE_RANGE";
-    public final static String MonthRange = "MONTH_RANGE";
-    public final static String Substitution = "SUBSTITUTION";
-    public final static String Union = "UNION";
-    public final static String ExpressionTypeList[] = {DateRange, DayInMonth, DayOfMonthRange, DayOfWeekRange,
+    private final static String DateRange = "DATE_RANGE";
+    private final static String DayInMonth = "DAY_IN_MONTH";
+    private final static String DayOfMonthRange = "DAY_OF_MONTH_RANGE";
+    private final static String DayOfWeekRange = "DAY_OF_WEEK_RANGE";
+    private final static String Difference = "DIFFERENCE";
+    private final static String Frequency = "FREQUENCY";
+    private final static String HourRange = "HOUR_RANGE";
+    private final static String Intersection = "INTERSECTION";
+    private final static String MinuteRange = "MINUTE_RANGE";
+    private final static String MonthRange = "MONTH_RANGE";
+    private final static String Substitution = "SUBSTITUTION";
+    private final static String Union = "UNION";
+    private final static String ExpressionTypeList[] = {DateRange, DayInMonth, DayOfMonthRange, DayOfWeekRange,
         Difference, Frequency, HourRange, Intersection, MinuteRange, MonthRange, Substitution, Union};
 
     // Temporal expression assoc type constants
-    public final static String INCLUDE = "INCLUDE";
-    public final static String EXCLUDE = "EXCLUDE";
-    public final static String SUBSTITUTE = "SUBSTITUTE";
+    private final static String INCLUDE = "INCLUDE";
+    private final static String EXCLUDE = "EXCLUDE";
+    private final static String SUBSTITUTE = "SUBSTITUTE";
+
+    private TemporalExpressionWorker () {}
 
     /** Get a <code>TemporalExpression</code> from persistent storage.
      * @param delegator
@@ -143,7 +145,7 @@ public class TemporalExpressionWorker {
         return TemporalExpressions.NullExpression;
     }
 
-    protected static Set<TemporalExpression> getChildExpressions(Delegator delegator, String tempExprId) throws GenericEntityException {
+    private static Set<TemporalExpression> getChildExpressions(Delegator delegator, String tempExprId) throws GenericEntityException {
         List<GenericValue> valueList = EntityQuery.use(delegator).from("TemporalExpressionAssoc").where("fromTempExprId", tempExprId).cache(true).queryList();
         if (UtilValidate.isEmpty(valueList)) {
             throw new IllegalArgumentException("tempExprId argument invalid - no child expressions found");
@@ -155,8 +157,12 @@ public class TemporalExpressionWorker {
         return exprList;
     }
 
-    protected static TemporalExpression setExpressionId(GenericValue value, TemporalExpression expression) {
+    private static TemporalExpression setExpressionId(GenericValue value, TemporalExpression expression) {
         expression.setId(value.getString("tempExprId"));
         return expression;
+    }
+
+    public static String[] getExpressionTypeList() {
+        return ExpressionTypeList;
     }
 }
