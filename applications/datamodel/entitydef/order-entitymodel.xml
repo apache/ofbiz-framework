@@ -2244,6 +2244,7 @@ under the License.
       <field name="requirementId" type="id-ne"></field>
       <field name="statusId" type="id-ne"></field>
       <field name="statusDate" type="date-time"></field>
+      <field name="changeByUserLoginId" type="id-vlong"></field>
       <prim-key field="requirementId"/>
       <prim-key field="statusId"/>
       <relation type="one" fk-name="REQ_STTS_REQ" rel-entity-name="Requirement">
@@ -2251,6 +2252,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="REQ_STTS_STTS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="REQ_STTS_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
+          <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
       </relation>
     </entity>
     <entity entity-name="RequirementType"
