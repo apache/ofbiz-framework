@@ -129,12 +129,13 @@ public class ProductionRun {
             productionRun.set("workEffortName",this.productionRunName);
             productionRun.set("description",this.description);
             try {
-                productionRun.store();
                 if (quantityIsUpdated) {
+                    productionRun.set("quantityToProduce",(BigDecimal) this.quantity);
                     productionRunProduct.set("estimatedQuantity",this.quantity.doubleValue());
                     productionRunProduct.store();
                     quantityIsUpdated = false;
                 }
+                productionRun.store();
                 if (productionRunRoutingTasks != null) {
                     for (Iterator<GenericValue> iter = productionRunRoutingTasks.iterator(); iter.hasNext();) {
                         GenericValue routingTask = iter.next();
