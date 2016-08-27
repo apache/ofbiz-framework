@@ -653,7 +653,6 @@ public class PartyServices {
         String noteId = (String) context.get("noteId");
         String noteName = (String) context.get("noteName");
         Locale locale = (Locale) context.get("locale");
-        //Map noteCtx = UtilMisc.toMap("note", noteString, "userLogin", userLogin);
 
         //Make sure the note Id actually exists if one is passed to avoid a foreign key error below
         if (noteId != null) {
