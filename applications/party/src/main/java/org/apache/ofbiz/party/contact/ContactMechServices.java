@@ -798,7 +798,6 @@ public class ContactMechServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> createPartyContactMechPurpose(DispatchContext ctx, Map<String, ? extends Object> context) {
-        //Debug.logInfo(new Exception(), "In createPartyContactMechPurpose context: " + context, module);
         Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
@@ -860,7 +859,6 @@ public class ContactMechServices {
     }
 
     public static Map<String, Object> deletePartyContactMechPurposeIfExists(DispatchContext ctx, Map<String, ? extends Object> context) {
-        //Debug.logInfo(new Exception(), "In createPartyContactMechPurpose context: " + context, module);
         Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();

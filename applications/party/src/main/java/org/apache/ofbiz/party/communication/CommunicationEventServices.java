@@ -348,13 +348,6 @@ public class CommunicationEventServices {
                     sendMailParams.put("sendTo", emailAddress);
                     sendMailParams.put("partyId", partyId);
 
-                    // if it is a NEWSLETTER then we do not want the outgoing emails stored, so put a communicationEventId in the sendMail context to prevent storeEmailAsCommunicationEvent from running
-                    /*
-                    if ("NEWSLETTER".equals(contactList.getString("contactListTypeId"))) {
-                        sendMailParams.put("communicationEventId", communicationEventId);
-                    }
-                    */
-
                     // Retrieve a record for this contactMechId from ContactListCommStatus
                     Map<String, String> contactListCommStatusRecordMap = UtilMisc.toMap("contactListId", contactListId, "communicationEventId", communicationEventId, "contactMechId", lastContactListPartyACM.getString("preferredContactMechId"));
                     GenericValue contactListCommStatusRecord = EntityQuery.use(delegator).from("ContactListCommStatus")
@@ -457,7 +450,6 @@ public class CommunicationEventServices {
                             thisCommEvent.store();
                         }
                         String messageId = (String) tmpResult.get("messageId");
-                        //contactListCommStatusRecord.set("communicationEventId", thisCommEventId);
                         contactListCommStatusRecord.set("messageId", messageId);
                     }
 

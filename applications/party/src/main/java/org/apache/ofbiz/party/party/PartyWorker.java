@@ -361,7 +361,6 @@ public class PartyWorker {
                 .orderBy("-fromDate")
                 .filterByDate()
                 .queryList();
-        //Debug.logInfo("Checking for matching address: " + addrCond.toString() + "[" + addresses.size() + "]", module);
 
         if (UtilValidate.isEmpty(addresses)) {
             // No address matches, return an empty list
@@ -389,14 +388,12 @@ public class PartyWorker {
                             if (addr2Source.equals(addr2Target)) {
                                 Debug.logInfo("Matching address2; adding valid address", module);
                                 validFound.add(address);
-                                //validParty.put(address.getString("partyId"), address.getString("contactMechId"));
                             }
                         }
                     } else {
                         if (address.get("address2") == null) {
                             Debug.logInfo("No address2; adding valid address", module);
                             validFound.add(address);
-                            //validParty.put(address.getString("partyId"), address.getString("contactMechId"));
                         }
                     }
                 }
