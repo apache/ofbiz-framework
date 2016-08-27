@@ -192,25 +192,7 @@ public class VCard {
                     serviceCtx.put("contactNumber", phoneAddr.substring(indexLocal));
                 }
 
-                /* TODO improve this part to manage party organization
-                Organization organization = vcard.getOrganization();
-                // Useful when creating a contact with more than OOTB
-                if (!isGroup && organization != null && oid.getTitle() != null) {
-                    String personalTitle = organization..getTitle().replace("\\","").replaceAll("\uFFFD", " ");
-                    if (personalTitle.length() > 100) {
-                        personalTitle = oid.getTitle().replace("\\", "").replaceAll("\uFFFD", " ").substring(0, 100);
-                    }
-                    serviceCtx.put("personalTitle", personalTitle);
-                }
-
-                // Needed when creating an account (a PartyGroup)
-                if (isGroup) {
-                    //serviceCtx.put("partyRole", oid.getRole()); // not used yet,maybe useful later
-                    if (oid.hasOrganization()) {
-                        Organization org = oid.getOrganization();
-                        serviceCtx.put("groupName", org.getName().replace("\\", ""));
-                    }
-                }*/
+                /* TODO improve this part to manage party organization */
 
                 GenericValue userLogin = (GenericValue) context.get("userLogin");
                 serviceCtx.put("userLogin", userLogin);
