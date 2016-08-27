@@ -21,6 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="AddParty">
         <value xml:lang="en">Add Party</value>
+        <value xml:lang="nl">Partij toevoegen</value>
         <value xml:lang="zh">添加会员</value>
     </property>
     <property key="FormFieldTitle_allocatedCost">
@@ -36,18 +37,6 @@
         <value xml:lang="vi">Chi phí phân bổ</value>
         <value xml:lang="zh">已分摊成本</value>
         <value xml:lang="zh-TW">已分攤成本</value>
-    </property>
-    <property key="FormFieldTitle_authUserLoginId">
-        <value xml:lang="en">Auth User Login Id</value>
-        <value xml:lang="es">Usuario</value>
-        <value xml:lang="fr">Authentification d'identifiant de connexion</value>
-        <value xml:lang="it">Utente</value>
-        <value xml:lang="ja">認証ログインユーザID</value>
-        <value xml:lang="pt-BR">Id de Usuário</value>
-        <value xml:lang="th">รับรองรหัสผู้ใช้ระบบ</value>
-        <value xml:lang="vi">Người dùng đăng nhập đã xác thực</value>
-        <value xml:lang="zh">授权用户登录标识</value>
-        <value xml:lang="zh-TW">授權使用者登入識別</value>
     </property>
     <property key="FormFieldTitle_calendarWeekId">
         <value xml:lang="de">Kalenderwoche</value>
@@ -84,7 +73,7 @@
         <value xml:lang="fr">Réf. de méthode de coût personnalisée</value>
         <value xml:lang="it">Metodo costo personalizzato</value>
         <value xml:lang="ja">原価カスタム方法ID</value>
-        <value xml:lang="nl">Kosten methodiek ID</value>
+        <value xml:lang="nl">Methodiek ID</value>
         <value xml:lang="pt-BR">Id do método de cálculo</value>
         <value xml:lang="ro">Metoda Cost Personalizat</value>
         <value xml:lang="th">รหัสวิธีการคำนวณเงินลูกค้า</value>
@@ -124,6 +113,7 @@
         <value xml:lang="fr">Décalage d'années par défaut</value>
         <value xml:lang="it">Scostamento anni di default</value>
         <value xml:lang="ja">デフォルト年相殺</value>
+        <value xml:lang="nl">Std. jaar</value>
         <value xml:lang="pt-BR">Deslocamento padrão em anos</value>
         <value xml:lang="th">ค่าชดเชยปีที่ผิดสัญญา</value>
         <value xml:lang="vi">Phân vùng số năm mặc định</value>
@@ -137,7 +127,7 @@
         <value xml:lang="fr">Durée estimée</value>
         <value xml:lang="it">Durata Stimata</value>
         <value xml:lang="ja">見積期間</value>
-        <value xml:lang="nl">Geschattee doorlooptijd</value>
+        <value xml:lang="nl">Geschatte doorlooptijd</value>
         <value xml:lang="pt-BR">Duração estimada</value>
         <value xml:lang="th">ประมาณเวลา</value>
         <value xml:lang="vi">Khoảng thời gian ước tính</value>
@@ -318,6 +308,7 @@
         <value xml:lang="fr">Réf. de décalage du type de compte (GL)</value>
         <value xml:lang="it">Tipo Intervallo Conto Contabilità Generale</value>
         <value xml:lang="ja">相殺勘定科目種類ID</value>
+        <value xml:lang="nl">Grootboek tegenrekening</value>
         <value xml:lang="pt-BR">Id de tipo deslocamento de balanço</value>
         <value xml:lang="ro">Tip Interval Cont Contabil General</value>
         <value xml:lang="th">รหัสประเภทบัญชีค่าชดเชยทั่วไป</value>
@@ -812,6 +803,7 @@
         <value xml:lang="fr">Affecter la machine</value>
         <value xml:lang="it">Assegna cespite</value>
         <value xml:lang="ja">固定資産を割当</value>
+        <value xml:lang="nl">Productiemiddel toevoegen</value>
         <value xml:lang="pt-BR">Designar ativo fixo</value>
         <value xml:lang="ro">Inregistreaza Mijloc Fix</value>
         <value xml:lang="th">กำหนดสินทรัพย์ไม่หมุนเวียน</value>
@@ -826,6 +818,7 @@
         <value xml:lang="fr">Ajouter un composant à l'O.F.</value>
         <value xml:lang="it">Aggiungi componente ad un ordine di produzione</value>
         <value xml:lang="ja">生産実行に製品コンポーネントを追加</value>
+        <value xml:lang="nl">Component toevoegen</value>
         <value xml:lang="pt-BR">Adicionar componente de produto a execução de produção</value>
         <value xml:lang="ro">Adauga Componente Produs la o comanda de Productie</value>
         <value xml:lang="th">เพิ่มส่วนประกอบสินค้าในการผลิตสินค้า</value>
@@ -837,6 +830,7 @@
         <value xml:lang="en">Add Production Run Routing Task Not Created</value>
         <value xml:lang="it">Aggiunta componente ad un compito non creato</value>
         <value xml:lang="ja">生産実行経路制御追加タスクは作成されません</value>
+        <value xml:lang="nl">Taak niet toegevoegd</value>
         <value xml:lang="pt-BR">Adicionar tarefa de execução de produção de roteamento não foi criada</value>
         <value xml:lang="vi">Tác vụ - Đầu việc Chế tác lô hàng không được tạo</value>
         <value xml:lang="zh">添加没有创建的产品运行规程任务</value>
@@ -849,6 +843,7 @@
         <value xml:lang="fr">Ajouter la quantité produite</value>
         <value xml:lang="it">Aggiungi quantità prodotta</value>
         <value xml:lang="ja">生産済数量を追加</value>
+        <value xml:lang="nl">Geproduceerde hoeveelheid toevoegen</value>
         <value xml:lang="pt-BR">Adicionar quantidade produzida</value>
         <value xml:lang="ro">Adauga Cantitate Produsa</value>
         <value xml:lang="th">เพิ่มจำนวนสินค้า</value>
@@ -863,6 +858,7 @@
         <value xml:lang="fr">Ajouter la quantité rejetée</value>
         <value xml:lang="it">Aggiungi quantità scartata</value>
         <value xml:lang="ja">否認数量を追加</value>
+        <value xml:lang="nl">Geweigerde hoeveelheid toevoegen</value>
         <value xml:lang="pt-BR">Adicionar quantidade rejeitada</value>
         <value xml:lang="ro">Adauga Cantitate Rebutata</value>
         <value xml:lang="th">เพิ่มจำนวนการปฏิเสธ</value>
@@ -877,6 +873,7 @@
         <value xml:lang="fr">Ajouter une opération</value>
         <value xml:lang="it">Aggiungi una operazione</value>
         <value xml:lang="ja">経路制御タスクを追加</value>
+        <value xml:lang="nl">Taak toevoegen</value>
         <value xml:lang="pt-BR">Adicionar tarefa de roteamento</value>
         <value xml:lang="ro">Adauga o Operatie</value>
         <value xml:lang="th">เพิ่มการทำงาน</value>
@@ -891,6 +888,7 @@
         <value xml:lang="fr">Ajouter le temps d'installation réel</value>
         <value xml:lang="it">Aggiungi tempo installazione attuale</value>
         <value xml:lang="ja">実績設定時間を追加</value>
+        <value xml:lang="nl">Werk. init. tijd toevoegen</value>
         <value xml:lang="pt-BR">Adicionar tempo de preparação real</value>
         <value xml:lang="ro">Adauga Timp Actual de Instalare</value>
         <value xml:lang="th">เพิ่มการติดตั้งเวลาจริง</value>
@@ -919,6 +917,7 @@
         <value xml:lang="fr">Tous les groupes de machine</value>
         <value xml:lang="it">Qualsiasi gruppo macchina</value>
         <value xml:lang="ja">任意の固定資産グループ</value>
+        <value xml:lang="nl">Elke groep</value>
         <value xml:lang="pt-BR">Qualquer grupo de ativos fixos</value>
         <value xml:lang="ro">Orice Grup de Mijloace Fixe</value>
         <value xml:lang="th">กลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -933,6 +932,7 @@
         <value xml:lang="fr">Approuver les besoins</value>
         <value xml:lang="it">Approva fabbisogni</value>
         <value xml:lang="ja">要求を承認</value>
+        <value xml:lang="nl">Behoeften goedkeuren</value>
         <value xml:lang="pt-BR">Aprovar requisitos</value>
         <value xml:lang="th">ความต้องการที่ตรงกัน</value>
         <value xml:lang="vi">Duyệt yêu cầu</value>
@@ -946,6 +946,7 @@
         <value xml:lang="fr">Exécution de production associées</value>
         <value xml:lang="it">Ordini di produzione associati</value>
         <value xml:lang="ja">関連付け済製品実行</value>
+        <value xml:lang="nl">Gekoppelde productie runs</value>
         <value xml:lang="pt-BR">Execuções da produção associadas</value>
         <value xml:lang="th">สินค้าที่เกี่ยวข้องกัน</value>
         <value xml:lang="vi">Kết hợp các Chế tác lô hàng</value>
@@ -959,6 +960,7 @@
         <value xml:lang="fr">Nomenclature</value>
         <value xml:lang="it">Distinta base</value>
         <value xml:lang="ja">部品表(BOM)</value>
+        <value xml:lang="nl">BoM</value>
         <value xml:lang="pt-BR">Estrutura de produtos (BOM)</value>
         <value xml:lang="ro">Lista Repere Produs</value>
         <value xml:lang="th">รายการของสินค้า</value>
@@ -970,6 +972,7 @@
         <value xml:lang="en">Error creating bill of materials tree: ${errorString}</value>
         <value xml:lang="it">Errore durante la creazione dell'albero dei materiali: ${errorString}</value>
         <value xml:lang="ja">部品表ツリー作成中にエラー: ${errorString}</value>
+        <value xml:lang="nl">Error aanmaken BoM: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi tạo cây chào giá vật liệu: ${errorString}</value>
         <value xml:lang="zh">创建物料清单树时出错：${errorString}</value>
         <value xml:lang="zh-TW">新建物料清單樹時出錯:${errorString}</value>
@@ -978,6 +981,7 @@
         <value xml:lang="en">Error loading the ShipmentItems</value>
         <value xml:lang="it">Errore durante il caricamento di ShipmentItems</value>
         <value xml:lang="ja">発送アイテムのロード中にエラー</value>
+        <value xml:lang="nl">Error laden items zending</value>
         <value xml:lang="vi">Lỗi xảy ra khi tải thông tin Hàng hóa chuyển vận</value>
         <value xml:lang="zh">载入送货明细时出错</value>
         <value xml:lang="zh-TW">載入出貨細項時出錯</value>
@@ -986,6 +990,7 @@
         <value xml:lang="en">Error loading the ShipmentPackages</value>
         <value xml:lang="it">Errore durante il caricamento di ShipmentPackages</value>
         <value xml:lang="ja">発送パッケージのロード中にエラー</value>
+        <value xml:lang="nl">Error laden pakketten zending</value>
         <value xml:lang="vi">Lỗi xảy ra khi tải thông tin Đóng gói chuyển vận</value>
         <value xml:lang="zh">载入送货包装时出错</value>
         <value xml:lang="zh-TW">載入出貨包裝時出錯</value>
@@ -1002,6 +1007,7 @@
         <value xml:lang="en">Error running initLowLevelCode: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione di initLowLevelCode: ${errorString}</value>
         <value xml:lang="ja">低レベルコードの初期化実行中にエラー: ${errorString}</value>
+        <value xml:lang="nl">Error initLowLevelCode: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi thực thi initLowLevelCode: ${errorString}</value>
         <value xml:lang="zh">运行低层代码初始化时出错：${errorString}</value>
         <value xml:lang="zh-TW">執行低層代碼初始化時出錯:${errorString}</value>
@@ -1018,6 +1024,7 @@
         <value xml:lang="en">Error running updateLowLevelCode: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione di updateLowLevelCode: ${errorString}</value>
         <value xml:lang="ja">低レベルコード更新実行中にエラー: ${errorString}</value>
+        <value xml:lang="nl">Error updateLowLevelCode: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi thực thi updateLowLevelCode: ${errorString}</value>
         <value xml:lang="zh">运行更新低层代码（updateLowLevelCode）时发生错误：${errorString}</value>
         <value xml:lang="zh-TW">執行更新低層代碼(updateLowLevelCode)時發生錯誤:${errorString}</value>
@@ -1026,6 +1033,7 @@
         <value xml:lang="en">Packages already found.</value>
         <value xml:lang="it">Pacchi già trovati.</value>
         <value xml:lang="ja">パッケージが見つかりました。</value>
+        <value xml:lang="nl">Pakketten al gevonden</value>
         <value xml:lang="vi">Đóng gói đã được tìm thấy.</value>
         <value xml:lang="zh">已经找到包装了。</value>
         <value xml:lang="zh-TW">已經找到包裝了.</value>
@@ -1037,6 +1045,7 @@
         <value xml:lang="fr">Simulation de nomenclature</value>
         <value xml:lang="it">Simulazione distinta base</value>
         <value xml:lang="ja">部品表(BOM)シミュレーション</value>
+        <value xml:lang="nl">BoM simulatie</value>
         <value xml:lang="pt-BR">Simulação da estrutura de produtos (BOM)</value>
         <value xml:lang="ro">Simulare Lista repere</value>
         <value xml:lang="th">รายการของสินค้าที่เลียนแบบ</value>
@@ -1051,6 +1060,7 @@
         <value xml:lang="fr">Type de nomenclature</value>
         <value xml:lang="it">Tipo distinta base</value>
         <value xml:lang="ja">部品表(BOM)種類</value>
+        <value xml:lang="nl">Soort BoM</value>
         <value xml:lang="pt-BR">Tipo de estrutura de produtos (BOM)</value>
         <value xml:lang="ro">Tip Lista repere</value>
         <value xml:lang="th">ประเภทรายการของสินค้า</value>
@@ -1065,6 +1075,7 @@
         <value xml:lang="fr">Calendrier</value>
         <value xml:lang="it">Calendario</value>
         <value xml:lang="ja">カレンダ</value>
+        <value xml:lang="nl">Kalender</value>
         <value xml:lang="pt-BR">Calendário</value>
         <value xml:lang="ro">Calendar</value>
         <value xml:lang="th">ปฏิทิน</value>
@@ -1079,6 +1090,7 @@
         <value xml:lang="fr">Capacité du calendrier de fabrication</value>
         <value xml:lang="it">Capacità calendario produzione</value>
         <value xml:lang="ja">生産カレンダ能力</value>
+        <value xml:lang="nl">Kalender capaciteit</value>
         <value xml:lang="pt-BR">Capacidade do calendário de produção</value>
         <value xml:lang="ro">Capacitate Productie Calendar</value>
         <value xml:lang="th">การสร้างปฏิทินการทำงาน</value>
@@ -1093,6 +1105,7 @@
         <value xml:lang="fr">Jour exclu</value>
         <value xml:lang="it">Giorno speciale</value>
         <value xml:lang="ja">除外日</value>
+        <value xml:lang="nl">Dag uitzondering</value>
         <value xml:lang="pt-BR">Data de exceção</value>
         <value xml:lang="ro">Zi Speciala</value>
         <value xml:lang="th">วันที่ยกเว้น</value>
@@ -1107,6 +1120,7 @@
         <value xml:lang="fr">Cette réf. de jour exclu existe déjà</value>
         <value xml:lang="it">Codice capacità calendario produzione già esistente</value>
         <value xml:lang="ja">生産カレンダ除外日IDはすでに存在します</value>
+        <value xml:lang="nl">Dag uitzondering bestaat al</value>
         <value xml:lang="pt-BR">Id do dia de exceção do calendário de produção já existente</value>
         <value xml:lang="ro">Cod Capacitate Calendar Productie existenta</value>
         <value xml:lang="th">รหัสวันที่ยกเว้นในปฏิทินการทำงานที่มีอยู่</value>
@@ -1121,6 +1135,7 @@
         <value xml:lang="fr">Il existe encore une exception jour pour ce calendrier</value>
         <value xml:lang="it">C'è un giorno speciale per questo calendario</value>
         <value xml:lang="ja">このカレンダにはまだ除外日があります</value>
+        <value xml:lang="nl">Er is nog een 'dag uitzondering' voor deze kalender</value>
         <value xml:lang="pt-BR">Ainda existe um dia de exceção para esse calendário</value>
         <value xml:lang="ro">Exista o zi speciala la acest Calendar</value>
         <value xml:lang="th">มีวันที่ยังคงได้รับการยกเว้นสำหรับปฏิทินนี้</value>
@@ -1135,6 +1150,7 @@
         <value xml:lang="fr">Semaine exclue</value>
         <value xml:lang="it">Settimana speciale</value>
         <value xml:lang="ja">除外週</value>
+        <value xml:lang="nl">Week uitzondering</value>
         <value xml:lang="pt-BR">Semana de exceção</value>
         <value xml:lang="ro">Saptamana Speciala</value>
         <value xml:lang="th">สัปดาห์ที่ยกเว้น</value>
@@ -1149,6 +1165,7 @@
         <value xml:lang="fr">Cette réf. de semaine exclue existe déjà</value>
         <value xml:lang="it">Codice calendario settimanale produzione speciale già esistente</value>
         <value xml:lang="ja">生産カレンダ除外週IDはすでに存在します</value>
+        <value xml:lang="nl">Week uitzondering bestaat al</value>
         <value xml:lang="pt-BR">Id de semana de exceção no calendário de produção já existente</value>
         <value xml:lang="ro">Cod Calendar Saptamana Productie Speciala deja existent</value>
         <value xml:lang="th">รหัสสัปดาห์ที่ยกเว้นในปฏิทินการทำงานที่มีอยู่</value>
@@ -1163,6 +1180,7 @@
         <value xml:lang="fr">Il existe encore une semaine exclue pour ce calendrier</value>
         <value xml:lang="it">Non c'è una settimanale speciale per questo calendario</value>
         <value xml:lang="ja">このカレンダにはまだ除外週があります</value>
+        <value xml:lang="nl">Er is nog een 'week uitzondering' voor deze kalender</value>
         <value xml:lang="pt-BR">Ainda há uma semana de exceção para esse calendário</value>
         <value xml:lang="ro">Nu exista o saptamana speciala la acest calendar</value>
         <value xml:lang="th">มีสัปดาห์ที่ยังคงได้รับการยกเว้นสำหรับปฏิทินนี้</value>
@@ -1177,6 +1195,7 @@
         <value xml:lang="fr">Calendrier</value>
         <value xml:lang="it">Codice Calendario</value>
         <value xml:lang="ja">カレンダID</value>
+        <value xml:lang="nl">Kalender ID</value>
         <value xml:lang="pt-BR">Id de calendário</value>
         <value xml:lang="ro">Cod Calendar</value>
         <value xml:lang="th">รหัสปฏิทิน</value>
@@ -1191,6 +1210,7 @@
         <value xml:lang="fr">Cette réf. de calendrier existe déja</value>
         <value xml:lang="it">Codice calendario già esistente</value>
         <value xml:lang="ja">カレンダIDはすでに存在します</value>
+        <value xml:lang="nl">Kalender bestaat al</value>
         <value xml:lang="pt-BR">Ide de calendário já existente</value>
         <value xml:lang="ro">Cod Calendar deja existent</value>
         <value xml:lang="th">รหัสปฏิทินที่มีอยู่ล้ว</value>
@@ -1205,6 +1225,7 @@
         <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur un calendrier, il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
         <value xml:lang="it">Non sei autorizzato a vedere questa pagina. (permesso "MANUFACTURING_VIEW" o "MANUFACTURING_ADMIN" necessario)</value>
         <value xml:lang="ja">このページを表示する権限がありません。"MANUFACTURING_VIEW" または "MANUFACTURING_ADMIN" 権限が必要です。</value>
+        <value xml:lang="nl">U heeft geen permissies om deze pagina te zien.</value>
         <value xml:lang="pt-BR">Você não possui permissão para visualizar essa página (Permissão MANUFACTURING_VIEW ou MANUFACTURING_ADMIN necessária).</value>
         <value xml:lang="ro">Tu nu esti autorizat sa vezi aceasta pagina. (Ai nevoie de permis "MANUFACTURING_VIEW" sau "MANUFACTURING_ADMIN")</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ดูหน้านี้ ("MANUFACTURING_VIEW" หรือ "MANUFACTURING_ADMIN" ที่ต้องการ)</value>
@@ -1219,6 +1240,7 @@
         <value xml:lang="fr">Il existe un calendrier qui utilise encore cette semaine</value>
         <value xml:lang="it">C'è ancora un calendario che usa questa settimana</value>
         <value xml:lang="ja">この週を使用しているカレンダがあります</value>
+        <value xml:lang="nl">Er bestaat nog steeds een kalender die de week gebruikt</value>
         <value xml:lang="pt-BR">Ainda há um calendário que usa essa semana</value>
         <value xml:lang="ro">Esista deja un calendar care foloseste aceasta saptamana</value>
         <value xml:lang="th">ยังมีปฏิทินที่ใช้สำหรับสัปดาห์นี้</value>
@@ -1233,6 +1255,7 @@
         <value xml:lang="fr">Semaine</value>
         <value xml:lang="it">Calendario settimanale</value>
         <value xml:lang="ja">週</value>
+        <value xml:lang="nl">Week</value>
         <value xml:lang="pt-BR">Semana</value>
         <value xml:lang="ro">Saptamana</value>
         <value xml:lang="th">สัปดาห์</value>
@@ -1247,6 +1270,7 @@
         <value xml:lang="fr">Il existe encore une semaine exclue qui utilise cette semaine</value>
         <value xml:lang="it">C'è ancora una settimana speciale che usa questa settimana</value>
         <value xml:lang="ja">この週を使用している除外週があります</value>
+        <value xml:lang="nl">Deze week wordt gebruikt in een 'week uitzondering</value>
         <value xml:lang="pt-BR">Ainda há uma semana de exceção que usa esta semana</value>
         <value xml:lang="ro">Exista deja o saptamana speciala care foloseste acest calendar</value>
         <value xml:lang="th">ยังคงมีข้อยกเว้นของสัปดาห์ที่ใช้ในสัปดาห์นี้</value>
@@ -1261,6 +1285,7 @@
         <value xml:lang="fr">Semaine</value>
         <value xml:lang="it">Settimana</value>
         <value xml:lang="ja">カレンダ週ID</value>
+        <value xml:lang="nl">Week ID</value>
         <value xml:lang="pt-BR">Id de semana do calendário</value>
         <value xml:lang="ro">Cod Calendar Saptamana</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์</value>
@@ -1275,6 +1300,7 @@
         <value xml:lang="fr">Cette réf. de semaine existe déja</value>
         <value xml:lang="it">Codice calendario settimanale già esistente</value>
         <value xml:lang="ja">カレンダ週IDはすでに存在します</value>
+        <value xml:lang="nl">Week bestaat al</value>
         <value xml:lang="pt-BR">Id de semana de calendário já existente</value>
         <value xml:lang="ro">Cod Calendar Saptamana existent </value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์ที่ยังคงใช้อยู่</value>
@@ -1289,6 +1315,7 @@
         <value xml:lang="fr">Réf. de semaine de calendrier n'existe pas</value>
         <value xml:lang="it">Codice calendario settimanale non esistente</value>
         <value xml:lang="ja">カレンダ週IDは存在しません</value>
+        <value xml:lang="nl">Week bestaat niet</value>
         <value xml:lang="pt-BR">Id de semana de calendário não existe</value>
         <value xml:lang="ro">Cod Calendar Sptamana nu exista</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์ที่ไม่ใช้</value>
@@ -1303,6 +1330,7 @@
         <value xml:lang="fr">Semaines</value>
         <value xml:lang="it">Calendari settimanali</value>
         <value xml:lang="ja">週</value>
+        <value xml:lang="nl">Weken</value>
         <value xml:lang="pt-BR">Semanas</value>
         <value xml:lang="th">สัปดาห์</value>
         <value xml:lang="vi">Các tuần</value>
@@ -1316,6 +1344,7 @@
         <value xml:lang="fr">Calendriers</value>
         <value xml:lang="it">Calendari</value>
         <value xml:lang="ja">カレンダ</value>
+        <value xml:lang="nl">Kalenders</value>
         <value xml:lang="pt-BR">Calendário</value>
         <value xml:lang="th">ปฏิทิน</value>
         <value xml:lang="vi">Các lịch</value>
@@ -5310,6 +5339,7 @@
         <value xml:lang="en">Error reading the WorkOrderItemFulfillment: ${errorString}</value>
         <value xml:lang="it">Errore durante la letture di WorkOrderItemFulfillment: ${errorString}</value>
         <value xml:lang="ja">作業注文アイテム執行の読み込み中にエラー: ${errorString}</value>
+        <value xml:lang="nl">Error inz. WorkOrderItemFulfillment: ${errorString}</value>
         <value xml:lang="vi">Lỗi khi đọc thông tin Đáp ứng hàng hóa của Đặt hàng (WorkOrderItemFulfillment) : ${errorString}</value>
         <value xml:lang="zh">读取WorkOrderItemFulfillment时出错：${errorString}</value>
         <value xml:lang="zh-TW">讀取WorkOrderItemFulfillment時出錯:${errorString}</value>
