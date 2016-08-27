@@ -2128,6 +2128,7 @@ under the License.
       <field name="statusId" type="id-ne"></field>
       <field name="statusDatetime" type="date-time"></field>
       <field name="statusEndDatetime" type="date-time"></field>
+      <field name="changeByUserLoginId" type="id-vlong"></field>
       <field name="ownerPartyId" type="id"><description>Used to track a changed (new) ownerPartyId as a status changes.</description></field>
       <field name="productId" type="id"><description>Used to track a changed (new) productId as a status changes. In other words over time the item may be represented by a different Product (like new versus refurbished).</description></field>
       <prim-key field="inventoryItemId"/>
@@ -2138,6 +2139,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="INV_ITEM_STTS_SI" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="INV_ITEM_STTS_USER" rel-entity-name="UserLogin">
+        <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
       </relation>
     </entity>
     <view-entity entity-name="InventoryItemStatusForCount" package-name="org.apache.ofbiz.product.inventory">

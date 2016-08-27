@@ -332,6 +332,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="inventoryItemStatus"/>
         <set-pk-fields map="parameters" value-field="inventoryItemStatus"/>
         <set field="inventoryItemStatus.statusDatetime" from-field="nowTimestamp"/>
+        <set field="inventoryItemStatus.changeByUserLoginId" from-field="userLogin.userLoginId"/>
 
         <!-- make sure the current productId is set, if not passed in look up the current value -->
         <if-empty field="inventoryItemStatus.productId">
