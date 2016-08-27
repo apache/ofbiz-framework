@@ -168,17 +168,6 @@ public class ProposedOrder {
                         // record the routingTask with the startDate associated
                         result.put(routingTask.getString("workEffortId"),startDate);
                         endDate = startDate;
-                        /*
-                         * This is a work in progress
-                        GenericValue routingTask = null;
-                        try {
-                            Map timeInMap = UtilMisc.toMap("taskId", routingTaskAssoc.getString("workEffortIdTo"), "quantity", Double.valueOf(quantity), "userLogin", userLogin);
-                            Map timeOutMap = dispatcher.runSync("getEstimatedTaskTime", timeInMap);
-                            routingTask = (GenericValue)timeOutMap.get("routing");
-                        } catch (GenericServiceException gse) {
-                            Debug.logError(gse.getMessage(),  module);
-                        }
-                        */
                     }
                 }
             } else {
@@ -211,11 +200,6 @@ public class ProposedOrder {
         if (quantity.compareTo(reorderQuantity) < 0) {
             quantity = reorderQuantity;
         }
-        /*
-        if (quantity < minimumStock) {
-            quantity = minimumStock;
-        }
-         */
     }
 
     /**

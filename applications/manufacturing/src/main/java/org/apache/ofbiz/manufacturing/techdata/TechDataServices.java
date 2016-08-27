@@ -255,7 +255,6 @@ public class TechDataServices {
                 moveDay +=1;
                 dayStart = (dayStart==7) ? 1 : dayStart +1;
             }
-            //                Debug.logInfo("capacity loop: " + capacity+ " moveDay=" +moveDay, module);
         }
         result.put("capacity",capacity);
         result.put("startTime",startTime);
