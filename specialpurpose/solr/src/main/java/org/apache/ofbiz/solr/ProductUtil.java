@@ -42,8 +42,10 @@ import org.apache.ofbiz.service.LocalDispatcher;
 /**
  * Product utility class for solr.
  */
-public abstract class ProductUtil {
+public final class ProductUtil {
     public static final String module = ProductUtil.class.getName();
+
+    private ProductUtil () {}
 
     public static Map<String, Object> getProductContent(GenericValue product, DispatchContext dctx, Map<String, Object> context) {
         GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
