@@ -444,9 +444,6 @@ public class TrackingCodeEvents {
         if (cookies != null && cookies.length > 0) {
             for (int i = 0; i < cookies.length; i++) {
                 String cookieName = cookies[i].getName();
-
-                //Debug.logInfo(" cookieName is " + cookieName, module);
-                //Debug.logInfo(" cookieValue is " + cookies[i].getValue(), module);
                 // find the siteId cookie if it exists
                 if ("Ofbiz.TKCD.SiteId".equals(cookieName)) {
                     siteId = cookies[i].getValue();
