@@ -85,4 +85,14 @@ under the License.
         <description>Remove an existing Budget Review Record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    <service name="createBudgetType" default-entity-name="BudgetType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Budget Type Record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateBudgetType" default-entity-name="BudgetType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Budget Type Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
 </services>
