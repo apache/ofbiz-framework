@@ -124,25 +124,6 @@ under the License.
         <set field="my" value="My"/>
         <field-to-request field="my"/>
     </simple-method>
-
-    <simple-method method-name="createCommunicationEventRole"
-        short-description="Add a role to a communictaion event and save communication event itseld">
-
-        <!-- save header fields -->
-        <set-service-fields service-name="updateCommunicationEvent" map="formInput" to-map="updateMap"/>
-        <set field="updateMap.communicationEventId" from-field="parameters.communicationEventId"/>
-        <call-service service-name="updateCommunicationEvent" in-map-name="updateMap"/>
-
-        <!-- add role -->
-        <set-service-fields service-name="createCommunicationEventRole" to-map="createRole" map="parameters"/>
-        <call-service service-name="createCommunicationEventRole" in-map-name="createRole"/>
-
-        <!-- Return to request -->
-        <field-to-request field="parameters.communicationEventId" request-name="communicationEventId"/>
-        <set field="my" value="My"/>
-        <field-to-request field="my"/>
-    </simple-method>
-
     <simple-method method-name="allocateMsgToParty" short-description="Allocate an emailaddress to an existing/new party, update the communication event accordingly">
         <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
         <if-empty field="communicationEvent">

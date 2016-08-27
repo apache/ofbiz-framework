@@ -770,7 +770,7 @@ under the License.
     </request-map>
     <request-map uri="createCommunicationEventRole">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="createCommunicationEventRole" path="component://party/minilang/communication/CommunicationEventEvents.xml"/>
+        <event type="service" invoke="createCommunicationEventRole"/>
         <response name="success" type="view-home" value="EditCommunicationEvent"/>
         <response name="error" type="view-home" value="EditCommunicationEvent"/>
     </request-map>
