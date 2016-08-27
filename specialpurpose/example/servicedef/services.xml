@@ -53,6 +53,7 @@ under the License.
         <auto-attributes include="all" mode="IN" optional="false">
             <exclude field-name="statusDate"/>
             <exclude field-name="statusEndDate"/>
+            <exclude field-name="changeByUserLoginId"/>
         </auto-attributes>
     </service>
 
