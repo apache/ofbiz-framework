@@ -253,13 +253,16 @@ public class PartyServices {
 
                 // disable all userlogins for this user when the new status is disabled
                 if (("PARTY_DISABLED").equals(statusId)) {
-                    List <GenericValue> userLogins = EntityQuery.use(delegator).from("UserLogin").where("partyId", partyId).queryList();
+                    EntityCondition cond = EntityCondition.makeCondition(
+                            EntityCondition.makeCondition("partyId", partyId),
+                            EntityCondition.makeCondition("enabled", EntityOperator.NOT_EQUAL, "N")
+                            );
+                    List <GenericValue> userLogins = EntityQuery.use(delegator).from("UserLogin").where(cond).queryList();
                     for (GenericValue userLogin : userLogins) {
-                        if (!"N".equals(userLogin.getString("enabled"))) {
-                            userLogin.set("enabled", "N");
-                            userLogin.store();
-                        }
+                        userLogin.set("enabled", "N");
+                        userLogin.set("disabledDateTime", UtilDateTime.nowTimestamp());
                     }
+                    delegator.storeAll(userLogins);
                 }
             }
 
