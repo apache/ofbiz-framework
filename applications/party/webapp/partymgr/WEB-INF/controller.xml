@@ -823,13 +823,13 @@ under the License.
     <request-map uri="createPartyClassificationGroup">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPartyClassificationGroup"/>
-        <response name="success" type="view" value="EditPartyClassificationGroup"/>
+        <response name="success" type="view" value="FindPartyClassificationGroups"/>
         <response name="error" type="view" value="EditPartyClassificationGroup"/>
     </request-map>
     <request-map uri="updatePartyClassificationGroup">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePartyClassificationGroup"/>
-        <response name="success" type="view" value="EditPartyClassificationGroup"/>
+        <response name="success" type="view" value="FindPartyClassificationGroups"/>
         <response name="error" type="view" value="EditPartyClassificationGroup"/>
     </request-map>
     <request-map uri="deletePartyClassificationGroup">
