@@ -56,11 +56,13 @@ import org.w3c.dom.Element;
 /** iCalendar worker class. This class handles the WebDAV requests and
  * delegates the calendar conversion tasks to <code>ICalConverter</code>.
  */
-public class ICalWorker {
+public final class ICalWorker {
 
     public static final String module = ICalWorker.class.getName();
+    
+    private ICalWorker() {};
 
-    public static class ResponseProperties {
+    public static final class ResponseProperties {
         public final int statusCode;
         public final String statusMessage;
         public ResponseProperties(int statusCode, String statusMessage) {
@@ -69,7 +71,7 @@ public class ICalWorker {
         }
     }
 
-    protected static Map<String, Object> createConversionContext(HttpServletRequest request) {
+    private static Map<String, Object> createConversionContext(HttpServletRequest request) {
         Map<String, Object> context = new HashMap<String, Object>();
         Enumeration<String> attributeEnum = UtilGenerics.cast(request.getAttributeNames());
         while (attributeEnum.hasMoreElements()) {
@@ -126,7 +128,7 @@ public class ICalWorker {
         return new ResponseProperties(HttpServletResponse.SC_PARTIAL_CONTENT, statusMessage);
     }
 
-    protected static Date getLastModifiedDate(HttpServletRequest request) throws GenericEntityException {
+    private static Date getLastModifiedDate(HttpServletRequest request) throws GenericEntityException {
         String workEffortId = (String) request.getAttribute("workEffortId");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue publishProperties = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
@@ -244,7 +246,7 @@ public class ICalWorker {
         writeResponse(responseProps, request, response, context);
     }
 
-    protected static boolean isValidRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private static boolean isValidRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (!request.isSecure()) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return false;
@@ -258,7 +260,7 @@ public class ICalWorker {
         return true;
     }
 
-    protected static void logInUser(HttpServletRequest request, HttpServletResponse response) throws GenericServiceException, GenericEntityException {
+    private static void logInUser(HttpServletRequest request, HttpServletResponse response) throws GenericServiceException, GenericEntityException {
         Map<String, Object> serviceMap = WebDavUtil.getCredentialsFromRequest(request);
         if (serviceMap == null) {
             return;
@@ -286,7 +288,7 @@ public class ICalWorker {
         }
     }
 
-    protected static void setupRequest(HttpServletRequest request, HttpServletResponse response) {
+    private static void setupRequest(HttpServletRequest request, HttpServletResponse response) {
         String path = request.getPathInfo();
         if (UtilValidate.isEmpty(path)) {
             path = "/";
@@ -306,7 +308,7 @@ public class ICalWorker {
         }
     }
 
-    protected static void writeResponse(ResponseProperties responseProps, HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
+    private static void writeResponse(ResponseProperties responseProps, HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Returning response: code = " + responseProps.statusCode +
                     ", message = " + responseProps.statusMessage, module);
