@@ -2574,6 +2574,18 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (!passwordField.getClientAutocompleteField()) {
             autocomplete = "off";
         }
+        
+        //check for required field style on single forms
+        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+            String requiredStyle = modelFormField.getRequiredFieldStyle();
+            if (UtilValidate.isEmpty(requiredStyle))
+                requiredStyle = "required";
+            if (UtilValidate.isEmpty(className))
+                className = requiredStyle;
+            else
+                className = requiredStyle + " " + className;
+        }
+        
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
         sr.append("<@renderPasswordField ");
