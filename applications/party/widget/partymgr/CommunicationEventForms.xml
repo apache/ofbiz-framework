@@ -705,12 +705,6 @@ under the License.
 
     <form name="AddEventRole" type="single" target="createCommunicationEventRole"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="subject"><hidden/></field>
-        <field name="content"><hidden/></field>
-        <field name="partyIdTo"><hidden/></field>
-        <field name="datetimeStarted"><hidden/></field>
-        <field name="my"><hidden value="${my}"/></field>
-        <field name="datetimeStarted"><hidden/></field>
         <field name="communicationEventId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" position="1"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId" position="2">
@@ -722,10 +716,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title=" ">
-            <hyperlink also-hidden="true"
-                target-type="plain" description="${uiLabelMap.PartyAddRole}"
-                target="javascript:(document.AddEventRole.communicationEventId.value=document.EditEmail.communicationEventId.value),(document.AddEventRole.datetimeStarted.value=document.EditEmail.datetimeStarted.value),(document.AddEventRole.partyIdTo.value=document.EditEmail.partyIdTo.value),(document.AddEventRole.subject.value=document.EditEmail.subject.value),(document.AddEventRole.content.value=document.EditEmail.content.value),(document.AddEventRole.submit())"/>
+        <field name="submitButton" title="${uiLabelMap.PartyAddRole}">
+            <submit button-type="button"/>
         </field>
     </form>
 
