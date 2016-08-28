@@ -33,6 +33,9 @@ def iterateOverActiveComponents(applyFunction) {
         applyFunction file("${rootDir}/specialpurpose/"+component.@"component-location")
     }
 
+    file("${rootDir}/themes").eachDir { component ->
+        applyFunction(component)
+    }
     file("${rootDir}/hot-deploy").eachDir { component ->
         applyFunction(component)
     }
