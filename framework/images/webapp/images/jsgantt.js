@@ -42,7 +42,7 @@ var vBenchTime = new Date().getTime();
 * @constructor
 * @for JSGantt
 
-* @param pID {Number} Task unique numeric ID
+* @param pID {String} Task unique ID
 * @param pName {String} Task Name
 * @param pStart {Date} Task start date/time (not required for pGroup=1 )
 * @param pEnd {Date} Task end date/time, you can set the end time to 12:00 to indicate half-day (not required for pGroup=1 )
@@ -1905,9 +1905,9 @@ JSGantt.folder= function (pID,ganttObj) {
             JSGantt.show(pID, 1, ganttObj);
 
                if (JSGantt.isIE()) 
-                  {JSGantt.findObj('group_'+pID).innerText = '–';}
+                  {JSGantt.findObj('group_'+pID).innerText = 'ï¿½';}
                else
-                  {JSGantt.findObj('group_'+pID).textContent = '–';}
+                  {JSGantt.findObj('group_'+pID).textContent = 'ï¿½';}
 
          }
 
@@ -1979,7 +1979,7 @@ JSGantt.show =  function (pID, pTop, ganttObj) {
          } else {
 
             if (JSGantt.isIE()) { // IE;
-               if( JSGantt.findObj('group_'+pID).innerText == '–') {
+               if( JSGantt.findObj('group_'+pID).innerText == 'ï¿½') {
                   JSGantt.findObj('child_'+vID).style.display = "";
                   JSGantt.findObj('childgrid_'+vID).style.display = "";
                   vList[i].setVisible(1);
@@ -1987,7 +1987,7 @@ JSGantt.show =  function (pID, pTop, ganttObj) {
 
             } else {
 
-               if( JSGantt.findObj('group_'+pID).textContent == '–') {
+               if( JSGantt.findObj('group_'+pID).textContent == 'ï¿½') {
                   JSGantt.findObj('child_'+vID).style.display = "";
                   JSGantt.findObj('childgrid_'+vID).style.display = "";
                   vList[i].setVisible(1);
