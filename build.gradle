@@ -235,12 +235,13 @@ eclipse.classpath.file.whenMerged { classpath ->
     }
     classpath.entries.removeAll { entry ->
         /* remove "src" entries in .classpath named:
-         *   /framework, /applications, /specialpurpose and /hot-deploy
+         *   /framework, /applications, /specialpurpose, /themes and /hot-deploy
          */
         entry.kind == 'src' &&
             entry.path ==~ /(\/+framework)$/ ||
             entry.path ==~ /(\/+applications)$/ ||
             entry.path ==~ /(\/+specialpurpose)$/ ||
+            entry.path ==~ /(\/+themes)$/ ||
             entry.path ==~ /(\/+hot-deploy)$/
     }
     getDirectoryInActiveComponentsIfExists('config').each { configDir ->
