@@ -69,6 +69,14 @@ under the License.
               <fo:list-block provisional-distance-between-starts="1in">
                 <fo:list-item>
                   <fo:list-item-label>
+                    <fo:block font-weight="bold">${uiLabelMap.CommonCompany}</fo:block>
+                  </fo:list-item-label>
+                  <fo:list-item-body start-indent="body-start()">
+                    <fo:block><#if currentOrganization??>${currentOrganization.partyId} - ${currentOrganization.groupName}</#if></fo:block>
+                  </fo:list-item-body>
+                </fo:list-item>
+                <fo:list-item>
+                  <fo:list-item-label>
                     <fo:block font-weight="bold">${uiLabelMap.CommonUsername}</fo:block>
                   </fo:list-item-label>
                   <fo:list-item-body start-indent="body-start()">
