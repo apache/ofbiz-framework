@@ -1887,6 +1887,9 @@
         <value xml:lang="zh-CN">关</value>
         <value xml:lang="zh-TW">關</value>
     </property>
+    <property key="CommonCode">
+        <value xml:lang="en">Code</value>
+    </property>
     <property key="CommonCollapse">
         <value xml:lang="ar">طوي</value>
         <value xml:lang="cs">Sbalit</value>
