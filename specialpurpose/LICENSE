@@ -10,45 +10,42 @@ OFBiz and the full text of the license used for each.
 For additional details, see the NOTICE file.
 =========================================================================
 The following libraries are licensed under the Apache License Version 2.0:
-specialpurpose/birt/lib/axis-ant-1.4.jar
-specialpurpose/birt/lib/axis-1.4.jar
-specialpurpose/birt/lib/commons-discovery-0.5.jar
-specialpurpose/cmssite/template/docbook/extensions/tagsoup-1.2.1.jar
-specialpurpose/cmssite/template/docbook/extensions/xalan27.jar
-specialpurpose/cmssite/template/docbook/extensions/webhelpindexer.jar
-specialpurpose/lucene/lib/lucene-analyzers-common-4.9.0.jar
-specialpurpose/lucene/lib/lucene-core-4.9.0.jar
-specialpurpose/lucene/lib/lucene-queryparser-4.9.0.jar
-specialpurpose/solr/lib/compile/solr-core-4.9.0.jar
-specialpurpose/solr/lib/compile/solr-solrj-4.9.0.jar
-specialpurpose/solr/lib/runtime/joda-time-2.2.jar
-specialpurpose/solr/lib/runtime/lucene-analyzers-common-4.9.0.jar
-specialpurpose/solr/lib/runtime/lucene-codecs-4.9.0.jar
-specialpurpose/solr/lib/runtime/lucene-highlighter-4.9.0.jar
-specialpurpose/solr/lib/runtime/lucene-join-4.9.0.jar
-specialpurpose/solr/lib/runtime/lucene-queries-4.9.0.jar
-specialpurpose/solr/lib/runtime/lucene-spatial-4.9.0.jar
-specialpurpose/solr/lib/runtime/noggit-0.5.jar
-specialpurpose/solr/lib/runtime/org.restlet-2.1.1.jar
-specialpurpose/solr/lib/runtime/org.restlet.ext.servlet-2.1.1.jar
-specialpurpose/solr/lib/runtime/spatial4j-0.4.1.jar
-specialpurpose/solr/lib/runtime/zookeeper-3.4.6.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/commons-cli-1.2.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/commons-configuration-1.6.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/concurrentlinkedhashmap-lru-1.2.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-annotations-2.6.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-auth-2.6.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-common-2.6.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/hadoop-hdfs-2.6.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/hppc-0.5.2.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/httpmime-4.3.1.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-analyzers-kuromoji-4.9.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-analyzers-phonetic-4.9.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-expressions-4.9.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-grouping-4.9.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-memory-4.9.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/lucene-misc-4.9.0.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/wstx-asl-3.2.7.jar
+axis-ant-1.4.jar
+axis-1.4.jar
+commons-discovery-0.5.jar
+tagsoup-1.2.1.jar
+xalan27.jar
+webhelpindexer.jar
+solr-core-4.9.0.jar
+solr-solrj-4.9.0.jar
+joda-time-2.2.jar
+lucene-analyzers-common-4.9.0.jar
+lucene-codecs-4.9.0.jar
+lucene-highlighter-4.9.0.jar
+lucene-join-4.9.0.jar
+lucene-queries-4.9.0.jar
+lucene-spatial-4.9.0.jar
+noggit-0.5.jar
+org.restlet-2.1.1.jar
+org.restlet.ext.servlet-2.1.1.jar
+spatial4j-0.4.1.jar
+zookeeper-3.4.6.jar
+commons-cli-1.2.jar
+commons-configuration-1.6.jar
+concurrentlinkedhashmap-lru-1.2.jar
+hadoop-annotations-2.6.0.jar
+hadoop-auth-2.6.0.jar
+hadoop-common-2.6.0.jar
+hadoop-hdfs-2.6.0.jar
+hppc-0.5.2.jar
+httpmime-4.3.1.jar
+lucene-analyzers-kuromoji-4.9.0.jar
+lucene-analyzers-phonetic-4.9.0.jar
+lucene-expressions-4.9.0.jar
+lucene-grouping-4.9.0.jar
+lucene-memory-4.9.0.jar
+lucene-misc-4.9.0.jar
+wstx-asl-3.2.7.jar
 =========================================================================
                                  Apache License
                            Version 2.0, January 2004
@@ -260,11 +257,11 @@ specialpurpose/solr/webapp/solr/WEB-INF/lib/wstx-asl-3.2.7.jar
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 BSD License:
-specialpurpose/ldap/lib/cas-server-core-3.3.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/antlr-runtime-3.5.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/asm-4.1.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/asm-commons-4.1.jar
-specialpurpose/solr/webapp/solr/WEB-INF/lib/protobuf-java-2.5.0.jar
+cas-server-core-3.3.jar
+antlr-runtime-3.5.jar
+asm-4.1.jar
+asm-commons-4.1.jar
+protobuf-java-2.5.0.jar
 =========================================================================
 The BSD License
 
@@ -320,7 +317,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Mozilla Public License Version 1.1:
-specialpurpose/cmssite/template/docbook/extensions/saxon65.jar
+saxon65.jar
 =========================================================================
                           MOZILLA PUBLIC LICENSE
                                 Version 1.1
@@ -825,10 +822,10 @@ THE SOFTWARE.
 =========================================================================
 The following library distributed with Apache OFBiz is licensed under the
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL):
-specialpurpose/ebaystore/lib/attributes.jar
-specialpurpose/ebaystore/lib/ebaysdkcore.jar
-specialpurpose/ebaystore/lib/helper.jar
-specialpurpose/ebaystore/lib/ebaycalls.jar
+attributes.jar
+ebaysdkcore.jar
+helper.jar
+ebaycalls.jar
 =========================================================================
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0 1.
 
@@ -1172,37 +1169,37 @@ questions or comments regarding the usage of this material.
 =========================================================================
 The following libraries and files distributed with Apache OFBiz are 
 licensed under the Eclipse Public License - v 1.0:
-specialpurpose/birt/lib/flute.jar
-specialpurpose/birt/lib/jaxrpc.jar
-specialpurpose/birt/lib/js.jar
-specialpurpose/birt/lib/org.apache.xml.resolver_1.2.0.v201005080400.jar
-specialpurpose/birt/lib/org.apache.xml.serializer_2.7.1.v201005080400.jar
-specialpurpose/birt/lib/org.eclipse.birt.runtime_4.3.1.v20130918-1142.jar
-specialpurpose/birt/lib/org.eclipse.core.contenttype_3.4.200.v20130326-1255.jar
-specialpurpose/birt/lib/org.eclipse.core.expressions_3.4.500.v20130515-1343.jar
-specialpurpose/birt/lib/org.eclipse.core.filesystem_1.4.0.v20130514-1240.jar
-specialpurpose/birt/lib/org.eclipse.core.jobs_3.5.300.v20130429-1813.jar
-specialpurpose/birt/lib/org.eclipse.core.resources_3.8.101.v20130717-0806.jar
-specialpurpose/birt/lib/org.eclipse.core.runtime_3.9.0.v20130326-1255.jar
-specialpurpose/birt/lib/org.eclipse.datatools.connectivity.oda_3.4.1.v201308160907.jar
-specialpurpose/birt/lib/org.eclipse.emf_2.6.0.v20130902-0605.jar
-specialpurpose/birt/lib/org.eclipse.emf.common_2.9.1.v20130827-0309.jar
-specialpurpose/birt/lib/org.eclipse.emf.ecore_2.9.1.v20130827-0309.jar
-specialpurpose/birt/lib/org.eclipse.emf.ecore.change_2.9.0.v20130827-0309.jar
-specialpurpose/birt/lib/org.eclipse.emf.ecore.xmi_2.9.1.v20130827-0309.jar
-specialpurpose/birt/lib/org.eclipse.equinox.app_1.3.100.v20130327-1442.jar
-specialpurpose/birt/lib/org.eclipse.equinox.common_3.6.200.v20130402-1505.jar
-specialpurpose/birt/lib/org.eclipse.equinox.preferences_3.5.100.v20130422-1538.jar
-specialpurpose/birt/lib/org.eclipse.equinox.registry_3.5.301.v20130717-1549.jar
-specialpurpose/birt/lib/org.eclipse.osgi_3.9.1.v20130814-1242.jar
-specialpurpose/birt/lib/org.eclipse.osgi.services_3.3.100.v20130513-1956.jar
-specialpurpose/birt/lib/org.eclipse.update.configurator_3.3.200.v20130326-1319.jar
-specialpurpose/birt/lib/org.w3c.css.sac_1.3.0.v200805290154.jar
-specialpurpose/birt/lib/org.w3c.dom.smil_1.0.0.v200806040011.jar
-specialpurpose/birt/lib/org.w3c.dom.svg_1.1.0.v201011041433.jar
-specialpurpose/birt/lib/saaj.jar
-specialpurpose/birt/lib/Tidy.jar
-specialpurpose/birt/lib/viewservlets.jar
+flute.jar
+jaxrpc.jar
+js.jar
+org.apache.xml.resolver_1.2.0.v201005080400.jar
+org.apache.xml.serializer_2.7.1.v201005080400.jar
+org.eclipse.birt.runtime_4.3.1.v20130918-1142.jar
+org.eclipse.core.contenttype_3.4.200.v20130326-1255.jar
+org.eclipse.core.expressions_3.4.500.v20130515-1343.jar
+org.eclipse.core.filesystem_1.4.0.v20130514-1240.jar
+org.eclipse.core.jobs_3.5.300.v20130429-1813.jar
+org.eclipse.core.resources_3.8.101.v20130717-0806.jar
+org.eclipse.core.runtime_3.9.0.v20130326-1255.jar
+org.eclipse.datatools.connectivity.oda_3.4.1.v201308160907.jar
+org.eclipse.emf_2.6.0.v20130902-0605.jar
+org.eclipse.emf.common_2.9.1.v20130827-0309.jar
+org.eclipse.emf.ecore_2.9.1.v20130827-0309.jar
+org.eclipse.emf.ecore.change_2.9.0.v20130827-0309.jar
+org.eclipse.emf.ecore.xmi_2.9.1.v20130827-0309.jar
+org.eclipse.equinox.app_1.3.100.v20130327-1442.jar
+org.eclipse.equinox.common_3.6.200.v20130402-1505.jar
+org.eclipse.equinox.preferences_3.5.100.v20130422-1538.jar
+org.eclipse.equinox.registry_3.5.301.v20130717-1549.jar
+org.eclipse.osgi_3.9.1.v20130814-1242.jar
+org.eclipse.osgi.services_3.3.100.v20130513-1956.jar
+org.eclipse.update.configurator_3.3.200.v20130326-1319.jar
+org.w3c.css.sac_1.3.0.v200805290154.jar
+org.w3c.dom.smil_1.0.0.v200806040011.jar
+org.w3c.dom.svg_1.1.0.v201011041433.jar
+saaj.jar
+Tidy.jar
+viewservlets.jar
 specialpurpose/birt/webapp/birt/webcontent/birt/*
 
 =========================================================================
