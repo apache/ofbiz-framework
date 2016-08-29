@@ -17,16 +17,15 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.config.ResourceHandler;
-import org.apache.ofbiz.testtools.TestListContainer.FoundTest;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.base.util.UtilMisc;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import java.util.Collection;
-import java.util.List;
 
 List testList = [];
 for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(parameters.compName)) {
