@@ -22,31 +22,28 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${title}</title>
-    <#-- this needs to be fully qualified to appear in email; the server must also be available -->
-    <link rel="stylesheet" href="${baseUrl}/images/maincss.css" type="text/css"/>
   </head>
 
   <body>
     <h1>${title}</h1>
     <#-- custom logo or text can be inserted here -->
     <br />
-    <div class="screenlet-title-bar">
-      <div class="h3">${uiLabelMap.OagisInventoryDescription}<b></b></div>
+    <div>
+      <h3>${uiLabelMap.OagisInventoryDescription}</h3>
     </div>
-    <div class="screenlet-body">
-      <table class="basic-table" cellspacing="0">
-        <tr valign="bottom" class="header-row">
-          <td width="10%"><b>${uiLabelMap.ProductProduct}</b></td>
-          <td width="10%" align="center"><b>${uiLabelMap.OagisInventoryLevelDateTime}</b></td>
-          <td width="10%" align="right"><b>${uiLabelMap.OrderReturnItemInventoryStatus}</b></td>
-          <td width="10%" align="right"><b>${uiLabelMap.OrderQuantity} (Inventory)</b></td>
-          <td width="10%" align="right"><b>${uiLabelMap.OrderQuantity} (Message)</b></td>
-          <td width="10%" align="right"><b>${uiLabelMap.OagisQuantityDiff}.</b></td>
+    <div>
+      <table cellspacing="0">
+        <tr valign="bottom">
+          <th width="10%"><b>${uiLabelMap.ProductProduct}</b></th>
+          <th width="10%" align="center">${uiLabelMap.OagisInventoryLevelDateTime}</th>
+          <th width="10%" align="right">${uiLabelMap.OrderReturnItemInventoryStatus}</th>
+          <th width="10%" align="right">${uiLabelMap.OrderQuantity} (Inventory)</th>
+          <th width="10%" align="right">${uiLabelMap.OrderQuantity} (Message)</th>
+          <th width="10%" align="right">${uiLabelMap.OagisQuantityDiff}.</th>
         </tr>
         <tr><td colspan="10"><hr /></td></tr>
-        <#assign alt_row = false>
         <#list inventoryMapList as inventoryMap>
-          <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+          <tr valign="middle">
             <td valign="top"> ${inventoryMap.productId!}</td>
             <td align="right" valign="top"> ${inventoryMap.timestamp!!}</td>
             <td align="right" valign="top"> ${inventoryMap.statusId!!}</td>
@@ -54,8 +51,6 @@
             <td align="center" valign="top"> ${inventoryMap.quantityFromMessage!!}</td>
             <td align="right" valign="top"> ${inventoryMap.quantityDiff!!}</td>
           </tr>
-          <#-- toggle the row color -->
-          <#assign alt_row = !alt_row>
         </#list>
         <tr><td colspan="10"><hr /></td></tr>
       </table>

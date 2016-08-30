@@ -21,8 +21,6 @@ under the License.
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title>${title!}</title>
-        <#-- this needs to be fully qualified to appear in email; the server must also be available -->
-        <link rel="stylesheet" href="${baseUrl}/images/maincss.css" type="text/css"/>
     </head>
     <body>
     
