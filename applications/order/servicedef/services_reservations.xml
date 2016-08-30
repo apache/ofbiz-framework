@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Order Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+    <!-- accommodation spot services -->
+    <service name="createAccommodationSpot" default-entity-name="AccommodationSpot" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a AccommodationSpot record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateAccommodationSpot" default-entity-name="AccommodationSpot" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a AccommodationSpot record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteAccommodationSpot" default-entity-name="AccommodationSpot" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an AccommodationSpot record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+</services>
+
