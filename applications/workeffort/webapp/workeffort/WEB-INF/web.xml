@@ -52,7 +52,7 @@ under the License.
         <init-param>
             <param-name>allowedPaths</param-name>
             <param-value>
-                /error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css
+                /error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images
             </param-value>
         </init-param>
         <init-param>

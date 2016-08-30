@@ -42,8 +42,6 @@ under the License.
       <#list layoutSettings.styleSheets as styleSheet>
         <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
       </#list>
-    <#else>
-      <link rel="stylesheet" href="<@ofbizContentUrl>/images/maincss.css</@ofbizContentUrl>" type="text/css"/>
     </#if>
     <#if layoutSettings.rtlStyleSheets?has_content && langDir == "rtl">
       <#--layoutSettings.rtlStyleSheets is a list of rtl style sheets.-->

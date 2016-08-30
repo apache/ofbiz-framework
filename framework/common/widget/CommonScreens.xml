@@ -448,9 +448,6 @@ under the License.
     <screen name="SimpleDecorator">
         <section>
             <actions>
-                <!-- The default (global) stylesheet -->
-                <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
-                <set field="layoutSettings.rtlStyleSheets[+0]" value="/images/mainrtl.css" global="true"/>
                 <!-- The default (global) java scripts -->
                     <!-- jQuery part -->
                 <!-- Load available JS Language Files -->
