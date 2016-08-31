@@ -105,7 +105,7 @@ final class StartupCommandUtil {
             .build();
     private static final Option PORTOFFSET = Option.builder("o")
             .longOpt(StartupOption.PORTOFFSET.getName())
-            .desc("Offsets all the default ports for OFBiz")
+            .desc("Offsets all default ports for OFBiz")
             .hasArg()
             .argName("offset")
             .optionalArg(false)
