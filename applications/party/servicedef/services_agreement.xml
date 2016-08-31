@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Party Component Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Agreement item type services -->
+    <service name="createAgreementItemType" default-entity-name="AgreementItemType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a AgreementItemType record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateAgreementItemType" default-entity-name="AgreementItemType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a AgreementItemType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteAgreementItemType" default-entity-name="AgreementItemType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an AgreementItemType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+</services>
