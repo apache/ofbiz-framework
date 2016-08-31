@@ -123,4 +123,18 @@ under the License.
         <description>Remove an existing Budget Item Type Record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
+    <service name="createBudgetItemTypeAttr" default-entity-name="BudgetItemTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Budget Item Type Attr Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateBudgetItemTypeAttr" default-entity-name="BudgetItemTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Budget Item Type Attr Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteBudgetItemTypeAttr" default-entity-name="BudgetItemTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an existing Budget Item Type Attr Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>
