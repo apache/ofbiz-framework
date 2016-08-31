@@ -137,4 +137,18 @@ under the License.
         <description>Delete an existing Budget Item Type Attr Record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
+    <service name="createBudgetReviewResultType" default-entity-name="BudgetReviewResultType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Budget Review Result Type Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateBudgetReviewResultType" default-entity-name="BudgetReviewResultType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Budget Review Result Type Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteBudgetReviewResultType" default-entity-name="BudgetReviewResultType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an existing Budget Review Result Type Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>
