@@ -95,4 +95,18 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    <service name="createBudgetItemAttribute" default-entity-name="BudgetItemAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Budget Item Attribute Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateBudgetItemAttribute" default-entity-name="BudgetItemAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Budget Item Attribute Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteBudgetItemAttribute" default-entity-name="BudgetItemAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an existing Budget Item Attribute Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>
