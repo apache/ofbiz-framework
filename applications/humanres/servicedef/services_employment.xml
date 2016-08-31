@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Humanres Services</description>
+    <vendor>OFBiz</vendor>
+
+    <!-- Benefit type services -->
+    <service name="createBenefitType" default-entity-name="BenefitType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a BenefitType record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateBenefitType" default-entity-name="BenefitType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a BenefitType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteBenefitType" default-entity-name="BenefitType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a BenefitType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+</services>
