@@ -1,4 +1,4 @@
-<img src="http://ofbiz.apache.org/images/logo.png" alt="Apache OFBiz" />&nbsp;<img src="http://lucene.apache.org/solr/assets/identity/Solr_Logo_on_white.png" width="150px"
+<img src="ogo.png" alt="Apache OFBiz" />&nbsp;<img src="http://lucene.apache.org/solr/assets/identity/Solr_Logo_on_white.png" width="150px"
 
 # Solr component
 This OFBiz component leverages Apache Solr indexing capabilities.
