@@ -1,5 +1,9 @@
+<img src="http://ofbiz.apache.org/images/logo.png" alt="Apache OFBiz" />
+
+# Ecommerce component
+
+## more information
 How to use Janrain Engage Social Login.
-======================================
 
 1.Get API Key from http://www.janrain.com/products/engage/social-login.
 2.Configure file setting : ecommerce.properties you can put it 
