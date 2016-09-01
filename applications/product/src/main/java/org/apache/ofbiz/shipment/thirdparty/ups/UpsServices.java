@@ -3120,17 +3120,8 @@ public class UpsServices {
                     ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            if (rateResponseString != null) {
-                Debug.logError("Got XML ShipmentAlternateRatesInquiryResponse: " + rateResponseString, module);
-                return ServiceUtil.returnError(UtilMisc.toList(
-                        UtilProperties.getMessage(resourceError, "FacilityShipmentUpsErrorDataShipmentAccept",
-                        UtilMisc.toMap("errorString", e.toString()), locale),
-                        UtilProperties.getMessage(resourceError, "FacilityShipmentUpsShipmentAlternateRatesInquiryResponse",
-                                UtilMisc.toMap("rateResponseString", rateResponseString), locale)));
-            } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsErrorDataShipmentAlternateRate",
-                        UtilMisc.toMap("errorString", e.toString()), locale));
-            }
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsErrorDataShipmentAlternateRate",
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
     }
 
