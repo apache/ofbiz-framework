@@ -809,9 +809,20 @@ public class DhlServices {
             return handleDhlShipmentConfirmResponse(responseString, shipmentRouteSegment, shipmentPackageRouteSegs, locale);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentFedexRateTemplateReadingError", 
-                    UtilMisc.toMap("errorString", e.toString()), locale));
+            if (shipmentConfirmResponseString != null) {
+                Debug.logError("Got XML ShipmentConfirmRespose: " + shipmentConfirmResponseString, module);
+                return ServiceUtil.returnError(UtilMisc.toList(
+                        UtilProperties.getMessage(resourceError, 
+                                "FacilityShipmentFedexRateTemplateReadingError", 
+                                UtilMisc.toMap("errorString", e.toString()), locale),
+                        UtilProperties.getMessage(resourceError, 
+                                "FacilityShipmentFedexShipmentConfirmResponse", 
+                                UtilMisc.toMap("shipmentConfirmResponseString", shipmentConfirmResponseString), locale)));
+            } else {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        "FacilityShipmentFedexRateTemplateReadingError", 
+                        UtilMisc.toMap("errorString", e.toString()), locale));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
