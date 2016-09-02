@@ -2639,6 +2639,7 @@ under the License.
       <field name="statusId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
       <field name="statusDate" type="date-time"></field>
+      <field name="changeByUserLoginId" type="id-vlong"></field>
       <prim-key field="statusId"/>
       <prim-key field="partyId"/>
       <prim-key field="statusDate"/>
@@ -2647,6 +2648,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="PARTY_STS_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_STTS_USRLGN" title="ChangeBy" rel-entity-name="UserLogin">
+          <key-map field-name="changeByUserLoginId" rel-field-name="userLoginId"/>
       </relation>
     </entity>
     <entity entity-name="OldPartyTaxInfo" table-name="PARTY_TAX_INFO"
