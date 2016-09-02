@@ -1883,6 +1883,7 @@ public class DatabaseUtil {
             try {
                 stmt = connection.createStatement();
                 stmt.executeUpdate(sql2);
+                stmt.close();
             } catch (SQLException e2) {
                 // if this also fails report original error, not this error...
                 return "SQL Exception while executing the following:\n" + sql + "\nError was: " + e.toString();
