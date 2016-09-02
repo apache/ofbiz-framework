@@ -46,9 +46,9 @@ import javax.script.ScriptException;
 import javax.script.SimpleBindings;
 import javax.script.SimpleScriptContext;
 
-import org.codehaus.groovy.runtime.InvokerHelper;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.codehaus.groovy.runtime.InvokerHelper;
 
 /**
  * Scripting utility methods. This is a facade class that is used to connect OFBiz to JSR-223 scripting engines.
@@ -408,7 +408,12 @@ public final class ScriptUtil {
     public static Class<?> parseScript(String language, String script) {
         Class<?> scriptClass = null;
         if ("groovy".equals(language)) {
-            scriptClass = GroovyUtil.parseClass(script);
+            try {
+                scriptClass = GroovyUtil.parseClass(script);
+            } catch (IOException e) {
+                Debug.logError(e, module);
+                return null;
+            }
         }
         return scriptClass;
     }

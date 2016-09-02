@@ -2263,9 +2263,11 @@ public class EbayStore {
                 // Upload image to ofbiz path /runtime/tmp .
                 ByteBuffer byteWrap = (ByteBuffer) context.get("imageData");
                 File file = new File(System.getProperty("ofbiz.home"), "runtime" + File.separator + "tmp" + File.separator + imageFileName);
-                FileChannel wChannel = new FileOutputStream(file, false).getChannel();
+                FileOutputStream fileOutputStream = new FileOutputStream(file, false);
+                FileChannel wChannel = fileOutputStream.getChannel();
                 wChannel.write(byteWrap);
                 wChannel.close();
+                fileOutputStream.close();
 
                 // Set path file picture to api and set picture details.
                 String [] pictureFiles = {System.getProperty("ofbiz.home") + File.separator + "runtime" + File.separator + "tmp" + File.separator + imageFileName};

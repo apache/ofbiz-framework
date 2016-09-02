@@ -579,8 +579,7 @@ public class PdfSurveyServices {
             String pdfFileNameIn = (String)context.get("pdfFileNameIn");
             String contentId = (String)context.get("contentId");
             if (UtilValidate.isNotEmpty(pdfFileNameIn)) {
-                try {
-                    FileInputStream fis = new FileInputStream(pdfFileNameIn);
+                try (FileInputStream fis = new FileInputStream(pdfFileNameIn)) {
                     int c;
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     while ((c = fis.read()) != -1) baos.write(c);
