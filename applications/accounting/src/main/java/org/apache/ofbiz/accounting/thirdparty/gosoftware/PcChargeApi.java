@@ -18,17 +18,18 @@
  *******************************************************************************/
 package org.apache.ofbiz.accounting.thirdparty.gosoftware;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.DataInputStream;
 import java.net.Socket;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.base.util.ObjectType;
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.Debug;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -188,7 +189,6 @@ public class PcChargeApi {
             Socket sock = new Socket(host, port);
             PrintStream ps = new PrintStream(sock.getOutputStream());
             DataInputStream dis = new DataInputStream(sock.getInputStream());
-            sock.close();
             ps.print(this.toString());
             ps.flush();
 

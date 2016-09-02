@@ -585,7 +585,6 @@ public class PdfSurveyServices {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     while ((c = fis.read()) != -1) baos.write(c);
                     inputByteBuffer = ByteBuffer.wrap(baos.toByteArray());
-                    fis.close();
                 } catch (FileNotFoundException e) {
                     throw(new GeneralException(e.getMessage()));
                 } catch (IOException e) {
