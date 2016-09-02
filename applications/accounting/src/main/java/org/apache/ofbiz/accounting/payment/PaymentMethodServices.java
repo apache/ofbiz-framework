@@ -907,4 +907,88 @@ public class PaymentMethodServices {
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
+    public static Map<String, Object> createCheckAccount(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        Delegator delegator = ctx.getDelegator();
+        Security security = ctx.getSecurity();
+                GenericValue userLogin = (GenericValue) context.get("userLogin");
+                Locale locale = (Locale) context.get("locale");
+        Timestamp now = UtilDateTime.nowTimestamp();
+
+        String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_CREATE", "ACCOUNTING", "_CREATE");
+        if (result.size() > 0) return result;
+
+        List<GenericValue> toBeStored = new LinkedList<GenericValue>();
+        GenericValue newPm = delegator.makeValue("PaymentMethod");
+        toBeStored.add(newPm);
+
+        GenericValue newCa = delegator.makeValue("CheckAccount");
+
+        toBeStored.add(newCa);
+        String newPmId = (String) context.get("paymentMethodId");
+        if (UtilValidate.isEmpty(newPmId)) {
+            try {
+                newPmId = delegator.getNextSeqId("PaymentMethod");
+            } catch (IllegalArgumentException e) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "AccountingCheckNotAdded", locale));
+            }
+        }
+
+        newPm.set("partyId", partyId);
+        newPm.set("description",context.get("description"));
+        newPm.set("paymentMethodTypeId", context.get("paymentMethodTypeId"));
+        newPm.set("fromDate", now);
+        newPm.set("paymentMethodId", newPmId);
+
+        newCa.set("bankName", context.get("bankName"));
+        newCa.set("routingNumber", context.get("routingNumber"));
+        newCa.set("accountType", context.get("accountType"));
+        newCa.set("accountNumber", context.get("accountNumber"));
+        newCa.set("nameOnAccount", context.get("nameOnAccount"));
+        newCa.set("companyNameOnAccount", context.get("companyNameOnAccount"));
+        newCa.set("contactMechId", context.get("contactMechId"));
+        newCa.set("paymentMethodId", newPmId);
+
+        GenericValue newPartyContactMechPurpose = null;
+        String contactMechId = (String) context.get("contactMechId");
+
+        if (UtilValidate.isNotEmpty(contactMechId)) {
+            // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
+            String contactMechPurposeTypeId = "BILLING_LOCATION";
+
+            GenericValue tempVal = null;
+            try {
+                List<GenericValue> allPCWPs = EntityQuery.use(delegator).from("PartyContactWithPurpose")
+                        .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId).queryList();
+                allPCWPs = EntityUtil.filterByDate(allPCWPs, now, "contactFromDate", "contactThruDate", true);
+                allPCWPs = EntityUtil.filterByDate(allPCWPs, now, "purposeFromDate", "purposeThruDate", true);
+
+                tempVal = EntityUtil.getFirst(allPCWPs);
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e.getMessage(), module);
+                tempVal = null;
+            }
+
+            if (tempVal == null) {
+                // no value found, create a new one
+                newPartyContactMechPurpose = delegator.makeValue("PartyContactMechPurpose",
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId,
+                                "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", now));
+            }
+        }
+
+        if (newPartyContactMechPurpose != null)
+            toBeStored.add(newPartyContactMechPurpose);
+
+        try {
+            delegator.storeAll(toBeStored);
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e.getMessage(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "AccountingCheckNotAdded", UtilMisc.toMap("errorString", e.getMessage()), locale));
+        }
+
+        result.put("paymentMethodId", newPm.getString("paymentMethodId"));
+        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+        return result;
+    }
 }

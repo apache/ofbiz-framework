@@ -43,6 +43,7 @@ under the License.
           <li><a href="<@ofbizUrl>editgiftcard?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateGiftCard}</a></li>
           <li><a href="<@ofbizUrl>editcreditcard?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateCreditCard}</a></li>
           <li><a href="<@ofbizUrl>EditBillingAccount?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateBillingAccount}</a></li>
+          <li><a href="<@ofbizUrl>AddCheckAccount?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingAddCheckAccount}</a></li>
         </#if>
       </ul>
       <br class="clear" />
@@ -126,11 +127,14 @@ under the License.
                   </#if>
                 <#-- </td> -->
               <#elseif "COMPANY_CHECK" == paymentMethod.paymentMethodTypeId>
+                <#assign checkAccount = paymentMethodValueMap.companyCheckAccount>
                 <td class="label" valign="top">
                   <#-- TODO: Convert hard-coded text to UI label properties -->
                   Company Check
                 </td>
                 <td>
+                  ${checkAccount.nameOnAccount} - <#if checkAccount.bankName?has_content>${uiLabelMap.PartyBank}: ${checkAccount.bankName}</#if>
+                  <#if checkAccount.accountNumber?has_content>${uiLabelMap.PartyAccount} #: ${checkAccount.accountNumber}</#if>
                   <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                   <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
                   <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
@@ -138,6 +142,38 @@ under the License.
                 </td>
                 <td class="button-col">
                   &nbsp;
+                <#-- </td> -->
+              <#elseif "PERSONAL_CHECK" == paymentMethod.paymentMethodTypeId>
+                <#assign checkAccount = paymentMethodValueMap.personalCheckAccount>
+                <td class="label" valign="top">
+                  Personal Check
+                </td>
+                <td>
+                  ${checkAccount.nameOnAccount} - <#if checkAccount.bankName?has_content>${uiLabelMap.PartyBank}: ${checkAccount.bankName}</#if>
+                  <#if checkAccount.accountNumber?has_content>${uiLabelMap.PartyAccount} #: ${checkAccount.accountNumber}</#if>
+                  <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                  <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
+                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
+                  <#if paymentMethod.thruDate?has_content>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</#if>
+                </td>
+                <td class="button-col">
+                  &nbsp;
+                <#-- </td> -->
+              <#elseif "CERTIFIED_CHECK" == paymentMethod.paymentMethodTypeId>
+                <#assign checkAccount = paymentMethodValueMap.certifiedCheckAccount>
+                <td class="label" valign="top">
+                Certified Check
+                </td>
+                <td>
+                  ${checkAccount.nameOnAccount} - <#if checkAccount.bankName?has_content>${uiLabelMap.PartyBank}: ${checkAccount.bankName}</#if>
+                  <#if checkAccount.accountNumber?has_content>${uiLabelMap.PartyAccount} #: ${checkAccount.accountNumber}</#if>
+                  <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                  <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
+                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
+                  <#if paymentMethod.thruDate?has_content>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</#if>
+                </td>
+                <td class="button-col">
+                &nbsp;
                 <#-- </td> -->
               <#else>
                 <td class="button-col">

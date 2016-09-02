@@ -112,4 +112,18 @@ under the License.
     <process field="description"><copy/></process>
     <!-- also call createEftAccount after calling updateEftAccount -->
   </simple-map-processor>
+  
+  <!-- Check map procs -->
+  <simple-map-processor name="createCheckAccount">
+    <process field="partyId"><copy/></process>
+    <process field="bankName"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingBankNameMissing"/></not-empty></process>
+    <process field="paymentMethodTypeId"><copy/><not-empty><fail-property resource="AccountingPaymentMethodTypeMissing" property="AccountingAccountTypeMissing"/></not-empty></process>
+    <process field="description"><copy/></process>
+    <process field="routingNumber"><copy/></process>
+    <process field="accountType"><copy/></process>
+    <process field="accountNumber"><copy/></process>
+    <process field="nameOnAccount"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingNameOnAccountMissing"/></not-empty></process>
+    <process field="companyNameOnAccount"><copy/></process>
+    <process field="contactMechId"><copy/></process>
+  </simple-map-processor>
 </simple-map-processors>
