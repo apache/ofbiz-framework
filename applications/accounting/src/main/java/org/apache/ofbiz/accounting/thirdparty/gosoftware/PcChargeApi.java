@@ -188,7 +188,6 @@ public class PcChargeApi {
             Socket sock = new Socket(host, port);
             PrintStream ps = new PrintStream(sock.getOutputStream());
             DataInputStream dis = new DataInputStream(sock.getInputStream());
-            sock.close();
             ps.print(this.toString());
             ps.flush();
 
@@ -201,16 +200,20 @@ public class PcChargeApi {
             try {
                 outDoc = UtilXml.readXmlDocument(buf.toString(), false);
             } catch (ParserConfigurationException e) {
+                sock.close();
                 throw new GeneralException(e);
             } catch (SAXException e) {
+                sock.close();
                 throw new GeneralException(e);
             }
 
             PcChargeApi out = new PcChargeApi(outDoc);
+            sock.close();
             return out;
         } else {
             throw new IllegalStateException("Cannot send output object");
         }
+        
     }
 
     private boolean checkIn(String name) {
