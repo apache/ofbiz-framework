@@ -370,6 +370,7 @@
         <value xml:lang="fr">Code article</value>
         <value xml:lang="it">Codice prodotto</value>
         <value xml:lang="ja">製品ID</value>
+        <value xml:lang="nl">Product ID</value>
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="th">รหัสสินค้า</value>
         <value xml:lang="vi">Sản phẩm</value>
@@ -2474,7 +2475,7 @@
         <value xml:lang="fr">Vue par jour</value>
         <value xml:lang="it">Mostra giorno</value>
         <value xml:lang="ja">日ビュー</value>
-        <value xml:lang="nl">Dag overzicht</value>
+        <value xml:lang="nl">Dagoverzicht</value>
         <value xml:lang="ro">Afiseaza Ziua</value>
         <value xml:lang="ru">По дням</value>
         <value xml:lang="th">แสดงวัน</value>
@@ -3248,7 +3249,7 @@
         <value xml:lang="fr">Vue par mois</value>
         <value xml:lang="it">Mostra per mese</value>
         <value xml:lang="ja">月ビュー</value>
-        <value xml:lang="nl">Month View</value>
+        <value xml:lang="nl">Maandoverzicht</value>
         <value xml:lang="ro">Afiseaza Luna</value>
         <value xml:lang="ru">По месяцам</value>
         <value xml:lang="th">แสดงเดือน</value>
@@ -3486,7 +3487,7 @@
         <value xml:lang="fr">Jour suivant</value>
         <value xml:lang="it">Giorno successivo</value>
         <value xml:lang="ja">次の日</value>
-        <value xml:lang="nl">Next Day</value>
+        <value xml:lang="nl">Volgende dag</value>
         <value xml:lang="ro">Zi Succesiva</value>
         <value xml:lang="ru">Следующий день</value>
         <value xml:lang="th">วันต่อไป</value>
@@ -3501,7 +3502,7 @@
         <value xml:lang="fr">Mois suivant</value>
         <value xml:lang="it">Mese successivo</value>
         <value xml:lang="ja">次の月</value>
-        <value xml:lang="nl">Next Month</value>
+        <value xml:lang="nl">Volgende maand</value>
         <value xml:lang="ro">Luna Succesiva</value>
         <value xml:lang="ru">Следующий месяц</value>
         <value xml:lang="th">เดือนต่อไป</value>
@@ -3516,7 +3517,7 @@
         <value xml:lang="fr">Semaine suivante</value>
         <value xml:lang="it">Settimana successiva</value>
         <value xml:lang="ja">次の週</value>
-        <value xml:lang="nl">Next Week</value>
+        <value xml:lang="nl">Volgende week</value>
         <value xml:lang="ro">Saptamana Succesiva</value>
         <value xml:lang="ru">Следующая неделя</value>
         <value xml:lang="th">สัปดาห์ต่อไป</value>
@@ -3959,7 +3960,7 @@
         <value xml:lang="fr">Jour précédent</value>
         <value xml:lang="it">Giorno precedente</value>
         <value xml:lang="ja">前の日</value>
-        <value xml:lang="nl">Previous Day</value>
+        <value xml:lang="nl">Vorige dag</value>
         <value xml:lang="ro">Ziua Precedenta</value>
         <value xml:lang="ru">Предыдущий день</value>
         <value xml:lang="th">กลับไปยังวัน</value>
@@ -3974,7 +3975,7 @@
         <value xml:lang="fr">Mois précédent</value>
         <value xml:lang="it">Mese precedente</value>
         <value xml:lang="ja">前の月</value>
-        <value xml:lang="nl">Previous Month</value>
+        <value xml:lang="nl">Vorige maand</value>
         <value xml:lang="ro">Luna Precedenta</value>
         <value xml:lang="ru">Предыдущий месяц</value>
         <value xml:lang="th">กลับไปยังเดือน</value>
@@ -3989,7 +3990,7 @@
         <value xml:lang="fr">Semaine précédente</value>
         <value xml:lang="it">Settimana precedente</value>
         <value xml:lang="ja">前の週</value>
-        <value xml:lang="nl">Previous Week</value>
+        <value xml:lang="nl">Vorige week</value>
         <value xml:lang="ro">Saptamana Precedenta</value>
         <value xml:lang="ru">Предыдущая неделя</value>
         <value xml:lang="th">กลับไปยังสัปดาห์</value>
@@ -4004,7 +4005,7 @@
         <value xml:lang="fr">Priorité</value>
         <value xml:lang="it">Priorità</value>
         <value xml:lang="ja">優先度</value>
-        <value xml:lang="nl">Priority</value>
+        <value xml:lang="nl">Prioriteit</value>
         <value xml:lang="ro">Prioritate</value>
         <value xml:lang="ru">Приоритет</value>
         <value xml:lang="th">สิทธิพิเศษ</value>
@@ -4044,7 +4045,7 @@
         <value xml:lang="fr">9 (Basse)</value>
         <value xml:lang="it">9 (Bassa)</value>
         <value xml:lang="ja">9 (低)</value>
-        <value xml:lang="nl">9 (Low)</value>
+        <value xml:lang="nl">9 (Laag)</value>
         <value xml:lang="ro">9 (Joasa)</value>
         <value xml:lang="th">9 (ต่ำ)</value>
         <value xml:lang="vi">9 (Thấp)</value>
@@ -4057,7 +4058,7 @@
         <value xml:lang="fr">1 (Haute)</value>
         <value xml:lang="it">1 (Alta)</value>
         <value xml:lang="ja">1 (高)</value>
-        <value xml:lang="nl">1 (High)</value>
+        <value xml:lang="nl">1 (Hoog)</value>
         <value xml:lang="ro">1 (Inalta)</value>
         <value xml:lang="th">1 (สูง)</value>
         <value xml:lang="vi">1 (Cao)</value>
@@ -4118,7 +4119,7 @@
         <value xml:lang="fr">Référence du produit</value>
         <value xml:lang="it">Codice prodotto</value>
         <value xml:lang="ja">製品ID</value>
-        <value xml:lang="nl">ProductID</value>
+        <value xml:lang="nl">Product ID</value>
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="ru">ID продукта</value>
         <value xml:lang="th">รหัสสินค้า</value>
@@ -4170,7 +4171,7 @@
         <value xml:lang="fr">Phases du projet</value>
         <value xml:lang="it">Fasi del progetto</value>
         <value xml:lang="ja">プロジェクトフェーズ</value>
-        <value xml:lang="nl">ProjectPhases</value>
+        <value xml:lang="nl">Project-fases</value>
         <value xml:lang="ro">Faze Proiect</value>
         <value xml:lang="ru">Фазы проекта</value>
         <value xml:lang="th">ขั้นตอนการทำโปรเจค</value>
@@ -4185,7 +4186,7 @@
         <value xml:lang="fr">Statut du projet</value>
         <value xml:lang="it">Stati del progetto</value>
         <value xml:lang="ja">プロジェクトステータス</value>
-        <value xml:lang="nl">Project Status</value>
+        <value xml:lang="nl">Project status</value>
         <value xml:lang="ro">Stari Proiect</value>
         <value xml:lang="ru">Статус проекта</value>
         <value xml:lang="th">สถานะโปรเจค</value>
@@ -4247,7 +4248,7 @@
         <value xml:lang="fr">Quantité</value>
         <value xml:lang="it">Quantità</value>
         <value xml:lang="ja">数量</value>
-        <value xml:lang="nl">Quantity</value>
+        <value xml:lang="nl">Hoeveelheid</value>
         <value xml:lang="ro">Cantitate </value>
         <value xml:lang="ru">Количество</value>
         <value xml:lang="th">จำนวน</value>
@@ -4317,7 +4318,7 @@
         <value xml:lang="fr">Résumé lié</value>
         <value xml:lang="it">Sommario relativo</value>
         <value xml:lang="ja">関連サマリ</value>
-        <value xml:lang="nl">Related Summary</value>
+        <value xml:lang="nl">Gerel. samenvatting</value>
         <value xml:lang="ro">Breviar Relativ</value>
         <value xml:lang="th">โดยสรุปซึ่งเกี่ยวข้องกัน</value>
         <value xml:lang="vi">Tổng quan liên quan</value>
@@ -4355,7 +4356,7 @@
         <value xml:lang="fr">Liste de demandes</value>
         <value xml:lang="it">Lista delle richieste</value>
         <value xml:lang="ja">リクエスト一覧</value>
-        <value xml:lang="nl">Request List</value>
+        <value xml:lang="nl">Request overzicht</value>
         <value xml:lang="ro">Lista Cerere</value>
         <value xml:lang="ru">Запросы</value>
         <value xml:lang="th">รายการการร้องขอ</value>
@@ -4385,7 +4386,7 @@
         <value xml:lang="fr">Nom de requête</value>
         <value xml:lang="it">Nome richiesta</value>
         <value xml:lang="ja">リクエスト名称</value>
-        <value xml:lang="nl">Request Name</value>
+        <value xml:lang="nl">Request Naam</value>
         <value xml:lang="ro">Nume Cerere</value>
         <value xml:lang="ru">Имя запроса</value>
         <value xml:lang="th">ชื่อการร้องขอ</value>
@@ -4453,7 +4454,7 @@
         <value xml:lang="fr">Demandés par</value>
         <value xml:lang="it">Richiesto da</value>
         <value xml:lang="ja">要求元:</value>
-        <value xml:lang="nl">Required By</value>
+        <value xml:lang="nl">Benodigd door</value>
         <value xml:lang="ro">Cerere pe</value>
         <value xml:lang="ru">Кем затребовано</value>
         <value xml:lang="th">การร้องขอโดย</value>
@@ -4607,7 +4608,7 @@
         <value xml:lang="fr">Révision</value>
         <value xml:lang="it">Revisione</value>
         <value xml:lang="ja">リビジョン</value>
-        <value xml:lang="nl">Revision</value>
+        <value xml:lang="nl">Revisie</value>
         <value xml:lang="ro">Revizie</value>
         <value xml:lang="ru">Ревизия</value>
         <value xml:lang="th">การปรับปรุงใหม่</value>
@@ -5220,7 +5221,7 @@
         <value xml:lang="fr">Vue hebdomadaire</value>
         <value xml:lang="it">Mostra settimana</value>
         <value xml:lang="ja">週ビュー</value>
-        <value xml:lang="nl">Week overzicht</value>
+        <value xml:lang="nl">Weekoverzicht</value>
         <value xml:lang="ro">Afiseaza Saptamana</value>
         <value xml:lang="ru">По неделям</value>
         <value xml:lang="th">แสดงัปดาห์</value>
