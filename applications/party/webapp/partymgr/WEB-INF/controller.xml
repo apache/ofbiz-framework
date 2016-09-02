@@ -306,6 +306,13 @@ under the License.
         <response name="error" type="view" value="editeftaccount"/>
     </request-map>
 
+    <request-map uri="AddCheckAccount"><security https="true" auth="true"/><response name="success" type="view" value="AddCheckAccount"/></request-map>
+    <request-map uri="createCheckForParty">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="createCheckAccount"/>
+        <response name="success" type="view" value="AddCheckAccount"/>
+        <response name="error" type="view" value="AddCheckAccount"/>
+    </request-map>
     <request-map uri="editAvsOverride"><security https="true" auth="true"/><response name="success" type="view" value="editavsoverride"/></request-map>
     <request-map uri="updateAvsOverride">
         <security https="true" auth="true"/>
@@ -1297,6 +1304,7 @@ under the License.
     <view-map name="editgiftcard" type="screen" page="component://party/widget/partymgr/PaymentMethodScreens.xml#editgiftcard"/>
     <view-map name="editeftaccount" type="screen" page="component://party/widget/partymgr/PaymentMethodScreens.xml#editeftaccount"/>
     <view-map name="editavsoverride" type="screen" page="component://party/widget/partymgr/PaymentMethodScreens.xml#editavsoverride"/>
+    <view-map name="AddCheckAccount" type="screen" page="component://party/widget/partymgr/PaymentMethodScreens.xml#AddCheckAccount"/>
 
     <view-map name="ListCommContent" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#ListCommContent"/>
     <view-map name="PendingCommunications" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#PendingCommunications"/>

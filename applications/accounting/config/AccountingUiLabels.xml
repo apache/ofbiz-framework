@@ -338,6 +338,9 @@
         <value xml:lang="zh">添加分类总账账户</value>
         <value xml:lang="zh-TW">增加總帳科目分類</value>
     </property>
+    <property key="AccountingAddCheckAccount">
+        <value xml:lang="en">Add Check Account</value>
+    </property>
     <property key="AccountingAddCustomTimePeriod">
         <value xml:lang="ar">إضافة فترة زمنية مفصلة</value>
         <value xml:lang="de">Individueller Zeitraum hinzufügen</value>
@@ -2981,6 +2984,12 @@
         <value xml:lang="vi">Giá trị kiểm tra</value>
         <value xml:lang="zh">支票金额</value>
         <value xml:lang="zh-TW">支票金額</value>
+    </property>
+    <property key="AccountingCheckCreatedSuccessfully">
+        <value xml:lang="en">Check Account information created successfully</value>
+    </property>
+    <property key="AccountingCheckNotAdded">
+         <value xml:lang="en">Check Account Information can't be created</value>
     </property>
     <property key="AccountingCheckGiftCard">
         <value xml:lang="ar">تحقق مما إذا كان لدي بطاقة هدية للإستخدام اليوم</value>
@@ -12239,6 +12248,9 @@
         <value xml:lang="zh">支付方法信息</value>
         <value xml:lang="zh-TW">支付方法資訊</value>
     </property>
+     <property key="AccountingPaymentMethodTypeMissing">
+        <value xml:lang="en">Payment method type is missing</value>
+     </property>
     <property key="AccountingPaymentMethodTypeNotHandled">
         <value xml:lang="de">Zahlungsmethode nicht verarbeitet paymentMethodTypeId :</value>
         <value xml:lang="en">Payment method not handled paymentMethodTypeId :</value>

@@ -117,6 +117,26 @@ under the License.
         </section>
     </screen>
 
+    <screen name="AddCheckAccount">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingAddCheckAccount"/>
+
+                <script location="component://party/groovyScripts/HasPartyPermissions.groovy"/>
+                <script location="component://party/groovyScripts/party/EditPaymentMethod.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="PaymentMethodDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://party/template/party/AddCheckForParty.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="editavsoverride">
         <section>
             <actions>

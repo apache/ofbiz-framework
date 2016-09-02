@@ -138,6 +138,23 @@ under the License.
         <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="INOUT" optional="true"/>
     </service>
+
+    <service name="createCheckAccount" engine="java"
+            location="org.apache.ofbiz.accounting.payment.PaymentMethodServices" invoke="createCheckAccount" auth="true">
+        <description>Create Check</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="bankName" type="String" mode="IN" optional="false"/>
+        <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="routingNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="accountType" type="String" mode="IN" optional="true"/>
+        <attribute name="accountNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="nameOnAccount" type="String" mode="IN" optional="false"/>
+        <attribute name="companyNameOnAccount" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="INOUT" optional="true"/>
+    </service>
+
     <service name="createEftAccountAndAddress" engine="group" location="createEftAccountAndAddress" invoke="" auth="true">
         <description>Creates an EftAccount and PostalAddress</description>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>

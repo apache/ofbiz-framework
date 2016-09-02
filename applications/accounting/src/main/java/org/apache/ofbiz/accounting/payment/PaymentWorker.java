@@ -79,6 +79,15 @@ public final class PaymentWorker {
                 } else if ("EFT_ACCOUNT".equals(paymentMethod.getString("paymentMethodTypeId"))) {
                     GenericValue eftAccount = paymentMethod.getRelatedOne("EftAccount", false);
                     if (eftAccount != null) valueMap.put("eftAccount", eftAccount);
+                } else if ("COMPANY_CHECK".equals(paymentMethod.getString("paymentMethodTypeId"))) {
+                    GenericValue companyCheckAccount = paymentMethod.getRelatedOne("CheckAccount", false);
+                    if (companyCheckAccount != null) valueMap.put("companyCheckAccount", companyCheckAccount);
+                } else if ("PERSONAL_CHECK".equals(paymentMethod.getString("paymentMethodTypeId"))) {
+                    GenericValue personalCheckAccount = paymentMethod.getRelatedOne("CheckAccount", false);
+                    if (personalCheckAccount != null) valueMap.put("personalCheckAccount", personalCheckAccount);
+                } else if ("CERTIFIED_CHECK".equals(paymentMethod.getString("paymentMethodTypeId"))) {
+                    GenericValue certifiedCheckAccount = paymentMethod.getRelatedOne("CheckAccount", false);
+                    if (certifiedCheckAccount != null) valueMap.put("certifiedCheckAccount", certifiedCheckAccount);
                 }
             }
         } catch (GenericEntityException e) {
