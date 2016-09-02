@@ -173,6 +173,9 @@ public class PartyServices {
             // create the status history
             GenericValue statusRec = delegator.makeValue("PartyStatus",
                     UtilMisc.toMap("partyId", partyId, "statusId", statusId, "statusDate", now));
+            if (userLogin != null) {
+                statusRec.put("changeByUserLoginId", userLogin.get("userLoginId"));
+            }
             toBeStored.add(statusRec);
         }
 
@@ -213,6 +216,7 @@ public class PartyServices {
     public static Map<String, Object> setPartyStatus(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
+        GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
 
         String partyId = (String) context.get("partyId");
         String statusId = (String) context.get("statusId");
@@ -249,6 +253,9 @@ public class PartyServices {
 
                 // record this status change in PartyStatus table
                 GenericValue partyStatus = delegator.makeValue("PartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", statusId, "statusDate", statusDate));
+                if (loggedInUserLogin != null) {
+                    partyStatus.put("changeByUserLoginId", loggedInUserLogin.get("userLoginId"));
+                }
                 partyStatus.create();
 
                 // disable all userlogins for this user when the new status is disabled
@@ -429,6 +436,9 @@ public class PartyServices {
                 // create the status history
                 GenericValue partyStat = delegator.makeValue("PartyStatus",
                         UtilMisc.toMap("partyId", partyId, "statusId", statusId, "statusDate", now));
+                if (userLogin != null) {
+                    partyStat.put("changeByUserLoginId", userLogin.get("userLoginId"));
+                }
                 partyStat.create();
             }
 
