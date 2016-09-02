@@ -26,7 +26,7 @@ under the License.
 
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="AUTHORIZE_NET" hasTable="N" description="Authorize Dot Net Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="AUTHORIZE_NET_CONFIG" paymentGatewayConfigTypeId="AUTHORIZE_NET" description="Authorize Dot Net Config"/>
-    <PaymentGatewayAuthorizeNet paymentGatewayConfigId="AUTHORIZE_NET_CONFIG" transactionUrl="https://certification.authorize.net/gateway/transact.dll" certificateAlias="certification.authorize.net-1" apiVersion="3.1" delimitedData="TRUE" delimiterChar="|" method="CC" emailCustomer="FALSE" emailMerchant="FALSE" testMode="TRUE" relayResponse="FALSE" tranKey="" userId="" pwd="" transDescription="OFBizAuthNet"/>
+    <PaymentGatewayAuthorizeNet paymentGatewayConfigId="AUTHORIZE_NET_CONFIG" transactionUrl="https://test.authorize.net/gateway/transact.dll" certificateAlias="test.authorize.net" apiVersion="3.1" delimitedData="TRUE" delimiterChar="|" method="CC" emailCustomer="FALSE" emailMerchant="FALSE" testMode="TRUE" relayResponse="FALSE" tranKey="" userId="" pwd="" transDescription="OFBizAuthNet"/>
 
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="CYBERSOURCE" hasTable="N" description="CyberSource Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="CYBERSOURCE_CONFIG" paymentGatewayConfigTypeId="CYBERSOURCE" description="CyberSource Config"/>
