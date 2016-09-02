@@ -18,11 +18,6 @@
  */
 package org.apache.ofbiz.base.util;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyClassLoader;
-import groovy.lang.GroovyShell;
-import groovy.lang.Script;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -31,11 +26,16 @@ import java.util.Map;
 
 import javax.script.ScriptContext;
 
+import org.apache.ofbiz.base.location.FlexibleLocation;
+import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.runtime.InvokerHelper;
-import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.apache.ofbiz.base.util.cache.UtilCache;
+
+import groovy.lang.Binding;
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyShell;
+import groovy.lang.Script;
 
 /**
  * Groovy Utilities.
@@ -173,19 +173,28 @@ public class GroovyUtil {
         }
     }
 
-    public static Class<?> loadClass(String path) throws ClassNotFoundException {
-        return new GroovyClassLoader().loadClass(path);
+    public static Class<?> loadClass(String path) throws ClassNotFoundException, IOException {
+        GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
+        Class<?> classLoader = groovyClassLoader.loadClass(path);
+        groovyClassLoader.close();
+        return classLoader;
     }
 
     public static Class<?> parseClass(InputStream in, String location) throws IOException {
-        return new GroovyClassLoader().parseClass(UtilIO.readString(in), location);
+        GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
+        Class<?> classLoader = groovyClassLoader.parseClass(UtilIO.readString(in), location);
+        groovyClassLoader.close();
+        return classLoader;
     }
     public static Class<?> parseClass(InputStream in, String location, GroovyClassLoader groovyClassLoader) throws IOException {
         return groovyClassLoader.parseClass(UtilIO.readString(in), location);
     }
 
-    public static Class<?> parseClass(String text) {
-        return new GroovyClassLoader().parseClass(text);
+    public static Class<?> parseClass(String text) throws IOException {
+        GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
+        Class<?> classLoader = groovyClassLoader.parseClass(text);
+        groovyClassLoader.close();
+        return classLoader;
     }
 
     public static Object runScriptAtLocation(String location, String methodName, Map<String, Object> context) throws GeneralException {

@@ -31,16 +31,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import ezvcard.Ezvcard;
-import ezvcard.io.text.VCardReader;
-import ezvcard.parameter.AddressType;
-import ezvcard.parameter.TelephoneType;
-import ezvcard.parameter.EmailType;
-import ezvcard.property.Address;
-import ezvcard.property.Email;
-import ezvcard.property.FormattedName;
-import ezvcard.property.StructuredName;
-import ezvcard.property.Telephone;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -62,6 +52,17 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 
+import ezvcard.Ezvcard;
+import ezvcard.io.text.VCardReader;
+import ezvcard.parameter.AddressType;
+import ezvcard.parameter.EmailType;
+import ezvcard.parameter.TelephoneType;
+import ezvcard.property.Address;
+import ezvcard.property.Email;
+import ezvcard.property.FormattedName;
+import ezvcard.property.StructuredName;
+import ezvcard.property.Telephone;
+
 public class VCard {
     public static final String module = VCard.class.getName();
     public static final String resourceError = "MarketingUiLabels";
@@ -71,8 +72,9 @@ public class VCard {
      * @param dctx
      * @param context
      * @return
+     * @throws IOException 
      */
-    public static Map<String, Object> importVCard(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> importVCard(DispatchContext dctx, Map<String, ? extends Object> context) throws IOException {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
@@ -84,10 +86,9 @@ public class VCard {
         boolean isGroup = false;
         List<Map<String, String>> partiesCreated = new ArrayList<Map<String,String>>();
         List<Map<String, String>> partiesExist = new ArrayList<Map<String,String>>();
-        String partyName = "";
+        String partyName = ""; // TODO this is not used yet
 
-        try {
-            VCardReader vCardReader = new VCardReader(in);
+        try (VCardReader vCardReader = new VCardReader(in)) {
             ezvcard.VCard vcard = null;
             while ((vcard = vCardReader.readNext()) != null) {
 
@@ -162,6 +163,7 @@ public class VCard {
                     } else {
                         //TODO change uncorrect labellisation
                         String emailFormatErrMsg = UtilProperties.getMessage(resourceError, "SfaImportVCardEmailFormatError", locale);
+                        vCardReader.close();
                         return ServiceUtil.returnError(structuredName.getGiven() + " " + structuredName.getFamily() + " has " + emailFormatErrMsg);
                     }
                 }
@@ -215,7 +217,6 @@ public class VCard {
                     resp = dispatcher.runSync("createPartyIdentification", createPartyIdentificationMap);
                 }
             }
-            vCardReader.close();
         } catch (IOException | GenericEntityException | GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,

@@ -1809,7 +1809,6 @@ public class DatabaseUtil {
         }
 
         Connection connection = null;
-        Statement stmt = null;
 
         try {
             connection = getConnection();
@@ -1852,8 +1851,7 @@ public class DatabaseUtil {
 
         String sql = sqlBuf.toString();
         if (Debug.infoOn()) Debug.logInfo("[addColumn] sql=" + sql, module);
-        try {
-            stmt = connection.createStatement();
+        try (Statement  stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             // if that failed try the alternate syntax real quick
@@ -1880,21 +1878,13 @@ public class DatabaseUtil {
 
             String sql2 = sql2Buf.toString();
             if (Debug.infoOn()) Debug.logInfo("[addColumn] sql failed, trying sql2=" + sql2, module);
-            try {
-                stmt = connection.createStatement();
+            try (Statement  stmt = connection.createStatement()) {
                 stmt.executeUpdate(sql2);
             } catch (SQLException e2) {
                 // if this also fails report original error, not this error...
                 return "SQL Exception while executing the following:\n" + sql + "\nError was: " + e.toString();
             }
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException e) {
-                Debug.logError(e, module);
-            }
             try {
                 if (connection != null) {
                     connection.close();
