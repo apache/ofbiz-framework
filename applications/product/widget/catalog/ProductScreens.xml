@@ -56,10 +56,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <or>
-                                            <not><if-empty field="product"/></not>
-                                            <not><if-empty field="parameters.bypassIfNoProduct"/></not>
-                                        </or>
+                                        <not><if-empty field="product"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="ProductTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
@@ -127,8 +124,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProduct"/>
                 <set field="tabButtonItem" value="EditProduct"/>
                 <set field="labelTitleProperty" value="ProductProduct"/>
-
-                <set field="parameters.bypassIfNoProduct" value="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
