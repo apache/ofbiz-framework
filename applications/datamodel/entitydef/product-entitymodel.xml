@@ -1951,7 +1951,7 @@ under the License.
       </alias-all>
       <alias-all entity-alias="PR">
         <exclude field="facilityId"/>
-        <exclude field="inventoryItemId"/>
+        <exclude field="inventoryItemTypeId"/>
       </alias-all>
       <alias-all entity-alias="FL"/>
       <view-link entity-alias="II" rel-entity-alias="FL" rel-optional="true">
@@ -3095,6 +3095,7 @@ under the License.
         <member-entity entity-alias="II" entity-name="InventoryItem"/>
         <alias-all entity-alias="PR">
             <exclude field="facilityId"/>
+            <exclude field="inventoryItemTypeId"/>
         </alias-all>
         <alias-all entity-alias="II">
             <exclude field="comments"/>
