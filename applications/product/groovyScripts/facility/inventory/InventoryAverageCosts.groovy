@@ -25,6 +25,7 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityUtil;
 
 facilityId = context.get("facilityId");
+searchParameterString = "action=Y&facilityId=" + facilityId;
 
 EntityCondition whereConditions = EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId);
 inventoryItems = select("productId").from("InventoryItem").where("facilityId", facilityId).orderBy("productId").queryList();
@@ -47,4 +48,5 @@ inventoryItemProducts.each { productId ->
     }
 }
 
+context.searchParameterString = searchParameterString;
 context.inventoryAverageCosts = inventoryAverageCosts;

@@ -31,6 +31,7 @@ retailPriceGrandTotal = 0.0;
 totalCostPriceGrandTotal = 0.0;
 totalRetailPriceGrandTotal = 0.0;
 boolean beganTransaction = false;
+searchParameterString = "action=Y&facilityId=" + facilityId;
 if (action) {
     conditions = [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INV_DELIVERED")];
     conditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null));
@@ -106,5 +107,6 @@ inventoryItemGrandTotals = [];
 inventoryItemGrandTotals.add([qohGrandTotal : qohGrandTotal, atpGrandTotal : atpGrandTotal,
                               totalCostPriceGrandTotal : totalCostPriceGrandTotal, totalRetailPriceGrandTotal : totalRetailPriceGrandTotal]);
 
+context.searchParameterString = searchParameterString;
 context.inventoryItemTotals = inventoryItemTotals;
 context.inventoryItemGrandTotals = inventoryItemGrandTotals;
