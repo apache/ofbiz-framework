@@ -34,6 +34,7 @@ under the License.
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/ScheduledJobs.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_agreement.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_communication.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_view.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     <service-resource type="mca" loader="main" location="servicedef/mcas.xml"/>
