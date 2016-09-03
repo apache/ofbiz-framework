@@ -164,7 +164,8 @@ public class VCard {
                         //TODO change uncorrect labellisation
                         String emailFormatErrMsg = UtilProperties.getMessage(resourceError, "SfaImportVCardEmailFormatError", locale);
                         vCardReader.close();
-                        return ServiceUtil.returnError(structuredName.getGiven() + " " + structuredName.getFamily() + " has " + emailFormatErrMsg);
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "MarketingEmailFormatError", UtilMisc.toMap("firstName", structuredName.getGiven(), "lastName", structuredName.getFamily(), "emailFOrmatErrMsg", emailFormatErrMsg), locale));
+
                     }
                 }
 

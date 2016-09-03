@@ -837,6 +837,9 @@
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 MARKETING_DELETE 或 MARKETING_ADMIN 权限</value>
         <value xml:lang="zh-TW">安全錯誤:要執行${resourceDescription},你必須有 MARKETING_DELETE 或 MARKETING_ADMIN 許可權</value>
     </property>
+    <property key="MarketingEmailFormatError">
+        <value xml:lang="en">${firstName} ${lastName} has ${emailFormatErrMsg}</value>
+    </property>
     <property key="MarketingEmailStatusReport">
         <value xml:lang="de">E-Mail Statusbericht</value>
         <value xml:lang="en">Email Status Report</value>
