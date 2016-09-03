@@ -143,5 +143,22 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    
+    <service name="createCatalinaSession" default-entity-name="CatalinaSession" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Catalina Session Record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="updateCatalinaSession" default-entity-name="CatalinaSession" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Catalina Session Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCatalinaSession" default-entity-name="CatalinaSession" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Catalina Session Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
 
 </services>
