@@ -25,11 +25,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -47,9 +49,10 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class ScrumServices {
 
     public static final String module = ScrumServices.class.getName();
-
+    public static final String resource = "scrumUiLabels";
     public static Map<String, Object> linkToProduct(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
+        Locale locale = (Locale)context.get("locale");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         String communicationEventId = (String) context.get("communicationEventId");
         // Debug.logInfo("==== Processing Commevent: " +  communicationEventId, module);
@@ -85,7 +88,7 @@ public class ScrumServices {
                                     }
                                 } catch (GenericServiceException e1) {
                                     Debug.logError(e1, "Error calling updating commevent status", module);
-                                    return ServiceUtil.returnError("Error calling updating commevent status:" + e1.toString());
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ScrumErrorCallingUpdatingCommeventStatus", locale) + e1.toString());
                                 }
                             } else {
                                 Debug.logInfo("Product id " + productId + " found in subject but not in database", module);
@@ -95,13 +98,13 @@ public class ScrumServices {
                 }
 
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError("find by primary key error:" + e.toString());
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ScrumFindByPrimaryKeyError", locale) + e.toString());
             }
 
             Map<String, Object> result = ServiceUtil.returnSuccess();
             return result;
         } else {
-            Map<String, Object> result = ServiceUtil.returnError("A communication event id is required");
+            Map<String, Object> result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "ScrumCommunicationEventIdRequired", locale));
             return result;
         }
     }

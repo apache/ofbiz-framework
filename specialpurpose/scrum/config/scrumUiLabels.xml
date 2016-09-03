@@ -755,6 +755,9 @@ under the License.
         <value xml:lang="zh">提交者</value>
         <value xml:lang="zh-TW">提交者</value>
     </property>
+    <property key="ScrumCommunicationEventIdRequired">
+        <value xml:lang="en">A communication event id is required.</value>
+    </property>
     <property key="ScrumCommunications">
         <value xml:lang="en">Communications</value>
         <value xml:lang="ja">コミュニケーション</value>
@@ -969,6 +972,9 @@ under the License.
         <value xml:lang="zh">预计小时数</value>
         <value xml:lang="zh-TW">預計小時數</value>
     </property>
+    <property key="ScrumErrorCallingUpdatingCommeventStatus">
+        <value xml:lang="en">Error calling updating commevent status:</value>
+    </property>
     <property key="ScrumErrorTasksList">
         <value xml:lang="en">Error Tasks List</value>
         <value xml:lang="ja">エラータスク一覧</value>
@@ -1000,6 +1006,9 @@ under the License.
         <value xml:lang="nl">Taak ${parameters.workEffortId} is nog niet begonnen. Verzoeken kunnen worden toegevoegd</value>
         <value xml:lang="zh">任务：${parameters.workEffortId}没有进展，没有添加请求</value>
         <value xml:lang="zh-TW">任務:${parameters.workEffortId}沒有進展,沒有增加請求</value>
+    </property>
+    <property key="ScrumFindByPrimaryKeyError">
+        <value xml:lang="en">Find by primary key error:</value>
     </property>
     <property key="ScrumFindProduct">
         <value xml:lang="en">Find Product</value>
