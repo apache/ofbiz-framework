@@ -41,6 +41,39 @@
         <value xml:lang="zh">开源软件OFBiz的组成部分</value>
         <value xml:lang="zh-TW">開源軟體OFBiz的組成部分</value>
     </property>
+    <property key="BirtErrorFOPRenderingAttachmentForEmail">
+        <value xml:lang="en">Error FOP rendering ${birtContentType} attachment for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorInSendingEmail">
+        <value xml:lang="en">Error in sending email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorIORenderingAttachmentForEmail">
+        <value xml:lang="en">Error I/O rendering ${birtContentType} attachment for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorIORenderingScreenForEmail">
+        <value xml:lang="en">Error I/O rendering screen for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorParserConfigRenderingScreenForEmail">
+        <value xml:lang="en">Error parser config rendering screen for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorParserRenderingAttachmentForEmail">
+        <value xml:lang="en">Error parser rendering ${birtContentType} attachment for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorRenderingAttachmentForEmail">
+        <value xml:lang="en">Error rendering ${birtContentType} attachment for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorRenderingScreenForEmail">
+        <value xml:lang="en">Error rendering screen for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorSAXRenderingAttachmentForEmail">
+        <value xml:lang="en">Error SAX rendering ${birtContentType} attachment for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorSAXRenderingScreenForEmail">
+        <value xml:lang="en">Error SAX rendering screen for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorSQLRenderingAttachmentForEmail">
+        <value xml:lang="en">Error SQL rendering ${birtContentType} attachment for email: ${errorString}</value>
+    </property>
     <property key="BirtFacilityReportInventoryHistoryReport">
         <value xml:lang="en">Inventory History Report</value>
         <value xml:lang="fr">Historique du stock</value>
