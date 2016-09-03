@@ -1094,6 +1094,9 @@
         <value xml:lang="zh">关联到这个数据资源的内容记录</value>
         <value xml:lang="zh-TW">結合到這個資料資源的內容記錄</value>
     </property>
+    <property key="ContentConvertDocumentsTreeSuccessful">
+        <value xml:lang="en">Convert Documents Tree Successful. Total : ${counterLine} rows</value>
+    </property>
     <property key="ContentCreateContentAssocMethodError">
         <value xml:lang="en">Not 2 out of ContentId/To/From</value>
         <value xml:lang="fr">Not 2 out of ContentId/To/From</value>
