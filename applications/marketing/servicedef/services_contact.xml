@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Order Contact Services</description>
+    <vendor>OFBiz</vendor>
+
+    <service name="createContactListType" default-entity-name="ContactListType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Contact List Type Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateContactListType" default-entity-name="ContactListType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Contact List Type Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteContactListType" default-entity-name="ContactListType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Contact List Type Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+</services>
