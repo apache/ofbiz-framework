@@ -263,6 +263,51 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+    <form name="ListAgreementContent" target="removeAgreementContent" list-name="contentDataResourceList" paginate-target="ListAgreementContents" title="" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="agreementId"><hidden/></field>
+        <field name="contentId"><hidden/></field>
+        <field name="contentName">
+            <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
+                <sub-hyperlink target="stream" description="${contentId}" link-style="smallSubmit">
+                    <parameter param-name="contentId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="agreementContentTypeId"><display-entity entity-name="AgreementContentType"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"></display-entity></field>
+        <field name="contentTypeId"><display-entity entity-name="ContentType"></display-entity></field>
+        <field name="fromDate"><display type="date-time"/></field>
+        <field name="thruDate"><display type="date-time"/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}"><submit/></field>
+    </form>
+    <form name="AddAgreementContent" type="upload" target="uploadAgreementContent">
+        <field name="agreementId"><hidden value="${agreement.agreementId}"/></field>
+        <field name="agreementContentTypeId" >
+            <drop-down allow-empty="false">
+                <entity-options entity-name="AgreementContentType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="contentTypeId">
+            <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
+                <entity-options entity-name="ContentType"/>
+            </drop-down>
+        </field>
+        <field name="statusId">
+            <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
+                <entity-options entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="uploadedFile" title="${uiLabelMap.ContentFile}"><file/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit/></field>
+    </form>
     <form name="EditAgreementItemTerm" type="single" target="updateAgreementItemTerm" title="" default-map-name="agreementTerm"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="agreementTerm==null" target="createAgreementItemTerm"/>

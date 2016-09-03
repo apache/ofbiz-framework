@@ -33,6 +33,9 @@ under the License.
     <AgreementType agreementTypeId="COMMISSION_AGREEMENT" description="Commission" hasTable="N" parentTypeId=""/>
     <AgreementType agreementTypeId="EULA" description="End User License Agreement" hasTable="N" parentTypeId=""/>
 
+    <!-- Agreement content type-->
+    <AgreementContentType agreementContentTypeId="CONTRACT" description="Contract" hasTable="N" parentTypeId=""/>
+
     <ContactMechPurposeType contactMechPurposeTypeId="SHIPPING_LOCATION" description="Shipping Destination Address"/>
     <ContactMechPurposeType contactMechPurposeTypeId="SHIP_ORIG_LOCATION" description="Shipping Origin Address"/>
     <ContactMechPurposeType contactMechPurposeTypeId="BILLING_LOCATION" description="Billing (AP) Address"/>

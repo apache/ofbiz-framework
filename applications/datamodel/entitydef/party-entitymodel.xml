@@ -219,6 +219,40 @@ under the License.
         <key-map field-name="agreementItemTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="AgreementContent" 
+            package-name="org.apache.ofbiz.party.agreement" 
+            title="Agreement Content Entity">
+        <field name="agreementId" type="id-ne"></field>
+        <field name="agreementContentTypeId" type="id-ne"></field>
+        <field name="contentId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="contentId"/>
+        <prim-key field="agreementId"/>
+        <prim-key field="agreementContentTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="AG_CNT_PROD" rel-entity-name="Agreement">
+            <key-map field-name="agreementId"/>
+        </relation>
+        <relation type="one" fk-name="AG_CNT_CNT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+        <relation type="one" fk-name="AG_CNT_TYPE" rel-entity-name="AgreementContentType">
+            <key-map field-name="agreementContentTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="AgreementContentType" 
+            package-name="org.apache.ofbiz.party.agreement"
+            title="Agreement Content Type Entity">
+        <field name="agreementContentTypeId" type="id-ne"></field>
+        <field name="parentTypeId" type="id-ne"></field>
+        <field name="hasTable" type="indicator"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="agreementContentTypeId"/>
+        <relation type="one" fk-name="AGCT_TYP_PARENT" title="Parent" rel-entity-name="AgreementContentType">
+            <key-map field-name="parentTypeId" rel-field-name="agreementContentTypeId"/>
+        </relation>
+    </entity>
     <entity entity-name="AgreementPartyApplic"
             package-name="org.apache.ofbiz.party.agreement"
             title="Agreement Party Application Entity">
@@ -565,6 +599,37 @@ under the License.
         <view-link entity-alias="AGI" rel-entity-alias="AG">
             <key-map field-name="agreementId"/>
         </view-link>
+    </view-entity>
+    <view-entity entity-name="AgreementContentAndInfo"
+            package-name="org.apache.ofbiz.accounting.invoice"
+            title="AgreementContent Content and DataResource View Entity">
+        <member-entity entity-alias="AGC" entity-name="AgreementContent"/>
+        <member-entity entity-alias="CO" entity-name="Content"/>
+        <member-entity entity-alias="DR" entity-name="DataResource"/>
+        <alias-all entity-alias="AGC"/>
+        <alias-all entity-alias="CO"/>
+        <alias-all entity-alias="DR" prefix="dr"/>
+        <view-link entity-alias="AGC" rel-entity-alias="CO">
+            <key-map field-name="contentId"/>
+        </view-link>
+        <view-link entity-alias="CO" rel-entity-alias="DR">
+            <key-map field-name="dataResourceId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="ElectronicText">
+            <key-map field-name="dataResourceId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ImageDataResource">
+            <key-map field-name="dataResourceId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="OtherDataResource">
+            <key-map field-name="dataResourceId"/>
+        </relation>
+        <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
+            <key-map field-name="contentId" rel-field-name="contentIdStart"/>
+        </relation>
+        <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
+            <key-map field-name="contentId" rel-field-name="contentIdStart"/>
+        </relation>
     </view-entity>
 
   <!-- ========================================================= -->

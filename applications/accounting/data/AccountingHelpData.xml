@@ -467,6 +467,11 @@ under the License.
     <Content contentId="ACCOUNTING_EditAgrRo" contentTypeId="DOCUMENT" contentName="Edit Agreement Roles." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditAgrRo" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="ACCOUNTING_Agreement" contentIdTo="ACCOUNTING_EditAgrRo" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditAgreementRoles"/>
  
+    <DataResource dataResourceId="ACCOUNTING_EditAgrCo" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditAgreementContents.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Edit Agreement Contents Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditAgrCo" contentTypeId="DOCUMENT" contentName="Edit Agreement Roles." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditAgrCo" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="ACCOUNTING_Agreement" contentIdTo="ACCOUNTING_EditAgrCo" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditAgreementContents"/>
+
  <!-- Global GL Settings -->
 
     <DataResource dataResourceId="ACCOUNTING_GLSetting" localeString="en" dataResourceTypeId="OFBIZ_FILE" 

@@ -720,6 +720,10 @@
         <value xml:lang="zh">合同编号</value>
         <value xml:lang="zh-TW">合約識別</value>
     </property>
+    <property key="AccountingAgreementContents">
+        <value xml:lang="en">Agreement Contents</value>
+        <value xml:lang="fr">Contenu de l'accord commercial</value>
+    </property>
     <property key="AccountingAgreementInformation">
         <value xml:lang="ar">معلومات الإتفاقية</value>
         <value xml:lang="de">Vereinbarungsinformation</value>
@@ -17291,6 +17295,10 @@
         <value xml:lang="zh">添加调查响应</value>
         <value xml:lang="zh-TW">增加調查回應</value>
     </property>
+    <property key="FormFieldTitle_agreementContentTypeId">
+        <value xml:lang="en">Agreement Content Type Id</value>
+        <value xml:lang="fr">Type de contenu</value>
+    </property>
     <property key="FormFieldTitle_agreementDate">
         <value xml:lang="ar">تاريخ الإتفاقية</value>
         <value xml:lang="de">Vereinbarungsdatum</value>
@@ -22116,6 +22124,10 @@
         <value xml:lang="vi">Chỉnh sửa Bản hợp đồng</value>
         <value xml:lang="zh">编辑合同</value>
         <value xml:lang="zh-TW">編輯合約</value>
+    </property>
+    <property key="PageTitleAddAgreementContent">
+        <value xml:lang="en">Add Agreement Content</value>
+        <value xml:lang="fr">Ajout de contenu à l'accord commercial</value>
     </property>
     <property key="PageTitleEditAgreementGeographicalApplic">
         <value xml:lang="de">Standort Vereinbarung bearbeiten</value>
