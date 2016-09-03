@@ -823,8 +823,8 @@
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="templateDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="any"/>
-        <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="none"/>
+        <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="none"/>
     </service>
     <service name="updateBlogEntry" engine="simple" auth="true"
         location="component://content/minilang/blog/BlogServices.xml" invoke="updateBlogEntry">
