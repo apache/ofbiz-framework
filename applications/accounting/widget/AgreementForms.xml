@@ -269,7 +269,7 @@ under the License.
         <field name="contentId"><hidden/></field>
         <field name="contentName">
             <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
-                <sub-hyperlink target="stream" description="${contentId}" link-style="smallSubmit">
+                <sub-hyperlink target="stream" description="${contentId}" link-style="smallSubmit" link-type="anchor">
                     <parameter param-name="contentId"/>
                 </sub-hyperlink>
             </display-entity>
