@@ -20,9 +20,11 @@ package org.apache.ofbiz.ebaystore;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -36,11 +38,12 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class EbayBestOfferAutoPref {
 
     public static final String module = EbayBestOfferAutoPref.class.getName();
-
+    public static final String resource = "EbayStoreUiLabels";
     public static Map<String, Object> ebayBestOfferPrefCond(DispatchContext dctx, Map<String, ? extends Object> context) {
 
             Map<String, Object> result = new HashMap<String, Object>();
             LocalDispatcher dispatcher = dctx.getDispatcher();
+            Locale locale = (Locale)context.get("locale");
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             Delegator delegator = dctx.getDelegator();
             String productStoreId = (String) context.get("productStoreId");
@@ -188,15 +191,15 @@ public class EbayBestOfferAutoPref {
             }
             
         } catch (GenericServiceException e) {
-            String errorMessage = "Store best offer to entity failed.";
+            String errorMessage = UtilProperties.getMessage(resource, "EbayStoreBestOfferToEntityFailed", locale);
             result = ServiceUtil.returnError(errorMessage);
             return result;
         } catch (GenericEntityException e) {
-            String errorMessage = "Store best offer to entity failed.";
+            String errorMessage = UtilProperties.getMessage(resource, "EbayStoreBestOfferToEntityFailed", locale);
             result = ServiceUtil.returnError(errorMessage);
             return result;
         }
-        String successMsg = "Store best offer to entity successful.";
+        String successMsg = UtilProperties.getMessage(resource, "EbayStoreBestOfferToEntitySuccessful", locale);
         result = ServiceUtil.returnSuccess(successMsg);
         return result;
     }

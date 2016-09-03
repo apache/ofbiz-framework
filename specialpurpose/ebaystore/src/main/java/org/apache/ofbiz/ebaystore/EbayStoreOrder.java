@@ -33,6 +33,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.ebay.EbayHelper;
@@ -529,7 +530,7 @@ public class EbayStoreOrder {
                     EbayHelper.createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), amountPaid, partyId);
                     Debug.logInfo("Payment created.", module);
                 }
-                result = ServiceUtil.returnFailure("Order created successfully with ID (" + orderId + ") & eBay Order ID associated with this order is (" + externalId + ").");
+                result = ServiceUtil.returnFailure(UtilProperties.getMessage("EbayStoreUiLabels", "EbayOrderCreatedSuccessfully", UtilMisc.toMap("orderId", orderId, "externalId", externalId), locale));
             }
         } catch (Exception e) {
             result = ServiceUtil.returnFailure(e.getMessage());
