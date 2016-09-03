@@ -50,6 +50,7 @@ public class PcChargeServices {
     public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
+        // setup the PCCharge Interface
         Properties props = buildPccProperties(context, delegator);
         PcChargeApi api = getApi(props);
         if (api == null) {

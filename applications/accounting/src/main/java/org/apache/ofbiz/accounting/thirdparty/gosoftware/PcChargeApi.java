@@ -185,31 +185,29 @@ public class PcChargeApi {
 
         byte readBuffer[] = new byte[2250];
         if (mode == MODE_IN) {
-            Socket sock = new Socket(host, port);
-            PrintStream ps = new PrintStream(sock.getOutputStream());
-            DataInputStream dis = new DataInputStream(sock.getInputStream());
-            ps.print(this.toString());
-            ps.flush();
+            try (Socket sock = new Socket(host, port);
+                    PrintStream ps =  new PrintStream(sock.getOutputStream());
+                    DataInputStream dis = new DataInputStream(sock.getInputStream())) {
+             
+                ps.print(this.toString());
+                ps.flush();
 
-            StringBuilder buf = new StringBuilder();
-            int size;
-            while ((size = dis.read(readBuffer)) > -1) {
-                buf.append(new String(readBuffer, 0, size));
+                StringBuilder buf = new StringBuilder();
+                int size;
+                while ((size = dis.read(readBuffer)) > -1) {
+                    buf.append(new String(readBuffer, 0, size));
+                }
+                Document outDoc = null;
+                try {
+                    outDoc = UtilXml.readXmlDocument(buf.toString(), false);
+                } catch (ParserConfigurationException e) {
+                    throw new GeneralException(e);
+                } catch (SAXException e) {
+                    throw new GeneralException(e);
+                }
+                PcChargeApi out = new PcChargeApi(outDoc);
+                return out;
             }
-            Document outDoc = null;
-            try {
-                outDoc = UtilXml.readXmlDocument(buf.toString(), false);
-            } catch (ParserConfigurationException e) {
-                sock.close();
-                throw new GeneralException(e);
-            } catch (SAXException e) {
-                sock.close();
-                throw new GeneralException(e);
-            }
-
-            PcChargeApi out = new PcChargeApi(outDoc);
-            sock.close();
-            return out;
         } else {
             throw new IllegalStateException("Cannot send output object");
         }
