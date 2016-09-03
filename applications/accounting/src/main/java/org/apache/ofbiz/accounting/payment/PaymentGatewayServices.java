@@ -2274,7 +2274,7 @@ public class PaymentGatewayServices {
                 try {
                     invoice = EntityQuery.use(delegator).from("Invoice").where("invoiceId", invoiceId).queryOne();
                 } catch (GenericEntityException e) {
-                    String message = "Failed to process capture result:  Could not find invoice ["+invoiceId+"] due to entity error: " + e.getMessage();
+                    String message = UtilProperties.getMessage(resourceError, "AccountingFailedToProcessCaptureResult", UtilMisc.toMap("invoiceId", invoiceId, "errorString", e.getMessage()), locale);
                     Debug.logError(e, message, module);
                     return ServiceUtil.returnError(message);
                 }
@@ -2393,7 +2393,7 @@ public class PaymentGatewayServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingPaymentRefundError", locale));
         }
-        refundResponse.putAll(ServiceUtil.returnSuccess("Payment #" + refundResponse.get("paymentId") +" is refunded successfully with amount " + refundResponse.get("refundAmount") +" for manual transaction."));
+        refundResponse.putAll(ServiceUtil.returnSuccess(UtilProperties.getMessage(resourceError, "AccountingPaymentRefundedSuccessfully", UtilMisc.toMap("paymentId", refundResponse.get("paymentId"), "refundAmount", refundResponse.get("refundAmount")), locale)));
         return refundResponse;
     }
 

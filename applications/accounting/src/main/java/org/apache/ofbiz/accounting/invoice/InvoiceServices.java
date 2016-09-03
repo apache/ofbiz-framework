@@ -1896,7 +1896,7 @@ public class InvoiceServices {
             // get the return header
             GenericValue returnHeader = EntityQuery.use(delegator).from("ReturnHeader").where("returnId", returnId).queryOne();
             if (returnHeader == null || returnHeader.get("returnHeaderTypeId") == null) {
-                return ServiceUtil.returnError("Return type cannot be null");                                                      
+            	 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingReturnTypeCannotBeNull", locale));                                                      
             }
             
             if (returnHeader.getString("returnHeaderTypeId").startsWith("CUSTOMER_")) {
@@ -3374,6 +3374,7 @@ public class InvoiceServices {
     }
     
     public static Map<String, Object> importInvoice(DispatchContext dctx, Map<String, Object> context) {
+    	 Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -3391,7 +3392,7 @@ public class InvoiceServices {
         int invoicesCreated = 0;
 
         if (fileBytes == null) {
-            return ServiceUtil.returnError("Uploaded file data not found");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingUploadedFileDataNotFound", locale));
         }
 
         try {
@@ -3531,7 +3532,7 @@ public class InvoiceServices {
             return ServiceUtil.returnError(errMsgs);
         }
 
-        Map<String, Object> result = ServiceUtil.returnSuccess(invoicesCreated + " new invoice(s) created");
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "AccountingNewInvoicesCreated", UtilMisc.toMap("invoicesCreated", invoicesCreated), locale));
         result.put("organizationPartyId", organizationPartyId);
         return result;
     }
