@@ -759,7 +759,7 @@ public class OrderServices {
                     // check to see if the requested quantity is available on the requested day but only when the maximum capacity is set on the fixed asset
                     if (fixedAsset.get("productionCapacity") != null)    {
                        if (newUsedCapacity.compareTo(techDataCalendarExcDay.getBigDecimal("exceptionCapacity")) > 0)    {
-                            String errMsg = "ERROR: fixed_Asset_sold_out AssetId: " + workEffort.get("fixedAssetId") + " on date: " + techDataCalendarExcDay.getString("exceptionDateStartTime");
+                            String errMsg = UtilProperties.getMessage(resource_error, "OrderFixedAssetSoldOut", UtilMisc.toMap("fixedAssetId", workEffort.get("fixedAssetId"), "exceptionDateStartTime", techDataCalendarExcDay.getString("exceptionDateStartTime")), locale);
                             Debug.logError(errMsg, module);
                             errorMessages.add(errMsg);
                             continue;
@@ -1424,6 +1424,7 @@ public class OrderServices {
     /** Service for resetting the OrderHeader grandTotal */
     public static Map<String, Object> resetGrandTotal(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         //appears to not be used: GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
 
@@ -1431,7 +1432,7 @@ public class OrderServices {
         try {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
-            String errMsg = "ERROR: Could not set grantTotal on OrderHeader entity: " + e.toString();
+            String errMsg = UtilProperties.getMessage(resource_error, "OrderCouldNotSetGrantTotalOnOrderHeader", UtilMisc.toMap("errorString", e.toString()), locale);
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
@@ -1475,7 +1476,7 @@ public class OrderServices {
                 try {
                     orderHeader.store();
                 } catch (GenericEntityException e) {
-                    String errMsg = "ERROR: Could not set grandTotal on OrderHeader entity: " + e.toString();
+                    String errMsg = UtilProperties.getMessage(resource_error, "OrderCouldNotSetGrantTotalOnOrderHeader", UtilMisc.toMap("errorString", e.toString()), locale);
                     Debug.logError(e, errMsg, module);
                     return ServiceUtil.returnError(errMsg);
                 }
@@ -1955,7 +1956,7 @@ public class OrderServices {
                             }
                         }
                     } catch (GenericEntityException e) {
-                        String errMsg = "Database error checking if we should change order header status to approved: " + e.toString();
+                    	 String errMsg = UtilProperties.getMessage(resource_error, "OrderDatabaseErrorCheckingIfWeShouldChangeOrderHeaderStatusToApproved", UtilMisc.toMap("errorString", e.toString()), locale);
                         Debug.logError(e, errMsg, module);
                         return ServiceUtil.returnError(errMsg);
                     }
@@ -5784,6 +5785,7 @@ public class OrderServices {
      */
     public static Map deleteOrderItemShipGroup(DispatchContext ctx, Map context) throws GenericEntityException {
         Delegator delegator = ctx.getDelegator();
+        Locale locale = (Locale) context.get("locale" );
         Map<String, Object> result = new HashMap<String, Object>();
         
         GenericValue orderItemShipGroup = (GenericValue) context.get("orderItemShipGroup");
@@ -5794,7 +5796,7 @@ public class OrderServices {
             if (UtilValidate.isNotEmpty(orderHeader) && UtilValidate.isNotEmpty(shipGroupSeqId)) {
                 orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryOne();
                 if (UtilValidate.isEmpty(orderItemShipGroup)) {
-                    return ServiceUtil.returnError("OrderItemShipGroup Does Not Exist");
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderItemShipGroupDoesNotExist", locale));
                 }
             }
         }
