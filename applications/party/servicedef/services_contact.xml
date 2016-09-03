@@ -7,6 +7,22 @@
     <version>1.0</version>
 
     <!-- Party contact services -->
+    <service name="createContactMechType" default-entity-name="ContactMechType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new ContactMech Type Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateContactMechType" default-entity-name="ContactMechType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ContactMech Type Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteContactMechType" default-entity-name="ContactMechType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ContactMech Type Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+
     <service name="createContactMechPurposeType" default-entity-name="ContactMechPurposeType" engine="entity-auto" invoke="create" auth="true">
         <description>Create a new ContactMech Purpose Type Record</description>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
