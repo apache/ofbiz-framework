@@ -236,6 +236,31 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
+    <!-- Agreement content services -->
+    <service name="createAgreementContent" default-entity-name="AgreementContent" engine="entity-auto" invoke="create" auth="true">
+        <description>Create Agreement Content</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateAgreementContent" default-entity-name="AgreementContent" engine="entity-auto" invoke="update" auth="true">
+        <description>Update Agreement Content</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeAgreementContent" default-entity-name="AgreementContent" engine="entity-auto" invoke="delete" auth="true">
+        <description>Remove Content From Agreement</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+
+    <service name="uploadAgreementContentFile" engine="group" transaction-timeout="300">
+        <description>Upload and attach a file to an agreement</description>
+        <group>
+            <invoke name="createContentFromUploadedFile" result-to-context="true"/>
+            <invoke name="createAgreementContent"/>
+        </group>
+    </service>
+
     <service name="getCommissionForProduct" engine="java"
                 location="org.apache.ofbiz.accounting.agreement.AgreementServices" invoke="getCommissionForProduct" auth="true">
         <description>Get commission receiving parties and amounts for a product. &lt;br/&gt;

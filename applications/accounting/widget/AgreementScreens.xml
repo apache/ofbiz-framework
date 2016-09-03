@@ -29,6 +29,7 @@ under the License.
                 <set field="headerItem" value="agreements"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -224,6 +225,33 @@ under the License.
                             <include-form name="AddAgreementTerm" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                         <include-form name="ListAgreementTerms" location="component://accounting/widget/AgreementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditAgreementContents">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleAddAgreementContent"/>
+                <set field="tabButtonItem" value="AgreementContents"/>
+                <set field="buttonBarItem" value="EditAgreementContents"/>
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <entity-one entity-name="Agreement" value-field="agreement"/>
+                <entity-and entity-name="AgreementContentAndInfo" list="contentDataResourceList">
+                    <field-map field-name="agreementId" from-field="parameters.agreementId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AgreementContentPanel" title="${uiLabelMap.PageTitleAddAgreementContent}" collapsible="true">
+                            <include-form name="AddAgreementContent" location="component://accounting/widget/AgreementForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleListContent}">
+                            <include-form name="ListAgreementContent" location="component://accounting/widget/AgreementForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

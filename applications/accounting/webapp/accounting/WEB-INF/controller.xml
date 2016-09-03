@@ -23,7 +23,7 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <description>Accounting Manager Module Site Configuration File</description>
-    
+
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
     <preprocessor>
@@ -1206,6 +1206,22 @@ under the License.
         <response name="error" type="view" value="EditAgreementTerms"/>
     </request-map>
 
+    <request-map uri="EditAgreementContents">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditAgreementContents"/>
+    </request-map>
+    <request-map uri="uploadAgreementContent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="uploadAgreementContentFile" />
+        <response name="success" type="view" value="EditAgreementContents"/>
+        <response name="error" type="view" value="EditAgreementContents"/>
+    </request-map>
+    <request-map uri="removeAgreementContent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeAgreementContent"/>
+        <response name="success" type="view" value="EditAgreementContents"/>
+        <response name="error" type="view" value="EditAgreementContents"/>
+    </request-map>
 
     <request-map uri="ListAgreementPromoAppls"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementPromoAppls"/></request-map>
     <request-map uri="removeAgreementPromoAppl">
@@ -2697,6 +2713,7 @@ under the License.
     <view-map name="ListAgreementItems" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItems"/>
     <view-map name="EditAgreementItem" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItem"/>
     <view-map name="EditAgreementTerms" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementTerms"/>
+    <view-map name="EditAgreementContents" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementContents"/>
     <view-map name="ListAgreementPromoAppls" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementPromoAppls"/>
     <view-map name="EditAgreementPromoAppl" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementPromoAppl"/>
     <view-map name="ListAgreementItemTerms" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemTerms"/>
