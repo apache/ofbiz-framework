@@ -104,6 +104,9 @@
         <value xml:lang="zh">进行实体自动操作时出错，实体 ${entityName}、服务 ${serviceName}：${errorString}</value>
         <value xml:lang="zh-TW">進行資料實體自動操作時出錯,資料實體 ${entityName}、服務 ${serviceName}:${errorString}</value>
     </property>
+    <property key="ServiceExceptionThrownWhileGettingServiceConfiguration">
+        <value xml:lang="en">Exception thrown while getting service configuration: ${errorString}</value>
+    </property>
     <property key="ServiceParameterValueNotValid">
         <value xml:lang="en">The ID value in the parameter ${parameterName} was not valid: ${errorDetails}</value>
         <value xml:lang="it">Il valore ID nel parametro ${parameterName} non è valido: ${errorDetails}</value>
