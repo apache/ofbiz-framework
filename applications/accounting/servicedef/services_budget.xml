@@ -171,4 +171,19 @@ under the License.
         <description>Delete an existing Budget Revision Record. BudgetRevision entity contains historical data, hence this service ideally will not +	 be used.</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
+    <service name="createBudgetScenario" default-entity-name="BudgetScenario" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Budget Scenario Record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateBudgetScenario" default-entity-name="BudgetScenario" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Budget Scenario Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteBudgetScenario" default-entity-name="BudgetScenario" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Budget Scenario Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
 </services>
