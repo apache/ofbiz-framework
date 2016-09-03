@@ -151,4 +151,18 @@ under the License.
         <description>Delete an existing Budget Review Result Type Record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
+    <service name="createBudgetRevision" default-entity-name="BudgetRevision" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Budget Revision Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateBudgetRevision" default-entity-name="BudgetRevision" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Budget Revision Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteBudgetRevision" default-entity-name="BudgetRevision" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an existing Budget Revision Record. BudgetRevision entity contains historical data, hence this service ideally will not +	 be used.</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>
