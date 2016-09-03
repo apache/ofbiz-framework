@@ -52,4 +52,19 @@
         <description>Delete an existing ContactMech Type Attr Record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
+
+    <service name="createContactMechTypePurpose" default-entity-name="ContactMechTypePurpose" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new ContactMech Type Purpose Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateContactMechTypePurpose" default-entity-name="ContactMechTypePurpose" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ContactMech Type Purpose Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteContactMechTypePurpose" default-entity-name="ContactMechTypePurpose" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an existing ContactMech Type Purpose Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>
