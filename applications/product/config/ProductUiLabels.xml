@@ -16001,6 +16001,12 @@
         <value xml:lang="zh">创建者/修订者</value>
         <value xml:lang="zh-TW">新建者/修訂者</value>
     </property>
+    <property key="ProductCreateNewThumbnailSizeSuccessful">
+        <value xml:lang="en">Create new thumbnail size successful.</value>
+    </property>
+    <property key="ProductCropImageSuccessfully">
+        <value xml:lang="en">Crop image successfully.</value>
+    </property>
     <property key="ProductCrossSell">
         <value xml:lang="de">Ihnen könnte auch gefallen:</value>
         <value xml:lang="en">You might be interested in these as well:</value>
@@ -18424,6 +18430,9 @@
         <value xml:lang="vi">Phí cố định</value>
         <value xml:lang="zh">固定费用</value>
         <value xml:lang="zh-TW">固定費用</value>
+    </property>
+    <property key="ProductFrameImageSuccessfully">
+        <value xml:lang="en">Frame image successfully.</value>
     </property>
     <property key="ProductFromAnOrder">
         <value xml:lang="de">von Auftrag</value>
@@ -27320,6 +27329,9 @@
         <value xml:lang="zh">删除结果自</value>
         <value xml:lang="zh-TW">刪除結果自</value>
     </property>
+    <property key="ProductRenameImageSuccessfully.">
+        <value xml:lang="en">Rename image successfully.</value>
+    </property>
     <property key="ProductReorderQuantity">
         <value xml:lang="de">Neubestellung Menge</value>
         <value xml:lang="en">Reorder Quantity</value>
@@ -27333,6 +27345,9 @@
         <value xml:lang="vi">Sắp xếp lại thứ tự</value>
         <value xml:lang="zh">再订购数量</value>
         <value xml:lang="zh-TW">再訂購數量</value>
+    </property>
+    <property key="ProductReplaceImageSuccessfully">
+        <value xml:lang="en">Replace image successfully.</value>
     </property>
     <property key="ProductReplaceOriginal">
         <value xml:lang="de">Erstetzt Original</value>
@@ -27613,6 +27628,9 @@
         <value xml:lang="zh">重置日期</value>
         <value xml:lang="zh-TW">重置日期</value>
     </property>
+    <property key="ProductResizeImagesSuccessful">
+        <value xml:lang="en">Resize images successful.</value>
+    </property>
     <property key="ProductResultOfImageUpload">
         <value xml:lang="de">Resultat des Bild hochladens</value>
         <value xml:lang="en">Result of image Upload</value>
@@ -27828,6 +27846,9 @@
         <value xml:lang="zh">汇总</value>
         <value xml:lang="zh-TW">匯總</value>
     </property>
+    <property key="ProductRotatedImageSuccessfully">
+        <value xml:lang="en">Rotated image successfully.</value>
+    </property>
     <property key="ProductRouteSegment">
         <value xml:lang="de">Weg Abschnitt</value>
         <value xml:lang="en">Route Segment</value>
@@ -27933,6 +27954,9 @@
         <value xml:lang="vi">Quy định</value>
         <value xml:lang="zh">规则</value>
         <value xml:lang="zh-TW">規則</value>
+    </property>
+    <property key="ProductRunSubscriptionExpiredServiceCalledSuccessfully">
+        <value xml:lang="en">runSubscriptionExpired service called successfully with subscriptionId ${subscriptionId}</value>
     </property>
     <property key="ProductSRCH">
         <value xml:lang="de">Suche</value>

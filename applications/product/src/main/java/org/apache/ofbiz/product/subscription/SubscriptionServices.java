@@ -53,6 +53,7 @@ public class SubscriptionServices {
 
     public static final String module = SubscriptionServices.class.getName();
     public static final String resource = "ProductUiLabels";
+    public static final String resourceError = "ProductErrorUiLabels";
     public static final String resourceOrderError = "OrderErrorUiLabels";
     
     public static Map<String, Object> processExtendSubscription(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -307,7 +308,7 @@ public class SubscriptionServices {
     public static Map<String, Object> runServiceOnSubscriptionExpiry( DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        
+        Locale locale =(Locale)context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");        
         Map<String, Object> result = new HashMap<String, Object>();
         Map<String, Object> expiryMap = new HashMap<String, Object>();
@@ -376,7 +377,7 @@ public class SubscriptionServices {
                                 Debug.logInfo("Service mentioned in serviceNameOnExpiry called with result: " + result.get("successMessage"), module);
                             } else if (result == null && subscriptionId != null) {
                                 Debug.logError("Subscription couldn't be expired for subscriptionId: " + subscriptionId, module);
-                                return ServiceUtil.returnError("Subscription couldn't be expired for subscriptionId: " + subscriptionId);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "ProductSubscriptionCouldntBeExpired", UtilMisc.toMap("subscriptionId", subscriptionId), locale));
                             }
                         }
                 	}
@@ -394,10 +395,11 @@ public class SubscriptionServices {
 
     public static Map<String, Object> runSubscriptionExpired(
             DispatchContext dctx, Map<String, ? extends Object> context) {
+    	 Locale locale = (Locale)context.get("locale");
         String subscriptionId = (String) context.get("subscriptionId");
         Map<String, Object> result = new HashMap<String, Object>();
         if (subscriptionId != null) {
-            return ServiceUtil.returnSuccess("runSubscriptionExpired service called successfully with subscriptionId " + subscriptionId);
+            return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "ProductRunSubscriptionExpiredServiceCalledSuccessfully", locale));
         }
         return result;
     }

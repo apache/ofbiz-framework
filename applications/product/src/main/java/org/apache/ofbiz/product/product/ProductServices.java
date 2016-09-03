@@ -891,7 +891,7 @@ public class ProductServices {
                 productAssoc.create();
             }
         } catch (GenericEntityException e) {
-            String errMsg = "Error creating new virtual product from variant products: " + e.toString();
+            String errMsg = UtilProperties.getMessage(resourceError, "ProductErrorCreatingNewVirtualProductFromVariantProducts", UtilMisc.toMap("errorString", e.toString()), locale);
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }

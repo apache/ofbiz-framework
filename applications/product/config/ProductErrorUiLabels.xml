@@ -83,6 +83,15 @@
         <value xml:lang="ja">入力した数量 (${parameters.quantity}) が期待した数量 (${picklistItem.quantity}) より大きい。</value>
         <value xml:lang="zh">输入的数量（${parameters.quantity}）大于期望的数量（${picklistItem.quantity}）。</value>
     </property>
+    <property key="ProductCannotCreateTheTargetDirectory">
+        <value xml:lang="en">Cannot create the target directory.</value>
+    </property>
+     <property key="ProductCannotReplaceBecauseBothImagesAreTheSameImage">
+       <value xml:lang="en">Cannot replace because both images are the same image.</value>
+    </property>
+    <property key="ProductCannotReplaceImage">
+        <value xml:lang="en">Cannot replace image.</value>
+    </property>
     <property key="ProductCreateCommunicationEventProductPermissionError">
         <value xml:lang="de">Berechtigungsfehler beim Erstellen des Produkt Communication Events</value>
         <value xml:lang="en">Create Communication Event Product Permission Error</value>
@@ -106,6 +115,12 @@
         <value xml:lang="nl">Orderregels zijn niet geverifieerd</value>
         <value xml:lang="zh">错误：所有订单明细都没有验证</value>
         <value xml:lang="zh-TW">錯誤:所有訂單細項都沒有驗證</value>
+    </property>
+    <property key="ProductErrorCreatingNewVirtualProductFromVariantProducts">
+        <value xml:lang="en">Error creating new virtual product from variant products: ${errorString}</value>
+    </property>
+    <property key="ProductErrorsOccurInParsingImageProperties.xml">
+        <value xml:lang="en">Errors occur in parsing ImageProperties.xml: ${errorString}</value>
     </property>
     <property key="ProductErrorEnteredBothDimensionAndPackageInputBoxField">
         <value xml:lang="de">FEHLER: Maßangaben und Verpackung wurden angegeben, beide Felder zusammen können nicht verarbeitet werden (bitte nur eins von beiden angeben)</value>
@@ -704,6 +719,15 @@
         <value xml:lang="zh">订单数量必须不是空。请重新输入打印分拣表单。</value>
         <value xml:lang="zh-TW">訂單數量必須不是空.請重新輸入列印揀貨表單.</value>
     </property>
+    <property key="ProductPleaseChooseImageToReplace">
+        <value xml:lang="en">Please choose image to replace.</value>
+    </property>
+    <property key="ProductPleaseChooseReplacementImage">
+        <value xml:lang="en">Please choose replacement image.</value>
+    </property>
+    <property key="ProductPleaseSelectImage">
+        <value xml:lang="en">Please select Image.</value>
+    </property>
     <property key="ProductRemoveCommunicationEventProductPermissionError">
         <value xml:lang="de">Produkt Berechtigungsfehler beim Löschen des Kommunikationsevents</value>
         <value xml:lang="en">Remove Communication Event Product Permission Error</value>
@@ -742,6 +766,9 @@
         <value xml:lang="ja">ステータスの変更が有効ではありません: ${productReview.statusId} から ${parameters.statusId}</value>
         <value xml:lang="zh">状态变化无效：从 ${productReview.statusId} 变为 ${parameters.statusId}</value>
         <value xml:lang="zh-TW">狀態變化無效:從 ${productReview.statusId} 變為 ${parameters.statusId}</value>
+    </property>
+    <property key="ProductScaleAdditionalImageInAllDifferentSizesIsImpossible">
+        <value xml:lang="en">Scale additional image in all different sizes is impossible: ${errorString}</value>
     </property>
     <property key="productSearchEvents.added_param_features">
         <value xml:lang="de">${numAdded} Merkmale hinzugefügt mit ID ${productFeatureId}</value>
@@ -1095,6 +1122,9 @@
         <value xml:lang="ja">製品IDが見つかりません。</value>
         <value xml:lang="zh">没有找到产品，标识是</value>
         <value xml:lang="zh-TW">沒有找到產品識別是</value>
+    </property>
+    <property key="ProductSubscriptionCouldntBeExpired">
+        <value xml:lang="en">Subscription couldn't be expired for subscriptionId: ${subscriptionId}</value>
     </property>
     <property key="productutilservices.did_not_find_any_valid_variants_for_virtual_ID">
         <value xml:lang="de">Keine gültigen Varianten gefunden für virtuelles Produkt mit der ID [${productId}], kein Merge durchgeführt...</value>
