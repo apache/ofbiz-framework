@@ -3815,6 +3815,9 @@
         <value xml:lang="zh-CN">事件日期</value>
         <value xml:lang="zh-TW">事件日期</value>
     </property>
+        <property key="CommonExceptionThrownWhileDecodingMetric">
+        <value xml:lang="en">Exception thrown while decoding metric name ${originalName}</value>
+    </property>
     <property key="CommonExclude">
         <value xml:lang="ar">إستثناء</value>
         <value xml:lang="cs">Vyjmout</value>
@@ -6680,6 +6683,9 @@
         <value xml:lang="zh-CN">方法</value>
         <value xml:lang="zh-TW">方法</value>
     </property>
+    <property key="CommonMetricNotFound">
+        <value xml:lang="en">Metric ${name} not found</value>
+    </property>
     <property key="CommonMilliSecond">
         <value xml:lang="ar">واحد بالألف من الثانية</value>
         <value xml:lang="cs">Milisekunda</value>
@@ -8233,6 +8239,9 @@
         <value xml:lang="vi">Khác</value>
         <value xml:lang="zh">其它</value>
         <value xml:lang="zh-TW">其他</value>
+    </property>
+    <property key="CommonOutputFileCouldNotBeCreated">
+        <value xml:lang="en">The Outputfile could not be created: ${errorString}</value>
     </property>
     <property key="CommonOverridesSelection">
         <value xml:lang="ar">تفنيد  أحد الإختيارين في الأعلى</value>
@@ -15510,5 +15519,4 @@
         <value xml:lang="zh-CN">中文</value>
         <value xml:lang="zh-TW">中文</value>
     </property>
-
 </resource>

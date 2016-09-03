@@ -32,6 +32,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -197,7 +198,7 @@ public class JsLanguageFileMappingCreator {
         }
         catch (Exception e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("The Outputfile could not be created: " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonOutputFileCouldNotBeCreated", UtilMisc.toMap("errorString", e.getMessage()), (Locale)context.get("locale")));
         }
 
         return result;
