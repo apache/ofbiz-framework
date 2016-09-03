@@ -536,6 +536,9 @@
         <value xml:lang="zh">无法选择另一个礼品，没有找到用于 # ${alternateGwpLine} 的购物车行明细。 </value>
         <value xml:lang="zh-TW">無法選擇另一個禮品，沒有找到用于 # ${alternateGwpLine} 的購物車行明細。 </value>
     </property>
+    <property key="OrderCouldNotSetGrantTotalOnOrderHeader">
+        <value xml:lang="en">ERROR: Could not set grantTotal on OrderHeader entity: ${errorString}</value>
+    </property>
     <property key="OrderCreateCommunicationEventProductPermissionError">
         <value xml:lang="ar">خطأ إذن السلعة في خلق حدث الإتصال</value>
         <value xml:lang="de">Berechtigungsfehler bei Produkt-Kommunikations-Ereignis</value>
@@ -547,6 +550,9 @@
         <value xml:lang="vi">Bạn thiếu quyền tạo Sự kiện giao tiếp sản phẩm (Communication Event Product)</value>
         <value xml:lang="zh">创建沟通事件时出现产品权限错误</value>
         <value xml:lang="zh-TW">創建溝通事件時出現產品權限錯誤</value>
+    </property>
+    <property key="OrderDatabaseErrorCheckingIfWeShouldChangeOrderHeaderStatusToApproved">
+        <value xml:lang="en">Database error checking if we should change order header status to approved: ${e.toString()}</value>
     </property>
     <property key="OrderDispatcherOrDelegatorOrCartArgumentIsNull">
         <value xml:lang="ar">المرسل أو المفوض أو حجة العربة فارغا</value>
@@ -1687,6 +1693,12 @@
         <value xml:lang="vi">Không thể cập nhật trạng thái phần đầu trả về (return header status)</value>
         <value xml:lang="zh">无法更新退货头状态</value>
     </property>
+    <property key="OrderErrorWhileCreatingNewShoppingListBasedOnOrder">
+        <value xml:lang="en">Error while creating new shopping list based on order ${errorString}</value>
+    </property>
+    <property key="OrderErrorWhileCreatingNewShoppingListBasedAutomaticReorder">
+        <value xml:lang="en">Error while creating new shopping list based automatic reorder ${errorString}</value>
+    </property>
     <property key="OrderErrorWithCreateBillingAccount">
         <value xml:lang="ar">خطأ في خلق حساب فوترة</value>
         <value xml:lang="de">Fehler bei Erstellung des Rechnungskontos: </value>
@@ -1803,6 +1815,9 @@
         <value xml:lang="vi">Không tìm thấy tài sản cố định với ID : ${fixedAssetId}</value>
         <value xml:lang="zh">没有找到固定资产，固定资产标识：${fixedAssetId}</value>
         <value xml:lang="zh-TW">沒有找到固定資產，固定資產ID：${fixedAssetId}</value>
+    </property>
+    <property key="OrderFixedAssetSoldOut">
+        <value xml:lang="en">ERROR: fixed_Asset_sold_out AssetId: ${fixedAssetId} on date: ${exceptionDateStartTime}</value>
     </property>
     <property key="OrderFrequencyOrIntervalWasNotSpecified">
         <value xml:lang="ar">لم يحدد التردد أو الفاصل</value>
@@ -1942,6 +1957,9 @@
         <value xml:lang="vi">Tần suất cho mua hàng trở lại không hợp lệ</value>
         <value xml:lang="zh">用于购物列表重复发生的频率无效</value>
         <value xml:lang="zh-TW">用于購物列表重複發生的頻率無效</value>
+    </property>
+    <property key="OrderItemShipGroupDoesNotExist">
+        <value xml:lang="en">Order Item Ship Group Does Not Exist</value>
     </property>
     <property key="OrderItemStatusNotChangedIsNotAValidChange">
         <value xml:lang="ar">لم يتم التغيير لحالة البند لأن التغيير ${orderStatusId} -&gt; ${statusId} غير صحيح</value>
@@ -2110,6 +2128,9 @@
         <value xml:lang="vi">Không có kho hàng (product store) nên không thể tiến hành thanh toán</value>
         <value xml:lang="zh">没有产品店铺，无法创建支付</value>
         <value xml:lang="zh-TW">沒有產品店鋪，無法創建支付</value>
+    </property>
+    <property key="OrderNoReturnAmountFound">
+        <value xml:lang="en">No returnAmount found for order: ${orderId}</value>
     </property>
     <property key="OrderNoReturnQuantityAvailablePreviousReturnsMayExist">
         <value xml:lang="ar">كمية المسترجع غير متوفرة: احتمال وجود مسترجعات سابقة.</value>
@@ -3294,6 +3315,9 @@
         <value xml:lang="vi">Độ lớn đặt trước (reservation) phải là số cụ thể</value>
         <value xml:lang="zh">预定长度应该是一个正数</value>
         <value xml:lang="zh-TW">預定長度應該是一個正數</value>
+    </property>
+    <property key="OrderReturnItemResponseNotFound">
+        <value xml:lang="en">${errorMsg} Return Item Response not found with ID [${responseId}].</value>
     </property>
     <property key="OrderReturnItemTypeIsNotDefined">
         <value xml:lang="ar">نوع البند المسترجع غير معرف لهذا البند: أو لا يوجد تربيط</value>

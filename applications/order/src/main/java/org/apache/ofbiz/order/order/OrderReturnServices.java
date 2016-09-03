@@ -1588,6 +1588,7 @@ public class OrderReturnServices {
     public static Map<String, Object> createPaymentApplicationsFromReturnItemResponse(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         // the strategy for this service is to get a list of return invoices via the return items -> return item billing relationships
@@ -1597,7 +1598,7 @@ public class OrderReturnServices {
         try {
             GenericValue response = EntityQuery.use(delegator).from("ReturnItemResponse").where("returnItemResponseId", responseId).queryOne();
             if (response == null) {
-                return ServiceUtil.returnError(errorMsg + "Return Item Response not found with ID [" + responseId + "].");
+            	 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderReturnItemResponseNotFound", UtilMisc.toMap("errorMsg", errorMsg,"responseId", responseId), locale));
             }
             BigDecimal responseAmount = response.getBigDecimal("responseAmount").setScale(decimals, rounding);
             String paymentId = response.getString("paymentId");
@@ -2314,7 +2315,7 @@ public class OrderReturnServices {
             for (String orderId : returnAmountByOrder.keySet()) {
                 BigDecimal returnAmount = returnAmountByOrder.get(orderId);
                 if (returnAmount == null) {
-                    return ServiceUtil.returnError("No returnAmount found for order:" + orderId);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderNoReturnAmountFound", UtilMisc.toMap("orderId", orderId), locale));
                 }
                 if (returnAmount.abs().compareTo(new BigDecimal("0.000001")) < 0) {
                     Debug.logError("Order [" + orderId + "] refund amount[ " + returnAmount + "] less than zero", module);
