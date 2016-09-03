@@ -372,6 +372,7 @@ public final class ServiceUtil {
     }
 
     public static Map<String, Object> purgeOldJobs(DispatchContext dctx, Map<String, ? extends Object> context) {
+    	 Locale locale = (Locale)context.get("locale");
         Debug.logWarning("purgeOldJobs service invoked. This service is obsolete - the Job Scheduler will purge old jobs automatically.", module);
         String sendPool = null;
         Calendar cal = Calendar.getInstance();
@@ -381,7 +382,7 @@ public final class ServiceUtil {
             cal.add(Calendar.DAY_OF_YEAR, -daysToKeep);
         } catch (GenericConfigException e) {
             Debug.logWarning(e, "Exception thrown while getting service configuration: ", module);
-            return returnError("Exception thrown while getting service configuration: " + e);
+            return returnError(UtilProperties.getMessage(ServiceUtil.resource, "ServiceExceptionThrownWhileGettingServiceConfiguration", UtilMisc.toMap("errorString", e), locale));
         }
         Delegator delegator = dctx.getDelegator();
 
