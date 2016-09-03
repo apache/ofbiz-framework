@@ -70,6 +70,9 @@
         <value xml:lang="zh">eBay配置</value>
         <value xml:lang="zh-TW">eBay配置</value>
     </property>
+    <property key="EbayConfigurationSettingsAreMissingForConnectingToEbayServer">
+        <value xml:lang="en">Configuration settings are missing for connecting to eBay server.</value>
+    </property>
     <property key="EbayEbayOrderIdOrTransactionId">
         <value xml:lang="en">OrderID / TransactionID</value>
         <value xml:lang="it">Numero Ordine / Numero Transazione</value>

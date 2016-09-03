@@ -79,7 +79,7 @@ public class EbayOrderServices {
         try {
             Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
             if (UtilValidate.isEmpty(eBayConfigResult)) {
-                String eBayConfigErrorMsg = "Configuration settings are missing for connecting to eBay server.";
+                String eBayConfigErrorMsg = UtilProperties.getMessage(resource, "EbayConfigurationSettingsAreMissingForConnectingToEbayServer", locale);
                 return ServiceUtil.returnError(eBayConfigErrorMsg);
             }
 
