@@ -84,6 +84,9 @@
         <value xml:lang="zh">会员标识 ${partyId} 不是支付方法 ${paymentMethodId} 的拥有者，无权修改它。</value>
         <value xml:lang="zh-TW">團體標識 ${partyId} 不是支付方法 ${paymentMethodId} 的擁有者,無權修改它.</value>
     </property>
+    <property key="AccountingFailedToProcessCaptureResult">
+        <value xml:lang="en">Failed to process capture result: Could not find invoice ${invoiceId} due to entity error: ${errorString}</value>
+    </property>
     <property key="AccountingFinAccountAuthorizationExpired">
         <value xml:lang="ar">انتهت صلاحية عملية التصريح ${paymentGatewayResponseId} منذ ${authExpiration}</value>
         <value xml:lang="de">Authorisierungs-Transaktion ${paymentGatewayResponseId} ist seit ${authExpiration} abgelaufen</value>
@@ -711,6 +714,9 @@
         <value xml:lang="zh">与贝宝联系时发生了一个未知的错误</value>
         <value xml:lang="zh-TW">與PayPal聯絡時發生了一個未知的錯誤</value>
     </property>
+    <property key="AccountingReturnTypeCannotBeNull">
+        <value xml:lang="en">Return type cannot be null</value>
+    </property>
     <property key="AccountingTaxIdInvalidFormat">
         <value xml:lang="ar">دليل الضريبة ${parameters.partyTaxId} لم يدخل بطريقة صحيحة للمصلحة الضريبية المختارة ${taxAuthority.taxIdFormatPattern}</value>
         <value xml:lang="de">Die Steuer ID ${parameters.partyTaxId} war in einem ungültigen Format für die gewählte Steuerbehörde ${taxAuthority.taxIdFormatPattern}</value>
@@ -728,6 +734,12 @@
         <value xml:lang="it">Errore di lettura impostazioni tasse: ${errorString}</value>
         <value xml:lang="zh">获取税务设置时数据错误：${errorString}</value>
         <value xml:lang="zh-TW">獲取稅務設定時資料錯誤:${errorString}</value>
+    </property>
+    <property key="AccountingUploadedFileDataNotFound">
+        <value xml:lang="en">Uploaded file data not found</value>
+    </property>
+    <property key="AccountingValidationFailedInvalidValues">
+        <value xml:lang="en">Validation Failed - invalid values</value>
     </property>
     <property key="idealEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="ar">فشل في تنفيذ خدمة CreatePaymentFromPreference</value>
@@ -977,5 +989,4 @@
         <value xml:lang="zh">获取订单头时出错</value>
         <value xml:lang="zh-TW">獲取訂單頭時出錯</value>
     </property>
-    
 </resource>

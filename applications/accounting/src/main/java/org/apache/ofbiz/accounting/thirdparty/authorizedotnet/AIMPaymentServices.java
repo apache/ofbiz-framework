@@ -93,7 +93,7 @@ public class AIMPaymentServices {
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
-            results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
+            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, "AccountingValidationFailedInvalidValues", locale));
             return results;
         }
         Map<String, Object> reply = processCard(request, props, locale);
@@ -137,7 +137,7 @@ public class AIMPaymentServices {
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
-            results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
+            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, "AccountingValidationFailedInvalidValues", locale));
             return results;
         }
         Map<String, Object> reply = processCard(request, props, locale);
@@ -182,7 +182,7 @@ public class AIMPaymentServices {
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
-            results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
+            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, "AccountingValidationFailedInvalidValues", locale));
             return results;
         }
         Map<String, Object> reply = processCard(request, props, locale);
@@ -270,16 +270,17 @@ public class AIMPaymentServices {
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
-            results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
+            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, "AccountingValidationFailedInvalidValues", locale));
             return results;
         }
         return processCard(request, props, locale);
     }
 
     public static Map<String, Object> ccCredit(DispatchContext ctx, Map<String, Object> context) {
+    	Locale locale = (Locale) context.get("locale");
         Map<String, Object> results = new HashMap<String, Object>();
         results.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-        results.put(ModelService.ERROR_MESSAGE, "Authorize.net ccCredit unsupported with version 3.1");
+        results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, "AccountingAuthorizeNetccCreditUnsupported", locale));
         return results;
     }
 
@@ -299,7 +300,7 @@ public class AIMPaymentServices {
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
         if (ModelService.RESPOND_ERROR.equals(respMsg)) {
-            results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
+            results.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource, "AccountingValidationFailedInvalidValues", locale));
             return results;
         }
         Map<String, Object> reply = processCard(request, props, locale);

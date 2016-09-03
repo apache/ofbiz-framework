@@ -1714,6 +1714,9 @@
         <value xml:lang="zh">不能执行一个作废金额的交易：授权金额 ${authAmount} 不同于作废金额 ${refundAmount}</value>
         <value xml:lang="zh-TW">不能執行一個作廢金額的交易:授權金額 ${authAmount} 不同于作廢金額 ${refundAmount}</value>
     </property>
+    <property key="AccountingAuthorizeNetccCreditUnsupported">
+        <value xml:lang="en">Authorize.net ccCredit unsupported with version 3.1</value>
+    </property>
     <property key="AccountingAuthorizeNetCpDevice">
         <value xml:lang="ar">نوع الجهاز للبطاقة الحالية</value>
         <value xml:lang="de">Karten Gerätetyp</value>
@@ -9809,6 +9812,9 @@
         <value xml:lang="zh">新建标准费用</value>
         <value xml:lang="zh-TW">新建標準費用</value>
     </property>
+    <property key="AccountingNewInvoicesCreated">
+        <value xml:lang="en">${invoicesCreated} new invoice(s) created</value>
+    </property>
     <property key="AccountingNewPayment">
         <value xml:lang="ar">دفعة جديدة</value>
         <value xml:lang="de">Neue Zahlung</value>
@@ -12508,6 +12514,9 @@
         <value xml:lang="vi">Trạng thái chuyển thành 'Chưa thanh toán'</value>
         <value xml:lang="zh">状态变为"未付"</value>
         <value xml:lang="zh-TW">狀態變為"未付"</value>
+    </property>
+    <property key="AccountingPaymentRefundedSuccessfully">
+        <value xml:lang="en">Payment #${paymentId} is refunded successfully with amount ${refundAmount} for manual transaction.</value>
     </property>
     <property key="AccountingPaymentTabApplications">
         <value xml:lang="ar">التطبيقات</value>
