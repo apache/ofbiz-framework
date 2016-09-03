@@ -1182,6 +1182,9 @@
         <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền PARTYMGR_CREATE hoặc PARTYMGR_UPDATE</value>
         <value xml:lang="zh">系统错误：要运行${resourceDescription}，你必须有 PARTYMGR_CREATE 或 PARTYMGR_UPDATE 权限</value>
     </property>
+    <property key="PartyUploadedFileDataNotFound">
+        <value xml:lang="en">Uploaded file data not found</value>
+    </property>
     <property key="person.create.db_error">
         <value xml:lang="de">Kann Informationen zur Person nicht hinzufügen (Schreibfehler): ${0}</value>
         <value xml:lang="en">Could not add person info (write failure): ${0}</value>

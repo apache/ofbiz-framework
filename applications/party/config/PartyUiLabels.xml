@@ -9096,6 +9096,9 @@
         <value xml:lang="zh">新建内部便笺</value>
         <value xml:lang="zh-TW">新建內部便箋</value>
     </property>
+    <property key="PartyNewPartiesCreated">
+        <value xml:lang="en">${partiesCreated} new parties created"</value>
+    </property>
     <property key="PartyNewPassword">
         <value xml:lang="ar">كلمة سر جديدة</value>
         <value xml:lang="cs">Nové heslo</value>

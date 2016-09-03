@@ -2299,6 +2299,7 @@ public class PartyServices {
     public static Map<String, Object> importParty(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
         String encoding = System.getProperty("file.encoding");
@@ -2333,7 +2334,7 @@ public class PartyServices {
         Boolean addParty = false; // when modify party, contact mech not added again
         
         if (fileBytes == null) {
-            return ServiceUtil.returnError("Uploaded file data not found");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "PartyUploadedFileDataNotFound", locale));
         }
         
         try {
@@ -2645,7 +2646,7 @@ public class PartyServices {
             return ServiceUtil.returnError(errMsgs);
         }
 
-        result = ServiceUtil.returnSuccess(partiesCreated + " new parties created");
+        result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "PartyNewPartiesCreated", UtilMisc.toMap("partiesCreated", partiesCreated), locale));
         return result;
     }
 }
