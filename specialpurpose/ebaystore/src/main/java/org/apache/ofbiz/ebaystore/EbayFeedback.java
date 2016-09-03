@@ -19,6 +19,7 @@
 package org.apache.ofbiz.ebaystore;
 
 import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
@@ -203,7 +204,7 @@ public class EbayFeedback {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        String successMsg = "Load eBay Feedback successful.";
+        String successMsg = UtilProperties.getMessage(resource, "EbayLoadEbayFeedbackSuccessful", locale);
         result = ServiceUtil.returnSuccess(successMsg);
         return result;
     }

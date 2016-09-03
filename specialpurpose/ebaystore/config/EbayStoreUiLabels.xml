@@ -91,6 +91,12 @@
         <value xml:lang="zh">如果你添加了一个新的任务，你必须添加服务名称。</value>
         <value xml:lang="zh-TW">如果你增加了一個新的任務,你必須增加服務名稱.</value>
     </property>
+    <property key="EbayStoreBestOfferToEntityFailed">
+        <value xml:lang="en">Store best offer to entity failed.</value>
+    </property>
+    <property key="EbayStoreBestOfferToEntitySuccessful">
+        <value xml:lang="en">Store best offer to entity successful.</value>
+    </property>
     <property key="EbayStoreErrorFromDeleteContactStatus">
         <value xml:lang="en">Error from deleteContactAlert service </value>
         <value xml:lang="it">Errore dal servizio deleteContactAlert </value>
@@ -636,6 +642,9 @@
         <value xml:lang="zh">列出已导入订单</value>
         <value xml:lang="zh-TW">列出已匯入訂單</value>
     </property>
+    <property key="EbayLoadEbayFeedbackSuccessful">
+        <value xml:lang="en">Load eBay Feedback successful.</value>
+    </property>
     <property key="EbayNoOrderImported">
         <value xml:lang="en">No orders imported found</value>
         <value xml:lang="zh">没有找到已导入的订单</value>
@@ -645,6 +654,9 @@
         <value xml:lang="en">Open Listings</value>
         <value xml:lang="zh">打开列表</value>
         <value xml:lang="zh-TW">打開清單</value>
+    </property>
+    <property key="EbayOrderCreatedSuccessfully">
+        <value xml:lang="en">Order created successfully with ID (${orderId}) and eBay Order ID associated with this order is (${externalId}).</value>
     </property>
     <property key="EbayReason">
         <value xml:lang="en">Reason</value>
