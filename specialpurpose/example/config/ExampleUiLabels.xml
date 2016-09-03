@@ -623,6 +623,9 @@
         <value xml:lang="zh">表单挂件样例</value>
         <value xml:lang="zh-TW">表單器件範例</value>
     </property>
+    <property key="ExampleGeneralErrorRenderingScreen">
+        <value xml:lang="en">General error rendering screen [${screenLocation}]: ${errorString}</value>
+    </property>
     <property key="ExampleGroupField">
         <value xml:lang="en">Group</value>
         <value xml:lang="it">Gruppo</value>
@@ -636,6 +639,9 @@
         <value xml:lang="ja">フィールドグループ</value>
         <value xml:lang="zh">数据项组</value>
         <value xml:lang="zh-TW">資料項目群組</value>
+    </property>
+    <property key="ExampleIOErrorRenderingScreen">
+        <value xml:lang="en">I/O error rendering screen [${screenLocation}]: ${errorString}</value>
     </property>
     <property key="ExampleLanguageTextVersion">
         <value xml:lang="de">Verion der gewählten sprache</value>
@@ -770,6 +776,9 @@
         <value xml:lang="zh">原样例</value>
         <value xml:lang="zh-TW">原範例</value>
     </property>
+    <property key="ExampleParserConfigurationErrorRenderingScreen">
+        <value xml:lang="en">Parser configuration error rendering screen [${screenLocation}]: ${errorString}</value>
+    </property>
     <property key="ExamplePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the EXAMPLE_${mainAction} or EXAMPLE_ADMIN permission</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir l'autorisation EXAMPLE_${mainAction} ou EXAMPLE_ADMIN</value>
@@ -884,6 +893,9 @@
         <value xml:lang="zh">节点</value>
         <value xml:lang="zh-TW">節點</value>
     </property>
+    <property key="ExampleSAXErrorRenderingScreen">
+        <value xml:lang="en">SAX (XML parse) error rendering screen [${screenLocation}]: ${errorString}</value>
+    </property>
     <property key="ExampleScanRepositoryStrukture">
         <value xml:lang="de">Repository Struktur überprüfen</value>
         <value xml:lang="en">Scan repository structure</value>
@@ -919,6 +931,9 @@
         <value xml:lang="ja">ToDo説明</value>
         <value xml:lang="zh">待实现</value>
         <value xml:lang="zh-TW">待實現</value>
+    </property>
+    <property key="ExampleUnableToPrintPDFFromXSL-FO">
+        <value xml:lang="en">Unable to print PDF from XSL-FO: ${errorString}</value>
     </property>
     <property key="ExampleViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("EXAMPLE_VIEW" or "EXAMPLE_ADMIN" needed)</value>
