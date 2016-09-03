@@ -547,15 +547,16 @@ public class CommonServices {
 
     public static Map<String, Object> resetMetric(DispatchContext dctx, Map<String, ?> context) {
         String originalName = (String) context.get("name");
+        Locale locale = (Locale)context.get("locale");
         String name = UtilCodec.getDecoder("url").decode(originalName);
         if (name == null) {
-            return ServiceUtil.returnError("Exception thrown while decoding metric name \"" + originalName + "\"");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonExceptionThrownWhileDecodingMetric", UtilMisc.toMap("originalName", originalName), locale));
         }
         Metrics metric = MetricsFactory.getMetric(name);
         if (metric != null) {
             metric.reset();
             return ServiceUtil.returnSuccess();
         }
-        return ServiceUtil.returnError("Metric \"" + name + "\" not found.");
+        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonMetricNotFound", UtilMisc.toMap("name", name), locale));
     }
 }
