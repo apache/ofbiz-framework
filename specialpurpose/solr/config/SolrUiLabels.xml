@@ -18,13 +18,31 @@ specific language governing permissions and limitations
 under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
-    
+    <property key="SolrAddedDocumentsToSolrIndex">
+        <value xml:lang="en">Added ${fieldList} documents to solr index</value>
+    </property>
     <property key="SolrApplication">
         <value xml:lang="en">Apache Solr Integration</value>
     </property>
-    
+    <property key="SolrClearedSolrIndexAndReindexedDocuments">
+        <value xml:lang="en">Cleared solr index and reindexed ${numDocs} documents</value>
+    </property>
     <property key="SolrCompanyName">
         <value xml:lang="en">OFBIz - Solr Integration</value>
     </property>
-    
+    <property key="SolrDocumentForProductIdAddedToSolrIndex">
+        <value xml:lang="en">Document for productId ${productId} added to solr index</value>
+    </property>
+    <property key="SolrFailureConnectingToSolrServerToCommitProductId">
+        <value xml:lang="en">Failure connecting to solr server to commit productId ${productId"). product not updated</value>
+    </property>
+    <property key="SolrFailureConnectingToSolrServerToCommitProductList">
+        <value xml:lang="en">Failure connecting to solr server to commit product list; products not updated</value>
+    </property>
+    <property key="SolrFailureConnectingToSolrServerToRebuildIndex">
+        <value xml:lang="en">Failure connecting to solr server to rebuild index; index not updated.</value>
+    </property>
+    <property key="SolrMissingProductCategoryId">
+        <value xml:lang="en">Missing product category id.</value>
+    </property>
 </resource>

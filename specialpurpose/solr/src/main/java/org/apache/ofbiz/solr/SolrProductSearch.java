@@ -43,6 +43,7 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericDelegator;
@@ -61,7 +62,7 @@ import org.apache.ofbiz.service.ServiceValidationException;
 public abstract class SolrProductSearch {
 
     public static final String module = SolrProductSearch.class.getName();
-    
+    public static final String resource = "SolrUiLabels";
     /**
      * Adds product to solr, with product denoted by productId field in instance attribute
      * - intended for use with ECAs/SECAs.
@@ -113,6 +114,7 @@ public abstract class SolrProductSearch {
      */
     public static Map<String, Object> addToSolrIndex(DispatchContext dctx, Map<String, Object> context) throws GenericEntityException {
         HttpSolrClient client = null;
+        Locale locale = (Locale)context.get("locale");
         Map<String, Object> result;
         String productId = (String) context.get("productId");
         String solrIndexName = (String) context.get("indexName");
@@ -139,7 +141,7 @@ public abstract class SolrProductSearch {
             client.add(docs);
             client.commit();
             
-            final String statusStr = "Document for productId " + productId + " added to solr index";
+            final String statusStr = UtilProperties.getMessage(resource, "SolrDocumentForProductIdAddedToSolrIndex", UtilMisc.toMap("productId", context.get("productId")), locale);
             Debug.logInfo("Solr: " + statusStr, module);
             result = ServiceUtil.returnSuccess(statusStr);
         } catch (MalformedURLException e) {
@@ -148,8 +150,7 @@ public abstract class SolrProductSearch {
             result.put("errorType", "urlError");
         } catch (SolrServerException e) {
             if (e.getCause() != null && e.getCause() instanceof ConnectException) {
-                final String statusStr = "Failure connecting to solr server to commit productId " + 
-                        context.get("productId") + "; product not updated";
+                final String statusStr = UtilProperties.getMessage(resource, "SolrFailureConnectingToSolrServerToCommitProductId", UtilMisc.toMap("productId", context.get("productId")), locale);
                 if (Boolean.TRUE.equals(treatConnectErrorNonFatal)) {
                     Debug.logWarning(e, "Solr: " + statusStr, module);
                     result = ServiceUtil.returnFailure(statusStr);
@@ -188,6 +189,7 @@ public abstract class SolrProductSearch {
      */
     public static Map<String, Object> addListToSolrIndex(DispatchContext dctx, Map<String, Object> context) throws GenericEntityException {
         String solrIndexName = (String) context.get("indexName");
+        Locale locale = (Locale) context.get("locale");
         HttpSolrClient client = null;
         Map<String, Object> result;
         Boolean treatConnectErrorNonFatal = (Boolean) context.get("treatConnectErrorNonFatal");
@@ -211,7 +213,7 @@ public abstract class SolrProductSearch {
             client.add(docs);
             client.commit();
             
-            final String statusStr = "Added " + fieldList.size() + " documents to solr index";
+            final String statusStr = UtilProperties.getMessage(resource, "SolrAddedDocumentsToSolrIndex", UtilMisc.toMap("fieldList", fieldList.size()), locale);
             Debug.logInfo("Solr: " + statusStr, module);
             result = ServiceUtil.returnSuccess(statusStr);
         } catch (MalformedURLException e) {
@@ -220,7 +222,7 @@ public abstract class SolrProductSearch {
             result.put("errorType", "urlError");
         } catch (SolrServerException e) {
             if (e.getCause() != null && e.getCause() instanceof ConnectException) {
-                final String statusStr = "Failure connecting to solr server to commit product list; products not updated";
+                final String statusStr = UtilProperties.getMessage(resource, "SolrFailureConnectingToSolrServerToCommitProductList", UtilMisc.toMap("productId", context.get("productId")), locale);
                 if (Boolean.TRUE.equals(treatConnectErrorNonFatal)) {
                     Debug.logWarning(e, "Solr: " + statusStr, module);
                     result = ServiceUtil.returnFailure(statusStr);
@@ -366,6 +368,7 @@ public abstract class SolrProductSearch {
      */
     public static Map<String, Object> productsSearch(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result;
+        Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String solrIndexName = (String) context.get("indexName");
 
@@ -376,7 +379,7 @@ public abstract class SolrProductSearch {
                 dispatchMap.put("query", "cat:*" + productCategoryId+"*");
             }
             else
-                return ServiceUtil.returnError("Missing product category id");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "SolrMissingProductCategoryId", locale));
             if (context.get("viewSize") != null)
                 dispatchMap.put("viewSize", Integer.parseInt(((String) context.get("viewSize"))));
             if (context.get("viewIndex") != null)
@@ -666,7 +669,7 @@ public abstract class SolrProductSearch {
                 result = ServiceUtil.returnFailure(runMsg);
             }
             else {
-                final String statusMsg = "Cleared solr index and reindexed " + numDocs + " documents";
+                final String statusMsg = UtilProperties.getMessage(resource, "SolrClearedSolrIndexAndReindexedDocuments", UtilMisc.toMap("numDocs", numDocs), locale);
                 result = ServiceUtil.returnSuccess(statusMsg);
             }
         } catch (MalformedURLException e) {
@@ -674,7 +677,7 @@ public abstract class SolrProductSearch {
             result = ServiceUtil.returnError(e.toString());
         } catch (SolrServerException e) {
             if (e.getCause() != null && e.getCause() instanceof ConnectException) {
-                final String statusStr = "Failure connecting to solr server to rebuild index; index not updated";
+                final String statusStr = UtilProperties.getMessage(resource, "SolrFailureConnectingToSolrServerToRebuildIndex", locale);
                 if (Boolean.TRUE.equals(treatConnectErrorNonFatal)) {
                     Debug.logWarning(e, "Solr: " + statusStr, module);
                     result = ServiceUtil.returnFailure(statusStr);
