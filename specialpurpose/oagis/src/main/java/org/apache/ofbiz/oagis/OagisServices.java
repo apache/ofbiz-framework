@@ -556,7 +556,7 @@ public class OagisServices {
                 // there was an error last time, tell the service this is a retry
                 messageProcessContext.put("isErrorRetry", Boolean.TRUE);
             } else {
-                String responseMsg = "Message already received with ID: " + oagisMessageInfoKey;
+                String responseMsg = UtilProperties.getMessage(resource, "OagisMessageAlreadyReceived", UtilMisc.toMap("newEntity", oagisMessageInfoKey), locale);
                 Debug.logError(responseMsg, module);
 
                 List<Map<String, String>> errorMapList = UtilMisc.toList(UtilMisc.<String, String>toMap("reasonCode", "MessageAlreadyReceived", "description", responseMsg));

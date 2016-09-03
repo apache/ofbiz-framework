@@ -1060,7 +1060,7 @@ public class OagisInventoryServices {
                     }
                 }
             } catch (Throwable t) {
-                String errMsg = "System Error processing Acknowledge Delivery RMA message for message [" + omiPkMap + "]: " + t.toString();
+                String errMsg = UtilProperties.getMessage(resource, "OagisSystemErrorProcessingAcknowledgeDeliveryRMAMessage", UtilMisc.toMap("omiPkMap", omiPkMap), locale) + t.toString();
                 errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "SystemError"));
 
                 try {
@@ -1127,7 +1127,7 @@ public class OagisInventoryServices {
                 String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
-            String errMsg = "Found business level errors in message processing, not saving results; first error is: " + errorMapList.get(0);
+            String errMsg = UtilProperties.getMessage(resource, "OagisFoundBusinessLevelErrorsInMessageProcessing", locale) + errorMapList.get(0);
 
             // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times
             result.putAll(ServiceUtil.returnSuccess(errMsg));
@@ -1394,7 +1394,7 @@ public class OagisInventoryServices {
                     }
                 }
             } catch (Throwable t) {
-                String errMsg = "System Error processing Acknowledge Delivery Status message for message [" + omiPkMap + "]: " + t.toString();
+                String errMsg = UtilProperties.getMessage(resource, "OagisSystemErrorProcessingAcknowledgeDeliveryStatusMssage", UtilMisc.toMap("omiPkMap", omiPkMap), locale) + t.toString();
                 errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "SystemError"));
 
                 try {
@@ -1453,7 +1453,7 @@ public class OagisInventoryServices {
                 Debug.logError(e, errMsg, module);
             }
 
-            String errMsg = "Found business level errors in message processing, not saving results; first error is: " + errorMapList.get(0);
+            String errMsg = UtilProperties.getMessage(resource, "OagisFoundBusinessLevelErrorsInMessageProcessing", locale) + errorMapList.get(0);
 
             // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times
             result.putAll(ServiceUtil.returnSuccess(errMsg));

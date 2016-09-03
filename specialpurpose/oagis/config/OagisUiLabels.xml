@@ -337,6 +337,9 @@
         <value xml:lang="zh">执行退货标识（returnId）${returnId}、订单标识（orderId）${orderId}的投递消息${omiPkMap}时发生系统错误</value>
         <value xml:lang="zh-TW">執行退貨識別(returnId)${returnId}、訂單識別(orderId)${orderId}的投遞訊息${omiPkMap}時發生系統錯誤</value>
     </property>
+    <property key="OagisFoundBusinessLevelErrorsInMessageProcessing">
+        <value xml:lang="en">Found business level errors in message processing, not saving results; first error is: </value>
+    </property>
     <property key="OagisFoundExistingMessage">
         <value xml:lang="en">Found existing message info(s) in OAGMP_OGEN_SUCCESS, so not sending Process Shipment message for order ${orderId} existing message(s) are: </value>
         <value xml:lang="it">Trovati informazioni messaggi esistenti in OAGMP_OGEN_SUCCESS, così nessun messaggio inviato Process Shipment message per l'ordine ${orderId} messaggi esistenti sono: </value>
@@ -526,6 +529,12 @@
         <value xml:lang="th">จำนวนที่แตกต่าง</value>
         <value xml:lang="zh">数量差异</value>
         <value xml:lang="zh-TW">數量差異</value>
+    </property>
+    <property key="OagisSystemErrorProcessingAcknowledgeDeliveryRMAMessage">
+        <value xml:lang="en">System Error processing Acknowledge Delivery RMA message for message [${omiPkMap}]: </value>
+    </property>
+    <property key="OagisSystemErrorProcessingAcknowledgeDeliveryStatusMssage">
+        <value xml:lang="en">System Error processing Acknowledge Delivery Status message for message [${omiPkMap}]: </value>
     </property>
     <property key="PageTitleOagisInventoryMismatchNotice">
         <value xml:lang="en">Inventory Mismatch Notice</value>
