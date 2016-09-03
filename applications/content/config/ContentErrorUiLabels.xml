@@ -54,6 +54,12 @@
         <value xml:lang="zh">你没有足够的权限 ${updateMode} 目录 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN)。</value>
         <value xml:lang="zh-TW">您沒有足夠的權限 ${updateMode} 目錄 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN).</value>
     </property>
+    <property key="ContentNoOrderHeaderFound">
+        <value xml:lang="en">No OrderHeader found for orderId: ${orderId}</value>
+    </property>
+    <property key="ContentNoProductContentFound">
+        <value xml:lang="en">No ProductContent found for productId: ${productId}</value>
+    </property>
     <property key="ContentSearchNotIndexed">
         <value xml:lang="en">Cannot find content search document. Please index all content.</value>
         <value xml:lang="fr">Les contenus ne sont pas encore indexés, aucun résultat possible.</value>
@@ -315,5 +321,4 @@
         <value xml:lang="fr">Aucun répertoire racine fourni. Veuillez indiquer le chemin dans le champ objectInfo de la ressource de donnée</value>
         <value xml:lang="zh">没有提供根目录，请在数据资源对象信息数据项中填写路径</value>
     </property>
-
 </resource>

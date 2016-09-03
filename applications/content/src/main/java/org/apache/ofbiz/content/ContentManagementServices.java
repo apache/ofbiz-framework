@@ -1353,6 +1353,7 @@ public class ContentManagementServices {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productId");
         Integer qty = (Integer) context.get("quantity");
@@ -1382,7 +1383,7 @@ public class ContentManagementServices {
             return ServiceUtil.returnError(e.toString());
         }
         if (productContent == null) {
-            String msg = "No ProductContent found for productId:" + productId;
+            String msg = UtilProperties.getMessage(resource, "ContentNoProductContentFound", UtilMisc.toMap("productId", productId), locale);
             Debug.logError(msg, module);
             return ServiceUtil.returnError(msg);
         }
@@ -1405,6 +1406,7 @@ public class ContentManagementServices {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String orderId = (String) context.get("orderId");
 
@@ -1425,7 +1427,7 @@ public class ContentManagementServices {
             }
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             if (orderHeader == null) {
-                String msg = "No OrderHeader found for orderId:" + orderId;
+            	 String msg = UtilProperties.getMessage(resource, "ContentNoOrderHeaderFound", UtilMisc.toMap("orderId", orderId), locale);
                 return ServiceUtil.returnError(msg);
             }
             Timestamp orderCreatedDate = (Timestamp) orderHeader.get("orderDate");

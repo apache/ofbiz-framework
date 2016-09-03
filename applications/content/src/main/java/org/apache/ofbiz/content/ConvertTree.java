@@ -23,6 +23,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -66,6 +68,7 @@ In order ta make this service active add the following to the service definition
     public static  Map<String, Object> convertTree(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String file = (String) context.get("file");
         String errMsg = "", sucMsg= "";
@@ -220,7 +223,7 @@ In order ta make this service active add the following to the service definition
                                 recordCount++;
                             }
                         }//end line
-                        sucMsg = "Convert Documents Tree Successful.<br/>Total : " + counterLine + " rows";
+                        sucMsg = UtilProperties.getMessage("ContentUiLabels", "ContentConvertDocumentsTreeSuccessful", UtilMisc.toMap("counterLine", counterLine), locale);
                     }
                 }
              }
