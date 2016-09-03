@@ -716,6 +716,11 @@ tasks.addRule('Pattern: ofbizBackground <Commands>: Execute OFBiz startup comman
     }
 }
 
+// Enforces UTF-8 java compilation encoding on Windows platform
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 /* ========================================================
  * Helper Functions
  * ======================================================== */
