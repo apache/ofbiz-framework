@@ -463,6 +463,7 @@ public class ICalConverter {
 
     protected static Map<String, Object> invokeService(String serviceName, Map<String, ? extends Object> serviceMap, Map<String, Object> context) {
         LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
+        Locale locale = (Locale) context.get("locale");
         Map<String, Object> localMap = new HashMap<String, Object>();
         try {
             ModelService modelService = null;
@@ -477,7 +478,7 @@ public class ICalConverter {
                 }
             }
         } catch (Exception e) {
-            String errMsg = "Error while creating service Map for service " + serviceName + ": ";
+            String errMsg = UtilProperties.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileCreatingServiceMapForService", UtilMisc.toMap("serviceName", serviceName), locale);
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg + e);
         }
@@ -488,7 +489,7 @@ public class ICalConverter {
         try {
             return dispatcher.runSync(serviceName, localMap);
         } catch (GenericServiceException e) {
-            String errMsg = "Error while invoking service " + serviceName + ": ";
+            String errMsg = UtilProperties.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileInvokingService", UtilMisc.toMap("serviceName", serviceName), locale);
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg + e);
         }

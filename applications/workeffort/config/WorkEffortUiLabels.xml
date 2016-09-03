@@ -2633,6 +2633,12 @@
         <value xml:lang="zh">错误:你没有浏览这个事件的权限。这个事件必须属于你或者你必须是一个管理员</value>
         <value xml:lang="zh-TW">錯誤:你沒有檢視這個事件的權限.這個事件必須屬於你或者你必須是一個管理者</value>
     </property>
+    <property key="WorkeffortErrorWhileCreatingServiceMapForService">
+        <value xml:lang="en">Error while creating service Map for service : ${serviceName}</value>
+    </property>
+    <property key="WorkeffortErrorWhileInvokingService">
+        <value xml:lang="en">Error while invoking service : ${serviceName}</value>
+    </property>
     <property key="WorkEffortEstBudget">
         <value xml:lang="en">Est.Budget</value>
         <value xml:lang="es">Presupuesto estimado</value>
