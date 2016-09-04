@@ -49,6 +49,10 @@ eftAccountData = paymentResults.eftAccount;
 if (!tryEntity) eftAccountData = parameters;
 context.eftAccountData = eftAccountData ?: [:];
 
+checkAccountData = paymentResults.checkAccount;
+if (!tryEntity) checkAccountData = parameters;
+context.checkAccountData = checkAccountData ?: [:];
+
 context.donePage = parameters.DONE_PAGE ?:"viewprofile";
 
 paymentMethodData = paymentResults.paymentMethod;

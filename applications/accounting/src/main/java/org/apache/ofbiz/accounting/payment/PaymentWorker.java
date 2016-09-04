@@ -121,6 +121,7 @@ public final class PaymentWorker {
         GenericValue creditCard = null;
         GenericValue giftCard = null;
         GenericValue eftAccount = null;
+        GenericValue checkAccount = null;
 
         if (UtilValidate.isNotEmpty(paymentMethodId)) {
             try {
@@ -128,6 +129,7 @@ public final class PaymentWorker {
                 creditCard = EntityQuery.use(delegator).from("CreditCard").where("paymentMethodId", paymentMethodId).queryOne();
                 giftCard = EntityQuery.use(delegator).from("GiftCard").where("paymentMethodId", paymentMethodId).queryOne();
                 eftAccount = EntityQuery.use(delegator).from("EftAccount").where("paymentMethodId", paymentMethodId).queryOne();
+                checkAccount = EntityQuery.use(delegator).from("CheckAccount").where("paymentMethodId", paymentMethodId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -147,6 +149,9 @@ public final class PaymentWorker {
         if (eftAccount != null) {
             results.put("eftAccount", eftAccount);
         }
+        if (checkAccount != null) {
+            results.put("checkAccount", checkAccount);
+        }
 
         String curContactMechId = null;
 
@@ -156,6 +161,8 @@ public final class PaymentWorker {
             curContactMechId = UtilFormatOut.checkNull(tryEntity ? giftCard.getString("contactMechId") : request.getParameter("contactMechId"));
         } else if (eftAccount != null) {
             curContactMechId = UtilFormatOut.checkNull(tryEntity ? eftAccount.getString("contactMechId") : request.getParameter("contactMechId"));
+        }  else if (checkAccount != null) {
+            curContactMechId = UtilFormatOut.checkNull(tryEntity ? checkAccount.getString("contactMechId") : request.getParameter("contactMechId"));
         }
         if (curContactMechId != null) {
             results.put("curContactMechId", curContactMechId);

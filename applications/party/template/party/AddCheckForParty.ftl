@@ -1,28 +1,37 @@
 <div class="screenlet">
   <div class="screenlet-title-bar">
+    <#if !checkAccountData.paymentMethodId??>
       <h3>${uiLabelMap.AccountingAddCheckAccount}</h3>
+    <#else>
+      <h3>${uiLabelMap.PageTitleEditCheckAccount}</h3>
+    </#if>
   </div>
   <div class="screenlet-body">
-    <form method="post" action='<@ofbizUrl>createCheckForParty?DONE_PAGE=${donePage}</@ofbizUrl>' name="addcheckform" style='margin: 0;'>
+    <#if !checkAccountData.paymentMethodId??>
+      <form method="post" action='<@ofbizUrl>createCheckForParty?DONE_PAGE=${donePage}</@ofbizUrl>' name="addcheckform" style='margin: 0;'>
+    <#else>
+      <form method="post" action='<@ofbizUrl>updateCheckAccount?DONE_PAGE=${donePage}</@ofbizUrl>' name="addcheckform" style='margin: 0;'>
+      <input type="hidden" name='paymentMethodId' value='${paymentMethodData.paymentMethodId}' />
+    </#if>
       <input type="hidden" name="partyId" value="${parameters.partyId}"/>
       <table class="basic-table" cellspacing="0">
         <tr>
           <td class="label">${uiLabelMap.AccountingNameAccount}</td>
           <td>
-            <input type="text" class='required' size="30" maxlength="60" name="nameOnAccount" />
+            <input type="text" class='required' size="30" maxlength="60" name="nameOnAccount" value="${checkAccountData.nameOnAccount!}"/>
             <span class="tooltip">${uiLabelMap.CommonRequired}</span>
           </td>
         </tr>
         <tr>
           <td class="label">${uiLabelMap.AccountingCompanyNameAccount}</td>
           <td>
-            <input type="text" size="30" maxlength="60" name="companyNameOnAccount" />
+            <input type="text" size="30" maxlength="60" name="companyNameOnAccount" value="${checkAccountData.companyNameOnAccount!}"/>
           </td>
         </tr>
         <tr>
           <td class="label">${uiLabelMap.AccountingBankName}</td>
           <td>
-            <input type="text" class='required' size="30" maxlength="60" name="bankName" value="" />
+            <input type="text" class='required' size="30" maxlength="60" name="bankName" value="${checkAccountData.bankName!}" />
             <span class="tooltip">${uiLabelMap.CommonRequired}</span>
           </td>
         </tr>
@@ -30,6 +39,8 @@
           <td class="label">${uiLabelMap.CommonPaymentMethodType}</td>
           <td>
             <select name="paymentMethodTypeId" class='required'>
+              <option>${paymentMethodData.paymentMethodTypeId!}</option>
+              <option></option>
               <option>CERTIFIED_CHECK</option>
               <option>COMPANY_CHECK</option>
               <option>PERSONAL_CHECK</option>
@@ -40,13 +51,14 @@
         <tr>
           <td class="label">${uiLabelMap.AccountingRoutingNumber}</td>
           <td>
-            <input type="text" size="10" maxlength="30" name="routingNumber"/>
+            <input type="text" size="10" maxlength="30" name="routingNumber" value="${checkAccountData.routingNumber!}"/>
           </td>
         </tr>
         <tr>
           <td class="label">${uiLabelMap.AccountingAccountType}</td>
           <td>
             <select name="accountType">
+              <option>${checkAccountData.accountType!}</option>
               <option></option>
               <option>${uiLabelMap.CommonChecking}</option>
               <option>${uiLabelMap.CommonSavings}</option>
@@ -56,13 +68,13 @@
         <tr>
           <td class="label">${uiLabelMap.AccountingAccountNumber}</td>
           <td>
-            <input type="text" size="20" maxlength="40" name="accountNumber" />
+            <input type="text" size="20" maxlength="40" name="accountNumber" value="${checkAccountData.accountNumber!}"/>
           </td>
         </tr>
         <tr>
           <td class="label">${uiLabelMap.CommonDescription}</td>
           <td>
-            <input type="text" size="30" maxlength="60" name="description"/>
+            <input type="text" size="30" maxlength="60" name="description" value="${paymentMethodData.description!}"/>
           </td>
         </tr>
         <tr>

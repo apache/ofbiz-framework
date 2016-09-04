@@ -313,6 +313,12 @@ under the License.
         <response name="success" type="view" value="AddCheckAccount"/>
         <response name="error" type="view" value="AddCheckAccount"/>
     </request-map>
+    <request-map uri="updateCheckAccount">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://accounting/minilang/payment/PaymentMethodEvents.xml" invoke="updateCheckAccount"/>
+        <response name="success" type="view" value="AddCheckAccount"/>
+        <response name="error" type="view" value="AddCheckAccount"/>
+    </request-map>
     <request-map uri="editAvsOverride"><security https="true" auth="true"/><response name="success" type="view" value="editavsoverride"/></request-map>
     <request-map uri="updateAvsOverride">
         <security https="true" auth="true"/>

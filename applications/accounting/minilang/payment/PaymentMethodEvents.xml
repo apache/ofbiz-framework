@@ -94,7 +94,7 @@ under the License.
         </call-service>
     </simple-method>
 
-    <!-- Check events -->
+    <!-- Check Account events -->
     <simple-method method-name="createCheckAccount" short-description="Create Check Account for party">
         <call-map-processor xml-resource="component://accounting/minilang/payment/PaymentMapProcs.xml"
                 processor-name="createCheckAccount" in-map-name="parameters" out-map-name="context"/>
@@ -102,5 +102,17 @@ under the License.
         <call-service service-name="createCheckAccount" in-map-name="context">
             <default-message resource="AccountingUiLabels" property="AccountingCheckCreatedSuccessfully"/>
             <result-to-request result-name="paymentMethodId"/></call-service>
+    </simple-method>
+    <simple-method method-name="updateCheckAccount" short-description="Update Check Account">
+        <call-map-processor xml-resource="component://accounting/minilang/payment/PaymentMapProcs.xml"
+                            processor-name="updateCheckAccount" in-map-name="parameters" out-map-name="context"/>
+        <!-- before check-errors also call createCheckAccount, which completes the checking, etc for updateCheckAccount -->
+        <call-map-processor xml-resource="component://accounting/minilang/payment/PaymentMapProcs.xml"
+                            processor-name="createCheckAccount" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <call-service service-name="updateCheckAccount" in-map-name="context">
+            <default-message resource="AccountingUiLabels" property="AccountingCheckUpdatedSuccessfully"/>
+            <result-to-request result-name="paymentMethodId" request-name="paymentMethodId"/>
+        </call-service>
     </simple-method>
 </simple-methods>
