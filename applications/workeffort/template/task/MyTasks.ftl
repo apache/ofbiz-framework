@@ -49,7 +49,6 @@ under the License.
         <td>${uiLabelMap.WorkEffortPriority}</td>
         <td>${uiLabelMap.WorkEffortActivityStatus}</td>
         <td>${uiLabelMap.WorkEffortMyStatus}</td>
-        <#-- <td>${uiLabelMap.PartyPartyId}</td> -->
         <td>${uiLabelMap.PartyRole}</td>
         <td>${uiLabelMap.WorkEffortActivityName}</td>
         <td>${uiLabelMap.CommonEdit}</td>
@@ -61,7 +60,6 @@ under the License.
           <td>${workEffort.priority!}</td>
           <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
           <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
-          <#-- <td>${workEffort.partyId}</td> -->
           <td>${workEffort.roleTypeId}</td>
           <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
           <td class="button-col"><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortId}</a></td>
@@ -79,7 +77,6 @@ under the License.
         <td>${uiLabelMap.WorkEffortPriority}</td>
         <td>${uiLabelMap.WorkEffortActivityStatus}</td>
         <td>${uiLabelMap.WorkEffortMyStatus}</td>
-        <#-- <td>${uiLabelMap.PartyPartyId}</td> -->
         <td>${uiLabelMap.PartyRole}</td>
         <td>${uiLabelMap.WorkEffortActivityName}</td>
         <td>${uiLabelMap.CommonEdit}</td>
@@ -91,7 +88,6 @@ under the License.
           <td>${workEffort.priority!}</td>
           <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
           <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
-          <#-- <td>${workEffort.partyId}</td> -->
           <td>${workEffort.roleTypeId}</td>
           <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
           <td class="button-col"><a href="<@ofbizUrl>acceptRoleAssignment?workEffortId=${workEffort.workEffortId}&amp;partyId=${workEffort.partyId}&amp;roleTypeId=${workEffort.roleTypeId}&amp;fromDate=${workEffort.fromDate.toString()}</@ofbizUrl>">${uiLabelMap.WorkEffortAcceptAssignment}&nbsp;[${workEffort.workEffortId}]</a></td>
@@ -110,7 +106,6 @@ under the License.
         <td>${uiLabelMap.WorkEffortActivityStatus}</td>
         <td>${uiLabelMap.WorkEffortMyStatus}</td>
         <td>${uiLabelMap.PartyGroupPartyId}</td>
-        <#-- <td>${uiLabelMap.PartyRole}</td> -->
         <td>${uiLabelMap.WorkEffortActivityName}</td>
         <td>${uiLabelMap.CommonEdit}</td>
       </tr>
@@ -122,7 +117,6 @@ under the License.
           <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
           <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
           <td>${workEffort.groupPartyId}</td>
-          <#-- <td>${workEffort.roleTypeId}</td> -->
           <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
           <td class="button-col"><a href="<@ofbizUrl>acceptassignment?workEffortId=${workEffort.workEffortId}&amp;partyId=${workEffort.partyId}&amp;roleTypeId=${workEffort.roleTypeId}&amp;fromDate=${workEffort.fromDate}</@ofbizUrl>">${uiLabelMap.WorkEffortAcceptAssignment}&nbsp;[${workEffort.workEffortId}]</a></td>
         </tr>
