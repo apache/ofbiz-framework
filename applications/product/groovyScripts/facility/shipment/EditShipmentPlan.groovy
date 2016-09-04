@@ -63,7 +63,6 @@ if (shipment) {
 if (shipmentPlans) {
     shipmentPlans.each { shipmentPlan ->
         oneRow = new HashMap(shipmentPlan);
-        //    oneRow.putAll(shipmentPlan.getRelatedOne("OrderItemShipGrpInvRes", false));
         orderItem = shipmentPlan.getRelatedOne("OrderItem", false);
         oneRow.productId = orderItem.productId;
         orderedQuantity = orderItem.getDouble("quantity");
