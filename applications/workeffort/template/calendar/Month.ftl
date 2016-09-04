@@ -110,35 +110,6 @@ under the License.
       </#if>
     </td>
 
-<#--
-    <td valign="top">
-      <table width="100%" cellspacing="0" cellpadding="0" border="0">
-        <tr>
-          <td nowrap="nowrap" class="monthdaynumber"><a href='<@ofbizUrl>day?startTime=${period.start.time?string("#")}<#if eventsParam?has_content>&amp;${eventsParam}</#if>${addlParam!}</@ofbizUrl>' class="monthdaynumber">${period.start?date?string("d")?cap_first}</a></td>
-          <td align="right"><a href='<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&amp;currentStatusId=CAL_TENTATIVE&amp;estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&amp;estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam!}</@ofbizUrl>' class="add">${uiLabelMap.CommonAddNew}</a>&nbsp;&nbsp;</td>
-        </tr>
-      </table>
-      <#list period.calendarEntries as calEntry>
-      <table width="100%" cellspacing="0" cellpadding="0" border="0">
-        <tr width="100%">
-          <td class='monthcalendarentry' width="100%" valign='top'>
-            <#if (calEntry.workEffort.estimatedStartDate.compareTo(period.start)  <= 0 && calEntry.workEffort.estimatedCompletionDate.compareTo(period.end) >= 0)>
-              ${uiLabelMap.CommonAllDay}
-            <#elseif calEntry.workEffort.estimatedStartDate.before(period.start)>
-              ${uiLabelMap.CommonUntil} ${calEntry.workEffort.estimatedCompletionDate?time?string.short}
-            <#elseif calEntry.workEffort.estimatedCompletionDate.after(period.end)>
-              ${uiLabelMap.CommonFrom} ${calEntry.workEffort.estimatedStartDate?time?string.short}
-            <#else>
-              ${calEntry.workEffort.estimatedStartDate?time?string.short}-${calEntry.workEffort.estimatedCompletionDate?time?string.short}
-            </#if>
-            <br />
-            <a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${calEntry.workEffort.workEffortId}${addlParam!}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;
-          </td>
-        </tr>
-      </table>
-      </#list>
-    </td>
--->
     <#if !period_has_next && indexMod7 != 6>
     <td colspan='${6 - (indexMod7)}'>&nbsp;</td>
     </#if>
