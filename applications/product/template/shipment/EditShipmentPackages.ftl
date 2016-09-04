@@ -154,50 +154,9 @@ under the License.
                 <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentPackageRouteSeg.shipmentRouteSegmentId}"/>
             </form>
         </#list>
-            <#--
-            <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-                <form action="<@ofbizUrl>createShipmentPackageRouteSeg</@ofbizUrl>" name="createShipmentPackageRouteSegForm${shipmentPackageData_index}">
-                <input type="hidden" name="shipmentId" value="${shipmentId}"/>
-                <input type="hidden" name="shipmentPackageSeqId" value="${shipmentPackage.shipmentPackageSeqId}"/>
-                <td>&nbsp;</td>
-                <td>
-                    <div><span class="label">${uiLabelMap.ProductAddRouteSegmentInfo}</span>
-                    <select name="shipmentRouteSegmentId">
-                        <#list shipmentRouteSegments as shipmentRouteSegment>
-                            <option>${shipmentRouteSegment.shipmentRouteSegmentId}</option>
-                        </#list>
-                    </select>
-                    </div>
-                </td>
-                <td><span class="label">Track ${uiLabelMap.CommonNbr}</span><input type="text" size="22" name="trackingCode"/></td>
-                <td><span class="label">Box ${uiLabelMap.CommonNbr}</span><input type="text" size="5" name="boxNumber"/></td>
-                <td><a href="javascript:document.createShipmentPackageRouteSegForm${shipmentPackageData_index}.submit()" class="buttontext">${uiLabelMap.CommonAdd}</a></td>
-                <td>&nbsp;</td>
-                </form>
-            </tr>
-            -->
             <#-- toggle the row color -->
             <#assign alt_row = !alt_row>
         </#list>
-        <#--
-        <form action="<@ofbizUrl>createShipmentPackage</@ofbizUrl>" name="createShipmentPackageForm">
-            <input type="hidden" name="shipmentId" value="${shipmentId}"/>
-            <tr>
-                <td><span class="label">${uiLabelMap.ProductNewPackage}</span></td>
-                <td>&nbsp;</td>
-                <td><span class="label">${uiLabelMap.ProductWeight}</span> <input type="text" size="5" name="weight"/></td>
-                <td><span class="label">${uiLabelMap.ProductWeightUnit}</span>
-                    <select name="weightUomId">
-                        <#list weightUoms as weightUomOption>
-                            <option value="${weightUomOption.uomId}">${weightUomOption.get("description",locale)} [${weightUomOption.abbreviation}]</option>
-                        </#list>
-                    </select>
-                </td>
-                <td><a href="javascript:document.createShipmentPackageForm.submit();" class="buttontext">${uiLabelMap.CommonCreate}</a></td>
-                <td>&nbsp;</td>
-            </tr>
-        </form>
-        -->
         </table>
     </div>
 </div>

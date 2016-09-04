@@ -199,7 +199,6 @@ under the License.
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   <input type="text" name="datetimeReceived" size="24" value="${nowTimestamp}" />
-                  <#-- <a href="#" onclick="setNow("datetimeReceived")" class="buttontext">[Now]</a> -->
                 </td>
               </tr>
               

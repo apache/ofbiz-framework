@@ -273,19 +273,11 @@ under the License.
                     <#if (itemInfos?has_content)>
                       <#assign rowKey = 1>
                       <#list itemInfos as itemInfo>
-                      <#-- <#list itemInfos as orderItem>  -->
                         <#assign orderItem = itemInfo.orderItem/>
                         <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)!>
                         <#assign orderItemQuantity = itemInfo.quantity/>
                         <#assign orderProduct = orderItem.getRelatedOne("Product", false)!/>
                         <#assign product = Static["org.apache.ofbiz.product.product.ProductWorker"].findProduct(delegator, itemInfo.productId)!/>
-                        <#--
-                        <#if orderItem.cancelQuantity?exists>
-                          <#assign orderItemQuantity = orderItem.quantity - orderItem.cancelQuantity>
-                        <#else>
-                          <#assign orderItemQuantity = orderItem.quantity>
-                        </#if>
-                        -->
                         <#assign inputQty = orderItemQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId, itemInfo.productId)>
                         <tr>
                           <td><input type="checkbox" name="sel_${rowKey}" value="Y" <#if (inputQty >0)>checked=""</#if>/></td>

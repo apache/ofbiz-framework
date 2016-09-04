@@ -340,28 +340,6 @@ under the License.
             <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentPackageRouteSeg.shipmentRouteSegmentId}"/>
         </form>
     </#list>
-        <#--
-        <tr>
-            <form action="<@ofbizUrl>createRouteSegmentShipmentPackage</@ofbizUrl>" name="createShipmentPackageRouteSegForm${shipmentRouteSegmentData_index}">
-            <input type="hidden" name="shipmentId" value="${shipmentId}"/>
-            <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}"/>
-            <td>&nbsp;</td>
-            <td>
-                <div>${uiLabelMap.ProductAddPackageInfo} :
-                <select name="shipmentPackageSeqId">
-                    <#list shipmentPackages as shipmentPackage>
-                        <option>${shipmentPackage.shipmentPackageSeqId}</option>
-                    </#list>
-                </select>
-                </div>
-            </td>
-            <td><span class="label">Track#:</span><input type="text" size="22" name="trackingCode"/></td>
-            <td><span class="label">Box#:</span><input type="text" size="5" name="boxNumber"/></td>
-            <td><a href="javascript:document.createShipmentPackageRouteSegForm${shipmentRouteSegmentData_index}.submit()" class="buttontext">${uiLabelMap.CommonAdd}</a></td>
-            <td>&nbsp;</td>
-            </form>
-        </tr>
-        -->
         <#-- toggle the row color -->
         <#assign alt_row = !alt_row>
     </#list>
