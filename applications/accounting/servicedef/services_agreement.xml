@@ -221,7 +221,7 @@ under the License.
     </service>
 
     <!-- AgreementRole -->
-   <service name="createAgreementRole" default-entity-name="AgreementRole" engine="entity-auto" invoke="create" auth="true">
+    <service name="createAgreementRole" default-entity-name="AgreementRole" engine="entity-auto" invoke="create" auth="true">
         <description>Create an Agreement Role</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -234,6 +234,22 @@ under the License.
     <service name="deleteAgreementRole" default-entity-name="AgreementRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an Agreement Role</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+
+    <!-- AgreementType -->
+    <service name="createAgreementType" default-entity-name="AgreementType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a AgreementType record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateAgreementType" default-entity-name="AgreementType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a AgreementType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeAgreementType" default-entity-name="AgreementType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Remove a AgreementType record</description>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
 
     <!-- Agreement content services -->
