@@ -67,8 +67,6 @@ under the License.
 
   <listener><listener-class>org.apache.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
   <listener><listener-class>org.apache.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
-  <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
-  <!-- <listener><listener-class>org.apache.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
 
   <servlet>
     <description>Main Control Servlet</description>
