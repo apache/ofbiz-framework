@@ -1001,7 +1001,7 @@ public class DatabaseUtil {
                     String tableName = tableSet.getString("TABLE_NAME");
                     // for those databases which do not return the schema name with the table name (pgsql 7.3)
                     boolean appendSchemaName = false;
-                    if (tableName != null && lookupSchemaName != null && !tableName.startsWith(lookupSchemaName)) {
+                    if (tableName != null && lookupSchemaName != null && !tableName.startsWith(lookupSchemaName + "\\.")) {
                         appendSchemaName = true;
                     }
                     if (needsUpperCase && tableName != null) {
@@ -3042,7 +3042,7 @@ public class DatabaseUtil {
             String tableName = rawTableName;
             // for those databases which do not return the schema name with the table name (pgsql 7.3)
             boolean appendSchemaName = false;
-            if (tableName != null && lookupSchemaName != null && !tableName.startsWith(lookupSchemaName)) {
+            if (tableName != null && lookupSchemaName != null && !tableName.startsWith(lookupSchemaName + "\\.")) {
                 appendSchemaName = true;
             }
             if (needsUpperCase && tableName != null) {
