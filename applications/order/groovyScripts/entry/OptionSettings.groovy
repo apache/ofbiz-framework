@@ -60,7 +60,6 @@ context.beforeDateStr = fromStr;
 // create the afterDate for calendar
 toCal = Calendar.getInstance();
 toCal.setTime(new java.util.Date());
-//toCal.set(Calendar.DAY_OF_WEEK, toCal.getActualMaximum(Calendar.DAY_OF_WEEK));
 toCal.set(Calendar.HOUR_OF_DAY, toCal.getActualMaximum(Calendar.HOUR_OF_DAY));
 toCal.set(Calendar.MINUTE, toCal.getActualMaximum(Calendar.MINUTE));
 toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND));

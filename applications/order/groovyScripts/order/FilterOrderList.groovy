@@ -44,7 +44,6 @@ filterPOsWithRejectedItems = [];
 filterPartiallyReceivedPOs = [];
 
 state = OrderListState.getInstance(request);
-//print("### " + state.toString());
 
 if ((state.hasFilter("filterPartiallyReceivedPOs") ||
         state.hasFilter("filterPOsOpenPastTheirETA") ||

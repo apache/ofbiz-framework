@@ -35,8 +35,6 @@ productPromoCategoryAlwaysList = EntityUtil.filterByAnd(productPromoCategoryList
 productIdsCond = [] as Set;
 productIdsAction = [] as Set;
 ProductPromoWorker.makeProductPromoCondActionIdSets(productPromoId, productIdsCond, productIdsAction, delegator, null);
-// Debug.logInfo("productIdsCond=" + productIdsCond.toString(), "showProductPromoDetails.bsh");
-// Debug.logInfo("productIdsAction=" + productIdsAction.toString(), "showProductPromoDetails.bsh");
 
 productIds = new TreeSet(productIdsCond);
 productIds.addAll(productIdsAction);

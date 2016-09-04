@@ -213,10 +213,6 @@ if (product) {
     // if order is purchase then don't calculate available inventory for product. 
     if (cart.isSalesOrder()) {
         facilityId = productStore.inventoryFacilityId;
-        /*
-        productFacility = delegator.findOne("ProductFacility", [productId : productId, facilityId : facilityId, true);
-        context.daysToShip = productFacility?.daysToShip
-        */
 
         resultOutput = runService('getInventoryAvailableByFacility', [productId : productId, facilityId : facilityId, useCache : false]);
         totalAvailableToPromise = resultOutput.availableToPromiseTotal;
@@ -592,49 +588,6 @@ if (product) {
 
     accessoryProducts = runService('getAssociatedProducts', [productId : productId, type : "PRODUCT_ACCESSORY", checkViewAllow : true, prodCatalogId : currentCatalogId]);
     context.accessoryProducts = accessoryProducts.assocProducts;
-
-    /*
-      The following code is commented out because it is just an example of the business logic to retrieve products with a similar feature.
-
-    // get other cross-sell information: product with a common feature
-    commonProductFeatureId = "SYMPTOM";
-    // does this product have that feature?
-    commonProductFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", [productId : productId, productFeatureTypeId : commonProductFeatureId], ["sequenceNum", "defaultSequenceNum"], false);
-    if (commonProductFeatureAndAppls) {
-        commonProductFeatureIds = EntityUtil.getFieldListFromEntityList(commonProductFeatureAndAppls, "productFeatureId", true);
-
-        // now search for other products that have this feature
-        visitId = VisitHandler.getVisitId(session);
-
-        productSearchConstraintList = [];
-        productSearchConstraintList.add(new ProductSearch.FeatureSetConstraint(commonProductFeatureIds));
-        // make sure the view allow category is included
-        productSearchConstraintList = ProductSearchSession.ensureViewAllowConstraint(productSearchConstraintList, currentCatalogId, delegator);
-
-        // don't care about the sort on this one
-        resultSortOrder = null;
-
-        commonFeatureResultIdsOrig = ProductSearch.searchProducts(productSearchConstraintList, resultSortOrder, delegator, visitId);
-        commonFeatureResultIds = [];
-        commonFeatureResultIdIter = commonFeatureResultIdsOrig.iterator();
-        while (commonFeatureResultIdIter.hasNext()) {
-            commonFeatureResultId = commonFeatureResultIdIter.next();
-            // filter out the current product
-            if (commonFeatureResultId.equals(productId)) {
-                continue;
-            }
-            // filter out all variants
-            commonProduct = delegator.findOne("Product", [productId : commonFeatureResultId], true);
-            if ("Y".equals(commonProduct?.isVariant)) {
-                continue;
-            }
-            commonFeatureResultIds.add(commonFeatureResultId);
-        }
-        if (commonFeatureResultIds) {
-            context.commonFeatureResultIds = commonFeatureResultIds;
-        }
-    }
-    */
 
     // get the DIGITAL_DOWNLOAD related Content records to show the contentName/description
     downloadProductContentAndInfoList = from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "DIGITAL_DOWNLOAD").cache(true).queryList();

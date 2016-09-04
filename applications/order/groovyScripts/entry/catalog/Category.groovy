@@ -41,25 +41,6 @@ pageTitle = null;
 metaDescription = null;
 metaKeywords = null;
 
-/* NOTE DEJ20070220: this is a weird way to do this and caused unacceptable side effects as described in the related
- * comment in the Main.groovy file
- *
- * NOTE JLR 20070221 this should be done using the same method than in add to cart. I will do it like that and remove all this after.
- *
-if (productCategoryId) {
-    session.setAttribute("productCategoryId", productCategoryId);// for language change
-    previousParams = session.getAttribute("_PREVIOUS_PARAMS_");
-    if (previousParams) {
-        previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, ["category_id"]);
-        previousParams += "&category_id=" + productCategoryId;
-    } else {
-        previousParams = "category_id=" + productCategoryId;
-    }
-    session.setAttribute("_PREVIOUS_PARAMS_", previousParams);    // for login
-    context.previousParams = previousParams;
-}
- */
-
 category = from("ProductCategory").where("productCategoryId", productCategoryId).cache(true).queryOne();
 if (category) {
     if (category.detailScreen) {

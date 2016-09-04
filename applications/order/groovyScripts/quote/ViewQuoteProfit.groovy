@@ -62,7 +62,6 @@ quoteItems.each { quoteItem ->
                 averageCost = productPrice.price * selectedAmount;
             }
         }
-        //defaultQuoteUnitPrice = averageCost * costToPriceMult * selectedAmount;
         totalCost += (averageCost * quantity);
         totalPrice += (unitPrice * quantity * selectedAmount);
     } catch (Exception exc) {
