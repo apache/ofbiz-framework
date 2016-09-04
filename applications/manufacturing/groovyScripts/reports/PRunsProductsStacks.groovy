@@ -62,7 +62,6 @@ if (allProductionRuns) {
         // Stack information
         stackInfos = [];
         productionRunQty = productionRun.quantityToProduce;
-        //numOfStacks = (int)productionRunQty / stackQty; // number of stacks
         numOfStacks = productionRunQty / stackQty; // number of stacks
         numOfStacks = numOfStacks.intValue();
         qtyInLastStack = productionRunQty % stackQty; // qty in the last stack
