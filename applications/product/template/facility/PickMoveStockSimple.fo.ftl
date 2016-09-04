@@ -56,7 +56,6 @@
           <#assign facilityLocationTypeEnumTo = (facilityLocationTo.getRelatedOne("TypeEnumeration", true))!>
           <#assign totalQuantity = moveByOisgirInfo.totalQuantity>
           <fo:table-row>
-          <#-- <tr id="moveInfoId_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>> -->
               <fo:table-cell>
                 <fo:block>${product.productId}</fo:block>
               </fo:table-cell>
@@ -87,7 +86,6 @@
               <fo:table-cell>
                 <fo:block>${targetProductFacilityLocation.moveQuantity!}</fo:block>
               </fo:table-cell>
-          <#-- </tr> -->
           </fo:table-row>
           <#assign rowCount = rowCount + 1>
           <#-- toggle the row color -->
@@ -101,7 +99,6 @@
           <#assign targetProductFacilityLocation = moveByPflInfo.targetProductFacilityLocation>
           <#assign facilityLocationTypeEnumTo = (facilityLocationTo.getRelatedOne("TypeEnumeration", true))!>
           <#assign totalQuantity = moveByPflInfo.totalQuantity>
-          <#-- <tr id="moveInfoId_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>> -->
           <fo:table-row>
               <fo:table-cell>
                 <fo:block>${product.productId}</fo:block>
@@ -134,7 +131,6 @@
                 <fo:block>${targetProductFacilityLocation.moveQuantity!}</fo:block>
               </fo:table-cell>
           </fo:table-row>
-          <#-- </tr> -->
           <#assign rowCount = rowCount + 1>
       </#list>
   </#if>

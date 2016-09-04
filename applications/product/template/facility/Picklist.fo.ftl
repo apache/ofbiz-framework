@@ -245,7 +245,7 @@ under the License.
                         <#assign orderItemShipGrpInvRes = picklistItemInfo.orderItemShipGrpInvRes!>
                         <fo:table-row>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block><#--${picklistItem.orderId}:${picklistItem.shipGroupSeqId}:-->${picklistItem.orderItemSeqId}</fo:block>
+                                <fo:block>${picklistItem.orderItemSeqId}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block>
