@@ -236,8 +236,6 @@
             <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
         </if-not-empty>
 
-        <!-- General Ledger Setup for the new organization -->
-        <!--<call-simple-method method-name="setupDefaultGeneralLedger"/>-->
         
         <!-- create CustomTimePeriod within one years -->
         <now-timestamp field="nowTimestamp"/>
