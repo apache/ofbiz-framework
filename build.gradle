@@ -41,6 +41,11 @@ javadoc.failOnError = false
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
+// Enforces UTF-8 java compilation encoding on Windows platform
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 // root and subproject settings
 defaultTasks 'build'
 
@@ -714,11 +719,6 @@ tasks.addRule('Pattern: ofbizBackground <Commands>: Execute OFBiz startup comman
     if(taskName ==~ /^ofbizBackground\s.*/ || taskName == 'ofbizBackground') {
         createOfbizBackgroundCommandTask(taskName)
     }
-}
-
-// Enforces UTF-8 java compilation encoding on Windows platform
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
 }
 
 /* ========================================================
