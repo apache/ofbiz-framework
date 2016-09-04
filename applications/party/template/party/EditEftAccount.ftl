@@ -125,19 +125,7 @@ under the License.
                 </td>
               </tr>
             <#else>
-               <#-- <tr>
-                <td valign="top" colspan='2'>
-                  ${uiLabelMap.PartyNoBillingAddress}</div>
-                </td>
-              </tr> -->
             </#if>
-              <#-- is confusing
-              <tr>
-                <td valign="top" colspan='2'>
-                  <b>Select a New Billing Address:</b></div>
-                </td>
-              </tr>
-              -->
               <#list postalAddressInfos as postalAddressInfo>
                 <#assign contactMech = postalAddressInfo.contactMech>
                 <#assign partyContactMechPurposes = postalAddressInfo.partyContactMechPurposes>

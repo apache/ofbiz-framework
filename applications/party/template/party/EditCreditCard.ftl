@@ -45,10 +45,6 @@ under the License.
           <td class="label">${uiLabelMap.AccountingBillingAddress}</td>
           <td width="5">&nbsp;</td>
           <td>
-            <#-- Removed because is confusing, can add but would have to come back here with all data populated as before...
-            <a href="<@ofbizUrl>editcontactmech</@ofbizUrl>" class="smallSubmit">
-              [Create New Address]</a>&nbsp;&nbsp;
-            -->
             <table cellspacing="0">
             <#assign hasCurrent = false>
             <#if curPostalAddress?has_content>
@@ -79,19 +75,7 @@ under the License.
                 </td>
               </tr>
             <#else>
-               <#-- <tr>
-                <td valign="top" colspan="2">
-                  ${uiLabelMap.PartyBillingAddressNotSelected}
-                </td>
-              </tr> -->
             </#if>
-              <#-- is confusing
-              <tr>
-                <td valign="top" colspan="2">
-                  <b>Select a New Billing Address:</b>
-                </td>
-              </tr>
-              -->
               <#list postalAddressInfos as postalAddressInfo>
                 <#assign contactMech = postalAddressInfo.contactMech>
                 <#assign partyContactMechPurposes = postalAddressInfo.partyContactMechPurposes>
@@ -123,16 +107,6 @@ under the License.
               <#if !postalAddressInfos?has_content && !curContactMech??>
                   <tr><td colspan="2">${uiLabelMap.PartyNoContactInformation}.</td></tr>
               </#if>
-              <#-- not yet supported in party manager
-              <tr>
-                <td align="right" valigh="top" width="1%">
-                  <input type="radio" name="contactMechId" value="_NEW_" <#if !hasCurrent>checked="checked"</#if> />
-                </td>
-                <td valign="middle" width="80%">
-                  ${uiLabelMap.PartyCreateNewBillingAddress}.
-                </td>
-              </tr>
-              -->
             </table>
           </td>
         </tr>
