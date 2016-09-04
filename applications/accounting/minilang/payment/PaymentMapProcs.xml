@@ -126,4 +126,7 @@ under the License.
     <process field="companyNameOnAccount"><copy/></process>
     <process field="contactMechId"><copy/></process>
   </simple-map-processor>
+  <simple-map-processor name="updateCheckAccount">
+    <process field="paymentMethodId"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingCheckPaymentMethodIdMissing"/></not-empty></process>
+  </simple-map-processor>
 </simple-map-processors>

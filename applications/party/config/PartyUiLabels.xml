@@ -2269,6 +2269,9 @@
         <value xml:lang="zh">编辑电子资金转账账户</value>
         <value xml:lang="zh-TW">編輯電子資金轉帳帳戶</value>
     </property>
+    <property key="PageTitleEditCheckAccount">
+        <value xml:lang="en">Edit Check Account</value>
+    </property>
     <property key="PageTitleEditGiftCard">
         <value xml:lang="ar">تعديل بطاقة الهدية</value>
         <value xml:lang="cs">Zpracovat dárkový poukaz</value>

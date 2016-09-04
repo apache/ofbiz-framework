@@ -991,4 +991,141 @@ public class PaymentMethodServices {
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
+
+    public static Map<String, Object> updateCheckAccount(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        Delegator delegator = ctx.getDelegator();
+        Security security = ctx.getSecurity();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+
+        Timestamp now = UtilDateTime.nowTimestamp();
+
+        String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_UPDATE", "ACCOUNTING", "_UPDATE");
+
+        if (result.size() > 0) return result;
+
+        List<GenericValue> toBeStored = new LinkedList<GenericValue>();
+        boolean isModified = false;
+
+        GenericValue paymentMethod = null;
+        GenericValue newPm = null;
+        GenericValue checkAccount = null;
+        GenericValue newCa = null;
+        String paymentMethodId = (String) context.get("paymentMethodId");
+
+        try {
+            checkAccount = EntityQuery.use(delegator).from("CheckAccount").where("paymentMethodId", paymentMethodId).queryOne();
+            paymentMethod =
+                    EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e.getMessage(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "AccountingCheckAccountCannotBeUpdated",
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
+        }
+
+        if (checkAccount == null || paymentMethod == null) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "AccountingCheckAccountCannotBeUpdated",
+                    UtilMisc.toMap("errorString", paymentMethodId), locale));
+        }
+        if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE", userLogin) && !security.hasEntityPermission("ACCOUNTING", "_UPDATE", userLogin)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "AccountingCheckAccountCannotBeUpdated",
+                    UtilMisc.toMap("partyId", partyId, "paymentMethodId", paymentMethodId), locale));
+        }
+
+        newPm = GenericValue.create(paymentMethod);
+        toBeStored.add(newPm);
+        newCa = GenericValue.create(checkAccount);
+        toBeStored.add(newCa);
+
+        String newPmId = null;
+        try {
+            newPmId = delegator.getNextSeqId("PaymentMethod");
+        } catch (IllegalArgumentException e) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "AccountingCheckAccountCannotBeUpdated", locale));
+        }
+
+        newPm.set("partyId", partyId);
+        newPm.set("paymentMethodTypeId", context.get("paymentMethodTypeId"));
+        newPm.set("fromDate", context.get("fromDate"), false);
+        newPm.set("description",context.get("description"));
+        newCa.set("bankName", context.get("bankName"));
+        newCa.set("routingNumber", context.get("routingNumber"));
+        newCa.set("accountType", context.get("accountType"));
+        newCa.set("accountNumber", context.get("accountNumber"));
+        newCa.set("nameOnAccount", context.get("nameOnAccount"));
+        newCa.set("companyNameOnAccount", context.get("companyNameOnAccount"));
+        newCa.set("contactMechId", context.get("contactMechId"));
+
+        if (!newCa.equals(checkAccount) || !newPm.equals(paymentMethod)) {
+            newPm.set("paymentMethodId", newPmId);
+            newCa.set("paymentMethodId", newPmId);
+            newPm.set("fromDate", (context.get("fromDate") != null ? context.get("fromDate") : now));
+            isModified = true;
+        }
+
+        GenericValue newPartyContactMechPurpose = null;
+        String contactMechId = (String) context.get("contactMechId");
+
+        if (UtilValidate.isNotEmpty(contactMechId)) {
+            // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
+            String contactMechPurposeTypeId = "BILLING_LOCATION";
+
+            GenericValue tempVal = null;
+
+            try {
+                List<GenericValue> allPCWPs = EntityQuery.use(delegator).from("PartyContactWithPurpose")
+                        .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId).queryList();
+                allPCWPs = EntityUtil.filterByDate(allPCWPs, now, "contactFromDate", "contactThruDate", true);
+                allPCWPs = EntityUtil.filterByDate(allPCWPs, now, "purposeFromDate", "purposeThruDate", true);
+                tempVal = EntityUtil.getFirst(allPCWPs);
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e.getMessage(), module);
+                tempVal = null;
+            }
+
+            if (tempVal == null) {
+                // no value found, create a new one
+                newPartyContactMechPurpose = delegator.makeValue("PartyContactMechPurpose",
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId,
+                                "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", now));
+            }
+        }
+
+        if (isModified) {
+            // Debug.logInfo("yes, is modified", module);
+            if (newPartyContactMechPurpose != null)
+                toBeStored.add(newPartyContactMechPurpose);
+
+            // set thru date on old paymentMethod
+            paymentMethod.set("thruDate", now);
+            toBeStored.add(paymentMethod);
+
+            try {
+                delegator.storeAll(toBeStored);
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e.getMessage(), module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                        "AccountingCheckAccountCannotBeUpdated",
+                        UtilMisc.toMap("errorString", e.getMessage()), locale));
+            }
+        } else {
+            result.put("paymentMethodId", paymentMethodId);
+            result.put("oldPaymentMethodId", paymentMethodId);
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource,
+                    "AccountingCheckAccountCannotBeUpdated", locale));
+
+            return result;
+        }
+
+        result.put("paymentMethodId", newCa.getString("paymentMethodId"));
+        result.put("oldPaymentMethodId", paymentMethodId);
+        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+        return result;
+    }
 }

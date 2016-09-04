@@ -19,6 +19,9 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="AccountingCheckAccountCannotBeUpdated">
+        <value xml:lang="en">ERROR: Could not update Check Account.</value>
+    </property>
     <property key="AccountingDeleteRateAmount">
         <value xml:lang="ar">لا يمكن إيجاد سجل مبلغ النسبة لإلغائها</value>
         <value xml:lang="de">Kann die zu löschende Raten-Summe nicht finden</value>

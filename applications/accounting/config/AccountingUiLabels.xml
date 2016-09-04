@@ -2993,10 +2993,16 @@
         <value xml:lang="zh-TW">支票金額</value>
     </property>
     <property key="AccountingCheckCreatedSuccessfully">
-        <value xml:lang="en">Check Account information created successfully</value>
+        <value xml:lang="en">Check Account information created successfully.</value>
     </property>
     <property key="AccountingCheckNotAdded">
-         <value xml:lang="en">Check Account Information can't be created</value>
+         <value xml:lang="en">Check Account Information can not be created.</value>
+    </property>
+    <property key="AccountingCheckUpdatedSuccessfully">
+        <value xml:lang="en">Check Account information updated successfully.</value>
+    </property>
+    <property key="AccountingCheckPaymentMethodIdMissing">
+        <value xml:lang="en">Check Account Payment Method ID is missing.</value>
     </property>
     <property key="AccountingCheckGiftCard">
         <value xml:lang="ar">تحقق مما إذا كان لدي بطاقة هدية للإستخدام اليوم</value>
