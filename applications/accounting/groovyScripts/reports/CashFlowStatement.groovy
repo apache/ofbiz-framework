@@ -77,7 +77,6 @@ List mainAndExprs = [];
 mainAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 mainAndExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
 mainAndExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
-//mainAndExprs.add(EntityCondition.makeCondition("acctgTransTypeId", EntityOperator.NOT_EQUAL, "PERIOD_CLOSING"));
 mainAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, glAccountClassIds));
 
 // All GlAccount's transactions (from last closing period to parameter's fromDate) 
@@ -203,7 +202,6 @@ if (transactionTotals) {
 accountBalanceList.each { accountBalance ->
     balanceTotal = balanceTotal.add(accountBalance.balance);
 }
-//closingCashBalanceTotal = balanceTotal;
 context.closingCashBalanceList = accountBalanceList;
 context.closingCashBalanceList.add("accountName":uiLabelMap.AccountingTotalClosingCashBalance, "balance":balanceTotal);
 

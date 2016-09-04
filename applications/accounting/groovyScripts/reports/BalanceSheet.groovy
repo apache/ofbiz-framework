@@ -305,11 +305,9 @@ accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), U
 accountBalanceList.each { accountBalance ->
     balanceTotal = balanceTotal + accountBalance.balance;
 }
-//context.contraAssetAccountBalanceList = accountBalanceList;
 context.assetAccountBalanceList.addAll(accountBalanceList);
 context.assetAccountBalanceList.add(UtilMisc.toMap("accountName", uiLabelMap.AccountingTotalAccumulatedDepreciation, "balance", balanceTotal));
 context.contraAssetBalanceTotal = balanceTotal;
-//balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingLongTermAssetsAtCost", "balance", (context.longtermAssetBalanceTotal - context.contraAssetBalanceTotal)));
 balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingTotalAccumulatedDepreciation", "balance", balanceTotal));
 balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingTotalAssets", "balance", (context.currentAssetBalanceTotal + context.longtermAssetBalanceTotal + balanceTotal)));
 
