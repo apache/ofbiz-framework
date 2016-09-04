@@ -31,7 +31,6 @@ if (contactList) {
         
         if (contactMechs) {
             context.marketingEmail = contactMechs.get(0);
-            //context.contactMechIdFrom = context.marketingEmail.contactMechId;
         }
     }
 }
