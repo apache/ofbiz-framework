@@ -31,7 +31,6 @@ if (shipmentPlans) {
     workInProgress = "false";
     shipmentPlans.each { shipmentPlan ->
         oneRow = new HashMap(shipmentPlan);
-        //    oneRow.putAll(shipmentPlan.getRelatedOne("OrderItemInventoryRes", false));
         orderItem = shipmentPlan.getRelatedOne("OrderItem", false);
         oneRow.productId = orderItem.productId;
         orderedQuantity = orderItem.quantity;

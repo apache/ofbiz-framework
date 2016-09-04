@@ -30,7 +30,6 @@ if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
 
 // -----------------------------
 // Report's parameters
-//groupByFeatureTypeIdParameter = "COLOR";
 selectWorkEffortNameParameter = "O-PREL_A"; // sezionatura
 selectPrimaryCategoryIdParameter = "CABINETS"; // struttura
 // -----------------------------
