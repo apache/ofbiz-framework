@@ -170,7 +170,6 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${uiLabelMap.PartyListItems} - ${shoppingList.listName}</li>
-        <#-- <li><a href="<@ofbizUrl>addListToCart?shoppingListId=${shoppingList.shoppingListId}</@ofbizUrl>">${uiLabelMap.PartyAddListToCart}</a></li> -->
     </ul>
     <br class="clear"/>
   </div>

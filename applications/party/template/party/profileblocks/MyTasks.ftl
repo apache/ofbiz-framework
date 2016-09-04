@@ -56,7 +56,6 @@ under the License.
         <td>${uiLabelMap.WorkEffortPriority}</td>
         <td>${uiLabelMap.WorkEffortActivityStatus}</td>
         <td>${uiLabelMap.WorkEffortMyStatus}</td>
-        <#-- <td>${uiLabelMap.PartyPartyId}</td> -->
         <td>${uiLabelMap.PartyRole}</td>
         <td>${uiLabelMap.WorkEffortActivityName}</td>
         <td>${uiLabelMap.CommonEdit}</td>
@@ -68,7 +67,6 @@ under the License.
           <td>${workEffort.priority!}</td>
           <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
           <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
-          <#-- <td>${workEffort.partyId}</td> -->
           <td>${workEffort.roleTypeId}</td>
           <td><a href="<@ofbizContentUrl>/workeffort/control/WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizContentUrl>">${workEffort.workEffortName}</a></td>
           <td class="button-col"><a href="<@ofbizContentUrl>/workeffort/control/WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizContentUrl>">${workEffort.workEffortId}</a></td>
@@ -85,7 +83,6 @@ under the License.
         <td>${uiLabelMap.WorkEffortPriority}</td>
         <td>${uiLabelMap.WorkEffortActivityStatus}</td>
         <td>${uiLabelMap.WorkEffortMyStatus}</td>
-        <#-- <td>${uiLabelMap.PartyPartyId}</td> -->
         <td>${uiLabelMap.PartyRole}</td>
         <td>${uiLabelMap.WorkEffortActivityName}</td>
         <td>${uiLabelMap.CommonEdit}</td>
@@ -97,7 +94,6 @@ under the License.
           <td>${workEffort.priority!}</td>
           <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
           <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
-          <#-- <td>${workEffort.partyId}</td> -->
           <td>${workEffort.roleTypeId}</td>
           <td><a href="<@ofbizContentUrl>/workeffort/control/WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizContentUrl>">${workEffort.workEffortName}</a></td>
           <td class="button-col"><a href="<@ofbizContentUrl>/workeffort/control/acceptRoleAssignment?workEffortId=${workEffort.workEffortId}&amp;partyId=${workEffort.partyId}&amp;roleTypeId=${workEffort.roleTypeId}&amp;fromDate=${workEffort.fromDate.toString()}</@ofbizContentUrl>">${uiLabelMap.WorkEffortAcceptAssignment}&nbsp;[${workEffort.workEffortId}]</a></td>
@@ -115,7 +111,6 @@ under the License.
         <td>${uiLabelMap.WorkEffortActivityStatus}</td>
         <td>${uiLabelMap.WorkEffortMyStatus}</td>
         <td>${uiLabelMap.PartyGroupPartyId}</td>
-        <#-- <td>${uiLabelMap.PartyRole}</td> -->
         <td>${uiLabelMap.WorkEffortActivityName}</td>
         <td>${uiLabelMap.CommonEdit}</td>
       </tr>
@@ -127,7 +122,6 @@ under the License.
           <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
           <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
           <td>${workEffort.groupPartyId}</td>
-          <#-- <td>${workEffort.roleTypeId}</td> -->
           <td><a href="<@ofbizContentUrl>/workeffort/control/WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizContentUrl>">${workEffort.workEffortName}</a></td>
           <td class="button-col"><a href="<@ofbizContentUrl>/workeffort/control/acceptassignment?workEffortId=${workEffort.workEffortId}&amp;partyId=${workEffort.partyId}&amp;roleTypeId=${workEffort.roleTypeId}&amp;fromDate=${workEffort.fromDate}</@ofbizContentUrl>">${uiLabelMap.WorkEffortAcceptAssignment}&nbsp;[${workEffort.workEffortId}]</a></td>
         </tr>
