@@ -100,7 +100,6 @@ if (picklistBinId) {
         orderId = bin.primaryOrderId;
         shipGroupSeqId = bin.primaryShipGroupSeqId;
         packSession.addItemInfo(bin.getRelated("PicklistItem", [itemStatusId : 'PICKITEM_PENDING'], null, false));
-        //context.put("picklistItemInfos", bin.getRelated("PicklistItem", UtilMisc.toMap("itemStatusId", "PICKITEM_PENDING"), null, false));
     }
 } else {
     picklistBinId = null;
@@ -158,7 +157,6 @@ if (orderId) {
     
                     if (!picklistBinId) {
                         packSession.addItemInfo(shippableItems);
-                        //context.put("itemInfos", shippableItemInfo);
                     }
                 } else {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderHasBeenAlreadyVerified", [orderId : orderId], locale));
