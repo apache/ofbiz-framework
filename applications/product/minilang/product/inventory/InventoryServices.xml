@@ -302,6 +302,17 @@ under the License.
             </if-compare>
         </if-not-empty>
         <set field="oldUnitCost" from-field="lookedUpValue.unitCost"/>
+        <if-not-empty field="parameters.lotId">
+        	<!-- Check if the lot already exists -->
+            <entity-and list="lotList" entity-name="Lot">
+                  <field-map field-name="lotId" from-field="parameters.lotId" />
+            </entity-and>
+            <if-empty field="lotList">
+                <make-value value-field="lot" entity-name="Lot"/>
+                <set field="lot.lotId" from-field="parameters.lotId"/>
+                <create-value value-field="lot"/>
+            </if-empty>
+        </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
         <!-- if the unit cost is changed create an InventoryItemDetail to keep track of unit cost history -->
