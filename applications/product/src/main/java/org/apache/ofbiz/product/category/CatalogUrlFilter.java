@@ -44,6 +44,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.control.ContextFilter;
 
 public class CatalogUrlFilter extends ContextFilter {
@@ -66,7 +67,7 @@ public class CatalogUrlFilter extends ContextFilter {
         //Get ServletContext
         ServletContext servletContext = config.getServletContext();
 
-        ContextFilter.setCharacterEncoding(request);
+        WebAppUtil.setCharacterEncoding(request);
 
         //Set request attribute and session
         UrlServletHelper.setRequestAttributes(request, delegator, servletContext);
@@ -324,7 +325,7 @@ public class CatalogUrlFilter extends ContextFilter {
             UrlServletHelper.setViewQueryParameters(request, urlBuilder);
             if (UtilValidate.isNotEmpty(productId) || UtilValidate.isNotEmpty(productCategoryId) || UtilValidate.isNotEmpty(urlContentId)) {
                 Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", module);
-                ContextFilter.setAttributesFromRequestBody(request);
+                WebAppUtil.setAttributesFromRequestBody(request);
                 RequestDispatcher dispatch = request.getRequestDispatcher(urlBuilder.toString());
                 dispatch.forward(request, response);
                 return;

@@ -39,6 +39,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.ofbiz.base.util.Debug;
@@ -296,7 +297,7 @@ public class SeoContextFilter extends ContextFilter {
             String serverName = httpRequest.getServerName();
             try {
                 // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute                
-                Delegator delegator = getDelegator(config.getServletContext());
+                Delegator delegator = WebAppUtil.getDelegator(config.getServletContext());
                 
                 // to access entity "tenant" we need the default delegator
                 Delegator defaultdelegator = DelegatorFactory.getDelegator("default");
@@ -330,9 +331,9 @@ public class SeoContextFilter extends ContextFilter {
                     config.getServletContext().setAttribute("dispatcher", null);
 
                     // initialize security
-                    Security security = getSecurity();
+                    Security security = WebAppUtil.getSecurity(config.getServletContext());
                     // initialize the services dispatcher
-                    LocalDispatcher dispatcher = getDispatcher(config.getServletContext());
+                    LocalDispatcher dispatcher = WebAppUtil.getDispatcher(config.getServletContext());
 
                     // set web context objects
                     request.setAttribute("dispatcher", dispatcher);

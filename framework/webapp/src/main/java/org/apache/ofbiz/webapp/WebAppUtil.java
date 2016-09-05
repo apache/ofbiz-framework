@@ -22,13 +22,22 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
 
-import org.apache.tomcat.util.digester.Digester;
-import org.apache.tomcat.util.descriptor.DigesterFactory;
-import org.apache.tomcat.util.descriptor.web.ServletDef;
-import org.apache.tomcat.util.descriptor.web.WebRuleSet;
-import org.apache.tomcat.util.descriptor.web.WebXml;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.DelegatorFactory;
+import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.security.SecurityConfigurationException;
+import org.apache.ofbiz.security.SecurityFactory;
+import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ServiceContainer;
+import org.apache.ofbiz.webapp.event.RequestBodyMapHandlerFactory;
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.apache.ofbiz.base.util.Assert;
@@ -36,6 +45,12 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilXml.LocalErrorHandler;
 import org.apache.ofbiz.base.util.UtilXml.LocalResolver;
 import org.apache.ofbiz.base.util.cache.UtilCache;
+
+import org.apache.tomcat.util.digester.Digester;
+import org.apache.tomcat.util.descriptor.DigesterFactory;
+import org.apache.tomcat.util.descriptor.web.ServletDef;
+import org.apache.tomcat.util.descriptor.web.WebRuleSet;
+import org.apache.tomcat.util.descriptor.web.WebXml;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -118,6 +133,103 @@ public final class WebAppUtil {
         return webXml.getContextParams().get("webSiteId");
     }
 
+    public static LocalDispatcher getDispatcher(ServletContext servletContext) {
+        LocalDispatcher dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
+        if (dispatcher == null) {
+            Delegator delegator = getDelegator(servletContext);
+            dispatcher = makeWebappDispatcher(servletContext, delegator);
+            servletContext.setAttribute("dispatcher", dispatcher);
+        }
+        return dispatcher;
+    }
+
+    public static void setCharacterEncoding(ServletRequest request) throws UnsupportedEncodingException {
+        String charset = request.getServletContext().getInitParameter("charset");
+        if (UtilValidate.isEmpty(charset)) charset = request.getCharacterEncoding();
+        if (UtilValidate.isEmpty(charset)) charset = "UTF-8";
+        if (Debug.verboseOn()) Debug.logVerbose("The character encoding of the request is: [" + request.getCharacterEncoding() + "]. The character encoding we will use for the request is: [" + charset + "]", module);
+
+        if (!"none".equals(charset)) {
+            request.setCharacterEncoding(charset);
+        }
+    }
+
+    public static void setAttributesFromRequestBody(ServletRequest request) {
+        // read the body (for JSON requests) and set the parameters as attributes:
+        Map<String, Object> requestBodyMap = null;
+        try {
+            requestBodyMap = RequestBodyMapHandlerFactory.extractMapFromRequestBody(request);
+        } catch (IOException ioe) {
+            Debug.logWarning(ioe, module);
+        }
+        if (requestBodyMap != null) {
+            Set<String> parameterNames = requestBodyMap.keySet();
+            for (String parameterName: parameterNames) {
+                request.setAttribute(parameterName, requestBodyMap.get(parameterName));
+            }
+        }
+    }
+
+    /** This method only sets up a dispatcher for the current webapp and passed in delegator, it does not save it to the ServletContext or anywhere else, just returns it */
+    public static LocalDispatcher makeWebappDispatcher(ServletContext servletContext, Delegator delegator) {
+        if (delegator == null) {
+            Debug.logError("[ContextFilter.init] ERROR: delegator not defined.", module);
+            return null;
+        }
+        // get the unique name of this dispatcher
+        String dispatcherName = servletContext.getInitParameter("localDispatcherName");
+
+        if (dispatcherName == null) {
+            Debug.logError("No localDispatcherName specified in the web.xml file", module);
+            dispatcherName = delegator.getDelegatorName();
+        }
+
+        LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, delegator);
+        if (dispatcher == null) {
+            Debug.logError("[ContextFilter.init] ERROR: dispatcher could not be initialized.", module);
+        }
+
+        return dispatcher;
+    }
+
+    public static Delegator getDelegator(ServletContext servletContext) {
+        Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
+        if (delegator == null) {
+            String delegatorName = servletContext.getInitParameter("entityDelegatorName");
+
+            if (UtilValidate.isEmpty(delegatorName)) {
+                delegatorName = "default";
+            }
+            if (Debug.verboseOn()) Debug.logVerbose("Setup Entity Engine Delegator with name " + delegatorName, module);
+            delegator = DelegatorFactory.getDelegator(delegatorName);
+            servletContext.setAttribute("delegator", delegator);
+            if (delegator == null) {
+                Debug.logError("[ContextFilter.init] ERROR: delegator factory returned null for delegatorName \"" + delegatorName + "\"", module);
+            }
+        }
+        return delegator;
+    }
+
+    public static Security getSecurity(ServletContext servletContext) {
+        Security security = (Security) servletContext.getAttribute("security");
+        if (security == null) {
+            Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
+
+            if (delegator != null) {
+                try {
+                    security = SecurityFactory.getInstance(delegator);
+                } catch (SecurityConfigurationException e) {
+                    Debug.logError(e, "Unable to obtain an instance of the security object.", module);
+                }
+            }
+            servletContext.setAttribute("security", security);
+            if (security == null) {
+                Debug.logError("An invalid (null) Security object has been set in the servlet context.", module);
+            }
+        }
+        return security;
+    }
+
     /**
      * Returns a <code>WebXml</code> instance that models the web application's <code>web.xml</code> file.
      * 
@@ -125,7 +237,7 @@ public final class WebAppUtil {
      * @throws IOException
      * @throws SAXException
      */
-    public static WebXml getWebXml(WebappInfo webAppInfo) throws IOException, SAXException {
+    private static WebXml getWebXml(WebappInfo webAppInfo) throws IOException, SAXException {
         Assert.notNull("webAppInfo", webAppInfo);
         String webXmlFileLocation = webAppInfo.getLocation().concat(webAppFileName);
         return parseWebXmlFile(webXmlFileLocation, true);
@@ -139,7 +251,7 @@ public final class WebAppUtil {
      * @throws IOException
      * @throws SAXException
      */
-    public static WebXml parseWebXmlFile(String webXmlFileLocation, boolean validate) throws IOException, SAXException {
+    private static WebXml parseWebXmlFile(String webXmlFileLocation, boolean validate) throws IOException, SAXException {
         Assert.notEmpty("webXmlFileLocation", webXmlFileLocation);
         WebXml result = webXmlCache.get(webXmlFileLocation);
         if (result == null) {
