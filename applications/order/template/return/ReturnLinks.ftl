@@ -43,7 +43,7 @@ under the License.
           <#assign partyId = "${(returnHeader.fromPartyId)!}"/>
           <a href="<@ofbizUrl>setOrderCurrencyAgreementShipDates?partyId=${partyId!}&amp;originOrderId=${orderId!}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateExchangeOrder} ${uiLabelMap.CommonFor} ${orderId!}</a>
         </#if>
-        <#if "RETURN_ACCEPTED" == returnHeader.statusId>
+        <#if returnHeader.statusId?has_content && "RETURN_ACCEPTED" == returnHeader.statusId>
           <#assign returnItems = delegator.findByAnd("ReturnItem", {"returnId" : returnId}, null, false)/>
           <#if returnItems?has_content>
             <#assign orderId = (Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
