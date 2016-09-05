@@ -234,8 +234,10 @@ under the License.
       <#if firstInList?has_content && currentValue?has_content && !multiple?has_content>
         <option selected="selected" value="${currentValue}">${explicitDescription?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/><#-- replace("&#x5c;&#x27;","&#x27;") related to OFBIZ-6504 -->
       </#if>
-      <#if allowEmpty?has_content || !options?has_content>
+      <#if allowEmpty?has_content && allowEmpty=="Y">
         <option value="">&nbsp;</option>
+      <#elseif allowEmpty=="N" && !options?has_content>
+          <option value="">&nbsp;</option>
       </#if>
       <#list options as item>
         <#if multiple?has_content>
