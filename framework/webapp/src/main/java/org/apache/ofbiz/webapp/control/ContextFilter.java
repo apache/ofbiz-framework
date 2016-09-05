@@ -54,6 +54,7 @@ import org.apache.ofbiz.security.SecurityConfigurationException;
 import org.apache.ofbiz.security.SecurityFactory;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
+import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.event.RequestBodyMapHandlerFactory;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
@@ -74,7 +75,7 @@ public class ContextFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
         this.config = config;
 
-        // puts all init-parameters in ServletContext attributes for easier parameterization without code changes
+        // puts all init-parameters in ServletContext attributes for easier parametrization without code changes
         this.putAllInitParametersInAttributes();
 
         // set debug
@@ -86,11 +87,11 @@ public class ContextFilter implements Filter {
         // check the serverId
         getServerId();
         // initialize the delegator
-        getDelegator(config.getServletContext());
+        WebAppUtil.getDelegator(config.getServletContext());
         // initialize security
-        getSecurity();
+        WebAppUtil.getSecurity(config.getServletContext());
         // initialize the services dispatcher
-        getDispatcher(config.getServletContext());
+        WebAppUtil.getDispatcher(config.getServletContext());
 
         // this will speed up the initial sessionId generation
         new java.security.SecureRandom().nextLong();
@@ -251,14 +252,14 @@ public class ContextFilter implements Filter {
 
         // check if multi tenant is enabled
         boolean useMultitenant = EntityUtil.isMultiTenantEnabled();
-        setCharacterEncoding(request);
-        setAttributesFromRequestBody(request);
+        WebAppUtil.setCharacterEncoding(request);
+        WebAppUtil.setAttributesFromRequestBody(request);
         if (useMultitenant) {
             // get tenant delegator by domain name
             String serverName = httpRequest.getServerName();
             try {
                 // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
-                Delegator delegator = getDelegator(config.getServletContext());
+                Delegator delegator = WebAppUtil.getDelegator(config.getServletContext());
 
                 //Use base delegator for fetching data from entity of entityGroup org.apache.ofbiz.tenant
                 Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
@@ -298,9 +299,9 @@ public class ContextFilter implements Filter {
                     config.getServletContext().setAttribute("dispatcher", null);
 
                     // initialize security
-                    Security security = getSecurity();
+                    Security security = WebAppUtil.getSecurity(config.getServletContext());
                     // initialize the services dispatcher
-                    LocalDispatcher dispatcher = getDispatcher(config.getServletContext());
+                    LocalDispatcher dispatcher = WebAppUtil.getDispatcher(config.getServletContext());
 
                     // set web context objects
                     request.setAttribute("dispatcher", dispatcher);
@@ -327,108 +328,11 @@ public class ContextFilter implements Filter {
      * @see javax.servlet.Filter#destroy()
      */
     public void destroy() {
-        getDispatcher(config.getServletContext()).deregister();
+        WebAppUtil.getDispatcher(config.getServletContext()).deregister();
         config = null;
     }
 
-    protected static LocalDispatcher getDispatcher(ServletContext servletContext) {
-        LocalDispatcher dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
-        if (dispatcher == null) {
-            Delegator delegator = getDelegator(servletContext);
-            dispatcher = makeWebappDispatcher(servletContext, delegator);
-            servletContext.setAttribute("dispatcher", dispatcher);
-        }
-        return dispatcher;
-    }
-
-    public static void setCharacterEncoding(ServletRequest request) throws UnsupportedEncodingException {
-        String charset = request.getServletContext().getInitParameter("charset");
-        if (UtilValidate.isEmpty(charset)) charset = request.getCharacterEncoding();
-        if (UtilValidate.isEmpty(charset)) charset = "UTF-8";
-        if (Debug.verboseOn()) Debug.logVerbose("The character encoding of the request is: [" + request.getCharacterEncoding() + "]. The character encoding we will use for the request is: [" + charset + "]", module);
-
-        if (!"none".equals(charset)) {
-            request.setCharacterEncoding(charset);
-        }
-    }
-
-    public static void setAttributesFromRequestBody(ServletRequest request) {
-        // read the body (for JSON requests) and set the parameters as attributes:
-        Map<String, Object> requestBodyMap = null;
-        try {
-            requestBodyMap = RequestBodyMapHandlerFactory.extractMapFromRequestBody(request);
-        } catch (IOException ioe) {
-            Debug.logWarning(ioe, module);
-        }
-        if (requestBodyMap != null) {
-            Set<String> parameterNames = requestBodyMap.keySet();
-            for (String parameterName: parameterNames) {
-                request.setAttribute(parameterName, requestBodyMap.get(parameterName));
-            }
-        }
-    }
-
-    /** This method only sets up a dispatcher for the current webapp and passed in delegator, it does not save it to the ServletContext or anywhere else, just returns it */
-    public static LocalDispatcher makeWebappDispatcher(ServletContext servletContext, Delegator delegator) {
-        if (delegator == null) {
-            Debug.logError("[ContextFilter.init] ERROR: delegator not defined.", module);
-            return null;
-        }
-        // get the unique name of this dispatcher
-        String dispatcherName = servletContext.getInitParameter("localDispatcherName");
-
-        if (dispatcherName == null) {
-            Debug.logError("No localDispatcherName specified in the web.xml file", module);
-            dispatcherName = delegator.getDelegatorName();
-        }
-
-        LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, delegator);
-        if (dispatcher == null) {
-            Debug.logError("[ContextFilter.init] ERROR: dispatcher could not be initialized.", module);
-        }
-
-        return dispatcher;
-    }
-
-    protected static Delegator getDelegator(ServletContext servletContext) {
-        Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
-        if (delegator == null) {
-            String delegatorName = servletContext.getInitParameter("entityDelegatorName");
-
-            if (UtilValidate.isEmpty(delegatorName)) {
-                delegatorName = "default";
-            }
-            if (Debug.verboseOn()) Debug.logVerbose("Setup Entity Engine Delegator with name " + delegatorName, module);
-            delegator = DelegatorFactory.getDelegator(delegatorName);
-            servletContext.setAttribute("delegator", delegator);
-            if (delegator == null) {
-                Debug.logError("[ContextFilter.init] ERROR: delegator factory returned null for delegatorName \"" + delegatorName + "\"", module);
-            }
-        }
-        return delegator;
-    }
-
-    protected Security getSecurity() {
-        Security security = (Security) config.getServletContext().getAttribute("security");
-        if (security == null) {
-            Delegator delegator = (Delegator) config.getServletContext().getAttribute("delegator");
-
-            if (delegator != null) {
-                try {
-                    security = SecurityFactory.getInstance(delegator);
-                } catch (SecurityConfigurationException e) {
-                    Debug.logError(e, "Unable to obtain an instance of the security object.", module);
-                }
-            }
-            config.getServletContext().setAttribute("security", security);
-            if (security == null) {
-                Debug.logError("An invalid (null) Security object has been set in the servlet context.", module);
-            }
-        }
-        return security;
-    }
-
-    protected void putAllInitParametersInAttributes() {
+    private void putAllInitParametersInAttributes() {
         Enumeration<String> initParamEnum = UtilGenerics.cast(config.getServletContext().getInitParameterNames());
         while (initParamEnum.hasMoreElements()) {
             String initParamName = initParamEnum.nextElement();
@@ -438,7 +342,7 @@ public class ContextFilter implements Filter {
         }
     }
 
-    protected String getServerId() {
+    private String getServerId() {
         String serverId = (String) config.getServletContext().getAttribute("_serverId");
         if (serverId == null) {
             serverId = config.getServletContext().getInitParameter("ofbizServerName");

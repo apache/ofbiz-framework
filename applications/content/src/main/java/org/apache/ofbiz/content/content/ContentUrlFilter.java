@@ -38,6 +38,7 @@ import org.apache.ofbiz.common.UrlServletHelper;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.control.ContextFilter;
 
 public class ContentUrlFilter extends ContextFilter {
@@ -57,7 +58,7 @@ public class ContentUrlFilter extends ContextFilter {
         //Get ServletContext
         ServletContext servletContext = config.getServletContext();
 
-        ContextFilter.setCharacterEncoding(request);
+        WebAppUtil.setCharacterEncoding(request);
 
         //Set request attribute and session
         UrlServletHelper.setRequestAttributes(request, delegator, servletContext);
@@ -88,7 +89,7 @@ public class ContentUrlFilter extends ContextFilter {
                 urlBuilder.append("/" + CONTROL_MOUNT_POINT);
                 urlBuilder.append("/" + config.getInitParameter("viewRequest") + "?contentId=" + urlContentId);
 
-                ContextFilter.setAttributesFromRequestBody(request);
+                WebAppUtil.setAttributesFromRequestBody(request);
                 //Set view query parameters
                 UrlServletHelper.setViewQueryParameters(request, urlBuilder);
                 Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", module);

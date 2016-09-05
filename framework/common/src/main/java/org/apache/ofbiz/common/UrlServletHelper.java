@@ -38,6 +38,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.control.ContextFilter;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
@@ -56,7 +57,7 @@ public final class UrlServletHelper extends ContextFilter {
             String serverName = request.getServerName();
             try {
                 // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
-                delegator = getDelegator(servletContext);
+                delegator = WebAppUtil.getDelegator(servletContext);
 
                 //Use base delegator for fetching data from entity of entityGroup org.apache.ofbiz.tenant
                 Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
