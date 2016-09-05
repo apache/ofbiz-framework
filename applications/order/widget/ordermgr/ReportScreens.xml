@@ -114,6 +114,9 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderReportPurchasesByPaymentMethod"/>
+                <set field="productStoreIds" from-field="parameters.productStoreId" type="List"/>
+                <set field="originFacilityIds" from-field="parameters.originFacilityId" type="List"/>
+                <set field="statusIds" from-field="parameters.statusId" type="List"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
@@ -121,10 +124,10 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <entity-condition entity-name="OrderPurchasePaymentSummary" list="orderPurchasePaymentSummaryList">
                     <condition-list combine="and">
-                        <condition-expr field-name="productStoreId" operator="equals" from-field="parameters.productStoreId" ignore-if-empty="true"/>
-                        <condition-expr field-name="originFacilityId" operator="equals" from-field="parameters.originFacilityId" ignore-if-empty="true"/>
+                        <condition-expr field-name="productStoreId" operator="in" from-field="productStoreIds" ignore-if-empty="true"/>
+                        <condition-expr field-name="originFacilityId" operator="in" from-field="originFacilityIds" ignore-if-empty="true"/>
                         <condition-expr field-name="terminalId" operator="equals" from-field="parameters.terminalId" ignore-if-empty="true"/>
-                        <condition-expr field-name="statusId" operator="equals" from-field="parameters.statusId" ignore-if-empty="true"/>
+                        <condition-expr field-name="statusId" operator="in" from-field="statusIds" ignore-if-empty="true"/>
                         <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-empty="true"/>
                         <condition-expr field-name="orderDate" operator="less" from-field="parameters.thruOrderDate" ignore-if-empty="true"/>
                     </condition-list>
@@ -152,17 +155,20 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderReportPurchasesByProduct"/>
+                <set field="productStoreIds" from-field="parameters.productStoreId" type="List"/>
+                <set field="originFacilityIds" from-field="parameters.originFacilityId" type="List"/>
+                <set field="statusIds" from-field="parameters.statusId" type="List"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <entity-condition entity-name="OrderPurchaseProductSummary" list="orderPurchaseProductSummaryList">
                     <condition-list combine="and">
-                        <condition-expr field-name="productStoreId" operator="equals" from-field="parameters.productStoreId" ignore-if-empty="true"/>
-                        <condition-expr field-name="orderTypeId" operator="equals" from-field="parameters.orderTypeId" ignore-if-empty="true"/>
-                        <condition-expr field-name="originFacilityId" operator="equals" from-field="parameters.originFacilityId" ignore-if-empty="true"/>
+                        <condition-expr field-name="productStoreId" operator="in" from-field="productStoreIds" ignore-if-empty="true"/>
+                        <condition-expr field-name="orderTypeId" operator="equals" from-field="PURCHASE_ORDER" ignore-if-empty="true"/>
+                        <condition-expr field-name="originFacilityId" operator="in" from-field="originFacilityIds" ignore-if-empty="true"/>
                         <condition-expr field-name="terminalId" operator="equals" from-field="parameters.terminalId" ignore-if-empty="true"/>
-                        <condition-expr field-name="statusId" operator="equals" from-field="parameters.statusId" ignore-if-empty="true"/>
+                        <condition-expr field-name="statusId" operator="in" from-field="statusIds" ignore-if-empty="true"/>
                         <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-empty="true"/>
                         <condition-expr field-name="orderDate" operator="less" from-field="parameters.thruOrderDate" ignore-if-empty="true"/>
                     </condition-list>
