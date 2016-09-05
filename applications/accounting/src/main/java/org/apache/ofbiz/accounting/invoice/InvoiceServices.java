@@ -669,7 +669,7 @@ public class InvoiceServices {
 //                    continue;
 //                }
                 // If the absolute invoiced amount >= the abs of the adjustment amount, the full amount has already been invoiced, so skip this adjustment
-                if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING).abs()) > 0) {
+                if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING).abs()) >= 0) {
                     continue;
                 }
 
@@ -2289,8 +2289,9 @@ public class InvoiceServices {
 
             // pro-rate the amount
             BigDecimal amount = ZERO;
-            // make sure the divisor is not 0 to avoid NaN problems; just leave the amount as 0 and skip it in essense
-            if (divisor.signum() != 0) {
+            if("DONATION_ADJUSTMENT".equals(adj.getString("orderAdjustmentTypeId"))) {
+            	amount=baseAmount;
+            } else if (divisor.signum() != 0) { // make sure the divisor is not 0 to avoid NaN problems; just leave the amount as 0 and skip it in essense
                 // multiply first then divide to avoid rounding errors
                 amount = baseAmount.multiply(multiplier).divide(divisor, decimals, rounding);
             }
