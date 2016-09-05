@@ -23,24 +23,16 @@ under the License.
     <form name="OrderPurchaseReportOptions" type="single" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" allow-multiple="true" size="4">
                 <option key="" description="- ${uiLabelMap.CommonAny} -"/>
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="orderTypeId">
-            <drop-down allow-empty="false">
-                <option key="" description="- ${uiLabelMap.CommonAny} -"/>
-                <entity-options entity-name="OrderType">
-                    <entity-order-by field-name="orderTypeId"/>
-                </entity-options>
-            </drop-down>
-        </field>
 
         <field name="originFacilityId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" allow-multiple="true" size="4">
                 <option key="" description="- ${uiLabelMap.CommonAny} -"/>
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
                     <entity-order-by field-name="facilityName"/>
@@ -49,13 +41,13 @@ under the License.
         </field>
         <field name="terminalId"><text size="10" maxlength="20"/></field>
         <field name="statusId">
-            <drop-down allow-empty="false" no-current-selected-key="ORDER_COMPLETED">
+            <check all-checked="false">
                 <option key="" description="- ${uiLabelMap.CommonAny} -"/>
                 <entity-options entity-name="StatusItem">
                     <entity-constraint value="ORDER_STATUS" name="statusTypeId"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
     </form>
     <form name="OrderPurchaseProductOptions" type="single" target="OrderPurchaseReportProduct.pdf" title="" extends="OrderPurchaseReportOptions" target-window="_BLANK">
@@ -64,6 +56,13 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="OrderPurchasePaymentOptions" type="single" target="OrderPurchaseReportPayment.pdf" title="" extends="OrderPurchaseReportOptions" target-window="_BLANK">
+        <field name="orderTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="OrderType">
+                    <entity-order-by field-name="orderTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="fromOrderDate" title="${uiLabelMap.OrderReportFromDate}"><date-time type="timestamp"/></field>
         <field name="thruOrderDate" title="${uiLabelMap.OrderReportThruDate}"><date-time type="timestamp"/></field>
 
@@ -74,12 +73,12 @@ under the License.
     <form name="SalesByStoreReport" type="single" target="SalesByStoreReport.pdf" title=""
         header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
         <field name="productStoreId">
-            <check all-checked="false">
+            <drop-down allow-empty="false" allow-multiple="true" size="4">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
-            </check>
+            </drop-down>
         </field>
         <field name="toPartyId" title="${uiLabelMap.AccountingToPartyId}">
             <lookup target-form-name="LookupPartyName"/>
@@ -101,12 +100,12 @@ under the License.
     <form name="OpenOrderItemsReport" type="single" target="OpenOrderItemsReport" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId">
-            <check all-checked="false">
+            <drop-down allow-empty="false" allow-multiple="true" size="4">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
-            </check>
+            </drop-down>
         </field>
         <field name="orderTypeId">
             <drop-down allow-empty="false">

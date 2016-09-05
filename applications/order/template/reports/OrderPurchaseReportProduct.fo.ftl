@@ -43,7 +43,15 @@ under the License.
             <#if !showProductStore><fo:block font-size="10pt">${uiLabelMap.CommonFor} ${uiLabelMap.ProductProductStore}: ${parameters.productStoreId}</fo:block></#if>
             <#if !showOriginFacility><fo:block font-size="10pt">${uiLabelMap.CommonFor} ${uiLabelMap.FormFieldTitle_originFacilityId}: ${parameters.originFacilityId}</fo:block></#if>
             <#if !showTerminal><fo:block font-size="10pt">${uiLabelMap.CommonFor} ${uiLabelMap.FormFieldTitle_terminalId}: ${parameters.terminalId}</fo:block></#if>
-            <#if !showStatus><fo:block font-size="10pt">${uiLabelMap.CommonFor} ${uiLabelMap.CommonStatus}: ${parameters.statusId}</fo:block></#if>
+            <#if !showStatus>
+              <fo:block font-size="10pt">
+                ${uiLabelMap.CommonFor} ${uiLabelMap.CommonStatus}: 
+                <#list statusIds as statusId>
+                  <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : statusId}, false)!/>
+                  ${statusItem.description}
+                </#list>
+              </fo:block>
+            </#if>
             <#if parameters.fromOrderDate?has_content><fo:block font-size="10pt">${uiLabelMap.CommonFromDate}: ${parameters.fromOrderDate} (${uiLabelMap.OrderDate} &gt;= ${uiLabelMap.CommonFrom})</fo:block></#if>
             <#if parameters.thruOrderDate?has_content><fo:block font-size="10pt">${uiLabelMap.CommonThruDate}: ${parameters.thruOrderDate} (${uiLabelMap.OrderDate} &lt; ${uiLabelMap.CommonFrom})</fo:block></#if>
             <fo:block space-after.optimum="10pt" font-size="10pt">
