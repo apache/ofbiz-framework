@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.UrlServletHelper;
@@ -43,12 +42,7 @@ import org.apache.ofbiz.webapp.control.ContextFilter;
 
 public class ContentUrlFilter extends ContextFilter {
     public final static String module = ContentUrlFilter.class.getName();
-    
-    public static final String CONTROL_MOUNT_POINT = "control";
-    protected static String defaultLocaleString = null;
-    protected static String redirectUrl = null;
-    public static String defaultViewRequest = "contentViewInfo";
-    
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)  throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -86,7 +80,7 @@ public class ContentUrlFilter extends ContextFilter {
             }
             if (UtilValidate.isNotEmpty(urlContentId)) {
                 StringBuilder urlBuilder = new StringBuilder();
-                urlBuilder.append("/" + CONTROL_MOUNT_POINT);
+                urlBuilder.append("/" + WebAppUtil.CONTROL_MOUNT_POINT);
                 urlBuilder.append("/" + config.getInitParameter("viewRequest") + "?contentId=" + urlContentId);
 
                 WebAppUtil.setAttributesFromRequestBody(request);
@@ -103,61 +97,5 @@ public class ContentUrlFilter extends ContextFilter {
         }
         // we're done checking; continue on
         chain.doFilter(request, response);
-    }
-    
-    public static String makeContentAltUrl(HttpServletRequest request, HttpServletResponse response, String contentId, String viewContent) {
-        if (UtilValidate.isEmpty(contentId)) {
-            return null;
-        }
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-        String url = null;
-        try {
-            GenericValue contentAssocDataResource = EntityQuery.use(delegator)
-                    .select("contentIdStart", "drObjectInfo", "dataResourceId", "caFromDate", "caThruDate", "caCreatedDate")
-                    .from("ContentAssocDataResourceViewTo")
-                    .where("caContentAssocTypeId", "ALTERNATIVE_URL",
-                            "caThruDate", null,
-                            "contentIdStart", contentId)
-                    .orderBy("-caFromDate")
-                    .queryFirst();
-            if (contentAssocDataResource != null) {
-                url = contentAssocDataResource.getString("drObjectInfo");
-                url = UtilCodec.getDecoder("url").decode(url);
-                String mountPoint = request.getContextPath();
-                if (!(mountPoint.equals("/")) && !(mountPoint.equals(""))) {
-                    url = mountPoint + url;
-                }
-            }
-        } catch (Exception e) {
-            Debug.logWarning("[Exception] : " + e.getMessage(), module);
-        }
-         
-        if (UtilValidate.isEmpty(url)) {
-            if (UtilValidate.isEmpty(viewContent)) {
-                viewContent = defaultViewRequest;
-            }
-            url = makeContentUrl(request, response, contentId, viewContent);
-        }
-        return url;
-    }
-    
-    public static String makeContentUrl(HttpServletRequest request, HttpServletResponse response, String contentId, String viewContent) {
-        if (UtilValidate.isEmpty(contentId)) {
-            return null;
-        }
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(request.getSession().getServletContext().getContextPath());
-        if (urlBuilder.length() == 0 || urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
-            urlBuilder.append("/");
-        }
-        urlBuilder.append(CONTROL_MOUNT_POINT);
-        
-        if (UtilValidate.isNotEmpty(viewContent)) {
-            urlBuilder.append("/" + viewContent);
-        } else {
-            urlBuilder.append("/" + defaultViewRequest);
-        }
-        urlBuilder.append("?contentId=" + contentId);
-        return urlBuilder.toString();
     }
 }

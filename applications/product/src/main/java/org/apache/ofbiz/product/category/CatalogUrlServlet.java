@@ -36,6 +36,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.webapp.WebAppUtil;
 
 /**
  * ControlServlet.java - Master servlet for the web application.
@@ -46,7 +47,6 @@ public class CatalogUrlServlet extends HttpServlet {
     public static final String module = CatalogUrlServlet.class.getName();
 
     public static final String CATALOG_URL_MOUNT_POINT = "products";
-    public static final String CONTROL_MOUNT_POINT = "control";
     public static final String PRODUCT_REQUEST = "product";
     public static final String CATEGORY_REQUEST = "category";
 
@@ -84,7 +84,7 @@ public class CatalogUrlServlet extends HttpServlet {
         String categoryId = null;
 
         if (pathElements == null) {
-            RequestDispatcher rd = request.getRequestDispatcher("/" + CONTROL_MOUNT_POINT + "/main");
+            RequestDispatcher rd = request.getRequestDispatcher("/" + WebAppUtil.CONTROL_MOUNT_POINT + "/main");
             rd.forward(request, response);
         } else {
         try {
@@ -149,7 +149,7 @@ public class CatalogUrlServlet extends HttpServlet {
             request.setAttribute("productId", productId);
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/" + CONTROL_MOUNT_POINT + "/" + (productId != null ? PRODUCT_REQUEST : CATEGORY_REQUEST));
+        RequestDispatcher rd = request.getRequestDispatcher("/" + WebAppUtil.CONTROL_MOUNT_POINT + "/" + (productId != null ? PRODUCT_REQUEST : CATEGORY_REQUEST));
         rd.forward(request, response);
         }
     }
