@@ -51,7 +51,6 @@ public class CatalogUrlFilter extends ContextFilter {
 
     public final static String module = CatalogUrlFilter.class.getName();
     
-    public static final String CONTROL_MOUNT_POINT = "control";
     public static final String PRODUCT_REQUEST = "product";
     public static final String CATEGORY_REQUEST = "category";
     
@@ -205,7 +204,7 @@ public class CatalogUrlFilter extends ContextFilter {
             
             // generate forward URL
             StringBuilder urlBuilder = new StringBuilder();
-            urlBuilder.append("/" + CONTROL_MOUNT_POINT);
+            urlBuilder.append("/" + WebAppUtil.CONTROL_MOUNT_POINT);
             
             if (UtilValidate.isNotEmpty(productId)) {
                 try {

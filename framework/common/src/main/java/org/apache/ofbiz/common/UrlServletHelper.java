@@ -39,10 +39,9 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.webapp.WebAppUtil;
-import org.apache.ofbiz.webapp.control.ContextFilter;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
-public final class UrlServletHelper extends ContextFilter {
+public final class UrlServletHelper {
     
     public final static String module = UrlServletHelper.class.getName();
     
