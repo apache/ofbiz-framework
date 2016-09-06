@@ -36,6 +36,7 @@ import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.Delegator;
@@ -59,6 +60,8 @@ public class LabelReferences {
     private static final String uiLabelMap = "uiLabelMap.";
     private static final String formFieldTitle = "FormFieldTitle_";
     private static final String getMessage = "UtilProperties.getMessage(";
+    private static final String getResourceRegex = UtilProperties.getPropertyValue("webtools", "getResourceRegex");
+    private static final String getResource = "ServiceUtil.getResource  ";
 
     protected Map<String, Map<String, Integer>> references = new TreeMap<String, Map<String, Integer>>();
     protected Delegator delegator;
@@ -159,6 +162,7 @@ public class LabelReferences {
             List<File> ftlFiles = FileUtil.findFiles("ftl", rootFolder, null, null);
             for (File file : ftlFiles) {
                 String inFile = FileUtil.readString("UTF-8", file);
+                inFile = inFile.replaceAll(getResourceRegex, getResource);
                 int pos = inFile.indexOf(bracketedUiLabelMap);
                 while (pos >= 0) {
                     int endPos = inFile.indexOf("}", pos);
@@ -182,6 +186,7 @@ public class LabelReferences {
             List<File> javaFiles = FileUtil.findFiles("java", rootFolder + "src", null, null);
             for (File javaFile : javaFiles) {
                 String inFile = FileUtil.readString("UTF-8", javaFile);
+                inFile = inFile.replaceAll(getResourceRegex, getResource);
                 int pos = inFile.indexOf(getMessage);
                 while (pos >= 0) {
                     int endLabel = inFile.indexOf(")", pos);
@@ -247,7 +252,7 @@ public class LabelReferences {
 
     private void getLabelsFromSimpleMethodFiles() throws IOException {
         for (String rootFolder : this.rootFolders) {
-            List<File> simpleMethodsFiles = FileUtil.findFiles("xml", rootFolder + "script", null, null);
+            List<File> simpleMethodsFiles = FileUtil.findFiles("xml", rootFolder + "minilang", null, null);
             for (File file : simpleMethodsFiles) {
                 String inFile = FileUtil.readString("UTF-8", file);
                 findUiLabelMapInFile(inFile, file.getPath());
