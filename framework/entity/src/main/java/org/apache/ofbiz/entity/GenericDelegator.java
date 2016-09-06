@@ -194,6 +194,10 @@ public class GenericDelegator implements Delegator {
         this.setDelegatorNames(delegatorFullName);
         this.delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorBaseName);
 
+        if (this.delegatorInfo == null) {
+            throw new GenericEntityException("No configuration found for delegator [" + delegatorFullName + "]");
+        }
+
         String kekText;
         // before continuing, if there is a tenantId use the base delegator to see if it is valid
         if (UtilValidate.isNotEmpty(this.delegatorTenantId)) {
