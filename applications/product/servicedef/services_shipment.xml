@@ -977,4 +977,19 @@ under the License.
         <attribute name="unitCost" type="String" mode="IN" optional="true"/>
         <attribute name="orderCurrencyUnitPrice" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="createCarrierShipmentBoxType" default-entity-name="CarrierShipmentBoxType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Carrier Shipment Box Type Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateCarrierShipmentBoxType" default-entity-name="CarrierShipmentBoxType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Carrier Shipment Box Type</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCarrierShipmentBoxType" default-entity-name="CarrierShipmentBoxType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an existing Carrier Shipment Box Type Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
 </services>
