@@ -370,4 +370,25 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="testCreatePartyGroup" short-description="Test the service to create party group" login-required="false">
+        <set field="serviceCtx.partyId" value="DemoGroup1"/>
+        <set field="serviceCtx.groupName" value="Demo Group"/>
+        <set field="serviceCtx.partyTypeId" value="PARTY_GROUP"/>
+        <set field="serviceCtx.statusId" value="PARTY_ENABLED"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createPartyGroup" in-map-name="serviceCtx">
+            <result-to-field result-name="partyId"/>
+        </call-service>
+        <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
+        <assert>
+            <not><if-empty field="partyGroup"/></not>
+            <if-compare field="partyGroup.partyId" operator="equals" value="DemoGroup1"/>
+            <if-compare field="partyGroup.groupName" operator="equals" value="Demo Group"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
