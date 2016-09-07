@@ -202,4 +202,21 @@ under the License.
         <description>Remove a BudgetRevisionImpact</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    
+    <service name="createBudgetScenarioRule" default-entity-name="BudgetScenarioRule" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Budget Scenario Rule Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="updateBudgetScenarioRule" default-entity-name="BudgetScenarioRule" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Budget Scenario Rule</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="deleteBudgetScenarioRule" default-entity-name="BudgetScenarioRule" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an existing Budget Scenario Rule Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 </services>
