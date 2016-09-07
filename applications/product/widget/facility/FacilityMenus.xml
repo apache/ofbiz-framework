@@ -27,7 +27,7 @@ under the License.
         <menu-item name="inventoryItemLabel" title="${uiLabelMap.ProductInventoryItemLabels}"><link target="FindInventoryItemLabels"/></menu-item>
         <menu-item name="ShipmentGatewayConfig" title="${uiLabelMap.FacilityShipmentGatewayConfig}">
             <condition>
-                <if-has-permission permission="PAYPROC" action="_ADMIN"/>
+                <if-has-permission permission="FACILITY" action="_ADMIN"/>
             </condition>
             <link target="FindShipmentGatewayConfig"/>
         </menu-item>
