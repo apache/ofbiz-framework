@@ -49,18 +49,7 @@ public final class WebSiteWorker {
             return null;
         }
 
-        return findWebSite((Delegator) request.getAttribute("delegator"), webSiteId);
-    }
-
-    /**
-     * returns a WebSite-GenericValue (using entityCache)
-     *
-     * @param delegator
-     * @param webSiteId
-     * @return
-     */
-    public static GenericValue findWebSite(Delegator delegator, String webSiteId) {
-        return findWebSite(delegator, webSiteId, true);
+        return findWebSite((Delegator) request.getAttribute("delegator"), webSiteId, true);
     }
 
     /**
@@ -71,7 +60,7 @@ public final class WebSiteWorker {
      * @param useCache
      * @return
      */
-    public static GenericValue findWebSite(Delegator delegator, String webSiteId, boolean useCache) {
+    private static GenericValue findWebSite(Delegator delegator, String webSiteId, boolean useCache) {
         GenericValue result = null;
         try {
             result = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache(useCache).queryOne();
