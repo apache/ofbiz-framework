@@ -30,7 +30,9 @@ under the License.
     <load-component component-location="scrum"/>
     <load-component component-location="oagis"/>
     <load-component component-location="ebay"/>
+    <!--
     <load-component component-location="ebaystore"/>
+    -->
     <load-component component-location="myportal"/>
     <load-component component-location="ldap"/>
     <load-component component-location="webpos"/>
