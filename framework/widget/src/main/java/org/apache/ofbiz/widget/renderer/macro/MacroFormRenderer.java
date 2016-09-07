@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URLEncoder;
 import java.rmi.server.UID;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -2866,6 +2867,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             String newQueryString = sb.toString();
             String urlPath = UtilHttp.removeQueryStringFromTarget(paginateTarget);
             linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(newQueryString));
+            linkUrl = URLEncoder.encode(linkUrl, "UTF-8");
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderSortField ");
@@ -2873,7 +2875,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(sortFieldStyle);
         sr.append("\" title=\"");
         sr.append(titleText);
-        sr.append("\" linkUrl=\"");
+        sr.append("\" linkUrl=r\"");
         sr.append(linkUrl);
         sr.append("\" ajaxEnabled=");
         sr.append(Boolean.toString(ajaxEnabled));
