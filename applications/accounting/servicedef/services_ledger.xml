@@ -713,4 +713,18 @@ under the License.
         <description>Delete a AcctgTransTypeAttr record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="createAcctgTransEntryType" engine="entity-auto" default-entity-name="AcctgTransEntryType" invoke="create" auth="true">
+        <auto-attributes mode=" INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+
+    <service name="updateAcctgTransEntryType" engine="entity-auto" default-entity-name="AcctgTransEntryType" invoke="update" auth="true">
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+
+    <service name="deleteAcctgTransEntryType" engine="entity-auto" default-entity-name="AcctgTransEntryType" invoke="delete" auth="true">
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 </services>
