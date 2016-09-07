@@ -36,7 +36,6 @@ import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.Delegator;
@@ -60,7 +59,7 @@ public class LabelReferences {
     private static final String uiLabelMap = "uiLabelMap.";
     private static final String formFieldTitle = "FormFieldTitle_";
     private static final String getMessage = "UtilProperties.getMessage(";
-    private static final String getResourceRegex = UtilProperties.getPropertyValue("webtools", "getResourceRegex");
+    private static final String getResourceRegex = "ServiceUtil\\.getResource\\(\\)";
     private static final String getResource = "ServiceUtil.getResource  ";
 
     protected Map<String, Map<String, Integer>> references = new TreeMap<String, Map<String, Integer>>();
@@ -185,6 +184,8 @@ public class LabelReferences {
         for (String rootFolder : this.rootFolders) {
             List<File> javaFiles = FileUtil.findFiles("java", rootFolder + "src", null, null);
             for (File javaFile : javaFiles) {
+                // do not parse this file, else issue with getResourceRegex
+                if ("LabelReferences.java".equals(javaFile.getName())) continue;
                 String inFile = FileUtil.readString("UTF-8", javaFile);
                 inFile = inFile.replaceAll(getResourceRegex, getResource);
                 int pos = inFile.indexOf(getMessage);
