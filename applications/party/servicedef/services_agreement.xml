@@ -1,10 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Party Component Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
+
+    <service name="createAgreementTermAttribute" engine="entity-auto" default-entity-name="AgreementTermAttribute" invoke="create" auth="true">
+        <auto-attributes mode="INOUT" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateAgreementTermAttribute" engine="entity-auto" default-entity-name="AgreementTermAttribute" invoke="update" auth="true">
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteAgreementTermAttribute" engine="entity-auto" default-entity-name="AgreementTermAttribute" invoke="delete" auth="true">
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 
     <!-- Agreement item type services -->
     <service name="createAgreementItemType" default-entity-name="AgreementItemType" engine="entity-auto" invoke="create" auth="true">
