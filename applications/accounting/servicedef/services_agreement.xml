@@ -310,4 +310,21 @@ under the License.
         <description>Delete AgreementWorkEffortApplic</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    
+    
+    <!-- AgreementTypeAttr services -->
+    <service name="createAgreementTypeAttr" default-entity-name="AgreementTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create an AgreementTypeAttr</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="updateAgreementTypeAttr" default-entity-name="AgreementTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update an AgreementTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeAgreementTypeAttr" default-entity-name="AgreementTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Remove an AgreementTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
