@@ -917,4 +917,18 @@ under the License.
         <override name="latitude" optional="false"/>
         <override name="longitude" optional="false"/>
     </service>
+    <service name="createContainer" default-entity-name="Container" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Container Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateContainer" default-entity-name="Container" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Container</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteContainer" default-entity-name="Container" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an existing Container Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 </services>
