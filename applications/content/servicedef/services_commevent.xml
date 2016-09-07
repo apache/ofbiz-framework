@@ -79,4 +79,19 @@ under the License.
         <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
     </service>
 
+    <service name="createCommContentAssocType" default-entity-name="CommContentAssocType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Comm Content Assoc Type Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateCommContentAssocType" default-entity-name="CommContentAssocType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Comm Content Assoc Type</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCommContentAssocType" default-entity-name="CommContentAssocType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an existing Comm Content Assoc Type Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+
 </services>
