@@ -227,5 +227,19 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    <service name="createCustRequestCategory" engine="entity-auto" invoke="create" default-entity-name="CustRequestCategory" auth="true">
+        <description>Create a CustRequestCategory record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateCustRequestCategory" engine="entity-auto" invoke="update" default-entity-name="CustRequestCategory" auth="true">
+        <description>Update a CustRequestCategory record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCustRequestCategory" engine="entity-auto" invoke="delete" default-entity-name="CustRequestCategory" auth="true">
+        <description>Delete a CustRequestCategory record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
 
