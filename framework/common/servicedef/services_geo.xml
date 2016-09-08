@@ -6,6 +6,21 @@
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
+    <service name="createCountryTeleCode" engine="entity-auto" invoke="create" default-entity-name="CountryTeleCode" auth="true">
+        <description>Create a Country Tele Code</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateCountryTeleCode" engine="entity-auto" invoke="update" default-entity-name="CountryTeleCode" auth="true">
+        <description>Update a Country Tele Code</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCountryTeleCode" engine="entity-auto" invoke="delete" default-entity-name="CountryTeleCode" auth="true">
+        <description>Delete a Country Tele Code</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+    
     <service name="createCountryCapital" engine="entity-auto" invoke="create" default-entity-name="CountryCapital" auth="true">
         <description>Create a Country Capital</description>
         <auto-attributes include="pk" mode="IN"/>
