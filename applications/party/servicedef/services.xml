@@ -811,6 +811,11 @@ under the License.
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="deleteCustRequestCommEvent" default-entity-name="CustRequestCommEvent" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a CustRequestCommEvent</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
     <service name="createCommunicationEventRoleInterface" engine="interface" location="" invoke="">
         <description>Create a Communication Event Role with or w/o permission check</description>
         <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>

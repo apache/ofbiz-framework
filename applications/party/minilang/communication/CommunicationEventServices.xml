@@ -207,10 +207,9 @@ under the License.
             <create-value value-field="eventOrder"/>
         </if-not-empty>
         <if-not-empty field="parameters.custRequestId">
-            <make-value value-field="eventRequest" entity-name="CustRequestCommEvent"/>
-            <set from-field="parameters.custRequestId" field="eventRequest.custRequestId"/>
-            <set from-field="newEntity.communicationEventId" field="eventRequest.communicationEventId"/>
-            <create-value value-field="eventRequest"/>
+            <set from-field="parameters.custRequestId" field="CustRequestCommEvent.custRequestId"/>
+            <set from-field="newEntity.communicationEventId" field="CustRequestCommEvent.communicationEventId"/>
+            <call-service service-name="createCustRequestCommEvent" in-map-name="CustRequestCommEvent"/>
         </if-not-empty>
 
         <!-- partyIdTo role-->
