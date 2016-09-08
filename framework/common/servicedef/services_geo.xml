@@ -20,5 +20,20 @@
         <description>Delete a Country Capital</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <service name="createCountryCode" engine="entity-auto" invoke="create" default-entity-name="CountryCode" auth="true">
+        <description>Create a Country Code</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateCountryCode" engine="entity-auto" invoke="update" default-entity-name="CountryCode" auth="true">
+        <description>Update a Country Code</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCountryCode" engine="entity-auto" invoke="delete" default-entity-name="CountryCode" auth="true">
+        <description>Delete a Country Code</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
     
 </services>
