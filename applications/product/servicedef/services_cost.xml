@@ -125,4 +125,18 @@ under the License.
         <description>Formula that creates a cost component equal to a percentage of total product cost</description>
         <implements service="productCostCalcInterface"/>
     </service>
+    <service name="createCostComponentAttribute" default-entity-name="CostComponentAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Cost Component Attribute Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateCostComponentAttribute" default-entity-name="CostComponentAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a CostComponentAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCostComponentAttribute" default-entity-name="CostComponentAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an existing CostComponentAttribute Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 </services>
