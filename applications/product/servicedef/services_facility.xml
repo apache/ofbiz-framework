@@ -931,4 +931,18 @@ under the License.
         <description>Delete an existing Container Record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    <service name="createContainerType" default-entity-name="ContainerType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new ContainerType Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateContainerType" default-entity-name="ContainerType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ContainerType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteContainerType" default-entity-name="ContainerType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an existing ContainerType Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 </services>
