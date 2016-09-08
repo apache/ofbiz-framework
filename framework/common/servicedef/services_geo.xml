@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>OFBiz Geo Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <service name="createCountryCapital" engine="entity-auto" invoke="create" default-entity-name="CountryCapital" auth="true">
+        <description>Create a Country Capital</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateCountryCapital" engine="entity-auto" invoke="update" default-entity-name="CountryCapital" auth="true">
+        <description>Update a Country Capital</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCountryCapital" engine="entity-auto" invoke="delete" default-entity-name="CountryCapital" auth="true">
+        <description>Delete a Country Capital</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+    
+</services>
