@@ -139,4 +139,18 @@ under the License.
         <description>Delete an existing CostComponentAttribute Record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    <service name="createCostComponentType" default-entity-name="CostComponentType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Cost Component Type Record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateCostComponentType" default-entity-name="CostComponentType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Cost Component Type</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCostComponentType" default-entity-name="CostComponentType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an existing Cost Component Type Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 </services>
