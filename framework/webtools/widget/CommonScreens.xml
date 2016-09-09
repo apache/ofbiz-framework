@@ -156,7 +156,7 @@ under the License.
                                 <if-has-permission permission="WEBTOOLS" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="serviceTabBar" location="component://webtools/widget/Menus.xml"/>
+                                <include-menu name="ServiceTabBar" location="component://webtools/widget/Menus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -192,7 +192,7 @@ under the License.
                                 <if-has-permission permission="ENTITY_MAINT"/>
                             </condition>
                             <widgets>
-                                <include-menu name="importExportTabBar" location="component://webtools/widget/Menus.xml"/>
+                                <include-menu name="ImportExportTabBar" location="component://webtools/widget/Menus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -228,7 +228,7 @@ under the License.
                                 <if-has-permission permission="ENTITY_MAINT"/>
                             </condition>
                             <widgets>
-                                <include-menu name="artifactTabBar" location="component://webtools/widget/Menus.xml"/>
+                                <include-menu name="ArtifactTabBar" location="component://webtools/widget/Menus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -264,7 +264,7 @@ under the License.
                                 <if-has-permission permission="ENTITY_MAINT"/>
                             </condition>
                             <widgets>
-                                <include-menu name="configurationTabBar" location="component://webtools/widget/Menus.xml"/>
+                                <include-menu name="ConfigurationTabBar" location="component://webtools/widget/Menus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -300,7 +300,7 @@ under the License.
                                 <if-has-permission permission="WEBTOOLS" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="geoManagement" location="component://webtools/widget/Menus.xml"/>
+                                <include-menu name="GeoManagement" location="component://webtools/widget/Menus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>

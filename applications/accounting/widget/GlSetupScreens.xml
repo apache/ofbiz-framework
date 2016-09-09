@@ -67,8 +67,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.AccountingAvailableInternalOrganizations}" navigation-menu-name="newAccountOrganization">
-                            <include-menu location="component://accounting/widget/AccountingMenus.xml" name="newAccountOrganization"/>
+                        <screenlet title="${uiLabelMap.AccountingAvailableInternalOrganizations}" navigation-menu-name="NewAccountOrganization">
+                            <include-menu location="component://accounting/widget/AccountingMenus.xml" name="NewAccountOrganization"/>
                             <include-form name="ListCompanies" location="component://accounting/widget/GlSetupForms.xml"/>
                         </screenlet>
                     </decorator-section>

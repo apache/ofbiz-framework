@@ -1113,7 +1113,7 @@ under the License.
             </link>
         </menu-item>
      </menu>
-     <menu name="notCompleteBacklogItem">
+     <menu name="NotCompleteBacklogItem">
         <menu-item name="notCompleteBacklogItem"  title="${uiLabelMap.ScrumBeingImplementBacklogItem}">
             <link target="ViewSprint" link-type="auto">
                 <parameter param-name="sprintId" value="${parameters.sprintId}"/>

@@ -34,7 +34,7 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="cms" location="component://lucene/widget/LuceneMenus.xml"/>
+                                <include-menu name="Cms" location="component://lucene/widget/LuceneMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>

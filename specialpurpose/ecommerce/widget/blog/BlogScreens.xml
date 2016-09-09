@@ -115,7 +115,7 @@
                                 </condition>
                                 <widgets>
                                     <container style="blogwrapper">
-                                        <include-menu name="view_edit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
+                                        <include-menu name="ViewEdit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
                                         <platform-specific><html><html-template location="component://ecommerce/template/blog/BlogContentAltLink.ftl"/></html></platform-specific>
                                         <!--<link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle" style="blogheader">
                                             <parameter param-name="contentId" from-field="blog.contentId"/>
@@ -138,7 +138,7 @@
                                 </condition>
                                 <widgets>
                                     <container style="blogwrapper">
-                                        <include-menu name="view_edit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
+                                        <include-menu name="ViewEdit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
                                         <!--<label text="${blog.contentName} [${blog.contentId}]" style="blogheader"/>-->
                                         <platform-specific><html><html-template location="component://ecommerce/template/blog/BlogContentAltLink.ftl"/></html></platform-specific>
                                         <!--<link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle" style="blogheader">

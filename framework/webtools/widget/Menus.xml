@@ -59,7 +59,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="configurationTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+    <menu name="ConfigurationTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="page.tabButtonItem">
         <menu-item name="tempexpr" title="${uiLabelMap.WebtoolsTemporalExpression}">
             <link target="findTemporalExpression"/>
@@ -69,7 +69,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="importExportTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+    <menu name="ImportExportTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="page.tabButtonItem">
         <menu-item name="data" title="${uiLabelMap.WebtoolsDataFileTools}">
             <link target="viewdatafile"/>
@@ -100,7 +100,7 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="serviceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+    <menu name="ServiceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="page.tabButtonItem">
         <menu-item name="serviceList" title="${uiLabelMap.WebtoolsServiceReference}">
             <link target="ServiceList"/>
@@ -162,7 +162,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="artifactTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+    <menu name="ArtifactTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="viewents" title="${uiLabelMap.WebtoolsViewComponents}">
             <link target="ViewComponents"/>
@@ -307,7 +307,7 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="geoManagement" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+    <menu name="GeoManagement" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <!--menu-container-style="button-bar button-style-2 no-clear"-->
         <menu-item name="FindGeo" title="${uiLabelMap.WebtoolsGeosFind}">
             <link target="FindGeo"/> 
