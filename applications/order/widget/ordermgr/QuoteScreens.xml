@@ -316,7 +316,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="quoteItemSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                        <include-menu name="QuoteItemSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                         <screenlet title="${uiLabelMap.OrderOrderQuoteListItems}">
                             <include-form name="ListQuoteItems" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
@@ -345,7 +345,7 @@ under the License.
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <include-menu name="quoteTermSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                            <include-menu name="QuoteTermSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                         </container>
                         <container style="lefthalf">
                             <screenlet title="${uiLabelMap.OrderOrderQuoteEditItems}" >
@@ -823,7 +823,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="quoteTermSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                        <include-menu name="QuoteTermSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                         <screenlet title="${uiLabelMap.OrderOrderQuoteTermList}">
                             <include-form name="ListQuoteTerms" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>

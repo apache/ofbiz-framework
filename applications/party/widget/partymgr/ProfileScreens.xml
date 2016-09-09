@@ -59,8 +59,8 @@
                                 </or>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.PartyPersonalInformation}" navigation-menu-name="personUpdate" id="PartyPersonalInformationPanel">
-                                           <include-menu name="personUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                <screenlet title="${uiLabelMap.PartyPersonalInformation}" navigation-menu-name="PersonUpdate" id="PartyPersonalInformationPanel">
+                                           <include-menu name="PersonUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
                                     <include-form name="ViewPartyPerson" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     <section>
                                         <condition>
@@ -98,8 +98,8 @@
                                 <if-has-permission permission="PARTYMGR" action="_GRP_UPDATE"/>
                                </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.PartyPartyGroupInformation}" navigation-menu-name="groupUpdate" id="PartyGroupInformationPanel">
-                                    <include-menu name="groupUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                <screenlet title="${uiLabelMap.PartyPartyGroupInformation}" navigation-menu-name="GroupUpdate" id="PartyGroupInformationPanel">
+                                    <include-menu name="GroupUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
                                     <include-form name="ViewPartyGroup" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     <section>
                                         <condition>
@@ -489,8 +489,8 @@
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.PartyShipperAccount}" navigation-menu-name="addShipper">
-                    <include-menu name="addShipper" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                <screenlet title="${uiLabelMap.PartyShipperAccount}" navigation-menu-name="AddShipper">
+                    <include-menu name="AddShipper" location="component://party/widget/partymgr/PartyMenus.xml"/>
                     <include-form name="ListCarrierAccounts" location="component://party/widget/partymgr/PartyForms.xml"/>
                 </screenlet>
             </widgets>
@@ -524,8 +524,8 @@
                         <if-compare field="party.partyTypeId" operator="equals" value="PARTY_GROUP"/>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.PartyListRelatedContacts}" navigation-menu-name="addRelContactAccounts">
-                            <include-menu name="addRelContactAccounts" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                        <screenlet title="${uiLabelMap.PartyListRelatedContacts}" navigation-menu-name="AddRelContactAccounts">
+                            <include-menu name="AddRelContactAccounts" location="component://party/widget/partymgr/PartyMenus.xml"/>
                             <section>
                                 <condition>
                                     <not><if-empty field="parameters.editPartyRel"/></not>
@@ -559,8 +559,8 @@
                         <if-compare field="party.partyTypeId" operator="equals" value="PERSON"/>
                     </condition>
                     <widgets>                        
-                        <screenlet title="${uiLabelMap.PartyListRelatedAccounts}" navigation-menu-name="addRelContactAccounts">  
-                            <include-menu name="addRelContactAccounts" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                        <screenlet title="${uiLabelMap.PartyListRelatedAccounts}" navigation-menu-name="AddRelContactAccounts">  
+                            <include-menu name="AddRelContactAccounts" location="component://party/widget/partymgr/PartyMenus.xml"/>
                             <section>
                                 <condition>
                                     <not><if-empty field="parameters.editPartyRel"/></not>

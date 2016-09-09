@@ -40,9 +40,9 @@ under the License.
                                 <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <screenlet id="FindPartyPanel" title="${uiLabelMap.PartyFindParty}" navigation-menu-name="create-new-party"
+                                <screenlet id="FindPartyPanel" title="${uiLabelMap.PartyFindParty}" navigation-menu-name="CreateNewParty"
                                            navigation-form-name="lookupparty" save-collapsed="false" collapsible="true" initially-collapsed="${initialyCollapsed}">
-                                    <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="create-new-party"/>
+                                    <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CreateNewParty"/>
                                     <include-form name="lookupparty" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.CommonSearchResults}" navigation-form-name="ListParty">
@@ -1229,8 +1229,8 @@ under the License.
                         <screenlet title="${uiLabelMap.PartyPartyIdentificationList}">
                              <include-form name="listPartyIdentification" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.PartyPartyIdentification}" navigation-menu-name="newPartyIdentification" id="PartyIdentificationCreationPanel">
-                             <include-menu name="newPartyIdentification" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                        <screenlet title="${uiLabelMap.PartyPartyIdentification}" navigation-menu-name="NewPartyIdentification" id="PartyIdentificationCreationPanel">
+                             <include-menu name="NewPartyIdentification" location="component://party/widget/partymgr/PartyMenus.xml"/>
                              <include-form name="editPartyIdentification" location="component://party/widget/partymgr/PartyForms.xml"/>
                          </screenlet>
                     </decorator-section>

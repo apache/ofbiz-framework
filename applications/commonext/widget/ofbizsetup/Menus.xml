@@ -96,7 +96,7 @@
         </menu-item>
     </menu>
     
-    <menu name="personUpdate">
+    <menu name="PersonUpdate">
         <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
             <link target="editperson">
                 <parameter param-name="customerPartyId" from-field="customerPartyId"/>
@@ -105,7 +105,7 @@
         </menu-item>
     </menu>
     
-    <menu name="groupUpdate">
+    <menu name="GroupUpdate">
         <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
             <link target="editpartygroup">
                 <parameter param-name="partyId" from-field="organizationPartyId"/>
