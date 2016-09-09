@@ -134,7 +134,7 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                         if (UtilValidate.isNotEmpty(productId)) {
                             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                             ProductContentWrapper wrapper = new ProductContentWrapper(dispatcher, product, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
-                            url = CatalogUrlFilter.makeProductUrl(delegator, wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId);
+                            url = CatalogUrlFilter.makeProductUrl(wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId);
                         } else {
                             GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).queryOne();
                             CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
