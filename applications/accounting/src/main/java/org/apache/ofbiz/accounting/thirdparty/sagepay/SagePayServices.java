@@ -74,8 +74,7 @@ public class SagePayServices
         return sagePayConfig;
     }
 
-    public static Map<String, Object> paymentAuthentication(DispatchContext ctx, Map<String, Object> context)
-    {
+    public static Map<String, Object> paymentAuthentication(DispatchContext ctx, Map<String, Object> context) {
         Debug.logInfo("SagePay - Entered paymentAuthentication", module);
         Debug.logInfo("SagePay paymentAuthentication context : " + context, module);
 
@@ -122,7 +121,6 @@ public class SagePayServices
         String clientIPAddress = (String) context.get("clientIPAddress");
         Locale locale = (Locale) context.get("locale");
 
-        CloseableHttpClient httpClient = null;
         HttpHost host = SagePayUtil.getHost(props);
 
         //start - authentication parameters
@@ -192,10 +190,9 @@ public class SagePayServices
         //end - optional parameters
         //end - authentication parameters
 
-        try {
+        try (CloseableHttpClient httpClient = SagePayUtil.getHttpClient()) {
 
             String successMessage = null;
-            httpClient = SagePayUtil.getHttpClient();
             HttpPost httpPost = SagePayUtil.getHttpPost(props.get("authenticationUrl"), parameters);
             HttpResponse response = httpClient.execute(host, httpPost);
             Map<String, String> responseData = SagePayUtil.getResponseData(response);
@@ -279,20 +276,11 @@ public class SagePayServices
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", module);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
-        } finally {
-            // Incredible, you need to put a try catch block into a finally, how Java can be verbose :/
-            try {                
-                httpClient.close();
-            } catch (IOException ioe) {
-                Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", module);
-                resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
-            }
         }
         return resultMap;
     }
 
-    public static Map<String, Object> paymentAuthorisation(DispatchContext ctx, Map<String, Object> context)
-    {
+    public static Map<String, Object> paymentAuthorisation(DispatchContext ctx, Map<String, Object> context) {
         Debug.logInfo("SagePay - Entered paymentAuthorisation", module);
         Debug.logInfo("SagePay paymentAuthorisation context : " + context, module);
 
@@ -308,7 +296,6 @@ public class SagePayServices
         String amount = (String) context.get("amount");
         Locale locale = (Locale) context.get("locale");
 
-        CloseableHttpClient httpClient = null;
         HttpHost host = SagePayUtil.getHost(props);
 
         //start - authorization parameters
@@ -330,9 +317,8 @@ public class SagePayServices
         Debug.logInfo("authorization parameters -> " + parameters, module);
         //end - authorization parameters
 
-        try {
+        try (CloseableHttpClient httpClient = SagePayUtil.getHttpClient()) {
             String successMessage = null;
-            httpClient = SagePayUtil.getHttpClient();
             HttpPost httpPost = SagePayUtil.getHttpPost(props.get("authoriseUrl"), parameters);
             HttpResponse response = httpClient.execute(host, httpPost);
 
@@ -382,20 +368,11 @@ public class SagePayServices
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", module);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
-        } finally {
-            // Incredible, you need to put a try catch block into a finally, how Java can be verbose :/
-            try {                
-                httpClient.close();
-            } catch (IOException ioe) {
-                Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", module);
-                resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
-            }
         }
         return resultMap;
     }
 
-    public static Map<String, Object> paymentRelease(DispatchContext ctx, Map<String, Object> context)
-    {
+    public static Map<String, Object> paymentRelease(DispatchContext ctx, Map<String, Object> context) {
         Debug.logInfo("SagePay - Entered paymentRelease", module);
         Debug.logInfo("SagePay paymentRelease context : " + context, module);
 
@@ -410,7 +387,6 @@ public class SagePayServices
         String txAuthNo = (String) context.get("txAuthNo");
         Locale locale = (Locale) context.get("locale");
 
-        CloseableHttpClient httpClient = null;
         HttpHost host = SagePayUtil.getHost(props);
 
         //start - release parameters
@@ -429,10 +405,8 @@ public class SagePayServices
         parameters.put("TxAuthNo", txAuthNo);
         //end - release parameters
 
-        try {
-
+        try (CloseableHttpClient httpClient = SagePayUtil.getHttpClient()) {
             String successMessage = null;
-            httpClient = SagePayUtil.getHttpClient();
             HttpPost httpPost = SagePayUtil.getHttpPost(props.get("releaseUrl"), parameters);
             HttpResponse response = httpClient.execute(host, httpPost);
 
@@ -483,20 +457,11 @@ public class SagePayServices
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", module);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
-        } finally {
-            // Incredible, you need to put a try catch block into a finally, how Java can be verbose :/
-            try {                
-                httpClient.close();
-            } catch (IOException ioe) {
-                Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", module);
-                resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
-            }
         }
         return resultMap;
     }
 
-    public static Map<String, Object> paymentVoid(DispatchContext ctx, Map<String, Object> context)
-    {
+    public static Map<String, Object> paymentVoid(DispatchContext ctx, Map<String, Object> context) {
         Debug.logInfo("SagePay - Entered paymentVoid", module);
         Debug.logInfo("SagePay paymentVoid context : " + context, module);
 
@@ -511,7 +476,6 @@ public class SagePayServices
         String txAuthNo = (String) context.get("txAuthNo");
         Locale locale = (Locale) context.get("locale");
 
-        CloseableHttpClient httpClient = null;
         HttpHost host = SagePayUtil.getHost(props);
 
         //start - void parameters
@@ -529,9 +493,8 @@ public class SagePayServices
         parameters.put("TxAuthNo", txAuthNo);
         //end - void parameters
 
-        try {
+        try (CloseableHttpClient httpClient = SagePayUtil.getHttpClient()) {
             String successMessage = null;
-            httpClient = SagePayUtil.getHttpClient();
             HttpPost httpPost = SagePayUtil.getHttpPost(props.get("voidUrl"), parameters);
             HttpResponse response = httpClient.execute(host, httpPost);
             Map<String, String> responseData = SagePayUtil.getResponseData(response);
@@ -581,20 +544,11 @@ public class SagePayServices
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", module);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
-        } finally {
-            // Incredible, you need to put a try catch block into a finally, how Java can be verbose :/
-            try {                
-                httpClient.close();
-            } catch (IOException ioe) {
-                Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", module);
-                resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
-            }
         }
         return resultMap;
     }
 
-    public static Map<String, Object> paymentRefund(DispatchContext ctx, Map<String, Object> context)
-    {
+    public static Map<String, Object> paymentRefund(DispatchContext ctx, Map<String, Object> context) {
         Debug.logInfo("SagePay - Entered paymentRefund", module);
         Debug.logInfo("SagePay paymentRefund context : " + context, module);
 
@@ -614,7 +568,6 @@ public class SagePayServices
         String relatedTxAuthNo = (String) context.get("relatedTxAuthNo");
         Locale locale = (Locale) context.get("locale");
 
-        CloseableHttpClient httpClient = null;
         HttpHost host = SagePayUtil.getHost(props);
 
         //start - refund parameters
@@ -636,9 +589,9 @@ public class SagePayServices
         parameters.put("RelatedTxAuthNo", relatedTxAuthNo);
         //end - refund parameters
 
-        try {
+        try (CloseableHttpClient httpClient = SagePayUtil.getHttpClient()) {
             String successMessage = null;
-            httpClient = SagePayUtil.getHttpClient();
+            
             HttpPost httpPost = SagePayUtil.getHttpPost(props.get("refundUrl"), parameters);
             HttpResponse response = httpClient.execute(host, httpPost);
             Map<String, String> responseData = SagePayUtil.getResponseData(response);
@@ -698,14 +651,6 @@ public class SagePayServices
             //from httpClient execute or getResponsedata
             Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", module);
             resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
-        } finally {
-            // Incredible, you need to put a try catch block into a finally, how Java can be verbose :/
-            try {                
-                httpClient.close();
-            } catch (IOException ioe) {
-                Debug.logError(ioe, "Error occurred in HttpClient execute or getting response (" + ioe.getMessage() + ")", module);
-                resultMap = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayErrorHttpClientExecuteOrGettingResponse", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
-            }
         }
 
         return resultMap;
