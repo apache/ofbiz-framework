@@ -109,8 +109,10 @@ public class LabelReferences {
         }
         // get labels from FTL files
         getLabelsFromFtlFiles();
-        // get labels from java files
+        // get labels from Java files
         getLabelsFromJavaFiles();
+        // get labels from Groovy files
+        getLabelsFromGroovyFiles();
         // get labels from simple method files
         getLabelsFromSimpleMethodFiles();
         // get labels from widgets files
@@ -208,6 +210,17 @@ public class LabelReferences {
             }
         }
     }
+
+    private void getLabelsFromGroovyFiles() throws IOException {
+        for (String rootFolder : this.rootFolders) {
+            List<File> groovyFiles = FileUtil.findFiles("groovy", rootFolder + "groovyScripts", null, null);
+            for (File file : groovyFiles) {
+                String inFile = FileUtil.readString("UTF-8", file);
+                findUiLabelMapInFile(inFile, file.getPath());
+            }
+        }
+    }
+    
 
     protected void findUiLabelMapInFile(String inFile, String filePath) {
         int pos = inFile.indexOf(uiLabelMap);
