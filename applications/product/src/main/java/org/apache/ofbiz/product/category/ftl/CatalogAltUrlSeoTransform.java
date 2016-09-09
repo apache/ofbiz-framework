@@ -154,8 +154,7 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                             if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
                                 url = CatalogUrlSeoTransform.makeProductUrl(delegator, wrapper, prefixString, contextPath, productCategoryId, previousCategoryId, productId);
                             } else {
-                                url = CatalogUrlFilter.makeProductUrl(delegator, wrapper, null, prefixString, previousCategoryId, productCategoryId,
-                                        productId);
+                                url = CatalogUrlFilter.makeProductUrl(wrapper, null, prefixString, previousCategoryId, productCategoryId, productId);
                             }
                         } else {
                             GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), false);

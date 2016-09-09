@@ -419,7 +419,7 @@ public class CatalogUrlFilter extends ContextFilter {
             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             ProductContentWrapper wrapper = new ProductContentWrapper(product, request);
             List<String> trail = CategoryWorker.getTrail(request);
-            url = makeProductUrl(delegator, wrapper, trail, request.getContextPath(), previousCategoryId, productCategoryId, productId);
+            url = makeProductUrl(wrapper, trail, request.getContextPath(), previousCategoryId, productCategoryId, productId);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Cannot create product's URL for: " + productId, module);
             return redirectUrl;
@@ -427,7 +427,7 @@ public class CatalogUrlFilter extends ContextFilter {
         return url;
     }
 
-    public static String makeProductUrl(Delegator delegator, ProductContentWrapper wrapper, List<String> trail, String contextPath, String previousCategoryId, String productCategoryId, String productId) {
+    public static String makeProductUrl(ProductContentWrapper wrapper, List<String> trail, String contextPath, String previousCategoryId, String productCategoryId, String productId) {
         String url = "";
         StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL", "url");
         if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
