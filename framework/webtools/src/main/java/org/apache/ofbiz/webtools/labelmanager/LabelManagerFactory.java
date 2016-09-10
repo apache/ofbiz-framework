@@ -101,7 +101,8 @@ public class LabelManagerFactory {
         }
     }
 
-    public void findMatchingLabels(String component, String fileName, String key, String locale) throws MalformedURLException, SAXException, ParserConfigurationException, IOException, GeneralException {
+    public void findMatchingLabels(String component, String fileName, String key, String locale, boolean onlyNotUsedLabels) 
+            throws MalformedURLException, SAXException, ParserConfigurationException, IOException, GeneralException {
         if (UtilValidate.isEmpty(component) && UtilValidate.isEmpty(fileName) && UtilValidate.isEmpty(key) && UtilValidate.isEmpty(locale)) {
             // Important! Don't allow unparameterized queries - doing so will result in loading the entire project into memory
             return;
@@ -123,6 +124,18 @@ public class LabelManagerFactory {
                 if (propertyNode instanceof Element) {
                     Element propertyElem = (Element) propertyNode;
                     String labelKey = UtilCodec.canonicalize(propertyElem.getAttribute("key"));
+                    if (onlyNotUsedLabels 
+                            && (labelKey.contains(".description.") 
+                                    || labelKey.contains(".transitionName.")
+                                    || labelKey.contains(".partyRelationshipName.")
+                                    || labelKey.contains(".geoName.")
+                                    || labelKey.contains(".categoryName.")
+                                    || labelKey.contains(".ProductPromoCondition..")
+                                    || labelKey.contains(".ProductPromoOperatorEquality..")
+                                    || labelKey.contains(".Example.") // TODO check all is used here
+                                    )) { 
+                        continue; // OFBIZ-8154
+                    }
                     String labelComment = "";
                     for (Node valueNode : UtilXml.childNodeList(propertyElem.getFirstChild())) {
                         if (valueNode instanceof Element) {

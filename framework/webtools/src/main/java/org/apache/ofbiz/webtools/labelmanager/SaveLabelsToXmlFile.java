@@ -75,7 +75,7 @@ public class SaveLabelsToXmlFile {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
             }
             synchronized(SaveLabelsToXmlFile.class) {
-                factory.findMatchingLabels(null, fileName, null, null);
+                factory.findMatchingLabels(null, fileName, null, null, false);
                 Map<String, LabelInfo> labels = factory.getLabels();
                 Set<String> labelsList = factory.getLabelsList();
                 Set<String> localesFound = factory.getLocalesFound();
