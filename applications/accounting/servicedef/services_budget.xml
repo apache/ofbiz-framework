@@ -249,4 +249,18 @@ under the License.
         <description>Delete a Budget Type Attr Record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+    <service name="createBudgetScenarioApplication" default-entity-name="BudgetScenarioApplication" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Budget Scenario Application Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateBudgetScenarioApplication" default-entity-name="BudgetScenarioApplication" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Budget Scenario Application Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteBudgetScenarioApplication" default-entity-name="BudgetScenarioApplication" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Budget Scenario Application Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
