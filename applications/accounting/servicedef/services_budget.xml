@@ -235,4 +235,18 @@ under the License.
         <description>Delete a BudgetAttribute record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+    <service name="createBudgetTypeAttr" default-entity-name="BudgetTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Budget Type Attr Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateBudgetTypeAttr" default-entity-name="BudgetTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Budget Type Attr Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteBudgetTypeAttr" default-entity-name="BudgetTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Budget Type Attr Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
