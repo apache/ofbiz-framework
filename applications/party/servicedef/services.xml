@@ -1309,6 +1309,20 @@ under the License.
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="createAgreementAttribute" default-entity-name="AgreementAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a AgreementAttribute entry</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateAgreementAttribute" default-entity-name="AgreementAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a AgreementAttribute record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteAgreementAttribute" default-entity-name="AgreementAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a AgreementAttribute record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 
     <service name="importParty" engine="java"
         location="org.apache.ofbiz.party.party.PartyServices" invoke="importParty" auth="true">
