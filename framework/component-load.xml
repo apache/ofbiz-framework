@@ -21,7 +21,6 @@ under the License.
 <component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/component-loader.xsd">
     <load-component component-location="base"/>
-    <load-component component-location="geronimo"/>
     <load-component component-location="entity"/>
     <load-component component-location="security"/>
     <load-component component-location="datafile"/>
