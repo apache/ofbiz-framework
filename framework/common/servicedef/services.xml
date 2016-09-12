@@ -823,4 +823,21 @@ under the License.
         <attribute name="name" mode="IN" type="String" optional="false"/>
     </service>
 
+    <service name="createGeoAssocType" engine="entity-auto" default-entity-name="GeoAssocType" invoke="create" auth="true">
+        <description>Create GeoAssocType</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="updateGeoAssocType" engine="entity-auto" default-entity-name="GeoAssocType" invoke="update" auth="true">
+        <description>Update GeoAssocType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="deleteGeoAssocType" engine="entity-auto" default-entity-name="GeoAssocType" invoke="delete" auth="true">
+        <description>Delete GeoAssocType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>
