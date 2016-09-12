@@ -7,12 +7,6 @@ to change to include them in the OFBiz build and/or run-time configuration.
 NOTE: While these aren't included in the main SVN repository they are available
 on the old Undersun SVN server in the specialized/libraries component directory.
 
--=- Scripting: ________________________________________________________________________________________________________________________________________________
-
--JavaScript/Rhino (NPL 1.1):
-  http://www.mozilla.org/js
-  TO BUILD comment out exclude: base/build.xml:org/apache/ofbiz/base/util/OfbizJsBsfEngine.java
-
 -=- Reporting: ________________________________________________________________________________________________________________________________________________
 
 - JIMI (used by FOP ):

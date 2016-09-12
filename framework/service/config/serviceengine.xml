@@ -47,9 +47,7 @@ under the License.
         <engine name="script" class="org.apache.ofbiz.service.engine.ScriptEngine"/>
         <!-- Engines that can be replaced by the generic script engine -->
         <engine name="groovy" class="org.apache.ofbiz.service.engine.GroovyEngine"/>
-        <engine name="jacl" class="org.apache.ofbiz.service.engine.BSFEngine"/>
         <engine name="javascript" class="org.apache.ofbiz.service.engine.ScriptEngine"/>
-        <engine name="jpython" class="org.apache.ofbiz.service.engine.BSFEngine"/>
         <!--  -->
         <engine name="route" class="org.apache.ofbiz.service.engine.RouteEngine"/>
         <engine name="http" class="org.apache.ofbiz.service.engine.HttpEngine"/>
