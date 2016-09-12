@@ -154,8 +154,8 @@ under the License.
                     <#if postalAddress.attnName?has_content>${uiLabelMap.PartyAddrAttnName}: ${postalAddress.attnName}<br /></#if>
                     ${postalAddress.address1}<br />
                     <#if postalAddress.address2?has_content>${postalAddress.address2}<br /></#if>
-                    ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>&nbsp;${postalAddress.postalCode!}
-                    <#if postalAddress.countryGeoId?has_content><br />${postalAddress.countryGeoId}</#if>
+                    ${postalAddress.city}<#if partyContactMechValueMap.stateProvinceGeoName?has_content>,&nbsp;${partyContactMechValueMap.stateProvinceGeoName}</#if>&nbsp;${postalAddress.postalCode!}
+                    <#if partyContactMechValueMap.countryGeoName?has_content><br />${partyContactMechValueMap.countryGeoName}</#if>
                     <#if (!postalAddress.countryGeoId?has_content || postalAddress.countryGeoId! = "USA")>
                       <#assign addr1 = postalAddress.address1! />
                       <#if (addr1.indexOf(" ") > 0)>

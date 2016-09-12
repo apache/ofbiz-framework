@@ -86,4 +86,18 @@ if (userLogin) {
 
     partyAndContactMechList = from("PartyAndContactMech").where("partyId", partyId).orderBy("-fromDate").filterByDate().queryList();
     context.partyAndContactMechList = partyAndContactMechList;
+    
+    // state/province & country's name
+    if (partyContactMechValueMaps) {
+        partyContactMechValueMaps.each {
+            if (it.postalAddress) {
+                postalAddress = it.postalAddress;
+                countryGeo = postalAddress.getRelatedOne("CountryGeo", false);
+                if (countryGeo) it.countryGeoName = countryGeo.getString("geoName");
+                stateProvinceGeo = postalAddress.getRelatedOne("StateProvinceGeo", false);
+                if (stateProvinceGeo) it.stateProvinceGeoName = stateProvinceGeo.getString("geoName");
+                
+            }
+        }
+    }
 }
