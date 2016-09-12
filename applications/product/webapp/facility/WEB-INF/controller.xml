@@ -23,9 +23,6 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <description>Facility Manager Module Site Configuration File</description>
-    
-    <handler name="bsf" type="request" class="org.apache.ofbiz.webapp.event.BsfEventHandler"/>
-
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
