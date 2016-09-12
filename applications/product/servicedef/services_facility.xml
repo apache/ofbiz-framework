@@ -945,4 +945,20 @@ under the License.
         <description>Delete an existing ContainerType Record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+
+    <!-- FacilityGroupType services -->
+    <service name="createFacilityGroupType" default-entity-name="FacilityGroupType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FacilityGroupType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateFacilityGroupType" default-entity-name="FacilityGroupType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FacilityGroupType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFacilityGroupType" default-entity-name="FacilityGroupType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FacilityGroupType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
