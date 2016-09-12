@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.ofbiz.geronimo;
+package org.apache.ofbiz.entity.transaction;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -35,11 +35,7 @@ import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.config.model.EntityConfig;
 import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
 import org.apache.ofbiz.entity.jdbc.ConnectionFactoryLoader;
-import org.apache.ofbiz.entity.transaction.TransactionFactory;
 
-/**
- * GeronimoTransactionFactory
- */
 public class GeronimoTransactionFactory implements TransactionFactory {
 
     public static final String module = GeronimoTransactionFactory.class.getName();

@@ -28,7 +28,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
     <!-- the transaction factory class to use, one is needed for each way of getting JTA interfaces -->
     <!-- Use this one for Geronimo -->
-    <transaction-factory class="org.apache.ofbiz.geronimo.GeronimoTransactionFactory"/>
+    <transaction-factory class="org.apache.ofbiz.entity.transaction.GeronimoTransactionFactory"/>
 
     <!-- Use this one for getting the JTA objects from JNDI -->
     <!-- NOTE: to use the JndiFactory you must specify the necessary JNDI properties
