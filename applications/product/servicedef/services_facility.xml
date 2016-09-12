@@ -961,4 +961,20 @@ under the License.
         <description>Delete a FacilityGroupType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    
+    <!-- FacilityTypeAttr services -->
+    <service name="createFacilityTypeAttr" default-entity-name="FacilityTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FacilityTypeAttr</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateFacilityTypeAttr" default-entity-name="FacilityTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FacilityTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeFacilityTypeAttr" default-entity-name="FacilityTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Remove a FacilityTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
