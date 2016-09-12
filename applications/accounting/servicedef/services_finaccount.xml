@@ -519,4 +519,20 @@ under the License.
             location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="autoFinAccountReconciliation" auth="true">
         <description>Auto Reconciled FinAccountTrans entries</description>
     </service>
+
+    <!-- FinAccountAttribute services -->
+    <service name="createFinAccountAttribute" default-entity-name="FinAccountAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FinAccountAttribute</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateFinAccountAttribute" default-entity-name="FinAccountAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FinAccountAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFinAccountAttribute" default-entity-name="FinAccountAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FinAccountAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
