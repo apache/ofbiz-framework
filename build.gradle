@@ -31,11 +31,7 @@ apply from: 'common.gradle'
 ext.os = System.getProperty('os.name').toLowerCase()
 
 // java settings
-def jvmArguments = ['-Xms128M', '-Xmx1024M',
-    "-javaagent:${rootDir}/tools/security/notsoserial/notsoserial-1.0-SNAPSHOT.jar",
-    "-Dnotsoserial.whitelist=${rootDir}/tools/security/notsoserial/empty.txt",
-    "-Dnotsoserial.dryrun=${rootDir}/tools/security/notsoserial/is-deserialized.txt",
-    "-Dnotsoserial.trace=${rootDir}/tools/security/notsoserial/deserialize-trace.txt"]
+def jvmArguments = ['-Xms128M', '-Xmx1024M']
 ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 javadoc.failOnError = false
 sourceCompatibility = '1.8'
