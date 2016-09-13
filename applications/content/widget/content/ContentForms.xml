@@ -232,7 +232,7 @@ under the License.
     <form name="EditContentAssoc" target="updateContentAssoc" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-one entity-name="ContentAssoc" use-cache="true">
+            <entity-one entity-name="ContentAssoc" use-cache="true" value-field="">
                 <field-map from-field="contentId" field-name="contentId"/>
                 <field-map from-field="contentIdTo" field-name="contentIdTo"/>
                 <field-map from-field="contentAssocTypeId" field-name="contentAssocTypeId"/>
