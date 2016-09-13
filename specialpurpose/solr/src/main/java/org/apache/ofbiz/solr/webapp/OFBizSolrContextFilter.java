@@ -140,8 +140,7 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
         String servletPath = httpRequest.getServletPath();
         if (UtilValidate.isNotEmpty(servletPath) && servletPath.equals("/control")) {
         	contextFilter.doFilter(httpRequest, httpResponse, chain);
-            // we're done checking; continue on
-            chain.doFilter(request, response);
+        	return;
         } else {
             // check if the request is from an authorized user
             if (UtilValidate.isNotEmpty(servletPath) && (servletPath.startsWith("/admin/") || servletPath.endsWith("/update") 
