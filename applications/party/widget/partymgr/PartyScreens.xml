@@ -1273,7 +1273,7 @@ under the License.
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="postalAddressTemplateSuffix" value=".ftl"/>
-                <set field="addressTemplatePath" value="${sys:getProperty('ofbiz.home')}/applications/party/webapp/partymgr/party/contactmechtemplates/"/>
+                <set field="addressTemplatePath" value="${sys:getProperty('ofbiz.home')}/applications/party/template/party/contactmechtemplates/"/>
                 <script location="component://party/groovyScripts/party/GetPostalAddressTemplate.groovy"/>
             </actions>
             <widgets>
