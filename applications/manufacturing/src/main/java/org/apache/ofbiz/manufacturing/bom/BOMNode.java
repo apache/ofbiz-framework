@@ -292,7 +292,7 @@ public class BOMNode {
                                         variantProduct = variantProducts.get(0);
                                     }
                                 } catch (GenericServiceException e) {
-                                    if (Debug.infoOn()) Debug.logInfo("Error calling getProductVariant service " + e.getMessage(), module);
+                                    Debug.logError("Error calling getProductVariant service " + e.getMessage(), module);
                                 }
                                 if (variantProduct != null) {
                                     newNode = new BOMNode(variantProduct, dispatcher, userLogin);
@@ -433,7 +433,7 @@ public class BOMNode {
                     this.quantity = calcQuantity;
                 }
             } catch (GenericServiceException e) {
-                
+                Debug.logError(e, "Problem calling the " + serviceName + " service (called by the createManufacturingOrder service)", module);
             }
         } else {
             this.quantity = quantity.multiply(quantityMultiplier).multiply(scrapFactor);
@@ -573,7 +573,7 @@ public class BOMNode {
                     }
                 }
             } catch (GenericEntityException e) {
-                
+                Debug.logError(e, "Problem calling the getManufacturingComponents service", module);
             }
         }
         return UtilMisc.toMap("productionRunId", productionRunId, "endDate", endDate);
