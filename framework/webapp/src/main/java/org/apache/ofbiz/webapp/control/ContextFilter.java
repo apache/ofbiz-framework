@@ -21,16 +21,13 @@ package org.apache.ofbiz.webapp.control;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -50,12 +47,8 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.security.SecurityConfigurationException;
-import org.apache.ofbiz.security.SecurityFactory;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.webapp.WebAppUtil;
-import org.apache.ofbiz.webapp.event.RequestBodyMapHandlerFactory;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 /**
@@ -68,6 +61,9 @@ public class ContextFilter implements Filter {
 
     protected FilterConfig config = null;
     protected boolean debug = false;
+
+    // default charset used to decode requests body data if no encoding is specified in the request
+    private String defaultCharacterEncoding;
 
     /**
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
@@ -84,6 +80,10 @@ public class ContextFilter implements Filter {
             debug = Debug.verboseOn();
         }
 
+        defaultCharacterEncoding = config.getServletContext().getInitParameter("charset");
+        if (UtilValidate.isEmpty(defaultCharacterEncoding)) {
+            defaultCharacterEncoding = "UTF-8";
+        }
         // check the serverId
         getServerId();
         // initialize the delegator
@@ -104,7 +104,6 @@ public class ContextFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        // Debug.logInfo("Running ContextFilter.doFilter", module);
 
         // ----- Servlet Object Setup -----
 
@@ -250,10 +249,13 @@ public class ContextFilter implements Filter {
             }
         }
 
+        if (request.getCharacterEncoding() == null) {
+            request.setCharacterEncoding(defaultCharacterEncoding);
+        }
+        WebAppUtil.setAttributesFromRequestBody(request);
+
         // check if multi tenant is enabled
         boolean useMultitenant = EntityUtil.isMultiTenantEnabled();
-        WebAppUtil.setCharacterEncoding(request);
-        WebAppUtil.setAttributesFromRequestBody(request);
         if (useMultitenant) {
             // get tenant delegator by domain name
             String serverName = httpRequest.getServerName();
