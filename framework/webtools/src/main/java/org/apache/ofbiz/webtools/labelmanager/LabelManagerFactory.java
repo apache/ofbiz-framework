@@ -135,8 +135,14 @@ public class LabelManagerFactory {
                                     || labelKey.contains(".partyRelationshipName.")
                                     || labelKey.contains(".geoName.")
                                     || labelKey.contains(".categoryName.")
+                                    || labelKey.contains("FieldDescription.")
+                                    || labelKey.contains("ProductShipmentUomAbbreviation_")
+                                    || labelKey.contains("TemporalExpression_")
                                     )) { 
-                        continue; // OFBIZ-8154
+                        continue; // OFBIZ-8154 WIP
+                                    // TODO HumanResServices. labels seems unused and should be removed
+                                    // TODO .portalPageName. is doubtful to be double checked
+                                    // TODO ProductStoreGroup.productStoreGroupName.NA not sure
                     }
                     String labelComment = "";
                     for (Node valueNode : UtilXml.childNodeList(propertyElem.getFirstChild())) {
