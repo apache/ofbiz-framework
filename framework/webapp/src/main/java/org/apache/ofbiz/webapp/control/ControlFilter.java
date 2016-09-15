@@ -18,10 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.control;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilValidate;
-
+import java.io.IOException;
+import java.util.Set;
+import java.util.HashSet;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -30,10 +29,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
+
+import org.apache.ofbiz.base.util.Debug;
 
 /*
  * A Filter used to specify a whitelist of allowed paths to the OFBiz application.
@@ -80,7 +77,7 @@ public class ControlFilter implements Filter {
         redirectAll = (redirectPath != null && redirectAllString != null && "Y".equalsIgnoreCase(redirectAllString));
         String errorCodeString = filterConfig.getInitParameter("errorCode");
         errorCode = 403;
-        if (UtilValidate.isNotEmpty(errorCodeString)) {
+        if (errorCodeString != null) {
             try {
                 errorCode = Integer.parseInt(errorCodeString);
             } catch (NumberFormatException nfe) {
@@ -88,16 +85,18 @@ public class ControlFilter implements Filter {
                 Debug.logWarning(nfe, "The default error code will be used: " + errorCode, module);
             }
         }
-        String allowedPath = filterConfig.getInitParameter("allowedPaths");
-        List<String> allowList;
-        if ((allowList = StringUtil.split(allowedPath, ":")) != null) {
-            if (redirectPath != null && !redirectPathIsUrl) {
-                // if an URI is specified in the redirectPath parameter, it is added to the allowed list
-                allowList.add(redirectPath);
+        String allowedPathsString = filterConfig.getInitParameter("allowedPaths");
+        if (allowedPathsString != null) {
+            String[] result = allowedPathsString.split(":");
+            for (int x = 0; x < result.length; x++) {
+                allowedPaths.add(result[x]);
             }
-            allowedPaths.addAll(allowList);
-        }
+            // if an URI is specified in the redirectPath parameter, it is added to the allowed list
+            if (redirectPath != null && !redirectPathIsUrl) {
+                allowedPaths.add(redirectPath);
+            }
 
+        }
     }
 
     @Override
