@@ -135,15 +135,14 @@ public class StringUtil {
      */
     public static List<String> split(String str, String delim) {
         List<String> splitList = null;
-        StringTokenizer st = null;
+        StringTokenizer st;
 
-        if (str == null) return splitList;
+        if (str == null) return null;
 
-        if (delim != null) st = new StringTokenizer(str, delim);
-        else               st = new StringTokenizer(str);
+        st = (delim != null? new StringTokenizer(str, delim): new StringTokenizer(str));
 
-        if (st != null && st.hasMoreTokens()) {
-            splitList = new LinkedList<String>();
+        if (st.hasMoreTokens()) {
+            splitList = new LinkedList<>();
 
             while (st.hasMoreTokens())
                 splitList.add(st.nextToken());
