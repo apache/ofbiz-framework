@@ -202,7 +202,7 @@ public class ControlServlet extends HttpServlet {
         }
 
         // some containers call filters on EVERY request, even forwarded ones, so let it know that it came from the control servlet
-        request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, Boolean.TRUE);
+        request.setAttribute(ControlFilter.FORWARDED_FROM_SERVLET, Boolean.TRUE);
 
         String errorPage = null;
         try {
