@@ -24,11 +24,13 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
 apply from: 'common.gradle'
 
-// operating system property
+// global properties
 ext.os = System.getProperty('os.name').toLowerCase()
+ext.pluginsDir = "${rootDir}/specialpurpose"
 
 // java settings
 def jvmArguments = ['-Xms128M', '-Xmx1024M']
@@ -48,6 +50,7 @@ defaultTasks 'build'
 allprojects {
     repositories{
         jcenter()
+        mavenLocal()
     }
 }
 
@@ -61,7 +64,13 @@ subprojects {
 }
 
 configurations {
-    junitLibs
+    junitReport {
+        description = 'libraries needed to run junitreport for OFBiz unit tests'
+    }
+    ofbizPlugins {
+        description = 'ofbiz plugin dependencies configuration'
+        transitive = true
+    }
 }
 
 dependencies {
@@ -158,9 +167,8 @@ dependencies {
     }
 
     // libs needed for junitreport
-    junitLibs 'junit:junit:4.12'
-    junitLibs 'org.apache.ant:ant-junit:1.9.7'
-    junitLibs 'org.apache.ant:ant-junit4:1.9.7'
+    junitReport 'junit:junit:4.12'
+    junitReport 'org.apache.ant:ant-junit:1.9.7'
 
     // local libs
     getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
@@ -292,6 +300,7 @@ if (project.hasProperty('enableOwasp')) {
 // ========== Task group labels ==========
 def cleanupGroup = 'Cleaning'
 def ofbizServer = 'OFBiz Server'
+def ofbizPlugin = 'OFBiz Plugin'
 def sysadminGroup = 'System Administration'
 def committerGroup = 'OFBiz committers'
 
@@ -454,101 +463,10 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 }
 
 // ========== System Administration tasks ==========
-task createComponent(group: sysadminGroup, description: 'Create the layout of an OFBiz component in the hot-deploy folder.') << {
-
-    if(!project.hasProperty('componentResourceName')) {
-        ext.componentResourceName = componentName
-    }
-    if(!project.hasProperty('webappName')) {
-        ext.webappName = componentName
-    }
-    if(!project.hasProperty('basePermission')) {
-        ext.basePermission = componentName.toUpperCase()
-    }
-
-    def filterTokens = ['component-name': componentName,
-        'component-resource-name': componentResourceName,
-        'webapp-name': webappName,
-        'base-permission': basePermission]
-    def templateDir = "${rootDir}/framework/resources/templates"
-    def componentDir = "${rootDir}/hot-deploy/${componentName}"
-
-    logger.info('Creating a component with the following properties: ')
-    logger.info(" - componentName: ${componentName}")
-    logger.info(" - componentResourceName: ${componentResourceName}")
-    logger.info(" - webappName: ${webappName}")
-    logger.info(" - basePermission: ${basePermission}")
-
-    mkdir componentDir
-    mkdir componentDir+"/config"
-    mkdir componentDir+"/data"
-    mkdir componentDir+"/data/helpdata"
-    mkdir componentDir+"/dtd"
-    mkdir componentDir+"/documents"
-    mkdir componentDir+"/entitydef"
-    mkdir componentDir+"/lib"
-    mkdir componentDir+"/patches"
-    mkdir componentDir+"/patches/test"
-    mkdir componentDir+"/patches/qa"
-    mkdir componentDir+"/patches/production"
-    mkdir componentDir+"/script"
-    mkdir componentDir+"/servicedef"
-    mkdir componentDir+"/src"
-    mkdir componentDir+"/testdef"
-    mkdir componentDir+"/webapp"
-    mkdir componentDir+"/webapp/${webappName}"
-    mkdir componentDir+"/webapp/${webappName}/error"
-    mkdir componentDir+"/webapp/${webappName}/WEB-INF"
-    mkdir componentDir+"/webapp/${webappName}/WEB-INF/actions"
-    mkdir componentDir+"/widget/"
-
-    generateFileFromTemplate(templateDir+"/ofbiz-component.xml", componentDir,
-        filterTokens, "ofbiz-component.xml")
-    generateFileFromTemplate(templateDir+"/TypeData.xml", componentDir+"/data",
-        filterTokens, "${componentResourceName}TypeData.xml")
-    generateFileFromTemplate(templateDir+"/SecurityPermissionSeedData.xml", componentDir+"/data",
-        filterTokens, "${componentResourceName}SecurityPermissionSeedData.xml")
-    generateFileFromTemplate(templateDir+"/SecurityGroupDemoData.xml", componentDir+"/data",
-        filterTokens, "${componentResourceName}SecurityGroupDemoData.xml")
-    generateFileFromTemplate(templateDir+"/DemoData.xml", componentDir+"/data",
-        filterTokens, "${componentResourceName}DemoData.xml")
-    generateFileFromTemplate(templateDir+"/HELP.xml", componentDir+"/data/helpdata",
-        filterTokens, "HELP_${componentResourceName}.xml")
-    generateFileFromTemplate(templateDir+"/document.xml", componentDir+"/documents",
-        filterTokens, "${componentResourceName}.xml")
-    generateFileFromTemplate(templateDir+"/entitymodel.xml", componentDir+"/entitydef",
-        filterTokens, "entitymodel.xml")
-    generateFileFromTemplate(templateDir+"/services.xml", componentDir+"/servicedef",
-        filterTokens, "services.xml")
-    generateFileFromTemplate(templateDir+"/Tests.xml", componentDir+"/testdef",
-        filterTokens, "${componentResourceName}Tests.xml")
-    generateFileFromTemplate(templateDir+"/UiLabels.xml", componentDir+"/config",
-        filterTokens, "${componentResourceName}UiLabels.xml")
-    generateFileFromTemplate(templateDir+"/index.jsp", componentDir+"/webapp/${webappName}",
-        filterTokens, "index.jsp")
-    generateFileFromTemplate(templateDir+"/error.jsp", componentDir+"/webapp/${webappName}/error",
-        filterTokens, "error.jsp")
-    generateFileFromTemplate(templateDir+"/controller.xml", componentDir+"/webapp/${webappName}/WEB-INF",
-        filterTokens, "controller.xml")
-    generateFileFromTemplate(templateDir+"/web.xml", componentDir+"/webapp/${webappName}/WEB-INF",
-        filterTokens, "web.xml")
-    generateFileFromTemplate(templateDir+"/CommonScreens.xml", componentDir+"/widget",
-        filterTokens, "CommonScreens.xml")
-    generateFileFromTemplate(templateDir+"/Screens.xml", componentDir+"/widget",
-        filterTokens, "${componentResourceName}Screens.xml")
-    generateFileFromTemplate(templateDir+"/Menus.xml", componentDir+"/widget",
-        filterTokens, "${componentResourceName}Menus.xml")
-    generateFileFromTemplate(templateDir+"/Forms.xml", componentDir+"/widget",
-        filterTokens, "${componentResourceName}Forms.xml")
-
-    logger.info("Component successfully created in folder ${rootDir}/hot-deploy/${componentName}.")
-    logger.info("Restart OFBiz and then visit the URL: https://localhost:8443/${webappName}")
-}
-
 task createTestReports(group: sysadminGroup, description: 'Generate HTML reports from junit XML output') << {
     ant.taskdef(name: 'junitreport',
         classname: 'org.apache.tools.ant.taskdefs.optional.junit.XMLResultAggregator',
-        classpath: configurations.junitLibs.asPath)
+        classpath: configurations.junitReport.asPath)
     ant.junitreport(todir: './runtime/logs/test-results') {
         fileset(dir: './runtime/logs/test-results') {
             include(name: '*.xml')
@@ -564,6 +482,237 @@ gradle.taskGraph.afterTask { Task task, TaskState state ->
     if (task.name ==~ /^ofbiz.*--test.*/
         || task.name ==~ /^ofbiz.*-t.*/) {
         tasks.createTestReports.execute()
+    }
+}
+
+// ========== OFBiz Plugin Management ==========
+task createPlugin(group: ofbizPlugin, description: 'create a new plugin component based on specified templates') << {
+    if(!project.hasProperty('pluginResourceName')) {
+        ext.pluginResourceName = pluginId.capitalize()
+    }
+    if(!project.hasProperty('webappName')) {
+        ext.webappName = pluginId
+    }
+    if(!project.hasProperty('basePermission')) {
+        ext.basePermission = pluginId.toUpperCase()
+    }
+
+    def filterTokens = ['component-name': pluginId,
+        'component-resource-name': pluginResourceName,
+        'webapp-name': webappName,
+        'base-permission': basePermission]
+    def templateDir = "${rootDir}/framework/resources/templates"
+    def pluginDir = "${pluginsDir}/${pluginId}"
+
+    mkdir pluginDir
+    mkdir pluginDir+"/config"
+    mkdir pluginDir+"/data"
+    mkdir pluginDir+"/data/helpdata"
+    mkdir pluginDir+"/dtd"
+    mkdir pluginDir+"/documents"
+    mkdir pluginDir+"/entitydef"
+    mkdir pluginDir+"/lib"
+    mkdir pluginDir+"/patches"
+    mkdir pluginDir+"/patches/test"
+    mkdir pluginDir+"/patches/qa"
+    mkdir pluginDir+"/patches/production"
+    mkdir pluginDir+"/script"
+    mkdir pluginDir+"/servicedef"
+    mkdir pluginDir+"/src"
+    mkdir pluginDir+"/testdef"
+    mkdir pluginDir+"/webapp"
+    mkdir pluginDir+"/webapp/${webappName}"
+    mkdir pluginDir+"/webapp/${webappName}/error"
+    mkdir pluginDir+"/webapp/${webappName}/WEB-INF"
+    mkdir pluginDir+"/webapp/${webappName}/WEB-INF/actions"
+    mkdir pluginDir+"/widget/"
+
+    generateFileFromTemplate(templateDir+"/ofbiz-component.xml", pluginDir,
+        filterTokens, "ofbiz-component.xml")
+    generateFileFromTemplate(templateDir+"/TypeData.xml", pluginDir+"/data",
+        filterTokens, "${pluginResourceName}TypeData.xml")
+    generateFileFromTemplate(templateDir+"/SecurityPermissionSeedData.xml", pluginDir+"/data",
+        filterTokens, "${pluginResourceName}SecurityPermissionSeedData.xml")
+    generateFileFromTemplate(templateDir+"/SecurityGroupDemoData.xml", pluginDir+"/data",
+        filterTokens, "${pluginResourceName}SecurityGroupDemoData.xml")
+    generateFileFromTemplate(templateDir+"/DemoData.xml", pluginDir+"/data",
+        filterTokens, "${pluginResourceName}DemoData.xml")
+    generateFileFromTemplate(templateDir+"/HELP.xml", pluginDir+"/data/helpdata",
+        filterTokens, "HELP_${pluginResourceName}.xml")
+    generateFileFromTemplate(templateDir+"/document.xml", pluginDir+"/documents",
+        filterTokens, "${pluginResourceName}.xml")
+    generateFileFromTemplate(templateDir+"/entitymodel.xml", pluginDir+"/entitydef",
+        filterTokens, "entitymodel.xml")
+    generateFileFromTemplate(templateDir+"/services.xml", pluginDir+"/servicedef",
+        filterTokens, "services.xml")
+    generateFileFromTemplate(templateDir+"/Tests.xml", pluginDir+"/testdef",
+        filterTokens, "${pluginResourceName}Tests.xml")
+    generateFileFromTemplate(templateDir+"/UiLabels.xml", pluginDir+"/config",
+        filterTokens, "${pluginResourceName}UiLabels.xml")
+    generateFileFromTemplate(templateDir+"/index.jsp", pluginDir+"/webapp/${webappName}",
+        filterTokens, "index.jsp")
+    generateFileFromTemplate(templateDir+"/error.jsp", pluginDir+"/webapp/${webappName}/error",
+        filterTokens, "error.jsp")
+    generateFileFromTemplate(templateDir+"/controller.xml", pluginDir+"/webapp/${webappName}/WEB-INF",
+        filterTokens, "controller.xml")
+    generateFileFromTemplate(templateDir+"/web.xml", pluginDir+"/webapp/${webappName}/WEB-INF",
+        filterTokens, "web.xml")
+    generateFileFromTemplate(templateDir+"/CommonScreens.xml", pluginDir+"/widget",
+        filterTokens, "CommonScreens.xml")
+    generateFileFromTemplate(templateDir+"/Screens.xml", pluginDir+"/widget",
+        filterTokens, "${pluginResourceName}Screens.xml")
+    generateFileFromTemplate(templateDir+"/Menus.xml", pluginDir+"/widget",
+        filterTokens, "${pluginResourceName}Menus.xml")
+    generateFileFromTemplate(templateDir+"/Forms.xml", pluginDir+"/widget",
+        filterTokens, "${pluginResourceName}Forms.xml")
+    generateFileFromTemplate(templateDir+"/build.gradle", pluginDir,
+        filterTokens, "build.gradle")
+
+    activatePlugin pluginId
+    println "plugin successfully created in directory ${pluginsDir}/${pluginId}."
+}
+
+task installPlugin(group: ofbizPlugin, description: 'activate a plugin and run its install task if it exists') {
+
+    doFirst {
+        if(!project.hasProperty('pluginId')) {
+            throw new GradleException('Missing property \"pluginId\"')
+        }
+    }
+
+    if(project.hasProperty('pluginId')) {
+        if(subprojectExists(":specialpurpose:${pluginId}")) {
+            if(taskExistsInproject(":specialpurpose:${pluginId}", 'install')) {
+                dependsOn ":specialpurpose:${pluginId}:install"
+                doLast { println "installed plugin ${pluginId}" }
+            } else {
+                doLast { println "No install task defined for plugin ${pluginId}" }
+            }
+        } else {
+            /* if the plugin is not added to component-load.xml, then add
+             * it to the file and call gradle again to load the new plugin
+             * as a gradle subproject and install it i.e. gradle calling gradle
+             */
+            doLast {
+                activateAndInstallPlugin pluginId
+            }
+        }
+    }
+}
+
+task uninstallPlugin(group: ofbizPlugin, description: 'run the uninstall task if exists for a plugin and deactivate it') {
+
+    doFirst {
+        if(!project.hasProperty('pluginId')) {
+            throw new GradleException('Missing property \"pluginId\"')
+        }
+        if(!subprojectExists(":specialpurpose:${pluginId}")) {
+            throw new GradleException("Plugin \"${pluginId}\" does not exist")
+        }
+    }
+
+    if(project.hasProperty('pluginId') && taskExistsInproject(":specialpurpose:${pluginId}", 'uninstall')) {
+        dependsOn ":specialpurpose:${pluginId}:uninstall"
+    }
+
+    doLast {
+        deactivatePlugin pluginId
+    }
+}
+
+task removePlugin(group: ofbizPlugin, description: 'Uninstall a plugin and delete its files') {
+    if(project.hasProperty('pluginId') && subprojectExists(":specialpurpose:${pluginId}")) {
+        dependsOn uninstallPlugin
+    }
+
+    doLast {
+        if(file("${pluginsDir}/${pluginId}").exists()) {
+            delete "${pluginsDir}/${pluginId}"
+        } else {
+            throw new GradleException("Directory not found: ${pluginsDir}/${pluginId}")
+        }
+    }
+}
+
+task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to local maven repository') {
+
+    if(project.hasProperty('pluginId')) {
+        doFirst {
+            if(!subprojectExists(":specialpurpose:${pluginId}")) {
+                throw new GradleException("Plugin ${pluginId} does not exist, cannot publish")
+            }
+        }
+        task createPluginArchive(type: Zip) {
+            from "${pluginsDir}/${pluginId}"
+        }
+
+        publishing {
+            publications {
+                ofbizPluginPublication(MavenPublication) {
+                    artifactId pluginId
+                    groupId project.hasProperty('pluginGroup')? pluginGroup :'org.apache.ofbiz.plugin'
+                    version project.hasProperty('pluginVersion')? pluginVersion :'0.1.0-SNAPSHOT'
+        
+                    artifact createPluginArchive
+                    
+                    pom.withXml {
+                        if(project.hasProperty('pluginDescription')) {
+                            asNode().appendNode('description', pluginDescription)
+                        } else {
+                            asNode().appendNode('description', "Publication of OFBiz plugin ${pluginId}")
+                        }
+                    }
+                }
+            }
+        }
+
+        if(subprojectExists(":specialpurpose:${pluginId}")) {
+            dependsOn publishToMavenLocal
+        }
+
+    } else {
+        doFirst { throw new GradleException('Missing property \"pluginId\"') }
+    }
+}
+
+task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin with all dependencies') << {
+    if(!project.hasProperty('dependencyId')) {
+        throw new GradleException('You must pass the dependencyId of the plugin')
+    }
+
+    // Connect to a remote maven repository if defined
+    if(project.hasProperty('repoUrl')) {
+        repositories {
+            maven {
+                url repoUrl
+                if(project.hasProperty('repoUser') && project.hasProperty('repoPassword')) {
+                    credentials {
+                        username repoUser
+                        password repoPassword
+                    }
+                }
+            }
+        }
+    }
+
+    // download plugin and dependencies
+    dependencies {
+        ofbizPlugins dependencyId
+    }
+
+    // reverse the order of dependencies to install them before the plugin
+    def ofbizPluginArchives = new ArrayList(configurations.ofbizPlugins.files)
+    Collections.reverse(ofbizPluginArchives)
+
+    // Extract and install plugin and dependencies
+    ofbizPluginArchives.each { pluginArchive ->
+        ext.pluginId = dependencyId.tokenize(':').get(1)
+        println "installing plugin: ${pluginId}"
+        copy {
+            from zipTree(pluginArchive)
+            into "${pluginsDir}/${pluginId}"
+        }
+        activateAndInstallPlugin pluginId
     }
 }
 
@@ -601,7 +750,7 @@ task cleanXtra(group: cleanupGroup, description: 'Clean extra generated files li
 task cleanGradle(group: cleanupGroup, description: 'clean generated files from Gradle') << {
     delete file("${rootDir}/.gradle")
 }
-task cleanAnt(group: cleanupGroup, type: Delete, description: "clean old artifacts generated by Ant") {
+task cleanAnt(group: cleanupGroup, type: Delete, description: "clean old artifacts generated by Ant") << {
     /* TODO this task is temporary and should be deleted after some
      * time when users have updated their trees. */
     ['framework', 'specialpurpose', 'applications'].each { componentGroup ->
@@ -831,4 +980,79 @@ def getJarManifestClasspathForCurrentOs() {
         osClassPath = configurations.runtime.files.collect { "$it" }.join(' ')
     }
     return osClassPath
+}
+
+def componentExistsInRegister(componentRegister, componentName) {
+    def componentFound = false
+    componentRegister.children().each { component ->
+        if(componentName.equals(component.@"component-location")) {
+            componentFound = true
+        }
+    }
+    return componentFound
+}
+
+def subprojectExists(fullyQualifiedProject) {
+    def projectFound = false
+    subprojects.each { subproject ->
+        if(subproject.getPath().equals(fullyQualifiedProject.toString())) {
+            projectFound = true
+        }
+    }
+    return projectFound
+}
+
+def taskExistsInproject(fullyQualifiedProject, taskName) {
+    def taskExists = false
+    subprojects.each { subProject ->
+        if(subProject.getPath().equals(fullyQualifiedProject.toString())) {
+            subProject.tasks.each { projTask ->
+                if(taskName.equals(projTask.name)) {
+                    taskExists = true
+                }
+            }
+        }
+    }
+    return taskExists
+}
+
+def activatePlugin(pluginId) {
+    def pluginLoadFile = "${pluginsDir}/component-load.xml"
+    def componentRegister = new XmlParser().parse(pluginLoadFile)
+
+    // check that plugin directory exists.
+    if(!file("${pluginsDir}/${pluginId}").exists()) {
+        throw new GradleException("Cannot add plugin \"${pluginId}\", directory does not exist")
+    }
+
+    // only add plugin if it does not exist in component-load.xml
+    if(!componentExistsInRegister(componentRegister, pluginId)) {
+        componentRegister.appendNode('load-component', ['component-location':pluginId])
+        groovy.xml.XmlUtil.serialize(componentRegister, new FileWriter(pluginLoadFile))
+        println "Activated plugin ${pluginId}"
+    } else {
+        println "The plugin ${pluginId} is already activated"
+    }
+}
+
+def deactivatePlugin(pluginId) {
+    def pluginLoadFile = "${pluginsDir}/component-load.xml"
+    def componentRegister = new XmlParser().parse(pluginLoadFile)
+
+    // Ensure that the plugin exists in component-load.xml then remove it
+    if(componentExistsInRegister(componentRegister, pluginId)) {
+        componentRegister.children().removeIf { plugin ->
+            pluginId.equals(plugin.@"component-location")
+        }
+        groovy.xml.XmlUtil.serialize(componentRegister, new FileWriter(pluginLoadFile))
+        println "Deactivated plugin ${pluginId}"
+    } else {
+        println "The plugin ${pluginId} is not active"
+    }
+}
+
+def activateAndInstallPlugin(pluginId) {
+    activatePlugin pluginId
+    def gradleRunner = os.contains('windows') ? 'gradlew.bat' : './gradlew'
+    exec { commandLine gradleRunner, 'installPlugin', "-PpluginId=${pluginId}" }
 }

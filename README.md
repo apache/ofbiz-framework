@@ -28,6 +28,7 @@ by creating the.classpath and .project files.
 
 Security
 -------------------
+
 You can trust the OFBiz Project Management Committee members and committers do their best to keep OFBiz secure from external exploits, and fix vulnerabilities as soon as they are known. Despite these efforts, if ever you find and want to report a security issue, please report at: security @ ofbiz.apache.org, before disclosing them in a public forum.
 
 >_Note_: Be sure to read this Wiki page if ever you plan to use RMI, JNDI, JMX or Spring and maybe other Java classes OFBiz does not use Out Of The Box (OOTB): [The infamous Java serialization vulnerability](https://cwiki.apache.org/confluence/display/OFBIZ/The+infamous+Java+serialization+vulnerability)
@@ -384,8 +385,6 @@ listens on port __5005__
 
 #### Execute an integration test suite
 
-listens on port __5005__
-
 `gradlew "ofbiz --test component=widget --test suitename=org.apache.ofbiz.widget.test.WidgetMacroLibraryTests"`
 
 #### Execute an integration test suite in debug mode
@@ -419,19 +418,6 @@ in a list of favorites for frequent reuse.
 
 `gradlew clean build`
 
-#### Create a custom component in hot-deploy
-
-Create a new custom component. The following project parameters are passed:
-
-- componentName: mandatory
-- componentResourceName: optional, default is the value of componentName
-- webappName: optional, default is the value of componentName
-- basePermission: optional, default is the UPPERCASE value of componentName
-
-`gradlew createComponent -PcomponentName=Custom`
-
-`gradlew createComponent -PcomponentName=Custom -PcomponentResourceName=Custom -PwebappName=customweb -PbasePermission=MYSECURITY`
-
 #### Create an admin user account
 
 Create an admin user with login name MyUserName and default password
@@ -448,6 +434,102 @@ import the project to eclipse. This command will generate
 the necessary __.classpath__ and __.project__ files for eclipse.
 
 `gradlew eclipse`
+
+* * * * * * * * * * *
+
+OFBiz plugin system
+-------------------
+
+OFBiz provides an extension mechanism through plugins. Plugins are standard
+OFBiz components that reside in the specialpurpose directory. Plugins can be
+added manually or fetched from a maven repository. The standard tasks for
+managing plugins are listed below.
+
+>_Note_: OFBiz plugin versions follow [Semantic Versioning 2.0.0](http://semver.org/)
+
+### Pull (download and install) a plugin automatically
+
+Download a plugin with all its dependencies (plugins) and install them one-by-one
+starting with the dependencies and ending with the plugin itself.
+
+`gradlew pullPlugin -PdependencyId="org.apache.ofbiz.plugin:myplugin:0.1.0"`
+
+If the plugin resides in a custom maven repository (not jcenter or localhost) then
+you can use specify the repository using below command:
+
+`gradlew pullPlugin -PrepoUrl="http://www.example.com/custom-maven" -PdependencyId="org.apache.ofbiz.plugin:myplugin:0.1.0"`
+
+If you need username and password to access the custom repository:
+
+`gradlew pullPlugin -PrepoUrl="http://www.example.com/custom-maven" -PrepoUser=myuser -PrepoPassword=mypassword -PdependencyId="org.apache.ofbiz.plugin:myplugin:0.1.0"`
+
+### Install a plugin
+
+If you have a plugin called mycustomplugin and want to install it in OFBiz follow the
+below instructions:
+
+- Extract the plugin if it is compressed
+- Place the extracted directory into /specialpurpose
+- Run the below command
+
+`gradlew installPlugin -PpluginId=myplugin`
+
+The above commands achieve the following:
+
+- add the plugin to /specialpurpose/component-load.xml
+- executes the task "install" in the plugin's build.gradle file if it exists
+
+### Uninstall a plugin
+
+If you have an existing plugin called mycustomplugin and you wish to uninstall
+run the below command
+
+`gradlew uninstallPlugin -PpluginId=myplugin`
+
+The above commands achieve the following:
+
+- executes the task "uninstall" in the plugin's build.gradle file if it exists
+- removes the plugin from /specialpurpose/component-load.xml
+
+### Remove a plugin
+
+Calls __uninstallPlugin__ on an existing plugin and then delete it from the file-system
+
+`gradlew removePlugin -PpluginId=myplugin` 
+
+### Create a new plugin
+
+Create a new plugin. The following project parameters are passed:
+
+- pluginId: mandatory
+- pluginResourceName: optional, default is the Capitalized value of pluginId
+- webappName: optional, default is the value of pluginId
+- basePermission: optional, default is the UPPERCASE value of pluginId
+
+`gradlew createPlugin -PpluginId=myplugin`
+
+`gradlew createPlugin -PpluginId=myplugin -PpluginResourceName=MyPlugin -PwebappName=mypluginweb -PbasePermission=MYSECURITY`
+
+The above commands achieve the following:
+
+- create a new plugin in /specialpurpose/myplugin
+- add the plugin to /specialpurpose/component-load.xml
+
+### Push a plugin to a repository
+
+This task publishes an OFBiz plugin into a maven package and then uploads it to
+a maven repository. Currently, pushing is limited to localhost maven repository
+(work in progress). To push a plugin the following parameters are passed:
+
+- pluginId: mandatory
+- groupId: optional, defaults to org.apache.ofbiz.plugin
+- pluginVersion: optional, defaults to 0.1.0-SNAPSHOT
+- pluginDescription: optional, defaults to "Publication of OFBiz plugin ${pluginId}"
+
+`gradlew pushPlugin -PpluginId=myplugin`
+
+`gradlew pushPlugin -PpluginId=mycompany -PpluginGroup=com.mycompany.ofbiz.plugin -PpluginVersion=1.2.3 -PpluginDescription="Introduce special functionality X"`
+
 
 * * * * * * * * * * * *
 
