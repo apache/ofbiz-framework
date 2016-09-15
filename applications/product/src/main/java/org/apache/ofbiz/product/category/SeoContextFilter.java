@@ -59,6 +59,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.apache.ofbiz.webapp.control.ContextFilter;
+import org.apache.ofbiz.webapp.control.ControlFilter;
 import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
@@ -178,15 +179,12 @@ public class SeoContextFilter extends ContextFilter {
         // test to see if we have come through the control servlet already, if not do the processing
         String requestPath = null;
         String contextUri = null;
-        if (httpRequest.getAttribute(ContextFilter.FORWARDED_FROM_SERVLET) == null) {
-            // Debug.logInfo("In ContextFilter.doFilter, FORWARDED_FROM_SERVLET is NOT set", module);
+        if (httpRequest.getAttribute(ControlFilter.FORWARDED_FROM_SERVLET) == null) {
             String allowedPath = config.getInitParameter("allowedPaths");
             String redirectPath = config.getInitParameter("redirectPath");
             String errorCode = config.getInitParameter("errorCode");
 
             List<String> allowList = StringUtil.split(allowedPath, ":");
-
-            if (debug) Debug.logInfo("[Domain]: " + httpRequest.getServerName() + " [Request]: " + httpRequest.getRequestURI(), module);
 
             requestPath = httpRequest.getServletPath();
             if (requestPath == null) requestPath = "";

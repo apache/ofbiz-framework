@@ -30,7 +30,7 @@ import javax.servlet.jsp.JspException;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.webapp.control.ContextFilter;
+import org.apache.ofbiz.webapp.control.ControlFilter;
 import org.apache.ofbiz.webapp.view.AbstractViewHandler;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
 
@@ -62,7 +62,7 @@ public class JspViewHandler extends AbstractViewHandler {
         // Debug.logInfo("Physical Path  : " + context.getRealPath(page));
 
         // tell the ContextFilter we are forwarding
-        request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, Boolean.TRUE);
+        request.setAttribute(ControlFilter.FORWARDED_FROM_SERVLET, Boolean.TRUE);
         RequestDispatcher rd = request.getRequestDispatcher(page);
 
         if (rd == null) {
