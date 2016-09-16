@@ -113,7 +113,7 @@ under the License.
                             <include-form name="EditProdCatalogCategories" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAddCatalogProdCat}">
-                            <include-form name="addProductCategoryToProdCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                            <include-form name="AddProductCategoryToProdCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

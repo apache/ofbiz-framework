@@ -365,7 +365,7 @@ under the License.
                                     <parameter param-name="productId"/>
                                 </link>
                             </container>
-                            <include-form name="showFixedAssetProduct" location="component://product/widget/catalog/ProductForms.xml"/>
+                            <include-form name="ShowFixedAssetProduct" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -386,7 +386,7 @@ under the License.
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleAddProductAssetUsage}">
-                            <include-form name="addFixedAssetProduct" location="component://product/widget/catalog/ProductForms.xml"/>
+                            <include-form name="AddFixedAssetProduct" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

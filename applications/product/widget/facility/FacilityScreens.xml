@@ -743,7 +743,7 @@ under the License.
                             <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="create"/>
                         </container>
                         <screenlet id="add-facility-group-member" title="${uiLabelMap.ProductAddFacilityGroupMember}" collapsible="true">
-                            <include-form name="addGroupToFacility" location="component://product/widget/facility/FacilityForms.xml"/>
+                            <include-form name="AddGroupToFacility" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
                         <include-form name="EditFacilityGroups" location="component://product/widget/facility/FacilityForms.xml"/>
                     </decorator-section>

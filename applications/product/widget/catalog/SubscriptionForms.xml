@@ -470,7 +470,7 @@ under the License.
     </form>
 
     <!-- Subscription Communication Event  -->
-    <form name="listSubscriptionCommEvent" type="list"  list-name="subscriptionCommEvent"  target="ListSubscriptionCommEvent"
+    <form name="ListSubscriptionCommEvent" type="list"  list-name="subscriptionCommEvent"  target="ListSubscriptionCommEvent"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="SubscriptionAndCommEvent">
@@ -504,7 +504,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="createSubscriptionCommEvent" type="single" target="createSubscriptionCommEvent" title=""
+    <form name="CreateSubscriptionCommEvent" type="single" target="createSubscriptionCommEvent" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createSubscriptionCommEvent"/>
         <field name="subscriptionId"><hidden value="${parameters.subscriptionId}"/></field>

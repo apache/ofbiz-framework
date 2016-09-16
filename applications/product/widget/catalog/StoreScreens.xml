@@ -373,10 +373,10 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductStoreEmailSetup}">
-                            <include-form name="updateProductStoreEmail" location="component://product/widget/catalog/StoreForms.xml"/>
+                            <include-form name="UpdateProductStoreEmail" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddProductStoreEmailSetup}">
-                            <include-form name="createProductStoreEmail" location="component://product/widget/catalog/StoreForms.xml"/>
+                            <include-form name="CreateProductStoreEmail" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
