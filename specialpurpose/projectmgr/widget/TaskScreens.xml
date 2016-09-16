@@ -100,7 +100,7 @@ under the License.
                                     <widgets>
                                         <container style="lefthalf">
                                             <screenlet title="${uiLabelMap.ProjectMgrAssignATaskToMe}">
-                                                <include-form name="assignTaskToMe" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                                <include-form name="AssignTaskToMe" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                             </screenlet>
                                         </container>
                                         <container style="righthalf">
@@ -257,7 +257,7 @@ under the License.
                     <decorator-section name="body">
                         <include-form name="ListTimeEntries" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         <screenlet title="${uiLabelMap.ProjectMgrAddTimeEntry}">
-                            <include-form name="createTimeEntry" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                            <include-form name="CreateTimeEntry" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

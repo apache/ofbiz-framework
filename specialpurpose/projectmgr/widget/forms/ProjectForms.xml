@@ -120,7 +120,7 @@
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" parameter-name="createdStamp"><date-find/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
-    <form name="hoursNotYetBilled" type="list" list-name="entryList"
+    <form name="HoursNotYetBilled" type="list" list-name="entryList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list="entryList">
@@ -676,7 +676,7 @@
         <field name="workEffortId"><hidden/></field>
         <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName} at  ${noteDateTime}"/></field>
     </form>
-    <form name="listResourcesTasks" type="list" list-name="tasks" paginate-target="listResourcesTask" target="updateResourcesTaskAssigment"
+    <form name="ListResourcesTasks" type="list" list-name="tasks" paginate-target="listResourcesTask" target="updateResourcesTaskAssigment"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProjectIdAndNameFromTask" result-map="resultProject">
@@ -732,7 +732,7 @@
         </hyperlink>
     </field>
     </form>
-    <form name="listResourcesProjects" type="list" list-name="parties"
+    <form name="ListResourcesProjects" type="list" list-name="parties"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProject" result-map="result">

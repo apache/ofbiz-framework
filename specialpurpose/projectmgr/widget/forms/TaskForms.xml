@@ -297,7 +297,7 @@
             </hyperlink>
         </field>
     </form>
-    <form name="assignTaskToMe" type="single" target="addTaskAssignment">
+    <form name="AssignTaskToMe" type="single" target="addTaskAssignment">
         <alt-target use-when="parameters.get(&quot;workEffortId&quot;)==null" target="MyTasks"/>
         <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
@@ -484,7 +484,7 @@
             </hyperlink>
         </field>
     </form>
-    <form name="createTimeEntry" type="single" target="createTimeEntry">
+    <form name="CreateTimeEntry" type="single" target="createTimeEntry">
         <field name="fromDate" title="${uiLabelMap.CommonDate}"><date-time type="date"/></field>
         <field name="hours"><text size="10"/></field>
         <field name="partyId">

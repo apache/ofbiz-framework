@@ -115,8 +115,8 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body" >
-                        <screenlet title="${uiLabelMap.PageTitleHoursNotYetBilled} ${uiLabelMap.CommonInformation}" navigation-form-name="hoursNotYetBilled">
-                            <include-form name="hoursNotYetBilled" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        <screenlet title="${uiLabelMap.PageTitleHoursNotYetBilled} ${uiLabelMap.CommonInformation}" navigation-form-name="HoursNotYetBilled">
+                            <include-form name="HoursNotYetBilled" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddProjectTimeToNewInvoice}">
                             <include-form name="AddProjectTimeToNewInvoice" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
@@ -604,7 +604,7 @@ under the License.
                         <screenlet id="AddResourceProjectPartyPanel" title="${uiLabelMap.PageTitleAddProject}" collapsible="true">
                             <include-form name="AddResourceProjectParty" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
-                        <include-form name="listResourcesProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        <include-form name="ListResourcesProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -637,7 +637,7 @@ under the License.
                         <screenlet id="AddResourceTaskPartyPanel" title="${uiLabelMap.PageTitleAddTask}" collapsible="true">
                             <include-form name="AddResourceTaskParty" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
-                        <include-form name="listResourcesTasks" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        <include-form name="ListResourcesTasks" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
