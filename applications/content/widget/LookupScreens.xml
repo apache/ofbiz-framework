@@ -36,7 +36,7 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-results">
-                        <include-form name="lookupListLayout" location="component://content/widget/LookupForms.xml"/>
+                        <include-form name="LookupListLayout" location="component://content/widget/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -58,10 +58,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupDataResourceContent" location="component://content/widget/LookupForms.xml"/>
+                        <include-form name="LookupDataResourceContent" location="component://content/widget/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupDataResourceContent" location="component://content/widget/LookupForms.xml"/>
+                        <include-form name="ListLookupDataResourceContent" location="component://content/widget/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

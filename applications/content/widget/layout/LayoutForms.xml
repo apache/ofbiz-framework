@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- LayoutFind forms -->
-    <form name="findLayout" default-entity-name="Content" target="FindLayout" title="" type="single"
+    <form name="FindLayout" default-entity-name="Content" target="FindLayout" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <!--<auto-fields-entity entity-name="Content" default-field-type="find"/>-->
         <field name="contentTypeId">
@@ -142,7 +142,7 @@ under the License.
         </field>
     </form>
 
-    <form name="listFindLayout" default-entity-name="ContentDataResourceView" title="" type="list" list-name="listIt" target="" paginate-target="FindLayout"
+    <form name="ListFindLayout" default-entity-name="ContentDataResourceView" title="" type="list" list-name="listIt" target="" paginate-target="FindLayout"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
           <actions>
             <set field="requestParameters.contentTypeId" value="DOCUMENT"/>
@@ -183,7 +183,7 @@ under the License.
         -->
     </form>
 
-    <form name="listListLayout" default-entity-name="ContentAssocDataResourceViewFrom" list-name="layoutList" target="" title="" type="list" paginate-target="FindLayout"
+    <form name="ListListLayout" default-entity-name="ContentAssocDataResourceViewFrom" list-name="layoutList" target="" title="" type="list" paginate-target="FindLayout"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">

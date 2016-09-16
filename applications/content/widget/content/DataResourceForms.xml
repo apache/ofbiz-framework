@@ -145,7 +145,7 @@ under the License.
         </field>
         <field name="dataResourceName"><display/></field>
     </form>
-    <form name="mruLookupDataResource" default-entity-name="DataResource" list-name="mruList" target="" title="" type="list" default-widget-style="display"
+    <form name="MruLookupDataResource" default-entity-name="DataResource" list-name="mruList" target="" title="" type="list" default-widget-style="display"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')"/>
@@ -444,7 +444,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="lookupProductFeature" target="LookupProductFeature" title="" type="single"
+    <form name="LookupProductFeature" target="LookupProductFeature" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductFeature" default-field-type="find"/>
         <field name="productFeatureTypeId">
@@ -463,14 +463,14 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupProductFeature" list-name="entityList" title="" type="list" paginate-target="LookupProductFeature"
+    <form name="ListLookupProductFeature" list-name="entityList" title="" type="list" paginate-target="LookupProductFeature"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="ProductFeature" default-field-type="display"/>
         <field name="productFeatureId" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')"/>
         </field>
     </form>
-    <form name="mruLookupProductFeature" default-entity-name="ProductFeature" list-name="mruList" target="" title="" type="list"
+    <form name="MruLookupProductFeature" default-entity-name="ProductFeature" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')"/>
