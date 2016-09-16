@@ -138,11 +138,10 @@ public class LabelManagerFactory {
                                     || labelKey.contains("FieldDescription.")
                                     || labelKey.contains("ProductShipmentUomAbbreviation_")
                                     || labelKey.contains("TemporalExpression_")
+                                    || labelKey.contains(".portalPageName.")
+                                    || labelKey.contains("ProductStoreGroup.productStoreGroupName.NA")
                                     )) { 
                         continue; // OFBIZ-8154 WIP
-                                    // TODO HumanResServices. labels seems unused and should be removed
-                                    // TODO .portalPageName. is doubtful to be double checked
-                                    // TODO ProductStoreGroup.productStoreGroupName.NA not sure
                     }
                     String labelComment = "";
                     for (Node valueNode : UtilXml.childNodeList(propertyElem.getFirstChild())) {
