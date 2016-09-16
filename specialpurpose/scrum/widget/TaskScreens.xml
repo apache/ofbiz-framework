@@ -338,7 +338,7 @@ under the License.
                         </container>
                         <container style="righthalf">
                             <screenlet title="${uiLabelMap.ScrumTaskAttachements}">
-                                <include-form location="component://scrum/widget/OpenTestForms.xml" name="contentTask"/>
+                                <include-form location="component://scrum/widget/OpenTestForms.xml" name="ContentTask"/>
                             </screenlet>
                             <include-screen name="TaskNoteInfo"/>
                             <screenlet title="${uiLabelMap.PageTitleTaskMember}">
@@ -400,10 +400,10 @@ under the License.
                 <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
             </condition>
             <widgets>
-                <include-form location="component://scrum/widget/TaskForms.xml" name="taskMemberListInfo"/>
+                <include-form location="component://scrum/widget/TaskForms.xml" name="TaskMemberListInfo"/>
             </widgets>
             <fail-widgets>
-                <include-form location="component://scrum/widget/TaskForms.xml" name="taskMemberListInfoForStakeholder"/>
+                <include-form location="component://scrum/widget/TaskForms.xml" name="TaskMemberListInfoForStakeholder"/>
             </fail-widgets>
         </section>
     </screen>
@@ -486,10 +486,10 @@ under the License.
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="addMemberTask" title="${uiLabelMap.PageTitleTaskMember}" collapsible="true">
-                            <include-form name="taskMember" location="component://scrum/widget/TaskForms.xml"/>
+                            <include-form name="TaskMember" location="component://scrum/widget/TaskForms.xml"/>
                         </screenlet>
                         <screenlet id="taskMemberList" title="${uiLabelMap.ScrumTaskMemberList}">
-                            <include-form name="taskMemberList" location="component://scrum/widget/TaskForms.xml"/>
+                            <include-form name="TaskMemberList" location="component://scrum/widget/TaskForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

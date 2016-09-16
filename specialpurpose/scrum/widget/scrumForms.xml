@@ -20,7 +20,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="sprintList" type="list" use-row-submit="true" list-name="listIt" target="DeleteSprint" paginate-target="SprintList" separate-columns="true"
+    <form name="SprintList" type="list" use-row-submit="true" list-name="listIt" target="DeleteSprint" paginate-target="SprintList" separate-columns="true"
         odd-row-style="alternate-row" even-row-style="even-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="input.noConditionFind" value="N"/>
@@ -52,7 +52,7 @@ under the License.
         <field name="estimatedHours" title="Sprint Length (hours)"><display></display></field>
     </form>
     
-    <form name="sprintListClosed" extends="sprintList">
+    <form name="SprintListClosed" extends="SprintList">
         <actions>
             <set field="input.noConditionFind" value="N"/>
             <set field="input.workEffortParentId" from-field="parameters.projectId"/>
@@ -68,7 +68,7 @@ under the License.
         </actions>
     </form>
     
-    <form name="sprintBacklogList" type="list" use-row-submit="true" list-name="custRequestAndCustRequestItem" paginate-target="sprintBacklogListTarget" separate-columns="true"
+    <form name="SprintBacklogList" type="list" use-row-submit="true" list-name="custRequestAndCustRequestItem" paginate-target="sprintBacklogListTarget" separate-columns="true"
         odd-row-style="alternate-row" even-row-style="even-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortAndProduct" list="projectList">
@@ -95,7 +95,7 @@ under the License.
         <field name="custRequestId"><hidden/></field>
     </form>
     
-    <form name="sprintBacklogListItems" type="list" use-row-submit="true" list-name="listIt" target="UpdateHours" paginate-target="ViewSprint" separate-columns="true"
+    <form name="SprintBacklogListItems" type="list" use-row-submit="true" list-name="listIt" target="UpdateHours" paginate-target="ViewSprint" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="hover-bar basic-table">
         <row-actions>
             <!-- get total backlog item's plan hours -->
@@ -228,7 +228,7 @@ under the License.
         <field name="dummy7" title=" " position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display description=" "/></field>
     </form>
     
-    <form name="sprintBacklogListItemsHideDelete" extends="sprintBacklogListItems">
+    <form name="SprintBacklogListItemsHideDelete" extends="SprintBacklogListItems">
         <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display/></field>
         <field name="deleteButton" position="1" use-when="showPosition1"><hidden/></field>
         <field name="deleteTaskButton" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><hidden/></field>
@@ -249,7 +249,7 @@ under the License.
         </sort-order>
     </form>
     
-    <form name="showSprintInfo" type="single" default-entity-name="WorkEffort" target="EditSprint" >
+    <form name="ShowSprintInfo" type="single" default-entity-name="WorkEffort" target="EditSprint" >
         <actions>
             <entity-one entity-name="WorkEffort" value-field="sprint">
                 <field-map field-name="workEffortId" from-field="parameters.sprintId"/>
@@ -306,7 +306,7 @@ under the License.
         <field name="sprintDuration"><hidden value="${estimatedMilliSeconds/144000000}"/></field>
     </form>
     
-    <form name="EditSprint" type="single" extends="showSprintInfo" target="UpdateSprint">
+    <form name="EditSprint" type="single" extends="ShowSprintInfo" target="UpdateSprint">
         <field name="workEffortParentId" entry-name="projectId" title="${uiLabelMap.ScrumSprintMoveToProject}">
             <drop-down allow-empty="true">
                 <entity-options description="${workEffortName} [${workEffortId}]" entity-name="WorkEffortAndProduct" key-field-name="workEffortId">
@@ -361,7 +361,7 @@ under the License.
         </sort-order>
     </form>
     
-    <form name="addSprint" skip-end="true" type="single" target="createSprint" default-entity-name="WorkEffort" default-map-name="projectWorkEffort">
+    <form name="AddSprint" skip-end="true" type="single" target="createSprint" default-entity-name="WorkEffort" default-map-name="projectWorkEffort">
         <field name="sprintName" title="${uiLabelMap.ScrumSprintName}"><text size="60"></text></field>
         <field name="sprintDescription" title="${uiLabelMap.ScrumSprintGoal}"><textarea/></field>
         <field name="workEffortTypeId"><hidden value="SCRUM_SPRINT"/></field>
@@ -377,7 +377,7 @@ under the License.
         </field>
     </form>
     
-    <form name="addSprintMember" type="single" target="addSprintMember" default-map-name="projectMembers">
+    <form name="AddSprintMember" type="single" target="addSprintMember" default-map-name="projectMembers">
         <actions>
             <entity-condition entity-name="ScrumMemberUserLoginAndSecurityGroup" distinct="true" list="listPerson">
                 <condition-list combine="and">
@@ -425,7 +425,7 @@ under the License.
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="sprintId"><hidden value="${parameters.sprintId}"/></field>
     </form>
-     <form name="listSprintMember" type="list" target="delSprintMember" list-name="listIt" use-row-submit="true" paginate-target="ViewSprint" separate-columns="true"
+     <form name="ListSprintMember" type="list" target="delSprintMember" list-name="listIt" use-row-submit="true" paginate-target="ViewSprint" separate-columns="true"
         odd-row-style="alternate-row" even-row-style="even-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="input.noConditionFind" from-field="parameters.noConditionFind" default-value="Y"/>
@@ -451,17 +451,17 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonRemove}"><submit confirmation-message="Are you sure to delete selected member ?"/></field>
     </form>
-    <form name="listSprintMemberNoAction" extends="listSprintMember">
+    <form name="ListSprintMemberNoAction" extends="ListSprintMember">
         <field name="submitButton"><hidden/></field>
     </form>
-    <form name="listSprintMemberForStakeholder" extends="listSprintMember">
+    <form name="ListSprintMemberForStakeholder" extends="ListSprintMember">
         <field name="memberName" title="${uiLabelMap.ScrumMembersName}">
             <display description="${lastName}, ${firstName} ${middleName} [${partyId}]"></display>
         </field>
         <field name="submitButton"><hidden/></field>
     </form>
     
-    <form name="editScrumProject" default-map-name="workEffort" target="updateScrumProject" title="" type="single">
+    <form name="EditScrumProject" default-map-name="workEffort" target="updateScrumProject" title="" type="single">
         <actions>
             <entity-one value-field="workEffortAttMap" entity-name="WorkEffortAttribute">
                 <field-map field-name="workEffortId" from-field="workEffortId"/>
@@ -518,7 +518,7 @@ under the License.
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
     </form>
-    <form name="newScrumProject" extends="editScrumProject">
+    <form name="NewScrumProject" extends="EditScrumProject">
         <field name="productId" title="${uiLabelMap.ScrumProductName}"><display-entity entity-name="Product" description="${internalName} [${productId}]"/> </field>
     </form>
     
@@ -1145,7 +1145,7 @@ under the License.
         <field name="estimatedHours"><display/></field>
         <field name="submitButton" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="projectList" type="list" target="main" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="Sprints" list-name="sprints">
+    <form name="ProjectList" type="list" target="main" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="Sprints" list-name="sprints">
         <actions>
             <set field="isCurrentProject" value="${groovy: request.setAttribute(&quot;isCurrentProject&quot;, false);}" type="Boolean"/>
             <set field="currentProject" value="${groovy: request.setAttribute(&quot;currentProject&quot;, ' ');}" type="String"/>
@@ -1237,7 +1237,7 @@ under the License.
         <field name="sprintActualStartDate" title="${uiLabelMap.CommonStartDate}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display type="date"></display></field>
         <field name="sprintActualCompletionDate" title="${uiLabelMap.CommonEndDate}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display type="date"></display></field>
     </form>
-    <form name="projectListWithNoLinkProfile" extends="projectList">
+    <form name="ProjectListWithNoLinkProfile" extends="ProjectList">
         <field name="companyId" title="${uiLabelMap.ScrumOwnerCompany}" position="1" use-when="!isCurrentCompany"  widget-style="buttontext">
             <display description="${companyName} [${companyId}]"/>
         </field>
@@ -1245,7 +1245,7 @@ under the License.
             <display description="${productOwnerName} [${productOwnerId}]"/>
         </field>
     </form>
-    <form name="projectAndSprintListInfo" type="list" target="ViewProduct" paginate-target="ViewProduct" 
+    <form name="ProjectAndSprintListInfo" type="list" target="ViewProduct" paginate-target="ViewProduct" 
           odd-row-style="alternate-row" default-table-style="basic-table hover-bar" list-name="sprints">
         <actions>
             <set field="isCurrentProject" value="${groovy: request.setAttribute(&quot;isCurrentProject&quot;, false);}" type="Boolean"/>
@@ -1309,7 +1309,7 @@ under the License.
         <field name="sprintActualStartDate" title="${uiLabelMap.CommonStartDate}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display type="date"></display></field>
         <field name="sprintActualCompletionDate" title="${uiLabelMap.CommonEndDate}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display type="date"></display></field>
     </form>
-    <form name="SprintListInfo" extends="sprintList" odd-row-style="alternate-row" even-row-style="even-row" header-row-style="header-row" default-table-style="basic-table hover-bar" paginate-target="viewScrumProject">
+    <form name="SprintListInfo" extends="SprintList" odd-row-style="alternate-row" even-row-style="even-row" header-row-style="header-row" default-table-style="basic-table hover-bar" paginate-target="viewScrumProject">
         <actions>
             <set field="input.noConditionFind" value="N"/>
             <set field="input.workEffortParentId" from-field="parameters.projectId"/>
@@ -1418,7 +1418,7 @@ under the License.
         <field name="noteInfo3" title="Answer"><display description="${Question3[0].noteInfo}"/></field>
     </form>
 
-    <form name="addSprintBacklog" type="single" target="createSprintBacklog">
+    <form name="AddSprintBacklog" type="single" target="createSprintBacklog">
         <actions>
             <entity-and entity-name="WorkEffortAndProduct" list="projectList">
                  <field-map field-name="workEffortId" from-field="parameters.projectId"/>
@@ -1772,7 +1772,7 @@ under the License.
                 <sort-field name="searchButton"/>
             </sort-order>
         </form>
-    <form name="hoursNotYetBilled" type="multi" list-name="hoursNotYetBilledTasks" use-row-submit="false" paginate-target="ProductBilling" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" 
+    <form name="HoursNotYetBilled" type="multi" list-name="hoursNotYetBilledTasks" use-row-submit="false" paginate-target="ProductBilling" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" 
         target="updateNotBilledBacklog?productId=${productId}&amp;fromDate=${fromDate}&amp;thruDate=${thruDate}&amp;includeMeeting=${includeMeeting}&amp;VIEW_SIZE_1=${parameters.VIEW_SIZE_1}&amp;VIEW_INDEX_1=${parameters.VIEW_INDEX_1}">
         <row-actions>
             <set field="showPosition1" value="${groovy:String prev=(String)previousItem.get(&quot;custRequestId&quot;);return !(prev!=null&amp;&amp;prev.equals(custRequestId));}" type="Boolean"/>
@@ -1834,7 +1834,7 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonDate}" position="2"><display type="date"/> </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="totalHoursNotYetBilled" extends="hoursNotYetBilled" paginate-target="TotalBilling"
+    <form name="TotalHoursNotYetBilled" extends="HoursNotYetBilled" paginate-target="TotalBilling"
        target="updateTotalNotBilledBacklog?productId=${productId}&amp;fromDate=${fromDate}&amp;thruDate=${thruDate}&amp;includeMeeting=${includeMeeting}&amp;VIEW_SIZE_1=${parameters.VIEW_SIZE_1}&amp;VIEW_INDEX_1=${parameters.VIEW_INDEX_1}" >
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -1887,7 +1887,7 @@ under the License.
     <form name="TotalBillingToNewInvoice" type="single" extends="AddProductTimeToNewInvoice" target="totalBillingToNewInvoice">
     </form>
     <!-- View Form -->
-    <form name="ViewEditScrumProject" type="single" extends="editScrumProject">
+    <form name="ViewEditScrumProject" type="single" extends="EditScrumProject">
         <field name="submitButton" title="Save" widget-style="smallSubmit" event="onClick" action="javascript:document.ViewEditScrumProject.disable();"><submit/></field>
     </form>
     <form name="ViewEditProdBacklog" type="single" default-map-name="custRequest">
@@ -2048,22 +2048,22 @@ under the License.
     <form name="ViewDailyMeetingMinute" type="single" extends="DailyMeetingMinute">
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" event="onClick" action="javascript:document.ViewDailyMeetingMinute.disable();"><hidden/></field>
     </form>
-    <form name="ViewEditScrumProject" type="single" extends="editScrumProject">
+    <form name="ViewEditScrumProject" type="single" extends="EditScrumProject">
         <field name="submitButton" title="Save" widget-style="smallSubmit"><hidden/></field>
     </form>
-    <form name="ViewAddSprintBacklog" type="single" extends="addSprintBacklog">
+    <form name="ViewAddSprintBacklog" type="single" extends="AddSprintBacklog">
         <field name="submitButton"><hidden/></field>
     </form>
-    <form name="ViewAddSprintMember" type="single" extends="addSprintMember">
+    <form name="ViewAddSprintMember" type="single" extends="AddSprintMember">
         <field name="submitButton" title="Assign"><hidden/></field>
     </form>
-    <form name="ViewShowSprintInfo" type="single" extends="showSprintInfo">
+    <form name="ViewShowSprintInfo" type="single" extends="ShowSprintInfo">
         <field name="deleteButton" title="Delete Sprint" widget-style="textbutton" action="javascript: return confirm('Are you sure to delete this sprint ?');" event="Onclick"><hidden/></field>
     </form>
-    <form name="ViewListSprintMember" type="list" extends="listSprintMember">
+    <form name="ViewListSprintMember" type="list" extends="ListSprintMember">
         <field name="submitButton" title="${uiLabelMap.CommonDelete}"><hidden/></field>
     </form>
-    <form name="ViewSprintBacklogListItemsNoAction" extends="sprintBacklogListItems">
+    <form name="ViewSprintBacklogListItemsNoAction" extends="SprintBacklogListItems">
         <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display/></field>
         <field name="deleteButton" position="1" use-when="showPosition1"><hidden/></field>
         <field name="deleteTaskButton" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><hidden/></field>
@@ -2443,7 +2443,7 @@ under the License.
             <display description="${resultCompanyGroup.groupName} [${companyNameId}]"/>
         </field>
     </form>
-    <form name="backlogInfo" type="single">
+    <form name="BacklogInfo" type="single">
         <actions>
           <entity-one entity-name="CustRequest" value-field="dataCustRequest">
                   <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
@@ -2452,7 +2452,7 @@ under the License.
         <field name="backlogId" title="Product Backlog Id"><display description="${dataCustRequest.custRequestId}"/></field>
         <field name="backlogItem" title="Product Backlog Item"><display description="${dataCustRequest.description}"/></field>
     </form>
-    <form name="listBacklogTask" type="list" list-name="listIt" paginate-target="findTask" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListBacklogTask" type="list" list-name="listIt" paginate-target="findTask" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
     <actions>
             <entity-condition entity-name="ProjectSprintBacklogAndTask" list="listIt">
                 <condition-list>
@@ -2717,7 +2717,7 @@ under the License.
         </field>
         <field name="deleteLink"><ignored/> </field>
         </form>
-    <form name="taskRelateBacklog" type="list" separate-columns="true" list-name="projectSprintBacklogAndTasks"
+    <form name="TaskRelateBacklog" type="list" separate-columns="true" list-name="projectSprintBacklogAndTasks"
         odd-row-style="alternate-row" even-row-style="even-row" header-row-style="header-row" default-table-style="basic-table hover-bar" use-row-submit="true">
         <actions>
             <entity-and entity-name="CustRequestWorkEffort" list="sprintList">
@@ -2916,7 +2916,7 @@ under the License.
         <field name="custRequestId"><hidden/></field>
     </form>
     
-    <form name="unplannedBacklogList" extends="ListProdBacklogBySeq" list-name="unplanBacklogItems" type="multi" target="updateProductBacklogItemRow?productId=${productId}&amp;UnplannedSequence=${UnplannedSequence}">
+    <form name="UnplannedBacklogList" extends="ListProdBacklogBySeq" list-name="unplanBacklogItems" type="multi" target="updateProductBacklogItemRow?productId=${productId}&amp;UnplannedSequence=${UnplannedSequence}">
         <row-actions>
             <entity-one entity-name="CustRequest" value-field="custRequest"/>
             <set field="product" from-field="custRequest.description"/>
@@ -2952,11 +2952,11 @@ under the License.
         <field name="dummy2" title="${uiLabelMap.CommonDelete}"><display description=" "/></field>
         <field name="submitButton" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="unplannedBacklogListForOwner" extends="unplannedBacklogList">
+    <form name="UnplannedBacklogListForOwner" extends="UnplannedBacklogList">
         <field name="estimatedHours"><display/></field>
         <field name="submitButton" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="unplanBacklogListItems" type="list" use-row-submit="true" list-name="listIt" target="UpdateUnplanBacklogHours" paginate-target="unplanBacklog" separate-columns="true"
+    <form name="UnplanBacklogListItems" type="list" use-row-submit="true" list-name="listIt" target="UpdateUnplanBacklogHours" paginate-target="unplanBacklog" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="hover-bar basic-table">
         <row-actions>
             <!-- get total backlog item's plan hours -->
@@ -3080,7 +3080,7 @@ under the License.
         <field name="dummy7" title=" " position="2" use-when="workEffortId!=null"><display description=" "/></field>
     </form>
     
-    <form name="unplanBacklogListItemsHideDelete" extends="unplanBacklogListItems">
+    <form name="UnplanBacklogListItemsHideDelete" extends="UnplanBacklogListItems">
         <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="workEffortId!=null"><display/></field>
         <field name="deleteButton" position="1" use-when="showPosition1"><hidden/></field>
         <field name="deleteTaskButton" position="2" use-when="workEffortId!=null"><hidden/></field>
@@ -3100,7 +3100,7 @@ under the License.
             <sort-field name="dummy3"/>
         </sort-order>
     </form>
-    <form name="unplanBacklogListItemsForOwner" extends="unplanBacklogListItems">
+    <form name="UnplanBacklogListItemsForOwner" extends="UnplanBacklogListItems">
         <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="workEffortId!=null"><display/></field>
         <field name="deleteButton" position="1" use-when="showPosition1"><hidden/></field>
         <field name="deleteTaskButton" position="2" use-when="workEffortId!=null"><hidden/></field>
@@ -3120,7 +3120,7 @@ under the License.
             <sort-field name="dummy3"/>
         </sort-order>
     </form>
-    <form name="unplannedBacklogListByCategories" extends="ListProdBacklog" list-name="unplanBacklogItems" type="multi">
+    <form name="UnplannedBacklogListByCategories" extends="ListProdBacklog" list-name="unplanBacklogItems" type="multi">
         <actions>
             <set field="parentCustRequestId" from-field="parameters.parentCustRequestId" default-value=""/>
         </actions> 
@@ -3146,7 +3146,7 @@ under the License.
         <field name="deleteFlag" position="2" title="${uiLabelMap.CommonDelete}"/>
         <field name="dummy1" title="${uiLabelMap.ScrumMoveToUnplannedSprint}" use-when="&quot;${statusId}&quot;==&quot;CRQ_REVIEWED&quot;" position="2"><display description=" "/></field>
     </form>
-    <form name="unplannedBacklogListByCategoriesForOwner" extends="unplannedBacklogListByCategories">
+    <form name="UnplannedBacklogListByCategoriesForOwner" extends="UnplannedBacklogListByCategories">
         <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlannedHours}"><display/></field>
     </form>
     <form name="NewTaskForUnplanBacklog" target="createTaskForUnplanBacklog?productId=${parameters.productId}" extends="EditSprintTask" extends-resource="component://scrum/widget/TaskForms.xml">

@@ -58,7 +58,7 @@ under the License.
                                     <widgets>
                                         <container>
                                             <screenlet title="${uiLabelMap.ScrumAssignATaskToMe}" id="titleMyWorkOpenTask" collapsible="true" initially-collapsed="false">
-                                                <include-form name="assignTaskToMe" location="component://scrum/widget/TaskForms.xml"/>
+                                                <include-form name="AssignTaskToMe" location="component://scrum/widget/TaskForms.xml"/>
                                             </screenlet>
                                         </container>
                                     </widgets>

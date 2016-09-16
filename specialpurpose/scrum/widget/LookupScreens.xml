@@ -40,10 +40,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupProductBacklog" location="component://scrum/widget/FieldLookupForms.xml"/>
+                        <include-form name="LookupProductBacklog" location="component://scrum/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupProductBacklog" location="component://scrum/widget/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupProductBacklog" location="component://scrum/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

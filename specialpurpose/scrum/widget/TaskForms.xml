@@ -656,7 +656,7 @@
         </field>
     </form>
     
-    <form name="assignTaskToMe" type="single" target="addTaskAssignment">
+    <form name="AssignTaskToMe" type="single" target="addTaskAssignment">
         <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
         <field name="taskId" parameter-name="workEffortId" title="${uiLabelMap.ScrumTaskName}">
             <drop-down allow-empty="true">
@@ -872,7 +872,7 @@
             <sort-field name="partyId"/>
         </sort-order>
     </form>
-    <form name="taskMember" type="single" target="addMemberTask">
+    <form name="TaskMember" type="single" target="addMemberTask">
         <actions>
             <entity-condition entity-name="RoleType" list="roleTypeList">
                 <condition-list combine="or">
@@ -934,7 +934,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     
-    <form name="taskMemberList" type="list" target="removeMemberTask" list-name="taskMembers" use-row-submit="true" paginate-target="taskMember" separate-columns="true"
+    <form name="TaskMemberList" type="list" target="removeMemberTask" list-name="taskMembers" use-row-submit="true" paginate-target="taskMember" separate-columns="true"
         odd-row-style="alternate-row" even-row-style="even-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortPartyAssignView" list="taskMembers" filter-by-date="true">
@@ -958,11 +958,11 @@
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonRemove}"><submit/></field>
     </form>
-    <form name="taskMemberListInfo" type="list" extends="taskMemberList" separate-columns="true"
+    <form name="TaskMemberListInfo" type="list" extends="TaskMemberList" separate-columns="true"
         odd-row-style="alternate-row" even-row-style="even-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><hidden/></field>
     </form>
-    <form name="taskMemberListInfoForStakeholder" type="list" extends="taskMemberList" separate-columns="true"
+    <form name="TaskMemberListInfoForStakeholder" type="list" extends="TaskMemberList" separate-columns="true"
         odd-row-style="alternate-row" even-row-style="even-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
         <field name="memberName" title="${uiLabelMap.ScrumMembersName}">
             <display description="${lastName} ${firstName} ${middleName} [${partyId}]"></display>

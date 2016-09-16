@@ -85,7 +85,7 @@ under the License.
         <field name="entryDate" title="${uiLabelMap.CommonCreated}"><display type="date"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><hidden/></field>
     </form>
-    <form name="uploadContent" type="upload" target="uploadAttachFiletoEmail?productId=${parameters.productId}&amp;custRequestId=${parameters.custRequestId}">
+    <form name="UploadContent" type="upload" target="uploadAttachFiletoEmail?productId=${parameters.productId}&amp;custRequestId=${parameters.custRequestId}">
         <field name="custRequestId"><hidden value="${parameters.custRequestId}"/></field>
         <field name="dataCategoryId"><hidden value="PERSONAL"/></field>
         <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
@@ -116,7 +116,7 @@ under the License.
                     (document.uploadContent.submit())"/>
         </field>
     </form>
-    <form name="listCommContent" type="list" list-name="contentDataResourceList" paginate-target="/ListCommContent" target="removeAttachFile"
+    <form name="ListCommContent" type="list" list-name="contentDataResourceList" paginate-target="/ListCommContent" target="removeAttachFile"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CommEventContentDataResource" list="contentDataResourceList">
@@ -188,7 +188,7 @@ under the License.
         <field name="subject"><text size="74"  maxlength="255" disabled="true"/> </field>
         <field name="content"><textarea cols="72" rows="15" read-only="true"/> </field>
     </form>
-    <form name="listCommContentForProduct" type="list" extends="listCommContent" list-name="contentDataResourceList" paginate-target="/ListCommContent" target="removeAttachFileForProduct"
+    <form name="ListCommContentForProduct" type="list" extends="ListCommContent" list-name="contentDataResourceList" paginate-target="/ListCommContent" target="removeAttachFileForProduct"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="custRequestId"><ignored/> </field>
          <field name="contentName">
@@ -201,7 +201,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="uploadContentForProduct" type="upload" extends="uploadContent" target="uploadAttachFiletoEmailForProduct?productId=${parameters.productId}">
+    <form name="UploadContentForProduct" type="upload" extends="UploadContent" target="uploadAttachFiletoEmailForProduct?productId=${parameters.productId}">
         <field name="custRequestId"><ignored/> </field>
         <field name="productId"><hidden value="${parameters.productId}"/></field>
         <field name="partyId"><hidden value="${userLogin.partyId}"/> </field>

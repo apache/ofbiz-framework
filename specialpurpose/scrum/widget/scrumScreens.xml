@@ -52,12 +52,12 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.ScrumSprintList}">
-                                            <include-form name="projectList" location="component://scrum/widget/scrumForms.xml"/>
+                                            <include-form name="ProjectList" location="component://scrum/widget/scrumForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>
                                         <screenlet title="${uiLabelMap.ScrumSprintList}">
-                                            <include-form name="projectListWithNoLinkProfile" location="component://scrum/widget/scrumForms.xml"/>
+                                            <include-form name="ProjectListWithNoLinkProfile" location="component://scrum/widget/scrumForms.xml"/>
                                         </screenlet>
                                     </fail-widgets>
                                 </section>
@@ -88,11 +88,11 @@ under the License.
                         </condition>
                         <widgets>
                             <screenlet title="${uiLabelMap.ScrumCreateSprint}">
-                                <include-form location="component://scrum/widget/scrumForms.xml" name="addSprint"/>
-                                <include-form location="component://scrum/widget/scrumForms.xml" name="addSprintBacklog"/>
+                                <include-form location="component://scrum/widget/scrumForms.xml" name="AddSprint"/>
+                                <include-form location="component://scrum/widget/scrumForms.xml" name="AddSprintBacklog"/>
                             </screenlet>
                             <screenlet title="${uiLabelMap.ScrumListOfSprintBacklog}">
-                                <include-form location="component://scrum/widget/scrumForms.xml" name="sprintBacklogList"/>
+                                <include-form location="component://scrum/widget/scrumForms.xml" name="SprintBacklogList"/>
                             </screenlet>
                         </widgets>
                         <fail-widgets>
@@ -138,7 +138,7 @@ under the License.
                             <widgets>
                                 <container style="lefthalf">
                                     <screenlet title="${uiLabelMap.ScrumSprintInformation}">
-                                        <include-form location="component://scrum/widget/scrumForms.xml" name="showSprintInfo"/>
+                                        <include-form location="component://scrum/widget/scrumForms.xml" name="ShowSprintInfo"/>
                                     </screenlet>
                                 </container>
                                 <container style="righthalf">
@@ -199,13 +199,13 @@ under the License.
                                                     <widgets>
                                                         <screenlet id="sprintBacklogListItems" title="${uiLabelMap.ScrumSprintBacklogList}" navigation-menu-name="AllBacklogItem" collapsible="true">
                                                             <include-menu location="component://scrum/widget/scrumMenus.xml" name="AllBacklogItem"/>
-                                                            <include-form location="component://scrum/widget/scrumForms.xml" name="sprintBacklogListItems"/>
+                                                            <include-form location="component://scrum/widget/scrumForms.xml" name="SprintBacklogListItems"/>
                                                         </screenlet>
                                                     </widgets>
                                                     <fail-widgets>
                                                         <screenlet id="sprintBacklogListItemsOnFail" title="${uiLabelMap.ScrumSprintBacklogList}" navigation-menu-name="NotCompleteBacklogItem" collapsible="true">
                                                             <include-menu location="component://scrum/widget/scrumMenus.xml" name="NotCompleteBacklogItem"/>
-                                                            <include-form location="component://scrum/widget/scrumForms.xml" name="sprintBacklogListItems"/>
+                                                            <include-form location="component://scrum/widget/scrumForms.xml" name="SprintBacklogListItems"/>
                                                         </screenlet>
                                                     </fail-widgets>
                                                 </section>
@@ -235,13 +235,13 @@ under the License.
                                                                         <widgets>
                                                                             <screenlet title="${uiLabelMap.ScrumSprintBacklogList}" navigation-menu-name="AllBacklogItem">
                                                                                 <include-menu location="component://scrum/widget/scrumMenus.xml" name="AllBacklogItem"/>
-                                                                                <include-form location="component://scrum/widget/scrumForms.xml" name="sprintBacklogListItemsHideDelete"/>
+                                                                                <include-form location="component://scrum/widget/scrumForms.xml" name="SprintBacklogListItemsHideDelete"/>
                                                                             </screenlet>
                                                                         </widgets>
                                                                         <fail-widgets>
                                                                             <screenlet title="${uiLabelMap.ScrumSprintBacklogList}" navigation-menu-name="NotCompleteBacklogItem">
                                                                                 <include-menu location="component://scrum/widget/scrumMenus.xml" name="NotCompleteBacklogItem"/>
-                                                                                <include-form location="component://scrum/widget/scrumForms.xml" name="sprintBacklogListItemsHideDelete"/>
+                                                                                <include-form location="component://scrum/widget/scrumForms.xml" name="SprintBacklogListItemsHideDelete"/>
                                                                             </screenlet>
                                                                         </fail-widgets>
                                                                     </section>
@@ -352,8 +352,8 @@ under the License.
                         </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ScrumAddSprintBacklog}">
-                                    <include-form location="component://scrum/widget/scrumForms.xml" name="addSprintBacklog"/>
-                                    <include-form location="component://scrum/widget/scrumForms.xml" name="sprintBacklogList"/>
+                                    <include-form location="component://scrum/widget/scrumForms.xml" name="AddSprintBacklog"/>
+                                    <include-form location="component://scrum/widget/scrumForms.xml" name="SprintBacklogList"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -397,7 +397,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.ScrumEditProject}">
-                                            <include-form location="component://scrum/widget/scrumForms.xml" name="editScrumProject"/>
+                                            <include-form location="component://scrum/widget/scrumForms.xml" name="EditScrumProject"/>
                                         </screenlet>
                                     </widgets>
                                 </section>
@@ -543,10 +543,10 @@ under the License.
                                                                  <not><if-empty field="checkOwnerList"/></not>
                                                              </condition>
                                                              <widgets>
-                                                                 <include-form location="component://scrum/widget/scrumForms.xml" name="unplannedBacklogListForOwner" />
+                                                                 <include-form location="component://scrum/widget/scrumForms.xml" name="UnplannedBacklogListForOwner" />
                                                              </widgets>
                                                              <fail-widgets>
-                                                                 <include-form location="component://scrum/widget/scrumForms.xml" name="unplannedBacklogList" />
+                                                                 <include-form location="component://scrum/widget/scrumForms.xml" name="UnplannedBacklogList" />
                                                              </fail-widgets>
                                                          </section>
                                                     </screenlet>
@@ -559,10 +559,10 @@ under the License.
                                                                  <not><if-empty field="checkOwnerList"/></not>
                                                              </condition>
                                                              <widgets>
-                                                                 <include-form location="component://scrum/widget/scrumForms.xml" name="unplannedBacklogListByCategoriesForOwner"/>
+                                                                 <include-form location="component://scrum/widget/scrumForms.xml" name="UnplannedBacklogListByCategoriesForOwner"/>
                                                              </widgets>
                                                              <fail-widgets>
-                                                                 <include-form location="component://scrum/widget/scrumForms.xml" name="unplannedBacklogListByCategories"/>
+                                                                 <include-form location="component://scrum/widget/scrumForms.xml" name="UnplannedBacklogListByCategories"/>
                                                              </fail-widgets>
                                                          </section>
                                                      </screenlet>
@@ -832,12 +832,12 @@ under the License.
                                         </condition>
                                         <widgets>
                                             <screenlet title="${uiLabelMap.ScrumTasks}">
-                                                <include-form name="taskRelateBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                                <include-form name="TaskRelateBacklog" location="component://scrum/widget/scrumForms.xml"/>
                                             </screenlet>
                                         </widgets>
                                         <fail-widgets>
                                             <screenlet title="${uiLabelMap.ScrumTasks}" navigation-menu-name="NewTask" >
-                                                <include-form name="taskRelateBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                                <include-form name="TaskRelateBacklog" location="component://scrum/widget/scrumForms.xml"/>
                                             </screenlet>
                                         </fail-widgets>
                                     </section>
@@ -1449,7 +1449,7 @@ under the License.
                         <screenlet id="AddRes" title="${uiLabelMap.PageTitleAddProject}" collapsible="true">
                             <include-form name="AddResourceProjectParty" location="component://scrum/widget/ProjectForms.xml"/>
                         </screenlet>
-                        <include-form name="listResourcesProjects" location="component://scrum/widget/ProjectForms.xml"/>
+                        <include-form name="ListResourcesProjects" location="component://scrum/widget/ProjectForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1485,7 +1485,7 @@ under the License.
                         <screenlet id="AddResTsk" title="${uiLabelMap.PageTitleAddTask}" collapsible="true">
                             <include-form name="AddResourceTaskParty" location="component://scrum/widget/ProjectForms.xml"/>
                         </screenlet>
-                        <include-form name="listResourcesTasks" location="component://scrum/widget/ProjectForms.xml"/>
+                        <include-form name="ListResourcesTasks" location="component://scrum/widget/ProjectForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1755,7 +1755,7 @@ under the License.
                                     </screenlet>
                                     <include-screen name="ListProductContent"/>
                                     <screenlet title="${uiLabelMap.ScrumProjectAndSprintList}">
-                                        <include-form name="projectAndSprintListInfo" location="component://scrum/widget/scrumForms.xml"/>
+                                        <include-form name="ProjectAndSprintListInfo" location="component://scrum/widget/scrumForms.xml"/>
                                     </screenlet>
                                 </container>
                                 <container style="clear"/>
@@ -1849,7 +1849,7 @@ under the License.
                                      ${partyMap.groupName} ${partyMap.lastName} ${partyMap.firstName} [${partyMap.partyId}] : ${uiLabelMap.CommonFromDate} 
                                      ${groovy: if(fromDate) (fromDate).toString().substring(0,10)} ${uiLabelMap.CommonThruDate} 
                                      ${groovy: if(thruDate) (thruDate).toString().substring(0,10)}" collapsible="true">
-                                    <include-form location="component://scrum/widget/scrumForms.xml" name="hoursNotYetBilled"/>
+                                    <include-form location="component://scrum/widget/scrumForms.xml" name="HoursNotYetBilled"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.PageTitleAddProjectTimeToNewInvoice}">
                                     <include-form location="component://scrum/widget/scrumForms.xml" name="AddProductTimeToNewInvoice"/>
@@ -1907,13 +1907,13 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.ScrumCreateProject}">
-                                            <include-form location="component://scrum/widget/scrumForms.xml" name="editScrumProject"/>
+                                            <include-form location="component://scrum/widget/scrumForms.xml" name="EditScrumProject"/>
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>
                                         <screenlet title="${uiLabelMap.ScrumUpdateProject}">
                                             <include-menu name="ProjectMenu" location="component://scrum/widget/scrumMenus.xml"/>
-                                            <include-form location="component://scrum/widget/scrumForms.xml" name="editScrumProject"/>
+                                            <include-form location="component://scrum/widget/scrumForms.xml" name="EditScrumProject"/>
                                         </screenlet>
                                     </fail-widgets>
                                 </section>
@@ -2134,7 +2134,7 @@ under the License.
                         </container>
                         <container style="righthalf">
                             <screenlet title="${uiLabelMap.ScrumEmailContents}">
-                                <include-form name="listCommContentForProduct" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                <include-form name="ListCommContentForProduct" location="component://scrum/widget/CommunicationEventForms.xml" />
                                 <section>
                                     <condition>
                                         <or>
@@ -2143,7 +2143,7 @@ under the License.
                                         </or>
                                     </condition>
                                     <widgets>
-                                        <include-form name="uploadContentForProduct" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                        <include-form name="UploadContentForProduct" location="component://scrum/widget/CommunicationEventForms.xml" />
                                     </widgets>
                                 </section>
                             </screenlet>
@@ -2217,7 +2217,7 @@ under the License.
                         <screenlet id="AddResPr" title="${uiLabelMap.PageTitleAddProject}" collapsible="true">
                             <include-form name="AddResourceProjectParty" location="component://scrum/widget/ProjectForms.xml"/>
                         </screenlet>
-                        <include-form name="listResourcesProjects" location="component://scrum/widget/ProjectForms.xml"/>
+                        <include-form name="ListResourcesProjects" location="component://scrum/widget/ProjectForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -2302,8 +2302,8 @@ under the License.
                                 </container>
                                 <container style="righthalf">
                                     <screenlet title="${uiLabelMap.ScrumEmailContents}">
-                                        <include-form name="listCommContent" location="component://scrum/widget/CommunicationEventForms.xml" />
-                                        <include-form name="uploadContent" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                        <include-form name="ListCommContent" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                        <include-form name="UploadContent" location="component://scrum/widget/CommunicationEventForms.xml" />
                                     </screenlet>
                                 </container>
                            </widgets>
@@ -2331,15 +2331,15 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet id="addSprintMember" title="${uiLabelMap.ScrumAddSprintMember}" collapsible="true">
-                                    <include-form location="component://scrum/widget/scrumForms.xml" name="addSprintMember"/>
+                                    <include-form location="component://scrum/widget/scrumForms.xml" name="AddSprintMember"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.ScrumSprintMemberList}">
-                                    <include-form location="component://scrum/widget/scrumForms.xml" name="listSprintMember"/>
+                                    <include-form location="component://scrum/widget/scrumForms.xml" name="ListSprintMember"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.ScrumSprintMemberList}">
-                                    <include-form location="component://scrum/widget/scrumForms.xml" name="listSprintMemberNoAction"/>
+                                    <include-form location="component://scrum/widget/scrumForms.xml" name=ListSprintMemberNoAction"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
@@ -2566,12 +2566,12 @@ under the License.
             </actions>
             <widgets>
                 <screenlet name="sprintMemberList" title="${uiLabelMap.ScrumMembersList}">
-                    <include-form location="component://scrum/widget/scrumForms.xml" name="listSprintMemberNoAction"/>
+                    <include-form location="component://scrum/widget/scrumForms.xml" name="ListSprintMemberNoAction"/>
                 </screenlet>
             </widgets>
             <fail-widgets>
                 <screenlet name="sprintMemberListForStakeholder" title="${uiLabelMap.ScrumMembersList}">
-                    <include-form location="component://scrum/widget/scrumForms.xml" name="listSprintMemberForStakeholder"/>
+                    <include-form location="component://scrum/widget/scrumForms.xml" name="ListSprintMemberForStakeholder"/>
                 </screenlet>
             </fail-widgets>
         </section>
@@ -2606,7 +2606,7 @@ under the License.
                                             </actions>
                                             <widgets>
                                                 <screenlet title="${uiLabelMap.ScrumEditProject}">
-                                                    <include-form location="component://scrum/widget/scrumForms.xml" name="newScrumProject"/>
+                                                    <include-form location="component://scrum/widget/scrumForms.xml" name="NewScrumProject"/>
                                                 </screenlet>
                                             </widgets>
                                         </section>
@@ -2697,7 +2697,7 @@ under the License.
                                     ${partyMap.groupName} ${partyMap.lastName} ${partyMap.firstName} [${partyMap.partyId}] : ${uiLabelMap.CommonFromDate} 
                                     ${groovy: if(fromDate) (fromDate).toString().substring(0,10)} ${uiLabelMap.CommonThruDate} 
                                     ${groovy: if(thruDate) (thruDate).toString().substring(0,10)}" collapsible="true">
-                                   <include-form location="component://scrum/widget/scrumForms.xml" name="totalHoursNotYetBilled"/>
+                                   <include-form location="component://scrum/widget/scrumForms.xml" name="TotalHoursNotYetBilled"/>
                                </screenlet>
                                <screenlet title="${uiLabelMap.PageTitleAddProjectTimeToNewInvoice}">
                                    <include-form location="component://scrum/widget/scrumForms.xml" name="TotalBillingToNewInvoice"/>
@@ -2867,13 +2867,13 @@ under the License.
                                         <widgets>
                                             <screenlet id="unplanBacklogListItems" title="${uiLabelMap.ScrumUnplanBacklogList}" navigation-menu-name="AllUnplanBacklogItem" collapsible="true">
                                                 <include-menu location="component://scrum/widget/scrumMenus.xml" name="AllUnplanBacklogItem"/>
-                                                <include-form location="component://scrum/widget/scrumForms.xml" name="unplanBacklogListItems"/>
+                                                <include-form location="component://scrum/widget/scrumForms.xml" name="UnplanBacklogListItems"/>
                                             </screenlet>
                                         </widgets>
                                         <fail-widgets>
                                             <screenlet id="unplanBacklogListItemsOnFail" title="${uiLabelMap.ScrumUnplanBacklogList}" navigation-menu-name="notCompleteUnplanBacklogItem" collapsible="true">
                                                 <include-menu location="component://scrum/widget/scrumMenus.xml" name="notCompleteUnplanBacklogItem"/>
-                                                <include-form location="component://scrum/widget/scrumForms.xml" name="unplanBacklogListItems"/>
+                                                <include-form location="component://scrum/widget/scrumForms.xml" name="UnplanBacklogListItems"/>
                                             </screenlet>
                                         </fail-widgets>
                                     </section>
@@ -2894,13 +2894,13 @@ under the License.
                                                             <widgets>
                                                                 <screenlet id="unplanBacklogListItemsHideDelete" title="${uiLabelMap.ScrumUnplanBacklogList}" navigation-menu-name="AllUnplanBacklogItem">
                                                                     <include-menu location="component://scrum/widget/scrumMenus.xml" name="AllUnplanBacklogItem"/>
-                                                                    <include-form location="component://scrum/widget/scrumForms.xml" name="unplanBacklogListItemsForOwner"/>
+                                                                    <include-form location="component://scrum/widget/scrumForms.xml" name="UnplanBacklogListItemsForOwner"/>
                                                                 </screenlet>
                                                             </widgets>
                                                             <fail-widgets>
                                                                 <screenlet id="unplanBacklogListItemsHideDeleteOnFail" title="${uiLabelMap.ScrumUnplanBacklogList}" navigation-menu-name="notCompleteUnplanBacklogItem">
                                                                     <include-menu location="component://scrum/widget/scrumMenus.xml" name="notCompleteUnplanBacklogItem"/>
-                                                                    <include-form location="component://scrum/widget/scrumForms.xml" name="unplanBacklogListItemsForOwner"/>
+                                                                    <include-form location="component://scrum/widget/scrumForms.xml" name="UnplanBacklogListItemsForOwner"/>
                                                                 </screenlet>
                                                             </fail-widgets>
                                                         </section>
@@ -2913,13 +2913,13 @@ under the License.
                                                             <widgets>
                                                                 <screenlet id="unplanBacklogListItemsHideDelete" title="${uiLabelMap.ScrumUnplanBacklogList}" navigation-menu-name="AllUnplanBacklogItem">
                                                                     <include-menu location="component://scrum/widget/scrumMenus.xml" name="AllUnplanBacklogItem"/>
-                                                                    <include-form location="component://scrum/widget/scrumForms.xml" name="unplanBacklogListItemsHideDelete"/>
+                                                                    <include-form location="component://scrum/widget/scrumForms.xml" name="UnplanBacklogListItemsHideDelete"/>
                                                                 </screenlet>
                                                             </widgets>
                                                             <fail-widgets>
                                                                 <screenlet id="unplanBacklogListItemsHideDeleteOnFail" title="${uiLabelMap.ScrumUnplanBacklogList}" navigation-menu-name="notCompleteUnplanBacklogItem">
                                                                     <include-menu location="component://scrum/widget/scrumMenus.xml" name="notCompleteUnplanBacklogItem"/>
-                                                                    <include-form location="component://scrum/widget/scrumForms.xml" name="unplanBacklogListItemsHideDelete"/>
+                                                                    <include-form location="component://scrum/widget/scrumForms.xml" name="UnplanBacklogListItemsHideDelete"/>
                                                                 </screenlet>
                                                             </fail-widgets>
                                                         </section>
