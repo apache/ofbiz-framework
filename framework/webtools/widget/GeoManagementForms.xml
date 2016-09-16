@@ -51,7 +51,7 @@
         </field>
         <field name="information"><display/></field>
     </form>
-    <form name="ListGeos" extends-resource="component://common/widget/LookupForms.xml" extends="listLookupGeo" paginate-target="${currentUrl}"
+    <form name="ListGeos" extends-resource="component://common/widget/LookupForms.xml" extends="ListLookupGeo" paginate-target="${currentUrl}"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true" >
         <field name="geoId"  widget-style="buttontext" title="${uiLabelMap.CommonGeoId}">
             <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="EditGeo">
