@@ -248,16 +248,6 @@
         <value xml:lang="zh">模板Id</value>
         <value xml:lang="zh-TW">模板Id</value>
     </property>
-    <property key="FormFieldTitle_timesheetPartyId">
-        <value xml:lang="de">Zugeordnet zu</value>
-        <value xml:lang="en">Associated to</value>
-        <value xml:lang="fr">Associée à</value>
-        <value xml:lang="ja">割当先</value>
-        <value xml:lang="nl">Gekoppeld aan</value>
-        <value xml:lang="vi">Gắn kết đến</value>
-        <value xml:lang="zh">关联到</value>
-        <value xml:lang="zh-TW">結合到</value>
-    </property>
     <property key="PageTitleAddATimesheet">
         <value xml:lang="de">Neue wöchentliche Zeiterfassung hinzufügen</value>
         <value xml:lang="en">Add a new weekly Timesheet</value>
