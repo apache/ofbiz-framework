@@ -155,7 +155,7 @@
                             <widgets><!-- edit section -->
                                 <container style="lefthalf">
                                     <label style="h1" text="${uiLabelMap.WorkEffortAddCalendarEvent}"/>
-                                    <include-form name="editTrainingCalendar" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
+                                    <include-form name="EditTrainingCalendar" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                                 </container>
                                 <container style="righthalf">
                                     <label style="h1" text="${uiLabelMap.WorkEffortParticipants}"/>
@@ -179,7 +179,7 @@
                             <fail-widgets><!-- view section -->
                                 <container style="lefthalf">
                                     <label style="h1" text="${uiLabelMap.WorkEffortSummary}"/>
-                                    <include-form name="showTrainingCalendar" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
+                                    <include-form name="ShowTrainingCalendar" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                                 </container>
                             </fail-widgets>
                         </section>                

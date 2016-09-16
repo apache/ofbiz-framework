@@ -303,7 +303,7 @@ under the License.
         <section>
             <widgets>
                 <screenlet title="${uiLabelMap.HumanResTrainings}">
-                    <include-form name="simpleListTrainingStatus" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
+                    <include-form name="SimpleListTrainingStatus" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
