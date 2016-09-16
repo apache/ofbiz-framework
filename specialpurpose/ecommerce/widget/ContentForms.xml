@@ -20,13 +20,13 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="searchQuery" target="AdminSearch" title="" type="single"
+    <form name="SearchQuery" target="AdminSearch" title="" type="single"
         default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="queryLine" title="${uiLabelMap.EcommerceEnterQueryParameters}"><text size="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
 
     </form>
-    <form name="searchList" type="list" target="" list-name="queryResults"
+    <form name="SearchList" type="list" target="" list-name="queryResults"
         default-title-style="tableheadtext" default-widget-style="inputBox"
         paginate-target="/AdminSearch">
         <field name="editContent" title=" ">

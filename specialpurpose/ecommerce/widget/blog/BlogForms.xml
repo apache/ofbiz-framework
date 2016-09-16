@@ -19,7 +19,7 @@
   -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="findBlogContent" default-entity-name="ContentAssocDataResourceViewFrom" target="CMSContentFind" title="" type="single"
+    <form name="FindBlogContent" default-entity-name="ContentAssocDataResourceViewFrom" target="CMSContentFind" title="" type="single"
         default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="caContentIdTo" title="${uiLabelMap.ContentPublishToContent}">
             <drop-down>
@@ -196,14 +196,14 @@
         </sort-order>
     </form>
 
-    <form name="editFormSubmit" target="" title="" type="single" skip-start="true" skip-end="true"
+    <form name="EditFormSubmit" target="" title="" type="single" skip-start="true" skip-end="true"
         default-title-style="treeHeader" default-widget-style="inputBox">
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
 
-    <form name="editFormEnd" target="" title="" type="single" skip-start="true"
+    <form name="EditFormEnd" target="" title="" type="single" skip-start="true"
         default-title-style="treeHeader" default-widget-style="inputBox">
     </form>
 

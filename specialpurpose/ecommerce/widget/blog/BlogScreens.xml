@@ -406,7 +406,7 @@
             <widgets>
                 <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="findBlogContent" location="component://ecommerce/widget/blog/BlogForms.xml"/>
+                        <include-form name="FindBlogContent" location="component://ecommerce/widget/blog/BlogForms.xml"/>
                         <include-grid name="listFindBlogContent" location="component://ecommerce/widget/blog/BlogForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
