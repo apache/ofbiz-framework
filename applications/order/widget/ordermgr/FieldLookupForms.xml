@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="lookupOrderHeader" target="LookupOrderHeader" title="" type="single"
+    <form name="LookupOrderHeader" target="LookupOrderHeader" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="OrderHeader" default-field-type="find" map-name="parameters"/>
         <field name="orderHeaderId"><text-find/></field>
@@ -60,7 +60,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupOrderHeader" title="" type="list" list-name="listIt"
+    <form name="ListLookupOrderHeader" title="" type="list" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupOrderHeader">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -77,7 +77,7 @@ under the License.
         <field name="orderTypeId"><display-entity entity-name="OrderType" also-hidden="true"/></field>
     </form>
 
-    <form name="lookupOrderHeaderAndShipInfo" target="LookupOrderHeaderAndShipInfo" title="" type="single"
+    <form name="LookupOrderHeaderAndShipInfo" target="LookupOrderHeaderAndShipInfo" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="OrderHeaderAndShipGroups" default-field-type="hidden"/>
         <field name="orderId"><text-find/></field>
@@ -117,7 +117,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupOrderHeaderAndShipInfo" list-name="listIt" title="" type="list"
+    <form name="ListLookupOrderHeaderAndShipInfo" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupOrderHeaderAndShipInfo">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -147,7 +147,7 @@ under the License.
         <field name="internalName"><display/></field>
     </form>
 
-    <form name="lookupPurchaseOrderHeaderAndShipInfo" target="LookupPurchaseOrderHeaderAndShipInfo" title="" type="single"
+    <form name="LookupPurchaseOrderHeaderAndShipInfo" target="LookupPurchaseOrderHeaderAndShipInfo" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="OrderHeaderAndShipGroups" default-field-type="hidden" map-name="parameters"/>
         <field name="orderId"><text-find/></field>
@@ -188,7 +188,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="lookupCustRequest" target="LookupCustRequest" title="" type="single"
+    <form name="LookupCustRequest" target="LookupCustRequest" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="CustRequest" default-field-type="hidden"/>
         <field name="custRequestTypeId">
@@ -233,7 +233,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupCustRequest" list-name="listIt" title="" type="list"
+    <form name="ListLookupCustRequest" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupCustRequest">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -255,7 +255,7 @@ under the License.
         <field name="roleTypeId"><display-entity also-hidden="false" entity-name="RoleType"/></field>
     </form>
 
-    <form name="lookupCustRequestItem" target="LookupCustRequestItem" title="" type="single"
+    <form name="LookupCustRequestItem" target="LookupCustRequestItem" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="CustRequestItem" default-field-type="find"/>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
@@ -278,7 +278,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupCustRequestItem" list-name="listIt" title="" type="list"
+    <form name="ListLookupCustRequestItem" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupCustRequestItem">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -299,7 +299,7 @@ under the License.
         <field name="statusId"><display-entity also-hidden="false" entity-name="StatusItem"/></field>
     </form>
 
-    <form name="lookupQuote" target="LookupQuote" title="" type="single"
+    <form name="LookupQuote" target="LookupQuote" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Quote" default-field-type="find"/>
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"></field>
@@ -339,7 +339,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupQuote" list-name="listIt" title="" type="list"
+    <form name="ListLookupQuote" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupQuote">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -365,7 +365,7 @@ under the License.
         <field name="validThruDate" title="${uiLabelMap.CommonValidThruDate}"></field>
     </form>
 
-    <form name="lookupQuoteItem" target="LookupQuoteItem" title="" type="single"
+    <form name="LookupQuoteItem" target="LookupQuoteItem" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="QuoteItem" default-field-type="find"/>
         <field name="quoteId"><hidden/></field>
@@ -406,7 +406,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupQuoteItem" list-name="listIt" title="" type="list"
+    <form name="ListLookupQuoteItem" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupQuoteItem">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -448,7 +448,7 @@ under the License.
         <field name="custRequestItemSeqId"><hidden/></field>
     </form>
 
-    <form name="lookupRequirement" target="LookupRequirement" title="" type="single"
+    <form name="LookupRequirement" target="LookupRequirement" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Requirement" default-field-type="find"/>
         <field name="requirementId"><text-find/></field>
@@ -475,7 +475,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupRequirement" list-name="listIt" title="" type="list"
+    <form name="ListLookupRequirement" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupRequirement">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -500,7 +500,7 @@ under the License.
         <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display/></field>
     </form>
 
-    <form name="lookupShoppingList" target="LookupShoppingList" title="" type="single"
+    <form name="LookupShoppingList" target="LookupShoppingList" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShoppingList" default-field-type="find"/>
         <field name="shoppingListId"><text-find/></field>
@@ -513,7 +513,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupShoppingList" list-name="listIt" title="" type="list"
+    <form name="ListLookupShoppingList" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupShoppingList">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
