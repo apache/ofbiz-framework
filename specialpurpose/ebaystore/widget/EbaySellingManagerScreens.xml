@@ -171,7 +171,7 @@
                 <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.EbayReserveProductFrom} : ${facility.facilityName}">
-                            <include-form name="reserveEbayProductInventory" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-form name="ReserveEbayProductInventory" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -224,7 +224,7 @@
                 <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="Inventory Quantities">
-                            <include-form name="updateQuantityReserved" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-form name="UpdateQuantityReserved" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -249,28 +249,28 @@
                         <include-screen name="AutomationRelistSoldItems"/>
                         <include-screen name="AutomationDispute"/>
                         <screenlet title="${uiLabelMap.EbayTxtAutoPositiveFeedbackBuyer}" id="autoPositiveFeedback" collapsible="true" initially-collapsed="true">
-                            <include-form name="autoPositiveFeedbackForBuyers" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-form name="AutoPositiveFeedbackForBuyers" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.EbayIsAutoFeedbackReminder}" id="autoSendFeedbackReminder" collapsible="true" initially-collapsed="true">
-                            <include-form name="autoSendFeedbackReminder" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-form name="AutoSendFeedbackReminder" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.EbayAutoPaymentReceviedEmail}" id="autoSendPaymentReceivedEmail" collapsible="true" initially-collapsed="true">
-                            <include-form name="autoSendPaymentReceivedEmail" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-form name="AutoSendPaymentReceivedEmail" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.EbayCombineOrderSetting}" id="combineOrdersSetting" collapsible="true" initially-collapsed="true">
-                            <include-form name="combineOrdersSetting" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-form name="CombineOrdersSetting" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.EbayAutoSendWinBuyerEmail}" id="winningBuyerNotification" collapsible="true" initially-collapsed="true">
-                            <include-form name="winningBuyerNotification" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-form name="WinningBuyerNotification" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.EbayAutoSendItemDispatchEmail}" id="itemDispatchedNotification" collapsible="true" initially-collapsed="true">
-                            <include-form name="itemDispatchedNotification" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-form name="ItemDispatchedNotification" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.EbayBlockItemOutOfStock}" id="blockItemsOutOfStock" collapsible="true" initially-collapsed="true">
-                            <include-form name="blockItemsOutOfStock" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-form name="BlockItemsOutOfStock" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AutoBestOfferSetting}" id="bestOfferSetting" collapsible="true" initially-collapsed="true">
-                            <include-form name="bestOffer" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-form name="BestOffer" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -546,7 +546,7 @@
                 <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="Find Orders Imported">
-                            <include-form name="findOrdersImported" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-form name="FindOrdersImported" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                         <platform-specific>
                             <html>
@@ -624,7 +624,7 @@
                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
                    <decorator-section name="body">
                        <screenlet name="customerData"  title="Customer Offer Data">
-                           <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="viewCustomerOfferData"/>
+                           <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ViewCustomerOfferData"/>
                        </screenlet>
                    </decorator-section>
                </decorator-screen>
