@@ -39,6 +39,16 @@ javadoc.failOnError = false
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
+/* Please don't remove. This is useful when you want to see 
+   unchecked warnings and deprecated members or classes in log.
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+}*/
+
 // Enforces UTF-8 java compilation encoding on Windows platform
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -814,10 +824,10 @@ task gitInfoFooter(group: committerGroup, description: 'Update the Git Branch-re
     revision = revisionOutput.toString()
     gitFooterFile.delete()
     gitFooterFile.createNewFile()
-    gitFooterFile << "Branch: ${branch}"
-    gitFooterFile << "Revision: ${revision}"
-    gitFooterFile << "Built on: ${timestamp}" + System.lineSeparator()
-    gitFooterFile << "Java Version: ${org.gradle.internal.jvm.Jvm.current()}"
+    gitFooterFile << '${uiLabelMap.Branch} : ' + "${branch}" + System.lineSeparator()
+    gitFooterFile << '${uiLabelMap.Revision} : ' + "${revision}" + System.lineSeparator()
+    gitFooterFile << '${uiLabelMap.BuiltOn} : ' + "${timestamp}" + System.lineSeparator()
+    gitFooterFile << '${uiLabelMap.JavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
 }
 
 task svnInfoFooter(group: committerGroup, description: 'Update the Subversion revision info in the footer if Subversion is used') << {
@@ -838,10 +848,10 @@ task svnInfoFooter(group: committerGroup, description: 'Update the Subversion re
     def info = new XmlParser().parseText(svnOutput.toString())
     svnFooterFile.delete()
     svnFooterFile.createNewFile()
-    svnFooterFile << "Branch: ${info.entry.url.text()}" + System.lineSeparator()
-    svnFooterFile << "Revision: ${info.entry.commit.@revision}" + System.lineSeparator()
-    svnFooterFile << "Built on: ${timestamp}" + System.lineSeparator()
-    svnFooterFile << "Java Version: ${org.gradle.internal.jvm.Jvm.current()}"
+    svnFooterFile << '${uiLabelMap.Branch} : ' + "${info.entry.url.text()}" + System.lineSeparator()
+    svnFooterFile << '${uiLabelMap.Revision} : ' + "${info.entry.commit.@revision}" + System.lineSeparator()
+    svnFooterFile << '${uiLabelMap.BuiltOn} : ' + "${timestamp}" + System.lineSeparator()
+    svnFooterFile << '${uiLabelMap.JavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
 }
 
 // ========== hidden support tasks ==========
