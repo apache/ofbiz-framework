@@ -49,7 +49,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.BusinessIntelligenceReportBuilderSelectStarSchema}">
-                            <include-form name="selectStarSchema" location="component://bi/widget/BiForms.xml"/>
+                            <include-form name="SelectStarSchema" location="component://bi/widget/BiForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
