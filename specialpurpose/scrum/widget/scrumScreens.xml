@@ -2486,7 +2486,7 @@ under the License.
                         </fail-widgets>
                     </section>
                     <screenlet title="${uiLabelMap.PartyCommContent}">
-                        <include-form name="listCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                        <include-form name="ListCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                     </screenlet>
                     <section>
                         <actions>
@@ -2536,7 +2536,7 @@ under the License.
                                         <container>
                                             <label style="h2" text="${uiLabelMap.PartyEmailMessage}"/>
                                         </container>
-                                        <include-form name="allocateMsgToPartyForm" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                                        <include-form name="AllocateMsgToPartyForm" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </screenlet>
                                 </widgets>
                             </section>

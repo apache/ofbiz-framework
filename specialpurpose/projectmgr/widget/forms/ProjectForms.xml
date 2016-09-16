@@ -966,7 +966,7 @@
         <field name="task"><display description="${workEffortName}"/></field>
     </form>
 
-    <form name="FindMailingList" type="single" target="FindMailingList" extends="findCommEvents" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml">
+    <form name="FindMailingList" type="single" target="FindMailingList" extends="FindCommEvents" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml">
         <field name="projectId"><hidden/></field>
         <field name="entryDate"><date-find/></field>
         <field name="partyIdTo"><hidden/></field>

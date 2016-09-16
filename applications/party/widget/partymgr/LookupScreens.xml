@@ -51,10 +51,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupPartyName" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="LookupPartyName" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupPartyName" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupPartyName" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -78,10 +78,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupPartyEmail" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="LookupPartyEmail" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupPartyEmail" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupPartyEmail" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -106,10 +106,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupCustomerName" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="LookupCustomerName" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupCustomerName" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupCustomerName" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -132,10 +132,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupCustomerNameForSalesRep" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="LookupCustomerNameForSalesRep" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupCustomerNameForSalesRep" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupCustomerNameForSalesRep" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -158,10 +158,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="LookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -185,10 +185,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="LookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -208,10 +208,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="LookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -237,10 +237,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupPartyAndUserLoginAndPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="LookupPartyAndUserLoginAndPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupPartyAndUserLoginAndPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupPartyAndUserLoginAndPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -266,10 +266,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupUserLoginAndPartyDetails" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="LookupUserLoginAndPartyDetails" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupUserLoginAndPartyDetails" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupUserLoginAndPartyDetails" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -290,10 +290,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupPartyGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="LookupPartyGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupPartyGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupPartyGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -313,10 +313,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupPartyGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="LookupPartyGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupPartyGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupPartyGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -345,7 +345,7 @@ under the License.
                         <include-form name="LookupPartyClassificationGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupPartyClassificationGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupPartyClassificationGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -391,10 +391,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupContactMech" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="LookupContactMech" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupContactMech" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupContactMech" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -421,7 +421,7 @@ under the License.
                         <include-form name="LookupInternalOrganization" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupPartyGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
+                        <include-form name="ListLookupPartyGroup" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
