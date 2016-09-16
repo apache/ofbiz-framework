@@ -80,7 +80,7 @@
             </hyperlink>
         </field>
     </form>
-    <form name="lookupProduct" target="${submitTarget}" type="single"
+    <form name="LookupProduct" target="${submitTarget}" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden"/> -->
         <field name="productId" title="${uiLabelMap.CommonId}"><text-find ignore-case="true"/></field>
@@ -91,7 +91,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
-    <form name="listLookupProduct" list-name="listIt" paginate-target="${submitTarget}" title="" type="list"
+    <form name="ListLookupProduct" list-name="listIt" paginate-target="${submitTarget}" title="" type="list"
          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
