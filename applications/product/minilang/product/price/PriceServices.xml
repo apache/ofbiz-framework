@@ -29,20 +29,20 @@ under the License.
             <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
         </check-permission>
         <check-errors/>
-        
-        <call-simple-method method-name="inlineHandlePriceWithTaxIncuded"/>
+
+        <call-simple-method method-name="inlineHandlePriceWithTaxIncluded"/>
 
         <make-value value-field="newEntity" entity-name="ProductPrice"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        
+
         <now-timestamp field="nowTimestamp"/>
-        
+
         <if-empty field="newEntity.fromDate">
             <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         <field-to-result field="newEntity.fromDate" result-name="fromDate"/>
-        
+
         <set field="newEntity.lastModifiedDate" from-field="nowTimestamp"/>
         <set field="newEntity.createdDate" from-field="nowTimestamp"/>
         <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
@@ -59,8 +59,8 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <call-simple-method method-name="inlineHandlePriceWithTaxIncuded"/>
-        
+        <call-simple-method method-name="inlineHandlePriceWithTaxIncluded"/>
+
         <entity-one entity-name="ProductPrice" value-field="lookedUpValue"/>
 
         <!-- grab the old price value before setting nonpk parameter fields -->
@@ -92,7 +92,7 @@ under the License.
 
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="inlineHandlePriceWithTaxIncuded" short-description="Inline Handle Price with Tax Included">
+    <simple-method method-name="inlineHandlePriceWithTaxIncluded" short-description="Inline Handle Price with Tax Included">
         <!-- handle price with tax included related fields (priceWithTax, taxAmount, taxPercentage, taxAuthPartyId, taxAuthGeoId) -->
         <if>
             <condition>
@@ -103,7 +103,7 @@ under the License.
             </condition>
             <then>
                 <set field="parameters.priceWithTax" from-field="parameters.price"/>
-                
+
                 <!-- if taxPercentage not passed in look it up based on taxAuthGeoId and taxAuthPartyId -->
                 <if-empty field="parameters.taxPercentage">
                     <!-- we only have basic data to constrain by here, so assume that if it is a VAT tax setup it should be pretty simple -->
@@ -119,14 +119,14 @@ under the License.
                     </entity-condition>
                     <set field="parameters.taxPercentage" from-field="taxAuthorityRateProductList[0].taxPercentage" type="BigDecimal"/>
                 </if-empty>
-                
+
                 <if-empty field="parameters.taxPercentage">
                     <add-error>
                         <fail-property resource="ProductUiLabels" property="ProductPriceTaxPercentageNotFound"/>
                     </add-error>
                     <check-errors/>
                 </if-empty>
-                
+
                 <!-- in short the formula is: taxAmount = priceWithTax - (priceWithTax/(1+taxPercentage/100)) -->
                 <calculate field="parameters.taxAmount" type="BigDecimal" decimal-scale="3" rounding-mode="HalfUp">
                     <calcop operator="subtract">
@@ -143,18 +143,18 @@ under the License.
                         </calcop>
                     </calcop>
                 </calculate>
-                
+
                 <calculate field="parameters.priceWithoutTax" type="BigDecimal" decimal-scale="3" rounding-mode="HalfUp">
                     <calcop operator="subtract">
                         <calcop operator="get" field="parameters.priceWithTax"/>
                         <calcop operator="get" field="parameters.taxAmount"></calcop>
                     </calcop>
                 </calculate>
-                
+
                 <if-compare field="parameters.taxInPrice" operator="equals" value="Y">
                     <!-- the price passed in has tax included, and we want to store it with tax included -->
                     <set field="parameters.price" from-field="parameters.priceWithTax"/>
-                    
+
                     <else>
                         <!-- the price passed in has tax included, but we want to store it without tax included -->
                         <set field="parameters.price" from-field="parameters.priceWithoutTax"/>
@@ -301,21 +301,21 @@ under the License.
                 <set field="option" value="${condValue.siteName}: ${condValue.webSiteId}"/>
                 <field-to-list list="productPriceRulesCondValues" field="option"/>
             </iterate>
-        </if-compare> 
+        </if-compare>
         <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_PROD_SGRP_ID">
             <entity-condition entity-name="ProductStoreGroup" list="condValues"/>
             <iterate list="condValues" entry="condValue">
                 <set field="option" value="${condValue.productStoreGroupName} (${condValue.description}): ${condValue.productStoreGroupId}"/>
                 <field-to-list list="productPriceRulesCondValues" field="option"/>
             </iterate>
-        </if-compare> 
+        </if-compare>
         <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_PROD_CLG_ID">
             <entity-condition entity-name="ProdCatalog" list="condValues"/>
             <iterate list="condValues" entry="condValue">
                 <set field="option" value="${condValue.catalogName}: ${condValue.prodCatalogId}"/>
                 <field-to-list list="productPriceRulesCondValues" field="option"/>
             </iterate>
-        </if-compare> 
+        </if-compare>
         <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_CURRENCY_UOMID">
             <entity-condition entity-name="Uom" list="condValues">
                 <condition-expr field-name="uomTypeId" value="CURRENCY_MEASURE"/>
@@ -324,7 +324,7 @@ under the License.
                 <set field="option" value="${condValue.description}: ${condValue.uomId}"/>
                 <field-to-list list="productPriceRulesCondValues" field="option"/>
             </iterate>
-        </if-compare> 
+        </if-compare>
 
         <if-empty field="productPriceRulesCondValues">
             <property-to-field resource="CommonUiLabels" property="CommonNoOptions" field="noOptions"/>
