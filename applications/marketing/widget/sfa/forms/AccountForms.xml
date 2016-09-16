@@ -85,7 +85,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="listAccounts" paginate-target="${currentUrl}" type="list" list-name="listIt"
+    <form name="ListAccounts" paginate-target="${currentUrl}" type="list" list-name="listIt"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <set field="roleTypeIdFrom" value="OWNER"/>
@@ -158,7 +158,7 @@ under the License.
         </field>
         <field name="relatedCompany" use-when="relatedCompanyPartyId==null" title="${uiLabelMap.PartyRelatedCompany}"><display/></field>
     </form>
-    <form name="ListAccounts" extends="listAccounts">
+    <form name="ListAccounts" extends="ListAccounts">
         <field name="assignToMe" use-when="existRelationship==null&amp;&amp;!&quot;false&quot;.equals(parameters.get(&quot;all&quot;))"
                 title="${uiLabelMap.SfaAssignToMe}" widget-style="buttontext">
             <hyperlink target="createPartyRelationshipAndRole" description="${uiLabelMap.SfaAssignToMe}">
@@ -232,7 +232,7 @@ under the License.
         <field name="infoString" title="${contactMechType.description}"><text-find/></field>
     </form>
 
-    <form name="listAccountLeads" extends="listAccounts">
+    <form name="ListAccountLeads" extends="ListAccounts">
         <actions>
             <set field="roleTypeIdTo" value="ACCOUNT_LEAD"/>
             <set field="parameters.statusId" value="PARTY_DISABLED"/>
