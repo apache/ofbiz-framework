@@ -55,7 +55,7 @@ under the License.
         <field name="selectButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
 
-    <form name="FindFacilityOptions" extends="lookupFacility" extends-resource="component://product/widget/facility/FieldLookupForms.xml" target="FindFacility">
+    <form name="FindFacilityOptions" extends="LookupFacility" extends-resource="component://product/widget/facility/FieldLookupForms.xml" target="FindFacility">
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
@@ -621,7 +621,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="addGroupToFacility" type="single" target="addGroupToFacility" title=""
+    <form name="AddGroupToFacility" type="single" target="addGroupToFacility" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="FacilityGroupMember"/>
         <field name="facilityId"><hidden/></field>

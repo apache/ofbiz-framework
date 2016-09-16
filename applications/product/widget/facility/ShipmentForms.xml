@@ -195,7 +195,7 @@ under the License.
     <!-- Shipment Plan Forms -->
     <!-- ******************* -->
     <!-- List for Shipment Plan -->
-    <form name="listShipmentPlan" type="list" target="" title="" list-name="listShipmentPlanRows"
+    <form name="ListShipmentPlan" type="list" target="" title="" list-name="listShipmentPlanRows"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="shipmentItemSeqId" title="${uiLabelMap.ProductShipmentItemSeqId}"><display/></field>
         <field name="orderId" title="${uiLabelMap.ProductOrderId}"><display/></field>
@@ -230,7 +230,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="addToShipmentPlan" type="multi" target="addToShipmentPlan?shipmentId=${shipmentId}" title="" list-name="addToShipmentPlanRows"
+    <form name="AddToShipmentPlan" type="multi" target="addToShipmentPlan?shipmentId=${shipmentId}" title="" list-name="addToShipmentPlanRows"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="shipmentId"><hidden/></field>
         <field name="orderId"><hidden/></field>
@@ -259,7 +259,7 @@ under the License.
     </form>
 
     <!-- Search by Order Id -->
-    <form name="findOrderItems" type="single" target="EditShipmentPlan" title=""
+    <form name="FindOrderItems" type="single" target="EditShipmentPlan" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="action"><hidden value="search"/></field>
         <field name="shipmentId"><hidden/></field>

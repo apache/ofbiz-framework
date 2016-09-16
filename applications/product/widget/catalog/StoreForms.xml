@@ -771,7 +771,7 @@ under the License.
         <field name="spacer" title=" "><display/></field>
         <field name="submit" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
     </form>
-    <form name="createProductStoreEmail" type="single" target="createProductStoreEmail" title=""
+    <form name="CreateProductStoreEmail" type="single" target="createProductStoreEmail" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductStoreEmailSetting"/>
         <field name="productStoreId" map-name="productStore"><hidden/></field>
@@ -789,7 +789,7 @@ under the License.
         <field name="fromAddress" title="${uiLabelMap.CommonFromAddress}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="updateProductStoreEmail" type="list" target="updateProductStoreEmail" title="" list-name="productStoreEmailSettings"
+    <form name="UpdateProductStoreEmail" type="list" target="updateProductStoreEmail" title="" list-name="productStoreEmailSettings"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateProductStoreEmailSetting"/>
         <field name="productStoreId"><hidden/></field>

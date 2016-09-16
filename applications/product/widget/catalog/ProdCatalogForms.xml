@@ -193,7 +193,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="addProductCategoryToProdCatalog" type="single" target="addProductCategoryToProdCatalog" title=""
+    <form name="AddProductCategoryToProdCatalog" type="single" target="addProductCategoryToProdCatalog" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addProductCategoryToProdCatalog"/>
         <field name="prodCatalogId"><hidden/></field>

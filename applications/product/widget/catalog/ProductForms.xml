@@ -1098,7 +1098,7 @@ under the License.
     </form>
 
     <!-- create a fixed Asset link on a product -->
-    <form name="addFixedAssetProduct" type="single" target="addFixedAssetProduct" title=""
+    <form name="AddFixedAssetProduct" type="single" target="addFixedAssetProduct" title=""
         header-row-style="header-row" default-table-style="basic-table">
 
         <field name="productId"><hidden/></field>
@@ -1129,7 +1129,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="showFixedAssetProduct" type="single" default-map-name="fixedAssetProduct" target="updFixedAssetProduct" title=""
+    <form name="ShowFixedAssetProduct" type="single" default-map-name="fixedAssetProduct" target="updFixedAssetProduct" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="fixedAssetId==null" target="addFixedAssetProduct"/>
 
