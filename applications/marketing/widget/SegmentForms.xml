@@ -88,7 +88,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="listSegmentGroupClass" list-name="segmentGroupClassList" target="" title="" type="list" paginate-target="listSegmentGroupClass"
+    <form name="ListSegmentGroupClass" list-name="segmentGroupClassList" target="" title="" type="list" paginate-target="listSegmentGroupClass"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="SegmentGroupClassification">
@@ -114,7 +114,7 @@ under the License.
         <field name="geoId" title="${uiLabelMap.CommonGeoId}"><lookup target-form-name="LookupGeo"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="listSegmentGroupGeo" list-name="segmentGroupGeos" target="" title="" type="list" paginate-target="listSegmentGroupGeo"
+    <form name="ListSegmentGroupGeo" list-name="segmentGroupGeos" target="" title="" type="list" paginate-target="listSegmentGroupGeo"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="SegmentGroupGeo">
@@ -147,7 +147,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="listSegmentGroupRole" list-name="listIt" target="" title="" type="list" paginate-target="listSegmentGroupRole"
+    <form name="ListSegmentGroupRole" list-name="listIt" target="" title="" type="list" paginate-target="listSegmentGroupRole"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">

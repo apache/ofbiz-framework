@@ -86,7 +86,7 @@ under the License.
                 <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLead}">
-                            <include-form name="createLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                            <include-form name="CreateLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -136,7 +136,7 @@ under the License.
                 <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.SfaCloneLead}">
-                            <include-form name="createLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                            <include-form name="CreateLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

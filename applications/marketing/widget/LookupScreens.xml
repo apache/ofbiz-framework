@@ -42,7 +42,7 @@ under the License.
                         <include-form name="LookupSegmentGroup" location="component://marketing/widget/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupSegmentGroup" location="component://marketing/widget/LookupForms.xml"/>
+                        <include-form name="ListLookupSegmentGroup" location="component://marketing/widget/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

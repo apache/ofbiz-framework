@@ -38,7 +38,7 @@ under the License.
         </sort-order>
     </form>
     <form name="ListContacts" paginate-target="${currentUrl}"
-            extends="listAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
+            extends="ListAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
         <actions>
             <set field="roleTypeIdFrom" value="ACCOUNT"/>
             <set field="roleTypeIdTo" value="CONTACT"/>

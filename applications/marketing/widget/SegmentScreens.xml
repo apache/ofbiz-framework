@@ -175,7 +175,7 @@ under the License.
                                 <screenlet id="AddSegmentGroupClassPanel" title="${uiLabelMap.MarketingSegmentGroupClassCreate}" collapsible="true">
                                     <include-form name="AddSegmentGroupClass" location="component://marketing/widget/SegmentForms.xml"/>
                                 </screenlet>
-                                <include-form name="listSegmentGroupClass" location="component://marketing/widget/SegmentForms.xml"/>
+                                <include-form name="ListSegmentGroupClass" location="component://marketing/widget/SegmentForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.MarketingSegmentGroupMgrViewPermissionError}</label>
@@ -218,7 +218,7 @@ under the License.
                                 <screenlet id="AddSegmentGroupGeoPanel" title="${uiLabelMap.PageTitleEditSegmentGroupGeo}" collapsible="true">
                                     <include-form name="AddSegmentGroupGeo" location="component://marketing/widget/SegmentForms.xml"/>
                                 </screenlet>
-                                <include-form name="listSegmentGroupGeo" location="component://marketing/widget/SegmentForms.xml"/>
+                                <include-form name="ListSegmentGroupGeo" location="component://marketing/widget/SegmentForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.MarketingSegmentGroupMgrViewPermissionError}</label>
@@ -261,7 +261,7 @@ under the License.
                                 <screenlet id="AddSegmentGroupRolePanel" title="${uiLabelMap.PageTitleEditSegmentGroupRole}" collapsible="true">
                                     <include-form name="AddSegmentGroupRole" location="component://marketing/widget/SegmentForms.xml"/>
                                 </screenlet>
-                                <include-form name="listSegmentGroupRole" location="component://marketing/widget/SegmentForms.xml"/>
+                                <include-form name="ListSegmentGroupRole" location="component://marketing/widget/SegmentForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.MarketingSegmentGroupMgrViewPermissionError}</label>
