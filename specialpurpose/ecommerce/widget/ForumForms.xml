@@ -172,7 +172,7 @@ under the License.
 
     </form>
 
-    <form name="findContent" default-entity-name="ContentAssocDataResourceViewFrom" target="FindContent" title="" type="single"
+    <form name="FindContent" default-entity-name="ContentAssocDataResourceViewFrom" target="FindContent" title="" type="single"
         default-title-style="tableheadtext" default-widget-style="inputBox">
         <field name="caContentIdTo" title="${uiLabelMap.ContentPublishToContent}"><text-find/></field>
         <field name="caMapKey"><text-find/></field>
@@ -190,7 +190,7 @@ under the License.
 
     </form>
 
-    <form name="listFindContent" type="list" target=""
+    <form name="ListFindContent" type="list" target=""
         default-title-style="tableheadtext" default-widget-style="inputBox"
         paginate-target="/FindContent">
         <field name="editContent" title=" ">
