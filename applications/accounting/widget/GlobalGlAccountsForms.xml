@@ -254,7 +254,7 @@ under the License.
         <field name="delete" title="${uiLabelMap.CommonDelete}"><submit/></field>
     </form>
 
-    <form name="updateRateAmount" type="single" target="updateRateAmount" default-service-name="updateRateAmount"
+    <form name="UpdateRateAmount" type="single" target="updateRateAmount" default-service-name="updateRateAmount"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>

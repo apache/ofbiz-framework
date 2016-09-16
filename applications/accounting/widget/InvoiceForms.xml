@@ -98,7 +98,7 @@ under the License.
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="invoiceHeader" type="single" title="Invoice header information" default-map-name="invoice"
+    <form name="InvoiceHeader" type="single" title="Invoice header information" default-map-name="invoice"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="total" value="${groovy:return(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice));}"/>
@@ -138,7 +138,7 @@ under the License.
         <field name="currencyUomId"><hidden/></field>
     </form>
 
-<form name="invoiceItems" list-name="invItemAndOrdItems" target="" title="" type="list" separate-columns="true" paginate-target="invoiceOverview"
+<form name="InvoiceItems" list-name="invItemAndOrdItems" target="" title="" type="list" separate-columns="true" paginate-target="invoiceOverview"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="quantity" value="${groovy: quantity ?: 1}" type="BigDecimal"/>
@@ -170,7 +170,7 @@ under the License.
         </field>
     </form>
 
-    <form name="invoiceRoles" type="list" use-row-submit="true" title="" list-name="invoiceRoles" paginate-target="invoiceRoles"
+    <form name="InvoiceRoles" type="list" use-row-submit="true" title="" list-name="invoiceRoles" paginate-target="invoiceRoles"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
         <field name="invoiceId"><hidden/></field>
@@ -663,7 +663,7 @@ under the License.
         <field name="thruDate"><display type="date"/></field>
         <field name="comments"><display/></field>
     </form>
-    <form name="lookupInvoicesStatus" type="single" target="BillingAccountInvoices" title=""
+    <form name="LookupInvoicesStatus" type="single" target="BillingAccountInvoices" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="billingAccountId"><hidden/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">

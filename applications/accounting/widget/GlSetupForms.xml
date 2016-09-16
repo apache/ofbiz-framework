@@ -391,7 +391,7 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThru}"><display/></field>
     </form>
 
-    <form name="updateFXConversion" type="single" target="updateFXConversion" default-service-name="updateFXConversion"
+    <form name="UpdateFXConversion" type="single" target="updateFXConversion" default-service-name="updateFXConversion"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="uomId" title="${uiLabelMap.CommonFrom} ${uiLabelMap.CommonCurrency}">

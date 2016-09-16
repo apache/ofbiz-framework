@@ -235,7 +235,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.AccountingPayment} ${uiLabelMap.AccountingApplications}">
-                                            <include-form name="editPaymentApplicationsInv" location="component://accounting/widget/PaymentForms.xml"/>
+                                            <include-form name="EditPaymentApplicationsInv" location="component://accounting/widget/PaymentForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                 </section>
@@ -254,7 +254,7 @@ under the License.
                                                     <not><if-empty field="paymentApplicationsPay"/></not>
                                                 </condition>
                                                 <widgets>
-                                                    <include-form name="editPaymentApplicationsPay" location="component://accounting/widget/PaymentForms.xml"/>
+                                                    <include-form name="EditPaymentApplicationsPay" location="component://accounting/widget/PaymentForms.xml"/>
                                                 </widgets>
                                             </section>
                                             <section>
@@ -262,7 +262,7 @@ under the License.
                                                     <not><if-empty field="paymentApplicationsBil"/></not>
                                                 </condition>
                                                 <widgets>
-                                                    <include-form name="editPaymentApplicationsBil" location="component://accounting/widget/PaymentForms.xml"/>
+                                                    <include-form name="EditPaymentApplicationsBil" location="component://accounting/widget/PaymentForms.xml"/>
                                                 </widgets>
                                             </section>
                                             <section>
@@ -270,7 +270,7 @@ under the License.
                                                     <not><if-empty field="paymentApplicationsTax"/></not>
                                                 </condition>
                                                 <widgets>
-                                                    <include-form name="editPaymentApplicationsTax" location="component://accounting/widget/PaymentForms.xml"/>
+                                                    <include-form name="EditPaymentApplicationsTax" location="component://accounting/widget/PaymentForms.xml"/>
                                                 </widgets>
                                             </section>
                                         </screenlet>
@@ -301,7 +301,7 @@ under the License.
                                                     <not><if-empty field="invoices"/></not>
                                                 </condition>
                                                 <widgets>
-                                                    <include-form name="listInvoicesNotApplied" location="component://accounting/widget/PaymentForms.xml"/>
+                                                    <include-form name="ListInvoicesNotApplied" location="component://accounting/widget/PaymentForms.xml"/>
                                                 </widgets>
                                             </section>
                                             <section>
@@ -310,7 +310,7 @@ under the License.
                                                 </condition>
                                                 <widgets>
                                                     <label style="h2" text="${uiLabelMap.FormFieldTitle_otherCurrency}"/>
-                                                    <include-form name="listInvoicesNotAppliedOtherCurrency" location="component://accounting/widget/PaymentForms.xml"/>
+                                                    <include-form name="ListInvoicesNotAppliedOtherCurrency" location="component://accounting/widget/PaymentForms.xml"/>
                                                 </widgets>
                                             </section>
                                         </screenlet>
@@ -326,12 +326,12 @@ under the License.
                                                 <label style="h2" text="${uiLabelMap.CommonFrom}: ${partyNameViewTo.groupName}${partyNameViewTo.lastName},${partyNameViewTo.firstName} ${partyNameViewTo.middleName}[${payment.partyIdTo}]"/>
                                                 <label style="h2" text="${uiLabelMap.CommonTo}: ${partyNameViewFrom.groupName}${partyNameViewFrom.lastName},${partyNameViewFrom.firstName} ${partyNameViewFrom.middleName} [${payment.partyIdFrom}]"/>
                                             </container>
-                                            <include-form name="listPaymentsNotApplied" location="component://accounting/widget/PaymentForms.xml"/>
+                                            <include-form name="ListPaymentsNotApplied" location="component://accounting/widget/PaymentForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                 </section>
                                 <screenlet title="${uiLabelMap.AccountingApplyPaymentoTo}">
-                                   <include-form name="addPaymentApplication" location="component://accounting/widget/PaymentForms.xml"/>
+                                   <include-form name="AddPaymentApplication" location="component://accounting/widget/PaymentForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -372,7 +372,7 @@ under the License.
                                         <link target="editPayment" text="${uiLabelMap.CommonUpdate}" style="buttontext">
                                             <parameter param-name="paymentId"/>
                                         </link>
-                                        <include-form name="paymentHeader" location="component://accounting/widget/PaymentForms.xml"/>
+                                        <include-form name="PaymentHeader" location="component://accounting/widget/PaymentForms.xml"/>
                                     </screenlet>
                                 </container>
                                 <container style="righthalf">
@@ -380,7 +380,7 @@ under the License.
                                         <link target="editPaymentApplications" text="${uiLabelMap.CommonUpdate}" style="buttontext">
                                             <parameter param-name="paymentId"/>
                                         </link>
-                                        <include-form name="paymentApplications" location="component://accounting/widget/PaymentForms.xml"/>
+                                        <include-form name="PaymentApplications" location="component://accounting/widget/PaymentForms.xml"/>
                                     </screenlet>
                                     <section>
                                         <condition>
@@ -401,12 +401,12 @@ under the License.
                             <fail-widgets>
                                 <container style="lefthalf">
                                     <screenlet title="${uiLabelMap.AccountingPaymentHeader}">
-                                        <include-form name="paymentHeader" location="component://accounting/widget/PaymentForms.xml"/>
+                                        <include-form name="PaymentHeader" location="component://accounting/widget/PaymentForms.xml"/>
                                     </screenlet>
                                 </container>
                                 <container style="righthalf">
                                     <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${payment.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${payment.currencyUomId})}">
-                                        <include-form name="paymentApplications" location="component://accounting/widget/PaymentForms.xml"/>
+                                        <include-form name="PaymentApplications" location="component://accounting/widget/PaymentForms.xml"/>
                                     </screenlet>
                                         <section>
                                             <condition>
