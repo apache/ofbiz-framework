@@ -187,10 +187,10 @@ under the License.
                                         <not><if-empty field="workEffort" /></not>
                                     </condition>
                                     <widgets>
-                                        <include-form name="cancelEvent" location="component://workeffort/widget/CalendarForms.xml" />
+                                        <include-form name="CancelEvent" location="component://workeffort/widget/CalendarForms.xml" />
                                     </widgets>
                                 </section>
-                                <include-form name="editCalEvent" location="component://workeffort/widget/CalendarForms.xml" />
+                                <include-form name="EditCalEvent" location="component://workeffort/widget/CalendarForms.xml" />
                             </screenlet>
                         </container>
                         <container style="righthalf">
@@ -206,7 +206,7 @@ under the License.
                                         </and>
                                     </condition>
                                     <widgets>
-                                        <include-form name="addCalEventRole" location="component://workeffort/widget/CalendarForms.xml" />
+                                        <include-form name="AddCalEventRole" location="component://workeffort/widget/CalendarForms.xml" />
                                     </widgets>
                                 </section>
                             </screenlet>
@@ -216,7 +216,7 @@ under the License.
                     <fail-widgets>
                         <container style="lefthalf">
                             <screenlet title="${uiLabelMap.WorkEffortSummary}">
-                                <include-form name="showCalEvent" location="component://workeffort/widget/CalendarForms.xml" />
+                                <include-form name="ShowCalEvent" location="component://workeffort/widget/CalendarForms.xml" />
                             </screenlet>
                         </container>
                         <container style="righthalf">

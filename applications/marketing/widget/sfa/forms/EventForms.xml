@@ -71,7 +71,7 @@ under the License.
             <sort-field name="complete"/>
         </sort-order>
     </form>
-    <form name="EditEvent" extends="editCalEvent" extends-resource="component://workeffort/widget/CalendarForms.xml">
+    <form name="EditEvent" extends="EditCalEvent" extends-resource="component://workeffort/widget/CalendarForms.xml">
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
         <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
