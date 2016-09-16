@@ -44,7 +44,7 @@ import org.apache.ofbiz.entity.model.ModelFieldTypeReader;
 /**
  * Generic Entity Cursor List Iterator for Handling Cursored DB Results
  */
-public class EntityListIterator implements ListIterator<GenericValue> {
+public class EntityListIterator implements AutoCloseable, ListIterator<GenericValue> {
 
     /** Module Name Used for debugging */
     public static final String module = EntityListIterator.class.getName();
