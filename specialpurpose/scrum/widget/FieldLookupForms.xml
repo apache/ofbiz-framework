@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     
-    <form name="lookupProductBacklog" target="LookupProductBacklog" title="" type="single"
+    <form name="LookupProductBacklog" target="LookupProductBacklog" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="custRequestId" title="Product Backlog Id"><text-find/></field>
         <field name="custRequestTypeId"><hidden value="RF_PROD_BACKLOG"/></field>
@@ -38,7 +38,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupProductBacklog" list-name="listIt" title="" type="list"
+    <form name="ListLookupProductBacklog" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupProductBacklog">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
