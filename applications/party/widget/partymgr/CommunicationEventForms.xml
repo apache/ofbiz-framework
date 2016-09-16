@@ -343,7 +343,7 @@ under the License.
         </sort-order>
     </form>
 
-    <form name="findCommEvents" type="single" target="FindCommunicationEvents" paginate="true" focus-field-name="submitButton"
+    <form name="FindCommEvents" type="single" target="FindCommunicationEvents" paginate="true" focus-field-name="submitButton"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="communicationEventId" position="1"><text-find/></field>
@@ -721,7 +721,7 @@ under the License.
         </field>
     </form>
 
-    <form name="listCommContent" type="list" list-name="contentDataResourceList" paginate-target="/ListCommContent" target="removeAttachFile"
+    <form name="ListCommContent" type="list" list-name="contentDataResourceList" paginate-target="/ListCommContent" target="removeAttachFile"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CommEventContentDataResource" list="contentDataResourceList">
@@ -743,7 +743,7 @@ under the License.
         <field name="deleteButton"><submit button-type="text-link"/></field>
     </form>
 
-    <form name="addCommContent" type="single" target="createCommContentDataResource"
+    <form name="AddCommContent" type="single" target="createCommContentDataResource"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><hidden/></field>
         <field name="contentId"><ignored/></field>
@@ -776,7 +776,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
 
-    <form name="editCommContent" type="single" target="updateCommContentDataResource" default-map-name="commEventContentDataResource"
+    <form name="EditCommContent" type="single" target="updateCommContentDataResource" default-map-name="commEventContentDataResource"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><display/></field>
         <field name="contentId"><display/></field>
@@ -847,7 +847,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
 
-    <form name="uploadCommContent" type="upload" target="uploadCommEventContent" default-map-name="commEventContentDataResource">
+    <form name="UploadCommContent" type="upload" target="uploadCommEventContent" default-map-name="commEventContentDataResource">
         <field name="contentId" map-name="contentAssoc"><hidden/></field>
         <field name="drDataResourceId"><hidden/></field>
         <field name="drDataResourceTypeId"><hidden/></field>
@@ -860,7 +860,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit/></field>
     </form>
     
-    <form name="uploadContent" type="upload" target="uploadAttachFiletoEmail">
+    <form name="UploadContent" type="upload" target="uploadAttachFiletoEmail">
         <field name="dataCategoryId"><hidden value="PERSONAL"/></field>
         <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
         <field name="resourceStatusId"><hidden value="CTNT_PUBLISHED"/></field>
@@ -879,12 +879,12 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="uploadContent1" type="upload" extends="uploadContent" target="uploadAttachFile">
+    <form name="UploadContent1" type="upload" extends="UploadContent" target="uploadAttachFile">
         <field name="send"><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit/></field>
     </form>
 
-    <form name="editCommTextContent" type="single" target="uploadCommEventContent" default-map-name="commEventContentDataResource"
+    <form name="EditCommTextContent" type="single" target="uploadCommEventContent" default-map-name="commEventContentDataResource"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="contentId" ><hidden/></field>
         <field name="drDataResourceId" ><hidden/></field>
@@ -922,7 +922,7 @@ under the License.
         <field name="deleteSelectedButton" widget-style="smallSubmit"><submit/></field>
     </form>
 
-    <form name="allocateMsgToPartyForm" type="single" target="allocateMsgToParty" title="create a new party for a unknown incoming email address">
+    <form name="AllocateMsgToPartyForm" type="single" target="allocateMsgToParty" title="create a new party for a unknown incoming email address">
         <actions>
             <script location="component://party/groovyScripts/communication/GetPartyEmailFromCommEventInfo.groovy"/>
         </actions>
@@ -937,7 +937,7 @@ under the License.
         <field name="lastName"><text/></field>
         <field name="submit" title="${uiLabelMap.PartyCreateAddEmail}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="deleteEmail" type="single" title="delete the email"
+    <form name="DeleteEmail" type="single" title="delete the email"
         target="deleteUnknownCommunicationEvent">
         <field name="donePage"><hidden value="${donePage}"/></field>
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>

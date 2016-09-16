@@ -41,9 +41,9 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet id="FindPartyPanel" title="${uiLabelMap.PartyFindParty}" navigation-menu-name="CreateNewParty"
-                                           navigation-form-name="lookupparty" save-collapsed="false" collapsible="true" initially-collapsed="${initialyCollapsed}">
+                                           navigation-form-name="LookupParty" save-collapsed="false" collapsible="true" initially-collapsed="${initialyCollapsed}">
                                     <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CreateNewParty"/>
-                                    <include-form name="lookupparty" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                    <include-form name="LookupParty" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.CommonSearchResults}" navigation-form-name="ListParty">
                                     <include-grid name="ListParty${extInfo}" location="component://party/widget/partymgr/PartyForms.xml"/>
@@ -1042,8 +1042,8 @@ under the License.
                                 <set field="actualCurrencyUomId" from-field="defaultOrganizationPartyCurrencyUomId"/>
                             </actions>
                             <widgets>
-                                <screenlet title="${uiLabelMap.PartyFinancialSummary}${defaultOrganizationPartyId}" navigation-form-name="partyFinancialSummary">
-                                    <include-form name="partyFinancialSummary" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                <screenlet title="${uiLabelMap.PartyFinancialSummary}${defaultOrganizationPartyId}" navigation-form-name="PartyFinancialSummary">
+                                    <include-form name="PartyFinancialSummary" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     <section>
                                         <condition>
                                             <and>
@@ -1057,7 +1057,7 @@ under the License.
                                         </actions>
                                         <widgets>
                                             <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
-                                            <include-form name="partyFinancialSummary" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                            <include-form name="PartyFinancialSummary" location="component://party/widget/partymgr/PartyForms.xml"/>
                                         </widgets>
                                     </section>
                                 </screenlet>
@@ -1227,11 +1227,11 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyPartyIdentificationList}">
-                             <include-form name="listPartyIdentification" location="component://party/widget/partymgr/PartyForms.xml"/>
+                             <include-form name="ListPartyIdentification" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PartyPartyIdentification}" navigation-menu-name="NewPartyIdentification" id="PartyIdentificationCreationPanel">
                              <include-menu name="NewPartyIdentification" location="component://party/widget/partymgr/PartyMenus.xml"/>
-                             <include-form name="editPartyIdentification" location="component://party/widget/partymgr/PartyForms.xml"/>
+                             <include-form name="EditPartyIdentification" location="component://party/widget/partymgr/PartyForms.xml"/>
                          </screenlet>
                     </decorator-section>
                 </decorator-screen>

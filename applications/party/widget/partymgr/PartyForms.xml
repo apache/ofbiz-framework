@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="lookupparty" type="single" target="findparty" focus-field-name="partyId">
+    <form name="LookupParty" type="single" target="findparty" focus-field-name="partyId">
         <actions>
             <set field="states" value="${groovy: org.apache.ofbiz.common.CommonWorkers.getStateList(delegator)}"/>
             <!-- Here is some alternate code to get states limited to a region
@@ -360,7 +360,7 @@ under the License.
         <field name="cancelLink" title=" " widget-style="smallSubmit"><hyperlink target="backHome" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
 
-    <form name="updatePassword" type="single" target="updatePassword"
+    <form name="UpdatePassword" type="single" target="updatePassword"
         focus-field-name="currentPassword" header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="passwordHint" from-field="editUserLogin.passwordHint"/>
@@ -379,7 +379,7 @@ under the License.
         </field>
     </form>
 
-    <form name="updateUserLoginSecurity" type="single" target="updateUserLoginSecurity" default-map-name="editUserLogin"
+    <form name="UpdateUserLoginSecurity" type="single" target="updateUserLoginSecurity" default-map-name="editUserLogin"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <property-to-field field="ldapEnabled" resource="security" property="security.ldap.enable"/>
@@ -1176,7 +1176,7 @@ under the License.
         <field name="amount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
         <field name="unAppliedAmount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
     </form>
-    <form name="partyFinancialSummary" type="single" title="Financial summary" default-map-name="finanSummary"
+    <form name="PartyFinancialSummary" type="single" title="Financial summary" default-map-name="finanSummary"
         default-title-style="tableheadtext">
         <actions>
             <set field="actualCurrency" from-field="actualCurrency" default-value="true"/>
@@ -1297,7 +1297,7 @@ under the License.
         <field name="partyId"><display/></field>
     </form>
 
-    <form name="listPartyIdentification" type="list" list-name="listIt"
+    <form name="ListPartyIdentification" type="list" list-name="listIt"
                  default-table-style="basic-table hover-bar" target="updatePartyIdentification">
         <actions>
             <entity-and entity-name="PartyIdentificationAndParty" >
@@ -1317,7 +1317,7 @@ under the License.
         <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit /></field>
     </form>
     
-    <form name="editPartyIdentification" type="single" list-name="partyIdents"
+    <form name="EditPartyIdentification" type="single" list-name="partyIdents"
                  default-table-style="basic-table hover-bar" target="createPartyIdentification" focus-field-name="idValue">
         <alt-target use-when="partyIdentification !=null" target="updatePartyIdentification"/>
         <field name="partyIdentificationTypeId" use-when="partyIdentification == null">

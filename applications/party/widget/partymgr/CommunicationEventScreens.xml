@@ -358,7 +358,7 @@ under the License.
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
-                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="findCommEvents"/>
+                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="FindCommEvents"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
                                         <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListLookupCommEvents"/>
@@ -426,7 +426,7 @@ under the License.
                         </fail-widgets>
                     </section>
                     <screenlet title="${uiLabelMap.PartyCommContent}">
-                        <include-form name="listCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                        <include-form name="ListCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                     </screenlet>
                     <section>
                         <actions>
@@ -485,7 +485,7 @@ under the License.
                                         <container>
                                             <label style="h2" text="${uiLabelMap.PartyEmailMessage}"/>
                                         </container>
-                                        <include-form name="allocateMsgToPartyForm" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                                        <include-form name="AllocateMsgToPartyForm" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </screenlet>
                                 </widgets>
                             </section>
@@ -690,10 +690,10 @@ under the License.
                             <widgets>
                                 <container>
                                     <screenlet title="${uiLabelMap.PartyCommContent}">
-                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="listCommContent"/>
+                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommContent"/>
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.PartyAttachContent}">
-                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="uploadContent1"/>
+                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="UploadContent1"/>
                                     </screenlet>
                                 </container>
                             </widgets>
@@ -728,7 +728,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyNewCommContent}">
-                                    <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="addCommContent"/>
+                                    <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="AddCommContent"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -773,7 +773,7 @@ under the License.
                                     </widgets>
                                 </section>
                                 <container style="h1"><label text="${uiLabelMap.PageTitleEditCommContent}"/></container>
-                                <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="editCommContent"/>
+                                <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="EditCommContent"/>
                                 <section>
                                     <condition>
                                         <if-regexp expr="text.*" field="commEventContentDataResource.drMimeTypeId"/>
@@ -785,7 +785,7 @@ under the License.
                                     </actions>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.PageTitleEditCommContent}">
-                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="editCommTextContent"/>
+                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="EditCommTextContent"/>
                                         </screenlet>
                                     </widgets>
                                 </section>
@@ -797,7 +797,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.PartyViewImage}">
-                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="uploadCommContent"/>
+                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="UploadCommContent"/>
                                             <label text="${uiLabelMap.PartyViewImage}" style="h1"/>
                                             <content dataresource-id="${commEventContentDataResource.drDataResourceId}"/>
                                         </screenlet>
@@ -1111,8 +1111,8 @@ under the License.
                                 </container>
                                 <container style="righthalf">
                                     <screenlet title="${uiLabelMap.PartyCommContent}">
-                                        <include-form name="listCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
-                                        <include-form  name="uploadContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                                        <include-form name="ListCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                                        <include-form  name="UploadContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </screenlet>
                                 </container>
                             </fail-widgets>
@@ -1149,8 +1149,8 @@ under the License.
                                         <include-form name="AddEventRole" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.PartyCommContent}">
-                                        <include-form name="listCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
-                                        <include-form  name="uploadContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                                        <include-form name="ListCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                                        <include-form  name="UploadContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                                     </screenlet>
                                 </container>
                             </fail-widgets>
