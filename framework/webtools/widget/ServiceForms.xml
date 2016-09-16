@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="scheduleJob" type="single" target="setServiceParameters"
+    <form name="ScheduleJob" type="single" target="setServiceParameters"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="JOB_NAME" title="${uiLabelMap.WebtoolsJob}"><text/></field>
         <field name="SERVICE_NAME" title="${uiLabelMap.WebtoolsService}"><text/></field>
@@ -46,7 +46,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
 
-    <form name="runService" type="single" target="setSyncServiceParameters"
+    <form name="RunService" type="single" target="setSyncServiceParameters"
         header-row-style="header-row" default-table-style="basic-table" focus-field-name="SERVICE_NAME">
         <field name="SERVICE_NAME" title="${uiLabelMap.WebtoolsService}"><text/></field>
         <field name="POOL_NAME" title="${uiLabelMap.WebtoolsPool}"><text/></field>

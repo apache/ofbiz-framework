@@ -133,7 +133,7 @@ under the License.
                     <decorator-section name="body">
                         <include-screen name="JobManagerLockEnable"/>
                         <screenlet title="${uiLabelMap.WebtoolsStep1ServiceAndRecurrenceInfo}">
-                            <include-form name="scheduleJob" location="component://webtools/widget/ServiceForms.xml"/>
+                            <include-form name="ScheduleJob" location="component://webtools/widget/ServiceForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -152,7 +152,7 @@ under the License.
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
-                            <include-form name="runService" location="component://webtools/widget/ServiceForms.xml"/>
+                            <include-form name="RunService" location="component://webtools/widget/ServiceForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
