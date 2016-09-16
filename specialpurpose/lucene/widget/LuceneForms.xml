@@ -29,7 +29,7 @@ under the License.
         <field name="submitButton" title="Index Products" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="searchList" type="list" target="" list-name="queryResults" paginate-target="/AdminSearch"
+    <form name="SearchList" type="list" target="" list-name="queryResults" paginate-target="/AdminSearch"
           odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="editContent" title=" ">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit">
