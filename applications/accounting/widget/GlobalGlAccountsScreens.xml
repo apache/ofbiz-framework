@@ -305,7 +305,7 @@ under the License.
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingUpdateRateAmount}" navigation-form-name="ListRateAmounts">
-                            <include-form name="updateRateAmount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                            <include-form name="UpdateRateAmount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                         </screenlet>
                         <include-form name="ListRateAmounts" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                     </decorator-section>
@@ -334,7 +334,7 @@ under the License.
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="FxConversionPanel" title="${uiLabelMap.AccountingUpdateFX}" collapsible="true">
-                            <include-form name="updateFXConversion" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <include-form name="UpdateFXConversion" location="component://accounting/widget/GlSetupForms.xml"/>
                         </screenlet>
                         <include-form name="ListConversions" location="component://accounting/widget/GlSetupForms.xml"/>
                     </decorator-section>

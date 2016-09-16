@@ -152,7 +152,7 @@ under the License.
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditInvoice}">
-                                    <include-form name="invoiceHeader" location="component://accounting/widget/InvoiceForms.xml"/>
+                                    <include-form name="InvoiceHeader" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
@@ -218,7 +218,7 @@ under the License.
                                     <link target="editInvoice" text="${uiLabelMap.CommonUpdate}" style="buttontext">
                                         <parameter param-name="invoiceId"/>
                                     </link>
-                                    <include-form name="invoiceHeader" location="component://accounting/widget/InvoiceForms.xml"/>
+                                    <include-form name="InvoiceHeader" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
                                 <container style="lefthalf">
                                     <screenlet title="${uiLabelMap.CommonStatus}" navigation-form-name="ListInvoiceStatus">
@@ -233,13 +233,13 @@ under the License.
                                     </screenlet>
                                 </container>
                                 <container style="righthalf">
-                                    <screenlet title="${uiLabelMap.AccountingInvoiceRoles}" navigation-form-name="invoiceRoles">
+                                    <screenlet title="${uiLabelMap.AccountingInvoiceRoles}" navigation-form-name="InvoiceRoles">
                                         <container>
                                             <link target="invoiceRoles" text="${uiLabelMap.CommonUpdate}" style="buttontext">
                                                 <parameter param-name="invoiceId"/>
                                             </link>
                                         </container>
-                                        <include-form name="invoiceRoles" location="component://accounting/widget/InvoiceForms.xml"/>
+                                        <include-form name="InvoiceRoles" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.PartyTerms}">
                                         <container>
@@ -252,11 +252,11 @@ under the License.
                                     </screenlet>
                                 </container>
                                 <container style="clear"/>
-                                <screenlet title="${uiLabelMap.AccountingInvoiceItems}" navigation-form-name="invoiceItems">
+                                <screenlet title="${uiLabelMap.AccountingInvoiceItems}" navigation-form-name="InvoiceItems">
                                     <link target="listInvoiceItems" text="${uiLabelMap.CommonUpdate}" style="buttontext">
                                         <parameter param-name="invoiceId"/>
                                     </link>
-                                    <include-form name="invoiceItems" location="component://accounting/widget/InvoiceForms.xml"/>
+                                    <include-form name="InvoiceItems" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
                                 <section>
                                     <condition>
@@ -277,7 +277,7 @@ under the License.
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.AccountingInvoiceHeader}">
-                                    <include-form name="invoiceHeader" location="component://accounting/widget/InvoiceForms.xml"/>
+                                    <include-form name="InvoiceHeader" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
                                 <container style="lefthalf">
                                     <screenlet title="${uiLabelMap.CommonStatus}" navigation-form-name="ListInvoiceStatus">
@@ -289,8 +289,8 @@ under the License.
                                     </screenlet>
                                 </container>
                                 <container style="righthalf">
-                                    <screenlet title="${uiLabelMap.AccountingInvoiceRoles}" navigation-form-name="invoiceRoles">
-                                        <include-form name="invoiceRoles" location="component://accounting/widget/InvoiceForms.xml"/>
+                                    <screenlet title="${uiLabelMap.AccountingInvoiceRoles}" navigation-form-name="InvoiceRoles">
+                                        <include-form name="InvoiceRoles" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.PartyTerms}">
                                         <include-form name="ListInvoiceTerms" location="component://accounting/widget/InvoiceForms.xml"/>
@@ -298,8 +298,8 @@ under the License.
                                     </screenlet>
                                 </container>
                                 <container style="clear"/>
-                                <screenlet title="${uiLabelMap.AccountingInvoiceItems}" navigation-form-name="invoiceItems">
-                                    <include-form name="invoiceItems" location="component://accounting/widget/InvoiceForms.xml"/>
+                                <screenlet title="${uiLabelMap.AccountingInvoiceItems}" navigation-form-name="InvoiceItems">
+                                    <include-form name="InvoiceItems" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
                                 <section>
                                     <condition>

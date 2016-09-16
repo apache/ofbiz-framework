@@ -47,7 +47,7 @@ under the License.
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="BudgetSearchResults"/>
     </form>
 
-    <form name="FindBudgetOptions" extends="lookupBudget" extends-resource="component://accounting/widget/FieldLookupForms.xml"
+    <form name="FindBudgetOptions" extends="LookupBudget" extends-resource="component://accounting/widget/FieldLookupForms.xml"
         target="ListBudgets">
         <field name="searchOptions_collapsed"><hidden value="true"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>

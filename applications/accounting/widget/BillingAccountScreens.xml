@@ -221,7 +221,7 @@ under the License.
                 <decorator-screen name="CommonBillingAccountDecorator" location="${parameters.billingAccountDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="BillingAccountInvoicePanel" title="${uiLabelMap.AccountingFindInvoices}" collapsible="true">
-                            <include-form name="lookupInvoicesStatus" location="component://accounting/widget/InvoiceForms.xml"/>
+                            <include-form name="LookupInvoicesStatus" location="component://accounting/widget/InvoiceForms.xml"/>
                         </screenlet>
                         <include-form name="ListBillingAccountInvoices" location="component://accounting/widget/BillingAccountForms.xml"/>
                     </decorator-section>
