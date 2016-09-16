@@ -73,7 +73,7 @@ under the License.
                             <platform-specific>
                                 <html><html-template location="component://lucene/template/AdminSearch.ftl"/></html>
                             </platform-specific>
-                            <include-form name="searchList" location="component://lucene/widget/LuceneForms.xml"/>
+                            <include-form name="SearchList" location="component://lucene/widget/LuceneForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
