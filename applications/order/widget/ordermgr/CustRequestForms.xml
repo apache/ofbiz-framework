@@ -538,7 +538,7 @@ under the License.
     </form>
 
     <!-- request form -->
-    <form name="requestInfo" type="single" title="request information" default-map-name="custRequest"
+    <form name="RequestInfo" type="single" title="request information" default-map-name="custRequest"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="lookupPartyId" from-field="custRequest.fromPartyId" default-value="_NA_"/>

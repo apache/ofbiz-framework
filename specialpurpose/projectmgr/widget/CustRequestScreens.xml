@@ -138,7 +138,7 @@ under the License.
                     <decorator-section name="body">                        
                         <container style="lefthalf">
                             <screenlet title="${uiLabelMap.OrderRequestInformation}">
-                                <include-form name="requestInfo" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                <include-form name="RequestInfo" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             </screenlet>
                         </container>
                         <container style="righthalf">

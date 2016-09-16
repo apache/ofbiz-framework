@@ -41,10 +41,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupOrderHeader" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="LookupOrderHeader" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupOrderHeader" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupOrderHeader" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -70,10 +70,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupOrderHeaderAndShipInfo" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="LookupOrderHeaderAndShipInfo" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupOrderHeaderAndShipInfo" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupOrderHeaderAndShipInfo" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -99,10 +99,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupPurchaseOrderHeaderAndShipInfo" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="LookupPurchaseOrderHeaderAndShipInfo" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupOrderHeaderAndShipInfo" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupOrderHeaderAndShipInfo" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -127,10 +127,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupCustRequest" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="LookupCustRequest" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupCustRequest" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupCustRequest" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -155,10 +155,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupCustRequestItem" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="LookupCustRequestItem" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupCustRequestItem" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupCustRequestItem" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -182,10 +182,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupQuote" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="LookupQuote" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupQuote" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupQuote" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -210,10 +210,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupQuoteItem" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="LookupQuoteItem" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupQuoteItem" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupQuoteItem" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -237,10 +237,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupRequirement" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="LookupRequirement" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupRequirement" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupRequirement" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -264,10 +264,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupShoppingList" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="LookupShoppingList" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupShoppingList" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupShoppingList" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

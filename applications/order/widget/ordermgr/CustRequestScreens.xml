@@ -112,7 +112,7 @@ under the License.
             <widgets>
                 <container style="lefthalf">
                     <screenlet title="${uiLabelMap.OrderRequest} ${custRequest.custRequestId} ${uiLabelMap.CommonInformation}">
-                        <include-form name="requestInfo" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                        <include-form name="RequestInfo" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                     </screenlet>
                     <screenlet title="${uiLabelMap.OrderRequestRoles}">
                         <include-form name="ViewRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
