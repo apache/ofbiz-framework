@@ -67,7 +67,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
-    <form name="findProductionRun" target="FindProductionRun" title="" type="single"
+    <form name="FindProductionRun" target="FindProductionRun" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortTypeId"><hidden value="PROD_ORDER_HEADER"/></field>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingProductionRunId}"><text-find/></field>
@@ -91,7 +91,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
 
-    <form name="listFindProductionRun" list-name="listIt" title="" type="list" paginate-target="FindProductionRun"
+    <form name="ListFindProductionRun" list-name="listIt" title="" type="list" paginate-target="FindProductionRun"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -730,7 +730,7 @@ under the License.
     <!-- Shipment Plan Forms -->
     <!-- ******************* -->
     <!-- List for Shipment Plan -->
-    <form name="listShipmentPlan" type="list" target="" title="" list-name="shipmentPlan"
+    <form name="ListShipmentPlan" type="list" target="" title="" list-name="shipmentPlan"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="orderId" widget-style="buttontext">
             <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
@@ -761,7 +761,7 @@ under the License.
         <field name="productionRunQuantityProduced"><display/></field>
     </form>
 
-    <form name="listShipmentPlans" type="list" target="" title="" list-name="shipmentPlans"
+    <form name="ListShipmentPlans" type="list" target="" title="" list-name="shipmentPlans"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <field name="shipmentId" widget-style="buttontext" sort-field="true">
             <hyperlink target="/facility/control/ViewShipment" target-type="inter-app" description="${shipmentId}">
@@ -783,7 +783,7 @@ under the License.
         <field name="mrpName" title="${uiLabelMap.ManufacturingMrpName}"><text size="20"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
-    <form name="linkProductionRun" type="single" target="createProductionRunAssoc" title=""
+    <form name="LinkProductionRun" type="single" target="createProductionRunAssoc" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productionRunId"><hidden/></field>
         <field name="workEffortAssocTypeId"><hidden value="WORK_EFF_PRECEDENCY"/></field>
@@ -805,7 +805,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
-    <form name="mandatoryWorkEfforts" type="list" target="" title="" list-name="mandatoryWorkEfforts"
+    <form name="MandatoryWorkEfforts" type="list" target="" title="" list-name="mandatoryWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdFrom" title=" " widget-style="buttontext">
             <hyperlink target="ShowProductionRun" description="${workEffortIdFrom}" also-hidden="false" link-type="anchor">
@@ -843,7 +843,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="dependentWorkEfforts" type="list" target="" title="" list-name="dependentWorkEfforts"
+    <form name="DependentWorkEfforts" type="list" target="" title="" list-name="dependentWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdTo" title=" " widget-style="buttontext">
             <hyperlink target="ShowProductionRun" description="${workEffortIdTo}" also-hidden="false" link-type="anchor">

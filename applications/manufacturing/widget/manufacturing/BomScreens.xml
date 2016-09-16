@@ -146,7 +146,7 @@ under the License.
                                 <container style="button-bar"><link target="EditProductBom" text="${uiLabelMap.ManufacturingCreateBom}" style="buttontext"/></container>
                             </decorator-section>
                             <decorator-section name="search-options">
-                                <include-form name="findBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
+                                <include-form name="FindBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
                                 <include-form name="ListBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>

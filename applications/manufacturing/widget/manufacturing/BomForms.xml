@@ -128,7 +128,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="findBom" type="single" target="FindBom" title="">
+    <form name="FindBom" type="single" target="FindBom" title="">
         <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="productIdTo" title="${uiLabelMap.ProductProductIdTo}"><lookup target-form-name="LookupProduct"/></field>
         <field name="productAssocTypeId"  title="${uiLabelMap.ManufacturingBomType}">
