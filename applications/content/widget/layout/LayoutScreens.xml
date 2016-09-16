@@ -45,10 +45,10 @@ under the License.
                                         </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
-                                        <include-form name="findLayout" location="component://content/widget/layout/LayoutForms.xml"/>
+                                        <include-form name="FindLayout" location="component://content/widget/layout/LayoutForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="listFindLayout" location="component://content/widget/layout/LayoutForms.xml"/>
+                                        <include-form name="ListFindLayout" location="component://content/widget/layout/LayoutForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -81,7 +81,7 @@ under the License.
                                     <parameter param-name="contentIdTo" value="TEMPLATE_MASTER"/>
                                 </link>
                             </container>
-                            <include-form name="listListLayout" location="component://content/widget/layout/LayoutForms.xml"/>
+                            <include-form name="ListListLayout" location="component://content/widget/layout/LayoutForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

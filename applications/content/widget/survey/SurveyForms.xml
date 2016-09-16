@@ -276,7 +276,7 @@ under the License.
         </field>
     </form>
 
-    <form name="lookupSurvey" target="LookupSurvey" title="" type="single"
+    <form name="LookupSurvey" target="LookupSurvey" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Survey" default-field-type="find"/>
         <field name="surveyId" title="${uiLabelMap.ContentSurveySurveyId}"><text-find/></field>
@@ -287,7 +287,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupSurvey" list-name="listIt" title="" type="list" paginate-target="LookupSurvey"
+    <form name="ListLookupSurvey" list-name="listIt" title="" type="list" paginate-target="LookupSurvey"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -303,14 +303,14 @@ under the License.
         </field>
     </form>
 
-    <form name="lookupSurveyResponse" target="LookupSurveyResponse" title="" type="single"
+    <form name="LookupSurveyResponse" target="LookupSurveyResponse" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="SurveyResponse" default-field-type="find"/>
 
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupSurveyResponse" list-name="listIt" title="" type="list" paginate-target="LookupSurveyResponse"
+    <form name="ListLookupSurveyResponse" list-name="listIt" title="" type="list" paginate-target="LookupSurveyResponse"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">

@@ -219,7 +219,7 @@ under the License.
     </form>
 
     <!-- Content Lookup forms -->
-    <form name="mruLookupContent" default-entity-name="Content" list-name="mruList" target="" title="" type="list"
+    <form name="MruLookupContent" default-entity-name="Content" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
 
         <field name="contentId" widget-style="buttontext">
@@ -490,7 +490,7 @@ under the License.
     </form>
 
     <!-- Person Lookup forms -->
-    <form name="mruLookupPerson" list-name="mruList" target="" title="" type="list"
+    <form name="MruLookupPerson" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
@@ -498,7 +498,7 @@ under the License.
         <field name="firstName" title=" " widget-style="buttontext"><display/></field>
         <field name="lastName" title=" " widget-style="buttontext"><display/></field>
     </form>
-    <form name="mruLookupPartyAndUserLoginAndPerson" list-name="mruList" target="" title="" type="list"
+    <form name="MruLookupPartyAndUserLoginAndPerson" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}', '${userLoginId}')"/>
