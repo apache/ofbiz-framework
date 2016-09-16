@@ -179,9 +179,9 @@ under the License.
                         <container style="page-title">
                             <label text="${uiLabelMap.UserLoginUpdateSecuritySettings} - ${userLoginId}"/>
                         </container>
-                        <include-form name="updateUserLoginSecurity" location="component://common/widget/SecurityForms.xml"/>
+                        <include-form name="UpdateUserLoginSecurity" location="component://common/widget/SecurityForms.xml"/>
                         <screenlet title="${uiLabelMap.UserLoginChangePassword}">
-                            <include-form name="updatePassword" location="component://common/widget/SecurityForms.xml"/>
+                            <include-form name="UpdatePassword" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

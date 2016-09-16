@@ -37,7 +37,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupGeo" list-name="listIt" target="" title="" type="list" paginate-target="LookupGeo">
+    <form name="ListLookupGeo" list-name="listIt" target="" title="" type="list" paginate-target="LookupGeo">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -61,7 +61,7 @@ under the License.
     </form>
 
     <form name="LookupGeoName" extends="LookupGeo" target="LookupGeoName"/>
-    <form name="listLookupGeoName" extends="listLookupGeo" paginate-target="LookupGeoName">
+    <form name="ListLookupGeoName" extends="ListLookupGeo" paginate-target="LookupGeoName">
         <field name="geoId" widget-style="buttontext" title="${uiLabelMap.CommonGeoId}">
             <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="javascript:set_values('${geoName}', '${geoId}')"/>
         </field>
