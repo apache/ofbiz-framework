@@ -70,7 +70,7 @@ under the License.
         <field name="updateButton"><submit/></field>
     </form>
 
-    <form name="editCalEvent" type="single" default-map-name="workEffort">
+    <form name="EditCalEvent" type="single" default-map-name="workEffort">
         <actions>
             <set field="statusTypeIds[]" value="EVENT_STATUS"/>
             <set field="statusTypeIds[]" value="CALENDAR_STATUS"/>
@@ -127,13 +127,13 @@ under the License.
         <field name="updateButton" use-when="workEffort!=null"><submit /></field>
     </form>
 
-    <form name="cancelEvent" type="single" target="updateWorkEffort">
+    <form name="CancelEvent" type="single" target="updateWorkEffort">
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="currentStatusId"><hidden value="CAL_CANCELLED"/></field>
         <field name="cancel" title="${uiLabelMap.WorkEffortCancelCalendarEvent}"><submit/></field>
     </form>
 
-    <form name="showCalEvent" type="single" default-map-name="workEffort">
+    <form name="ShowCalEvent" type="single" default-map-name="workEffort">
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="workEffortTypeId" title="${uiLabelMap.PartyEventType}">
@@ -171,7 +171,7 @@ under the License.
     <grid name="showCalEventRolesDel" extends="showCalEventRoles" target="deleteWorkEffortPartyAssign">
         <field name="remove" title="${uiLabelMap.CommonRemove}"><submit/></field>
     </grid>
-    <form name="addCalEventRole" type="single" target="createWorkEffortPartyAssign">
+    <form name="AddCalEventRole" type="single" target="createWorkEffortPartyAssign">
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="partyId" position="1"><lookup target-form-name="LookupPartyName" size="10"></lookup></field>
