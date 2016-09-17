@@ -19,7 +19,8 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <WebSite webSiteId="CmsSite" siteName="CMS Web Site"/>
+    <!-- Making the CmsSite as a default site in multisite setup -->
+    <WebSite webSiteId="CmsSite" siteName="CMS Web Site" hostedPathAlias="cmssite" isDefault="Y"/>
     <Content contentId="CMSS_PPOINT" contentTypeId="WEB_SITE_PUB_PT" contentName="CMS Site Publish Point" description=""/>
     <WebSiteContent webSiteId="CmsSite" contentId="CMSS_PPOINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2001-01-01 00:00:00"/>
 
@@ -94,6 +95,8 @@ under the License.
                 <li><a href="${thisContent.content.CMSS_DEMO_BLOG.link}">Demo Page with blog using screen decorator</a></li>
                 <li><a href="${thisContent.content.CMSS_DEMO_TPL_DATA.link}">Demo Page with an xml resource formatted with a template ftl resource</a></li>
                 <li><a href="${thisContent.content.PUBLIC_DOCS.link}">The ofbiz public documents</a></li>
+                <li><a href="/cmssite/website-1">WebSite 1</a></li>
+                <li><a href="/cmssite/website-2">WebSite 2</a></li>
               </ul>  
             </div>
             ]]></textData>
@@ -227,5 +230,5 @@ under the License.
     <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="PUBLIC_DOCS" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
     <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="documents"/>
     <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_PDF" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="documents"/>
-    
+    <WebSiteContent webSiteId="CmsSite" contentId="MAINTENANCE_PAGE" webSiteContentTypeId="MAINTENANCE_PAGE" fromDate="2016-05-21 00:00:00"/>
 </entity-engine-xml>

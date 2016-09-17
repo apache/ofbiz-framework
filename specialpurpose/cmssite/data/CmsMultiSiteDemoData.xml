@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- WebSite-1 Data -->
+    <WebSite webSiteId="WebSite1" siteName="WebSite-1" hostedPathAlias="website-1"/>
+    <Content contentId="WebSite1_PPOINT" contentTypeId="WEB_SITE_PUB_PT" contentName="WebSite-1 Publish Point"/>
+    <WebSiteContent webSiteId="WebSite1" contentId="WebSite1_PPOINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2016-05-21 00:00:00"/>
+
+    <DataResource dataResourceId="WEBSITE_1_DEC" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="WEBSITE_1_DEC">
+        <textData><![CDATA[
+            ${(decoratedContent.subcontent.htmlHead)?default((thisContent.subcontent.htmlHead)!)}
+            ${(decoratedContent.subcontent.header)?default((thisContent.subcontent.header)!)}
+            ${decoratedContent!}
+            ${(decoratedContent.subcontent.footer)?default((thisContent.subcontent.footer)!)}
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="WEBSITE_1_DEC" contentTypeId="DOCUMENT" contentName="WebSite-1 Decorator" dataResourceId="WEBSITE_1_DEC"/>
+    <ContentPurpose contentId="WEBSITE_1_DEC" contentPurposeTypeId="SECTION"/>
+    
+    <DataResource dataResourceId="WEBSITE_1_HHEAD" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="WEBSITE_1_HHEAD">
+        <textData><![CDATA[
+            <html xmlns="http://www.w3.org/1999/xhtml">
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+                <title>${(decoratedContent.subcontent.title.render)!"WebSite 1 Generic Title (Set subcontent 'title' on your content!)"}</title>
+                <link rel="shortcut icon" href="/images/ofbiz.ico" />
+                <script language="javascript" src="/images/fieldlookup.js" type="text/javascript"></script>
+                <script language="javascript" src="/images/selectall.js" type="text/javascript"></script>
+                <link rel="stylesheet" href="/images/ecommain.css" type="text/css"/>
+                <link rel="stylesheet" href="/ecommerce/images/blog.css" type="text/css"/>
+                <link rel="stylesheet" href="/content/contentForum.css" type="text/css"/>
+                <meta name="description" content="${(decoratedContent.subcontent.metaDescription.render)!}"/>
+                <meta name="keywords" content="${(decoratedContent.subcontent.metaKeywords.render)!}"/>
+            </head>
+            <body>
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="WEBSITE_1_HHEAD" contentTypeId="DOCUMENT" contentName="WebSite-1 HTML Head" dataResourceId="WEBSITE_1_HHEAD"/>
+    <ContentPurpose contentId="WEBSITE_1_HHEAD" contentPurposeTypeId="SECTION"/>
+    
+    <DataResource dataResourceId="WEBSITE_1_HEADER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="WEBSITE_1_HEADER">
+        <textData><![CDATA[
+            <div id="header">
+                <h1>This is the WebSite-1 header!</h1>
+            </div>
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="WEBSITE_1_HEADER" contentTypeId="DOCUMENT" contentName="WebSite-1 Header" dataResourceId="WEBSITE_1_HEADER"/>
+    <ContentPurpose contentId="WEBSITE_1_HEADER" contentPurposeTypeId="SECTION"/>
+
+    <DataResource dataResourceId="WEBSITE_1_FOOTER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="WEBSITE_1_FOOTER">
+        <textData><![CDATA[
+            <div id="footer">
+                <h4>This is the WebSite-1 footer!</h4>
+            </div>
+            </body>
+            </html>
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="WEBSITE_1_FOOTER" contentTypeId="DOCUMENT" contentName="WebSite-1 Footer" dataResourceId="WEBSITE_1_FOOTER"/>
+    <ContentPurpose contentId="WEBSITE_1_FOOTER" contentPurposeTypeId="SECTION"/>
+
+    <ContentAssoc contentId="WEBSITE_1_DEC" contentIdTo="WEBSITE_1_HEADER" contentAssocTypeId="SUB_CONTENT" mapKey="header" fromDate="2016-05-21 00:00:00"/>
+    <ContentAssoc contentId="WEBSITE_1_DEC" contentIdTo="WEBSITE_1_FOOTER" contentAssocTypeId="SUB_CONTENT" mapKey="footer" fromDate="2016-05-21 00:00:00"/>
+    <ContentAssoc contentId="WEBSITE_1_DEC" contentIdTo="WEBSITE_1_HHEAD" contentAssocTypeId="SUB_CONTENT" mapKey="htmlHead" fromDate="2016-05-21 00:00:00"/>
+
+    <!-- WebSite1 demo home page -->
+    <DataResource dataResourceId="WEBSITE_1_DEMO_HOME" dataResourceName="WEBSITE_1_DEMO_HOME" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="WEBSITE_1_DEMO_HOME">
+        <textData>
+            <![CDATA[
+                <div>
+                    <h1>Welcome to the WebSite 1 Home page.</h1>
+                    <center><table width="350"><tr><td>
+                    <p>
+                        This is a site to demonstrate the CMS capabilities of OFBiz. Its basic function is the editing of website text
+                        inside a browser. If you want to edit the text you are reading now, logon to the backend system, select the content component
+                        click on 'website1' in the website list and then click on the 'cms' button. There you see on the left hand side the tree of this website.
+                        If you click on 'WebSite-1 Home Page' then you can edit the content of this page at the box in the r 
+                    </p>
+                    </td></tr></table></center>
+                </div>
+            ]]>
+        </textData>
+    </ElectronicText>
+    <Content contentId="WEBSITE_1_DEMO_HOME" contentTypeId="DOCUMENT" decoratorContentId="WEBSITE_1_DEC"
+        contentName="WebSite-1 Home Page" dataResourceId="WEBSITE_1_DEMO_HOME"/>
+    <ContentPurpose contentId="WEBSITE_1_DEMO_HOME" contentPurposeTypeId="SECTION"/>
+    <ContentAssoc contentId="WebSite1_PPOINT" contentIdTo="WEBSITE_1_DEMO_HOME" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="demoHome1"/>
+    <WebSiteContent webSiteId="WebSite1" contentId="WEBSITE_1_DEMO_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
+    <WebSitePathAlias contentId="WEBSITE_1_DEMO_HOME" fromDate="2016-05-25 00:00:00.0" pathAlias="demoHome1" webSiteId="WebSite1"/>
+
+    <!-- WebSite2 Demo Data -->
+    <WebSite webSiteId="WebSite2" siteName="WebSite-2" hostedPathAlias="website-2"/>
+    <Content contentId="WebSite2_PPOINT" contentTypeId="WEB_SITE_PUB_PT" contentName="WebSite-2 Publish Point"/>
+    <WebSiteContent webSiteId="WebSite2" contentId="WebSite2_PPOINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2016-05-21 00:00:00"/>
+
+    <DataResource dataResourceId="WEBSITE_2_HHEAD" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="WEBSITE_2_HHEAD">
+        <textData><![CDATA[
+            <html xmlns="http://www.w3.org/1999/xhtml">
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+                <title>${(decoratedContent.subcontent.title.render)!"WebSite 2 Generic Title (Set subcontent 'title' on your content!)"}</title>
+                <link rel="shortcut icon" href="/images/ofbiz.ico" />
+                <script language="javascript" src="/images/fieldlookup.js" type="text/javascript"></script>
+                <script language="javascript" src="/images/selectall.js" type="text/javascript"></script>
+                <link rel="stylesheet" href="/images/ecommain.css" type="text/css"/>
+                <link rel="stylesheet" href="/ecommerce/images/blog.css" type="text/css"/>
+                <link rel="stylesheet" href="/content/contentForum.css" type="text/css"/>
+                <meta name="description" content="${(decoratedContent.subcontent.metaDescription.render)!}"/>
+                <meta name="keywords" content="${(decoratedContent.subcontent.metaKeywords.render)!}"/>
+            </head>
+            <body>
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="WEBSITE_2_HHEAD" contentTypeId="DOCUMENT" contentName="WebSite-2 HTML Head" dataResourceId="WEBSITE_2_HHEAD"/>
+    <ContentPurpose contentId="WEBSITE_2_HHEAD" contentPurposeTypeId="SECTION"/>
+
+    <DataResource dataResourceId="WEBSITE_2_DEC" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="WEBSITE_2_DEC">
+        <textData><![CDATA[
+            ${(decoratedContent.subcontent.htmlHead)?default((thisContent.subcontent.htmlHead)!)}
+            ${(decoratedContent.subcontent.header)?default((thisContent.subcontent.header)!)}
+            ${decoratedContent!}
+            ${(decoratedContent.subcontent.footer)?default((thisContent.subcontent.footer)!)}
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="WEBSITE_2_DEC" contentTypeId="DOCUMENT" contentName="WebSite-2 Decorator" dataResourceId="WEBSITE_2_DEC"/>
+    <ContentPurpose contentId="WEBSITE_2_DEC" contentPurposeTypeId="SECTION"/>
+    
+    <DataResource dataResourceId="WEBSITE_2_HEADER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="WEBSITE_2_HEADER">
+        <textData><![CDATA[
+            <div id="header">
+                <h1>This is the Website-2 header!</h1>
+            </div>
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="WEBSITE_2_HEADER" contentTypeId="DOCUMENT" contentName="WebSite-2 Header" dataResourceId="WEBSITE_2_HEADER"/>
+    <ContentPurpose contentId="WEBSITE_2_HEADER" contentPurposeTypeId="SECTION"/>
+
+    <DataResource dataResourceId="WEBSITE_2_FOOTER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="WEBSITE_2_FOOTER">
+        <textData><![CDATA[
+            <div id="footer">
+                <h4>This is the WebSite-2 footer!</h4>
+            </div>
+            </body>
+            </html>
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="WEBSITE_2_FOOTER" contentTypeId="DOCUMENT" contentName="WebSite-2 Footer" dataResourceId="WEBSITE_2_FOOTER"/>
+    <ContentPurpose contentId="WEBSITE_2_FOOTER" contentPurposeTypeId="SECTION"/>
+
+    <ContentAssoc contentId="WEBSITE_2_DEC" contentIdTo="WEBSITE_2_HEADER" contentAssocTypeId="SUB_CONTENT" mapKey="header" fromDate="2016-05-21 00:00:00"/>
+    <ContentAssoc contentId="WEBSITE_2_DEC" contentIdTo="WEBSITE_2_FOOTER" contentAssocTypeId="SUB_CONTENT" mapKey="footer" fromDate="2016-05-21 00:00:00"/>
+    <ContentAssoc contentId="WEBSITE_2_DEC" contentIdTo="WEBSITE_2_HHEAD" contentAssocTypeId="SUB_CONTENT" mapKey="htmlHead" fromDate="2016-05-21 00:00:00"/>
+
+    <!-- WebSite 2 demo home page -->
+    <DataResource dataResourceId="WEBSITE_2_DEMO_HOME" dataResourceName="WEBSITE_2_DEMO_HOME" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="WEBSITE_2_DEMO_HOME">
+        <textData>
+            <![CDATA[
+                 <div>
+                    <h1>Welcome to the WebSite 2 Home page.</h1>
+                    <center><table width="350"><tr><td>
+                    <p>
+                        This is a site to demonstrate the CMS capabilities of OFBiz. Its basic function is the editing of website text
+                        inside a browser. If you want to edit the text you are reading now, logon to the backend system, select the content component
+                        click on 'website2' in the website list and then click on the 'cms' button. There you see on the left hand side the tree of this website.
+                        If you click on 'WebSite-2 Home Page' then you can edit the content of this page at the box in the r 
+                    </p>
+                    </td></tr></table></center>
+                </div>
+            ]]>
+        </textData>
+    </ElectronicText>
+    <Content contentId="WEBSITE_2_DEMO_HOME" contentTypeId="DOCUMENT" decoratorContentId="WEBSITE_2_DEC"
+        contentName="WebSite-2 Home Page" dataResourceId="WEBSITE_2_DEMO_HOME"/>
+    <ContentPurpose contentId="WEBSITE_2_DEMO_HOME" contentPurposeTypeId="SECTION"/>
+    <ContentAssoc contentId="WebSite2_PPOINT" contentIdTo="WEBSITE_2_DEMO_HOME" contentAssocTypeId="SUB_CONTENT" fromDate="2016-05-21 00:00:00" mapKey="demoHome2"/>
+    <WebSiteContent webSiteId="WebSite2" contentId="WEBSITE_2_DEMO_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2016-05-21 00:00:00"/>
+    <WebSitePathAlias contentId="WEBSITE_2_DEMO_HOME" fromDate="2016-05-25 00:00:00.0" pathAlias="demoHome2" webSiteId="WebSite2"/>
+
+    <!-- MaintenancePage Data -->
+    <DataResource dataResourceId="MAINTENANCE_PAGE" dataResourceName="WEBSITE_2_MAINT_PAGE" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="MAINTENANCE_PAGE">
+        <textData>
+            <![CDATA[
+                 <div>
+                    <h2>This website is under maintenancePage. Please try after some time.</h2>
+                </div>
+            ]]>
+        </textData>
+    </ElectronicText>
+    <Content contentId="MAINTENANCE_PAGE" contentTypeId="DOCUMENT" contentName="Maintenance Page" dataResourceId="MAINTENANCE_PAGE"/>
+    <WebSiteContent webSiteId="WebSite1" contentId="MAINTENANCE_PAGE" webSiteContentTypeId="MAINTENANCE_PAGE" fromDate="2016-05-21 00:00:00"/>
+    <WebSiteContent webSiteId="WebSite2" contentId="MAINTENANCE_PAGE" webSiteContentTypeId="MAINTENANCE_PAGE" fromDate="2016-05-21 00:00:00"/>
+</entity-engine-xml>
