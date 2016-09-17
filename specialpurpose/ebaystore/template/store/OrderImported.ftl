@@ -28,15 +28,15 @@ function uploadTrackingCode(orderId, productStoreId) {
 <div id="findOrdersList" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-        <li class="h3">${uiLabelMap.EbayListOrderImported}</li>
+      <li class="h3">${uiLabelMap.EbayListOrderImported}</li>
     </ul>
   </div>
   <div class="screenlet-body">
-  <form name="uploadTracking" action="<@ofbizUrl>uploadTrackingCodeBack</@ofbizUrl>" method="post">
+    <form name="uploadTracking" action="<@ofbizUrl>uploadTrackingCodeBack</@ofbizUrl>" method="post">
       <input type="hidden" name="orderId" value=""/>
       <input type="hidden" name="productStoreId" value=""/>
-  </form>
-  <form name="listOrdersImported" method="post">
+    </form>
+    <form name="listOrdersImported" method="post">
       <input type="hidden" name="viewSize"/>
       <input type="hidden" name="viewIndex"/>
       <table class="basic-table hover-bar" cellspacing='0'>
@@ -51,12 +51,15 @@ function uploadTrackingCode(orderId, productStoreId) {
           <td width="10%" align="right">${uiLabelMap.OrderRemainingSubTotal}</td>
           <td width="10%" align="right">${uiLabelMap.OrderOrderTotal}</td>
           <td width="5%">&nbsp;</td>
-            <#if (requestParameters.filterInventoryProblems?default("N") == "Y") || (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") || (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") || (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")>
-              <td width="15%">${uiLabelMap.CommonStatus}</td>
-              <td width="5%">${uiLabelMap.CommonFilter}</td>
-            <#else>
-              <td width="20%">${uiLabelMap.CommonStatus}</td>
-            </#if>
+          <#if (requestParameters.filterInventoryProblems?default("N") == "Y") ||
+              (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") ||
+              (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") ||
+              (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")>
+            <td width="15%">${uiLabelMap.CommonStatus}</td>
+            <td width="5%">${uiLabelMap.CommonFilter}</td>
+          <#else>
+            <td width="20%">${uiLabelMap.CommonStatus}</td>
+          </#if>
           <td width="20%">${uiLabelMap.CommonDate}</td>
         </tr>
         <#if orderList?has_content>
@@ -73,16 +76,23 @@ function uploadTrackingCode(orderId, productStoreId) {
             <#assign partyId = displayParty.partyId?default("_NA_")>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td>${orderType.get("description",locale)?default(orderType.orderTypeId?default(""))}</td>
-              <td><a href="#" onclick="javascript:uploadTrackingCode('${orderHeader.orderId}','${productStoreId}')" class='buttontext'>${orderHeader.orderId}</a></td>
+              <td>
+                <a href="#" onclick="javascript:uploadTrackingCode('${orderHeader.orderId}','${productStoreId}')"
+                    class='buttontext'>
+                  ${orderHeader.orderId}
+                </a>
+              </td>
               <td>
                 <div>
                   <#if displayParty?has_content>
-                      <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
-                      ${displayPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}
+                    <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate",
+                        Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId,
+                        "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
+                    ${displayPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}
                   <#else>
                     ${uiLabelMap.CommonNA}
                   </#if>
-                  </div>
+                </div>
               </td>
               <td align="right">${orh.hasSurvey()?string.number}</td>
               <td align="right">${orh.getTotalOrderItemsQuantity()?string.number}</td>
@@ -94,21 +104,24 @@ function uploadTrackingCode(orderId, productStoreId) {
               <td>&nbsp;</td>
               <td>${statusItem.get("description",locale)?default(statusItem.statusId?default("N/A"))}</td>
               </td>
-              <#if (requestParameters.filterInventoryProblems?default("N") == "Y") || (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") || (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") || (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")>
-                  <td>
-                      <#if filterInventoryProblems.contains(orderHeader.orderId)>
-                        Inv&nbsp;
-                      </#if>
-                      <#if filterPOsOpenPastTheirETA.contains(orderHeader.orderId)>
-                        ETA&nbsp;
-                      </#if>
-                      <#if filterPOsWithRejectedItems.contains(orderHeader.orderId)>
-                        Rej&nbsp;
-                      </#if>
-                      <#if filterPartiallyReceivedPOs.contains(orderHeader.orderId)>
-                        Part&nbsp;
-                      </#if>
-                  </td>
+              <#if (requestParameters.filterInventoryProblems?default("N") == "Y") ||
+                  (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") ||
+                  (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") ||
+                  (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")>
+                <td>
+                  <#if filterInventoryProblems.contains(orderHeader.orderId)>
+                    Inv&nbsp;
+                  </#if>
+                  <#if filterPOsOpenPastTheirETA.contains(orderHeader.orderId)>
+                    ETA&nbsp;
+                  </#if>
+                  <#if filterPOsWithRejectedItems.contains(orderHeader.orderId)>
+                    Rej&nbsp;
+                  </#if>
+                  <#if filterPartiallyReceivedPOs.contains(orderHeader.orderId)>
+                    Part&nbsp;
+                  </#if>
+                </td>
               </#if>
               <td>${orderHeader.getString("orderDate")}</td>
             </tr>
@@ -126,6 +139,6 @@ function uploadTrackingCode(orderId, productStoreId) {
           </tr>
         </#if>
       </table>
-  </form>
+    </form>
   </div>
 </div>
