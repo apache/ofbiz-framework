@@ -630,6 +630,7 @@ under the License.
                 <entity-options entity-name="FacilityGroup" key-field-name="facilityGroupId" description="${facilityGroupName}"/>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
 
@@ -666,6 +667,7 @@ under the License.
                 <entity-options entity-name="RoleType"/>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
     <form name="ListInventoryItemTotals" type="list" target="" title="" list-name="inventoryItemTotals"

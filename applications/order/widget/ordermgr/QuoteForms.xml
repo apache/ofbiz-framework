@@ -183,6 +183,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListQuoteItems" list-name="quoteItems" target="" title="" type="list"

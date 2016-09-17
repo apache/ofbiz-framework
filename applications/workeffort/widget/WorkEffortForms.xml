@@ -328,7 +328,7 @@ under the License.
             </drop-down>
         </field>
         <field name="sequenceNum"><text/></field>
-        <field name="fromDate"><date-time/></field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
         <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
@@ -874,6 +874,7 @@ under the License.
         <field name="timesheetId"><lookup size="10" target-form-name="LookupTimesheet"/></field>
 
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType">
@@ -1004,6 +1005,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListWorkEffortContents" type="list" target="updateWorkEffortContent" list-name="workEffortContents"
@@ -1050,6 +1052,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
@@ -1317,7 +1320,7 @@ under the License.
 <!--        <alt-target target="updateWorkEffortFixedAssetAssign" use-when="workEffortFixedAssetAssign!=null"/> -->
         <field name="workEffortId"><hidden/></field>
         <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
-        <field name="fromDate"><date-time/></field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate"><date-time/></field>
         <field name="statusId">
             <drop-down allow-empty="true">
@@ -1398,7 +1401,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="actualStartDate" title="${uiLabelMap.CommonFrom}" position="2"><date-time/></field>
+        <field name="actualStartDate" title="${uiLabelMap.CommonFrom}" position="2"><date-time default-value="${nowTimestamp}"/></field>
         <field name="actualCompletionDate" title="${uiLabelMap.CommonTo}" position="3"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -1433,7 +1436,7 @@ under the License.
                 <list-options list-name="roleList" key-name="roleTypeId"/>
             </drop-down>
         </field>
-        <field name="fromDate"><date-time/></field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate"><date-time/></field>
         <field name="comments"><text size="60" maxlength="255"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>

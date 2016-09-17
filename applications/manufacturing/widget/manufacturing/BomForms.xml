@@ -34,7 +34,7 @@ under the License.
             </drop-down>
         </field>
         <field name="fromDate" title="${uiLabelMap.ManufacturingFromDate}">
-            <date-time/>
+            <date-time default-value="${nowTimestamp}"/>
         </field>
         <field name="quantity" title="${uiLabelMap.CommonQuantity}">
             <text default-value="1"/>
@@ -112,6 +112,7 @@ under the License.
         <field name="productIdIn">
             <lookup target-form-name="LookupVirtualProduct"/>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="productIdInSubst">
             <lookup target-form-name="LookupProduct"/>
         </field>

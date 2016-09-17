@@ -207,6 +207,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
             <submit button-type="button"/>
         </field>
@@ -364,7 +365,7 @@ under the License.
         <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="routingProductLink==null" >
             <lookup target-form-name="LookupProduct"/>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" use-when="routingProductLink!=null"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" use-when="routingProductLink!=null"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}">
             <submit button-type="button"/>

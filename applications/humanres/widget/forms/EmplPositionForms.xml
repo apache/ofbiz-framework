@@ -130,7 +130,7 @@ under the License.
         <auto-fields-service service-name="createEmplPositionFulfillment"/>
         <field name="emplPositionId"><hidden /></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"/>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
@@ -164,7 +164,7 @@ under the License.
         <field name="emplPositionId"><hidden value="${parameters.emplPositionId}"/></field>
         <field name="emplPositionIdReportingTo" required-field="true"><lookup target-form-name="LookupEmplPosition"/></field>
         <field name="emplPositionIdManagedBy" required-field="true"><hidden value="${parameters.emplPositionId}"/></field>
-        <field name="fromDate" required-field="true"/>
+        <field name="fromDate" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListReportedToEmplPositionReportingStructs" type="list" target="updateEmplPositionReportingStruct" title="" paginate-target="EditReportedToEmplPositionReportingStruct"
@@ -197,7 +197,7 @@ under the License.
         <field name="emplPositionId"><hidden value="${parameters.emplPositionId}"/></field>
         <field name="emplPositionIdReportingTo"><hidden value="${parameters.emplPositionId}"/></field>
         <field name="emplPositionIdManagedBy" required-field="true"><lookup target-form-name="LookupEmplPosition"/></field>
-        <field name="fromDate" required-field="true"/>
+        <field name="fromDate" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListEmplPositionResponsibilities" type="list" target="updateEmplPositionResponsibility" title="" paginate-target="findEmplPositionResponsibilities"
@@ -232,6 +232,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}" /></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListValidResponsibilities" type="list" target="updateValidResponsibility" title="" paginate-target="findValidResponsibilities"

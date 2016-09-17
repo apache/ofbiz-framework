@@ -130,6 +130,7 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.AccountingPartyIdTo}">
             <lookup target-form-name="LookupPartyName"/>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
@@ -303,7 +304,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate"><date-time/></field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate"><date-time/></field>
         <field name="uploadedFile" title="${uiLabelMap.ContentFile}"><file/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit/></field>
@@ -568,7 +569,7 @@ under the License.
         </field>
 
         <field use-when="agreementPromoAppl!=null" name="fromDate"><display/></field>
-        <field use-when="agreementPromoAppl==null" name="fromDate"><date-time/></field>
+        <field use-when="agreementPromoAppl==null" name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>

@@ -393,6 +393,7 @@ under the License.
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListDataResourceRole" list-name="dataResourceRole" target="updateDataResourceRole" title="" type="list"

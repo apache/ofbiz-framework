@@ -48,7 +48,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productId" title="${uiLabelMap.ProductProductId}" required-field="true"><lookup target-form-name="LookupProduct" size="16"/></field>
         <field name="quantity" title="${uiLabelMap.ManufacturingQuantity}" required-field="true"><text size="6"/></field>
-        <field name="startDate" title="${uiLabelMap.ManufacturingStartDate}" required-field="true"><date-time/></field>
+        <field name="startDate" title="${uiLabelMap.ManufacturingStartDate}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="facilityId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Facility" description="${facilityName} [${facilityId}]">
@@ -80,7 +80,7 @@ under the License.
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><text-find/></field>
-        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><date-find/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><date-find default-value="${nowTimestamp}"/></field>
         <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
@@ -145,7 +145,7 @@ under the License.
              </drop-down>
         </field>
         <field name="quantity"  title="${uiLabelMap.ManufacturingQuantity}"><text size="10"/></field>
-        <field name="estimatedStartDate"  title="${uiLabelMap.ManufacturingStartDate}"><date-time/></field>
+        <field name="estimatedStartDate"  title="${uiLabelMap.ManufacturingStartDate}"><date-time default-value="${nowTimestamp}"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
         <field name="workEffortName"  title="${uiLabelMap.ManufacturingProductionRunName}"><text/></field>
         <field name="description"><text/></field>
@@ -265,7 +265,7 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}"><text/></field>
         <field name="description"><text/></field>
         <field name="reservPersons"><text/></field>
-        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><date-time/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><date-time default-value="${nowTimestamp}"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
         <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}"><text/></field>
         <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}"><text/></field>
@@ -491,7 +491,7 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}"><display/></field>
         <field name="description"><display/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
-        <field name="fromDate" title="${uiLabelMap.ManufacturingFromDate}"><date-time/></field>
+        <field name="fromDate" title="${uiLabelMap.ManufacturingFromDate}"><date-time default-value="${nowTimestamp}"/></field>
         <field name="toDate" title="${uiLabelMap.ManufacturingToDate}"><date-time/></field>
         <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}"><display/></field>
         <field name="actualSetupMillis" title="${uiLabelMap.ManufacturingTaskActualSetupMillis}"><display/></field>

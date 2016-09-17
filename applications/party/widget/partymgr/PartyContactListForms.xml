@@ -71,7 +71,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="contactListId"><lookup target-form-name="LookupContactList"/></field>
         <field name="partyId"><hidden/></field>
-        <field name="fromDate"><date-time/></field>
+        <field name="fromDate" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate"><date-time/></field>
         <field name="statusId">
             <drop-down no-current-selected-key="CLPT_PENDING">

@@ -494,7 +494,7 @@ under the License.
                 <option key="REQ_MANAGER" description="${uiLabelMap.WorkEffortRequestManager}"/>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

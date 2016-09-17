@@ -104,6 +104,7 @@ under the License.
 
         <field name="partyId" title="${uiLabelMap.PartyParty}*"><lookup target-form-name="LookupPartyName"/></field>
         <field name="clientPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}*" position="1">
             <drop-down no-current-selected-key="TIMESHEET_IN_PROCESS">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">

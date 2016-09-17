@@ -86,6 +86,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateFacilityGroupRollupFrom" type="list" target="updateFacilityGroupToGroup" title="" list-name="parentGroupRollups"
@@ -123,6 +124,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateFacilityGroupMembers" type="list" target="updateFacilityToGroup" title="" list-name="facilityGroupMembers"
@@ -157,6 +159,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateFacilityGroupRoles" type="list" target="removePartyFromFacilityGroup" title="" list-name="facilityRoles"

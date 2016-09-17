@@ -94,7 +94,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <!-- <field name="cancelLink" title=" " widget-style="smallSubmit">
