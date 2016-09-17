@@ -1401,12 +1401,9 @@
                 </add-error>
                 <check-errors/>
             </if-empty>
-            <if-compare field="invoice.statusId" operator="not-equals" value="INVOICE_IN_PROCESS">
-                <add-error>
-                    <fail-property resource="ProjectMgrUiLabels" property="ProjectMgrCannotAddInvoiceToTimesheet"/>
-                </add-error>
-                <check-errors/>
-            </if-compare>
+
+            <call-simple-method method-name="InvoiceStatusInProgress" xml-resource="component://accounting/minilang/invoice/InvoiceServices.xml"/>
+
             <entity-and list="entries" entity-name="TimeEntry">
                 <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
             </entity-and>
@@ -1467,6 +1464,56 @@
                     <set field="oldWorkeffortId" from-field="task.workEffortId"/>
                 </else>
             </if-empty>
+        </iterate>
+    </simple-method>
+
+    <simple-method method-name="addProjectTimeToInvoice" short-description="add all reported time on all completed timesheets
+        from all workefforts for a project to an existing invoice">
+        <entity-one entity-name="Invoice" value-field="invoice"/>
+        <if-empty field="invoice">
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortTimesheetCannotFindInvoice"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+
+        <call-simple-method method-name="InvoiceStatusInProgress" xml-resource="component://accounting/minilang/invoice/InvoiceServices.xml"/>
+
+        <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list="tasks">
+            <condition-list combine="and">
+                <condition-expr field-name="projectId" operator="equals" from-field="parameters.projectId"/>
+                <condition-expr field-name="invoiceId" operator="equals" from-field="nullField"/>
+                <condition-expr field-name="timesheetStatusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                <condition-expr field-name="fromDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true"/>
+            </condition-list>
+            <order-by field-name="workEffortId"/>
+        </entity-condition>
+
+        <if-empty field="tasks">
+            <add-error>
+                <fail-property resource="ProjectMgrUiLabels" property="ProjectMgrNoTimeentryItemsFound"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+
+        <iterate entry="task" list="tasks">
+            <if>
+                <condition>
+                    <or>
+                        <if-empty field="oldWorkeffortId"/>
+                        <if-compare-field operator="not-equals" field="oldWorkeffortId" to-field="task.workEffortId"/>
+                    </or>
+                </condition>
+                <then>
+                    <!-- add to created invoice -->
+                    <set field="addTaskToInvoice.combineInvoiceItem" value="Y"/>
+                    <set field="addTaskToInvoice.invoiceId" from-field="parameters.invoiceId"/>
+                    <set field="addTaskToInvoice.workEffortId" from-field="task.workEffortId"/>
+                    <set field="addTaskToInvoice.thruDate" from-field="parameters.thruDate"/>
+                    <call-service service-name="addWorkEffortTimeToInvoice" in-map-name="addTaskToInvoice"/>
+                </then>
+            </if>
+            <set field="oldWorkeffortId" from-field="task.workEffortId"/>
         </iterate>
     </simple-method>
 

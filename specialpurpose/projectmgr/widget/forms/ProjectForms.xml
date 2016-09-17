@@ -848,6 +848,28 @@
            </field>
         <field name="submitButton" title="${uiLabelMap.PageTitleAddProjectTimeToNewInvoice}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="AddProjectTimeToInvoice" target="addProjectTimeToInvoice" title="" type="single">
+        <actions>
+            <entity-and entity-name="WorkEffortPartyAssignment" list="assignBilling" filter-by-date="true">
+                <field-map field-name="workEffortId" from-field="parameters.projectId"/>
+                <field-map field-name="roleTypeId" value="CLIENT_BILLING"/>
+            </entity-and>
+            <set field="billedPartyId" value="${assignBilling[0].partyId}"/>
+        </actions>
+        <field name="projectId"><hidden value="${parameters.projectId}"/></field>
+        <field name="billedPartyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}"/></field>
+        <field name="invoiceId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Invoice" description="${invoiceId} -- ${description}">
+                    <entity-constraint name="statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                    <entity-constraint name="partyId" operator="equals" value="${billedPartyId}"/>
+                    <entity-order-by field-name="-invoiceDate"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
+        <field name="submitButton" title="${uiLabelMap.PageTitleAddProjectTimeToInvoice}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
     <form name="ListContents" extends="ListWorkEffortContents" extends-resource="component://workeffort/widget/WorkEffortForms.xml" default-entity-name="WorkEffortContent">
         <field name="contentId" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
