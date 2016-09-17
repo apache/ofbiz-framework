@@ -103,7 +103,7 @@ under the License.
         </field>
         <field name="orderPaymentPreferenceId"><display/></field>
     </form>
-    <form name="ViewGatewayResponsePayments" type="list" list-name="payments" title="">
+    <form name="ViewGatewayResponsePayments" type="list" list-name="payments" title="" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="paymentId" widget-style="buttontext">
             <hyperlink description="${paymentId}" target="paymentOverview">
                 <parameter param-name="paymentId"/>
