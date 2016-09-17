@@ -307,7 +307,7 @@ under the License.
     </form>
 
     <form name="ListWaitingContentApproval" target="updateWaitingContentApproval" list-name="contentApprovalList" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <field name="contentApprovalId"><display/></field>
         <field name="contentId"><hidden/></field>
         <field name="rootContentId" map-name="empty"><hidden/></field>

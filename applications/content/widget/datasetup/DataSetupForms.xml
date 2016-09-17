@@ -29,7 +29,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateDataResourceType" list-name="contentList" target="updateDataResourceType" title="" type="list" paginate-target="EditDataResourceType"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
           <entity-condition entity-name="DataResourceType" use-cache="false"/>
         </actions>
@@ -89,7 +89,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateCharacterSet" list-name="contentList" target="updateCharacterSet" title="" type="list" paginate-target="EditCharacterSet"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
           <entity-condition entity-name="CharacterSet" use-cache="false"/>
         </actions>
@@ -121,7 +121,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateDataCategory" list-name="dataCategoryList" target="updateDataCategory" title="" type="list" paginate-target="EditDataCategory"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <entity-condition entity-name="DataCategory" use-cache="false"/>
         </actions>
@@ -193,7 +193,8 @@ under the License.
         </field>
     </form>
     <form name="UpdateMetaDataPredicate" list-name="contentList" target="updateMetaDataPredicate" title="" type="list"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditMetaDataPredicate">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditMetaDataPredicate"
+        separate-columns="true">
         <actions>
           <entity-condition entity-name="MetaDataPredicate" use-cache="false"/>
         </actions>
@@ -220,7 +221,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateMimeType" list-name="contentList" target="updateMimeType" title="" type="list" paginate-target="EditMimeType"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
           <entity-condition entity-name="MimeType" use-cache="false"/>
         </actions>
@@ -253,7 +254,7 @@ under the License.
     </form>
 
     <form name="UpdateMimeTypeHtmlTemplate" target="updateMimeTypeHtmlTemplate" title="" type="list" list-name="contentList" paginate-target="EditMimeTypeHtmlTemplate"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
           <entity-condition entity-name="MimeTypeHtmlTemplate" use-cache="false"/>
         </actions>
