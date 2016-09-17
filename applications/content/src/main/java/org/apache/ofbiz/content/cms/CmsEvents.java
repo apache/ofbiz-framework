@@ -66,6 +66,8 @@ public class CmsEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ServletContext servletContext = request.getSession().getServletContext();
         HttpSession session = request.getSession();
+        Writer writer = null;
+        Locale locale = UtilHttp.getLocale(request);
 
         String webSiteId = (String) session.getAttribute("webSiteId");
         if (webSiteId == null) {
@@ -97,6 +99,26 @@ public class CmsEvents {
 
         String pathInfo = null;
 
+        String displayMaintenancePage = (String) session.getAttribute("displayMaintenancePage");
+        if (UtilValidate.isNotEmpty(displayMaintenancePage) && "Y".equalsIgnoreCase(displayMaintenancePage)) {
+            try {
+                writer = response.getWriter();
+                GenericValue webSiteContent = EntityQuery.use(delegator).from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "MAINTENANCE_PAGE").filterByDate().queryFirst();
+                if (webSiteContent != null) {
+                    ContentWorker.renderContentAsText(dispatcher, delegator, webSiteContent.getString("contentId"), writer, null, locale, "text/html", null, null, true);
+                    return "success";
+                } else {
+                    request.setAttribute("_ERROR_MESSAGE_", "Not able to display maintenance page for [" + webSiteId + "]");
+                    return "error";
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            } catch (IOException e) {
+                throw new GeneralRuntimeException(String.format("Error in the response writer/output stream while rendering content [%s]", contentId), e);
+            } catch (GeneralException e) {
+                throw new GeneralRuntimeException(String.format("Error rendering content [%s]", contentId), e);
+            } 
+        } else {
         // If an override view is present then use that in place of request.getPathInfo()
         String overrideViewUri = (String) request.getAttribute("_CURRENT_CHAIN_VIEW_");
         if (UtilValidate.isNotEmpty(overrideViewUri)) {
@@ -114,8 +136,8 @@ public class CmsEvents {
             } // if called through the default request, there is no request in pathinfo
         }
 
-        // if path info is null; check for a default content
-        if (pathInfo == null) {
+        // if path info is null or path info is / (i.e application mounted on root); check for a default content
+        if (pathInfo == null || "/".equals(pathInfo)) {
             GenericValue defaultContent = null;
             try {
                 defaultContent = EntityQuery.use(delegator).from("WebSiteContent")
@@ -168,9 +190,6 @@ public class CmsEvents {
                     return null; // null to not process any views
                 }
             }
-
-            // process through CMS -- using the mapKey (for now)
-            Locale locale = UtilHttp.getLocale(request);
 
             // get the contentId/mapKey from URL
             if (contentId == null) {
@@ -267,7 +286,7 @@ public class CmsEvents {
                 response.setStatus(statusCode);
 
                 try {
-                    Writer writer = response.getWriter();
+                    writer = response.getWriter();
                     // TODO: replace "screen" to support dynamic rendering of different output
                     FormStringRenderer formStringRenderer = new MacroFormRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.formrenderer", delegator), request, response);
                     templateMap.put("formStringRenderer", formStringRenderer);
@@ -310,6 +329,7 @@ public class CmsEvents {
                 request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: " + siteName + " [" + webSiteId + "]");
                 return "error";
             }
+        }
         }
         String siteName = null;
         GenericValue webSite = null;

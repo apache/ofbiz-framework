@@ -4386,6 +4386,9 @@ under the License.
     <extend-entity entity-name="WebSite">
         <field name="productStoreId" type="id"></field>
         <field name="allowProductStoreChange" type="indicator"><description>Allow change of ProductStore for this WebSite (webapp). Defaults to N (no).</description></field>
+        <field name="hostedPathAlias" type="short-varchar"><description>For WebSites hosted on webapp using the WebSiteFilter, indicates the path this WebSite will be hosted on</description></field>
+        <field name="isDefault" type="indicator"><description>If Y then it is default WebSite</description></field>
+        <field name="displayMaintenancePage" type="indicator"><description>If set to Y, redirect user to site maintenance page</description></field>
         <relation type="one" fk-name="WEB_SITE_PRDS" rel-entity-name="ProductStore">
             <key-map field-name="productStoreId"/>
         </relation>
