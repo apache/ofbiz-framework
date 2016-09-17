@@ -92,7 +92,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public static final int taxFinalScale = UtilNumber.getBigDecimalScale("salestax.final.decimals");
     public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
     public static final BigDecimal ZERO = BigDecimal.ZERO;
-    public static final BigDecimal percentage = new BigDecimal("0.01");
     public static final MathContext generalRounding = new MathContext(10);
 
 

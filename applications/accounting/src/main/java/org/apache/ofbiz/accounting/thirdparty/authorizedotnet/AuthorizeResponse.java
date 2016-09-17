@@ -34,8 +34,6 @@ public class AuthorizeResponse {
     public static final int CP_RESPONSE = 2;
     
     // status constants
-    public static final String APPROVED = "Approved";
-    public static final String DECLINED = "Declined";
     public static final String ERROR    = "Error";
     
     // positions of the result

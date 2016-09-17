@@ -112,7 +112,6 @@ public class InvoiceServices {
     private static final int ROUNDING = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
     private static final int TAX_DECIMALS = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     private static final int TAX_ROUNDING = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
-    public static final int TAX_CALC_SCALE = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     private static final int INVOICE_ITEM_SEQUENCE_ID_DIGITS = 5; // this is the number of digits used for invoiceItemSeqId: 00001, 00002...
 
     public static final String resource = "AccountingUiLabels";

@@ -61,7 +61,6 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class ShoppingCartServices {
 
     public static final String module = ShoppingCartServices.class.getName();
-    public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
 
     public static final MathContext generalRounding = new MathContext(10);
