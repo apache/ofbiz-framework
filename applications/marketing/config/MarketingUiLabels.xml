@@ -25,7 +25,7 @@
         <value xml:lang="fr">Coût réel</value>
         <value xml:lang="it">Costo attuale</value>
         <value xml:lang="ja">実績原価</value>
-        <value xml:lang="nl">Werkelijke kosten</value>
+        <value xml:lang="nl">Kosten werkelijk</value>
         <value xml:lang="pt-BR">Custo real</value>
         <value xml:lang="ro">Cost Actual</value>
         <value xml:lang="th">ราคาจริง</value>
@@ -39,6 +39,7 @@
         <value xml:lang="fr">Montant dans le meilleur cas </value>
         <value xml:lang="it">Importo migliore caso</value>
         <value xml:lang="ja">ベストケース金額</value>
+        <value xml:lang="nl">Bedrag best case</value>
         <value xml:lang="pt-BR">Montante de melhor caso</value>
         <value xml:lang="vi">Lợi nhuận tốt nhất</value>
         <value xml:lang="zh">最佳案例金额</value>
@@ -50,6 +51,7 @@
         <value xml:lang="fr">Coût budgetisé</value>
         <value xml:lang="it">Costo a budget</value>
         <value xml:lang="ja">予算原価</value>
+        <value xml:lang="nl">Kosten budget</value>
         <value xml:lang="pt-BR">Custo previsto no orçamento</value>
         <value xml:lang="ro">Cost la Buget</value>
         <value xml:lang="th">งบประมาณ</value>
@@ -63,6 +65,7 @@
         <value xml:lang="fr">Note du changement</value>
         <value xml:lang="it">Nota per variazione</value>
         <value xml:lang="ja">変更記録</value>
+        <value xml:lang="nl">Notitie verandering</value>
         <value xml:lang="pt-BR">Comunicação de mudança</value>
         <value xml:lang="vi">Cập nhật Ghi chú</value>
         <value xml:lang="zh">变更说明</value>
@@ -74,6 +77,7 @@
         <value xml:lang="fr">Montant fermé</value>
         <value xml:lang="it">Importo chiuso</value>
         <value xml:lang="ja">期末金額</value>
+        <value xml:lang="nl">Bedrag afgesloten</value>
         <value xml:lang="pt-BR">Montante fechado</value>
         <value xml:lang="vi">Giá trị đã Kết thúc</value>
         <value xml:lang="zh">已结束的金额</value>
@@ -85,17 +89,19 @@
         <value xml:lang="fr">Prospects convertis</value>
         <value xml:lang="it">Leads convertiti</value>
         <value xml:lang="ja">変換済リード</value>
+        <value xml:lang="nl">Geconverteerde leads</value>
         <value xml:lang="pt-BR">Leads concretizados</value>
         <value xml:lang="vi">Các đầu mối được chuyển đổi</value>
         <value xml:lang="zh">转化了的线索</value>
         <value xml:lang="zh-TW">轉化了的線索</value>
     </property>
-    <property key="FormFieldTitle_custReqestId">
+    <property key="FormFieldTitle_custRequestId">
         <value xml:lang="de">Kundenanfrage Id</value>
-        <value xml:lang="en">Cust Reqest Id</value>
+        <value xml:lang="en">Cust Request Id</value>
         <value xml:lang="fr">Réf. de requête de client</value>
         <value xml:lang="it">Numero richiesta cliente</value>
         <value xml:lang="ja">顧客リクエストID</value>
+        <value xml:lang="nl">Klantverzoek ID</value>
         <value xml:lang="pt-BR">Id de requisição de cliente</value>
         <value xml:lang="ro">Numar Cerere Subiect</value>
         <value xml:lang="th">รหัสคำร้องของลูกค้า</value>
@@ -109,6 +115,7 @@
         <value xml:lang="fr">Pourcentage de réponse estimé</value>
         <value xml:lang="it">Percentuale di risposta stimata</value>
         <value xml:lang="ja">期待レスポンス割合(%)</value>
+        <value xml:lang="nl">Verwacht response perc.</value>
         <value xml:lang="pt-BR">Porcentagem esperada de respostas</value>
         <value xml:lang="vi">Phần trăm phản hồi mong đợi</value>
         <value xml:lang="zh">期望响应百分比</value>
@@ -120,6 +127,7 @@
         <value xml:lang="fr">Revenu estimé</value>
         <value xml:lang="it">Ricavo stimato</value>
         <value xml:lang="ja">期待利益</value>
+        <value xml:lang="nl">Verwachte opbrengsten</value>
         <value xml:lang="pt-BR">Renda esperada</value>
         <value xml:lang="vi">Lợi nhuận kỳ vọng</value>
         <value xml:lang="zh">期望收入</value>
@@ -131,6 +139,7 @@
         <value xml:lang="fr">Montant estimé</value>
         <value xml:lang="it">Importo previsto</value>
         <value xml:lang="ja">予測金額</value>
+        <value xml:lang="nl">Bedrag forecast</value>
         <value xml:lang="pt-BR">Montante previsto</value>
         <value xml:lang="vi">Giá trị dự báo</value>
         <value xml:lang="zh">预测金额</value>
@@ -142,6 +151,7 @@
         <value xml:lang="fr">Réf. d'acteur interne</value>
         <value xml:lang="it">Soggetto interno</value>
         <value xml:lang="ja">内部取引先ID</value>
+        <value xml:lang="nl">Interne partij ID</value>
         <value xml:lang="pt-BR">ID de participante interno</value>
         <value xml:lang="vi">Tác nhân nội bộ</value>
         <value xml:lang="zh">内部会员标识</value>
@@ -153,6 +163,7 @@
         <value xml:lang="fr">N° envoyé</value>
         <value xml:lang="it">Num. invio</value>
         <value xml:lang="ja">送信済数量</value>
+        <value xml:lang="nl">Aantal verzonden</value>
         <value xml:lang="pt-BR">Número de envio</value>
         <value xml:lang="vi">Số lượng đã gửi</value>
         <value xml:lang="zh">已发送数量</value>
@@ -164,6 +175,7 @@
         <value xml:lang="fr">Réf. de vente parente estimée</value>
         <value xml:lang="it">Previsione di vendita padre</value>
         <value xml:lang="ja">上位(親)の販売予測ID</value>
+        <value xml:lang="nl">Ouder forecast ID</value>
         <value xml:lang="pt-BR">ID da previsão superior de vendas</value>
         <value xml:lang="vi">Dự báo  bán hàng cấp quản lý trên</value>
         <value xml:lang="zh">上级销售预测标识</value>
@@ -175,6 +187,7 @@
         <value xml:lang="fr">Pourcentage de quota fermé</value>
         <value xml:lang="it">Quota di percentuale chiusa</value>
         <value xml:lang="ja">クローズ済割当割合(%)</value>
+        <value xml:lang="nl">Perc. quota afgesloten</value>
         <value xml:lang="pt-BR">Porcentagem da cota fechada</value>
         <value xml:lang="vi">Phần trăm Báo giá đã Đóng</value>
         <value xml:lang="zh">已完成指标的百分比</value>
@@ -186,6 +199,7 @@
         <value xml:lang="fr">Pourcentage de quota estimé</value>
         <value xml:lang="it">Quota percentuale della previsione di vendita</value>
         <value xml:lang="ja">予測割当割合(%)</value>
+        <value xml:lang="nl">Perc. quota forecast</value>
         <value xml:lang="pt-BR">Previsão da porcentage de cota</value>
         <value xml:lang="vi">Phần trăm Báo giá đang Dự báo</value>
         <value xml:lang="zh">预测指标的百分比</value>
@@ -197,6 +211,7 @@
         <value xml:lang="fr">Montant transitoire</value>
         <value xml:lang="it">Importo di passaggio</value>
         <value xml:lang="ja">パイプライン金額</value>
+        <value xml:lang="nl">Bedrag pijplijn</value>
         <value xml:lang="pt-BR">Montnate de fluxo</value>
         <value xml:lang="vi">Giá trị giới thiệu (Pipeline)</value>
         <value xml:lang="zh">渠道金额</value>
@@ -208,6 +223,7 @@
         <value xml:lang="fr">Réf. de catalogue</value>
         <value xml:lang="it">Catalogo prodotti</value>
         <value xml:lang="ja">製品カタログID</value>
+        <value xml:lang="nl">Catalogus ID</value>
         <value xml:lang="pt-BR">ID de Catálogo do Produto</value>
         <value xml:lang="ro">Catalog Produse</value>
         <value xml:lang="th">รหัสหมวดหมู่สินค้า</value>
@@ -221,6 +237,7 @@
         <value xml:lang="fr">Montant de quota</value>
         <value xml:lang="it">Importo quota</value>
         <value xml:lang="ja">割当金額</value>
+        <value xml:lang="nl">Bedrag quota</value>
         <value xml:lang="pt-BR">Montante da Cota</value>
         <value xml:lang="vi">Giá trị Báo giá</value>
         <value xml:lang="zh">指标金额</value>
@@ -232,6 +249,7 @@
         <value xml:lang="fr">Réf. de détail de vente estimée</value>
         <value xml:lang="it">Dettaglio previsione di vendita</value>
         <value xml:lang="ja">販売予測詳細ID</value>
+        <value xml:lang="nl">Forecast detail ID</value>
         <value xml:lang="pt-BR">ID de detalhes da previsão de vendas</value>
         <value xml:lang="vi">Dự báo  bán hàng chi tiết</value>
         <value xml:lang="zh">销售预测细节标识</value>
@@ -243,6 +261,7 @@
         <value xml:lang="fr">Réf. de vente estimée</value>
         <value xml:lang="it">Previsione di vendita</value>
         <value xml:lang="ja">販売予測ID</value>
+        <value xml:lang="nl">Forecast ID</value>
         <value xml:lang="pt-BR">ID de previsão de vendas</value>
         <value xml:lang="vi">Id Dự báo  bán hàng</value>
         <value xml:lang="zh">销售预测标识</value>
@@ -255,7 +274,7 @@
         <value xml:lang="fr">Campagne marketing</value>
         <value xml:lang="it">Campagna di vendita</value>
         <value xml:lang="ja">キャンペーン</value>
-        <value xml:lang="nl">Marketing campagne</value>
+        <value xml:lang="nl">Campagne</value>
         <value xml:lang="pt-BR">Campanha de Marketing</value>
         <value xml:lang="ro">Campania Vanzare</value>
         <value xml:lang="th">การวางแผนทางการตลาด</value>
@@ -270,7 +289,7 @@
         <value xml:lang="fr">Nouvelle campagne marketing</value>
         <value xml:lang="it">Nuova campagna di vendita</value>
         <value xml:lang="ja">キャンペーンを作成</value>
-        <value xml:lang="nl">Nieuwe Marketing Campagne</value>
+        <value xml:lang="nl">Nieuwe campagne</value>
         <value xml:lang="pt-BR">Criar Campanha de Marketing</value>
         <value xml:lang="ro">Creare Campanie Vanzare</value>
         <value xml:lang="th">สร้างการวางแผนทางการตลาด</value>
@@ -285,7 +304,7 @@
         <value xml:lang="fr">Réf. de campagne marketing</value>
         <value xml:lang="it">Codice campagna di vendita</value>
         <value xml:lang="ja">キャンペーンID</value>
-        <value xml:lang="nl">ID Campagne</value>
+        <value xml:lang="nl">Campagne ID</value>
         <value xml:lang="pt-BR">ID de Campanha de Marketing</value>
         <value xml:lang="ro">Cod Campanie Vanzare</value>
         <value xml:lang="th">รหัสการวางแผนทางการตลาด</value>
@@ -328,7 +347,7 @@
         <value xml:lang="fr">Rapport des campagnes de marketing</value>
         <value xml:lang="it">Report campagne di vendita</value>
         <value xml:lang="ja">キャンペーンレポート</value>
-        <value xml:lang="nl">Campaigne Rapport</value>
+        <value xml:lang="nl">Campagne rapport</value>
         <value xml:lang="pt-BR">Relatório de campanha de marketing</value>
         <value xml:lang="ro">Tiparire Campanie de Vanzare</value>
         <value xml:lang="th">รายงานการวางแผนทางการตลาด</value>
@@ -343,7 +362,7 @@
         <value xml:lang="fr">Créer le rôle de la campagne marketing</value>
         <value xml:lang="it">Nuovo ruolo campagna di vendita</value>
         <value xml:lang="ja">キャンペーンロールを作成</value>
-        <value xml:lang="nl">Nieuwe Campagne Rol</value>
+        <value xml:lang="nl">Nieuwe campagne-rol</value>
         <value xml:lang="pt-BR">Criar papel de campanha de marketig</value>
         <value xml:lang="ro">Creare Rol Campanie Vanzare</value>
         <value xml:lang="th">สร้างสถานะการวางแผนทางการตลาด</value>
@@ -358,7 +377,7 @@
         <value xml:lang="fr">Résumé de la campagne</value>
         <value xml:lang="it">Sommario della campagna</value>
         <value xml:lang="ja">キャンペーンサマリ</value>
-        <value xml:lang="nl">Samenvatting Campagne</value>
+        <value xml:lang="nl">Samenvatting campagne</value>
         <value xml:lang="pt-BR">Descrição da campanha</value>
         <value xml:lang="ro">Sumar Campanie</value>
         <value xml:lang="th">สรุปโครงการ</value>
@@ -846,6 +865,7 @@
         <value xml:lang="fr">Rapport du statut des courriels</value>
         <value xml:lang="it">Report stato e-mail</value>
         <value xml:lang="ja">Eメールステータスレポート</value>
+        <value xml:lang="nl">Rapport email status</value>
         <value xml:lang="pt-BR">Relatório de estado de e-mail</value>
         <value xml:lang="vi">Báo cáo tình trạng thư điện tử</value>
         <value xml:lang="zh">电子邮件状态报表</value>
@@ -857,6 +877,7 @@
         <value xml:lang="fr">Rechercher les comptes de ventes</value>
         <value xml:lang="it">Ricerca utenze SFA</value>
         <value xml:lang="ja">SFAアカウントを検索</value>
+        <value xml:lang="nl">Zoeken/vinden accounts</value>
         <value xml:lang="pt-BR">Encontrar contas da equipe de vendas</value>
         <value xml:lang="th">ค้นหา Account</value>
         <value xml:lang="vi">Tìm kiếm tài khoản bán hàng</value>
@@ -868,6 +889,7 @@
         <value xml:lang="en">Find SFA Contacts</value>
         <value xml:lang="fr">Rechercher des contacts</value>
         <value xml:lang="ja">SFA連絡を検索</value>
+        <value xml:lang="nl">Zoeken/vinden contacten</value>
         <value xml:lang="pt-BR">Encontrar contatos da equipe de vendas</value>
         <value xml:lang="th">ค้นหา Contact</value>
         <value xml:lang="vi">Tìm kiếm Liên hệ</value>
@@ -879,6 +901,7 @@
         <value xml:lang="en">Find SFA Leads</value>
         <value xml:lang="fr">Rechercher des prospects</value>
         <value xml:lang="ja">SFAリードを検索</value>
+        <value xml:lang="nl">Zoeken/vinden leads</value>
         <value xml:lang="pt-BR">Buscar Leads da equipe de vendas</value>
         <value xml:lang="th">ค้นหา Lead</value>
         <value xml:lang="vi">Tìm Đầu mối</value>
@@ -1043,6 +1066,7 @@
         <value xml:lang="fr">Segment</value>
         <value xml:lang="it">Segmento</value>
         <value xml:lang="ja">セグメント</value>
+        <value xml:lang="nl">Segment</value>
         <value xml:lang="pt-BR">Segmento</value>
         <value xml:lang="ro">Segment</value>
         <value xml:lang="th">กลุ่ม</value>
