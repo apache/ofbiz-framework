@@ -33,5 +33,8 @@ under the License.
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/product-entitymodel.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/shipment-entitymodel.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/workeffort-entitymodel.xml"/>
+    
+    <!-- Shipment Services -->
+    <service-resource type="model" loader="main" location="servicedef/services_shipment.xml"/>
 
 </ofbiz-component>
