@@ -204,7 +204,7 @@ under the License.
             </drop-down>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <drop-down allow-empty="true">
+            <check all-checked="false">
                 <entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortGeneral}] ${description}">
                     <entity-constraint name="statusTypeId" value="CALENDAR_STATUS"/>
                     <entity-order-by field-name="description"/>
@@ -217,7 +217,7 @@ under the License.
                     <entity-constraint name="statusTypeId" value="EVENT_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="priority" position="2">
             <drop-down allow-empty="true">
