@@ -76,7 +76,6 @@ public class ProductEvents {
      * @return String specifying the exit status of this event
      */
     public static String updateAllKeywords(HttpServletRequest request, HttpServletResponse response) {
-        //String errMsg = "";
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Security security = (Security) request.getAttribute("security");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
@@ -137,8 +136,6 @@ public class ProductEvents {
                 try {
                     KeywordIndex.indexKeywords(product, "Y".equals(doAll));
                 } catch (GenericEntityException e) {
-                    //errMsg = UtilProperties.getMessage(resource,"productevents.could_not_create_keywords_write", UtilHttp.getLocale(request));
-                    //request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     Debug.logWarning("[ProductEvents.updateAllKeywords] Could not create product-keyword (write error); message: " + e.getMessage(), module);
                     errProds++;
                 }
@@ -591,7 +588,6 @@ public class ProductEvents {
     public static String updateProductQuickAdminSelFeat(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        //GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String productId = request.getParameter("productId");
         String variantProductId = request.getParameter("productId0");
         String useImagesProdId = request.getParameter("useImages");
@@ -761,8 +757,6 @@ public class ProductEvents {
 
     public static String removeFeatureApplsByFeatureTypeId(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        //Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        //GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String productId = request.getParameter("productId");
         String productFeatureTypeId = request.getParameter("productFeatureTypeId");
 
@@ -797,8 +791,6 @@ public class ProductEvents {
 
     public static String removeProductFeatureAppl(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        //Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        //GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String productId = request.getParameter("productId");
         String productFeatureId = request.getParameter("productFeatureId");
 

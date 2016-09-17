@@ -154,29 +154,6 @@ public class ShipmentServices {
                     "ProductShipmentCostEstimateRemoveError", 
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
-        /* Commented out this code because QuantityBreak may be used by other records
-        try {
-            if (estimate.get("weightBreakId") != null) {
-                delegator.removeRelated("WeightQuantityBreak", estimate);
-            }
-        } catch (GenericEntityException e) {
-            Debug.logInfo("Not removing WeightQuantityBreak records related to ShipmentCostEstimate [" + shipmentCostEstimateId + "] because they are used by other entities.", module);
-        }
-        try {
-            if (estimate.get("quantityBreakId") != null) {
-                delegator.removeRelated("QuantityQuantityBreak", estimate);
-            }
-        } catch (GenericEntityException e) {
-            Debug.logInfo("Not removing QuantityQuantityBreak records related to ShipmentCostEstimate [" + shipmentCostEstimateId + "] because they are used by other entities.", module);
-        }
-        try {
-            if (estimate.get("priceBreakId") != null) {
-                delegator.removeRelated("PriceQuantityBreak", estimate);
-            }
-        } catch (GenericEntityException e) {
-            Debug.logInfo("Not removing PriceQuantityBreak records related to ShipmentCostEstimate [" + shipmentCostEstimateId + "] because they are used by other entities.", module);
-        }
-        */
         return ServiceUtil.returnSuccess();
     }
 
@@ -236,9 +213,6 @@ public class ShipmentServices {
         String shippingCountryCode = (String) context.get("shippingCountryCode");
 
         List<Map<String, Object>> shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
-        //Map shippableFeatureMap = (Map) context.get("shippableFeatureMap");
-        //List shippableItemSizes = (List) context.get("shippableItemSizes");
-
         BigDecimal shippableTotal = (BigDecimal) context.get("shippableTotal");
         BigDecimal shippableQuantity = (BigDecimal) context.get("shippableQuantity");
         BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
@@ -332,12 +306,6 @@ public class ShipmentServices {
                     GeoWorker.containsGeo(toGeoList, shipAddress.getString("countryGeoId"), delegator) ||
                     GeoWorker.containsGeo(toGeoList, shipAddress.getString("stateProvinceGeoId"), delegator) ||
                     GeoWorker.containsGeo(toGeoList, shipAddress.getString("postalCodeGeoId"), delegator)) {
-
-                /*
-                if (toGeo == null || toGeo.equals("") || toGeo.equals(shipAddress.getString("countryGeoId")) ||
-                toGeo.equals(shipAddress.getString("stateProvinceGeoId")) ||
-                toGeo.equals(shipAddress.getString("postalCodeGeoId"))) {
-                 */
 
                 GenericValue wv = null;
                 GenericValue qv = null;
@@ -468,7 +436,6 @@ public class ShipmentServices {
 
         if (estimateList.size() > 1) {
             TreeMap<Integer, GenericValue> estimatePriority = new TreeMap<Integer, GenericValue>();
-            //int estimatePriority[] = new int[estimateList.size()];
 
             for (GenericValue currentEstimate: estimateList) {
                 int prioritySum = 0;
@@ -502,8 +469,6 @@ public class ShipmentServices {
 
         // Grab the estimate and work with it.
         GenericValue estimate = estimateList.get(estimateIndex);
-
-        //Debug.logInfo("[ShippingEvents.getShipEstimate] Working with estimate [" + estimateIndex + "]: " + estimate, module);
 
         // flat fees
         BigDecimal orderFlat = BigDecimal.ZERO;
@@ -676,10 +641,6 @@ public class ShipmentServices {
 
             // to store list
             List<GenericValue> toStore = new LinkedList<GenericValue>();
-
-            //String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");
-            //String orderId = shipment.getString("primaryOrderId");
-            //String orderInfoKey = orderId + "/" + shipGroupSeqId;
 
             // make the staging records
             GenericValue stageShip = delegator.makeValue("OdbcShipmentOut");

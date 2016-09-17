@@ -180,7 +180,6 @@ public class UpsServices {
                 String missingErrMsg = "DestTelecomNumber not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId;
                 Debug.logError(missingErrMsg, module);
                 // for now we won't require the dest phone number, but is it required?
-                //return ServiceUtil.returnError(missingErrMsg);
             }
             String destPhoneNumber = null;
             if (destTelecomNumber != null) {
@@ -351,7 +350,6 @@ public class UpsServices {
             if (UtilValidate.isNotEmpty(originPostalAddress.getString("address2"))) {
                 UtilXml.addChildElementValue(shipperAddressElement, "AddressLine2", originPostalAddress.getString("address2"), shipmentConfirmRequestDoc);
             }
-            //UtilXml.addChildElementValue(shipperAddressElement, "AddressLine3", "", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperAddressElement, "City", originPostalAddress.getString("city"), shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperAddressElement, "StateProvinceCode", originPostalAddress.getString("stateProvinceGeoId"), shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipperAddressElement, "PostalCode", originPostalAddress.getString("postalCode"), shipmentConfirmRequestDoc);
@@ -370,7 +368,6 @@ public class UpsServices {
             if (UtilValidate.isNotEmpty(destPostalAddress.getString("address2"))) {
                 UtilXml.addChildElementValue(shipToAddressElement, "AddressLine2", destPostalAddress.getString("address2"), shipmentConfirmRequestDoc);
             }
-            //UtilXml.addChildElementValue(shipToAddressElement, "AddressLine3", "", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipToAddressElement, "City", destPostalAddress.getString("city"), shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipToAddressElement, "StateProvinceCode", destPostalAddress.getString("stateProvinceGeoId"), shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipToAddressElement, "PostalCode", destPostalAddress.getString("postalCode"), shipmentConfirmRequestDoc);
@@ -389,7 +386,6 @@ public class UpsServices {
             if (UtilValidate.isNotEmpty(originPostalAddress.getString("address2"))) {
                 UtilXml.addChildElementValue(shipFromAddressElement, "AddressLine2", originPostalAddress.getString("address2"), shipmentConfirmRequestDoc);
             }
-            //UtilXml.addChildElementValue(shipFromAddressElement, "AddressLine3", "", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipFromAddressElement, "City", originPostalAddress.getString("city"), shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipFromAddressElement, "StateProvinceCode", originPostalAddress.getString("stateProvinceGeoId"), shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(shipFromAddressElement, "PostalCode", originPostalAddress.getString("postalCode"), shipmentConfirmRequestDoc);
@@ -712,12 +708,7 @@ public class UpsServices {
 
         // handle Response element info
         Element responseElement = UtilXml.firstChildElement(shipmentConfirmResponseElement, "Response");
-        //Element responseTransactionReferenceElement = UtilXml.firstChildElement(responseElement, "TransactionReference");
-        //String responseTransactionReferenceCustomerContext = UtilXml.childElementValue(responseTransactionReferenceElement, "CustomerContext");
-        //String responseTransactionReferenceXpciVersion = UtilXml.childElementValue(responseTransactionReferenceElement, "XpciVersion");
-
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
-        //String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
         List<Object> errorList = new LinkedList<Object>();
         UpsServices.handleErrors(responseElement, errorList, locale);
 
@@ -726,11 +717,9 @@ public class UpsServices {
             Element shipmentChargesElement = UtilXml.firstChildElement(shipmentConfirmResponseElement, "ShipmentCharges");
 
             Element transportationChargesElement = UtilXml.firstChildElement(shipmentChargesElement, "TransportationCharges");
-            //String transportationCurrencyCode = UtilXml.childElementValue(transportationChargesElement, "CurrencyCode");
             String transportationMonetaryValue = UtilXml.childElementValue(transportationChargesElement, "MonetaryValue");
 
             Element serviceOptionsChargesElement = UtilXml.firstChildElement(shipmentChargesElement, "ServiceOptionsCharges");
-            //String serviceOptionsCurrencyCode = UtilXml.childElementValue(serviceOptionsChargesElement, "CurrencyCode");
             String serviceOptionsMonetaryValue = UtilXml.childElementValue(serviceOptionsChargesElement, "MonetaryValue");
 
             Element totalChargesElement = UtilXml.firstChildElement(shipmentChargesElement, "TotalCharges");
@@ -846,7 +835,6 @@ public class UpsServices {
         String shipmentAcceptResponseString = null;
 
         try {
-            //GenericValue shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
             GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
 
             if (!"UPS".equals(shipmentRouteSegment.getString("carrierPartyId"))) {
@@ -996,12 +984,7 @@ public class UpsServices {
 
         // handle Response element info
         Element responseElement = UtilXml.firstChildElement(shipmentAcceptResponseElement, "Response");
-        //Element responseTransactionReferenceElement = UtilXml.firstChildElement(responseElement, "TransactionReference");
-        //String responseTransactionReferenceCustomerContext = UtilXml.childElementValue(responseTransactionReferenceElement, "CustomerContext");
-        //String responseTransactionReferenceXpciVersion = UtilXml.childElementValue(responseTransactionReferenceElement, "XpciVersion");
-
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
-        //String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
         List<Object> errorList = new LinkedList<Object>();
         UpsServices.handleErrors(responseElement, errorList, locale);
 
@@ -1017,11 +1000,9 @@ public class UpsServices {
             Element shipmentChargesElement = UtilXml.firstChildElement(shipmentResultsElement, "ShipmentCharges");
 
             Element transportationChargesElement = UtilXml.firstChildElement(shipmentChargesElement, "TransportationCharges");
-            //String transportationCurrencyCode = UtilXml.childElementValue(transportationChargesElement, "CurrencyCode");
             String transportationMonetaryValue = UtilXml.childElementValue(transportationChargesElement, "MonetaryValue");
 
             Element serviceOptionsChargesElement = UtilXml.firstChildElement(shipmentChargesElement, "ServiceOptionsCharges");
-            //String serviceOptionsCurrencyCode = UtilXml.childElementValue(serviceOptionsChargesElement, "CurrencyCode");
             String serviceOptionsMonetaryValue = UtilXml.childElementValue(serviceOptionsChargesElement, "MonetaryValue");
 
             Element totalChargesElement = UtilXml.firstChildElement(shipmentChargesElement, "TotalCharges");
@@ -1102,8 +1083,6 @@ public class UpsServices {
                 Element packageLabelImageElement = UtilXml.firstChildElement(packageResultsElement, "LabelImage");
                 //Element packageLabelImageFormatElement = UtilXml.firstChildElement(packageResultsElement, "LabelImageFormat");
                 // will be EPL or GIF, should always be GIF since that is what we requested
-                //String packageLabelImageFormatCode = UtilXml.childElementValue(packageLabelImageFormatElement, "Code");
-                //String packageLabelImageFormatDescription = UtilXml.childElementValue(packageLabelImageFormatElement, "Description");
                 String packageLabelGraphicImageString = UtilXml.childElementValue(packageLabelImageElement, "GraphicImage");
                 String packageLabelInternationalSignatureGraphicImageString = UtilXml.childElementValue(packageLabelImageElement, "InternationalSignatureGraphicImage");
                 String packageLabelHTMLImageString = UtilXml.childElementValue(packageLabelImageElement, "HTMLImage");
@@ -1177,32 +1156,6 @@ public class UpsServices {
                     }
                 }
 
-                //save International Invoice image if it exists (upscie is not returning this at this moment)
-                //Commenting because it might be useful in the future as there are other types of forms that may be returned
-               /* Element formElement = UtilXml.firstChildElement(packageResultsElement, "Form");
-                if (formElement != null) {
-                    String code = UtilXml.childElementValue(formElement, "Code");
-                    String description = UtilXml.childElementValue(formElement, "Description");
-
-                    Element imageElement = UtilXml.firstChildElement(formElement, "Image");
-                    Element imageFormatElement = UtilXml.firstChildElement(imageElement, "ImageFormat");
-                    String formatCode = UtilXml.childElementValue(imageFormatElement, "Code");
-                    String imgString = UtilXml.childElementValue(imageElement, "GraphicImage");
-                    String imgStringDecoded = Base64.base64Decode(imgString);
-                    shipmentPackageRouteSeg.set("internationalInvoice", imgStringDecoded);
-                    shipmentPackageRouteSeg.store();
-                    String outFile = shipmentUpsSaveCertificationPath + "/InternationalInvoice" + shipmentRouteSegment.getString("shipmentId") + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".html";
-                    try {
-                        FileOutputStream file = new FileOutputStream(outFile);
-                        file.write(imgStringDecoded.getBytes());
-                        file.flush();
-                        file.close();
-                    } catch (IOException e) {
-                        Debug.logInfo(e, "Could not save UPS International Invoice: [[[" + imgStringDecoded + "]]] to file: " + outFile, module);
-                    }
-                }
-                String formGroupId = UtilXml.childElementValue(formElement, "FormGroupId");
-                */
                 shipmentPackageRouteSeg.store();
             }
 
@@ -1283,7 +1236,6 @@ public class UpsServices {
         String voidShipmentResponseString = null;
 
         try {
-            //GenericValue shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
             GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
 
             if (!"UPS".equals(shipmentRouteSegment.getString("carrierPartyId"))) {
@@ -1414,12 +1366,7 @@ public class UpsServices {
 
         // handle Response element info
         Element responseElement = UtilXml.firstChildElement(voidShipmentResponseElement, "Response");
-        //Element responseTransactionReferenceElement = UtilXml.firstChildElement(responseElement, "TransactionReference");
-        //String responseTransactionReferenceCustomerContext = UtilXml.childElementValue(responseTransactionReferenceElement, "CustomerContext");
-        //String responseTransactionReferenceXpciVersion = UtilXml.childElementValue(responseTransactionReferenceElement, "XpciVersion");
-
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
-        //String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
         List<Object> errorList = new LinkedList<Object>();
         UpsServices.handleErrors(responseElement, errorList, locale);
 
@@ -1488,7 +1435,6 @@ public class UpsServices {
         String trackResponseString = null;
 
         try {
-            //GenericValue shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
             GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
 
             if (!"UPS".equals(shipmentRouteSegment.getString("carrierPartyId"))) {
@@ -1621,33 +1567,12 @@ public class UpsServices {
 
         // handle Response element info
         Element responseElement = UtilXml.firstChildElement(trackResponseElement, "Response");
-        //Element responseTransactionReferenceElement = UtilXml.firstChildElement(responseElement, "TransactionReference");
-        //String responseTransactionReferenceCustomerContext = UtilXml.childElementValue(responseTransactionReferenceElement, "CustomerContext");
-        //String responseTransactionReferenceXpciVersion = UtilXml.childElementValue(responseTransactionReferenceElement, "XpciVersion");
-
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
-        //String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
         List<Object> errorList = new LinkedList<Object>();
         UpsServices.handleErrors(responseElement, errorList, locale);
 
         if ("1".equals(responseStatusCode)) {
             // TODO: handle other response elements
-            //Element shipmentElement = UtilXml.firstChildElement(trackResponseElement, "Shipment");
-
-            //Element shipperElement = UtilXml.firstChildElement(shipmentElement, "Shipper");
-            //String shipperNumber = UtilXml.childElementValue(shipperElement, "ShipperNumber");
-
-            //Element serviceElement = UtilXml.firstChildElement(shipmentElement, "Service");
-            //String serviceCode = UtilXml.childElementValue(serviceElement, "Code");
-            //String serviceDescription = UtilXml.childElementValue(serviceElement, "Description");
-
-            //String shipmentIdentificationNumber = UtilXml.childElementValue(shipmentElement, "ShipmentIdentificationNumber");
-
-            /*
-            List<? extends Element> packageElements = UtilXml.childElementList(shipmentElement, "Package");
-            for (Element packageElement: packageElements) {
-            }
-            */
 /*
         <Package>
             <TrackingNumber>1Z12345E1512345676</TrackingNumber>
@@ -1838,12 +1763,7 @@ public class UpsServices {
 
         // handle Response element info
         Element responseElement = UtilXml.firstChildElement(rateResponseElement, "Response");
-        //Element responseTransactionReferenceElement = UtilXml.firstChildElement(responseElement, "TransactionReference");
-        //String responseTransactionReferenceCustomerContext = UtilXml.childElementValue(responseTransactionReferenceElement, "CustomerContext");
-        //String responseTransactionReferenceXpciVersion = UtilXml.childElementValue(responseTransactionReferenceElement, "XpciVersion");
-
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
-        //String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
         List<Object> errorList = new LinkedList<Object>();
         UpsServices.handleErrors(responseElement, errorList, locale);
 
@@ -1980,9 +1900,6 @@ public class UpsServices {
             Debug.logError(e, "Unable to set timeout to " + timeOutStr + " using default " + timeout);
         }
 
-        //Debug.logInfo("UPS Connect URL : " + conStr, module);
-        //Debug.logInfo("UPS XML String : " + xmlString, module);
-
         HttpClient http = new HttpClient(conStr);
         http.setTimeout(timeout * 1000);
         http.setAllowUntrusted(true);
@@ -2014,7 +1931,6 @@ public class UpsServices {
         String carrierRoleTypeId = (String) context.get("carrierRoleTypeId");
         String carrierPartyId = (String) context.get("carrierPartyId");
         String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
-       // String shippingContactMechId = (String) context.get("shippingContactMechId");
         String shippingPostalCode = (String) context.get("shippingPostalCode");
         String shippingCountryCode = (String) context.get("shippingCountryCode");
         List<BigDecimal> packageWeights = UtilGenerics.checkList(context.get("packageWeights"));
@@ -2851,7 +2767,6 @@ public class UpsServices {
                 String missingErrMsg = "DestTelecomNumber not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId;
                 Debug.logError(missingErrMsg, module);
                 // for now we won't require the dest phone number, but is it required?
-                //return ServiceUtil.returnError(missingErrMsg);
             }
             String destPhoneNumber = null;
             if (destTelecomNumber != null) {
@@ -2904,9 +2819,6 @@ public class UpsServices {
 
             // shipment info
             Element shipmentElement = UtilXml.addChildElement(rateRequestElement, "Shipment", rateRequestDoc);
-            //Element rateInformationElement = UtilXml.addChildElement(shipmentElement, "RateInformation", rateRequestDoc);
-            //Element negotiatedRatesIndicatorElement = UtilXml.addChildElement(rateInformationElement, "NegotiatedRatesIndicator", rateRequestDoc);
-
             Element shipperElement = UtilXml.addChildElement(shipmentElement, "Shipper", rateRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "Name", UtilValidate.isNotEmpty(originPostalAddress.getString("toName")) ? originPostalAddress.getString("toName") : "", rateRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName")) ? originPostalAddress.getString("attnName") : "", rateRequestDoc);

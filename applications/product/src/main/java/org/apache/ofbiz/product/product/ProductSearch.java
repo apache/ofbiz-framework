@@ -695,19 +695,6 @@ public class ProductSearch {
             try {
                 boolean hasResults = false;
                 Object initialResult = null;
-
-                /* this method has been replaced by the following to address issue with SAP DB and possibly other DBs
-                if (resultOffset != null) {
-                    Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
-                    hasResults = eli.relative(resultOffset.intValue());
-                } else {
-                    initialResult = eli.next();
-                    if (initialResult != null) {
-                        hasResults = true;
-                    }
-                }
-                 */
-
                 initialResult = eli.next();
                 if (initialResult != null) {
                     hasResults = true;
@@ -757,19 +744,6 @@ public class ProductSearch {
                     } else {
                         duplicatesFound++;
                     }
-
-                    /*
-                    StringBuilder lineMsg = new StringBuilder("Got search result line: ");
-                    for (String fieldName: fieldsToSelect) {
-                        lineMsg.append(fieldName);
-                        lineMsg.append("=");
-                        lineMsg.append(searchResult.get(fieldName));
-                        if (fieldsToSelectIter.hasNext()) {
-                            lineMsg.append(", ");
-                        }
-                    }
-                    Debug.logInfo(lineMsg.toString(), module);
-                    */
                 }
 
                 if (searchResult != null) {
@@ -2194,143 +2168,4 @@ public class ProductSearch {
             return this.ascending;
         }
     }
-    /** A rather large and verbose method that doesn't use the cool constraint and sort order objects */
-    /*
-    public static ArrayList parametricKeywordSearchStandAlone(Set featureIdSet, String keywordsString, Delegator delegator, String productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
-        // TODO: implement this for the new features
-        boolean removeStems = UtilProperties.propertyValueEquals("prodsearch", "remove.stems", "true");
-
-        Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-
-        // make view-entity & EntityCondition
-        int index = 1;
-        List entityConditionList = new LinkedList();
-        List orderByList = new LinkedList();
-        List fieldsToSelect = UtilMisc.toList("productId");
-        DynamicViewEntity dynamicViewEntity = new DynamicViewEntity();
-        dynamicViewEntity.addMemberEntity("PROD", "Product");
-        dynamicViewEntity.addAlias("PROD", "productName");
-        boolean productIdGroupBy = false;
-
-        // Category
-        if (UtilValidate.isNotEmpty(productCategoryId)) {
-            List productCategoryIdList = null;
-            if (includeSubCategories) {
-                // find all sub-categories recursively, make a Set of productCategoryId
-                Set productCategoryIdSet = new HashSet();
-                getAllSubCategoryIds(productCategoryId, productCategoryIdSet, delegator, nowTimestamp);
-                productCategoryIdList = UtilMisc.makeListWritable(productCategoryIdSet);
-            } else {
-                productCategoryIdList = UtilMisc.toList(productCategoryId);
-            }
-
-            // make index based values and increment
-            String entityAlias = "PCM" + index;
-            String prefix = "pcm" + index;
-            index++;
-
-            dynamicViewEntity.addMemberEntity(entityAlias, "ProductCategoryMember");
-            dynamicViewEntity.addAlias(entityAlias, prefix + "ProductCategoryId", "productCategoryId", null, null, null, null);
-            dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
-            dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
-            dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-            entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductCategoryId", EntityOperator.IN, productCategoryIdList));
-            entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
-            entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, nowTimestamp));
-        }
-
-        // Keyword
-        List keywordFirstPass = KeywordSearch.makeKeywordList(keywordsString);
-        List keywordList = KeywordSearch.fixKeywords(keywordFirstPass, anyPrefix, anySuffix, removeStems, isAnd);
-
-        if (keywordList.size() > 0) {
-            if (isAnd) {
-                // add up the relevancyWeight fields from all keyword member entities for a total to sort by
-                ComplexAlias complexAlias = new ComplexAlias("+");
-
-                for (String keyword: keywordList) {
-                    // make index based values and increment
-                    String entityAlias = "PK" + index;
-                    String prefix = "pk" + index;
-                    index++;
-
-                    dynamicViewEntity.addMemberEntity(entityAlias, "ProductKeyword");
-                    dynamicViewEntity.addAlias(entityAlias, prefix + "Keyword", "keyword", null, null, null, null);
-                    dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                    entityConditionList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
-
-                    //don't add an alias for this, will be part of a complex alias: dynamicViewEntity.addAlias(entityAlias, prefix + "RelevancyWeight", "relevancyWeight", null, null, null, null);
-                    complexAlias.addComplexAliasMember(new ComplexAliasField(entityAlias, "relevancyWeight"));
-                }
-                dynamicViewEntity.addAlias(null, "totalRelevancy", null, null, null, null, null, complexAlias);
-                orderByList.add("-totalRelevancy");
-                fieldsToSelect.add("totalRelevancy");
-            } else {
-                // make index based values and increment
-                String entityAlias = "PK" + index;
-                String prefix = "pk" + index;
-                index++;
-
-                dynamicViewEntity.addMemberEntity(entityAlias, "ProductKeyword");
-                dynamicViewEntity.addAlias(entityAlias, "totalRelevancy", "relevancyWeight", null, null, null, "sum");
-                dynamicViewEntity.addAlias(entityAlias, prefix + "Keyword", "keyword", null, null, null, null);
-                dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                orderByList.add("-totalRelevancy");
-                fieldsToSelect.add("totalRelevancy");
-                List<EntityCondition> keywordOrList = new LinkedList();
-                for (String keyword: keywordList) {
-                    keywordOrList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
-                }
-                entityConditionList.add(EntityCondition.makeCondition(keywordOrList, EntityOperator.OR));
-
-                productIdGroupBy = true;
-            }
-        }
-
-        // Features
-        if (UtilValidate.isNotEmpty(featureIdSet)) {
-            for (String productFeatureID: featureIdSet) {
-                // make index based values and increment
-                String entityAlias = "PFA" + index;
-                String prefix = "pfa" + index;
-                index++;
-
-                dynamicViewEntity.addMemberEntity(entityAlias, "ProductFeatureAppl");
-                dynamicViewEntity.addAlias(entityAlias, prefix + "ProductFeatureId", "productFeatureId", null, null, null, null);
-                dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
-                dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
-                dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductFeatureId", EntityOperator.EQUALS, productFeatureId));
-                entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
-                entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, nowTimestamp));
-            }
-        }
-
-        dynamicViewEntity.addAlias("PROD", "productId", null, null, null, Boolean.valueOf(productIdGroupBy), null);
-        EntityCondition whereCondition = EntityCondition.makeCondition(entityConditionList, EntityOperator.AND);
-        EntityFindOptions efo = new EntityFindOptions();
-        efo.setDistinct(true);
-
-        EntityListIterator eli = null;
-        try {
-            eli = delegator.findListIteratorByCondition(dynamicViewEntity, whereCondition, null, fieldsToSelect, orderByList, efo);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Error in product search", module);
-            return null;
-        }
-
-        ArrayList productIds = new LinkedList();
-        Set productIdSet = new HashSet();
-        GenericValue searchResult = null;
-        while ((searchResult = (GenericValue) eli.next()) != null) {
-            String productId = searchResult.getString("productId");
-            if (!productIdSet.contains(productId)) {
-                productIds.add(productId);
-                productIdSet.add(productId);
-            }
-        }
-
-        return productIds;
-    }
-     */
 }

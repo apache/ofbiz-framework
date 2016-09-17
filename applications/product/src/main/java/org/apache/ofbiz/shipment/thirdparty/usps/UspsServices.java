@@ -1020,10 +1020,6 @@ public class UspsServices {
             for (Iterator<GenericValue> i = shipmentPackageRouteSegList.iterator(); i.hasNext();) {
 
                 GenericValue shipmentPackageRouteSeg = i.next();
-                //String sprsKeyString = "[" + shipmentPackageRouteSeg.getString("shipmentId") + "," +
-                //        shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + "," +
-                //        shipmentPackageRouteSeg.getString("shipmentRouteSegmentId") + "]";
-
                 Document requestDocument = createUspsRequestDocument("RateRequest", true, delegator, shipmentGatewayConfigId, resource);
 
                 Element packageElement = UtilXml.addChildElement(requestDocument.getDocumentElement(), "Package", requestDocument);
@@ -1516,7 +1512,6 @@ public class UspsServices {
         String fromFirstName = StringUtils.defaultIfEmpty(StringUtils.substringBefore(fromAttnName, " "), fromAttnName);
         String fromLastName = StringUtils.defaultIfEmpty(StringUtils.substringAfter(fromAttnName, " "), fromAttnName);
         UtilXml.addChildElementValue(rootElement, "FromFirstName", fromFirstName, requestDocument);
-        // UtilXml.addChildElementValue(rootElement, "FromMiddleInitial", "", requestDocument);
         UtilXml.addChildElementValue(rootElement, "FromLastName", fromLastName, requestDocument);
         UtilXml.addChildElementValue(rootElement, "FromFirm", originAddress.getString("toName"), requestDocument);
         // The following 2 assignments are not typos - USPS address1 = OFBiz address2, USPS address2 = OFBiz address1
@@ -1548,7 +1543,6 @@ public class UspsServices {
 
         for (GenericValue shipmentPackageRouteSeg : shipmentPackageRouteSegs) {
             Document packageDocument = (Document) requestDocument.cloneNode(true);
-            //Element packageRootElement = requestDocument.getDocumentElement();
             // This is our reference and can be whatever we want.  For lack of a better alternative we'll use shipmentId:shipmentPackageSeqId:shipmentRouteSegmentId
             String fromCustomsReference = shipmentRouteSegment.getString("shipmentId") + ":" + shipmentRouteSegment.getString("shipmentRouteSegmentId");
             fromCustomsReference = StringUtils.join(
@@ -1587,11 +1581,6 @@ public class UspsServices {
                 Debug.logError(e, module);
             }
             UtilXml.addChildElementValue(rootElement, "Container", container, packageDocument);
-            /* TODO:
-            UtilXml.addChildElementValue(rootElement, "Insured", "", packageDocument);
-            UtilXml.addChildElementValue(rootElement, "InsuredNumber", "", packageDocument);
-            UtilXml.addChildElementValue(rootElement, "InsuredAmount", "", packageDocument);
-            */
             // According to the docs sending an empty postage tag will cause the postage to be calculated
             UtilXml.addChildElementValue(rootElement, "Postage", "", packageDocument);
 

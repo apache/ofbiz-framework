@@ -182,7 +182,6 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
         }
         
         String candidateFieldName = ModelUtil.dbNameToVarName(confItemContentTypeId);
-        //Debug.logInfo("candidateFieldName=" + candidateFieldName, module);
         ModelEntity productConfigItemModel = delegator.getModelEntity("ProductConfigItem");
         if (productConfigItemModel.isField(candidateFieldName)) {
             if (productConfigItem == null) {

@@ -410,15 +410,6 @@ public class InventoryServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
-
-        /* TODO: NOTE: This method has been updated, but testing requires many eyes. See http://jira.undersunconsulting.com/browse/OFBIZ-662
-        boolean skipThisNeedsUpdating = true;
-        if (skipThisNeedsUpdating) {
-            Debug.logWarning("NOT Running the checkInventoryAvailability service, no backorders or such will be automatically created; the reason is that this serice needs to be updated to use OrderItemShipGroup instead of OrderShipmentPreference which it currently does.", module);
-            return ServiceUtil.returnSuccess();
-        }
-        */
-
         Map<String, Map<String, Timestamp>> ordersToUpdate = new HashMap<String, Map<String,Timestamp>>();
         Map<String, Map<String, Timestamp>> ordersToCancel = new HashMap<String, Map<String,Timestamp>>();
 
@@ -866,21 +857,18 @@ public class InventoryServices {
         try {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
         } catch (GenericEntityException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG")) {
             try {
                 resultOutput = dispatcher.runSync("getMktgPackagesAvailable", contextInput);
             } catch (GenericServiceException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {
             try {
                 resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", contextInput);
             } catch (GenericServiceException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -910,7 +898,6 @@ public class InventoryServices {
         try {
             productPrices = EntityQuery.use(delegator).from("ProductPrice").where("productId",productId).orderBy("-fromDate").cache(true).queryList();
         } catch (GenericEntityException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         //change this for product price
@@ -977,7 +964,6 @@ public class InventoryServices {
                     EntityOperator.AND);
                 salesUsageIt = EntityQuery.use(delegator).from(salesUsageViewEntity).where(cond).queryIterator();
             } catch (GenericEntityException e2) {
-                // TODO Auto-generated catch block
                 e2.printStackTrace();
             }
 
@@ -996,7 +982,6 @@ public class InventoryServices {
             try {
                 salesUsageIt.close();
             } catch (GenericEntityException e2) {
-                // TODO Auto-generated catch block
                 e2.printStackTrace();
             }
 
@@ -1013,7 +998,6 @@ public class InventoryServices {
                         EntityOperator.AND);
                 productionUsageIt = EntityQuery.use(delegator).from(productionUsageViewEntity).where(conditions).queryIterator();
             } catch (GenericEntityException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
 
@@ -1032,7 +1016,6 @@ public class InventoryServices {
             try {
                 productionUsageIt.close();
             } catch (GenericEntityException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 

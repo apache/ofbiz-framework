@@ -381,8 +381,6 @@ public class ImageManagementServices {
                         ImageIO.write(bufNewImg, imgExtension, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
                         File deleteFile = new File(imageServerPath + "/"  + filenameToUse);
                         deleteFile.delete();
-                        //FIXME can be removed ?
-                        //  boolean check = deleteFile.delete();
                     } catch (IllegalArgumentException e) {
                         String errMsg = UtilProperties.getMessage(resourceError, "ScaleImage.one_parameter_is_null", locale) + e.toString();
                         Debug.logError(errMsg, module);
@@ -488,8 +486,6 @@ public class ImageManagementServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
-        //FIXME can be removed ?
-        // String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
         String nameOfThumb = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.nameofthumbnail", delegator), context);
         
@@ -506,36 +502,7 @@ public class ImageManagementServices {
         }
         
         String contentIdThumb = (String) contentThumbResult.get("contentId");
-        result.put("contentIdThumb", contentIdThumb);
-        
-        /*// File to use for image thumbnail
-        FlexibleStringExpander filenameExpanderThumb = FlexibleStringExpander.getInstance(imageFilenameFormat);
-        String fileLocationThumb = filenameExpanderThumb.expandString(UtilMisc.toMap("location", "products", "type", "small", "id", contentIdThumb));
-        String filenameToUseThumb = fileLocationThumb;
-        if (fileLocationThumb.lastIndexOf("/") != -1) {
-            filenameToUseThumb = fileLocationThumb.substring(fileLocationThumb.lastIndexOf("/") + 1);
-        }
-        
-        String fileContentType = (String) context.get("_uploadedFile_contentType");
-        if (fileContentType.equals("image/pjpeg")) {
-            fileContentType = "image/jpeg";
-        } else if (fileContentType.equals("image/x-png")) {
-            fileContentType = "image/png";
-        }
-        
-        List<GenericValue> fileExtensionThumb = new LinkedList();
-        try {
-            fileExtensionThumb = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", fileContentType), null, false);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        }
-        
-        GenericValue extensionThumb = EntityUtil.getFirst(fileExtensionThumb);
-        if (extensionThumb != null) {
-            filenameToUseThumb += "." + extensionThumb.getString("fileExtensionId");
-        }*/
-        //String uploadFileName = (String) context.get("_uploadedFile_fileName");
+        result.put("contentIdThumb", contentIdThumb);        
         String filenameToUseThumb = imageName.substring(0 , imageName.indexOf(".")) + nameOfThumb;
         String fileContentType = (String) context.get("_uploadedFile_contentType");
         if (fileContentType.equals("image/pjpeg")) {

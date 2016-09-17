@@ -48,10 +48,6 @@ public class ParametricSearch {
 
     public static final int DEFAULT_PER_TYPE_MAX_SIZE = 1000;
 
-    // DEJ20060427 not used right now, could be removed if that circumstance persists
-    //public static UtilCache featureAllCache = UtilCache.createUtilCache("custom.FeaturePerTypeAll", 0, 600000, true);
-    //public static UtilCache featureByCategoryCache = UtilCache.createUtilCache("custom.FeaturePerTypeByCategory", 0, 600000, true);
-
     /** Gets all features associated with the specified category through:
      * ProductCategory -> ProductFeatureCategoryAppl -> ProductFeatureCategory -> ProductFeature.
      * Returns a Map of Lists of ProductFeature GenericValue objects organized by productFeatureTypeId.

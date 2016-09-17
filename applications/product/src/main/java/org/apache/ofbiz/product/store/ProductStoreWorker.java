@@ -278,12 +278,10 @@ public final class ProductStoreWorker {
                 BigDecimal maxWeight = method.getBigDecimal("maxWeight");
                 if (minWeight != null && minWeight.compareTo(BigDecimal.ZERO) > 0 && minWeight.compareTo(weight) > 0) {
                     returnShippingMethods.remove(method);
-                    //Debug.logInfo("Removed shipping method due to not enough weight", module);
                     continue;
                 }
                 if (maxWeight != null && maxWeight.compareTo(BigDecimal.ZERO) > 0 && maxWeight.compareTo(weight) < 0) {
                     returnShippingMethods.remove(method);
-                    //Debug.logInfo("Removed shipping method due to too much weight", module);
                     continue;
                 }
 
@@ -292,12 +290,10 @@ public final class ProductStoreWorker {
                 BigDecimal maxTotal = method.getBigDecimal("maxTotal");
                 if (minTotal != null && minTotal.compareTo(BigDecimal.ZERO) > 0 && minTotal.compareTo(orderTotal) > 0) {
                     returnShippingMethods.remove(method);
-                    //Debug.logInfo("Removed shipping method due to not enough order total", module);
                     continue;
                 }
                 if (maxTotal != null && maxTotal.compareTo(BigDecimal.ZERO) > 0 && maxTotal.compareTo(orderTotal) < 0) {
                     returnShippingMethods.remove(method);
-                    //Debug.logInfo("Removed shipping method due to too much shipping total", module);
                     continue;
                 }
 
@@ -316,7 +312,6 @@ public final class ProductStoreWorker {
                     }
                     if (!allMatch) {
                         returnShippingMethods.remove(method);
-                        //Debug.logInfo("Removed shipping method because not all products are less then min size", module);
                         continue;
                     }
                 }
@@ -332,7 +327,6 @@ public final class ProductStoreWorker {
                     }
                     if (!allMatch) {
                         returnShippingMethods.remove(method);
-                        //Debug.logInfo("Removed shipping method because one or more products were more then max size", module);
                         continue;
                     }
                 }
@@ -343,12 +337,10 @@ public final class ProductStoreWorker {
                 boolean isUspsAddress = ContactMechWorker.isUspsAddress(shippingAddress);
                 if ("N".equals(allowUspsAddr) && isUspsAddress) {
                     returnShippingMethods.remove(method);
-                    //Debug.logInfo("Remove shipping method due to USPS address", module);
                     continue;
                 }
                 if ("Y".equals(requireUspsAddr) && !isUspsAddress) {
                     returnShippingMethods.remove(method);
-                    //Debug.logInfo("Removed shipping method due to NON-USPS address", module);
                     continue;
                 }
 
@@ -359,12 +351,10 @@ public final class ProductStoreWorker {
                 boolean isCompanyAddress = ContactMechWorker.isCompanyAddress(shippingAddress, companyPartyId);
                 if ("N".equals(allowCompanyAddr) && isCompanyAddress) {
                     returnShippingMethods.remove(method);
-                    //Debug.logInfo("Removed shipping method due to Company address", module);
                     continue;
                 }
                 if ("Y".equals(requireCompanyAddr) && !isCompanyAddress) {
                     returnShippingMethods.remove(method);
-                    //Debug.logInfo("Removed shipping method due to NON-Company address", module);
                     continue;
                 }
 
@@ -373,7 +363,6 @@ public final class ProductStoreWorker {
                 if (includeFreeShipping != null && "N".equalsIgnoreCase(includeFreeShipping)) {
                     if (UtilValidate.isEmpty(itemSizes) && orderTotal.compareTo(BigDecimal.ZERO) == 0) {
                         returnShippingMethods.remove(method);
-                        //Debug.logInfo("Removed shipping method due to all items being exempt from shipping", module);
                         continue;
                     }
                 }
@@ -384,7 +373,6 @@ public final class ProductStoreWorker {
                 if (UtilValidate.isNotEmpty(includeGeoId) || UtilValidate.isNotEmpty(excludeGeoId)) {
                     if (shippingAddress == null) {
                         returnShippingMethods.remove(method);
-                        //Debug.logInfo("Removed shipping method due to empty shipping adresss (may not have been selected yet)", module);
                         continue;
                     }
                 }
@@ -395,7 +383,6 @@ public final class ProductStoreWorker {
                             !GeoWorker.containsGeo(includeGeoGroup, shippingAddress.getString("postalCodeGeoId"), delegator)) {
                         // not in required included geos
                         returnShippingMethods.remove(method);
-                        //Debug.logInfo("Removed shipping method due to being outside the included GEO", module);
                         continue;
                     }
                 }
@@ -406,7 +393,6 @@ public final class ProductStoreWorker {
                             GeoWorker.containsGeo(excludeGeoGroup, shippingAddress.getString("postalCodeGeoId"), delegator)) {
                         // in excluded geos
                         returnShippingMethods.remove(method);
-                        //Debug.logInfo("Removed shipping method due to being inside the excluded GEO", module);
                         continue;
                     }
                 }
@@ -431,7 +417,6 @@ public final class ProductStoreWorker {
                         }
                         if (!foundOne) {
                             returnShippingMethods.remove(method);
-                            //Debug.logInfo("Removed shipping method due to no required features found", module);
                             continue;
                         }
                     }
@@ -447,7 +432,6 @@ public final class ProductStoreWorker {
                         for (GenericValue appl: excludedFeatures) {
                             if (featureIdMap.containsKey(appl.getString("productFeatureId"))) {
                                 returnShippingMethods.remove(method);
-                                //Debug.logInfo("Removed shipping method due to an exluded feature being found : " + appl.getString("productFeatureId"), module);
                                 continue;
                             }
                         }

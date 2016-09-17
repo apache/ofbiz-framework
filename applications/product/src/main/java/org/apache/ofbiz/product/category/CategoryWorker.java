@@ -155,9 +155,7 @@ public final class CategoryWorker {
             Debug.logWarning(e.getMessage(), module);
         }
         if (rollups != null) {
-            // Debug.logInfo("Rollup size: " + rollups.size(), module);
             for (GenericValue parent: rollups) {
-                // Debug.logInfo("Adding child of: " + parent.getString("parentProductCategoryId"), module);
                 GenericValue cv = null;
 
                 try {
@@ -168,7 +166,6 @@ public final class CategoryWorker {
                 if (cv != null) {
                     if (excludeEmpty) {
                         if (!isCategoryEmpty(cv)) {
-                            //Debug.logInfo("Child : " + cv.getString("productCategoryId") + " is not empty.", module);
                             categories.add(cv);
                             if (recursive) {
                                 categories.addAll(getRelatedCategoriesRet(delegator, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty, recursive));
@@ -189,14 +186,12 @@ public final class CategoryWorker {
     public static boolean isCategoryEmpty(GenericValue category) {
         boolean empty = true;
         long members = categoryMemberCount(category);
-        //Debug.logInfo("Category : " + category.get("productCategoryId") + " has " + members  + " members", module);
         if (members > 0) {
             empty = false;
         }
 
         if (empty) {
             long rollups = categoryRollupCount(category);
-            //Debug.logInfo("Category : " + category.get("productCategoryId") + " has " + rollups  + " rollups", module);
             if (rollups > 0) {
                 empty = false;
             }
@@ -279,9 +274,6 @@ public final class CategoryWorker {
                 if (cindex < (trail.size() - 1)) {
                     for (int i = trail.size() - 1; i > cindex; i--) {
                         trail.remove(i);
-                        //FIXME can be removed ?
-                        // String deadCat = trail.remove(i);
-                        //if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Removed after current category index: " + i + " catname: " + deadCat, module);
                     }
                 }
                 return trail;
@@ -292,13 +284,11 @@ public final class CategoryWorker {
                 if (UtilValidate.isNotEmpty(previousCategoryId)) {
                     trail.add(previousCategoryId);
                 }
-                //if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Starting new list, added TOP and previousCategory: " + previousCategoryId, module);
             }
         }
 
         if (!trail.contains(previousCategoryId)) {
             // previous category was NOT in the list, ERROR, start over
-            //if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] previousCategory (" + previousCategoryId + ") was not in the crumb list, position is lost, starting over with TOP", module);
             trail.clear();
             trail.add("TOP");
             if (UtilValidate.isNotEmpty(previousCategoryId)) {
@@ -310,9 +300,6 @@ public final class CategoryWorker {
             if (index < (trail.size() - 1)) {
                 for (int i = trail.size() - 1; i > index; i--) {
                     trail.remove(i);
-                    //FIXME can be removed ?
-                    // String deadCat = trail.remove(i);
-                    //if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Removed after current category index: " + i + " catname: " + deadCat, module);
                 }
             }
         }
