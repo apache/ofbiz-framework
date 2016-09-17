@@ -35,12 +35,12 @@
             </drop-down>
         </field>
         <field name="leaveStatus">
-            <drop-down allow-empty="true">
+            <check all-checked="false">
                 <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="LEAVE_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="approverPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="description"><hidden/></field>
