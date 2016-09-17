@@ -743,4 +743,22 @@ under the License.
         <description>Remove an AcctgTransType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="createGlAccountCategoryType" engine="entity-auto" default-entity-name="GlAccountCategoryType" invoke="create" auth="true">
+        <description>Create GlAccountCategoryType</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="updateGlAccountCategoryType" engine="entity-auto" default-entity-name="GlAccountCategoryType" invoke="update" auth="true">
+        <description>Update GlAccountCategoryType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="deleteGlAccountCategoryType" engine="entity-auto" default-entity-name="GlAccountCategoryType" invoke="delete" auth="true">
+        <description>Delete GlAccountCategoryType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>
