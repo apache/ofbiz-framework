@@ -37,7 +37,7 @@ under the License.
         </field>
     </form>
     
-    <form name="ListPaymentGatewayConfig" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListPaymentGatewayConfig" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="FindPaymentGatewayConfig">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -417,7 +417,7 @@ under the License.
         </field>
     </form>
     
-    <form name="ListPaymentGatewayConfigTypes" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListPaymentGatewayConfigTypes" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="FindPaymentGatewayConfigTypes">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
