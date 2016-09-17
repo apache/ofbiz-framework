@@ -39,7 +39,8 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
-    <service name="createCustomMethodType" engine="entity-auto" invoke="create" default-entity-name="CustomMethodType" auth="true"+        <description>Create a Custom Method Type</description>
+    <service name="createCustomMethodType" engine="entity-auto" invoke="create" default-entity-name="CustomMethodType" auth="true">
+        <description>Create a Custom Method Type</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
