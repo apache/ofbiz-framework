@@ -150,8 +150,6 @@ public final class UtilMisc {
     @SuppressWarnings("unchecked")
     public static <K, V> Map<String, V> toMap(Object... data) {
         if (data.length == 1 && data[0] instanceof Map) {
-            // Logging a warning here because a lot of code misuses this method and that code needs to be fixed.
-            //Debug.logWarning("UtilMisc.toMap called with a Map. Use UtilGenerics.checkMap instead.", module);
             return UtilGenerics.<String, V>checkMap(data[0]);
         }
         if (data.length % 2 == 1) {
@@ -223,13 +221,6 @@ public final class UtilMisc {
             }
         }
         for (String keyToRemove: keysToRemove) { map.remove(keyToRemove); }
-        //if (!(map instanceof Serializable)) {
-        //    Debug.logInfo("Parameter Map is not Serializable!", module);
-        //}
-
-        //for (Map.Entry<String, V> mapEntry: map.entrySet()) {
-        //    Debug.logInfo("Entry in Map made serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
-        //}
     }
 
     /**

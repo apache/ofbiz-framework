@@ -101,7 +101,6 @@ public class GenericMapTest extends GenericTestCaseBase {
         @Override
         protected Iterator<Map.Entry<K, V>> iterator(final boolean noteAccess) {
             incrementCallCount("iterator-" + noteAccess);
-            //return new IteratorWrapper<Map.Entry<K, V>, Map.Entry<K, V>>(noteAccess, proxyMap.entrySet().iterator()) {
             return new IteratorWrapper<Map.Entry<K, V>, Map.Entry<K, V>>(proxyMap.entrySet().iterator()) {
                 @Override
                 protected Map.Entry<K, V> convert(Map.Entry<K, V> src) {

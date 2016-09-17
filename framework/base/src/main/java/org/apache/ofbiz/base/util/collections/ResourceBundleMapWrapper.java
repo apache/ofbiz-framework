@@ -258,11 +258,6 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
                     }
                 }
             }
-            /* we used to do this here, but now we'll do it in the top-level class since doing it here would prevent searching down the stack
-            if (value == null) {
-                value = arg0;
-            }
-             */
             return value;
         }
 
@@ -322,8 +317,5 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
             return this.resourceBundle;
         }
 
-        /*public String toString() {
-            return this.topLevelMap.toString();
-        }*/
     }
 }

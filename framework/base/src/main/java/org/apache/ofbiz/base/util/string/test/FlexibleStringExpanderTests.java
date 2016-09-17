@@ -50,7 +50,6 @@ public class FlexibleStringExpanderTests extends TestCase {
 
     private static void parserTest(String label, String input, boolean checkCache, String toString) {
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance(input, false);
-        //System.err.println("fse(" + fse + ").class=" + fse.getClass());
         assertEquals(label + ":toString(no-cache)", toString, fse.toString());
         fse = FlexibleStringExpander.getInstance(input, true);
         assertEquals(label + ":toString(cache)", toString, fse.toString());

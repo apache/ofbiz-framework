@@ -71,8 +71,6 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
                 FlexibleMapAccessor<Object> fmaKey = UtilGenerics.cast(key);
                 ascending = fmaKey.getIsAscending();
 
-                //Debug.logInfo("Doing compare with a FlexibleMapAccessor [" + fmaKey.getOriginalName() + "] ascending [" + ascending + "]", module);
-
                 o1 = fmaKey.get(UtilGenerics.<String, Object>checkMap(map1));
                 o2 = fmaKey.get(UtilGenerics.<String, Object>checkMap(map2));
             } else {

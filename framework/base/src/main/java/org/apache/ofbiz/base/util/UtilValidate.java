@@ -302,10 +302,6 @@ public final class UtilValidate {
     /** Returns true if single character c(actually a string) is contained within string s. */
     public static boolean charInString(char c, String s) {
         return (s.indexOf(c) != -1);
-        // for (int i = 0; i < s.length; i++) {
-        // if (s.charAt(i) == c) return true;
-        // }
-        // return false;
     }
 
     /** Removes initial(leading) whitespace characters from s.
@@ -315,7 +311,6 @@ public final class UtilValidate {
 
         while ((i < s.length()) && charInString(s.charAt(i), whitespace)) i++;
         return s.substring(i);
-        // return s.substring(i, s.length);
     }
 
     /** Returns true if character c is an English letter (A .. Z, a..z).
@@ -377,15 +372,6 @@ public final class UtilValidate {
         } catch (Exception e) {
             return false;
         }
-
-        // int startPos = 0;
-        // boolean secondArg = defaultEmptyOK;
-
-        // if (isSignedInteger.arguments.length > 1) secondArg = isSignedInteger.arguments[1];
-
-        // skip leading + or -
-        // if ((s.charAt(0) == "-") ||(s.charAt(0) == "+")) startPos = 1;
-        // return(isInteger(s.substring(startPos, s.length), secondArg))
     }
 
     /** Returns true if all characters are numbers;
@@ -415,9 +401,6 @@ public final class UtilValidate {
         } catch (Exception e) {
             return false;
         }
-
-        // return(isSignedInteger(s, secondArg)
-        // &&((isEmpty(s) && secondArg)  ||(parseInt(s) > 0)));
     }
 
     /** Returns true if string s is an integer >= 0. */
@@ -432,9 +415,6 @@ public final class UtilValidate {
         } catch (Exception e) {
             return false;
         }
-
-        // return(isSignedInteger(s, secondArg)
-        // &&((isEmpty(s) && secondArg)  ||(parseInt(s) >= 0)));
     }
 
     /** Returns true if string s is an integer < 0. */
@@ -449,9 +429,6 @@ public final class UtilValidate {
         } catch (Exception e) {
             return false;
         }
-
-        // return(isSignedInteger(s, secondArg)
-        // &&((isEmpty(s) && secondArg)  ||(parseInt(s) < 0)));
     }
 
     /** Returns true if string s is an integer <= 0. */
@@ -466,9 +443,6 @@ public final class UtilValidate {
         } catch (Exception e) {
             return false;
         }
-
-        // return(isSignedInteger(s, secondArg)
-        // &&((isEmpty(s) && secondArg)  ||(parseInt(s) <= 0)));
     }
 
     /** True if string s is an unsigned floating point(real) number.
@@ -570,13 +544,6 @@ public final class UtilValidate {
         } catch (Exception e) {
             return false;
         }
-
-        //The old way:
-        // int startPos = 0;
-        // if (isSignedFloat.arguments.length > 1) secondArg = isSignedFloat.arguments[1];
-        // skip leading + or -
-        // if ((s.charAt(0) == "-") ||(s.charAt(0) == "+")) startPos = 1;
-        // return(isFloat(s.substring(startPos, s.length), secondArg))
     }
 
     /** True if string s is a signed or unsigned floating point

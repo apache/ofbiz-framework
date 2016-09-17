@@ -23,10 +23,6 @@ import org.apache.ofbiz.base.concurrent.ExecutionPool;
 public abstract class CacheLine<V> extends ExecutionPool.Pulse {
     protected CacheLine(long loadTimeNanos, long expireTimeNanos) {
         super(loadTimeNanos, expireTimeNanos);
-        // FIXME: this seems very odd to me (ARH)
-        //if (loadTime <= 0) {
-        //    hasExpired = true;
-        //}
     }
 
     abstract CacheLine<V> changeLine(boolean useSoftReference, long expireTimeNanos);

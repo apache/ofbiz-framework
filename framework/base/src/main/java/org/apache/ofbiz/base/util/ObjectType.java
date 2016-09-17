@@ -334,7 +334,6 @@ public class ObjectType {
      * @return true if objectClass is a class of or a sub-class of the parent
      */
     public static boolean isOrSubOf(Class<?> objectClass, Class<?> parentClass) {
-        //Debug.logInfo("Checking isOrSubOf for [" + objectClass.getName() + "] and [" + objectClass.getName() + "]", module);
         while (objectClass != null) {
             if (objectClass == parentClass) return true;
             objectClass = objectClass.getSuperclass();
@@ -420,7 +419,6 @@ public class ObjectType {
     }
 
     public static Class<?> loadInfoClass(String typeName, ClassLoader loader) {
-        //Class infoClass = null;
         try {
             return loadClass(typeName, loader);
         } catch (SecurityException se1) {

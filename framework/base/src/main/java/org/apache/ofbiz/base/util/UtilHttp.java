@@ -172,7 +172,6 @@ public final class UtilHttp {
                 String token = queryTokens.nextToken();
                 if (token.startsWith("amp;")) {
                     // this is most likely a split value that had an &amp; in it, so don't consider this a name; note that some old code just stripped the "amp;" and went with it
-                    //token = token.substring(4);
                     continue;
                 }
                 int equalsIndex = token.indexOf("=");
@@ -836,18 +835,8 @@ public final class UtilHttp {
                             }
                         }
                         buf.append(UtilCodec.getEncoder("url").encode(name));
-                        /* the old way: try {
-                            buf.append(URLEncoder.encode(name, "UTF-8"));
-                        } catch (UnsupportedEncodingException e) {
-                            Debug.logError(e, module);
-                        } */
                         buf.append('=');
                         buf.append(UtilCodec.getEncoder("url").encode(valueStr));
-                        /* the old way: try {
-                            buf.append(URLEncoder.encode(valueStr, "UTF-8"));
-                        } catch (UnsupportedEncodingException e) {
-                            Debug.logError(e, module);
-                        } */
                     }
                 }
             }

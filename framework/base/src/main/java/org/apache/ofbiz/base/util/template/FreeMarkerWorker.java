@@ -353,7 +353,6 @@ public final class FreeMarkerWorker {
     }
 
     public static String getArg(Map<String, ? extends Object> args, String key, Map<String, ? extends Object> templateContext) {
-        //SimpleScalar s = null;
         Object o = args.get(key);
         String returnVal = (String) unwrap(o);
         if (returnVal == null) {
@@ -362,14 +361,13 @@ public final class FreeMarkerWorker {
                     returnVal = (String) templateContext.get(key);
                 }
             } catch (ClassCastException e2) {
-                //return null;
+                Debug.logInfo(e2.getMessage(), module);
             }
         }
         return returnVal;
     }
 
     public static Object getArgObject(Map<String, ? extends Object> args, String key, Map<String, ? extends Object> templateContext) {
-        //SimpleScalar s = null;
         Object o = args.get(key);
         Object returnVal = unwrap(o);
         if (returnVal == null) {
@@ -378,7 +376,7 @@ public final class FreeMarkerWorker {
                     returnVal = templateContext.get(key);
                 }
             } catch (ClassCastException e2) {
-                //return null;
+                Debug.logInfo(e2.getMessage(), module);
             }
         }
         return returnVal;
@@ -448,16 +446,6 @@ public final class FreeMarkerWorker {
                 ctx = UtilGenerics.cast(((BeanModel) ctxObj).getWrappedObject());
                 returnObj = ctx.get(key);
             }
-            /*
-            try {
-                Map templateContext = (Map) FreeMarkerWorker.getWrappedObject("context", env);
-                if (templateContext != null) {
-                    returnObj = (String) templateContext.get(key);
-                }
-            } catch (ClassCastException e2) {
-                //return null;
-            }
-            */
         }
         return returnObj;
     }
@@ -500,9 +488,6 @@ public final class FreeMarkerWorker {
         }
         if (varNames != null) {
             for (String varName: varNames) {
-                //freemarker.ext.beans.StringModel varObj = (freemarker.ext.beans.StringModel) varNameIter.next();
-                //Object varObj =  varNameIter.next();
-                //String varName = varObj.toString();
                 templateRoot.put(varName, FreeMarkerWorker.getWrappedObject(varName, env));
             }
         }
@@ -510,7 +495,6 @@ public final class FreeMarkerWorker {
     }
 
     public static void saveContextValues(Map<String, Object> context, String [] saveKeyNames, Map<String, Object> saveMap) {
-        //Map saveMap = new HashMap();
         for (String key: saveKeyNames) {
             Object o = context.get(key);
             if (o instanceof Map<?, ?>) {
@@ -564,7 +548,6 @@ public final class FreeMarkerWorker {
         for (Map.Entry<String, Object> entry: args.entrySet()) {
             String key = entry.getKey();
             Object obj = entry.getValue();
-            //if (Debug.infoOn()) Debug.logInfo("in overrideWithArgs, key(3):" + key + " obj:" + obj + " class:" + obj.getClass().getName() , module);
             if (obj != null) {
                 if (obj == TemplateModel.NOTHING) {
                     ctx.put(key, null);

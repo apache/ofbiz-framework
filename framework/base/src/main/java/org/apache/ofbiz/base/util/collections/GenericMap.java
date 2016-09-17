@@ -140,8 +140,6 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
                         @Override
                         protected void noteRemoval(Map.Entry<K, V> dest, Map.Entry<K, V> src) {
                             // No need to note the remove, the wrapped iterator does that for us
-                            // evictionPolicy.remove(evictionDeque, dest);
-                            // if (diskStore != null) diskStore.remove(dest);
                         }
 
                         @Override
@@ -170,8 +168,6 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
                         @Override
                         protected void noteRemoval(K dest, Map.Entry<K, V> src) {
                             // No need to note the remove, the wrapped iterator does that for us
-                            // evictionPolicy.remove(evictionDeque, dest);
-                            // if (diskStore != null) diskStore.remove(dest);
                         }
 
                         @Override
@@ -194,8 +190,6 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
                         @Override
                         protected void noteRemoval(V dest, Map.Entry<K, V> src) {
                             // No need to note the remove, the wrapped iterator does that for us
-                            // evictionPolicy.remove(evictionDeque, src.getKey());
-                            // if (diskStore != null) diskStore.remove(src.getKey());
                         }
 
                         @Override
