@@ -18,53 +18,45 @@ under the License.
 -->
 
 <div class="breadcrumbs">
-<#assign isDefaultTheme = !layoutSettings.VT_FTR_TMPLT_LOC?contains("multiflex")>        
-<#if isDefaultTheme>
-  <a href="<@ofbizUrl>main</@ofbizUrl>" class="linktext">${uiLabelMap.CommonMain}</a> &gt;
-<#else>
+  <#assign isDefaultTheme = !layoutSettings.VT_FTR_TMPLT_LOC?contains("multiflex")>
+  <#if isDefaultTheme>
+    <a href="<@ofbizUrl>main</@ofbizUrl>" class="linktext">${uiLabelMap.CommonMain}</a> &gt;
+  <#else>
   <ul>
     <li>
       <a href="<@ofbizUrl>main</@ofbizUrl>" class="linktext">${uiLabelMap.CommonMain}</a>
     </li>
-</#if>    
-    <#-- Show the category branch -->
-    <#if productCategoryTrail??>
-        <#list productCategoryTrail as trail>
-          <#if !isDefaultTheme>                 
-            <li>
-              <a href="<@ofbizCatalogAltUrl productCategoryId=trail.productCategoryId previousCategoryId=trail.parentCategory!""/>" class="linktext">
-                <#if trail.title??>
-                  ${trail.title}
-                <#else>
-                  ${trail.productCategoryId}
-                </#if>
-              </a>
-            </li>
+  </#if>
+  <#-- Show the category branch -->
+  <#if productCategoryTrail??>
+    <#list productCategoryTrail as trail>
+      <#if !isDefaultTheme>
+        <li>
+          <a href="<@ofbizCatalogAltUrl productCategoryId=trail.productCategoryId previousCategoryId=trail.parentCategory!""/>"
+              class="linktext">
+            <#if trail.title??>
+              ${trail.title}
+            <#else>
+              ${trail.productCategoryId}
+            </#if>
+          </a>
+        </li>
+      <#else>
+        <a href="<@ofbizCatalogAltUrl productCategoryId=trail.productCategoryId previousCategoryId=trail.parentCategory!""/>"
+            class="linktext">
+          <#if trail.title??>
+            ${trail.title} >
           <#else>
-            <a href="<@ofbizCatalogAltUrl productCategoryId=trail.productCategoryId previousCategoryId=trail.parentCategory!""/>" class="linktext">
-              <#if trail.title??>
-                ${trail.title} >
-              <#else>
-                ${trail.productCategoryId} >
-              </#if>
-            </a>
-          </#if>
-        </#list>
-    </#if>
-    <#if !isDefaultTheme>                 
-      <li>
-        <a href="<@ofbizCatalogAltUrl productCategoryId=currentCategoryId previousCategoryId=parameters.parentCategoryStr/>" class="linktext">
-          <#if currentCategoryName??>
-            ${currentCategoryName}
-          <#elseif currentCategoryDescription??>
-            ${currentCategoryDescription}
-          <#else>
-            ${currentCategoryId}
+            ${trail.productCategoryId} >
           </#if>
         </a>
-      </li>
-    <#else>
-      <a href="<@ofbizCatalogAltUrl productCategoryId=currentCategoryId previousCategoryId=parameters.parentCategoryStr/>" class="linktext">
+      </#if>
+    </#list>
+  </#if>
+  <#if !isDefaultTheme>
+    <li>
+      <a href="<@ofbizCatalogAltUrl productCategoryId=currentCategoryId previousCategoryId=parameters.parentCategoryStr/>"
+          class="linktext">
         <#if currentCategoryName??>
           ${currentCategoryName}
         <#elseif currentCategoryDescription??>
@@ -73,8 +65,20 @@ under the License.
           ${currentCategoryId}
         </#if>
       </a>
-    </#if>
+    </li>
+  <#else>
+    <a href="<@ofbizCatalogAltUrl productCategoryId=currentCategoryId previousCategoryId=parameters.parentCategoryStr/>"
+        class="linktext">
+      <#if currentCategoryName??>
+        ${currentCategoryName}
+      <#elseif currentCategoryDescription??>
+        ${currentCategoryDescription}
+      <#else>
+        ${currentCategoryId}
+      </#if>
+    </a>
+  </#if>
   </ul>
 </div>
-<br />
+<br/>
 

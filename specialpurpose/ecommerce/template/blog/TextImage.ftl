@@ -26,30 +26,31 @@
 <#-- This code sets the checkboxes based on existing data -->
 <#assign text_check=""/>
 <#assign img_check=""/>
-<#if (imageContent?has_content && (drDataTemplateTypeId?default("") == "SCREEN_COMBINED") || drMimeTypeId?default("")?starts_with("image"))>
-    <#assign img_check="checked='checked'"/>
+<#if (imageContent?has_content && (drDataTemplateTypeId?default("") == "SCREEN_COMBINED")
+    || drMimeTypeId?default("")?starts_with("image"))>
+  <#assign img_check="checked='checked'"/>
 </#if>
 <#if (textContent?has_content && drMimeTypeId?default("")?starts_with("text"))
-        || (textContent?has_content && (drDataTemplateTypeId?default("") == "SCREEN_COMBINED"))
-        || !img_check?has_content>
-    <#assign text_check="checked='checked'"/>
+    || (textContent?has_content && (drDataTemplateTypeId?default("") == "SCREEN_COMBINED"))
+    || !img_check?has_content>
+  <#assign text_check="checked='checked'"/>
 </#if>
 
 <#-- Sets one of the two templates -->
 <#assign topleft_check=""/>
 <#assign topcenter_check=""/>
 <#if view.drDataResourceId?has_content && view.drDataResourceId == "BLOG_TPL_TOPLEFT">
-    <#assign topleft_check="checked='checked'"/>
+  <#assign topleft_check="checked='checked'"/>
 <#else>
-    <#assign topcenter_check="checked='checked'"/>
+  <#assign topcenter_check="checked='checked'"/>
 </#if>
 
 <#-- Fills in existing text -->
 <#assign textData=""/>
 <#if electronicText?has_content >
-    <#if electronicText.textData?has_content >
-        <#assign textData=electronicText.textData/>
-    </#if>
+  <#if electronicText.textData?has_content >
+    <#assign textData=electronicText.textData/>
+  </#if>
 </#if>
 
 <#-- Stores the ids for existing data -->
@@ -57,20 +58,20 @@
 <#assign textDataResourceId=""/>
 
 <#if textContent?has_content >
-    <#assign textContentId=textContent.contentId!/>
-    <#assign textDataResourceId=textContent.drDataResourceId!/>
+  <#assign textContentId=textContent.contentId!/>
+  <#assign textDataResourceId=textContent.drDataResourceId!/>
 </#if>
 
 <#if textElectronicText?has_content && textElectronicText.textData?has_content >
-    <#assign textData=textElectronicText.textData/>
+  <#assign textData=textElectronicText.textData/>
 </#if>
 
 <#assign imageContentId=""/>
 <#assign imageDataResourceId=""/>
 
 <#if imageContent?has_content >
-    <#assign imageContentId=imageContent.contentId!/>
-    <#assign imageDataResourceId=imageContent.drDataResourceId!/>
+  <#assign imageContentId=imageContent.contentId!/>
+  <#assign imageDataResourceId=imageContent.drDataResourceId!/>
 </#if>
 
 <input type="hidden" name="textContentId" value="${textContentId}"/>
@@ -79,45 +80,56 @@
 <input type="hidden" name="imageDataResourceId" value="${imageDataResourceId}"/>
 
 <table>
-    <tr>
-        <td width="10%" align="right">
-        <span class="treeHeader"> </span>
-        </td>
-        <td>&nbsp;</td>
-        <td width="5%" valign="top">
-        <div class="inputBox"><input type="checkBox" ${text_check} name="drMimeTypeId_TEXT" value="Y"/>Text</div>
-        </td>
-        <td>&nbsp;</td>
-        <td width="60%">
-        <textarea class="textAreaBox" class="inputBox" name="textData" cols="60" rows="24">${textData!}</textarea>
-        </td>
-        <td width="10%" align="right">
-        <span class="treeHeader"> </span>
-        </td>
-    </tr>
-
-    <tr>
-        <td width="10%" align="right">
-            <span class="treeHeader"> </span>
-        </td>
-        <td>&nbsp;</td>
-        <td width="5%" valign="top">
-            <div class="inputBox"><input type="checkbox" ${img_check} name="drMimeTypeId_IMAGE" value="Y"/>Image</div>
-        </td>
-        <td>&nbsp;</td>
-        <td width="60%">
-            <div class="inputBox">Existing file name:  <#if imageContent?has_content && imageContent.drObjectInfo?has_content>${imageContent.drObjectInfo}</#if></div>
-            <br />
-            <input type="file" class="inputBox" name="uploadedFile" size="25"/>
-            <#--
-            Force: <input type="checkbox" value="true" name="forceElectronicText"/>
-            -->
-            <br />
-            Top-left:<input type="radio" ${topleft_check} class="inputBox" name="templateId" value="BLOG_TPL_TOPLEFT"/>
-            &nbsp;Top-center:<input type="radio" ${topcenter_check} class="inputBox" name="templateId" value="BLOG_TPL_TOPCENTER"/>
-        </td>
-        <td width="10%" align="right">
-            <span class="treeHeader">&nbsp;</span>
-        </td>
-    </tr>
+  <tr>
+    <td width="10%" align="right">
+      <span class="treeHeader"> </span>
+    </td>
+    <td>&nbsp;</td>
+    <td width="5%" valign="top">
+      <div class="inputBox">
+        <input type="checkBox" ${text_check} name="drMimeTypeId_TEXT" value="Y"/>
+        Text
+      </div>
+    </td>
+    <td>&nbsp;</td>
+    <td width="60%">
+      <textarea class="textAreaBox" class="inputBox" name="textData" cols="60" rows="24">
+        ${textData!}
+      </textarea>
+    </td>
+    <td width="10%" align="right">
+      <span class="treeHeader"> </span>
+    </td>
+  </tr>
+  <tr>
+    <td width="10%" align="right">
+      <span class="treeHeader"> </span>
+    </td>
+    <td>&nbsp;</td>
+    <td width="5%" valign="top">
+      <div class="inputBox"><input type="checkbox" ${img_check} name="drMimeTypeId_IMAGE" value="Y"/>
+        Image
+      </div>
+    </td>
+    <td>&nbsp;</td>
+    <td width="60%">
+      <div class="inputBox">
+        Existing file name:
+        <#if imageContent?has_content && imageContent.drObjectInfo?has_content>
+          ${imageContent.drObjectInfo}
+        </#if>
+      </div>
+      <br />
+      <input type="file" class="inputBox" name="uploadedFile" size="25"/>
+      <#--
+      Force: <input type="checkbox" value="true" name="forceElectronicText"/>
+      -->
+      <br />
+      Top-left:<input type="radio" ${topleft_check} class="inputBox" name="templateId" value="BLOG_TPL_TOPLEFT"/>&nbsp;
+      Top-center:<input type="radio" ${topcenter_check} class="inputBox" name="templateId" value="BLOG_TPL_TOPCENTER"/>
+    </td>
+    <td width="10%" align="right">
+      <span class="treeHeader">&nbsp;</span>
+    </td>
+  </tr>
 </table>

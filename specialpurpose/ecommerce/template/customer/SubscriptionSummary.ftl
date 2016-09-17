@@ -18,44 +18,63 @@ under the License.
 -->
 
 <div id="subscription-summary" class="screenlet">
-    <div class="screenlet-title-bar">
-        <span class="h3">${uiLabelMap.ProductSubscriptions}</span>
-    </div>
-    <div class="screenlet-body">
-        <table width="100%" cellspacing="0" cellpadding="2">
-            <thead>
-                <tr class="header-row">
-                    <td><div class="tableheadtext">${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonId}</div></td>
-                    <td><div class="tableheadtext">${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}</div></td>
-                    <td><div class="tableheadtext">${uiLabelMap.CommonDescription}</div></td>
-                    <td><div class="tableheadtext">${uiLabelMap.ProductProductName}</div></td>
-                    <td><div class="tableheadtext">${uiLabelMap.CommonFromDate}</div></td>
-                    <td><div class="tableheadtext">${uiLabelMap.CommonThruDate}</div></td>
-                </tr>
-                <tr><td colspan="6"><hr /></td></tr>
-            </thead>
-            <tbody>
-                <#list subscriptionList as subscription>
-                    <tr>
-                        <td>${subscription.subscriptionId}</td>
-                        <td>
-                            <#assign subscriptionType = subscription.getRelatedOne('SubscriptionType', false)!>
+  <div class="screenlet-title-bar">
+    <span class="h3">${uiLabelMap.ProductSubscriptions}</span>
+  </div>
+  <div class="screenlet-body">
+    <table width="100%" cellspacing="0" cellpadding="2">
+      <thead>
+      <tr class="header-row">
+        <td>
+          <div class="tableheadtext">${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonId}</div>
+        </td>
+        <td>
+          <div class="tableheadtext">${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}</div>
+        </td>
+        <td>
+          <div class="tableheadtext">${uiLabelMap.CommonDescription}</div>
+        </td>
+        <td>
+          <div class="tableheadtext">${uiLabelMap.ProductProductName}</div>
+        </td>
+        <td>
+          <div class="tableheadtext">${uiLabelMap.CommonFromDate}</div>
+        </td>
+        <td>
+          <div class="tableheadtext">${uiLabelMap.CommonThruDate}</div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <hr/>
+        </td>
+      </tr>
+      </thead>
+      <tbody>
+      <#list subscriptionList as subscription>
+      <tr>
+        <td>${subscription.subscriptionId}</td>
+        <td>
+          <#assign subscriptionType = subscription.getRelatedOne('SubscriptionType', false)!>
                             ${(subscriptionType.description)?default(subscription.subscriptionTypeId?default('N/A'))}
-                        </td>
-                        <td>${subscription.description!}</td>
-                        <td>
-                            <#assign product = subscription.getRelatedOne('Product', false)!>
-                            <#if product?has_content>
-                                <#assign productName = Static['org.apache.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request, "html")!>
-                                <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="linktext">${productName?default(product.productId)}</a>
-                            </#if>
-                        </td>
-                        <td>${subscription.fromDate!}</td>
-                        <td>${subscription.thruDate!}</td>
-                    </tr>
-                </#list>
-            </tbody>
-        </table>
-    </div>
+        </td>
+        <td>${subscription.description!}</td>
+        <td>
+          <#assign product = subscription.getRelatedOne('Product', false)!>
+          <#if product?has_content>
+            <#assign productName = Static['org.apache.ofbiz.product.product.ProductContentWrapper']
+                .getProductContentAsText(product, 'PRODUCT_NAME', request, "html")!>
+            <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="linktext">
+              ${productName?default(product.productId)}
+            </a>
+          </#if>
+        </td>
+        <td>${subscription.fromDate!}</td>
+        <td>${subscription.thruDate!}</td>
+      </tr>
+      </#list>
+      </tbody>
+    </table>
+  </div>
 </div>
 

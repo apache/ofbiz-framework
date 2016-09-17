@@ -19,9 +19,11 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <h3>${uiLabelMap.PartyChangePassword}</h3>
-  </div>
-  &nbsp;<a id="CommonGoBack1" href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
-  &nbsp;<a id="CommonSave1" href="javascript:document.getElementById('changepasswordform').submit()" class="button">${uiLabelMap.CommonSave}</a>
+  </div>&nbsp;
+  <a id="CommonGoBack1" href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>&nbsp;
+  <a id="CommonSave1" href="javascript:document.getElementById('changepasswordform').submit()" class="button">
+    ${uiLabelMap.CommonSave}
+  </a>
   <p/>   
   <div class="screenlet-body">
     <form id="changepasswordform" method="post" action="<@ofbizUrl>updatePassword/${donePage}</@ofbizUrl>">
@@ -40,12 +42,15 @@ under the License.
         </div>
         <div>
           <label for="passwordHint">${uiLabelMap.PartyPasswordHint}</label>
-          <input type="text" class='inputBox' maxlength="100" name="passwordHint" id="passwordHint" value="${userLoginData.passwordHint!}" />
+          <input type="text" class='inputBox' maxlength="100" name="passwordHint"
+              id="passwordHint" value="${userLoginData.passwordHint!}" />
         </div>
         <label>${uiLabelMap.CommonFieldsMarkedAreRequired}</label>
       </fieldset>
     </form>
     <a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">[${uiLabelMap.CommonGoBack}]</a>
-    <a href="javascript:document.getElementById('changepasswordform').submit()" class="button">[${uiLabelMap.CommonSave}]</a>
+    <a href="javascript:document.getElementById('changepasswordform').submit()" class="button">
+      [${uiLabelMap.CommonSave}]
+    </a>
   </div>
 </div>

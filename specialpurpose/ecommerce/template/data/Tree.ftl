@@ -19,27 +19,28 @@ under the License.
 -->
 
 <entity-engine-xml>
-<#recurse doc>
+  <#recurse doc>
 </entity-engine-xml>
 
 <#macro topic_tree>
-<#recurse .node>
+  <#recurse .node>
 </#macro>
 
 <#macro topic>
-    <#assign contentId="ECMT" + .node.@id[0]/>
-    <#recurse .node>
+  <#assign contentId="ECMT" + .node.@id[0]/>
+  <#recurse .node>
 </#macro>
 
 <#macro child>
-    <#assign contentIdTo="ECMT" + .node.@id[0]/>
-    <#assign assocType="SUB_CONTENT"/>
-    <#if .node.@type = "content">
-        <#assign contentIdTo="ECMC" + .node.@id[0]/>
-        <#assign assocType="PUBLISH_LINK"/>
-    </#if>
-    <#assign nowStamp=Static["org.apache.ofbiz.base.util.UtilDateTime"].nowTimestamp()/>
-    <ContentAssoc contentIdTo="${contentIdTo}" contentId="${contentId}" contentAssocTypeId="${assocType}" fromDate="${nowStamp?string("yyyy-MM-dd HH:mm:ss")}"/>
+  <#assign contentIdTo="ECMT" + .node.@id[0]/>
+  <#assign assocType="SUB_CONTENT"/>
+  <#if .node.@type = "content">
+    <#assign contentIdTo="ECMC" + .node.@id[0]/>
+    <#assign assocType="PUBLISH_LINK"/>
+  </#if>
+  <#assign nowStamp=Static["org.apache.ofbiz.base.util.UtilDateTime"].nowTimestamp()/>
+  <ContentAssoc contentIdTo="${contentIdTo}" contentId="${contentId}" contentAssocTypeId="${assocType}"
+      fromDate="${nowStamp?string("yyyy-MM-dd HH:mm:ss")}"/>
 </#macro>
 
 <#macro @element>

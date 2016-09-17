@@ -63,8 +63,12 @@ under the License.
         <textarea class="textAreaBox" name="productReview" cols="40"></textarea>
       </div>
       <div>
-        <a href="javascript:document.getElementById('reviewProduct').submit();" class="button">[${uiLabelMap.CommonSave}]</a>
-        <a href="<@ofbizUrl>product?product_id=${requestParameters.product_id}</@ofbizUrl>" class="button">[${uiLabelMap.CommonCancel}]</a>
+        <a href="javascript:document.getElementById('reviewProduct').submit();" class="button">
+          [${uiLabelMap.CommonSave}]
+        </a>
+        <a href="<@ofbizUrl>product?product_id=${requestParameters.product_id}</@ofbizUrl>" class="button">
+          [${uiLabelMap.CommonCancel}]
+        </a>
       </div>
     </fieldset>
   </form>

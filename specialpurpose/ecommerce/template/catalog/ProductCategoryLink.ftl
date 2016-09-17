@@ -19,29 +19,44 @@ under the License.
 
 <#assign productCategoryLink = requestAttributes.productCategoryLink!/>
 <#if productCategoryLink?has_content>
-<#if productCategoryLink.detailSubScreen?has_content>
+  <#if productCategoryLink.detailSubScreen?has_content>
     ${screens.render(productCategoryLink.detailSubScreen)}
-<#else>
+  <#else>
     <#assign titleText = productCategoryLink.titleText!/>
     <#assign imageUrl = productCategoryLink.imageUrl!/>
     <#assign detailText = productCategoryLink.detailText!/>
 
     <#if productCategoryLink.linkTypeEnumId == "PCLT_SEARCH_PARAM">
-      <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "keywordsearch?" + productCategoryLink.linkInfo)/>
+      <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(
+          request, response, "keywordsearch?" + productCategoryLink.linkInfo)/>
     <#elseif productCategoryLink.linkTypeEnumId == "PCLT_ABS_URL">
       <#assign linkUrl = productCategoryLink.linkInfo!/>
     <#elseif productCategoryLink.linkTypeEnumId == "PCLT_CAT_ID">
-      <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "category/~category_id=" + productCategoryLink.linkInfo) + "/~pcategory=" + productCategoryId/>
-      <#assign linkProductCategory = delegator.findOne("ProductCategory", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", productCategoryLink.linkInfo), true)/>
-      <#assign linkCategoryContentWrapper = Static["org.apache.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(linkProductCategory, request)/>
-      <#assign titleText = productCategoryLink.titleText?default(linkCategoryContentWrapper.get("CATEGORY_NAME", "html"))!/>
-      <#assign imageUrl = productCategoryLink.imageUrl?default(linkCategoryContentWrapper.get("CATEGORY_IMAGE_URL", "url"))!/>
-      <#assign detailText = productCategoryLink.detailText?default(linkCategoryContentWrapper.get("DESCRIPTION", "html"))!/>
+      <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(
+          request, response, "category/~category_id=" + productCategoryLink.linkInfo) +
+          "/~pcategory=" + productCategoryId/>
+      <#assign linkProductCategory = delegator.findOne(
+          "ProductCategory", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap(
+          "productCategoryId", productCategoryLink.linkInfo), true)/>
+      <#assign linkCategoryContentWrapper =
+          Static["org.apache.ofbiz.product.category.CategoryContentWrapper"]
+          .makeCategoryContentWrapper(linkProductCategory, request)/>
+      <#assign titleText = productCategoryLink.titleText?default(
+          linkCategoryContentWrapper.get("CATEGORY_NAME", "html"))!/>
+      <#assign imageUrl = productCategoryLink.imageUrl?default(
+          linkCategoryContentWrapper.get("CATEGORY_IMAGE_URL", "url"))!/>
+      <#assign detailText = productCategoryLink.detailText?default(
+          linkCategoryContentWrapper.get("DESCRIPTION", "html"))!/>
     </#if>
 
     <div class="productcategorylink">
       <#if imageUrl?string?has_content>
-        <div class="smallimage"><a href="${linkUrl}"><img src="<@ofbizContentUrl>${imageUrl}</@ofbizContentUrl>" alt="${titleText?default("Link Image")}"/></a></div>
+        <div class="smallimage">
+          <a href="${linkUrl}">
+            <img src="<@ofbizContentUrl>${imageUrl}</@ofbizContentUrl>"
+                alt="${titleText?default("Link Image")}"/>
+          </a>
+        </div>
       </#if>
       <#if titleText?has_content>
         <a href="${linkUrl}" class="linktext">${titleText}</a>
@@ -50,5 +65,5 @@ under the License.
         <div>${detailText}</div>
       </#if>
     </div>
-</#if>
+  </#if>
 </#if>

@@ -27,7 +27,5 @@ under the License.
     </#if>
     <a href="${verifyUrl}">If this was by mistake, click here subscribe again.</a-->
 
-
-
   </body>
 </html>

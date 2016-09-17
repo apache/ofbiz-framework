@@ -26,11 +26,12 @@ under the License.
   </div>
   <div class="screenlet-body">
     <ul class="browsecategorylist">
-      <#list forums as forum>
-        <li class="browsecategorytext">
-          <a href="<@ofbizUrl>showforum?forumId=${forum.contentId}</@ofbizUrl>" class="browsecategorybutton">${forum.contentName!forum.contentId}</a>
-        </li>
-      </#list>
+    <#list forums as forum>
+      <li class="browsecategorytext">
+        <a href="<@ofbizUrl>showforum?forumId=${forum.contentId}</@ofbizUrl>"
+            class="browsecategorybutton">${forum.contentName!forum.contentId}</a>
+      </li>
+    </#list>
     </ul>
   </div>
 </div>

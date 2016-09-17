@@ -20,14 +20,26 @@ under the License.
 <#assign maxToShow = 4/>
 <#assign lastViewedProducts = sessionAttributes.lastViewedProducts!/>
 <#if lastViewedProducts?has_content>
-  <#if (lastViewedProducts?size > maxToShow)><#assign limit=maxToShow/><#else><#assign limit=(lastViewedProducts?size-1)/></#if>
+  <#if (lastViewedProducts?size > maxToShow)>
+    <#assign limit=maxToShow/>
+  <#else>
+    <#assign limit=(lastViewedProducts?size-1)/>
+  </#if>
   <div id="minilastviewedproducts" class="screenlet">  
     <div class="screenlet-title-bar">
       <ul>
         <li class="h3">${uiLabelMap.EcommerceLastProducts}</li>
-        <li><a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>">[${uiLabelMap.CommonClear}]</a></li>
+        <li>
+          <a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>">
+            [${uiLabelMap.CommonClear}]
+          </a>
+        </li>
         <#if (lastViewedProducts?size > maxToShow)>
-          <li><a href="<@ofbizUrl>lastviewedproducts</@ofbizUrl>">[${uiLabelMap.CommonMore}]</a></li>
+          <li>
+            <a href="<@ofbizUrl>lastviewedproducts</@ofbizUrl>">
+              [${uiLabelMap.CommonMore}]
+            </a>
+          </li>
         </#if>
       </ul>
       <br class="clear"/>

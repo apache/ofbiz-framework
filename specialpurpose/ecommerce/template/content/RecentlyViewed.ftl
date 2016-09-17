@@ -28,7 +28,9 @@ under the License.
     <div class="screenlet-body">
       <#list mrvList as mrvArr>
         <div class="browsecategorytext">
-          <a href="<@ofbizUrl>viewcontent?contentId=${mrvArr[0]}</@ofbizUrl>" class="browsecategorybutton">${mrvArr[1]}</a>
+          <a href="<@ofbizUrl>viewcontent?contentId=${mrvArr[0]}</@ofbizUrl>" class="browsecategorybutton">
+            ${mrvArr[1]}
+          </a>
         </div>
       </#list>
     </div>

@@ -17,24 +17,23 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if reorderProducts?has_content>
-<div id ="minireorderprods" class="screenlet">
+  <div id="minireorderprods" class="screenlet">
     <div class="screenlet-title-bar">
-        <ul>
-            <li class="h3">${uiLabelMap.ProductQuickReorder}...</li>
-        </ul>
+      <ul>
+        <li class="h3">${uiLabelMap.ProductQuickReorder}...</li>
+      </ul>
     </div>
     <div class="screenlet-body">
-        <#list reorderProducts as miniProduct>
-          <div>
-              ${setRequestAttribute("miniProdQuantity", reorderQuantities.get(miniProduct.productId))}
-              ${setRequestAttribute("miniProdFormName", "theminireorderprod" + miniProduct_index + "form")}
-              ${setRequestAttribute("optProductId", miniProduct.productId)}
-              ${screens.render("component://ecommerce/widget/CatalogScreens.xml#miniproductsummary")}
-          </div>
-          <#if miniProduct_has_next>
-              
-          </#if>
-        </#list>
+      <#list reorderProducts as miniProduct>
+        <div>
+          ${setRequestAttribute("miniProdQuantity", reorderQuantities.get(miniProduct.productId))}
+          ${setRequestAttribute("miniProdFormName", "theminireorderprod" + miniProduct_index + "form")}
+          ${setRequestAttribute("optProductId", miniProduct.productId)}
+          ${screens.render("component://ecommerce/widget/CatalogScreens.xml#miniproductsummary")}
+        </div>
+        <#if miniProduct_has_next>
+        </#if>
+      </#list>
     </div>
-</div>
+  </div>
 </#if>

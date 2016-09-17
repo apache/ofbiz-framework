@@ -19,27 +19,47 @@ under the License.
 
 <table border="0" cellpadding="1">
   <tr>
-      <td align="right" width="25%"><div class="tableheadtext">Account Number:</div></td>
-      <td><div>${ownedFinAccount.finAccountId}</div></td>
+    <td align="right" width="25%">
+      <div class="tableheadtext">Account Number:</div>
+    </td>
+    <td>
+      <div>${ownedFinAccount.finAccountId}</div>
+    </td>
   </tr>
   <tr>
-      <td align="right"><div class="tableheadtext">Currency:</div></td>
-      <td><div>${(accountCurrencyUom.description)!} [${ownedFinAccount.currencyUomId!}]</div></td>
+    <td align="right">
+      <div class="tableheadtext">Currency:</div>
+    </td>
+    <td>
+      <div>${(accountCurrencyUom.description)!} [${ownedFinAccount.currencyUomId!}]</div>
+    </td>
   </tr>
   <tr>
-      <td align="right"><div class="tableheadtext">Date Opened:</div></td>
-      <td><div>${ownedFinAccount.fromDate!}</div></td>
+    <td align="right">
+      <div class="tableheadtext">Date Opened:</div>
+    </td>
+    <td>
+      <div>${ownedFinAccount.fromDate!}</div>
+    </td>
   </tr>
   <tr>
-      <td align="right"><div class="tableheadtext">Status:</div></td>
-      <td><div>${(finAccountStatusItem.description)?default("Active")}</div></td>
+    <td align="right">
+      <div class="tableheadtext">Status:</div>
+    </td>
+    <td>
+      <div>${(finAccountStatusItem.description)?default("Active")}</div>
+    </td>
   </tr>
-  <#if ownedFinAccount.replenishLevel??>
+<#if ownedFinAccount.replenishLevel??>
   <tr>
-      <td align="right"><div class="tableheadtext">Replenish Level:</div></td>
-      <td><div>${ownedFinAccount.replenishLevel}</div></td>
+    <td align="right">
+      <div class="tableheadtext">Replenish Level:</div>
+    </td>
+    <td>
+      <div>${ownedFinAccount.replenishLevel}</div>
+    </td>
   </tr>
-  </#if>
+</#if>
 </table>
 
 <table border="0" cellpadding="1" border="2">
@@ -51,21 +71,26 @@ under the License.
     <th>Type</th>
     <th>Amount</th>
   </tr>
-  <#list ownedFinAccountTransList as ownedFinAccountTrans>
-    <#assign finAccountTransType = ownedFinAccountTrans.getRelatedOne("FinAccountTransType", false)/>
-    <#assign displayAmount = ownedFinAccountTrans.amount/>
-    <#if ownedFinAccountTrans.finAccountTransTypeId == "WITHDRAWAL">
-      <#assign displayAmount = -displayAmount/>
-    </#if>
-  <tr>
-    <td>${ownedFinAccountTrans.transactionDate!}</td>
-    <td>${ownedFinAccountTrans.finAccountTransId}</td>
-    <td><#if ownedFinAccountTrans.orderId?has_content>${ownedFinAccountTrans.orderId!}:${ownedFinAccountTrans.orderItemSeqId!}<#else>&nbsp;</#if></td>
-    <td><#if ownedFinAccountTrans.paymentId?has_content>${ownedFinAccountTrans.paymentId!}<#else>&nbsp;</#if></td>
-    <td>${finAccountTransType.description?default(ownedFinAccountTrans.finAccountTransTypeId)!}</td>
-    <td><@ofbizCurrency amount=displayAmount isoCode=ownedFinAccount.currencyUomId/></td>
-  </tr>
-  </#list>
+    <#list ownedFinAccountTransList as ownedFinAccountTrans>
+      <#assign finAccountTransType = ownedFinAccountTrans.getRelatedOne("FinAccountTransType", false)/>
+      <#assign displayAmount = ownedFinAccountTrans.amount/>
+      <#if ownedFinAccountTrans.finAccountTransTypeId == "WITHDRAWAL">
+        <#assign displayAmount = -displayAmount/>
+      </#if>
+      <tr>
+        <td>${ownedFinAccountTrans.transactionDate!}</td>
+        <td>${ownedFinAccountTrans.finAccountTransId}</td>
+        <td>
+          <#if ownedFinAccountTrans.orderId?has_content>
+            ${ownedFinAccountTrans.orderId!}:${ownedFinAccountTrans.orderItemSeqId!}
+          <#else>&nbsp;
+          </#if>
+        </td>
+        <td><#if ownedFinAccountTrans.paymentId?has_content>${ownedFinAccountTrans.paymentId!}<#else>&nbsp;</#if></td>
+        <td>${finAccountTransType.description?default(ownedFinAccountTrans.finAccountTransTypeId)!}</td>
+        <td><@ofbizCurrency amount=displayAmount isoCode=ownedFinAccount.currencyUomId/></td>
+      </tr>
+    </#list>
   <tr>
     <th>Actual Balance</th>
     <td>&nbsp;</td>
@@ -75,32 +100,32 @@ under the License.
 </table>
 
 <#if ownedFinAccountAuthList?has_content>
-<table border="0" cellpadding="1">
-  <tr>
-    <th>Authorization ${uiLabelMap.CommonDate}</th>
-    <th>ID</th>
-    <th>Expires</th>
-    <th>Amount</th>
-  </tr>
-  <tr>
-    <td>Actual Balance</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td><@ofbizCurrency amount=ownedFinAccount.actualBalance isoCode=ownedFinAccount.currencyUomId/></td>
-  </tr>
-  <#list ownedFinAccountAuthList as ownedFinAccountAuth>
-  <tr>
-    <td>${ownedFinAccountAuth.authorizationDate!}</td>
-    <td>${ownedFinAccountAuth.finAccountAuthId}</td>
-    <td>${ownedFinAccountAuth.thruDate!}</td>
-    <td><@ofbizCurrency amount=-ownedFinAccountAuth.amount isoCode=ownedFinAccount.currencyUomId/></td>
-  </tr>
-  </#list>
-  <tr>
-    <th>Available Balance</th>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <th><@ofbizCurrency amount=ownedFinAccount.availableBalance isoCode=ownedFinAccount.currencyUomId/></th>
-  </tr>
-</table>
+  <table border="0" cellpadding="1">
+    <tr>
+      <th>Authorization ${uiLabelMap.CommonDate}</th>
+      <th>ID</th>
+      <th>Expires</th>
+      <th>Amount</th>
+    </tr>
+    <tr>
+      <td>Actual Balance</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><@ofbizCurrency amount=ownedFinAccount.actualBalance isoCode=ownedFinAccount.currencyUomId/></td>
+    </tr>
+    <#list ownedFinAccountAuthList as ownedFinAccountAuth>
+      <tr>
+        <td>${ownedFinAccountAuth.authorizationDate!}</td>
+        <td>${ownedFinAccountAuth.finAccountAuthId}</td>
+        <td>${ownedFinAccountAuth.thruDate!}</td>
+        <td><@ofbizCurrency amount=-ownedFinAccountAuth.amount isoCode=ownedFinAccount.currencyUomId/></td>
+      </tr>
+    </#list>
+    <tr>
+      <th>Available Balance</th>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <th><@ofbizCurrency amount=ownedFinAccount.availableBalance isoCode=ownedFinAccount.currencyUomId/></th>
+    </tr>
+  </table>
 </#if>

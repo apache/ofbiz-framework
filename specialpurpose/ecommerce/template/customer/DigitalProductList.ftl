@@ -18,52 +18,67 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-title-bar">
-        <div class="h3">${uiLabelMap.PageTitleDigitalProductList}</div>
+  <div class="screenlet-title-bar">
+    <div class="h3">${uiLabelMap.PageTitleDigitalProductList}</div>
+  </div>
+  <div class="screenlet-body">
+    <div>&nbsp;
+      <a href="<@ofbizUrl>digitalproductedit</@ofbizUrl>" class="buttontext">
+        ${uiLabelMap.EcommerceDigitalNewProduct}
+      </a>
     </div>
-    <div class="screenlet-body">
-       <div>&nbsp;<a href="<@ofbizUrl>digitalproductedit</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceDigitalNewProduct}</a></div>
-        <table width="100%" cellpadding="1" cellspacing="0" border="0">
-          <tr>
-            <td width="30%">
-              <div><b>${uiLabelMap.ProductProductName}</b></div>
-            </td>
-            <td width="5">&nbsp;</td>
-            <td width="45%">
-              <div><b>${uiLabelMap.CommonDescription}</b></div>
-            </td>
-            <td width="5">&nbsp;</td>
-            <td width="20%">&nbsp;</td>
-          </tr>
-          <#list supplierProductList as supplierProduct>
-            <#assign product = supplierProduct.getRelatedOne("Product", true)/>
-            <tr><td colspan="5"><hr /></td></tr>
-            <tr>
-              <td>
-                <div>${(product.productName)!}</div>
-              </td>
-              <td width="5">&nbsp;</td>
-              <td>
-                <div>${(product.description)!}</div>
-              </td>
-              <td width="5">&nbsp;</td>
-              <td align="right">
-                <a href="<@ofbizUrl>digitalproductedit?productId=${supplierProduct.productId}&amp;currencyUomId=${supplierProduct.currencyUomId}&amp;minimumOrderQuantity=${supplierProduct.minimumOrderQuantity}&amp;availableFromDate=${supplierProduct.availableFromDate}</@ofbizUrl>" class="buttontext">Edit</a>
-              </td>
-            </tr>
-          </#list>
-          <#if !supplierProductList?has_content>
-            <tr><td colspan="5"><h3>${uiLabelMap.EcommerceNoDigitalProductsFound}</h3></td></tr>
-          </#if>
-        </table>
-    </div>
+    <table width="100%" cellpadding="1" cellspacing="0" border="0">
+      <tr>
+        <td width="30%">
+          <div><b>${uiLabelMap.ProductProductName}</b></div>
+        </td>
+        <td width="5">&nbsp;</td>
+        <td width="45%">
+          <div><b>${uiLabelMap.CommonDescription}</b></div>
+        </td>
+        <td width="5">&nbsp;</td>
+        <td width="20%">&nbsp;</td>
+      </tr>
+    <#list supplierProductList as supplierProduct>
+      <#assign product = supplierProduct.getRelatedOne("Product", true)/>
+      <tr>
+        <td colspan="5">
+          <hr/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div>${(product.productName)!}</div>
+        </td>
+        <td width="5">&nbsp;</td>
+        <td>
+          <div>${(product.description)!}</div>
+        </td>
+        <td width="5">&nbsp;</td>
+        <td align="right">
+          <a href="<@ofbizUrl>digitalproductedit?productId=${supplierProduct.productId}&amp;currencyUomId=${supplierProduct.currencyUomId}&amp;minimumOrderQuantity=${supplierProduct.minimumOrderQuantity}&amp;availableFromDate=${supplierProduct.availableFromDate}</@ofbizUrl>"
+              class="buttontext">Edit</a>
+        </td>
+      </tr>
+    </#list>
+    <#if !supplierProductList?has_content>
+      <tr>
+        <td colspan="5"><h3>${uiLabelMap.EcommerceNoDigitalProductsFound}</h3></td>
+      </tr>
+    </#if>
+    </table>
+  </div>
 </div>
 
 <div class="screenlet">
-    <div class="screenlet-title-bar">
-        <div class="h3">${uiLabelMap.EcommerceDigitalProductPurchaseHistoryCommission}</div>
+  <div class="screenlet-title-bar">
+    <div class="h3">${uiLabelMap.EcommerceDigitalProductPurchaseHistoryCommission}</div>
+  </div>
+  <div class="screenlet-body">
+    <div>&nbsp;
+      <a href="<@ofbizUrl>digitalproductedit</@ofbizUrl>" class="buttontext">
+        ${uiLabelMap.EcommerceDigitalNewProduct}
+      </a>
     </div>
-    <div class="screenlet-body">
-       <div>&nbsp;<a href="<@ofbizUrl>digitalproductedit</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceDigitalNewProduct}</a></div>
-    </div>
+  </div>
 </div>

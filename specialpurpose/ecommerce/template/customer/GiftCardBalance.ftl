@@ -18,11 +18,11 @@ under the License.
 -->
 
 <h1>${uiLabelMap.AccountingGiftCardBalance}</h1>
-<br />
+<br/>
 <div>${uiLabelMap.AccountingEnterGiftCardNumber}</div>
-<br />
+<br/>
 
-<br />
+<br/>
 <table align="center">
   <#if requestAttributes.processResult??>
     <tr>
@@ -43,23 +43,35 @@ under the License.
         </div>
       </td>
     </tr>
-    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
   </#if>
   <form method="post" action="<@ofbizUrl>querygcbalance</@ofbizUrl>">
-    <input type="hidden" name="currency" value="USD" />
-    <input type="hidden" name="paymentConfig" value="${paymentProperties?default("payment.properties")}" />
+    <input type="hidden" name="currency" value="USD"/>
+    <input type="hidden" name="paymentConfig" value="${paymentProperties?default("payment.properties")}"/>
     <tr>
-      <td><div class="tableheadtext">${uiLabelMap.AccountingCardNumber}</div></td>
-      <td><input type="text" class="inputBox" name="cardNumber" size="20" value="${(requestParameters.cardNumber)!}" /></td>
+      <td>
+        <div class="tableheadtext">${uiLabelMap.AccountingCardNumber}</div>
+      </td>
+      <td>
+        <input type="text" class="inputBox" name="cardNumber" size="20" value="${(requestParameters.cardNumber)!}"/>
+      </td>
     </tr>
     <tr>
-      <td><div class="tableheadtext">${uiLabelMap.AccountingPINNumber}</div></td>
-      <td><input type="text" class="inputBox" name="pin" size="15" value="${(requestParameters.pin)!}" /></td>
+      <td>
+        <div class="tableheadtext">${uiLabelMap.AccountingPINNumber}</div>
+      </td>
+      <td><input type="text" class="inputBox" name="pin" size="15" value="${(requestParameters.pin)!}"/></td>
     </tr>
-    <tr><td colspan="2">&nbsp;</td></tr>
     <tr>
-      <td colspan="2" align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceCheckBalance}" /></td>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center">
+        <input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceCheckBalance}"/>
+      </td>
     </tr>
   </form>
 </table>
-<br />
+<br/>

@@ -17,22 +17,23 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign associatedProducts = Static["org.apache.ofbiz.order.shoppingcart.product.ProductDisplayWorker"].getRandomCartProductAssoc(request, true)!>
+<#assign associatedProducts = Static["org.apache.ofbiz.order.shoppingcart.product.ProductDisplayWorker"]
+    .getRandomCartProductAssoc(request, true)!>
 <#if associatedProducts?has_content>
-<div id="miniassocproducts" class="screenlet">
+  <div id="miniassocproducts" class="screenlet">
     <h3>${uiLabelMap.EcommerceYouMightLike}...</h3>
     <div class="screenlet-body">
-        <#-- random complementary products -->
-        <ul class="browsecategorylist">
+    <#-- random complementary products -->
+      <ul class="browsecategorylist">
         <#list associatedProducts as miniProduct>
-            <li class="browsecategorytext">
-                ${setRequestAttribute("miniProdQuantity", 1)}
-                ${setRequestAttribute("miniProdFormName", "theminiassocprod" + miniProduct_index + "form")}
-                ${setRequestAttribute("optProductId", miniProduct.productId)}
-                ${screens.render("component://ecommerce/widget/CatalogScreens.xml#miniproductsummary")}
-            </li>
+          <li class="browsecategorytext">
+            ${setRequestAttribute("miniProdQuantity", 1)}
+            ${setRequestAttribute("miniProdFormName", "theminiassocprod" + miniProduct_index + "form")}
+            ${setRequestAttribute("optProductId", miniProduct.productId)}
+            ${screens.render("component://ecommerce/widget/CatalogScreens.xml#miniproductsummary")}
+          </li>
         </#list>
-        </ul>
+      </ul>
     </div>
-</div>
+  </div>
 </#if>
