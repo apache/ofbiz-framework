@@ -84,7 +84,7 @@ under the License.
         <td valign="middle">
           <div>
             <select name="pft_${productFeatureTypeId}">
-              <option value="">- ${uiLabelMap.CommonAny} -</option>
+              <option value=""></option>
               <#list productFeatures as productFeature>
               <option value="${productFeature.productFeatureId}">${productFeature.description?default("No Description")} [${productFeature.productFeatureId}]</option>
               </#list>
