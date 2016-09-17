@@ -426,6 +426,22 @@ default password
 
 `gradlew loadAdminUserLogin -PuserLoginId=MyUserName`
 
+#### Compile Java using Xlint output
+
+Xlint prints output of all warnings detected by the compiler
+
+`gradlew -PXlint build`
+
+#### Run OWASP tool to identify dependency vulnerabilities (CVEs)
+
+The below command activates a gradle plugin (OWASP) and Identifies
+and reports known vulnerabilities (CVEs) in OFBiz library dependencies.
+This command takes a long time to execute because it needs to download
+all plugin dependencies and the CVE identification process is also
+time consuming
+
+`gradlew -PenableOwasp dependencyCheck`
+
 #### Setup eclipse project for OFBiz
 
 Thanks to some gradle magic, setting up OFBiz on eclipse is very

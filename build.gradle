@@ -39,19 +39,12 @@ javadoc.failOnError = false
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
-/* Please don't remove. This is useful when you want to see 
-   unchecked warnings and deprecated members or classes in log.
-allprojects {
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-        }
-    }
-}*/
-
-// Enforces UTF-8 java compilation encoding on Windows platform
+// Java compile options
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+    if(project.hasProperty('Xlint')) {
+        options.compilerArgs << "-Xlint"
+    }
 }
 
 // root and subproject settings
