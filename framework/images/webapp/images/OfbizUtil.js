@@ -23,6 +23,94 @@ var LAST_AUTOCOMP_REF = null;
 //default ajax request timeout in milliseconds
 var AJAX_REQUEST_TIMEOUT = 5000;
 
+// Add observers on DOM ready.
+$(document).ready(function() {
+    // bindObservers will add observer on passed html section when DOM is ready.
+    bindObservers("body");
+});
+
+/* bindObservers function contains the code of adding observers and it can be called for specific section as well
+   when we need to add observer on section which is updated by Ajax.
+   Example: bindObservers("sectionSelector");
+   sectionSelector can be Id, Class and Element name.
+*/
+function bindObservers(bind_element) {
+
+    // Adding observer for checkboxes for select all action.
+    jQuery(bind_element).on("click", "[type=checkbox]", function() {
+        var action_checkbox = jQuery(this),
+            parent_action = action_checkbox.is(".selectAll") ? action_checkbox : action_checkbox.getForm().getFormFields().filter(".selectAll");
+        if (parent_action.length !== 0) {
+            addSelectAllObserver(action_checkbox);
+        }
+    });
+
+    // If parent checkbox is already checked on DOM ready then check its child checkboxes also.
+    if (jQuery(".selectAll").is(":checked")) {
+        jQuery(".selectAll").removeAttr("checked").trigger("click");
+    }
+}
+
+/* SelectAll: This utility can be used when we need to use parent and child box combination over any page. Here is the list of tasks it will do:
+   1. Check/ Uncheck child checkboxes when parent checkbox checked.
+   2. Check/ Uncheck parent checkbox when child checkboxes checked.
+*/
+
+// addSelectAllObserver: This function will add observers to checkboxes which belongs to select all functionality.
+function addSelectAllObserver(action_checkbox) {
+    var form_fields = jQuery(action_checkbox).getForm().getFormFields(),
+        all_child = form_fields.filter(":checkbox:not(:disabled):not(.selectAll)"),
+        select_child = all_child.filter(".selectAllChild").size() > 0 ? all_child.filter(".selectAllChild") : all_child,
+        parent_checkbox = form_fields.filter(".selectAll"),
+        is_parent = action_checkbox.is(".selectAll");
+
+    if (is_parent) {
+        // Check/ Uncheck child checkboxes when parent checked.
+        jQuery(select_child).attr("checked", function() {
+            return parent_checkbox.is(":checked");
+        });
+    } else {
+        // Check/ Uncheck parent checkbox when child checkboxes checked.
+        if (select_child.size() > 0) {
+            var all_checked = true;
+
+            select_child.each(function() {
+                if (all_checked) {
+                    all_checked = all_checked && jQuery(this).is(":checked");
+                }
+            });
+
+            // Below code is for checking or unchecking the parent checkbox if all its dependent child checkbox is checked.
+            if (all_checked) {
+                parent_checkbox.attr("checked", "checked");
+            } else {
+                parent_checkbox.removeAttr("checked");
+            }
+        }
+    }
+}
+
+// getFormFields: This utility function return all form fields (inside and outside form)
+jQuery.fn.getFormFields = function() {
+    var id = jQuery(this).attr("id");
+    if (id === undefined) {
+        return jQuery(this).find(":input");
+    } else {
+        return jQuery.merge(jQuery(this).find(":input"), jQuery(":input[form=" + id + "]"));
+    }
+}
+
+// getForm: This utility function return form of the field.
+jQuery.fn.getForm = function() {
+    var form_id = jQuery(this).attr("form");
+    // Get closest form if no form id specified else get the form using id.
+    if (form_id === undefined) {
+        return jQuery(this).closest("form");
+    } else {
+        return jQuery("#" + form_id);
+    }
+}
+
 // Check Box Select/Toggle Functions for Select/Toggle All
 
 function toggle(e) {
