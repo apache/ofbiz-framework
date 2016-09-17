@@ -34,12 +34,12 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
-            <drop-down allow-empty="true">
+            <check all-checked="false">
                 <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PMNT_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field position="1" name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
         <field position="2" name="partyIdTo"><lookup target-form-name="LookupPartyName"/></field>

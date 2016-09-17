@@ -93,11 +93,11 @@ under the License.
         </actions>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingVendorParty}" position="1"><lookup target-form-name="LookupPartyName"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
-            <drop-down allow-empty="true">
+            <check all-checked="false">
                 <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="organizationPartyId"><hidden/></field>
         <field name="fromInvoiceDate" position="1"><date-time/></field>
