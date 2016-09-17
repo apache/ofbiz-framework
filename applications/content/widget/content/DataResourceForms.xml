@@ -41,12 +41,12 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId">
-            <drop-down allow-empty="true">
+            <check all-checked="false">
                 <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="CONTENT_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="localeString" position="2">
             <lookup target-form-name="LookupLocale"></lookup>
