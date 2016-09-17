@@ -1200,6 +1200,24 @@ public class RequestHandler {
         String controlPath = (String) request.getAttribute("_CONTROL_PATH_");
         newURL.append(controlPath);
 
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String webSiteId = WebSiteWorker.getWebSiteId(request);
+        if (webSiteId != null) {
+            try {
+                GenericValue webSiteValue = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache().queryOne();
+                if (webSiteValue != null) {
+                    ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
+                    String domainName = request.getLocalName();
+                    if (application.getAttribute("MULTI_SITE_ENABLED") != null && UtilValidate.isNotEmpty(webSiteValue.getString("hostedPathAlias")) && !domainName.equals(webSiteValue.getString("httpHost"))) {
+                        newURL.append('/');
+                        newURL.append(webSiteValue.getString("hostedPathAlias"));
+                    }
+                }
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, "Problems with WebSite entity", module);
+            }
+        }
+
         // now add the actual passed url, but if it doesn't start with a / add one first
         if (!url.startsWith("/")) {
             newURL.append("/");

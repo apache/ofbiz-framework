@@ -24,11 +24,6 @@ under the License.
     <description>CMS Site for the Apache OFBiz Project</description>
 
     <context-param>
-        <description>A unique ID used to look up the WebSite entity</description>
-        <param-name>webSiteId</param-name>
-        <param-value>CmsSite</param-value>
-    </context-param>
-    <context-param>
         <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
         <param-name>localDispatcherName</param-name>
         <param-value>CmsSite</param-value>
@@ -65,10 +60,16 @@ under the License.
             <param-value>/cms/cms</param-value>
         </init-param>
     </filter>
+    <filter>
+        <display-name>WebSiteFilter</display-name>
+        <filter-name>WebSiteFilter</filter-name>
+        <filter-class>org.apache.ofbiz.cmssite.multisite.WebSiteFilter</filter-class>
+    </filter>
     <filter-mapping>
         <filter-name>ContextFilter</filter-name>
             <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <filter-mapping><filter-name>WebSiteFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>
 
     <listener><listener-class>org.apache.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
     <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
@@ -87,7 +88,7 @@ under the License.
 
     <servlet-mapping>
         <servlet-name>ControlServlet</servlet-name>
-        <url-pattern>/cms/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
     <session-config>
