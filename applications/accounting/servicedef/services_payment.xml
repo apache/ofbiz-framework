@@ -282,4 +282,18 @@ under the License.
     <service name="deleteBillingAccountTermAttr" engine="entity-auto" default-entity-name="BillingAccountTermAttr" invoke="delete" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="createDeduction" engine="entity-auto" invoke="create" default-entity-name="Deduction" auth="true">
+        <description>Create a Deduction record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateDeduction" engine="entity-auto" invoke="update" default-entity-name="Deduction" auth="true">
+        <description>Update a Deduction record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteDeduction" engine="entity-auto" invoke="delete" default-entity-name="Deduction" auth="true">
+        <description>Delete a Deduction record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>

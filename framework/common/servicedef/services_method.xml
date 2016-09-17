@@ -38,5 +38,19 @@ under the License.
         <description>Delete a Custom Method</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <service name="createCustomMethodType" engine="entity-auto" invoke="create" default-entity-name="CustomMethodType" auth="true"+        <description>Create a Custom Method Type</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateCustomMethodType" engine="entity-auto" invoke="update" default-entity-name="CustomMethodType" auth="true">
+        <description>Update a Custom Method Type</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCustomMethodType" engine="entity-auto" invoke="delete" default-entity-name="CustomMethodType" auth="true">
+        <description>Delete a Custom Method Type</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
     
 </services>
