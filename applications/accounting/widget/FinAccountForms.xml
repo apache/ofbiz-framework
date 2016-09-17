@@ -140,7 +140,7 @@ under the License.
     </form>
 
     <form name="ListFinAccountRoles" type="list"  list-name="finAccountRoles"  target="updateFinAccountRole" separate-columns="true"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditFinAccountRoles">
         <actions>
             <entity-condition entity-name="FinAccountRole">
                 <condition-expr field-name="finAccountId" from-field="finAccountId"/>
@@ -218,7 +218,7 @@ under the License.
     </form>
 
     <form name="ListFinAccountAuths" type="list"  list-name="finAccountauths"  target="expireFinAccountAuth" separate-columns="true"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditFinAccountAuths">
         <actions>
             <entity-condition entity-name="FinAccountAuth">
                 <condition-expr field-name="finAccountId" from-field="finAccountId"/>
@@ -256,7 +256,7 @@ under the License.
         <field name="paymentGroupTypeId"><hidden value="BATCH_PAYMENT"/></field>
     </form>
     <form name="ListDepositSlips" type="list" target="FindDepositSlips" extends="ListPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml" list-name="paymentGroupList"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2" paginate-target="FindDepositSlips">
         <field name="paymentGroupId" widget-style="buttontext">
             <hyperlink description="${paymentGroupId}" target="EditDepositSlipAndMembers">
                 <parameter param-name="paymentGroupId"/>
@@ -279,7 +279,7 @@ under the License.
         <field name="finAccountId"><hidden value="${finAccountId}"/></field>
     </form>
     <form name="ListDepositSlipMember" type="list" target="updateDepositSlipMember" extends="ListPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2" paginate-target="EditDepositSlipAndMembers">
         <actions>
             <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
                 <field-map field-name="paymentGroupId"/>
@@ -414,7 +414,7 @@ under the License.
         </field>
     </form>
     <form name="ListFinAccountReconciliations" type="list" list-name="glReconciliations" list-entry-name="glReconciliation" separate-columns="true"
-            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="FindFinAccountReconciliations">
         <row-actions>
             <entity-one entity-name="PartyNameView" value-field="partyName">
                 <field-map field-name="partyId" from-field="glReconciliation.organizationPartyId"/>
