@@ -169,7 +169,7 @@ under the License.
     </form>
 
     <!-- Person Lookup forms -->
-    <form name="LookupPerson" type="single" target="LookupPerson"
+    <form name="LookupPerson" type="single" target="${parameters.thisRequestUri}"
         header-row-style="header-row" default-table-style="basic-table">
         <!--<auto-fields-entity entity-name="Person" default-field-type="find"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
@@ -179,7 +179,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListLookupPerson" type="list" list-name="listIt" paginate-target="LookupPerson"
+    <form name="ListLookupPerson" type="list" list-name="listIt" paginate-target="${parameters.thisRequestUri}"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
@@ -257,7 +257,7 @@ under the License.
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><display description="${groupName}"/></field>
     </form>
 
-    <form name="LookupPartyGroup" type="single" target="LookupPartyGroup"
+    <form name="LookupPartyGroup" type="single" target="${parameters.thisRequestUri}"
         header-row-style="header-row" default-table-style="basic-table">
         <!--<auto-fields-entity entity-name="PartyGroup" default-field-type="find"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
@@ -266,7 +266,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListLookupPartyGroup" type="list" list-name="listIt" paginate-target="LookupPartyGroup"
+    <form name="ListLookupPartyGroup" type="list" list-name="listIt" paginate-target="${parameters.thisRequestUri}"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <script location="component://party/groovyScripts/party/FindLookUp.groovy"/>
