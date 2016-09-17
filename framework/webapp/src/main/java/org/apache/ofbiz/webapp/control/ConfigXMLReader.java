@@ -503,6 +503,7 @@ public class ConfigXMLReader {
         public String path;
         public String invoke;
         public boolean globalTransaction = true;
+        public int transactionTimeout;
         public Metrics metrics = null;
 
         public Event(Element eventElement) {
@@ -510,6 +511,7 @@ public class ConfigXMLReader {
             this.path = eventElement.getAttribute("path");
             this.invoke = eventElement.getAttribute("invoke");
             this.globalTransaction = !"false".equals(eventElement.getAttribute("global-transaction"));
+            this.transactionTimeout = Integer.valueOf(eventElement.getAttribute("transaction-timeout"));
             // Get metrics.
             Element metricsElement = UtilXml.firstChildElement(eventElement, "metric");
             if (metricsElement != null) {
