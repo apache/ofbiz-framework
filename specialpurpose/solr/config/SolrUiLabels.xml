@@ -45,4 +45,29 @@ under the License.
     <property key="SolrMissingProductCategoryId">
         <value xml:lang="en">Missing product category id.</value>
     </property>
+    
+    <property key="SolrErrorManageLoginFirst">
+        <value xml:lang="en">To manage Solr in OFBiz, you have to login first and have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorNoManagePermission">
+        <value xml:lang="en">To manage Solr in OFBiz, you should have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorUpdateLoginFirst">
+        <value xml:lang="en">To update a Solr index in OFBiz, you have to login first and have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorNoUpdatePermission">
+        <value xml:lang="en">To update Solr in OFBiz, you should have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorReplicateLoginFirst">
+        <value xml:lang="en">To enable/disable replication of a Solr index in OFBiz, you have to login first and have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorNoReplicatePermission">
+        <value xml:lang="en">To enable/disable replication of a Solr index in OFBiz, you should have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorViewFileLoginFirst">
+        <value xml:lang="en">To view files of a Solr index in OFBiz, you have to login first and have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorNoViewFilePermission">
+        <value xml:lang="en">To view files of a Solr index in OFBiz, you should have the permission to do so.</value>
+    </property>
 </resource>
