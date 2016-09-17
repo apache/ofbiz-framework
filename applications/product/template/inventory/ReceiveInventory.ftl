@@ -372,7 +372,7 @@ under the License.
                   </td>
                   <td align="right">
                     <label>${uiLabelMap.CommonSelectAll}
-                    <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');"/></label>
+                    <input type="checkbox" name="selectAll" value="Y" class="selectAll" checked/></label>
                   </td>
                 </tr>
                 <#list purchaseOrderItems as orderItem>
@@ -532,7 +532,7 @@ under the License.
                       </table>
                     </td>
                     <td align="right">
-                      <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');"/>
+                      <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" class="selectAllChild"/>
                     </td>
                   </tr>
                   <#assign rowCount = rowCount + 1>
@@ -563,7 +563,6 @@ under the License.
             </table>
             <input type="hidden" name="_rowCount" value="${rowCount}"/>
           </form>
-          <script language="JavaScript" type="text/javascript">selectAll('selectAllForm');</script>
 
         <#-- Initial Screen -->
         <#else>

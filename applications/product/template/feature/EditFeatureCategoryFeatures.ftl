@@ -81,7 +81,7 @@ under the License.
                 <td><b>${uiLabelMap.ProductIdSeqNum}</b></td>
                 <td><b>${uiLabelMap.ProductIdCode}</b></td>
                 <td><b>${uiLabelMap.ProductAbbrev}</b></td>
-                <td align="right"><b><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');" /></label></b></td>
+                <td align="right"><b><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" class="selectAll" onclick="highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');" /></label></b></td>
              </tr>
         <#if (listSize > 0)>
             <#assign rowCount = 0>
@@ -117,7 +117,7 @@ under the License.
               <td><input type="text" size='5' name="defaultSequenceNum_o_${rowCount}" value="${productFeature.defaultSequenceNum!}" /></td>
               <td><input type="text" size='5' name="idCode_o_${rowCount}" value="${productFeature.idCode!}" /></td>
               <td><input type="text" size='5' name="abbrev_o_${rowCount}" value="${productFeature.abbrev!}" /></td>
-              <td align="right"><input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${rowCount}');" /></td>
+              <td align="right"><input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="highlightRow(this,'productFeatureId_tableRow_${rowCount}');" /></td>
             </tr>
             <#assign rowCount = rowCount + 1>
             <#-- toggle the row color -->
