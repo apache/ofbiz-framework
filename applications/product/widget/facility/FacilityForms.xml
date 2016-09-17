@@ -658,10 +658,10 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="FacilityParty"/>
         <field name="facilityId"><hidden/></field>
-        <field name="partyId">
+        <field name="partyId" required-field="true">
             <lookup target-form-name="LookupPartyName"/>
         </field>
-        <field name="roleTypeId">
+        <field name="roleTypeId" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType"/>
             </drop-down>
