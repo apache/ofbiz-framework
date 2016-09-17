@@ -20,4 +20,20 @@
         <description>Delete a BenefitType record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
+    
+    <!-- EmploymentAppSource type services -->
+    <service name="createEmploymentAppSourceType" default-entity-name="EmploymentAppSourceType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a EmploymentAppSourceType record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateEmploymentAppSourceType" default-entity-name="EmploymentAppSourceType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a EmploymentAppSourceType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteEmploymentAppSourceType" default-entity-name="EmploymentAppSourceType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a EmploymentAppSourceType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>

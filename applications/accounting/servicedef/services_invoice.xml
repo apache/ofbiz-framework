@@ -442,5 +442,33 @@ under the License.
         <attribute mode="INOUT" name="organizationPartyId" type="String" optional="false"/>
         <attribute mode="IN" name="uploadedFile" type="java.nio.ByteBuffer" optional="true" />
     </service>
+    <service name="createInvoiceItemAttribute" default-entity-name="InvoiceItemAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InvoiceItemAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInvoiceItemAttribute" default-entity-name="InvoiceItemAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InvoiceItemAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInvoiceItemAttribute" default-entity-name="InvoiceItemAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InvoiceItemAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+    <service name="createInvoiceTermAttribute" default-entity-name="InvoiceTermAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InvoiceTermAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInvoiceTermAttribute" default-entity-name="InvoiceTermAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InvoiceTermAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInvoiceTermAttribute" default-entity-name="InvoiceTermAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InvoiceTermAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
     
 </services>
