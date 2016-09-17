@@ -38,7 +38,7 @@ under the License.
     </form>
     
     <form name="ListReviews" type="list" list-name="listIt" target="updateProductReview" title="" paginate-target="FindReviews"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2" separate-columns="true">
         <actions>
             <set field="entityName" value="ProductReview"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
