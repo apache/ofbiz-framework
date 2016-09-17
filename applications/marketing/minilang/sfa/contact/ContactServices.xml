@@ -63,6 +63,7 @@
         <set field="partyRelationCtx.partyRelationshipTypeId" value="CONTACT_REL"/>
         <call-service service-name="createPartyRelationship" in-map-name="partyRelationCtx"/>
         <field-to-result field="partyId"/>
+        <field-to-result field="parameters.roleTypeId" result-name="roleTypeId"/>
     </simple-method>
 
     <simple-method method-name="mergeContacts" short-description="Merge two Contacts">
