@@ -18,36 +18,40 @@ under the License.
 -->
 
 <#if requestAttributes._ERROR_MESSAGE_??>
-<br /><div class='errorMessage'>${requestAttributes._ERROR_MESSAGE_}</div><br />
+  <br/>
+  <div class='errorMessage'>${requestAttributes._ERROR_MESSAGE_}</div><br/>
 <#else>
-    <#if trailList??>
-        <#assign indent = "">
-        <#assign csv = "">
-        <#assign counter = 1>
-        <#assign len = trailList?size>
-        <#list trailList as pair>
-        <#if 0 < csv?length >
-            <#assign csv = csv + ","/>
-        </#if>
-        <#assign csv = csv + pair[0]!/>
-            <#if counter < len>
-        ${indent}
-        ${pair[0]!} - ${pair[1]!}
-        <a class="tabButton" href="<@ofbizUrl>ViewBlog?contentId=${pair[0]!}&nodeTrailCsv=${csv!}"></@ofbizUrl>${uiLabelMap.CommonView}</a> <br />
-            <#assign indent = indent + "&nbsp;&nbsp;&nbsp;&nbsp;">
-            <#else>
-        
-        <u>${uiLabelMap.EcommerceAddResponseFor}${pair[0]!} - ${pair[1]!}:</u><br />
-            </#if>
-            <#assign counter = counter + 1>
-        </#list>
+  <#if trailList??>
+    <#assign indent = "">
+    <#assign csv = "">
+    <#assign counter = 1>
+    <#assign len = trailList?size>
+    <#list trailList as pair>
+      <#if 0 < csv?length >
+        <#assign csv = csv + ","/>
+      </#if>
+      <#assign csv = csv + pair[0]!/>
+      <#if counter < len>
+      ${indent}
+      ${pair[0]!} - ${pair[1]!}
+      <a class="tabButton" href="<@ofbizUrl>ViewBlog?contentId=${pair[0]!}&nodeTrailCsv=${csv!}"></@ofbizUrl>
+        ${uiLabelMap.CommonView}
+      </a>
+      <br/>
+        <#assign indent = indent + "&nbsp;&nbsp;&nbsp;&nbsp;">
+      <#else>
 
-        <#if dataResourceId??>
-            <br />
-            <img src="<@ofbizUrl>img?imgId=${dataResourceId}</@ofbizUrl>" alt=""/>
-        </#if>
-        <br />
+      <u>${uiLabelMap.EcommerceAddResponseFor}${pair[0]!} - ${pair[1]!}:</u><br/>
+      </#if>
+      <#assign counter = counter + 1>
+    </#list>
+
+    <#if dataResourceId??>
+    <br/>
+    <img src="<@ofbizUrl>img?imgId=${dataResourceId}</@ofbizUrl>" alt=""/>
     </#if>
-    ${singleWrapper.renderFormString()}
-<br />
+  <br/>
+  </#if>
+  ${singleWrapper.renderFormString()}
+  <br/>
 </#if>

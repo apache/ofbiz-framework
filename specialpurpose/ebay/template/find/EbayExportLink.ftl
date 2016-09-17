@@ -29,11 +29,11 @@ under the License.
 </script>
 
 <#if productIds?has_content>
-    <table cellspacing="0" class="basic-table">
-        <tr>
-            <td align="center" colspan="2">
-                <a href="javascript:exportToEbay();" class="buttontext">${uiLabelMap.EbayExportToEbay}</a>
-            </td>
-        </tr>
-    </table>
+  <table cellspacing="0" class="basic-table">
+    <tr>
+      <td align="center" colspan="2">
+        <a href="javascript:exportToEbay();" class="buttontext">${uiLabelMap.EbayExportToEbay}</a>
+      </td>
+    </tr>
+  </table>
 </#if>

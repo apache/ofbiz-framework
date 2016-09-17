@@ -24,7 +24,6 @@ under the License.
     <br />
     ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderitems")}
   </form>
-
 <#else>
   <h3>${uiLabelMap.OrderSpecifiedNotFound}.</h3>
 </#if>

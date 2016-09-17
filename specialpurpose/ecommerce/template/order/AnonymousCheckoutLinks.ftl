@@ -17,35 +17,53 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script language="javascript" type="text/javascript">
-function submitForm(form) {
-   form.submit();
-}
+  function submitForm(form) {
+    form.submit();
+  }
 </script>
 <div>
-    <a href="<@ofbizUrl>setCustomer</@ofbizUrl>" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Personal Info</a>
-    <#if (enableShippingAddress)??>
-        <a href="<@ofbizUrl>setShipping</@ofbizUrl>" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Shipping Address</a>
-    <#else>
-        <span class="buttontextdisabled">Shipping Address</span>
-    </#if>
-    <#if (enableShipmentMethod)??>
-        <a href="<@ofbizUrl>setShipOptions</@ofbizUrl>" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Shipping Options</a>
-    <#else>
-        <span class="buttontextdisabled">Shipping Options</span>
-    </#if>
-    <#if (enablePaymentOptions)??>
-        <a href="<@ofbizUrl>setPaymentOption</@ofbizUrl>" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Payment Options</a>
-    <#else>
-        <span class="buttontextdisabled">Payment Options</span>
-    </#if>
-    <#if (enablePaymentInformation)??>
-        <a href="<@ofbizUrl>setPaymentInformation?paymentMethodTypeId=${requestParameters.paymentMethodTypeId!}</@ofbizUrl>" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Payment Information</a>
-    <#else>
-        <span class="buttontextdisabled">Payment Information</span>
-    </#if>
-    <#if (enableReviewOrder)??>
-        <a href="<@ofbizUrl>reviewOrder</@ofbizUrl>" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Review Order</a>
-    <#else>
-        <span class="buttontextdisabled">Review Order</span>
-    </#if>
+  <a href="<@ofbizUrl>setCustomer</@ofbizUrl>"
+      <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>
+    Personal Info
+  </a>
+<#if (enableShippingAddress)??>
+  <a href="<@ofbizUrl>setShipping</@ofbizUrl>"
+      <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>
+    Shipping Address
+  </a>
+<#else>
+  <span class="buttontextdisabled">Shipping Address</span>
+</#if>
+<#if (enableShipmentMethod)??>
+  <a href="<@ofbizUrl>setShipOptions</@ofbizUrl>"
+      <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>
+    Shipping Options
+  </a>
+<#else>
+  <span class="buttontextdisabled">Shipping Options</span>
+</#if>
+<#if (enablePaymentOptions)??>
+  <a href="<@ofbizUrl>setPaymentOption</@ofbizUrl>"
+      <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>
+    Payment Options
+  </a>
+<#else>
+  <span class="buttontextdisabled">Payment Options</span>
+</#if>
+<#if (enablePaymentInformation)??>
+  <a href="<@ofbizUrl>setPaymentInformation?paymentMethodTypeId=${requestParameters.paymentMethodTypeId!}</@ofbizUrl>"
+      <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>
+    Payment Information
+  </a>
+<#else>
+  <span class="buttontextdisabled">Payment Information</span>
+</#if>
+<#if (enableReviewOrder)??>
+  <a href="<@ofbizUrl>reviewOrder</@ofbizUrl>"
+      <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>
+    Review Order
+  </a>
+<#else>
+  <span class="buttontextdisabled">Review Order</span>
+</#if>
 </div>

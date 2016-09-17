@@ -18,38 +18,49 @@ under the License.
 -->
 
 <#macro renderAncestryPath trail siteId startIndex=0 endIndexOffset=0 buttonTitle="Back to" searchOn="" >
-    <#local indent = "">
-    <#local csv = "">
-    <#local counter = 0>
-    <#local len = trail?size>
-    <table border="0" cellspacing="4">
+  <#local indent = "">
+  <#local csv = "">
+  <#local counter = 0>
+  <#local len = trail?size>
+  <table border="0" cellspacing="4">
     <#list trail as content>
       <#if counter < (len - endIndexOffset) && startIndex <= counter >
         <#if 0 < counter >
-            <#local csv = csv + ","/>
+          <#local csv = csv + ","/>
         </#if>
         <#local csv = csv + content.contentId/>
         <#if counter < len && startIndex <= counter >
-       <tr>
-         <td >
+        <tr>
+          <td>
             ${indent}
             <#if content.contentTypeId == "WEB_SITE_PUB_PT" >
-              <a class="tabButton" href="<@ofbizUrl>showcontenttree?contentId=${content.contentId!}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonBackTo}</a> &nbsp;${content.contentName!}
+              <a class="tabButton"
+                  href="<@ofbizUrl>showcontenttree?contentId=${content.contentId!}&nodeTrailCsv=${csv}</@ofbizUrl>">
+                ${uiLabelMap.CommonBackTo}
+              </a>
+              &nbsp;${content.contentName!}
             <#else>
-              <a class="tabButton" href="<@ofbizUrl>showcontenttree?contentId=${siteId!}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonBackTo}</a> &nbsp;${content.contentName!}
+              <a class="tabButton"
+                  href="<@ofbizUrl>showcontenttree?contentId=${siteId!}&nodeTrailCsv=${csv}</@ofbizUrl>">
+                ${uiLabelMap.CommonBackTo}
+              </a>
+              &nbsp;${content.contentName!}
             </#if>
             <#local indent = indent + "&nbsp;&nbsp;&nbsp;&nbsp;">
             [${content.contentId!}]
             <#if searchOn?has_content && searchOn?lower_case == "true">
-                &nbsp;
-              <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${siteId!}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a>
+              &nbsp;
+              <a class="tabButton"
+                  href="<@ofbizUrl>searchContent?siteId=${siteId!}&nodeTrailCsv=${csv}</@ofbizUrl>">
+                ${uiLabelMap.CommonSearch}
+              </a>
             </#if>
-        </#if>
-         </td>
-       </tr>
+            </#if>
+          </td>
+        </tr>
       </#if>
       <#local counter = counter + 1>
-    <#if 20 < counter > <#break/></#if>
+      <#if 20 < counter > <#break/></#if>
     </#list>
-    </table>
+  </table>
 </#macro>

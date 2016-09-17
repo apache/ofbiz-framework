@@ -18,45 +18,61 @@ under the License.
 -->
 
 <div id="serialized-inventory-summary" class="screenlet">
-    <div class="screenlet-title-bar">
-        <span class="h3">${uiLabelMap.ProductSerializedInventorySummary}</span>
-    </div>
-    <div class="screenlet-body">
-        <table width="100%" cellspacing="0" cellpadding="2">
-            <thead>
-                <tr class="header-row">
-                    <td><div class="tableheadtext">${uiLabelMap.ProductInventoryItemId}</div></td>
-                    <td><div class="tableheadtext">${uiLabelMap.ProductProductName}</div></td>
-                    <td><div class="tableheadtext">${uiLabelMap.ProductSerialNumber}</div></td>
-                    <td><div class="tableheadtext">${uiLabelMap.ProductSoftIdentifier}</div></td>
-                    <td><div class="tableheadtext">${uiLabelMap.ProductActivationNumber}</div></td>
-                    <td><div class="tableheadtext">${uiLabelMap.ProductActivationNumber} ${uiLabelMap.CommonValidThruDate}</div></td>
-                </tr>
-            </thead>
-            <tbody>
-                <#list inventoryItemList as inventoryItem>
-                    <#assign product = inventoryItem.getRelatedOne('Product', false)!>
-                    <tr>
-                        <td>${inventoryItem.inventoryItemId}</td>
-                        <td>
-                            <#if product?has_content>
-                                <#if product.isVariant?default('N') == 'Y'>
-                                    <#assign product = Static['org.apache.ofbiz.product.product.ProductWorker'].getParentProduct(product.productId, delegator)!>
-                                </#if>
-                                <#if product?has_content>
-                                    <#assign productName = Static['org.apache.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request, "html")!>
-                                    <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="linktext">${productName?default(product.productId)}</a>
-                                </#if>
-                            </#if>
-                        </td>
-                        <td>${inventoryItem.serialNumber!}</td>
-                        <td>${inventoryItem.softIdentifier!}</td>
-                        <td>${inventoryItem.activationNumber!}</td>
-                        <td>${inventoryItem.activationValidThru!}</td>
-                    </tr>
-                </#list>
-            </tbody>
-        </table>
-    </div>
+  <div class="screenlet-title-bar">
+    <span class="h3">${uiLabelMap.ProductSerializedInventorySummary}</span>
+  </div>
+  <div class="screenlet-body">
+    <table width="100%" cellspacing="0" cellpadding="2">
+      <thead>
+        <tr class="header-row">
+          <td>
+            <div class="tableheadtext">${uiLabelMap.ProductInventoryItemId}</div>
+          </td>
+          <td>
+            <div class="tableheadtext">${uiLabelMap.ProductProductName}</div>
+          </td>
+          <td>
+            <div class="tableheadtext">${uiLabelMap.ProductSerialNumber}</div>
+          </td>
+          <td>
+            <div class="tableheadtext">${uiLabelMap.ProductSoftIdentifier}</div>
+          </td>
+          <td>
+            <div class="tableheadtext">${uiLabelMap.ProductActivationNumber}</div>
+          </td>
+          <td>
+            <div class="tableheadtext">${uiLabelMap.ProductActivationNumber} ${uiLabelMap.CommonValidThruDate}</div>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <#list inventoryItemList as inventoryItem>
+          <#assign product = inventoryItem.getRelatedOne('Product', false)!>
+          <tr>
+            <td>${inventoryItem.inventoryItemId}</td>
+            <td>
+              <#if product?has_content>
+                <#if product.isVariant?default('N') == 'Y'>
+                  <#assign product = Static['org.apache.ofbiz.product.product.ProductWorker']
+                      .getParentProduct(product.productId, delegator)!>
+                </#if>
+                <#if product?has_content>
+                  <#assign productName = Static['org.apache.ofbiz.product.product.ProductContentWrapper']
+                      .getProductContentAsText(product, 'PRODUCT_NAME', request, "html")!>
+                  <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="linktext">
+                    ${productName?default(product.productId)}
+                  </a>
+                </#if>
+              </#if>
+            </td>
+            <td>${inventoryItem.serialNumber!}</td>
+            <td>${inventoryItem.softIdentifier!}</td>
+            <td>${inventoryItem.activationNumber!}</td>
+            <td>${inventoryItem.activationValidThru!}</td>
+          </tr>
+        </#list>
+      </tbody>
+    </table>
+  </div>
 </div>
 

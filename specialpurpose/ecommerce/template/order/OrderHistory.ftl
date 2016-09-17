@@ -46,13 +46,19 @@ under the License.
               <#if distinctInvoiceIds?has_content>
                 <td>
                   <#list distinctInvoiceIds as invoiceId>
-                     <a href="<@ofbizUrl>invoice.pdf?invoiceId=${invoiceId}</@ofbizUrl>" class="buttontext">(${invoiceId} PDF) </a>
+                     <a href="<@ofbizUrl>invoice.pdf?invoiceId=${invoiceId}</@ofbizUrl>" class="buttontext">
+                       (${invoiceId} PDF)
+                     </a>
                   </#list>
                 </td>
               <#else>
                 <td></td>
               </#if>
-              <td><a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="button">${uiLabelMap.CommonView}</a></td>
+              <td>
+                <a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="button">
+                  ${uiLabelMap.CommonView}
+                </a>
+              </td>
             </tr>
           </#list>
         <#else>
@@ -82,7 +88,12 @@ under the License.
               <td>${porderHeader.orderId}</td>
               <td><@ofbizCurrency amount=porderHeader.grandTotal isoCode=porderHeader.currencyUom /></td>
               <td>${pstatus.get("description",locale)}</td>
-              <td><a href="<@ofbizUrl>orderstatus?orderId=${porderHeader.orderId}</@ofbizUrl>" class="button">${uiLabelMap.CommonView}</a></td>
+              <td>
+                <a href="<@ofbizUrl>orderstatus?orderId=${porderHeader.orderId}</@ofbizUrl>"
+                    class="button">
+                  ${uiLabelMap.CommonView}
+                </a>
+              </td>
             </tr>
           </#list>
         <#else>

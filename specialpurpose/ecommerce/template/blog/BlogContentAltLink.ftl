@@ -17,5 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<a href="<@OfbizContentAltUrl contentId=blog.contentId viewContent='ViewBlogArticle'/>" >${blog.contentName} [${blog.contentId}]</a>
+<a href="<@OfbizContentAltUrl contentId=blog.contentId viewContent='ViewBlogArticle'/>" >
+  ${blog.contentName} [${blog.contentId}]
+</a>
 

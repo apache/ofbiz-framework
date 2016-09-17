@@ -22,10 +22,17 @@ under the License.
   </div>
   <div class="screenlet-body">
     <#list searchConstraintStrings as searchConstraintString>
-      <div><a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&amp;clearSearch=N</@ofbizUrl>" class="buttontext">X</a>${searchConstraintString}</div>
+      <div>
+        <a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&amp;clearSearch=N</@ofbizUrl>"
+            class="buttontext">X</a>
+        ${searchConstraintString}
+      </div>
     </#list>
     <span class="label">${uiLabelMap.CommonSortedBy}:</span>${searchSortOrderString}
-    <div><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)!}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefineSearch}</a></div>
+    <div>
+      <a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)!}</@ofbizUrl>"
+          class="buttontext">${uiLabelMap.CommonRefineSearch}</a>
+    </div>
 
     <#if !productIds?has_content>
       <div><h2>${uiLabelMap.ProductNoResultsFound}.</h2></div>
@@ -52,22 +59,29 @@ under the License.
       </script>
       <#macro paginationPanel>
         <div class="clearfix">
-          <div class="lefthalf margin-left"><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);"/> <strong>${uiLabelMap.ProductProduct}</strong></div>
+          <div class="lefthalf margin-left">
+            <input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);"/>
+            <strong>${uiLabelMap.ProductProduct}</strong>
+          </div>
           <div class="right">
             <strong>
               <#if 0 &lt; viewIndex?int>
-                <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
+                <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}/~noConditionFind=${noConditionFind}</@ofbizUrl>"
+                    class="buttontext">${uiLabelMap.CommonPrevious}</a> |
               </#if>
               <#if 0 &lt; listSize?int>
                 ${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}
               </#if>
               <#if highIndex?int &lt; listSize?int>
-                | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
+                | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}/~noConditionFind=${noConditionFind}</@ofbizUrl>"
+                    class="buttontext">${uiLabelMap.CommonNext}</a>
               </#if>
               <#if paging == "Y">
-                <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=99999/~clearSearch=N/~PAGING=N/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPagingOff}</a>
+                <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=99999/~clearSearch=N/~PAGING=N/~noConditionFind=${noConditionFind}</@ofbizUrl>"
+                    class="buttontext">${uiLabelMap.CommonPagingOff}</a>
               <#else>
-                <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=${previousViewSize}/~clearSearch=N/~PAGING=Y/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPagingOn}</a>
+                <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=${previousViewSize}/~clearSearch=N/~PAGING=Y/~noConditionFind=${noConditionFind}</@ofbizUrl>"
+                    class="buttontext">${uiLabelMap.CommonPagingOn}</a>
               </#if>
             </strong>
           </div>
@@ -87,7 +101,8 @@ under the License.
               <tr <#if altRow> class="alternate-row"</#if>>
                 <td>
                   <input type="checkbox" name="selectResult" value="${productId}"/>
-                  <a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>" class="buttontext">[${productId}] ${(product.internalName)!}</a>
+                  <a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>"
+                      class="buttontext">[${productId}] ${(product.internalName)!}</a>
                 </td>
               </tr>
             </#list>

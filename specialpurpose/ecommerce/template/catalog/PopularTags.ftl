@@ -27,7 +27,10 @@ under the License.
     </div>
     <div class="screenlet-body">
       <#list tagCloudList as tagCloud>
-          <a style="font-size: ${tagCloud.fontSize}pt;" href="<@ofbizUrl>tagsearch?SEARCH_STRING=${tagCloud.tag}&amp;keywordTypeId=KWT_TAG&amp;statusId=KW_APPROVED</@ofbizUrl>">${tagCloud.tag}</a>
+        <a style="font-size: ${tagCloud.fontSize}pt;"
+            href="<@ofbizUrl>tagsearch?SEARCH_STRING=${tagCloud.tag}&amp;keywordTypeId=KWT_TAG&amp;statusId=KW_APPROVED</@ofbizUrl>">
+          ${tagCloud.tag}
+        </a>
       </#list>
     </div>
   </div>

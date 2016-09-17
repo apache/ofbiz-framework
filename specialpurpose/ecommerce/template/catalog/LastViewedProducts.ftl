@@ -20,14 +20,13 @@ under the License.
   <tr>
     <td colspan="2">
       <h1>
-       ${uiLabelMap.ProductProductsLastViewed}
+        ${uiLabelMap.ProductProductsLastViewed}
       </h1>
     </td>
   </tr>
 </table>
 
 <#if sessionAttributes.lastViewedProducts?? && sessionAttributes.lastViewedProducts?has_content>
-
   <table>
     <#list sessionAttributes.lastViewedProducts as productId>
       <tr>
@@ -39,13 +38,12 @@ under the License.
       </tr>
     </#list>
   </table>
-
 <#else>
-<table>
-  <tr>
-    <td>
-      <div class='tabletext'>${uiLabelMap.ProductNotViewedAnyProducts}.</div>
-    </td>
-  </tr>
-</table>
+  <table>
+    <tr>
+      <td>
+        <div class='tabletext'>${uiLabelMap.ProductNotViewedAnyProducts}.</div>
+      </td>
+    </tr>
+  </table>
 </#if>

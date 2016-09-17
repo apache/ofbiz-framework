@@ -39,63 +39,63 @@ under the License.
       <div class="left center">
         <h3>${uiLabelMap.EcommercePrimaryShippingAddress}</h3>
           <ul>
-          <#if shipToContactMechId??>
-            <li>${shipToAddress1!}</li>
-            <#if shipToAddress2?has_content><li>${shipToAddress2!}</li></#if>
-            <li>
-              <ul>
+            <#if shipToContactMechId??>
+              <li>${shipToAddress1!}</li>
+              <#if shipToAddress2?has_content><li>${shipToAddress2!}</li></#if>
                 <li>
-                  <#if shipToStateProvinceGeoId?has_content && shipToStateProvinceGeoId != "_NA_">
-                    ${shipToStateProvinceGeoId}
-                  </#if>
-                  ${shipToCity!},
-                  ${shipToPostalCode!}
+                  <ul>
+                    <li>
+                      <#if shipToStateProvinceGeoId?has_content && shipToStateProvinceGeoId != "_NA_">
+                        ${shipToStateProvinceGeoId}
+                      </#if>
+                      ${shipToCity!},
+                      ${shipToPostalCode!}
+                    </li>
+                    <li>${shipToCountryGeoId!}</li>
+                  </ul>
                 </li>
-                <li>${shipToCountryGeoId!}</li>
-              </ul>
-            </li>
-            <#if shipToTelecomNumber?has_content>
-            <li>
-              ${shipToTelecomNumber.countryCode!}-
-              ${shipToTelecomNumber.areaCode!}-
-              ${shipToTelecomNumber.contactNumber!}
-              <#if shipToExtension??>-${shipToExtension!}</#if>
-            </li>
+              <#if shipToTelecomNumber?has_content>
+                <li>
+                  ${shipToTelecomNumber.countryCode!}-
+                  ${shipToTelecomNumber.areaCode!}-
+                  ${shipToTelecomNumber.contactNumber!}
+                  <#if shipToExtension??>-${shipToExtension!}</#if>
+                </li>
+              </#if>
+            <#else>
+              <li>${uiLabelMap.PartyPostalInformationNotFound}</li>
             </#if>
-          <#else>
-            <li>${uiLabelMap.PartyPostalInformationNotFound}</li>
-          </#if>
           </ul>
       </div>
       <div class="right center">
         <h3>${uiLabelMap.EcommercePrimaryBillingAddress}</h3>
           <ul>
-          <#if billToContactMechId??>
-            <li>${billToAddress1!}</li>
-            <#if billToAddress2?has_content><li>${billToAddress2!}</li></#if>
-            <li>
-              <ul>
+            <#if billToContactMechId??>
+              <li>${billToAddress1!}</li>
+              <#if billToAddress2?has_content><li>${billToAddress2!}</li></#if>
                 <li>
-                  <#if billToStateProvinceGeoId?has_content && billToStateProvinceGeoId != "_NA_">
-                    ${billToStateProvinceGeoId}
-                  </#if>
-                  ${billToCity!},
-                  ${billToPostalCode!}
+                  <ul>
+                    <li>
+                      <#if billToStateProvinceGeoId?has_content && billToStateProvinceGeoId != "_NA_">
+                        ${billToStateProvinceGeoId}
+                      </#if>
+                      ${billToCity!},
+                      ${billToPostalCode!}
+                    </li>
+                    <li>${billToCountryGeoId!}</li>
+                  </ul>
                 </li>
-                <li>${billToCountryGeoId!}</li>
-              </ul>
-            </li>
-            <#if billToTelecomNumber?has_content>
-            <li>
-              ${billToTelecomNumber.countryCode!}-
-              ${billToTelecomNumber.areaCode!}-
-              ${billToTelecomNumber.contactNumber!}
-              <#if billToExtension??>-${billToExtension!}</#if>
-            </li>
+              <#if billToTelecomNumber?has_content>
+                <li>
+                  ${billToTelecomNumber.countryCode!}-
+                  ${billToTelecomNumber.areaCode!}-
+                  ${billToTelecomNumber.contactNumber!}
+                  <#if billToExtension??>-${billToExtension!}</#if>
+                </li>
+              </#if>
+            <#else>
+              <li>${uiLabelMap.PartyPostalInformationNotFound}</li>
             </#if>
-          <#else>
-            <li>${uiLabelMap.PartyPostalInformationNotFound}</li>
-          </#if>
           </ul>
       </div>
     </div>

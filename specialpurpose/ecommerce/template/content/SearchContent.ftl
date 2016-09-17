@@ -19,80 +19,80 @@ under the License.
 
 
 <form method="post"  action="<@ofbizUrl>searchContent</@ofbizUrl>"  name="searchQuery">
-<table border="0" cellpadding="2" cellspacing="0">
-
-<tr>
-<td width="20%" align="right">
-<span class="tableheadtext">${uiLabelMap.EcommerceEnterQueryParameters}</span>
-</td>
-<td>&nbsp;</td>
-<td width="80%">
-<input type="text" class="inputBox" name="queryLine" size="60"/>
-</td>
-</tr>
-<tr>
-
-
-<!-- category form -->
-<tr>
-  <table>
+  <table border="0" cellpadding="2" cellspacing="0">
     <tr>
-      <td align="right" valign="middle">
-        <div>${uiLabelMap.ProductFeatures}:</div>
+      <td width="20%" align="right">
+        <span class="tableheadtext">${uiLabelMap.EcommerceEnterQueryParameters}</span>
       </td>
-      <td align="right" valign="middle">
-        <div>
-          ${uiLabelMap.CommonAll} <input type="radio" name="any_or_all" value="all" checked="checked" />
-          ${uiLabelMap.CommonAny} <input type="radio" name="any_or_all" value="any" />
-        </div>
+      <td>&nbsp;</td>
+      <td width="80%">
+        <input type="text" class="inputBox" name="queryLine" size="60"/>
       </td>
     </tr>
-    <#list productFeatureTypeIdsOrdered as productFeatureTypeId>
-      <#assign findPftMap = Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", productFeatureTypeId)>
-      <#assign productFeatureType = delegator.findOne("ProductFeatureType", findPftMap, true)>
-      <#assign productFeatures = productFeaturesByTypeMap[productFeatureTypeId]>
+    <tr>
+      <!-- category form -->
+    <tr>
+    <table>
       <tr>
         <td align="right" valign="middle">
-          <div>${(productFeatureType.get("description",locale))!}:</div>
+          <div>${uiLabelMap.ProductFeatures}:</div>
         </td>
-        <td valign="middle">
+        <td align="right" valign="middle">
           <div>
-            <select class="selectBox" name="pft_${productFeatureTypeId}">
-              <option value="">- ${uiLabelMap.CommonSelectAny} -</option>
-              <#list productFeatures as productFeature>
-              <option value="${productFeature.productFeatureId}">${productFeature.description?default("No Description")} [${productFeature.productFeatureId}]</option>
-              </#list>
-            </select>
+            ${uiLabelMap.CommonAll} <input type="radio" name="any_or_all" value="all" checked="checked" />
+            ${uiLabelMap.CommonAny} <input type="radio" name="any_or_all" value="any" />
           </div>
         </td>
       </tr>
-    </#list>
-    <#if searchConstraintStrings?has_content>
-      <tr>
-        <td align="right" valign="top">
-          <div>${uiLabelMap.ProductLastSearch}:</div>
-        </td>
-        <td valign="top">
+      <#list productFeatureTypeIdsOrdered as productFeatureTypeId>
+        <#assign findPftMap = Static["org.apache.ofbiz.base.util.UtilMisc"]
+            .toMap("productFeatureTypeId", productFeatureTypeId)>
+        <#assign productFeatureType = delegator.findOne("ProductFeatureType", findPftMap, true)>
+        <#assign productFeatures = productFeaturesByTypeMap[productFeatureTypeId]>
+        <tr>
+          <td align="right" valign="middle">
+            <div>${(productFeatureType.get("description",locale))!}:</div>
+          </td>
+          <td valign="middle">
+            <div>
+              <select class="selectBox" name="pft_${productFeatureTypeId}">
+                <option value="">- ${uiLabelMap.CommonSelectAny} -</option>
+                <#list productFeatures as productFeature>
+                  <option value="${productFeature.productFeatureId}">
+                    ${productFeature.description?default("No Description")} [${productFeature.productFeatureId}]
+                  </option>
+                </#list>
+              </select>
+            </div>
+          </td>
+        </tr>
+      </#list>
+      <#if searchConstraintStrings?has_content>
+        <tr>
+          <td align="right" valign="top">
+            <div>${uiLabelMap.ProductLastSearch}:</div>
+          </td>
+          <td valign="top">
             <#list searchConstraintStrings as searchConstraintString>
-                <div>&nbsp;-&nbsp;${searchConstraintString}</div>
+              <div>&nbsp;-&nbsp;${searchConstraintString}</div>
             </#list>
             <div>${uiLabelMap.ProductSortedBy}: ${searchSortOrderString}</div>
             <div>
-              ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked="checked" />
-              ${uiLabelMap.CommonRefineSearch}<input type="radio" name="clearSearch" value="N" />
+              ${uiLabelMap.ProductNewSearch}
+              <input type="radio" name="clearSearch" value="Y" checked="checked" />
+              ${uiLabelMap.CommonRefineSearch}
+              <input type="radio" name="clearSearch" value="N" />
             </div>
-        </td>
+          </td>
+        </tr>
+      </#if>
+      <td width="20%" align="right">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td width="80%" colspan="4">
+        <input type="submit" class="smallSubmit" name="submitButton" value="${uiLabelMap.CommonQuery}"/>
+      </td>
       </tr>
-    </#if>
-<td width="20%" align="right">
-&nbsp;</td>
-<td>&nbsp;</td>
-<td width="80%" colspan="4">
-<input type="submit" class="smallSubmit" name="submitButton" value="${uiLabelMap.CommonQuery}"/>
-</td>
-
-</tr>
-</table>
+    </table>
 </form>
 
 
@@ -107,8 +107,8 @@ under the License.
       <#local indent = indent + "&nbsp;&nbsp;"/>
     </#list>
   </#if>
-<@loopSubContent contentId=contentId viewIndex=0 viewSize=9999 returnAfterPickWhen="1==1";>
-  <option value="${content.contentId?lower_case}">${indent}${content.description}</option>
-  <@listSiteIds contentId=content.contentId indentIndex=indentIndex + 1 />
-</@loopSubContent>
+  <@loopSubContent contentId=contentId viewIndex=0 viewSize=9999 returnAfterPickWhen="1==1";>
+    <option value="${content.contentId?lower_case}">${indent}${content.description}</option>
+    <@listSiteIds contentId=content.contentId indentIndex=indentIndex + 1 />
+  </@loopSubContent>
 </#macro>

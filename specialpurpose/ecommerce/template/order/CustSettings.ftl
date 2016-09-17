@@ -19,13 +19,14 @@ under the License.
 
 <p>
 <h3>${uiLabelMap.EcommerceYourNamePhoneAndEmail}</h3>
-<form id="editCustomerNamePhoneAndEmail" name="${parameters.formNameValue}" method="post" action="<@ofbizUrl>processCustomerSettings</@ofbizUrl>">
+<form id="editCustomerNamePhoneAndEmail" name="${parameters.formNameValue}" method="post"
+    action="<@ofbizUrl>processCustomerSettings</@ofbizUrl>">
   <input type="hidden" name="partyId" value="${parameters.partyId!}"/>
   <fieldset>
     <div>
-    <span>
-      <label for="personalTitle">${uiLabelMap.CommonTitle}</label>
-      <select name="personalTitle">
+      <span>
+        <label for="personalTitle">${uiLabelMap.CommonTitle}</label>
+        <select name="personalTitle">
           <#if requestParameters.personalTitle?has_content >
             <option>${parameters.personalTitle}</option>
             <option value="${parameters.personalTitle}"> -- </option>
@@ -36,29 +37,30 @@ under the License.
           <option>${uiLabelMap.CommonTitleMrs}</option>
           <option>${uiLabelMap.CommonTitleMs}</option>
           <option>${uiLabelMap.CommonTitleDr}</option>
-      </select>
-    </span>
-    <span>
+        </select>
+      </span>
+      <span>
       <label for="firstName">${uiLabelMap.PartyFirstName}</label>
-      <input type="text" name="firstName" value="${parameters.firstName!}" /> *
+      <input type="text" name="firstName" value="${parameters.firstName!}"/> *
     </span>
-    <span>
+      <span>
       <label for="middleName">${uiLabelMap.PartyMiddleInitial}</label>
-      <input type="text" name="middleName" value="${parameters.middleName!}" />
+      <input type="text" name="middleName" value="${parameters.middleName!}"/>
     </span>
-    <span>
+      <span>
       <label for="lastName">${uiLabelMap.PartyLastName}</label>
-      <input type="text" name="lastName" value="${parameters.lastName!}" /> *
+      <input type="text" name="lastName" value="${parameters.lastName!}"/> *
     </span>
-    <span>
+      <span>
       <label for="suffix">${uiLabelMap.PartySuffix}</label>
-      <input type="text" class='inputBox' name="suffix" value="${parameters.suffix!}" />
+      <input type="text" class='inputBox' name="suffix" value="${parameters.suffix!}"/>
     </span>
     </div>
   </fieldset>
 
-  <table summary="Tabular form for entering multiple telecom numbers for different purposes. Each row allows user to enter telecom number for a purpose">
-  <caption>${uiLabelMap.PartyPhoneNumbers}</caption>
+  <table summary="Tabular form for entering multiple telecom numbers for different purposes.
+      Each row allows user to enter telecom number for a purpose">
+    <caption>${uiLabelMap.PartyPhoneNumbers}</caption>
     <tr>
       <th></th>
       <th scope="col">${uiLabelMap.CommonCountry}</th>
@@ -68,60 +70,68 @@ under the License.
       <th scope="col">${uiLabelMap.PartyAllowSolicitation}</th>
     </tr>
     <tr>
-    <th scope="row">${uiLabelMap.PartyHomePhone}</th>
-    <input type="hidden" name="homePhoneContactMechId" value="${parameters.homePhoneContactMechId!}"/>
-    <td><input type="text" name="homeCountryCode" value="${parameters.homeCountryCode!}" /></td>
-    <td><input type="text" name="homeAreaCode" value="${parameters.homeAreaCode!}" /></td>
-    <td><input type="text" name="homeContactNumber" value="${parameters.homeContactNumber!}" /></td>
-    <td><input type="text" name="homeExt" value="${parameters.homeExt!}" /></td>
-    <td>
-      <select name="homeSol">
-        <#if (((parameters.homeSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
-        <#if (((parameters.homeSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
-        <option></option>
-        <option value="Y">${uiLabelMap.CommonY}</option>
-        <option value="N">${uiLabelMap.CommonN}</option>
-      </select>
-    </td>
-  </tr>
-  <tr>
-    <th scope="row">${uiLabelMap.PartyBusinessPhone}</th>
-    <input type="hidden" name="workPhoneContactMechId" value="${parameters.workPhoneContactMechId!}"/>
-    <td><input type="text" name="workCountryCode" value="${parameters.workCountryCode!}" /></td>
-    <td><input type="text" name="workAreaCode" value="${parameters.workAreaCode!}" /></td>
-    <td><input type="text" name="workContactNumber" value="${parameters.workContactNumber!}" /></td>
-    <td><input type="text" name="workExt" value="${parameters.workExt!}" /></td>
-    <td>
-      <select name="workSol">
-        <#if (((parameters.workSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
-        <#if (((parameters.workSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
-        <option></option>
-        <option value="Y">${uiLabelMap.CommonY}</option>
-        <option value="N">${uiLabelMap.CommonN}</option>
-      </select>
-    </td>
-  </tr>
-</table>
+      <th scope="row">${uiLabelMap.PartyHomePhone}</th>
+      <input type="hidden" name="homePhoneContactMechId" value="${parameters.homePhoneContactMechId!}"/>
+      <td><input type="text" name="homeCountryCode" value="${parameters.homeCountryCode!}"/></td>
+      <td><input type="text" name="homeAreaCode" value="${parameters.homeAreaCode!}"/></td>
+      <td><input type="text" name="homeContactNumber" value="${parameters.homeContactNumber!}"/></td>
+      <td><input type="text" name="homeExt" value="${parameters.homeExt!}"/></td>
+      <td>
+        <select name="homeSol">
+        <#if (((parameters.homeSol)!"") == "Y")>
+          <option value="Y">${uiLabelMap.CommonY}</option></#if>
+        <#if (((parameters.homeSol)!"") == "N")>
+          <option value="N">${uiLabelMap.CommonN}</option></#if>
+          <option></option>
+          <option value="Y">${uiLabelMap.CommonY}</option>
+          <option value="N">${uiLabelMap.CommonN}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">${uiLabelMap.PartyBusinessPhone}</th>
+      <input type="hidden" name="workPhoneContactMechId" value="${parameters.workPhoneContactMechId!}"/>
+      <td><input type="text" name="workCountryCode" value="${parameters.workCountryCode!}"/></td>
+      <td><input type="text" name="workAreaCode" value="${parameters.workAreaCode!}"/></td>
+      <td><input type="text" name="workContactNumber" value="${parameters.workContactNumber!}"/></td>
+      <td><input type="text" name="workExt" value="${parameters.workExt!}"/></td>
+      <td>
+        <select name="workSol">
+          <#if (((parameters.workSol)!"") == "Y")>
+            <option value="Y">${uiLabelMap.CommonY}</option>
+          </#if>
+          <#if (((parameters.workSol)!"") == "N")>
+            <option value="N">${uiLabelMap.CommonN}</option>
+          </#if>
+          <option></option>
+          <option value="Y">${uiLabelMap.CommonY}</option>
+          <option value="N">${uiLabelMap.CommonN}</option>
+        </select>
+      </td>
+    </tr>
+  </table>
   <fieldset>
     <div>
-    <span>
-      <label for="emailAddress">${uiLabelMap.PartyEmailAddress}</label>
-      <input type="hidden" name="emailContactMechId" value="${parameters.emailContactMechId!}"/>
-      <input type="text" class="inputBox" name="emailAddress" value="${parameters.emailAddress!}"/> *
-    </span>
-    <span>
+      <span>
+        <label for="emailAddress">${uiLabelMap.PartyEmailAddress}</label>
+        <input type="hidden" name="emailContactMechId" value="${parameters.emailContactMechId!}"/>
+        <input type="text" class="inputBox" name="emailAddress" value="${parameters.emailAddress!}"/> *
+      </span>
+      <span>
       <label for="emailSol">${uiLabelMap.PartyAllowSolicitation}</label>
       <select name="emailSol" class="selectBox">
-        <#if (((parameters.emailSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
-        <#if (((parameters.emailSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
-        <option></option>
+        <#if (((parameters.emailSol)!"") == "Y")>
+          <option value="Y">${uiLabelMap.CommonY}</option></#if>
+        <#if (((parameters.emailSol)!"") == "N")>
+          <option value="N">${uiLabelMap.CommonN}</option></#if>
+          <option></option>
         <option value="Y">${uiLabelMap.CommonY}</option>
         <option value="N">${uiLabelMap.CommonN}</option>
       </select>
     </span>
-   </div>
-  <div class="buttons">
-    <input type="submit" value="${uiLabelMap.CommonContinue}"/>
-  </div>
+    </div>
+    <div class="buttons">
+      <input type="submit" value="${uiLabelMap.CommonContinue}"/>
+    </div>
   </fieldset>
 </form>

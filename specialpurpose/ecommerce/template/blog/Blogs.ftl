@@ -28,7 +28,9 @@ under the License.
     <ul class="browsecategorylist">
       <#list blogs as blog>
         <li class="browsecategorytext">
-          <a href="<@ofbizUrl>MainBlog?blogContentId=${blog.contentId}</@ofbizUrl>" class="browsecategorybutton">${blog.contentName!}</a>
+          <a href="<@ofbizUrl>MainBlog?blogContentId=${blog.contentId}</@ofbizUrl>" class="browsecategorybutton">
+            ${blog.contentName!}
+          </a>
         </li>
       </#list>
     </ul>

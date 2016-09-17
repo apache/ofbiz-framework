@@ -18,17 +18,17 @@ under the License.
 -->
 
 <#-- ReturnHeader and a List of ReturnItem records is available to this template -->
-<br />
+<br/>
 ${uiLabelMap.EcommerceReturnRequest}
-<br /><br />
+<br/><br/>
 <pre>
-<#list returnItems as item>
-  <#assign returnReason = item.getRelatedOne("ReturnReason", false)!>
-  <#assign returnType = item.getRelatedOne("ReturnType", false)!>
-  ${item.description?default("N/A")} - ${item.returnQuantity?string.number} @ ${item.returnPrice}
-</#list>
+  <#list returnItems as item>
+    <#assign returnReason = item.getRelatedOne("ReturnReason", false)!>
+    <#assign returnType = item.getRelatedOne("ReturnType", false)!>
+    ${item.description?default("N/A")} - ${item.returnQuantity?string.number} @ ${item.returnPrice}
+  </#list>
 </pre>
-<br /><br />
+<br/><br/>
 
 ${uiLabelMap.EcommerceReturnRequestAccepted} ${returnHeader.returnId}
-<br /><br />
+<br/><br/>

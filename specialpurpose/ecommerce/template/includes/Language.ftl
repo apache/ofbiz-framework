@@ -34,7 +34,11 @@ under the License.
           <#if "ar.iw"?contains(langAttr?substring(0, 2))>
             <#assign langDir = "rtl">
           </#if>
-          <option lang="${langAttr}" dir="${langDir}" value="${availableLocale.toString()}"<#if locale.toString() = availableLocale.toString()> selected="selected"</#if>>${availableLocale.getDisplayName(availableLocale)}</option>
+          <option lang="${langAttr}" dir="${langDir}"
+              value="${availableLocale.toString()}"<#if locale.toString() = availableLocale.toString()>
+              selected="selected"</#if>>
+            ${availableLocale.getDisplayName(availableLocale)}
+          </option>
         </#list>
       </select>
     </form>
