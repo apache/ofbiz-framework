@@ -252,9 +252,6 @@ public class ScreenRenderer {
         context.put("Application", ftlServletContext);
         context.put("Request", context.get("requestAttributes"));
  
-        // this is a dummy object to stand-in for the JPublish page object for backward compatibility
-        context.put("page", new HashMap());
-
         // some information from/about the ControlServlet environment
         context.put("controlPath", request.getAttribute("_CONTROL_PATH_"));
         context.put("contextRoot", request.getAttribute("_CONTEXT_ROOT_"));

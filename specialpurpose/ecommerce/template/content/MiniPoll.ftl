@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign groupName = page.randomSurveyGroup!>
+<#assign groupName = randomSurveyGroup!>
 <#if groupName?has_content>
   <#assign randomSurvey = Static["org.apache.ofbiz.product.store.ProductStoreWorker"]
       .getRandomSurveyWrapper(request, "testSurveyGroup")!>
