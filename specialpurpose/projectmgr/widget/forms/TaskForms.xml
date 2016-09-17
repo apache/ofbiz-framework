@@ -111,7 +111,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}" position="1"><date-time type="date"/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}" position="1"><date-time type="date" default-value="${nowTimestamp}"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}" position="2"><date-time type="date"/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}" use-when="task==void || task==null"><submit/></field>
         <field name="add" title="${uiLabelMap.CommonSave}" use-when="task!=void @and task!=null"><submit/></field> 
@@ -764,6 +764,7 @@
                 <entity-options entity-name="Survey" description="${surveyName}"/>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 </forms>

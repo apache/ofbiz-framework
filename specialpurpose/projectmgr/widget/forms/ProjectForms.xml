@@ -656,7 +656,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field entry-name="xx" name="fromDate"><date-time type="date"/></field>
+        <field entry-name="xx" name="fromDate"><date-time type="date" default-value="${nowTimestamp}"/></field>
         <field entry-name="xx" name="thruDate"><date-time type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -790,7 +790,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field entry-name="test" name="fromDate"><date-time type="date"/></field>
+        <field entry-name="test" name="fromDate"><date-time type="date" default-value="${nowTimestamp}"/></field>
         <field entry-name="test" name="thruDate"><date-time type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -818,7 +818,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field entry-name="test" name="fromDate"><date-time type="date"/></field>
+        <field entry-name="test" name="fromDate"><date-time type="date" default-value="${nowTimestamp}"/></field>
         <field entry-name="test" name="thruDate"><date-time type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

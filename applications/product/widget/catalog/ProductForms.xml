@@ -425,6 +425,7 @@ under the License.
     <form name="AddProductPrice" type="single" target="createProductPrice" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductPrice"/>
+        <field name="fromDate" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="productId"><hidden/></field>
         <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}">
             <drop-down allow-empty="false" no-current-selected-key="DEFAULT_PRICE">
@@ -531,6 +532,7 @@ under the License.
     <form name="AddProductPaymentMethodType" type="single" target="createProductPaymentMethodType" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductPaymentMethodType"/>
+        <field name="fromDate" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="productId"><hidden/></field>
         <field name="productPricePurposeId" title="${uiLabelMap.CommonPurpose}" widget-style="smallSelect">
             <drop-down allow-empty="false">
@@ -570,7 +572,7 @@ under the License.
         <auto-fields-service service-name="safeAddProductToCategory"/>
         <field name="productId" title="${uiLabelMap.ProductProductId}" map-name="product"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}"><lookup target-form-name="LookupProductCategory"></lookup></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" ></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" ></field>
         <field name="sequenceNum" title="${uiLabelMap.ProductSequenceNum}" ></field>
         <field name="quantity" title="${uiLabelMap.ProductQuantity}" ></field>
@@ -646,7 +648,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" ></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${nowTimestamp}"></date-time></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"></field>
         <field name="purchaseFromDate" title="${uiLabelMap.ProductPurchaseFromDate}"></field>
         <field name="purchaseThruDate" title="${uiLabelMap.ProductPurchaseThruDate}"></field>
@@ -1400,13 +1402,16 @@ under the License.
                 <entity-options entity-name="CostComponentCalc"/>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="EditCostComponent" type="single" target="createCostComponent" title="" default-map-name="costComponent"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="costComponent!=null" target="updateCostComponent"/>
         <auto-fields-service service-name="createCostComponent"/>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}">
+            <date-time default-value="${nowTimestamp}"/>
+        </field>
         <field name="productId"><hidden/></field>
         <field name="costComponentId" use-when="costComponent!=null"><display/></field>
         <field name="costComponentId" use-when="costComponent==null"><hidden/></field>
@@ -1789,7 +1794,7 @@ under the License.
     <form name="AddProductSubscriptionResource" type="single" target="createProductSubscriptionResource"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductSubscriptionResource"/>
-
+        <field name="fromDate" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="productId"><hidden/></field>
         <field name="subscriptionResourceId">
             <drop-down allow-empty="false">
@@ -1900,6 +1905,7 @@ under the License.
     <form name="AddProductWorkEffort" target="createWorkEffortGoodStandard" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createWorkEffortGoodStandard"/>
+        <field name="fromDate" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="productId"><hidden value="${parameters.productId}"/></field>
         <field name="workEffortId">
             <lookup target-form-name="LookupWorkEffort"/>
@@ -2273,6 +2279,7 @@ under the License.
     <form name="AddProductRole" type="single" target="addPartyToProduct" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addPartyToProduct"/>
+        <field name="fromDate" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="productId"><hidden/></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId">

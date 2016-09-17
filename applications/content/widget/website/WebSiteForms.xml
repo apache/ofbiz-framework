@@ -125,7 +125,7 @@ under the License.
         <field name="webSiteId"><display/></field>      
         <field name="pathAlias" use-when="webSitePathAlias!=null"><display/></field>
         <field name="pathAlias" use-when="webSitePathAlias==null"><text/></field>
-      
+        <field name="fromDate" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" use-when="webSitePathAlias!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="webSitePathAlias==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -190,6 +190,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 

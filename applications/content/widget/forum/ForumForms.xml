@@ -74,7 +74,7 @@ under the License.
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="forumName" parameter-name="contentName"><text/></field>
         <field name="forumDescription" parameter-name="description"><text/></field>
-        <field name="caFromDate"><date-time/></field>
+        <field name="caFromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="contentTypeId"><hidden value="WEB_SITE_PUB_PT"/></field>
         <field name="ownerContentId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="caContentId"><hidden value="${parameters.forumGroupId}"/></field>
@@ -134,6 +134,7 @@ under the License.
             <drop-down>
                 <entity-options entity-name="RoleType"></entity-options>
             </drop-down></field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
