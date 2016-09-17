@@ -73,14 +73,14 @@ under the License.
         <field name="internalName"><text-find/></field>
         <field name="inventoryItemId"><text-find/></field>
         <field name="statusId">
-            <drop-down allow-empty="true">
+            <check all-checked="false">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/>
                 </entity-options>
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="serialNumber"><text-find/></field>
         <field name="softIdentifier"><text/></field>

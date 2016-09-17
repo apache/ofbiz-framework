@@ -47,12 +47,12 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <drop-down allow-empty="true">
+            <check all-checked="false">
                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="SHIPMENT_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="estimatedShipDate" title="${uiLabelMap.ProductEstimatedShipDate}"><date-find/></field>
         <field name="entryDate" title="${uiLabelMap.FormFieldTitle_entryDate}"><date-find/></field>
