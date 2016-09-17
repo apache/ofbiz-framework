@@ -75,11 +75,8 @@ if (currentTypeId) {
     context.currentType = currentType;
 }
 // current selected status
-currentStatusId = request.getParameter("orderStatusId");
-if (currentStatusId) {
-    currentStatus = from("StatusItem").where("statusId", currentStatusId).cache(true).queryOne();
-    context.currentStatus = currentStatus;
-}
+currentStatusIds = request.getParameter("orderStatusId");
+context.currentStatuses = currentStatusIds;
 
 // current website
 currentWebSiteId = request.getParameter("orderWebSiteId");

@@ -322,16 +322,12 @@ function toggleOrderIdList() {
                 <td width='25%' align='right' class='label'>${uiLabelMap.CommonStatus}</td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
-                  <select name='orderStatusId'>
-                    <#if currentStatus?has_content>
-                    <option value="${currentStatus.statusId}">${currentStatus.get("description", locale)}</option>
-                    <option value="${currentStatus.statusId}">---</option>
-                    </#if>
-                    <option value="">${uiLabelMap.OrderAnyOrderStatus}</option>
-                    <#list orderStatuses as orderStatus>
-                      <option value="${orderStatus.statusId}">${orderStatus.get("description", locale)}</option>
-                    </#list>
-                  </select>
+                  <#list orderStatuses as orderStatus>
+                    <label>
+                      <input type="checkbox" name="orderStatusId" value="${orderStatus.statusId}" <#if currentStatuses?has_content && currentStatuses.contains(orderStatus.statusId)>checked</#if>/>
+                      ${orderStatus.get("description", locale)}
+                    </label>
+                  </#list>
                 </td>
               </tr>
               <tr>
