@@ -17,10 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.util.*;
-
 // This is a small script to set things up when the EditFixedAssetMaint
 // screen is called from one of the WorkEffort calendar screens.
 // The URL coming from WorkEffort does not contain the maintHistSeqId parameter,

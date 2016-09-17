@@ -17,13 +17,6 @@
     under the License.
 */
 
-import java.util.*;
-
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.util.*;
-
 maintHistSeqId = context.maintHistSeqId;
 fixedAssetId = context.fixedAssetId;
 workEffortId = context.workEffortId;
