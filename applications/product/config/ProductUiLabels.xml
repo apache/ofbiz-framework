@@ -11395,6 +11395,9 @@
         <value xml:lang="zh">查找产品，供货商是</value>
         <value xml:lang="zh-TW">尋找產品供應商是:</value>
     </property>
+    <property key="PageTitleNewFacilityGroup">
+        <value xml:lang="en">New Facility Group</value>
+    </property>
     <property key="PageTitleNewFacilityContactMech">
         <value xml:lang="de">Neuer Einrichtungs-Kontaktmechanismus für ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="en">New Facility Contact Mechanism for ${facility.facilityName} [${facility.facilityId}]</value>
