@@ -59,8 +59,6 @@ public final class GeoWorker {
             return UtilMisc.toList(geo);
         }
 
-        //Debug.logInfo("Expanding geo : " + geo, module);
-
         List<GenericValue> geoList = new LinkedList<GenericValue>();
         List<GenericValue> thisGeoAssoc = null;
         try {
@@ -78,12 +76,7 @@ public final class GeoWorker {
                 }
                 geoList.addAll(expandGeoGroup(nextGeo));
             }
-        } else {
-            //Debug.logInfo("No associated geos with this group", module);
-        }
-
-        //Debug.logInfo("Expanded to : " + geoList, module);
-
+        } 
         return geoList;
     }
 
@@ -125,7 +118,6 @@ public final class GeoWorker {
         if (geoList == null || geo == null) {
             return false;
         }
-        //Debug.logInfo("Contains Geo : " + geoList.contains(geo));
         return geoList.contains(geo);
     }
 

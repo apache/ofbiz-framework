@@ -525,17 +525,6 @@ public class EmailServices {
                     screenContextAtt.putAll(bodyParameters);
                     screensAtt.render(xslfoAttachScreenLocation);
 
-                    /*
-                    try { // save generated fo file for debugging
-                        String buf = writer.toString();
-                        java.io.FileWriter fw = new java.io.FileWriter(new java.io.File("/tmp/file1.xml"));
-                        fw.write(buf.toString());
-                        fw.close();
-                    } catch (IOException e) {
-                        Debug.logError(e, "Couldn't save xsl-fo xml debug file: " + e.toString(), module);
-                    }
-                    */
-
                     // create the input stream for the generation
                     StreamSource src = new StreamSource(new StringReader(writer.toString()));
 

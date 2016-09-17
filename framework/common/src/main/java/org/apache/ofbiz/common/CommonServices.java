@@ -275,14 +275,6 @@ public class CommonServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEntityTestFailure", locale));
         }
 
-        /*
-        try {
-            newEntity.remove();
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-        }
-        */
-
         return ServiceUtil.returnSuccess();
     }
 

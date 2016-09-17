@@ -62,7 +62,6 @@ public class JsLanguageFileMappingCreator {
         String jsFilePostFix = ".js";
         String dateJsLocalePrefix = "date-";
         String validateLocalePrefix = "messages_";
-        //String validateMethLocalePrefix = "methods__";
         String jqueryUiLocalePrefix = "jquery.ui.datepicker-";
         String dateTimePickerPrefix = "jquery-ui-timepicker-";
         String defaultLocaleDateJs = "en-US";
