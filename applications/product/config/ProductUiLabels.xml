@@ -44,6 +44,7 @@
         <value xml:lang="en">Web Analytics</value>
         <value xml:lang="it">Analisi Web</value>
         <value xml:lang="ja">Web分析</value>
+        <value xml:lang="nl">Web analyse</value>
         <value xml:lang="vi">Trang web phân tích (ví dụ: Google Analytic)</value>
         <value xml:lang="zh">网站分析</value>
         <value xml:lang="zh-TW">網站分析</value>
@@ -53,6 +54,7 @@
         <value xml:lang="en">Web Analytics Configuration</value>
         <value xml:lang="it">Configurazione analisi Web</value>
         <value xml:lang="ja">Web分析設定</value>
+        <value xml:lang="nl">Configuratie webanalyse</value>
         <value xml:lang="vi">Cấu hình trang web phân tích</value>
         <value xml:lang="zh">网站分析设置</value>
         <value xml:lang="zh-TW">網站分析配置</value>
@@ -62,6 +64,7 @@
         <value xml:lang="en">Web Analytics Types</value>
         <value xml:lang="it">Tipi di analisi Web</value>
         <value xml:lang="ja">Web分析種類</value>
+        <value xml:lang="nl">Soorten webanalyse</value>
         <value xml:lang="vi">Kiểu trang web phân tích</value>
         <value xml:lang="zh">网站分析类型</value>
         <value xml:lang="zh-TW">網站分析型態</value>
@@ -70,6 +73,7 @@
         <value xml:lang="de">Neuen Merkmaltyp erstellen</value>
         <value xml:lang="en">Create New Product Feature Type</value>
         <value xml:lang="ja">新規製品機能種類を作成</value>
+        <value xml:lang="nl">Aanmaken Soort productfeature</value>
         <value xml:lang="vi">Tạo mới kiểu Đặc tính SP gia tăng</value>
         <value xml:lang="zh">新建产品特征类型</value>
         <value xml:lang="zh-TW">新建產品特色類型</value>
@@ -11676,6 +11680,7 @@
     <property key="PageTitleViewFacilityAgreements">
         <value xml:lang="de">Einrichtungs Verträge ansehen</value>
         <value xml:lang="en">View Facility Agreements</value>
+        <value xml:lang="nl">Contracten</value>
         <value xml:lang="zh">浏览场所合同</value>
         <value xml:lang="zh-TW">流覽場所合約</value>
     </property>
@@ -11686,6 +11691,7 @@
         <value xml:lang="fr">Voir la fabrication d'article</value>
         <value xml:lang="it">Mostra Produzione Prodotti</value>
         <value xml:lang="ja">製品生産を表示</value>
+        <value xml:lang="nl">Fabricage</value>
         <value xml:lang="ro">Afiseaza Productie Produse</value>
         <value xml:lang="ru">Просмотреть производство продукта</value>
         <value xml:lang="th">แสดงการผลิตสินค้า</value>
@@ -11698,6 +11704,7 @@
         <value xml:lang="en">View Product Orders</value>
         <value xml:lang="it">Mostra prodotto ordini</value>
         <value xml:lang="ja">製品注文を表示</value>
+        <value xml:lang="nl">Orders</value>
         <value xml:lang="vi">Xem Đặt hàng</value>
         <value xml:lang="zh">浏览产品订单</value>
         <value xml:lang="zh-TW">流覽產品訂單</value>
@@ -11709,6 +11716,7 @@
         <value xml:lang="fr">Voir les segments du centre de profit</value>
         <value xml:lang="it">Mostra Segmenti Negozio</value>
         <value xml:lang="ja">製品店舗セグメントを表示</value>
+        <value xml:lang="nl">Winkelsegmenten</value>
         <value xml:lang="ro">Afiseaza Segmente Magazin</value>
         <value xml:lang="ru">Просмотреть сегменты торг. точки</value>
         <value xml:lang="th">แสดงกลุ่มคลังสินค้า</value>
@@ -11723,6 +11731,7 @@
         <value xml:lang="fr">L'expédition</value>
         <value xml:lang="it">Mostra Spedizione</value>
         <value xml:lang="ja">発送を表示</value>
+        <value xml:lang="nl">Leveringen</value>
         <value xml:lang="ro">Afiseaza Expediere </value>
         <value xml:lang="ru">Просмотреть поставку</value>
         <value xml:lang="th">แสดงการขนส่งสินค้า</value>
@@ -11737,6 +11746,7 @@
         <value xml:lang="fr">Les informations d'expédition</value>
         <value xml:lang="it">Mostra Righe Spedizione</value>
         <value xml:lang="ja">発送アイテム情報を表示</value>
+        <value xml:lang="nl">Levering item info</value>
         <value xml:lang="th">แสดงข้อมูลรายการการขนส่งสินค้า</value>
         <value xml:lang="vi">Xem hàng hóa chuyển vận</value>
         <value xml:lang="zh">浏览运输明细信息</value>
@@ -11748,6 +11758,7 @@
         <value xml:lang="fr">Voir les informations d'emballage</value>
         <value xml:lang="it">Mostra Pacchi Spedizione</value>
         <value xml:lang="ja">発送梱包情報を表示</value>
+        <value xml:lang="nl">Verpakking info</value>
         <value xml:lang="th">แสดงข้อมูลกลุ่มการขนส่งสินค้า</value>
         <value xml:lang="vi">Xem thông tin đóng gói</value>
         <value xml:lang="zh">浏览运输包装信息</value>
@@ -11758,6 +11769,7 @@
         <value xml:lang="en">View Shipment Receipts</value>
         <value xml:lang="it">Mostra ricevute spedizione</value>
         <value xml:lang="ja">発送受取を表示</value>
+        <value xml:lang="nl">Ontvangsten</value>
         <value xml:lang="vi">Xem biên lai chuyển vận</value>
         <value xml:lang="zh">浏览货运收据</value>
         <value xml:lang="zh-TW">流覽貨運收據</value>
@@ -11769,6 +11781,7 @@
         <value xml:lang="fr">Voir les informations d'itinéraire</value>
         <value xml:lang="it">Mostra Percorso Spedizione</value>
         <value xml:lang="ja">発送経路情報を表示</value>
+        <value xml:lang="nl">Route info</value>
         <value xml:lang="th">แสดงข้อมูลเส้นทางการขนส่ง</value>
         <value xml:lang="vi">Thông tin quy trình chuyển vận</value>
         <value xml:lang="zh">浏览运输路径信息</value>
@@ -11781,6 +11794,7 @@
         <value xml:lang="fr">Abrév.</value>
         <value xml:lang="it">Abbr.</value>
         <value xml:lang="ja">省略</value>
+        <value xml:lang="nl">Afk.</value>
         <value xml:lang="ro">Abreviere</value>
         <value xml:lang="ru">Аббрев</value>
         <value xml:lang="th">อักษรย่อ</value>
@@ -11795,6 +11809,7 @@
         <value xml:lang="fr">Abréviation</value>
         <value xml:lang="it">Abbreviazione</value>
         <value xml:lang="ja">省略</value>
+        <value xml:lang="nl">Afkorting</value>
         <value xml:lang="ro">Abreviere</value>
         <value xml:lang="ru">Аббревиатура</value>
         <value xml:lang="th">อักษรย่อ</value>
@@ -11822,6 +11837,7 @@
         <value xml:lang="fr">Type de compte</value>
         <value xml:lang="it">Tipo Conto</value>
         <value xml:lang="ja">アカウント種類</value>
+        <value xml:lang="nl">Soort account</value>
         <value xml:lang="ro">Tip Cont</value>
         <value xml:lang="ru">Тип контрагента</value>
         <value xml:lang="th">ประเภทบัญชี</value>
@@ -11836,6 +11852,7 @@
         <value xml:lang="fr">Comptes</value>
         <value xml:lang="it">Conti</value>
         <value xml:lang="ja">アカウント</value>
+        <value xml:lang="nl">Accounts</value>
         <value xml:lang="ro">Conturi</value>
         <value xml:lang="ru">Контрагенты</value>
         <value xml:lang="th">บัญชี</value>
@@ -11847,6 +11864,7 @@
         <value xml:lang="de">Aktion</value>
         <value xml:lang="en">Action</value>
         <value xml:lang="ja">アクション</value>
+        <value xml:lang="nl">Actie</value>
         <value xml:lang="vi">Tác động</value>
         <value xml:lang="zh">操作</value>
         <value xml:lang="zh-TW">操作</value>
@@ -11855,6 +11873,7 @@
         <value xml:lang="de">Aktionskategorien für Aktion</value>
         <value xml:lang="en">Actions Categories For Action</value>
         <value xml:lang="ja">アクションに対するアクションカテゴリ</value>
+        <value xml:lang="nl">Categorieën voor actie</value>
         <value xml:lang="vi">Áp dụng cho Phân loại Quản lý</value>
         <value xml:lang="zh">操作和分类，用于操作</value>
         <value xml:lang="zh-TW">操作和分類,用於操作</value>
@@ -11864,6 +11883,7 @@
         <value xml:lang="en">Actions For Rule</value>
         <value xml:lang="fr">Actions pour la règle</value>
         <value xml:lang="ja">ルールに対するアクション</value>
+        <value xml:lang="nl">Actie voor regel</value>
         <value xml:lang="vi">Áp dụng cho Chính sách</value>
         <value xml:lang="zh">操作，用于规则</value>
         <value xml:lang="zh-TW">操作,用於規則</value>
@@ -11872,6 +11892,7 @@
         <value xml:lang="de">Aktionsprodukte für Aktion</value>
         <value xml:lang="en">Actions Products For Action</value>
         <value xml:lang="ja">アクションに対するアクション製品</value>
+        <value xml:lang="nl">Producten voor actie</value>
         <value xml:lang="vi">Áp dụng cho Sản phẩm</value>
         <value xml:lang="zh">操作和产品，用于操作</value>
         <value xml:lang="zh-TW">操作和產品,用於操作</value>
@@ -11883,6 +11904,7 @@
         <value xml:lang="fr">Type d'action</value>
         <value xml:lang="it">Tipo Azione</value>
         <value xml:lang="ja">アクション</value>
+        <value xml:lang="nl">Soort actie</value>
         <value xml:lang="ro">Tip Actiune</value>
         <value xml:lang="ru">Тип действия</value>
         <value xml:lang="th">จำนวนประเภทการทำงาน</value>
@@ -11897,6 +11919,7 @@
         <value xml:lang="fr">Détail des actions (action, valeur)</value>
         <value xml:lang="it">Tipo Azione Importo</value>
         <value xml:lang="ja">アクション種類金額</value>
+        <value xml:lang="nl">Bedrag soort actie</value>
         <value xml:lang="ro">Tip Actiune Valoare</value>
         <value xml:lang="ru">Тип действия Сумма</value>
         <value xml:lang="th">จำนวนประเภทการทำงาน</value>
@@ -11939,6 +11962,7 @@
         <value xml:lang="fr">Actions</value>
         <value xml:lang="it">Azioni</value>
         <value xml:lang="ja">アクション</value>
+        <value xml:lang="nl">Acties</value>
         <value xml:lang="ro">Actiuni</value>
         <value xml:lang="ru">Действия</value>
         <value xml:lang="th">การทำงาน</value>
@@ -11953,6 +11977,7 @@
         <value xml:lang="fr">Code d'activation</value>
         <value xml:lang="it">Numero Attivazione</value>
         <value xml:lang="ja">アクティベーション番号</value>
+        <value xml:lang="nl">Nummer activering</value>
         <value xml:lang="ru">Номер активации</value>
         <value xml:lang="th">หมายเลขการขนย้าย</value>
         <value xml:lang="vi">Số để kích hoạt</value>
@@ -11966,6 +11991,7 @@
         <value xml:lang="fr">Actif et inactif</value>
         <value xml:lang="it">Attivo e Inattivo</value>
         <value xml:lang="ja">有効および無効</value>
+        <value xml:lang="nl">Actief en inactief</value>
         <value xml:lang="ro">Activ si Inactiv</value>
         <value xml:lang="ru">Активные и неактивные</value>
         <value xml:lang="th">ใช้งานและไม่ใช้งาน</value>
@@ -11980,6 +12006,7 @@
         <value xml:lang="fr">Actif seulement</value>
         <value xml:lang="it">Solo Attivi</value>
         <value xml:lang="ja">有効のみ</value>
+        <value xml:lang="nl">Alleen actief</value>
         <value xml:lang="ro">Numai Activi</value>
         <value xml:lang="ru">Только активные</value>
         <value xml:lang="th">ใช้งานเท่านั้น</value>
@@ -11994,6 +12021,7 @@
         <value xml:lang="fr">Autre retenu</value>
         <value xml:lang="it">Attuale Altri</value>
         <value xml:lang="ja">実績その他</value>
+        <value xml:lang="nl">Effectieve andere</value>
         <value xml:lang="ro">Actuale Alte</value>
         <value xml:lang="ru">Действительно другие</value>
         <value xml:lang="th">โดยแท้จริง</value>
@@ -12008,6 +12036,7 @@
         <value xml:lang="fr">Service retenu</value>
         <value xml:lang="it">Servizi Attuali</value>
         <value xml:lang="ja">実績サービス</value>
+        <value xml:lang="nl">Effectieve verrichtingen</value>
         <value xml:lang="ro">Servizi Actuale</value>
         <value xml:lang="ru">Действительные услуги</value>
         <value xml:lang="th">การบริการโดยแท้จริง</value>
@@ -12022,6 +12051,7 @@
         <value xml:lang="fr">Retenu (Début-Arrivée)</value>
         <value xml:lang="it">Attuale (Inizio-Arrivo)</value>
         <value xml:lang="ja">実績 (開始-到着)</value>
+        <value xml:lang="nl">Effectief (start-aankomst)</value>
         <value xml:lang="ro">Actuale (Initiere-Sosire)</value>
         <value xml:lang="ru">Действительный (Начало-прибытие)</value>
         <value xml:lang="th">โดยแท้จริง (เริ่ม-ถึง)</value>
@@ -12036,6 +12066,7 @@
         <value xml:lang="fr">Total effectif</value>
         <value xml:lang="it">Totale Attuale</value>
         <value xml:lang="ja">実績合計</value>
+        <value xml:lang="nl">Werk. totaal</value>
         <value xml:lang="ro">Total Actual</value>
         <value xml:lang="ru">Действительная сумма</value>
         <value xml:lang="th">ผลรวมโดยแท้จริง</value>
@@ -12050,6 +12081,7 @@
         <value xml:lang="fr">Transport retenu</value>
         <value xml:lang="it">Trasporto Attuale</value>
         <value xml:lang="ja">実績転送</value>
+        <value xml:lang="nl">Werk. transport</value>
         <value xml:lang="ro">Transport Actual</value>
         <value xml:lang="ru">Действительный транспорт</value>
         <value xml:lang="th">การขนส่งโดยแท้จริง</value>
@@ -12061,6 +12093,7 @@
         <value xml:lang="de">Aktionskategorie hinzufügen</value>
         <value xml:lang="en">Add Action Category</value>
         <value xml:lang="ja">アクションカテゴリを追加</value>
+        <value xml:lang="nl">Categorie actie toevoegen</value>
         <value xml:lang="vi">Thêm Phân loại Quản lý</value>
         <value xml:lang="zh">添加分类操作</value>
         <value xml:lang="zh-TW">增加分類操作</value>
@@ -12069,6 +12102,7 @@
         <value xml:lang="de">Aktionsprodukte hinzufügen</value>
         <value xml:lang="en">Add Action Products</value>
         <value xml:lang="ja">アクション製品を追加</value>
+        <value xml:lang="nl">Product actie toevoegen</value>
         <value xml:lang="vi">Thêm sản phẩm</value>
         <value xml:lang="zh">添加产品操作</value>
         <value xml:lang="zh-TW">增加產品操作</value>
@@ -12077,6 +12111,7 @@
         <value xml:lang="de">Zusätzliche Bilder hinzufügen</value>
         <value xml:lang="en">Add Additional Images</value>
         <value xml:lang="ja">追加画像を追加</value>
+        <value xml:lang="nl">Additionele afbeeldingen toevoegen</value>
         <value xml:lang="vi">Thêm ảnh minh họa</value>
         <value xml:lang="zh">追加图片</value>
         <value xml:lang="zh-TW">追加圖片</value>
@@ -12128,6 +12163,7 @@
         <value xml:lang="fr">Ajouter une catégorie de compte du grand livre</value>
         <value xml:lang="it">Aggiungi Conto Gl</value>
         <value xml:lang="ja">カテゴリ勘定科目</value>
+        <value xml:lang="nl">Gb.rek categorie toevoegen</value>
         <value xml:lang="th">เพิ่มหมวดหมู่บัญชีทั่วไป</value>
         <value xml:lang="vi">Thêm tài khoản sổ cái (GL) của Phân loại Quản lý</value>
         <value xml:lang="zh">添加分类总账账户</value>
@@ -12140,6 +12176,7 @@
         <value xml:lang="fr">Ajouter une catégorie parente</value>
         <value xml:lang="it">Aggiungi Categoria Padre</value>
         <value xml:lang="ja">上位(親)のカテゴリを追加</value>
+        <value xml:lang="nl">Ouder categorie toevoegen</value>
         <value xml:lang="th">เพิ่มหมวดหมู่</value>
         <value xml:lang="vi">Thêm Phân loại Quản lý cấp trên</value>
         <value xml:lang="zh">添加上级分类</value>
