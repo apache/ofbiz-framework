@@ -73,6 +73,12 @@
         <response name="success" type="view" value="projectBilling"/>
         <response name="error" type="view" value="projectBilling"/>
     </request-map>
+    <request-map uri="addProjectTimeToInvoice">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="addProjectTimeToInvoice"/>
+        <response name="success" type="view" value="projectBilling"/>
+        <response name="error" type="view" value="projectBilling"/>
+    </request-map>
     <request-map uri="createProject">
         <security https="true" auth="true"/>
         <event type="service" invoke="createProject"/>

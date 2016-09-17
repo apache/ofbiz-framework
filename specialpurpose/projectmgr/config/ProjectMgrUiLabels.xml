@@ -347,13 +347,17 @@
     <property key="PageTitleAddProjectTimeToNewInvoice">
         <value xml:lang="de">Füge alle gemeldeten/genehmigten Aufgabenzeiten einer neuen Abrechnung hinzu</value>
         <value xml:lang="en">Add all reported/approved task time to a new invoice</value>
-        <value xml:lang="fr">Ajouter tout le temps de la tâche rapporté/approuvé à une nouvelle facture/</value>
+        <value xml:lang="fr">Ajouter tout le temps de la tâche rapporté/approuvé à une nouvelle facture</value>
         <value xml:lang="it">Aggiungi tutte le timbrature approvate ad una nuova fattura</value>
         <value xml:lang="ja">新規請求書にすべての報告済/承認済タスク時間を追加</value>
         <value xml:lang="nl">Alle gerapporteerde/goedgekeurde uren toevoegen aan nieuwe faktuur</value>
         <value xml:lang="vi">Thêm toàn bộ các báo cáo/ các tác vụ đã được duyệt vào hóa đơn mới</value>
         <value xml:lang="zh">把全部已报告/已批准的任务时间添加到一个新的发票</value>
         <value xml:lang="zh-TW">把全部已報告/已核准的任務時間增加到一個新的發票</value>
+    </property>
+    <property key="PageTitleAddProjectTimeToInvoice">
+        <value xml:lang="en">Add all reported/approved task time to an existing invoice</value>
+        <value xml:lang="fr">Ajouter tout le temps de la tâche rapporté/approuvé à une facture existante</value>
     </property>
     <property key="PageTitleAddResource">
         <value xml:lang="de">Neue Ressource hinzufügen</value>

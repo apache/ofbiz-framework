@@ -121,6 +121,9 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleAddProjectTimeToNewInvoice}">
                             <include-form name="AddProjectTimeToNewInvoice" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleAddProjectTimeToInvoice}">
+                            <include-form name="AddProjectTimeToInvoice" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
