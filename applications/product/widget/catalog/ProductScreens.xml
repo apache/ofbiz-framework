@@ -234,7 +234,7 @@ under the License.
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <link target="/accounting/control/EditAgreement" url-mode="inter-app" text="${uiLabelMap.PageTitleEditAgreement}" style="buttontext">
+                            <link target="/accounting/control/EditAgreement" url-mode="inter-app" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext">
                                 <parameter param-name="productId"/>
                             </link>
                         </container>
