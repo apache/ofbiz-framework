@@ -137,7 +137,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRoutingDecorator">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditRouting}">
+                        <screenlet title="${groovy: workEffortId ? uiLabelMap.PageTitleEditRouting : uiLabelMap.ManufacturingNewRouting}">
                             <container style="button-bar">
                                 <link target="EditRouting" text="${uiLabelMap.ManufacturingNewRouting}" style="buttontext create"/>
                             </container>
@@ -196,7 +196,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRoutingTaskDecorator">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditRoutingTask}">
+                        <screenlet title="${groovy: workEffortId ? uiLabelMap.PageTitleEditRoutingTask : uiLabelMap.ManufacturingNewRoutingTask}">
                             <container style="button-bar">
                                 <link target="EditRoutingTask" text="${uiLabelMap.ManufacturingNewRoutingTask}" style="buttontext create"/>
                             </container>
