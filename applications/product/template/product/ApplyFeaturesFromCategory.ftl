@@ -51,8 +51,8 @@ under the License.
         </tr>
     </table>
 </#if>
-<table cellspacing="0" class="basic-table">
 <form method="post" action="<@ofbizUrl>ApplyFeaturesToProduct</@ofbizUrl>" name="selectAllForm">
+<table cellspacing="0" class="basic-table">
   <input type="hidden" name="_useRowSubmit" value="Y" />
   <input type="hidden" name="_checkGlobalScope" value="Y" />
   <input type="hidden" name="productId" value="${productId}" />
@@ -65,7 +65,7 @@ under the License.
     <td><b>${uiLabelMap.CommonThruDate}</b></td>
     <td><b>${uiLabelMap.ProductAmount}</b></td>
     <td><b>${uiLabelMap.CommonSequence}</b></td>
-    <td><b><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');" /></labe></b></td>
+    <td><b><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" class="selectAll" onclick="highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');" /></labe></b></td>
   </tr>
 <#assign rowCount = 0>
 <#assign rowClass = "2">
@@ -93,7 +93,7 @@ under the License.
         <td><input type="text" size="6" name="amount_o_${rowCount}" value="${productFeature.defaultAmount!}" /></td>
         <td><input type="text" size="5" name="sequenceNum_o_${rowCount}" value="${productFeature.defaultSequenceNum!}" /></td>
         <td align="right">
-            <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${rowCount}');" />
+            <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="highlightRow(this,'productFeatureId_tableRow_${rowCount}');" />
         </td>
     </tr>
     <#assign rowCount = rowCount + 1>
@@ -107,5 +107,5 @@ under the License.
 <tr><td colspan="9" align="center"><input type="submit" value="${uiLabelMap.CommonApply}" /></td></tr>
 </#if>
 <input type="hidden" name="_rowCount" value="${rowCount!}"/>
-</form>
 </table>
+</form>

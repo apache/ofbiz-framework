@@ -123,7 +123,7 @@ under the License.
                             <td>${uiLabelMap.CommonReceive}</td>
                             <td>${uiLabelMap.ProductInventoryItemType}</td>
                             <td colspan="2" align="right">
-                                <div><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'orderItemData_tableRow_', 'selectAllForm');" /></label></div>
+                                <div><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" checked class="selectAll" onclick="highlightAllRows(this, 'orderItemData_tableRow_', 'selectAllForm');" /></label></div>
                             </td>
                         </#if>
                     </tr>
@@ -203,7 +203,7 @@ under the License.
                                     <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&amp;purchaseOrderId=${orderId}&amp;productId=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a>
                                 </td>
                                 <td align="right">
-                                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'orderItemData_tableRow_${rowCount}');" />
+                                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="highlightRow(this,'orderItemData_tableRow_${rowCount}');" />
                                 </td>
                                 <#assign rowCount = rowCount + 1>
                             </#if>
@@ -229,7 +229,6 @@ under the License.
                 </table>
                 <input type="hidden" name="_rowCount" value="${rowCount}" />
             </form>
-            <script language="JavaScript" type="text/javascript">selectAll('selectAllForm');</script>
         </#if>
         <#if itemsAvailableToReceive && totalReadyToReceive < totalAvailableToReceive>
             <h3>${uiLabelMap.ProductReceiveInventoryAddProductToReceive}</h3>

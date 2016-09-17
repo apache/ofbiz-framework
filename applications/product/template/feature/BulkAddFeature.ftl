@@ -21,8 +21,8 @@ under the License.
         <h3>${uiLabelMap.ProductAddProductFeatureInBulk} ${uiLabelMap.CommonFor} ${featureCategory.description}</h3>
     </div>
     <div class="screenlet-body">
+      <form method='post' action='<@ofbizUrl>BulkAddProductFeatures</@ofbizUrl>' name="selectAllForm">
         <table cellspacing="0" class="basic-table">
-          <form method='post' action='<@ofbizUrl>BulkAddProductFeatures</@ofbizUrl>' name="selectAllForm">
           <input type="hidden" name="_useRowSubmit" value="Y" />
           <input type="hidden" name="_checkGlobalScope" value="N" />
           <input type="hidden" name="productFeatureCategoryId" value="${productFeatureCategoryId}" />
@@ -31,7 +31,7 @@ under the License.
             <td><b>${uiLabelMap.ProductFeatureType}</b></td>
             <td><b>${uiLabelMap.ProductIdSeqNum}</b></td>
             <td><b>${uiLabelMap.ProductIdCode}</b></td>
-            <td align="right"><b><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="Y" checked="checked" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureTypeId_tableRow_', 'selectAllForm');" /></label></b></td>
+            <td align="right"><b><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="Y" checked="checked" class="selectAll" onclick="highlightAllRows(this, 'productFeatureTypeId_tableRow_', 'selectAllForm');" /></label></b></td>
           </tr>
         <#assign rowClass = "2">
         <#list 0..featureNum-1 as feature>
@@ -46,7 +46,7 @@ under the License.
               </td>
               <td><input type="text" size='5' name="defaultSequenceNum_o_${feature_index}"" /></td>
               <td><input type="text" size='5' name="idCode_o_${feature_index}" /></td>
-              <td align="right"><input type="checkbox" name="_rowSubmit_o_${feature_index}" value="Y" checked="checked" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureTypeId_tableRow_${feature_index}');" /></td>
+              <td align="right"><input type="checkbox" name="_rowSubmit_o_${feature_index}" value="Y" onclick="highlightRow(this,'productFeatureTypeId_tableRow_${feature_index}');" /></td>
           </tr>
           <#-- toggle the row color -->
           <#if rowClass == "2">
@@ -57,8 +57,8 @@ under the License.
         </#list>
         <input type="hidden" name="_rowCount" value="${featureNum}" />
         <tr><td colspan="11" align="center"><input type="submit" value='${uiLabelMap.CommonCreate}'/></td></tr>
-        </form>
         </table>
+      </form>
     </div>
 </div>
 

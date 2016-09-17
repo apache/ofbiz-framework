@@ -35,7 +35,7 @@ under the License.
           <td><b>${uiLabelMap.ProductCategory}</b></td>
           <td><b>${uiLabelMap.CommonFromDate}</b></td>
           <td><b>${uiLabelMap.ProductThruDateAmountSequenceApplicationType}</b></td>
-          <td><b><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');"/></label></b></td>
+          <td><b><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" class="selectAll" onclick="highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');"/></label></b></td>
         </tr>
   <#assign rowClass = "2">
   <#list productFeatureAndAppls as productFeatureAndAppl>
@@ -79,7 +79,7 @@ under the License.
             </select>
           </td>
           <td align="right">
-            <input type="checkbox" name="_rowSubmit_o_${productFeatureAndAppl_index}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${productFeatureAndAppl_index}');" />
+            <input type="checkbox" name="_rowSubmit_o_${productFeatureAndAppl_index}" value="Y" onclick="highlightRow(this,'productFeatureId_tableRow_${productFeatureAndAppl_index}');" />
           </td>
           <td>
             <a href="javascript:document.RemoveFeatureFromProduct_o_${productFeatureAndAppl_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>

@@ -50,26 +50,11 @@ under the License.
                 }
             }
         }
-
-        function toggleAll(e) {
-            var cform = document.products;
-            var len = cform.elements.length;
-            for (var i = 0; i < len; i++) {
-                var element = cform.elements[i];
-                if (element.name == "selectResult" && element.checked != e.checked) {
-                    toggle(element);
-                }
-            }
-        }
-
-        function toggle(e) {
-            e.checked = !e.checked;
-        }
     </script>
 
     <table cellspacing="0" class="basic-table">
         <tr>
-          <td><label><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);"/> <b>${uiLabelMap.ProductProduct}</b></label></td>
+          <td><label><input type="checkbox" name="selectAll" value="0" class="selectAll" form="products"/> <b>${uiLabelMap.ProductProduct}</b></label></td>
           <td align="right">
             <b>
             <#if 0 < viewIndex?int>
@@ -108,7 +93,7 @@ under the License.
         <tr><td colspan="2"><hr /></td></tr>
     </table>
 
-    <form method="post" name="products">
+    <form method="post" name="products" id="products">
       <input type="hidden" name="productStoreId" value="${parameters.productStoreId!}" />
       <table cellspacing="0" class="basic-table">
         <#assign listIndex = lowIndex>

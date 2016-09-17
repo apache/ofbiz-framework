@@ -98,7 +98,7 @@ under the License.
                 <td>${uiLabelMap.ProductIssue}</td>
                 <td align="right">
                     <div>${uiLabelMap.CommonSubmit} ?</div>
-                    <div><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'orderItemData_tableRow_', 'selectAllForm');" /></label></div>
+                    <div><label>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" checked class="selectAll" onclick="highlightAllRows(this, 'orderItemData_tableRow_', 'selectAllForm');" /></label></div>
                 </td>
             </tr>
             <#assign alt_row = false>
@@ -167,7 +167,7 @@ under the License.
                                 <input type="text" size="5" name="quantity_o_${rowCount}" value="${quantityNotIssued}"/>
                             </td>
                             <td align="right">
-                              <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'orderItemData_tableRow_${rowCount}');" />
+                              <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="highlightRow(this,'orderItemData_tableRow_${rowCount}');" />
                             </td>
                             <#assign rowCount = rowCount + 1>
                         <#else>
@@ -211,7 +211,7 @@ under the License.
                                     <input type="text" size="5" name="quantity_o_${rowCount}" value="${(orderItemShipGrpInvResData.shipmentPlanQuantity)?default(availableQuantity)}"/>
                                 </td>
                                 <td align="right">
-                                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'orderItemData_tableRow_${rowCount}');" />
+                                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="highlightRow(this,'orderItemData_tableRow_${rowCount}');" />
                                 </td>
                                 <#assign rowCount = rowCount + 1>
                             <#else>
@@ -228,7 +228,6 @@ under the License.
         <div align="right"><input type="submit" class="smallSubmit" value="${uiLabelMap.ProductIssueAll}"/></div>
         <input type="hidden" name="_rowCount" value="${rowCount}" />
         </form>
-        <script language="JavaScript" type="text/javascript">selectAll('selectAllForm');</script>
     </#if>
     </div>
 </div>

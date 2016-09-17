@@ -59,7 +59,7 @@ under the License.
                     <td>${uiLabelMap.CommonConfirm}</td>
                     <td align="right">
                         <label>${uiLabelMap.ProductSelectAll}&nbsp;
-                        <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'moveInfoId_tableRow_', 'selectAllForm');" /></label>
+                        <input type="checkbox" name="selectAll" value="Y" class="selectAll" onclick="highlightAllRows(this, 'moveInfoId_tableRow_', 'selectAllForm');" /></label>
                     </td>
                 </tr>
                 <#if moveByOisgirInfoList?has_content || moveByPflInfoList?has_content>
@@ -91,7 +91,7 @@ under the License.
                                 <input type="text" name="quantityMoved_o_${rowCount}" size="6" value="${totalQuantity?string.number}" />
                             </td>
                             <td align="right">
-                                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'moveInfoId_tableRow_${rowCount}');" />
+                                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="highlightRow(this,'moveInfoId_tableRow_${rowCount}');" />
                             </td>
                         </tr>
                         <#assign rowCount = rowCount + 1>
@@ -125,7 +125,7 @@ under the License.
                                 <input type="text" name="quantityMoved_o_${rowCount}" size="6" value="${totalQuantity?string.number}" />
                             </td>
                             <td align="right">
-                                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'moveInfoId_tableRow_${rowCount}');" />
+                                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="highlightRow(this,'moveInfoId_tableRow_${rowCount}');" />
                             </td>
                         </tr>
                         <#assign rowCount = rowCount + 1>
