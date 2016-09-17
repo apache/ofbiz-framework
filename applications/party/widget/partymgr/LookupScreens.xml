@@ -38,8 +38,8 @@ under the License.
                 <set field="entityName" value="PartyNameView"/>
                 
                 <!-- required: fields to search a match -->
-                <!-- the first element from searchFields is returned after user selection --> 
-                <!-- it might be hidden based on widget.autocompleter.displayReturnField property in widget.properties -->                
+                <!-- the first element from searchFields is returned after user selection -->
+                <!-- it might be hidden based on widget.autocompleter.displayReturnField property in widget.properties -->
                 <set field="searchFields" value="[partyId, firstName, middleName, lastName, groupName]"/>
  
                 <!-- optional: fields to display in the given order, default is searchFields -->
@@ -73,7 +73,7 @@ under the License.
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="PartyNameContactMechView"/>
-                <set field="searchFields" value="[contactMechId, partyId, firstName, middleName, lastName, groupName]"/>  
+                <set field="searchFields" value="[contactMechId, partyId, firstName, middleName, lastName, groupName]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -150,7 +150,7 @@ under the License.
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PartyLookupPartyPerson}"/>
-                <set field="queryString" from-field="result.queryString"/>                
+                <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="PartyAndPerson"/>
                 <set field="searchFields" value="[partyId, firstName, middleName, lastName]"/>
                 <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
@@ -333,7 +333,7 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PartyLookupPartyClassificationGroup}"/>
                 <set field="entityName" value="PartyClassificationGroup"/>
-                <set field="searchFields" value="[partyClassificationGroupId, parentGroupId, description]"/>                                
+                <set field="searchFields" value="[partyClassificationGroupId, parentGroupId, description]"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
@@ -358,7 +358,7 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="entityName" value="CommunicationEvent"/>
-                <set field="searchFields" value="[communicationEventId, subject]"/> 
+                <set field="searchFields" value="[communicationEventId, subject]"/>
                 <set field="title" value="${uiLabelMap.PartyLookupPartyCommEvent}"/>
                 <set field="tabButtonItem" value="ContactList"/>
             </actions>
@@ -382,7 +382,7 @@ under the License.
 
                 <set field="title" value="${uiLabelMap.PartyLookupContactMech}"/>
                 <set field="entityName" value="PartyAndContactMech"/>
-                <set field="searchFields" value="[contactMechId, partyId, contactMechTypeId, infoString, paToName]"/> 
+                <set field="searchFields" value="[contactMechId, partyId, contactMechTypeId, infoString, paToName]"/>
                 <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
