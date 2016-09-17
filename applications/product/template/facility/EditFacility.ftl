@@ -44,6 +44,7 @@ under the License.
           <option value='${nextFacilityType.facilityTypeId!}'>${nextFacilityType.get("description",locale)!}</option>
         </#list>
       </select>
+      <span class="tooltip">${uiLabelMap.CommonRequired}</span>
     </td>
   </tr>
   <tr>
