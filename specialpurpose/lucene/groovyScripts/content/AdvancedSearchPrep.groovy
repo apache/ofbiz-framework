@@ -17,9 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.product.catalog.*
-import org.apache.ofbiz.product.feature.*
-import org.apache.ofbiz.product.product.*
+import org.apache.ofbiz.product.feature.ParametricSearch;
+import org.apache.ofbiz.product.product.ProductSearchSession;
 
 productFeaturesByTypeMap = ParametricSearch.getAllFeaturesByType(delegator, 2000);
 productFeatureTypeIdsOrdered = new ArrayList(new TreeSet(productFeaturesByTypeMap.keySet()));
