@@ -535,4 +535,20 @@ under the License.
         <description>Delete a FinAccountAttribute</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- FinAccountTransAttribute services -->
+    <service name="createFinAccountTransAttribute" default-entity-name="FinAccountTransAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FinAccountTransAttribute</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateFinAccountTransAttribute" default-entity-name="FinAccountTransAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FinAccountTransAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFinAccountTransAttribute" default-entity-name="FinAccountTransAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FinAccountTransAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
