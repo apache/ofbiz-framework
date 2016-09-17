@@ -831,7 +831,6 @@ public final class UtilDateTime {
         Timestamp retStamp = new Timestamp(tempCal.getTimeInMillis());
         retStamp.setNanos(0);
         //MSSQL datetime field has accuracy of 3 milliseconds and setting the nano seconds cause the date to be rounded to next day
-        //retStamp.setNanos(999999999);
         return retStamp;
     }
 

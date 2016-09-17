@@ -592,7 +592,7 @@ public final class UtilProperties implements Serializable {
         try {
             value = bundle.getString(name);
         } catch (Exception e) {
-            //Debug.logInfo(e, module);
+            Debug.logInfo(e, module);
         }
         return value == null ? name : value.trim();
     }

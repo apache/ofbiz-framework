@@ -69,7 +69,5 @@ public class DateTimeTests extends GenericTestCaseBase {
         assertConversion("LongToTimestamp", new DateTimeConverters.NumberToTimestamp(), longTime, timestamp);
         // Source class = java.lang.String
         assertConversion("StringToTimestamp", new DateTimeConverters.StringToTimestamp(), timestamp.toString(), timestamp);
-        //assertConversion("StringToDate", new DateTimeConverters.StringToDate(), utilDate.toString(), utilDate);
-        //assertConversion("StringToSqlDate", new DateTimeConverters.StringToSqlDate(), sqlDate.toString(), sqlDate);
     }
 }

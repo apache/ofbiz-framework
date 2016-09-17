@@ -181,15 +181,9 @@ public class UtilTimer {
         retStringBuf.append("(");
 
         String timeSinceStartStr = String.valueOf(timeSinceStart());
-
-        // int spacecount = 5 - timeSinceStartStr.length();
-        // for (int i=0; i < spacecount; i++) { retStringBuf.append(' '); }
         retStringBuf.append(timeSinceStartStr + ",");
 
         String timeSinceLastStr = String.valueOf(timeSinceLast());
-
-        // spacecount = 4 - timeSinceLastStr.length();
-        // for (int i=0; i < spacecount; i++) { retStringBuf.append(' '); }
         retStringBuf.append(timeSinceLastStr);
 
         retStringBuf.append(")");
@@ -200,13 +194,9 @@ public class UtilTimer {
         }
         retStringBuf.append(message);
 
-        // lastMessageTime = (new Date()).getTime();
         lastMessageTime = System.currentTimeMillis();
-        // lastMessage = message;
-
         String retString = retStringBuf.toString();
 
-        // if (!quiet) Debug.logInfo(retString, module);
         if (log && Debug.timingOn()) Debug.logTiming(retString, module);
         return retString;
     }

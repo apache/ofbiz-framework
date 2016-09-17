@@ -96,7 +96,6 @@ public final class UtilFormatOut {
      * @return A String with the formatted price
      */
     public static String formatCurrency(double price, String isoCode, Locale locale, int maximumFractionDigits) {
-        //Debug.logInfo("formatting currency: " + price + ", isoCode: " + isoCode + ", locale: " + locale, module);
         com.ibm.icu.text.NumberFormat nf = com.ibm.icu.text.NumberFormat.getCurrencyInstance(locale);
         if (isoCode != null && isoCode.length() > 1) {
             nf.setCurrency(com.ibm.icu.util.Currency.getInstance(isoCode));
@@ -159,7 +158,6 @@ public final class UtilFormatOut {
      * @return A String with the formatted number
      */
     public static String formatSpelledOutAmount(double amount, Locale locale) {
-        //Debug.logInfo("formatting currency: " + price + ", isoCode: " + isoCode + ", locale: " + locale, module);
         com.ibm.icu.text.NumberFormat nf = new com.ibm.icu.text.RuleBasedNumberFormat(locale, com.ibm.icu.text.RuleBasedNumberFormat.SPELLOUT);
         return nf.format(amount);
     }

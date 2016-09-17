@@ -109,12 +109,6 @@ public class HttpRequestFileUpload {
     public void doUpload(HttpServletRequest request) throws IOException {
         ServletInputStream in = request.getInputStream();
 
-        /* System.out.println("Header:");
-         Enumeration ee = request.getHeaderNames();
-         while (ee.hasMoreElements()) {
-         String ss = (String)ee.nextElement();
-         System.out.println(ss + " = [" + request.getHeader(ss) + "]");
-         }*/
         String reqLengthString = request.getHeader("content-length");
 
         System.out.println("expect " + reqLengthString + " bytes.");
@@ -232,7 +226,6 @@ public class HttpRequestFileUpload {
                     int pos = newLine.indexOf("name=\"");
                     String fieldName = newLine.substring(pos + 6, newLine.length() - 3);
 
-                    // System.out.println("fieldName:" + fieldName);
                     // blank line
                     i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
                     requestLength -= i;
@@ -255,7 +248,6 @@ public class HttpRequestFileUpload {
                             fieldValue.append(newLine);
                         newLine = new String(line, 0, i);
                     }
-                    // System.out.println("fieldValue:" + fieldValue.toString());
                     fields.put(fieldName, fieldValue.toString());
                 }
             }

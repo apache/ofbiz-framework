@@ -441,7 +441,6 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestError("TimeZone->error", localeData.goodTimeZone, new String[] {});
     }
 
-    // GenericValue, org.apache.ofbiz.entity.GenericValue
 
     public void testMap() throws GeneralException {
         simpleTypeConvertTestSingleMulti("Map->Map", map, new String[] {"Map", "java.util.Map"}, map("one", "1", "two", "2", "three", "3"));
@@ -457,14 +456,6 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestError("List->error", list, new String[] {});
     }
 
-    /*
-    // java.nio.ByteBuffer
-
-    public void testBuffer() throws GeneralException {
-        CharBuffer cbuf = CharBuffer.wrap("one, two, three");
-        simpleTypeConvertTestSingleMulti("Buffer->ByteBuffer", cbuf, new String[] {"java.nio.ByteBuffer"}, "");
-    }
-    */
 
     // Node tests are done for all String-> conversions
     // org.w3c.dom.Node

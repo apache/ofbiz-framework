@@ -422,21 +422,7 @@ public final class UtilXml {
         long startTime = System.currentTimeMillis();
 
         // DON'T do this: seems to be causing problems with Catalina/Tomcat, maybe it is expecting a different parser?
-        //System.setProperty("javax.xml.parsers.DocumentBuilderFactory", "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
-
         Document document = null;
-
-        /* Xerces DOMParser direct interaction; the other seems to be working better than this, so we'll stay with the standard JAXP stuff
-        DOMParser parser = new DOMParser();
-        try {
-            parser.setFeature("http://xml.org/sax/features/validation", true);
-            parser.setFeature("http://apache.org/xml/features/validation/schema", true);
-        } catch (SAXException e) {
-            Debug.logWarning("Could not set parser feature: " + e.toString(), module);
-        }
-        parser.parse(new InputSource(is));
-        document = parser.getDocument();
-        */
 
         /* Standard JAXP (mostly), but doesn't seem to be doing XML Schema validation, so making sure that is on... */
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -447,8 +433,6 @@ public final class UtilXml {
         factory.setAttribute("http://apache.org/xml/features/validation/schema", validate);
 
         // with a SchemaUrl, a URL object
-        //factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
-        //factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", SchemaUrl);
         DocumentBuilder builder = factory.newDocumentBuilder();
         if (validate) {
             LocalResolver lr = new LocalResolver(new DefaultHandler());
@@ -567,8 +551,6 @@ public final class UtilXml {
         parser.setFeature("http://apache.org/xml/features/dom/defer-node-expansion", false);
 
         // with a SchemaUrl, a URL object
-        //factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
-        //factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", SchemaUrl);
         if (validate) {
             LocalResolver lr = new LocalResolver(new DefaultHandler());
             ErrorHandler eh = new LocalErrorHandler(docDescription, lr);
@@ -595,7 +577,6 @@ public final class UtilXml {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         factory.setValidating(true);
-        // factory.setNamespaceAware(true);
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
 
@@ -1014,7 +995,6 @@ public final class UtilXml {
          * @return InputSource of DTD
          */
         public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-            //Debug.logInfo("resolving XML entity with publicId [" + publicId + "], systemId [" + systemId + "]", module);
             hasDTD = false;
             String dtd = UtilProperties.getSplitPropertyValue(UtilURL.fromResource("localdtds.properties"), publicId);
             if (UtilValidate.isNotEmpty(dtd)) {
@@ -1065,8 +1045,6 @@ public final class UtilXml {
                     return null;
                 }
             }
-            //Debug.logInfo("[UtilXml.LocalResolver.resolveEntity] local resolve failed for DTD with publicId [" +
-            //        publicId + "] and the dtd file is [" + dtd + "], trying defaultResolver", module);
             return defaultResolver.resolveEntity(publicId, systemId);
         }
 

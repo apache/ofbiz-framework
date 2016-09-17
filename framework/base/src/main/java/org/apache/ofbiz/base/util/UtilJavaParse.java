@@ -165,7 +165,6 @@ public final class UtilJavaParse {
             if (endOfSubBlock < 0) return -1;
             nextOpen = javaFile.indexOf("{", endOfSubBlock+1);
             nextClose = javaFile.indexOf("}", endOfSubBlock+1);
-            //Debug.logInfo("In loop in findEndOfBlock for nextOpen=" + nextOpen + ", nextClose=" + nextClose + ", endOfSubBlock=" + endOfSubBlock, module);
         }
 
         // at this point there should be no nextOpen or nextOpen is after the nextClose, meaning we're at the end of the block
@@ -187,7 +186,6 @@ public final class UtilJavaParse {
                 if (openQuoteIndex - openParenIndex <= 3 && openQuoteIndex >= 0 && closeQuoteIndex >= 0) {
                     //more than two spaces/chars between quote and open paren... consider it something other than what we are looking for
                     String serviceName = javaFile.substring(openQuoteIndex+1, closeQuoteIndex).trim();
-                    //Debug.logInfo("In findServiceCallsInBlock found serviceName [" + serviceName + "]", module);
                     serviceNameSet.add(serviceName);
                 }
             }
@@ -213,7 +211,6 @@ public final class UtilJavaParse {
                 if (openQuoteIndex - openParenIndex <= 3 && openQuoteIndex >= 0 && closeQuoteIndex >= 0) {
                     //more than two spaces/chars between quote and open paren... consider it something other than what we are looking for
                     String entityName = javaFile.substring(openQuoteIndex+1, closeQuoteIndex).trim();
-                    //Debug.logInfo("In findServiceCallsInBlock found valid entityName [" + entityName + "]", module);
                     entityNameSet.add(entityName);
                 }
             }

@@ -87,7 +87,6 @@ public class StringUtilTests extends GenericTestCaseBase {
 
     public void testStrToMap() {
         assertNull("null-string", StringUtil.strToMap(null, false));
-        //assertEquals("empty", Collections.emptyMap(), StringUtil.strToMap("", false));
         assertEquals("missing =", Collections.emptyMap(), StringUtil.strToMap("1", false));
         assertEquals("single", map("1", "one"), StringUtil.strToMap("1=one"));
         assertEquals("double", map("2", "two", "1", "one"), StringUtil.strToMap("1=one|2=two"));
@@ -114,7 +113,6 @@ public class StringUtilTests extends GenericTestCaseBase {
                 assertNotNull("bad(" + s + ")", caught);
             }
         }
-        //assertEquals("empty", Collections.emptyMap(), StringUtil.toMap("{}"));
         assertEquals("single", map("1", "one"), StringUtil.toMap("{1=one}"));
         assertEquals("double", map("2", "two", "1", "one"), StringUtil.toMap("{1=one, 2=two}"));
         assertEquals("double-space", map("2", "two ", " 1", "one"), StringUtil.toMap("{ 1=one, 2=two }"));
@@ -131,7 +129,6 @@ public class StringUtilTests extends GenericTestCaseBase {
                 assertNotNull("bad(" + s + ")", caught);
             }
         }
-        //assertEquals("empty", Collections.emptyList(), StringUtil.toList("[]"));
         assertEquals("single", list("1"), StringUtil.toList("[1]"));
         assertEquals("double", list("1", "2"), StringUtil.toList("[1, 2]"));
         assertEquals("double-space", list(" 1", "2 "), StringUtil.toList("[ 1, 2 ]"));
@@ -148,7 +145,6 @@ public class StringUtilTests extends GenericTestCaseBase {
                 assertNotNull("bad(" + s + ")", caught);
             }
         }
-        //assertEquals("empty", Collections.emptySet(), StringUtil.toSet("[]"));
         assertEquals("single", set("1"), StringUtil.toSet("[1]"));
         assertEquals("double", set("1", "2"), StringUtil.toSet("[1, 2]"));
         assertEquals("double-space", set(" 1", "2 "), StringUtil.toSet("[ 1, 2 ]"));
