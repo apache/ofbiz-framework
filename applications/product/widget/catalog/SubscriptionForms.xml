@@ -456,7 +456,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="EditSubscriptionAttributes" type="list"  list-name="subscriptionAttributes"  target="UpdateSubscriptionAttribute"
-        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table">
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateSubscriptionAttribute"/>
 
         <field name="subscriptionId"><hidden/></field>

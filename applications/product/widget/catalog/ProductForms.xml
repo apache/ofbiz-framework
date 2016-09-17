@@ -476,7 +476,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductPrice" type="list" target="updateProductPrice" title="" list-name="productPrices"
-        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductPrices">
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductPrices" separate-columns="true">
         <auto-fields-service service-name="updateProductPrice" map-name="productPrice"/>
         <field name="productId"><hidden/></field>
         <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}"><display-entity entity-name="ProductPriceType"/></field>
@@ -549,7 +549,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductPaymentMethodType" type="list" target="updateProductPaymentMethodType" title="" list-name="productPaymentMethodTypes"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateProductPaymentMethodType" map-name="productPrice"/>
         <field name="productId"><hidden/></field>
         <field name="productPricePurposeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ProductPricePurpose"/></field>
@@ -578,7 +578,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductCategoryMember" type="list" target="updateProductToCategory" title="" list-name="productCategoryMembers"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateProductToCategory"/>
         <field name="productId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategory_Id}">
@@ -1567,7 +1567,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListProductMeters" type="list" list-name="productMeters" target="updateProductMeter"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <actions>
             <entity-condition entity-name="ProductMeter">
                 <condition-expr field-name="productId" from-field="productId"/>
@@ -1619,7 +1619,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListProductGeos" type="list" list-name="productGeos" target="updateProductGeo"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <actions>
             <entity-condition entity-name="ProductGeo">
                 <condition-expr field-name="productId" from-field="productId"/>
@@ -1922,7 +1922,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListProductWorkEfforts" type="list" target="updateWorkEffortGoodStandard" list-name="productWorkEfforts"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <actions>
             <entity-and entity-name="WorkEffortGoodStandard" use-cache="true" list="productWorkEfforts">
                 <field-map from-field="productId" field-name="productId"/>
@@ -1956,7 +1956,7 @@ under the License.
     </form>
 
     <form name="UpdateProductFacilities" type="list" target="updateProductFacility" title="" list-name="productFacilities"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateProductFacility"/>
         <field name="productId"><hidden/></field>
         <field name="facilityId">
@@ -2044,7 +2044,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductGoodIdentifications" type="list" target="updateGoodIdentification" title="" list-name="goodIdentifications"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateGoodIdentification" map-name="updateGoodIdentification"/>
         <field name="goodIdentificationTypeId" title="${uiLabelMap.ProductIdType}"><display-entity entity-name="GoodIdentificationType"/></field>
         <field name="productId"><hidden/></field>
@@ -2125,7 +2125,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductAttribute" type="list" target="updateProductAttribute" title="" list-name="productAttributes"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateProductAttribute" map-name="updateProductAttribute"/>
         <field name="attrName"><display/></field>
         <field name="productId"><hidden/></field>
@@ -2140,7 +2140,7 @@ under the License.
     </form>
     <!-- GlAccount-->
     <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" title="" list-name="productGlAccounts"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <row-actions>
             <entity-condition entity-name="GlAccountOrganizationAndClass" list="organizationGlAccounts">
                 <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
@@ -2242,7 +2242,7 @@ under the License.
     </form>
     
     <form name="UpdateProductRole" type="list" target="updatePartyToProduct" title="" list-name="productRoles"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updatePartyToProduct"/>
         <field name="productId"><hidden/></field>
         <field name="sequenceNum"><text size="5"/></field>

@@ -102,7 +102,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProdCatalogToParty" type="list" target="updateProdCatalogToParty" title="" list-name="prodCatalogRoleList"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateProdCatalogToParty"/>
         <field name="prodCatalogId"><hidden/></field>
         <!-- three possibilities for the Party: person, partyGroup, neither... just print everything and if it's empty, no biggie -->
@@ -140,7 +140,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductStoreCatalog" type="list" target="updateProdCatalogStore" title="" list-name="productStoreCatalogList"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateProductStoreCatalog"/>
         <field name="prodCatalogId"><hidden/></field>
         <field name="productStoreId" title="${uiLabelMap.ProductStoreId}">
@@ -162,7 +162,7 @@ under the License.
         </field>
     </form>
     <form name="EditProdCatalogCategories" type="list" target="updateProductCategoryToProdCatalog" title="" list-name="prodCatalogCategories"
-        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProdCatalogCategories">
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProdCatalogCategories" separate-columns="true">
         <auto-fields-service service-name="updateProductCategoryToProdCatalog"/>
         <field name="prodCatalogId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}">
