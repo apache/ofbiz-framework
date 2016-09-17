@@ -66,7 +66,7 @@ under the License.
 
   <#local contentIdx = contentId! />
   <#if (!contentIdx?? || contentIdx?length == 0)>
-    <#local contentIdx = page.contentIdx! />
+    <#local contentIdx = contentIdx! />
     <#if (!contentIdx?? || contentIdx?length == 0)>
     </#if>
   </#if>

@@ -181,12 +181,6 @@ public abstract class ModelMenuAction {
                     this.field.put(globalCtx, newValue);
                 }
             }
-
-            // this is a hack for backward compatibility with the JPublish page object
-            Map<String, Object> page = UtilGenerics.checkMap(context.get("page"));
-            if (page != null) {
-                this.field.put(page, newValue);
-            }
         }
 
         @Override

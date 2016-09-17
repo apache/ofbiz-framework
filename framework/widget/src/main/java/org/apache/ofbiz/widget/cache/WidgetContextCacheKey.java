@@ -52,7 +52,6 @@ public final class WidgetContextCacheKey {
         fieldNamesToSkip.add("requestAttributes");
         fieldNamesToSkip.add("JspTaglibs");
         fieldNamesToSkip.add("requestParameters");
-        fieldNamesToSkip.add("page");
         fieldNamesToSkip.add("controlPath");
         fieldNamesToSkip.add("contextRoot");
         fieldNamesToSkip.add("serverRoot");

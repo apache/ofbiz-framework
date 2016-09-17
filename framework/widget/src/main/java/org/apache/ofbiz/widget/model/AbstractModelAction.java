@@ -910,11 +910,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     this.field.put(context, newValue);
                 }
             }
-            // this is a hack for backward compatibility with the JPublish page object
-            Map<String, Object> page = UtilGenerics.checkMap(context.get("page"));
-            if (page != null) {
-                this.field.put(page, newValue);
-            }
         }
 
         public FlexibleStringExpander getDefaultExdr() {

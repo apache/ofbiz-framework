@@ -21,7 +21,7 @@ under the License.
   <div class="breadcrumbs-sep">
     <#if titleProperty??>
         ${uiLabelMap[titleProperty]}
-    <#else>${(page.title)!}
+    <#else>${title!}
     </#if>
   </div>
   <div class="breadcrumbs-end">

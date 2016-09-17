@@ -33,7 +33,7 @@ under the License.
     <meta http-equiv="expires" content="0" />
     <meta http-equiv="imagetoolbar" content="false" />
 
-    <title>${layoutSettings.companyName}: <#if (page.titleProperty)?has_content>${uiLabelMap[page.titleProperty]}<#else>${(page.title)!}</#if></title>
+    <title>${layoutSettings.companyName} : <#if (titleProperty)?has_content>${uiLabelMap[titleProperty]}<#else>${title!}</#if></title>
 
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index,follow" />

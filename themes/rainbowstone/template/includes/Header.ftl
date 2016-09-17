@@ -24,7 +24,7 @@ under the License.
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>${layoutSettings.companyName}: <#if (page.titleProperty)?has_content>${uiLabelMap[page.titleProperty]}<#else>${(page.title)!}</#if></title>
+    <title>${layoutSettings.companyName}: <#if (titleProperty)?has_content>${uiLabelMap[titleProperty]}<#else>${title!}</#if></title>
 <#if layoutSettings.shortcutIcon?has_content>
     <#assign shortcutIcon = layoutSettings.shortcutIcon/>
 <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>
