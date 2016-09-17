@@ -309,7 +309,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                 }
             }
             try {
-                //SeoConfigUtil.addSpecialProductId(productId);
                 urlBuilder.append(productId);
             } catch (Exception e) {
                 urlBuilder.append(productId);
@@ -557,11 +556,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                         try {
                             List<EntityExpr> exprs = new LinkedList<EntityExpr>();
                             exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, lastPathElement));
-//                            if (SeoConfigUtil.isSpecialProductId(tempProductId)) {
-//                                exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, SeoConfigUtil.getSpecialProductId(tempProductId)));
-//                            } else {
-                                exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, tempProductId));
-//                            }
+                            exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, tempProductId));
                             List<GenericValue> products = delegator.findList("Product", EntityCondition.makeCondition(exprs, EntityOperator.OR), UtilMisc.toSet("productId", "productName"), null, null, true);
                             
                             if (products != null && products.size() > 0) {
@@ -741,7 +736,6 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                 }
             }
             try {
-                //SeoConfigUtil.addSpecialProductId(productId);
                 urlBuilder.append(productId);
             } catch (Exception e) {
                 urlBuilder.append(productId);

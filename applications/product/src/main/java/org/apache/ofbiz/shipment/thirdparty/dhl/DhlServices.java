@@ -327,7 +327,6 @@ public class DhlServices {
         }
         // handle Response element info
         Element responseElement = UtilXml.firstChildElement(rateResponseElement, "Shipment");
-        //Element responseResultElement = UtilXml.firstChildElement(responseElement, "Result");
         Element responseEstimateDetailElement = UtilXml.firstChildElement(responseElement, "EstimateDetail");
 
         DhlServices.handleErrors(responseElement, errorList, locale);
@@ -335,11 +334,6 @@ public class DhlServices {
             return ServiceUtil.returnError(errorList);
         }
         
-        /*
-        String responseStatusCode = UtilXml.childElementValue(responseResultElement, "Code");
-        String responseStatusDescription = UtilXml.childElementValue(responseResultElement, "Desc");
-        */
-
         String dateGenerated = UtilXml.childElementValue(
                 responseEstimateDetailElement, "DateGenerated");
 
@@ -484,18 +478,11 @@ public class DhlServices {
         }
         // handle Response element info
         Element responseElement = UtilXml.firstChildElement(registerResponseElement, "Register");
-        //Element responseResultElement = UtilXml.firstChildElement(responseElement, "Result");
-
         DhlServices.handleErrors(responseElement, errorList, locale);
         if (UtilValidate.isNotEmpty(errorList)) {
             return ServiceUtil.returnError(errorList);
         }
-        //String responseStatusCode = UtilXml.childElementValue(responseResultElement, "Code");
-        //String responseStatusDescription = UtilXml.childElementValue(responseResultElement, "Desc");
-
         String responseShippingKey = UtilXml.childElementValue(responseElement,"ShippingKey");
-        //String responsePostalCode = UtilXml.childElementValue(responseElement,"PostalCode");
-
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("shippingKey", responseShippingKey);
         return result;
@@ -650,22 +637,9 @@ public class DhlServices {
             for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegs) {
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage", false);
                 GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType", false);
-                /*
-                List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "DHL"), null, false);
-                GenericValue carrierShipmentBoxType = null;
-                if (carrierShipmentBoxTypes.size() > 0) {
-                    carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
-                }
-                */
 
-                // TODO: determine what default UoM is (assuming inches) - there should be a defaultDimensionUomId in Facility
                 if (shipmentBoxType != null) {
-                    /*
-                    GenericValue dimensionUom = shipmentBoxType.getRelatedOne("DimensionUom", false);
-                    String length = shipmentBoxType.get("boxLength").toString();
-                    String width = shipmentBoxType.get("boxWidth").toString();
-                    String height = shipmentBoxType.get("boxHeight").toString();
-                     */
+                    // TODO: determine what default UoM is (assuming inches) - there should be a defaultDimensionUomId in Facility
                 }
 
                 // next step is weight determination, so skip if we have a billing weight
@@ -890,18 +864,6 @@ public class DhlServices {
                 "FacilityShipmentDhlShipmentConfirmed", locale));
     }
 
-    /*
-    private static BigDecimal getWeight(List<Map<String, Object>> shippableItemInfo) {
-        BigDecimal totalWeight = BigDecimal.ZERO;
-        if (shippableItemInfo != null) {
-            for (Map<String, Object> itemInfo: shippableItemInfo) {
-                BigDecimal weight = ((BigDecimal) itemInfo.get("weight"));
-                totalWeight = totalWeight.add(weight);
-            }
-        }
-        return totalWeight;
-    }
-    */
 
     public static Document createAccessRequestDocument(Delegator delegator, String shipmentGatewayConfigId, String resource) {
         Document eCommerceRequestDocument = UtilXml.makeEmptyXmlDocument("eCommerce");

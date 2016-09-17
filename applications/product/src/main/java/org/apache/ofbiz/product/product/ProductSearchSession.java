@@ -519,8 +519,6 @@ public class ProductSearchSession {
             request.setAttribute("processSearchParametersAlreadyRun", Boolean.TRUE);
         }
 
-        //Debug.logInfo("Processing Product Search parameters: " + parameters, module);
-
         HttpSession session = request.getSession();
         boolean constraintsChanged = false;
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
@@ -654,7 +652,6 @@ public class ProductSearchSession {
                     String paramNameExt = parameterName.substring("S_PFI".length());
                     String searchCategoryExc = (String) parameters.get("S_PFX" + paramNameExt);
                     Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : Boolean.valueOf(!"N".equals(searchCategoryExc));
-                    //Debug.logInfo("parameterName=" + parameterName + ", paramNameExt=" + paramNameExt + ", searchCategoryExc=" + searchCategoryExc + ", exclude=" + exclude, module);
                     searchAddConstraint(new ProductSearch.FeatureConstraint(productFeatureId, exclude), session);
                     constraintsChanged = true;
                 }
@@ -1080,10 +1077,6 @@ public class ProductSearchSession {
                     searchParamString.append("=");
                     searchParamString.append(fc.exclude.booleanValue() ? "Y" : "N");
                 }
-            /* No way to specify parameters for these right now, so table until later
-            } else if (psc instanceof ProductSearch.FeatureSetConstraint) {
-                ProductSearch.FeatureSetConstraint fsc = (ProductSearch.FeatureSetConstraint) psc;
-             */
             } else if (psc instanceof ProductSearch.FeatureCategoryConstraint) {
                 ProductSearch.FeatureCategoryConstraint pfcc = (ProductSearch.FeatureCategoryConstraint) psc;
                 featureCategoriesCount++;
@@ -1178,7 +1171,6 @@ public class ProductSearchSession {
         ResultSortOrder resultSortOrder = productSearchOptions.getResultSortOrder();
         if (resultSortOrder != null) {
             if (resultSortOrder instanceof ProductSearch.SortKeywordRelevancy) {
-                //ProductSearch.SortKeywordRelevancy skr = (ProductSearch.SortKeywordRelevancy) resultSortOrder;
                 searchParamString.append("&amp;S_O=SKR");
             } else if (resultSortOrder instanceof ProductSearch.SortProductField) {
                 ProductSearch.SortProductField spf = (ProductSearch.SortProductField) resultSortOrder;

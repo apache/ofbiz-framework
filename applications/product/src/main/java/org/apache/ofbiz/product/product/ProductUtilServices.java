@@ -236,16 +236,13 @@ public final class ProductUtilServices {
         DynamicViewEntity dve = new DynamicViewEntity();
         dve.addMemberEntity("PVIRT", "Product");
         dve.addMemberEntity("PVA", "ProductAssoc");
-        //dve.addMemberEntity("PVAR", "Product");
         dve.addViewLink("PVIRT", "PVA", Boolean.FALSE, UtilMisc.toList(new ModelKeyMap("productId", "productId")));
-        //dve.addViewLink("PVA", "PVAR", Boolean.FALSE, UtilMisc.toList(new ModelKeyMap("productIdTo", "productId")));
         dve.addAlias("PVIRT", "productId", null, null, null, Boolean.TRUE, null);
         dve.addAlias("PVIRT", "salesDiscontinuationDate", null, null, null, null, null);
         dve.addAlias("PVA", "productAssocTypeId", null, null, null, null, null);
         dve.addAlias("PVA", "fromDate", null, null, null, null, null);
         dve.addAlias("PVA", "thruDate", null, null, null, null, null);
         dve.addAlias("PVA", "productIdToCount", "productIdTo", null, null, null, "count-distinct");
-        //dve.addAlias("PVAR", "variantProductId", "productId", null, null, null, null);
 
         try {
             EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
@@ -271,9 +268,6 @@ public final class ProductUtilServices {
                 if (paList.size() != 1) {
                     Debug.logInfo("Virtual product with ID " + productId + " should have 1 assoc, has " + paList.size(), module);
                 } else {
-                    //if (numWithOneOnly < 100) {
-                    //    Debug.logInfo("Virtual product ID to make stand-alone: " + productId, module);
-                    //}
                     // for all virtuals with one variant move all info from virtual to variant and remove virtual, make variant as not a variant
                     dispatcher.runSync("mergeVirtualWithSingleVariant", UtilMisc.<String, Object>toMap("productId", productId, "removeOld", Boolean.TRUE, "userLogin", userLogin));
 
@@ -462,7 +456,6 @@ public final class ProductUtilServices {
             if (modelEntity.isField("fromDate")) {
                 GenericPK findValue = newRelatedValue.getPrimaryKey();
                 // can't just set to null, need to remove the value so it isn't a constraint in the query
-                //findValue.set("fromDate", null);
                 findValue.remove("fromDate");
                 List<GenericValue> existingValueList = EntityQuery.use(delegator).from(relatedEntityName).where(findValue).filterByDate(nowTimestamp).queryList();
                 if (existingValueList.size() > 0) {
@@ -593,28 +586,6 @@ public final class ProductUtilServices {
 
         return ServiceUtil.returnSuccess();
     }
-
-    // set category descriptions from longDescriptions
-    /*
-allCategories = delegator.findList("ProductCategory", null, null, null, null, false);
-allCatIter = allCategories.iterator();
-while (allCatIter.hasNext()) {
-   cat = allCatIter.next();
-   if (UtilValidate.isEmpty(cat.getString("description"))) {
-       StringBuilder description = new StringBuilder(cat.getString("longDescription").toLowerCase());
-       description.setCharAt(0, Character.toUpperCase(description.charAt(0)));
-       for (int i=0; i<description.length() - 1; i++) {
-           if (description.charAt(i) == ' ') {
-               description.setCharAt(i+1, Character.toUpperCase(description.charAt(i+1)));
-           }
-       }
-       Debug.logInfo("new description: " + description, "ctc.bsh");
-              cat.put("description", description.toString());
-       cat.store();
-   }
-}
-     */
-
 
 
     public static Map<String, Object> attachProductFeaturesToCategory(DispatchContext dctx, Map<String, ? extends Object> context) {

@@ -77,7 +77,6 @@ public class ProductServices {
      * Creates a Collection of product entities which are variant products from the specified product ID.
      */
     public static Map<String, Object> prodFindAllVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
-        // * String productId      -- Parent (virtual) product ID
         Map<String, Object> subContext = UtilMisc.makeMapWritable(context);
         subContext.put("type", "PRODUCT_VARIANT");
         return prodFindAssociatedByType(dctx, subContext);
@@ -87,8 +86,6 @@ public class ProductServices {
      * Finds a specific product or products which contain the selected features.
      */
     public static Map<String, Object> prodFindSelectedVariant(DispatchContext dctx, Map<String, ? extends Object> context) {
-        // * String productId      -- Parent (virtual) product ID
-        // * Map selectedFeatures  -- Selected features
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         Map<String, String> selectedFeatures = UtilGenerics.checkMap(context.get("selectedFeatures"));
@@ -141,8 +138,6 @@ public class ProductServices {
      * Finds product variants based on a product ID and a distinct feature.
      */
     public static Map<String, Object> prodFindDistinctVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
-        // * String productId      -- Parent (virtual) product ID
-        // * String feature        -- Distinct feature name
         //TODO This service has not yet been implemented.
         return ServiceUtil.returnFailure();
     }
@@ -151,7 +146,6 @@ public class ProductServices {
      * Finds a Set of feature types in sequence.
      */
     public static Map<String, Object> prodFindFeatureTypes(DispatchContext dctx, Map<String, ? extends Object> context) {
-        // * String productId      -- Product ID to look up feature types
         Delegator delegator = dctx.getDelegator();
         String productId = (String) context.get("productId");
         String productFeatureApplTypeId = (String) context.get("productFeatureApplTypeId");
@@ -167,7 +161,6 @@ public class ProductServices {
             for (GenericValue v: features) {
                 featureSet.add(v.getString("productFeatureTypeId"));
             }
-            //if (Debug.infoOn()) Debug.logInfo("" + featureSet, module);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
             errMsg = UtilProperties.getMessage(resourceError,"productservices.problem_reading_product_features_errors", messageMap, locale);
@@ -179,7 +172,6 @@ public class ProductServices {
             errMsg = UtilProperties.getMessage(resourceError,"productservices.problem_reading_product_features", locale);
             // ToDo DO 2004-02-23 Where should the errMsg go?
             Debug.logWarning(errMsg + " for product " + productId, module);
-            //return ServiceUtil.returnError(errMsg);
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("featureSet", featureSet);
@@ -190,10 +182,6 @@ public class ProductServices {
      * Builds a variant feature tree.
      */
     public static Map<String, Object> prodMakeFeatureTree(DispatchContext dctx, Map<String, ? extends Object> context) {
-        // * String productId      -- Parent (virtual) product ID
-        // * List featureOrder     -- Order of features
-        // * Boolean checkInventory-- To calculate available inventory.
-        // * String productStoreId -- Product Store ID for Inventory
         String productStoreId = (String) context.get("productStoreId");
         Locale locale = (Locale) context.get("locale");
 
@@ -352,9 +340,6 @@ public class ProductServices {
      * Gets the product features of a product.
      */
     public static Map<String, Object> prodGetFeatures(DispatchContext dctx, Map<String, ? extends Object> context) {
-        // * String productId      -- Product ID to find
-        // * String type           -- Type of feature (STANDARD_FEATURE, SELECTABLE_FEATURE)
-        // * String distinct       -- Distinct feature (SIZE, COLOR)
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = new HashMap<String, Object>();
         String productId = (String) context.get("productId");
@@ -386,7 +371,6 @@ public class ProductServices {
      * Finds a product by product ID.
      */
     public static Map<String, Object> prodFindProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
-        // * String productId      -- Product ID to find
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = new HashMap<String, Object>();
         String productId = (String) context.get("productId");
@@ -407,15 +391,10 @@ public class ProductServices {
 
             if (product.get("isVariant") != null && product.getString("isVariant").equalsIgnoreCase("Y")) {
                 List<GenericValue> c = product.getRelated("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), null, true);
-                //if (Debug.infoOn()) Debug.logInfo("Found related: " + c, module);
                 c = EntityUtil.filterByDate(c);
-                //if (Debug.infoOn()) Debug.logInfo("Found Filtered related: " + c, module);
                 if (c.size() > 0) {
                     GenericValue asV = c.iterator().next();
-
-                    //if (Debug.infoOn()) Debug.logInfo("ASV: " + asV, module);
                     mainProduct = asV.getRelatedOne("MainProduct", true);
-                    //if (Debug.infoOn()) Debug.logInfo("Main product = " + mainProduct, module);
                 }
             }
             result.put("product", mainProduct);
@@ -436,8 +415,6 @@ public class ProductServices {
      * Finds associated products by product ID and association ID.
      */
     public static Map<String, Object> prodFindAssociatedByType(DispatchContext dctx, Map<String, ? extends Object> context) {
-        // * String productId      -- Current Product ID
-        // * String type           -- Type of association (ie PRODUCT_UPGRADE, PRODUCT_COMPLEMENT, PRODUCT_VARIANT)
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = new HashMap<String, Object>();
         String productId = (String) context.get("productId");
@@ -548,7 +525,6 @@ public class ProductServices {
     // Builds a product feature tree
     private static Map<String, Object> makeGroup(Delegator delegator, Map<String, List<String>> featureList, List<String> items, List<String> order, int index)
         throws IllegalArgumentException, IllegalStateException {
-        //List featureKey = new LinkedList();
         Map<String, List<String>> tempGroup = new HashMap<String, List<String>>();
         Map<String, Object> group = new LinkedHashMap<String, Object>();
         String orderKey = order.get(index);
@@ -621,7 +597,6 @@ public class ProductServices {
         // no groups; no tree
         if (group.size() == 0) {
             return group;
-            //throw new IllegalStateException("Cannot create tree from group list; error on '" + orderKey + "'");
         }
 
         if (index + 1 == order.size()) {
@@ -637,7 +612,6 @@ public class ProductServices {
                 group.put(key, subGroup);
             } else {
                 // do nothing, ie put nothing in the Map
-                //throw new IllegalStateException("Cannot create tree from an empty list; error on '" + key + "'");
             }
         }
         return group;

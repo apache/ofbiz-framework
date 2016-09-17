@@ -291,7 +291,6 @@ public final class ProductWorker {
         Set<GenericValue> distFeatures = new HashSet<GenericValue>();
 
         List<GenericValue> variantDistinguishingFeatures = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", variantProduct.get("productId"), "productFeatureApplTypeId", "DISTINGUISHING_FEAT").cache(true).queryList();
-        // Debug.logInfo("Found variantDistinguishingFeatures: " + variantDistinguishingFeatures, module);
 
         for (GenericValue variantDistinguishingFeature: EntityUtil.filterByDate(variantDistinguishingFeatures)) {
             GenericValue dummyFeature = delegator.makeValue("ProductFeature");
@@ -300,7 +299,6 @@ public final class ProductWorker {
         }
 
         List<GenericValue> virtualSelectableFeatures = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", virtualProductId, "productFeatureApplTypeId", "SELECTABLE_FEATURE").cache(true).queryList();
-        // Debug.logInfo("Found virtualSelectableFeatures: " + virtualSelectableFeatures, module);
 
         Set<String> virtualSelectableFeatureIds = new HashSet<String>();
         for (GenericValue virtualSelectableFeature: EntityUtil.filterByDate(virtualSelectableFeatures)) {
@@ -308,7 +306,6 @@ public final class ProductWorker {
         }
 
         List<GenericValue> variantStandardFeatures = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", variantProduct.get("productId"), "productFeatureApplTypeId", "STANDARD_FEATURE").cache(true).queryList();
-        // Debug.logInfo("Found variantStandardFeatures: " + variantStandardFeatures, module);
 
         for (GenericValue variantStandardFeature: EntityUtil.filterByDate(variantStandardFeatures)) {
             if (virtualSelectableFeatureIds.contains(variantStandardFeature.get("productFeatureId"))) {
@@ -332,8 +329,6 @@ public final class ProductWorker {
                 if ("Y".equals(alternativeOptionProduct.getString("isVariant"))) {
                     Set<GenericValue> distFeatures = getVariantDistinguishingFeatures(alternativeOptionProduct);
                     if (UtilValidate.isNotEmpty(distFeatures)) {
-                        // Debug.logInfo("Found distinguishing features: " + distFeatures, module);
-
                         StringBuilder nameBuf = new StringBuilder();
                         for (GenericValue productFeature: distFeatures) {
                             if (nameBuf.length() > 0) {
@@ -352,7 +347,6 @@ public final class ProductWorker {
 
                 // got to here, default to PRODUCT_NAME
                 String alternativeProductName = ProductContentWrapper.getProductContentAsText(alternativeOptionProduct, "PRODUCT_NAME", locale, dispatcher, "html");
-                // Debug.logInfo("Using PRODUCT_NAME: " + alternativeProductName, module);
                 return alternativeProductName;
             }
         } catch (GenericEntityException e) {
@@ -436,8 +430,6 @@ public final class ProductWorker {
         List <List<Map<String,String>>> featureTypeFeatures = new LinkedList<List<Map<String,String>>>();
         try {
             Delegator delegator = product.getDelegator();
-            //List<GenericValue> features = delegator.findByAnd("ProductFeatureAndAppl", fields, order, true);
-            //List<GenericValue> featuresSorted = EntityUtil.orderBy(features, order);
             List<GenericValue> featuresSorted = EntityQuery.use(delegator)
                                                     .from("ProductFeatureAndAppl")
                                                     .where("productId", product.getString("productId"), "productFeatureApplTypeId", "SELECTABLE_FEATURE")
@@ -1052,7 +1044,6 @@ public final class ProductWorker {
                 }
             }
             // find variant
-            // Debug.logInfo("=====try to find variant for product: " + productId + " and features: " + selectedFeatures);
             List<GenericValue> productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId","PRODUCT_VARIANT").filterByDate().queryList();
             boolean productFound = false;
 nextProd:
@@ -1067,8 +1058,6 @@ nextProd:
                 variantProductId = productAssoc.getString("productIdTo");
                 break;
             }
-//          if (productFound)
-//              Debug.logInfo("=====product found:" + productId + " and features: " + selectedFeatures);
 
             /**
              * 1. variant not found so create new variant product and use the virtual product as basis, new one  is a variant type and not a virtual type.
