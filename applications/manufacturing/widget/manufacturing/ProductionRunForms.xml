@@ -72,11 +72,11 @@ under the License.
         <field name="workEffortTypeId"><hidden value="PROD_ORDER_HEADER"/></field>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingProductionRunId}"><text-find/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <drop-down allow-empty="true">
+            <check all-checked="false">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="PRODUCTION_RUN"/>
                 </entity-options>
-             </drop-down>
+             </check>
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><text-find/></field>
