@@ -39,28 +39,10 @@ under the License.
     </#if>
 
     <#if productIds?has_content>
-      <script language="JavaScript" type="text/javascript">
-        //<![CDATA[
-            function toggleAll(e) {
-                var cform = document.products;
-                var len = cform.elements.length;
-                for (var i = 0; i < len; i++) {
-                    var element = cform.elements[i];
-                    if (element.name == "selectResult" && element.checked != e.checked) {
-                        toggle(element);
-                    }
-                }
-            }
-
-            function toggle(e) {
-                e.checked = !e.checked;
-            }
-        //]]>
-      </script>
       <#macro paginationPanel>
         <div class="clearfix">
           <div class="lefthalf margin-left">
-            <input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);"/>
+            <input type="checkbox" name="selectAll" value="0" class="selectAll" form="products"/>
             <strong>${uiLabelMap.ProductProduct}</strong>
           </div>
           <div class="right">
@@ -88,7 +70,7 @@ under the License.
         </div>
       </#macro>
       <@paginationPanel />
-      <form method="post" name="products" action="">
+      <form method="post" name="products" action="" id="products">
         <fieldset>
           <input type="hidden" name="productStoreId" value="${parameters.productStoreId!}" />
           <input type="hidden" name="SEARCH_CATEGORY_ID" value="${(requestParameters.SEARCH_CATEGORY_ID)!}" />

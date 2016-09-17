@@ -42,7 +42,7 @@ under the License.
               <td colspan="5"><h3>${uiLabelMap.OrderReturnItemsFromOrder} ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</h3></td>
               <td align="right">
                 <span class="tableheadtext">${uiLabelMap.CommonSelectAll}</span>&nbsp;
-                <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');"/>
+                <input type="checkbox" name="selectAll" value="Y" class="selectAll"/>
               </td>
             </tr>
             <tr>
@@ -103,7 +103,7 @@ under the License.
                     </select>
                   </td>
                   <td align="right">
-                    <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');"/>
+                    <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y"/>
                   </td>
                 </tr>
                 <tr><td colspan="6"><hr /></td></tr>

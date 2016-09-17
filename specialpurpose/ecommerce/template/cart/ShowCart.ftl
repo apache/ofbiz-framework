@@ -18,35 +18,6 @@ under the License.
 -->
 <script type="text/javascript">
     //<![CDATA[
-        function toggle(e) {
-            e.checked = !e.checked;
-        }
-        function checkToggle(e) {
-            var cform = document.cartform;
-            if (e.checked) {
-                var len = cform.elements.length;
-                var allchecked = true;
-                for (var i = 0; i < len; i++) {
-                    var element = cform.elements[i];
-                    if (element.name == "selectedItem" && !element.checked) {
-                        allchecked = false;
-                    }
-                    cform.selectAll.checked = allchecked;
-                }
-            } else {
-                cform.selectAll.checked = false;
-            }
-        }
-        function toggleAll(e) {
-            var cform = document.cartform;
-            var len = cform.elements.length;
-            for (var i = 0; i < len; i++) {
-                var element = cform.elements[i];
-                if (element.name == "selectedItem" && element.checked != e.checked) {
-                    toggle(element);
-                }
-            }
-        }
         function removeSelected() {
             var cform = document.cartform;
             cform.removeSelected.value = true;
@@ -242,7 +213,7 @@ under the License.
                 <th scope="row">${uiLabelMap.EcommerceAdjustments}</th>
                 <th scope="row">${uiLabelMap.EcommerceItemTotal}</th>
                 <th scope="row">
-                  <input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);" />
+                  <input type="checkbox" name="selectAll" value="0" class="selectAll"/>
                 </th>
               </tr>
             </thead>
@@ -471,8 +442,7 @@ under the License.
                   <td><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></td>
                   <td>
                     <#if !cartLine.getIsPromo()>
-                      <input type="checkbox" name="selectedItem" value="${cartLineIndex}"
-                             onclick="javascript:checkToggle(this);" />
+                      <input type="checkbox" name="selectedItem" value="${cartLineIndex}" class="selectAllChild"/>
                     <#else>
                       &nbsp;
                     </#if>
