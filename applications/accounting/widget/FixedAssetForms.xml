@@ -126,7 +126,7 @@ under the License.
     </form>
 
     <form name="ListFixedAssetProducts" type="list"  list-name="fixedAssetProducts"  target="updateFixedAssetProduct"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="ListFixedAssetProducts">
         <field name="productId" title="${uiLabelMap.AccountingProduct}"><display-entity entity-name="Product" description="${description}[${productId}]"/></field>
         <field name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductType}"><display-entity entity-name="FixedAssetProductType"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
@@ -242,7 +242,7 @@ under the License.
 
     <!-- List all fixed asset idents  -->
     <form name="ListFixedAssetIdents" type="list" list-name="fixedAssetIdents" target="updateFixedAssetIdent"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditFixedAssetIdents">
         <actions>
             <entity-condition entity-name="FixedAssetIdent">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
@@ -281,7 +281,7 @@ under the License.
 
     <!-- List all fixed asset Registration  -->
     <form name="ListFixedAssetRegistrations" type="list" list-name="fixedAssetRegistrations" target="updateFixedAssetRegistration"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditFixedAssetRegistrations">
         <actions>
             <entity-condition entity-name="FixedAssetRegistration">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
@@ -470,7 +470,7 @@ under the License.
     </form>
     <!-- List all fixed asset Maintenance Order  -->
     <form name="ListFixedAssetMaintOrders" type="list" list-name="fixedAssetMaintOrders" target="updateFixedAssetMaintOrder"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditFixedAssetMaintOrders">
         <actions>
             <entity-condition entity-name="FixedAssetMaintOrder" list="fixedAssetMaintOrders">
                 <condition-list combine="and">
@@ -509,7 +509,7 @@ under the License.
 
     <!-- =====================Party Fixed Asset Assignment Forms============== -->
     <form name="ListPartyFixedAssetAssignments" type="list"  list-name="listPartyFixedAssets"  target="updatePartyFixedAssetAssignment"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditPartyFixedAssetAssignments">
         <actions>
             <entity-condition entity-name="PartyFixedAssetAssignment" list="listPartyFixedAssets">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
@@ -590,7 +590,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListFixedAssetDepMethods" type="list" list-name="fixedAssetDepMethods"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="showFixedAssetDepreciation">
         <actions>
             <entity-condition entity-name="FixedAssetDepMethod" list="fixedAssetDepMethods">
                 <condition-expr field-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
@@ -610,7 +610,7 @@ under the License.
         </field>
     </form>
     <form name="ListFixedAssetDepreciations" type="list" list-name="assetDepreciationInfoList" default-map-name="assetDepreciationInfo"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="showFixedAssetDepreciation">
         <field name="index"><display description="${itemIndex + 1}"/></field>
         <field name="year"><display/></field>
         <field name="depreciation"><display type="currency" currency="${fixedAsset.purchaseCostUomId}"/></field>
@@ -618,7 +618,7 @@ under the License.
         <field name="nbv" title="Net Book Value"><display type="currency" currency="${fixedAsset.purchaseCostUomId}"/></field>
     </form>
     <form name="FixedAssetTransactions" type="list"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" list-name="fixedAssetTransactions">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" list-name="fixedAssetTransactions" paginate-target="showFixedAssetDepreciation">
         <actions>
             <entity-condition entity-name="AcctgTransAndEntries" list="fixedAssetTransactions">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
@@ -704,7 +704,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="GlobalFixedAssetTypeGlAccounts" type="list" list-name="globalFixedAssetTypeGlAccounts"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="showFixedAssetDepreciation">
         <actions>
             <entity-condition entity-name="FixedAssetTypeGlAccount" list="globalFixedAssetTypeGlAccounts">
                 <condition-list combine="and">
@@ -724,7 +724,7 @@ under the License.
         <field name="lossGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]"/></field>
     </form>
     <form name="FixedAssetTypeGlAccounts" type="list" list-name="fixedAssetTypeGlAccounts"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="showFixedAssetDepreciation">
         <actions>
             <entity-condition entity-name="FixedAssetTypeGlAccount" list="fixedAssetTypeGlAccounts">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
