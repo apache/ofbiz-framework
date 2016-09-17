@@ -127,7 +127,15 @@ under the License.
                3. for specific rateTypeId, emplPositionTypeId (emplPositionType)
                4. for specific rateTypeId (rateType)
 
-               Then will be checked if the requested periodTypeId and currency can be found, if not issue an error message
+               Then, the results are filtered to improve the result. If you pass a workEffortId and a partyId,
+               the service will first search the list of all the rateAmount with the specified workEffortId. Then, if
+               there is at least one rateAmount with same partyId than the one in the parameter in the list, the list will
+               be reduced to those entries.
+               At the end, the first record of the list is chosen.
+
+               For a easier debugging time, there is a log triggered when no records are found for the input. This log
+               shows up when there are rateAmounts corresponding to the input parameters without the rateCurrencyUomId and
+               the periodTypeId.
         -->
         <if-empty field="parameters.rateCurrencyUomId">
             <property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
@@ -144,150 +152,67 @@ under the License.
                 </and>
             </condition>
             <then>
-                <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
-                    <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
-                    <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
-                </entity-and>
-                <if-not-empty field="amounts">
-                    <first-from-list entry="amount" list="amounts"/>
-                    <if-not-empty field="amount.rateAmount">
-                        <set field="level" value="workEffort"/>
-                    </if-not-empty>
-                </if-not-empty>
+                <set field="level" value="workEffort"/>
+                <call-service service-name="getRatesAmountsFromWorkEffortId" in-map-name="parameters">
+                    <result-to-field result-name="ratesList" field="parameters.ratesList"/>
+                </call-service>
+                <call-service service-name="filterRateAmountList" in-map-name="parameters">
+                    <result-to-field result-name="filteredRatesList" field="parameters.ratesList"/>
+                </call-service>
             </then>
-        </if>
-
-        <if><!-- party level -->
+        <else-if> <!-- party level -->
             <condition>
                 <and>
-                    <if-empty field="level"/>
                     <not><if-empty field="parameters.partyId"/></not>
                     <if-compare field="parameters.partyId" value="_NA_" operator="not-equals"/>
                 </and>
             </condition>
             <then>
-                <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
-                    <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
-                    <field-map field-name="partyId" from-field="parameters.partyId"/>
-                </entity-and>
-                <if-not-empty field="amounts">
-                    <first-from-list entry="amount" list="amounts"/>
-                    <if-not-empty field="amount.rateAmount">
-                        <set field="level" value="party"/>
-                    </if-not-empty>
-                </if-not-empty>
+                <set field="level" value="partyId"/>
+                <call-service service-name="getRatesAmountsFromPartyId" in-map-name="parameters">
+                    <result-to-field result-name="ratesList" field="parameters.ratesList"/>
+                </call-service>
+                <call-service service-name="filterRateAmountList" in-map-name="parameters">
+                    <result-to-field result-name="filteredRatesList" field="parameters.ratesList"/>
+                </call-service>
             </then>
-        </if>
-
-        <if><!-- emplPositionType level -->
+        </else-if>
+        <else-if> <!-- emplPositionType level -->
             <condition>
                 <and>
-                    <if-empty field="level"/>
                     <not><if-empty field="parameters.emplPositionTypeId"/></not>
                     <if-compare field="parameters.emplPositionTypeId" value="_NA_" operator="not-equals"/>
                 </and>
             </condition>
             <then>
-                <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
-                    <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
-                    <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
-                </entity-and>
-                <if-not-empty field="amounts">
-                    <first-from-list entry="amount" list="amounts"/>
-                    <if-not-empty field="amount.rateAmount">
-                        <set field="level" value="emplPositionType"/>
-                    </if-not-empty>
-                </if-not-empty>
+                <set field="level" value="emplPositionType"/>
+                <call-service service-name="getRatesAmountsFromEmplPositionTypeId" in-map-name="parameters">
+                    <result-to-field result-name="ratesList" field="parameters.ratesList"/>
+                </call-service>
+                <call-service service-name="filterRateAmountList" in-map-name="parameters">
+                    <result-to-field result-name="filteredRatesList" field="parameters.ratesList"/>
+                </call-service>
             </then>
+        </else-if>
         </if>
 
-        <if-empty field="level">
-            <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
+        <if-empty field="parameters.ratesList">
+            <entity-and entity-name="RateAmount" list="ratesList" filter-by-date="true">
                 <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
             </entity-and>
-            <set field="level" value="rateType"/>
+            <call-service service-name="filterRateAmountList" in-map-name="parameters">
+                <result-to-field result-name="filteredRatesList" field="parameters.ratesList"/>
+            </call-service>
         </if-empty>
 
-        <if-empty field="amounts">
+        <if-empty field="parameters.ratesList">
             <entity-one entity-name="RateType" value-field="rateType"/>
             <log level="error" message="A valid rate amount could not be found for rateType: ${rateType.description}"/>
         </if-empty>
-        <if-compare field="level" value="workEffort" operator="equals">
-            <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
-                <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
-                <field-map field-name="partyId" from-field="parameters.partyId"/>
-                <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
-                <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
-                <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
-            </entity-and>
-            <if-empty field="amounts">
-                <entity-one entity-name="Uom" value-field="currencyUomId">
-                    <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
-                </entity-one>
-                <entity-one entity-name="PeriodType" value-field="periodType"/>
-                <entity-one entity-name="RateType" value-field="rateType"/>
-                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-                <entity-one entity-name="PartyNameView" value-field="partyNameView"/>
-                <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, workEffort: ${workEffort.workEffortName}, party: ${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName}${partyNameView.groupName} However.....not for the period: ${period.description} and currency: ${currencyUomId.description}"/>
-            </if-empty>
-        </if-compare>
 
-        <if-compare field="level" value="party" operator="equals">
-            <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
-                <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
-                <field-map field-name="partyId" from-field="parameters.partyId"/>
-                <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
-                <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
-            </entity-and>
-            <if-empty field="amounts">
-                <entity-one entity-name="Uom" value-field="currencyUomId">
-                    <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
-                </entity-one>
-                <entity-one entity-name="PeriodType" value-field="periodType"/>
-                <entity-one entity-name="RateType" value-field="rateType"/>
-                <entity-one entity-name="PartyNameView" value-field="partyNameView"/>
-                <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, party: ${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName}${partyNameView.groupName} However..... NOT   for the period: ${period.description} and currency: ${currencyUomId.description}"/>
-            </if-empty>
-        </if-compare>
-
-        <if-compare field="level" value="emplPositionType" operator="equals">
-            <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
-                <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
-                <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
-                <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
-                <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
-            </entity-and>
-            <if-empty field="amounts">
-                <entity-one entity-name="Uom" value-field="currencyUomId">
-                    <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
-                </entity-one>
-                <entity-one entity-name="PeriodType" value-field="periodType"/>
-                <entity-one entity-name="RateType" value-field="rateType"/>
-                <entity-one entity-name="EmplPositionType" value-field="emplPositionType"/>
-                <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, emplPositionType: ${emplPositionType.description}.... However.....NOT for the period: ${period.description} and currency: ${currencyUomId.description}"/>
-                <check-errors/>
-            </if-empty>
-        </if-compare>
-
-        <if-compare field="level" value="rateType" operator="equals">
-            <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
-                <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
-                <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
-                <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
-            </entity-and>
-            <if-empty field="amounts">
-                <entity-one entity-name="Uom" value-field="currencyUomId">
-                    <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
-                </entity-one>
-                <entity-one entity-name="PeriodType" value-field="periodType"/>
-                <entity-one entity-name="RateType" value-field="rateType"/>
-                <entity-one entity-name="PartyNameView" value-field="partyNameView"/>
-                <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, However.....NOT for the period: ${period.description} and currency: ${currencyUomId.description}"/>
-                <check-errors/>
-            </if-empty>
-        </if-compare>
-        <if-not-empty field="amounts">
-            <first-from-list entry="amount" list="amounts"/>
+        <!-- We narrowed as much as we could the result, now returning the first record of the list -->
+        <if-not-empty field="parameters.ratesList">
+            <first-from-list entry="amount" list="parameters.ratesList"/>
             <if-empty field="amount.rateAmount">
                 <set field="amount.rateAmount" value="0" type="BigDecimal"/>
             </if-empty>
@@ -297,7 +222,150 @@ under the License.
             <field-to-result field="level"/>
             <field-to-result field="amount.fromDate" result-name="fromDate"/>
         </if-not-empty>
+    </simple-method>
 
+    <simple-method method-name="getRatesAmountsFromWorkEffortId" short-description="Get all the rateAmount for a given workEffortId">
+        <set value="_READ" field="securityAction"/>
+        <check-permission permission="ACCOUNTING" action="${securityAction}">
+            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
+            <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+            <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+            <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
+            <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
+        </entity-and>
+
+        <if-empty field="amounts">
+            <entity-one entity-name="Uom" value-field="currencyUomId">
+                <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
+            </entity-one>
+            <entity-one entity-name="PeriodType" value-field="periodType"/>
+            <entity-one entity-name="RateType" value-field="rateType"/>
+            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            <entity-one entity-name="PartyNameView" value-field="partyNameView"/>
+            <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, workEffort: ${workEffort.workEffortName}, party: ${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName}${partyNameView.groupName} However.....not for the period: ${period.description} and currency: ${currencyUomId.description}"/>
+        </if-empty>
+
+        <field-to-result field="amounts" result-name="ratesList"/>
+        <field-to-result field="level"/>
+    </simple-method>
+
+    <simple-method method-name="getRatesAmountsFromPartyId" short-description="Get all the rateAmount for a given partyId">
+        <set value="_READ" field="securityAction"/>
+        <check-permission permission="ACCOUNTING" action="${securityAction}">
+            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
+            <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
+            <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
+        </entity-and>
+
+        <if-empty field="amounts">
+            <entity-one entity-name="Uom" value-field="currencyUomId">
+                <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
+            </entity-one>
+            <entity-one entity-name="PeriodType" value-field="periodType"/>
+            <entity-one entity-name="RateType" value-field="rateType"/>
+            <entity-one entity-name="PartyNameView" value-field="partyNameView"/>
+            <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, party: ${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName}${partyNameView.groupName} However..... NOT   for the period: ${period.description} and currency: ${currencyUomId.description}"/>
+        </if-empty>
+
+        <field-to-result field="amounts" result-name="ratesList"/>
+        <field-to-result field="level"/>
+    </simple-method>
+
+    <simple-method method-name="getRatesAmountsFromEmplPositionTypeId" short-description="Get all the rateAmount for a given emplPositionTypeId">
+        <set value="_READ" field="securityAction"/>
+        <check-permission permission="ACCOUNTING" action="${securityAction}">
+            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
+            <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+            <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
+            <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
+            <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
+        </entity-and>
+
+        <if-empty field="amounts">
+            <entity-one entity-name="Uom" value-field="currencyUomId">
+                <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
+            </entity-one>
+            <entity-one entity-name="PeriodType" value-field="periodType"/>
+            <entity-one entity-name="RateType" value-field="rateType"/>
+            <entity-one entity-name="EmplPositionType" value-field="emplPositionType"/>
+            <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, emplPositionType: ${emplPositionType.description}.... However.....NOT for the period: ${period.description} and currency: ${currencyUomId.description}"/>
+        </if-empty>
+
+        <field-to-result field="amounts" result-name="ratesList"/>
+        <field-to-result field="level"/>
+    </simple-method>
+
+    <simple-method method-name="filterRateAmountList" short-description="Filter a list of rateAmount. The result is the
+        most heavily-filtered non-empty list">
+        <if-empty field="parameters.ratesList">
+            <log level="warning" message="The list parameters.ratesList was empty, not processing any further"/>
+            <return/>
+        </if-empty>
+        <!-- Check if there is a more specific rate -->
+        <set field="filterMap"/>
+        <!-- First : if there are rates from the list with the workEffortId from the parameter -->
+        <if-not-empty field="parameters.workEffortId">
+            <set field="filterMap.workEffortId" from-field="parameters.workEffortId"/>
+            <filter-list-by-and list="parameters.ratesList" map="filterMap" to-list="tempRatesFilteredList"/>
+            <if-not-empty field="tempRatesFilteredList">
+                <set field="parameters.ratesList" from-field="tempRatesFilteredList"/>
+            </if-not-empty>
+
+            <clear-field field="filterMap"/>
+            <clear-field field="tempRatesFilteredList"/>
+        </if-not-empty>
+
+        <!-- Then : if there are rates from the list with the partyId from the parameter -->
+        <if-not-empty field="parameters.partyId">
+            <set field="filterMap.partyId" from-field="parameters.partyId"/>
+            <filter-list-by-and list="parameters.ratesList" map="filterMap" to-list="tempRatesFilteredList"/>
+            <if-not-empty field="tempRatesFilteredList">
+                <set field="parameters.ratesList" from-field="tempRatesFilteredList"/>
+            </if-not-empty>
+
+            <clear-field field="filterMap"/>
+            <clear-field field="tempRatesFilteredList"/>
+        </if-not-empty>
+
+        <!-- Then : if there are rates from the list with the emplPositionTypeId from the parameter -->
+        <if-not-empty field="parameters.emplPositionTypeId">
+            <set field="filterMap.emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
+            <filter-list-by-and list="parameters.ratesList" map="filterMap" to-list="tempRatesFilteredList"/>
+            <if-not-empty field="tempRatesFilteredList">
+                <set field="parameters.ratesList" from-field="tempRatesFilteredList"/>
+            </if-not-empty>
+
+            <clear-field field="filterMap"/>
+            <clear-field field="tempRatesFilteredList"/>
+        </if-not-empty>
+
+        <!-- Finally : if there are rates from the list with the rateTypeId from the parameter -->
+        <if-not-empty field="parameters.rateTypeId">
+            <set field="filterMap.rateTypeId" from-field="parameters.rateTypeId"/>
+            <filter-list-by-and list="parameters.ratesList" map="filterMap" to-list="tempRatesFilteredList"/>
+            <if-not-empty field="tempRatesFilteredList">
+                <set field="parameters.ratesList" from-field="tempRatesFilteredList"/>
+            </if-not-empty>
+            <clear-field field="filterMap"/>
+            <clear-field field="tempRatesFilteredList"/>
+        </if-not-empty>
+
+        <!-- Return the list -->
+        <field-to-result field="parameters.ratesList" result-name="filteredRatesList"/>
     </simple-method>
 
     <!-- party rate services -->
