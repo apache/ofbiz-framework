@@ -280,5 +280,20 @@
             location="org.apache.ofbiz.content.data.DataServices" invoke="clearAssociatedRenderCache">
         <auto-attributes include="pk" mode="IN" />
     </service>
+    
+    <service name="createDataTemplateType" engine="entity-auto" invoke="create" default-entity-name="DataTemplateType" auth="true">
+        <description>Create a Data Template Type</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateDataTemplateType" engine="entity-auto" invoke="update" default-entity-name="DataTemplateType" auth="true">
+        <description>Update a Data Template Type</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteDataTemplateType" engine="entity-auto" invoke="delete" default-entity-name="DataTemplateType" auth="true">
+        <description>Delete a Data Template Type</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 
 </services>
