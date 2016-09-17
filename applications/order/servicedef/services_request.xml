@@ -255,5 +255,33 @@ under the License.
         <description>Delete a CustRequestResolution record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+    <service name="createCustRequestType" engine="entity-auto" invoke="create" default-entity-name="CustRequestType" auth="true">
+        <description>Create a CustRequestType record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateCustRequestType" engine="entity-auto" invoke="update" default-entity-name="CustRequestType" auth="true">
+        <description>Update a CustRequestType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCustRequestType" engine="entity-auto" invoke="delete" default-entity-name="CustRequestType" auth="true">
+        <description>Delete a CustRequestType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+    <service name="createCustRequestTypeAttr" engine="entity-auto" invoke="create" default-entity-name="CustRequestTypeAttr" auth="true">
+        <description>Create a CustRequestTypeAttr record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateCustRequestTypeAttr" engine="entity-auto" invoke="update" default-entity-name="CustRequestTypeAttr" auth="true">
+        <description>Update a CustRequestTypeAttr record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCustRequestTypeAttr" engine="entity-auto" invoke="delete" default-entity-name="CustRequestTypeAttr" auth="true">
+        <description>Delete a CustRequestTypeAttr record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
 
