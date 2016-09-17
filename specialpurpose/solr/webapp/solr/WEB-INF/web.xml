@@ -17,7 +17,6 @@
 -->
 <web-app version="3.0">
 
-
     <display-name>Apache OFBiz - Solr Component</display-name>
     <description>Solr Component of the Apache OFBiz Project</description>
 
@@ -43,15 +42,15 @@
     </context-param>
 
     <filter>
-        <filter-name>ContextFilter</filter-name>
-        <filter-class>org.apache.ofbiz.solr.webapp.OFBizSolrContextFilter</filter-class>
+        <filter-name>ControlFilter</filter-name>
+        <filter-class>org.apache.ofbiz.webapp.control.ControlFilter</filter-class>
         <init-param>
             <param-name>disableContextSecurity</param-name>
             <param-value>N</param-value>
         </init-param>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/control:/error:/css:/img:/js:/tpl:/favicon.ico:/admin:/admin.html:/#:/schema:/config</param-value>
+            <param-value>/control:/error:/css:/img:/js:/tpl:/favicon.ico:/admin:/admin.html:/#:/schema:/config:/:/solrdefault</param-value>
         </init-param>
         <init-param>
             <param-name>errorCode</param-name>
@@ -63,8 +62,28 @@
         </init-param>
     </filter>
 
+    <filter>
+        <filter-name>ContextFilter</filter-name>
+        <filter-class>org.apache.ofbiz.webapp.control.ContextFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>SolrFilter</filter-name>
+        <filter-class>org.apache.ofbiz.solr.webapp.OFBizSolrContextFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ControlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <filter-mapping>
         <filter-name>ContextFilter</filter-name>
+        <url-pattern>/control/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>SolrFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
