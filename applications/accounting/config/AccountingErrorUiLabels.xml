@@ -29,6 +29,7 @@
         <value xml:lang="fr">Impossible de supprimer le taux</value>
         <value xml:lang="it">Non è possibile trovare un record di RateAmount che deve essere cancellato</value>
         <value xml:lang="ja">削除するレート金額レコードが見つかりません</value>
+        <value xml:lang="nl">RateAmount record niet gevonden om te verwijderen.</value>
         <value xml:lang="pt">Não foi possível localizar o registro a ser excluído RateAmount</value>
         <value xml:lang="zh">找不到要删除的费率金额（RateAmount）记录</value>
         <value xml:lang="zh-TW">找不到要刪除的費率金額(RateAmount)記錄</value>
@@ -40,6 +41,7 @@
         <value xml:lang="fr">Erreur : impossible de créer la méthode de paiement (échec de la génération de sa séquence)</value>
         <value xml:lang="it">ERRORE: Non è possibile creare il metodo pagamento (fallimento generazione id)</value>
         <value xml:lang="ja">エラー: 支払方法IDを作成できません (ID生成失敗)</value>
+        <value xml:lang="nl">Error: betaalmethode niet aangemaakt (Genereren ID faalt).</value>
         <value xml:lang="pt">ERRO: Não foi possível criar Id de étodo de pagamento (falha ao gerar ID)</value>
         <value xml:lang="zh">错误：无法创建支付方法标识（生成标识时失败）</value>
         <value xml:lang="zh-TW">錯誤:無法新建支付方法標識(產生標識時失敗)</value>
@@ -51,6 +53,7 @@
         <value xml:lang="fr">Erreur : Impossible de créer le RIB : ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile creare il conto EFT (fallita scrittura): ${errorString}</value>
         <value xml:lang="ja">エラー: EFTアカウントを作成できません (書き込み失敗): ${errorString}</value>
+        <value xml:lang="nl">Error: EFT rekening niet aangemaakt; opslagfout: ${errorString}.</value>
         <value xml:lang="pt">ERRO: Não foi possível criar conta de EFT (falha de escrita): ${errorString}</value>
         <value xml:lang="zh">错误：无法创建电子资金转账账户（写操作失败）：${errorString}</value>
         <value xml:lang="zh-TW">錯誤:無法新建電子資金轉帳帳戶(寫操作失敗):${errorString}</value>
@@ -62,6 +65,7 @@
         <value xml:lang="fr">Erreur : Impossible de mettre à jour le RIB : ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile aggiornare il conto EFT (scrittura fallita): ${errorString}</value>
         <value xml:lang="ja">エラー: EFTアカウントを更新できません (書き込み失敗): ${errorString}</value>
+        <value xml:lang="nl">Error: EFT rekening niet bijgewerkt; opslagfout: ${errorString}.</value>
         <value xml:lang="pt">ERRO: Não foi possível atualizar Conta EFT (falha de escrita): ${errorString}</value>
         <value xml:lang="zh">错误：无法更新电子资金转账账户（写操作失败）：${errorString}</value>
         <value xml:lang="zh-TW">錯誤:無法更新電子資金轉帳帳戶(寫操作失敗):${errorString}</value>
@@ -73,6 +77,7 @@
         <value xml:lang="fr">Erreur : Impossible de mettre à jour le RIB : ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile aggiornare il conto EFT (fallita lettura): ${errorString}</value>
         <value xml:lang="ja">エラー: EFTアカウントを更新できません (読み込み失敗): ${errorString}</value>
+        <value xml:lang="nl">Error: EFT rekening niet bijgewerkt; leesfout: ${errorString}.</value>
         <value xml:lang="pt">ERRO: Não foi possível atualizar Conta EFT (erro de leitura): ${errorString}</value>
         <value xml:lang="zh">错误：无法更新电子资金转账账户（读取时出错）：${errorString}</value>
         <value xml:lang="zh-TW">錯誤:無法更新電子資金轉帳帳戶(讀取時出錯):${errorString}</value>
@@ -83,6 +88,7 @@
         <value xml:lang="en">Party Id ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
         <value xml:lang="it">Il soggetto ${partyId} non è il propretario del metodo di pagamento ${paymentMethodId} non hai il permesso per cambiarlo.</value>
         <value xml:lang="ja">取引先ID ${partyId} は支払方法 ${paymentMethodId} の所有者ではないため変更する権限がありません。</value>
+        <value xml:lang="nl">Partij ${partyId} is niet de eigenaar van betaalmethode ${paymentMethodId}, en heeft geen permissies tot wijzigen.</value>
         <value xml:lang="pt">Participante com ID ${partyId} não é o proprietário do método de pagamento de US ${paymentMethodId} e não têm permissão para alterá-lo.</value>
         <value xml:lang="zh">会员标识 ${partyId} 不是支付方法 ${paymentMethodId} 的拥有者，无权修改它。</value>
         <value xml:lang="zh-TW">團體標識 ${partyId} 不是支付方法 ${paymentMethodId} 的擁有者,無權修改它.</value>
@@ -96,6 +102,7 @@
         <value xml:lang="en">Authorization transaction ${paymentGatewayResponseId} has expired as of ${authExpiration}</value>
         <value xml:lang="it">Autorizzazione transazione ${paymentGatewayResponseId} ha una scadenza del ${authExpiration}</value>
         <value xml:lang="ja">認証トランザクション ${paymentGatewayResponseId} は ${authExpiration} のため失効しています。</value>
+        <value xml:lang="nl">Authorisatietransactie #{paymentGatewayResponseId} is geexpireerd per ${authExpiration}.</value>
         <value xml:lang="pt">Autorização de transação de ${paymentGatewayResponseId} expirou como de ${authExpiration}</value>
         <value xml:lang="zh">授权交易 ${paymentGatewayResponseId} 已过期，原因是 ${authExpiration}</value>
         <value xml:lang="zh-TW">授權交易 ${paymentGatewayResponseId} 已過期,原因是 ${authExpiration}</value>
@@ -106,6 +113,7 @@
         <value xml:lang="en">Account has been cancelled</value>
         <value xml:lang="it">Il conto è stato cancellato</value>
         <value xml:lang="ja">アカウントは取り消されています</value>
+        <value xml:lang="nl">Rekening werd geannuleerd.</value>
         <value xml:lang="pt">Conta foi cancelada</value>
         <value xml:lang="zh">账户已被取消了</value>
         <value xml:lang="zh-TW">帳戶已被取消了</value>
@@ -116,6 +124,7 @@
         <value xml:lang="en">Cannot authorize financial account due to: ${errorString}</value>
         <value xml:lang="it">Non è possibile autorizzare il conto finanziario per: ${errorString}</value>
         <value xml:lang="ja">金融アカウントは認証できません、理由: ${errorString}</value>
+        <value xml:lang="nl">Fin. rekening kan niet worden geauthoriseerd vanwege: ${errorString}.</value>
         <value xml:lang="pt">Não é possível autorizar a conta financeira decorrente de: ${errorString}</value>
         <value xml:lang="zh">无法授权财务账目，原因是：${errorString}</value>
         <value xml:lang="zh-TW">無法授權財務帳目,原因是:${errorString}</value>
@@ -126,6 +135,7 @@
         <value xml:lang="en">Unable to expire financial account authorization: </value>
         <value xml:lang="it">Non è possibile cancellare l'autorizzazione per il conto finanziario: </value>
         <value xml:lang="ja">金融アカウントの認証を失効できません: </value>
+        <value xml:lang="nl">Fin. rekening authorisatie kan niet geexpireerd worden.</value>
         <value xml:lang="pt">Incapaz de expirar a autorização da conta financeira:</value>
         <value xml:lang="zh">无法过期财务账目授权：</value>
         <value xml:lang="zh-TW">無法過期財務帳目授權:</value>
@@ -136,6 +146,7 @@
         <value xml:lang="en">Available balance does not match the actual balance; pending authorizations; cannot refund FinAccount at this time.</value>
         <value xml:lang="it">Bilancio disponibilie non corrisponde all'attuale bilancio; autorizzazioni in attesa; non è possibile rimborsare il conto finanziario in questo momento.</value>
         <value xml:lang="ja">有効な貸借が実際の貸借と一致しません、認証を保留します。金融アカウントは現在払出できません。</value>
+        <value xml:lang="nl">Beschikbaar balans komt niet overeen met werkelijke balans; authorisaties in behandeling. Saldo Fin.rekening kan niet teruggestort worden</value>
         <value xml:lang="pt">Saldo disponível não corresponde ao saldo real, autorizações pendentes; não é possível reembolsar FinAccount neste momento.</value>
         <value xml:lang="zh">可动用结余与实际结余不一致；暂停授权；本次无法退款到财务账目。</value>
         <value xml:lang="zh-TW">可動用結餘與實際結餘不一致;暫停授權;本次無法退款到財務帳目.</value>
@@ -146,6 +157,7 @@
         <value xml:lang="en">Cannot locate product store from previous deposits; product store cannot be empty</value>
         <value xml:lang="it">Non è possibile localizzare il negozio dei precedenti depositi; il negozio non può essere vuoto</value>
         <value xml:lang="ja">前の預金から製品店舗を設立できません。製品店舗は空にできません</value>
+        <value xml:lang="nl">Kan winkel van voorgaande deponeringen niet vinden. Winkel ID moet beschikbaar zijn.</value>
         <value xml:lang="pt">Não é possível localizar loja de produtos de depósitos anteriores; loja de produtos não pode estar vazia</value>
         <value xml:lang="zh">无法从以前的存款确定产品店铺；产品店铺不能为空</value>
         <value xml:lang="zh-TW">無法從以前的存款確定產品商店;產品商店不能為空</value>
@@ -156,6 +168,7 @@
         <value xml:lang="en">No authorization transaction found for the OrderPaymentPreference; cannot capture</value>
         <value xml:lang="it">Nessuna transazione di autorizzazione trovata per le preferenze pagamento ordine; non è possibile catturare</value>
         <value xml:lang="ja">注文支払設定に対する認証トランザクションが見つかりません。キャプチャできません</value>
+        <value xml:lang="nl">Geen authorisatie-transactie gevonden voor de betaalpreferentie van de order. Kan niet ingenomen worden.</value>
         <value xml:lang="pt">Nenhuma autorização de transação encontrado para a OrderPaymentPreference; não é possível capturar</value>
         <value xml:lang="zh">找不到用于这个订单支付引用（OrderPaymentPreference）的授权交易；无法捕捉</value>
         <value xml:lang="zh-TW">找不到用於這個訂單支付參考(OrderPaymentPreference)的授權交易;無法擷取</value>
@@ -166,6 +179,7 @@
         <value xml:lang="en">Unable to create financial accout; no productStoreId on OrderHeader: ${orderId}</value>
         <value xml:lang="it">Non è possibile creare conto finanziario; nessun negozio impostato sulla testata ordine: ${orderId}</value>
         <value xml:lang="ja">金融アカウントを作成できません。製品店舗IDが注文ヘッダにありません: ${orderId}</value>
+        <value xml:lang="nl">Kan fin. rekening niet aanmaken. geen winkel ID vermeld in order ${orderId}.</value>
         <value xml:lang="pt">Não é possível criar accout financeira; sem productStoreId em OrderHeader: ${orderId}</value>
         <value xml:lang="zh">无法创建财务账目；订单头（OrderHeader）中没有产品店铺标识（productStoreId），订单编号：${orderId}</value>
         <value xml:lang="zh-TW">無法新建財務帳目;訂單頭(OrderHeader)中沒有產品商店標識(productStoreId),訂單識別:${orderId}</value>
@@ -176,6 +190,7 @@
         <value xml:lang="en">Unable to create financial account transaction!</value>
         <value xml:lang="it">Non è possibile creare un transazione di un conto finanziario!</value>
         <value xml:lang="ja">金融アカウント・トランザクションを作成できません!</value>
+        <value xml:lang="nl">Kan geen transactie voor fin. rekening aanmaken.</value>
         <value xml:lang="pt">Não é possível criar transação na conta de financeiras!</value>
         <value xml:lang="zh">无法执行创建财务账目事务！</value>
         <value xml:lang="zh-TW">無法執行新建財務帳目事務！</value>
@@ -186,6 +201,7 @@
         <value xml:lang="en">Could not find or create a service credit account</value>
         <value xml:lang="it">Non è possibile trovare o creare un servizio di accredito conto</value>
         <value xml:lang="ja">サービスクレジットアカウントが見つからないか、作成できません</value>
+        <value xml:lang="nl">Service krediet rekening niet gevonden of aangemaakt.</value>
         <value xml:lang="pt">Não foi possível encontrar ou criar um serviço de conta de crédito</value>
         <value xml:lang="zh">无法找到或创建一个服务信用账户</value>
         <value xml:lang="zh-TW">無法找到或新建一個服務信用帳戶</value>
@@ -196,6 +212,7 @@
         <value xml:lang="en">Could not find authorization transaction.</value>
         <value xml:lang="it">Non è possibile trovare la transazione di autorizzazione.</value>
         <value xml:lang="ja">認証トランザクションが見つかりません。</value>
+        <value xml:lang="nl">Authorisatie transactie niet gevonden.</value>
         <value xml:lang="pt">Não foi possível encontrar autorização para a transação.</value>
         <value xml:lang="zh">无法找到授权事务。</value>
         <value xml:lang="zh-TW">無法找到授權事務.</value>
@@ -206,6 +223,7 @@
         <value xml:lang="en">Unable to locate financial account from account code</value>
         <value xml:lang="it">Non è possibile localizzare il conto finanziario dal codice conto</value>
         <value xml:lang="ja">アカウントコードから金融アカウントを設置できません</value>
+        <value xml:lang="nl">Niet in staat fin. rekening van account ID te vinden.</value>
         <value xml:lang="pt">Não foi possível localizar a conta financeira do código de conta</value>
         <value xml:lang="zh">无法从账目代码得到财务账目</value>
         <value xml:lang="zh-TW">無法從帳目代碼得到財務帳目</value>
@@ -216,6 +234,7 @@
         <value xml:lang="en">Cannot post FinAccountTrans with ID ${parameters.finAccountTransId} to GL, could not find ${creditDebit} ${requiredField}</value>
         <value xml:lang="it">Non post FinAccountTrans con ID ${parameters.finAccountTransId} in GL, could not find ${creditDebit} ${requiredField}</value>
         <value xml:lang="ja">ID ${parameters.finAccountTransId} の金融アカウントトランザクションを総勘定元帳(GL)に転記できません。${creditDebit} ${requiredField} が見つかりません。</value>
+        <value xml:lang="nl">Transactie ${parameters.finAccountTransId} niet verwerkt in grootboek: ${creditDebit} ${requiredField} niet gevonden.</value>
         <value xml:lang="pt">Não é possível enviar FinAccountTrans com ID ${parameters.finAccountTransId} para conntabilidade, não foi possível encontrar ${creditDebit} ${requiredField}</value>
         <value xml:lang="zh">无法把标识为 ${parameters.finAccountTransId} 的财务账目交易提交到普通日记账中，无法找到 ${creditDebit} ${requiredField}</value>
         <value xml:lang="zh-TW">無法把標識為 ${parameters.finAccountTransId} 的財務帳目交易提交到普通日記帳中,無法找到 ${creditDebit} ${requiredField}</value>
@@ -226,6 +245,7 @@
         <value xml:lang="en">Account has expired as of ${thruDate}</value>
         <value xml:lang="it">Conto scaduto dal ${thruDate}</value>
         <value xml:lang="ja">アカウントは ${thruDate} に失効しています</value>
+        <value xml:lang="nl">Fin. rekening verlopen per ${thruDate}.</value>
         <value xml:lang="pt">Conta expirou a partir de ${thruDate}</value>
         <value xml:lang="zh">账目已过期，过期日期为 ${thruDate}</value>
         <value xml:lang="zh-TW">帳目已過期,過期日期為 ${thruDate}</value>
@@ -236,6 +256,7 @@
         <value xml:lang="en">Account is currently frozen</value>
         <value xml:lang="it">Il conto è attualmente congelato</value>
         <value xml:lang="ja">アカウントは現在凍結されています</value>
+        <value xml:lang="nl">Rekening bevroren.</value>
         <value xml:lang="pt">Conta está congelada</value>
         <value xml:lang="zh">账目目前已被冻结</value>
         <value xml:lang="zh-TW">帳目目前已被凍結</value>
@@ -246,6 +267,7 @@
         <value xml:lang="en">Both finAccountId and finAccountCode cannot be null; at least one is required</value>
         <value xml:lang="it">Entrambi finAccountId e finAccountCode non possono essere nulli; al minimo uno è richiesto</value>
         <value xml:lang="ja">金融アカウントIDと金融アカウントコードの両方とも空にできません。少なくとも１つは必須です</value>
+        <value xml:lang="nl">Fin. rekening ID en fin. rekening code kunnen samen niet leeg zijn. Tenminste een van de twee is nodig.</value>
         <value xml:lang="pt">Ambos finAccountId e finAccountCode não podem ser nulos, pelo menos um é necessário</value>
         <value xml:lang="zh">财务账目标识（finAccountId）和财务账目代码（finAccountCode）不能同时为空；至少要提供一个</value>
         <value xml:lang="zh-TW">財務帳目標識(finAccountId)和財務帳目識別(finAccountCode)不能同時為空;至少要提供一個</value>
@@ -256,6 +278,7 @@
         <value xml:lang="en">Invalid financial account; cannot locate account</value>
         <value xml:lang="it">Conto finanziario invalido; non è possibile localizzare il conto</value>
         <value xml:lang="ja">金融アカウントが無効です。アカウントを設置できません</value>
+        <value xml:lang="nl">Ongeldige fin. rekening; rekening niet gevonden.</value>
         <value xml:lang="pt">Conta financeira Inválida, não é possível localizar a conta</value>
         <value xml:lang="zh">无效的财务账目；无法找到账目</value>
         <value xml:lang="zh-TW">不正確財務帳目;無法找到帳目</value>
@@ -266,6 +289,7 @@
         <value xml:lang="en">FinAccount must be in active status</value>
         <value xml:lang="fr">Le compte financier doit être dans un état actif</value>
         <value xml:lang="ja">金融アカウントは有効ステータスである必要があります</value>
+        <value xml:lang="nl">Fin. rekening moet actieve status hebben.</value>
         <value xml:lang="pt">FinAccount deve estar no estado ativo</value>
         <value xml:lang="zh">财务账目（FinAccount）必须处于有效状态</value>
         <value xml:lang="zh-TW">財務帳目(FinAccount)必須處於有效狀態</value>
@@ -276,6 +300,7 @@
         <value xml:lang="en">Account is not refunable</value>
         <value xml:lang="it">Il conto non è rimborsabile</value>
         <value xml:lang="ja">アカウントは払出できません</value>
+        <value xml:lang="nl">Rekening is niet terugstortbaar.</value>
         <value xml:lang="pt">Conta não é reembolsável</value>
         <value xml:lang="zh">账目是不可偿还的</value>
         <value xml:lang="zh-TW">帳目是不可償還的</value>
