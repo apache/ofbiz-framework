@@ -23,6 +23,22 @@ under the License.
     <description>Humanres Services</description>
     <vendor>OFBiz</vendor>
 
+    <!-- EmplPositionTypeClass services -->
+    <service name="createEmplPositionTypeClass" default-entity-name="EmplPositionTypeClass" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a EmplPositionTypeClass record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateEmplPositionTypeClass" default-entity-name="EmplPositionTypeClass" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a EmplPositionTypeClass record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="expireEmplPositionTypeClass" default-entity-name="EmplPositionTypeClass" engine="entity-auto" invoke="expire" auth="true">
+        <description>Expire a EmplPositionTypeClass record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
     <service name="createEmplPositionClassType" default-entity-name="EmplPositionClassType" engine="entity-auto" invoke="create" auth="true">
         <description>Create a EmplPositionClassType record</description>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>

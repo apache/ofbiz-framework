@@ -55,4 +55,36 @@ under the License.
         <auto-attributes mode="IN" include="pk"/>
     </service>
 
+    <!-- create DocumentType services -->
+    <service name="createDocumentType" default-entity-name="DocumentType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a DocumentType record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateDocumentType" default-entity-name="DocumentType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a DocumentType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteDocumentType" default-entity-name="DocumentType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a DocumentType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <!-- create DocumentTypeAttr services -->
+    <service name="createDocumentTypeAttr" default-entity-name="DocumentTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a DocumentTypeAttr record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateDocumentTypeAttr" default-entity-name="DocumentTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a DocumentTypeAttr record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteDocumentTypeAttr" default-entity-name="DocumentTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a DocumentTypeAttr record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
 </services>
