@@ -21,7 +21,7 @@ under the License.
       <td colspan="7"><h3>${uiLabelMap.OrderReturnFromOrder} ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</a></h3></td>
       <td colspan="2" align="right">
         <label><span>${uiLabelMap.CommonSelectAll}</span>&nbsp;
-        <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, '${selectAllFormName}');highlightAllRows(this, 'returnItemId_tableRow_', 'selectAllForm');"/></label>
+        <input type="checkbox" name="selectAll" value="Y" class="selectAll" onclick="highlightAllRows(this, 'returnItemId_tableRow_', 'selectAllForm');"/></label>
       </td>
     </tr>
 
@@ -85,7 +85,7 @@ under the License.
               </td>
               <td></td>
               <td align="right">
-                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');highlightRow(this,'returnItemId_tableRow_${rowCount}');"/>
+                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="highlightRow(this,'returnItemId_tableRow_${rowCount}');"/>
               </td>
             </tr>
         <#else>
@@ -155,7 +155,7 @@ under the License.
                 </select>
               </td>
               <td align="right">
-                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');highlightRow(this,'returnItemId_tableRow_${rowCount}');"/>
+                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="highlightRow(this,'returnItemId_tableRow_${rowCount}');"/>
               </td>
             </tr>
         </#if>
@@ -201,7 +201,7 @@ under the License.
             </select>
           </td>
           <td align="right">
-            <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');"/>
+            <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y"/>
           </td>
         </tr>
         <#assign rowCount = rowCount + 1>
@@ -238,7 +238,7 @@ under the License.
         </select>
       </td>
       <td align="right">
-        <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');"/>
+        <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y"/>
       </td>
     </tr>
     <#assign rowCount = rowCount + 1>
