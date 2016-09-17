@@ -96,6 +96,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingFindPurchaseInvoices"/>
                 <set field="tabButtonItem" value="purchaseInvoices"/>
+                <set field="statusIds" from-field="parameters.statusId" type="List"/>
                 <entity-condition entity-name="Invoice" list="invoices">
                     <condition-list combine="and">
                         <condition-expr field-name="invoiceTypeId" operator="equals" from-field="parameters.invoiceTypeId" ignore-if-empty="false"/>
@@ -104,7 +105,7 @@ under the License.
                         <condition-expr field-name="invoiceDate" operator="less-equals" from-field="parameters.thruInvoiceDate" ignore-if-empty="true"/>
                         <condition-expr field-name="dueDate" operator="greater-equals" from-field="parameters.fromDueDate" ignore-if-empty="true"/>
                         <condition-expr field-name="dueDate" operator="less-equals" from-field="parameters.thruDueDate" ignore-if-empty="true"/>
-                        <condition-expr field-name="statusId" operator="equals" from-field="parameters.statusId" ignore-if-empty="true"/>
+                        <condition-expr field-name="statusId" operator="in" from-field="statusIds" ignore-if-empty="true"/>
                     </condition-list>
                     <order-by field-name="partyIdFrom"/>
                 </entity-condition>
