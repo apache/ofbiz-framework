@@ -132,7 +132,7 @@ under the License.
     
     <!-- WebSite Content Forms -->
     <form name="ListWebSiteContent" type="list" list-name="webSiteContent" target="UpdateWebSiteContent"
-        paginate-target="ListWebSiteContent" paginate="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        paginate-target="ListWebSiteContent" paginate="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-service service-name="updateWebSiteRole"/>
         <field name="sequenceNum"><hidden/></field>
         <field name="roleTypeId"><hidden/></field>
@@ -210,8 +210,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateWebSiteRole" type="list" target="updateWebSiteRole" title="" list-name="webSiteRoleDatas"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <auto-fields-service service-name="updateWebSiteRole" map-name="webSiteRole"/>
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
+        <auto-fields-service service-name="updateWebSiteRole" map-name="webSiteRole" />
         <field name="webSiteId"><hidden/></field>
         <!-- three possibilities for the Party: person, partyGroup, neither... just print everything and if it's empty, no biggie -->
         <field name="partyId" widget-style="buttontext">
@@ -284,7 +284,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit/></field>
     </form>
     <form name="ViewWebSiteContactList" type="list" target="updateWebSiteContactList" list-name="webSiteContactLists" title="" 
-            header-row-style="header-row" default-table-style="basic-table">
+            header-row-style="header-row" default-table-style="basic-table" separate-columns="true">
         <actions>
             <entity-one entity-name="ContactList" value-field="contactList">
                 <field-map field-name="contactListId" from-field="contactListId"/>
