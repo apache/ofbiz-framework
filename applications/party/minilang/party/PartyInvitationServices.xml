@@ -41,12 +41,14 @@ under the License.
     </simple-method>
     <simple-method method-name="updatePartyInvitation" short-description="Update a PartyInvitation">
         <entity-one entity-name="PartyInvitation" value-field="lookedUpValue"/>
+        <if-empty field="parameters.toName">
         <if-not-empty field="parameters.partyId">
             <entity-one entity-name="Person" value-field="person" auto-field-map="false">
                 <field-map field-name="partyId" from-field="parameters.partyId"/>
             </entity-one>
             <set field="parameters.toName" value="${person.firstName} ${person.middleName} ${person.lastName}"/>
         </if-not-empty>
+        </if-empty>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
