@@ -63,7 +63,7 @@ under the License.
           <td align="right"><div><b>${uiLabelMap.CommonUnitPrice}</b></div></td>
           <td align="right"><div><b>${uiLabelMap.OrderAdjustments}</b></div></td>
           <td align="right"><div><b>${uiLabelMap.OrderItemTotal}</b></div></td>
-          <td align="center"><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);" /></td>
+          <td align="center"><input type="checkbox" name="selectAll" value="0" class="selectAll"/></td>
         </tr>
 
         <#assign itemsFromList = false>
@@ -294,7 +294,7 @@ under the License.
             </td>
             <td nowrap="nowrap" align="right"><div><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=currencyUomId/></div></td>
             <td nowrap="nowrap" align="right"><div><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=currencyUomId/></div></td>
-            <td nowrap="nowrap" align="center"><div><#if !cartLine.getIsPromo()><input type="checkbox" name="selectedItem" value="${cartLineIndex}" onclick="javascript:checkToggle(this);"/><#else>&nbsp;</#if></div></td>
+            <td nowrap="nowrap" align="center"><div><#if !cartLine.getIsPromo()><input type="checkbox" name="selectedItem" value="${cartLineIndex}"/><#else>&nbsp;</#if></div></td>
           </tr>
         </#list>
 
