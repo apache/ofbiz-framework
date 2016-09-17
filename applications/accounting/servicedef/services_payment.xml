@@ -296,4 +296,18 @@ under the License.
         <description>Delete a Deduction record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+    <service name="createDeductionType" engine="entity-auto" invoke="create" default-entity-name="DeductionType" auth="true">
+        <description>Create a Deduction Type record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateDeductionType" engine="entity-auto" invoke="update" default-entity-name="DeductionType" auth="true">
+        <description>Update a Deduction Type record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteDeductionType" engine="entity-auto" invoke="delete" default-entity-name="DeductionType" auth="true">
+        <description>Delete a Deduction Type record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
