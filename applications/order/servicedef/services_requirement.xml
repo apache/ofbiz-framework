@@ -207,5 +207,20 @@ under the License.
         </description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
+    <!-- DesiredFeature services -->
+    <service name="createDesiredFeature" default-entity-name="DesiredFeature" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a DesiredFeature record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateDesiredFeature" default-entity-name="DesiredFeature" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a DesiredFeature record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteDesiredFeature" default-entity-name="DesiredFeature" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a DesiredFeature record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>
 
