@@ -1290,13 +1290,32 @@ under the License.
                 <check-errors />
             </then>
         </if>
-        <set field="workEffortId" from-field="parameters.workEffortId" />
+
+        <!-- Get the old WorkEffort -->
+        <set field="workEffortId" from-field="parameters.workEffortId"/>
         <if-empty field="workEffortId">
-            <sequenced-id sequence-name="WorkEffort" field="workEffortId" />
+            <sequenced-id sequence-name="WorkEffort" field="workEffortId"/>
         </if-empty>
         <entity-one entity-name="WorkEffort" value-field="oldWorkEffort">
-            <field-map field-name="workEffortId" from-field="parameters.oldWorkEffortId" />
+            <field-map field-name="workEffortId" from-field="parameters.oldWorkEffortId"/>
         </entity-one>
+
+        <!-- Check the status to give to the new WorkEffort -->
+        <if-empty field="parameters.statusId">
+            <entity-one entity-name="StatusItem" value-field="oldStatus">
+                <field-map field-name="statusId" from-field="oldWorkEffort.currentStatusId"/>
+            </entity-one>
+            <entity-and entity-name="StatusItem" list="statusList">
+                <field-map field-name="statusTypeId" from-field="oldStatus.statusTypeId"/>
+                <order-by field-name="sequenceId"/>
+            </entity-and>
+            <set field="oldWorkEffort.currentStatusId" from-field="statusList[0].statusId"/>
+            <else>
+                <set field="oldWorkEffort.currentStatusId" from-field="parameters.statusId"/>
+            </else>
+        </if-empty>
+
+        <!-- Create the new WorkEffort from the old one and the status -->
         <set-service-fields service-name="createWorkEffort" to-map="createWorkEffortCtx" map="oldWorkEffort"/>
         <set field="createWorkEffortCtx.workEffortId" from-field="workEffortId"/>
         <set field="createWorkEffortCtx.userLogin" from-field="parameters.userLogin"/>
