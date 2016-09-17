@@ -216,7 +216,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ProductEditShipment}">
+                        <screenlet title="${groovy: parameters.shipmentId ? uiLabelMap.ProductEditShipment : uiLabelMap.ProductNewShipment}">
                             <include-form name="EditShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
                         </screenlet>
                     </decorator-section>

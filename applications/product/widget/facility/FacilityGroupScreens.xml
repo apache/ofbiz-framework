@@ -88,7 +88,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityGroupDecorator">
                     <decorator-section name="body">
-                        <container style="page-title"><label text="${uiLabelMap.PageTitleEditFacilityGroup}"/></container>
+                        <container style="page-title"><label text="${groovy: parameters.facilityGroupId ? uiLabelMap.PageTitleEditFacilityGroup : uiLabelMap.PageTitleNewFacilityGroup }"/></container>
                         <container style="button-bar">
                             <link target="EditFacilityGroup" text="${uiLabelMap.CommonNew}" style="buttontext create"/>
                         </container>
