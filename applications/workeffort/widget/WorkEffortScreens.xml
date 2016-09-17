@@ -121,9 +121,7 @@ under the License.
                             </fail-widgets>
                         </section>
                         <screenlet title="${uiLabelMap.WorkEffortDuplicateWorkEffort}">
-                            <platform-specific>
-                                <html><html-template location="component://workeffort/template/workeffort/EditWorkEffortDupForm.ftl"/></html>
-                            </platform-specific>
+                            <include-form name="EditWorkEffortDuplicate" location="component://workeffort/widget/WorkEffortForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

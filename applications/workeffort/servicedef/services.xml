@@ -116,7 +116,9 @@ under the License.
 
     <service name="duplicateWorkEffort" engine="simple"
         location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="duplicateWorkEffort" auth="true">
-        <description>Duplicate a Work Effort. If workEffortId is empty a new workEffortId will be generated.</description>
+        <description>Duplicate a Work Effort. If workEffortId is empty a new workEffortId will be generated.
+            Set the statusId of the new WorkEffort to this status, otherwise, set the status to the first of the
+            sequenceId of the statusTypeId</description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
         <attribute name="oldWorkEffortId" type="String" mode="IN" optional="false"/>
@@ -129,6 +131,7 @@ under the License.
         <attribute name="removeWorkEffortNotes" type="String" mode="IN" optional="true"/>
         <attribute name="removeWorkEffortAssignmentRates" type="String" mode="IN" optional="true"/>
         <attribute name="workEffortId" type="String" mode="OUT" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- Communication Event WorkEffort -->

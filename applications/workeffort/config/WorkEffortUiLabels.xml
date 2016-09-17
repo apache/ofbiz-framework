@@ -341,6 +341,10 @@
         <value xml:lang="zh">必须回复</value>
         <value xml:lang="zh-TW">必須回複</value>
     </property>
+    <property key="FormFieldTitle_newWorkEffortId">
+        <value xml:lang="en">New WorkEffort Id</value>
+        <value xml:lang="fr">Nvlle réf de tâche</value>
+    </property>
     <property key="FormFieldTitle_orderTypeDescription">
         <value xml:lang="en">Order Type Description</value>
         <value xml:lang="fr">Description de type de commande</value>

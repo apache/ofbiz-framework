@@ -612,7 +612,7 @@ under the License.
     </request-map>
     <request-map uri="DuplicateWorkEffort">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="duplicateWorkEffort"/>
+        <event type="service" invoke="duplicateWorkEffort"/>
         <response name="success" type="view" value="EditWorkEffort"/>
         <response name="error" type="view" value="EditWorkEffort"/>
     </request-map>

@@ -1493,4 +1493,42 @@ under the License.
         <field name="deleteLink"><ignored/></field>
     </form>
 
+    <form name="EditWorkEffortDuplicate" target="DuplicateWorkEffort">
+        <actions>
+            <!-- Retrieving the list of the status available for this type of WorkEffort -->
+            <!-- This list is used for the duplication -->
+            <entity-one entity-name="StatusItem" value-field="workEffortStatus">
+                <field-map field-name="statusId" from-field="workEffort.currentStatusId"/>
+            </entity-one>
+        </actions>
+
+        <field name="oldWorkEffortId" entry-name="workEffortId"><hidden/></field>
+        <field name="newWorkEffortId" parameter-name="workEffortId"><text size="20" maxlength="20"/></field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="${workEffortStatus.statusTypeId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field name="duplicateTitle" title="${uiLabelMap.CommonDuplicate}" position="1" map-name="dummy">
+            <display description=""/>
+        </field>
+        <field name="duplicateWorkEffortAssignmentRates" title="${uiLabelMap.FormFieldTitle_rate}" position="2"><check all-checked="true"/></field>
+        <field name="duplicateWorkEffortAssocs" title="${uiLabelMap.WorkEffortAssoc}" position="3"><check all-checked="true"/></field>
+        <field name="duplicateWorkEffortContents" title="${uiLabelMap.ProductContent}" position="4"><check all-checked="true"/></field>
+        <field name="duplicateWorkEffortNotes" title="${uiLabelMap.WorkEffortNotes}" position="5"><check all-checked="true"/></field>
+
+        <field name="removeTitle" title="${uiLabelMap.CommonRemove}" position="1" map-name="dummy">
+            <display description=""/>
+        </field>
+        <field name="removeWorkEffortAssignmentRates" title="${uiLabelMap.FormFieldTitle_rate}" separate-column="false" position="2"><check all-checked="false"/></field>
+        <field name="removeWorkEffortAssocs" title="${uiLabelMap.WorkEffortAssoc}" position="3" separate-column="false"><check all-checked="false"/></field>
+        <field name="removeWorkEffortContents" title="${uiLabelMap.ProductContent}" position="4" separate-column="false"><check all-checked="false"/></field>
+        <field name="removeWorkEffortNotes" title="${uiLabelMap.WorkEffortNotes}" position="5" separate-column="false"><check all-checked="false"/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonDuplicate}!" widget-style="smallSubmit"><submit /></field>
+    </form>
 </forms>
