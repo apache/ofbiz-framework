@@ -473,6 +473,7 @@ under the License.
         </auto-attributes>
         <attribute name="partyId" type="String" mode="OUT"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="OUT" optional="true"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="quickAdd" type="String" mode="IN" optional="true"/>
