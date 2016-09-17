@@ -128,7 +128,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditProduct}">
+                        <screenlet title="${groovy: parameters.productId ? uiLabelMap.PageTitleEditProduct : uiLabelMap.ProductNewProduct}">
                             <include-form name="EditProduct" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
 
