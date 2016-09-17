@@ -170,4 +170,18 @@ under the License.
         <implements service="mailProcessInterface"/>
     </service>
     -->
+    <service name="createEmailTemplateSetting" engine="entity-auto" invoke="create" default-entity-name="EmailTemplateSetting" auth="true">
+        <description>Create a EmailTemplateSetting record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateEmailTemplateSetting" engine="entity-auto" invoke="update" default-entity-name="EmailTemplateSetting" auth="true">
+        <description>Update a EmailTemplateSetting record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteEmailTemplateSetting" engine="entity-auto" invoke="delete" default-entity-name="EmailTemplateSetting" auth="true">
+        <description>Delete a EmailTemplateSetting record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>

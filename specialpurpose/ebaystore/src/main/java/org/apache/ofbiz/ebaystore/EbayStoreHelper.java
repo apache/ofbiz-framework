@@ -465,8 +465,11 @@ public class EbayStoreHelper {
 
     public static Map<String, Object> setEbayProductListingAttribute(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
         HashMap<String, Object> attributeMapList = UtilGenerics.cast(context.get("attributeMapList"));
         String productListingId = (String) context.get("productListingId");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Map<String, Object> ebayProductListingAttributeMap = new HashMap<String, Object>();
         try {
            List<GenericValue> attributeToClears = EntityQuery.use(delegator).from("EbayProductListingAttribute").where("productListingId", productListingId).queryList();
            for (int clearCount = 0; clearCount < attributeToClears.size(); clearCount++) {
@@ -477,14 +480,16 @@ public class EbayStoreHelper {
            }
            for (Map.Entry<String,Object> entry : attributeMapList.entrySet()) {
               if (UtilValidate.isNotEmpty(entry.getKey())) {
-                  GenericValue ebayProductListingAttribute = delegator.makeValue("EbayProductListingAttribute");
-                  ebayProductListingAttribute.set("productListingId", productListingId);
-                  ebayProductListingAttribute.set("attrName", entry.getKey().toString());
-                  ebayProductListingAttribute.set("attrValue", entry.getValue().toString());
-                  ebayProductListingAttribute.create();
+            	   ebayProductListingAttributeMap.put("productListingId", productListingId);
+            	   ebayProductListingAttributeMap.put("attrName", entry.getKey().toString());
+            	   ebayProductListingAttributeMap.put("attrValue", entry.getValue().toString());
+            	   ebayProductListingAttributeMap.put("userLogin", userLogin);
+            	   dispatcher.runSync("createEbayProductListingAttribute", ebayProductListingAttributeMap);
               }
            }
         } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (GenericServiceException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
         return ServiceUtil.returnSuccess();
