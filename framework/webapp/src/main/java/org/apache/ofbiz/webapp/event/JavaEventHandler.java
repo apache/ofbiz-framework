@@ -77,10 +77,10 @@ public class JavaEventHandler implements EventHandler {
         Debug.logVerbose("*[[Event invocation]]*", module);
         Object[] params = new Object[] {request, response};
 
-        return invoke(event.path, event.invoke, eventClass, paramTypes, params);
+        return invoke(event.path, event.invoke, eventClass, paramTypes, params, event.transactionTimeout);
     }
 
-    private String invoke(String eventPath, String eventMethod, Class<?> eventClass, Class<?>[] paramTypes, Object[] params) throws EventHandlerException {
+    private String invoke(String eventPath, String eventMethod, Class<?> eventClass, Class<?>[] paramTypes, Object[] params, int transactionTimeout) throws EventHandlerException {
         boolean beganTransaction = false;
         if (eventClass == null) {
             throw new EventHandlerException("Error invoking event, the class " + eventPath + " was not found");
@@ -91,7 +91,11 @@ public class JavaEventHandler implements EventHandler {
 
         Debug.logVerbose("[Processing]: JAVA Event", module);
         try {
-            beganTransaction = TransactionUtil.begin();
+            if (transactionTimeout > 0) {
+                beganTransaction = TransactionUtil.begin(transactionTimeout);
+            } else {
+                beganTransaction = TransactionUtil.begin();
+            }
             Method m = eventClass.getMethod(eventMethod, paramTypes);
             String eventReturn = (String) m.invoke(null, params);
 
