@@ -79,12 +79,12 @@ under the License.
         <field name="emplPositionId"><lookup target-form-name="LookupEmplPosition"/></field>
         <field name="applicationId"><lookup target-form-name="LookupEmploymentApp"/></field>
         <field name="statusId">
-            <drop-down allow-empty="true" current-description="">
+            <check all-checked="false">
                 <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="EMPL_POSITION_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="employmentAppSourceTypeId">
             <drop-down allow-empty="true" current-description="">

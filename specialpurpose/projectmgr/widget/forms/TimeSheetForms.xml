@@ -107,12 +107,12 @@
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1">
-            <drop-down allow-empty="true">
+            <check all-checked="false">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="TIMESHEET_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="fromDate"><date-find/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>

@@ -158,7 +158,7 @@
         <field name="workEffortId"  title="${uiLabelMap.ProjectMgrTaskId}"><text-find ignore-case="true"/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}"><text-find ignore-case="true"/></field>
         <field name="currentStatusId">
-            <drop-down allow-empty="true">
+            <check all-checked="false">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="PROJECT_TASK_STATUS"/>
                     <entity-constraint name="statusId" operator="not-equals" value="PTS_CREATED_UA"/>
@@ -166,7 +166,7 @@
                     <entity-constraint name="statusId" operator="not-equals" value="PTS_CREATED_IP"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </drop-down>
+            </check>
         </field>
         <field name="partyId">
             <drop-down allow-empty="true">
