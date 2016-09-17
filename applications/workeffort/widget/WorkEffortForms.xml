@@ -507,7 +507,7 @@ under the License.
         <field name="preferredContactMechId"><lookup target-form-name="LookupPreferredContactMech" target-parameter="partyId"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form  name="ListWorkEffortParties" list-name="listIt" title="" type="list"
+    <form name="ListWorkEffortParties" list-name="listIt" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service result-map-list="listIt" result-map="result" service-name="performFind">
@@ -531,7 +531,7 @@ under the License.
            </hyperlink>
         </field>
     </form>
-    <form  name="DisplayWorkEffortPartyAssigns" type="list" list-name="partyAssignments"
+    <form name="DisplayWorkEffortPartyAssigns" type="list" list-name="partyAssignments"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${groupName}">
@@ -685,7 +685,7 @@ under the License.
         <field map-name="subjectMap" name="subject"><text size="30"/></field>
     </form>
 
-    <form  name="ListPreferredContactMech" target="" title="" type="list"
+    <form name="ListPreferredContactMech" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="PartyAndContactMech">
@@ -1151,7 +1151,7 @@ under the License.
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="reviewDate"/>
-            </hyperlink>
+           </hyperlink>
         </field>
     </form>
     <!-- WorkEffortKeyword forms -->
@@ -1248,7 +1248,7 @@ under the License.
                 <parameter param-name="agreementId"/>
                 <parameter param-name="agreementItemSeqId"/>
                 <parameter param-name="workEffortId"/>
-            </hyperlink>
+           </hyperlink>
         </field>
     </form>
 
@@ -1294,7 +1294,7 @@ under the License.
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="fixedAssetId"/>
                 <parameter param-name="fromDate"/>
-                </hyperlink>
+           </hyperlink>
         </field>
     </form>
 
@@ -1365,7 +1365,7 @@ under the License.
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="contactMechId"/>
                 <parameter param-name="sequenceId"/>
-            </hyperlink>
+           </hyperlink>
         </field>
     </form>
 
