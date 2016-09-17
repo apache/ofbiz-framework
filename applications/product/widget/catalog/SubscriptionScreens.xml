@@ -132,7 +132,7 @@ under the License.
                 </section>
                 <decorator-screen name="CommonSubscriptionDecorator" location="${parameters.subscriptionDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="editSubscription" title="${uiLabelMap.PageTitleEditSubscription}" collapsible="true">
+                        <screenlet id="editSubscription" title="${groovy: subscriptionId ? uiLabelMap.PageTitleEditSubscription : uiLabelMap.PageTitleNewSubscription}" collapsible="true">
                             <include-form name="EditSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                         </screenlet>
                     </decorator-section>

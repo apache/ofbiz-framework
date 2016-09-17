@@ -117,7 +117,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditProductPromos}">
+                        <screenlet title="${groovy: productPromoId ? uiLabelMap.PageTitleEditProductPromos : uiLabelMap.ProductNewProductPromo}">
                             <include-form name="EditProductPromo" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
                     </decorator-section>

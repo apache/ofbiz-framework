@@ -98,7 +98,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditConfigItem}">
+                        <screenlet title="${groovy: configItemId ? uiLabelMap.PageTitleEditConfigItem : uiLabelMap.PageTitleNewConfigItem}">
                             <include-form name="EditProductConfigItem" location="component://product/widget/catalog/ConfigForms.xml"/>
                         </screenlet>
                     </decorator-section>

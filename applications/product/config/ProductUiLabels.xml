@@ -11395,6 +11395,12 @@
         <value xml:lang="zh">查找产品，供货商是</value>
         <value xml:lang="zh-TW">尋找產品供應商是:</value>
     </property>
+    <property key="PageTitleNewConfigItem">
+        <value xml:lang="en">New Config Item</value>
+    </property>
+    <property key="PageTitleNewSubscription">
+        <value xml:lang="en">New Subscription</value>
+    </property>    
     <property key="PageTitleNewFacilityGroup">
         <value xml:lang="en">New Facility Group</value>
     </property>
@@ -11426,6 +11432,9 @@
         <value xml:lang="zh">编辑场所位置</value>
         <value xml:lang="zh-TW">編輯場所位置</value>
     </property>
+    <property key="PageTitleNewProductCatalog">
+        <value xml:lang="en">New Product Catalog</value>
+    </property>    
     <property key="PageTitlePackageShipmentScheduling">
         <value xml:lang="de">Paket Auslieferung Planung</value>
         <value xml:lang="en">Package Shipment Scheduling</value>
