@@ -35,9 +35,6 @@ import org.apache.ofbiz.entity.GenericValue;
  */
 public class PermissionRecorder {
 
-    public static final int PRE_PURPOSE = 0;
-    public static final int PRE_ROLE = 1;
-    public static final int WITH_ROLES = 2;
 
     protected boolean isOn = false;
     protected GenericValue userLogin;

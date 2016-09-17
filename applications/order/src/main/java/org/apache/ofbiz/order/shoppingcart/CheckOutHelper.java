@@ -71,7 +71,6 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class CheckOutHelper {
 
     public static final String module = CheckOutHelper.class.getName();
-    public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
 
     public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");

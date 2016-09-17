@@ -93,7 +93,6 @@ public class OrderServices {
     public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
     public static final String resourceProduct = "ProductUiLabels";
-    public static final String resourceCommon = "CommonUiLabels";
 
     public static Map<String, String> salesAttributeRoleMap = new HashMap<String, String>();
     public static Map<String, String> purchaseAttributeRoleMap = new HashMap<String, String>();

@@ -59,7 +59,6 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
 public class CheckOutEvents {
 
     public static final String module = CheckOutEvents.class.getName();
-    public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
 
     public static String cartNotEmpty(HttpServletRequest request, HttpServletResponse response) {
