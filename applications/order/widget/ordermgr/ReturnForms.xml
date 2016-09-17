@@ -98,7 +98,7 @@ under the License.
             </drop-down>
         </field>
         <field name="newCreditCard" widget-style="buttontext" use-when="returnHeader!=null&amp;&amp;returnHeader.getString(&quot;fromPartyId&quot;)!=null">
-            <hyperlink also-hidden="false" target="/partymgr/control/editcreditcard" target-window="partymgr" description="${uiLabelMap.AccountingCreateNewCreditCard}" target-type="inter-app">
+            <hyperlink also-hidden="false" target="/partymgr/control/editcreditcard" target-window="partymgr" description="${uiLabelMap.AccountingAddNewCreditCard}" target-type="inter-app">
                 <parameter param-name="partyId" from-field="returnHeader.fromPartyId"/>
             </hyperlink>
         </field>
