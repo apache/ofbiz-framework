@@ -49,6 +49,45 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
         <override name="rateTypeId" optional="false"/>
     </service>
+    <service name="getRatesAmountsFromWorkEffortId" default-entity-name="RateAmount" engine="simple" auth="true"
+             location="component://accounting/minilang/rate/RateServices.xml" invoke="getRatesAmountsFromWorkEffortId">
+        <description>Get all Rates Amounts for a given workEffortId</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <attribute name="periodTypeId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="rateCurrencyUomId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="ratesList" type="List" mode="OUT" optional="true"/>
+        <override name="workEffortId" optional="false"/>
+    </service>
+    <service name="getRatesAmountsFromPartyId" default-entity-name="RateAmount" engine="simple" auth="true"
+             location="component://accounting/minilang/rate/RateServices.xml" invoke="getRatesAmountsFromPartyId">
+        <description>Get all Rates Amounts for a given partyId</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <attribute name="periodTypeId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="rateCurrencyUomId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="ratesList" type="List" mode="OUT" optional="true"/>
+        <override name="partyId" optional="false"/>
+    </service>
+    <service name="getRatesAmountsFromEmplPositionTypeId" default-entity-name="RateAmount" engine="simple" auth="true"
+             location="component://accounting/minilang/rate/RateServices.xml" invoke="getRatesAmountsFromEmplPositionTypeId">
+        <description>Get all Rates Amounts for a given emplPositionTypeId</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <attribute name="periodTypeId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="rateCurrencyUomId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="ratesList" type="List" mode="OUT" optional="true"/>
+        <override name="emplPositionTypeId" optional="false"/>
+    </service>
+    <service name="filterRateAmountList" default-entity-name="RateAmount" engine="simple" auth="true"
+             location="component://accounting/minilang/rate/RateServices.xml" invoke="filterRateAmountList">
+        <description>Get the most specific non-empty Rate Amount list from a list of Rate Amount, given the input parameters :
+        workEffortId, partyId, emplPositionTypeId and rateTypeId</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="ratesList" type="List" mode="IN" optional="true"/>
+        <attribute name="filteredRatesList" type="List" mode="OUT" optional="true"/>
+    </service>
 
     <!-- PartyRate Services -->
     <service name="updatePartyRate" default-entity-name="PartyRate" engine="simple" auth="true"
