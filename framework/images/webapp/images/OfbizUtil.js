@@ -212,50 +212,6 @@ function popUp(url, name, height, width) {
 function popUpSmall(url, name) {
     popUp(url, name, '300', '450');
 }
-function popUpPrint(printserver, screen1) {
-    popUpPrint(printserver, screen1, null, null);
-}
-function popUpPrint(printserver, screen1, screen2) {
-    popUpPrint(printserver, screen1, screen2, null);
-}
-function popUpPrint(printserver, screen1, screen2, screen3) {
-    if  (printserver == null) {
-        printserver = "http://localhost:10080/"; // default print server port
-    }
-
-    if (screen1 != null) {
-        screen1 = screen1.replace(/\:/g, "%3A");
-        screen1 = screen1.replace(/\//g, "%2F");
-        screen1 = screen1.replace(/\#/g, "%23");
-        screen1 = screen1.replace(/\?/g, "%3F");
-        screen1 = screen1.replace(/\=/g, "%3D");
-        url = printserver + screen1;
-        window.open(url, "screen1", 'location=no,statusbar=1,menubar=0,scrollbars,width=60,height=10,top=0,left=0');
-        self.focus();
-
-        if (screen2 != null) {
-            screen2 = screen2.replace(/\:/g, "%3A");
-            screen2 = screen2.replace(/\//g, "%2F");
-            screen2 = screen2.replace(/\#/g, "%23");
-            screen2 = screen2.replace(/\?/g, "%3F");
-            screen2 = screen2.replace(/\=/g, "%3D");
-            url = printserver + screen2;
-            window.open(url, "screen2", 'location=no,statusbar=1,menubar=0,scrollbars,width=60,height=10,top=0,left=0');
-            self.focus();
-
-            if (screen3 != null) {
-                screen3 = screen3.replace(/\:/g, "%3A");
-                screen3 = screen3.replace(/\//g, "%2F");
-                screen3 = screen3.replace(/\#/g, "%23");
-                screen3 = screen3.replace(/\?/g, "%3F");
-                screen3 = screen3.replace(/\=/g, "%3D");
-                url = printserver + screen3;
-                window.open(url, "screen13", 'location=no,statusbar=1,menubar=0,scrollbars,width=60,height=10,top=0,left=0');
-                self.focus();
-            }
-        }
-    }
-}
 
 // Post a form from a pop up using the parent window
 function doPostViaParent(formName) {
