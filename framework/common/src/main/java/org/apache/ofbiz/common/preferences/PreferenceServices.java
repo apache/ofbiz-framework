@@ -201,7 +201,6 @@ public class PreferenceServices {
 
         String userLoginId = PreferenceWorker.getUserLoginId(context, false);
         String userPrefTypeId = (String) context.get("userPrefTypeId");
-        //Debug.logError("In removeUserPreference userLoginId=" + userLoginId + ", userPrefTypeId=" + userPrefTypeId, module);
         if (UtilValidate.isEmpty(userLoginId) || UtilValidate.isEmpty(userPrefTypeId)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "setPreference.invalidArgument", locale));
         }

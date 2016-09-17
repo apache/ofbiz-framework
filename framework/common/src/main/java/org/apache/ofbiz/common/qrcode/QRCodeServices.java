@@ -181,7 +181,6 @@ public class QRCodeServices {
             }
             
             if (UtilValidate.isNotEmpty(verifyOutput) && verifyOutput.booleanValue()) {
-                // Debug.logInfo("Original Message:[" + message + "]", module);
                 Decoder decoder = new Decoder();
                 Map<DecodeHintType, Object> decodeHints = new EnumMap<>(DecodeHintType.class);
                 decodeHints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
@@ -202,11 +201,9 @@ public class QRCodeServices {
                     } catch (NotFoundException e) {
                         // do nothing
                     }
-                    // Debug.logInfo("Text in QR Code with logo:[" + result.getText() + "]", module);
                     if (UtilValidate.isNotEmpty(result) && !result.getText().equals(message)) {
                         detectorResult = new Detector(bitMatrix).detect(decodeHints);
                         result = decoder.decode(detectorResult.getBits(), decodeHints);
-                        // Debug.logInfo("Text in QR Code without logo:[" + result.getText() + "]", module);
                         if (!result.getText().equals(message)) {
                             return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "GeneratedTextNotMatchOriginal", new Object[]{result.getText(), message}, locale));
                         }
@@ -216,7 +213,6 @@ public class QRCodeServices {
                 } else {
                     detectorResult = new Detector(bitMatrix).detect(decodeHints);
                     DecoderResult result = decoder.decode(detectorResult.getBits(), decodeHints);
-                    // Debug.logInfo("Text in QR Code:[" + result.getText() + "]", module);
                     if (!result.getText().equals(message)) {
                         return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "GeneratedTextNotMatchOriginal", new Object[]{result.getText(), message}, locale));
                     }

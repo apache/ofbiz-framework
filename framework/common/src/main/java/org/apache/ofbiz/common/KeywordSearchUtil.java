@@ -59,7 +59,6 @@ public final class KeywordSearchUtil {
     private KeywordSearchUtil () {}
 
     public static String getSeparators() {
-        // String separators = ";: ,.!?\t\"\'\r\n\\/()[]{}*%<>-+_";
         String seps = UtilProperties.getPropertyValue("keywordsearch", "index.keyword.separators", ";: ,.!?\t\"\'\r\n\\/()[]{}*%<>-+_");
         return seps;
     }
@@ -157,9 +156,7 @@ public final class KeywordSearchUtil {
                 // replace all %% with %
                 int dblPercIdx = -1;
                 while ((dblPercIdx = strSb.indexOf("%%")) >= 0) {
-                    //Debug.logInfo("before strSb: " + strSb, module);
                     strSb.replace(dblPercIdx, dblPercIdx+2, "%");
-                    //Debug.logInfo("after strSb: " + strSb, module);
                 }
                 token = strSb.toString();
             }

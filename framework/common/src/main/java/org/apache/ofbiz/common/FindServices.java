@@ -112,7 +112,6 @@ public class FindServices {
         // Contained in the associated entity.
         // Those extra fields will be ignored in the second half of this method.
         Map<String, Map<String, Map<String, Object>>> normalizedFields = new LinkedHashMap<String, Map<String, Map<String, Object>>>();
-        //StringBuffer queryStringBuf = new StringBuffer();
         for (String fieldNameRaw: inputFields.keySet()) { // The name as it appeas in the HTML form
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if
                                                                  //  it exists, or the whole word, if not.
@@ -130,7 +129,6 @@ public class FindServices {
                 continue;
             }
 
-            //queryStringBuffer.append(fieldNameRaw + "=" + fieldValue);
             queryStringMap.put(fieldNameRaw, fieldValue);
             iPos = fieldNameRaw.indexOf("_"); // Look for suffix
 

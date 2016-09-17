@@ -242,8 +242,6 @@ public class LoginServices {
                             result.put("userLogin", userLogin);
                             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
                         } else {
-                            //Debug.logInfo("Entered password [" + encodedPassword + "], Entered password OldFunnyHexEncode [" + encodedPasswordOldFunnyHexEncode + "], db password [" + userLogin.getString("currentPassword") + "]", module);
-
                             // password is incorrect, but this may be the result of a stale cache entry,
                             // so lets clear the cache and try again if this is the first pass
                             // but only if authFatalError is not true; this would mean the single authenticator failed
@@ -327,7 +325,6 @@ public class LoginServices {
                                             ulhCreateMap.put("passwordUsed", password);
                                         }
 
-                                        //Debug.logInfo(new Exception(), "=================== Creating new UserLoginHistory at " + UtilDateTime.nowTimestamp(), module);
                                         delegator.create("UserLoginHistory", ulhCreateMap);
                                     }
                                 }
@@ -712,7 +709,6 @@ public class LoginServices {
             }
         }
 
-        //result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         result.put("updatedUserLogin", userLoginToUpdate);
         return result;
     }
@@ -730,8 +726,6 @@ public class LoginServices {
         List<String> errorMessageList = new LinkedList<String>();
         Locale locale = (Locale) context.get("locale");
 
-        //boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security", "password.encrypt"));
-
         String userLoginId = (String) context.get("userLoginId");
         String errMsg = null;
 
@@ -746,13 +740,6 @@ public class LoginServices {
         // security: don't create a user login if the specified partyId (if not empty) already exists
         // unless the logged in user has permission to do so (same partyId or PARTYMGR_CREATE)
         if (UtilValidate.isNotEmpty(partyId)) {
-            //GenericValue party = null;
-            //try {
-            //    party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
-            //} catch (GenericEntityException e) {
-            //    Debug.logWarning(e, "", module);
-            //}
-
             if (!loggedInUserLogin.isEmpty()) {
                 // security check: userLogin partyId must equal partyId, or must have PARTYMGR_CREATE permission
                 if (!partyId.equals(loggedInUserLogin.getString("partyId"))) {
