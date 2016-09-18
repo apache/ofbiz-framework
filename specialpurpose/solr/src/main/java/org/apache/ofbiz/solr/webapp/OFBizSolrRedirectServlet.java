@@ -59,19 +59,6 @@ public class OFBizSolrRedirectServlet extends RedirectServlet {
         if (UtilValidate.isEmpty(userLogin)) {
             forwardToLogin = true;
         } else {
-            Security security = (Security) request.getAttribute("security");
-            if (security == null) {
-                security = (Security) session.getAttribute("security");
-                if (security != null) {
-                    request.setAttribute("security", security);
-                }
-            }
-            if (security == null) {
-                security = (Security) request.getServletContext().getAttribute("security");
-                if (security != null) {
-                    request.setAttribute("security", security);
-                }
-            }
             if (!LoginWorker.hasBasePermission(userLogin, request)) {
                 forwardToLogin = true;
             }

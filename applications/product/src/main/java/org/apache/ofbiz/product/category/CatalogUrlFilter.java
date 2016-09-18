@@ -23,9 +23,10 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -45,9 +46,8 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
 import org.apache.ofbiz.webapp.WebAppUtil;
-import org.apache.ofbiz.webapp.control.ContextFilter;
 
-public class CatalogUrlFilter extends ContextFilter {
+public class CatalogUrlFilter implements Filter {
 
     public final static String module = CatalogUrlFilter.class.getName();
     
@@ -56,20 +56,19 @@ public class CatalogUrlFilter extends ContextFilter {
     
     protected static String defaultLocaleString = null;
     protected static String redirectUrl = null;
-    
+
+    protected FilterConfig config;
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        this.config = filterConfig;
+    }
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         Delegator delegator = (Delegator) httpRequest.getSession().getServletContext().getAttribute("delegator");
-        
-        //Get ServletContext
-        ServletContext servletContext = config.getServletContext();
-
-        WebAppUtil.setCharacterEncoding(request);
-
-        //Set request attribute and session
-        UrlServletHelper.setRequestAttributes(request, delegator, servletContext);
         
         // set initial parameters
         String initDefaultLocalesString = config.getInitParameter("defaultLocaleString");
@@ -324,7 +323,6 @@ public class CatalogUrlFilter extends ContextFilter {
             UrlServletHelper.setViewQueryParameters(request, urlBuilder);
             if (UtilValidate.isNotEmpty(productId) || UtilValidate.isNotEmpty(productCategoryId) || UtilValidate.isNotEmpty(urlContentId)) {
                 Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", module);
-                WebAppUtil.setAttributesFromRequestBody(request);
                 RequestDispatcher dispatch = request.getRequestDispatcher(urlBuilder.toString());
                 dispatch.forward(request, response);
                 return;
@@ -337,7 +335,12 @@ public class CatalogUrlFilter extends ContextFilter {
         // we're done checking; continue on
         chain.doFilter(request, response);
     }
-    
+
+    @Override
+    public void destroy() {
+
+    }
+
     public static String makeCategoryUrl(HttpServletRequest request, String previousCategoryId, String productCategoryId, String productId, String viewSize, String viewIndex, String viewSort, String searchString) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {

@@ -20,13 +20,12 @@
 package org.apache.ofbiz.product.category;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -34,23 +33,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.UrlServletHelper;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.webapp.control.ContextFilter;
 
-public class SeoContentUrlFilter extends ContextFilter {
+public class SeoContentUrlFilter implements Filter {
     public final static String module = SeoContentUrlFilter.class.getName();
     protected static String defaultLocaleString = null;
     protected static String redirectUrl = null;
-    public static String defaultViewRequest = "contentViewInfo";
+    private FilterConfig config;
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        this.config = filterConfig;
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -58,10 +58,6 @@ public class SeoContentUrlFilter extends ContextFilter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         Delegator delegator = (Delegator) httpRequest.getSession().getServletContext().getAttribute("delegator");
 
-        // Get ServletContext
-        ServletContext servletContext = config.getServletContext();
-        // Set request attribute and session
-        UrlServletHelper.setRequestAttributes(request, delegator, servletContext);
         String urlContentId = null;
         String pathInfo = UtilHttp.getFullRequestUrl(httpRequest);
         if (UtilValidate.isNotEmpty(pathInfo)) {
@@ -105,61 +101,8 @@ public class SeoContentUrlFilter extends ContextFilter {
         chain.doFilter(request, response);
     }
 
-    public static String makeContentAltUrl(HttpServletRequest request, HttpServletResponse response, String contentId, String viewContent) {
-        if (UtilValidate.isEmpty(contentId)) {
-            return null;
-        }
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-        String url = null;
-        try {
-            List<EntityCondition> expr = new LinkedList<EntityCondition>();
-            expr.add(EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, "ALTERNATIVE_URL"));
-            expr.add(EntityCondition.makeCondition("caThruDate", EntityOperator.EQUALS, null));
-            expr.add(EntityCondition.makeCondition("contentIdStart", EntityOperator.EQUALS, contentId));
-            Set<String> fieldsToSelect = UtilMisc.toSet("contentIdStart", "drObjectInfo", "dataResourceId", "caFromDate", "caThruDate", "caCreatedDate");
-            List<GenericValue> contentAssocDataResources = delegator.findList("ContentAssocDataResourceViewTo", EntityCondition.makeCondition(expr), fieldsToSelect,
-                    UtilMisc.toList("-caFromDate"), null, true);
-            if (contentAssocDataResources.size() > 0) {
-                GenericValue contentAssocDataResource = EntityUtil.getFirst(contentAssocDataResources);
-                url = contentAssocDataResource.getString("drObjectInfo");
-                url = UtilCodec.getDecoder("url").decode(url);
-                String mountPoint = request.getContextPath();
-                if (!(mountPoint.equals("/")) && !(mountPoint.equals(""))) {
-                    url = mountPoint + url;
-                }
-            }
-        } catch (Exception e) {
-            Debug.logWarning("[Exception] : " + e.getMessage(), module);
-        }
+    @Override
+    public void destroy() {
 
-        if (UtilValidate.isEmpty(url)) {
-            if (UtilValidate.isEmpty(viewContent)) {
-                viewContent = defaultViewRequest;
-            }
-            url = makeContentUrl(request, response, contentId, viewContent);
-        }
-        return url;
-    }
-
-    public static String makeContentUrl(HttpServletRequest request, HttpServletResponse response, String contentId, String viewContent) {
-        if (UtilValidate.isEmpty(contentId)) {
-            return null;
-        }
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(request.getSession().getServletContext().getContextPath());
-        if (urlBuilder.length() == 0 || urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
-            urlBuilder.append("/");
-        }
-        if (UtilValidate.isNotEmpty(SeoControlServlet.controlServlet)) {
-            urlBuilder.append(SeoControlServlet.controlServlet + "/");
-        }
-
-        if (UtilValidate.isNotEmpty(viewContent)) {
-            urlBuilder.append(viewContent);
-        } else {
-            urlBuilder.append(defaultViewRequest);
-        }
-        urlBuilder.append("?contentId=" + contentId);
-        return urlBuilder.toString();
     }
 }

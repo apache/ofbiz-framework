@@ -61,7 +61,7 @@ public class JspViewHandler extends AbstractViewHandler {
         // Debug.logInfo("Requested Page : " + page, module);
         // Debug.logInfo("Physical Path  : " + context.getRealPath(page));
 
-        // tell the ContextFilter we are forwarding
+        // tell the ControlFilter we are forwarding
         request.setAttribute(ControlFilter.FORWARDED_FROM_SERVLET, Boolean.TRUE);
         RequestDispatcher rd = request.getRequestDispatcher(page);
 

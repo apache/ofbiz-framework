@@ -47,8 +47,6 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilTimer;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.control.LoginWorker;
 
 /**
@@ -75,9 +73,6 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         Locale locale = UtilHttp.getLocale(httpRequest);
 
-        // set the ServletContext in the request for future use
-        httpRequest.setAttribute("servletContext", request.getServletContext());
-        
         // check if the request is from an authorized user
         String servletPath = httpRequest.getServletPath();
         if (UtilValidate.isNotEmpty(servletPath) && (servletPath.startsWith("/admin/") || servletPath.endsWith("/update") 
@@ -85,19 +80,6 @@ public class OFBizSolrContextFilter extends SolrDispatchFilter {
                 || servletPath.endsWith("/replication") || servletPath.endsWith("/file") || servletPath.endsWith("/file/"))) {
             HttpSession session = httpRequest.getSession();
             GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-            Security security = (Security) request.getAttribute("security");
-            if (security == null) {
-                security = (Security) httpRequest.getServletContext().getAttribute("security");
-                if (security != null) {
-                    request.setAttribute("security", security);
-                }
-            }
-            if (security == null) {
-                security = WebAppUtil.getSecurity(httpRequest.getServletContext());
-                if (security != null) {
-                    request.setAttribute("security", security);
-                }
-            }
             if (servletPath.startsWith("/admin/") && (UtilValidate.isEmpty(userLogin) || !LoginWorker.hasBasePermission(userLogin, httpRequest))) {
                 response.setContentType("application/json");
                 MapToJSON mapToJson = new MapToJSON();

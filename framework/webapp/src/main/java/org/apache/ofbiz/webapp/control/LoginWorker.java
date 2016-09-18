@@ -439,37 +439,6 @@ public class LoginWorker {
             }
 
             if (delegatorNameHashIndex == -1 || (currentDelegatorTenantId != null && !tenantId.equals(currentDelegatorTenantId))) {
-                /* don't require this, allow a user to authenticate inside the tenant as long as the userLoginId and
-                 * password match what is in that tenant's database; instead just set things up below
-                try {
-                    List<GenericValue> tenantUserLoginList = delegator.findList("TenantUserLogin", EntityCondition.makeCondition(EntityOperator.AND, "tenantId", tenantId, "userLoginId", username), null, null, null, false);
-                    if (tenantUserLoginList != null && tenantUserLoginList.size() > 0) {
-                        ServletContext servletContext = session.getServletContext();
-
-                        // if so make that tenant active, setup a new delegator and a new dispatcher
-                        String delegatorName = delegator.getDelegatorName() + "#" + tenantId;
-
-                        // after this line the delegator is replaced with the new per-tenant delegator
-                        delegator = DelegatorFactory.getDelegator(delegatorName);
-                        dispatcher = ContextFilter.makeWebappDispatcher(servletContext, delegator);
-
-                        // NOTE: these will be local for now and set in the request and session later, after we've verified that the user
-                        setupNewDelegatorEtc = true;
-                    } else {
-                        // not associated with this tenant, can't login
-                        String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.unable_to_login_tenant", UtilHttp.getLocale(request));
-                        request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                        return "error";
-                    }
-                } catch (GenericEntityException e) {
-                    String errMsg = "Error checking TenantUserLogin: " + e.toString();
-                    Debug.logError(e, errMsg, module);
-                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return "error";
-                }
-                */
-
-
                 // make that tenant active, setup a new delegator and a new dispatcher
                 String delegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
 
@@ -1130,7 +1099,7 @@ public class LoginWorker {
     public static boolean hasBasePermission(GenericValue userLogin, HttpServletRequest request) {
         Security security = (Security) request.getAttribute("security");
         if (security != null) {
-            ServletContext context = (ServletContext) request.getAttribute("servletContext");
+            ServletContext context = request.getServletContext();
             String serverId = (String) context.getAttribute("_serverId");
             // get a context path from the request, if it is empty then assume it is the root mount point
             String contextPath = request.getContextPath();

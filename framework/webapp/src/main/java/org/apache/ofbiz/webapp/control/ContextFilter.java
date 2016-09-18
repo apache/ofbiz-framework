@@ -22,7 +22,6 @@ import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.Filter;
@@ -52,18 +51,17 @@ import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 /**
- * ContextFilter - Restricts access to raw files and configures servlet objects.
+ * ContextFilter - Configures objects for OFBiz applications
  */
 public class ContextFilter implements Filter {
 
-    public static final String module = ContextFilter.class.getName();
-    public static final String FORWARDED_FROM_SERVLET = "_FORWARDED_FROM_SERVLET_";
+    private static final String module = ContextFilter.class.getName();
 
     protected FilterConfig config = null;
-    protected boolean debug = false;
 
     // default charset used to decode requests body data if no encoding is specified in the request
     private String defaultCharacterEncoding;
+    private boolean isMultitenant;
 
     /**
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
@@ -73,12 +71,6 @@ public class ContextFilter implements Filter {
 
         // puts all init-parameters in ServletContext attributes for easier parametrization without code changes
         this.putAllInitParametersInAttributes();
-
-        // set debug
-        this.debug = "true".equalsIgnoreCase(config.getInitParameter("debug"));
-        if (!debug) {
-            debug = Debug.verboseOn();
-        }
 
         defaultCharacterEncoding = config.getServletContext().getInitParameter("charset");
         if (UtilValidate.isEmpty(defaultCharacterEncoding)) {
@@ -93,6 +85,9 @@ public class ContextFilter implements Filter {
         // initialize the services dispatcher
         WebAppUtil.getDispatcher(config.getServletContext());
 
+        // check if multi tenant is enabled
+        isMultitenant = EntityUtil.isMultiTenantEnabled();
+
         // this will speed up the initial sessionId generation
         new java.security.SecureRandom().nextLong();
     }
@@ -103,7 +98,6 @@ public class ContextFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-
 
         // ----- Servlet Object Setup -----
 
@@ -134,129 +128,17 @@ public class ContextFilter implements Filter {
             httpRequest.getSession().removeAttribute("_REQ_ATTR_MAP_");
         }
 
-        // ----- Context Security -----
-        // check if we are disabled
-        String disableSecurity = config.getInitParameter("disableContextSecurity");
-        if (disableSecurity != null && "Y".equalsIgnoreCase(disableSecurity)) {
-            chain.doFilter(httpRequest, httpResponse);
-            return;
-        }
-
-        // check if we are told to redirect everthing
-        String redirectAllTo = config.getInitParameter("forceRedirectAll");
-        if (UtilValidate.isNotEmpty(redirectAllTo)) {
-            // little trick here so we don't loop on ourself
-            if (httpRequest.getSession().getAttribute("_FORCE_REDIRECT_") == null) {
-                httpRequest.getSession().setAttribute("_FORCE_REDIRECT_", "true");
-                Debug.logWarning("Redirecting user to: " + redirectAllTo, module);
-
-                if (!redirectAllTo.toLowerCase().startsWith("http")) {
-                    redirectAllTo = httpRequest.getContextPath() + redirectAllTo;
-                }
-                httpResponse.sendRedirect(redirectAllTo);
-                return;
-            } else {
-                httpRequest.getSession().removeAttribute("_FORCE_REDIRECT_");
-                chain.doFilter(httpRequest, httpResponse);
-                return;
-            }
-        }
-
-        // test to see if we have come through the control servlet already, if not do the processing
-        String requestPath = null;
-        String contextUri = null;
-        if (httpRequest.getAttribute(ContextFilter.FORWARDED_FROM_SERVLET) == null) {
-            // Debug.logInfo("In ContextFilter.doFilter, FORWARDED_FROM_SERVLET is NOT set", module);
-            String allowedPath = config.getInitParameter("allowedPaths");
-            String redirectPath = config.getInitParameter("redirectPath");
-            String errorCode = config.getInitParameter("errorCode");
-
-            List<String> allowList = null;
-            if ((allowList = StringUtil.split(allowedPath, ":")) != null) {
-                allowList.add("/");  // No path is allowed.
-                allowList.add("");   // No path is allowed.
-            }
-
-            if (debug) Debug.logInfo("[Domain]: " + httpRequest.getServerName() + " [Request]: " + httpRequest.getRequestURI(), module);
-
-            requestPath = httpRequest.getServletPath();
-            if (requestPath == null) requestPath = "";
-            if (requestPath.lastIndexOf("/") > 0) {
-                if (requestPath.indexOf("/") == 0) {
-                    requestPath = "/" + requestPath.substring(1, requestPath.indexOf("/", 1));
-                } else {
-                    requestPath = requestPath.substring(1, requestPath.indexOf("/"));
-                }
-            }
-
-            String requestInfo = httpRequest.getServletPath();
-            if (requestInfo == null) requestInfo = "";
-            if (requestInfo.lastIndexOf("/") >= 0) {
-                requestInfo = requestInfo.substring(0, requestInfo.lastIndexOf("/")) + "/*";
-            }
-
-            StringBuilder contextUriBuffer = new StringBuilder();
-            if (httpRequest.getContextPath() != null) {
-                contextUriBuffer.append(httpRequest.getContextPath());
-            }
-            if (httpRequest.getServletPath() != null) {
-                contextUriBuffer.append(httpRequest.getServletPath());
-            }
-            if (httpRequest.getPathInfo() != null) {
-                contextUriBuffer.append(httpRequest.getPathInfo());
-            }
-            contextUri = contextUriBuffer.toString();
-
-            // Verbose Debugging
-            if (Debug.verboseOn()) {
-                if (allowList != null) {
-                    for (String allow: allowList) {
-                        Debug.logVerbose("[Allow]: " + allow, module);
-                    }
-                }
-                Debug.logVerbose("[Request path]: " + requestPath, module);
-                Debug.logVerbose("[Request info]: " + requestInfo, module);
-                Debug.logVerbose("[Servlet path]: " + httpRequest.getServletPath(), module);
-            }
-
-            // check to make sure the requested url is allowed
-            if (allowList != null &&
-                (!allowList.contains(requestPath) && !allowList.contains(requestInfo) && !allowList.contains(httpRequest.getServletPath()))
-                ) {
-                String filterMessage = "[Filtered request]: " + contextUri;
-                
-                if (redirectPath == null) {
-                    int error = 404;
-                    if (UtilValidate.isNotEmpty(errorCode)) {
-                        try {
-                            error = Integer.parseInt(errorCode);
-                        } catch (NumberFormatException nfe) {
-                            Debug.logWarning(nfe, "Error code specified would not parse to Integer : " + errorCode, module);
-                        }
-                    }
-                    filterMessage = filterMessage + " (" + error + ")";
-                    httpResponse.sendError(error, contextUri);
-                    request.setAttribute("filterRequestUriError", contextUri);
-                } else {
-                    filterMessage = filterMessage + " (" + redirectPath + ")";
-                    if (!redirectPath.toLowerCase().startsWith("http")) {
-                        redirectPath = httpRequest.getContextPath() + redirectPath;
-                    }
-                    httpResponse.sendRedirect(redirectPath);
-                }
-                Debug.logWarning(filterMessage, module);
-                return;
-            }
-        }
-
         if (request.getCharacterEncoding() == null) {
             request.setCharacterEncoding(defaultCharacterEncoding);
         }
+
         WebAppUtil.setAttributesFromRequestBody(request);
 
-        // check if multi tenant is enabled
-        boolean useMultitenant = EntityUtil.isMultiTenantEnabled();
-        if (useMultitenant) {
+        if (!isMultitenant) {
+            request.setAttribute("delegator", config.getServletContext().getAttribute("delegator"));
+            request.setAttribute("dispatcher", config.getServletContext().getAttribute("dispatcher"));
+            request.setAttribute("security", config.getServletContext().getAttribute("security"));
+        } else {
             // get tenant delegator by domain name
             String serverName = httpRequest.getServerName();
             try {
@@ -275,11 +157,11 @@ public class ContextFilter implements Filter {
                     tenantId = (String) httpRequest.getAttribute("userTenantId");
                 }
                 if(UtilValidate.isEmpty(tenantId)) {
-                    tenantId = (String) httpRequest.getParameter("userTenantId");
+                    tenantId = httpRequest.getParameter("userTenantId");
                 }
                 if (UtilValidate.isNotEmpty(tenantId)) {
                     // if the request path is a root mount then redirect to the initial path
-                    if (UtilValidate.isNotEmpty(requestPath) && requestPath.equals(contextUri)) {
+                    if ("".equals(httpRequest.getContextPath()) && "".equals(httpRequest.getServletPath())) {
                         GenericValue tenant = EntityQuery.use(baseDelegator).from("Tenant").where("tenantId", tenantId).queryOne();
                         String initialPath = tenant.getString("initialPath");
                         if (UtilValidate.isNotEmpty(initialPath) && !"/".equals(initialPath)) {
@@ -306,6 +188,7 @@ public class ContextFilter implements Filter {
                     LocalDispatcher dispatcher = WebAppUtil.getDispatcher(config.getServletContext());
 
                     // set web context objects
+                    request.setAttribute("delegator", delegator);
                     request.setAttribute("dispatcher", dispatcher);
                     request.setAttribute("security", security);
                     

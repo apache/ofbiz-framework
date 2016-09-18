@@ -46,10 +46,18 @@ under the License.
     </context-param>
 
     <filter>
+        <display-name>ContextFilter</display-name>
+        <filter-name>ContextFilter</filter-name>
+        <filter-class>org.apache.ofbiz.webapp.control.ContextFilter</filter-class>
+    </filter>
+    <filter>
         <display-name>CatalogUrlFilter</display-name>
         <filter-name>CatalogUrlFilter</filter-name>
         <filter-class>org.apache.ofbiz.product.category.CatalogUrlFilter</filter-class>
-        <init-param><param-name>defaultLocaleString</param-name><param-value>en_US</param-value></init-param>
+        <init-param>
+            <param-name>defaultLocaleString</param-name>
+            <param-value>en_US</param-value>
+        </init-param>
     </filter>
     <filter>
         <display-name>ContentUrlFilter</display-name>
@@ -59,21 +67,28 @@ under the License.
             <param-name>defaultLocaleString</param-name>
             <param-value>en_US</param-value>
         </init-param>
-        <init-param><param-name>viewRequest</param-name><param-value>ViewBlogArticle</param-value></init-param>
+        <init-param>
+            <param-name>viewRequest</param-name>
+            <param-value>ViewBlogArticle</param-value>
+        </init-param>
     </filter>
     <filter>
-        <display-name>ContextFilter</display-name>
-        <filter-name>ContextFilter</filter-name>
-        <filter-class>org.apache.ofbiz.webapp.control.ContextFilter</filter-class>
-        <init-param>
-            <param-name>disableContextSecurity</param-name>
-            <param-value>N</param-value>
-        </init-param>
+        <display-name>ControlFilter</display-name>
+        <filter-name>ControlFilter</filter-name>
+        <filter-class>org.apache.ofbiz.webapp.control.ControlFilter</filter-class>
         <init-param>
             <param-name>allowedPaths</param-name>
             <param-value>/error:/control:/products:/select:/index.html:/index.jsp:/robots.txt:/default.html:/default.jsp:/images</param-value>
         </init-param>
+        <init-param>
+            <param-name>redirectPath</param-name>
+            <param-value>/control/main</param-value>
+        </init-param>
     </filter>
+    <filter-mapping>
+        <filter-name>ContextFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>CatalogUrlFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -83,10 +98,9 @@ under the License.
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>ContextFilter</filter-name>
+        <filter-name>ControlFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
     <listener><listener-class>org.apache.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
     <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
     <!-- <listener><listener-class>org.apache.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->

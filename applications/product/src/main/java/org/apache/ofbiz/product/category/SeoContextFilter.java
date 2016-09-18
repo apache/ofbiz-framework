@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.product.category;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
@@ -29,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.RequestDispatcher;
@@ -39,42 +38,29 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.DelegatorFactory;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
-import org.apache.ofbiz.webapp.control.ContextFilter;
 import org.apache.ofbiz.webapp.control.ControlFilter;
 import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
-import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * SeoContextFilter - Restricts access to raw files and configures servlet objects.
  */
-public class SeoContextFilter extends ContextFilter {
+public class SeoContextFilter implements Filter {
 
     public static final String module = SeoContextFilter.class.getName();
 
-    protected Set<String> WebServlets = new HashSet<String>();
+    protected Set<String> WebServlets = new HashSet<>();
+    private FilterConfig config;
 
     public void init(FilterConfig config) throws ServletException {
-        super.init(config);
-
+        this.config = config;
         Map<String, ? extends ServletRegistration> servletRegistrations = config.getServletContext().getServletRegistrations();
         for (String key : servletRegistrations.keySet()) {
             Collection<String> servlets = servletRegistrations.get(key).getMappings();
@@ -113,68 +99,6 @@ public class SeoContextFilter extends ContextFilter {
             throw new ServletException(e);
         }
         Set<String> uris = requestMaps.keySet();
-
-        // NOTE: the following part is copied from org.apache.ofbiz.webapp.control.ContextFilter.doFilter method, please update this if framework is updated.
-        // Debug.logInfo("Running ContextFilter.doFilter", module);
-
-        // ----- Servlet Object Setup -----
-        // set the cached class loader for more speedy running in this thread
-
-        // set the ServletContext in the request for future use
-        httpRequest.setAttribute("servletContext", config.getServletContext());
-
-        // set the webSiteId in the session
-        if (UtilValidate.isEmpty(httpRequest.getSession().getAttribute("webSiteId"))) {
-            httpRequest.getSession().setAttribute("webSiteId", WebSiteWorker.getWebSiteId(httpRequest));
-        }
-
-        // set the filesystem path of context root.
-        httpRequest.setAttribute("_CONTEXT_ROOT_", config.getServletContext().getRealPath("/"));
-
-        // set the server root url
-        String serverRootUrl = UtilHttp.getServerRootUrl(httpRequest);
-        httpRequest.setAttribute("_SERVER_ROOT_URL_", serverRootUrl);
-
-        // request attributes from redirect call
-        String reqAttrMapHex = (String) httpRequest.getSession().getAttribute("_REQ_ATTR_MAP_");
-        if (UtilValidate.isNotEmpty(reqAttrMapHex)) {
-            byte[] reqAttrMapBytes = StringUtil.fromHexString(reqAttrMapHex);
-            Map<String, Object> reqAttrMap = checkMap(UtilObject.getObject(reqAttrMapBytes), String.class, Object.class);
-            if (reqAttrMap != null) {
-                for (Map.Entry<String, Object> entry : reqAttrMap.entrySet()) {
-                    httpRequest.setAttribute(entry.getKey(), entry.getValue());
-                }
-            }
-            httpRequest.getSession().removeAttribute("_REQ_ATTR_MAP_");
-        }
-
-        // ----- Context Security -----
-        // check if we are disabled
-        String disableSecurity = config.getInitParameter("disableContextSecurity");
-        if (disableSecurity != null && "Y".equalsIgnoreCase(disableSecurity)) {
-            chain.doFilter(httpRequest, httpResponse);
-            return;
-        }
-
-        // check if we are told to redirect everthing
-        String redirectAllTo = config.getInitParameter("forceRedirectAll");
-        if (UtilValidate.isNotEmpty(redirectAllTo)) {
-            // little trick here so we don't loop on ourself
-            if (httpRequest.getSession().getAttribute("_FORCE_REDIRECT_") == null) {
-                httpRequest.getSession().setAttribute("_FORCE_REDIRECT_", "true");
-                Debug.logWarning("Redirecting user to: " + redirectAllTo, module);
-
-                if (!redirectAllTo.toLowerCase().startsWith("http")) {
-                    redirectAllTo = httpRequest.getContextPath() + redirectAllTo;
-                }
-                httpResponse.sendRedirect(redirectAllTo);
-                return;
-            } else {
-                httpRequest.getSession().removeAttribute("_FORCE_REDIRECT_");
-                chain.doFilter(httpRequest, httpResponse);
-                return;
-            }
-        }
 
         // test to see if we have come through the control servlet already, if not do the processing
         String requestPath = null;
@@ -221,23 +145,6 @@ public class SeoContextFilter extends ContextFilter {
             }
             
             String requestUri = UtilHttp.getRequestUriFromTarget(httpRequest.getRequestURI());
-
-            // Verbose Debugging
-            if (Debug.verboseOn()) {
-                for (String allow : allowList) {
-                    Debug.logVerbose("[Allow]: " + allow, module);
-                }
-                Debug.logVerbose("[View Name]: " + viewName, module);
-                Debug.logVerbose("[Request Uri]: " + requestUri, module);
-                Debug.logVerbose("[Request path]: " + requestPath, module);
-                Debug.logVerbose("[Request info]: " + requestInfo, module);
-                Debug.logVerbose("[Servlet path]: " + httpRequest.getServletPath(), module);
-                Debug.logVerbose(
-                        "[Not In AllowList]: " + (!allowList.contains(requestPath) && !allowList.contains(requestInfo) && !allowList.contains(httpRequest.getServletPath()) && !allowList.contains(requestUri) && !allowList.contains("/" + viewName)),
-                        module);
-                Debug.logVerbose("[Not In controller]: " + (UtilValidate.isEmpty(requestPath) && UtilValidate.isEmpty(httpRequest.getServletPath()) && !uris.contains(viewName)),
-                        module);
-            }
 
             // check to make sure the requested url is allowed
             if (!allowList.contains(requestPath) && !allowList.contains(requestInfo) && !allowList.contains(httpRequest.getServletPath())
@@ -288,70 +195,14 @@ public class SeoContextFilter extends ContextFilter {
             }
         }
 
-        // check if multi tenant is enabled
-        boolean useMultitenant = EntityUtil.isMultiTenantEnabled();
-        if (useMultitenant) {
-            // get tenant delegator by domain name
-            String serverName = httpRequest.getServerName();
-            try {
-                // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute                
-                Delegator delegator = WebAppUtil.getDelegator(config.getServletContext());
-                
-                // to access entity "tenant" we need the default delegator
-                Delegator defaultdelegator = DelegatorFactory.getDelegator("default");
-                
-                // take the tenantId from the current delegator
-                String tenantId = delegator.getDelegatorTenantId();
-                
-                List<GenericValue> tenants = defaultdelegator.findList("Tenant", EntityCondition.makeCondition("tenantId", tenantId), null, UtilMisc.toList("-createdStamp"), null, false);
-                if (UtilValidate.isNotEmpty(tenants)) {
-                    GenericValue tenant = EntityUtil.getFirst(tenants);
-                    
-                    // if the request path is a root mount then redirect to the initial path
-                    if (UtilValidate.isNotEmpty(requestPath) && requestPath.equals(contextUri)) {
-                        String initialPath = tenant.getString("initialPath");
-                        if (UtilValidate.isNotEmpty(initialPath) && !"/".equals(initialPath)) {
-                            ((HttpServletResponse) response).sendRedirect(initialPath);
-                            return;
-                        }
-                    }
-
-                    // make that tenant active, setup a new delegator and a new dispatcher
-                    String tenantDelegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
-                    httpRequest.getSession().setAttribute("delegatorName", tenantDelegatorName);
-
-                    // after this line the delegator is replaced with the new per-tenant delegator
-                    delegator = DelegatorFactory.getDelegator(tenantDelegatorName);
-                    config.getServletContext().setAttribute("delegator", delegator);
-
-                    // clear web context objects
-                    config.getServletContext().setAttribute("security", null);
-                    config.getServletContext().setAttribute("dispatcher", null);
-
-                    // initialize security
-                    Security security = WebAppUtil.getSecurity(config.getServletContext());
-                    // initialize the services dispatcher
-                    LocalDispatcher dispatcher = WebAppUtil.getDispatcher(config.getServletContext());
-
-                    // set web context objects
-                    request.setAttribute("dispatcher", dispatcher);
-                    request.setAttribute("security", security);
-
-                    request.setAttribute("userTenantId", tenantId);
-                }
-
-                // NOTE DEJ20101130: do NOT always put the delegator name in the user's session because the user may
-                // have logged in and specified a tenant, and even if no Tenant record with a matching domainName field
-                // is found this will change the user's delegator back to the base one instead of the one for the
-                // tenant specified on login
-                // httpRequest.getSession().setAttribute("delegatorName", delegator.getDelegatorName());
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, "Unable to get Tenant", module);
-            }
-        }
 
         // we're done checking; continue on
         chain.doFilter(httpRequest, httpResponse);
+    }
+
+    @Override
+    public void destroy() {
+
     }
 
     /**
