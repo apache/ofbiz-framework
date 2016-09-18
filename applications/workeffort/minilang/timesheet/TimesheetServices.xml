@@ -157,19 +157,24 @@ under the License.
     </simple-method>
     <simple-method method-name="createTimeEntryInvoiceItemsInline" short-description="createTimeEntryInvoiceItemsInline">
         <set field="orderBy[]" value="rateTypeId"/>
-        <get-related value-field="workEffort" relation-name="TimeEntry" list="timeEntryList" order-by-list="orderBy"/>
         <set field="invoiceItemMap.invoiceId" from-field="parameters.invoiceId"/>
         <set field="invoiceItemMap.taxableFlag" value="N"/>
         <set field="invoiceItemMap.invoiceItemTypeId" value="INV_TE_ITEM"/>
         <set field="invoiceItemMap.uomId" value="TF_hr"/>
-        <set field="invoiceItemMap.description" value="${workEffort.workEffortName} [Task:${workEffort.workEffortId}]"/>
-        <get-related value-field="workEffort" relation-name="CustRequestWorkEffort" list="custRequestWorkEfforts"/>
-        <if-not-empty field="custRequestWorkEfforts">
-            <first-from-list entry="custRequestWorkEffort" list="custRequestWorkEfforts"/>
-            <get-related-one value-field="custRequestWorkEffort" relation-name="CustRequest" to-value-field="custRequest"/>
-            <if-not-empty field="custRequest">
-                <set field="invoiceItemDescription" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}] ${custRequest.description}"/>
-                <set field="invoiceItemMap.description" value="${groovy:invoiceItemDescription.size()&gt;255?invoiceItemDescription.substring(0,251)+&quot; ...&quot;:invoiceItemDescription}"/>
+        <if-not-empty field="timesheet">
+            <set field="invoiceItemMap.description" value="[Timesheet:${timesheet.timesheetId}]"/>
+        </if-not-empty>
+        <if-not-empty field="workEffort">
+            <get-related value-field="workEffort" relation-name="TimeEntry" list="timeEntryList" order-by-list="orderBy"/>
+            <set field="invoiceItemMap.description" value="${workEffort.workEffortName} [Task:${workEffort.workEffortId}]"/>
+            <get-related value-field="workEffort" relation-name="CustRequestWorkEffort" list="custRequestWorkEfforts"/>
+            <if-not-empty field="custRequestWorkEfforts">
+                <first-from-list entry="custRequestWorkEffort" list="custRequestWorkEfforts"/>
+                <get-related-one value-field="custRequestWorkEffort" relation-name="CustRequest" to-value-field="custRequest"/>
+                <if-not-empty field="custRequest">
+                    <set field="invoiceItemDescription" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}] ${custRequest.description}"/>
+                    <set field="invoiceItemMap.description" value="${groovy:invoiceItemDescription.size()&gt;255?invoiceItemDescription.substring(0,251)+&quot; ...&quot;:invoiceItemDescription}"/>
+                </if-not-empty>
             </if-not-empty>
         </if-not-empty>
         <iterate entry="timeEntry" list="timeEntryList">
