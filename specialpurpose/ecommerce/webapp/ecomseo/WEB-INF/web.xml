@@ -51,10 +51,18 @@ under the License.
     </context-param>
 
     <filter>
+        <display-name>ContextFilter</display-name>
+        <filter-name>ContextFilter</filter-name>
+        <filter-class>org.apache.ofbiz.webapp.control.ContextFilter</filter-class>
+    </filter>
+    <filter>
         <display-name>SeoCatalogUrlFilter</display-name>
         <filter-name>SeoCatalogUrlFilter</filter-name>
         <filter-class>org.apache.ofbiz.product.category.CatalogUrlSeoFilter</filter-class>
-        <init-param><param-name>defaultLocaleString</param-name><param-value>en_US</param-value></init-param>
+        <init-param>
+            <param-name>defaultLocaleString</param-name>
+            <param-value>en_US</param-value>
+        </init-param>
     </filter>
     <filter>
         <display-name>SeoContentUrlFilter</display-name>
@@ -64,21 +72,24 @@ under the License.
             <param-name>defaultLocaleString</param-name>
             <param-value>en_US</param-value>
         </init-param>
-        <init-param><param-name>viewRequest</param-name><param-value>ViewBlogArticle</param-value></init-param>
+        <init-param>
+            <param-name>viewRequest</param-name>
+            <param-value>ViewBlogArticle</param-value>
+        </init-param>
     </filter>
     <filter>
         <display-name>SeoContextFilter</display-name>
         <filter-name>SeoContextFilter</filter-name>
         <filter-class>org.apache.ofbiz.product.category.SeoContextFilter</filter-class>
         <init-param>
-            <param-name>disableContextSecurity</param-name>
-            <param-value>N</param-value>
-        </init-param>
-        <init-param>
             <param-name>allowedPaths</param-name>
             <param-value>/error:/control:/products:/select:/index.html:/index.jsp:/robots.txt:/default.html:/default.jsp:/images</param-value>
         </init-param>
     </filter>
+    <filter-mapping>
+        <filter-name>ContextFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>SeoCatalogUrlFilter</filter-name>
         <url-pattern>/*</url-pattern>

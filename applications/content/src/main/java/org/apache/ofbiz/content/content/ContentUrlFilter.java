@@ -21,9 +21,10 @@ package org.apache.ofbiz.content.content;
 
 import java.io.IOException;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -38,10 +39,15 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.webapp.WebAppUtil;
-import org.apache.ofbiz.webapp.control.ContextFilter;
 
-public class ContentUrlFilter extends ContextFilter {
+public class ContentUrlFilter implements Filter {
     public final static String module = ContentUrlFilter.class.getName();
+    private FilterConfig config;
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        this.config = filterConfig;
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)  throws IOException, ServletException {
@@ -49,13 +55,6 @@ public class ContentUrlFilter extends ContextFilter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         Delegator delegator = (Delegator) httpRequest.getSession().getServletContext().getAttribute("delegator");
         
-        //Get ServletContext
-        ServletContext servletContext = config.getServletContext();
-
-        WebAppUtil.setCharacterEncoding(request);
-
-        //Set request attribute and session
-        UrlServletHelper.setRequestAttributes(request, delegator, servletContext);
         String urlContentId = null;
         String pathInfo = UtilHttp.getFullRequestUrl(httpRequest);
         if (UtilValidate.isNotEmpty(pathInfo)) {
@@ -83,7 +82,6 @@ public class ContentUrlFilter extends ContextFilter {
                 urlBuilder.append("/" + WebAppUtil.CONTROL_MOUNT_POINT);
                 urlBuilder.append("/" + config.getInitParameter("viewRequest") + "?contentId=" + urlContentId);
 
-                WebAppUtil.setAttributesFromRequestBody(request);
                 //Set view query parameters
                 UrlServletHelper.setViewQueryParameters(request, urlBuilder);
                 Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", module);
@@ -97,5 +95,10 @@ public class ContentUrlFilter extends ContextFilter {
         }
         // we're done checking; continue on
         chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }
