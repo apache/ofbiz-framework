@@ -1194,8 +1194,7 @@ under the License.
     </form>
     <form name="ViewPartyRoles" type="list" list-name="partyRoles" target="viewroles"
         default-title-style="tableheadtext"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
-       >
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.PartyRole}"><display/></field>
         <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
@@ -1206,7 +1205,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="AddPartyRole" type="single" title="Add a role to party" target="addrole/viewroles">
+    <form name="AddPartyRole" type="single" title="Add a role to party" target="addrole">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="false">
@@ -1217,24 +1216,19 @@ under the License.
         </field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
-    <form name="AddPartyMainRole" type="single" title="${uiLabelMap.PartyAddToMainRole}" target="addrole/viewroles">
-        <actions>
-            <entity-condition entity-name="RoleType" list="parentRoleList">
-                <condition-expr field-name="parentTypeId" operator="equals" from-field="nullField"/>
-                <order-by field-name="description"/>
-            </entity-condition>                            
-        </actions>
+    <form name="AddPartyMainRole" type="single" title="${uiLabelMap.PartyAddToMainRole}" target="addrole">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeId" event="onChange" action="ajaxUpdateArea('addPartySecondaryRole', 'addsecondaryroles', jQuery('#AddPartyMainRole').serialize());" entry-name="dummy">
             <drop-down allow-empty="false">
                 <entity-options entity-name="RoleType">
+                    <entity-constraint name="parentTypeId" operator="equals" env-name="nullField"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
-    <form name="AddPartySecondaryRoles" type="single" title="${uiLabelMap.PartyAddToSecondRole}" target="addrole/viewroles">
+    <form name="AddPartySecondaryRoles" type="single" title="${uiLabelMap.PartyAddToSecondRole}" target="addrole">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeId" entry-name="dummy">
             <drop-down allow-empty="false">

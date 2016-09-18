@@ -530,8 +530,8 @@ under the License.
     <request-map uri="addrole">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPartyRole"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="viewprofile"/>
+        <response name="success" type="view" value="viewroles"/>
+        <response name="error" type="view" value="viewroles"/>
     </request-map>
     <request-map uri="deleterole">
         <security https="true" auth="true"/>
