@@ -21,12 +21,8 @@ under the License.
 <#-- the "urlPrefix" value will be prepended to URLs by the ofbizUrl transform if/when there is no "request" object in the context -->
 <#if baseEcommerceSecureUrl??><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
 <div class="screenlet">
-  <form name="addCommonToCartForm" action="<@ofbizUrl>addordertocart/orderstatus</@ofbizUrl>" method="post">
-    <input type="hidden" name="add_all" value="false" />
-    <input type="hidden" name="orderId" value="${orderHeader.orderId}" />
   <h3>
     <#assign numColumns = 8>
-    ${uiLabelMap.OrderOrderItems}
     <#if maySelectItems?default("N") == "Y" && roleTypeId! == "PLACING_CUSTOMER">
       <#assign numColumns = 11>
       <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()"
@@ -36,6 +32,7 @@ under the License.
       <a href="<@ofbizUrl fullPath="true">createShoppingListFromOrder?orderId=${orderHeader.orderId}&amp;frequency=6&amp;intervalNumber=1&amp;shoppingListTypeId=SLT_AUTO_REODR</@ofbizUrl>"
           class="submenutextright">${uiLabelMap.OrderSendMeThisEveryMonth}</a>
     </#if>
+    ${uiLabelMap.OrderOrderItems}
   </h3>
   <table>
     <thead>
@@ -340,5 +337,4 @@ under the License.
       </tr>
     </tbody>
   </table>
-  </form>
 </div>
