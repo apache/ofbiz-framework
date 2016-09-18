@@ -40,7 +40,7 @@ under the License.
         <field name="internalNotes"><check/></field>
         <field name="telephoneForwards"><check/></field>
         <field name="taskAssignment"><check/></field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit/></field>
+        <field name="updateButton"><submit/></field>
     </form>
 
     <form name="SystemInfoStatus" type="list" list-name="systemInfoStatus"
@@ -53,6 +53,6 @@ under the License.
         <field name="noteParty"><text/></field>
         <field name="moreInfoUrl"><text size="50"/></field>
         <field name="noteInfo"><text size="50"/></field>
-        <field name="createButton" title="${uiLabelMap.CommonCreate}"><submit/></field>
+        <field name="createButton"><submit/></field>
     </form>
 </forms>
