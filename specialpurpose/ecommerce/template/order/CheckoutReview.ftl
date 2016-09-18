@@ -24,7 +24,6 @@ under the License.
     if (clicked == 0) {
       clicked++;
       //window.location.replace("<@ofbizUrl>processorder</@ofbizUrl>
-      ");
       document.${parameters.formNameValue}.processButton.value = "${uiLabelMap.OrderSubmittingOrder}";
       document.${parameters.formNameValue}.processButton.disabled = true;
       document.${parameters.formNameValue}.submit();
