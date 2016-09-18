@@ -17,8 +17,12 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.condition.*;
+
+
+
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 if (context.noConditionFind == null) {
@@ -31,32 +35,29 @@ if (context.filterByDate == null) {
     context.filterByDate = parameters.filterByDate;
 }
 prepareResult = runService('prepareFind', [entityName : context.entityName,
-                                                   orderBy : context.orderBy,
-                                                   inputFields : parameters,
-                                                   filterByDate : context.filterByDate,
-                                                   filterByDateValue : context.filterByDateValue,
-                                                   userLogin : context.userLogin] );
+                                           orderBy : context.orderBy,
+                                           inputFields : parameters,
+                                           filterByDate : context.filterByDate,
+                                           filterByDateValue : context.filterByDateValue,
+                                           userLogin : context.userLogin]);
 
-exprList = [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")
-            , EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, null)];
-CondList = EntityCondition.makeCondition(exprList, EntityOperator.AND);
-CondList1 = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null);
-statusPartyDisable = EntityCondition.makeCondition([CondList1, CondList], EntityOperator.OR);
+exprList = [EntityCondition.makeCondition("statusId", null),
+            EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")];
+statusPartyDisable = EntityCondition.makeCondition(exprList, EntityOperator.OR);
 entityConditionList = null;
 if (prepareResult.entityConditionList != null) {
-    ConditionList = [ prepareResult.entityConditionList, statusPartyDisable ];
+    ConditionList = [prepareResult.entityConditionList, statusPartyDisable];
     entityConditionList = EntityCondition.makeCondition(ConditionList);
 } else if (context.noConditionFind == "Y") {
     entityConditionList = statusPartyDisable;
 }
 
 executeResult = runService('executeFind', [entityName : context.entityName,
-                                                   orderByList : prepareResult.orderByList,
-                                                   entityConditionList : entityConditionList,
-                                                   noConditionFind :context.noConditionFind
-                                                   ] );
+                                           orderByList : prepareResult.orderByList,
+                                           entityConditionList : entityConditionList,
+                                           noConditionFind : context.noConditionFind]);
 if (executeResult.listIt == null) {
-    Debug.log("No list found for query string + [" + prepareResult.queryString + "]");
+    Debug.logWarning("No list found for query string + [" + prepareResult.queryString + "]", "FindLookUp.groovy");
 }
 context.listIt = executeResult.listIt;
 context.queryString = prepareResult.queryString;
