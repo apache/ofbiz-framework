@@ -17,9 +17,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if orderHeader?has_content>
+  <form name="addCommonToCartForm" action="<@ofbizUrl>addordertocart/orderstatus</@ofbizUrl>" method="post">
+    <input type="hidden" name="add_all" value="false" />
+    <input type="hidden" name="orderId" value="${orderHeader.orderId}" />
     ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderheader")}
     <br />
     ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderitems")}
+  </form>
 <#else>
   <h3>${uiLabelMap.OrderSpecifiedNotFound}.</h3>
 </#if>
