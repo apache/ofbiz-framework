@@ -47,7 +47,6 @@ import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.security.SecurityConfigurationException;
 import org.apache.ofbiz.security.SecurityFactory;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.stats.VisitHandler;
 
@@ -77,15 +76,7 @@ public class WebSiteFilter implements Filter {
         Delegator delegator = (Delegator) httpRequest.getSession().getServletContext().getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 
-        WebAppUtil.setCharacterEncoding(request);
-        WebAppUtil.setAttributesFromRequestBody(request);
-
-        // set the web context in the request for future use
-        dispatcher = WebAppUtil.makeWebappDispatcher(session.getServletContext(), delegator);
         setWebContextObjects(httpRequest, httpResponse, delegator, dispatcher);
-
-        request.setAttribute("servletContext", httpRequest.getSession().getServletContext());
-        request.setAttribute("delegator", delegator);
 
         GenericValue webSite = null;
         try {

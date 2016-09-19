@@ -22,7 +22,6 @@ import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
@@ -41,7 +40,6 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.SSLUtil;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
-import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -76,7 +74,6 @@ public class RequestHandler {
     private final URL controllerConfigURL;
     private final boolean trackServerHit;
     private final boolean trackVisit;
-    private final String charset;
 
     public static RequestHandler getRequestHandler(ServletContext servletContext) {
         RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
@@ -101,7 +98,6 @@ public class RequestHandler {
 
         this.trackServerHit = !"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"));
         this.trackVisit = !"false".equalsIgnoreCase(context.getInitParameter("track-visit"));
-        this.charset = context.getInitParameter("charset");
     }
 
     public ConfigXMLReader.ControllerConfig getControllerConfig() {
@@ -923,33 +919,21 @@ public class RequestHandler {
 
         long viewStartTime = System.currentTimeMillis();
 
-        // setup character encoding and content type
-        String charset = UtilFormatOut.checkEmpty(this.charset, req.getCharacterEncoding(), "UTF-8");
-
+        // setup character encoding and content type of the response:
+        //   encoding/charset: use the one set in the view or, if not set, the one set in the request
+        //   content type: use the one set in the view or, if not set, use "text/html"
+        String charset = req.getCharacterEncoding();
         String viewCharset = viewMap.encoding;
         //NOTE: if the viewCharset is "none" then no charset will be used
         if (UtilValidate.isNotEmpty(viewCharset)) {
             charset = viewCharset;
         }
-
-        if (!"none".equals(charset)) {
-            try {
-                req.setCharacterEncoding(charset);
-            } catch (UnsupportedEncodingException e) {
-                throw new RequestHandlerException("Could not set character encoding to " + charset, e);
-            } catch (IllegalStateException e) {
-                Debug.logInfo(e, "Could not set character encoding to " + charset + ", something has probably already committed the stream", module);
-            }
-        }
-
-        // setup content type
         String contentType = "text/html";
         String viewContentType = viewMap.contentType;
         if (UtilValidate.isNotEmpty(viewContentType)) {
             contentType = viewContentType;
         }
-
-        if (charset.length() > 0 && !"none".equals(charset)) {
+        if (UtilValidate.isNotEmpty(charset) && !"none".equals(charset)) {
             resp.setContentType(contentType + "; charset=" + charset);
         } else {
             resp.setContentType(contentType);

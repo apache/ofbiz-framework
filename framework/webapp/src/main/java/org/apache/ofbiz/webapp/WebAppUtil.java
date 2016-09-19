@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -142,17 +141,6 @@ public final class WebAppUtil {
             servletContext.setAttribute("dispatcher", dispatcher);
         }
         return dispatcher;
-    }
-
-    public static void setCharacterEncoding(ServletRequest request) throws UnsupportedEncodingException {
-        String charset = request.getServletContext().getInitParameter("charset");
-        if (UtilValidate.isEmpty(charset)) charset = request.getCharacterEncoding();
-        if (UtilValidate.isEmpty(charset)) charset = "UTF-8";
-        if (Debug.verboseOn()) Debug.logVerbose("The character encoding of the request is: [" + request.getCharacterEncoding() + "]. The character encoding we will use for the request is: [" + charset + "]", module);
-
-        if (!"none".equals(charset)) {
-            request.setCharacterEncoding(charset);
-        }
     }
 
     public static void setAttributesFromRequestBody(ServletRequest request) {
