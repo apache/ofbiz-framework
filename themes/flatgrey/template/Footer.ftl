@@ -23,7 +23,15 @@ under the License.
         <li class="last"><a href="<@ofbizUrl>ListVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
     </ul>
   <p>
-  ${uiLabelMap.CommonCopyright} (c) 2001-${nowTimestamp?string("yyyy")} <a href="http://www.apache.org" target="_blank">The Apache Software Foundation</a>. ${uiLabelMap.CommonPoweredBy}
+    <div class="poweredBy"><span>${uiLabelMap.CommonPoweredBy} 
+        <a href="http://ofbiz.apache.org" class="noicon">OFBiz</a></span><span>Copyright 2001-${nowTimestamp?string("yyyy")} 
+        <a href="http://www.apache.org" class="noicon">The Apache Software Foundation - www.apache.org</a></span> 
+        <span>
+            <#include "ofbizhome://runtime/SvnInfo.ftl" ignore_missing=true/>
+            <#include "ofbizhome://runtime/GitInfo.ftl" ignore_missing=true/>
+        </span>
+    </div>
+  
   </p>
 </div>
 </div>
