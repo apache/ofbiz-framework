@@ -57,15 +57,10 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
     public static final String module = SimpleContentViewHandler.class.getName();
     private String rootDir = null;
     private String https = null;
-    private String defaultCharset = null;
 
     public void init(ServletContext context) throws ViewHandlerException {
         rootDir = context.getRealPath("/");
         https = (String) context.getAttribute("https");
-        defaultCharset = context.getInitParameter("charset");
-        if (UtilValidate.isEmpty(defaultCharset)) {
-            defaultCharset = "UTF-8";
-        }
     }
     /**
      * @see org.apache.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -131,10 +126,10 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                 // DEJ20080717: why are we rendering the DataResource directly instead of rendering the content?
                 ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
                 ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer.array());
-                // setup chararcter encoding and content type
+                // setup character encoding and content type
                 String charset = dataResource.getString("characterSetId");
                 if (UtilValidate.isEmpty(charset)) {
-                    charset = defaultCharset;
+                    charset = encoding;
                 }
                 if (UtilValidate.isEmpty(mimeTypeId)) {
                     mimeTypeId = DataResourceWorker.getMimeType(dataResource);
