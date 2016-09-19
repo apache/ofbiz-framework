@@ -144,6 +144,8 @@ dependencies {
     runtime 'org.apache.logging.log4j:log4j-core:2.3'
     runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.3'
     runtime 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
+    runtime 'net.sf.barcode4j:barcode4j:2.1'
+    runtime 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
 
     /* TODO We suspect that all the below dependencies are not needed and can be
      * deleted from this file. They used to be compile time dependencies and we
@@ -157,8 +159,6 @@ dependencies {
     runtime 'commons-el:commons-el:1.0'
     runtime 'httpunit:httpunit:1.7'
     runtime 'jython:jython:2.1'
-    runtime 'net.sf.barcode4j:barcode4j:2.1'
-    runtime 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
     runtime 'net.sf.dozer:dozer:4.2.1'
     runtime 'net.sf.ezmorph:ezmorph:0.9.1'
     runtime 'org.apache.axis2:axis2-adb:1.7.1'
