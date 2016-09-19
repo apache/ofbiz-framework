@@ -182,7 +182,6 @@ dependencies {
 
     // local libs
     compile fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
-    runtime files("${rootDir}/build/libs/ofbiz-base-test.jar")
 }
 
 def excludedJavaSources = []
@@ -856,24 +855,6 @@ task svnInfoFooter(group: committerGroup, description: 'Update the Subversion re
     svnFooterFile << '${uiLabelMap.BuiltOn} : ' + "${timestamp}" + System.lineSeparator()
     svnFooterFile << '${uiLabelMap.JavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
 }
-
-// ========== hidden support tasks ==========
-
-/* without executing this task, a test would fail that is named
- * org.apache.ofbiz.base.util.test.UtilObjectTests.testGetObjectFromFactory()
- *
- * The test fails because it requires defining a service provider, read more below.
- * http://docs.oracle.com/javase/8/docs/technotes/guides/jar/jar.html#Service_Provider
- */
-task createBaseTestServiceProviderJar << {
-    ant.jar(destfile: "${rootDir}/build/libs/ofbiz-base-test.jar") {
-        service(type: 'org.apache.ofbiz.base.util.test.UtilObjectTests$TestFactoryIntf') {
-            provider(classname: 'org.apache.ofbiz.base.util.test.UtilObjectTests$FirstTestFactory')
-            provider(classname: 'org.apache.ofbiz.base.util.test.UtilObjectTests$SecondTestFactory')
-        }
-    }
-}
-classes.dependsOn createBaseTestServiceProviderJar
 
 /* ========================================================
  * Rules-based OFBiz server commands
