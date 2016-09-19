@@ -19,7 +19,12 @@ under the License.
 <div id="footer-offset"></div>
 <div id="footer">
     <span>${nowTimestamp?datetime?string.short} - <a href="<@ofbizUrl>ListTimezones</@ofbizUrl>">${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a></span>
-    <span>${uiLabelMap.CommonCopyright} (c) 2001-${nowTimestamp?string("yyyy")} <a href="http://www.apache.org" target="_blank">The Apache Software Foundation</a>. ${uiLabelMap.CommonPoweredBy} <a href="http://ofbiz.apache.org" target="_blank">Apache OFBiz.</a> <#include "ofbizhome://runtime/SvnInfo.ftl" /></span>
+    <span>${uiLabelMap.CommonCopyright} (c) 2001-${nowTimestamp?string("yyyy")} 
+        <a href="http://www.apache.org" target="_blank">The Apache Software Foundation</a>. ${uiLabelMap.CommonPoweredBy}
+        <a href="http://ofbiz.apache.org" target="_blank">Apache OFBiz.</a> 
+        <#include "ofbizhome://runtime/SvnInfo.ftl" ignore_missing=true/>
+        <#include "ofbizhome://runtime/GitInfo.ftl" ignore_missing=true/>
+    </span>
 </div>
 </div>
 <#if layoutSettings.VT_FTR_JAVASCRIPT?has_content>
