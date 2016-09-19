@@ -66,7 +66,7 @@ public class ControlFilter implements Filter {
     private boolean redirectAll;
     private boolean redirectPathIsUrl;
     private String redirectPath;
-    private int errorCode;
+    protected int errorCode;
     private Set<String> allowedPaths = new HashSet<>();
 
     @Override
