@@ -1,0 +1,92 @@
+/*******************************************************************************
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ *******************************************************************************/
+package org.apache.ofbiz.entity;
+
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import static org.junit.Assert.*;
+
+public class DelegatorUnitTests {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
+    @Before
+    public void initialize() {
+        System.setProperty("ofbiz.home", ".");
+        System.setProperty("derby.system.home", "./runtime/data/derby");
+    }
+
+    @Test
+    public void delegatorCreationUsingConstructorFailsIfConfigurationIsMissing() throws GenericEntityException {
+        expectedException.expect(GenericEntityException.class);
+        expectedException.expectMessage("No configuration found for delegator");
+        new GenericDelegator("delegatorNameWithNoConfiguration");
+    }
+
+    @Test
+    public void delegatorCreationUsingConstructor() throws GenericEntityException {
+        Delegator delegator = new GenericDelegator("default");
+        assertNotNull(delegator);
+        assertEquals(delegator.getOriginalDelegatorName(), "default");
+        assertEquals(delegator.getDelegatorBaseName(), "default");
+        assertEquals(delegator.getDelegatorName(), "default");
+    }
+
+    @Test
+    public void delegatorCreationUsingFactoryGetInstance() {
+        DelegatorFactory df = new DelegatorFactoryImpl();
+        assertNotNull(df);
+        Delegator delegator = df.getInstance("default");
+        assertNotNull(delegator);
+        assertTrue(delegator instanceof GenericDelegator);
+        assertEquals(delegator.getOriginalDelegatorName(), "default");
+        assertEquals(delegator.getDelegatorBaseName(), "default");
+        assertEquals(delegator.getDelegatorName(), "default");
+        Delegator delegatorWithSameName = df.getInstance("default");
+        assertNotSame(delegator, delegatorWithSameName);
+    }
+
+    @Test
+    public void delegatorCreationUsingFactoryGetDelegator() {
+        DelegatorFactory df = new DelegatorFactoryImpl();
+        Delegator delegator = df.getDelegator("default");
+        assertNotNull(delegator);
+        assertTrue(delegator instanceof GenericDelegator);
+        assertEquals(delegator.getOriginalDelegatorName(), "default");
+        assertEquals(delegator.getDelegatorBaseName(), "default");
+        assertEquals(delegator.getDelegatorName(), "default");
+        Delegator delegatorWithSameName = df.getDelegator("default");
+        assertSame(delegator, delegatorWithSameName);
+        Delegator delegatorWithNullName = df.getDelegator(null);
+        assertSame(delegator, delegatorWithNullName);
+    }
+
+    @Test
+    public void delegatorCreationUsingFactoryReturnsNullIfConfigurationIsMissing() throws GenericEntityException {
+        // TODO: the framework code should throw the exception instead of returning a null reference
+        DelegatorFactory df = new DelegatorFactoryImpl();
+        Delegator delegator = df.getInstance("delegatorNameWithNoConfiguration");
+        assertNull(delegator);
+    }
+
+}
