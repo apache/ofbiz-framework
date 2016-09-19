@@ -151,22 +151,14 @@ dependencies {
      * deleted from this file. They used to be compile time dependencies and we
      * converted them to runtime and OFBiz seems to operate normally without them.
      * We are keeping them until thorough testing is done to ensure correct
-     * operation without these libraries.  
+     * operation without these libraries.
      */
     runtime 'apache-xerces:resolver:2.9.1'
-    runtime 'bouncycastle:bouncycastle-jce-jdk13:112'
-    runtime 'com.google.guava:guava:19.0'
     runtime 'commons-el:commons-el:1.0'
-    runtime 'httpunit:httpunit:1.7'
-    runtime 'jython:jython:2.1'
     runtime 'net.sf.dozer:dozer:4.2.1'
-    runtime 'net.sf.ezmorph:ezmorph:0.9.1'
     runtime 'org.apache.axis2:axis2-adb:1.7.1'
-    runtime 'org.apache.geronimo.specs:geronimo-jaxr_1.0_spec:1.0'
-    runtime 'org.apache.geronimo.specs:geronimo-saaj_1.3_spec:1.1'
     runtime 'org.apache.httpcomponents:httpcore:4.4.1'
     runtime 'org.apache.logging.log4j:log4j-1.2-api:2.3'
-    runtime 'org.apache.logging.log4j:log4j-nosql:2.3'
     runtime 'org.apache.servicemix.bundles:org.apache.servicemix.bundles.xpp3:1.1.4c_7'
     runtime 'org.apache.tomcat.extras:tomcat-extras-juli-adapters:8.0.36'
     runtime 'org.apache.xalan:com.springsource.org.apache.xml.serializer:2.7.1'
