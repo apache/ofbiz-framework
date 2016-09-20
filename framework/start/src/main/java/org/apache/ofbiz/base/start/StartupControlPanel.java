@@ -175,12 +175,6 @@ final class StartupControlPanel {
                     classPath.addComponent(ofbizHomeTmp.concat(component.trim()));
                 }
             }
-            if (config.classpathAddFilesFromPath != null) {
-                String[] paths = config.classpathAddFilesFromPath.split(",");
-                for (String path : paths) {
-                    classPath.addFilesFromPath(new File(ofbizHomeTmp.concat(path.trim())));
-                }
-            }
         } catch (IOException e) {
             throw new StartupException("Cannot create classpath", e);
         }

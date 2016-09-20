@@ -53,7 +53,6 @@ public final class Config {
     public final boolean shutdownAfterLoad;
     public final boolean useShutdownHook;
     public final String classpathAddComponent;
-    public final String classpathAddFilesFromPath;
 
     Config(List<StartupCommand> ofbizCommands) throws StartupException {
 
@@ -78,7 +77,6 @@ public final class Config {
         shutdownAfterLoad = isShutdownAfterLoad(props);
         useShutdownHook = isUseShutdownHook(props);
         classpathAddComponent = props.getProperty("ofbiz.start.classpath.addComponent");
-        classpathAddFilesFromPath = props.getProperty("ofbiz.start.classpath.addFilesFromPath");
 
         System.out.println("Set OFBIZ_HOME to - " + ofbizHome);
 
