@@ -20,6 +20,7 @@ package org.apache.ofbiz.product.category;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -58,9 +59,20 @@ public class SeoContextFilter implements Filter {
 
     protected Set<String> WebServlets = new HashSet<>();
     private FilterConfig config;
+    private String allowedPaths = "";
+    private String redirectPath = "";
+    private String errorCode = "";
+    private List<String> allowedPathList = new ArrayList<String>();
 
     public void init(FilterConfig config) throws ServletException {
         this.config = config;
+        allowedPaths = config.getInitParameter("allowedPaths");
+        redirectPath = config.getInitParameter("redirectPath");
+        errorCode = config.getInitParameter("errorCode");
+        if (UtilValidate.isNotEmpty(allowedPaths)) {
+            allowedPathList = StringUtil.split(allowedPaths, ":");
+        }
+
         Map<String, ? extends ServletRegistration> servletRegistrations = config.getServletContext().getServletRegistrations();
         for (String key : servletRegistrations.keySet()) {
             Collection<String> servlets = servletRegistrations.get(key).getMappings();
@@ -104,12 +116,6 @@ public class SeoContextFilter implements Filter {
         String requestPath = null;
         String contextUri = null;
         if (httpRequest.getAttribute(ControlFilter.FORWARDED_FROM_SERVLET) == null) {
-            String allowedPath = config.getInitParameter("allowedPaths");
-            String redirectPath = config.getInitParameter("redirectPath");
-            String errorCode = config.getInitParameter("errorCode");
-
-            List<String> allowList = StringUtil.split(allowedPath, ":");
-
             requestPath = httpRequest.getServletPath();
             if (requestPath == null) requestPath = "";
             if (requestPath.lastIndexOf("/") > 0) {
@@ -147,8 +153,8 @@ public class SeoContextFilter implements Filter {
             String requestUri = UtilHttp.getRequestUriFromTarget(httpRequest.getRequestURI());
 
             // check to make sure the requested url is allowed
-            if (!allowList.contains(requestPath) && !allowList.contains(requestInfo) && !allowList.contains(httpRequest.getServletPath())
-                    && !allowList.contains(requestUri) && !allowList.contains("/" + viewName)
+            if (!allowedPathList.contains(requestPath) && !allowedPathList.contains(requestInfo) && !allowedPathList.contains(httpRequest.getServletPath())
+                    && !allowedPathList.contains(requestUri) && !allowedPathList.contains("/" + viewName)
                     && (UtilValidate.isEmpty(requestPath) && UtilValidate.isEmpty(httpRequest.getServletPath()) && !uris.contains(viewName))) {
                 String filterMessage = "[Filtered request]: " + contextUri;
 
@@ -188,8 +194,8 @@ public class SeoContextFilter implements Filter {
                 }
                 Debug.logWarning(filterMessage, module);
                 return;
-            } else if ((allowList.contains(requestPath) || allowList.contains(requestInfo) || allowList.contains(httpRequest.getServletPath())
-                    || allowList.contains(requestUri) || allowList.contains("/" + viewName))
+            } else if ((allowedPathList.contains(requestPath) || allowedPathList.contains(requestInfo) || allowedPathList.contains(httpRequest.getServletPath())
+                    || allowedPathList.contains(requestUri) || allowedPathList.contains("/" + viewName))
                     && !WebServlets.contains(httpRequest.getServletPath())) {
                 request.setAttribute(SeoControlServlet.REQUEST_IN_ALLOW_LIST, Boolean.TRUE);
             }
