@@ -87,7 +87,6 @@ public class CheckPermissionTransform implements TemplateTransformModel {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map<String, Object> templateCtx = FreeMarkerWorker.createEnvironmentMap(env);
-        //FreeMarkerWorker.convertContext(templateCtx);
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
