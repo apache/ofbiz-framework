@@ -27,7 +27,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * A class path accumulator.
@@ -44,27 +43,6 @@ public final class Classpath {
      * Default constructor.
      */
     public Classpath() {
-    }
-
-    /**
-     * Adds a class path string. The string may include multiple paths separated by
-     * a path separator.
-     * 
-     * @param path
-     * @return <code>true</code> if any path elements were added
-     * @throws IOException if there was a problem parsing the class path
-     * @throws IllegalArgumentException if <code>path</code> is null or empty
-     */
-    public boolean addClassPath(String path) throws IOException {
-        if (path == null || path.isEmpty()) {
-            throw new IllegalArgumentException("path cannot be null or empty");
-        }
-        boolean added = false;
-        StringTokenizer t = new StringTokenizer(path, File.pathSeparator);
-        while (t.hasMoreTokens()) {
-            added |= addComponent(t.nextToken());
-        }
-        return added;
     }
 
     /**
@@ -150,33 +128,6 @@ public final class Classpath {
         } else {
             System.out.println("Warning : Module classpath component '" + path + "' is not valid and will be ignored...");
         }
-    }
-
-    /**
-     * Adds a directory that contains native libraries.
-     * If <code>path</code> does not exist, the method does nothing.
-     * 
-     * @param path
-     * @return
-     * @throws IOException
-     * @throws IllegalArgumentException if <code>path</code> is null
-     */
-    public boolean addNativeClassPath(File path) throws IOException {
-        if (path == null) {
-            throw new IllegalArgumentException("path cannot be null");
-        }
-        if (path.exists()) {
-            File key = path.getCanonicalFile();
-            synchronized (nativeFolders) {
-                if (!nativeFolders.contains(key)) {
-                    nativeFolders.add(key);
-                    return true;
-                }
-            }
-        } else {
-            System.out.println("Warning : Module classpath component '" + path + "' is not valid and will be ignored...");
-        }
-        return false;
     }
 
     private void appendPath(StringBuilder cp, String path) {
