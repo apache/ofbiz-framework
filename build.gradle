@@ -51,9 +51,6 @@ tasks.withType(JavaCompile) {
 def File gitFooterFile = file("${rootDir}/runtime/GitInfo.ftl")
 def File svnFooterFile = file("${rootDir}/runtime/SvnInfo.ftl")
 
-// init footer files
-initFooterFiles(gitFooterFile, svnFooterFile)
-
 // root and subproject settings
 defaultTasks 'build'
 
@@ -1021,14 +1018,4 @@ def activateAndInstallPlugin(pluginId) {
     activatePlugin pluginId
     def gradleRunner = os.contains('windows') ? 'gradlew.bat' : './gradlew'
     exec { commandLine gradleRunner, 'installPlugin', "-PpluginId=${pluginId}" }
-}
-
-def initFooterFiles(gitInfoFile, svnInfoFile) {
-    
-    if(!gitInfoFile.exists()) {
-        gitInfoFile.createNewFile()
-    }
-    if(!svnInfoFile.exists()) {
-        svnInfoFile.createNewFile()
-    }
 }
