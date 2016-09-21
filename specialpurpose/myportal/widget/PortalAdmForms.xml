@@ -27,7 +27,7 @@ under the License.
         <field name="originalPortalPageId" position="2"><text-find/></field>
         <field name="portalPageName" title="${uiLabelMap.CommonName}"><text-find/></field>
         <field name="parentPortalPageId" position="2"><text-find/></field>
-        <field name="description"><text-find/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
         <field name="securityGroupId" position="2" title="${uiLabelMap.CommonSecurityGroupId}"><text-find/></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -88,8 +88,8 @@ under the License.
             <text/>
         </field>
         <field name="parentPortalPageId" position="2"><text/></field>
-        <field name="portalPageName"><text/></field>
-        <field name="description" position="2"><text size="60"/></field>
+        <field name="portalPageName" title="${uiLabelMap.CommonName}"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" position="2"><text size="60"/></field>
         <field name="sequenceNum"><text/></field>
         <field name="securityGroupId" >
             <drop-down allow-empty="true">
