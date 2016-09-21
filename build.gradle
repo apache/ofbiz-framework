@@ -172,6 +172,9 @@ dependencies {
     junitReport 'org.apache.ant:ant-junit:1.9.7'
 
     // local libs
+    getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
+        compile fileTree(dir: libDir, include: '**/*.jar')
+    }
     compile fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
 }
 
