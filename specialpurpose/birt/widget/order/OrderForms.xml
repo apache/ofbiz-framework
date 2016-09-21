@@ -67,11 +67,6 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="OrderByReferrer" type="single" target="OrderByReferrer.pdf" target-window="_BLANK">
-        <!--field name="referrerUrl"><text-find default-option="contains"/></field-->
-        <field name="referrerUrl" title=" "><display description="${uiLabelMap.BirtOrderReportAllReferrer}"></display></field>
-        <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
-    </form>
     <form name="SaleOrdersByChannel" type="single" target="OrdersByChannel.pdf" target-window="_BLANK">
         <field name="SalesChannel" title="${uiLabelMap.OrderSalesChannel}">
             <drop-down allow-empty="true">
