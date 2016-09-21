@@ -64,19 +64,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!-- Sale Order By Referrer -->
-    <screen name="SaleOrdersByReferrerReport">        
-        <section>
-            <actions>
-                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
-            </actions>
-            <widgets>
-                <screenlet title="${uiLabelMap.BirtOrderReportOrderByReferrer}">
-                    <include-form name="OrderByReferrer" location="component://birt/widget/order/OrderForms.xml"/>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
     <!-- Sale Order By Channel -->
     <screen name="SaleOrdersByChannelReport">
         <section>

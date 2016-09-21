@@ -18,14 +18,6 @@
     under the License.
 -->
 <entity-engine-xml>
-    <PortalPortlet portalPortletId="OrderByReferrer"
-                   portletName="Sale Orders By Referrer Report"
-                   screenName="SaleOrdersByReferrerReport"
-                   screenLocation="component://birt/widget/order/OrderScreens.xml"
-                   description=""/>
-    <PortletPortletCategory portalPortletId="OrderByReferrer" portletCategoryId="REPORT"/>
-    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="OrderByReferrer" portletSeqId="00001" columnSeqId="00001" sequenceNum="5"/>
-
     <PortalPortlet portalPortletId="OrderByChannel"
                    portletName="Sale Orders by Channel"
                    screenName="SaleOrdersByChannelReport"

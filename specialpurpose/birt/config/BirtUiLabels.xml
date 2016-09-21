@@ -93,11 +93,6 @@
         <value xml:lang="fr">Tous les lignes de commandes ayant des codes promotionels</value>
         <value xml:lang="zh">所有带有折扣优惠码的订单明细</value>
     </property>
-    <property key="BirtOrderReportAllReferrer">
-        <value xml:lang="en">All Referrer</value>
-        <value xml:lang="fr">Tous apporteurs d'affaires</value>
-        <value xml:lang="zh">所有访问来源</value>
-    </property>
     <property key="BirtOrderReportCouponSalesReport">
         <value xml:lang="en">Coupon Sales Report</value>
         <value xml:lang="fr">Ventes promotionelles</value>
@@ -117,11 +112,6 @@
         <value xml:lang="en">Net Before Overhead Report</value>
         <value xml:lang="fr">Net avant frais généraux</value>
         <value xml:lang="zh">计入制造费用前的净值报表</value>
-    </property>
-    <property key="BirtOrderReportOrderByReferrer">
-        <value xml:lang="en">Order By Referrer</value>
-        <value xml:lang="fr">Commandes par apporteurs d'affaires</value>
-        <value xml:lang="zh">按访问来源排序</value>
     </property>
     <property key="BirtOrderReportProductDemandReport">
         <value xml:lang="en">Product Demand Report</value>
