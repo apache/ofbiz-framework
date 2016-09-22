@@ -42,7 +42,7 @@ targetCompatibility = '1.8'
 // Java compile options
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-    if(project.hasProperty('Xlint')) {
+    if (project.hasProperty('Xlint')) {
         options.compilerArgs << "-Xlint"
     }
 }
@@ -311,7 +311,7 @@ task terminateOfbiz(group: ofbizServer,
             standardOutput = processOutput
         }
         processOutput.toString().split(System.lineSeparator()).each { line ->
-            if(line ==~ /.*org\.apache\.ofbiz\.base\.start\.Start.*/) {
+            if (line ==~ /.*org\.apache\.ofbiz\.base\.start\.Start.*/) {
                 exec { commandLine 'kill', '-9', line.tokenize().first() }
             }
         }
@@ -341,21 +341,21 @@ task loadTenant(group: ofbizServer, description: 'Load data using tenantId') {
 
     createOfbizCommandTask('executeLoadTenant', [], jvmArguments, false)
 
-    if(project.hasProperty('tenantId')) {
+    if (project.hasProperty('tenantId')) {
         executeLoadTenant.args '--load-data'
         executeLoadTenant.args "delegator=default#${tenantId}"
     }
-    if(project.hasProperty('tenantReaders')) {
+    if (project.hasProperty('tenantReaders')) {
         executeLoadTenant.args '--load-data'
         executeLoadTenant.args "readers=${tenantReaders}"
     }
-    if(project.hasProperty('tenantComponent')) {
+    if (project.hasProperty('tenantComponent')) {
         executeLoadTenant.args '--load-data'
         executeLoadTenant.args "component=${tenantComponent}"
     }
 
     executeLoadTenant.doFirst {
-        if(!project.hasProperty('tenantId')) {
+        if (!project.hasProperty('tenantId')) {
             throw new GradleException('Missing project property tenantId')
         }
     }
@@ -367,18 +367,18 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
     def databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Derby.xml"
 
     task prepareAndValidateTenantArguments << {
-        if(!project.hasProperty('tenantId')) {
+        if (!project.hasProperty('tenantId')) {
             throw new GradleException('Project property tenantId is missing')
         }
         // dbPlatform values: D(Derby), M(MySQL), O(Oracle), P(PostgreSQL) (default D)
-        if(project.hasProperty('dbPlatform')) {
-            if(dbPlatform == 'D') {
+        if (project.hasProperty('dbPlatform')) {
+            if (dbPlatform == 'D') {
                 databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Derby.xml"
-            } else if(dbPlatform == 'M') {
+            } else if (dbPlatform == 'M') {
                 databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-MySQL.xml"
-            } else if(dbPlatform == 'O') {
+            } else if (dbPlatform == 'O') {
                 databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Oracle.xml"
-            } else if(dbPlatform == 'P') {
+            } else if (dbPlatform == 'P') {
                 databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-PostgreSQL.xml"
             } else {
                 throw new GradleException('Invalid value for property dbPlatform: ' + "${dbPlatform}")
@@ -423,7 +423,7 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
     /* pass arguments to tasks, must be done this way
      * because we are in the configuration phase. We cannot
      * set the parameters at the execution phase. */
-    if(project.hasProperty('tenantId')) {
+    if (project.hasProperty('tenantId')) {
         loadTenantData.args '--load-data'
         loadTenantData.args "delegator=default#${tenantId}"
 
@@ -432,7 +432,7 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
         loadTenantAdminUserLogin.args '--load-data'
         loadTenantAdminUserLogin.args "file=${rootDir}/runtime/tmp/tmpFilteredUserLogin.xml"
     }
-    if(project.hasProperty('tenantReaders')) {
+    if (project.hasProperty('tenantReaders')) {
         loadTenantData.args '--load-data'
         loadTenantData.args "readers=${tenantReaders}"
     }
@@ -471,13 +471,13 @@ gradle.taskGraph.afterTask { Task task, TaskState state ->
 
 // ========== OFBiz Plugin Management ==========
 task createPlugin(group: ofbizPlugin, description: 'create a new plugin component based on specified templates') << {
-    if(!project.hasProperty('pluginResourceName')) {
+    if (!project.hasProperty('pluginResourceName')) {
         ext.pluginResourceName = pluginId.capitalize()
     }
-    if(!project.hasProperty('webappName')) {
+    if (!project.hasProperty('webappName')) {
         ext.webappName = pluginId
     }
-    if(!project.hasProperty('basePermission')) {
+    if (!project.hasProperty('basePermission')) {
         ext.basePermission = pluginId.toUpperCase()
     }
 
@@ -559,14 +559,14 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
 task installPlugin(group: ofbizPlugin, description: 'activate a plugin and run its install task if it exists') {
 
     doFirst {
-        if(!project.hasProperty('pluginId')) {
+        if (!project.hasProperty('pluginId')) {
             throw new GradleException('Missing property \"pluginId\"')
         }
     }
 
-    if(project.hasProperty('pluginId')) {
-        if(subprojectExists(":specialpurpose:${pluginId}")) {
-            if(taskExistsInproject(":specialpurpose:${pluginId}", 'install')) {
+    if (project.hasProperty('pluginId')) {
+        if (subprojectExists(":specialpurpose:${pluginId}")) {
+            if (taskExistsInproject(":specialpurpose:${pluginId}", 'install')) {
                 dependsOn ":specialpurpose:${pluginId}:install"
                 doLast { println "installed plugin ${pluginId}" }
             } else {
@@ -587,15 +587,15 @@ task installPlugin(group: ofbizPlugin, description: 'activate a plugin and run i
 task uninstallPlugin(group: ofbizPlugin, description: 'run the uninstall task if exists for a plugin and deactivate it') {
 
     doFirst {
-        if(!project.hasProperty('pluginId')) {
+        if (!project.hasProperty('pluginId')) {
             throw new GradleException('Missing property \"pluginId\"')
         }
-        if(!subprojectExists(":specialpurpose:${pluginId}")) {
+        if (!subprojectExists(":specialpurpose:${pluginId}")) {
             throw new GradleException("Plugin \"${pluginId}\" does not exist")
         }
     }
 
-    if(project.hasProperty('pluginId') && taskExistsInproject(":specialpurpose:${pluginId}", 'uninstall')) {
+    if (project.hasProperty('pluginId') && taskExistsInproject(":specialpurpose:${pluginId}", 'uninstall')) {
         dependsOn ":specialpurpose:${pluginId}:uninstall"
     }
 
@@ -605,12 +605,12 @@ task uninstallPlugin(group: ofbizPlugin, description: 'run the uninstall task if
 }
 
 task removePlugin(group: ofbizPlugin, description: 'Uninstall a plugin and delete its files') {
-    if(project.hasProperty('pluginId') && subprojectExists(":specialpurpose:${pluginId}")) {
+    if (project.hasProperty('pluginId') && subprojectExists(":specialpurpose:${pluginId}")) {
         dependsOn uninstallPlugin
     }
 
     doLast {
-        if(file("${pluginsDir}/${pluginId}").exists()) {
+        if (file("${pluginsDir}/${pluginId}").exists()) {
             delete "${pluginsDir}/${pluginId}"
         } else {
             throw new GradleException("Directory not found: ${pluginsDir}/${pluginId}")
@@ -620,9 +620,9 @@ task removePlugin(group: ofbizPlugin, description: 'Uninstall a plugin and delet
 
 task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to local maven repository') {
 
-    if(project.hasProperty('pluginId')) {
+    if (project.hasProperty('pluginId')) {
         doFirst {
-            if(!subprojectExists(":specialpurpose:${pluginId}")) {
+            if (!subprojectExists(":specialpurpose:${pluginId}")) {
                 throw new GradleException("Plugin ${pluginId} does not exist, cannot publish")
             }
         }
@@ -640,7 +640,7 @@ task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to loc
                     artifact createPluginArchive
                     
                     pom.withXml {
-                        if(project.hasProperty('pluginDescription')) {
+                        if (project.hasProperty('pluginDescription')) {
                             asNode().appendNode('description', pluginDescription)
                         } else {
                             asNode().appendNode('description', "Publication of OFBiz plugin ${pluginId}")
@@ -650,7 +650,7 @@ task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to loc
             }
         }
 
-        if(subprojectExists(":specialpurpose:${pluginId}")) {
+        if (subprojectExists(":specialpurpose:${pluginId}")) {
             dependsOn publishToMavenLocal
         }
 
@@ -660,16 +660,16 @@ task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to loc
 }
 
 task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin with all dependencies') << {
-    if(!project.hasProperty('dependencyId')) {
+    if (!project.hasProperty('dependencyId')) {
         throw new GradleException('You must pass the dependencyId of the plugin')
     }
 
     // Connect to a remote maven repository if defined
-    if(project.hasProperty('repoUrl')) {
+    if (project.hasProperty('repoUrl')) {
         repositories {
             maven {
                 url repoUrl
-                if(project.hasProperty('repoUser') && project.hasProperty('repoPassword')) {
+                if (project.hasProperty('repoUser') && project.hasProperty('repoPassword')) {
                     credentials {
                         username repoUser
                         password repoPassword
@@ -764,7 +764,7 @@ def websiteDir = "${rootDir}/../site"
 task copyDtds(group: committerGroup, description: 'Copy all DTDs from OFBiz instance to website') << {
     mkdir websiteDir+'/dtds'
     copy {
-        from(fileTree("${rootDir}").files) {
+        from (fileTree("${rootDir}").files) {
             include '**/*.xsd'
             exclude '**/002*.xsd'
             exclude '**/068*.xsd'
@@ -782,7 +782,7 @@ task gitInfoFooter(group: committerGroup, description: 'Update the Git Branch-re
     def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
     def gitFolder = new File('.git')
     
-    if(!gitFolder.exists()) {
+    if (!gitFolder.exists()) {
       println ("Git is not used")
       return
     }    
@@ -812,7 +812,7 @@ task svnInfoFooter(group: committerGroup, description: 'Update the Subversion re
     def svnOutput = new ByteArrayOutputStream()
     def svnFolder = new File('.svn')
     
-    if(!svnFolder.exists()) {
+    if (!svnFolder.exists()) {
       println ("Subversion is not used")
       return
     }    
@@ -835,21 +835,21 @@ task svnInfoFooter(group: committerGroup, description: 'Update the Subversion re
  * ======================================================== */
 
 tasks.addRule('Pattern: ofbiz <Commands>: Execute OFBiz startup commands') { String taskName ->
-    if(taskName ==~ /^ofbiz\s.*/ || taskName == 'ofbiz') {
+    if (taskName ==~ /^ofbiz\s.*/ || taskName == 'ofbiz') {
         def arguments = (taskName - 'ofbiz').toLowerCase().tokenize(' ')
         createOfbizCommandTask(taskName, arguments, jvmArguments, false)
     }
 }
 
 tasks.addRule('Pattern: ofbizDebug <Commands>: Execute OFBiz startup commands in remote debug mode') { String taskName ->
-    if(taskName ==~ /^ofbizDebug\s.*/ || taskName == 'ofbizDebug') {
+    if (taskName ==~ /^ofbizDebug\s.*/ || taskName == 'ofbizDebug') {
         def arguments = (taskName - 'ofbizDebug').toLowerCase().tokenize(' ')
         createOfbizCommandTask(taskName, arguments, jvmArguments, true)
     }
 }
 
 tasks.addRule('Pattern: ofbizBackground <Commands>: Execute OFBiz startup commands in background and output to console.log') { String taskName ->
-    if(taskName ==~ /^ofbizBackground\s.*/ || taskName == 'ofbizBackground') {
+    if (taskName ==~ /^ofbizBackground\s.*/ || taskName == 'ofbizBackground') {
         createOfbizBackgroundCommandTask(taskName)
     }
 }
@@ -901,7 +901,7 @@ def getDirectoryInActiveComponentsIfExists(String dirName) {
     def dirInComponents = []
     iterateOverActiveComponents { component ->
         def subDir = file(component.toString() + '/' + dirName)
-        if(subDir.exists()) {
+        if (subDir.exists()) {
             dirInComponents.add subDir
         }
     }
@@ -921,7 +921,7 @@ def deleteAllInDirWithExclusions(dirName, exclusions) {
 def getTasksMatchingRegex(theRegex) {
     def filteredTasks = []
     tasks.each { task ->
-        if(task.name ==~ theRegex) {
+        if (task.name ==~ theRegex) {
             filteredTasks.add(task)
         }
     }
@@ -940,7 +940,7 @@ def generateFileFromTemplate(templateFileInFullPath, targetDirectory, filterToke
 
 def getJarManifestClasspathForCurrentOs() {
     def osClassPath = ''
-    if(os.contains('windows')) {
+    if (os.contains('windows')) {
         configurations.runtime.files.each { cpEntry ->
             osClassPath += '\\' + cpEntry.toString() + ' '
         }
@@ -953,7 +953,7 @@ def getJarManifestClasspathForCurrentOs() {
 def componentExistsInRegister(componentRegister, componentName) {
     def componentFound = false
     componentRegister.children().each { component ->
-        if(componentName.equals(component.@"component-location")) {
+        if (componentName.equals(component.@"component-location")) {
             componentFound = true
         }
     }
@@ -963,7 +963,7 @@ def componentExistsInRegister(componentRegister, componentName) {
 def subprojectExists(fullyQualifiedProject) {
     def projectFound = false
     subprojects.each { subproject ->
-        if(subproject.getPath().equals(fullyQualifiedProject.toString())) {
+        if (subproject.getPath().equals(fullyQualifiedProject.toString())) {
             projectFound = true
         }
     }
@@ -973,9 +973,9 @@ def subprojectExists(fullyQualifiedProject) {
 def taskExistsInproject(fullyQualifiedProject, taskName) {
     def taskExists = false
     subprojects.each { subProject ->
-        if(subProject.getPath().equals(fullyQualifiedProject.toString())) {
+        if (subProject.getPath().equals(fullyQualifiedProject.toString())) {
             subProject.tasks.each { projTask ->
-                if(taskName.equals(projTask.name)) {
+                if (taskName.equals(projTask.name)) {
                     taskExists = true
                 }
             }
@@ -989,12 +989,12 @@ def activatePlugin(pluginId) {
     def componentRegister = new XmlParser().parse(pluginLoadFile)
 
     // check that plugin directory exists.
-    if(!file("${pluginsDir}/${pluginId}").exists()) {
+    if (!file("${pluginsDir}/${pluginId}").exists()) {
         throw new GradleException("Cannot add plugin \"${pluginId}\", directory does not exist")
     }
 
     // only add plugin if it does not exist in component-load.xml
-    if(!componentExistsInRegister(componentRegister, pluginId)) {
+    if (!componentExistsInRegister(componentRegister, pluginId)) {
         componentRegister.appendNode('load-component', ['component-location':pluginId])
         groovy.xml.XmlUtil.serialize(componentRegister, new FileWriter(pluginLoadFile))
         println "Activated plugin ${pluginId}"
@@ -1008,7 +1008,7 @@ def deactivatePlugin(pluginId) {
     def componentRegister = new XmlParser().parse(pluginLoadFile)
 
     // Ensure that the plugin exists in component-load.xml then remove it
-    if(componentExistsInRegister(componentRegister, pluginId)) {
+    if (componentExistsInRegister(componentRegister, pluginId)) {
         componentRegister.children().removeIf { plugin ->
             pluginId.equals(plugin.@"component-location")
         }
