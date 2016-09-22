@@ -98,7 +98,7 @@
         <field name="textData" title="${uiLabelMap.EcommerceRespond}" map-name="rsp" widget-style="inputBox dojo-ResizableTextArea">
             <textarea cols="60" rows="12"/>
         </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+        <field name="statusId">
             <radio no-current-selected-key="CTNT_INITIAL_DRAFT">
                 <option key="CTNT_PUBLISHED" description="${uiLabelMap.ContentBlogPost}"/>
                 <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.ContentBlogPreview}"/>
@@ -165,7 +165,7 @@
         <field name="textData" title="${uiLabelMap.EcommerceRespond}" map-name="electronicText" widget-style="inputBox dojo-ResizableTextArea">
             <textarea cols="60" rows="12"/>
         </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+        <field name="statusId">
             <radio no-current-selected-key="CTNT_INITIAL_DRAFT">
                 <option key="CTNT_PUBLISHED" description="${uiLabelMap.ContentBlogPost}"/>
                 <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.ContentBlogPreview}"/>
