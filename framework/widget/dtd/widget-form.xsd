@@ -737,7 +737,12 @@ under the License.
             </xs:attribute>
             <xs:attribute type="xs:string" name="title">
                 <xs:annotation>
-                    <xs:documentation>The name of this field that will be shown to the user; can use the ${} and foo.bar (dot) syntax to insert values from the context for parameterization or internationalization.</xs:documentation>
+                    <xs:documentation>
+                        The name of this field that will be shown to the user. 
+                        It can use the ${} and foo.bar (dot) syntax to insert values from the context for parameterization or internationalization.
+                        
+                        Be sure a "FormFieldTitle_" labels does not already exist, else it will be overriden.
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="header-link">
