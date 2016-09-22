@@ -7,7 +7,7 @@ final class FilterJars implements JarScanFilter {
 
     @Override
     public boolean check(final JarScanType jarScanType, final String jarName) {
-        if (jarName.contains("discoverable")) {
+        if (jarName.contains("ofbiz.jar")) {
             return true; 
         } else {
             return false;
