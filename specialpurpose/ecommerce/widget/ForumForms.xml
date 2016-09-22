@@ -254,7 +254,7 @@ under the License.
         </field>
 
         <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><textarea rows="20" cols="60"/></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+        <field name="statusId" >
             <drop-down allow-empty="false" no-current-selected-key="SUBSCRIBE_BRONZE">
                 <list-options list-name="statusList" key-name="statusId"/>
             </drop-down>
@@ -359,7 +359,7 @@ under the License.
                 <entity-options entity-name="CharacterSet" key-field-name="characterSetId"/>
             </drop-down>
         </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+        <field name="statusId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
@@ -397,7 +397,7 @@ under the License.
                 <entity-options entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
             </drop-down>
         </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+        <field name="statusId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
@@ -580,7 +580,7 @@ under the License.
         <field name="privilegeEnumId" >
             <ignored />
         </field>
-        <field name="statusId"  title="${uiLabelMap.CommonStatus}">
+        <field name="statusId" >
             <hidden value="CTNT_PUBLISHED"/>
         </field>
         <field name="contentAssocTypeId" >
