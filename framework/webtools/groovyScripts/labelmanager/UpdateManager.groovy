@@ -21,7 +21,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.webtools.labelmanager.*;
 
 LabelManagerFactory factory = LabelManagerFactory.getInstance();
-factory.findMatchingLabels(null, parameters.sourceFileName, parameters.sourceKey, null)
+factory.findMatchingLabels(null, parameters.sourceFileName, parameters.sourceKey, null, false)
 context.labels = factory.getLabels();
 context.localesFound = factory.getLocalesFound();
 context.filesFound = factory.getFilesFound();

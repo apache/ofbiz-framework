@@ -22,7 +22,7 @@ import org.apache.ofbiz.webtools.labelmanager.*;
 
 LabelManagerFactory factory = LabelManagerFactory.getInstance();
 context.factory = factory;
-factory.findMatchingLabels(parameters.labelComponentName, parameters.labelFileName, parameters.sourceKey, parameters.labelLocaleName)
+factory.findMatchingLabels(parameters.labelComponentName, parameters.labelFileName, parameters.sourceKey, parameters.labelLocaleName, false)
 context.labels = factory.getLabels();
 context.labelsList = factory.getLabelsList();
 context.localesFound = factory.getLocalesFound();
