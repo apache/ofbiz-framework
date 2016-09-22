@@ -2339,7 +2339,7 @@ under the License.
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.ScrumSprintMemberList}">
-                                    <include-form location="component://scrum/widget/scrumForms.xml" name=ListSprintMemberNoAction"/>
+                                    <include-form location="component://scrum/widget/scrumForms.xml" name="ListSprintMemberNoAction"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
