@@ -135,7 +135,7 @@ under the License.
             <property name="compression" value="on"/>
             <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css,application/json"/>
             <!-- SSL connector attributes -->
-            <property name="sslImplementationName" value="org.apache.ofbiz.catalina.container.SSLImpl"/>
+            <property name="sslImplementationName" value="org.apache.tomcat.util.net.jsse.JSSEImplementation"/>
             <property name="algorithm" value="SunX509"/>
             <!-- the clientAuth to "want" in order to receive certs from the client;
                 note that this isn't set this way by default because with certain browsers
@@ -202,7 +202,7 @@ under the License.
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
             <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css,application/json"/>
-            <property name="sslImplementationName" value="org.apache.ofbiz.catalina.container.SSLImpl"/>
+            <property name="sslImplementationName" value="org.apache.tomcat.util.net.jsse.JSSEImplementation"/>
             <property name="algorithm" value="SunX509"/>
             <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
             <property name="keystorePass" value="changeit"/>
