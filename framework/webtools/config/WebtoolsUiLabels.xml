@@ -2843,18 +2843,6 @@
         <value xml:lang="zh">Java类型</value>
         <value xml:lang="zh-TW">JAVA類型</value>
     </property>
-    <property key="WebtoolsJavaVersionIs5">
-        <value xml:lang="de">Hinweis: Einige Funktionen benötigen Java 5; ist die Java-Version [${javaVer}] tatsächlich 5 oder höher?</value>
-        <value xml:lang="en">Note: certain things only work in Java 5. Java Version is ${javaVer}; is Java 5 ?</value>
-        <value xml:lang="fr">Note: certaines choses ne fonctionnent qu'avec Java 5. La version de Java est: ${javaVer}; c'est Java 5 ?</value>
-        <value xml:lang="it">Nota: certe cose funzionano solo con Java 5. Versione Java è ${javaVer}; è Java 5 ?</value>
-        <value xml:lang="ja">注意: Java 5 でのみ実行可能です。Java バージョンは ${javaVer}</value>
-        <value xml:lang="pt">Nota: certas coisas sÃ³ funcionam em Java 5. A versÃ£o Java Ã© de R ${javaVer}; Ã© Java 5?</value>
-        <value xml:lang="th">หมายเหตุ: การทำงานบางอย่างจะต้องทำใน Java 5. Java เวอร์ชันที่${javaVer};  Java 5 ?</value>
-        <value xml:lang="vi">Ghi chú: chỉ thực hiện được trên Java 5. Phiên bản Java của bạn ${javaVer} có phải là Java 5?</value>
-        <value xml:lang="zh">注意：某些程序只能运行在Java 5下。Java版本是${javaVer}；是Java 5吗？</value>
-        <value xml:lang="zh-TW">注意:某些程式只能執行在JAVA 5下.JAVA版本是${javaVer};是JAVA 5嗎？</value>
-    </property>
     <property key="WebtoolsJob">
         <value xml:lang="de">Job</value>
         <value xml:lang="en">Job</value>
