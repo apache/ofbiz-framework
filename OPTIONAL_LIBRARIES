@@ -4,17 +4,7 @@ by code in OFBiz but that are left out of SVN because of licensing issues.
 What is below is a list of jar files and where to put them, and the file(s)
 to change to include them in the OFBiz build and/or run-time configuration.
 
-NOTE: While these aren't included in the main SVN repository they are available
-on the old Undersun SVN server in the specialized/libraries component directory.
-
 -=- Reporting: ________________________________________________________________________________________________________________________________________________
-
-- JIMI (used by FOP ):
-  http://java.sun.com/products/jimi
-    FOP may require a library called JIMI to print certain graphical formats such as GIFs.  Jimi is a Sun library which cannot
-    be included in OFBIZ due to licensing incompatibility, but you can download it yourself at: http://java.sun.com/products/jimi/
-    and rename the ZIP file that comes with it as jimi-xxx.jar, then copy it into the same directory as fop.jar, which at this time
-    is ${ofbiz.home}/framework/webapp/lib/
 
 -=- Accounting: Payment Processing ____________________________________________________________________________________________________________________________
 
@@ -22,15 +12,18 @@ on the old Undersun SVN server in the specialized/libraries component directory.
   applications/accounting/lib/cybersource:
     cybsclients.jar
     cybssecurity.jar
-  TO BUILD comment out exclude: applications/accounting/build.xml:org/apache/ofbiz/accounting/thirdparty/cybersource/**
+  TO BUILD comment out the following line in build.gradle:
+    excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/cybersource/IcsPaymentServices.java'
 
 -Securepay
   applications/accounting/lib/cybersource:
-  Base64.jar
-  securepayxmlapi_obf.jar
-  xercesImpl-2.4.0.jar
-  xmlParserAPIs-2.4.0.jar
-  TO BUILD comment out exclude: applications/accounting/build.xml:org/apache/ofbiz/accounting/thirdparty/securepay/**
+    Base64.jar
+    securepayxmlapi_obf.jar
+    xercesImpl-2.4.0.jar
+    xmlParserAPIs-2.4.0.jar
+  TO BUILD comment out the following lines in build.gradle:
+    excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayPaymentServices.java'
+    excludedJavaSources.add 'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java'
 
 -WorldPay
   applications/accounting/lib/worldpay:
@@ -50,4 +43,3 @@ on the old Undersun SVN server in the specialized/libraries component directory.
     readme.txt
     select.jar
     select.properties
-  TO BUILD comment out exclude: applications/accounting/build.xml:org/apache/ofbiz/accounting/thirdparty/worldpay/**
