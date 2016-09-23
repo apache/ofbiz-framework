@@ -75,40 +75,39 @@ public class EntitySaxReader extends DefaultHandler {
     public static final int DEFAULT_TX_TIMEOUT = 7200;
 
     protected org.xml.sax.Locator locator;
-    protected Delegator delegator;
-    protected EntityEcaHandler<?> ecaHandler = null;
-    protected GenericValue currentValue = null;
-    protected CharSequence currentFieldName = null;
+    private Delegator delegator;
+    private EntityEcaHandler<?> ecaHandler = null;
+    private GenericValue currentValue = null;
+    private CharSequence currentFieldName = null;
     private char[] currentFieldValue = null;
-    protected long numberRead = 0;
-    protected long numberCreated = 0;
-    protected long numberUpdated = 0;
-    protected long numberReplaced = 0;
-    protected long numberDeleted = 0;
-    protected long numberSkipped = 0;
+    private long numberRead = 0;
+    private long numberCreated = 0;
+    private long numberUpdated = 0;
+    private long numberReplaced = 0;
+    private long numberDeleted = 0;
+    private long numberSkipped = 0;
 
-    protected int valuesPerWrite = 100;
-    protected int valuesPerMessage = 1000;
-    protected int transactionTimeout = 7200;
-    protected boolean useTryInsertMethod = false;
-    protected boolean maintainTxStamps = false;
-    protected boolean createDummyFks = false;
-    protected boolean checkDataOnly = false;
-    protected boolean disableEeca = false;
-    protected enum Action {CREATE, CREATE_UPDATE, CREATE_REPLACE, DELETE}; 
-    protected List<String> actionTags = UtilMisc.toList("create", "create-update", "create-replace", "delete");
-    protected Action currentAction = Action.CREATE_UPDATE;
-    protected List<Object> messageList = null;
+    private int valuesPerWrite = 100;
+    private int valuesPerMessage = 1000;
+    private int transactionTimeout = 7200;
+    private boolean useTryInsertMethod = false;
+    private boolean maintainTxStamps = false;
+    private boolean createDummyFks = false;
+    private boolean checkDataOnly = false;
+    private enum Action {CREATE, CREATE_UPDATE, CREATE_REPLACE, DELETE};
+    private List<String> actionTags = UtilMisc.toList("create", "create-update", "create-replace", "delete");
+    private Action currentAction = Action.CREATE_UPDATE;
+    private List<Object> messageList = null;
 
-    protected List<GenericValue> valuesToWrite = new ArrayList<>(valuesPerWrite);
-    protected List<GenericValue> valuesToDelete = new ArrayList<>(valuesPerWrite);
+    private List<GenericValue> valuesToWrite = new ArrayList<>(valuesPerWrite);
+    private List<GenericValue> valuesToDelete = new ArrayList<>(valuesPerWrite);
 
-    protected boolean isParseForTemplate = false;
-    protected CharSequence templatePath = null;
-    protected Node rootNodeForTemplate = null;
-    protected Node currentNodeForTemplate = null;
-    protected Document documentForTemplate = null;
-    protected Map<String, Object> placeholderValues = null; //contains map of values for corresponding placeholders (eg. ${key}) in the entity xml data file.
+    private boolean isParseForTemplate = false;
+    private CharSequence templatePath = null;
+    private Node rootNodeForTemplate = null;
+    private Node currentNodeForTemplate = null;
+    private Document documentForTemplate = null;
+    private Map<String, Object> placeholderValues = null; //contains map of values for corresponding placeholders (eg. ${key}) in the entity xml data file.
 
     protected EntitySaxReader() {}
 
@@ -161,7 +160,6 @@ public class EntitySaxReader extends DefaultHandler {
     }
 
     public void setDisableEeca(boolean disableEeca) {
-        this.disableEeca = disableEeca;
         if (disableEeca) {
             if (this.ecaHandler == null) {
                 this.ecaHandler = delegator.getEntityEcaHandler();
@@ -174,12 +172,8 @@ public class EntitySaxReader extends DefaultHandler {
         }
     }
 
-    public void setAction(Action action) {
+    private void setAction(Action action) {
         this.currentAction = action;
-    }
-
-    public Action getAction() {
-        return this.currentAction;
     }
 
     public long parse(String content) throws SAXException, java.io.IOException {
@@ -213,7 +207,7 @@ public class EntitySaxReader extends DefaultHandler {
         return numberRead;
     }
 
-    public long parse(InputStream is, String docDescription) throws SAXException, java.io.IOException {
+    private long parse(InputStream is, String docDescription) throws SAXException, java.io.IOException {
         SAXParser parser;
         try {
             parser = SAXParserFactory.newInstance().newSAXParser();
@@ -257,7 +251,7 @@ public class EntitySaxReader extends DefaultHandler {
         return numberRead;
     }
 
-    protected void writeValues(List<GenericValue> valuesToWrite) throws GenericEntityException {
+    private void writeValues(List<GenericValue> valuesToWrite) throws GenericEntityException {
         if (this.checkDataOnly) {
             EntityDataAssert.checkValueList(valuesToWrite, delegator, this.getMessageList());
         } else {
