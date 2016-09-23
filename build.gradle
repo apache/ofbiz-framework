@@ -801,10 +801,10 @@ task gitInfoFooter(group: committerGroup, description: 'Update the Git Branch-re
     revision = revisionOutput.toString()
     gitFooterFile.delete()
     gitFooterFile.createNewFile()
-    gitFooterFile << '${uiLabelMap.Branch} : ' + "${branch}" + System.lineSeparator()
-    gitFooterFile << '${uiLabelMap.Revision} : ' + "${revision}" + System.lineSeparator()
-    gitFooterFile << '${uiLabelMap.BuiltOn} : ' + "${timestamp}" + System.lineSeparator()
-    gitFooterFile << '${uiLabelMap.JavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
+    gitFooterFile << '${uiLabelMap.CommonBranch} : ' + "${branch}" + System.lineSeparator()
+    gitFooterFile << '${uiLabelMap.CommonRevision} : ' + "${revision}" + System.lineSeparator()
+    gitFooterFile << '${uiLabelMap.CommonBuiltOn} : ' + "${timestamp}" + System.lineSeparator()
+    gitFooterFile << '${uiLabelMap.CommonJavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
 }
 
 task svnInfoFooter(group: committerGroup, description: 'Update the Subversion revision info in the footer if Subversion is used') << {
@@ -824,10 +824,10 @@ task svnInfoFooter(group: committerGroup, description: 'Update the Subversion re
     def info = new XmlParser().parseText(svnOutput.toString())
     svnFooterFile.delete()
     svnFooterFile.createNewFile()
-    svnFooterFile << '${uiLabelMap.Branch} : ' + "${info.entry.url.text()}" + System.lineSeparator()
-    svnFooterFile << '${uiLabelMap.Revision} : ' + "${info.entry.commit.@revision}" + System.lineSeparator()
-    svnFooterFile << '${uiLabelMap.BuiltOn} : ' + "${timestamp}" + System.lineSeparator()
-    svnFooterFile << '${uiLabelMap.JavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
+    svnFooterFile << '${uiLabelMap.CommonBranch} : ' + "${info.entry.url.text()}" + System.lineSeparator()
+    svnFooterFile << '${uiLabelMap.CommonRevision} : ' + "${info.entry.commit.@revision}" + System.lineSeparator()
+    svnFooterFile << '${uiLabelMap.CommonBuiltOn} : ' + "${timestamp}" + System.lineSeparator()
+    svnFooterFile << '${uiLabelMap.CommonJavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
 }
 
 /* ========================================================

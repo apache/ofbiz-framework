@@ -1363,6 +1363,10 @@
         <value xml:lang="zh-CN">让利</value>
         <value xml:lang="zh-TW">回報</value>
     </property>
+    <property key="CommonBranch">
+        <value xml:lang="en">branch</value>
+        <value xml:lang="fr">branche</value>
+    </property>
     <property key="CommonBuiltOn">
         <value xml:lang="en">built on</value>
         <value xml:lang="fr">compilée le</value>
@@ -5836,6 +5840,10 @@
         <value xml:lang="zh-CN">一月</value>
         <value xml:lang="zh-TW">一月</value>
     </property>
+    <property key="CommonJavaVersion">
+        <value xml:lang="en">with java version:</value>
+        <value xml:lang="fr">avec la version de Java : </value>
+    </property>
     <property key="CommonJuly">
         <value xml:lang="ar">يوليو</value>
         <value xml:lang="cs">Červenec</value>
@@ -9968,6 +9976,10 @@
         <value xml:lang="zh">评价</value>
         <value xml:lang="zh-CN">评论</value>
         <value xml:lang="zh-TW">評論</value>
+    </property>
+    <property key="CommonRevision">
+        <value xml:lang="en">revision</value>
+        <value xml:lang="fr">révision</value>
     </property>
     <property key="CommonRole">
         <value xml:lang="en">Role</value>
