@@ -99,7 +99,6 @@ dependencies {
     compile 'javax.el:javax.el-api:3.0.1-b04'
     compile 'javax.servlet:javax.servlet-api:3.1.0'
     compile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.0'
-    compile 'javolution:javolution:5.4.3'
     compile 'junit:junit-dep:4.10'
     compile 'net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11'
     compile 'org.apache.ant:ant-junit:1.9.0'
