@@ -32,7 +32,7 @@ public class DelegatorUnitTests {
 
     @Before
     public void initialize() {
-        System.setProperty("ofbiz.home", ".");
+        System.setProperty("ofbiz.home", System.getProperty("user.dir"));
         System.setProperty("derby.system.home", "./runtime/data/derby");
     }
 

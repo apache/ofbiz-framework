@@ -190,7 +190,7 @@ public class JsLanguageFileMappingCreator {
         // some magic to create a new java file: render it as FTL
         Writer writer = new StringWriter();
         try {
-            FreeMarkerWorker.renderTemplateAtLocation(template, mapWrapper, writer);
+            FreeMarkerWorker.renderTemplate(template, mapWrapper, writer);
             // write it as a Java file
             File file = new File(output);
             FileUtils.writeStringToFile(file, writer.toString(), encoding);

@@ -20,10 +20,7 @@ package org.apache.ofbiz.base.util.template;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 import java.io.Writer;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -39,6 +36,9 @@ import java.util.TimeZone;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import freemarker.cache.MultiTemplateLoader;
+import freemarker.cache.StringTemplateLoader;
+import freemarker.cache.TemplateLoader;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -101,8 +101,13 @@ public final class FreeMarkerWorker {
         }
         newConfig.setLocalizedLookup(false);
         newConfig.setSharedVariable("StringUtil", new BeanModel(StringUtil.INSTANCE, wrapper));
-        newConfig.setTemplateLoader(new FlexibleTemplateLoader());
-        newConfig.setAutoImports(UtilProperties.getProperties("freemarkerImports"));
+        TemplateLoader[] templateLoaders = {new FlexibleTemplateLoader(), new StringTemplateLoader()};
+        MultiTemplateLoader multiTemplateLoader = new MultiTemplateLoader(templateLoaders);
+        newConfig.setTemplateLoader(multiTemplateLoader);
+        Map freemarkerImports = UtilProperties.getProperties("freemarkerImports");
+        if (freemarkerImports != null) {
+            newConfig.setAutoImports(freemarkerImports);
+        }
         newConfig.setLogTemplateExceptions(false);
         newConfig.setTemplateExceptionHandler(new FreeMarkerWorker.OFBizTemplateExceptionHandler());
         try {
@@ -115,7 +120,7 @@ public final class FreeMarkerWorker {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Enumeration<URL> resources;
         try {
-            resources = loader.getResources("freemarkerTransforms.properties"); 
+            resources = loader.getResources("freemarkerTransforms.properties");
         } catch (IOException e) {
             Debug.logError(e, "Could not load list of freemarkerTransforms.properties", module);
             throw UtilMisc.initCause(new InternalError(e.getMessage()), e);
@@ -134,10 +139,7 @@ public final class FreeMarkerWorker {
         return newConfig;
     }
 
-    /**
-     * Public helper method.
-     */
-    public static void loadTransforms(ClassLoader loader, Properties props, Configuration config) {
+    private static void loadTransforms(ClassLoader loader, Properties props, Configuration config) {
         for (Iterator<Object> i = props.keySet().iterator(); i.hasNext();) {
             String key = (String) i.next();
             String className = props.getProperty(key);
@@ -153,43 +155,6 @@ public final class FreeMarkerWorker {
     }
 
     /**
-     * Renders a template at the specified location.
-     * @param templateLocation Location of the template - file path or URL
-     * @param context The context Map
-     * @param outWriter The Writer to render to
-     */
-    public static void renderTemplateAtLocation(String templateLocation, Map<String, Object> context, Appendable outWriter) throws MalformedURLException, TemplateException, IOException {
-        renderTemplate(templateLocation, context, outWriter);
-    }
-
-    /**
-     * Renders a template contained in a String.
-     * @param templateLocation A unique ID for this template - used for caching
-     * @param templateString The String containing the template
-     * @param context The context Map
-     * @param outWriter The Writer to render to
-     */
-    public static void renderTemplate(String templateLocation, String templateString, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
-        renderTemplate(templateLocation, templateString, context, outWriter, true);
-    }
-
-    /**
-     * Renders a template contained in a String.
-     * @param templateLocation A unique ID for this template - used for caching
-     * @param templateString The String containing the template
-     * @param context The context Map
-     * @param outWriter The Writer to render to
-     * @param useCache try to get template from cache
-     */
-    public static void renderTemplate(String templateLocation, String templateString, Map<String, Object> context, Appendable outWriter, boolean useCache) throws TemplateException, IOException {
-        if (templateString == null) {
-            renderTemplate(templateLocation, context, outWriter);
-        } else {
-            renderTemplateFromString(templateString, templateLocation, context, outWriter, useCache);
-        }
-    }
-
-    /**
      * Renders a template from a Reader.
      * @param templateLocation A unique ID for this template - used for caching
      * @param context The context Map
@@ -200,26 +165,30 @@ public final class FreeMarkerWorker {
         renderTemplate(template, context, outWriter);
     }
 
-    public static Environment renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter, boolean useCache) throws TemplateException, IOException {
+    public static void renderTemplateFromString(String templateName, String templateString, Map<String, Object> context, Appendable outWriter, long lastModificationTime, boolean useCache) throws TemplateException, IOException {
         Template template = null;
         if (useCache) {
-            template = cachedTemplates.get(templateLocation);
-            if (template == null) {
-                Reader templateReader = new StringReader(templateString);
-                template = new Template(templateLocation, templateReader, defaultOfbizConfig);
-                templateReader.close();
-                template = cachedTemplates.putIfAbsentAndGet(templateLocation, template);
-            }
-        } else {
-            Reader templateReader = new StringReader(templateString);
-            template = new Template(templateLocation, templateReader, defaultOfbizConfig);
-            templateReader.close();
+            template = cachedTemplates.get(templateName);
         }
-        return renderTemplate(template, context, outWriter);
+        if (template == null) {
+            StringTemplateLoader stringTemplateLoader = (StringTemplateLoader)((MultiTemplateLoader)defaultOfbizConfig.getTemplateLoader()).getTemplateLoader(1);
+            Object templateSource = stringTemplateLoader.findTemplateSource(templateName);
+            if (templateSource == null || stringTemplateLoader.getLastModified(templateSource) < lastModificationTime) {
+                stringTemplateLoader.putTemplate(templateName, templateString, lastModificationTime);
+            }
+        }
+
+        template = getTemplate(templateName);
+        renderTemplate(template, context, outWriter);
     }
 
     public static void clearTemplateFromCache(String templateLocation) {
         cachedTemplates.remove(templateLocation);
+        try {
+            defaultOfbizConfig.removeTemplateFromCache(templateLocation);
+        } catch(Exception e) {
+            Debug.logInfo("Template not found in Fremarker cache with name: " + templateLocation, module);
+        }
     }
 
     /**
@@ -249,7 +218,7 @@ public final class FreeMarkerWorker {
      * @param env An Environment instance
      * @param context The context Map containing the user settings
      */
-    public static void applyUserSettings(Environment env, Map<String, Object> context) throws TemplateException {
+    private static void applyUserSettings(Environment env, Map<String, Object> context) throws TemplateException {
         Locale locale = (Locale) context.get("locale");
         if (locale == null) {
             locale = Locale.getDefault();
@@ -509,6 +478,7 @@ public final class FreeMarkerWorker {
     static class FlexibleTemplateLoader extends URLTemplateLoader {
         @Override
         protected URL getURL(String name) {
+            if (name != null && name.startsWith("delegator:")) return null; // this is a template stored in the database
             URL locationUrl = null;
             try {
                 locationUrl = FlexibleLocation.resolveLocation(name);
@@ -520,8 +490,7 @@ public final class FreeMarkerWorker {
     }
 
     /**
-     * OFBiz specific TemplateExceptionHandler.  Sanitizes any error messages present in
-     * the stack trace prior to printing to the output writer.
+     * OFBiz specific TemplateExceptionHandler.
      */
     static class OFBizTemplateExceptionHandler implements TemplateExceptionHandler {
         public void handleTemplateException(TemplateException te, Environment env, Writer out) throws TemplateException {
@@ -532,9 +501,5 @@ public final class FreeMarkerWorker {
                 Debug.logError(e, module);
             }
         }
-    }
-
-    public static String encodeDoubleQuotes(String htmlString) {
-        return htmlString.replaceAll("\"", "\\\\\"");
     }
 }

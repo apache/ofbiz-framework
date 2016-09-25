@@ -64,7 +64,7 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
         // process the template & flush the output
         try {
             if (page.startsWith("component://")) {
-                FreeMarkerWorker.renderTemplateAtLocation(page, context, response.getWriter());
+                FreeMarkerWorker.renderTemplate(page, context, response.getWriter());
             } else {
                 // backwards compatibility
                 Template template = config.getTemplate(page);
