@@ -22,7 +22,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -45,6 +44,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
@@ -88,13 +89,9 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
 import org.apache.ofbiz.webtools.artifactinfo.ServiceArtifactInfo;
+import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import freemarker.ext.dom.NodeModel;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateHashModel;
 
 /**
  * WebTools Services
@@ -144,25 +141,16 @@ public class WebToolsServices {
         // FM Template
         // #############################
         if (UtilValidate.isNotEmpty(fmfilename) && (UtilValidate.isNotEmpty(fulltext) || url != null)) {
-            FileReader templateReader = null;
-            try {
-                templateReader = new FileReader(fmfilename);
-            } catch (FileNotFoundException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorReadingTemplateFile", UtilMisc.toMap("filename", fmfilename, "errorString", e.getMessage()), locale));
+            File fmFile = new File(fmfilename);
+            if (!fmFile.exists()) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorReadingTemplateFile", UtilMisc.toMap("filename", fmfilename, "errorString", "Template file not found."), locale));
             }
-
-            StringWriter outWriter = new StringWriter();
-
-            Template template = null;
             try {
-                Configuration conf = org.apache.ofbiz.base.util.template.FreeMarkerWorker.getDefaultOfbizConfig();
-                template = new Template("FMImportFilter", templateReader, conf);
-                Map<String, Object> fmcontext = new HashMap<String, Object>();
-
+                DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
                 InputSource ins = url != null ? new InputSource(url.openStream()) : new InputSource(new StringReader(fulltext));
-                NodeModel nodeModel;
+                Document doc;
                 try {
-                    nodeModel = NodeModel.parse(ins);
+                    doc = documentBuilder.parse(ins);
                 } finally {
                     if (ins.getByteStream() != null) {
                         ins.getByteStream().close();
@@ -171,11 +159,10 @@ public class WebToolsServices {
                         ins.getCharacterStream().close();
                     }
                 }
-                fmcontext.put("doc", nodeModel);
-                TemplateHashModel staticModels = FreeMarkerWorker.getDefaultOfbizWrapper().getStaticModels();
-                fmcontext.put("Static", staticModels);
-
-                template.process(fmcontext, outWriter);
+                StringWriter outWriter = new StringWriter();
+                Map<String, Object> fmcontext = new HashMap<>();
+                fmcontext.put("doc", doc);
+                FreeMarkerWorker.renderTemplate(fmFile.toURI().toURL().toString(), fmcontext, outWriter);
                 fulltext = outWriter.toString();
             } catch (Exception ex) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsErrorProcessingTemplateFile", UtilMisc.toMap("filename", fmfilename, "errorString", ex.getMessage()), locale));

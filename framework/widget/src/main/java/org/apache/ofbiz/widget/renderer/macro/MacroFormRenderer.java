@@ -173,6 +173,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
         return value;
     }
 
+    private static String encodeDoubleQuotes(String htmlString) {
+        return htmlString.replaceAll("\"", "\\\\\"");
+    }
+
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {
         String labelText = label.getText(context);
         if (UtilValidate.isEmpty(labelText)) {
@@ -218,7 +222,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" idName=\"");
         sr.append(idName);
         sr.append("\" description=\"");
-        sr.append(FreeMarkerWorker.encodeDoubleQuotes(description));
+        sr.append(encodeDoubleQuotes(description));
         sr.append("\" title=\"");
         sr.append(title);
         sr.append("\" class=\"");
@@ -1276,7 +1280,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                     sr.append(" name=\"");
                     sr.append(modelFormField.getModelForm().getName());
                     sr.append("\" title=\"");
-                    sr.append(FreeMarkerWorker.encodeDoubleQuotes(title));
+                    sr.append(encodeDoubleQuotes(title));
                     sr.append("\" />");
                     executeMacro(writer, sr.toString());
                 } else if (modelFormField.isSortField()) {
@@ -1316,7 +1320,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 String helpText = UtilHelpText.getEntityFieldDescription(entityName, fieldName, delegator, locale);
 
                 sr.append("\" fieldHelpText=\"");
-                sr.append(FreeMarkerWorker.encodeDoubleQuotes(helpText));
+                sr.append(encodeDoubleQuotes(helpText));
             }
             sr.append("\" title=\"");
             sr.append(sb.toString());
@@ -3005,7 +3009,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         StringWriter sr = new StringWriter();
         sr.append("<@renderTooltip ");
         sr.append("tooltip=\"");
-        sr.append(FreeMarkerWorker.encodeDoubleQuotes(tooltip));
+        sr.append(encodeDoubleQuotes(tooltip));
         sr.append("\" tooltipStyle=\"");
         sr.append(modelFormField.getTooltipStyle());
         sr.append("\" />");

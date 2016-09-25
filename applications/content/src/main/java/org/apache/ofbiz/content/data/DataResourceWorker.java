@@ -29,6 +29,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
+import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -578,7 +579,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         if (dataResource != null) {
             String dataTemplateTypeId = dataResource.getString("dataTemplateTypeId");
             if ("FTL".equals(dataTemplateTypeId)) {
-                FreeMarkerWorker.clearTemplateFromCache(delegator.getDelegatorName() + ":DataResource:" + dataResourceId);
+                FreeMarkerWorker.clearTemplateFromCache("delegator:" + delegator.getDelegatorName() + ":DataResource:" + dataResourceId);
             }
         }
     }
@@ -656,7 +657,8 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
 
                     // render the FTL template
                     boolean useTemplateCache = cache && !UtilProperties.getPropertyAsBoolean("content", "disable.ftl.template.cache", false);
-                    FreeMarkerWorker.renderTemplate(delegator.getDelegatorName() + ":DataResource:" + dataResourceId, templateText, templateContext, out, useTemplateCache);
+                    Timestamp lastUpdatedStamp = dataResource.getTimestamp("lastUpdatedStamp");
+                    FreeMarkerWorker.renderTemplateFromString("delegator:" + delegator.getDelegatorName() + ":DataResource:" + dataResourceId, templateText, templateContext, out, lastUpdatedStamp.getTime(), useTemplateCache);
                 } catch (TemplateException e) {
                     throw new GeneralException("Error rendering FTL template", e);
                 }
@@ -899,7 +901,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         String location = mimeTypeTemplate.getString("templateLocation");
         StringWriter writer = new StringWriter();
         try {
-            FreeMarkerWorker.renderTemplateAtLocation(location, context, writer);
+            FreeMarkerWorker.renderTemplate(location, context, writer);
         } catch (TemplateException e) {
             throw new GeneralException(e.getMessage(), e);
         }
