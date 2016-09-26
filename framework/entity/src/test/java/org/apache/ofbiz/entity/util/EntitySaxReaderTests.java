@@ -33,7 +33,7 @@ public class EntitySaxReaderTests {
         EntitySaxReader esr = new EntitySaxReader(delegator); // create a reader with default tx timeout
         verify(delegator).cloneDelegator();
         verifyNoMoreInteractions(delegator);
-        assertEquals(esr.DEFAULT_TX_TIMEOUT, esr.getTransactionTimeout());
+        assertEquals(EntitySaxReader.DEFAULT_TX_TIMEOUT, esr.getTransactionTimeout());
     }
 
     @Test
