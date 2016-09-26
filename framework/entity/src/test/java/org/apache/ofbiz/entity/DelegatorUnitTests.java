@@ -68,16 +68,15 @@ public class DelegatorUnitTests {
 
     @Test
     public void delegatorCreationUsingFactoryGetDelegator() {
-        DelegatorFactory df = new DelegatorFactoryImpl();
-        Delegator delegator = df.getDelegator("default");
+        Delegator delegator = DelegatorFactory.getDelegator("default");
         assertNotNull(delegator);
         assertTrue(delegator instanceof GenericDelegator);
         assertEquals(delegator.getOriginalDelegatorName(), "default");
         assertEquals(delegator.getDelegatorBaseName(), "default");
         assertEquals(delegator.getDelegatorName(), "default");
-        Delegator delegatorWithSameName = df.getDelegator("default");
+        Delegator delegatorWithSameName = DelegatorFactory.getDelegator("default");
         assertSame(delegator, delegatorWithSameName);
-        Delegator delegatorWithNullName = df.getDelegator(null);
+        Delegator delegatorWithNullName = DelegatorFactory.getDelegator(null);
         assertSame(delegator, delegatorWithNullName);
     }
 
