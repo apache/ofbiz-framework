@@ -144,7 +144,7 @@ under the License.
     <!-- Should be called in-line to use its out parameter indicating whether the user has permission or not. -->
     <simple-method method-name="checkSupplierRelatedPermission" short-description="Check Supplier Related Permission">
         <if-empty field="callingMethodName">
-            <set value="this operation" field="callingMethodName"/>
+            <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="callingMethodName"/>
         </if-empty>
         <if-empty field="checkAction">
             <set value="UPDATE" field="checkAction"/>
