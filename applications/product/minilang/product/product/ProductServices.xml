@@ -642,7 +642,7 @@ under the License.
         call-simple-method, and the checkAction and callingMethodName attributes should be in the method context -->
     <simple-method method-name="checkProductRelatedPermission" short-description="Check Product Related Permission">
         <if-empty field="callingMethodName">
-            <set value="this operation" field="callingMethodName"/>
+            <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="callingMethodName"/>
         </if-empty>
         <if-empty field="checkAction">
             <set value="UPDATE" field="checkAction"/>

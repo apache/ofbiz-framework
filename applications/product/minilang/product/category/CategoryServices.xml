@@ -650,7 +650,7 @@ under the License.
         call-simple-method, and the checkAction and callingMethodName attributes should be in the method context -->
     <simple-method method-name="checkCategoryRelatedPermission" short-description="Check Product Category Related Permission">
         <if-empty field="callingMethodName">
-            <set field="callingMethodName" value="this operation"/>
+            <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="callingMethodName"/>
         </if-empty>
         <if-empty field="checkAction">
             <set field="checkAction" value="UPDATE"/>
@@ -740,7 +740,11 @@ under the License.
         <set field="hasPermission" type="Boolean" value="true"/>
 
         <!--  Set up for a call to checkCategoryRelatedPermission below, but callingMethodName is needed sooner -->
-        <set field="callingMethodName" from-field="parameters.resourceDescription" default-value="this operation"/>
+        <set field="resourceDescription" from-field="parameters.resourceDescription"/>
+        <if-empty field="resourceDescription">
+            <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="resourceDescription"/>
+        </if-empty>
+        <set field="callingMethodName" from-field="resourceDescription"/>
         <set field="checkAction" from-field="parameters.mainAction" default-value="UPDATE"/>
 
         <entity-condition list="prodCatalogCategoryList" entity-name="ProdCatalogCategory" filter-by-date="true">
