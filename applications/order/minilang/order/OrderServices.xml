@@ -545,7 +545,7 @@ under the License.
             </add-error>
         </if-empty>
         <check-errors/>
-        <set-nonpk-fields value-field="orderHeader" map="parameters"/>
+        <set-nonpk-fields value-field="orderHeader" map="parameters" set-if-null="false"/>
         <store-value value-field="orderHeader"/>
     </simple-method>
 
