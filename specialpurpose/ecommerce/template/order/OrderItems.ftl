@@ -21,9 +21,11 @@ under the License.
 <#-- the "urlPrefix" value will be prepended to URLs by the ofbizUrl transform if/when there is no "request" object in the context -->
 <#if baseEcommerceSecureUrl??><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
 <div class="screenlet">
-  <form name="addCommonToCartForm" action="<@ofbizUrl>addordertocart/orderstatus</@ofbizUrl>" method="post">
-    <input type="hidden" name="add_all" value="false" />
-    <input type="hidden" name="orderId" value="${orderHeader.orderId}" />
+    <#if maySelectItems?default("N") == "Y" >
+      <form name="addCommonToCartForm" action="<@ofbizUrl>addordertocart/orderstatus</@ofbizUrl>" method="post">
+        <input type="hidden" name="add_all" value="false" />    
+            <input type="hidden" name="orderId" value="${orderHeader.orderId}" />
+    </#if>
   <h3>
     <#assign numColumns = 8>
     ${uiLabelMap.OrderOrderItems}
@@ -340,5 +342,7 @@ under the License.
       </tr>
     </tbody>
   </table>
-  </form>
+    <#if maySelectItems?default("N") == "Y" >
+        </form>
+     </#if>
 </div>
