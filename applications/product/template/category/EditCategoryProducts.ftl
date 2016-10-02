@@ -84,8 +84,8 @@ under the License.
                         <input type="hidden" name="productId${suffix}" value="${(productCategoryMember.productId)!}" />
                         <input type="hidden" name="productCategoryId${suffix}" value="${(productCategoryMember.productCategoryId)!}" />
                         <input type="hidden" name="fromDate${suffix}" value="${(productCategoryMember.fromDate)!}" />
-                        <#if hasExpired><#assign class="alert"></#if>
-                        <@htmlTemplate.renderDateTimeField name="thruDate${suffix}" event="" action="" className="${class!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(productCategoryMember.thruDate)!}" size="25" maxlength="30" id="thruDate${suffix}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                        <#if hasExpired><#assign class="alert"><#else><#assign class=""></#if>
+                        <@htmlTemplate.renderDateTimeField name="thruDate${suffix}" event="" action="" className="${class!}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(productCategoryMember.thruDate)!}" size="25" maxlength="30" id="thruDate${suffix}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <input type="text" size="5" name="sequenceNum${suffix}" value="${(productCategoryMember.sequenceNum)!}" />
                         <input type="text" size="5" name="quantity${suffix}" value="${(productCategoryMember.quantity)!}" />
                         <br />
