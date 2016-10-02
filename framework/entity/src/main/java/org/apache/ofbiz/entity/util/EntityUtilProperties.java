@@ -79,7 +79,7 @@ public final class EntityUtilProperties implements Serializable {
                 return results;
             }
         } catch (Exception e) {
-            Debug.logWarning("Could not get a system property for " + name + " : " + e.getMessage(), module);
+            Debug.logInfo("Could not get a system property for " + name + " : " + e.getMessage(), module);
         }
         return results;
     }
