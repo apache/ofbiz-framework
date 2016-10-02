@@ -46,8 +46,8 @@ under the License.
                             <input type="hidden" name="productStoreId" value="${productStorePromoAppl.productStoreId}" />
                             <input type="hidden" name="productPromoId" value="${productStorePromoAppl.productPromoId}" />
                             <input type="hidden" name="fromDate" value="${productStorePromoAppl.fromDate}" />
-                            <#if hasExpired><#assign class="alert"></#if>
-                            <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="${class!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(productStorePromoAppl.thruDate)!}" size="25" maxlength="30" id="thruDate_${productStorePromoAppl_index}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                            <#if hasExpired><#assign class="alert"><#else><#assign class=""></#if>
+                            <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="${class!}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(productStorePromoAppl.thruDate)!}" size="25" maxlength="30" id="thruDate_${productStorePromoAppl_index}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                             <input type="text" size="5" name="sequenceNum" value="${(productStorePromoAppl.sequenceNum)!}" />
                             <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                         </form>
