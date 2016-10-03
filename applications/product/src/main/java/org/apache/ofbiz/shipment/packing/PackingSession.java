@@ -621,7 +621,6 @@ public class PackingSession implements java.io.Serializable {
     }
 
     public String complete(boolean force) throws GeneralException {
-        // clear out empty lines
         // check to see if there is anything to process
         if (this.getLines().size() == 0) {
             return "EMPTY";

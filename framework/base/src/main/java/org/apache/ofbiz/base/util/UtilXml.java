@@ -421,7 +421,6 @@ public final class UtilXml {
 
         long startTime = System.currentTimeMillis();
 
-        // DON'T do this: seems to be causing problems with Catalina/Tomcat, maybe it is expecting a different parser?
         Document document = null;
 
         /* Standard JAXP (mostly), but doesn't seem to be doing XML Schema validation, so making sure that is on... */

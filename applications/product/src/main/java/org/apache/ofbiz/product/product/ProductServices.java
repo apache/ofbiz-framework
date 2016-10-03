@@ -22,8 +22,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.lang.NullPointerException;
-import java.lang.SecurityException;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
@@ -38,7 +36,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import org.jdom.JDOMException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -63,6 +60,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.jdom.JDOMException;
 
 /**
  * Product Services
@@ -138,6 +136,8 @@ public class ProductServices {
      * Finds product variants based on a product ID and a distinct feature.
      */
     public static Map<String, Object> prodFindDistinctVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
+        // * String productId      -- Parent (virtual) product ID
+        // * String feature        -- Distinct feature name
         //TODO This service has not yet been implemented.
         return ServiceUtil.returnFailure();
     }
@@ -340,6 +340,8 @@ public class ProductServices {
      * Gets the product features of a product.
      */
     public static Map<String, Object> prodGetFeatures(DispatchContext dctx, Map<String, ? extends Object> context) {
+        // String type          -- Type of feature (STANDARD_FEATURE, SELECTABLE_FEATURE)
+        // String distinct      -- Distinct feature (SIZE, COLOR)
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = new HashMap<String, Object>();
         String productId = (String) context.get("productId");
@@ -415,6 +417,7 @@ public class ProductServices {
      * Finds associated products by product ID and association ID.
      */
     public static Map<String, Object> prodFindAssociatedByType(DispatchContext dctx, Map<String, ? extends Object> context) {
+        // String type -- Type of association (ie PRODUCT_UPGRADE, PRODUCT_COMPLEMENT, PRODUCT_VARIANT) 
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = new HashMap<String, Object>();
         String productId = (String) context.get("productId");
@@ -873,7 +876,7 @@ public class ProductServices {
     }
 
     public static Map<String, Object> updateProductIfAvailableFromShipment(DispatchContext dctx, Map<String, ? extends Object> context) {
-    	Delegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         if ("Y".equals(EntityUtilProperties.getPropertyValue("catalog", "reactivate.product.from.receipt", "N", delegator))) {
             LocalDispatcher dispatcher = dctx.getDispatcher();
             GenericValue userLogin = (GenericValue) context.get("userLogin");
