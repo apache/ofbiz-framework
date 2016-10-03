@@ -37,20 +37,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="NetBeforeOverheadReport">
-        <section>
-            <actions>
-                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
-            </actions>
-            <widgets>
-                <screenlet title="${uiLabelMap.BirtOrderReportNetBeforeOverheadReport}">
-                    <include-form name="NetBeforeOverheadReport" location="component://birt/widget/order/OrderForms.xml"/>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="ProductDemandReport">
         <section>
             <actions>
@@ -133,21 +119,6 @@ under the License.
                 <screenlet title="${uiLabelMap.BirtOrderReportSalesReport}">                
                     <platform-specific>
                         <xml><html-template location="component://order/webapp/ordermgr/reports/SalesReport.rptdesign"/></xml>
-                    </platform-specific>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="NetBeforeOverheadOrderReport">
-        <section>
-            <actions>
-                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>                
-            </actions>
-            <widgets>
-                <screenlet title="${uiLabelMap.BirtOrderReportNetBeforeOverheadReport}">
-                    <platform-specific>
-                        <xml><html-template location="component://order/webapp/ordermgr/reports/NetBeforeOverheadReport.rptdesign"/></xml>
                     </platform-specific>
                 </screenlet>
             </widgets>
