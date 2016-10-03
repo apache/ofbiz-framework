@@ -108,11 +108,6 @@
         <value xml:lang="fr">Ventes des 3 derniers mois</value>
         <value xml:lang="zh">最近3个月的销售报告</value>
     </property>
-    <property key="BirtOrderReportNetBeforeOverheadReport">
-        <value xml:lang="en">Net Before Overhead Report</value>
-        <value xml:lang="fr">Net avant frais généraux</value>
-        <value xml:lang="zh">计入制造费用前的净值报表</value>
-    </property>
     <property key="BirtOrderReportProductDemandReport">
         <value xml:lang="en">Product Demand Report</value>
         <value xml:lang="fr">Demandes par produit</value>

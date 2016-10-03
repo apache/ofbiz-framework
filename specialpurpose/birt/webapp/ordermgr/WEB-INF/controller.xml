@@ -81,10 +81,6 @@ under the License.
         <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
         <response name="success" type="view" value="SalesOrderReportMonthHTML"/>
     </request-map>
-    <request-map uri="NetBeforeOverheadReport.pdf"><security https="true" auth="true"/>
-        <event type="groovy" path="component://birt/groovyScripts/order/NetBeforeOverheadReport.groovy"/>
-        <response name="success" type="view" value="NetBeforeOverheadOrderReport"/>
-    </request-map>
     <request-map uri="ProductDemandReport.pdf"><security https="true" auth="true"/>
         <event type="groovy" path="component://birt/groovyScripts/order/ProductDemandReport.groovy"/>
         <response name="success" type="view" value="ProductDemandOrderReport"/>
@@ -119,7 +115,6 @@ under the License.
     <view-map name="SalesOrderReportHTML" type="birt" page="component://birt/webapp/ordermgr/reports/SalesReport.rptdesign" content-type="text/html"/>
     <view-map name="SalesOrderReportWeekHTML" type="birt" page="component://birt/webapp/ordermgr/reports/SalesReportWeek.rptdesign" content-type="text/html"/>
     <view-map name="SalesOrderReportMonthHTML" type="birt" page="component://birt/webapp/ordermgr/reports/SalesReportMonth.rptdesign" content-type="text/html"/>
-    <view-map name="NetBeforeOverheadOrderReport" type="birt" page="component://birt/webapp/ordermgr/reports/NetBeforeOverheadReport.rptdesign" content-type="application/pdf"/>
     <view-map name="ProductDemandOrderReport" type="birt" page="component://birt/webapp/ordermgr/reports/ProductDemandReport.rptdesign" content-type="application/pdf"/>
     <view-map name="OrdersByChannelReport" type="birt" page="component://birt/webapp/ordermgr/reports/OrdersByChannel.rptdesign" content-type="application/pdf"/>
     <view-map name="SaleOrderDiscountCodeReport" type="birt" page="component://birt/webapp/ordermgr/reports/OrderDiscountCodeReport.rptdesign" content-type="application/pdf"/>

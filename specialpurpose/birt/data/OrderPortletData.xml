@@ -58,14 +58,6 @@
     <PortletPortletCategory portalPortletId="SalesReport" portletCategoryId="REPORT"/>
     <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="SalesReport" portletSeqId="00001" columnSeqId="00002" sequenceNum="10"/>
 
-    <PortalPortlet portalPortletId="NBO_Report"
-                   portletName="Net Before Overhead Report"
-                   screenName="NetBeforeOverheadReport"
-                   screenLocation="component://birt/widget/order/OrderScreens.xml"
-                   description=""/>
-    <PortletPortletCategory portalPortletId="NBO_Report" portletCategoryId="REPORT"/>
-    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="NBO_Report" portletSeqId="00001" columnSeqId="00002" sequenceNum="11"/>
-
     <PortalPortlet portalPortletId="PDR_Report"
                    portletName="Product Demand Report"
                    screenName="ProductDemandReport"

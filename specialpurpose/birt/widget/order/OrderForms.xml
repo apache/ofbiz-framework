@@ -43,18 +43,6 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="NetBeforeOverheadReport" type="single" target="NetBeforeOverheadReport.pdf" title=""
-          header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
-        <field name="productStoreId">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
-                    <entity-order-by field-name="storeName"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
-
     <form name="ProductDemandReport" type="single" target="ProductDemandReport.pdf" title=""
           header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
         <field name="productStoreId">
