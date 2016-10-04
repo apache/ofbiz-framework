@@ -406,4 +406,64 @@ under the License.
         <description>Delete a ReturnHeaderType record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <service name="createReturnItemType" engine="entity-auto" invoke="create" default-entity-name="ReturnItemType" auth="true">
+        <description>Create a ReturnItemType record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateReturnItemType" engine="entity-auto" invoke="update" default-entity-name="ReturnItemType" auth="true">
+        <description>Update a ReturnItemType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteReturnItemType" engine="entity-auto" invoke="delete" default-entity-name="ReturnItemType" auth="true">
+        <description>Delete a ReturnItemType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createReturnItemTypeMap" engine="entity-auto" invoke="create" default-entity-name="ReturnItemTypeMap" auth="true">
+        <description>Create a ReturnItemTypeMap record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateReturnItemTypeMap" engine="entity-auto" invoke="update" default-entity-name="ReturnItemTypeMap" auth="true">
+        <description>Update a ReturnItemTypeMap record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteReturnItemTypeMap" engine="entity-auto" invoke="delete" default-entity-name="ReturnItemTypeMap" auth="true">
+        <description>Delete a ReturnItemTypeMap record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createReturnReason" engine="entity-auto" invoke="create" default-entity-name="ReturnReason" auth="true">
+        <description>Create a ReturnReason record</description>
+        <auto-attributes include="pk" mode="INOUT"  optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateReturnReason" engine="entity-auto" invoke="update" default-entity-name="ReturnReason" auth="true">
+        <description>Update a ReturnReason record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteReturnReason" engine="entity-auto" invoke="delete" default-entity-name="ReturnReason" auth="true">
+        <description>Delete a ReturnReason record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createReturnType" engine="entity-auto" invoke="create" default-entity-name="ReturnType" auth="true">
+        <description>Create a ReturnType record</description>
+        <auto-attributes include="pk" mode="INOUT"  optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateReturnType" engine="entity-auto" invoke="update" default-entity-name="ReturnType" auth="true">
+        <description>Update a ReturnType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteReturnType" engine="entity-auto" invoke="delete" default-entity-name="ReturnType" auth="true">
+        <description>Delete a ReturnType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
