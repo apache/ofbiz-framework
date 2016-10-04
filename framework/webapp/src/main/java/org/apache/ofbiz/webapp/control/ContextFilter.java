@@ -134,11 +134,11 @@ public class ContextFilter implements Filter {
 
         WebAppUtil.setAttributesFromRequestBody(request);
 
-        if (!isMultitenant) {
-            request.setAttribute("delegator", config.getServletContext().getAttribute("delegator"));
-            request.setAttribute("dispatcher", config.getServletContext().getAttribute("dispatcher"));
-            request.setAttribute("security", config.getServletContext().getAttribute("security"));
-        } else {
+        request.setAttribute("delegator", config.getServletContext().getAttribute("delegator"));
+        request.setAttribute("dispatcher", config.getServletContext().getAttribute("dispatcher"));
+        request.setAttribute("security", config.getServletContext().getAttribute("security"));
+
+        if (isMultitenant) {
             // get tenant delegator by domain name
             String serverName = httpRequest.getServerName();
             try {
