@@ -124,56 +124,68 @@ under the License.
                     <a href="<@ofbizUrl>editeftaccount?partyId=${partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
                   </#if>
               <#elseif "COMPANY_CHECK" == paymentMethod.paymentMethodTypeId>
-                <#assign checkAccount = paymentMethodValueMap.companyCheckAccount>
-                <td class="label" valign="top">
-                  <#-- TODO: Convert hard-coded text to UI label properties -->
-                  Company Check
-                </td>
-                <td>
-                  ${checkAccount.nameOnAccount} - <#if checkAccount.bankName?has_content>${uiLabelMap.PartyBank}: ${checkAccount.bankName}</#if>
-                  <#if checkAccount.accountNumber?has_content>${uiLabelMap.PartyAccount} #: ${checkAccount.accountNumber}</#if>
-                  <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
-                  <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
-                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
-                  <#if paymentMethod.thruDate?has_content>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</#if>
-                </td>
-                <td class="button-col">
-                <#if security.hasEntityPermission("PAY_INFO", "_UPDATE", session) || security.hasEntityPermission("ACCOUNTING", "_UPDATE", session)>
-                    <a href="<@ofbizUrl>AddCheckAccount?partyId=${partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
+                <#if paymentMethodValueMap.companyCheckAccount?has_content>
+                  <#assign checkAccount = paymentMethodValueMap.companyCheckAccount>
+                </#if>
+                <#if checkAccount?has_content>
+                  <td class="label" valign="top">
+                    <#-- TODO: Convert hard-coded text to UI label properties -->
+                    Company Check
+                  </td>
+                  <td>
+                    ${checkAccount.nameOnAccount} - <#if checkAccount.bankName?has_content>${uiLabelMap.PartyBank}: ${checkAccount.bankName}</#if>
+                    <#if checkAccount.accountNumber?has_content>${uiLabelMap.PartyAccount} #: ${checkAccount.accountNumber}</#if>
+                    <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                    <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
+                    <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
+                    <#if paymentMethod.thruDate?has_content>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</#if>
+                  </td>
+                  <td class="button-col">
+                  <#if security.hasEntityPermission("PAY_INFO", "_UPDATE", session) || security.hasEntityPermission("ACCOUNTING", "_UPDATE", session)>
+                      <a href="<@ofbizUrl>AddCheckAccount?partyId=${partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
+                  </#if>
                 </#if>
               <#elseif "PERSONAL_CHECK" == paymentMethod.paymentMethodTypeId>
-                <#assign checkAccount = paymentMethodValueMap.personalCheckAccount>
-                <td class="label" valign="top">
-                  Personal Check
-                </td>
-                <td>
-                  ${checkAccount.nameOnAccount} - <#if checkAccount.bankName?has_content>${uiLabelMap.PartyBank}: ${checkAccount.bankName}</#if>
-                  <#if checkAccount.accountNumber?has_content>${uiLabelMap.PartyAccount} #: ${checkAccount.accountNumber}</#if>
-                  <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
-                  <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
-                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
-                  <#if paymentMethod.thruDate?has_content>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</#if>
-                </td>
-                <td class="button-col">
-                <#if security.hasEntityPermission("PAY_INFO", "_UPDATE", session) || security.hasEntityPermission("ACCOUNTING", "_UPDATE", session)>
-                    <a href="<@ofbizUrl>AddCheckAccount?partyId=${partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
+                <#if paymentMethodValueMap.personalCheckAccount?has_content>
+                  <#assign checkAccount = paymentMethodValueMap.personalCheckAccount>
+                </#if>
+                <#if checkAccount?has_content>
+                  <td class="label" valign="top">
+                    Personal Check
+                  </td>
+                  <td>
+                    ${checkAccount.nameOnAccount} - <#if checkAccount.bankName?has_content>${uiLabelMap.PartyBank}: ${checkAccount.bankName}</#if>
+                    <#if checkAccount.accountNumber?has_content>${uiLabelMap.PartyAccount} #: ${checkAccount.accountNumber}</#if>
+                    <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                    <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
+                    <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
+                    <#if paymentMethod.thruDate?has_content>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</#if>
+                  </td>
+                  <td class="button-col">
+                  <#if security.hasEntityPermission("PAY_INFO", "_UPDATE", session) || security.hasEntityPermission("ACCOUNTING", "_UPDATE", session)>
+                      <a href="<@ofbizUrl>AddCheckAccount?partyId=${partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
+                  </#if>
                 </#if>
               <#elseif "CERTIFIED_CHECK" == paymentMethod.paymentMethodTypeId>
-                <#assign checkAccount = paymentMethodValueMap.certifiedCheckAccount>
-                <td class="label" valign="top">
-                Certified Check
-                </td>
-                <td>
-                  ${checkAccount.nameOnAccount} - <#if checkAccount.bankName?has_content>${uiLabelMap.PartyBank}: ${checkAccount.bankName}</#if>
-                  <#if checkAccount.accountNumber?has_content>${uiLabelMap.PartyAccount} #: ${checkAccount.accountNumber}</#if>
-                  <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
-                  <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
-                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
-                  <#if paymentMethod.thruDate?has_content>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</#if>
-                </td>
-                <td class="button-col">
-                <#if security.hasEntityPermission("PAY_INFO", "_UPDATE", session) || security.hasEntityPermission("ACCOUNTING", "_UPDATE", session)>
-                    <a href="<@ofbizUrl>AddCheckAccount?partyId=${partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
+                <#if paymentMethodValueMap.certifiedCheckAccount?has_content>
+                  <#assign checkAccount = paymentMethodValueMap.certifiedCheckAccount>
+                </#if>
+                <#if checkAccount?has_content>
+                  <td class="label" valign="top">
+                  Certified Check
+                  </td>
+                  <td>
+                    ${checkAccount.nameOnAccount} - <#if checkAccount.bankName?has_content>${uiLabelMap.PartyBank}: ${checkAccount.bankName}</#if>
+                    <#if checkAccount.accountNumber?has_content>${uiLabelMap.PartyAccount} #: ${checkAccount.accountNumber}</#if>
+                    <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                    <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
+                    <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
+                    <#if paymentMethod.thruDate?has_content>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</#if>
+                  </td>
+                  <td class="button-col">
+                  <#if security.hasEntityPermission("PAY_INFO", "_UPDATE", session) || security.hasEntityPermission("ACCOUNTING", "_UPDATE", session)>
+                      <a href="<@ofbizUrl>AddCheckAccount?partyId=${partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
+                  </#if>
                 </#if>
               <#else>
                 <td class="button-col">
