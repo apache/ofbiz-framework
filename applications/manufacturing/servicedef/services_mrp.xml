@@ -65,4 +65,19 @@ under the License.
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="setEstimatedDeliveryDates">
         <description>Set estimated ship dates for order items based on outstanding production runs</description>
     </service>
+
+    <service name="createMrpEventType" default-entity-name="MrpEventType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a MrpEventType record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateMrpEventType" default-entity-name="MrpEventType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a MrpEventType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteMrpEventType" default-entity-name="MrpEventType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a MrpEventType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>

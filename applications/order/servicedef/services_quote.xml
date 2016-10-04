@@ -258,4 +258,35 @@ under the License.
         <attribute name="noteInfo" type="String" mode="IN" allow-html="any"/>
         <attribute name="noteName" type="String" mode="IN" optional="true"/>
     </service>
+
+    <service name="createQuoteTermAttribute" default-entity-name="QuoteTermAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a QuoteTermAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateQuoteTermAttribute" default-entity-name="QuoteTermAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a QuoteTermAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteQuoteTermAttribute" default-entity-name="QuoteTermAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a QuoteTermAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createQuoteType" default-entity-name="QuoteType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a QuoteType record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateQuoteType" default-entity-name="QuoteType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a QuoteType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteQuoteType" default-entity-name="QuoteType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a QuoteType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
 </services>

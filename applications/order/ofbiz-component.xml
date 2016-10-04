@@ -44,6 +44,7 @@ under the License.
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_cart.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_order.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_shoppinglist.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_request.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_quote.xml"/>
