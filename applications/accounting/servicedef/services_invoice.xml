@@ -470,5 +470,20 @@ under the License.
         <description>Delete a InvoiceTermAttribute record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <service name="createInvoiceTypeAttr" default-entity-name="InvoiceTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InvoiceTypeAttr record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInvoiceTypeAttr" default-entity-name="InvoiceTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InvoiceTypeAttr record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInvoiceTypeAttr" default-entity-name="InvoiceTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InvoiceTypeAttr record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
     
 </services>
