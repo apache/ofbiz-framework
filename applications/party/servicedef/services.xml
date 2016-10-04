@@ -1345,4 +1345,28 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <!-- Party Role services -->
+    <service name="updateRoleType" default-entity-name="RoleType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a RoleType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteRoleType" default-entity-name="RoleType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a RoleType Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+    <service name="createRoleTypeAttr" default-entity-name="RoleTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a RoleTypeAttr Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateRoleTypeAttr" default-entity-name="RoleTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a RoleTypeAttr Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteRoleTypeAttr" default-entity-name="RoleTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a RoleTypeAttr Record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>
