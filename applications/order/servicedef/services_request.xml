@@ -283,5 +283,20 @@ under the License.
         <description>Delete a CustRequestTypeAttr record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <service name="createRespondingParty" engine="entity-auto" invoke="create" default-entity-name="RespondingParty" auth="true">
+        <description>Create a RespondingParty record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateRespondingParty" engine="entity-auto" invoke="update" default-entity-name="RespondingParty" auth="true">
+        <description>Update a RespondingParty record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteRespondingParty" engine="entity-auto" invoke="delete" default-entity-name="RespondingParty" auth="true">
+        <description>Delete a RespondingParty record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
 
