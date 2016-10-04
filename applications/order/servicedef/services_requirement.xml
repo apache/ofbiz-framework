@@ -222,5 +222,65 @@ under the License.
         <description>Delete a DesiredFeature record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
+
+    <service name="createRequirementAttribute" default-entity-name="RequirementAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a RequirementAttribute record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateRequirementAttribute" default-entity-name="RequirementAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a RequirementAttribute record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteRequirementAttribute" default-entity-name="RequirementAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a RequirementAttribute record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <service name="createRequirementBudgetAllocation" default-entity-name="RequirementBudgetAllocation" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a RequirementBudgetAllocation record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateRequirementBudgetAllocation" default-entity-name="RequirementBudgetAllocation" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a RequirementBudgetAllocation record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteRequirementBudgetAllocation" default-entity-name="RequirementBudgetAllocation" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a RequirementBudgetAllocation record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <service name="createRequirementType" default-entity-name="RequirementType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a RequirementType record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateRequirementType" default-entity-name="RequirementType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a RequirementType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteRequirementType" default-entity-name="RequirementType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a RequirementType record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+
+    <service name="createRequirementTypeAttr" default-entity-name="RequirementTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a RequirementTypeAttr record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateRequirementTypeAttr" default-entity-name="RequirementTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a RequirementTypeAttr record</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteRequirementTypeAttr" default-entity-name="RequirementTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a RequirementTypeAttr record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>
 

@@ -376,4 +376,34 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="returnId" type="String" mode="OUT" optional="false"/>
     </service>
+
+    <service name="createReturnAdjustmentType" engine="entity-auto" invoke="create" default-entity-name="ReturnAdjustmentType" auth="true">
+        <description>Create a ReturnAdjustmentType record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateReturnAdjustmentType" engine="entity-auto" invoke="update" default-entity-name="ReturnAdjustmentType" auth="true">
+        <description>Update a ReturnAdjustmentType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteReturnAdjustmentType" engine="entity-auto" invoke="delete" default-entity-name="ReturnAdjustmentType" auth="true">
+        <description>Delete a ReturnAdjustmentType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createReturnHeaderType" engine="entity-auto" invoke="create" default-entity-name="ReturnHeaderType" auth="true">
+        <description>Create a ReturnHeaderType record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateReturnHeaderType" engine="entity-auto" invoke="update" default-entity-name="ReturnHeaderType" auth="true">
+        <description>Update a ReturnHeaderType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteReturnHeaderType" engine="entity-auto" invoke="delete" default-entity-name="ReturnHeaderType" auth="true">
+        <description>Delete a ReturnHeaderType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
