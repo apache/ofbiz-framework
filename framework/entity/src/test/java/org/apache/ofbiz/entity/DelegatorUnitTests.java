@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity;
 
+import org.apache.ofbiz.base.util.Debug;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,6 +28,7 @@ import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 
 public class DelegatorUnitTests {
+    private boolean logErrorOn;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -34,6 +37,13 @@ public class DelegatorUnitTests {
     public void initialize() {
         System.setProperty("ofbiz.home", System.getProperty("user.dir"));
         System.setProperty("derby.system.home", "./runtime/data/derby");
+        logErrorOn = Debug.isOn(Debug.ERROR); // save the current setting (to be restored after the tests)
+        Debug.set(Debug.ERROR, false); // disable error logging
+    }
+
+    @After
+    public void restore() {
+        Debug.set(Debug.ERROR, logErrorOn); // restore the error log setting
     }
 
     @Test
