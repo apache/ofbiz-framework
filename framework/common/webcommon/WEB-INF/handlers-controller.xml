@@ -28,7 +28,6 @@ under the License.
     <handler name="xmlrpc" type="request" class="org.apache.ofbiz.webapp.event.XmlRpcEventHandler"/>
     <handler name="service" type="request" class="org.apache.ofbiz.webapp.event.ServiceEventHandler"/>
     <handler name="service-multi" type="request" class="org.apache.ofbiz.webapp.event.ServiceMultiEventHandler"/>
-    <handler name="service-stream" type="request" class="org.apache.ofbiz.webapp.event.ServiceStreamHandler"/>
     <handler name="simple" type="request" class="org.apache.ofbiz.webapp.event.SimpleEventHandler"/>
     <handler name="groovy" type="request" class="org.apache.ofbiz.webapp.event.GroovyEventHandler"/>
     <handler name="rome" type="request" class="org.apache.ofbiz.webapp.event.RomeEventHandler"/>
