@@ -103,8 +103,8 @@ under the License.
                     <option value="${list.shoppingListId}">${list.listName}</option>
                   </#list>
                 </select>
-                <a href="javascript:document.getElementById('selectShoppingList').submit();" class="button">${uiLabelMap.CommonEdit}</a>
-            </fieldset>
+                <a href="javascript:$('#selectShoppingList').submit();" class="button">${uiLabelMap.CommonEdit}</a>
+            </fieldset>  
           </form>
         <#else>
           <label>${uiLabelMap.EcommerceNoShoppingListsCreate}.</label>
@@ -249,12 +249,12 @@ under the License.
               <span>
                   <label>${uiLabelMap.CommonStartDate}</label>
                   <input type="text" class="textBox" name="startDateTime" size="22" value="${(recurrenceInfo.startDateTime)?if_exists}" />
-                  <@htmlTemplate.renderDateTimeField name="startDateTime" className="" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(recurrenceInfo.startDateTime)!}" size="25" maxlength="30" id="startDateTime1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                  <a href="javascript:call_cal(document.reorderinfo.startDateTime, '${nowTimestamp.toString()}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" alt="Calendar" /></a>
               </span>
               <span>
                 <label>${uiLabelMap.CommonEndDate}</label>
                 <input type="text" class="textBox" name="endDateTime" size="22" value="${(recurrenceRule.untilDateTime)?if_exists}">
-                <@htmlTemplate.renderDateTimeField name="endDateTime" className="textBox" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(recurrenceRule.untilDateTime)!}" size="25" maxlength="30" id="endDateTime1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                <a href="javascript:call_cal(document.reorderinfo.endDateTime, '${nowTimestamp.toString()}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
               </span>
             </div>
             <div>
