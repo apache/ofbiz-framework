@@ -94,16 +94,16 @@ under the License.
         <#if shoppingLists?has_content>
           <form id="selectShoppingList" method="post" action="<@ofbizUrl>editShoppingList</@ofbizUrl>">
             <fieldset>
-	            <select name="shoppingListId">
-	              <#if shoppingList?has_content>
-	                <option value="${shoppingList.shoppingListId}">${shoppingList.listName}</option>
-	                <option value="${shoppingList.shoppingListId}">--</option>
-	              </#if>
-	              <#list shoppingLists as list>
-	                <option value="${list.shoppingListId}">${list.listName}</option>
-	              </#list>
-	            </select>
-	            <a href="javascript:$('selectShoppingList').submit();" class="button">${uiLabelMap.CommonEdit}</a>
+                <select name="shoppingListId">
+                  <#if shoppingList?has_content>
+                    <option value="${shoppingList.shoppingListId}">${shoppingList.listName}</option>
+                    <option value="${shoppingList.shoppingListId}">--</option>
+                  </#if>
+                  <#list shoppingLists as list>
+                    <option value="${list.shoppingListId}">${list.listName}</option>
+                  </#list>
+                </select>
+                <a href="javascript:document.getElementById('selectShoppingList').submit();" class="button">${uiLabelMap.CommonEdit}</a>
             </fieldset>
           </form>
         <#else>
@@ -247,14 +247,14 @@ under the License.
                 </select>
               </span>
               <span>
-	              <label>${uiLabelMap.CommonStartDate}</label>
-	              <input type="text" class="textBox" name="startDateTime" size="22" value="${(recurrenceInfo.startDateTime)?if_exists}" />
-	              <a href="javascript:call_cal(document.reorderinfo.startDateTime, '${nowTimestamp.toString()}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" alt="Calendar" /></a>
+                  <label>${uiLabelMap.CommonStartDate}</label>
+                  <input type="text" class="textBox" name="startDateTime" size="22" value="${(recurrenceInfo.startDateTime)?if_exists}" />
+                  <@htmlTemplate.renderDateTimeField name="startDateTime" className="" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(recurrenceInfo.startDateTime)!}" size="25" maxlength="30" id="startDateTime1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
               </span>
               <span>
                 <label>${uiLabelMap.CommonEndDate}</label>
                 <input type="text" class="textBox" name="endDateTime" size="22" value="${(recurrenceRule.untilDateTime)?if_exists}">
-                <a href="javascript:call_cal(document.reorderinfo.endDateTime, '${nowTimestamp.toString()}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                <@htmlTemplate.renderDateTimeField name="endDateTime" className="textBox" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(recurrenceRule.untilDateTime)!}" size="25" maxlength="30" id="endDateTime1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
               </span>
             </div>
             <div>
@@ -365,12 +365,12 @@ under the License.
     <div class="screenlet-body">
         <table>
           <thead>
-	          <tr>
-	            <th>${uiLabelMap.EcommerceListName}</th>
-	            <th>${uiLabelMap.EcommerceListName}</th>
-	            <th>&nbsp;</th>
-	            <th>&nbsp;</th>
-	          </tr>
+              <tr>
+                <th>${uiLabelMap.EcommerceListName}</th>
+                <th>${uiLabelMap.EcommerceListName}</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+              </tr>
           </thead>
           <tbody>
           <#list childShoppingListDatas as childShoppingListData>
@@ -416,16 +416,16 @@ under the License.
             <@paginationControls/>
             <table width="100%">
               <thead>
-	              <tr>
-	                <th>${uiLabelMap.OrderProduct}</th>
-	                <th><table><tr><th>- ${uiLabelMap.EcommerceStartdate} -</th><th>- ${uiLabelMap.EcommerceNbrOfDays} -</th></tr><tr><th>- ${uiLabelMap.EcommerceNbrOfPersons} -</th><th>- ${uiLabelMap.CommonQuantity} -</th></tr></table></th>
-	                <#-- <td nowrap="nowrap" align="center"><div><b>Purchased</b></div></td> -->
-	                <th>${uiLabelMap.EcommercePrice}</th>
-	                <th>${uiLabelMap.OrderTotal}</th>
-	                <th>&nbsp;</th>
-	              </tr>
-	            </thead>
-	            <tbody>
+                  <tr>
+                    <th>${uiLabelMap.OrderProduct}</th>
+                    <th><table><tr><th>- ${uiLabelMap.EcommerceStartdate} -</th><th>- ${uiLabelMap.EcommerceNbrOfDays} -</th></tr><tr><th>- ${uiLabelMap.EcommerceNbrOfPersons} -</th><th>- ${uiLabelMap.CommonQuantity} -</th></tr></table></th>
+                    <#-- <td nowrap="nowrap" align="center"><div><b>Purchased</b></div></td> -->
+                    <th>${uiLabelMap.EcommercePrice}</th>
+                    <th>${uiLabelMap.OrderTotal}</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
               <#list shoppingListItemDatas[lowIndex-1..highIndex-1] as shoppingListItemData>
                 <#assign shoppingListItem = shoppingListItemData.shoppingListItem/>
                 <#assign product = shoppingListItemData.product/>
