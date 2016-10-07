@@ -140,6 +140,8 @@ public class LabelManagerFactory {
                                     || labelKey.contains("TemporalExpression_")
                                     || labelKey.contains(".portalPageName.")
                                     || labelKey.contains("ProductStoreGroup.productStoreGroupName.NA")
+                                    || labelKey.contains("buildEbayConfig.")
+                                    || (labelKey.length() == 2) // These are languages Ids
                                     )) { 
                         continue; // OFBIZ-8154 WIP
                     }
