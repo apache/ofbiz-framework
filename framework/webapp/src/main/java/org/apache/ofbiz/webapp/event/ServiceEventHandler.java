@@ -397,7 +397,8 @@ public class ServiceEventHandler implements EventHandler {
 
     public static void checkSecureParameter(RequestMap requestMap, Set<String> urlOnlyParameterNames, String name, HttpSession session, String serviceName, Delegator delegator) throws EventHandlerException {
         // special case for security: if this is a request-map defined as secure in controller.xml then only accept body parameters coming in, ie don't allow the insecure URL parameters
-        // NOTE: the RequestHandler will check the HttpSerletRequest security to make sure it is secure if the request-map -> security -> https=true, but we can't just look at the request.isSecure() method here because it is allowed to send secure requests for request-map with https=false
+        // NOTE: the RequestHandler will check the HttpSerletRequest security to make sure it is secure if the request-map -> security -> https=true, 
+        // but we can't just look at the request.isSecure() method here because it is allowed to send secure requests for request-map with https=false
         if (requestMap != null && requestMap.securityHttps) {
             if (urlOnlyParameterNames.contains(name)) {
                 String errMsg = "Found URL parameter [" + name + "] passed to secure (https) request-map with uri ["
