@@ -4523,7 +4523,7 @@
     <property key="WebtoolsRunGC">
         <value xml:lang="de">GC starten</value>
         <value xml:lang="en">Run GC</value>
-        <value xml:lang="fr">Lancer le  ramasse-miette (GC)</value>
+        <value xml:lang="fr">Lancer le ramasse-miette (GC)</value>
         <value xml:lang="it">Esegui GC</value>
         <value xml:lang="ja">GCを実行</value>
         <value xml:lang="pt">Executar GC</value>
