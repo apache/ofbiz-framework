@@ -1899,6 +1899,13 @@ under the License.
         <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
+    
+    <request-map uri="deleteCustomerTaxAuthInfo">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePartyTaxAuthInfo"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="viewprofile"/>
+    </request-map>
 
     <!-- end of request mappings -->
 
