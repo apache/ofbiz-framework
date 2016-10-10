@@ -133,16 +133,6 @@ public class ProductServices {
     }
 
     /**
-     * Finds product variants based on a product ID and a distinct feature.
-     */
-    public static Map<String, Object> prodFindDistinctVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
-        // * String productId      -- Parent (virtual) product ID
-        // * String feature        -- Distinct feature name
-        //TODO This service has not yet been implemented.
-        return ServiceUtil.returnFailure();
-    }
-
-    /**
      * Finds a Set of feature types in sequence.
      */
     public static Map<String, Object> prodFindFeatureTypes(DispatchContext dctx, Map<String, ? extends Object> context) {
