@@ -26,7 +26,7 @@
         <value xml:lang="fr">La transaction ne peut débuter, une erreur est survenue</value>
         <value xml:lang="it">Errore provando a iniziare una transazione, non è possibile eseguire il metodo</value>
         <value xml:lang="ja">トランザクションの開始時にエラー、メソッドを処理できません</value>
-        <value xml:lang="ro">Eroare la incercarea de a initia  o</value>
+        <value xml:lang="ro">Eroare la incercarea de a initia o</value>
         <value xml:lang="ru">Попытка начать транзакцию завершилась ошибкой, невозможно обработать метод</value>
         <value xml:lang="th">Error : ผิดพลด ! ในการเริ่มต้นดำเนินการ ไม่สามารถประมวลผลวิธีการนี้ได้</value>
         <value xml:lang="zh">尝试开始交易时出错，无法执行</value>
