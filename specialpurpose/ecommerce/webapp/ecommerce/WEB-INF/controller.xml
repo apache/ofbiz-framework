@@ -984,18 +984,6 @@ under the License.
         <response name="success" type="view" value="viewprofile"/>
     </request-map>
 
-    <request-map uri="createCustomerTaxAuthInfo">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createCustomerTaxAuthInfo"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="viewprofile"/>
-    </request-map>
-    <request-map uri="updateCustomerTaxAuthInfo">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePartyTaxAuthInfo"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="viewprofile"/>
-    </request-map>
     <!-- ContactMech Requests -->
     <request-map uri="editcontactmech"><security https="true" auth="true"/><response name="success" type="view" value="editcontactmech"/></request-map>
     <request-map uri="editcontactmechnosave"><security https="true" auth="true"/><response name="success" type="view" value="editcontactmech"/></request-map>
