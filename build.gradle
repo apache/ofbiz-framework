@@ -192,6 +192,21 @@ excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareExcept
 excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareServices.java'
 excludedJavaSources.add 'org/apache/ofbiz/order/thirdparty/taxware/TaxwareUTL.java'
 
+
+// These files and directories present in config directories should not be included in ofbiz.jar see OFBIZ-8321
+def excludedConfigFiles = []
+excludedConfigFiles.add 'README'
+excludedConfigFiles.add 'APACHE2_HEADER_FOR_XML'
+excludedConfigFiles.add '*.txt'
+excludedConfigFiles.add '*.jks'
+excludedConfigFiles.add 'fop.xconf'
+excludedConfigFiles.add 'GroovyInit.groovy'
+excludedConfigFiles.add 'MiniLang.xslt'
+excludedConfigFiles.add 'AutoImportTemplate.ftl'
+excludedConfigFiles.add 'axis2'
+excludedConfigFiles.add 'barcode'
+
+
 sourceSets {
     main {
         java {
@@ -201,8 +216,19 @@ sourceSets {
         resources {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
             srcDirs += getDirectoryInActiveComponentsIfExists('config')
-            srcDirs += getDirectoryInActiveComponentsIfExists('dtd')
             exclude excludedJavaSources
+            exclude excludedConfigFiles
+            // Below are necessary for unit tests run by Gradle and integration tests
+            exclude { FileTreeElement elem -> elem.getName().contains('.properties') && 
+                !elem.getName().contains('start.properties') && 
+                !elem.getName().contains('load-data.properties') && 
+                !elem.getName().contains('debug.properties') &&
+                !elem.getName().contains('cache.properties') &&
+                !elem.getName().contains('test.properties') &&
+                !elem.getName().contains('rmi.properties')}
+            exclude { FileTreeElement elem -> elem.getName().contains('.xml') && 
+                !elem.getName().contains('entityengine.xml')
+                }
         }
     }
 
@@ -635,9 +661,9 @@ task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to loc
                     artifactId pluginId
                     groupId project.hasProperty('pluginGroup')? pluginGroup :'org.apache.ofbiz.plugin'
                     version project.hasProperty('pluginVersion')? pluginVersion :'0.1.0-SNAPSHOT'
-        
+
                     artifact createPluginArchive
-                    
+
                     pom.withXml {
                         if (project.hasProperty('pluginDescription')) {
                             asNode().appendNode('description', pluginDescription)
@@ -780,11 +806,11 @@ task gitInfoFooter(group: committerGroup, description: 'Update the Git Branch-re
     def revision
     def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
     def gitFolder = new File('.git')
-    
+
     if (!gitFolder.exists()) {
       println ("Git is not used")
       return
-    }    
+    }
 
     def branchOutput = new ByteArrayOutputStream()
     exec{
@@ -810,12 +836,12 @@ task svnInfoFooter(group: committerGroup, description: 'Update the Subversion re
     def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
     def svnOutput = new ByteArrayOutputStream()
     def svnFolder = new File('.svn')
-    
+
     if (!svnFolder.exists()) {
       println ("Subversion is not used")
       return
-    }    
-    
+    }
+
     exec{
         commandLine 'svn', 'info', '--xml'
         standardOutput = svnOutput
