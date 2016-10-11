@@ -47,12 +47,12 @@ public final class FlexibleMessage implements Serializable {
             } else {
                 messageFse = null;
                 propertykey = MiniLangValidate.checkAttribute(element.getAttribute("property"), defaultProperty);
-                propertyResource = MiniLangValidate.checkAttribute(element.getAttribute("resource"), "DefaultMessages");
+                propertyResource = MiniLangValidate.checkAttribute(element.getAttribute("resource"), "DefaultMessagesUiLabels");
             }
         } else {
             messageFse = null;
             propertykey = defaultProperty;
-            propertyResource = "DefaultMessages";
+            propertyResource = "DefaultMessagesUiLabels";
         }
     }
 

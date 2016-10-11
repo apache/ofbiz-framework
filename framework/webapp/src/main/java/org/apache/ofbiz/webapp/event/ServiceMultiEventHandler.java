@@ -148,10 +148,10 @@ public class ServiceMultiEventHandler implements EventHandler {
         }
 
         // some default message settings
-        String errorPrefixStr = UtilProperties.getMessage("DefaultMessages", "service.error.prefix", locale);
-        String errorSuffixStr = UtilProperties.getMessage("DefaultMessages", "service.error.suffix", locale);
-        String messagePrefixStr = UtilProperties.getMessage("DefaultMessages", "service.message.prefix", locale);
-        String messageSuffixStr = UtilProperties.getMessage("DefaultMessages", "service.message.suffix", locale);
+        String errorPrefixStr = UtilProperties.getMessage("DefaultMessagesUiLabels", "service.error.prefix", locale);
+        String errorSuffixStr = UtilProperties.getMessage("DefaultMessagesUiLabels", "service.error.suffix", locale);
+        String messagePrefixStr = UtilProperties.getMessage("DefaultMessagesUiLabels", "service.message.prefix", locale);
+        String messageSuffixStr = UtilProperties.getMessage("DefaultMessagesUiLabels", "service.message.suffix", locale);
 
         // prepare the error message and success message lists
         List<Object> errorMessages = new LinkedList<Object>();

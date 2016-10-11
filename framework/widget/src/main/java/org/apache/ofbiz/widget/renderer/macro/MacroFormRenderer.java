@@ -1790,11 +1790,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         Locale locale = (Locale) context.get("locale");
         if (!textFindField.getHideOptions()) {
-            opEquals = UtilProperties.getMessage("conditional", "equals", locale);
-            opBeginsWith = UtilProperties.getMessage("conditional", "begins_with", locale);
-            opContains = UtilProperties.getMessage("conditional", "contains", locale);
-            opIsEmpty = UtilProperties.getMessage("conditional", "is_empty", locale);
-            opNotEqual = UtilProperties.getMessage("conditional", "not_equal", locale);
+            opEquals = UtilProperties.getMessage("conditionalUiLabels", "equals", locale);
+            opBeginsWith = UtilProperties.getMessage("conditionalUiLabels", "begins_with", locale);
+            opContains = UtilProperties.getMessage("conditionalUiLabels", "contains", locale);
+            opIsEmpty = UtilProperties.getMessage("conditionalUiLabels", "is_empty", locale);
+            opNotEqual = UtilProperties.getMessage("conditionalUiLabels", "not_equal", locale);
         }
         String value = modelFormField.getEntry(context, textFindField.getDefaultValue(context));
         if (value == null) {
@@ -1810,7 +1810,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
             titleStyle = modelFormField.getTitleStyle();
         }
-        String ignoreCase = UtilProperties.getMessage("conditional", "ignore_case", locale);
+        String ignoreCase = UtilProperties.getMessage("conditionalUiLabels", "ignore_case", locale);
         boolean ignCase = textFindField.getIgnoreCase(context);
         boolean hideIgnoreCase = textFindField.getHideIgnoreCase();
         String tabindex = modelFormField.getTabindex();
@@ -1860,12 +1860,12 @@ public final class MacroFormRenderer implements FormStringRenderer {
     public void renderRangeFindField(Appendable writer, Map<String, Object> context, RangeFindField rangeFindField) throws IOException {
         ModelFormField modelFormField = rangeFindField.getModelFormField();
         Locale locale = (Locale) context.get("locale");
-        String opEquals = UtilProperties.getMessage("conditional", "equals", locale);
-        String opGreaterThan = UtilProperties.getMessage("conditional", "greater_than", locale);
-        String opGreaterThanEquals = UtilProperties.getMessage("conditional", "greater_than_equals", locale);
-        String opLessThan = UtilProperties.getMessage("conditional", "less_than", locale);
-        String opLessThanEquals = UtilProperties.getMessage("conditional", "less_than_equals", locale);
-        //String opIsEmpty = UtilProperties.getMessage("conditional", "is_empty", locale);
+        String opEquals = UtilProperties.getMessage("conditionalUiLabels", "equals", locale);
+        String opGreaterThan = UtilProperties.getMessage("conditionalUiLabels", "greater_than", locale);
+        String opGreaterThanEquals = UtilProperties.getMessage("conditionalUiLabels", "greater_than_equals", locale);
+        String opLessThan = UtilProperties.getMessage("conditionalUiLabels", "less_than", locale);
+        String opLessThanEquals = UtilProperties.getMessage("conditionalUiLabels", "less_than_equals", locale);
+        //String opIsEmpty = UtilProperties.getMessage("conditionalUiLabels", "is_empty", locale);
         String className = "";
         String alert = "false";
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
@@ -1944,14 +1944,14 @@ public final class MacroFormRenderer implements FormStringRenderer {
     public void renderDateFindField(Appendable writer, Map<String, Object> context, DateFindField dateFindField) throws IOException {
         ModelFormField modelFormField = dateFindField.getModelFormField();
         Locale locale = (Locale) context.get("locale");
-        String opEquals = UtilProperties.getMessage("conditional", "equals", locale);
-        String opGreaterThan = UtilProperties.getMessage("conditional", "greater_than", locale);
-        String opSameDay = UtilProperties.getMessage("conditional", "same_day", locale);
-        String opGreaterThanFromDayStart = UtilProperties.getMessage("conditional", "greater_than_from_day_start", locale);
-        String opLessThan = UtilProperties.getMessage("conditional", "less_than", locale);
-        String opUpToDay = UtilProperties.getMessage("conditional", "up_to_day", locale);
-        String opUpThruDay = UtilProperties.getMessage("conditional", "up_thru_day", locale);
-        String opIsEmpty = UtilProperties.getMessage("conditional", "is_empty", locale);
+        String opEquals = UtilProperties.getMessage("conditionalUiLabels", "equals", locale);
+        String opGreaterThan = UtilProperties.getMessage("conditionalUiLabels", "greater_than", locale);
+        String opSameDay = UtilProperties.getMessage("conditionalUiLabels", "same_day", locale);
+        String opGreaterThanFromDayStart = UtilProperties.getMessage("conditionalUiLabels", "greater_than_from_day_start", locale);
+        String opLessThan = UtilProperties.getMessage("conditionalUiLabels", "less_than", locale);
+        String opUpToDay = UtilProperties.getMessage("conditionalUiLabels", "up_to_day", locale);
+        String opUpThruDay = UtilProperties.getMessage("conditionalUiLabels", "up_thru_day", locale);
+        String opIsEmpty = UtilProperties.getMessage("conditionalUiLabels", "is_empty", locale);
         Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
