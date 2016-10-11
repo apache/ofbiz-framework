@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.cache;
 
-import java.io.IOException;
 import java.io.NotSerializableException;
 import java.io.Serializable;
 import java.util.Collection;
@@ -650,14 +649,6 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
             lineInfo.put("expireTimeMillis", TimeUnit.MILLISECONDS.convert(line.getExpireTimeNanos() - System.nanoTime(), TimeUnit.NANOSECONDS));
         }
         lineInfo.put("lineSize", findSizeInBytes(line.getValue()));
-        lineInfo.put("keyNum", keyNum);
-        return lineInfo;
-    }
-
-    private Map<String, Object> createLineInfo(int keyNum, K key, V value) {
-        Map<String, Object> lineInfo = new HashMap<String, Object>();
-        lineInfo.put("elementKey", key);
-        lineInfo.put("lineSize", findSizeInBytes(value));
         lineInfo.put("keyNum", keyNum);
         return lineInfo;
     }
