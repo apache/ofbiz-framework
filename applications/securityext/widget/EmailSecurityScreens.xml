@@ -24,7 +24,7 @@ under the License.
     <screen name="PasswordEmail">
         <section>
             <actions>
-                <property-map resource="EmailPassword" map-name="uiLabelMap" global="true"/>
+                <property-map resource="EmailPasswordUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="SecurityUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}"/>
             </actions>
