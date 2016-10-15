@@ -116,6 +116,8 @@ under the License.
              <field field="formInput" type="java.util.Map"/>
          </call-class-method >
          <set-service-fields service-name="updateContentAndUploadedFile" map="formInput.formInput" to-map="partyContentMap"/>
+         <set field="partyContentMap.uploadedFile" from-field="formInput.imageData"/>
+         <set field="partyContentMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
          <call-service service-name="updateContentAndUploadedFile" in-map-name="partyContentMap" break-on-error="false">
             <result-to-field result-name="contentId" field="contentId"/>
          </call-service>
