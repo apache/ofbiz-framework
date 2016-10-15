@@ -17,10 +17,7 @@
  * under the License.
  */
 
-import java.util.*;
-import java.lang.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.UtilValidate;
 
 if (parameters.workEffortId) {
     workEffortId = parameters.workEffortId;

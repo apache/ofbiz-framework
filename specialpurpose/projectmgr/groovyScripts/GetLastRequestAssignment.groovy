@@ -18,8 +18,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-
 // get last request from this user and use that project/task assignment as default on the screen
 
 custRequestList = from("CustRequest").where("fromPartyId", fromPartyId).orderBy("-createdDate").queryList();
