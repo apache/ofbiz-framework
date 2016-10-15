@@ -47,7 +47,7 @@ if (currentValue) {
         templateRoot.context = ctx;
         out = new StringWriter();
         currentValue.drDataTemplateTypeId = "NONE";
-        DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, out, templateRoot, locale, mimeTypeId, false);
+        DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, out, templateRoot, locale, null, false);
         textData = out.toString();
         context.textData = textData;
     }

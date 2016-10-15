@@ -16,4 +16,4 @@
   specific language governing permissions and limitations
   under the License.
   -->
-<img src="<@ofbizUrl secure="${request.isSecure()?string}">stream?contentId=${contentId}</@ofbizUrl>"/>
+<img src="<@ofbizUrl secure="${request.isSecure()?string}">stream?contentId=${contentId!}</@ofbizUrl>"/>
