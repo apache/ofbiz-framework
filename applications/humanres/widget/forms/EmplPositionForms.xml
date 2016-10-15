@@ -99,7 +99,7 @@ under the License.
         <field name="submitButton" use-when="emplPosition!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListEmplPositionFulfillments" type="list" target="updateEmplPositionFulfillment" title="" paginate-target="findEmplPositionFulfillments"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <entity-condition entity-name="EmplPositionFulfillment">
                 <condition-expr field-name="emplPositionId" operator="equals" from-field="parameters.emplPositionId"/>
@@ -135,7 +135,7 @@ under the License.
     </form>
 
     <form name="ListReportsToEmplPositionReportingStructs" type="list" target="updateEmplPositionReportingStruct" title="" paginate-target="EditReportsToEmplPositionReportingStruct"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <entity-condition entity-name="EmplPositionReportingStruct" list="emplPositionReportingStructList">
                 <condition-expr field-name="emplPositionIdManagedBy" from-field="parameters.emplPositionId"/>
@@ -168,7 +168,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListReportedToEmplPositionReportingStructs" type="list" target="updateEmplPositionReportingStruct" title="" paginate-target="EditReportedToEmplPositionReportingStruct"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" list-name="emplPositionReportingStructList">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" list-name="emplPositionReportingStructList" separate-columns="true">
         <actions>
             <entity-condition entity-name="EmplPositionReportingStruct" list="emplPositionReportingStructList">
                 <condition-expr field-name="emplPositionIdReportingTo" from-field="parameters.emplPositionId"/>
@@ -201,7 +201,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListEmplPositionResponsibilities" type="list" target="updateEmplPositionResponsibility" title="" paginate-target="findEmplPositionResponsibilities"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <entity-condition entity-name="EmplPositionResponsibility">
                 <condition-expr field-name="emplPositionId" operator="equals" from-field="parameters.emplPositionId"/>
