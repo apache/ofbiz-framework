@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.*;
 
 if (!context.extInfo || context.extInfo == 'N') {
     if (parameters.partyIdentificationTypeId || parameters.idValue) context.extInfo='I';

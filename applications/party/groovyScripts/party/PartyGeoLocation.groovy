@@ -17,8 +17,10 @@
  * under the License.
  */
 
-import org.apache.ofbiz.common.geo.*;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.common.geo.GeoWorker;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilProperties;
 
 uiLabelMap = UtilProperties.getResourceBundleMap("PartyUiLabels", locale);
 uiLabelMap.addBottomResourceBundle("CommonUiLabels");

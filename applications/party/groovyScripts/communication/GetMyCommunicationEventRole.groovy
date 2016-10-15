@@ -16,9 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.base.component.ComponentConfig;
 
 if (parameters.communicationEventId) {
