@@ -17,13 +17,6 @@
  * under the License.
  */
 
-import java.util.*;
-import java.lang.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.base.util.*;
-
 allProjects = select("workEffortId").from("WorkEffortAndPartyAssign").where("workEffortTypeId", "PROJECT", "partyId", parameters.partyId).orderBy("workEffortName").cache(true).queryList();
 
 projects = [];
