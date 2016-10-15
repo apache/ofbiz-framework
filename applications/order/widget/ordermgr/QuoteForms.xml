@@ -109,7 +109,8 @@ under the License.
         </actions>
         <alt-target use-when="quote==null" target="createQuote"/>
         <auto-fields-entity entity-name="Quote" default-field-type="edit"/>
-        <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"><display/></field>
+        <field name="quoteId" use-when="quote!=null" title="${uiLabelMap.OrderOrderQuoteId}"><display/></field>
+        <field name="quoteId" use-when="quote==null" title="${uiLabelMap.OrderOrderQuoteId}"><hidden/></field>
         <field name="statusId" title="${uiLabelMap.FormFieldTitle_statusId}"><ignored/></field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
             <drop-down allow-empty="true">
