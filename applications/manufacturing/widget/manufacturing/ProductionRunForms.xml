@@ -602,7 +602,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
     <form name="ProductionRunTaskFixedAssets" type="list" target="updateWorkEffortFixedAssetAssign" paginate-target="" title="" list-name="records"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" default-field-type="edit"/>
         <field name="productionRunId"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
