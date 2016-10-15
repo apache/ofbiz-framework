@@ -25,7 +25,6 @@
  */
 
 import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.entity.util.EntityUtil;
 
 partyIdFrom = context.partyIdFrom;
 partyIdTo = context.partyIdTo;

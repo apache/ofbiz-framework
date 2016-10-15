@@ -17,9 +17,10 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.util.*
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
 lastDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), -21); // should be there the last 3 weeks.
 visits = select('partyId')

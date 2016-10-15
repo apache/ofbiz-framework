@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.EntityUtil;
-
 partyId = partyId ?: parameters.partyId;
 
 savedCart = from("ShoppingList").where("partyId", partyId, "shoppingListTypeId", "SLT_SPEC_PURP" , "listName", "auto-save").queryFirst();

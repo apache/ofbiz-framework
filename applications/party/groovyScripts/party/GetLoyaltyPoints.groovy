@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-
 partyId = parameters.partyId ? parameters.partyId : userLogin.partyId ;
 
 if (partyId) {

@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.util.EntityUtil;
-
 communicationEvent = from("CommunicationEvent").where("communicationEventId", parameters.communicationEventId).cache(true).queryOne();
 
 if (!communicationEvent.note) return;

@@ -17,10 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.EntityFindOptions;
-import org.apache.ofbiz.entity.condition.*;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
-import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 module = "showvisits.groovy";
