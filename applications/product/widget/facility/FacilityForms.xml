@@ -601,7 +601,7 @@ under the License.
     </form>
     <!-- FacilityGroups -->
     <form name="EditFacilityGroups" type="list" target="updateGroupToFacility" paginate-target="EditFacilityGroups" title="" list-name="facilityGroupMembers"
-        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-entity entity-name="FacilityGroupMember"/>
         <field name="facilityId"><hidden/></field>
         <field name="facilityGroupId" title="${uiLabelMap.ProductFacilityGroupId}">
@@ -636,7 +636,7 @@ under the License.
 
     <!-- FacilityParty -->
     <form name="EditFacilityParties" type="list" paginate-target="EditFacilityParties" title="" list-name="facilityParties"
-        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <field name="facilityId"><hidden/></field>
         <field name="partyId">
             <display-entity description="${groupName} ${firstName} ${lastName} [${partyId}]" entity-name="PartyNameView"/>
