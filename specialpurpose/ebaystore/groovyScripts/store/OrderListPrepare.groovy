@@ -19,8 +19,6 @@
 
 import org.apache.ofbiz.entity.util.EntityUtil;
 
-import org.apache.ofbiz.entity.util.EntityUtil;
-
 orderLists = [];
 if (orderList) {
     for (orderCount = 0; orderCount < orderList.size(); orderCount++) {

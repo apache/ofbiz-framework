@@ -17,32 +17,15 @@
  * under the License.
  */
  
- import java.lang.*;
- import java.util.*;
- import org.apache.ofbiz.base.util.*;
- import org.apache.ofbiz.entity.*;
- import org.apache.ofbiz.service.*;
- import org.apache.ofbiz.product.catalog.*;
- import org.apache.ofbiz.product.category.*;
- import org.apache.ofbiz.product.product.ProductWorker;
  import org.apache.ofbiz.product.product.ProductContentWrapper;
- import org.apache.ofbiz.product.catalog.*;
+ import org.apache.ofbiz.product.catalog.CatalogWorker;
  import org.apache.ofbiz.ebaystore.EbayStoreHelper;
  import com.ebay.sdk.ApiContext;
  import com.ebay.sdk.call.AddItemCall;
- import com.ebay.soap.eBLBaseComponents.ItemType;
- import com.ebay.soap.eBLBaseComponents.CategoryType;
- import com.ebay.soap.eBLBaseComponents.ListingTypeCodeType;
  import com.ebay.soap.eBLBaseComponents.BuyerPaymentMethodCodeType;
  import com.ebay.soap.eBLBaseComponents.ItemSpecificsEnabledCodeType;
- import com.ebay.soap.eBLBaseComponents.GeteBayDetailsResponseType;
- import com.ebay.soap.eBLBaseComponents.ReturnPolicyType;
  import com.ebay.soap.eBLBaseComponents.SiteCodeType;
- import com.ebay.soap.eBLBaseComponents.ShippingServiceDetailsType;
- import com.ebay.soap.eBLBaseComponents.ShippingLocationDetailsType;
  import org.apache.ofbiz.ebaystore.EbayEvents;
- import com.ebay.sdk.ApiException;
- import com.ebay.sdk.SdkException;
 
 //set the content path prefix
  contentPathPrefix = CatalogWorker.getContentPathPrefix(request);

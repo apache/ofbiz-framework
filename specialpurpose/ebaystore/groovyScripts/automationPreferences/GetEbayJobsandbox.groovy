@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-
 jobSandboxs = from("JobSandbox").where("authUserLoginId", userLoginId).queryList();
 job = null
 jobId = null;
