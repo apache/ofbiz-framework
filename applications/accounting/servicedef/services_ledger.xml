@@ -761,4 +761,111 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <!-- GlAccountClass services -->
+    <service name="createGlAccountClass" default-entity-name="GlAccountClass" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GlAccountClass</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateGlAccountClass" default-entity-name="GlAccountClass" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GlAccountClass</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteGlAccountClass" default-entity-name="GlAccountClass" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GlAccountClass</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- GlAccountGroup services -->
+    <service name="createGlAccountGroup" default-entity-name="GlAccountGroup" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GlAccountGroup</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateGlAccountGroup" default-entity-name="GlAccountGroup" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GlAccountGroup</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteGlAccountGroup" default-entity-name="GlAccountGroup" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GlAccountGroup</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- GlAccountGroupMember services -->
+    <service name="createGlAccountGroupMember" default-entity-name="GlAccountGroupMember" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GlAccountGroupMember</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateGlAccountGroupMember" default-entity-name="GlAccountGroupMember" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GlAccountGroupMember</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteGlAccountGroupMember" default-entity-name="GlAccountGroupMember" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GlAccountGroupMember</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- GlAccountGroupType services -->
+    <service name="createGlAccountGroupType" default-entity-name="GlAccountGroupType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GlAccountGroupType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateGlAccountGroupType" default-entity-name="GlAccountGroupType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GlAccountGroupType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteGlAccountGroupType" default-entity-name="GlAccountGroupType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GlAccountGroupType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- GlAccountRole services -->
+    <service name="createGlAccountRole" default-entity-name="GlAccountRole" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GlAccountRole</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="expireGlAccountRole" default-entity-name="GlAccountRole" engine="entity-auto" invoke="expire" auth="true">
+        <description>Expire a GlAccountRole</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+
+    <!-- GlAccountType services -->
+    <service name="createGlAccountType" default-entity-name="GlAccountType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GlAccountType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateGlAccountType" default-entity-name="GlAccountType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GlAccountType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteGlAccountType" default-entity-name="GlAccountType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GlAccountType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- GlBudgetXref services -->
+    <service name="createGlBudgetXref" default-entity-name="GlBudgetXref" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GlBudgetXref</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateGlBudgetXref" default-entity-name="GlBudgetXref" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GlBudgetXref</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="expireGlBudgetXref" default-entity-name="GlBudgetXref" engine="entity-auto" invoke="expire" auth="true">
+        <description>Expire a GlBudgetXref</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

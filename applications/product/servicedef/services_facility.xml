@@ -992,4 +992,26 @@ under the License.
         <description>Delete a FacilityType record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <!-- FacilityCarrierShipment services -->
+    <service name="createFacilityCarrierShipment" default-entity-name="FacilityCarrierShipment" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FacilityCarrierShipment record</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="deleteFacilityCarrierShipment" default-entity-name="FacilityCarrierShipment" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FacilityCarrierShipment record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- FacilityLocationGeoPoint services -->
+    <service name="createFacilityLocationGeoPoint" default-entity-name="FacilityLocationGeoPoint" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FacilityLocationGeoPoint record</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="expireFacilityLocationGeoPoint" default-entity-name="FacilityLocationGeoPoint" engine="entity-auto" invoke="expire" auth="true">
+        <description>Expire a FacilityLocationGeoPoint record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

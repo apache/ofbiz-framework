@@ -347,4 +347,100 @@ under the License.
         <description>Delete a AccommodationMap</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <!-- FixedAssetAttribute services -->
+    <service name="createFixedAssetAttribute" default-entity-name="FixedAssetAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FixedAssetAttribute</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateFixedAssetAttribute" default-entity-name="FixedAssetAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FixedAssetAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFixedAssetAttribute" default-entity-name="FixedAssetAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FixedAssetAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- FixedAssetIdentType services -->
+    <service name="createFixedAssetIdentType" default-entity-name="FixedAssetIdentType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FixedAssetIdentType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateFixedAssetIdentType" default-entity-name="FixedAssetIdentType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FixedAssetIdentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFixedAssetIdentType" default-entity-name="FixedAssetIdentType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FixedAssetIdentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- FixedAssetProductType services -->
+    <service name="createFixedAssetProductType" default-entity-name="FixedAssetProductType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FixedAssetProductType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateFixedAssetProductType" default-entity-name="FixedAssetProductType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FixedAssetProductType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFixedAssetProductType" default-entity-name="FixedAssetProductType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FixedAssetProductType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- FixedAssetStdCostType services -->
+    <service name="createFixedAssetStdCostType" default-entity-name="FixedAssetStdCostType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FixedAssetStdCostType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateFixedAssetStdCostType" default-entity-name="FixedAssetStdCostType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FixedAssetStdCostType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFixedAssetStdCostType" default-entity-name="FixedAssetStdCostType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FixedAssetStdCostType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- FixedAssetType services -->
+    <service name="createFixedAssetType" default-entity-name="FixedAssetType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FixedAssetType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateFixedAssetType" default-entity-name="FixedAssetType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FixedAssetType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFixedAssetType" default-entity-name="FixedAssetType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FixedAssetType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- FixedAssetTypeAttr services -->
+    <service name="createFixedAssetTypeAttr" default-entity-name="FixedAssetTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FixedAssetTypeAttr</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateFixedAssetTypeAttr" default-entity-name="FixedAssetTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FixedAssetTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFixedAssetTypeAttr" default-entity-name="FixedAssetTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FixedAssetTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
