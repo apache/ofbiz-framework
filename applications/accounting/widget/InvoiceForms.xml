@@ -357,7 +357,7 @@ under the License.
     </form>
 
    <form name="EditInvoiceItems" type="multi"  list-name="invoiceItems" default-entity-name="InvoiceItem" target="updateInvoiceItem?invoiceId=${invoiceId}&amp;viewSize=${viewSize}&amp;viewIndex=${viewIndex}" title="Edit Invoice Items" paginate-target="listInvoiceItems"
-       odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+       odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
        <row-actions>
            <set field="total" value="${groovy: (quantity ?: 1) * (amount ?: 0)}" type="BigDecimal"/>
        </row-actions>
@@ -489,7 +489,7 @@ under the License.
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="EditInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="InvoiceItem" use-row-submit="true" target="updateInvoiceApplication" title="Apply payments to invoices" separate-columns="false"
+    <form name="EditInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="InvoiceItem" use-row-submit="true" target="updateInvoiceApplication" title="Apply payments to invoices" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="statusId"><hidden/></field>
         <field name="paymentApplicationId"><hidden/></field>
