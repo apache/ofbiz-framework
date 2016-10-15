@@ -17,17 +17,17 @@
  * under the License.
  */
 
-import org.apache.ofbiz.accounting.util.UtilAccounting;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.party.party.PartyWorker;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import org.apache.ofbiz.accounting.util.UtilAccounting
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.party.party.PartyWorker
+
+import java.sql.Timestamp
 
 if (!fromDate) {
     return;

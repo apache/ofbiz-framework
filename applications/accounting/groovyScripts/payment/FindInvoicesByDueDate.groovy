@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.service.*;
-
 context.invoicePaymentInfoList = []
 
 if (parameters.invoiceTypeId) { // it's not the initialisation but a real search request

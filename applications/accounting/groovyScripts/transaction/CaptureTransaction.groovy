@@ -16,12 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.order.order.OrderReadHelper;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.util.EntityUtil;
+
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityUtil
 
 orderId = context.orderId;
 orderPaymentPreferenceId = context.orderPaymentPreferenceId;

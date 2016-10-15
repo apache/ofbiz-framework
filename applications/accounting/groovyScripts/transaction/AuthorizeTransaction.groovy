@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import java.math.BigDecimal;
 import org.apache.ofbiz.order.order.OrderReadHelper;
-import org.apache.ofbiz.base.util.UtilMisc;
 
 orderId = context.orderId;
 orderPaymentPreferenceId = context.orderPaymentPreferenceId;

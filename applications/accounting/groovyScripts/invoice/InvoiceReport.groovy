@@ -17,14 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityConditionBuilder;
-import org.apache.ofbiz.entity.condition.EntityConditionList;
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.entity.util.EntityFindOptions;
+
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 
 exprBldr = new org.apache.ofbiz.entity.condition.EntityConditionBuilder();
 

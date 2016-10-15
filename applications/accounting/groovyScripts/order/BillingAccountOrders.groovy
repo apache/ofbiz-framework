@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.util.EntityUtil;
-
 if (billingAccountId) {
     orderPaymentPreferencesList = [];
     orderList = from("OrderHeader").where('billingAccountId', billingAccountId).queryList();
