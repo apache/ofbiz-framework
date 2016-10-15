@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 import java.sql.Timestamp;
-import java.util.Map;
 
 partyId = null
 resultUser = runService('getEbayStoreUser', ["productStoreId": parameters.productStoreId, "userLogin": context.get("userLogin")]);

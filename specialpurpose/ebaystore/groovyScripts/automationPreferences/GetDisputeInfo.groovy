@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-
 import com.ebay.soap.eBLBaseComponents.DisputeReasonCodeType;
 import com.ebay.soap.eBLBaseComponents.DisputeExplanationCodeType;
 
