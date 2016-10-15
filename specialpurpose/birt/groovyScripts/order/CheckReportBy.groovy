@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import javax.servlet.http.HttpServletRequest;
 import org.apache.ofbiz.base.util.UtilValidate;
 
 reportBy = parameters.reportBy;

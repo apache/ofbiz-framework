@@ -17,12 +17,7 @@
  * under the License.
  */
 
- import org.apache.ofbiz.accounting.util.UtilAccounting
- import org.apache.ofbiz.base.util.*;
- import org.apache.ofbiz.entity.util.EntityUtil;
- import org.apache.ofbiz.entity.condition.EntityCondition;
- import org.apache.ofbiz.entity.condition.EntityOperator;
- import com.ibm.icu.util.Calendar;
+ import org.apache.ofbiz.base.util.UtilDateTime;
  
  birtParameters = [:];
  /*

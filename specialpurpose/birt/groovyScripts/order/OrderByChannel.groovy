@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-
 birtParameters = [:];
 if(request.getParameter("SalesChannel")){
     birtParameters.saleChannel = request.getParameter("SalesChannel");
