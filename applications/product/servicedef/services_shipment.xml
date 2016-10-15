@@ -991,5 +991,36 @@ under the License.
         <description>Delete an existing Carrier Shipment Box Type Record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+
+    <!-- Shipment services -->
+    <service name="createDelivery" engine="entity-auto" invoke="create" default-entity-name="Delivery" auth="true">
+        <description>Create a Delivery record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateDelivery" engine="entity-auto" invoke="update" default-entity-name="Delivery" auth="true">
+        <description>Update a Delivery record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteDelivery" engine="entity-auto" invoke="delete" default-entity-name="Delivery" auth="true">
+        <description>Delete a Delivery record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createRejectionReason" engine="entity-auto" invoke="create" default-entity-name="RejectionReason" auth="true">
+        <description>Create a RejectionReason record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateRejectionReason" engine="entity-auto" invoke="update" default-entity-name="RejectionReason" auth="true">
+        <description>Update a RejectionReason record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteRejectionReason" engine="entity-auto" invoke="delete" default-entity-name="RejectionReason" auth="true">
+        <description>Delete a RejectionReason record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
     
 </services>
