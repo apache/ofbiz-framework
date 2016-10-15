@@ -16,9 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.product.catalog.*;
-import org.apache.ofbiz.product.category.*;
+import org.apache.ofbiz.product.catalog.CatalogWorker;
+import org.apache.ofbiz.product.category.CategoryWorker;
 
 CategoryWorker.getRelatedCategories(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, CatalogWorker.getCurrentCatalogId(request)), true);
 curCategoryId = parameters.category_id ?: parameters.CATEGORY_ID ?: "";

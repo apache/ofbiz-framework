@@ -17,11 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.common.CommonWorkers;
-import org.apache.ofbiz.entity.condition.*;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.webapp.control.*;
+import org.apache.ofbiz.webapp.control.LoginWorker;
 
 context.autoUserLogin = session.getAttribute("autoUserLogin");
 context.autoLogoutUrl = LoginWorker.makeLoginUrl(request, "autoLogout");

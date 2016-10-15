@@ -17,14 +17,9 @@
  * under the License.
  */
 
-import java.util.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
 import org.apache.ofbiz.product.catalog.CatalogWorker;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.common.CommonWorkers;
-import org.apache.ofbiz.order.shoppingcart.*;
-import org.apache.ofbiz.webapp.control.*;
+import org.apache.ofbiz.webapp.control.LoginWorker;
 
 productStore = ProductStoreWorker.getProductStore(request);
 
