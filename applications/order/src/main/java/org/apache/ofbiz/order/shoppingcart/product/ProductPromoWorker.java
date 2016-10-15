@@ -1881,6 +1881,21 @@ public final class ProductPromoWorker {
         // round the amount before setting to make sure we don't get funny numbers in there
         // only round to 3 places, we need more specific amounts in adjustments so that they add up cleaner as part of the item subtotal, which will then be rounded
         amount = amount.setScale(3, rounding);
+        boolean addNewAdjustment = true;
+        List<GenericValue> adjustments = cartItem.getAdjustments();
+        if (UtilValidate.isNotEmpty(adjustments)) {
+            for(GenericValue adjustment : adjustments) {
+                if("PROMOTION_ADJUSTMENT".equals(adjustment.getString("orderAdjustmentTypeId")) && 
+                        productPromoAction.get("productPromoId").equals(adjustment.getString("productPromoId")) &&
+                        productPromoAction.get("productPromoRuleId").equals(adjustment.getString("productPromoRuleId")) &&
+                        productPromoAction.get("productPromoActionSeqId").equals(adjustment.getString("productPromoActionSeqId"))) {
+                    BigDecimal newAmount = amount.add(adjustment.getBigDecimal(amountField));
+                    adjustment.set(amountField, newAmount);
+                    addNewAdjustment = false;
+                }
+            }
+        }
+        if (addNewAdjustment) {
         GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment",
                 UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", amountField, amount,
                         "productPromoId", productPromoAction.get("productPromoId"),
@@ -1894,6 +1909,7 @@ public final class ProductPromoWorker {
         }
 
         cartItem.addAdjustment(orderAdjustment);
+        }
     }
 
     public static void doOrderPromoAction(GenericValue productPromoAction, ShoppingCart cart, BigDecimal amount, String amountField, Delegator delegator) {
