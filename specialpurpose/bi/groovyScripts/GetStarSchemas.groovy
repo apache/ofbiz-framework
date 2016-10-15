@@ -17,15 +17,6 @@
  * under the License.
  */
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.TreeSet;
-
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.model.ModelReader;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelViewEntity;
-
 reader = delegator.getModelReader();
 ec = reader.getEntityNames();
 entities = new TreeSet(ec);
