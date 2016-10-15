@@ -400,8 +400,9 @@ under the License.
             <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
                 <if-compare value="INV_AVAILABLE" operator="equals" field="inventoryItem.statusId">
                     <!-- change status on inventoryItem -->
-                    <set value="INV_PROMISED" field="inventoryItem.statusId"/>
-                    <store-value value-field="inventoryItem"/>
+                    <set field="updateInventoryItemMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+                    <set field="updateInventoryItemMap.statusId" value="INV_PROMISED"/>
+                    <call-service service-name="updateInventoryItem" in-map-name="updateInventoryItemMap"/>
 
                     <!-- store OrderItemShipGrpInvRes record -->
                     <call-simple-method method-name="getPromisedDateTime"/>
