@@ -134,4 +134,21 @@ under the License.
         <attribute name="message" mode="IN" type="String" optional="true"></attribute>
         <attribute name="successMessage" mode="IN" type="String" optional="true"></attribute>
     </service>
+
+    <!-- ExampleType services -->
+    <service name="createExampleType" default-entity-name="ExampleType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a record of ExampleType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateExampleType" default-entity-name="ExampleType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a record of ExampleType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteExampleType" default-entity-name="ExampleType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a record of ExampleType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>

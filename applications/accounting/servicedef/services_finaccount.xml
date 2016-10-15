@@ -551,4 +551,68 @@ under the License.
         <description>Delete a FinAccountTransAttribute</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- FinAccountTransType services -->
+    <service name="createFinAccountTransType" default-entity-name="FinAccountTransType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FinAccountTransType record</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateFinAccountTransType" default-entity-name="FinAccountTransType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FinAccountTransType record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFinAccountTransType" default-entity-name="FinAccountTransType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FinAccountTransType record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- FinAccountTransTypeAttr services -->
+    <service name="createFinAccountTransTypeAttr" default-entity-name="FinAccountTransTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FinAccountTransTypeAttr</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateFinAccountTransTypeAttr" default-entity-name="FinAccountTransTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FinAccountTransType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFinAccountTransTypeAttr" default-entity-name="FinAccountTransTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FinAccountTransTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- FinAccountType services -->
+    <service name="createFinAccountType" default-entity-name="FinAccountType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FinAccountType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateFinAccountType" default-entity-name="FinAccountType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FinAccountType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFinAccountType" default-entity-name="FinAccountType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FinAccountType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- FinAccountTypeAttr services -->
+    <service name="createFinAccountTypeAttr" default-entity-name="FinAccountTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FinAccountTypeAttr</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateFinAccountTypeAttr" default-entity-name="FinAccountTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FinAccountTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFinAccountTypeAttr" default-entity-name="FinAccountTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FinAccountTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
