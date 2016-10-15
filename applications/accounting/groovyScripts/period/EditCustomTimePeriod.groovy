@@ -17,12 +17,6 @@
  * under the License.
  */
 
-import java.util.*;
-import java.net.*;
-import org.apache.ofbiz.security.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
-
 findOrganizationPartyId = parameters.findOrganizationPartyId;
 if (findOrganizationPartyId) {
     context.findOrganizationPartyId = findOrganizationPartyId;

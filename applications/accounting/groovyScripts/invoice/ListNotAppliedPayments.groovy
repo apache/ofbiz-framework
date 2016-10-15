@@ -17,19 +17,11 @@
  * under the License.
  */
 
-import java.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.collections.*;
-import org.apache.ofbiz.accounting.invoice.*;
-import org.apache.ofbiz.accounting.payment.*;
-import org.apache.ofbiz.accounting.util.UtilAccounting;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityConditionBuilder;
-import org.apache.ofbiz.entity.condition.EntityConditionList;
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import java.math.*;
+
+import org.apache.ofbiz.accounting.invoice.InvoiceWorker
+import org.apache.ofbiz.accounting.payment.PaymentWorker
+import org.apache.ofbiz.base.util.UtilNumber
+import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 
 invoiceId = parameters.invoiceId;
 invoice = from("Invoice").where(invoiceId : invoiceId).queryOne();

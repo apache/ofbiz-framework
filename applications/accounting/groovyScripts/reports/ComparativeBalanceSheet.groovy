@@ -18,9 +18,6 @@
  */
 
 import org.apache.ofbiz.base.util.UtilMisc;
-import java.math.BigDecimal; 
-import java.sql.Timestamp;
-import org.apache.ofbiz.entity.util.EntityUtil;
 
 assetAccountBalanceMap = [:];
 assetAccountBalanceList = [];

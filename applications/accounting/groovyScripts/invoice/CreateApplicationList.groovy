@@ -17,16 +17,10 @@
  * under the License.
  */
 
-import java.util.*;
-import java.math.BigDecimal;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.collections.*;
-import org.apache.ofbiz.accounting.invoice.*;
-import org.apache.ofbiz.accounting.payment.*;
-import java.text.DateFormat;
-import java.text.*;
-import java.text.NumberFormat;
+
+import org.apache.ofbiz.accounting.invoice.InvoiceWorker
+
+import java.text.NumberFormat
 
 // @param GenericValue invoice - The Invoice entity to find payment applications for
 if (!invoice) return;

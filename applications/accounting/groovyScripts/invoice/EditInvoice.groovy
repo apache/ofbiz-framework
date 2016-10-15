@@ -17,18 +17,11 @@
  * under the License.
  */
 
-import java.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.collections.*;
-import org.apache.ofbiz.accounting.invoice.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.math.BigDecimal;
-import java.math.MathContext;
-import org.apache.ofbiz.base.util.UtilNumber;
 
+import org.apache.ofbiz.accounting.invoice.InvoiceWorker
+import org.apache.ofbiz.base.util.UtilNumber
+
+import java.text.DateFormat
 
 invoiceId = parameters.get("invoiceId");
 
@@ -37,7 +30,6 @@ context.invoice = invoice;
 
 currency = parameters.currency;        // allow the display of the invoice in the original currency, the default is to display the invoice in the default currency
 BigDecimal conversionRate = new BigDecimal("1");
-ZERO = BigDecimal.ZERO;
 decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 

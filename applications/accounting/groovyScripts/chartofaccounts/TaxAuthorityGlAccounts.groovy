@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc;
-
 taxAuthorities = from('TaxAuthority').orderBy("taxAuthGeoId", "taxAuthPartyId").queryList();
 
 context.taxAuthorityHavingNoGlAccountList = taxAuthorities.findAll { taxAuthority ->

@@ -17,10 +17,11 @@
  * under the License.
  */
 
-import java.text.DateFormat;
-import org.apache.ofbiz.accounting.invoice.InvoiceWorker;
-import org.apache.ofbiz.base.util.UtilNumber;
-import org.apache.ofbiz.entity.condition.EntityCondition;
+
+import org.apache.ofbiz.accounting.invoice.InvoiceWorker
+import org.apache.ofbiz.base.util.UtilNumber
+
+import java.text.DateFormat
 
 invoiceDetailList = [];
 invoiceIds.each { invoiceId ->

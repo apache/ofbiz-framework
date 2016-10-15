@@ -18,7 +18,6 @@
  */
 
 import org.apache.ofbiz.accounting.payment.BillingAccountWorker;
-import org.apache.ofbiz.entity.util.EntityUtil;
 
 partyId = parameters.partyId;
 currencyUomId = null;

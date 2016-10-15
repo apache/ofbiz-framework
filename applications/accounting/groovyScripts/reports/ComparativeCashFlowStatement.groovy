@@ -18,7 +18,6 @@
  */
 
 import org.apache.ofbiz.base.util.UtilMisc;
-import java.math.BigDecimal; 
 
 openingCashBalanceMap = [:];
 openingCashBalanceList = [];

@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.util.*;
+
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 
 //NOTE: this code ignores from/thru dates on the products and categories under the rootProductCategoryId!
 

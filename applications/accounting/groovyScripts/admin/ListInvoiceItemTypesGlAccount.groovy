@@ -17,12 +17,7 @@
  * under the License.
  */
 
-import java.util.*;
-import java.lang.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.condition.EntityConditionBuilder;
 
 // Optional prefix parameter to filter InvoiceItemTypes by (i.e. "INV" or "PINV") defaults to INV
 invItemTypePrefix = context.invItemTypePrefix ?: "INV";
