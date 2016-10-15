@@ -16,7 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilDateTime;
 import java.sql.*;
 import com.ibm.icu.util.Calendar;
 

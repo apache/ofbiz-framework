@@ -16,9 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.Debug;
 import java.sql.*;
-import java.util.Calendar;
 
 fromDateStr = parameters.fromDate;
 cal = Calendar.getInstance();
