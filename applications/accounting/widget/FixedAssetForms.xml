@@ -126,7 +126,8 @@ under the License.
     </form>
 
     <form name="ListFixedAssetProducts" type="list"  list-name="fixedAssetProducts"  target="updateFixedAssetProduct"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="ListFixedAssetProducts">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
+        paginate-target="ListFixedAssetProducts" separate-columns="true">
         <field name="productId" title="${uiLabelMap.AccountingProduct}"><display-entity entity-name="Product" description="${description}[${productId}]"/></field>
         <field name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductType}"><display-entity entity-name="FixedAssetProductType"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
@@ -189,7 +190,7 @@ under the License.
     </form>
 
     <form name="ListFixedAssetStdCosts" list-name="fixedAssetStdCosts" type="list" target="updateFixedAssetStdCost" title="" paginate-target="EditFixedAssetStdCosts"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <entity-condition entity-name="FixedAssetStdCost">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
@@ -242,7 +243,8 @@ under the License.
 
     <!-- List all fixed asset idents  -->
     <form name="ListFixedAssetIdents" type="list" list-name="fixedAssetIdents" target="updateFixedAssetIdent"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditFixedAssetIdents">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
+        paginate-target="EditFixedAssetIdents" separate-columns="true">
         <actions>
             <entity-condition entity-name="FixedAssetIdent">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
@@ -281,7 +283,8 @@ under the License.
 
     <!-- List all fixed asset Registration  -->
     <form name="ListFixedAssetRegistrations" type="list" list-name="fixedAssetRegistrations" target="updateFixedAssetRegistration"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditFixedAssetRegistrations">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
+        paginate-target="EditFixedAssetRegistrations" separate-columns="true">
         <actions>
             <entity-condition entity-name="FixedAssetRegistration">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
@@ -509,7 +512,8 @@ under the License.
 
     <!-- =====================Party Fixed Asset Assignment Forms============== -->
     <form name="ListPartyFixedAssetAssignments" type="list"  list-name="listPartyFixedAssets"  target="updatePartyFixedAssetAssignment"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditPartyFixedAssetAssignments">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
+        paginate-target="EditPartyFixedAssetAssignments" separate-columns="true">
         <actions>
             <entity-condition entity-name="PartyFixedAssetAssignment" list="listPartyFixedAssets">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>

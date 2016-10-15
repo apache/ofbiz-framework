@@ -103,7 +103,7 @@ under the License.
     
     <!-- Payment Group Member -->
     <form name="ListPaymentGroupMember" type="list" list-name="paymentGroupMembers" target="updatePaymentGroupMember"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row">
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row" separate-columns="true">
         <row-actions>
             <entity-one entity-name="Payment" value-field="payment"/>
             <set field="paymentTypeId" from-field="payment.paymentTypeId"/>

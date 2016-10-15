@@ -767,7 +767,7 @@ under the License.
     </form>
 
     <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" list-name="productGlAccounts"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-service service-name="updateProductGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
@@ -812,7 +812,7 @@ under the License.
     </form>
 
     <form name="ListFinAccountTypeGlAccounts" type="list" target="updateFinAccountTypeGlAccount" list-name="finAccountTypeGlAccounts"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-service service-name="updateFinAccountTypeGlAccount"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="finAccountTypeId"><display-entity entity-name="FinAccountType"/></field>
@@ -852,7 +852,7 @@ under the License.
     </form>
 
     <form name="ListProductCategoryGlAccounts" type="list" target="updateProductCategoryGlAccount" list-name="productCategoryGlAccounts"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-service service-name="updateProductCategoryGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
@@ -897,7 +897,7 @@ under the License.
     </form>
 
     <form name="ListVarianceReasonGlAccounts" type="list" target="updateVarianceReasonGlAccount" list-name="varianceReasonGlAccounts"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-service service-name="updateVarianceReasonGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="varianceReasonId"><display-entity entity-name="VarianceReason"/></field>
@@ -939,7 +939,7 @@ under the License.
     </form>
 
     <form name="ListCreditCardTypeGlAccounts" type="list" target="updateCreditCardTypeGlAccount" list-name="creditCardTypeGlAccounts"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-service service-name="updateCreditCardTypeGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
@@ -1035,7 +1035,7 @@ under the License.
     </form>
 
     <form name="ListPartyGlAccounts" type="list" target="updatePartyGlAccount" list-name="partyGlAccounts"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-service service-name="updatePartyGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="partyId">
