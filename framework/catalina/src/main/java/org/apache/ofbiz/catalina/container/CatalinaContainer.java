@@ -68,10 +68,11 @@ import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.concurrent.ExecutionPool;
 import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
-import org.apache.ofbiz.base.container.ContainerConfig.Container.Property;
+import org.apache.ofbiz.base.container.ContainerConfig.Configuration.Property;
 import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.start.Start;
+import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.SSLUtil;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -145,7 +146,7 @@ public class CatalinaContainer implements Container {
     }
 
     private Tomcat tomcat = null;
-    protected Map<String, ContainerConfig.Container.Property> clusterConfig = new HashMap<String, ContainerConfig.Container.Property>();
+    protected Map<String, ContainerConfig.Configuration.Property> clusterConfig = new HashMap<String, ContainerConfig.Configuration.Property>();
 
     protected boolean contextReloadable = false;
     protected boolean crossContext = false;
@@ -156,10 +157,10 @@ public class CatalinaContainer implements Container {
     private String name;
 
     @Override
-    public void init(String[] args, String name, String configFile) throws ContainerException {
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         this.name = name;
         // get the container config
-        ContainerConfig.Container cc = ContainerConfig.getContainer(name, configFile);
+        ContainerConfig.Configuration cc = ContainerConfig.getConfiguration(name, configFile);
         if (cc == null) {
             throw new ContainerException("No catalina-container configuration found in container config!");
         }
@@ -196,7 +197,7 @@ public class CatalinaContainer implements Container {
         }
 
         // create the engine
-        List<ContainerConfig.Container.Property> engineProps = cc.getPropertiesWithValue("engine");
+        List<ContainerConfig.Configuration.Property> engineProps = cc.getPropertiesWithValue("engine");
         if (UtilValidate.isEmpty(engineProps)) {
             throw new ContainerException("Cannot load CatalinaContainer; no engines defined.");
         }
@@ -206,11 +207,11 @@ public class CatalinaContainer implements Container {
         createEngine(engineProps.get(0));
 
         // create the connectors
-        List<ContainerConfig.Container.Property> connectorProps = cc.getPropertiesWithValue("connector");
+        List<ContainerConfig.Configuration.Property> connectorProps = cc.getPropertiesWithValue("connector");
         if (UtilValidate.isEmpty(connectorProps)) {
             throw new ContainerException("Cannot load CatalinaContainer; no connectors defined!");
         }
-        for (ContainerConfig.Container.Property connectorProp: connectorProps) {
+        for (ContainerConfig.Configuration.Property connectorProp: connectorProps) {
             createConnector(connectorProp);
         }
     }
@@ -234,12 +235,12 @@ public class CatalinaContainer implements Container {
         return true;
     }
 
-    private Engine createEngine(ContainerConfig.Container.Property engineConfig) throws ContainerException {
+    private Engine createEngine(ContainerConfig.Configuration.Property engineConfig) throws ContainerException {
         if (tomcat == null) {
             throw new ContainerException("Cannot create Engine without Tomcat instance!");
         }
 
-        ContainerConfig.Container.Property defaultHostProp = engineConfig.getProperty("default-host");
+        ContainerConfig.Configuration.Property defaultHostProp = engineConfig.getProperty("default-host");
         if (defaultHostProp == null) {
             throw new ContainerException("default-host element of server property is required for catalina!");
         }
@@ -262,13 +263,13 @@ public class CatalinaContainer implements Container {
         configureHost(host);
 
         // configure clustering
-        List<ContainerConfig.Container.Property> clusterProps = engineConfig.getPropertiesWithValue("cluster");
+        List<ContainerConfig.Configuration.Property> clusterProps = engineConfig.getPropertiesWithValue("cluster");
         if (clusterProps != null && clusterProps.size() > 1) {
             throw new ContainerException("Only one cluster configuration allowed per engine");
         }
 
         if (UtilValidate.isNotEmpty(clusterProps)) {
-            ContainerConfig.Container.Property clusterProp = clusterProps.get(0);
+            ContainerConfig.Configuration.Property clusterProp = clusterProps.get(0);
             createCluster(clusterProp, host);
             clusterConfig.put(engineName, clusterProp);
         }
@@ -341,7 +342,7 @@ public class CatalinaContainer implements Container {
         ((StandardHost)host).setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP), "work" + File.separator + host.getName()).getAbsolutePath());
     }
 
-    protected Cluster createCluster(ContainerConfig.Container.Property clusterProps, Host host) throws ContainerException {
+    protected Cluster createCluster(ContainerConfig.Configuration.Property clusterProps, Host host) throws ContainerException {
         String defaultValveFilter = ".*\\.gif;.*\\.js;.*\\.jpg;.*\\.htm;.*\\.html;.*\\.txt;.*\\.png;.*\\.css;.*\\.ico;.*\\.htc;";
 
         ReplicationValve clusterValve = new ReplicationValve();
@@ -429,7 +430,7 @@ public class CatalinaContainer implements Container {
         return cluster;
     }
 
-    protected Connector createConnector(ContainerConfig.Container.Property connectorProp) throws ContainerException {
+    protected Connector createConnector(ContainerConfig.Configuration.Property connectorProp) throws ContainerException {
         if (tomcat == null) {
             throw new ContainerException("Cannot create Connector without Tomcat instance!");
         }
@@ -442,7 +443,7 @@ public class CatalinaContainer implements Container {
             connector = new Connector(protocol);
             connector.setPort(port);
             // then set all the other parameters
-            for (ContainerConfig.Container.Property prop: connectorProp.properties.values()) {
+            for (ContainerConfig.Configuration.Property prop: connectorProp.properties.values()) {
                 if ("protocol".equals(prop.name) || "port".equals(prop.name)) {
                     // protocol and port are already set
                     continue;

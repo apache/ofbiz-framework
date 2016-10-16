@@ -24,8 +24,10 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 import org.apache.ofbiz.base.start.Start;
+import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.RMIExtendedSocketFactory;
 
 /**
@@ -47,15 +49,15 @@ public class NamingServiceContainer implements Container {
 
     private String name;
 
-    public void init(String[] args, String name, String configFile) throws ContainerException {
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         this.name =name;
         this.configFileLocation = configFile;
 
-        ContainerConfig.Container cfg = ContainerConfig.getContainer(name, configFileLocation);
+        ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(name, configFileLocation);
 
         // get the naming (JNDI) port
         
-        ContainerConfig.Container.Property port = cfg.getProperty("port");
+        ContainerConfig.Configuration.Property port = cfg.getProperty("port");
         if (port.value != null) {
             try {
                 this.namingPort = Integer.parseInt(port.value) + Start.getInstance().getConfig().portOffset;
@@ -65,7 +67,7 @@ public class NamingServiceContainer implements Container {
         }
 
         // get the naming (JNDI) server
-        ContainerConfig.Container.Property host = cfg.getProperty("host");
+        ContainerConfig.Configuration.Property host = cfg.getProperty("host");
         if (host != null && host.value != null) {
             this.namingHost =  host.value ;
         }

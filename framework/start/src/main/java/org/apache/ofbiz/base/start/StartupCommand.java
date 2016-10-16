@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.start;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -29,7 +30,7 @@ import java.util.Map;
  * For example: <code>java -jar build/libs/ofbiz.jar --status</code> where status is a command.
  * </p>
  */
-final class StartupCommand {
+public final class StartupCommand {
     private String name;
     private Map<String,String> properties;
 
@@ -57,6 +58,13 @@ final class StartupCommand {
         }
         public Builder properties(Map<String,String> properties) {
             this.properties = properties;
+            return this;
+        }
+        public Builder addProperty(String key, String value) {
+            if(properties == null) {
+                properties = new HashMap<String,String>();
+            }
+            properties.put(key, value);
             return this;
         }
 

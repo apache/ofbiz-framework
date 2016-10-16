@@ -27,6 +27,7 @@ import org.apache.ofbiz.base.concurrent.ExecutionPool;
 import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerException;
+import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.StringUtil;
 
@@ -35,10 +36,10 @@ public class DelegatorContainer implements Container {
     private List<String> preloadedDelegatorNames;
 
     @Override
-    public void init(String[] args, String name, String configFile) throws ContainerException {
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         this.name = name;
 
-        ContainerConfig.Container cc = ContainerConfig.getContainer(name, configFile);
+        ContainerConfig.Configuration cc = ContainerConfig.getConfiguration(name, configFile);
 
         preloadedDelegatorNames = StringUtil.split(ContainerConfig.getPropertyValue(cc, "preloaded-delegators", "default"), ", ");
     }

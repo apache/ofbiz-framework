@@ -73,20 +73,15 @@ class AdminClient {
 
     private static String sendSocketCommand(OfbizSocketCommand socketCommand, Config config) throws IOException {
         String response = "OFBiz is Down";
-        try {
-            Socket socket = new Socket(config.adminAddress, config.adminPort);
+        try (Socket socket = new Socket(config.adminAddress, config.adminPort);
+                PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
             // send the command
-            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             writer.println(config.adminKey + ":" + socketCommand);
             writer.flush();
             // read the reply
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             response = reader.readLine();
-            reader.close();
-            // close the socket
-            writer.close();
-            socket.close();
-
         } catch (ConnectException e) {
             System.out.println("Could not connect to " + config.adminAddress + ":" + config.adminPort);
         }

@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.start;
 
+import java.util.List;
+
 /**
  * An object that loads server startup classes.
  * <p>
@@ -35,23 +37,15 @@ package org.apache.ofbiz.base.start;
 public interface StartupLoader {
 
     /**
-     * Load a startup class.
+     * Start a startup class.
      *
      * @param config Startup config.
-     * @param args Command-line arguments.
+     * @param ofbizCommands Command-line arguments.
      * @throws StartupException If an error was encountered. Throwing this exception
      * will halt loader loading, so it should be thrown only when OFBiz can't
      * operate without it.
      */
-    public void load(Config config, String args[]) throws StartupException;
-
-    /**
-     * Start the startup class. This method must not block - implementations
-     * that require thread blocking must create a separate thread and then return.
-     * 
-     * @throws StartupException If an error was encountered.
-     */
-    public void start() throws StartupException;
+    public void load(Config config, List<StartupCommand> ofbizCommands) throws StartupException;
 
     /**
      * Stop the startup class. This method must not block.

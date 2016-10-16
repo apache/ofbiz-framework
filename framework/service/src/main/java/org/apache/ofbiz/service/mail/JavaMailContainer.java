@@ -43,6 +43,7 @@ import javax.mail.search.FlagTerm;
 import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerException;
+import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -80,7 +81,7 @@ public class JavaMailContainer implements Container {
      *
      */
     @Override
-    public void init(String[] args, String name, String configFile) throws ContainerException {
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         this.name = name;
         this.configFile = configFile;
         this.stores = new LinkedHashMap<Store, Session>();
@@ -96,7 +97,7 @@ public class JavaMailContainer implements Container {
      */
     @Override
     public boolean start() throws ContainerException {
-        ContainerConfig.Container cfg = ContainerConfig.getContainer(name, configFile);
+        ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(name, configFile);
         String dispatcherName = ContainerConfig.getPropertyValue(cfg, "dispatcher-name", "JavaMailDispatcher");
         String delegatorName = ContainerConfig.getPropertyValue(cfg, "delegator-name", "default");
         this.deleteMail = "true".equals(ContainerConfig.getPropertyValue(cfg, "delete-mail", "false"));
@@ -119,8 +120,8 @@ public class JavaMailContainer implements Container {
         ServiceMcaUtil.readConfig();
 
         // load the listeners
-        List<ContainerConfig.Container.Property> configs = cfg.getPropertiesWithValue("store-listener");
-        for (ContainerConfig.Container.Property prop: configs) {
+        List<ContainerConfig.Configuration.Property> configs = cfg.getPropertiesWithValue("store-listener");
+        for (ContainerConfig.Configuration.Property prop: configs) {
             Session session = this.makeSession(prop);
             Store store = this.getStore(session);
             if (store != null) {
@@ -158,11 +159,11 @@ public class JavaMailContainer implements Container {
     }
 
     // java-mail methods
-    protected Session makeSession(ContainerConfig.Container.Property client) {
+    protected Session makeSession(ContainerConfig.Configuration.Property client) {
         Properties props = new Properties();
-        Map<String, ContainerConfig.Container.Property> clientProps = client.properties;
+        Map<String, ContainerConfig.Configuration.Property> clientProps = client.properties;
         if (clientProps != null) {
-            for (ContainerConfig.Container.Property p: clientProps.values()) {
+            for (ContainerConfig.Configuration.Property p: clientProps.values()) {
                 props.setProperty(p.name.toLowerCase(), p.value);
             }
         }

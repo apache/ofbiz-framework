@@ -18,6 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.container;
 
+import java.util.List;
+
+import org.apache.ofbiz.base.start.StartupCommand;
+
 /**
  * An OFBiz container. A container can be thought of as a background process.
  * 
@@ -39,14 +43,14 @@ public interface Container {
     /** Initialize the container. This method must not block - implementations
      * should initialize internal structures and then return.
      *
-     * @param args Command-line arguments.
+     * @param ofbizCommands Command-line arguments.
      * @param name Unique name of the container's instance.
      * @param configFile Location of the configuration file used to load this container.
      * @throws ContainerException If an error was encountered. Throwing this exception
      * will halt container loading, so it should be thrown only when other containers
      * might depend on this one.
      */
-    public void init(String[] args, String name, String configFile) throws ContainerException;
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException;
 
     /**
      * Start the container process. This method must not block - implementations

@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.ofbiz.base.container.ContainerConfig;
-import org.apache.ofbiz.base.container.ContainerConfig.Container;
+import org.apache.ofbiz.base.container.ContainerConfig.Configuration;
 import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Assert;
@@ -85,18 +85,18 @@ public final class ComponentConfig {
         return componentConfigCache.values();
     }
 
-    public static List<ContainerConfig.Container> getAllContainers() {
-        return getAllContainers(null);
+    public static List<ContainerConfig.Configuration> getAllConfigurations() {
+        return getAllConfigurations(null);
     }
 
-    public static List<ContainerConfig.Container> getAllContainers(String componentName) {
-        List<ContainerConfig.Container> containers = new ArrayList<ContainerConfig.Container>();
+    public static List<ContainerConfig.Configuration> getAllConfigurations(String componentName) {
+        List<ContainerConfig.Configuration> configurations = new ArrayList<ContainerConfig.Configuration>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
-                containers.addAll(cc.getContainers());
+                configurations.addAll(cc.getConfigurations());
             }
         }
-        return containers;
+        return configurations;
     }
 
     public static List<EntityResourceInfo> getAllEntityResourceInfos(String type) {
@@ -346,7 +346,7 @@ public final class ComponentConfig {
     private final List<TestSuiteInfo> testSuiteInfos;
     private final List<KeystoreInfo> keystoreInfos;
     private final List<WebappInfo> webappInfos;
-    private final List<ContainerConfig.Container> containers;
+    private final List<ContainerConfig.Configuration> configurations;
 
     private ComponentConfig(String globalName, String rootLocation) throws ComponentException {
         if (!rootLocation.endsWith("/")) {
@@ -463,16 +463,16 @@ public final class ComponentConfig {
         } else {
             this.webappInfos = Collections.emptyList();
         }
-        // containers
+        // configurations
         try {
-            Collection<Container> containers = ContainerConfig.getContainers(xmlUrl);
-            if (!containers.isEmpty()) {
-                this.containers = Collections.unmodifiableList(new ArrayList<ContainerConfig.Container>(containers));
+            Collection<Configuration> configurations = ContainerConfig.getConfigurations(xmlUrl);
+            if (!configurations.isEmpty()) {
+                this.configurations = Collections.unmodifiableList(new ArrayList<ContainerConfig.Configuration>(configurations));
             } else {
-                this.containers = Collections.emptyList();
+                this.configurations = Collections.emptyList();
             }
         } catch (ContainerException ce) {
-            throw new ComponentException("Error reading containers for component: " + this.globalName, ce);
+            throw new ComponentException("Error reading container configurations for component: " + this.globalName, ce);
         }
         if (Debug.verboseOn())
             Debug.logVerbose("Read component config : [" + rootLocation + "]", module);
@@ -490,8 +490,8 @@ public final class ComponentConfig {
         return this.componentName;
     }
 
-    public List<ContainerConfig.Container> getContainers() {
-        return this.containers;
+    public List<ContainerConfig.Configuration> getConfigurations() {
+        return this.configurations;
     }
 
     public List<EntityResourceInfo> getEntityResourceInfos() {

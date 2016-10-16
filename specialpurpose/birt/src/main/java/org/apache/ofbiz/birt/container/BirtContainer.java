@@ -19,6 +19,7 @@
 package org.apache.ofbiz.birt.container;
 
 import java.io.File;
+import java.util.List;
 import java.util.logging.Level;
 
 import org.eclipse.birt.core.exception.BirtException;
@@ -30,6 +31,7 @@ import org.eclipse.birt.report.engine.api.IReportEngineFactory;
 import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerException;
+import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.birt.BirtFactory;
 
@@ -42,7 +44,7 @@ public class BirtContainer implements Container {
     private String name;
 
     @Override
-    public void init(String[] args, String name, String configFile) throws ContainerException {
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         this.name = name;
         this.configFile = configFile;
     }
@@ -59,7 +61,7 @@ public class BirtContainer implements Container {
             throw new ContainerException("Unknown container config name");
         }
         // get the container config
-        ContainerConfig.Container cc = ContainerConfig.getContainer(getName(), configFile);
+        ContainerConfig.Configuration cc = ContainerConfig.getConfiguration(getName(), configFile);
         if (cc == null) {
             throw new ContainerException("No " + getName() + " configuration found in container config!");
         }

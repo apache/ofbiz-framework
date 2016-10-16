@@ -31,7 +31,6 @@ package org.apache.ofbiz.base.metrics;
 import java.util.Collection;
 import java.util.TreeSet;
 
-import org.apache.ofbiz.base.lang.LockedBy;
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -138,17 +137,11 @@ public final class MetricsFactory {
     }
 
     private static final class MetricsImpl implements Metrics, Comparable<Metrics> {
-        @LockedBy("this")
         private int count = 0;
-        @LockedBy("this")
         private long lastTime = System.currentTimeMillis();
-        @LockedBy("this")
         private double serviceRate = 0.0;
-        @LockedBy("this")
         private long totalServiceTime = 0;
-        @LockedBy("this")
         private long totalEvents = 0;
-        @LockedBy("this")
         private long cumulativeEvents = 0;
         private final String name;
         private final int estimationSize;
