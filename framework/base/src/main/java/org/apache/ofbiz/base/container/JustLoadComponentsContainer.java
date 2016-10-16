@@ -18,9 +18,13 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.container;
 
+import java.util.List;
+
 import org.apache.ofbiz.base.component.AlreadyLoadedException;
 import org.apache.ofbiz.base.component.ComponentException;
+import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
+
 
 /**
  * A Container implementation to run the tests configured through this testtools stuff.
@@ -32,7 +36,7 @@ public class JustLoadComponentsContainer implements Container {
     private String name;
 
     @Override
-    public void init(String[] args, String name, String configFile) {
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) {
         this.name = name;
         try {
             ComponentContainer cc = new ComponentContainer();

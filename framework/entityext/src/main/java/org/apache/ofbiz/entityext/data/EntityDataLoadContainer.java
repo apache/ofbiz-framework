@@ -32,6 +32,8 @@ import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerException;
+import org.apache.ofbiz.base.container.StartupCommandToArgsAdapter;
+import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilURL;
@@ -83,7 +85,10 @@ public class EntityDataLoadContainer implements Container {
     }
 
     @Override
-    public void init(String[] args, String name, String configFile) throws ContainerException {
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
+        // TODO: remove this hack and provide clean implementation
+        String[] args = StartupCommandToArgsAdapter.adaptStartupCommandsToLoaderArgs(ofbizCommands);
+
         this.name = name;
         this.configFile = configFile;
         // disable job scheduler, JMS listener and startup services
@@ -212,8 +217,8 @@ public class EntityDataLoadContainer implements Container {
                 Debug.logWarning("Multitenant is disabled. Please enable multitenant. (e.g. general.properties --> multitenant=Y)", module);
                 return true;
             }
-            ContainerConfig.Container cfg = ContainerConfig.getContainer(name, configFile);
-            ContainerConfig.Container.Property delegatorNameProp = cfg.getProperty("delegator-name");
+            ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(name, configFile);
+            ContainerConfig.Configuration.Property delegatorNameProp = cfg.getProperty("delegator-name");
             String delegatorName = null;
             if (delegatorNameProp == null || UtilValidate.isEmpty(delegatorNameProp.value)) {
                 throw new ContainerException("Invalid delegator-name defined in container configuration");
@@ -243,9 +248,9 @@ public class EntityDataLoadContainer implements Container {
         return true;
     }
     private void loadContainer() throws ContainerException{
-        ContainerConfig.Container cfg = ContainerConfig.getContainer(name, configFile);
-        ContainerConfig.Container.Property delegatorNameProp = cfg.getProperty("delegator-name");
-        ContainerConfig.Container.Property entityGroupNameProp = cfg.getProperty("entity-group-name");
+        ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(name, configFile);
+        ContainerConfig.Configuration.Property delegatorNameProp = cfg.getProperty("delegator-name");
+        ContainerConfig.Configuration.Property entityGroupNameProp = cfg.getProperty("entity-group-name");
 
         String delegatorName = null;
         String entityGroupName = null;

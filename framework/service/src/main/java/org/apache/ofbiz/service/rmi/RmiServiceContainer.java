@@ -22,6 +22,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.RMIClientSocketFactory;
 import java.rmi.server.RMIServerSocketFactory;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -30,6 +31,7 @@ import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.start.Start;
+import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
@@ -50,21 +52,21 @@ public class RmiServiceContainer implements Container {
     // Container methods
 
     @Override
-    public void init(String[] args, String name, String configFile) {
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) {
         this.containerName = name;
         this.configFile = configFile;
     }
 
     public boolean start() throws ContainerException {
         // get the container config
-        ContainerConfig.Container cfg = ContainerConfig.getContainer(containerName, configFile);
-        ContainerConfig.Container.Property initialCtxProp = cfg.getProperty("use-initial-context");
-        ContainerConfig.Container.Property lookupHostProp = cfg.getProperty("bound-host");
-        ContainerConfig.Container.Property lookupPortProp = cfg.getProperty("bound-port");
-        ContainerConfig.Container.Property lookupNameProp = cfg.getProperty("bound-name");
-        ContainerConfig.Container.Property delegatorProp = cfg.getProperty("delegator-name");
-        ContainerConfig.Container.Property clientProp = cfg.getProperty("client-factory");
-        ContainerConfig.Container.Property serverProp = cfg.getProperty("server-factory");
+        ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(containerName, configFile);
+        ContainerConfig.Configuration.Property initialCtxProp = cfg.getProperty("use-initial-context");
+        ContainerConfig.Configuration.Property lookupHostProp = cfg.getProperty("bound-host");
+        ContainerConfig.Configuration.Property lookupPortProp = cfg.getProperty("bound-port");
+        ContainerConfig.Configuration.Property lookupNameProp = cfg.getProperty("bound-name");
+        ContainerConfig.Configuration.Property delegatorProp = cfg.getProperty("delegator-name");
+        ContainerConfig.Configuration.Property clientProp = cfg.getProperty("client-factory");
+        ContainerConfig.Configuration.Property serverProp = cfg.getProperty("server-factory");
 
         // check the required lookup-name property
         if (lookupNameProp == null || UtilValidate.isEmpty(lookupNameProp.value)) {

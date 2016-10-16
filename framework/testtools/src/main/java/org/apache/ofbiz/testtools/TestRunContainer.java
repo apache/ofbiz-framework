@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import junit.framework.AssertionFailedError;
@@ -39,6 +40,8 @@ import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
 import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerException;
+import org.apache.ofbiz.base.container.StartupCommandToArgsAdapter;
+import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 
@@ -59,7 +62,10 @@ public class TestRunContainer implements Container {
     private String name;
 
     @Override
-    public void init(String[] args, String name, String configFile) {
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) {
+        // TODO: remove this hack and provide clean implementation
+        String[] args = StartupCommandToArgsAdapter.adaptStartupCommandsToLoaderArgs(ofbizCommands);
+
         this.name = name;
         this.configFile = configFile;
         if (args != null) {

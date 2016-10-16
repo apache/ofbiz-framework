@@ -31,6 +31,7 @@ import org.apache.ofbiz.base.component.ComponentException;
 import org.apache.ofbiz.base.component.ComponentLoaderConfig;
 import org.apache.ofbiz.base.start.Classpath;
 import org.apache.ofbiz.base.start.NativeLibClassLoader;
+import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -52,7 +53,7 @@ public class ComponentContainer implements Container {
     private final AtomicBoolean loaded = new AtomicBoolean(false);
 
     @Override
-    public void init(String[] args, String name, String configFile) throws ContainerException {
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         if (!loaded.compareAndSet(false, true)) {
             throw new ContainerException("Components already loaded, cannot start");
         }
@@ -60,7 +61,7 @@ public class ComponentContainer implements Container {
         this.configFileLocation = configFile;
 
         // get the config for this container
-        ContainerConfig.Container cc = ContainerConfig.getContainer(name, configFileLocation);
+        ContainerConfig.Configuration cc = ContainerConfig.getConfiguration(name, configFileLocation);
 
         // check for an override loader config
         String loaderConfig = null;

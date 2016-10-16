@@ -21,9 +21,7 @@ package org.apache.ofbiz.base.start;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.ofbiz.base.start.Start.ServerState;
@@ -61,17 +59,15 @@ final class StartupControlPanel {
             AtomicReference<ServerState> serverState,
             List<StartupCommand> ofbizCommands) throws StartupException {
 
-        List<StartupLoader> loaders = new ArrayList<StartupLoader>();
-        List<String> loaderArgs = StartupCommandUtil.adaptStartupCommandsToLoaderArgs(ofbizCommands);
-        Thread adminServer = createAdminServer(config, serverState, loaders);
+        StartupLoader loader = instantiateStartupLoader(config, Thread.currentThread().getContextClassLoader());
+        Thread adminServer = createAdminServer(config, serverState, loader);
         Classpath classPath = createClassPath(config);
-        NativeLibClassLoader classLoader = createAndSetContextClassLoader(config, classPath);
 
+        createAndSetContextClassLoader(config, classPath);
         createLogDirectoryIfMissing(config);
-        createRuntimeShutdownHook(config, loaders, serverState);
-        loadStartupLoaders(config, loaders, loaderArgs, serverState, classLoader);
-        startStartupLoaders(loaders, serverState);
-        executeShutdownAfterLoadIfConfigured(config, loaders, serverState, adminServer);
+        createRuntimeShutdownHook(config, loader, serverState);
+        executeStartupLoadSequence(config, loader, ofbizCommands, serverState);
+        executeShutdownAfterLoadIfConfigured(config, loader, serverState, adminServer);
     }
 
     /**
@@ -81,8 +77,8 @@ final class StartupControlPanel {
      * - Manually if requested by the client AdminClient
      * - Automatically if Config.shutdownAfterLoad is set to true
      */
-    static void stop(List<StartupLoader> loaders, AtomicReference<ServerState> serverState, Thread adminServer) {
-        shutdownServer(loaders, serverState, adminServer);
+    static void stop(StartupLoader loader, AtomicReference<ServerState> serverState, Thread adminServer) {
+        shutdownServer(loader, serverState, adminServer);
         System.exit(0);
     }
 
@@ -106,7 +102,7 @@ final class StartupControlPanel {
         System.exit(1);
     }
 
-    private static void shutdownServer(List<StartupLoader> loaders, AtomicReference<ServerState> serverState, Thread adminServer) {
+    private static void shutdownServer(StartupLoader loader, AtomicReference<ServerState> serverState, Thread adminServer) {
         ServerState currentState;
         do {
             currentState = serverState.get();
@@ -116,16 +112,10 @@ final class StartupControlPanel {
         } while (!serverState.compareAndSet(currentState, ServerState.STOPPING));
         // The current thread was the one that successfully changed the state;
         // continue with further processing.
-        synchronized (loaders) {
-            // Unload in reverse order
-            for (int i = loaders.size(); i > 0; i--) {
-                StartupLoader loader = loaders.get(i - 1);
-                try {
-                    loader.unload();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+        try {
+            loader.unload();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         if (adminServer != null && adminServer.isAlive()) {
             adminServer.interrupt();
@@ -146,14 +136,26 @@ final class StartupControlPanel {
         }
     }
 
+    private static StartupLoader instantiateStartupLoader(Config config, ClassLoader classLoader) throws StartupException {
+        StartupLoader loader;
+        try {
+            String className = config.loader.get("class");
+            Class<?> loaderClass = classLoader.loadClass(className);
+            loader = (StartupLoader) loaderClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            throw new StartupException("Could not initiate a StartupLoader", e);
+        }
+        return loader;
+    }
+
     private static Thread createAdminServer(
             Config config,
             AtomicReference<ServerState> serverState,
-            List<StartupLoader> loaders) throws StartupException {
+            StartupLoader loader) throws StartupException {
 
         Thread adminServer = null;
         if (config.adminPort > 0) {
-            adminServer = new AdminServer(loaders, serverState, config);
+            adminServer = new AdminServer(loader, serverState, config);
             adminServer.start();
         } else {
             System.out.println("Admin socket not configured; set to port 0");
@@ -208,14 +210,14 @@ final class StartupControlPanel {
 
     private static void createRuntimeShutdownHook(
             Config config,
-            List<StartupLoader> loaders,
+            StartupLoader loader,
             AtomicReference<ServerState> serverState) {
 
         if (config.useShutdownHook) {
             Runtime.getRuntime().addShutdownHook(new Thread() {
                 @Override
                 public void run() {
-                    shutdownServer(loaders, serverState, this);
+                    shutdownServer(loader, serverState, this);
                 }
             });
         } else {
@@ -223,51 +225,13 @@ final class StartupControlPanel {
         }
     }
 
-    private static void loadStartupLoaders(Config config, 
-            List<StartupLoader> loaders,
-            List<String> loaderArgs,
-            AtomicReference<ServerState> serverState,
-            NativeLibClassLoader classloader) throws StartupException {
-
-        String[] argsArray = loaderArgs.toArray(new String[loaderArgs.size()]);
-        synchronized (loaders) {
-            for (Map<String, String> loaderMap : config.loaders) {
-                if (serverState.get() == ServerState.STOPPING) {
-                    return;
-                }
-                try {
-                    String loaderClassName = loaderMap.get("class");
-                    Class<?> loaderClass = classloader.loadClass(loaderClassName);
-                    StartupLoader loader = (StartupLoader) loaderClass.newInstance();
-                    loaders.add(loader); // add before loading, so unload can occur if error during loading
-                    loader.load(config, argsArray);
-                } catch (ReflectiveOperationException e) {
-                    throw new StartupException(e.getMessage(), e);
-                }
-            }
-        }
-        StringBuilder sb = new StringBuilder();
-        for (String path : classloader.getNativeLibPaths()) {
-            if (sb.length() > 0) {
-                sb.append(File.pathSeparator);
-            }
-            sb.append(path);
-        }
-        System.setProperty("java.library.path", sb.toString());
-    }
-
-    private static void startStartupLoaders(List<StartupLoader> loaders, 
+    private static void executeStartupLoadSequence(Config config, 
+            StartupLoader loader,
+            List<StartupCommand> ofbizCommands,
             AtomicReference<ServerState> serverState) throws StartupException {
 
-        synchronized (loaders) {
-            // start the loaders
-            for (StartupLoader loader : loaders) {
-                if (serverState.get() == ServerState.STOPPING) {
-                    return;
-                } else {
-                    loader.start();
-                }
-            }
+        if (serverState.get() != ServerState.STOPPING) {
+            loader.load(config, ofbizCommands);
         }
         if(!serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING)) {
             throw new StartupException("Error during start");
@@ -276,12 +240,12 @@ final class StartupControlPanel {
 
     private static void executeShutdownAfterLoadIfConfigured(
             Config config,
-            List<StartupLoader> loaders,
+            StartupLoader loader,
             AtomicReference<ServerState> serverState,
             Thread adminServer) {
 
         if (config.shutdownAfterLoad) {
-            stop(loaders, serverState, adminServer);
+            stop(loader, serverState, adminServer);
         }
     }
 }

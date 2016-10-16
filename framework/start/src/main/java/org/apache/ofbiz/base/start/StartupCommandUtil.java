@@ -20,7 +20,6 @@ package org.apache.ofbiz.base.start;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -46,7 +45,7 @@ import org.apache.commons.cli.ParseException;
  * in addition to utility methods for parsing and handling these options
  * </p> 
  */
-final class StartupCommandUtil {
+public final class StartupCommandUtil {
 
     /* 
      * Make sure of defining the same set of values in:
@@ -178,36 +177,6 @@ final class StartupCommandUtil {
                 + System.lineSeparator()
                 + "==============================================================================="
                 );
-    }
-
-    /**
-     * Generates the loaderArgs with arguments as expected by the
-     * containers that will receive them. 
-     * 
-     * TODO A better solution is to change the signature of all 
-     * containers to receive a <tt>List</tt> of <tt>StartupCommand</tt>s
-     * instead and delete the methods adaptStartupCommandsToLoaderArgs
-     * and retrieveCommandArguments along with the loaderArgs list.
-     */
-    static List<String> adaptStartupCommandsToLoaderArgs(List<StartupCommand> ofbizCommands) {
-        List<String> loaderArgs = new ArrayList<String>();
-        final String LOAD_DATA = StartupCommandUtil.StartupOption.LOAD_DATA.getName();
-        final String TEST = StartupCommandUtil.StartupOption.TEST.getName();
-        
-        if(ofbizCommands.stream().anyMatch(command -> command.getName().equals(LOAD_DATA))) {
-            retrieveCommandArguments(ofbizCommands, LOAD_DATA).entrySet().stream().forEach(entry -> 
-            loaderArgs.add("-" + entry.getKey() + "=" + entry.getValue()));
-        } else if(ofbizCommands.stream().anyMatch(command -> command.getName().equals(TEST))) {
-            retrieveCommandArguments(ofbizCommands, TEST).entrySet().stream().forEach(entry -> 
-            loaderArgs.add("-" + entry.getKey() + "=" + entry.getValue()));
-        }
-        return loaderArgs;
-    }
-
-    private static Map<String,String> retrieveCommandArguments(List<StartupCommand> ofbizCommands, String commandName) {
-        return ofbizCommands.stream()
-                .filter(option-> option.getName().equals(commandName))
-                .collect(Collectors.toList()).get(0).getProperties();
     }
 
     private static final Options getOfbizStartupOptions() {
