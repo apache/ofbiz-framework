@@ -100,18 +100,16 @@
     </service>
 
     <!-- ElectronicText services -->
-    <service name="createElectronicText" default-entity-name="ElectronicText" engine="simple"
-            location="component://content/minilang/data/DataServices.xml" invoke="createElectronicText" auth="true">
+    <service name="createElectronicText" default-entity-name="ElectronicText" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ElectronicText</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <implements service="createDataResource"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="dataResourceTypeId" default-value="ELECTRONIC_TEXT"/>
         <override name="textData" allow-html="any"/>
     </service>
-    <service name="updateElectronicText" default-entity-name="ElectronicText" engine="simple"
-            location="component://content/minilang/data/DataServices.xml" invoke="updateElectronicText" auth="true">
+    <service name="updateElectronicText" default-entity-name="ElectronicText" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ElectronicText</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
@@ -119,8 +117,7 @@
         <attribute name="contentId" mode="INOUT" optional="true" type="String"/><!-- to optionaly know where this text is belonging to -->
         <override name="textData" allow-html="any"/>
     </service>
-    <service name="removeElectronicText" default-entity-name="ElectronicText" engine="simple"
-            location="component://content/minilang/data/DataServices.xml" invoke="removeElectronicText" auth="true">
+    <service name="removeElectronicText" default-entity-name="ElectronicText" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove ElectronicText</description>
         <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
