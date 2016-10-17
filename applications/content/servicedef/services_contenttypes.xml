@@ -113,22 +113,19 @@ under the License.
     </service>
 
     <!-- CharacterSet services -->
-    <service name="createCharacterSet" engine="simple" default-entity-name="CharacterSet" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="createCharacterSet">
+    <service name="createCharacterSet" engine="entity-auto" default-entity-name="CharacterSet" auth="true" invoke="create">
         <description>Create a CharacterSet</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateCharacterSet" engine="simple" default-entity-name="CharacterSet" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="updateCharacterSet">
+    <service name="updateCharacterSet" engine="entity-auto" default-entity-name="CharacterSet" auth="true" invoke="update">
         <description>Update a CharacterSet</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeCharacterSet" engine="simple" default-entity-name="CharacterSet" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="removeCharacterSet">
+    <service name="removeCharacterSet" engine="entity-auto" default-entity-name="CharacterSet" auth="true" invoke="delete">
         <description>Remove CharacterSet</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

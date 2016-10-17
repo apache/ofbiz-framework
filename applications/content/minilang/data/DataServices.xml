@@ -176,28 +176,6 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <!-- Methods for CharacterSet -->
-    <simple-method method-name="createCharacterSet" short-description="Create Character Set">
-        <make-value entity-name="CharacterSet" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <field-to-result result-name="characterSetId" field="newEntity.characterSetId"/>
-    </simple-method>
-    <simple-method method-name="updateCharacterSet" short-description="Update Character Set">
-        <make-value entity-name="CharacterSet" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="CharacterSet" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeCharacterSet" short-description="Remove Character Set">
-        <make-value entity-name="CharacterSet" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="CharacterSet" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- Methods for ElectronicText -->
     <simple-method method-name="createElectronicText" short-description="Create Electronic Text">
         <make-value entity-name="ElectronicText" value-field="newEntity"/>
