@@ -401,10 +401,6 @@ under the License.
         <now-timestamp field="del.thruDate"/>
         <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="del"/>
     </simple-method>
-    <simple-method method-name="unassignPartyFromWorkEffort" short-description="Service that deletes a WorkEffortPartyAssignment entity">
-        <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
-        <remove-value value-field="workEffortPartyAssignment"/>
-    </simple-method>
 
     <!-- Create a WorkEffortContactMech -->
     <simple-method method-name="createWorkEffortContactMech" short-description="Create a WorkEffortContactMech">
@@ -738,15 +734,6 @@ under the License.
         </else>
         </if-not-empty>
     </simple-method>
-    <simple-method method-name="updateWorkEffortAssoc" short-description="Update a WorkEffort association">
-        <entity-one entity-name="WorkEffortAssoc" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeWorkEffortAssoc" short-description="Remove a WorkEffort association">
-        <entity-one entity-name="WorkEffortAssoc" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
 
     <simple-method method-name="copyWorkEffortAssocs" short-description="Copy WorkEffort associations">
         <set field="deepCopy" from-field="parameters.deepCopy" default-value="N" />
@@ -794,15 +781,6 @@ under the License.
             <create-value value-field="newEntity"/>
         </else>
         </if-not-empty>
-    </simple-method>
-    <simple-method method-name="updateWorkEffortGoodStandard" short-description="Update a link between a WorkEffort and a Product">
-        <entity-one entity-name="WorkEffortGoodStandard" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeWorkEffortGoodStandard" short-description="Remove a link between a WorkEffort and a Product">
-        <entity-one entity-name="WorkEffortGoodStandard" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="assignInventoryToWorkEffort" short-description="Create or update WorkEffortInventoryAssign">
         <set value="Create or update WorkEffortInventoryAssign" field="operationName"/>
@@ -1387,31 +1365,6 @@ under the License.
         <field-to-result field="workEffortId"/>
     </simple-method>
 
-                  <!-- WorkEffortSkillStandard Services-->
-    <simple-method  method-name="createWorkEffortSkillStandard" short-description="Create WorkEffortSkillStandard">
-        <make-value entity-name="WorkEffortSkillStandard" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method  method-name="updateWorkEffortSkillStandard" short-description="Update WorkEffortSkillStandard">
-        <entity-one entity-name="WorkEffortSkillStandard" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method  method-name="deleteWorkEffortSkillStandard" short-description="Delete WorkEffortSkillStandard">
-        <entity-one entity-name="WorkEffortSkillStandard" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="createWorkEffortInventoryProduced" short-description="Create Work Effort InventoryProduced">
-        <make-value entity-name="WorkEffortInventoryProduced" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="deleteWorkEffortInventoryProduced" short-description="Delete Work Effort InventoryProduced">
-        <entity-one entity-name="WorkEffortInventoryProduced" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
     <!-- WorkEffort ServiceTest Services -->
     <simple-method method-name="testCreateEventService" short-description="test to create new event (workeffort) service" login-required="false">
         <log level="info" message="====================Create an event test case=========================================="/>
@@ -1641,30 +1594,6 @@ under the License.
             </iterate>
         </if-not-empty>
     </simple-method>
-    
-    <!-- Work Effort Survey Services -->
-    <simple-method method-name="createWorkEffortSurveyAppl" short-description="Create WorkEffortSurvey">
-        <make-value entity-name="WorkEffortSurveyAppl" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimeStamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
-        </if-empty>        
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateWorkEffortSurveyAppl" short-description="Update WorkEffortSurvey">
-        <entity-one entity-name="WorkEffortSurveyAppl" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteWorkEffortSurveyAppl" short-description="Delete Work Effort Survey">
-        <entity-one entity-name="WorkEffortSurveyAppl" value-field="lookedUpValue"/>
-        <now-timestamp field="nowTimestamp"/>
-        <set field="lookedUpValue.thruDate" from-field="nowTimestamp"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- iCalendar services -->
 
     <simple-method method-name="getICalWorkEfforts" short-description="Get All Work Efforts Related To An iCalendar Publish Point" login-required="false">
