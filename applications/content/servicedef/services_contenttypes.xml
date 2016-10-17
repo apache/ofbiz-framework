@@ -154,22 +154,19 @@ under the License.
     </service>
 
     <!--DataResourceTypeAttr services.-->
-    <service name="createDataResourceTypeAttr" engine="simple" default-entity-name="DataResourceTypeAttr" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="createDataResourceTypeAttr">
+    <service name="createDataResourceTypeAttr" engine="entity-auto" default-entity-name="DataResourceTypeAttr" auth="true" invoke="create">
         <description>Create a DataResourceTypeAttr</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateDataResourceTypeAttr" engine="simple" default-entity-name="DataResourceTypeAttr" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="updateDataResourceTypeAttr">
+    <service name="updateDataResourceTypeAttr" engine="entity-auto" default-entity-name="DataResourceTypeAttr" auth="true" invoke="update">
         <description>Update a DataResourceTypeAttr</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeDataResourceTypeAttr" engine="simple" default-entity-name="DataResourceTypeAttr" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="removeDataResourceTypeAttr">
+    <service name="removeDataResourceTypeAttr" engine="entity-auto" default-entity-name="DataResourceTypeAttr" auth="true" invoke="delete">
         <description>Remove DataResourceTypeAttr</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
