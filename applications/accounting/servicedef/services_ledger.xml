@@ -99,8 +99,7 @@ under the License.
         <description>Post a GlJournal</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="createGlJournal" default-entity-name="GlJournal" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createGlJournal" auth="true">
+    <service name="createGlJournal" default-entity-name="GlJournal" engine="entity-auto" invoke="create" auth="true">
         <description>Create a GlJournal record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -110,8 +109,7 @@ under the License.
         </auto-attributes>
         <override name="organizationPartyId" optional="false"/>
     </service>
-    <service name="updateGlJournal" default-entity-name="GlJournal" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="updateGlJournal" auth="true">
+    <service name="updateGlJournal" default-entity-name="GlJournal" engine="entity-auto" invoke="update" auth="true">
         <description>Update a GlJournal record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -120,8 +118,7 @@ under the License.
             <exclude field-name="postedDate"/>
         </auto-attributes>
     </service>
-    <service name="deleteGlJournal" default-entity-name="GlJournal" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="deleteGlJournal" auth="true">
+    <service name="deleteGlJournal" default-entity-name="GlJournal" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a GlJournal record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

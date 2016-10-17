@@ -85,26 +85,6 @@ under the License.
         <field-to-result field="acctgTransId" result-name="acctgTransId"/>
     </simple-method>
 
-    <simple-method method-name="createGlJournal" short-description="Create an GlJournal">
-        <make-value entity-name="GlJournal" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <!-- GlJournal uses a sequenced id, so get the next one now and set it... -->
-        <sequenced-id sequence-name="GlJournal" field="newEntity.glJournalId"/>
-        <field-to-result field="newEntity.glJournalId" result-name="glJournalId"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateGlJournal" short-description="Update an GlJournal">
-        <entity-one entity-name="GlJournal" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteGlJournal" short-description="Delete an GlJournal">
-        <entity-one entity-name="GlJournal" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- GlJournal Trial Balance and Post routines -->
     <simple-method method-name="calculateGlJournalTrialBalance" short-description="Calculate Trial Balance for a GlJournal">
         <!-- iterate through all AcctgTrans in this journal and that are not yet posted, and get totals of all debits and of all credits -->
