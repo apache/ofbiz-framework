@@ -201,22 +201,19 @@ under the License.
     </service>
 
     <!-- MetaDataPredicate services -->
-    <service name="createMetaDataPredicate" engine="simple" default-entity-name="MetaDataPredicate" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="createMetaDataPredicate">
+    <service name="createMetaDataPredicate" engine="entity-auto" default-entity-name="MetaDataPredicate" auth="true" invoke="create">
         <description>Create a MetaDataPredicate</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateMetaDataPredicate" engine="simple" default-entity-name="MetaDataPredicate" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="updateMetaDataPredicate">
+    <service name="updateMetaDataPredicate" engine="entity-auto" default-entity-name="MetaDataPredicate" auth="true" invoke="update">
         <description>Update a MetaDataPredicate</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeMetaDataPredicate" engine="simple" default-entity-name="MetaDataPredicate" auth="true"
-        location="component://content/minilang/data/DataServices.xml" invoke="removeMetaDataPredicate">
+    <service name="removeMetaDataPredicate" engine="entity-auto" default-entity-name="MetaDataPredicate" auth="true" invoke="delete">
         <description>Remove MetaDataPredicate</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
