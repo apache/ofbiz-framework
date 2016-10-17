@@ -242,28 +242,6 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <!-- Methods for MimeType -->
-    <simple-method method-name="createMimeType" short-description="Create MimeType">
-        <make-value entity-name="MimeType" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <field-to-result result-name="mimeTypeId" field="newEntity.mimeTypeId"/>
-    </simple-method>
-    <simple-method method-name="updateMimeType" short-description="Update MimeType">
-        <make-value entity-name="MimeType" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="MimeType" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeMimeType" short-description="Remove MimeType">
-        <make-value entity-name="MimeType" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="MimeType" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- Methods for MimeTypeHtmlTemplate -->
     <simple-method method-name="createMimeTypeHtmlTemplate" short-description="Create MimeTypeHtmlTemplate">
         <make-value entity-name="MimeTypeHtmlTemplate" value-field="newEntity"/>
