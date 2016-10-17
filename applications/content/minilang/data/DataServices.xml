@@ -198,28 +198,6 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <!-- Methods for FileExtension -->
-    <simple-method method-name="createFileExtension" short-description="Create Data Resource Role">
-        <make-value entity-name="FileExtension" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <field-to-result result-name="fileExtensionId" field="newEntity.fileExtensionId"/>
-    </simple-method>
-    <simple-method method-name="updateFileExtension" short-description="Update Data Resource Role">
-        <make-value entity-name="FileExtension" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="FileExtension" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeFileExtension" short-description="Remove Data Resource Role">
-        <make-value entity-name="FileExtension" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="FileExtension" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- Methods for ElectronicText -->
     <simple-method method-name="createElectronicText" short-description="Create Electronic Text">
         <make-value entity-name="ElectronicText" value-field="newEntity"/>

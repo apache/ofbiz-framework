@@ -179,22 +179,19 @@ under the License.
     </service>
 
     <!-- FileExtension services -->
-    <service name="createFileExtension" engine="simple" default-entity-name="FileExtension" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="createFileExtension">
+    <service name="createFileExtension" engine="entity-auto" default-entity-name="FileExtension" auth="true" invoke="create">
         <description>Create a FileExtension</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateFileExtension" engine="simple" default-entity-name="FileExtension" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="updateFileExtension">
+    <service name="updateFileExtension" engine="entity-auto" default-entity-name="FileExtension" auth="true" invoke="update">
         <description>Update a FileExtension</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeFileExtension" engine="simple" default-entity-name="FileExtension" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="removeFileExtension">
+    <service name="removeFileExtension" engine="entity-auto" default-entity-name="FileExtension" auth="true" invoke="delete">
         <description>Remove FileExtension</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
