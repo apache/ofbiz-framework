@@ -241,23 +241,6 @@ under the License.
        <remove-value value-field="contactMechLinkInstance"/>
    </simple-method>
 
-    <!-- contactmech attribute services -->
-    <simple-method method-name="createContactMechAttribute" short-description="createContactMechAttribute">
-        <make-value value-field="newEntity" entity-name="ContactMechAttribute"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateContactMechAttribute" short-description="updateContactMechAttribute">
-        <entity-one entity-name="ContactMechAttribute" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeContactMechAttribute" short-description="removeContactMechAttribute">
-        <entity-one entity-name="ContactMechAttribute" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <simple-method method-name="sendVerifyEmailAddressNotification" short-description="Send an email to the person for Verification of his Email Address" login-required="false">
         <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
             <condition-list>

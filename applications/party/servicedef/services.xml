@@ -563,22 +563,19 @@ under the License.
     </service>
 
     <!-- contact mech attribute services -->
-    <service name="createContactMechAttribute" engine="simple" default-entity-name="ContactMechAttribute"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="createContactMechAttribute" auth="true">
+    <service name="createContactMechAttribute" engine="entity-auto" default-entity-name="ContactMechAttribute" invoke="create" auth="true">
         <description>create a contact mech attribute record</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateContactMechAttribute" engine="simple" default-entity-name="ContactMechAttribute"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="updateContactMechAttribute" auth="true">
+    <service name="updateContactMechAttribute" engine="entity-auto" default-entity-name="ContactMechAttribute" invoke="update" auth="true">
         <description>updates a contact mech attribute record</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeContactMechAttribute" engine="simple" default-entity-name="ContactMechAttribute"
-            location="component://party/minilang/contact/ContactMechServices.xml" invoke="removeContactMechAttribute" auth="true">
+    <service name="removeContactMechAttribute" engine="entity-auto" default-entity-name="ContactMechAttribute" invoke="delete" auth="true">
         <description>removes a contact mech attribute record</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
