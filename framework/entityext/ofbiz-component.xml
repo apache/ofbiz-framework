@@ -34,6 +34,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_group.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_synchronization.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_tenant.xml"/>
     <service-resource type="group" loader="main" location="servicedef/groups.xml"/>
 
     <!-- load the data load container, runs the entity data load stuff -->
