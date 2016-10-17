@@ -155,32 +155,6 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <!-- Methods for ElectronicText -->
-    <simple-method method-name="createElectronicText" short-description="Create Electronic Text">
-        <make-value entity-name="ElectronicText" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <field-to-result result-name="dataResourceId" field="newEntity.dataResourceId"/>
-    </simple-method>
-
-    <simple-method method-name="updateElectronicText" short-description="Update Electronic Text">
-        <make-value entity-name="ElectronicText" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ElectronicText" map="lookupKeyValue" value-field="lookedUpValue"/>
-
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-        <field-to-result result-name="dataResourceId" field="lookedUpValue.dataResourceId"/>
-    </simple-method>
-    <simple-method method-name="removeElectronicText" short-description="Remove Electronic Text">
-        <make-value entity-name="ElectronicText" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-
-        <find-by-primary-key entity-name="ElectronicText" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!--
     getElectronicText
     Passed a Content GenericValue or a contentId, this service returns the text data from
