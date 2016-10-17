@@ -239,20 +239,17 @@ under the License.
     </service>
 
     <!-- MimeTypeHtmlTemplate services -->
-    <service name="createMimeTypeHtmlTemplate" engine="simple" default-entity-name="MimeTypeHtmlTemplate" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="createMimeTypeHtmlTemplate">
+    <service name="createMimeTypeHtmlTemplate" engine="entity-auto" default-entity-name="MimeTypeHtmlTemplate" auth="true" invoke="create">
         <description>Create a MimeTypeHtmlTemplate</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateMimeTypeHtmlTemplate" engine="simple" default-entity-name="MimeTypeHtmlTemplate" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="updateMimeTypeHtmlTemplate">
+    <service name="updateMimeTypeHtmlTemplate" engine="entity-auto" default-entity-name="MimeTypeHtmlTemplate" auth="true" invoke="update">
         <description>Update a MimeTypeHtmlTemplate</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeMimeTypeHtmlTemplate" engine="simple" default-entity-name="MimeTypeHtmlTemplate" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="removeMimeTypeHtmlTemplate">
+    <service name="removeMimeTypeHtmlTemplate" engine="entity-auto" default-entity-name="MimeTypeHtmlTemplate" auth="true" invoke="delete">
         <description>Remove MimeTypeHtmlTemplate</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
