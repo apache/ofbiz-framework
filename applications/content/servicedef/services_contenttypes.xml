@@ -223,20 +223,17 @@ under the License.
     </service>
 
     <!-- MimeType services -->
-    <service name="createMimeType" engine="simple" default-entity-name="MimeType" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="createMimeType">
+    <service name="createMimeType" engine="entity-auto" default-entity-name="MimeType" auth="true" invoke="create">
         <description>Create a MimeType</description>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateMimeType" engine="simple" default-entity-name="MimeType" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="updateMimeType">
+    <service name="updateMimeType" engine="entity-auto" default-entity-name="MimeType" auth="true" invoke="update">
         <description>Update a MimeType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeMimeType" engine="simple" default-entity-name="MimeType" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="removeMimeType">
+    <service name="removeMimeType" engine="entity-auto" default-entity-name="MimeType" auth="true" invoke="delete">
         <description>Remove MimeType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
