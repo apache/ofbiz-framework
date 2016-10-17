@@ -51,32 +51,6 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <!-- ========= GlAccountOrganization methods ========= -->
-    <simple-method method-name="createGlAccountOrganization" short-description="Create GlAccountOrganization">
-        <make-value entity-name="GlAccountOrganization" value-field="newEntity"/>
-        <if-empty field="parameters.fromDate">
-            <now-timestamp field="parameters.fromDate"/>
-        </if-empty>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateGlAccountOrganization" short-description="Update GlAccountOrganization">
-        <make-value entity-name="GlAccountOrganization" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteGlAccountOrganization" short-description="Delete GlAccountOrganization">
-        <make-value entity-name="GlAccountOrganization" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- ========= GlJournal methods ========= -->
     <simple-method method-name="quickCreateAcctgTransAndEntries" short-description="Creates an AcctgTrans and two offsetting AcctgTransEntry records">
         <!-- TODO: Do we need to create a GlJournal record here? -->
