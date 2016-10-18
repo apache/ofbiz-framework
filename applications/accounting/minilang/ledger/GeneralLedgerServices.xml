@@ -21,36 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <!-- ========= GlAccount methods ========= -->
-    <simple-method method-name="createGlAccount" short-description="Create an GlAccount">
-        <make-value entity-name="GlAccount" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <!-- GlAccount uses a sequenced id, so get the next one now and set it... -->
-        <if-empty field="parameters.glAccountId">
-            <sequenced-id sequence-name="GlAccount" field="newEntity.glAccountId"/>
-        <else>
-            <set-pk-fields map="parameters" value-field="newEntity"/>
-        </else>
-        </if-empty>
-        <field-to-result field="newEntity.glAccountId" result-name="glAccountId"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateGlAccount" short-description="Update an GlAccount">
-        <make-value entity-name="GlAccount" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteGlAccount" short-description="Delete an GlAccount">
-        <make-value entity-name="GlAccount" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- ========= GlJournal methods ========= -->
     <simple-method method-name="quickCreateAcctgTransAndEntries" short-description="Creates an AcctgTrans and two offsetting AcctgTransEntry records">
         <!-- TODO: Do we need to create a GlJournal record here? -->
@@ -2646,25 +2616,6 @@ under the License.
             <result-to-field result-name="acctgTransId"/>
         </call-service>
         <field-to-result field="acctgTransId" result-name="acctgTransId"/>
-    </simple-method>
-
-    <!-- Party GlAccount services -->
-     <simple-method method-name="createPartyGlAccount" short-description="Associate a party to a General Ledger Account">
-        <make-value entity-name="PartyGlAccount" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updatePartyGlAccount" short-description="Update an existing General Ledger Account of a Party">
-        <entity-one entity-name="PartyGlAccount" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deletePartyGlAccount" short-description="Delete an existing General Ledger Account of a Party">
-        <entity-one entity-name="PartyGlAccount" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Entity Specific Inline Methods -->
