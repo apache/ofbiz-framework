@@ -776,15 +776,6 @@ under the License.
         <field-to-result field="orderItemShipGroupInvRes.promisedDatetime" result-name="estimatedShipDate"/>
     </simple-method>
 
-    <simple-method method-name="removeOrderContactMech" short-description="Remove OrderContactMech">
-        <check-permission permission="ORDERMGR" action="_DELETE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveOrderContactMech"/>
-        </check-permission>
-        <check-errors/>
-        <entity-one entity-name="OrderContactMech" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <simple-method method-name="updateOrderNote" short-description="Update OrderNote">
         <check-permission permission="ORDERMGR" action="_UPDATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderNote"/>

@@ -40,8 +40,7 @@ under the License.
         <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="false"/>
         <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="removeAddressMatchMap" engine="simple" default-entity-name="AddressMatchMap" auth="true"
-            location="component://party/minilang/party/PartyServices.xml" invoke="deleteAddressMatchMap">
+    <service name="removeAddressMatchMap" engine="entity-auto" default-entity-name="AddressMatchMap" auth="true" invoke="delete">
         <description>Delete an AddressMatchMap record</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>

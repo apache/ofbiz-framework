@@ -48,8 +48,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="createReturnItemBilling" engine="simple" default-entity-name="ReturnItemBilling"
-            location="component://order/minilang/order/OrderReturnServices.xml" invoke="createReturnItemBilling">
+    <service name="createReturnItemBilling" engine="entity-auto" default-entity-name="ReturnItemBilling" invoke="create">
         <description>Create a new return item billing record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -89,8 +88,7 @@ under the License.
         <description>Remove a ReturnItem and related adjustments</description>
         <auto-attributes entity-name="ReturnItem" include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="createReturnItemResponse" engine="simple"
-            location="component://order/minilang/order/OrderReturnServices.xml" invoke="createReturnItemResponse">
+    <service name="createReturnItemResponse" engine="entity-auto" invoke="create">
             <description>Creates a ReturnItemResponse record.</description>
         <auto-attributes entity-name="ReturnItemResponse" include="nonpk" mode="IN" optional="true"/>
         <attribute name="returnItemResponseId" type="String" mode="OUT" optional="false"/>
