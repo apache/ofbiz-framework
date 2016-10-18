@@ -132,22 +132,19 @@ under the License.
     </service>
 
     <!-- DataResourceType services -->
-    <service name="createDataResourceType" engine="simple" default-entity-name="DataResourceType" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="createDataResourceType">
+    <service name="createDataResourceType" engine="entity-auto" default-entity-name="DataResourceType" auth="true" invoke="create">
         <description>Create a DataResourceType</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateDataResourceType" engine="simple" default-entity-name="DataResourceType" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="updateDataResourceType">
+    <service name="updateDataResourceType" engine="entity-auto" default-entity-name="DataResourceType" auth="true" invoke="update">
         <description>Update a DataResourceType</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeDataResourceType" engine="simple" default-entity-name="DataResourceType" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="removeDataResourceType">
+    <service name="removeDataResourceType" engine="entity-auto" default-entity-name="DataResourceType" auth="true" invoke="delete">
         <description>Remove DataResourceType</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

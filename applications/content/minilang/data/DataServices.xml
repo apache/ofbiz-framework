@@ -91,33 +91,6 @@ under the License.
        <if-compare field="dataResource.dataResourceTypeId" operator="equals" value="IMAGE_OBJECT"><return response-code="${dataResource.dataResourceTypeId}"/></if-compare>       
     </simple-method>
 
-  <!-- Methods for DataResourceRole -->
-    <simple-method method-name="createDataResourceRole" short-description="Create Data Resource Role">
-        <if-not-empty field="parameters.partyId">
-            <make-value entity-name="DataResourceRole" value-field="newEntity"/>
-            <set-nonpk-fields map="parameters" value-field="newEntity"/>
-            <set-pk-fields map="parameters" value-field="newEntity"/>
-            <if-empty field="newEntity.fromDate">
-                <now-timestamp field="nowTimestamp"/>
-                <set field="newEntity.fromDate" from-field="nowTimestamp"/>
-            </if-empty>
-            <create-value value-field="newEntity"/>
-        </if-not-empty>
-    </simple-method>
-    <simple-method method-name="updateDataResourceRole" short-description="Update Data Resource Role">
-        <make-value entity-name="DataResourceRole" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataResourceRole" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeDataResourceRole" short-description="Remove Data Resource Role">
-        <make-value entity-name="DataResourceRole" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataResourceRole" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
   <!-- Methods for DataCategory -->
     <simple-method method-name="updateDataCategory" short-description="Update Data Category">
         <make-value entity-name="DataCategory" value-field="lookupKeyValue"/>
@@ -130,28 +103,6 @@ under the License.
         <make-value entity-name="DataCategory" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataCategory" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Methods for DataResourceType -->
-    <simple-method method-name="createDataResourceType" short-description="Create Data Resource Type">
-        <make-value entity-name="DataResourceType" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <field-to-result result-name="dataResourceTypeId" field="newEntity.dataResourceTypeId"/>
-    </simple-method>
-    <simple-method method-name="updateDataResourceType" short-description="Update Data Resource Type">
-        <make-value entity-name="DataResourceType" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataResourceType" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeDataResourceType" short-description="Remove Data Resource Type">
-        <make-value entity-name="DataResourceType" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="DataResourceType" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
