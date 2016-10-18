@@ -120,22 +120,19 @@
     </service>
 
     <!-- DataResourceRole services -->
-    <service name="createDataResourceRole" engine="simple" default-entity-name="DataResourceRole" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="createDataResourceRole">
+    <service name="createDataResourceRole" engine="entity-auto" default-entity-name="DataResourceRole" auth="true" invoke="create">
         <description>Create a DataResourceRole</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateDataResourceRole" engine="simple" default-entity-name="DataResourceRole" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="updateDataResourceRole">
+    <service name="updateDataResourceRole" engine="entity-auto" default-entity-name="DataResourceRole" auth="true" invoke="update">
         <description>Update a DataResourceRole</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeDataResourceRole" engine="simple" default-entity-name="DataResourceRole" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="removeDataResourceRole">
+    <service name="removeDataResourceRole" engine="entity-auto" default-entity-name="DataResourceRole" auth="true" invoke="delete">
         <description>Remove DataResourceRole</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
