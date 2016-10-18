@@ -785,11 +785,6 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
-    <simple-method method-name="deleteAddressMatchMap" short-description="remove a AddressMatchMap">
-        <make-value entity-name="AddressMatchMap" value-field="fieldMap"/>
-        <set-pk-fields map="parameters" value-field="fieldMap"/>
-        <remove-value value-field="fieldMap"/>
-    </simple-method>
     <simple-method method-name="clearAddressMatchMap" short-description="remove all AddressMatchMap">
         <entity-condition entity-name="AddressMatchMap" list="addrs">
             <use-iterator/>

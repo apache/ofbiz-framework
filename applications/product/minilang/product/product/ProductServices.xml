@@ -779,18 +779,6 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <simple-method method-name="createVendorProduct" short-description="Create a VendorProduct">
-        <make-value entity-name="VendorProduct" value-field="newEntity"/>
-        <set-pk-fields value-field="newEntity" map="parameters"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="deleteVendorProduct" short-description="Remove the VendorProduct">
-        <make-value entity-name="VendorProduct" value-field="lookedUpValue"/>
-        <set-pk-fields value-field="lookedUpValue" map="parameters"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- ProductCategoryGlAccount methods -->
     <simple-method method-name="createProductCategoryGlAccount" short-description="Create a ProductCategoryGlAccount">
         <set value="createProductCategoryGlAccount" field="callingMethodName"/>

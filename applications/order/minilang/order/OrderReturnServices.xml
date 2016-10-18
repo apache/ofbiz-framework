@@ -592,13 +592,6 @@ under the License.
         <!-- return the current return header status -->
         <field-to-result field="returnHeader.statusId" result-name="returnHeaderStatus"/>
     </simple-method>
-    <simple-method method-name="createReturnItemResponse" short-description="Create a ReturnItemResponse">
-        <make-value value-field="newEntity" entity-name="ReturnItemResponse"/>
-        <sequenced-id sequence-name="ReturnItemResponse" field="newEntity.returnItemResponseId"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-        <field-to-result field="newEntity.returnItemResponseId" result-name="returnItemResponseId"/>
-    </simple-method>
 
     <simple-method method-name="quickReturnFromOrder" short-description="Create Quick Return From Order">
         <if>
@@ -827,13 +820,6 @@ under the License.
         <check-errors/>
         <field-to-result field="returnAdjustmentId" result-name="returnAdjustmentId"/>
         <field-to-result field="returnItemSeqId" result-name="returnItemSeqId"/>
-    </simple-method>
-
-    <simple-method method-name="createReturnItemBilling" short-description="Create a ReturnItemBilling">
-        <make-value entity-name="ReturnItemBilling" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
     </simple-method>
 
     <simple-method method-name="cancelReturnItems" short-description="Update a ReturnItems">

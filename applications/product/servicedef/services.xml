@@ -1275,12 +1275,10 @@ under the License.
     </service>
 
     <!--VendorProduct Services -->
-    <service name="createVendorProduct" engine="simple" default-entity-name="VendorProduct"
-            location="component://product/minilang/product/product/ProductServices.xml" invoke="createVendorProduct" auth="true">
+    <service name="createVendorProduct" engine="entity-auto" default-entity-name="VendorProduct" invoke="create" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteVendorProduct" engine="simple" default-entity-name="VendorProduct"
-            location="component://product/minilang/product/product/ProductServices.xml" invoke="deleteVendorProduct" auth="true">
+    <service name="deleteVendorProduct" engine="entity-auto" default-entity-name="VendorProduct" invoke="delete" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 

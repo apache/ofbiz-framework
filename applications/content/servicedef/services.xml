@@ -86,15 +86,13 @@
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateDataCategory" engine="simple" default-entity-name="DataCategory" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="updateDataCategory">
+    <service name="updateDataCategory" engine="entity-auto" default-entity-name="DataCategory" auth="true" invoke="update">
         <description>Update a DataCategory</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeDataCategory" engine="simple" default-entity-name="DataCategory" auth="true"
-            location="component://content/minilang/data/DataServices.xml" invoke="removeDataCategory">
+    <service name="removeDataCategory" engine="entity-auto" default-entity-name="DataCategory" auth="true" invoke="delete">
         <description>Remove DataCategory</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

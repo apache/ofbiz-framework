@@ -143,8 +143,7 @@ under the License.
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
     </service>
-    <service name="deleteGlReconciliation" default-entity-name="GlReconciliation" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="deleteGlReconciliation" auth="true">
+    <service name="deleteGlReconciliation" default-entity-name="GlReconciliation" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a GlReconciliation record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

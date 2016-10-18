@@ -224,8 +224,7 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
-    <service name="updatePayPalPaymentMethod" engine="simple"
-            location="component://accounting/minilang/payment/PaymentMethodServices.xml" invoke="updatePayPalPaymentMethod" auth="true">
+    <service name="updatePayPalPaymentMethod" engine="entity-auto" default-entity-name="PayPalPaymentMethod" invoke="update" auth="true">
         <description>Update a PayPal Payment Method</description>
         <attribute name="paymentMethodId" mode="INOUT" type="String" optional="false"/>
         <auto-attributes mode="IN" entity-name="PayPalPaymentMethod" include="nonpk" optional="true"/>

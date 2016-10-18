@@ -146,10 +146,6 @@ under the License.
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="deleteGlReconciliation" short-description="Delete an GlReconciliation">
-        <entity-one entity-name="GlReconciliation" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="updateGlReconciliationLastModified" short-description="Update GlReconciliation LastModified Info">
         <!-- this is just a little method that is meant to be called as an inline call-simple-method target with the context already setup -->
         <entity-one entity-name="GlReconciliation" value-field="lookedUpGLR"/>
