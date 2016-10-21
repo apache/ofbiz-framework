@@ -530,4 +530,15 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
     </service>
 
+    <!-- MarketingCampaignNote services -->
+    <service name="createMarketingCampaignNote" default-entity-name="MarketingCampaignNote" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a MarketingCampaignNote</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="deleteMarketingCampaignNote" default-entity-name="MarketingCampaignNote" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a MarketingCampaignNote</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>

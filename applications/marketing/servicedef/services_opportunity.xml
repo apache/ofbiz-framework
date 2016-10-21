@@ -110,4 +110,20 @@ under the License.
         <attribute name="partyId" mode="OUT" type="String" optional="true"/>
     </service>
 
+    <!-- SalesOpportunityCompetitor services -->
+    <service name="createSalesOpportunityCompetitor" default-entity-name="SalesOpportunityCompetitor" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SalesOpportunityCompetitor</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateSalesOpportunityCompetitor" default-entity-name="SalesOpportunityCompetitor" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SalesOpportunityCompetitor</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSalesOpportunityCompetitor" default-entity-name="SalesOpportunityCompetitor" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SalesOpportunityCompetitor</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>
