@@ -151,4 +151,14 @@ under the License.
                 Default to 30 days unless no configuration is specified.
             </description>
     </service>
+
+    <service name="createShoppingListItemSurvey" default-entity-name="ShoppingListItemSurvey" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ShoppingListItemSurvey Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShoppingListItemSurvey" default-entity-name="ShoppingListItemSurvey" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ShoppingListItemSurvey Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>

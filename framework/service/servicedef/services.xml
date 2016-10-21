@@ -161,4 +161,35 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
+    <!-- StandardLanguage services -->
+    <service name="createStandardLanguage" default-entity-name="StandardLanguage" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a StandardLanguage Record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateStandardLanguage" default-entity-name="StandardLanguage" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a StandardLanguage Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteStandardLanguage" default-entity-name="StandardLanguage" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a StandardLanguage Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <!-- StatusItem services -->
+    <service name="createStatusItem" default-entity-name="StatusItem" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a StatusItem Record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateStatusItem" default-entity-name="StatusItem" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a StatusItem Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteStatusItem" default-entity-name="StatusItem" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a StatusItem Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>

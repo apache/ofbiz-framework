@@ -1033,5 +1033,89 @@ under the License.
         <description>Delete a ShipmentItemFeature</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
+    <service name="createShipmentAttribute" engine="entity-auto" invoke="create" default-entity-name="ShipmentAttribute" auth="true">
+        <description>Create a ShipmentAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateShipmentAttribute" engine="entity-auto" invoke="update" default-entity-name="ShipmentAttribute" auth="true">
+        <description>Update a ShipmentAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentAttribute" engine="entity-auto" invoke="delete" default-entity-name="ShipmentAttribute" auth="true">
+        <description>Delete a ShipmentAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createShipmentBoxType" engine="entity-auto" invoke="create" default-entity-name="ShipmentBoxType" auth="true">
+        <description>Create a ShipmentBoxType record</description>
+        <auto-attributes include="pk" mode="INOUT"  optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateShipmentBoxType" engine="entity-auto" invoke="update" default-entity-name="ShipmentBoxType" auth="true">
+        <description>Update a ShipmentBoxType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentBoxType" engine="entity-auto" invoke="delete" default-entity-name="ShipmentBoxType" auth="true">
+        <description>Delete a ShipmentBoxType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createShipmentContactMechType" engine="entity-auto" invoke="create" default-entity-name="ShipmentContactMechType" auth="true">
+        <description>Create a ShipmentContactMechType record</description>
+        <auto-attributes include="pk" mode="INOUT"  optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateShipmentContactMechType" engine="entity-auto" invoke="update" default-entity-name="ShipmentContactMechType" auth="true">
+        <description>Update a ShipmentContactMechType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentContactMechType" engine="entity-auto" invoke="delete" default-entity-name="ShipmentContactMechType" auth="true">
+        <description>Delete a ShipmentContactMechType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createShipmentCostEstimate" engine="entity-auto" invoke="create" default-entity-name="ShipmentCostEstimate" auth="true">
+        <description>Create a ShipmentCostEstimate record</description>
+        <auto-attributes include="pk" mode="INOUT"  optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateShipmentCostEstimate" engine="entity-auto" invoke="update" default-entity-name="ShipmentCostEstimate" auth="true">
+        <description>Update a ShipmentCostEstimate record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentCostEstimate" engine="entity-auto" invoke="delete" default-entity-name="ShipmentCostEstimate" auth="true">
+        <description>Delete a ShipmentCostEstimate record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="updateShipmentReceipt" engine="entity-auto" invoke="update" default-entity-name="ShipmentReceipt" auth="true">
+        <description>Update a ShipmentReceipt record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentReceipt" engine="entity-auto" invoke="delete" default-entity-name="ShipmentReceipt" auth="true">
+        <description>Delete a ShipmentReceipt record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createShipmentTypeAttr" default-entity-name="ShipmentTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ShipmentTypeAttr Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateShipmentTypeAttr" default-entity-name="ShipmentTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ShipmentTypeAttr Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentTypeAttr" default-entity-name="ShipmentTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ShipmentTypeAttr Record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
