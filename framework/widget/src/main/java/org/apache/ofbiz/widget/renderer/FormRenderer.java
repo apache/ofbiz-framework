@@ -48,7 +48,6 @@ import org.apache.ofbiz.widget.model.*;
 import org.apache.ofbiz.widget.model.ModelForm.FieldGroup;
 import org.apache.ofbiz.widget.model.ModelForm.FieldGroupBase;
 import org.apache.ofbiz.widget.model.ModelFormField;
-import org.apache.ofbiz.widget.model.ModelFormField.DisplayField;
 
 /**
  * A form rendering engine.
@@ -926,12 +925,9 @@ public class FormRenderer {
         formStringRenderer.renderFormatListWrapperOpen(writer, context, modelForm);
 
         int numOfColumns = 0;
-        this.checkFormDataAndSetHeader(context);
         // ===== render header row =====
         if (!modelForm.getHideHeader()) {
             numOfColumns = this.renderHeaderRow(writer, context);
-        } else {
-            formStringRenderer.renderEmptyFormDataMessage(writer, context, modelForm);
         }
 
         // ===== render the item rows =====
@@ -955,12 +951,9 @@ public class FormRenderer {
         formStringRenderer.renderFormatListWrapperOpen(writer, context, modelForm);
 
         int numOfColumns = 0;
-        this.checkFormDataAndSetHeader(context);
         // ===== render header row =====
         if (!modelForm.getHideHeader()) {
             numOfColumns = this.renderHeaderRow(writer, context);
-        } else {
-            formStringRenderer.renderEmptyFormDataMessage(writer, context, modelForm);
         }
 
         // ===== render the item rows =====
@@ -972,32 +965,6 @@ public class FormRenderer {
             formStringRenderer.renderMultiFormClose(writer, context, modelForm);
         }
 
-    }
-
-    private void checkFormDataAndSetHeader(Map<String, Object> context) {
-        String lookupName = modelForm.getListName();
-        Object obj = context.get(lookupName);
-        if (obj == null) {
-            if (Debug.verboseOn())
-                Debug.logVerbose("No object for list or iterator name [" + lookupName + "] found, so not rendering rows.", module);
-            return;
-        }
-        // if list is empty, do not render rows
-        Iterator<?> iter = null;
-        if (obj instanceof Iterator<?>) {
-            iter = (Iterator<?>) obj;
-        } else if (obj instanceof List<?>) {
-            iter = ((List<?>) obj).listIterator();
-        }
-        int itemIndex = -1;
-        Object item = null;
-        while ((item = safeNext(iter)) != null) {
-            itemIndex++;
-            break;
-        }
-        if (itemIndex < 0) {
-            modelForm.setHideHeader(true);
-        }
     }
 
     private void renderSingleFormString(Appendable writer, Map<String, Object> context, 

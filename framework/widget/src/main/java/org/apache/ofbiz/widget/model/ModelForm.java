@@ -147,7 +147,7 @@ public abstract class ModelForm extends ModelWidget {
     private final String formWidgetAreaStyle;
     private final boolean groupColumns;
     private final String headerRowStyle;
-    private boolean hideHeader;
+    private final boolean hideHeader;
     private final String itemIndexSeparator;
     private final List<String> lastOrderFields;
     private final String listEntryName;
@@ -184,7 +184,6 @@ public abstract class ModelForm extends ModelWidget {
     private final String targetType;
     private final FlexibleStringExpander targetWindowExdr;
     private final String title;
-    private final String emptyFormDataMessage;
     private final String tooltip;
     private final String type;
     private final boolean useRowSubmit;
@@ -242,13 +241,6 @@ public abstract class ModelForm extends ModelWidget {
             title = parentModel.title;
         }
         this.title = title;
-        String emptyFormDataMessage = formElement.getAttribute("empty-form-data-message");
-        if (emptyFormDataMessage.isEmpty() && parentModel != null) {
-            emptyFormDataMessage = parentModel.emptyFormDataMessage;
-        } else if (emptyFormDataMessage.isEmpty()) {
-            emptyFormDataMessage = "No records found";
-        }
-        this.emptyFormDataMessage = emptyFormDataMessage;
         String tooltip = formElement.getAttribute("tooltip");
         if (tooltip.isEmpty() && parentModel != null) {
             tooltip = parentModel.tooltip;
@@ -1023,10 +1015,6 @@ public abstract class ModelForm extends ModelWidget {
     public boolean getHideHeader() {
         return this.hideHeader;
     }
-    public boolean setHideHeader(Boolean hideHeader) {
-        this.hideHeader = hideHeader;
-        return hideHeader;
-    }
 
     public String getItemIndexSeparator() {
         if (UtilValidate.isNotEmpty(this.itemIndexSeparator)) {
@@ -1394,10 +1382,6 @@ public abstract class ModelForm extends ModelWidget {
 
     public String getTitle() {
         return this.title;
-    }
-
-    public String getEmptyFormDataMessage() {
-        return this.emptyFormDataMessage;
     }
 
     public String getTooltip() {

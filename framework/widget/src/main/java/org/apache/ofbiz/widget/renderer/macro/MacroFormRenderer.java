@@ -1538,16 +1538,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             renderEndingBoundaryComment(writer, "Grid Widget - Grid Element", modelForm);
         }
     }
-
-    public void renderEmptyFormDataMessage(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderEmptyFormDataMessage");
-        sr.append(" message=\"");
-        sr.append(modelForm.getEmptyFormDataMessage());
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
-    }
-
+    
     public void renderFormatHeaderOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatHeaderOpen ");
