@@ -80,4 +80,14 @@ under the License.
         <auto-attributes entity-name="ShipmentGatewayConfigType" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="ShipmentGatewayConfigType" include="nonpk" mode="IN" optional="true"/>
     </service>
+
+    <service name="createShipmentGatewayConfig" engine="entity-auto" invoke="create" default-entity-name="ShipmentGatewayConfig" auth="true">
+        <description>Create a ShipmentGatewayConfig record</description>
+        <auto-attributes include="pk" mode="INOUT"  optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentGatewayConfig" engine="entity-auto" invoke="delete" default-entity-name="ShipmentGatewayConfig" auth="true">
+        <description>Delete a ShipmentGatewayConfig record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 </services>
