@@ -855,4 +855,68 @@ under the License.
         <description>Expire a GlBudgetXref</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- GlFiscalType services -->
+    <service name="createGlFiscalType" default-entity-name="GlFiscalType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GlFiscalType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateGlFiscalType" default-entity-name="GlFiscalType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GlFiscalType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteGlFiscalType" default-entity-name="GlFiscalType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GlFiscalType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- GlResourceType services -->
+    <service name="createGlResourceType" default-entity-name="GlResourceType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GlResourceType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+       <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateGlResourceType" default-entity-name="GlResourceType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GlResourceType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteGlResourceType" default-entity-name="GlResourceType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GlResourceType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- GlXbrlClass services -->
+    <service name="createGlXbrlClass" default-entity-name="GlXbrlClass" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GlXbrlClass</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateGlXbrlClass" default-entity-name="GlXbrlClass" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GlXbrlClass</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteGlXbrlClass" default-entity-name="GlXbrlClass" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GlXbrlClass</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- GlResourceType services -->
+    <service name="createGlResourceType" default-entity-name="GlResourceType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GlResourceType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateGlResourceType" default-entity-name="GlResourceType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GlResourceType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteGlResourceType" default-entity-name="GlResourceType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GlResourceType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

@@ -485,5 +485,47 @@ under the License.
         <description>Delete a InvoiceTypeAttr record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
-    
+
+    <!-- InvoiceAttribute services -->
+    <service name="createInvoiceAttribute" default-entity-name="InvoiceAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InvoiceAttribute</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateInvoiceAttribute" default-entity-name="InvoiceAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InvoiceAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInvoiceAttribute" default-entity-name="InvoiceAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InvoiceAttribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- InvoiceItemAssocType services -->
+    <service name="createInvoiceItemAssocType" default-entity-name="InvoiceItemAssocType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InvoiceItemAssocType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateInvoiceItemAssocType" default-entity-name="InvoiceItemAssocType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InvoiceItemAssocType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInvoiceItemAssocType" default-entity-name="InvoiceItemAssocType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InvoiceItemAssocType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- InvoiceNote services -->
+    <service name="createInvoiceNote" default-entity-name="InvoiceNote" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InvoiceNote</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="deleteInvoiceNote" default-entity-name="InvoiceNote" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InvoiceNote</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

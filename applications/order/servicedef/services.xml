@@ -1193,4 +1193,15 @@ under the License.
          <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
          <attribute name="shipmentMethod" type="String" mode="IN" optional="true"/>
     </service>
+
+    <!-- OrderContent services -->
+    <service name="createOrderContent" default-entity-name="OrderContent" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a OrderContent</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="expireOrderContent" default-entity-name="OrderContent" engine="entity-auto" invoke="expire" auth="true">
+         <description>Expire a OrderContent</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
