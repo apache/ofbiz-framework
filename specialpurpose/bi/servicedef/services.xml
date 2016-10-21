@@ -145,5 +145,20 @@ under the License.
         <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
     </service>
 
+    <!-- SalesInvoiceItem Facts -->
+    <service name="createSalesInvoiceItemFact" engine="entity-auto" invoke="create" default-entity-name="SalesInvoiceItemFact" auth="true">
+        <description>Create a SalesInvoiceItemFact record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateSalesInvoiceItemFact" engine="entity-auto" invoke="update" default-entity-name="SalesInvoiceItemFact" auth="true">
+        <description>Update a SalesInvoiceItemFact record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSalesInvoiceItemFact" engine="entity-auto" invoke="delete" default-entity-name="SalesInvoiceItemFact" auth="true">
+        <description>Delete a SalesInvoiceItemFact record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 
 </services>
