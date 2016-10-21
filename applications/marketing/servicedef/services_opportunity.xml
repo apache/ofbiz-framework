@@ -126,4 +126,51 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <service name="deleteSalesOpportunityRole" default-entity-name="SalesOpportunityRole" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SalesOpportunityRole</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- SalesOpportunityStage services -->
+    <service name="createSalesOpportunityStage" default-entity-name="SalesOpportunityStage" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SalesOpportunityStage</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateSalesOpportunityStage" default-entity-name="SalesOpportunityStage" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SalesOpportunityStage</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSalesOpportunityStage" default-entity-name="SalesOpportunityStage" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SalesOpportunityStage</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- SalesOpportunityTrckCode services -->
+    <service name="createSalesOpportunityTrckCode" default-entity-name="SalesOpportunityTrckCode" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SalesOpportunityTrckCode</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateSalesOpportunityTrckCode" default-entity-name="SalesOpportunityTrckCode" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SalesOpportunityTrckCode</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSalesOpportunityTrckCode" default-entity-name="SalesOpportunityTrckCode" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SalesOpportunityTrckCode</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- SalesOpportunityWorkEffort services -->
+    <service name="createSalesOpportunityWorkEffort" default-entity-name="SalesOpportunityWorkEffort" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SalesOpportunityWorkEffort</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="deleteSalesOpportunityWorkEffort" default-entity-name="SalesOpportunityWorkEffort" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SalesOpportunityWorkEffort</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
