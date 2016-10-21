@@ -42,11 +42,21 @@ under the License.
         <auto-attributes entity-name="ShipmentGatewayFedex" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="ShipmentGatewayFedex" include="nonpk" mode="IN" optional="true"/>
     </service>
-    
-    <service name="updateShipmentGatewayConfigUps" engine="simple" location="component://product/minilang/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigUps">
-        <description>Update Shipment Gateway Config UPS</description>
-        <auto-attributes entity-name="ShipmentGatewayUps" include="pk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="ShipmentGatewayUps" include="nonpk" mode="IN" optional="true"/>
+
+    <!-- ShipmentGatewayUps services -->
+    <service name="createShipmentGatewayUps" default-entity-name="ShipmentGatewayUps" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ShipmentGatewayUps</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateShipmentGatewayUps" default-entity-name="ShipmentGatewayUps" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ShipmentGatewayUps</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentGatewayUps" default-entity-name="ShipmentGatewayUps" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ShipmentGatewayUps</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- ShipmentGatewayUsps services -->
