@@ -139,5 +139,10 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
+
+    <service name="deleteSecurityGroup" default-entity-name="SecurityGroup" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
