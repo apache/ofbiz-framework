@@ -173,4 +173,15 @@ under the License.
         <description>Delete a SalesOpportunityWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- SalesOpportunityQuote services -->
+    <service name="createSalesOpportunityQuote" default-entity-name="SalesOpportunityQuote" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SalesOpportunityQuote</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    </service>
+    <service name="deleteSalesOpportunityQuote" default-entity-name="SalesOpportunityQuote" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SalesOpportunityQuote</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
