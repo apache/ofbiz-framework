@@ -57,6 +57,10 @@ under the License.
 
     <form name="EditProduct" type="single" target="updateProduct" title="" default-map-name="product"
         header-row-style="header-row" default-table-style="basic-table">
+        
+        <actions>
+            <set field="dummy" value="${groovy: if(product) product?.inventoryItemTypeId = product?.inventoryItemTypeId ?: 'NON_SERIAL_INV_ITEM'}"/>
+        </actions>
 
         <alt-target use-when="product==null" target="createProduct"/>
 
@@ -131,7 +135,7 @@ under the License.
             </drop-down>
         </field>
         <field name="inventoryItemTypeId" title="${uiLabelMap.ProductInventoryItemTypeId}" use-when="product!=null">
-            <display-entity entity-name="InventoryItemType"/>
+            <display-entity entity-name="InventoryItemType" />
         </field>
 
         <field name="lotIdFilledIn" title="${uiLabelMap.ProductLotId}">
