@@ -120,9 +120,12 @@
     <!-- DataResourceRole services -->
     <service name="createDataResourceRole" engine="entity-auto" default-entity-name="DataResourceRole" auth="true" invoke="create">
         <description>Create a DataResourceRole</description>
-        <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="dataResourceId" mode="IN" type="String"/>
+        <attribute name="partyId" mode="IN" type="String"/>
+        <attribute name="roleTypeId" mode="IN" type="String"/>
+        <attribute name="fromDate" mode="INOUT" type="Timestamp" optional="true"/>
     </service>
     <service name="updateDataResourceRole" engine="entity-auto" default-entity-name="DataResourceRole" auth="true" invoke="update">
         <description>Update a DataResourceRole</description>
@@ -132,7 +135,7 @@
     </service>
     <service name="removeDataResourceRole" engine="entity-auto" default-entity-name="DataResourceRole" auth="true" invoke="delete">
         <description>Remove DataResourceRole</description>
-        <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
+        <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
