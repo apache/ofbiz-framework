@@ -223,12 +223,14 @@ under the License.
             package-name="org.apache.ofbiz.party.agreement" 
             title="Agreement Content Entity">
         <field name="agreementId" type="id-ne"></field>
+        <field name="agreementItemSeqId" type="id-ne"></field>
         <field name="agreementContentTypeId" type="id-ne"></field>
         <field name="contentId" type="id-ne"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
         <prim-key field="contentId"/>
         <prim-key field="agreementId"/>
+        <prim-key field="agreementItemSeqId"/>
         <prim-key field="agreementContentTypeId"/>
         <prim-key field="fromDate"/>
         <relation type="one" fk-name="AG_CNT_PROD" rel-entity-name="Agreement">
