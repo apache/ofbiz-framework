@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <!--Demo Product Data-->
+    <Product productId="GZ-2644" productTypeId="FINISHED_GOOD"  internalName="Round Gizmo" longDescription="A small round gizmo with multi-colored lights. Works great in the dark. Small and compact." isVirtual="N" isVariant="N" quantityIncluded="100.0" productWeight="7.0"/>
+    <ProductPrice productId="GZ-2644" productPricePurposeId="PURCHASE" productPriceTypeId="SPECIAL_PROMO_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="31.99" createdDate="2001-05-13 12:00:00.0"/>
+    <ProdCatalog prodCatalogId="DemoCatalog" catalogName="Demo Catalog" useQuickAdd="Y"/>
+    <ProductCategory productCategoryId="CATALOG1_BEST_SELL" productCategoryTypeId="BEST_SELL_CATEGORY" categoryName="Demo Best Selling"/>
+    <ProdCatalogCategory prodCatalogId="DemoCatalog" productCategoryId="CATALOG1_BEST_SELL" fromDate="2010-01-01 12:00:00.0" sequenceNum="1" prodCatalogCategoryTypeId="PCCT_BEST_SELL"/>
+
+    <ProductStore productStoreId="9000" storeName="OFBiz Ebay Store1-AU" companyName="Apache Ofbiz" title="Test OFBiz store1"/>
+    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_CONFIRM" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice" xslfoAttachScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNoticePdf" subject="OFBiz Demo - Order Confirmation #${orderId}" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
+
+    <!--Demo data for a sales order -->
+    <OrderHeader orderId="TEST_DEMO10090" orderTypeId="SALES_ORDER" orderName="" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2008-04-23 16:49:27.392" entryDate="2008-04-23 16:49:27.392" priority="2" visitId="10002" statusId="ORDER_APPROVED" currencyUom="USD" webSiteId="OrderEntry" productStoreId="9000" remainingSubTotal="38.40" grandTotal="50.85"  invoicePerShipment="Y"/>
+    <OrderItem orderId="TEST_DEMO10090" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.0" selectedAmount="0.0" unitPrice="38.4" unitListPrice="48.0" isModifiedPrice="N" itemDescription="Round Gizmo" correspondingPoId="" statusId="ITEM_APPROVED"/>
+
+    <Party partyId="TestDemoCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="TestDemoCustomer" firstName="Test" lastName="Customer"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="CONTACT"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="ACCOUNTANT"/>
+    <PartyStatus partyId="TestDemoCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <ContactMech contactMechId="TestContactMech" contactMechTypeId="EMAIL_ADDRESS" infoString="newtest_email@example.com"/>
+    <PartyContactMech partyId="TestDemoCustomer" contactMechId="TestContactMech" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="TestDemoCustomer" contactMechId="TestContactMech" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00"/>
+
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
+    <PartyRole partyId="TestDemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+
+    <OrderRole orderId="TEST_DEMO10090" partyId="TestDemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    <OrderRole orderId="TEST_DEMO10090" partyId="TestDemoCustomer" roleTypeId="END_USER_CUSTOMER"/>
+    <OrderRole orderId="TEST_DEMO10090" partyId="TestDemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
+    <OrderRole orderId="TEST_DEMO10090" partyId="TestDemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
+    <OrderContactMech orderId="TEST_DEMO10090" contactMechPurposeTypeId="ORDER_EMAIL" contactMechId="TestContactMech"/>
+</entity-engine-xml>
