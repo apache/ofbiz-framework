@@ -162,7 +162,7 @@ public class LoginEvents {
             userLoginId = userLoginId.toLowerCase();
         }
 
-        if (!UtilValidate.isNotEmpty(userLoginId)) {
+        if (UtilValidate.isEmpty(userLoginId)) {
             // the password was incomplete
             errMsg = UtilProperties.getMessage(resource, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -185,7 +185,7 @@ public class LoginEvents {
 
         String passwordHint = supposedUserLogin.getString("passwordHint");
 
-        if (!UtilValidate.isNotEmpty(passwordHint)) {
+        if (UtilValidate.isEmpty(passwordHint)) {
             // the Username was not found
             errMsg = UtilProperties.getMessage(resource, "loginevents.no_password_hint_specified_try_password_emailed", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -222,7 +222,7 @@ public class LoginEvents {
             userLoginId = userLoginId.toLowerCase();
         }
 
-        if (!UtilValidate.isNotEmpty(userLoginId)) {
+        if (UtilValidate.isEmpty(userLoginId)) {
             // the password was incomplete
             errMsg = UtilProperties.getMessage(resource, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -291,7 +291,7 @@ public class LoginEvents {
             }
         }
 
-        if (!UtilValidate.isNotEmpty(emails.toString())) {
+        if (UtilValidate.isEmpty(emails.toString())) {
             // the Username was not found
             errMsg = UtilProperties.getMessage(resource, "loginevents.no_primary_email_address_set_contact_customer_service", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);

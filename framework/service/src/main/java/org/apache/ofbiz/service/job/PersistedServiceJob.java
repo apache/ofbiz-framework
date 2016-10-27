@@ -282,7 +282,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     protected Map<String, Object> getContext() throws InvalidJobException {
         Map<String, Object> context = null;
         try {
-            if (!UtilValidate.isEmpty(jobValue.getString("runtimeDataId"))) {
+            if (UtilValidate.isNotEmpty(jobValue.getString("runtimeDataId"))) {
                 GenericValue contextObj = jobValue.getRelatedOne("RuntimeData", false);
                 if (contextObj != null) {
                     context = UtilGenerics.checkMap(XmlSerializer.deserialize(contextObj.getString("runtimeInfo"), delegator), String.class, Object.class);
@@ -292,7 +292,7 @@ public class PersistedServiceJob extends GenericServiceJob {
                 context = new HashMap<String, Object>();
             }
             // check the runAsUser
-            if (!UtilValidate.isEmpty(jobValue.getString("runAsUser"))) {
+            if (UtilValidate.isNotEmpty(jobValue.getString("runAsUser"))) {
                 context.put("userLogin", ServiceUtil.getUserLogin(dctx, context, jobValue.getString("runAsUser")));
             }
         } catch (GenericEntityException e) {

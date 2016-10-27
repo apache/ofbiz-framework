@@ -156,11 +156,11 @@ public class PartyServices {
             }
             Map<String, Object> newPartyMap = UtilMisc.toMap("partyId", partyId, "partyTypeId", "PERSON", "description", description, "createdDate", now, "lastModifiedDate", now, "statusId", statusId);
             String preferredCurrencyUomId = (String) context.get("preferredCurrencyUomId");
-            if (!UtilValidate.isEmpty(preferredCurrencyUomId)) {
+            if (UtilValidate.isNotEmpty(preferredCurrencyUomId)) {
                 newPartyMap.put("preferredCurrencyUomId", preferredCurrencyUomId);
             }
             String externalId = (String) context.get("externalId");
-            if (!UtilValidate.isEmpty(externalId)) {
+            if (UtilValidate.isNotEmpty(externalId)) {
                 newPartyMap.put("externalId", externalId);
             }
             if (userLogin != null) {

@@ -307,12 +307,12 @@ public class CatalinaContainer implements Container {
 
 
         String alp2 = ContainerConfig.getPropertyValue(engineConfig, "access-log-pattern", null);
-        if (al != null && !UtilValidate.isEmpty(alp2)) {
+        if (al != null && UtilValidate.isNotEmpty(alp2)) {
             al.setPattern(alp2);
         }
 
         String alp3 = ContainerConfig.getPropertyValue(engineConfig, "access-log-prefix", null);
-        if (al != null && !UtilValidate.isEmpty(alp3)) {
+        if (al != null && UtilValidate.isNotEmpty(alp3)) {
             al.setPrefix(alp3);
         }
 

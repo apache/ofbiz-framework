@@ -76,7 +76,7 @@ In order ta make this service active add the following to the service definition
         try {
             BufferedReader input = null;
             try {
-                if (!UtilValidate.isEmpty(file)) {
+                if (UtilValidate.isNotEmpty(file)) {
                     input = new BufferedReader(new FileReader(file));
                     String line = null;
                     int size = 0;

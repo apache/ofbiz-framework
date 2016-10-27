@@ -1664,7 +1664,7 @@ public class ShoppingCartEvents {
         String originOrderId = request.getParameter("originOrderId");
         cart.setAttribute("originOrderId", originOrderId);
 
-        if (!UtilValidate.isEmpty(request.getParameter("partyId"))) {
+        if (UtilValidate.isNotEmpty(request.getParameter("partyId"))) {
             partyId = request.getParameter("partyId");
         }
         String userLoginId = request.getParameter("userLoginId");

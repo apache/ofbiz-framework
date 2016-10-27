@@ -240,7 +240,7 @@ public class JavaMailContainer implements Container {
         // check the port
         int portProps = 0;
         String portStr = props.getProperty("mail." + protocol + ".port");
-        if (!UtilValidate.isEmpty(portStr)) {
+        if (UtilValidate.isNotEmpty(portStr)) {
             try {
                 portProps = Integer.valueOf(portStr);
             } catch (NumberFormatException e) {
@@ -249,7 +249,7 @@ public class JavaMailContainer implements Container {
         }
         if (portProps == 0) {
             portStr = props.getProperty("mail.port");
-            if (!UtilValidate.isEmpty(portStr)) {
+            if (UtilValidate.isNotEmpty(portStr)) {
                 try {
                     portProps = Integer.valueOf(props.getProperty("mail.port"));
                 } catch (NumberFormatException e) {

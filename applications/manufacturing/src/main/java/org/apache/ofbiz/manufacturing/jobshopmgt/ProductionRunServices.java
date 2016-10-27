@@ -126,7 +126,7 @@ public class ProductionRunServices {
                                 "workEffortGoodStdTypeId", "PRUN_PROD_DELIV",
                                 "statusId", "WEGS_CREATED")
                         .queryList();
-                if (!UtilValidate.isEmpty(products)) {
+                if (UtilValidate.isNotEmpty(products)) {
                     for (GenericValue product : products) {
                         product.set("statusId", "WEGS_CANCELLED");
                         product.store();
@@ -149,7 +149,7 @@ public class ProductionRunServices {
                                     "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED", 
                                     "statusId", "WEGS_CREATED")
                             .queryList();
-                    if (!UtilValidate.isEmpty(components)) {
+                    if (UtilValidate.isNotEmpty(components)) {
                         for (GenericValue component : components) {
                             component.set("statusId", "WEGS_CANCELLED");
                             component.store();
@@ -491,7 +491,7 @@ public class ProductionRunServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productionRunId = (String) context.get("productionRunId");
 
-        if (!UtilValidate.isEmpty(productionRunId)) {
+        if (UtilValidate.isNotEmpty(productionRunId)) {
             ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
             if (productionRun.exist()) {
 

@@ -39,7 +39,7 @@ public class NotEmpty extends SimpleMapOperation {
         Object obj = inMap.get(fieldName);
         if (obj instanceof java.lang.String) {
             String fieldValue = (java.lang.String) obj;
-            if (!UtilValidate.isNotEmpty(fieldValue)) {
+            if (UtilValidate.isEmpty(fieldValue)) {
                 addMessage(messages, loader, locale);
             }
         } else {

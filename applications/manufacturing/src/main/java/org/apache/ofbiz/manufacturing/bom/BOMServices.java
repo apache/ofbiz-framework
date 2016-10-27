@@ -475,7 +475,7 @@ public class BOMServices {
 
         try {
             List<GenericValue> packages = EntityQuery.use(delegator).from("ShipmentPackage").where("shipmentId", shipmentId).queryList();
-            if (!UtilValidate.isEmpty(packages)) {
+            if (UtilValidate.isNotEmpty(packages)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomPackageAlreadyFound", locale));
             }
         } catch (GenericEntityException gee) {

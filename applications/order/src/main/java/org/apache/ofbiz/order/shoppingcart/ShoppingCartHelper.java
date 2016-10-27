@@ -147,7 +147,7 @@ public class ShoppingCartHelper {
 
         // check desiredDeliveryDate syntax and remove if empty
         String ddDate = (String) context.get("itemDesiredDeliveryDate");
-        if (!UtilValidate.isEmpty(ddDate)) {
+        if (UtilValidate.isNotEmpty(ddDate)) {
             try {
                 java.sql.Timestamp.valueOf((String) context.get("itemDesiredDeliveryDate"));
             } catch (IllegalArgumentException e) {
@@ -164,7 +164,7 @@ public class ShoppingCartHelper {
         }
 
         // stores the default desired delivery date in the cart if need
-        if (!UtilValidate.isEmpty(context.get("useAsDefaultDesiredDeliveryDate"))) {
+        if (UtilValidate.isNotEmpty(context.get("useAsDefaultDesiredDeliveryDate"))) {
             cart.setDefaultItemDeliveryDate((String) context.get("itemDesiredDeliveryDate"));
         } else {
             // do we really want to clear this if it isn't checked?
@@ -172,7 +172,7 @@ public class ShoppingCartHelper {
         }
 
         // stores the default comment in session if need
-        if (!UtilValidate.isEmpty(context.get("useAsDefaultComment"))) {
+        if (UtilValidate.isNotEmpty(context.get("useAsDefaultComment"))) {
             cart.setDefaultItemComment((String) context.get("itemComment"));
         } else {
             // do we really want to clear this if it isn't checked?

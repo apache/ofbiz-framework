@@ -184,7 +184,7 @@ public class OrderManagerEvents {
             String paymentMethodId = paymentMethod.getString("paymentMethodId");
             String paymentMethodAmountStr = request.getParameter(paymentMethodId + "_amount");
             String paymentMethodReference = request.getParameter(paymentMethodId + "_reference");
-            if (!UtilValidate.isEmpty(paymentMethodAmountStr)) {
+            if (UtilValidate.isNotEmpty(paymentMethodAmountStr)) {
                 BigDecimal paymentMethodAmount = BigDecimal.ZERO;
                 try {
                     paymentMethodAmount = (BigDecimal) ObjectType.simpleTypeConvert(paymentMethodAmountStr, "BigDecimal", null, locale);
@@ -224,7 +224,7 @@ public class OrderManagerEvents {
             String paymentMethodTypeId = paymentMethodType.getString("paymentMethodTypeId");
             String amountStr = request.getParameter(paymentMethodTypeId + "_amount");
             String paymentReference = request.getParameter(paymentMethodTypeId + "_reference");
-            if (!UtilValidate.isEmpty(amountStr)) {
+            if (UtilValidate.isNotEmpty(amountStr)) {
                 BigDecimal paymentTypeAmount = BigDecimal.ZERO;
                 try {
                     paymentTypeAmount = (BigDecimal) ObjectType.simpleTypeConvert(amountStr, "BigDecimal", null, locale);

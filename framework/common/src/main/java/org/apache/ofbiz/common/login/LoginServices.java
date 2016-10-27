@@ -923,7 +923,7 @@ public class LoginServices {
 
         }
 
-        if (!UtilValidate.isNotEmpty(newPassword) || !UtilValidate.isNotEmpty(newPasswordVerify)) {
+        if (UtilValidate.isEmpty(newPassword) || UtilValidate.isEmpty(newPasswordVerify)) {
             errMsg = UtilProperties.getMessage(resource,"loginservices.password_or_verify_missing", locale);
             errorMessageList.add(errMsg);
         } else if (!newPassword.equals(newPasswordVerify)) {

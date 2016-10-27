@@ -95,7 +95,7 @@ public class PickListServices {
             throw e;
         }
 
-        if (!UtilValidate.isEmpty(items)) {
+        if (UtilValidate.isNotEmpty(items)) {
             for (GenericValue v: items) {
                 String itemStatus = v.getString("itemStatusId");
                 if (itemStatus != null) {
