@@ -292,7 +292,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldPrice" type="BigDecimal" mode="IN" optional="true"/>
-        <override name="productPriceChangeId" mode="OUT"/>
+        <attribute name="productPriceChangeId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <!-- Product PaymentMethodType Services -->
@@ -1087,7 +1087,6 @@ under the License.
         <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" mode="INOUT" optional="true"/>
         <override name="configItemId" mode="OUT"/>
     </service>
     <service name="updateProductConfigItem" default-entity-name="ProductConfigItem" engine="entity-auto" invoke="update" auth="true">
@@ -1128,7 +1127,6 @@ under the License.
         <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" mode="INOUT" optional="true"/>
     </service>
     <service name="updateProductConfigProduct" default-entity-name="ProductConfigProduct" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductConfigProduct</description>
