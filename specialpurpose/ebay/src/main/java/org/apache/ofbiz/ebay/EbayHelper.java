@@ -82,7 +82,7 @@ public class EbayHelper {
                 buildEbayConfigContext.put("compatibilityLevel", eBayConfig.getString("compatibilityLevel"));
                 buildEbayConfigContext.put("siteID", eBayConfig.getString("siteId"));
                 buildEbayConfigContext.put("xmlGatewayUri", eBayConfig.getString("xmlGatewayUri"));
-                buildEbayConfigContext.put("apiServerUrl", eBayConfig.getString("apiServerUrl"));
+                buildEbayConfigContext.put("apiServerUrl", eBayConfig.getString("xmlGatewayUri"));
             }
         } else {
             buildEbayConfigContext.put("devID", EntityUtilProperties.getPropertyValue(configFileName, "eBayExport.devID", delegator));
