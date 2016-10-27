@@ -71,7 +71,6 @@ under the License.
       </#macro>
       <@paginationPanel />
       <form method="post" name="products" action="" id="products">
-        <fieldset>
           <input type="hidden" name="productStoreId" value="${parameters.productStoreId!}" />
           <input type="hidden" name="SEARCH_CATEGORY_ID" value="${(requestParameters.SEARCH_CATEGORY_ID)!}" />
           <table class="basic-table border-top border-bottom">
@@ -89,7 +88,6 @@ under the License.
               </tr>
             </#list>
           </table>
-        </fieldset>
       </form>
       <@paginationPanel />
     </#if>
