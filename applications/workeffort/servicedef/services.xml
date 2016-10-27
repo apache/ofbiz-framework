@@ -705,7 +705,6 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="sequenceId" mode="OUT"/>
     </service>
     <service name="updateWorkEffortAttribute" default-entity-name="WorkEffortAttribute" engine="entity-auto" invoke="update" auth="true">
         <description>Update a WorkEffort Attribute</description>
