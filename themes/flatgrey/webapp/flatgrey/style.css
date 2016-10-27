@@ -354,6 +354,10 @@ th, th a {
     text-decoration: underline;
 }
 
+.footerTextColour {
+    color: #b3b3b3;
+}
+
 /* ------------------------------- */
 /*      Main Navigation Style      */
 /* ------------------------------- */
