@@ -464,7 +464,7 @@ public final class ProductStoreWorker {
 
     public static ProductStoreSurveyWrapper getRandomSurveyWrapper(Delegator delegator, String productStoreId, String groupName, String partyId, Map<String, Object> passThruFields) {
         List<GenericValue> randomSurveys = getSurveys(delegator, productStoreId, groupName, null, "RANDOM_POLL", null);
-        if (!UtilValidate.isEmpty(randomSurveys)) {
+        if (UtilValidate.isNotEmpty(randomSurveys)) {
             Random rand = new Random();
             int index = rand.nextInt(randomSurveys.size());
             GenericValue appl = randomSurveys.get(index);
@@ -496,13 +496,13 @@ public final class ProductStoreWorker {
         storeSurveys = EntityUtil.filterByDate(storeSurveys);
 
         // limit based on group name
-        if (!UtilValidate.isEmpty(groupName)) {
+        if (UtilValidate.isNotEmpty(groupName)) {
             storeSurveys = EntityUtil.filterByAnd(storeSurveys, UtilMisc.toMap("groupName", groupName));
         }
 
          Debug.logInfo("getSurvey for product " + productId,module);
         // limit by product
-        if (!UtilValidate.isEmpty(productId) && !UtilValidate.isEmpty(storeSurveys)) {
+        if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(storeSurveys)) {
             for (GenericValue surveyAppl: storeSurveys) {
                 GenericValue product = null;
                 String virtualProductId = null;

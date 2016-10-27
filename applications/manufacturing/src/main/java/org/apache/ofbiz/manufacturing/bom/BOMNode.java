@@ -532,19 +532,19 @@ public class BOMNode {
                 serviceContext.put("productId", getSubstitutedNode().getProduct().getString("productId"));
                 serviceContext.put("facilityId", getSubstitutedNode().getProduct().getString("facilityId"));
             }
-            if (!UtilValidate.isEmpty(facilityId)) {
+            if (UtilValidate.isNotEmpty(facilityId)) {
                 serviceContext.put("facilityId", facilityId);
             }
-            if (!UtilValidate.isEmpty(workEffortName)) {
+            if (UtilValidate.isNotEmpty(workEffortName)) {
                 serviceContext.put("workEffortName", workEffortName);
             }
-            if (!UtilValidate.isEmpty(description)) {
+            if (UtilValidate.isNotEmpty(description)) {
                 serviceContext.put("description", description);
             }
-            if (!UtilValidate.isEmpty(routingId)) {
+            if (UtilValidate.isNotEmpty(routingId)) {
                 serviceContext.put("routingId", routingId);
             }
-            if (!UtilValidate.isEmpty(shipmentId) && UtilValidate.isEmpty(workEffortName)) {
+            if (UtilValidate.isNotEmpty(shipmentId) && UtilValidate.isEmpty(workEffortName)) {
                 serviceContext.put("workEffortName", "SP_" + shipmentId + "_" + serviceContext.get("productId"));
             }
 

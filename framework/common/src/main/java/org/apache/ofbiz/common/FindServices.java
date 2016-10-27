@@ -763,7 +763,7 @@ public class FindServices {
             Debug.logInfo("Problem getting list Item" + e,module);
         }
 
-        if (!UtilValidate.isEmpty(item)) {
+        if (UtilValidate.isNotEmpty(item)) {
             result.put("item",item);
         }
         result.remove("listIt");

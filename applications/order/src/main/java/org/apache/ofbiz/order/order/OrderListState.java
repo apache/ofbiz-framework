@@ -149,7 +149,7 @@ public class OrderListState implements Serializable {
         } else {
             String viewSizeParam = request.getParameter(VIEW_SIZE_PARAM);
             String viewIndexParam = request.getParameter(VIEW_INDEX_PARAM);
-            if (!UtilValidate.isEmpty(viewSizeParam) && !UtilValidate.isEmpty(viewIndexParam))
+            if (UtilValidate.isNotEmpty(viewSizeParam) && UtilValidate.isNotEmpty(viewIndexParam))
                 changePaginationState(viewSizeParam, viewIndexParam);
         }
     }

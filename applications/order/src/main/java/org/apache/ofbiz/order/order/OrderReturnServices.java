@@ -438,7 +438,7 @@ public class OrderReturnServices {
                     }
                     String returnStatus = returnHeader.getString("statusId");
                     if (!returnStatus.equals("RETURN_CANCELLED")) {
-                        if(!UtilValidate.isEmpty(returnItem.getBigDecimal("returnQuantity"))){
+                        if(UtilValidate.isNotEmpty(returnItem.getBigDecimal("returnQuantity"))){
                             returnedQty = returnedQty.add(returnItem.getBigDecimal("returnQuantity"));   
                         } 
                     }

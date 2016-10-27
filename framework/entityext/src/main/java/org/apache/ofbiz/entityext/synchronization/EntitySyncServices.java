@@ -317,9 +317,9 @@ public class EntitySyncServices {
                     // store data returned, get results (just call storeEntitySyncData locally, get the numbers back and boom shakalaka)
 
                     // anything to store locally?
-                    if (startDate != null && (!UtilValidate.isEmpty(result.get("valuesToCreate")) ||
-                            !UtilValidate.isEmpty(result.get("valuesToStore")) ||
-                            !UtilValidate.isEmpty(result.get("keysToRemove")))) {
+                    if (startDate != null && (UtilValidate.isNotEmpty(result.get("valuesToCreate")) ||
+                            UtilValidate.isNotEmpty(result.get("valuesToStore")) ||
+                            UtilValidate.isNotEmpty(result.get("keysToRemove")))) {
 
                         // yep, we got more data
                         gotMoreData = true;

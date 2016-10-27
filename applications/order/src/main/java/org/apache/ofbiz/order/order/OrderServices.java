@@ -829,7 +829,7 @@ public class OrderServices {
                     if (valueObj.get("carrierRoleTypeId") == null) {
                         valueObj.set("carrierRoleTypeId", "CARRIER");
                     }
-                    if (!UtilValidate.isEmpty(valueObj.getString("supplierPartyId"))) {
+                    if (UtilValidate.isNotEmpty(valueObj.getString("supplierPartyId"))) {
                         dropShipGroupIds.add(valueObj.getString("shipGroupSeqId"));
                     }
                 } else if ("OrderAdjustment".equals(valueObj.getEntityName())) {
@@ -4302,7 +4302,7 @@ public class OrderServices {
                 if (valueObj.get("carrierRoleTypeId") == null) {
                     valueObj.set("carrierRoleTypeId", "CARRIER");
                 }
-                if (!UtilValidate.isEmpty(valueObj.get("supplierPartyId"))) {
+                if (UtilValidate.isNotEmpty(valueObj.get("supplierPartyId"))) {
                     dropShipGroupIds.add(valueObj.getString("shipGroupSeqId"));
                 }
             } else if ("OrderAdjustment".equals(valueObj.getEntityName())) {
@@ -4957,7 +4957,7 @@ public class OrderServices {
             if ("SALES_ORDER".equals(orh.getOrderTypeId())) {
                 // get the order's ship groups
                 for (GenericValue shipGroup : orh.getOrderItemShipGroups()) {
-                    if (!UtilValidate.isEmpty(shipGroup.getString("supplierPartyId"))) {
+                    if (UtilValidate.isNotEmpty(shipGroup.getString("supplierPartyId"))) {
                         // This ship group is a drop shipment: we create a purchase order for it
                         String supplierPartyId = shipGroup.getString("supplierPartyId");
                         // Set supplier preferred currency for drop-ship (PO) order to support multi currency
@@ -4975,7 +4975,7 @@ public class OrderServices {
                         cart.setOrderPartyId(supplierPartyId);
                         // Get the items associated to it and create po
                         List<GenericValue> items = orh.getValidOrderItems(shipGroup.getString("shipGroupSeqId"));
-                        if (!UtilValidate.isEmpty(items)) {
+                        if (UtilValidate.isNotEmpty(items)) {
                             for (GenericValue item : items) {
                                 try {
                                     int itemIndex = cart.addOrIncreaseItem(item.getString("productId"),
@@ -5001,7 +5001,7 @@ public class OrderServices {
                         }
 
                         // If there are indeed items to drop ship, then create the purchase order
-                        if (!UtilValidate.isEmpty(cart.items())) {
+                        if (UtilValidate.isNotEmpty(cart.items())) {
                             // set checkout options
                             cart.setDefaultCheckoutOptions(dispatcher);
                             // the shipping address is the one of the customer

@@ -1010,7 +1010,7 @@ public class CommunicationEventServices {
                     attContentType = attContentType.toLowerCase().substring(0, attContentType.indexOf(";"));
                 }
 
-                if (!UtilValidate.isEmpty(attFileName)) {
+                if (UtilValidate.isNotEmpty(attFileName)) {
                     attachmentMap.put("contentName", attFileName);
                     attachmentMap.put("description", subject + "-" + attachmentIdx);
                 } else {

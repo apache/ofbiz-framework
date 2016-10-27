@@ -248,14 +248,14 @@ public class ProductEvents {
                 errMsgList.add("From Date not formatted correctly.");
             }
         }
-        if (!UtilValidate.isNotEmpty(productId))
+        if (UtilValidate.isEmpty(productId))
             errMsgList.add(UtilProperties.getMessage(resource,"productevents.product_ID_missing", UtilHttp.getLocale(request)));
-        if (!UtilValidate.isNotEmpty(productIdTo))
+        if (UtilValidate.isEmpty(productIdTo))
             errMsgList.add(UtilProperties.getMessage(resource,"productevents.product_ID_To_missing", UtilHttp.getLocale(request)));
-        if (!UtilValidate.isNotEmpty(productAssocTypeId))
+        if (UtilValidate.isEmpty(productAssocTypeId))
             errMsgList.add(UtilProperties.getMessage(resource,"productevents.association_type_ID_missing", UtilHttp.getLocale(request)));
         // from date is only required if update mode is not CREATE
-        if (!updateMode.equals("CREATE") && !UtilValidate.isNotEmpty(fromDateStr))
+        if (!updateMode.equals("CREATE") && UtilValidate.isEmpty(fromDateStr))
             errMsgList.add(UtilProperties.getMessage(resource,"productevents.from_date_missing", UtilHttp.getLocale(request)));
         if (errMsgList.size() > 0) {
             request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);

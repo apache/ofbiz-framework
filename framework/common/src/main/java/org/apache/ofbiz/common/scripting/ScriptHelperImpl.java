@@ -217,7 +217,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
         int transactionTimeout = -1;
         if (UtilValidate.isNotEmpty(requireNewTransactionStr)) {
             String timeoutStr = (String) args.get("transactionTimout");
-            if (!UtilValidate.isEmpty(timeoutStr)) {
+            if (UtilValidate.isNotEmpty(timeoutStr)) {
                 try {
                     transactionTimeout = Integer.parseInt(timeoutStr);
                 } catch (NumberFormatException e) {
