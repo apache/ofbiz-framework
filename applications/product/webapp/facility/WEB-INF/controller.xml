@@ -1295,13 +1295,13 @@ under the License.
     </request-map>
     <request-map uri="UpdateShipmentGatewayConfigUps">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateShipmentGatewayConfigUps"/>
+        <event type="service" invoke="updateShipmentGatewayUps"/>
         <response name="success" type="view" value="EditShipmentGatewayConfig"/>
         <response name="error" type="view" value="EditShipmentGatewayConfig"/>
     </request-map>
     <request-map uri="UpdateShipmentGatewayConfigUsps">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateShipmentGatewayConfigUsps"/>
+        <event type="service" invoke="updateShipmentGatewayUsps"/>
         <response name="success" type="view" value="EditShipmentGatewayConfig"/>
         <response name="error" type="view" value="EditShipmentGatewayConfig"/>
     </request-map>

@@ -37,13 +37,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    
-    <simple-method method-name="updateShipmentGatewayConfigUsps" short-description="Update Shipment Gateway Config USPS">
-        <entity-one entity-name="ShipmentGatewayUsps" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
+
     <simple-method method-name="updateShipmentGatewayConfigType" short-description="Update Shipment Gateway Config Type">
         <entity-one entity-name="ShipmentGatewayConfigType" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
