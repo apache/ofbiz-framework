@@ -31,6 +31,12 @@ under the License.
         <auto-attributes entity-name="ShipmentGatewayConfig" include="nonpk" mode="IN" optional="true"/>
     </service>
     
+    <service name="updateShipmentGatewayConfigUsps" engine="simple" location="component://product/minilang/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigUsps">
+        <description>Update Shipment Gateway Config USPS</description>
+        <auto-attributes entity-name="ShipmentGatewayUsps" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="ShipmentGatewayUsps" include="nonpk" mode="IN" optional="true"/>
+    </service>
+
     <service name="updateShipmentGatewayConfigDhl" engine="simple" location="component://product/minilang/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigDhl">
         <description>Update Shipment Gateway Config DHL</description>
         <auto-attributes entity-name="ShipmentGatewayDhl" include="pk" mode="IN" optional="false"/>
