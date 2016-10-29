@@ -282,5 +282,11 @@ under the License.
         <description>Delete a RequirementTypeAttr record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>
+
+    <!-- RequirementCustRequest services -->
+    <service name="deleteRequirementCustRequest" default-entity-name="RequirementCustRequest" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a RequirementCustRequest record</description>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>
 
