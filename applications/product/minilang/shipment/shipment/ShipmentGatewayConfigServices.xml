@@ -26,18 +26,6 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     
-    <simple-method method-name="updateShipmentGatewayConfigDhl" short-description="Update Shipment Gateway Config DHL">
-        <entity-one entity-name="ShipmentGatewayDhl" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="updateShipmentGatewayConfigFedex" short-description="Update Shipment Gateway Config FedEx">
-        <entity-one entity-name="ShipmentGatewayFedex" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <simple-method method-name="updateShipmentGatewayConfigType" short-description="Update Shipment Gateway Config Type">
         <entity-one entity-name="ShipmentGatewayConfigType" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>

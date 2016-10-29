@@ -1204,4 +1204,34 @@ under the License.
          <description>Expire a OrderContent</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="createOrderAdjustmentTypeAttr" default-entity-name="OrderAdjustmentTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a OrderAdjustmentTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateOrderAdjustmentTypeAttr" default-entity-name="OrderAdjustmentTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a OrderAdjustmentTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteOrderAdjustmentTypeAttr" default-entity-name="OrderAdjustmentTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a OrderAdjustmentTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createSalesOrderItemFact" default-entity-name="SalesOrderItemFact" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SalesOrderItemFact</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateSalesOrderItemFact" default-entity-name="SalesOrderItemFact" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SalesOrderItemFact</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSalesOrderItemFact" default-entity-name="SalesOrderItemFact" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SalesOrderItemFact</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

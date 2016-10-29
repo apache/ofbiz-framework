@@ -30,17 +30,35 @@ under the License.
         <auto-attributes entity-name="ShipmentGatewayConfig" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="ShipmentGatewayConfig" include="nonpk" mode="IN" optional="true"/>
     </service>
-    
-    <service name="updateShipmentGatewayConfigDhl" engine="simple" location="component://product/minilang/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigDhl">
-        <description>Update Shipment Gateway Config DHL</description>
-        <auto-attributes entity-name="ShipmentGatewayDhl" include="pk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="ShipmentGatewayDhl" include="nonpk" mode="IN" optional="true"/>
+
+    <service name="updateShipmentGatewayConfigDhl" engine="entity-auto" invoke="update" default-entity-name="ShipmentGatewayDhl" auth="true">
+        <description>Update a ShipmentGatewayDhl record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
-    <service name="updateShipmentGatewayConfigFedex" engine="simple" location="component://product/minilang/shipment/shipment/ShipmentGatewayConfigServices.xml" invoke="updateShipmentGatewayConfigFedex">
-        <description>Update Shipment Gateway Config FedEx</description>
-        <auto-attributes entity-name="ShipmentGatewayFedex" include="pk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="ShipmentGatewayFedex" include="nonpk" mode="IN" optional="true"/>
+    <service name="createShipmentGatewayDhl" default-entity-name="ShipmentGatewayDhl" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ShipmentGatewayDhl</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentGatewayDhl" default-entity-name="ShipmentGatewayDhl" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ShipmentGatewayDhl</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="updateShipmentGatewayConfigFedex" engine="entity-auto" invoke="update" default-entity-name="ShipmentGatewayFedex" auth="true">
+        <description>Update a ShipmentGatewayFedex record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createShipmentGatewayFedex" default-entity-name="ShipmentGatewayFedex" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ShipmentGatewayFedex</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentGatewayFedex" default-entity-name="ShipmentGatewayFedex" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ShipmentGatewayFedex</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- ShipmentGatewayUps services -->
@@ -89,5 +107,31 @@ under the License.
     <service name="deleteShipmentGatewayConfig" engine="entity-auto" invoke="delete" default-entity-name="ShipmentGatewayConfig" auth="true">
         <description>Delete a ShipmentGatewayConfig record</description>
         <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createShipmentGatewayConfigType" engine="entity-auto" default-entity-name="ShipmentGatewayConfigType" invoke="create" auth="true">
+        <description>Create ShipmentGatewayConfigType</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentGatewayConfigType" engine="entity-auto" default-entity-name="ShipmentGatewayConfigType" invoke="delete" auth="true">
+        <description>Delete ShipmentGatewayConfigType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ShipmentType Services -->
+    <service name="createShipmentType" engine="entity-auto" default-entity-name="ShipmentType" invoke="create" auth="true">
+        <description>Create ShipmentType</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateShipmentType" engine="entity-auto" default-entity-name="ShipmentType" invoke="update" auth="true">
+        <description>Update ShipmentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentType" engine="entity-auto" default-entity-name="ShipmentType" invoke="delete" auth="true">
+        <description>Delete ShipmentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 </services>

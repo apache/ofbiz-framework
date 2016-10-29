@@ -50,5 +50,19 @@
         <description>Delete a Country Code</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
-    
+
+    <service name="createCountryAddressFormat" engine="entity-auto" invoke="create" default-entity-name="CountryAddressFormat" auth="true">
+        <description>Create a Country Address Format</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateCountryAddressFormat" engine="entity-auto" invoke="update" default-entity-name="CountryAddressFormat" auth="true">
+        <description>Update a Country Address Format</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCountryAddressFormat" engine="entity-auto" invoke="delete" default-entity-name="CountryAddressFormat" auth="true">
+        <description>Delete a Country Address Format</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

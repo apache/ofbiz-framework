@@ -151,4 +151,20 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <!-- ExampleFeatureApplType services -->
+    <service name="createExampleFeatureApplType" default-entity-name="ExampleFeatureApplType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ExampleFeatureApplType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateExampleFeatureApplType" default-entity-name="ExampleFeatureApplType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ExampleFeatureApplType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteExampleFeatureApplType" default-entity-name="ExampleFeatureApplType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ExampleFeatureApplType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>

@@ -54,4 +54,19 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
+    <service name="createInventoryItemTypeAttr" default-entity-name="InventoryItemTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InventoryItemTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInventoryItemTypeAttr" default-entity-name="InventoryItemTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InventoryItemTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInventoryItemTypeAttr" default-entity-name="InventoryItemTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InventoryItemTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>

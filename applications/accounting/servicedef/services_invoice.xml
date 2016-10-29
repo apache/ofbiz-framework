@@ -528,4 +528,65 @@ under the License.
         <description>Delete a InvoiceNote</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="createInvoiceContentType" default-entity-name="InvoiceContentType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InvoiceContentType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateInvoiceContentType" default-entity-name="InvoiceContentType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InvoiceContentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInvoiceContentType" default-entity-name="InvoiceContentType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InvoiceContentType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- InvoiceItemTypeAttr services -->
+    <service name="createInvoiceItemTypeAttr" default-entity-name="InvoiceItemTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create InvoiceItemTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInvoiceItemTypeAttr" default-entity-name="InvoiceItemTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update InvoiceItemTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInvoiceItemTypeAttr" default-entity-name="InvoiceItemTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete InvoiceItemTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createInvoiceItemTypeMap" default-entity-name="InvoiceItemTypeMap" engine="entity-auto" invoke="create" auth="true">
+        <description>Create InvoiceItemTypeMap</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInvoiceItemTypeMap" default-entity-name="InvoiceItemTypeMap" engine="entity-auto" invoke="update" auth="true">
+        <description>Update InvoiceItemTypeMap</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInvoiceItemTypeMap" default-entity-name="InvoiceItemTypeMap" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete InvoiceItemTypeMap</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createInvoiceType" default-entity-name="InvoiceType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InvoiceType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateInvoiceType" default-entity-name="InvoiceType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InvoiceType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInvoiceType" default-entity-name="InvoiceType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InvoiceType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

@@ -541,4 +541,20 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <!-- SegmentGroupType Services -->
+    <service name="createSegmentGroupType" engine="entity-auto" default-entity-name="SegmentGroupType" invoke="create" auth="true">
+        <description>Create SegmentGroupType</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateSegmentGroupType" engine="entity-auto" default-entity-name="SegmentGroupType" invoke="update" auth="true">
+        <description>Update SegmentGroupType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSegmentGroupType" engine="entity-auto" default-entity-name="SegmentGroupType" invoke="delete" auth="true">
+        <description>Delete SegmentGroupType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>
