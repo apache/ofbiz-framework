@@ -1118,4 +1118,19 @@ under the License.
         <description>Delete a ShipmentTypeAttr Record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+
+    <service name="createShippingDocument" default-entity-name="ShippingDocument" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ShippingDocument</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateShippingDocument" default-entity-name="ShippingDocument" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ShippingDocument</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShippingDocument" default-entity-name="ShippingDocument" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ShippingDocument</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

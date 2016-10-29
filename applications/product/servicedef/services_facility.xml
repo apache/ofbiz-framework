@@ -1014,4 +1014,20 @@ under the License.
         <description>Expire a FacilityLocationGeoPoint record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- InventoryItemType services -->
+    <service name="createInventoryItemType" engine="entity-auto" default-entity-name="InventoryItemType" invoke="create" auth="true">
+        <description>Create InventoryItemType</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInventoryItemType" engine="entity-auto" default-entity-name="InventoryItemType" invoke="update" auth="true">
+        <description>Update InventoryItemType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInventoryItemType" engine="entity-auto" default-entity-name="InventoryItemType" invoke="delete" auth="true">
+        <description>Delete InventoryItemType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
