@@ -1053,7 +1053,7 @@ public class InvoiceServices {
             }
             invoicesCreated.add(UtilMisc.<String, String>toMap("commissionInvoiceId",invoiceId, "salesRepresentative ",partyIdBillFrom));
         }
-        String invCreated = new Integer(invoicesCreated.size()).toString();
+        String invCreated = Integer.toString(invoicesCreated.size());
         Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
                 "AccountingCommissionInvoicesCreated", 
                 UtilMisc.toMap("invoicesCreated", invCreated), locale));
