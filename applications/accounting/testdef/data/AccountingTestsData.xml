@@ -43,4 +43,8 @@ under the License.
     <!-- For Testing service removeInvoiceItemTypeGlAssignment-->
     <InvoiceItemTypeGlAccount glAccountId="999999" invoiceItemTypeId="PINV_SALES_TAX" organizationPartyId="DEMO_COMPANY1"/>
 
+    <!-- For Testing service removePaymentTypeGlAssignment-->
+    <PaymentGlAccountTypeMap paymentTypeId="COMMISSION_PAYMENT" glAccountTypeId="COMMISSIONS_PAYABLE" organizationPartyId="DEMO_COMPANY1"/>
+    <!-- For Testing service removePaymentMethodTypeGlAssignment-->
+    <PaymentMethodTypeGlAccount paymentMethodTypeId="CASH" glAccountId="999999" organizationPartyId="DEMO_COMPANY1"/>
 </entity-engine-xml>

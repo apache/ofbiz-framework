@@ -19,7 +19,58 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="testGetFXConversion" short-description="Test case for service getFXConversion" login-required="false">
+        <set field="serviceCtx.uomId" value="EUR"/>
+        <set field="serviceCtx.uomIdTo" value="USD"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getFXConversion" in-map-name="serviceCtx">
+            <results-to-map map-name="fxConversionResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="fxConversionResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testAddPaymentMethodTypeGlAssignment" short-description="Test case for service addPaymentMethodTypeGlAssignment" login-required="false">
+        <set field="serviceCtx.paymentMethodTypeId" value="GIFT_CARD"/>
+        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY1"/>
+        <set field="serviceCtx.glAccountId" value="999999"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="addPaymentMethodTypeGlAssignment" in-map-name="serviceCtx"/>
+        <entity-one value-field="paymentMethodTypeGlAccount" entity-name="PaymentMethodTypeGlAccount">
+            <field-map field-name="paymentMethodTypeId" value="GIFT_CARD"/>
+            <field-map field-name="organizationPartyId" value="DEMO_COMPANY1"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="paymentMethodTypeGlAccount"/></not>
+            <if-compare operator="equals" value="999999" field="paymentMethodTypeGlAccount.glAccountId"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testRemovePaymentTypeGlAssignment" short-description="Test case for service removePaymentTypeGlAssignment" login-required="false">
+        <set field="serviceCtx.paymentTypeId" value="COMMISSION_PAYMENT"/>
+        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="removePaymentTypeGlAssignment" in-map-name="serviceCtx"/>
+        <entity-one value-field="paymentGlAccountTypeMap" entity-name="PaymentGlAccountTypeMap">
+            <field-map field-name="paymentTypeId" value="COMMISSION_PAYMENT"/>
+            <field-map field-name="organizationPartyId" value="DEMO_COMPANY1"/>
+        </entity-one>
+        <assert>
+            <if-empty field="paymentGlAccountTypeMap"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
     <simple-method method-name="testCreatePartyAcctgPreference" short-description="Test case for service createPartyAcctgPreference" login-required="false">
         <set field="serviceCtx.partyId" value="DEMO_COMPANY"/>
         <set field="serviceCtx.refundPaymentMethodId" value="9020"/>
@@ -200,4 +251,22 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+    <simple-method method-name="testRemovePaymentMethodTypeGlAssignment" short-description="Test case for service removePaymentMethodTypeGlAssignment" login-required="false">
+        <set field="serviceCtx.paymentMethodTypeId" value="CASH"/>
+        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="removePaymentMethodTypeGlAssignment" in-map-name="serviceCtx"/>
+        <entity-one value-field="paymentMethodTypeGlAccount" entity-name="PaymentMethodTypeGlAccount">
+            <field-map field-name="paymentMethodTypeId" value="CASH"/>
+            <field-map field-name="organizationPartyId" value="DEMO_COMPANY1"/>
+        </entity-one>
+        <assert>
+            <if-empty field="paymentMethodTypeGlAccount"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
 </simple-methods>
