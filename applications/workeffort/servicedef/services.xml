@@ -373,13 +373,12 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="WorkEffortAssoc"/>
     </service>
 
-    <service name="createWorkEffortGoodStandard" engine="simple" default-entity-name="WorkEffortGoodStandard"
-            location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortGoodStandard">
+    <service name="createWorkEffortGoodStandard" engine="entity-auto" default-entity-name="WorkEffortGoodStandard" invoke="create">
         <description>
             Create a WorkEffort - Product Assoc, for linking WorkEffort to In or Out  Product,
             for routing it's the link between Manufactured Product with its routings
         </description>
-        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
@@ -422,14 +421,14 @@ under the License.
         <description>Deletes CommunicationEventWorkEff</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CommunicationEventWorkEff"/>
     </service>
-    <service name="createWorkEffortRequest" engine="simple" location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortRequest" auth="true">
+    <service name="createWorkEffortRequest" engine="entity-auto" default-entity-name="CustRequestWorkEffort" invoke="create" auth="true">
         <description>Creates a CustRequestWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestWorkEffort"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="CustRequest"/>
         <override name="custRequestId" optional="true" mode="INOUT"/>
         <override name="description" allow-html="any"/>
     </service>
-    <service name="deleteWorkEffortRequest" engine="simple" location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortRequest" auth="true">
+    <service name="deleteWorkEffortRequest" engine="entity-auto" default-entity-name="CustRequestWorkEffort" invoke="delete" auth="true">
         <description>Deletes a CustRequestWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestWorkEffort"/>
     </service>
@@ -439,15 +438,13 @@ under the License.
         <auto-attributes include="all" mode="IN" optional="true" entity-name="CustRequestItem"/>
         <attribute name="custRequestItemExists" type="java.lang.String" mode="OUT" optional="true"/>
     </service>
-    <service name="createWorkEffortRequestItem" engine="simple"
-        location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortRequestItem" auth="true">
+    <service name="createWorkEffortRequestItem" engine="entity-auto" invoke="create" auth="true">
         <description>Creates a CustRequestItemWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItemWorkEffort"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="CustRequestItem"/>
         <attribute name="custRequestItemExists" type="java.lang.String" mode="IN" optional="true"/>
     </service>
-    <service name="deleteWorkEffortRequestItem" engine="simple"
-        location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortRequestItem" auth="true">
+    <service name="deleteWorkEffortRequestItem" engine="entity-auto" invoke="delete" auth="true">
         <description>Deletes a CustRequestItemWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="CustRequestItemWorkEffort"/>
     </service>
@@ -457,53 +454,48 @@ under the License.
         <attribute name="custRequestItemExists" type="java.lang.String" mode="OUT" optional="true"/>
     </service>
 
-    <service name="createWorkEffortQuote" engine="simple" location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortQuote" auth="true">
+    <service name="createWorkEffortQuote" engine="entity-auto" default-entity-name="QuoteWorkEffort" invoke="create" auth="true">
         <description>Creates a QuoteWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="QuoteWorkEffort"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="Quote"/>
         <override name="quoteId" optional="true" mode="INOUT"/>
     </service>
-    <service name="deleteWorkEffortQuote" default-entity-name="QuoteWorkEffort" engine="simple" auth="true"
-        location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortQuote">
+    <service name="deleteWorkEffortQuote" default-entity-name="QuoteWorkEffort" engine="entity-auto" auth="true" invoke="delete">
         <description>Deletes a QuoteWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createWorkRequirementFulfillment" engine="simple" auth="true"
-        location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkRequirementFulfillment">
+    <service name="createWorkRequirementFulfillment" engine="entity-auto" default-entity-name="WorkRequirementFulfillment" auth="true" invoke="create">
         <description>Creates a WorkRequirementFulfillment</description>
         <auto-attributes include="pk" mode="IN" optional="true" entity-name="WorkRequirementFulfillment"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="WorkRequirementFulfillment"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="Requirement"/>
     </service>
-    <service name="deleteWorkRequirementFulfillment" engine="simple" auth="true"
-        location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkRequirementFulfillment">
+    <service name="deleteWorkRequirementFulfillment" engine="entity-auto" default-entity-name="WorkRequirementFulfillment" auth="true" invoke="delete">
         <description>Deletes a WorkRequirementFulfillment</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="WorkRequirementFulfillment"/>
     </service>
 
-    <service name="createShoppingListWorkEffort" engine="simple" location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createShoppingListWorkEffort" auth="true">
+    <service name="createShoppingListWorkEffort" engine="entity-auto" default-entity-name="ShoppingListWorkEffort" invoke="create" auth="true">
         <description>Creates a ShoppingListWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="ShoppingListWorkEffort"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="ShoppingListWorkEffort"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="ShoppingList"/>
         <override name="shoppingListId" optional="true" mode="INOUT"/>
     </service>
-    <service name="deleteShoppingListWorkEffort" engine="simple" location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteShoppingListWorkEffort" auth="true">
+    <service name="deleteShoppingListWorkEffort" engine="entity-auto" default-entity-name="ShoppingListWorkEffort" invoke="delete" auth="true">
         <description>Deletes a ShoppingListWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="ShoppingListWorkEffort"/>
     </service>
 
-    <service name="createOrderHeaderWorkEffort" engine="simple" auth="true"
-        location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createOrderHeaderWorkEffort">
+    <service name="createOrderHeaderWorkEffort" engine="entity-auto" default-entity-name="OrderHeaderWorkEffort" auth="true" invoke="create">
         <description>Creates a OrderHeaderWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false" entity-name="OrderHeaderWorkEffort"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="OrderHeaderWorkEffort"/>
         <auto-attributes include="all" mode="IN" optional="true" entity-name="OrderHeader"/>
         <override name="orderId" optional="true" mode="INOUT"/>
     </service>
-    <service name="deleteOrderHeaderWorkEffort" default-entity-name="OrderHeaderWorkEffort" engine="simple" auth="true"
-        location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteOrderHeaderWorkEffort">
+    <service name="deleteOrderHeaderWorkEffort" default-entity-name="OrderHeaderWorkEffort" engine="entity-auto" auth="true" invoke="deleteOrderHeaderWorkEffort">
         <description>Deletes a OrderHeaderWorkEffort</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -566,29 +558,20 @@ under the License.
     </service>
 
     <!-- work effort content services -->
-    <service name="createWorkEffortContent" engine="simple"
-        location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml"
-        invoke="createWorkEffortContent"
-        default-entity-name="WorkEffortContent" auth="true">
+    <service name="createWorkEffortContent" engine="entity-auto" invoke="create" default-entity-name="WorkEffortContent" auth="true">
         <description>Create a Work Effort Content</description>
-        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateWorkEffortContent" engine="simple"
-        location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml"
-        invoke="updateWorkEffortContent"
-        default-entity-name="WorkEffortContent" auth="true">
+    <service name="updateWorkEffortContent" engine="entity-auto" invoke="update" default-entity-name="WorkEffortContent" auth="true">
         <description>Update a Work Effort Content</description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteWorkEffortContent" engine="simple"
-        location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml"
-        invoke="deleteWorkEffortContent"
-        default-entity-name="WorkEffortContent" auth="true">
+    <service name="deleteWorkEffortContent" engine="entity-auto" invoke="delete" default-entity-name="WorkEffortContent" auth="true">
         <description>Delete a Work Effort Content</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -731,8 +714,7 @@ under the License.
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
     </service>
-    <service name="deleteWorkEffortContactMech" engine="simple" default-entity-name="WorkEffortContactMech"
-            location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortContactMech" auth="true">
+    <service name="deleteWorkEffortContactMech" engine="entity-auto" default-entity-name="WorkEffortContactMech" invoke="delete" auth="true">
         <description>Delete WorkEffortContactMech</description>
         <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>

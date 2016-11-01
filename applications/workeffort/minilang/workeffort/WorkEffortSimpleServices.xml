@@ -476,18 +476,6 @@ under the License.
         <field-to-request field="newWorkEffortContactMech.contactMechId" request-name="contactMechId"/>
     </simple-method>
 
-    <simple-method method-name="deleteWorkEffortContactMech" short-description="Delete a WorkEffortContactMech">
-        <!-- Find old value -->
-        <entity-one entity-name="WorkEffortContactMech" value-field="workEffortContactMech"/>
-        <if-empty field="workEffortContactMech">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCannotDeleteContactInfo"/>
-            </add-error>
-        </if-empty>
-        <check-errors/>
-        <remove-value value-field="workEffortContactMech"/>
-    </simple-method>
-
     <simple-method method-name="createWorkEffortPostalAddress" short-description="Create a PostalAddress for WorkEffort">
         <make-value entity-name="WorkEffortContactMech" value-field="newValue"/>
         <log level="info" message="Creating postal address"/>
@@ -764,24 +752,6 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="createWorkEffortGoodStandard" short-description="Create a link between a WorkEffort and a Product">
-        <entity-one entity-name="WorkEffortGoodStandard" value-field="lookedUpValue"/>
-        <if-not-empty field="lookedUpValue">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortGoodStandardAlreadyExist"/>
-            </add-error>
-            <check-errors/>
-        <else>
-            <make-value value-field="newEntity" entity-name="WorkEffortGoodStandard"/>
-            <set-pk-fields map="parameters" value-field="newEntity"/>
-            <if-empty field="newEntity.fromDate">
-                <now-timestamp field="newEntity.fromDate"/>
-            </if-empty>
-            <set-nonpk-fields map="parameters" value-field="newEntity"/>
-            <create-value value-field="newEntity"/>
-        </else>
-        </if-not-empty>
-    </simple-method>
     <simple-method method-name="assignInventoryToWorkEffort" short-description="Create or update WorkEffortInventoryAssign">
         <set value="Create or update WorkEffortInventoryAssign" field="operationName"/>
 
@@ -801,56 +771,7 @@ under the License.
         </if-not-empty>
     </simple-method>
 
-    <!-- CustRequest workeffort -->
-    <simple-method method-name="createWorkEffortRequest" short-description="Create a CustRequestWorkEffort">
-        <make-value entity-name="CustRequestWorkEffort" value-field="lookupMap"/>
-        <set-pk-fields map="parameters" value-field="lookupMap"/>
-        <find-by-primary-key entity-name="CustRequestWorkEffort" map="lookupMap" value-field="custRequestWorkEffort"/>
-        <if-not-empty field="custRequestWorkEffort">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCustRequestAlreadyExists"/>
-            </add-error>
-            <check-errors/>
-        </if-not-empty>
-        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-        <create-value value-field="lookupMap"/>
-        <field-to-result field="custRequestId" result-name="lookupMap"/>
-    </simple-method>
-    <simple-method method-name="deleteWorkEffortRequest" short-description="Delete a CustRequestWorkEffort">
-        <entity-one entity-name="CustRequestWorkEffort" value-field="custRequestWorkEffort"/>
-        <if-empty field="custRequestWorkEffort">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCustRequestDoesNotExists"/>
-            </add-error>
-            <check-errors/>
-        </if-empty>
-        <remove-value value-field="custRequestWorkEffort"/>
-    </simple-method>
-
     <!-- CustRequestItem workeffort -->
-    <simple-method method-name="createWorkEffortRequestItem" short-description="Create a CustRequestItemWorkEffort">
-        <make-value entity-name="CustRequestItemWorkEffort" value-field="lookupMap"/>
-        <set-pk-fields map="parameters" value-field="lookupMap"/>
-        <find-by-primary-key entity-name="QuoteWorkEffort" map="lookupMap" value-field="custRequestItemWorkEffort"/>
-        <if-not-empty field="custRequestItemWorkEffort">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCustRequestItemAlreadyExists"/>
-            </add-error>
-            <check-errors/>
-        </if-not-empty>
-        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-        <create-value value-field="lookupMap"/>
-    </simple-method>
-    <simple-method method-name="deleteWorkEffortRequestItem" short-description="Delete a CustRequestItemWorkEffort">
-        <entity-one entity-name="CustRequestItemWorkEffort" value-field="custRequestItemWorkEffort"/>
-        <if-empty field="custRequestItemWorkEffort.custRequestItemSeqId">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCustRequestItemDoesNotExists"/>
-            </add-error>
-            <check-errors/>
-        </if-empty>
-        <remove-value value-field="custRequestItemWorkEffort"/>
-    </simple-method>
     <simple-method method-name="checkCustRequestItemExists" short-description="Checks to see if a CustRequestItem exists">
         <make-value entity-name="CustRequestItem" value-field="lookupMap"/>
         <set-pk-fields map="parameters" value-field="lookupMap"/>
@@ -863,110 +784,6 @@ under the License.
                 <log level="always" message="custRequestItemExists: empty"/>
             </else>
         </if-not-empty>
-    </simple-method>
-
-    <!--Quote workeffort -->
-    <simple-method method-name="createWorkEffortQuote" short-description="Create a QuoteWorkEffort">
-        <make-value entity-name="QuoteWorkEffort" value-field="lookupMap"/>
-        <set-pk-fields map="parameters" value-field="lookupMap"/>
-        <find-by-primary-key entity-name="QuoteWorkEffort" map="lookupMap" value-field="quoteWorkEffort"/>
-        <if-not-empty field="quoteWorkEffort">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortQuoteAlreadyExists"/>
-            </add-error>
-            <check-errors/>
-        </if-not-empty>
-        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-        <create-value value-field="lookupMap"/>
-        <field-to-result field="quoteId" result-name="lookupMap"/>
-    </simple-method>
-    <simple-method method-name="deleteWorkEffortQuote" short-description="Delete a QuoteWorkEffort">
-        <entity-one entity-name="QuoteWorkEffort" value-field="quoteWorkEffort"/>
-        <if-empty field="quoteWorkEffort">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortQuoteDoesNotExists"/>
-            </add-error>
-            <check-errors/>
-        </if-empty>
-        <remove-value value-field="quoteWorkEffort"/>
-    </simple-method>
-
-    <!--Requirement workeffort -->
-    <simple-method method-name="createWorkRequirementFulfillment" short-description="Create a WorkRequirementFulfillment">
-        <make-value entity-name="WorkRequirementFulfillment" value-field="lookupMap"/>
-        <set-pk-fields map="parameters" value-field="lookupMap"/>
-        <find-by-primary-key entity-name="WorkRequirementFulfillment" map="lookupMap" value-field="workRequirementFulfillment"/>
-        <if-not-empty field="workRequirementFulfillment">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequirementFulfillmentAlreadyExists"/>
-            </add-error>
-            <check-errors/>
-        </if-not-empty>
-        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-        <create-value value-field="lookupMap"/>
-        <field-to-result field="requirementId" result-name="lookupMap"/>
-    </simple-method>
-    <simple-method method-name="deleteWorkRequirementFulfillment" short-description="Delete a WorkRequirementFulfillment">
-        <entity-one entity-name="WorkRequirementFulfillment" value-field="workRequirementFulfillment"/>
-        <if-empty field="workRequirementFulfillment">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequirementFulfillmentDoesNotExists"/>
-            </add-error>
-            <check-errors/>
-        </if-empty>
-        <remove-value value-field="workRequirementFulfillment"/>
-    </simple-method>
-
-    <!--ShoppingList workeffort -->
-    <simple-method method-name="createShoppingListWorkEffort" short-description="Create a ShoppingListWorkEffort">
-        <make-value entity-name="ShoppingListWorkEffort" value-field="lookupMap"/>
-        <set-pk-fields map="parameters" value-field="lookupMap"/>
-        <find-by-primary-key entity-name="ShoppingListWorkEffort" map="lookupMap" value-field="shoppingListWorkEffort"/>
-        <if-not-empty field="shoppingListWorkEffort">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortShoppingListAlreadyExists"/>
-            </add-error>
-            <check-errors/>
-        </if-not-empty>
-        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-        <create-value value-field="lookupMap"/>
-        <field-to-result field="shoppingListId" result-name="lookupMap"/>
-    </simple-method>
-    <simple-method method-name="deleteShoppingListWorkEffort" short-description="Delete a ShoppingListWorkEffort">
-        <entity-one entity-name="ShoppingListWorkEffort" value-field="shoppingListWorkEffort"/>
-        <if-empty field="shoppingListWorkEffort">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortShoppingListDoesNotExists"/>
-            </add-error>
-            <check-errors/>
-        </if-empty>
-        <remove-value value-field="shoppingListWorkEffort"/>
-    </simple-method>
-
-    <!--OrderHeader workeffort -->
-    <simple-method method-name="createOrderHeaderWorkEffort" short-description="Create a OrderHeaderWorkEffort">
-        <make-value entity-name="OrderHeaderWorkEffort" value-field="lookupMap"/>
-        <set-pk-fields map="parameters" value-field="lookupMap"/>
-        <find-by-primary-key entity-name="OrderHeaderWorkEffort" map="lookupMap" value-field="orderWorkEffort"/>
-        <if-not-empty field="orderWorkEffort">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortOrderHeaderAlreadyExists"/>
-            </add-error>
-            <check-errors/>
-        </if-not-empty>
-        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-        <create-value value-field="lookupMap"/>
-        <field-to-result field="orderId" result-name="lookupMap"/>
-    </simple-method>
-    <simple-method method-name="deleteOrderHeaderWorkEffort" short-description="Delete a OrderHeaderWorkEffort">
-        <entity-one entity-name="OrderHeaderWorkEffort" value-field="orderWorkEffort"/>
-        <if-empty field="orderWorkEffort">
-            <add-error>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortOrderHeaderDoesNotExists"/>
-            </add-error>
-            <check-errors/>
-        </if-empty>
-        <remove-value value-field="orderWorkEffort"/>
     </simple-method>
 
     <simple-method method-name="setWorkEffortFixedAssetAssign" short-description="Based on task's estimate dates, write assign entries for the fixed asset the task is assigned to">
@@ -1075,48 +892,6 @@ under the License.
         </check-permission>
         <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetAssign" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Create/Update/Delete Work Effort Content-->
-    <simple-method method-name="createWorkEffortContent" short-description="Create Work Effort Content">
-        <!-- need a better way to handle per workeffort permissions
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
-        </check-permission>
-        <check-errors />
-        -->
-        <make-value entity-name="WorkEffortContent" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
-        </if-empty>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateWorkEffortContent" short-description="Update Work Effort Content">
-        <!-- need a better way to handle permissions
-        <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
-        </check-permission>
-        <check-errors />
-        -->
-        <entity-one entity-name="WorkEffortContent" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteWorkEffortContent"
-            short-description="Remove a WorkEffort Content">
-        <!-- need a better way to handle per workeffort permissions
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
-        </check-permission>
-        <check-errors />
-        -->
-        <entity-one entity-name="WorkEffortContent" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
