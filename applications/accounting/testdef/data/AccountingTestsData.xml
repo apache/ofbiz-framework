@@ -36,4 +36,11 @@ under the License.
     <PartyAcctgPreference partyId="DEMO_COMPANY1"/>
     <!-- For Testing service updateFXConversion-->
     <UomConversionDated uomId="EUR" uomIdTo="USD" fromDate="2001-01-01 00:00:00.0" conversionFactor="1.5"/>
+    <!-- For Testing service createGlAccountTypeDefault / addInvoiceItemTypeGlAssignment-->
+    <GlAccount glAccountId="999999"/>
+    <!-- For Testing service removeGlAccountTypeDefault-->
+    <GlAccountTypeDefault glAccountId="999999" glAccountTypeId="ACCOUNTS_PAYABLE" organizationPartyId="DEMO_COMPANY1"/>
+    <!-- For Testing service removeInvoiceItemTypeGlAssignment-->
+    <InvoiceItemTypeGlAccount glAccountId="999999" invoiceItemTypeId="PINV_SALES_TAX" organizationPartyId="DEMO_COMPANY1"/>
+
 </entity-engine-xml>
