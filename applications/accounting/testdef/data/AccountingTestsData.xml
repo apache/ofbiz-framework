@@ -26,4 +26,14 @@ under the License.
         inventoryItemId="TEST_9001" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="MAT_B_COST" ownerPartyId="Company" currencyUomId="USD" unitCost="7"/>
     <InventoryItemDetail inventoryItemId="TEST_9001" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="6" quantityOnHandDiff="6"/>
 
+    <!-- For Testing service createPartyAcctgPreference -->
+    <Party partyId="DEMO_COMPANY" partyTypeId="PARTY_GROUP"/>
+    <PartyRole partyId="DEMO_COMPANY" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PaymentMethod fromDate="2001-05-13 00:00:00.0" partyId="DEMO_COMPANY" paymentMethodId="9020" paymentMethodTypeId="CREDIT_CARD"/>
+    <!-- For Testing service updatePartyAcctgPreference / getPartyAccountingPreferences-->
+    <Party partyId="DEMO_COMPANY1" partyTypeId="PARTY_GROUP"/>
+    <PartyRole partyId="DEMO_COMPANY1" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyAcctgPreference partyId="DEMO_COMPANY1"/>
+    <!-- For Testing service updateFXConversion-->
+    <UomConversionDated uomId="EUR" uomIdTo="USD" fromDate="2001-01-01 00:00:00.0" conversionFactor="1.5"/>
 </entity-engine-xml>
