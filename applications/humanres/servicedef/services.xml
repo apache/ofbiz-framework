@@ -66,8 +66,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
-    <service name="createPartySkill" engine="simple" default-entity-name="PartySkill"
-             location="component://humanres/minilang/HumanResServices.xml" invoke="createPartySkill" auth="true">
+    <service name="createPartySkill" engine="entity-auto" default-entity-name="PartySkill" invoke="create" auth="true">
         <description>Create Skill for a Party</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
