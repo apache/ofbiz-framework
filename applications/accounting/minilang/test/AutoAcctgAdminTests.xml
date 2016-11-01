@@ -108,5 +108,96 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-
+    <simple-method method-name="testCreateGlAccountTypeDefault" short-description="Test case for service createGlAccountTypeDefault" login-required="false">
+        <set field="serviceCtx.glAccountTypeId" value="BALANCE_ACCOUNT"/>
+        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY1"/>
+        <set field="serviceCtx.glAccountId" value="999999"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createGlAccountTypeDefault" in-map-name="serviceCtx"/>
+        <entity-one value-field="glAccountTypeDefault" entity-name="GlAccountTypeDefault">
+            <field-map field-name="glAccountTypeId" value="BALANCE_ACCOUNT"/>
+            <field-map field-name="organizationPartyId" value="DEMO_COMPANY1"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="glAccountTypeDefault"/></not>
+            <if-compare operator="equals" value="999999" field="glAccountTypeDefault.glAccountId"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testRemoveGlAccountTypeDefault" short-description="Test case for service removeGlAccountTypeDefault" login-required="false">
+        <set field="serviceCtx.glAccountTypeId" value="ACCOUNTS_PAYABLE"/>
+        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY1"/>
+        <set field="serviceCtx.glAccountId" value="999999"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="removeGlAccountTypeDefault" in-map-name="serviceCtx"/>
+        <entity-one value-field="glAccountTypeDefault" entity-name="GlAccountTypeDefault">
+            <field-map field-name="glAccountTypeId" value="ACCOUNTS_PAYABLE"/>
+            <field-map field-name="organizationPartyId" value="DEMO_COMPANY1"/>
+        </entity-one>
+        <assert>
+            <if-empty field="glAccountTypeDefault"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testAddInvoiceItemTypeGlAssignment" short-description="Test case for service addInvoiceItemTypeGlAssignment" login-required="false">
+        <set field="serviceCtx.invoiceItemTypeId" value="PINV_FPROD_ITEM"/>
+        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY1"/>
+        <set field="serviceCtx.glAccountId" value="999999"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="addInvoiceItemTypeGlAssignment" in-map-name="serviceCtx"/>
+        <entity-one value-field="invoiceItemTypeGlAccount" entity-name="InvoiceItemTypeGlAccount">
+            <field-map field-name="invoiceItemTypeId" value="PINV_FPROD_ITEM"/>
+            <field-map field-name="organizationPartyId" value="DEMO_COMPANY1"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="invoiceItemTypeGlAccount"/></not>
+            <if-compare operator="equals" value="999999" field="invoiceItemTypeGlAccount.glAccountId"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testRemoveInvoiceItemTypeGlAssignment" short-description="Test case for service removeInvoiceItemTypeGlAssignment" login-required="false">
+        <set field="serviceCtx.invoiceItemTypeId" value="PINV_SALES_TAX"/>
+        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="removeInvoiceItemTypeGlAssignment" in-map-name="serviceCtx"/>
+        <entity-one value-field="invoiceItemTypeGlAccount" entity-name="InvoiceItemTypeGlAccount">
+            <field-map field-name="invoiceItemTypeId" value="PINV_SALES_TAX"/>
+            <field-map field-name="organizationPartyId" value="DEMO_COMPANY1"/>
+        </entity-one>
+        <assert>
+            <if-empty field="invoiceItemTypeGlAccount"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testAddPaymentTypeGlAssignment" short-description="Test case for service addPaymentTypeGlAssignment" login-required="false">
+        <set field="serviceCtx.paymentTypeId" value="TAX_PAYMENT"/>
+        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY1"/>
+        <set field="serviceCtx.glAccountTypeId" value="TAX_ACCOUNT"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="addPaymentTypeGlAssignment" in-map-name="serviceCtx"/>
+        <entity-one value-field="paymentGlAccountTypeMap" entity-name="PaymentGlAccountTypeMap">
+            <field-map field-name="paymentTypeId" value="TAX_PAYMENT"/>
+            <field-map field-name="organizationPartyId" value="DEMO_COMPANY1"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="paymentGlAccountTypeMap"/></not>
+            <if-compare operator="equals" value="TAX_ACCOUNT" field="paymentGlAccountTypeMap.glAccountTypeId"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
