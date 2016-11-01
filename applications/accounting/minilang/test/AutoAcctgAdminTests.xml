@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="testCreatePartyAcctgPreference" short-description="Test case for service createPartyAcctgPreference" login-required="false">
+        <set field="serviceCtx.partyId" value="DEMO_COMPANY"/>
+        <set field="serviceCtx.refundPaymentMethodId" value="9020"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createPartyAcctgPreference" in-map-name="serviceCtx"/>
+ 
+        <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference">
+            <field-map field-name="partyId" value="DEMO_COMPANY"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="partyAcctgPreference"/></not>
+            <if-compare operator="equals" value="DEMO_COMPANY" field="partyAcctgPreference.partyId"></if-compare>
+            <if-compare operator="equals" value="9020" field="partyAcctgPreference.refundPaymentMethodId"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdatePartyAcctgPreference" short-description="Test case for service updatePartyAcctgPreference" login-required="false">
+        <set field="serviceCtx.partyId" value="DEMO_COMPANY1"/>
+        <set field="serviceCtx.refundPaymentMethodId" value="9020"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updatePartyAcctgPreference" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference">
+            <field-map field-name="partyId" value="DEMO_COMPANY1"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="partyAcctgPreference"/></not>
+            <if-compare operator="equals" value="9020" field="partyAcctgPreference.refundPaymentMethodId"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testGetPartyAccountingPreferences" short-description="Test case for service getPartyAccountingPreferences" login-required="false">
+        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getPartyAccountingPreferences" in-map-name="serviceCtx">
+            <results-to-map map-name="partyAcctgPreference"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="partyAcctgPreference"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testSetAcctgCompany" short-description="Test case for service setAcctgCompany" login-required="false">
+        <set field="serviceCtx.organizationPartyId" value="DEMO_COMPANY1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="setAcctgCompany" in-map-name="serviceCtx"/>
+        <entity-and list="userPreferences" entity-name="UserPreference">
+            <field-map field-name="userPrefValue" value="DEMO_COMPANY1"/>
+        </entity-and>
+        <first-from-list entry="userPreference" list="userPreferences"/>
+        <assert>
+            <not><if-empty field="userPreference"/></not>
+            <if-compare operator="equals" value="GLOBAL_PREFERENCES" field="userPreference.userPrefGroupTypeId"></if-compare>
+            <if-compare operator="equals" value="ORGANIZATION_PARTY" field="userPreference.userPrefTypeId"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateFXConversion" short-description="Test case for service updateFXConversion" login-required="false">
+        <set field="serviceCtx.uomId" value="EUR"/>
+        <set field="serviceCtx.uomIdTo" value="USD"/>
+        <set field="serviceCtx.conversionFactor" value="2.0"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateFXConversion" in-map-name="serviceCtx"/>
+        <entity-and list="uomConversionDatedList" entity-name="UomConversionDated" filter-by-date="true">
+            <field-map field-name="uomId" value="EUR"/>
+            <field-map field-name="uomIdTo" value="USD"/>
+        </entity-and>
+        <first-from-list entry="uomConversionDated" list="uomConversionDatedList"/>
+        <assert>
+            <not><if-empty field="uomConversionDated"/></not>
+            <if-compare operator="equals" value="2.0" field="uomConversionDated.conversionFactor"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>
