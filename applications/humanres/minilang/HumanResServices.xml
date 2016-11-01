@@ -21,30 +21,6 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <simple-method method-name="createPartySkill" short-description="Create Party Skills">
-        <make-value entity-name="PartySkill" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <entity-one entity-name="PartySkill" value-field="partySkill" auto-field-map="true"/>
-        <if>
-            <condition>
-                <and>
-                   <if-compare-field field="partySkill.partyId" to-field="parameters.partyId" operator="equals"/>
-                   <if-compare-field field="partySkill.skillTypeId" to-field="parameters.skillTypeId" operator="equals"/>
-                </and>
-            </condition>
-            <then>
-                 <add-error>
-                    <fail-property resource="HumanResUiLabels" property="HumanResPartySkillsAlreadyExists"/>
-                 </add-error>
-                 <check-errors/>
-            </then>
-            <else>
-                <create-value value-field="newEntity"/>
-            </else>
-        </if>
-    </simple-method>
-
     <!-- Employment Group -->
     <simple-method method-name="createEmployment" short-description="Create Employment"><!--entity-auto-->
         <make-value entity-name="Employment" value-field="newEntity"/>
