@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="testCreateWorkEffortAndPartyAssign" short-description="Test the service createWorkEffortAndPartyAssign" login-required="false">
+        <set field="serviceCtx.partyId" value="TestParty-1"/>
+        <set field="serviceCtx.roleTypeId" value="CONTACT"/>
+        <set field="serviceCtx.statusId" value="PAS_ASSIGNED"/>
+        <set field="serviceCtx.workEffortId" value="TestWorkEffort-1"/>
+        <set field="serviceCtx.partyTypeId" value="PARTY_GROUP"/>
+        <set field="serviceCtx.workEffortName" value="Test WorkEffort Event"/>
+        <set field="serviceCtx.workEffortTypeId" value="TASK"/>
+        <set field="serviceCtx.currentStatusId" value="PTS_CREATED"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createWorkEffortAndPartyAssign" in-map-name="serviceCtx">
+            <result-to-field result-name="workEffortId"/>
+        </call-service>
+        <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+        <set field="lookupKeyValue.workEffortId" from-field="workEffortId"/>
+        <set field="lookupKeyValue.partyId"  value="TestParty-1"/>
+        <set field="lookupKeyValue.roleTypeId"  value="CONTACT"/>
+        <find-by-and entity-name="WorkEffortPartyAssignment" map="lookupKeyValue" list="workEffortPartyAssignmentList"/>
+        <first-from-list entry="workEffortPartyAssignment" list="workEffortPartyAssignmentList"/>
+        <assert>
+            <not><if-empty field="workEffort"/></not>
+            <not><if-empty field="workEffortPartyAssignment"/></not>
+            <if-compare field="workEffort.workEffortTypeId" operator="equals" value="TASK"/>
+            <if-compare field="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
+            <if-compare field="workEffortPartyAssignment.statusId" operator="equals" value="PAS_ASSIGNED"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testDeleteWorkEffort" short-description="Test the service deleteWorkEffort" login-required="false">
+        <set field="serviceCtx.workEffortId" value="TestWorkEffort-1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deleteWorkEffort" in-map-name="serviceCtx"/>
+        <entity-one entity-name="WorkEffort" value-field="workEffort">
+            <field-map field-name="workEffortId" value="TestWorkEffort-1"/>
+        </entity-one>
+        <assert>
+            <if-empty field="workEffort"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCopyWorkEffort" short-description="Test the service copyWorkEffort" login-required="false">
+        <set field="serviceCtx.sourceWorkEffortId" value="TestWorkeffort-3"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="copyWorkEffort" in-map-name="serviceCtx">
+            <result-to-field result-name="workEffortId"/>
+        </call-service>
+        <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+        <assert>
+            <not><if-empty field="workEffort"/></not>
+            <if-compare operator="equals" field="workEffort.workEffortName" value="New Test Workeffort"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testDuplicateWorkEffort" short-description="Test the service duplicateWorkEffort" login-required="false">
+        <set field="serviceCtx.oldWorkEffortId" value="TestWorkeffort-3"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="duplicateWorkEffort" in-map-name="serviceCtx">
+            <result-to-field result-name="workEffortId"/>
+        </call-service>
+        <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+        <assert>
+            <not><if-empty field="workEffort"/></not>
+            <if-compare operator="equals" field="workEffort.workEffortName" value="New Test Workeffort"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testMakeCommunicationEventWorkEffort" short-description="Test the service makeCommunicationEventWorkEffort" login-required="false">
+        <set field="serviceCtx.communicationEventId" value="TestEvent-1"/>
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-3"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="makeCommunicationEventWorkEffort" in-map-name="serviceCtx">
+            <result-to-field result-name="workEffortId"/>
+            <result-to-field result-name="communicationEventId"/>
+        </call-service>
+        <entity-one entity-name="CommunicationEventWorkEff" value-field="communicationEventWorkEff"/>
+        <assert>
+            <not><if-empty field="communicationEventWorkEff"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testAssignPartyToWorkEffort" short-description="Test the service assignPartyToWorkEffort" login-required="false">
+        <set field="serviceCtx.partyId" value="TestParty"/>
+        <set field="serviceCtx.roleTypeId" value="CONTENT_AUTHOR"/>
+        <set field="serviceCtx.statusId" value="PAS_ASSIGNED"/>
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-3"/>
+        <set field="serviceCtx.fromDate" value="2009-09-09 01:01:01" type="Timestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="assignPartyToWorkEffort" in-map-name="serviceCtx">
+            <result-to-field result-name="fromDate"/>
+        </call-service>
+        <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment">
+            <field-map field-name="partyId" value="TestParty"/>
+            <field-map field-name="roleTypeId" value="CONTENT_AUTHOR"/>
+            <field-map field-name="workEffortId" value="TestWorkeffort-3"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="workEffortPartyAssignment"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdatePartyToWorkEffortAssignment" short-description="Test the service updatePartyToWorkEffortAssignment" login-required="false">
+        <set field="serviceCtx.partyId" value="TestParty"/>
+        <set field="serviceCtx.roleTypeId" value="CUSTOMER"/>
+        <set field="serviceCtx.statusId" value="PRTYASGN_ASSIGNED"/>
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-3"/>
+        <set field="serviceCtx.fromDate" value="2009-09-09 02:02:02" type="Timestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="serviceCtx"/>
+        <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment">
+            <field-map field-name="partyId" value="TestParty"/>
+            <field-map field-name="roleTypeId" value="CUSTOMER"/>
+            <field-map field-name="workEffortId" value="TestWorkeffort-3"/>
+            <field-map field-name="fromDate" value="2009-09-09 02:02:02"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="workEffortPartyAssignment"/></not>
+            <if-compare operator="equals" field="workEffortPartyAssignment.statusId" value="PRTYASGN_ASSIGNED"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testDeletePartyToWorkEffortAssignment" short-description="Test the service deletePartyToWorkEffortAssignment" login-required="false">
+        <set field="serviceCtx.partyId" value="TestParty"/>
+        <set field="serviceCtx.roleTypeId" value="ACCOUNTANT"/>
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-3"/>
+        <set field="serviceCtx.fromDate" value="2009-09-09 02:02:02" type="Timestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deletePartyToWorkEffortAssignment" in-map-name="serviceCtx"/>
+        <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment">
+            <field-map field-name="partyId" value="TestParty"/>
+            <field-map field-name="roleTypeId" value="ACCOUNTANT"/>
+            <field-map field-name="workEffortId" value="TestWorkeffort-3"/>
+            <field-map field-name="fromDate" value="2009-09-09 02:02:02"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="workEffortPartyAssignment"/></not>
+            <not><if-empty field="workEffortPartyAssignment.thruDate"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testQuickAssignPartyToWorkEffort" short-description="Test the service quickAssignPartyToWorkEffort" login-required="false">
+        <set field="serviceCtx.quickAssignPartyId" value="TestCompany"/>
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-3"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="quickAssignPartyToWorkEffort" in-map-name="serviceCtx"/>
+        <set field="lookupKeyValue.workEffortId" value="TestWorkeffort-3"/>
+        <set field="lookupKeyValue.partyId"  value="TestCompany"/>
+        <find-by-and entity-name="WorkEffortPartyAssignment" map="lookupKeyValue" list="workEffortPartyAssignmentList"/>
+        <first-from-list entry="workEffortPartyAssignment" list="workEffortPartyAssignmentList"/>
+        <assert>
+            <not><if-empty field="workEffortPartyAssignment"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+</simple-methods>

@@ -21,10 +21,16 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <!-- TODO: Move these test implementations to a separate simple methods document -->
+    <test-case case-name="workeffort-tests-data-load">
+        <entity-xml action="load" entity-xml-url="component://workeffort/testdef/data/WorkEffortTestData.xml"/>
+    </test-case>
     <test-case case-name="testCreateEventService Direct Simple Method">
         <simple-method-test location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" name="testCreateEventService"/>
     </test-case>
     <test-case case-name="testCreateProjectService Direct Simple Method">
         <simple-method-test location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" name="testCreateProjectService"/>
+    </test-case>
+    <test-case case-name="workeffort-tests">
+        <simple-method-test location="component://workeffort/minilang/test/WorkEffortTests.xml"/>
     </test-case>
 </test-suite>
