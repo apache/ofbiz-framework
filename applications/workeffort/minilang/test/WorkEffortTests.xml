@@ -400,4 +400,182 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+    <simple-method method-name="testUpdateTimesheet" short-description="Test the service updateTimesheet" login-required="false">
+        <set field="serviceCtx.timesheetId" value="TestTimesheet-2"/>
+        <set field="serviceCtx.clientPartyId" value="TestParty"/>
+        <set field="serviceCtx.statusId" value="TIMESHEET_COMPLETED"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateTimesheet" in-map-name="serviceCtx"/>
+        <entity-one entity-name="Timesheet" value-field="timesheet">
+            <field-map field-name="timesheetId" value="TestTimesheet-2"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="timesheet"/></not>
+            <if-compare operator="equals" field="timesheet.clientPartyId" value="TestParty"/>
+            <if-compare operator="equals" field="timesheet.statusId" value="TIMESHEET_COMPLETED"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testDeleteTimesheet" short-description="Test the service deleteTimesheet" login-required="false">
+        <set field="serviceCtx.timesheetId" value="TestTimesheet-3"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deleteTimesheet" in-map-name="serviceCtx"/>
+        <entity-one entity-name="Timesheet" value-field="timesheet">
+            <field-map field-name="timesheetId" value="TestTimesheet-3"/>
+        </entity-one>
+        <assert>
+            <if-empty field="timesheet"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateTimesheets" short-description="Test the service createTimesheets" login-required="false">
+        <set field="partyIdList" value="${groovy: ['TestParty', 'TestParty-1'];}" type="List"/>
+        <set field="serviceCtx.partyIdList" from-field="partyIdList" type="List"/>
+        <set field="serviceCtx.comments" value="Test timesheet for test parties"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createTimesheets" in-map-name="serviceCtx"/>
+        <iterate entry="partyId" list="partyIdList">
+            <set field="lookupKeyValue.partyId" from-field="partyId"/>
+            <set field="lookupKeyValue.comments" value="Test timesheet for test parties"/>
+            <find-by-and entity-name="Timesheet" map="lookupKeyValue" list="timesheetList"/>
+            <assert>
+                <not><if-empty field="timesheetList"/></not>
+            </assert>
+        </iterate>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateTimesheetForThisWeek" short-description="Test the service createTimesheetForThisWeek" login-required="false">
+        <set field="serviceCtx.partyId" value="TestParty-1"/>
+        <set field="serviceCtx.comments" value="Test timesheet"/>
+        <set field="serviceCtx.requiredDate" value="2009-09-06 00:00:00.0" type="Timestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createTimesheetForThisWeek" in-map-name="serviceCtx">
+            <result-to-field result-name="timesheetId"/>
+        </call-service>
+        <entity-one entity-name="Timesheet" value-field="timesheet"/>
+        <assert>
+            <not><if-empty field="timesheet"/></not>
+            <if-compare operator="equals" field="timesheet.partyId" value="TestParty-1"/>
+            <if-compare operator="equals" field="timesheet.fromDate" value="2009-09-06 00:00:00.0"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testAddTimesheetToNewInvoice" short-description="Test the service addTimesheetToNewInvoice" login-required="false">
+        <set field="serviceCtx.partyId" value="TestParty-1"/>
+        <set field="serviceCtx.partyIdFrom" value="TestCompany"/>
+        <set field="serviceCtx.timesheetId" value="TestTimesheet-2"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="addTimesheetToNewInvoice" in-map-name="serviceCtx">
+            <result-to-field result-name="invoiceId"/>
+        </call-service>
+        <entity-one entity-name="Invoice" value-field="invoice"/>
+        <assert>
+            <not><if-empty field="invoice"/></not>
+            <if-compare operator="equals" field="invoice.partyId" value="TestParty-1"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateTimeEntry" short-description="Test the service createTimeEntry" login-required="false">
+        <set field="serviceCtx.workEffortId" value="TestWorkeffort-2"/>
+        <set field="serviceCtx.planHours" value="8" type="Double"/>
+        <set field="serviceCtx.comments" value="Test Time Entry"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createTimeEntry" in-map-name="serviceCtx">
+            <result-to-field result-name="timeEntryId"/>
+        </call-service>
+        <entity-one entity-name="TimeEntry" value-field="timeEntry"/>
+        <assert>
+            <not><if-empty field="timeEntry"/></not>
+            <if-compare operator="equals" field="timeEntry.workEffortId" value="TestWorkeffort-2"/>
+            <if-compare operator="equals" field="timeEntry.planHours" value="8"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateTimeEntry" short-description="Test the service updateTimeEntry" login-required="false">
+        <set field="serviceCtx.timeEntryId" value="TestTimeEntry-1"/>
+        <set field="serviceCtx.timesheetId" value="TestTimesheet-1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateTimeEntry" in-map-name="serviceCtx"/>
+        <entity-one entity-name="TimeEntry" value-field="timeEntry">
+            <field-map field-name="timeEntryId" value="TestTimeEntry-1"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="timeEntry"/></not>
+            <if-compare operator="equals" field="timeEntry.timesheetId" value="TestTimesheet-1"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testDeleteTimeEntry" short-description="Test the service deleteTimeEntry" login-required="false">
+        <set field="serviceCtx.timeEntryId" value="TestTimeEntry-2"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deleteTimeEntry" in-map-name="serviceCtx"/>
+        <entity-one entity-name="TimeEntry" value-field="timeEntry">
+            <field-map field-name="timeEntryId" value="TestTimeEntry-2"/>
+        </entity-one>
+        <assert>
+            <if-empty field="TimeEntry"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testGetTimeEntryRate" short-description="Test the service getTimeEntryRate" login-required="false">
+        <set field="serviceCtx.timeEntryId" value="TestTimeEntry-3"/>
+        <set field="serviceCtx.currencyUomId" value="USD"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getTimeEntryRate" in-map-name="serviceCtx">
+            <result-to-field result-name="rateAmount"/>
+        </call-service>
+        <set field="lookupKeyValue.partyId" value="TestParty"/>
+        <set field="lookupKeyValue.rateTypeId" value="STANDARD"/>
+        <set field="lookupKeyValue.rateCurrencyUomId" value="USD"/>
+        <find-by-and entity-name="RateAmount" map="lookupKeyValue" list="rateAmountList"/>
+        <first-from-list entry="rateAmount" list="rateAmountList"/>
+        <assert>
+            <not><if-empty field="rateAmount"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUnlinkInvoiceFromTimeEntry" short-description="Test the service unlinkInvoiceFromTimeEntry" login-required="false">
+        <set field="serviceCtx.invoiceId" value="TestInvoice"/>
+        <set field="serviceCtx.timeEntryId" value="TestTimeEntry-3"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="unlinkInvoiceFromTimeEntry" in-map-name="serviceCtx"/>
+        <entity-one entity-name="TimeEntry" value-field="timeEntry">
+            <field-map field-name="timeEntryId" value="TestTimeEntry-3"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="timeEntry"/></not>
+            <if-empty field="timeEntry.invoiceId"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
