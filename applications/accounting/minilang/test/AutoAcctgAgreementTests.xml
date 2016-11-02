@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="testCancelAgreement" short-description="Test case for service cancelAgreement" login-required="false">
+        <set field="serviceCtx.agreementId" value="1000"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="cancelAgreement" in-map-name="serviceCtx"/>
+        <now-timestamp field="nowTimestamp"/>
+ 
+        <entity-one entity-name="Agreement" value-field="agreement">
+            <field-map field-name="agreementId" value="1000"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="agreement"/></not>
+            <if-compare-field field="agreement.thruDate" operator="less-equals" to-field="nowTimestamp"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCopyAgreement" short-description="Test case for service copyAgreement" login-required="false">
+        <set field="serviceCtx.agreementId" value="1010"/>
+        <set field="serviceCtx.copyAgreementTerms" value="N"/>
+        <set field="serviceCtx.copyAgreementProducts" value="Y"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="copyAgreement" in-map-name="serviceCtx">
+            <results-to-map map-name="agreementResult"/>
+        </call-service>
+        <entity-one entity-name="Agreement" value-field="agreement">
+            <field-map field-name="agreementId" from-field="agreementResult.agreementId"/>
+        </entity-one>
+        <get-related value-field="agreement" relation-name="AgreementItem" list="agreementItems"/>
+        <get-related value-field="agreement" relation-name="AgreementTerm" list="agreementTerms"/>
+        <get-related value-field="agreement" relation-name="AgreementProductAppl" list="agreementProductAppls"/>
+        <assert>
+            <not><if-empty field="agreement"/></not>
+            <not><if-empty field="agreementItems"/></not>
+            <if-empty field="agreementTerms"/>
+            <not><if-empty field="agreementProductAppls"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testGetCommissionForProduct" short-description="Test case for service getCommissionForProduct" login-required="false">
+        <set field="serviceCtx.productId" value="TestProduct2"/>
+        <set field="serviceCtx.invoiceItemSeqId" value="COMM_INV_ITEM"/>
+        <set field="serviceCtx.invoiceItemTypeId" value="COMM_INV_ITEM"/>
+        <set field="serviceCtx.amount" value="100" type="BigDecimal"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getCommissionForProduct" in-map-name="serviceCtx">
+            <results-to-map map-name="productCommission"/>
+        </call-service>
+        <set field="commissions" from-field="productCommission.commissions"/>
+        <first-from-list entry="commission" list="commissions"/>
+        <assert>
+            <not><if-empty field="commissions"/></not>
+            <not><if-empty field="commission"/></not>
+            <if-compare operator="equals" value="10.00" field="commission.commission"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+</simple-methods>
