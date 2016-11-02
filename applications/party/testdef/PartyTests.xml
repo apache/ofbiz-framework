@@ -21,6 +21,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
+    <test-case case-name="party-tests-data-load">
+        <entity-xml action="load" entity-xml-url="component://party/testdef/data/PartyTestsData.xml"/>
+    </test-case>
+
     <test-case case-name="party-tests">
         <simple-method-test location="component://party/minilang/test/PartyTests.xml"/>
     </test-case>
