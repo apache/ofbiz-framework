@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Party partyId="TestCompany" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="TestCompany" groupName="Your Company Name Here"/>
+    <PartyRole partyId="TestCompany" roleTypeId="BILL_FROM_VENDOR"/>
+    <PartyRole partyId="TestCompany" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="TestCompany" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="TestCompany" roleTypeId="ACCOUNTANT"/>
+    <PartyRole partyId="TestCompany" roleTypeId="_NA_"/>
+    <PartyStatus partyId="TestCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <Party partyId="TestParty" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="TestParty" firstName="Test" lastName="Party"/>
+    <PartyRole partyId="TestParty" roleTypeId="CONTACT"/>
+    <PartyRole partyId="TestParty" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="TestParty" roleTypeId="ACCOUNTANT"/>
+    <PartyRole partyId="TestParty" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyStatus partyId="TestParty" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <Party partyId="TestParty-1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="TestParty-1" firstName="Test" lastName="Party"/>
+    <PartyRole partyId="TestParty-1" roleTypeId="CONTACT"/>
+    <PartyRole partyId="TestParty-1" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="TestParty-1" roleTypeId="ACCOUNTANT"/>
+    <PartyStatus partyId="TestParty-1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <ContactMech contactMechId="TestContactMech" contactMechTypeId="EMAIL_ADDRESS" infoString="newtest_email@example.com"/>
+    <ContactMech contactMechId="TestContactMech2" contactMechTypeId="EMAIL_ADDRESS" infoString="newtest_email2@example.com"/>
+    <PartyContactMech partyId="TestCompany" contactMechId="TestContactMech" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMech partyId="TestParty" contactMechId="TestContactMech2" fromDate="2001-05-13 00:00:00.000"/>
+
+    <WorkEffort workEffortId="TestWorkeffort-2" currentStatusId="PTS_CREATED" workEffortName="Test Workeffort" workEffortTypeId="TASK"/>
+    <WorkEffort workEffortId="TestWorkeffort-3" currentStatusId="PTS_CREATED" workEffortName="New Test Workeffort" workEffortTypeId="TASK"/>
+    <WorkEffort workEffortId="TestWorkeffort-4" currentStatusId="PTS_CREATED" workEffortName="New Test Workeffort" workEffortTypeId="TASK"/>
+
+    <WorkEffortPartyAssignment partyId="TestParty" roleTypeId="CONTACT" workEffortId="TestWorkeffort-3" fromDate="2009-09-09 01:01:01" statusId="PAS_ASSIGNED"/>
+    <WorkEffortPartyAssignment partyId="TestParty" roleTypeId="CUSTOMER" workEffortId="TestWorkeffort-3" fromDate="2009-09-09 02:02:02" statusId="PAS_ASSIGNED"/>
+    <WorkEffortPartyAssignment partyId="TestParty" roleTypeId="ACCOUNTANT" workEffortId="TestWorkeffort-3" fromDate="2009-09-09 02:02:02" statusId="PAS_ASSIGNED"/>
+    <WorkEffortPartyAssignment partyId="TestParty-1" roleTypeId="ACCOUNTANT" workEffortId="TestWorkeffort-3" fromDate="2009-09-09 02:02:02" statusId="PAS_ASSIGNED"/>
+
+    <CommunicationEvent communicationEventId="TestEvent-1" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" contactMechIdFrom="TestContactMech" contactMechIdTo="TestContactMech2" roleTypeIdFrom="BILL_TO_CUSTOMER" roleTypeIdTo="CUSTOMER" partyIdFrom="TestCompany" partyIdTo="TestParty" entryDate="2010-10-27 15:04:17.895" subject="Test Subject 1" contentMimeTypeId="text/plain" />
+
+    <NoteData noteId="TestNote-1" noteInfo="This is test note."/>
+    <WorkEffortNote noteId="TestNote-1" workEffortId="TestWorkeffort-3" internalNote="Y"/>
+    <WorkEffortAssoc workEffortIdFrom="TestWorkeffort-2" workEffortIdTo="TestWorkeffort-3" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="0"  fromDate="2001-05-13 00:00:00.000"/>
+
+    <WorkEffortKeyword workEffortId="TestWorkeffort-2" keyword="test keyword" relevancyWeight="1"/>
+    <WorkEffortKeyword workEffortId="TestWorkeffort-2" keyword="test keyword 2" relevancyWeight="2"/>
+    <WorkEffortKeyword workEffortId="TestWorkeffort-3" keyword="test keyword" relevancyWeight="2"/>
+
+    <!-- Test data for Timesheet. -->
+    <Timesheet timesheetId="TestTimesheet-1" partyId="TestParty" statusId="TIMESHEET_COMPLETED" comments="Test timesheet 1"/>
+    <Timesheet timesheetId="TestTimesheet-2" partyId="TestParty-1" statusId="TIMESHEET_IN_PROCESS" comments="Test timesheet 2"/>
+    <Timesheet timesheetId="TestTimesheet-3" partyId="TestParty-1" statusId="TIMESHEET_IN_PROCESS" comments="Test timesheet 3"/>
+
+    <TimeEntry timeEntryId="TestTimeEntry-1" hours="8.0" workEffortId="TestWorkeffort-3"/>
+    <TimeEntry timeEntryId="TestTimeEntry-2" hours="8.0" workEffortId="TestWorkeffort-4"/>
+
+    <Invoice invoiceId="TestInvoice" invoiceTypeId="SALES_INVOICE" partyIdFrom="TestParty" partyId="Company" statusId="INVOICE_READY" invoiceDate="2009-07-06 16:48:40.952" paidDate="2009-07-06 16:52:52.901" dueDate="2009-08-05 16:48:40.952" currencyUomId="USD"/>
+    <TimeEntry timeEntryId="TestTimeEntry-3" hours="8.0" workEffortId="TestWorkeffort-4" invoiceId="TestInvoice" partyId="TestParty" rateTypeId="STANDARD"/>
+
+    <RateAmount rateTypeId="STANDARD" workEffortId="_NA_" partyId="TestParty" periodTypeId="RATE_HOUR" emplPositionTypeId="_NA_" fromDate="2000-01-01 00:00:00.0" rateAmount="95.00" rateCurrencyUomId="USD"/>
+</entity-engine-xml>
