@@ -17,59 +17,59 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.order.shoppingcart.*;
-import org.apache.ofbiz.party.contact.*;
-import org.apache.ofbiz.product.catalog.*;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.order.shoppingcart.*
+import org.apache.ofbiz.party.contact.*
+import org.apache.ofbiz.product.catalog.*
 
-cart = session.getAttribute("shoppingCart");
-partyId = cart.getPartyId();
-context.cart = cart;
+cart = session.getAttribute("shoppingCart")
+partyId = cart.getPartyId()
+context.cart = cart
 
 // nuke the event messages
-request.removeAttribute("_EVENT_MESSAGE_");
+request.removeAttribute("_EVENT_MESSAGE_")
 
 if (partyId && !partyId.equals("_NA_")) {
-    party = from("Party").where("partyId", partyId).queryOne();
-    person = party.getRelatedOne("Person", false);
-    context.party = party;
-    context.person = person;
+    party = from("Party").where("partyId", partyId).queryOne()
+    person = party.getRelatedOne("Person", false)
+    context.party = party
+    context.person = person
 }
 
 if (cart?.getShippingContactMechId()) {
-    shippingContactMechId = cart.getShippingContactMechId();
-    shippingPartyContactDetail = from("PartyContactDetailByPurpose").where("partyId", partyId, "contactMechId", shippingContactMechId).filterByDate().queryFirst();
-    parameters.shippingContactMechId = shippingPartyContactDetail.contactMechId;
-    context.callSubmitForm = true;
+    shippingContactMechId = cart.getShippingContactMechId()
+    shippingPartyContactDetail = from("PartyContactDetailByPurpose").where("partyId", partyId, "contactMechId", shippingContactMechId).filterByDate().queryFirst()
+    parameters.shippingContactMechId = shippingPartyContactDetail.contactMechId
+    context.callSubmitForm = true
 
-    fullAddressBuf = new StringBuffer();
-    fullAddressBuf.append(shippingPartyContactDetail.address1);
+    fullAddressBuf = new StringBuffer()
+    fullAddressBuf.append(shippingPartyContactDetail.address1)
     if (shippingPartyContactDetail.address2) {
-        fullAddressBuf.append(", ");
-        fullAddressBuf.append(shippingPartyContactDetail.address2);
+        fullAddressBuf.append(", ")
+        fullAddressBuf.append(shippingPartyContactDetail.address2)
     }
-    fullAddressBuf.append(", ");
-    fullAddressBuf.append(shippingPartyContactDetail.city);
-    fullAddressBuf.append(", ");
-    fullAddressBuf.append(shippingPartyContactDetail.postalCode);
-    parameters.fullAddress = fullAddressBuf.toString();
+    fullAddressBuf.append(", ")
+    fullAddressBuf.append(shippingPartyContactDetail.city)
+    fullAddressBuf.append(", ")
+    fullAddressBuf.append(shippingPartyContactDetail.postalCode)
+    parameters.fullAddress = fullAddressBuf.toString()
 
     // NOTE: these parameters are a special case because they might be filled in by the address lookup service, so if they are there we won't fill in over them...
     if (!parameters.postalCode) {
-        parameters.attnName = shippingPartyContactDetail.attnName;
-        parameters.address1 = shippingPartyContactDetail.address1;
-        parameters.address2 = shippingPartyContactDetail.address2;
-        parameters.city = shippingPartyContactDetail.city;
-        parameters.postalCode = shippingPartyContactDetail.postalCode;
-        parameters.stateProvinceGeoId = shippingPartyContactDetail.stateProvinceGeoId;
-        parameters.countryGeoId = shippingPartyContactDetail.countryGeoId;
-        parameters.allowSolicitation = shippingPartyContactDetail.allowSolicitation;
+        parameters.attnName = shippingPartyContactDetail.attnName
+        parameters.address1 = shippingPartyContactDetail.address1
+        parameters.address2 = shippingPartyContactDetail.address2
+        parameters.city = shippingPartyContactDetail.city
+        parameters.postalCode = shippingPartyContactDetail.postalCode
+        parameters.stateProvinceGeoId = shippingPartyContactDetail.stateProvinceGeoId
+        parameters.countryGeoId = shippingPartyContactDetail.countryGeoId
+        parameters.allowSolicitation = shippingPartyContactDetail.allowSolicitation
     }
 
-    parameters.yearsAtAddress = shippingPartyContactDetail.yearsWithContactMech;
-    parameters.monthsAtAddress = shippingPartyContactDetail.monthsWithContactMech;
+    parameters.yearsAtAddress = shippingPartyContactDetail.yearsWithContactMech
+    parameters.monthsAtAddress = shippingPartyContactDetail.monthsWithContactMech
 } else {
-    context.postalFields = UtilHttp.getParameterMap(request);
+    context.postalFields = UtilHttp.getParameterMap(request)
 }

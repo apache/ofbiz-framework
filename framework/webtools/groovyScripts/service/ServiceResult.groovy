@@ -17,42 +17,42 @@
  * under the License.
  */
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
-import java.sql.Timestamp;
+import java.util.HashMap
+import java.util.Iterator
+import java.util.LinkedList
+import java.util.Map
+import java.util.Set
+import java.sql.Timestamp
 
-import org.apache.ofbiz.entity.GenericEntity;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.webapp.event.CoreEvents;
+import org.apache.ofbiz.entity.GenericEntity
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.webapp.event.CoreEvents
 
 if (session.getAttribute("_RUN_SYNC_RESULT_")) {
-    serviceResultList = [];
-    serviceResult = session.getAttribute("_RUN_SYNC_RESULT_");
+    serviceResultList = []
+    serviceResult = session.getAttribute("_RUN_SYNC_RESULT_")
 
     if (parameters.servicePath) {
-        servicePath = parameters.servicePath;
-        newServiceResult = CoreEvents.getObjectFromServicePath(servicePath, serviceResult);
+        servicePath = parameters.servicePath
+        newServiceResult = CoreEvents.getObjectFromServicePath(servicePath, serviceResult)
         if (newServiceResult && newServiceResult instanceof Map) {
-            serviceResult = newServiceResult;
+            serviceResult = newServiceResult
         }
-        context.servicePath = servicePath;
+        context.servicePath = servicePath
     }
 
     serviceResult.each { key, value ->
-        valueMap = [key : key, value : value.toString()];
+        valueMap = [key : key, value : value.toString()]
         if (value instanceof Map || value instanceof Collection) {
-            valueMap.hasChild = "Y";
+            valueMap.hasChild = "Y"
         } else {
-            valueMap.hasChild = "N";
+            valueMap.hasChild = "N"
         }
-        serviceResultList.add(valueMap);
+        serviceResultList.add(valueMap)
     }
 
-    context.serviceResultList = serviceResultList;
+    context.serviceResultList = serviceResultList
 }
 
 

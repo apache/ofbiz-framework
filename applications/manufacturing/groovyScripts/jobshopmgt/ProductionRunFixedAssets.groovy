@@ -17,12 +17,12 @@
  * under the License.
  */
 
-productionRunId = parameters.productionRunId ?: parameters.workEffortId;
+productionRunId = parameters.productionRunId ?: parameters.workEffortId
 
-taskInfos = [];
-tasks = from("WorkEffort").where("workEffortParentId", productionRunId, "workEffortTypeId", "PROD_ORDER_TASK").orderBy("workEffortId").queryList();
+taskInfos = []
+tasks = from("WorkEffort").where("workEffortParentId", productionRunId, "workEffortTypeId", "PROD_ORDER_TASK").orderBy("workEffortId").queryList()
 tasks.each { task ->
-    records = task.getRelated("WorkEffortFixedAssetAssign", null, null, false);
-    taskInfos.add([task : task, records : records]);
+    records = task.getRelated("WorkEffortFixedAssetAssign", null, null, false)
+    taskInfos.add([task : task, records : records])
 }
-context.taskInfos = taskInfos;
+context.taskInfos = taskInfos

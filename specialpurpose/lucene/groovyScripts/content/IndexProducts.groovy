@@ -29,7 +29,7 @@ if (pi) {
     beganTransaction = TransactionUtil.begin()
     EntityListIterator products
     try {
-        products = select("productId").from("Product").queryIterator();
+        products = select("productId").from("Product").queryIterator()
         while (product = products.next()) {
             pi.queue(new ProductDocument(product.productId))
             productsCounter++

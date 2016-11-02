@@ -18,72 +18,72 @@
  */
 
 import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityCondition
 
-shipmentId = request.getParameter("shipmentId");
+shipmentId = request.getParameter("shipmentId")
 if (!shipmentId) {
-    shipmentId = context.shipmentId;
+    shipmentId = context.shipmentId
 }
 
-shipment = null;
+shipment = null
 if (shipmentId) {
-    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
+    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
 }
 
 if (shipment) {
-    shipmentRouteSegments = shipment.getRelated("ShipmentRouteSegment", null, ['shipmentRouteSegmentId'], false);
-    shipmentRouteSegmentDatas = [] as LinkedList;
+    shipmentRouteSegments = shipment.getRelated("ShipmentRouteSegment", null, ['shipmentRouteSegmentId'], false)
+    shipmentRouteSegmentDatas = [] as LinkedList
     if (shipmentRouteSegments) {
         shipmentRouteSegments.each { shipmentRouteSegment ->
-            shipmentRouteSegmentData = [:];
-            shipmentRouteSegmentData.shipmentRouteSegment = shipmentRouteSegment;
-            shipmentRouteSegmentData.originFacility = shipmentRouteSegment.getRelatedOne("OriginFacility", false);
-            shipmentRouteSegmentData.destFacility = shipmentRouteSegment.getRelatedOne("DestFacility", false);
-            shipmentRouteSegmentData.originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress", false);
-            shipmentRouteSegmentData.originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber", false);
-            shipmentRouteSegmentData.destPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress", false);
-            shipmentRouteSegmentData.destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber", false);
-            shipmentRouteSegmentData.shipmentMethodType = shipmentRouteSegment.getRelatedOne("ShipmentMethodType", false);
-            shipmentRouteSegmentData.carrierPerson = shipmentRouteSegment.getRelatedOne("CarrierPerson", false);
-            shipmentRouteSegmentData.carrierPartyGroup = shipmentRouteSegment.getRelatedOne("CarrierPartyGroup", false);
-            shipmentRouteSegmentData.shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, null, false);
-            shipmentRouteSegmentData.carrierServiceStatusItem = shipmentRouteSegment.getRelatedOne("CarrierServiceStatusItem", false);
-            shipmentRouteSegmentData.currencyUom = shipmentRouteSegment.getRelatedOne("CurrencyUom", false);
-            shipmentRouteSegmentData.billingWeightUom = shipmentRouteSegment.getRelatedOne("BillingWeightUom", false);
+            shipmentRouteSegmentData = [:]
+            shipmentRouteSegmentData.shipmentRouteSegment = shipmentRouteSegment
+            shipmentRouteSegmentData.originFacility = shipmentRouteSegment.getRelatedOne("OriginFacility", false)
+            shipmentRouteSegmentData.destFacility = shipmentRouteSegment.getRelatedOne("DestFacility", false)
+            shipmentRouteSegmentData.originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress", false)
+            shipmentRouteSegmentData.originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber", false)
+            shipmentRouteSegmentData.destPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress", false)
+            shipmentRouteSegmentData.destTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber", false)
+            shipmentRouteSegmentData.shipmentMethodType = shipmentRouteSegment.getRelatedOne("ShipmentMethodType", false)
+            shipmentRouteSegmentData.carrierPerson = shipmentRouteSegment.getRelatedOne("CarrierPerson", false)
+            shipmentRouteSegmentData.carrierPartyGroup = shipmentRouteSegment.getRelatedOne("CarrierPartyGroup", false)
+            shipmentRouteSegmentData.shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, null, false)
+            shipmentRouteSegmentData.carrierServiceStatusItem = shipmentRouteSegment.getRelatedOne("CarrierServiceStatusItem", false)
+            shipmentRouteSegmentData.currencyUom = shipmentRouteSegment.getRelatedOne("CurrencyUom", false)
+            shipmentRouteSegmentData.billingWeightUom = shipmentRouteSegment.getRelatedOne("BillingWeightUom", false)
             if (shipmentRouteSegment.carrierServiceStatusId) {
-                shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails = from("StatusValidChangeToDetail").where("statusId", shipmentRouteSegment.carrierServiceStatusId).orderBy("sequenceId").queryList();
+                shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails = from("StatusValidChangeToDetail").where("statusId", shipmentRouteSegment.carrierServiceStatusId).orderBy("sequenceId").queryList()
             } else {
-                shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails = from("StatusValidChangeToDetail").where("statusId", "SHRSCS_NOT_STARTED").orderBy("sequenceId").queryList();
+                shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails = from("StatusValidChangeToDetail").where("statusId", "SHRSCS_NOT_STARTED").orderBy("sequenceId").queryList()
             }
-            shipmentRouteSegmentDatas.add(shipmentRouteSegmentData);
+            shipmentRouteSegmentDatas.add(shipmentRouteSegmentData)
         }
     }
 
-    shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false);
-    facilities = from("Facility").orderBy("facilityName").queryList();
-    shipmentMethodTypes = from("ShipmentMethodType").orderBy("description").queryList();
-    weightUoms = from("Uom").where("uomTypeId", "WEIGHT_MEASURE").queryList();
-    currencyUoms = from("Uom").where("uomTypeId", "CURRENCY_MEASURE").queryList();
+    shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false)
+    facilities = from("Facility").orderBy("facilityName").queryList()
+    shipmentMethodTypes = from("ShipmentMethodType").orderBy("description").queryList()
+    weightUoms = from("Uom").where("uomTypeId", "WEIGHT_MEASURE").queryList()
+    currencyUoms = from("Uom").where("uomTypeId", "CURRENCY_MEASURE").queryList()
 
-    carrierPartyRoles = from("PartyRole").where("roleTypeId", "CARRIER").queryList();
-    carrierPartyDatas = [] as LinkedList;
+    carrierPartyRoles = from("PartyRole").where("roleTypeId", "CARRIER").queryList()
+    carrierPartyDatas = [] as LinkedList
     carrierPartyRoles.each { carrierPartyRole ->
-        party = carrierPartyRole.getRelatedOne("Party", false);
-        carrierPartyData = [:];
-        carrierPartyData.party = party;
-        carrierPartyData.person = party.getRelatedOne("Person", false);
-        carrierPartyData.partyGroup = party.getRelatedOne("PartyGroup", false);
-        carrierPartyDatas.add(carrierPartyData);
+        party = carrierPartyRole.getRelatedOne("Party", false)
+        carrierPartyData = [:]
+        carrierPartyData.party = party
+        carrierPartyData.person = party.getRelatedOne("Person", false)
+        carrierPartyData.partyGroup = party.getRelatedOne("PartyGroup", false)
+        carrierPartyDatas.add(carrierPartyData)
     }
 
-    context.shipment = shipment;
-    context.shipmentRouteSegmentDatas = shipmentRouteSegmentDatas;
-    context.shipmentPackages = shipmentPackages;
-    context.facilities = facilities;
-    context.shipmentMethodTypes = shipmentMethodTypes;
-    context.weightUoms = weightUoms;
-    context.currencyUoms = currencyUoms;
-    context.carrierPartyDatas = carrierPartyDatas;
+    context.shipment = shipment
+    context.shipmentRouteSegmentDatas = shipmentRouteSegmentDatas
+    context.shipmentPackages = shipmentPackages
+    context.facilities = facilities
+    context.shipmentMethodTypes = shipmentMethodTypes
+    context.weightUoms = weightUoms
+    context.currencyUoms = currencyUoms
+    context.carrierPartyDatas = carrierPartyDatas
 }
-context.shipmentId = shipmentId;
-context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
+context.shipmentId = shipmentId
+context.nowTimestampString = UtilDateTime.nowTimestamp().toString()

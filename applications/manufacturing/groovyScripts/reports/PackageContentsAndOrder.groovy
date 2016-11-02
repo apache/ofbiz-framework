@@ -20,49 +20,49 @@
 // PackageContentsAndOrder
 // ReportB
 
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.order.order.OrderReadHelper;
-import org.apache.ofbiz.order.order.OrderContentWrapper;
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.order.order.OrderReadHelper
+import org.apache.ofbiz.order.order.OrderContentWrapper
 
 if (productCategoryIdPar) {
-    category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne();
-    context.category = category;
+    category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne()
+    context.category = category
 }
 if (productFeatureTypeIdPar) {
-    featureType = from("ProductFeatureType").where("productFeatureTypeId", productFeatureTypeIdPar).queryOne();
-    context.featureType = featureType;
+    featureType = from("ProductFeatureType").where("productFeatureTypeId", productFeatureTypeIdPar).queryOne()
+    context.featureType = featureType
 }
-packageContents = from("ShipmentPackageContent").where("shipmentId", shipmentId).queryList();
+packageContents = from("ShipmentPackageContent").where("shipmentId", shipmentId).queryList()
 
-packagesMap = [:];
+packagesMap = [:]
 if (packageContents) {
     packageContents.each { packageContent ->
-        orderShipment = from("OrderShipment").where("shipmentId", shipmentId, "shipmentItemSeqId", packageContent.shipmentItemSeqId).queryFirst();
-        orderItem = from("OrderItem").where("orderId", orderShipment.orderId, "orderItemSeqId", orderShipment.orderItemSeqId).queryOne();
-        product = orderItem.getRelatedOne("Product", false);
+        orderShipment = from("OrderShipment").where("shipmentId", shipmentId, "shipmentItemSeqId", packageContent.shipmentItemSeqId).queryFirst()
+        orderItem = from("OrderItem").where("orderId", orderShipment.orderId, "orderItemSeqId", orderShipment.orderItemSeqId).queryOne()
+        product = orderItem.getRelatedOne("Product", false)
         // verify if the product is a member of the given category (based on the report's parameter)
         if (productCategoryIdPar) {
             if (!isProductInCategory(delegator, product.productId, productCategoryIdPar)) {
                 // the production run's product is not a member of the given category, skip it
-                return;
+                return
             }
         }
 
         if (!packagesMap.containsKey(packageContent.shipmentPackageSeqId)) {
-            OrderReadHelper orh = new OrderReadHelper(delegator, orderItem.orderId);
+            OrderReadHelper orh = new OrderReadHelper(delegator, orderItem.orderId)
             packagesMap.put(packageContent.shipmentPackageSeqId,
                             [packageId : packageContent.shipmentPackageSeqId,
                              party : orh.getPlacingParty(),
                              address : orh.getShippingAddress(),
                              orderHeader : orh.getOrderHeader(),
                              orderShipment : orderShipment,
-                             components : []]);
+                             components : []])
         }
-        OrderContentWrapper orderContentWrapper = OrderContentWrapper.makeOrderContentWrapper(orderItem, request);
+        OrderContentWrapper orderContentWrapper = OrderContentWrapper.makeOrderContentWrapper(orderItem, request)
         String imageUrl = orderContentWrapper.get("IMAGE_URL", "url")
-        packageMap = (Map)packagesMap.packageContent.shipmentPackageSeqId;
-        components = (List)packageMap.components;
-        components.add([product : product, orderItem : orderItem, imageUrl : imageUrl]);
+        packageMap = (Map)packagesMap.packageContent.shipmentPackageSeqId
+        components = (List)packageMap.components
+        components.add([product : product, orderItem : orderItem, imageUrl : imageUrl])
     }
 }
-context.packages = packagesMap.values();
+context.packages = packagesMap.values()

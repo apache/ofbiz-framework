@@ -17,113 +17,113 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.security.*;
-import org.apache.ofbiz.service.*;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler;
-import org.apache.ofbiz.content.content.ContentWorker;
-import org.apache.ofbiz.content.ContentManagementWorker;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.template.FreeMarkerWorker
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.security.*
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.entity.model.*
+import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
+import org.apache.ofbiz.content.content.ContentWorker
+import org.apache.ofbiz.content.ContentManagementWorker
 
-import java.io.StringWriter;
-import freemarker.template.SimpleHash;
-import freemarker.template.WrappingTemplateModel;
+import java.io.StringWriter
+import freemarker.template.SimpleHash
+import freemarker.template.WrappingTemplateModel
 
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.*
+import javax.servlet.http.*
 
 // load edit or create Content form
 
-rootPubPt = parameters.webSiteId;
-//Debug.logInfo("in contentprep, security:" + security, "");
+rootPubPt = parameters.webSiteId
+//Debug.logInfo("in contentprep, security:" + security, "")
 
-singleWrapper = context.singleWrapper;
+singleWrapper = context.singleWrapper
 
-paramMap = UtilHttp.getParameterMap(request);
-contentId = "";
-contentId = ContentManagementWorker.getFromSomewhere("masterContentId", paramMap, request, context);
+paramMap = UtilHttp.getParameterMap(request)
+contentId = ""
+contentId = ContentManagementWorker.getFromSomewhere("masterContentId", paramMap, request, context)
 if (!contentId)
-    contentId = ContentManagementWorker.getFromSomewhere("contentIdTo", paramMap, request, context);
+    contentId = ContentManagementWorker.getFromSomewhere("contentIdTo", paramMap, request, context)
 if (!contentId)
-    contentId = ContentManagementWorker.getFromSomewhere("contentId", paramMap, request, context);
+    contentId = ContentManagementWorker.getFromSomewhere("contentId", paramMap, request, context)
 
-//Debug.logInfo("in contentprep, contentId(1):" + contentId, "");
-currentValue = parameters.currentValue;
-//Debug.logInfo("in contentprep, currentValue(0):" + currentValue, "");
+//Debug.logInfo("in contentprep, contentId(1):" + contentId, "")
+currentValue = parameters.currentValue
+//Debug.logInfo("in contentprep, currentValue(0):" + currentValue, "")
 
 if (!contentId && currentValue) {
-    contentId = currentValue.contentId;
+    contentId = currentValue.contentId
 }
 if (contentId && !currentValue) {
-    currentValue = from("Content").where("contentId", contentId).cache(true).queryOne();
+    currentValue = from("Content").where("contentId", contentId).cache(true).queryOne()
 }
-//Debug.logInfo("in contentprep, currentValue(1):" + currentValue, "");
-//Debug.logInfo("in contentprep, contentId(4):" + contentId, "");
+//Debug.logInfo("in contentprep, currentValue(1):" + currentValue, "")
+//Debug.logInfo("in contentprep, contentId(4):" + contentId, "")
 
 if (currentValue) {
-    dataResourceId = currentValue.dataResourceId;
-    context.contentId = contentId;
-    context.contentName = currentValue.contentName;
-    context.description = currentValue.description;
-    context.statusId = currentValue.statusId;
+    dataResourceId = currentValue.dataResourceId
+    context.contentId = contentId
+    context.contentName = currentValue.contentName
+    context.description = currentValue.description
+    context.statusId = currentValue.statusId
 
-    mimeTypeId =  currentValue.mimeTypeId;
-    rootDir = request.getSession().getServletContext().getRealPath("/");
-    wrapper = FreeMarkerWorker.getDefaultOfbizWrapper();
-    WrappingTemplateModel.setDefaultObjectWrapper(wrapper);
-    //templateRoot = new SimpleHash(wrapper);
-    templateRoot = [:];
-    FreeMarkerViewHandler.prepOfbizRoot(templateRoot, request, response);
+    mimeTypeId =  currentValue.mimeTypeId
+    rootDir = request.getSession().getServletContext().getRealPath("/")
+    wrapper = FreeMarkerWorker.getDefaultOfbizWrapper()
+    WrappingTemplateModel.setDefaultObjectWrapper(wrapper)
+    //templateRoot = new SimpleHash(wrapper)
+    templateRoot = [:]
+    FreeMarkerViewHandler.prepOfbizRoot(templateRoot, request, response)
 
-    ctx = [:];
-    ctx.rootDir = rootDir;
+    ctx = [:]
+    ctx.rootDir = rootDir
     // webSiteId and https need to go here, too
-    templateRoot.context = ctx;
-    fromDate = nowTimestamp;
-    assocTypes = null;
-    //assocTypes = ["SUB_CONTENT"];
-    subContentDataResourceView = ContentWorker.getSubContent(delegator, contentId, "ARTICLE", null, userLogin, assocTypes, fromDate);
+    templateRoot.context = ctx
+    fromDate = nowTimestamp
+    assocTypes = null
+    //assocTypes = ["SUB_CONTENT"]
+    subContentDataResourceView = ContentWorker.getSubContent(delegator, contentId, "ARTICLE", null, userLogin, assocTypes, fromDate)
     if (subContentDataResourceView) {
-        out = new StringWriter();
-        ContentWorker.renderContentAsText(dispatcher, delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId, true);
-        textData = out.toString();
-        context.txtContentId = subContentDataResourceView.contentId;
-        context.txtDataResourceId = subContentDataResourceView.dataResourceId;
-        context.textData = textData;
-        //Debug.logInfo("textId:" + txtContentId, "");
-        //Debug.logInfo("textData:" + textData, "");
+        out = new StringWriter()
+        ContentWorker.renderContentAsText(dispatcher, delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId, true)
+        textData = out.toString()
+        context.txtContentId = subContentDataResourceView.contentId
+        context.txtDataResourceId = subContentDataResourceView.dataResourceId
+        context.textData = textData
+        //Debug.logInfo("textId:" + txtContentId, "")
+        //Debug.logInfo("textData:" + textData, "")
         if (singleWrapper) {
-           //Debug.logInfo("textData:" + textData, "");
-           singleWrapper.putInContext("textData", textData);
+           //Debug.logInfo("textData:" + textData, "")
+           singleWrapper.putInContext("textData", textData)
         }
     }
 
-    subContentDataResourceView = ContentWorker.getSubContent(dispatcher, delegator, contentId, "SUMMARY", null, userLogin, assocTypes, fromDate, true);
+    subContentDataResourceView = ContentWorker.getSubContent(dispatcher, delegator, contentId, "SUMMARY", null, userLogin, assocTypes, fromDate, true)
     if (subContentDataResourceView) {
-        out = new StringWriter();
-        ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId);
-        summaryData = out.toString();
-        context.sumContentId = subContentDataResourceView.contentId;
-        context.sumDataResourceId = subContentDataResourceView.dataResourceId;
-        context.summaryData = summaryData;
-        //Debug.logInfo("sumId:" + sumContentId, "");
-        //Debug.logInfo("summaryData:" + summaryData, "");
+        out = new StringWriter()
+        ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId)
+        summaryData = out.toString()
+        context.sumContentId = subContentDataResourceView.contentId
+        context.sumDataResourceId = subContentDataResourceView.dataResourceId
+        context.summaryData = summaryData
+        //Debug.logInfo("sumId:" + sumContentId, "")
+        //Debug.logInfo("summaryData:" + summaryData, "")
         if (singleWrapper) {
-            //Debug.logInfo("summaryData:" + summaryData, "");
-            singleWrapper.putInContext("summaryData", summaryData);
+            //Debug.logInfo("summaryData:" + summaryData, "")
+            singleWrapper.putInContext("summaryData", summaryData)
         }
     }
 
-    subContentDataResourceView = ContentWorker.getSubContent(dispatcher, delegator, contentId, "IMAGE", null, userLogin, assocTypes, fromDate, true);
+    subContentDataResourceView = ContentWorker.getSubContent(dispatcher, delegator, contentId, "IMAGE", null, userLogin, assocTypes, fromDate, true)
     if (subContentDataResourceView) {
-        out = new StringWriter();
-        ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId);
-        imageData = out.toString();
-        context.imgContentId = subContentDataResourceView.contentId;
-        context.imgDataResourceId = subContentDataResourceView.dataResourceId;
-        context.imageData = imageData;
+        out = new StringWriter()
+        ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId)
+        imageData = out.toString()
+        context.imgContentId = subContentDataResourceView.contentId
+        context.imgDataResourceId = subContentDataResourceView.dataResourceId
+        context.imageData = imageData
     }
 }

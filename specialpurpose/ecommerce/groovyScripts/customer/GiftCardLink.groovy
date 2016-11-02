@@ -17,17 +17,17 @@
  * under the License.
  */
 
-import org.apache.ofbiz.product.store.*;
+import org.apache.ofbiz.product.store.*
 
-processResult = parameters.processResult;
+processResult = parameters.processResult
 if (processResult != null) {
    if (!processResult) {
-       request.setAttribute("_ERROR_MESSAGE_", "<li>There was a problem linking your cards. Please check the numbers and try again.</li>");
-       request.removeAttribute("_EVENT_MESSAGE_");
+       request.setAttribute("_ERROR_MESSAGE_", "<li>There was a problem linking your cards. Please check the numbers and try again.</li>")
+       request.removeAttribute("_EVENT_MESSAGE_")
    } else {
-       request.setAttribute("_EVENT_MESSAGE_", "<li>Thank-you. Your gift card account is now linked.</li>");
+       request.setAttribute("_EVENT_MESSAGE_", "<li>Thank-you. Your gift card account is now linked.</li>")
    }
 }
 
-context.userLogin = userLogin;
-context.paymentProperties = ProductStoreWorker.getProductStorePaymentProperties(request, "GIFT_CARD", null, true);
+context.userLogin = userLogin
+context.paymentProperties = ProductStoreWorker.getProductStorePaymentProperties(request, "GIFT_CARD", null, true)

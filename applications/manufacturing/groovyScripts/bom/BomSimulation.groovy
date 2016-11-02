@@ -17,52 +17,52 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.manufacturing.bom.BOMNode;
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.manufacturing.bom.BOMNode
 
-tree = request.getAttribute("tree");
-currencyUomId = parameters.currencyUomId;
-facilityId = parameters.facilityId;
+tree = request.getAttribute("tree")
+currencyUomId = parameters.currencyUomId
+facilityId = parameters.facilityId
 
 if (tree) {
-    treeArray = [];
-    treeQty = [:];
+    treeArray = []
+    treeQty = [:]
 
-    tree.print(treeArray);
-    tree.sumQuantities(treeQty);
+    tree.print(treeArray)
+    tree.sumQuantities(treeQty)
 
-    context.tree = treeArray;
-    Iterator treeQtyIt = treeQty.values().iterator();
-    productsData = [];
-    grandTotalCost = 0.0;
+    context.tree = treeArray
+    Iterator treeQtyIt = treeQty.values().iterator()
+    productsData = []
+    grandTotalCost = 0.0
     while (treeQtyIt) {
-        BOMNode node = (BOMNode)treeQtyIt.next();
-        unitCost = null;
-        totalCost = null;
-        qoh = null;
+        BOMNode node = (BOMNode)treeQtyIt.next()
+        unitCost = null
+        totalCost = null
+        qoh = null
         // The standard cost is retrieved
         try {
-            outMap = [:];
+            outMap = [:]
             if (currencyUomId) {
                 outMap = runService('getProductCost', [productId : node.getProduct().productId,
                                                                              currencyUomId : currencyUomId,
                                                                              costComponentTypePrefix : "EST_STD",
-                                                                             userLogin : userLogin]);
-                unitCost = outMap.productCost;
-                totalCost = unitCost * node.getQuantity();
-                grandTotalCost = grandTotalCost + totalCost ?: 0;
+                                                                             userLogin : userLogin])
+                unitCost = outMap.productCost
+                totalCost = unitCost * node.getQuantity()
+                grandTotalCost = grandTotalCost + totalCost ?: 0
             }
             if (facilityId) {
                 outMap = runService('getInventoryAvailableByFacility', [productId : node.getProduct().productId,
                                                                                               facilityId : facilityId,
-                                                                                              userLogin : userLogin]);
-                qoh = outMap.quantityOnHandTotal;
+                                                                                              userLogin : userLogin])
+                qoh = outMap.quantityOnHandTotal
             }
         } catch (Exception e) {
-            Debug.logError("Error retrieving bom simulation data: " + e.getMessage(), "BomSimulation");
+            Debug.logError("Error retrieving bom simulation data: " + e.getMessage(), "BomSimulation")
         }
-        productsData.add([node : node, unitCost : unitCost, totalCost : totalCost, qoh : qoh]);
+        productsData.add([node : node, unitCost : unitCost, totalCost : totalCost, qoh : qoh])
     }
-    context.productsData = productsData;
-    context.grandTotalCost = grandTotalCost;
+    context.productsData = productsData
+    context.grandTotalCost = grandTotalCost
 }

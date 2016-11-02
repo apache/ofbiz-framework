@@ -17,62 +17,62 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.security.*;
-import org.apache.ofbiz.service.*;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.content.data.DataResourceWorker;
-import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler;
-import org.apache.ofbiz.content.content.ContentWorker;
-import org.apache.ofbiz.content.ContentManagementWorker;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.security.*
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.entity.model.*
+import org.apache.ofbiz.content.data.DataResourceWorker
+import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
+import org.apache.ofbiz.content.content.ContentWorker
+import org.apache.ofbiz.content.ContentManagementWorker
 
-import java.io.StringWriter;
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.template.SimpleHash;
-import freemarker.template.WrappingTemplateModel;
+import java.io.StringWriter
+import freemarker.ext.beans.BeansWrapper
+import freemarker.template.SimpleHash
+import freemarker.template.WrappingTemplateModel
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.*
+import javax.servlet.http.*
 
 // load edit or create Content form
 
-//Debug.logInfo("in ownerprep, security:" + security, "");
+//Debug.logInfo("in ownerprep, security:" + security, "")
 
-rootPubPt = parameters.webSiteId;
-//Debug.logInfo("in ownerprep, rootPubPt:" + rootPubPt, "");
-entityAction = page.entityOperation;
-permittedOperations = page.permittedOperations;
+rootPubPt = parameters.webSiteId
+//Debug.logInfo("in ownerprep, rootPubPt:" + rootPubPt, "")
+entityAction = page.entityOperation
+permittedOperations = page.permittedOperations
 
-allDepartmentContentList = ContentManagementWorker.getAllDepartmentContent(delegator, rootPubPt);
-//Debug.logInfo("in ownercontentprep, allDepartmentContentList:" + allDepartmentContentList, "");
-departmentPointList = ContentManagementWorker.getPermittedDepartmentPoints( delegator, allDepartmentContentList, userLogin, security, entityAction, "CONTENT_CREATE", null );
-//Debug.logInfo("in ownercontentprep, departmentPointList:" + departmentPointList, "");
-departmentPointMap = [:];
-departmentPointMapAll = [:];
-ownerContentList = [];
+allDepartmentContentList = ContentManagementWorker.getAllDepartmentContent(delegator, rootPubPt)
+//Debug.logInfo("in ownercontentprep, allDepartmentContentList:" + allDepartmentContentList, "")
+departmentPointList = ContentManagementWorker.getPermittedDepartmentPoints( delegator, allDepartmentContentList, userLogin, security, entityAction, "CONTENT_CREATE", null )
+//Debug.logInfo("in ownercontentprep, departmentPointList:" + departmentPointList, "")
+departmentPointMap = [:]
+departmentPointMapAll = [:]
+ownerContentList = []
 departmentPointList.each { arr ->
-    contentId = arr[0];
-    description = arr[1];
-    subPointList = [];
-    lineMap = [:];
-    lineMap.contentId = contentId;
-    lineMap.description = description.toUpperCase();
-    ownerContentList.add(lineMap);
-    subDepartmentContentList = ContentManagementWorker.getAllDepartmentContent(delegator, contentId);
+    contentId = arr[0]
+    description = arr[1]
+    subPointList = []
+    lineMap = [:]
+    lineMap.contentId = contentId
+    lineMap.description = description.toUpperCase()
+    ownerContentList.add(lineMap)
+    subDepartmentContentList = ContentManagementWorker.getAllDepartmentContent(delegator, contentId)
     subDepartmentContentList.each { departmentPoint2 ->
-        contentId2 = departmentPoint2.contentId;
-        description2 = departmentPoint2.templateTitle;
-        lineMap2 = [:];
-        lineMap2.contentId = contentId2;
-        lineMap2.description = "&nbsp;&nbsp;&nbsp;-" + description2;
-        ownerContentList.add(lineMap2);
+        contentId2 = departmentPoint2.contentId
+        description2 = departmentPoint2.templateTitle
+        lineMap2 = [:]
+        lineMap2.contentId = contentId2
+        lineMap2.description = "&nbsp;&nbsp;&nbsp;-" + description2
+        ownerContentList.add(lineMap2)
     }
 }
-//Debug.logInfo("in ownercontentprep, ownerContentList:" + ownerContentList, "");
+//Debug.logInfo("in ownercontentprep, ownerContentList:" + ownerContentList, "")
 
-pubPt = context.pubPt;
-//Debug.logInfo("in ownercontentprep, pubPt:" + pubPt, "");
-singleWrapper = context.singleWrapper;
-singleWrapper.putInContext("ownerContentList", ownerContentList);
-singleWrapper.putInContext("pubPt", pubPt);
+pubPt = context.pubPt
+//Debug.logInfo("in ownercontentprep, pubPt:" + pubPt, "")
+singleWrapper = context.singleWrapper
+singleWrapper.putInContext("ownerContentList", ownerContentList)
+singleWrapper.putInContext("pubPt", pubPt)

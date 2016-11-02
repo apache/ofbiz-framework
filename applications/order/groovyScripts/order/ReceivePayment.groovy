@@ -17,28 +17,28 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.base.util.*
 
-orderId = request.getParameter("orderId");
-paymentMethodTypes = from("PaymentMethodType").where(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE")).queryList();
-context.paymentMethodTypes = paymentMethodTypes;
+orderId = request.getParameter("orderId")
+paymentMethodTypes = from("PaymentMethodType").where(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE")).queryList()
+context.paymentMethodTypes = paymentMethodTypes
 
-workEffortId = request.getParameter("workEffortId");
-partyId = request.getParameter("partyId");
-roleTypeId = request.getParameter("roleTypeId");
-fromDate = request.getParameter("fromDate");
+workEffortId = request.getParameter("workEffortId")
+partyId = request.getParameter("partyId")
+roleTypeId = request.getParameter("roleTypeId")
+fromDate = request.getParameter("fromDate")
 
-donePage = request.getParameter("DONE_PAGE") ?: "orderview?orderId=" + orderId;
+donePage = request.getParameter("DONE_PAGE") ?: "orderview?orderId=" + orderId
 if (workEffortId)
-    donePage += "&workEffortId=" + workEffortId;
+    donePage += "&workEffortId=" + workEffortId
 if (partyId)
-    donePage += "&partyId=" + partyId;
+    donePage += "&partyId=" + partyId
 if (roleTypeId)
-    donePage += "&roleTypeId=" + roleTypeId;
+    donePage += "&roleTypeId=" + roleTypeId
 if (fromDate)
-    donePage += "&fromDate=" + fromDate;
-context.donePage = donePage;
+    donePage += "&fromDate=" + fromDate
+context.donePage = donePage
 
 

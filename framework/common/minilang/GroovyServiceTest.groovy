@@ -17,53 +17,53 @@
  * under the License.
  */
 
-import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.base.util.Debug
 
-Debug.logInfo("-=-=-=- TEST GROOVY SERVICE -=-=-=-", "");
-result = ServiceUtil.returnSuccess();
+Debug.logInfo("-=-=-=- TEST GROOVY SERVICE -=-=-=-", "")
+result = ServiceUtil.returnSuccess()
 if (context.message) {
-    String message = context.message;
-    result.successMessage = (String) "Got message [$message] and finished fine";
-    result.result = message;
-    Debug.logInfo("----- Message is: $message -----", "");
+    String message = context.message
+    result.successMessage = (String) "Got message [$message] and finished fine"
+    result.result = message
+    Debug.logInfo("----- Message is: $message -----", "")
 } else {
-    result.successMessage = (String) "Got no message but finished fine anyway";
-    result.result = (String) "[no message received]";
-    Debug.logInfo("----- No message received -----", "");
+    result.successMessage = (String) "Got no message but finished fine anyway"
+    result.result = (String) "[no message received]"
+    Debug.logInfo("----- No message received -----", "")
 }
-return result;
+return result
 
 // GroovyEngine will invoke the no-arg method.
 public Map testMethod() {
-    Debug.logInfo("----- no-arg testMethod invoked -----", "");
-    result = ServiceUtil.returnSuccess();
+    Debug.logInfo("----- no-arg testMethod invoked -----", "")
+    result = ServiceUtil.returnSuccess()
     if (context.message) {
-        String message = context.message;
-        result.successMessage = (String) "Got message [$message] and finished fine";
-        result.result = message;
-        Debug.logInfo("----- Message is: $message -----", "");
+        String message = context.message
+        result.successMessage = (String) "Got message [$message] and finished fine"
+        result.result = message
+        Debug.logInfo("----- Message is: $message -----", "")
     } else {
-        result.successMessage = (String) "Got no message but finished fine anyway";
-        result.result = (String) "[no message received]";
-        Debug.logInfo("----- No message received -----", "");
+        result.successMessage = (String) "Got no message but finished fine anyway"
+        result.result = (String) "[no message received]"
+        Debug.logInfo("----- No message received -----", "")
     }
-    return result;
+    return result
 }
 
 // ScriptEngine (JSR-223) will invoke the arg method.
 public Map testMethod(Map context) {
-    Debug.logInfo("----- arg testMethod invoked -----", "");
-    result = ServiceUtil.returnSuccess();
+    Debug.logInfo("----- arg testMethod invoked -----", "")
+    result = ServiceUtil.returnSuccess()
     if (context.message) {
-        String message = context.message;
-        result.successMessage = (String) "Got message [$message] and finished fine";
-        result.result = message;
-        Debug.logInfo("----- Message is: $message -----", "");
+        String message = context.message
+        result.successMessage = (String) "Got message [$message] and finished fine"
+        result.result = message
+        Debug.logInfo("----- Message is: $message -----", "")
     } else {
-        result.successMessage = (String) "Got no message but finished fine anyway";
-        result.result = (String) "[no message received]";
-        Debug.logInfo("----- No message received -----", "");
+        result.successMessage = (String) "Got no message but finished fine anyway"
+        result.result = (String) "[no message received]"
+        Debug.logInfo("----- No message received -----", "")
     }
-    return result;
+    return result
 }

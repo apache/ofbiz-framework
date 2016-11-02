@@ -16,32 +16,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.order.order.OrderReadHelper;
-import org.apache.ofbiz.common.email.NotificationServices;
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.Delegator
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.order.order.OrderReadHelper
+import org.apache.ofbiz.common.email.NotificationServices
 
-orderId = request.getParameter("orderId") ?: parameters.get("orderId");
-context.orderId = orderId;
+orderId = request.getParameter("orderId") ?: parameters.get("orderId")
+context.orderId = orderId
 
-partyId = request.getParameter("partyId");
-sendTo = request.getParameter("sendTo");
+partyId = request.getParameter("partyId")
+sendTo = request.getParameter("sendTo")
 
-context.partyId = partyId;
-context.sendTo = sendTo;
+context.partyId = partyId
+context.sendTo = sendTo
 
-donePage = request.getParameter("DONE_PAGE") ?: "orderview";
-context.donePage = donePage;
+donePage = request.getParameter("DONE_PAGE") ?: "orderview"
+context.donePage = donePage
 
 // Provide the correct order confirmation ProductStoreEmailSetting, if one exists
-orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
+orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
 if (orderHeader.productStoreId) {
-    productStoreEmailSetting = from("ProductStoreEmailSetting").where("productStoreId", orderHeader.productStoreId, "emailType", emailType).queryOne();
+    productStoreEmailSetting = from("ProductStoreEmailSetting").where("productStoreId", orderHeader.productStoreId, "emailType", emailType).queryOne()
     if (productStoreEmailSetting) {
-        context.productStoreEmailSetting = productStoreEmailSetting;
+        context.productStoreEmailSetting = productStoreEmailSetting
     }
 }
 
 // set the baseUrl parameter, required by some email bodies
-NotificationServices.setBaseUrl(delegator, context.webSiteId, context);
+NotificationServices.setBaseUrl(delegator, context.webSiteId, context)

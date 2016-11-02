@@ -17,54 +17,54 @@
  * under the License.
  */
 
-import java.sql.Timestamp;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.order.shoppingcart.*;
-import org.apache.ofbiz.party.contact.*;
-import org.apache.ofbiz.product.store.*;
+import java.sql.Timestamp
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.order.shoppingcart.*
+import org.apache.ofbiz.party.contact.*
+import org.apache.ofbiz.product.store.*
 
-cart = session.getAttribute("shoppingCart");
-context.cart = cart;
+cart = session.getAttribute("shoppingCart")
+context.cart = cart
 
-productStore = ProductStoreWorker.getProductStore(request);
+productStore = ProductStoreWorker.getProductStore(request)
 if (productStore) {
-    context.productStore = productStore;
-    context.carrierShipmentMethodList = from("ProductStoreShipmentMethView").where("productStoreId", productStore.productStoreId).orderBy("sequenceNumber").cache(true).queryList();
+    context.productStore = productStore
+    context.carrierShipmentMethodList = from("ProductStoreShipmentMethView").where("productStoreId", productStore.productStoreId).orderBy("sequenceNumber").cache(true).queryList()
 }
 
 // nuke the event messages
-request.removeAttribute("_EVENT_MESSAGE_");
+request.removeAttribute("_EVENT_MESSAGE_")
 
-party = null;
-orderPartyIdId = cart.getPartyId();
+party = null
+orderPartyIdId = cart.getPartyId()
 if (orderPartyIdId) {
-    orderPartyId = from("Party").where("partyId", orderPartyIdId).queryOne();
-    context.orderPartyId = orderPartyId;
+    orderPartyId = from("Party").where("partyId", orderPartyIdId).queryOne()
+    context.orderPartyId = orderPartyId
 }
 
-context.emailList = ContactHelper.getContactMechByType(orderPartyId, "EMAIL_ADDRESS", false);
+context.emailList = ContactHelper.getContactMechByType(orderPartyId, "EMAIL_ADDRESS", false)
 
 // create the beforeDate for calendar
-fromCal = Calendar.getInstance();
-fromCal.setTime(new java.util.Date());
-fromCal.set(Calendar.HOUR_OF_DAY, fromCal.getActualMinimum(Calendar.HOUR_OF_DAY));
-fromCal.set(Calendar.MINUTE, fromCal.getActualMinimum(Calendar.MINUTE));
-fromCal.set(Calendar.SECOND, fromCal.getActualMinimum(Calendar.SECOND));
-fromCal.set(Calendar.MILLISECOND, fromCal.getActualMinimum(Calendar.MILLISECOND));
-fromTs = new Timestamp(fromCal.getTimeInMillis());
-fromStr = fromTs.toString();
-fromStr = fromStr.substring(0, fromStr.indexOf('.'));
-context.beforeDateStr = fromStr;
+fromCal = Calendar.getInstance()
+fromCal.setTime(new java.util.Date())
+fromCal.set(Calendar.HOUR_OF_DAY, fromCal.getActualMinimum(Calendar.HOUR_OF_DAY))
+fromCal.set(Calendar.MINUTE, fromCal.getActualMinimum(Calendar.MINUTE))
+fromCal.set(Calendar.SECOND, fromCal.getActualMinimum(Calendar.SECOND))
+fromCal.set(Calendar.MILLISECOND, fromCal.getActualMinimum(Calendar.MILLISECOND))
+fromTs = new Timestamp(fromCal.getTimeInMillis())
+fromStr = fromTs.toString()
+fromStr = fromStr.substring(0, fromStr.indexOf('.'))
+context.beforeDateStr = fromStr
 
 // create the afterDate for calendar
-toCal = Calendar.getInstance();
-toCal.setTime(new java.util.Date());
-toCal.set(Calendar.HOUR_OF_DAY, toCal.getActualMaximum(Calendar.HOUR_OF_DAY));
-toCal.set(Calendar.MINUTE, toCal.getActualMaximum(Calendar.MINUTE));
-toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND));
-toCal.set(Calendar.MILLISECOND, toCal.getActualMaximum(Calendar.MILLISECOND));
-toTs = new Timestamp(toCal.getTimeInMillis());
-toStr = toTs.toString();
-context.afterDateStr = toStr;
+toCal = Calendar.getInstance()
+toCal.setTime(new java.util.Date())
+toCal.set(Calendar.HOUR_OF_DAY, toCal.getActualMaximum(Calendar.HOUR_OF_DAY))
+toCal.set(Calendar.MINUTE, toCal.getActualMaximum(Calendar.MINUTE))
+toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND))
+toCal.set(Calendar.MILLISECOND, toCal.getActualMaximum(Calendar.MILLISECOND))
+toTs = new Timestamp(toCal.getTimeInMillis())
+toStr = toTs.toString()
+context.afterDateStr = toStr
 

@@ -1,15 +1,15 @@
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.io.IOException
+import java.util.ArrayList
+import java.util.Collection
+import java.util.List
 
-import org.apache.ofbiz.base.component.ComponentConfig;
-import org.apache.ofbiz.base.component.ComponentConfig.KeystoreInfo;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.KeyStoreUtil;
+import org.apache.ofbiz.base.component.ComponentConfig
+import org.apache.ofbiz.base.component.ComponentConfig.KeystoreInfo
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.KeyStoreUtil
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.util.*;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
 
 cert = org.apache.ofbiz.base.util.KeyStoreUtil.pemToCert(certString)
 if (cert){
@@ -21,7 +21,7 @@ if (cert){
 
 stores = []
 store = []
-Collection<ComponentConfig> allComponentConfigs = ComponentConfig.getAllComponents();
+Collection<ComponentConfig> allComponentConfigs = ComponentConfig.getAllComponents()
 for (ComponentConfig cc: allComponentConfigs) {
     if (cc.getKeystoreInfos()){
         componentName = cc.getComponentName()

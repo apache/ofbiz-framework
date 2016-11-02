@@ -17,27 +17,27 @@
  * under the License.
  */
 
-import org.apache.ofbiz.party.contact.ContactMechWorker;
+import org.apache.ofbiz.party.contact.ContactMechWorker
 
-partyId = parameters.partyId;
-context.partyId = partyId;
+partyId = parameters.partyId
+context.partyId = partyId
 
-Map mechMap = new HashMap();
-ContactMechWorker.getContactMechAndRelated(request, partyId, mechMap);
-context.mechMap = mechMap;
+Map mechMap = new HashMap()
+ContactMechWorker.getContactMechAndRelated(request, partyId, mechMap)
+context.mechMap = mechMap
 
-context.contactMechId = mechMap.contactMechId;
-context.preContactMechTypeId = parameters.preContactMechTypeId;
-context.paymentMethodId = parameters.paymentMethodId;
+context.contactMechId = mechMap.contactMechId
+context.preContactMechTypeId = parameters.preContactMechTypeId
+context.paymentMethodId = parameters.paymentMethodId
 
-cmNewPurposeTypeId = parameters.contactMechPurposeTypeId;
+cmNewPurposeTypeId = parameters.contactMechPurposeTypeId
 if (cmNewPurposeTypeId) {
-    contactMechPurposeType = from("ContactMechPurposeType").where("contactMechPurposeTypeId", cmNewPurposeTypeId).queryOne();
+    contactMechPurposeType = from("ContactMechPurposeType").where("contactMechPurposeTypeId", cmNewPurposeTypeId).queryOne()
     if (contactMechPurposeType) {
-        context.contactMechPurposeType = contactMechPurposeType;
+        context.contactMechPurposeType = contactMechPurposeType
     } else {
-        cmNewPurposeTypeId = null;
+        cmNewPurposeTypeId = null
     }
-    context.cmNewPurposeTypeId = cmNewPurposeTypeId;
+    context.cmNewPurposeTypeId = cmNewPurposeTypeId
 }
-context.donePage = parameters.DONE_PAGE ?:"viewprofile?party_id=" + partyId + "&partyId=" + partyId;;
+context.donePage = parameters.DONE_PAGE ?:"viewprofile?party_id=" + partyId + "&partyId=" + partyId

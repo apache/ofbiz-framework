@@ -17,68 +17,68 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilMisc
 
-revenueAccountBalanceMap = [:];
-revenueAccountBalanceList = [];
+revenueAccountBalanceMap = [:]
+revenueAccountBalanceList = []
 revenueAccountBalanceList1.each { accountBalance ->
-    revenueAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO));
+    revenueAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO))
 }
 revenueAccountBalanceList2.each { accountBalance ->
-    Map assetAccount = (Map)revenueAccountBalanceMap.get(accountBalance.glAccountId);
+    Map assetAccount = (Map)revenueAccountBalanceMap.get(accountBalance.glAccountId)
     if (!assetAccount) {
-        revenueAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO));
+        revenueAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO))
     } else {
-        assetAccount.put("balance2", accountBalance.balance);
+        assetAccount.put("balance2", accountBalance.balance)
     }
 }
-revenueAccountBalanceList = UtilMisc.sortMaps(revenueAccountBalanceMap.values().asList(), UtilMisc.toList("accountCode"));
-context.revenueAccountBalanceList = revenueAccountBalanceList;
+revenueAccountBalanceList = UtilMisc.sortMaps(revenueAccountBalanceMap.values().asList(), UtilMisc.toList("accountCode"))
+context.revenueAccountBalanceList = revenueAccountBalanceList
 
-expenseAccountBalanceMap = [:];
-expenseAccountBalanceList = [];
+expenseAccountBalanceMap = [:]
+expenseAccountBalanceList = []
 expenseAccountBalanceList1.each { accountBalance ->
-    expenseAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO));
+    expenseAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO))
 }
 expenseAccountBalanceList2.each { accountBalance ->
-    Map assetAccount = (Map)expenseAccountBalanceMap.get(accountBalance.glAccountId);
+    Map assetAccount = (Map)expenseAccountBalanceMap.get(accountBalance.glAccountId)
     if (!assetAccount) {
-        expenseAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO));
+        expenseAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO))
     } else {
-        assetAccount.put("balance2", accountBalance.balance);
+        assetAccount.put("balance2", accountBalance.balance)
     }
 }
-expenseAccountBalanceList = UtilMisc.sortMaps(expenseAccountBalanceMap.values().asList(), UtilMisc.toList("accountCode"));
-context.expenseAccountBalanceList = expenseAccountBalanceList;
+expenseAccountBalanceList = UtilMisc.sortMaps(expenseAccountBalanceMap.values().asList(), UtilMisc.toList("accountCode"))
+context.expenseAccountBalanceList = expenseAccountBalanceList
 
-incomeAccountBalanceMap = [:];
-incomeAccountBalanceList = [];
+incomeAccountBalanceMap = [:]
+incomeAccountBalanceList = []
 incomeAccountBalanceList1.each { accountBalance ->
-    incomeAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO));
+    incomeAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO))
 }
 incomeAccountBalanceList2.each { accountBalance ->
-    Map assetAccount = (Map)incomeAccountBalanceMap.get(accountBalance.glAccountId);
+    Map assetAccount = (Map)incomeAccountBalanceMap.get(accountBalance.glAccountId)
     if (!assetAccount) {
-        incomeAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO));
+        incomeAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO))
     } else {
-        assetAccount.put("balance2", accountBalance.balance);
+        assetAccount.put("balance2", accountBalance.balance)
     }
 }
-incomeAccountBalanceList = UtilMisc.sortMaps(incomeAccountBalanceMap.values().asList(), UtilMisc.toList("accountCode"));
-context.incomeAccountBalanceList = incomeAccountBalanceList;
+incomeAccountBalanceList = UtilMisc.sortMaps(incomeAccountBalanceMap.values().asList(), UtilMisc.toList("accountCode"))
+context.incomeAccountBalanceList = incomeAccountBalanceList
 
-balanceTotalMap = [:];
-balanceTotalList = [];
+balanceTotalMap = [:]
+balanceTotalList = []
 balanceTotalList1.each { accountBalance ->
-    balanceTotalMap.put(accountBalance.totalName, UtilMisc.toMap("totalName", accountBalance.totalName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO));
+    balanceTotalMap.put(accountBalance.totalName, UtilMisc.toMap("totalName", accountBalance.totalName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO))
 }
 balanceTotalList2.each { accountBalance ->
-    Map assetAccount = (Map)balanceTotalMap.get(accountBalance.totalName);
+    Map assetAccount = (Map)balanceTotalMap.get(accountBalance.totalName)
     if (!assetAccount) {
-        balanceTotalMap.put(accountBalance.totalName, UtilMisc.toMap("totalName", accountBalance.totalName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO));
+        balanceTotalMap.put(accountBalance.totalName, UtilMisc.toMap("totalName", accountBalance.totalName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO))
     } else {
-        assetAccount.put("balance2", accountBalance.balance);
+        assetAccount.put("balance2", accountBalance.balance)
     }
 }
-balanceTotalList = balanceTotalMap.values().asList();
-context.balanceTotalList = balanceTotalList;
+balanceTotalList = balanceTotalMap.values().asList()
+context.balanceTotalList = balanceTotalList

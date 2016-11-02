@@ -17,23 +17,23 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*
 
-product = from("Product").where("productId", parameters.productId).queryOne();
+product = from("Product").where("productId", parameters.productId).queryOne()
 if (product) {
-    productVirtualVariants = from("ProductAssoc").where("productIdTo", product.productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE").cache(true).queryList();
+    productVirtualVariants = from("ProductAssoc").where("productIdTo", product.productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE").cache(true).queryList()
     if(productVirtualVariants){
-        def mainProducts = [];
+        def mainProducts = []
         productVirtualVariants.each { virtualVariantKey ->
-            mainProductMap = [:];
-            mainProduct = virtualVariantKey.getRelatedOne("MainProduct", true);
-            quantityUom = mainProduct.getRelatedOne("QuantityUom", true);
-            mainProductMap.productId = mainProduct.productId;
-            mainProductMap.piecesIncluded = mainProduct.piecesIncluded;
-            mainProductMap.uomDesc = quantityUom.description;
-            mainProducts.add(mainProductMap);
+            mainProductMap = [:]
+            mainProduct = virtualVariantKey.getRelatedOne("MainProduct", true)
+            quantityUom = mainProduct.getRelatedOne("QuantityUom", true)
+            mainProductMap.productId = mainProduct.productId
+            mainProductMap.piecesIncluded = mainProduct.piecesIncluded
+            mainProductMap.uomDesc = quantityUom.description
+            mainProducts.add(mainProductMap)
         }
-        context.mainProducts = mainProducts;
+        context.mainProducts = mainProducts
     }
-    context.product = product;
+    context.product = product
 }

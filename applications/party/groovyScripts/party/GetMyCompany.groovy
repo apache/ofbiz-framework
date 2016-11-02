@@ -18,11 +18,11 @@
  */
 
 if (userLogin) {
-    companies = from("PartyRelationship").where(partyIdTo: userLogin.partyId, roleTypeIdTo: "CONTACT", roleTypeIdFrom: "ACCOUNT").queryList();
+    companies = from("PartyRelationship").where(partyIdTo: userLogin.partyId, roleTypeIdTo: "CONTACT", roleTypeIdFrom: "ACCOUNT").queryList()
     if (companies) {
-        company = companies[0];
-        context.myCompanyId = company.partyIdFrom;
+        company = companies[0]
+        context.myCompanyId = company.partyIdFrom
     } else {
-        context.myCompanyId = userLogin.partyId;
+        context.myCompanyId = userLogin.partyId
     }
 }

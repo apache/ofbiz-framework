@@ -17,33 +17,33 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.product.catalog.*;
-import org.apache.ofbiz.order.shoppingcart.*;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.product.catalog.*
+import org.apache.ofbiz.order.shoppingcart.*
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
-catalogCol = null;
-currentCatalogId = null;
-currentCatalogName = null;
+catalogCol = null
+currentCatalogId = null
+currentCatalogName = null
 
-cart = ShoppingCartEvents.getCartObject(request);
-productStoreId = cart.getProductStoreId();
-partyId = cart.getOrderPartyId();
+cart = ShoppingCartEvents.getCartObject(request)
+productStoreId = cart.getProductStoreId()
+partyId = cart.getOrderPartyId()
 
-currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
+currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
 
 if ("SALES_ORDER".equals(cart.getOrderType())) {
-    catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, partyId);
+    catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, partyId)
 } else {
-    catalogCol = CatalogWorker.getAllCatalogIds(request);
+    catalogCol = CatalogWorker.getAllCatalogIds(request)
     if (!currentCatalogId && catalogCol) {
-        currentCatalogId = catalogCol.get(0);
+        currentCatalogId = catalogCol.get(0)
     }
-    session.setAttribute("CURRENT_CATALOG_ID", currentCatalogId);
+    session.setAttribute("CURRENT_CATALOG_ID", currentCatalogId)
 }
-currentCatalogName = CatalogWorker.getCatalogName(request, currentCatalogId);
+currentCatalogName = CatalogWorker.getCatalogName(request, currentCatalogId)
 
-context.catalogCol = catalogCol;
-context.currentCatalogId = currentCatalogId;
-context.currentCatalogName = currentCatalogName;
+context.catalogCol = catalogCol
+context.currentCatalogId = currentCatalogId
+context.currentCatalogName = currentCatalogName

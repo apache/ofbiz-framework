@@ -18,6 +18,6 @@
  */
 
 if (session.getAttribute("orderList")) {
-    session.removeAttribute("orderList");
-    return "success";
+    session.removeAttribute("orderList")
+    return "success"
 }

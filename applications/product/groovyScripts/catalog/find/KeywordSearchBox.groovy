@@ -17,15 +17,15 @@
  * under the License.
  */
 
-state = request.getParameter("SearchProductsState");
-isOpen = true;
+state = request.getParameter("SearchProductsState")
+isOpen = true
 if (state) {
-    session.setAttribute("SearchProductsState", state);
-    isOpen = "open".equals(state);
+    session.setAttribute("SearchProductsState", state)
+    isOpen = "open".equals(state)
 } else {
-    state = (String) session.getAttribute("SearchProductsState");
+    state = (String) session.getAttribute("SearchProductsState")
     if (state) {
-        isOpen = "open".equals(state);
+        isOpen = "open".equals(state)
     }
 }
-context.isOpen = isOpen;
+context.isOpen = isOpen

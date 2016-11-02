@@ -17,25 +17,25 @@
  * under the License.
  */
 
-import org.apache.ofbiz.content.survey.SurveyWrapper;
+import org.apache.ofbiz.content.survey.SurveyWrapper
 
 if (!survey) {
-    surveyResponseId = parameters.surveyResponseId;
+    surveyResponseId = parameters.surveyResponseId
     if (surveyResponseId) {
-        surveyResponse = from("SurveyResponse").where("surveyResponseId", surveyResponseId).queryOne();
+        surveyResponse = from("SurveyResponse").where("surveyResponseId", surveyResponseId).queryOne()
         if (surveyResponse) {
-            surveyId = surveyResponse.surveyId;
+            surveyId = surveyResponse.surveyId
             if (surveyId) {
-                survey = from("Survey").where("surveyId", surveyId).queryOne();
-                context.survey = survey;
-                context.surveyId = surveyId;
+                survey = from("Survey").where("surveyId", surveyId).queryOne()
+                context.survey = survey
+                context.surveyId = surveyId
             }
         }
     }
 }
 
 if (survey) {
-    surveyWrapper = new SurveyWrapper(delegator, surveyId);
-    context.surveyWrapper = surveyWrapper;
-    context.sequenceSort = ['sequenceNum'];
+    surveyWrapper = new SurveyWrapper(delegator, surveyId)
+    context.surveyWrapper = surveyWrapper
+    context.sequenceSort = ['sequenceNum']
 }

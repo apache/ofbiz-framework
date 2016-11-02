@@ -19,6 +19,6 @@
 
 import org.apache.ofbiz.product.category.*
 
-CategoryWorker.getCategoriesWithNoParent(request, "noParentCategories");
-noParentCategories = request.getAttribute("noParentCategories");
-context.noParentCategories = noParentCategories;
+CategoryWorker.getCategoriesWithNoParent(request, "noParentCategories")
+noParentCategories = request.getAttribute("noParentCategories")
+context.noParentCategories = noParentCategories

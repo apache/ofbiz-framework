@@ -17,19 +17,19 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
 
-custRequestId = parameters.custRequestId;
-custRequestItemSeqId = parameters.custRequestItemSeqId;
-showAll = parameters.showAll ?: "false";
-context.showAll = showAll;
+custRequestId = parameters.custRequestId
+custRequestItemSeqId = parameters.custRequestItemSeqId
+showAll = parameters.showAll ?: "false"
+context.showAll = showAll
 
-fields = [custRequestId : custRequestId];
+fields = [custRequestId : custRequestId]
 if (showAll.equals("false")) {
-    fields.custRequestItemSeqId = custRequestItemSeqId;
+    fields.custRequestItemSeqId = custRequestItemSeqId
 }
-notes = from("CustRequestItemNoteView").where(fields).orderBy("-noteDateTime").queryList();
+notes = from("CustRequestItemNoteView").where(fields).orderBy("-noteDateTime").queryList()
 if (notes) {
-    context.notes = notes;
+    context.notes = notes
 }

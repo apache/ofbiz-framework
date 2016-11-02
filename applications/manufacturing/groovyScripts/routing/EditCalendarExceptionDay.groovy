@@ -18,34 +18,34 @@
  */
 
 
-import java.util.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
+import java.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
 
 if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
-    context.hasPermission = Boolean.TRUE;
+    context.hasPermission = Boolean.TRUE
 } else {
-    context.hasPermission = Boolean.FALSE;
+    context.hasPermission = Boolean.FALSE
 }
-techDataCalendar = [:];
-calendarExceptionDays = [];
+techDataCalendar = [:]
+calendarExceptionDays = []
 
-calendarId = parameters.calendarId ?: request.getAttribute("calendarId");
+calendarId = parameters.calendarId ?: request.getAttribute("calendarId")
 if (calendarId) {
-    techDataCalendar = from("TechDataCalendar").where("calendarId", calendarId).queryOne();
-    context.techDataCalendar = techDataCalendar;
+    techDataCalendar = from("TechDataCalendar").where("calendarId", calendarId).queryOne()
+    context.techDataCalendar = techDataCalendar
 }
 if (techDataCalendar) {
-    calendarExceptionDays = techDataCalendar.getRelated("TechDataCalendarExcDay", null, null, false);
-    context.calendarExceptionDays = calendarExceptionDays;
+    calendarExceptionDays = techDataCalendar.getRelated("TechDataCalendarExcDay", null, null, false)
+    context.calendarExceptionDays = calendarExceptionDays
 }
 
-exceptionDateStartTime = parameters.exceptionDateStartTime ?: request.getAttribute("exceptionDateStartTime");
-exceptionDateStartTime = ObjectType.simpleTypeConvert(exceptionDateStartTime, "Timestamp", null, null);
+exceptionDateStartTime = parameters.exceptionDateStartTime ?: request.getAttribute("exceptionDateStartTime")
+exceptionDateStartTime = ObjectType.simpleTypeConvert(exceptionDateStartTime, "Timestamp", null, null)
 
 if (exceptionDateStartTime) {
-    calendarExceptionDay = from("TechDataCalendarExcDay").where("calendarId", calendarId , "exceptionDateStartTime", exceptionDateStartTime).queryOne();
+    calendarExceptionDay = from("TechDataCalendarExcDay").where("calendarId", calendarId , "exceptionDateStartTime", exceptionDateStartTime).queryOne()
     if (calendarExceptionDay) {
-        context.calendarExceptionDay = calendarExceptionDay;
+        context.calendarExceptionDay = calendarExceptionDay
     }
 }

@@ -17,28 +17,28 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityUtil
 
-productId = request.getParameter("productId");
+productId = request.getParameter("productId")
 
 if (productId != null) {
-    product = from("Product").where("productId", productId).queryOne();
-    prodAssocs = product.getRelated("MainProductAssoc", null, null, false);
+    product = from("Product").where("productId", productId).queryOne()
+    prodAssocs = product.getRelated("MainProductAssoc", null, null, false)
     if (UtilValidate.isNotEmpty(prodAssocs)) {
-        products = EntityUtil.filterByAnd(prodAssocs, [EntityCondition.makeCondition("productAssocTypeId", EntityOperator.NOT_EQUAL, "PRODUCT_VARIANT")]);
+        products = EntityUtil.filterByAnd(prodAssocs, [EntityCondition.makeCondition("productAssocTypeId", EntityOperator.NOT_EQUAL, "PRODUCT_VARIANT")])
 
         if (UtilValidate.isNotEmpty(products)) {
-            productList = [];
+            productList = []
             products.each { product ->
                 if (product != null) {
-                    String productIdTo = product.getString("productIdTo");
-                    productList.add(from("Product").where("productId", productIdTo).queryFirst());
+                    String productIdTo = product.getString("productIdTo")
+                    productList.add(from("Product").where("productId", productIdTo).queryFirst())
                 }
             }
-            context.put("productList",productList);
+            context.put("productList",productList)
         }
     }
 }

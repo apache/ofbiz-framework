@@ -24,50 +24,50 @@ import org.apache.ofbiz.entity.model.*
 import javax.servlet.*
 import javax.servlet.http.*
 
-Locale locale = UtilHttp.getLocale(request);
-String serverName = request.getServerName();
-String serverLocal = serverName.substring(serverName.lastIndexOf(".") + 1);
+Locale locale = UtilHttp.getLocale(request)
+String serverName = request.getServerName()
+String serverLocal = serverName.substring(serverName.lastIndexOf(".") + 1)
 
-def nameLocal; 
-def productTextData;
+def nameLocal
+def productTextData
 contentAssocs.each { contentAssoc ->
 
-content = from("Content").where("contentId", contentAssoc.contentIdTo).queryOne();
-localeString = content.localeString;
+content = from("Content").where("contentId", contentAssoc.contentIdTo).queryOne()
+localeString = content.localeString
 
     if (serverLocal == "au") {
-        nameLocal = "en_AU";
+        nameLocal = "en_AU"
     } else if (serverLocal == "ca") {
-        nameLocal = "en_CA";
+        nameLocal = "en_CA"
     } else if (serverLocal == "de") {
-        nameLocal = "de";
+        nameLocal = "de"
     } else if (serverLocal == "ie") {
-        nameLocal = "en_IE";
+        nameLocal = "en_IE"
     } else if (serverLocal == "fr") {
-        nameLocal = "fr";
+        nameLocal = "fr"
     } else if (serverLocal == "es") {
-        nameLocal = "es";
+        nameLocal = "es"
     } else if (serverLocal == "it") {
-        nameLocal = "it";
+        nameLocal = "it"
     } else if (serverLocal == "uk") {
-        nameLocal = "en_GB";
+        nameLocal = "en_GB"
     } else if (serverLocal == "sg") {
-        nameLocal = "en_SG";
+        nameLocal = "en_SG"
     } else {
-        nameLocal = "en_US";
+        nameLocal = "en_US"
     }
     
     if (localeString == nameLocal) {
-            electronicText = from("ElectronicText").where("dataResourceId", content.dataResourceId).queryOne();
-            productTextData = electronicText.textData;
+            electronicText = from("ElectronicText").where("dataResourceId", content.dataResourceId).queryOne()
+            productTextData = electronicText.textData
     }
 
 }
 
 if (productTextData == null) {
-    context.productTextData = product.productName;
+    context.productTextData = product.productName
 } else {
-    context.productTextData = productTextData;
+    context.productTextData = productTextData
 }
 
 

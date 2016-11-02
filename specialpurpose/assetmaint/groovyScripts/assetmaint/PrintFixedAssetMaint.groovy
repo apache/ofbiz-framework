@@ -17,52 +17,52 @@ specific language governing permissions and limitations
 under the License.
 **/
 
-facility = fixedAsset.getRelatedOne("LocatedAtFacility", false);
-context.locatedAtFacility = facility;
+facility = fixedAsset.getRelatedOne("LocatedAtFacility", false)
+context.locatedAtFacility = facility
 
-fixedAssetIdents = from("FixedAssetIdent").where("fixedAssetId", fixedAssetId).queryList();
-fixedAssetIdentValue = "";
+fixedAssetIdents = from("FixedAssetIdent").where("fixedAssetId", fixedAssetId).queryList()
+fixedAssetIdentValue = ""
 if (fixedAssetIdents) {
     fixedAssetIdents.each { ident ->
-        fixedAssetIdentValue = fixedAssetIdentValue + " " + ident.idValue;
+        fixedAssetIdentValue = fixedAssetIdentValue + " " + ident.idValue
     }
 }
-context.fixedAssetIdentValue = fixedAssetIdentValue;
+context.fixedAssetIdentValue = fixedAssetIdentValue
 
-status = fixedAssetMaint.getRelatedOne("StatusItem", false);
+status = fixedAssetMaint.getRelatedOne("StatusItem", false)
 if (status) {
-    context.statusItemDesc = status.description;
+    context.statusItemDesc = status.description
 }
-//context.put("fixedAssetMaint",fixedAssetMaint);
+//context.put("fixedAssetMaint",fixedAssetMaint)
 
-intervalUom = fixedAssetMaint.getRelatedOne("IntervalUom", false);
+intervalUom = fixedAssetMaint.getRelatedOne("IntervalUom", false)
 if (intervalUom) {
-    context.intervalUomDesc = intervalUom.description;
+    context.intervalUomDesc = intervalUom.description
 }
 
-instanceOfProductId = fixedAsset.instanceOfProductId;
-productMaintSeqId = fixedAssetMaint.productMaintSeqId;
+instanceOfProductId = fixedAsset.instanceOfProductId
+productMaintSeqId = fixedAssetMaint.productMaintSeqId
 if (productMaintSeqId) {
-    productMaint = from("ProductMaint").where("productId", instanceOfProductId, "productMaintSeqId", productMaintSeqId).queryOne();
-    context.productMaintName = productMaint.maintName;
+    productMaint = from("ProductMaint").where("productId", instanceOfProductId, "productMaintSeqId", productMaintSeqId).queryOne()
+    context.productMaintName = productMaint.maintName
 }
 
-productMaintTypeId = fixedAssetMaint.productMaintTypeId;
+productMaintTypeId = fixedAssetMaint.productMaintTypeId
 if (productMaintTypeId) {
-    productMaintType = from("ProductMaintType").where("productMaintTypeId", productMaintTypeId).queryOne();
+    productMaintType = from("ProductMaintType").where("productMaintTypeId", productMaintTypeId).queryOne()
     if (productMaintType) {
-        productMaintTypeDesc = productMaintType.description;
-        context.productMaintTypeDesc = productMaintTypeDesc;
+        productMaintTypeDesc = productMaintType.description
+        context.productMaintTypeDesc = productMaintTypeDesc
     }
 }
 
-intervalMeterTypeId = fixedAssetMaint.intervalMeterTypeId;
-productMeterTypeDesc = "";
+intervalMeterTypeId = fixedAssetMaint.intervalMeterTypeId
+productMeterTypeDesc = ""
 if (intervalMeterTypeId) {
-    productMeterType = from("ProductMeterType").where("productMeterTypeId", intervalMeterTypeId).queryOne();
-    productMeterTypeDesc  = productMeterType.description;
+    productMeterType = from("ProductMeterType").where("productMeterTypeId", intervalMeterTypeId).queryOne()
+    productMeterTypeDesc  = productMeterType.description
 }
-context.productMeterTypeDesc = productMeterTypeDesc;
+context.productMeterTypeDesc = productMeterTypeDesc
 
-scheduleWorkEffort = fixedAssetMaint.getRelatedOne("ScheduleWorkEffort", false);
-context.scheduleWorkEffort = scheduleWorkEffort;
+scheduleWorkEffort = fixedAssetMaint.getRelatedOne("ScheduleWorkEffort", false)
+context.scheduleWorkEffort = scheduleWorkEffort

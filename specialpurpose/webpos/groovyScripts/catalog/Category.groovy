@@ -22,41 +22,41 @@
  * should not contain order component's specific code.
  */
 
-import org.apache.ofbiz.product.catalog.CatalogWorker;
-import org.apache.ofbiz.product.category.CategoryContentWrapper;
+import org.apache.ofbiz.product.catalog.CatalogWorker
+import org.apache.ofbiz.product.category.CategoryContentWrapper
 
-detailScreen = "categorydetail";
-catalogName = CatalogWorker.getCatalogName(request);
+detailScreen = "categorydetail"
+catalogName = CatalogWorker.getCatalogName(request)
 
-productCategoryId = parameters.productCategoryId;
+productCategoryId = parameters.productCategoryId
 if (!(productCategoryId) && request.getAttribute("topCategoryId")) {
-    productCategoryId = request.getAttribute("topCategoryId");
+    productCategoryId = request.getAttribute("topCategoryId")
 }
 
-category = from("ProductCategory").where("productCategoryId", productCategoryId).cache(true).queryOne();
+category = from("ProductCategory").where("productCategoryId", productCategoryId).cache(true).queryOne()
 if (category) {
     if (category.detailScreen) {
-        detailScreen = category.detailScreen;
+        detailScreen = category.detailScreen
     }
-    categoryContentWrapper = new CategoryContentWrapper(category, request);
-    context.title = categoryContentWrapper.get("CATEGORY_NAME", "html");
-    categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html");
+    categoryContentWrapper = new CategoryContentWrapper(category, request)
+    context.title = categoryContentWrapper.get("CATEGORY_NAME", "html")
+    categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html")
     if (categoryDescription) {
-        context.metaDescription = categoryDescription;
-        context.metaKeywords = categoryDescription + ", " + catalogName;
+        context.metaDescription = categoryDescription
+        context.metaKeywords = categoryDescription + ", " + catalogName
     } else {
-        context.metaKeywords = catalogName;
+        context.metaKeywords = catalogName
     }
-    context.productCategory = category;
+    context.productCategory = category
 }
 
 // check the catalogs template path and update
-templatePathPrefix = CatalogWorker.getTemplatePathPrefix(request);
+templatePathPrefix = CatalogWorker.getTemplatePathPrefix(request)
 if (templatePathPrefix) {
-    detailScreen = templatePathPrefix + detailScreen;
+    detailScreen = templatePathPrefix + detailScreen
 }
-context.detailScreen = detailScreen;
+context.detailScreen = detailScreen
 
-request.setAttribute("productCategoryId", productCategoryId);
-request.setAttribute("defaultViewSize", 10);
-request.setAttribute("limitView", true);
+request.setAttribute("productCategoryId", productCategoryId)
+request.setAttribute("defaultViewSize", 10)
+request.setAttribute("limitView", true)

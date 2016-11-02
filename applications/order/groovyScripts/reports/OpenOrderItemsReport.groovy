@@ -23,37 +23,37 @@
  */
 
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
 
-productStoreId = ObjectType.simpleTypeConvert(parameters.productStoreId, "List", null, null);
-orderTypeId = ObjectType.simpleTypeConvert(parameters.orderTypeId, "List", null, null);
-orderStatusId = ObjectType.simpleTypeConvert(parameters.orderStatusId, "List", null, null);
+productStoreId = ObjectType.simpleTypeConvert(parameters.productStoreId, "List", null, null)
+orderTypeId = ObjectType.simpleTypeConvert(parameters.orderTypeId, "List", null, null)
+orderStatusId = ObjectType.simpleTypeConvert(parameters.orderStatusId, "List", null, null)
 
 
 // search by orderTypeId is mandatory
-conditions = [EntityCondition.makeCondition("orderTypeId", EntityOperator.IN, orderTypeId)];
+conditions = [EntityCondition.makeCondition("orderTypeId", EntityOperator.IN, orderTypeId)]
 
 if (fromOrderDate) {
-    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromOrderDate));
+    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromOrderDate))
 }
 if (thruOrderDate) {
-    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruOrderDate));
+    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruOrderDate))
 }
 
 if (productStoreId) {
-    conditions.add(EntityCondition.makeCondition("productStoreId", EntityOperator.IN, productStoreId));
+    conditions.add(EntityCondition.makeCondition("productStoreId", EntityOperator.IN, productStoreId))
     // for generating a title (given product store)
-    context.productStore = from("ProductStore").where("productStoreId", productStoreId).cache(true).queryOne();
+    context.productStore = from("ProductStore").where("productStoreId", productStoreId).cache(true).queryOne()
 } else {
     // for generating a title (all stores)  TODO: use UtilProperties to internationalize
-    context.productStore = [storeName : "All Stores"];
+    context.productStore = [storeName : "All Stores"]
 }
 if (orderStatusId) {
-    conditions.add(EntityCondition.makeCondition("orderStatusId", EntityOperator.IN, orderStatusId));
+    conditions.add(EntityCondition.makeCondition("orderStatusId", EntityOperator.IN, orderStatusId))
 } else {
     // search all orders that are not completed, cancelled or rejected
     conditions.add(
@@ -62,13 +62,13 @@ if (orderStatusId) {
                     EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
                     EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED")
                     ], EntityOperator.AND)
-            );
+            )
 }
 
 // item conditions
-conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
-conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
-conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
+conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"))
+conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"))
+conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"))
 
 // get the results as an entity list iterator
 listIt = select("orderId", "orderDate", "productId", "quantityOrdered", "quantityIssued", "quantityOpen", "shipBeforeDate", "shipAfterDate", "itemDescription")
@@ -77,52 +77,52 @@ listIt = select("orderId", "orderDate", "productId", "quantityOrdered", "quantit
             .orderBy("orderDate DESC")
             .cursorScrollInsensitive()
             .distinct()
-            .queryIterator();
-orderItemList = [];
-totalCostPrice = 0.0;
-totalListPrice = 0.0;
-totalMarkup = 0.0;
-totalDiscount = 0.0;
-totalRetailPrice = 0.0;
-totalquantityOrdered = 0.0;
-totalquantityOpen = 0.0;
+            .queryIterator()
+orderItemList = []
+totalCostPrice = 0.0
+totalListPrice = 0.0
+totalMarkup = 0.0
+totalDiscount = 0.0
+totalRetailPrice = 0.0
+totalquantityOrdered = 0.0
+totalquantityOpen = 0.0
 
 listIt.each { listValue ->
-    orderId = listValue.orderId;
-    productId = listValue.productId;
-    orderDate = listValue.orderDate;
-    quantityOrdered = listValue.quantityOrdered;
-    quantityOpen = listValue.quantityOpen;
-    quantityIssued = listValue.quantityIssued;
-    itemDescription = listValue.itemDescription;
-    shipAfterDate = listValue.shipAfterDate;
-    shipBeforeDate = listValue.shipBeforeDate;
-    productIdCondExpr =  [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId)];
-    productPrices = select("price","productPriceTypeId").from("ProductPrice").where(productIdCondExpr).queryList();
-    costPrice = 0.0;
-    retailPrice = 0.0;
-    listPrice = 0.0;
+    orderId = listValue.orderId
+    productId = listValue.productId
+    orderDate = listValue.orderDate
+    quantityOrdered = listValue.quantityOrdered
+    quantityOpen = listValue.quantityOpen
+    quantityIssued = listValue.quantityIssued
+    itemDescription = listValue.itemDescription
+    shipAfterDate = listValue.shipAfterDate
+    shipBeforeDate = listValue.shipBeforeDate
+    productIdCondExpr =  [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId)]
+    productPrices = select("price","productPriceTypeId").from("ProductPrice").where(productIdCondExpr).queryList()
+    costPrice = 0.0
+    retailPrice = 0.0
+    listPrice = 0.0
 
     productPrices.each { productPriceMap ->
         if (productPriceMap.productPriceTypeId.equals("AVERAGE_COST")) {
-            costPrice = productPriceMap.price;
+            costPrice = productPriceMap.price
         } else if (productPriceMap.productPriceTypeId.equals("DEFAULT_PRICE")) {
-            retailPrice = productPriceMap.price;
+            retailPrice = productPriceMap.price
         } else if (productPriceMap.productPriceTypeId.equals("LIST_PRICE")) {
-            listPrice = productPriceMap.price;
+            listPrice = productPriceMap.price
         }
     }
 
-    totalListPrice += listPrice;
-    totalRetailPrice += retailPrice;
-    totalCostPrice += costPrice;
-    totalquantityOrdered += quantityOrdered;
-    totalquantityOpen += quantityOpen;
-    costPriceDividendValue = costPrice;
+    totalListPrice += listPrice
+    totalRetailPrice += retailPrice
+    totalCostPrice += costPrice
+    totalquantityOrdered += quantityOrdered
+    totalquantityOpen += quantityOpen
+    costPriceDividendValue = costPrice
     if (costPriceDividendValue) {
-        percentMarkup = ((retailPrice - costPrice)/costPrice)*100;
+        percentMarkup = ((retailPrice - costPrice)/costPrice)*100
     } else{
-        percentMarkup = "";
+        percentMarkup = ""
     }
     orderItemMap = [orderDate : orderDate,
                     orderId : orderId,
@@ -138,18 +138,18 @@ listIt.each { listValue ->
                     listPrice : listPrice,
                     discount : listPrice - retailPrice,
                     calculatedMarkup : retailPrice - costPrice,
-                    percentMarkup : percentMarkup];
-    orderItemList.add(orderItemMap);
+                    percentMarkup : percentMarkup]
+    orderItemList.add(orderItemMap)
 }
 
-listIt.close();
-totalAmountList = [];
+listIt.close()
+totalAmountList = []
 if (orderItemList) {
-    totalCostPriceDividendValue = totalCostPrice;
+    totalCostPriceDividendValue = totalCostPrice
     if (totalCostPriceDividendValue) {
-        totalPercentMarkup = ((totalRetailPrice - totalCostPrice)/totalCostPrice)*100 ;
+        totalPercentMarkup = ((totalRetailPrice - totalCostPrice)/totalCostPrice)*100 
     } else{
-        totalPercentMarkup = "";
+        totalPercentMarkup = ""
     }
     totalAmountMap = [totalCostPrice : totalCostPrice,
                       totalListPrice : totalListPrice,
@@ -159,8 +159,8 @@ if (orderItemList) {
                       totalquantityOpen : totalquantityOpen,
                       totalDiscount : totalListPrice - totalRetailPrice,
                       totalMarkup : totalRetailPrice - totalCostPrice,
-                      totalPercentMarkup : totalPercentMarkup];
-    totalAmountList.add(totalAmountMap);
+                      totalPercentMarkup : totalPercentMarkup]
+    totalAmountList.add(totalAmountMap)
 }
-context.orderItemList = orderItemList;
-context.totalAmountList = totalAmountList;
+context.orderItemList = orderItemList
+context.totalAmountList = totalAmountList

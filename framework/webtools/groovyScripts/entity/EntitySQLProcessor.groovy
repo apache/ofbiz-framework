@@ -17,63 +17,63 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.jdbc.SQLProcessor;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.model.ModelGroupReader;
+import org.apache.ofbiz.entity.jdbc.SQLProcessor
+import java.sql.ResultSet
+import java.sql.ResultSetMetaData
+import java.sql.SQLException
+import java.util.ArrayList
+import java.util.Iterator
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.model.ModelGroupReader
 
-sqlCommand = context.request.getParameter("sqlCommand");
+sqlCommand = context.request.getParameter("sqlCommand")
 
-resultMessage = "";
-rs = null;
-columns = [];
-records = [];
-mgr = delegator.getModelGroupReader();
-groups = [];
-for (String group : mgr.getGroupNames(delegator.getDelegatorName())) groups.add(0,["group":group]); //use for list-option in widget drop-down
+resultMessage = ""
+rs = null
+columns = []
+records = []
+mgr = delegator.getModelGroupReader()
+groups = []
+for (String group : mgr.getGroupNames(delegator.getDelegatorName())) groups.add(0,["group":group]) //use for list-option in widget drop-down
 
 if (sqlCommand && selGroup) {
-    du = new SQLProcessor(delegator, delegator.getGroupHelperInfo(selGroup));
+    du = new SQLProcessor(delegator, delegator.getGroupHelperInfo(selGroup))
     try {
         if (sqlCommand.toUpperCase().startsWith("SELECT")) {
-            rs = du.executeQuery(sqlCommand);
+            rs = du.executeQuery(sqlCommand)
             if (rs) {
-                rsmd = rs.getMetaData();
-                numberOfColumns = rsmd.getColumnCount();
+                rsmd = rs.getMetaData()
+                numberOfColumns = rsmd.getColumnCount()
                 for (i = 1; i <= numberOfColumns; i++) {
-                    columns.add(rsmd.getColumnName(i));
+                    columns.add(rsmd.getColumnName(i))
                 }
-                rowLimitReached = false;
+                rowLimitReached = false
                 while (rs.next()) {
                     if (records.size() >= rowLimit) {
-                        resultMessage = "Returned top $rowLimit rows.";
-                        rowLimitReached = true;
-                        break;
+                        resultMessage = "Returned top $rowLimit rows."
+                        rowLimitReached = true
+                        break
                     }
-                    record = [];
+                    record = []
                     for (i = 1; i <= numberOfColumns; i++) {
-                        record.add(rs.getObject(i));
+                        record.add(rs.getObject(i))
                     }
-                    records.add(record);
+                    records.add(record)
                 }
-                resultMessage = "Returned " + (rowLimitReached? "top " + rowLimit : "" + records.size()) + " rows.";
-                rs.close();
+                resultMessage = "Returned " + (rowLimitReached? "top " + rowLimit : "" + records.size()) + " rows."
+                rs.close()
             }
         } else {
-            du.prepareStatement(sqlCommand);
-            numOfAffectedRows = du.executeUpdate();
-            resultMessage = "Affected $numOfAffectedRows rows.";
+            du.prepareStatement(sqlCommand)
+            numOfAffectedRows = du.executeUpdate()
+            resultMessage = "Affected $numOfAffectedRows rows."
         }
     } catch (Exception exc) {
-        resultMessage = exc.getMessage();
+        resultMessage = exc.getMessage()
     }
 }
-context.groups = groups;
-context.resultMessage = resultMessage;
-context.columns = columns;
-context.records = records;
-context.sqlCommand = sqlCommand; // (see OFBIZ-6567)
+context.groups = groups
+context.resultMessage = resultMessage
+context.columns = columns
+context.records = records
+context.sqlCommand = sqlCommand // (see OFBIZ-6567)

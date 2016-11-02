@@ -17,23 +17,23 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityConditionList;
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityConditionList
+import org.apache.ofbiz.entity.condition.EntityExpr
+import org.apache.ofbiz.entity.condition.EntityOperator
 
-prepare = runService('prepareFind', [inputFields : parameters, entityName : "Requirement"]);
+prepare = runService('prepareFind', [inputFields : parameters, entityName : "Requirement"])
 statusCondition = EntityCondition.makeCondition([
                                               EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_CREATED"),
                                               EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_PROPOSED")],
-                                          EntityOperator.OR);
-ecl = null;
+                                          EntityOperator.OR)
+ecl = null
 if (prepare.entityConditionList) {
-    ecl = EntityCondition.makeCondition([prepare.entityConditionList, statusCondition], EntityOperator.AND);
+    ecl = EntityCondition.makeCondition([prepare.entityConditionList, statusCondition], EntityOperator.AND)
 } else {
-    ecl = statusCondition;
+    ecl = statusCondition
 }
-results = runService('executeFind', [entityConditionList : ecl, entityName : "Requirement"]);
-context.requirements = results.listIt;
+results = runService('executeFind', [entityConditionList : ecl, entityName : "Requirement"])
+context.requirements = results.listIt

@@ -17,22 +17,22 @@
  * under the License.
  */
 
-projectMembers = from("WorkEffortPartyAssignment").where("workEffortId", context.projectId).filterByDate().queryList();
+projectMembers = from("WorkEffortPartyAssignment").where("workEffortId", context.projectId).filterByDate().queryList()
 
-toPartyId = null;
-fromPartyId = null;
+toPartyId = null
+fromPartyId = null
 projectMembers.each {member ->
     if (member.roleTypeId.equals("INTERNAL_ORGANIZATIO")) {
-        fromPartyId = member.partyId;
+        fromPartyId = member.partyId
     }
     if (member.roleTypeId.equals("CLIENT_BILLING")) {
-        toPartyId = member.partyId;
+        toPartyId = member.partyId
     }
     if (fromPartyId && toPartyId && fromPartyId.equals(toPartyId)) {
-        context.isBillable = false;
+        context.isBillable = false
     } else if (!toPartyId || !fromPartyId){
-        context.isBillable = false;
+        context.isBillable = false
     } else {    
-        context.isBillable = true;
+        context.isBillable = true
     }
 }

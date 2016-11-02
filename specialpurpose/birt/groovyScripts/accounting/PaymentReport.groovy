@@ -17,23 +17,23 @@
  * under the License.
  */
 
-birtParameters = [:];
-birtParameters.partyIdTo = request.getParameter("partyIdTo");
-birtParameters.paymentId = request.getParameter("paymentId");
-birtParameters.paymentTypeId = request.getParameter("paymentTypeId");
-birtParameters.paymentId_op = request.getParameter("paymentId_op");
-birtParameters.paymentRefNum_ic = request.getParameter("paymentRefNum_ic");
-birtParameters.noConditionFind = request.getParameter("noConditionFind");
-birtParameters.contentType = request.getParameter("contentType");
-birtParameters.partyIdFrom = request.getParameter("partyIdFrom");
-birtParameters.paymentRefNum_op = request.getParameter("paymentRefNum_op");
-birtParameters.amount = request.getParameter("amount");
-birtParameters.statusId = request.getParameter("statusId");
-birtParameters.paymentGatewayResponseId = request.getParameter("paymentGatewayResponseId");
-birtParameters.paymentId_ic = request.getParameter("paymentId_ic");
-birtParameters.paymentRefNum = request.getParameter("paymentRefNum");
-birtParameters.comments_ic = request.getParameter("comments_ic");
-birtParameters.comments_op = request.getParameter("comments_op");
-birtParameters.comments = request.getParameter("comments");
-request.setAttribute("birtParameters", birtParameters);
-return "success";
+birtParameters = [:]
+birtParameters.partyIdTo = request.getParameter("partyIdTo")
+birtParameters.paymentId = request.getParameter("paymentId")
+birtParameters.paymentTypeId = request.getParameter("paymentTypeId")
+birtParameters.paymentId_op = request.getParameter("paymentId_op")
+birtParameters.paymentRefNum_ic = request.getParameter("paymentRefNum_ic")
+birtParameters.noConditionFind = request.getParameter("noConditionFind")
+birtParameters.contentType = request.getParameter("contentType")
+birtParameters.partyIdFrom = request.getParameter("partyIdFrom")
+birtParameters.paymentRefNum_op = request.getParameter("paymentRefNum_op")
+birtParameters.amount = request.getParameter("amount")
+birtParameters.statusId = request.getParameter("statusId")
+birtParameters.paymentGatewayResponseId = request.getParameter("paymentGatewayResponseId")
+birtParameters.paymentId_ic = request.getParameter("paymentId_ic")
+birtParameters.paymentRefNum = request.getParameter("paymentRefNum")
+birtParameters.comments_ic = request.getParameter("comments_ic")
+birtParameters.comments_op = request.getParameter("comments_op")
+birtParameters.comments = request.getParameter("comments")
+request.setAttribute("birtParameters", birtParameters)
+return "success"

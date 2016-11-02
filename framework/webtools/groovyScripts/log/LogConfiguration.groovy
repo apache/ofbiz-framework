@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.Debug
 
 context.activeDebugLevel = [fatal : Debug.fatalOn() ? "Y" : "N",
                             error : Debug.errorOn() ? "Y" : "N",
@@ -25,4 +25,4 @@ context.activeDebugLevel = [fatal : Debug.fatalOn() ? "Y" : "N",
                             important : Debug.importantOn() ? "Y" : "N",
                             info : Debug.infoOn() ? "Y" : "N",
                             timing : Debug.timingOn() ? "Y" : "N",
-                            verbose : Debug.verboseOn() ? "Y" : "N"];
+                            verbose : Debug.verboseOn() ? "Y" : "N"]

@@ -18,47 +18,47 @@
  */
 
 import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.base.util.UtilMisc
 
-context.inputParamEnums = from("Enumeration").where("enumTypeId", "PROD_PRICE_IN_PARAM").orderBy("sequenceId").cache(true).queryList();
-context.condOperEnums = from("Enumeration").where("enumTypeId", "PROD_PRICE_COND").orderBy("sequenceId").cache(true).queryList();
-context.productPriceActionTypes = from("ProductPriceActionType").orderBy("description").cache(true).queryList();
+context.inputParamEnums = from("Enumeration").where("enumTypeId", "PROD_PRICE_IN_PARAM").orderBy("sequenceId").cache(true).queryList()
+context.condOperEnums = from("Enumeration").where("enumTypeId", "PROD_PRICE_COND").orderBy("sequenceId").cache(true).queryList()
+context.productPriceActionTypes = from("ProductPriceActionType").orderBy("description").cache(true).queryList()
 
-String priceRuleId = request.getParameter("productPriceRuleId");
+String priceRuleId = request.getParameter("productPriceRuleId")
 
 if (!priceRuleId) {
-    priceRuleId = parameters.get("productPriceRuleId");
+    priceRuleId = parameters.get("productPriceRuleId")
 }
 
 if (priceRuleId) {
-    productPriceRules = [];
-    productPriceRules.add(from("ProductPriceRule").where("productPriceRuleId", priceRuleId).queryOne());
-    productPriceConds = productPriceRules[0].getRelated("ProductPriceCond", null, ["productPriceCondSeqId"], true);
-    productPriceActions = productPriceRules[0].getRelated("ProductPriceAction", null, ["productPriceActionSeqId"], true);
+    productPriceRules = []
+    productPriceRules.add(from("ProductPriceRule").where("productPriceRuleId", priceRuleId).queryOne())
+    productPriceConds = productPriceRules[0].getRelated("ProductPriceCond", null, ["productPriceCondSeqId"], true)
+    productPriceActions = productPriceRules[0].getRelated("ProductPriceAction", null, ["productPriceActionSeqId"], true)
     
-    productPriceCondAdd = [];
-    productPriceCondAdd.add(delegator.makeValue("ProductPriceCond"));
-    productPriceCondAdd[0].productPriceRuleId = priceRuleId;
-    productPriceCondAdd[0].inputParamEnumId = context.inputParamEnums[0].enumId;
-    productPriceCondAdd[0].operatorEnumId = context.condOperEnums[0].enumId;
+    productPriceCondAdd = []
+    productPriceCondAdd.add(delegator.makeValue("ProductPriceCond"))
+    productPriceCondAdd[0].productPriceRuleId = priceRuleId
+    productPriceCondAdd[0].inputParamEnumId = context.inputParamEnums[0].enumId
+    productPriceCondAdd[0].operatorEnumId = context.condOperEnums[0].enumId
     
-    productPriceActionAdd = [];
-    productPriceActionAdd.add(delegator.makeValue("ProductPriceAction"));
-    productPriceActionAdd[0].productPriceRuleId = priceRuleId;
-    productPriceActionAdd[0].productPriceActionTypeId = context.productPriceActionTypes[0].productPriceActionTypeId;
-    productPriceActionAdd[0].amount = BigDecimal.ZERO;
+    productPriceActionAdd = []
+    productPriceActionAdd.add(delegator.makeValue("ProductPriceAction"))
+    productPriceActionAdd[0].productPriceRuleId = priceRuleId
+    productPriceActionAdd[0].productPriceActionTypeId = context.productPriceActionTypes[0].productPriceActionTypeId
+    productPriceActionAdd[0].amount = BigDecimal.ZERO
     
-    context.productPriceRules = productPriceRules;
-    context.productPriceConds = productPriceConds;
-    context.productPriceActions = productPriceActions;
-    context.productPriceCondAdd = productPriceCondAdd;
-    context.productPriceActionAdd = productPriceActionAdd;
+    context.productPriceRules = productPriceRules
+    context.productPriceConds = productPriceConds
+    context.productPriceActions = productPriceActions
+    context.productPriceCondAdd = productPriceCondAdd
+    context.productPriceActionAdd = productPriceActionAdd
     
 } else {
-    context.productPriceRules = null;
-    context.productPriceConds = null;
-    context.productPriceActions = null;    
-    context.productPriceCondsAdd = null;
-    context.productPriceActionsAdd = null;    
+    context.productPriceRules = null
+    context.productPriceConds = null
+    context.productPriceActions = null
+    context.productPriceCondsAdd = null
+    context.productPriceActionsAdd = null
 }

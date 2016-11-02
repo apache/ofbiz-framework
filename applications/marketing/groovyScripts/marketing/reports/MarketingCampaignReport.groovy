@@ -23,26 +23,26 @@ import org.apache.ofbiz.marketing.report.ReportHelper
 
 //query for both number of visits and number of orders
 
-marketingCampaignId = request.getParameter("marketingCampaignId");
-visitConditionList = [] as LinkedList;
-orderConditionList = [] as LinkedList;
+marketingCampaignId = request.getParameter("marketingCampaignId")
+visitConditionList = [] as LinkedList
+orderConditionList = [] as LinkedList
 
 if (fromDate) {
-    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
-    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
+    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
 }
 if (thruDate) {
-    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
-    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
+    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
 }
 if (marketingCampaignId) {
-    visitConditionList.add(EntityCondition.makeCondition("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId));
-    orderConditionList.add(EntityCondition.makeCondition("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId));
+    visitConditionList.add(EntityCondition.makeCondition("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId))
+    orderConditionList.add(EntityCondition.makeCondition("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId))
 }
 
-visits = select("marketingCampaignId", "visitId").from("MarketingCampaignAndVisit").where(visitConditionList).orderBy("marketingCampaignId").queryList();
-orders = select("marketingCampaignId", "orderId", "grandTotal").from("MarketingCampaignAndOrderHeader").where(orderConditionList).orderBy("marketingCampaignId").queryList();
+visits = select("marketingCampaignId", "visitId").from("MarketingCampaignAndVisit").where(visitConditionList).orderBy("marketingCampaignId").queryList()
+orders = select("marketingCampaignId", "orderId", "grandTotal").from("MarketingCampaignAndOrderHeader").where(orderConditionList).orderBy("marketingCampaignId").queryList()
 
 //use this helper to build a List of visits, orders, order totals, and conversion rates
-marketingCampaignVisitAndOrders = ReportHelper.calcConversionRates(visits, orders, "marketingCampaignId");
-context.marketingCampaignVisitAndOrders = marketingCampaignVisitAndOrders;
+marketingCampaignVisitAndOrders = ReportHelper.calcConversionRates(visits, orders, "marketingCampaignId")
+context.marketingCampaignVisitAndOrders = marketingCampaignVisitAndOrders

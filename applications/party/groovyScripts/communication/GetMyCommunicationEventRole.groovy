@@ -16,12 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.base.component.ComponentConfig
 
 if (parameters.communicationEventId) {
     context.communicationEventRole = from("CommunicationEventRole")
                                         .where("communicationEventId", parameters.communicationEventId, "partyId", parameters.partyId, "roleTypeId", parameters.roleTypeId)
-                                        .queryOne();
+                                        .queryOne()
 
-    context.projectMgrExists = ComponentConfig.componentExists("projectmgr");
+    context.projectMgrExists = ComponentConfig.componentExists("projectmgr")
 }

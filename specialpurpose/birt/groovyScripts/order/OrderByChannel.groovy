@@ -17,12 +17,12 @@
  * under the License.
  */
 
-birtParameters = [:];
+birtParameters = [:]
 if(request.getParameter("SalesChannel")){
-    birtParameters.saleChannel = request.getParameter("SalesChannel");
+    birtParameters.saleChannel = request.getParameter("SalesChannel")
 }else{
-    birtParameters.saleChannel = "null";
+    birtParameters.saleChannel = "null"
 }
-request.setAttribute("birtParameters", birtParameters);
+request.setAttribute("birtParameters", birtParameters)
 
-return "success";
+return "success"

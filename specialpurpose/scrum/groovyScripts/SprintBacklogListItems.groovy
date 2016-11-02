@@ -17,105 +17,105 @@
 * under the License.
 */
 
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.base.util.*
 
-taskStatusId = null;
-reopenedStatusId = null;
-backlogStatusId = parameters.backlogStatusId;
-paraBacklogStatusId = backlogStatusId;
-currentStatus = sprintStatus.currentStatusId;
-projectSprintList = [];
+taskStatusId = null
+reopenedStatusId = null
+backlogStatusId = parameters.backlogStatusId
+paraBacklogStatusId = backlogStatusId
+currentStatus = sprintStatus.currentStatusId
+projectSprintList = []
 
 if ("SPRINT_CLOSED".equals(currentStatus)) {
-    backlogStatusId = null;
+    backlogStatusId = null
 } else {
     if (backlogStatusId == "Any") {
-        backlogStatusId = null;
+        backlogStatusId = null
     } else {
-        backlogStatusId = "CRQ_REVIEWED";
-        reopenedStatusId = "CRQ_REOPENED";
-        taskStatusId = "STS_CREATED";
+        backlogStatusId = "CRQ_REVIEWED"
+        reopenedStatusId = "CRQ_REOPENED"
+        taskStatusId = "STS_CREATED"
     }
 }
-orCurentExprs = [];
+orCurentExprs = []
     if (taskStatusId) {
-        orCurentExprs.add(EntityCondition.makeCondition("taskCurrentStatusId", EntityOperator.EQUALS, taskStatusId));
-        orCurentExprs.add(EntityCondition.makeCondition("taskCurrentStatusId", EntityOperator.EQUALS, "SPRINT_ACTIVE"));
+        orCurentExprs.add(EntityCondition.makeCondition("taskCurrentStatusId", EntityOperator.EQUALS, taskStatusId))
+        orCurentExprs.add(EntityCondition.makeCondition("taskCurrentStatusId", EntityOperator.EQUALS, "SPRINT_ACTIVE"))
     }
-orBacklogExprs = [];
+orBacklogExprs = []
     if (backlogStatusId) {
-        orBacklogExprs.add(EntityCondition.makeCondition("backlogStatusId", EntityOperator.EQUALS, backlogStatusId));
+        orBacklogExprs.add(EntityCondition.makeCondition("backlogStatusId", EntityOperator.EQUALS, backlogStatusId))
     }
     if (reopenedStatusId) {
-        orBacklogExprs.add(EntityCondition.makeCondition("backlogStatusId", EntityOperator.EQUALS, reopenedStatusId));
+        orBacklogExprs.add(EntityCondition.makeCondition("backlogStatusId", EntityOperator.EQUALS, reopenedStatusId))
     }
-andExprs =  [];
+andExprs =  []
     if (parameters.projectId) {
-        andExprs.add(EntityCondition.makeCondition("projectId", EntityOperator.EQUALS, parameters.projectId));
+        andExprs.add(EntityCondition.makeCondition("projectId", EntityOperator.EQUALS, parameters.projectId))
     } else {
-        andExprs.add(EntityCondition.makeCondition("projectId", EntityOperator.EQUALS, sprintStatus.workEffortParentId));
+        andExprs.add(EntityCondition.makeCondition("projectId", EntityOperator.EQUALS, sprintStatus.workEffortParentId))
     }
     if (orBacklogExprs) {
-        andExprs.add(EntityCondition.makeCondition(orBacklogExprs, EntityOperator.OR));
+        andExprs.add(EntityCondition.makeCondition(orBacklogExprs, EntityOperator.OR))
     }
     if (orCurentExprs) {
-        andExprs.add(EntityCondition.makeCondition(orCurentExprs, EntityOperator.OR));
+        andExprs.add(EntityCondition.makeCondition(orCurentExprs, EntityOperator.OR))
     }
-    andExprs.add(EntityCondition.makeCondition("sprintId", EntityOperator.EQUALS, parameters.sprintId));
-    andExprs.add(EntityCondition.makeCondition("sprintTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"));
+    andExprs.add(EntityCondition.makeCondition("sprintId", EntityOperator.EQUALS, parameters.sprintId))
+    andExprs.add(EntityCondition.makeCondition("sprintTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"))
     
-projectSprintCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-projectSprintList = from("ProjectSprintBacklogAndTask").where(andExprs).orderBy("custSequenceNum","custRequestId","taskTypeId").queryList();
+projectSprintCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND)
+projectSprintList = from("ProjectSprintBacklogAndTask").where(andExprs).orderBy("custSequenceNum","custRequestId","taskTypeId").queryList()
 
-context.listIt = projectSprintList;
-context.paraBacklogStatusId = paraBacklogStatusId;
+context.listIt = projectSprintList
+context.paraBacklogStatusId = paraBacklogStatusId
 
 //get backlog and task information
 if (parameters.sprintId) {
     //get total backlog size
-    completedBacklog = 0;
-    reviewedBacklog = 0;
-    totalbacklog = 0;
-    allTask = [];
-    sprintList = from("CustRequestWorkEffort").where("workEffortId", parameters.sprintId).queryList();
+    completedBacklog = 0
+    reviewedBacklog = 0
+    totalbacklog = 0
+    allTask = []
+    sprintList = from("CustRequestWorkEffort").where("workEffortId", parameters.sprintId).queryList()
     sprintList.each { sprintMap ->
-        custMap = sprintMap.getRelatedOne("CustRequest", false);
+        custMap = sprintMap.getRelatedOne("CustRequest", false)
         //if ("RF_PROD_BACKLOG".equals(custMap.custRequestTypeId)) {
-            totalbacklog += 1;
+            totalbacklog += 1
             if ("CRQ_REVIEWED".equals(custMap.statusId)){
-                reviewedBacklog += 1;
+                reviewedBacklog += 1
             } else {
-                completedBacklog += 1;
+                completedBacklog += 1
             }
             //get task
-            workEffortList = custMap.getRelated("CustRequestWorkEffort", null, null, false);
+            workEffortList = custMap.getRelated("CustRequestWorkEffort", null, null, false)
             if (workEffortList) {
-                allTask.addAll(workEffortList);
+                allTask.addAll(workEffortList)
             }
         //}
     }
     //get total task size
-    completedTask = 0;
-    createdTask = 0;
-    totalTask = 0;
+    completedTask = 0
+    createdTask = 0
+    totalTask = 0
     if (allTask) {
         allTask.each { taskMap ->
-            workEffMap = taskMap.getRelatedOne("WorkEffort", false);
+            workEffMap = taskMap.getRelatedOne("WorkEffort", false)
             if (!"SCRUM_SPRINT".equals(workEffMap.workEffortTypeId)) {
-                totalTask += 1;
+                totalTask += 1
                 if ("STS_CREATED".equals(workEffMap.currentStatusId)){
-                    createdTask += 1;
+                    createdTask += 1
                 } else {
-                    completedTask += 1;
+                    completedTask += 1
                 }
             }
         }
     }
-    context.completedBacklog = completedBacklog;
-    context.reviewedBacklog = reviewedBacklog;
-    context.totalbacklog = totalbacklog;
-    context.completedTask = completedTask;
-    context.createdTask = createdTask;
-    context.totalTask = totalTask;
+    context.completedBacklog = completedBacklog
+    context.reviewedBacklog = reviewedBacklog
+    context.totalbacklog = totalbacklog
+    context.completedTask = completedTask
+    context.createdTask = createdTask
+    context.totalTask = totalTask
 }

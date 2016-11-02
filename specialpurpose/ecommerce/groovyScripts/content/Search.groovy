@@ -31,74 +31,74 @@ import org.apache.lucene.search.*
 import org.apache.lucene.index.DirectoryReader
 import org.apache.lucene.store.Directory
 
-paramMap = UtilHttp.getParameterMap(request);
-queryLine = paramMap.queryLine.toString();
-//Debug.logInfo("in search, queryLine:" + queryLine, "");
+paramMap = UtilHttp.getParameterMap(request)
+queryLine = paramMap.queryLine.toString()
+//Debug.logInfo("in search, queryLine:" + queryLine, "")
 
-siteId = paramMap.siteId ?: "WebStoreCONTENT";
-//Debug.logInfo("in search, siteId:" + siteId, "");
-featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(paramMap);
-//Debug.logInfo("in search, featureIdByType:" + featureIdByType, "");
+siteId = paramMap.siteId ?: "WebStoreCONTENT"
+//Debug.logInfo("in search, siteId:" + siteId, "")
+featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(paramMap)
+//Debug.logInfo("in search, featureIdByType:" + featureIdByType, "")
 
-combQuery = new BooleanQuery();
-Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath("content")).toPath());
-DirectoryReader reader = DirectoryReader.open(directory);
-IndexSearcher searcher = null;
-Analyzer analyzer = null;
+combQuery = new BooleanQuery()
+Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath("content")).toPath())
+DirectoryReader reader = DirectoryReader.open(directory)
+IndexSearcher searcher = null
+Analyzer analyzer = null
 
 try {
-    searcher = new IndexSearcher(reader);
-    analyzer = new StandardAnalyzer();
+    searcher = new IndexSearcher(reader)
+    analyzer = new StandardAnalyzer()
 } catch (java.io.FileNotFoundException e) {
-    Debug.logError(e, "Search.groovy");
-    request.setAttribute("errorMsgReq", "No index file exists.");
+    Debug.logError(e, "Search.groovy")
+    request.setAttribute("errorMsgReq", "No index file exists.")
 }
-termQuery = new TermQuery(new Term("site", siteId.toString()));
-combQuery.add(termQuery, BooleanClause.Occur.MUST);
-//Debug.logInfo("in search, termQuery:" + termQuery.toString(), "");
+termQuery = new TermQuery(new Term("site", siteId.toString()))
+combQuery.add(termQuery, BooleanClause.Occur.MUST)
+//Debug.logInfo("in search, termQuery:" + termQuery.toString(), "")
 
-//Debug.logInfo("in search, combQuery(1):" + combQuery, "");
+//Debug.logInfo("in search, combQuery(1):" + combQuery, "")
 if (queryLine && analyzer) {
-    Query query = null;
-    QueryParser parser = new QueryParser("content", analyzer);
-    query = parser.parse(queryLine);
-    combQuery.add(query, BooleanClause.Occur.MUST);
+    Query query = null
+    QueryParser parser = new QueryParser("content", analyzer)
+    query = parser.parse(queryLine)
+    combQuery.add(query, BooleanClause.Occur.MUST)
 }
 
 if (featureIdByType) {
-    featureQuery = new BooleanQuery();
-    featuresRequired = BooleanClause.Occur.MUST;
+    featureQuery = new BooleanQuery()
+    featuresRequired = BooleanClause.Occur.MUST
     if ("any".equals(paramMap.anyOrAll)) {
-        featuresRequired = BooleanClause.Occur.SHOULD;
+        featuresRequired = BooleanClause.Occur.SHOULD
     }
 
     if (featureIdByType) {
         featureIdByType.each { key, value ->
-            termQuery = new TermQuery(new Term("feature", value));
-            featureQuery.add(termQuery, featuresRequired);
-            //Debug.logInfo("in search searchFeature3, termQuery:" + termQuery.toString(), "");
+            termQuery = new TermQuery(new Term("feature", value))
+            featureQuery.add(termQuery, featuresRequired)
+            //Debug.logInfo("in search searchFeature3, termQuery:" + termQuery.toString(), "")
         }
     }
-    combQuery.add(featureQuery, featuresRequired);
+    combQuery.add(featureQuery, featuresRequired)
 }
 
 if (searcher) {
-    Debug.logInfo("in search searchFeature3, combQuery:" + combQuery.toString(), "");
-    TopScoreDocCollector collector = TopScoreDocCollector.create(100); //defaulting to 100 results
-    searcher.search(combQuery, collector);
-    ScoreDoc[] hits = collector.topDocs().scoreDocs;
-    Debug.logInfo("in search, hits:" + collector.getTotalHits(), "");
+    Debug.logInfo("in search searchFeature3, combQuery:" + combQuery.toString(), "")
+    TopScoreDocCollector collector = TopScoreDocCollector.create(100) //defaulting to 100 results
+    searcher.search(combQuery, collector)
+    ScoreDoc[] hits = collector.topDocs().scoreDocs
+    Debug.logInfo("in search, hits:" + collector.getTotalHits(), "")
 
-    contentList = [] as ArrayList;
-    hitSet = [:] as HashSet;
+    contentList = [] as ArrayList
+    hitSet = [:] as HashSet
     for (int start = 0; start < collector.getTotalHits(); start++) {
         Document doc = searcher.doc(hits[start].doc)
-        contentId = doc.get("contentId");
-        content = from("Content").where("contentId", contentId).cache(true).queryOne();
+        contentId = doc.get("contentId")
+        content = from("Content").where("contentId", contentId).cache(true).queryOne()
         if (!hitSet.contains(contentId)) {
-            contentList.add(content);
-            hitSet.add(contentId);
+            contentList.add(content)
+            hitSet.add(contentId)
         }
     }
-    context.queryResults = contentList;
+    context.queryResults = contentList
 }

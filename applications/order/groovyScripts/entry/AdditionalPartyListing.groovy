@@ -17,39 +17,39 @@
  * under the License.
  */
 
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
+import org.apache.ofbiz.order.shoppingcart.ShoppingCart
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
 
-cart = ShoppingCartEvents.getCartObject(request);
-additionalPartyRole = cart.getAdditionalPartyRoleMap();
+cart = ShoppingCartEvents.getCartObject(request)
+additionalPartyRole = cart.getAdditionalPartyRoleMap()
 
-roleData = [:];
-partyData = [:];
+roleData = [:]
+partyData = [:]
 
 additionalPartyRole.each { roleTypeId, partyList ->
-    roleData[roleTypeId] = from("RoleType").where("roleTypeId", roleTypeId).queryOne();
+    roleData[roleTypeId] = from("RoleType").where("roleTypeId", roleTypeId).queryOne()
 
     partyList.each { partyId ->
-        partyMap = [:];
-        partyMap.partyId = partyId;
-        party = from("Party").where("partyId", partyId).cache(true).queryOne();
+        partyMap = [:]
+        partyMap.partyId = partyId
+        party = from("Party").where("partyId", partyId).cache(true).queryOne()
         if (party.partyTypeId.equals("PERSON")) {
-            party = party.getRelatedOne("Person", true);
-            partyMap.type = "person";
-            partyMap.firstName = party.firstName;
-            partyMap.lastName = party.lastName;
+            party = party.getRelatedOne("Person", true)
+            partyMap.type = "person"
+            partyMap.firstName = party.firstName
+            partyMap.lastName = party.lastName
         } else {
-            party = party.getRelatedOne("PartyGroup", true);
-            partyMap.type = "group";
-            partyMap.groupName = party.groupName;
+            party = party.getRelatedOne("PartyGroup", true)
+            partyMap.type = "group"
+            partyMap.groupName = party.groupName
         }
-        partyData[partyId] = partyMap;
+        partyData[partyId] = partyMap
     }
 }
 
-context.additionalPartyRoleMap = additionalPartyRole;
-context.roleList = additionalPartyRole.keySet();
-context.roleData = roleData;
-context.partyData = partyData;
+context.additionalPartyRoleMap = additionalPartyRole
+context.roleList = additionalPartyRole.keySet()
+context.roleData = roleData
+context.partyData = partyData

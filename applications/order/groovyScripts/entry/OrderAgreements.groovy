@@ -17,79 +17,79 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.order.shoppingcart.*;
-import org.apache.ofbiz.product.catalog.CatalogWorker;
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.order.shoppingcart.*
+import org.apache.ofbiz.product.catalog.CatalogWorker
 
 
-shoppingCart = ShoppingCartEvents.getCartObject(request);
-context.cart = shoppingCart;
+shoppingCart = ShoppingCartEvents.getCartObject(request)
+context.cart = shoppingCart
 
 // get applicable agreements for order entry
 if ('PURCHASE_ORDER'.equals(shoppingCart.getOrderType())) {
 
     // for a purchase order, orderPartyId = billFromVendor (the supplier)
-    supplierPartyId = shoppingCart.getOrderPartyId();
-    customerPartyId = shoppingCart.getBillToCustomerPartyId();
+    supplierPartyId = shoppingCart.getOrderPartyId()
+    customerPartyId = shoppingCart.getBillToCustomerPartyId()
 
     // the agreement for a purchse order is from us to the supplier
     agreementCondition = EntityCondition.makeCondition([
             EntityCondition.makeCondition('partyIdTo', EntityOperator.EQUALS, supplierPartyId),
             EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, customerPartyId)
-    ], EntityOperator.AND);
+    ], EntityOperator.AND)
 
     agreementRoleCondition = EntityCondition.makeCondition([
             EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, supplierPartyId),
             EntityCondition.makeCondition('roleTypeId', EntityOperator.EQUALS, 'SUPPLIER')
-    ], EntityOperator.AND);
+    ], EntityOperator.AND)
 
 } else {
 
     // for a sales order, orderPartyId = billToCustomer (the customer)
-    customerPartyId = shoppingCart.getOrderPartyId();
-    companyPartyId = shoppingCart.getBillFromVendorPartyId();
+    customerPartyId = shoppingCart.getOrderPartyId()
+    companyPartyId = shoppingCart.getBillFromVendorPartyId()
 
     // the agreement for a sales order is from the customer to us
     agreementCondition = EntityCondition.makeCondition([
             EntityCondition.makeCondition('partyIdTo', EntityOperator.EQUALS, companyPartyId),
             EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, customerPartyId)
-    ], EntityOperator.AND);
+    ], EntityOperator.AND)
 
     agreementRoleCondition = EntityCondition.makeCondition([
             EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, customerPartyId),
             EntityCondition.makeCondition('roleTypeId', EntityOperator.EQUALS, 'CUSTOMER')
-    ], EntityOperator.AND);
+    ], EntityOperator.AND)
 
 }
 
-agreements = from("Agreement").where(agreementCondition).filterByDate().cache(true).queryList();
+agreements = from("Agreement").where(agreementCondition).filterByDate().cache(true).queryList()
 if (agreements) {
-    context.agreements = agreements;
+    context.agreements = agreements
 }
 
-agreementRoles = from("AgreementRole").where(agreementRoleCondition).cache(true).queryList();
+agreementRoles = from("AgreementRole").where(agreementRoleCondition).cache(true).queryList()
 if (agreementRoles) {
-    context.agreementRoles = agreementRoles;
+    context.agreementRoles = agreementRoles
 }
 
 // catalog id collection, current catalog id and name
-productStoreId = shoppingCart.getProductStoreId();
+productStoreId = shoppingCart.getProductStoreId()
 if ('SALES_ORDER' == shoppingCart.getOrderType() && productStoreId) {
-    catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, shoppingCart.getOrderPartyId());
+    catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, shoppingCart.getOrderPartyId())
 } else {
-    catalogCol = CatalogWorker.getAllCatalogIds(request);
+    catalogCol = CatalogWorker.getAllCatalogIds(request)
 }
 
 if (catalogCol) {
-    context.catalogCol = catalogCol;
+    context.catalogCol = catalogCol
 
-    currentCatalogId = catalogCol.get(0);
-    context.currentCatalogId = currentCatalogId;
-    context.currentCatalogName = CatalogWorker.getCatalogName(request, currentCatalogId);
+    currentCatalogId = catalogCol.get(0)
+    context.currentCatalogId = currentCatalogId
+    context.currentCatalogName = CatalogWorker.getCatalogName(request, currentCatalogId)
 }
 
 // currencies and shopping cart currency
-context.currencies = from("Uom").where("uomTypeId", "CURRENCY_MEASURE").cache(true).queryList();
-context.currencyUomId = shoppingCart.getCurrency();
+context.currencies = from("Uom").where("uomTypeId", "CURRENCY_MEASURE").cache(true).queryList()
+context.currencyUomId = shoppingCart.getCurrency()

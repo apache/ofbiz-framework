@@ -17,18 +17,18 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*
 
-contentId = null;
-contentRoles = from("ContentRole").where("partyId", partyId, "roleTypeId", "OWNER").queryList();
+contentId = null
+contentRoles = from("ContentRole").where("partyId", partyId, "roleTypeId", "OWNER").queryList()
 if (contentRoles.size() != 0) {
     contentRoles.each { contentRole->
-        contents = from("Content").where("contentId", contentRole.getString("contentId"), "ownerContentId", emailType).queryList();
+        contents = from("Content").where("contentId", contentRole.getString("contentId"), "ownerContentId", emailType).queryList()
         if (contents.size() != 0) {
             if (emailType.equals(contents.get(0).getString("ownerContentId"))) {
-                contentId = contents.get(0).getString("contentId");
+                contentId = contents.get(0).getString("contentId")
             }
         }
     }
 }
-context.contentId =  contentId;
+context.contentId =  contentId

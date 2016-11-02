@@ -17,11 +17,11 @@
  * under the License.
  */
 
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 
 // Get the Cart and put it in the context.
 
-shoppingCart = ShoppingCartEvents.getCartObject(request);
-context.shoppingCart = shoppingCart;
-context.currencyUomId = shoppingCart.getCurrency();
-context.partyId = shoppingCart.getPartyId();
+shoppingCart = ShoppingCartEvents.getCartObject(request)
+context.shoppingCart = shoppingCart
+context.currencyUomId = shoppingCart.getCurrency()
+context.partyId = shoppingCart.getPartyId()

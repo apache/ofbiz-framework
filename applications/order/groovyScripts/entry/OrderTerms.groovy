@@ -17,37 +17,37 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.order.shoppingcart.*
 
 
-cart = ShoppingCartEvents.getCartObject(request);
-context.cart = cart;
+cart = ShoppingCartEvents.getCartObject(request)
+context.cart = cart
 
-orderTerms = cart.getOrderTerms();
-context.orderTerms = orderTerms;
+orderTerms = cart.getOrderTerms()
+context.orderTerms = orderTerms
 
 if (request.getParameter('createNew') == 'Y') {
 
-    termIndexStr = request.getParameter('termIndex');
+    termIndexStr = request.getParameter('termIndex')
     if (termIndexStr) {
         try {
-            termIndex = Integer.parseInt(termIndexStr);
+            termIndex = Integer.parseInt(termIndexStr)
 
-            orderTerm = orderTerms[termIndex];
+            orderTerm = orderTerms[termIndex]
             if (orderTerm) {
-               context.termTypeId = orderTerm.termTypeId;
-               context.termValue = orderTerm.termValue;
-               context.termDays = orderTerm.termDays;
-               context.textValue = orderTerm.textValue;
-               context.description = orderTerm.description;
+               context.termTypeId = orderTerm.termTypeId
+               context.termValue = orderTerm.termValue
+               context.termDays = orderTerm.termDays
+               context.textValue = orderTerm.textValue
+               context.description = orderTerm.description
 
-               context.termIndex = termIndexStr;
+               context.termIndex = termIndexStr
             }
 
         } catch (NumberFormatException nfe) {
-            Debug.log("Error parsing termIndex: ${termIndexStr}");
+            Debug.log("Error parsing termIndex: ${termIndexStr}")
         }
     }
 

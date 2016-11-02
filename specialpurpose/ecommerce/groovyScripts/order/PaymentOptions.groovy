@@ -17,16 +17,16 @@
  * under the License.
  */
 
-import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.order.shoppingcart.*
 
 //Get the Cart
-cart = ShoppingCartEvents.getCartObject(request);
-paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
+cart = ShoppingCartEvents.getCartObject(request)
+paymentMethodTypeIds = cart.getPaymentMethodTypeIds()
 paymentMethodTypeIds.each { paymentMethodTypeId ->
-    context.callSubmitForm = true;
+    context.callSubmitForm = true
     if ("GIFT_CARD".equals(paymentMethodTypeId)) {
-        context.addGiftCard = "Y";
+        context.addGiftCard = "Y"
     } else {
-        context.paymentMethodTypeId = paymentMethodTypeId;
+        context.paymentMethodTypeId = paymentMethodTypeId
     }
 }

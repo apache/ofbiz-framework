@@ -17,17 +17,17 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.entity.GenericValue
 
-long nextSequenceNum = 10;
+long nextSequenceNum = 10
 if (!custRequestItem && custRequest) {
-    items = custRequest.getRelated("CustRequestItem", null, ["-sequenceNum"], false);
-    lastItem = EntityUtil.getFirst(items);
+    items = custRequest.getRelated("CustRequestItem", null, ["-sequenceNum"], false)
+    lastItem = EntityUtil.getFirst(items)
     if (lastItem?.sequenceNum) {
-        lastSequenceNum = lastItem.sequenceNum;
-        nextSequenceNum = lastSequenceNum + 10;
+        lastSequenceNum = lastItem.sequenceNum
+        nextSequenceNum = lastSequenceNum + 10
     }
 }
-context.nextSequenceNum = nextSequenceNum;
+context.nextSequenceNum = nextSequenceNum

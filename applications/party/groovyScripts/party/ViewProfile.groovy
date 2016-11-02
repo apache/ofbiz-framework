@@ -17,20 +17,20 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilDateTime
 
-partyId = parameters.partyId ?: parameters.party_id;
-userLoginId = parameters.userlogin_id ?: parameters.userLoginId;
+partyId = parameters.partyId ?: parameters.party_id
+userLoginId = parameters.userlogin_id ?: parameters.userLoginId
 
 if (!partyId && userLoginId) {
-    thisUserLogin = from("UserLogin").where("userLoginId", userLoginId).queryOne();
+    thisUserLogin = from("UserLogin").where("userLoginId", userLoginId).queryOne()
     if (thisUserLogin) {
-        partyId = thisUserLogin.partyId;
-        parameters.partyId = partyId;
+        partyId = thisUserLogin.partyId
+        parameters.partyId = partyId
     }
 }
 
-context.showOld = "true".equals(parameters.SHOW_OLD);
-context.partyId = partyId;
-context.party = from("Party").where("partyId", partyId).queryOne();
-context.nowStr = UtilDateTime.nowTimestamp().toString();
+context.showOld = "true".equals(parameters.SHOW_OLD)
+context.partyId = partyId
+context.party = from("Party").where("partyId", partyId).queryOne()
+context.nowStr = UtilDateTime.nowTimestamp().toString()

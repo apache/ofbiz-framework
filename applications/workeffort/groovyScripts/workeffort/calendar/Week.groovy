@@ -17,35 +17,35 @@
  * under the License.
  */
 
-import java.sql.Timestamp;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
+import java.sql.Timestamp
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.base.util.UtilValidate
 
-String startParam = parameters.startTime;
-Timestamp start = null;
+String startParam = parameters.startTime
+Timestamp start = null
 if (UtilValidate.isNotEmpty(startParam)) {
-    start = new Timestamp(Long.parseLong(startParam));
+    start = new Timestamp(Long.parseLong(startParam))
 }
 if (start == null) {
-    start = UtilDateTime.getWeekStart(nowTimestamp, timeZone, locale);
+    start = UtilDateTime.getWeekStart(nowTimestamp, timeZone, locale)
 } else {
-    start = UtilDateTime.getWeekStart(start, timeZone, locale);
+    start = UtilDateTime.getWeekStart(start, timeZone, locale)
 }
-Timestamp prev = UtilDateTime.getDayStart(start, -7, timeZone, locale);
-context.prevMillis = new Long(prev.getTime()).toString();
-Timestamp next = UtilDateTime.getDayStart(start, 7, timeZone, locale);
-context.nextMillis = new Long(next.getTime()).toString();
-Timestamp end = UtilDateTime.getDayStart(start, 6, timeZone, locale);
-Map serviceCtx = dispatcher.getDispatchContext().makeValidContext("getWorkEffortEventsByPeriod", "IN", parameters); 
-serviceCtx.putAll(UtilMisc.toMap("userLogin", userLogin, "start", start, "numPeriods", 7, "periodType", Calendar.DATE, "locale", locale, "timeZone", timeZone));
+Timestamp prev = UtilDateTime.getDayStart(start, -7, timeZone, locale)
+context.prevMillis = new Long(prev.getTime()).toString()
+Timestamp next = UtilDateTime.getDayStart(start, 7, timeZone, locale)
+context.nextMillis = new Long(next.getTime()).toString()
+Timestamp end = UtilDateTime.getDayStart(start, 6, timeZone, locale)
+Map serviceCtx = dispatcher.getDispatchContext().makeValidContext("getWorkEffortEventsByPeriod", "IN", parameters)
+serviceCtx.putAll(UtilMisc.toMap("userLogin", userLogin, "start", start, "numPeriods", 7, "periodType", Calendar.DATE, "locale", locale, "timeZone", timeZone))
 if (context.entityExprList) {
-    serviceCtx.entityExprList = entityExprList;
+    serviceCtx.entityExprList = entityExprList
 }
-Map result = runService('getWorkEffortEventsByPeriod',serviceCtx);
-context.put("periods",result.get("periods"));
-context.put("maxConcurrentEntries",result.get("maxConcurrentEntries"));
-context.put("start",start);
-context.put("end",end);
-context.put("prev",prev);
-context.put("next",next);
+Map result = runService('getWorkEffortEventsByPeriod',serviceCtx)
+context.put("periods",result.get("periods"))
+context.put("maxConcurrentEntries",result.get("maxConcurrentEntries"))
+context.put("start",start)
+context.put("end",end)
+context.put("prev",prev)
+context.put("next",next)

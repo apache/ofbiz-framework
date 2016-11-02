@@ -17,36 +17,36 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.condition.EntityCondition
 
-partyId = parameters.partyId;
-context.partyId = partyId;
+partyId = parameters.partyId
+context.partyId = partyId
 
-party = from("Party").where("partyId", partyId).queryOne();
-context.party = party;
+party = from("Party").where("partyId", partyId).queryOne()
+context.party = party
 
 // get the sort field
-sortField = parameters.sort ?: "entryDate";
-context.previousSort = sortField;
+sortField = parameters.sort ?: "entryDate"
+context.previousSort = sortField
 
 // previous sort field
-previousSort = parameters.previousSort;
+previousSort = parameters.previousSort
 if (previousSort?.equals(sortField)) {
-    sortField = "-" + sortField;
+    sortField = "-" + sortField
 }
 
-List eventExprs = [];
-expr = EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyId);
-eventExprs.add(expr);
-expr = EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId);
-eventExprs.add(expr);
-ecl = EntityCondition.makeCondition(eventExprs, EntityOperator.OR);
-events = from("CommunicationEvent").where(ecl).orderBy(sortField).queryList();
+List eventExprs = []
+expr = EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyId)
+eventExprs.add(expr)
+expr = EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId)
+eventExprs.add(expr)
+ecl = EntityCondition.makeCondition(eventExprs, EntityOperator.OR)
+events = from("CommunicationEvent").where(ecl).orderBy(sortField).queryList()
 
-context.eventList = events;
-context.eventListSize = events.size();
-context.highIndex = events.size();
-context.viewSize = events.size();
-context.lowIndex = 1;
-context.viewIndex = 1;
+context.eventList = events
+context.eventListSize = events.size()
+context.highIndex = events.size()
+context.viewSize = events.size()
+context.lowIndex = 1
+context.viewIndex = 1

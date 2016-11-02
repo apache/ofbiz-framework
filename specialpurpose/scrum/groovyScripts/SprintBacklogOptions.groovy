@@ -17,21 +17,21 @@
 * under the License.
 */
 
-import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.Debug
 
-custRequestWorkEffortList = [];
-sprintStatusId = "SPRINT_CLOSED";
-sprintId = null;
-custRequestWorkEffortList = custRequestMap.getRelated("CustRequestWorkEffort", null, null, false);
+custRequestWorkEffortList = []
+sprintStatusId = "SPRINT_CLOSED"
+sprintId = null
+custRequestWorkEffortList = custRequestMap.getRelated("CustRequestWorkEffort", null, null, false)
 if (custRequestWorkEffortList) {
     custRequestWorkEffortList.each { custWorkEffortMap ->
-        workEffortMap = custWorkEffortMap.getRelatedOne("WorkEffort", false);
+        workEffortMap = custWorkEffortMap.getRelatedOne("WorkEffort", false)
         if ("SCRUM_SPRINT".equals(workEffortMap.workEffortTypeId) && "SPRINT_ACTIVE".equals(workEffortMap.currentStatusId)) {
-            sprintId = workEffortMap.workEffortId;
-            sprintStatusId = "SPRINT_ACTIVE";
+            sprintId = workEffortMap.workEffortId
+            sprintStatusId = "SPRINT_ACTIVE"
         } 
     }
     
 }
-context.sprintId = sprintId;
-context.sprintStatusId = sprintStatusId;
+context.sprintId = sprintId
+context.sprintStatusId = sprintStatusId

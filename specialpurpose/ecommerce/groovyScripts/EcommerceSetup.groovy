@@ -17,25 +17,25 @@
  * under the License.
  */
 
-import java.util.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.product.catalog.CatalogWorker;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.common.CommonWorkers;
-import org.apache.ofbiz.order.shoppingcart.*;
-import org.apache.ofbiz.webapp.control.*;
+import java.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.product.catalog.CatalogWorker
+import org.apache.ofbiz.product.store.ProductStoreWorker
+import org.apache.ofbiz.common.CommonWorkers
+import org.apache.ofbiz.order.shoppingcart.*
+import org.apache.ofbiz.webapp.control.*
 
-productStore = ProductStoreWorker.getProductStore(request);
+productStore = ProductStoreWorker.getProductStore(request)
 
-prodCatalog = CatalogWorker.getProdCatalog(request);
+prodCatalog = CatalogWorker.getProdCatalog(request)
 if (prodCatalog) {
-    catalogStyleSheet = prodCatalog.styleSheet;
-    if (catalogStyleSheet) globalContext.catalogStyleSheet = catalogStyleSheet;
-    catalogHeaderLogo = prodCatalog.headerLogo;
-    if (catalogHeaderLogo) globalContext.catalogHeaderLogo = catalogHeaderLogo;
+    catalogStyleSheet = prodCatalog.styleSheet
+    if (catalogStyleSheet) globalContext.catalogStyleSheet = catalogStyleSheet
+    catalogHeaderLogo = prodCatalog.headerLogo
+    if (catalogHeaderLogo) globalContext.catalogHeaderLogo = catalogHeaderLogo
 }
 
-globalContext.productStore = productStore;
-globalContext.checkLoginUrl = LoginWorker.makeLoginUrl(request, "checkLogin");
-globalContext.catalogQuickaddUse = CatalogWorker.getCatalogQuickaddUse(request);
+globalContext.productStore = productStore
+globalContext.checkLoginUrl = LoginWorker.makeLoginUrl(request, "checkLogin")
+globalContext.catalogQuickaddUse = CatalogWorker.getCatalogQuickaddUse(request)

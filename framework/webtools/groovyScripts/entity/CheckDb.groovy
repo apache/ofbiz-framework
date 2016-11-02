@@ -16,105 +16,105 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.entity.jdbc.DatabaseUtil;
-import org.apache.ofbiz.entity.model.ModelEntity;
+import org.apache.ofbiz.entity.Delegator
+import org.apache.ofbiz.security.Security
+import org.apache.ofbiz.entity.jdbc.DatabaseUtil
+import org.apache.ofbiz.entity.model.ModelEntity
 
-controlPath = parameters._CONTROL_PATH_;
+controlPath = parameters._CONTROL_PATH_
 
 if (security.hasPermission("ENTITY_MAINT", session)) {
-    addMissing = "true".equals(parameters.addMissing);
-    checkFkIdx = "true".equals(parameters.checkFkIdx);
-    checkFks = "true".equals(parameters.checkFks);
-    checkPks = "true".equals(parameters.checkPks);
-    repair = "true".equals(parameters.repair);
-    option = parameters.option;
-    groupName = parameters.groupName;
-    entityName = parameters.entityName;
+    addMissing = "true".equals(parameters.addMissing)
+    checkFkIdx = "true".equals(parameters.checkFkIdx)
+    checkFks = "true".equals(parameters.checkFks)
+    checkPks = "true".equals(parameters.checkPks)
+    repair = "true".equals(parameters.repair)
+    option = parameters.option
+    groupName = parameters.groupName
+    entityName = parameters.entityName
 
     if (groupName) {
-        helperInfo = delegator.getGroupHelperInfo(groupName);
+        helperInfo = delegator.getGroupHelperInfo(groupName)
 
-        messages = [];
-        //helper = GenericHelperFactory.getHelper(helperName);
-        dbUtil = new DatabaseUtil(helperInfo);
-        modelEntities = delegator.getModelEntityMapByGroup(groupName);
-        modelEntityNames = new TreeSet(modelEntities.keySet());
+        messages = []
+        //helper = GenericHelperFactory.getHelper(helperName)
+        dbUtil = new DatabaseUtil(helperInfo)
+        modelEntities = delegator.getModelEntityMapByGroup(groupName)
+        modelEntityNames = new TreeSet(modelEntities.keySet())
 
         if ("checkupdatetables".equals(option)) {
-            fieldsToRepair = null;
+            fieldsToRepair = null
             if (repair) {
-                fieldsToRepair = [];
+                fieldsToRepair = []
             }
-            dbUtil.checkDb(modelEntities, fieldsToRepair, messages, checkPks, checkFks, checkFkIdx, addMissing);
+            dbUtil.checkDb(modelEntities, fieldsToRepair, messages, checkPks, checkFks, checkFkIdx, addMissing)
             if (fieldsToRepair) {
-                dbUtil.repairColumnSizeChanges(modelEntities, fieldsToRepair, messages);
+                dbUtil.repairColumnSizeChanges(modelEntities, fieldsToRepair, messages)
             }
         } else if ("removetables".equals(option)) {
             modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName];
-                dbUtil.deleteTable(modelEntity, messages);
+                modelEntity = modelEntities[modelEntityName]
+                dbUtil.deleteTable(modelEntity, messages)
             }
         } else if ("removetable".equals(option)) {
-            modelEntity = modelEntities[entityName];
-            dbUtil.deleteTable(modelEntity, messages);
+            modelEntity = modelEntities[entityName]
+            dbUtil.deleteTable(modelEntity, messages)
         } else if ("removepks".equals(option)) {
             modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName];
-                dbUtil.deletePrimaryKey(modelEntity, messages);
+                modelEntity = modelEntities[modelEntityName]
+                dbUtil.deletePrimaryKey(modelEntity, messages)
             }
         } else if ("removepk".equals(option)) {
-            modelEntity = modelEntities[entityName];
-            dbUtil.deletePrimaryKey(modelEntity, messages);
+            modelEntity = modelEntities[entityName]
+            dbUtil.deletePrimaryKey(modelEntity, messages)
         } else if ("createpks".equals(option)) {
             modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName];
-                dbUtil.createPrimaryKey(modelEntity, messages);
+                modelEntity = modelEntities[modelEntityName]
+                dbUtil.createPrimaryKey(modelEntity, messages)
             }
         } else if ("createpk".equals(option)) {
-            modelEntity = modelEntities[entityName];
-            dbUtil.createPrimaryKey(modelEntity, messages);
+            modelEntity = modelEntities[entityName]
+            dbUtil.createPrimaryKey(modelEntity, messages)
         } else if ("createfkidxs".equals(option)) {
             modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName];
-                dbUtil.createForeignKeyIndices(modelEntity, messages);
+                modelEntity = modelEntities[modelEntityName]
+                dbUtil.createForeignKeyIndices(modelEntity, messages)
             }
         } else if ("removefkidxs".equals(option)) {
             modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName];
-                dbUtil.deleteForeignKeyIndices(modelEntity, messages);
+                modelEntity = modelEntities[modelEntityName]
+                dbUtil.deleteForeignKeyIndices(modelEntity, messages)
             }
         } else if ("createfks".equals(option)) {
             modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName];
-                dbUtil.createForeignKeys(modelEntity, modelEntities, messages);
+                modelEntity = modelEntities[modelEntityName]
+                dbUtil.createForeignKeys(modelEntity, modelEntities, messages)
             }
         } else if ("removefks".equals(option)) {
             modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName];
-                dbUtil.deleteForeignKeys(modelEntity, modelEntities, messages);
+                modelEntity = modelEntities[modelEntityName]
+                dbUtil.deleteForeignKeys(modelEntity, modelEntities, messages)
             }
         } else if ("createidx".equals(option)) {
             modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName];
-                dbUtil.createDeclaredIndices(modelEntity, messages);
+                modelEntity = modelEntities[modelEntityName]
+                dbUtil.createDeclaredIndices(modelEntity, messages)
             }
         } else if ("removeidx".equals(option)) {
             modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName];
-                dbUtil.deleteDeclaredIndices(modelEntity, messages);
+                modelEntity = modelEntities[modelEntityName]
+                dbUtil.deleteDeclaredIndices(modelEntity, messages)
             }
         } else if ("updateCharsetCollate".equals(option)) {
             modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName];
-                dbUtil.updateCharacterSetAndCollation(modelEntity, messages);
+                modelEntity = modelEntities[modelEntityName]
+                dbUtil.updateCharacterSetAndCollation(modelEntity, messages)
             }
         }
-        miter = messages.iterator();
-        context.miters = miter;
+        miter = messages.iterator()
+        context.miters = miter
     }
-    context.encodeURLCheckDb = response.encodeURL(controlPath + "/view/checkdb");
-    context.groupName = groupName ?: "org.apache.ofbiz";
-    context.entityName = entityName ?: "";
+    context.encodeURLCheckDb = response.encodeURL(controlPath + "/view/checkdb")
+    context.groupName = groupName ?: "org.apache.ofbiz"
+    context.entityName = entityName ?: ""
 }

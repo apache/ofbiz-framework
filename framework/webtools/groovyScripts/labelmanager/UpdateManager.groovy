@@ -17,17 +17,17 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.webtools.labelmanager.*;
+import org.apache.ofbiz.entity.Delegator
+import org.apache.ofbiz.webtools.labelmanager.*
 
-LabelManagerFactory factory = LabelManagerFactory.getInstance();
+LabelManagerFactory factory = LabelManagerFactory.getInstance()
 factory.findMatchingLabels(null, parameters.sourceFileName, parameters.sourceKey, null, false)
-context.labels = factory.getLabels();
-context.localesFound = factory.getLocalesFound();
-context.filesFound = factory.getFilesFound();
-context.componentNamesFound = factory.getComponentNamesFound();
+context.labels = factory.getLabels()
+context.localesFound = factory.getLocalesFound()
+context.filesFound = factory.getFilesFound()
+context.componentNamesFound = factory.getComponentNamesFound()
 
 if (parameters.sourceKey && parameters.sourceFileName) {
-    context.label = context.labels.get(parameters.sourceKey + LabelManagerFactory.keySeparator + parameters.sourceFileName);
-    context.titleProperty = "WebtoolsLabelManagerUpdate";
+    context.label = context.labels.get(parameters.sourceKey + LabelManagerFactory.keySeparator + parameters.sourceFileName)
+    context.titleProperty = "WebtoolsLabelManagerUpdate"
 }

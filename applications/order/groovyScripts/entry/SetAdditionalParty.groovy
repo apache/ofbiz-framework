@@ -17,25 +17,25 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.order.shoppingcart.*;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.order.shoppingcart.*
 
-shoppingCart = ShoppingCartEvents.getCartObject(request);
-orderType = shoppingCart.getOrderType();
-context.orderType = orderType;
+shoppingCart = ShoppingCartEvents.getCartObject(request)
+orderType = shoppingCart.getOrderType()
+context.orderType = orderType
 
 if (!request.getParameterValues("additionalRoleTypeId")) {
-    partyType = request.getParameter("additionalPartyType");
-    context.additionalPartyType = partyType;
+    partyType = request.getParameter("additionalPartyType")
+    context.additionalPartyType = partyType
 
-    additionalPartyId = request.getParameter("additionalPartyId");
-    context.additionalPartyId = additionalPartyId;
+    additionalPartyId = request.getParameter("additionalPartyId")
+    context.additionalPartyId = additionalPartyId
 
-    roles = from("PartyRole").where("partyId", additionalPartyId).queryList();
-    roleData = [];
+    roles = from("PartyRole").where("partyId", additionalPartyId).queryList()
+    roleData = []
     roles.each { role ->
-        roleData.add(role.getRelatedOne("RoleType", false));
+        roleData.add(role.getRelatedOne("RoleType", false))
     }
-    context.roles = roleData;
+    context.roles = roleData
 }

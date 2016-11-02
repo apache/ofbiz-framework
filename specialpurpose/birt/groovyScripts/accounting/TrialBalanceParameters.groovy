@@ -17,15 +17,15 @@
  * under the License.
  */
 
-def module = "TrialBalanceParameters.groovy";
+def module = "TrialBalanceParameters.groovy"
 
 try {
-    def birtParameters = [:];
-    birtParameters.organizationPartyId = parameters.organizationPartyId;
-    birtParameters.customTimePeriodId = parameters.customTimePeriodId;
-    birtParameters.userLoginId = userLogin.userLoginId;
-    request.setAttribute("birtParameters", birtParameters);
+    def birtParameters = [:]
+    birtParameters.organizationPartyId = parameters.organizationPartyId
+    birtParameters.customTimePeriodId = parameters.customTimePeriodId
+    birtParameters.userLoginId = userLogin.userLoginId
+    request.setAttribute("birtParameters", birtParameters)
 } catch (e) {
-    Debug.logError(e, module);
+    Debug.logError(e, module)
 }
 return "success";

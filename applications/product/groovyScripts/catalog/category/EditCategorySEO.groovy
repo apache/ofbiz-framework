@@ -17,24 +17,24 @@
  * under the License.
  */
 
-productCategoryId = parameters.productCategoryId;
+productCategoryId = parameters.productCategoryId
 if (productCategoryId) {
-    productCategoryContents  = from("ProductCategoryContent").where("productCategoryId", productCategoryId).queryList();
+    productCategoryContents  = from("ProductCategoryContent").where("productCategoryId", productCategoryId).queryList()
     productCategoryContents.each{ productCategoryContent->
         if (productCategoryContent.prodCatContentTypeId == "PAGE_TITLE") {
-            contentTitle  = from("Content").where("contentId", productCategoryContent.contentId).queryOne();
-            dataTextTitle  = from("ElectronicText").where("dataResourceId", contentTitle.dataResourceId).queryOne();
-            context.title = dataTextTitle.textData;
+            contentTitle  = from("Content").where("contentId", productCategoryContent.contentId).queryOne()
+            dataTextTitle  = from("ElectronicText").where("dataResourceId", contentTitle.dataResourceId).queryOne()
+            context.title = dataTextTitle.textData
         }
         if (productCategoryContent.prodCatContentTypeId == "META_KEYWORD") {
-            contentMetaKeyword  = from("Content").where("contentId", productCategoryContent.contentId).queryOne();
-            dataTextMetaKeyword  = from("ElectronicText").where("dataResourceId", contentMetaKeyword.dataResourceId).queryOne();
-            context.metaKeyword = dataTextMetaKeyword.textData;
+            contentMetaKeyword  = from("Content").where("contentId", productCategoryContent.contentId).queryOne()
+            dataTextMetaKeyword  = from("ElectronicText").where("dataResourceId", contentMetaKeyword.dataResourceId).queryOne()
+            context.metaKeyword = dataTextMetaKeyword.textData
         }
         if (productCategoryContent.prodCatContentTypeId == "META_DESCRIPTION") {
-            contentMetaDescription  = from("Content").where("contentId", productCategoryContent.contentId).queryOne();
-            dataTextMetaDescription  = from("ElectronicText").where("dataResourceId", contentMetaDescription.dataResourceId).queryOne();
-            context.metaDescription = dataTextMetaDescription.textData;
+            contentMetaDescription  = from("Content").where("contentId", productCategoryContent.contentId).queryOne()
+            dataTextMetaDescription  = from("ElectronicText").where("dataResourceId", contentMetaDescription.dataResourceId).queryOne()
+            context.metaDescription = dataTextMetaDescription.textData
         }
     }
 }

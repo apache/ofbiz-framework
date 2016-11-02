@@ -19,40 +19,40 @@
 
 // The only required parameter is "productionRunId".
 
-import java.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun;
+import java.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun
 
-delegator = request.getAttribute("delegator");
+delegator = request.getAttribute("delegator")
 
-productionRunId = request.getParameter("productionRunId");
+productionRunId = request.getParameter("productionRunId")
 if (UtilValidate.isEmpty(productionRunId)) {
-    productionRunId = request.getParameter("workEffortId");
+    productionRunId = request.getParameter("workEffortId")
 }
 if (UtilValidate.isNotEmpty(productionRunId)) {
 
-    GenericValue productionRun = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", productionRunId), false);
+    GenericValue productionRun = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", productionRunId), false)
     if (UtilValidate.isNotEmpty(productionRun)) {
         // If this is a task, get the parent production run
         if (productionRun.getString("workEffortTypeId") != null && "PROD_ORDER_TASK".equals(productionRun.getString("workEffortTypeId"))) {
-            productionRun = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", productionRun.getString("workEffortParentId")), false);
+            productionRun = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", productionRun.getString("workEffortParentId")), false)
         }
     }
 
     if (UtilValidate.isEmpty(productionRun)) {
-        return "error";
+        return "error"
     }
     if ("PRUN_CREATED".equals(productionRun.getString("currentStatusId")) ||
             "PRUN_SCHEDULED".equals(productionRun.getString("currentStatusId")) ||
             "PRUN_CANCELLED".equals(productionRun.getString("currentStatusId"))) {
-        return "docs_not_printed";
+        return "docs_not_printed"
     } else {
-        return "docs_printed";
+        return "docs_printed"
     }
 }
 
-return "error";
+return "error"

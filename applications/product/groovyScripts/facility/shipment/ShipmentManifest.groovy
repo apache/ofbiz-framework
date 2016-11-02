@@ -21,44 +21,44 @@ import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.content.report.*
 
-shipmentId = request.getParameter("shipmentId");
-shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
+shipmentId = request.getParameter("shipmentId")
+shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
 
 if (shipment) {
-    shipmentPackageRouteSegs = shipment.getRelated("ShipmentPackageRouteSeg", null, ['shipmentRouteSegmentId', 'shipmentPackageSeqId'], false);
-    shipmentPackageDatas = [] as LinkedList;
+    shipmentPackageRouteSegs = shipment.getRelated("ShipmentPackageRouteSeg", null, ['shipmentRouteSegmentId', 'shipmentPackageSeqId'], false)
+    shipmentPackageDatas = [] as LinkedList
     if (shipmentPackageRouteSegs) {
         shipmentPackageRouteSegs.each { shipmentPackageRouteSeg ->
-            shipmentPackages = shipmentPackageRouteSeg.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false);
-            shipmentRouteSegment = shipmentPackageRouteSeg.getRelatedOne("ShipmentRouteSegment", false);
+            shipmentPackages = shipmentPackageRouteSeg.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false)
+            shipmentRouteSegment = shipmentPackageRouteSeg.getRelatedOne("ShipmentRouteSegment", false)
             if (shipmentPackages) {
                 shipmentPackages.each { shipmentPackage ->
-                    shipmentItemsDatas = [] as LinkedList;
-                    shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent", null, ['shipmentItemSeqId'], false);
+                    shipmentItemsDatas = [] as LinkedList
+                    shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent", null, ['shipmentItemSeqId'], false)
                     if (shipmentPackageContents) {
                         shipmentPackageContents.each { shipmentPackageContent ->
-                            shipmentItemsData = [:];
-                            packageQuantity = shipmentPackageContent.getDouble("quantity");
-                            shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem", false);
+                            shipmentItemsData = [:]
+                            packageQuantity = shipmentPackageContent.getDouble("quantity")
+                            shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem", false)
                             if (shipmentItem) {
-                                shippedQuantity = shipmentItem.getDouble("quantity");
-                                shipmentItemsData.shipmentItem = shipmentItem;
-                                shipmentItemsData.shippedQuantity = shippedQuantity;
-                                shipmentItemsData.packageQuantity = packageQuantity;
-                                shipmentItemsDatas.add(shipmentItemsData);
+                                shippedQuantity = shipmentItem.getDouble("quantity")
+                                shipmentItemsData.shipmentItem = shipmentItem
+                                shipmentItemsData.shippedQuantity = shippedQuantity
+                                shipmentItemsData.packageQuantity = packageQuantity
+                                shipmentItemsDatas.add(shipmentItemsData)
                             }
                         }
                     }
-                    shipmentPackageData = [:];
-                    shipmentPackageData.shipmentPackage = shipmentPackage;
-                    shipmentPackageData.shipmentRouteSegment = shipmentRouteSegment;
-                    shipmentPackageData.shipmentItemsDatas = shipmentItemsDatas;
-                    shipmentPackageDatas.add(shipmentPackageData);
+                    shipmentPackageData = [:]
+                    shipmentPackageData.shipmentPackage = shipmentPackage
+                    shipmentPackageData.shipmentRouteSegment = shipmentRouteSegment
+                    shipmentPackageData.shipmentItemsDatas = shipmentItemsDatas
+                    shipmentPackageDatas.add(shipmentPackageData)
                 }
             }
         }
     }
-    context.shipmentPackageDatas = shipmentPackageDatas;
+    context.shipmentPackageDatas = shipmentPackageDatas
 }
-context.shipmentId = shipmentId;
-context.shipment = shipment;
+context.shipmentId = shipmentId
+context.shipment = shipment

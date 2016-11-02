@@ -17,38 +17,38 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityFunction;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.condition.EntityFieldValue;
-import org.apache.ofbiz.entity.condition.EntityConditionList;
-import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityExpr
+import org.apache.ofbiz.entity.condition.EntityFunction
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.condition.EntityFieldValue
+import org.apache.ofbiz.entity.condition.EntityConditionList
+import org.apache.ofbiz.entity.condition.EntityCondition
 
-productId = request.getParameter("productId") ?: "";
+productId = request.getParameter("productId") ?: ""
 
-conditionList = [];
-orConditionList = [];
-mainConditionList = [];
+conditionList = []
+orConditionList = []
+mainConditionList = []
 
 if (productId) {
     //make sure the look up is case insensitive
     conditionList.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue("productId")),
-            EntityOperator.LIKE, productId.toUpperCase() + "%"));
+            EntityOperator.LIKE, productId.toUpperCase() + "%"))
 }
 
 // do not include configurable products
-conditionList.add(EntityCondition.makeCondition("productTypeId", EntityOperator.NOT_EQUAL, "AGGREGATED"));
-conditionList.add(EntityCondition.makeCondition("productTypeId", EntityOperator.NOT_EQUAL, "AGGREGATED_SERVICE"));
+conditionList.add(EntityCondition.makeCondition("productTypeId", EntityOperator.NOT_EQUAL, "AGGREGATED"))
+conditionList.add(EntityCondition.makeCondition("productTypeId", EntityOperator.NOT_EQUAL, "AGGREGATED_SERVICE"))
 
 // no virtual products: note that isVirtual could be null,
 // we consider those products to be non-virtual and hence addable to the order in bulk
-orConditionList.add(EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, "N"));
-orConditionList.add(EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, null));
+orConditionList.add(EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, "N"))
+orConditionList.add(EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, null))
 
-orConditions = EntityCondition.makeCondition(orConditionList, EntityOperator.OR);
-conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
+orConditions = EntityCondition.makeCondition(orConditionList, EntityOperator.OR)
+conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND)
 
-mainConditionList.add(orConditions);
-mainConditionList.add(conditions);
+mainConditionList.add(orConditions)
+mainConditionList.add(conditions)
 
-context.productList = select("productId", "brandName", "internalName").from("Product").where(mainConditionList).orderBy("productId").queryList();
+context.productList = select("productId", "brandName", "internalName").from("Product").where(mainConditionList).orderBy("productId").queryList()

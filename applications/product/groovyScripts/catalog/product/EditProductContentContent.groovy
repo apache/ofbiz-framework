@@ -17,132 +17,132 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.base.util.*;
-import java.sql.Timestamp;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.base.util.*
+import java.sql.Timestamp
 import org.apache.ofbiz.base.util.ObjectType
 
-contentId = parameters.contentId;
+contentId = parameters.contentId
 if (!contentId) {
-    contentId = null;
+    contentId = null
 }
 
-productContentTypeId = parameters.productContentTypeId;
+productContentTypeId = parameters.productContentTypeId
 
-fromDate = parameters.fromDate;
+fromDate = parameters.fromDate
 if (!fromDate) {
-    fromDate = null;
+    fromDate = null
 } else {
     fromDate = ObjectType.simpleTypeConvert(fromDate, "Timestamp", null, null, false)
 }
 
 
-description = parameters.description;
+description = parameters.description
 if (!description) {
-    description = null;
+    description = null
 }
 
-productContent = from("ProductContent").where("contentId", contentId, "productId", productId, "productContentTypeId", productContentTypeId, "fromDate", fromDate).queryOne();
+productContent = from("ProductContent").where("contentId", contentId, "productId", productId, "productContentTypeId", productContentTypeId, "fromDate", fromDate).queryOne()
 if (!productContent) {
-    productContent = [:];
-    productContent.productId = productId;
-    productContent.contentId = contentId;
-    productContent.productContentTypeId = productContentTypeId;
-    productContent.fromDate = fromDate;
-    productContent.thruDate = parameters.thruDate;
-    productContent.purchaseFromDate = parameters.purchaseFromDate;
-    productContent.purchaseThruDate = parameters.purchaseThruDate;
-    productContent.useCountLimit = parameters.useCountLimit;
-    productContent.useTime = parameters.useTime;
-    productContent.useTimeUomId = parameters.useTimeUomId;
-    productContent.useRoleTypeId = parameters.useRoleTypeId;
+    productContent = [:]
+    productContent.productId = productId
+    productContent.contentId = contentId
+    productContent.productContentTypeId = productContentTypeId
+    productContent.fromDate = fromDate
+    productContent.thruDate = parameters.thruDate
+    productContent.purchaseFromDate = parameters.purchaseFromDate
+    productContent.purchaseThruDate = parameters.purchaseThruDate
+    productContent.useCountLimit = parameters.useCountLimit
+    productContent.useTime = parameters.useTime
+    productContent.useTimeUomId = parameters.useTimeUomId
+    productContent.useRoleTypeId = parameters.useRoleTypeId
 }
-context.productContent = productContent;
+context.productContent = productContent
 
-productContentData = [:];
-productContentData.putAll(productContent);
+productContentData = [:]
+productContentData.putAll(productContent)
 
-content = [:];
-context.contentId = contentId;
+content = [:]
+context.contentId = contentId
 if (contentId) {
-    content = from("Content").where("contentId", contentId).queryOne();
-    context.content = content;
+    content = from("Content").where("contentId", contentId).queryOne()
+    context.content = content
 } else {
     if (description) {
-        content.description = description;
+        content.description = description
     }
 }
 
 //Email
 if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
-    emailData = [:];
+    emailData = [:]
     if (contentId && content) {
-        subjectDr = content.getRelatedOne("DataResource", false);
+        subjectDr = content.getRelatedOne("DataResource", false)
         if (subjectDr) {
-            subject = subjectDr.getRelatedOne("ElectronicText", false);
-            emailData.subject = subject.textData;
-            emailData.subjectDataResourceId = subject.dataResourceId;
+            subject = subjectDr.getRelatedOne("ElectronicText", false)
+            emailData.subject = subject.textData
+            emailData.subjectDataResourceId = subject.dataResourceId
         }
-        result = runService('findAssocContent', [userLogin : userLogin, contentId : contentId, mapKeys : ['plainBody', 'htmlBody']]);
-        contentAssocs = result.get("contentAssocs");
+        result = runService('findAssocContent', [userLogin : userLogin, contentId : contentId, mapKeys : ['plainBody', 'htmlBody']])
+        contentAssocs = result.get("contentAssocs")
         if (contentAssocs) {
             contentAssocs.each { contentAssoc ->
-                bodyContent = contentAssoc.getRelatedOne("ToContent", false);
-                bodyDr = bodyContent.getRelatedOne("DataResource", false);
-                body = bodyDr.getRelatedOne("ElectronicText", false);
-                emailData.put(contentAssoc.mapKey, body.textData);
-                emailData.put(contentAssoc.get("mapKey")+"DataResourceId", body.dataResourceId);
+                bodyContent = contentAssoc.getRelatedOne("ToContent", false)
+                bodyDr = bodyContent.getRelatedOne("DataResource", false)
+                body = bodyDr.getRelatedOne("ElectronicText", false)
+                emailData.put(contentAssoc.mapKey, body.textData)
+                emailData.put(contentAssoc.get("mapKey")+"DataResourceId", body.dataResourceId)
             }
         }
     }
 
-    context.contentFormName = "EditProductContentEmail";
-    context.emailData = emailData;
+    context.contentFormName = "EditProductContentEmail"
+    context.emailData = emailData
 } else if ("DIGITAL_DOWNLOAD".equals(productContentTypeId)) {
-    downloadData = [:];
+    downloadData = [:]
     if (contentId && content) {
-        downloadDr = content.getRelatedOne("DataResource", false);
+        downloadDr = content.getRelatedOne("DataResource", false)
         if (downloadDr) {
-            download = downloadDr.getRelatedOne("OtherDataResource", false);
+            download = downloadDr.getRelatedOne("OtherDataResource", false)
             if (download) {
-                downloadData.file = download.dataResourceContent;
-                downloadData.fileDataResourceId = download.dataResourceId;
+                downloadData.file = download.dataResourceContent
+                downloadData.fileDataResourceId = download.dataResourceId
             }
         }
     }
-    context.contentFormName = "EditProductContentDownload";
-    context.downloadData = downloadData;
+    context.contentFormName = "EditProductContentDownload"
+    context.downloadData = downloadData
 } else if ("FULFILLMENT_EXTERNAL".equals(productContentTypeId)) {
-    context.contentFormName = "EditProductContentExternal";
+    context.contentFormName = "EditProductContentExternal"
 } else if (productContentTypeId && productContentTypeId.indexOf("_IMAGE") > -1) {
-    context.contentFormName = "EditProductContentImage";
+    context.contentFormName = "EditProductContentImage"
 } else {
     //Assume it is a generic simple text content
-    textData = [:];
+    textData = [:]
     if (contentId && content) {
-        textDr = content.getRelatedOne("DataResource", false);
+        textDr = content.getRelatedOne("DataResource", false)
         if (textDr) {
-            text = textDr.getRelatedOne("ElectronicText", false);
+            text = textDr.getRelatedOne("ElectronicText", false)
             if (text) {
-                textData.text = text.textData;
-                textData.textDataResourceId = text.dataResourceId;
+                textData.text = text.textData
+                textData.textDataResourceId = text.dataResourceId
             }
         }
     }
-    context.contentFormName = "EditProductContentSimpleText";
-    context.textData = textData;
+    context.contentFormName = "EditProductContentSimpleText"
+    context.textData = textData
 }
 if (productContentTypeId) {
-    productContentType = from("ProductContentType").where("productContentTypeId", productContentTypeId).queryOne();
+    productContentType = from("ProductContentType").where("productContentTypeId", productContentTypeId).queryOne()
     if (productContentType && "DIGITAL_DOWNLOAD".equals(productContentType.parentTypeId)) {
-        context.contentFormName = "EditProductContentDownload";
+        context.contentFormName = "EditProductContentDownload"
     }
 }
 if (("PAGE_TITLE".equals(productContentTypeId))||("META_KEYWORD".equals(productContentTypeId))||("META_DESCRIPTION".equals(productContentTypeId))) {
-    context.contentFormName = "EditProductContentSEO";
+    context.contentFormName = "EditProductContentSEO"
 }
 
-context.productContentData = productContentData;
-context.content = content;
-context.contentId = contentId;
+context.productContentData = productContentData
+context.content = content
+context.contentId = contentId

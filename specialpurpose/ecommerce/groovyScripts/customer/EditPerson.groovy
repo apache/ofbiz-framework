@@ -17,16 +17,16 @@
  * under the License.
  */
 
-import java.util.HashMap;
-import org.apache.ofbiz.base.util.UtilHttp;
+import java.util.HashMap
+import org.apache.ofbiz.base.util.UtilHttp
 
-tryEntity = true;
-errorMessage = parameters._ERROR_MESSAGE_;
+tryEntity = true
+errorMessage = parameters._ERROR_MESSAGE_
 if (errorMessage) {
-    tryEntity = false;
+    tryEntity = false
 }
-personData = person;
-if (!tryEntity) personData = UtilHttp.getParameterMap(request);
-if (!personData) personData = [:];
+personData = person
+if (!tryEntity) personData = UtilHttp.getParameterMap(request)
+if (!personData) personData = [:]
 
-context.personData = personData;
+context.personData = personData

@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.party.contact.ContactMechWorker;
+import org.apache.ofbiz.party.contact.ContactMechWorker
 
-partyId = partyId ?: parameters.partyId;
-showOld = "true".equals(parameters.SHOW_OLD);
-context.contactMeches = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, showOld);
+partyId = partyId ?: parameters.partyId
+showOld = "true".equals(parameters.SHOW_OLD)
+context.contactMeches = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, showOld)

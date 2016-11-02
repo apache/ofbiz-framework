@@ -16,13 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.accounting.invoice.InvoiceWorker;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.accounting.invoice.InvoiceWorker
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 
-Boolean actualCurrency = new Boolean(context.actualCurrency);
+Boolean actualCurrency = new Boolean(context.actualCurrency)
 if (actualCurrency == null) {
-    actualCurrency = true;
+    actualCurrency = true
 }
 
 invExprs =
@@ -40,17 +40,17 @@ invExprs =
                 EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
                 ],EntityOperator.AND)
             ],EntityOperator.OR)
-        ],EntityOperator.AND);
+        ],EntityOperator.AND)
 
-invIterator = from("InvoiceAndType").where(invExprs).cursorScrollInsensitive().distinct().queryIterator();
-invoiceList = [];
+invIterator = from("InvoiceAndType").where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
+invoiceList = []
 while (invoice = invIterator.next()) {
-    unAppliedAmount = InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);
+    unAppliedAmount = InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     if (unAppliedAmount.signum() == 1) {
         if (actualCurrency.equals(true)) {
-            invoiceCurrencyUomId = invoice.currencyUomId;
+            invoiceCurrencyUomId = invoice.currencyUomId
         } else {
-            invoiceCurrencyUomId = context.defaultOrganizationPartyCurrencyUomId;
+            invoiceCurrencyUomId = context.defaultOrganizationPartyCurrencyUomId
         }
         invoiceList.add([invoiceId : invoice.invoiceId,
                          invoiceDate : invoice.invoiceDate,
@@ -58,9 +58,9 @@ while (invoice = invIterator.next()) {
                          invoiceCurrencyUomId : invoiceCurrencyUomId,
                          amount : InvoiceWorker.getInvoiceTotal(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP),
                          invoiceTypeId : invoice.invoiceTypeId,
-                         invoiceParentTypeId : invoice.parentTypeId]);
+                         invoiceParentTypeId : invoice.parentTypeId])
     }
 }
-invIterator.close();
+invIterator.close()
 
-context.ListUnAppliedInvoices = invoiceList;
+context.ListUnAppliedInvoices = invoiceList

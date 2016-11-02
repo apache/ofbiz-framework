@@ -19,32 +19,32 @@
 
 // This script gets shipment items grouped by package for use in the packing slip PDF or any screens that require by-package layout
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.condition.*
 import org.apache.ofbiz.entity.util.EntityTypeUtil
 
 // Since this script is run after ViewShipment, we will re-use the shipment in the context
-shipment = context.shipment;
+shipment = context.shipment
 if (!shipment) {
-    return;
+    return
 }
 
 // get the packages related to this shipment in order of packages
-shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false);
+shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false)
 
 // first we scan the shipment items and count the quantity of each product that is being shipped
-quantityShippedByProduct = [:];
-quantityInShipmentByProduct = [:];
-shipmentItems = shipment.getRelated("ShipmentItem", null, null, false);
+quantityShippedByProduct = [:]
+quantityInShipmentByProduct = [:]
+shipmentItems = shipment.getRelated("ShipmentItem", null, null, false)
 shipmentItems.each { shipmentItem ->
-    productId = shipmentItem.productId;
-    shipped = quantityShippedByProduct.get(productId);
+    productId = shipmentItem.productId
+    shipped = quantityShippedByProduct.get(productId)
     if (!shipped) {
-        shipped = 0 as Double;
+        shipped = 0 as Double
     }
-    shipped += shipmentItem.getDouble("quantity").doubleValue();
-    quantityShippedByProduct.put(productId, shipped);
-    quantityInShipmentByProduct.put(productId, shipped);
+    shipped += shipmentItem.getDouble("quantity").doubleValue()
+    quantityShippedByProduct.put(productId, shipped)
+    quantityInShipmentByProduct.put(productId, shipped)
 }
 
 // Add in the total of all previously shipped items
@@ -57,74 +57,74 @@ previousShipmentIter = from("Shipment")
                                                     ObjectType.simpleTypeConvert(shipment.getString("createdDate"), "Timestamp", null, null))
                                             ),
                                         EntityOperator.AND))
-                            .queryIterator();
+                            .queryIterator()
 
 while (previousShipmentItem = previousShipmentIter.next()) {
     if (!previousShipmentItem.shipmentId.equals(shipment.shipmentId)) {
-        previousShipmentItems = previousShipmentItem.getRelated("ShipmentItem", null, null, false);
+        previousShipmentItems = previousShipmentItem.getRelated("ShipmentItem", null, null, false)
         previousShipmentItems.each { shipmentItem ->
-            productId = shipmentItem.productId;
-            shipped = quantityShippedByProduct.get(productId);
+            productId = shipmentItem.productId
+            shipped = quantityShippedByProduct.get(productId)
             if (!shipped) {
-                shipped = new Double(0);
+                shipped = new Double(0)
             }
-            shipped += shipmentItem.getDouble("quantity").doubleValue();
-            quantityShippedByProduct.put(productId, shipped);
+            shipped += shipmentItem.getDouble("quantity").doubleValue()
+            quantityShippedByProduct.put(productId, shipped)
         }
     }
 }
-previousShipmentIter.close();
+previousShipmentIter.close()
 
 // next scan the order items (via issuances) to count the quantity of each product requested
-quantityRequestedByProduct = [:];
-countedOrderItems = [:]; // this map is only used to keep track of the order items already counted
-order = shipment.getRelatedOne("PrimaryOrderHeader", false);
-issuances = order.getRelated("ItemIssuance", null, null, false);
+quantityRequestedByProduct = [:]
+countedOrderItems = [:] // this map is only used to keep track of the order items already counted
+order = shipment.getRelatedOne("PrimaryOrderHeader", false)
+issuances = order.getRelated("ItemIssuance", null, null, false)
 issuances.each { issuance ->
-    orderItem = issuance.getRelatedOne("OrderItem", false);
-    productId = orderItem.productId;
+    orderItem = issuance.getRelatedOne("OrderItem", false)
+    productId = orderItem.productId
     if (!countedOrderItems.containsKey(orderItem.orderId + orderItem.orderItemSeqId)) {
-        countedOrderItems.put(orderItem.orderId + orderItem.orderItemSeqId, null);
-        requested = quantityRequestedByProduct.get(productId);
+        countedOrderItems.put(orderItem.orderId + orderItem.orderItemSeqId, null)
+        requested = quantityRequestedByProduct.get(productId)
         if (!requested) {
-            requested = new Double(0);
+            requested = new Double(0)
         }
-        cancelQuantity = orderItem.getDouble("cancelQuantity");
-        quantity = orderItem.getDouble("quantity");
-        requested += quantity.doubleValue() - (cancelQuantity ? cancelQuantity.doubleValue() : 0);
-        quantityRequestedByProduct.put(productId, requested);
+        cancelQuantity = orderItem.getDouble("cancelQuantity")
+        quantity = orderItem.getDouble("quantity")
+        requested += quantity.doubleValue() - (cancelQuantity ? cancelQuantity.doubleValue() : 0)
+        quantityRequestedByProduct.put(productId, requested)
     }
 }
 
 // for each package, we want to list the quantities and details of each product
-packages = []; // note we assume that the package number is simply the index + 1 of this list
+packages = [] // note we assume that the package number is simply the index + 1 of this list
 shipmentPackages.each { shipmentPackage ->
-    contents = shipmentPackage.getRelated("ShipmentPackageContent", null, ['shipmentItemSeqId'], false);
+    contents = shipmentPackage.getRelated("ShipmentPackageContent", null, ['shipmentItemSeqId'], false)
 
     // each line is one logical Product and the quantities associated with it
-    lines = [];
+    lines = []
     contents.each { content ->
-        shipmentItem = content.getRelatedOne("ShipmentItem", false);
-        product = shipmentItem.getRelatedOne("Product", false);
-        productTypeId = product.get("productTypeId");
+        shipmentItem = content.getRelatedOne("ShipmentItem", false)
+        product = shipmentItem.getRelatedOne("Product", false)
+        productTypeId = product.get("productTypeId")
 
-        line = [:];
-        line.product = product;
-        line.quantityRequested = quantityRequestedByProduct.get(product.productId);
-        line.quantityInPackage = content.quantity;
+        line = [:]
+        line.product = product
+        line.quantityRequested = quantityRequestedByProduct.get(product.productId)
+        line.quantityInPackage = content.quantity
         if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", productTypeId, "parentTypeId", "MARKETING_PKG_PICK") && line.quantityInPackage > line.quantityRequested) {
-            line.quantityInPackage = line.quantityRequested;
+            line.quantityInPackage = line.quantityRequested
         }
-        line.quantityInShipment = quantityInShipmentByProduct.get(product.productId);
+        line.quantityInShipment = quantityInShipmentByProduct.get(product.productId)
         if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", productTypeId, "parentTypeId", "MARKETING_PKG_PICK") && line.quantityInShipment > line.quantityRequested) {
-            line.quantityInShipment = line.quantityRequested;
+            line.quantityInShipment = line.quantityRequested
         }
-        line.quantityShipped = quantityShippedByProduct.get(product.productId);
+        line.quantityShipped = quantityShippedByProduct.get(product.productId)
         if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", productTypeId, "parentTypeId", "MARKETING_PKG_PICK") && line.quantityShipped > line.quantityRequested) {
-            line.quantityShipped = line.quantityRequested;
+            line.quantityShipped = line.quantityRequested
         }
-        lines.add(line);
+        lines.add(line)
     }
-    packages.add(lines);
+    packages.add(lines)
 }
-context.packages = packages;
+context.packages = packages

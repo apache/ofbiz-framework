@@ -17,44 +17,44 @@
  * under the License.
  */
 
-import java.lang.*;
-import java.util.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.party.contact.ContactMechWorker;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.webapp.website.WebSiteWorker;
-import org.apache.ofbiz.accounting.payment.PaymentWorker;
+import java.lang.*
+import java.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.party.contact.ContactMechWorker
+import org.apache.ofbiz.product.store.ProductStoreWorker
+import org.apache.ofbiz.webapp.website.WebSiteWorker
+import org.apache.ofbiz.accounting.payment.PaymentWorker
 
-/*publicEmailContactLists = delegator.findByAnd("ContactList", [isPublic : "Y", contactMechTypeId : "EMAIL_ADDRESS"], ["contactListName"], false);
+/*publicEmailContactLists = delegator.findByAnd("ContactList", [isPublic : "Y", contactMechTypeId : "EMAIL_ADDRESS"], ["contactListName"], false)
 context.publicEmailContactLists = publicEmailContactLists;*/
 
-webSiteId = WebSiteWorker.getWebSiteId(request);
-exprList = [];
-exprListThruDate = [];
-exprList.add(EntityCondition.makeCondition("webSiteId", EntityOperator.EQUALS, webSiteId));
-exprListThruDate.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
-exprListThruDate.add(EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()));
-orCond = EntityCondition.makeCondition(exprListThruDate, EntityOperator.OR);
-exprList.add(orCond);
-webSiteContactList = from("WebSiteContactList").where(exprList).queryList();
+webSiteId = WebSiteWorker.getWebSiteId(request)
+exprList = []
+exprListThruDate = []
+exprList.add(EntityCondition.makeCondition("webSiteId", EntityOperator.EQUALS, webSiteId))
+exprListThruDate.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null))
+exprListThruDate.add(EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()))
+orCond = EntityCondition.makeCondition(exprListThruDate, EntityOperator.OR)
+exprList.add(orCond)
+webSiteContactList = from("WebSiteContactList").where(exprList).queryList()
 
-publicEmailContactLists = [];
+publicEmailContactLists = []
 webSiteContactList.each { webSiteContactList ->
-    contactList = webSiteContactList.getRelatedOne("ContactList", false);
-    contactListType = contactList.getRelatedOne("ContactListType", false);
-    temp = [:];
-    temp.contactList = contactList;
-    temp.contactListType = contactListType;
-    publicEmailContactLists.add(temp);
+    contactList = webSiteContactList.getRelatedOne("ContactList", false)
+    contactListType = contactList.getRelatedOne("ContactListType", false)
+    temp = [:]
+    temp.contactList = contactList
+    temp.contactListType = contactListType
+    publicEmailContactLists.add(temp)
 }
-context.publicEmailContactLists = publicEmailContactLists;
+context.publicEmailContactLists = publicEmailContactLists
 
 if (userLogin) {
-    partyAndContactMechList = from("PartyAndContactMech").where("partyId", partyId, "contactMechTypeId", "EMAIL_ADDRESS").orderBy("-fromDate").filterByDate().queryList();
-    context.partyAndContactMechList = partyAndContactMechList;
+    partyAndContactMechList = from("PartyAndContactMech").where("partyId", partyId, "contactMechTypeId", "EMAIL_ADDRESS").orderBy("-fromDate").filterByDate().queryList()
+    context.partyAndContactMechList = partyAndContactMechList
 }
 
 

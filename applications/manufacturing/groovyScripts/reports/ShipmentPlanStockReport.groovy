@@ -17,78 +17,78 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
 
-inventoryStock = [:];
-shipmentId = parameters.shipmentId;
-shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
+inventoryStock = [:]
+shipmentId = parameters.shipmentId
+shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
 
-context.shipmentIdPar = shipment.shipmentId;
-context.estimatedReadyDatePar = shipment.estimatedReadyDate;
-context.estimatedShipDatePar = shipment.estimatedShipDate;
-records = [];
+context.shipmentIdPar = shipment.shipmentId
+context.estimatedReadyDatePar = shipment.estimatedReadyDate
+context.estimatedShipDatePar = shipment.estimatedShipDate
+records = []
 if (shipment) {
-    shipmentPlans = from("OrderShipment").where("shipmentId", shipmentId).queryList();
+    shipmentPlans = from("OrderShipment").where("shipmentId", shipmentId).queryList()
     shipmentPlans.each { shipmentPlan ->
-        orderLine = from("OrderItem").where("orderId", shipmentPlan.orderId , "orderItemSeqId", shipmentPlan.orderItemSeqId).queryOne();
-        recordGroup = [:];
-        recordGroup.ORDER_ID = shipmentPlan.orderId;
-        recordGroup.ORDER_ITEM_SEQ_ID = shipmentPlan.orderItemSeqId;
-        recordGroup.SHIPMENT_ID = shipmentPlan.shipmentId;
-        recordGroup.SHIPMENT_ITEM_SEQ_ID = shipmentPlan.shipmentItemSeqId;
+        orderLine = from("OrderItem").where("orderId", shipmentPlan.orderId , "orderItemSeqId", shipmentPlan.orderItemSeqId).queryOne()
+        recordGroup = [:]
+        recordGroup.ORDER_ID = shipmentPlan.orderId
+        recordGroup.ORDER_ITEM_SEQ_ID = shipmentPlan.orderItemSeqId
+        recordGroup.SHIPMENT_ID = shipmentPlan.shipmentId
+        recordGroup.SHIPMENT_ITEM_SEQ_ID = shipmentPlan.shipmentItemSeqId
 
-        recordGroup.PRODUCT_ID = orderLine.productId;
-        recordGroup.QUANTITY = shipmentPlan.quantity;
-        product = from("Product").where("productId", orderLine.productId).queryOne();
-        recordGroup.PRODUCT_NAME = product.internalName;
+        recordGroup.PRODUCT_ID = orderLine.productId
+        recordGroup.QUANTITY = shipmentPlan.quantity
+        product = from("Product").where("productId", orderLine.productId).queryOne()
+        recordGroup.PRODUCT_NAME = product.internalName
 
         inputPar = [productId : orderLine.productId,
                                      quantity : shipmentPlan.quantity,
                                      fromDate : "" + new Date(),
-                                     userLogin: userLogin];
+                                     userLogin: userLogin]
 
-        result = [:];
-        result = runService('getNotAssembledComponents',inputPar);
+        result = [:]
+        result = runService('getNotAssembledComponents',inputPar)
         if (result) {
-            components = (List)result.get("notAssembledComponents");
+            components = (List)result.get("notAssembledComponents")
         }
         components.each { oneComponent ->
-            record = new HashMap(recordGroup);
-            record.componentId = oneComponent.getProduct().productId;
-            record.componentName = oneComponent.getProduct().internalName;
-            record.componentQuantity = new Float(oneComponent.getQuantity());
-            facilityId = shipment.originFacilityId;
-            float qty = 0;
+            record = new HashMap(recordGroup)
+            record.componentId = oneComponent.getProduct().productId
+            record.componentName = oneComponent.getProduct().internalName
+            record.componentQuantity = new Float(oneComponent.getQuantity())
+            facilityId = shipment.originFacilityId
+            float qty = 0
             if (facilityId) {
                 if (!inventoryStock.containsKey(oneComponent.getProduct().productId)) {
-                    serviceInput = [productId : oneComponent.getProduct().productId , facilityId : facilityId];
-                    serviceOutput = runService('getInventoryAvailableByFacility',serviceInput);
-                    qha = serviceOutput.quantityOnHandTotal ?: 0.0;
-                    inventoryStock.put(oneComponent.getProduct().productId, qha);
+                    serviceInput = [productId : oneComponent.getProduct().productId , facilityId : facilityId]
+                    serviceOutput = runService('getInventoryAvailableByFacility',serviceInput)
+                    qha = serviceOutput.quantityOnHandTotal ?: 0.0
+                    inventoryStock.put(oneComponent.getProduct().productId, qha)
                 }
-                qty = inventoryStock[oneComponent.getProduct().productId];
-                qty = qty - oneComponent.getQuantity();
-                inventoryStock.put(oneComponent.getProduct().productId, qty);
+                qty = inventoryStock[oneComponent.getProduct().productId]
+                qty = qty - oneComponent.getQuantity()
+                inventoryStock.put(oneComponent.getProduct().productId, qty)
             }
-            record.componentOnHand = qty;
+            record.componentOnHand = qty
             // Now we get the products qty already reserved by production runs
             serviceInput = [productId : oneComponent.getProduct().productId,
-                                          userLogin : userLogin];
-            serviceOutput = runService('getProductionRunTotResQty', serviceInput);
-            resQty = serviceOutput.reservedQuantity;
-            record.reservedQuantity = resQty;
-            records.add(record);
+                                          userLogin : userLogin]
+            serviceOutput = runService('getProductionRunTotResQty', serviceInput)
+            resQty = serviceOutput.reservedQuantity
+            record.reservedQuantity = resQty
+            records.add(record)
         }
     }
-    context.records = records;
+    context.records = records
 
     // check permission
-    hasPermission = false;
+    hasPermission = false
     if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
-        hasPermission = true;
+        hasPermission = true
     }
-    context.hasPermission = hasPermission;
+    context.hasPermission = hasPermission
 }
 
-return "success";
+return "success"

@@ -17,18 +17,18 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.content.content.*;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.content.content.*
 
 // note: this can be run multiple times in the same request without causing problems, will check to see on its own if it has run again
-ContentSearchSession.processSearchParameters(parameters, request);
-Map result = ContentSearchEvents.getContentSearchResult(request, delegator);
+ContentSearchSession.processSearchParameters(parameters, request)
+Map result = ContentSearchEvents.getContentSearchResult(request, delegator)
 
-context.put("contentIds", result.get("contentIds"));
-context.put("viewIndex", result.get("viewIndex"));
-context.put("viewSize", result.get("viewSize"));
-context.put("listSize", result.get("listSize"));
-context.put("lowIndex", result.get("lowIndex"));
-context.put("highIndex", result.get("highIndex"));
-context.put("searchConstraintStrings", result.get("searchConstraintStrings"));
-context.put("searchSortOrderString", result.get("searchSortOrderString"));
+context.put("contentIds", result.get("contentIds"))
+context.put("viewIndex", result.get("viewIndex"))
+context.put("viewSize", result.get("viewSize"))
+context.put("listSize", result.get("listSize"))
+context.put("lowIndex", result.get("lowIndex"))
+context.put("highIndex", result.get("highIndex"))
+context.put("searchConstraintStrings", result.get("searchConstraintStrings"))
+context.put("searchSortOrderString", result.get("searchSortOrderString"))

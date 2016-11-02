@@ -17,18 +17,18 @@
  * under the License.
  */
 
-import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchEvents;
-import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchSession;
+import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchEvents
+import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchSession
 
 // note: this can be run multiple times in the same request without causing problems, will check to see on its own if it has run again
-WorkEffortSearchSession.processSearchParameters(parameters, request);
-Map result = WorkEffortSearchEvents.getWorkEffortSearchResult(request, delegator);
+WorkEffortSearchSession.processSearchParameters(parameters, request)
+Map result = WorkEffortSearchEvents.getWorkEffortSearchResult(request, delegator)
 
-context.put("workEffortIds", result.get("workEffortIds"));
-context.put("viewIndex", result.get("viewIndex"));
-context.put("viewSize", result.get("viewSize"));
-context.put("listSize", result.get("listSize"));
-context.put("lowIndex", result.get("lowIndex"));
-context.put("highIndex", result.get("highIndex"));
-context.put("searchConstraintStrings", result.get("searchConstraintStrings"));
-context.put("searchSortOrderString", result.get("searchSortOrderString"));
+context.put("workEffortIds", result.get("workEffortIds"))
+context.put("viewIndex", result.get("viewIndex"))
+context.put("viewSize", result.get("viewSize"))
+context.put("listSize", result.get("listSize"))
+context.put("lowIndex", result.get("lowIndex"))
+context.put("highIndex", result.get("highIndex"))
+context.put("searchConstraintStrings", result.get("searchConstraintStrings"))
+context.put("searchSortOrderString", result.get("searchSortOrderString"))

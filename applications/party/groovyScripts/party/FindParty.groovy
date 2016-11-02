@@ -18,15 +18,15 @@
  */
 
 if (!context.extInfo || context.extInfo == 'N') {
-    if (parameters.partyIdentificationTypeId || parameters.idValue) context.extInfo='I';
+    if (parameters.partyIdentificationTypeId || parameters.idValue) context.extInfo='I'
     else if (parameters.address1 
             || parameters.address2
             || parameters.city
             || parameters.postalCode
-            || parameters.stateProvinceGeoId) context.extInfo='P';
+            || parameters.stateProvinceGeoId) context.extInfo='P'
     else if (parameters.countryCode
             || parameters.areaCode
-            || parameters.contactNumber) context.extInfo='T';
-    else if (parameters.infoString) context.extInfo='O';
-    if (!context.extInfo) context.extInfo == 'N';
+            || parameters.contactNumber) context.extInfo='T'
+    else if (parameters.infoString) context.extInfo='O'
+    if (!context.extInfo) context.extInfo == 'N'
 }

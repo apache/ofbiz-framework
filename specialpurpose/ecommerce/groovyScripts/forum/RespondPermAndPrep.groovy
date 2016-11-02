@@ -17,139 +17,139 @@
  * under the License.
  */
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList
+import java.util.Collection
+import java.util.HashMap
+import java.util.Iterator
+import java.util.LinkedList
+import java.util.List
+import java.util.Map
+import java.util.Set
+import java.util.TreeSet
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.security.*;
-import org.apache.ofbiz.service.*;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.content.content.PermissionRecorder;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.security.*
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.entity.model.*
+import org.apache.ofbiz.content.content.PermissionRecorder
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.*
+import javax.servlet.http.*
 
-paramMap = UtilHttp.getParameterMap(request);
+paramMap = UtilHttp.getParameterMap(request)
 
-contentIdTo = paramMap.contentIdTo;
+contentIdTo = paramMap.contentIdTo
 if (!contentIdTo) {
-    request.setAttribute("errorMsgReq", "contentIdTo is empty");
-    return;
+    request.setAttribute("errorMsgReq", "contentIdTo is empty")
+    return
 }
 
 /*
-pubPt = paramMap.pubPt ?: context.pubPt;
+pubPt = paramMap.pubPt ?: context.pubPt
 if (!pubPt) {
-    request.setAttribute("errorMsgReq", "pubPt is empty");
-    return;
+    request.setAttribute("errorMsgReq", "pubPt is empty")
+    return
 }
 */
 
-contentToValue = from("Content").where("contentId", contentIdTo).queryOne();
-contentToPurposeList = contentToValue.getRelated("ContentPurpose", null, null, true);
-currentValue = delegator.makeValue("Content", [contentTypeId : "DOCUMENT", statusId : "CTNT_PUBLISHED", privilegeEnumId : "_00_"]);
+contentToValue = from("Content").where("contentId", contentIdTo).queryOne()
+contentToPurposeList = contentToValue.getRelated("ContentPurpose", null, null, true)
+currentValue = delegator.makeValue("Content", [contentTypeId : "DOCUMENT", statusId : "CTNT_PUBLISHED", privilegeEnumId : "_00_"])
 
 if (contentToPurposeList.contains("RESPONSE")) {
-    ownerContentId = contentToValue.ownerContentId;
-    currentValue.ownerContentId = ownerContentId;
+    ownerContentId = contentToValue.ownerContentId
+    currentValue.ownerContentId = ownerContentId
 } else {
-    contentId = contentToValue.contentId;
-    currentValueownerContentId = contentId;
+    contentId = contentToValue.contentId
+    currentValueownerContentId = contentId
 }
 
-mapIn = [:];
-mapIn.userLogin = userLogin;
-targetOperationList = StringUtil.split(context.targetOperation, "|");
-mapIn.targetOperationList = targetOperationList;
+mapIn = [:]
+mapIn.userLogin = userLogin
+targetOperationList = StringUtil.split(context.targetOperation, "|")
+mapIn.targetOperationList = targetOperationList
 
 if (currentValue) {
-    mapIn.currentContent = currentValue;
+    mapIn.currentContent = currentValue
 }
-mapIn.entityOperation = "_CREATE";
-mapIn.contentPurposeList = ["RESPONSE"];
+mapIn.entityOperation = "_CREATE"
+mapIn.contentPurposeList = ["RESPONSE"]
 
-//org.apache.ofbiz.base.util.Debug.logInfo("in permprep, mapIn:" + mapIn, null);
-result = runService('checkContentPermission', mapIn);
-permissionStatus = result.permissionStatus;
-//org.apache.ofbiz.base.util.Debug.logInfo("permissionStatus:" + permissionStatus, null);
+//org.apache.ofbiz.base.util.Debug.logInfo("in permprep, mapIn:" + mapIn, null)
+result = runService('checkContentPermission', mapIn)
+permissionStatus = result.permissionStatus
+//org.apache.ofbiz.base.util.Debug.logInfo("permissionStatus:" + permissionStatus, null)
 if (!"granted".equals(permissionStatus)) {
-    request.setAttribute("errorMsgReq", "Permission to add response is denied (1)");
-    errorMessage = "Permission to add response is denied (2)";
-    recorder = result.permissionRecorder;
-    //Debug.logInfo("recorder(0):" + recorder, "");
+    request.setAttribute("errorMsgReq", "Permission to add response is denied (1)")
+    errorMessage = "Permission to add response is denied (2)"
+    recorder = result.permissionRecorder
+    //Debug.logInfo("recorder(0):" + recorder, "")
     if (recorder) {
-        permissionMessage = recorder.toHtml();
-        //Debug.logInfo("permissionMessage(0):" + permissionMessage, "");
-        errorMessage += " \n " + permissionMessage;
+        permissionMessage = recorder.toHtml()
+        //Debug.logInfo("permissionMessage(0):" + permissionMessage, "")
+        errorMessage += " \n " + permissionMessage
     }
-    request.setAttribute("permissionErrorMsg", errorMessage);
-    context.permissionErrorMsg = errorMessage;
-    context.hasPermission = false;
-    request.setAttribute("hasPermission", false);
-    request.setAttribute("permissionStatus", "");
-    return;
+    request.setAttribute("permissionErrorMsg", errorMessage)
+    context.permissionErrorMsg = errorMessage
+    context.hasPermission = false
+    request.setAttribute("hasPermission", false)
+    request.setAttribute("permissionStatus", "")
+    return
 } else {
-    context.hasPermission = true;
-    request.setAttribute("hasPermission", true);
-    request.setAttribute("permissionStatus", "granted");
+    context.hasPermission = true
+    request.setAttribute("hasPermission", true)
+    request.setAttribute("permissionStatus", "granted")
 }
 
 /*
-pubContentValue = delegator.findOne("Content", [contentId : pubPt], false);
+pubContentValue = delegator.findOne("Content", [contentId : pubPt], false)
 if (pubContentValue) {
-    mapIn.currentContent = pubContentValue;
-    mapIn.statusId = "CTNT_PUBLISHED";
+    mapIn.currentContent = pubContentValue
+    mapIn.statusId = "CTNT_PUBLISHED"
 }
-//org.apache.ofbiz.base.util.Debug.logInfo("in permprep(2), mapIn:" + mapIn, null);
-result = dispatcher.runSync("checkContentPermission", mapIn);
-permissionStatus = result.permissionStatus;
-//org.apache.ofbiz.base.util.Debug.logInfo("permissionStatus(2):" + permissionStatus, null);
+//org.apache.ofbiz.base.util.Debug.logInfo("in permprep(2), mapIn:" + mapIn, null)
+result = dispatcher.runSync("checkContentPermission", mapIn)
+permissionStatus = result.permissionStatus
+//org.apache.ofbiz.base.util.Debug.logInfo("permissionStatus(2):" + permissionStatus, null)
 if (!"granted".equals(permissionStatus)) {
 
-    request.setAttribute("errorMsgReq", "Permission to add response is denied (2)");
-    errorMessage = "Permission to add response is denied (2)";
-    recorder = result.permissionRecorder;
-        //Debug.logInfo("recorder(0):" + recorder, "");
+    request.setAttribute("errorMsgReq", "Permission to add response is denied (2)")
+    errorMessage = "Permission to add response is denied (2)"
+    recorder = result.permissionRecorder
+        //Debug.logInfo("recorder(0):" + recorder, "")
     if (recorder) {
-        permissionMessage = recorder.toHtml();
-        //Debug.logInfo("permissionMessage(0):" + permissionMessage, "");
-        errorMessage += " \n " + permissionMessage;
+        permissionMessage = recorder.toHtml()
+        //Debug.logInfo("permissionMessage(0):" + permissionMessage, "")
+        errorMessage += " \n " + permissionMessage
     }
-    request.setAttribute("permissionErrorMsg", errorMessage);
-    context.permissionErrorMsg = errorMessage;
-    context.hasPermission = false;
-    request.setAttribute("hasPermission", false);
-    request.setAttribute("permissionStatus", "");
-    return;
+    request.setAttribute("permissionErrorMsg", errorMessage)
+    context.permissionErrorMsg = errorMessage
+    context.hasPermission = false
+    request.setAttribute("hasPermission", false)
+    request.setAttribute("permissionStatus", "")
+    return
 } else {
-        context.hasPermission = true;
-        request.setAttribute("hasPermission", true);
-        request.setAttribute("permissionStatus", "granted");
+        context.hasPermission = true
+        request.setAttribute("hasPermission", true)
+        request.setAttribute("permissionStatus", "granted")
 }
 */
 
-request.setAttribute("currentValue", currentValue);
-singleWrapper = context.singleWrapper;
-singleWrapper.putInContext("contentPurposeTypeId", context.contentPurposeTypeId);
-singleWrapper.putInContext("targetOperation", context.targetOperation);
-singleWrapper.putInContext("targetOperationString", context.targetOperation);
-singleWrapper.putInContext("currentValue", currentValue);
+request.setAttribute("currentValue", currentValue)
+singleWrapper = context.singleWrapper
+singleWrapper.putInContext("contentPurposeTypeId", context.contentPurposeTypeId)
+singleWrapper.putInContext("targetOperation", context.targetOperation)
+singleWrapper.putInContext("targetOperationString", context.targetOperation)
+singleWrapper.putInContext("currentValue", currentValue)
 
-trailList = context.trailList;
-replyName = null;
+trailList = context.trailList
+replyName = null
 if (trailList) {
-    idNamePair = trailList[trailList.size() -1];
-    replyName = idNamePair[1];
+    idNamePair = trailList[trailList.size() -1]
+    replyName = idNamePair[1]
     if (!replyName.contains("RE:")) {
-        replyName = "RE:" + replyName;
+        replyName = "RE:" + replyName
     }
 }
-singleWrapper.putInContext("replyName", [contentName : replyName, description : replyName]);
+singleWrapper.putInContext("replyName", [contentName : replyName, description : replyName])

@@ -20,17 +20,17 @@
 // PRunsProductsAndOrder
 // ReportD
 
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper;
-import org.apache.ofbiz.order.order.OrderReadHelper;
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper
+import org.apache.ofbiz.order.order.OrderReadHelper
 
 if (productCategoryIdPar) {
-    category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne();
-    context.category = category;
+    category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne()
+    context.category = category
 }
 
-allProductionRuns = from("WorkEffortAndGoods").where("workEffortName", planName, "statusId", "WEGS_CREATED", "workEffortGoodStdTypeId", "PRUN_PROD_DELIV").orderBy("productId").queryList();
-productionRuns = [];
+allProductionRuns = from("WorkEffortAndGoods").where("workEffortName", planName, "statusId", "WEGS_CREATED", "workEffortGoodStdTypeId", "PRUN_PROD_DELIV").orderBy("productId").queryList()
+productionRuns = []
 
 if (allProductionRuns) {
     allProductionRuns.each { productionRun ->
@@ -38,28 +38,28 @@ if (allProductionRuns) {
         if (productCategoryIdPar) {
             if (!isProductInCategory(delegator, productionRun.productId, productCategoryIdPar)) {
                 // the production run's product is not a member of the given category, skip it
-                return;
+                return
             }
         }
-        productionRunProduct = from("Product").where("productId", productionRun.productId).queryOne();
-        String rootProductionRunId = ProductionRunHelper.getRootProductionRun(delegator, productionRun.workEffortId);
+        productionRunProduct = from("Product").where("productId", productionRun.productId).queryOne()
+        String rootProductionRunId = ProductionRunHelper.getRootProductionRun(delegator, productionRun.workEffortId)
 
-        productionRunOrder = from("WorkOrderItemFulfillment").where("workEffortId", rootProductionRunId).queryFirst();
-        OrderReadHelper orh = new OrderReadHelper(delegator, productionRunOrder.orderId);
-        location = from("ProductFacilityLocation").where("productId", productionRun.productId, "facilityId", productionRun.facilityId).queryFirst();
+        productionRunOrder = from("WorkOrderItemFulfillment").where("workEffortId", rootProductionRunId).queryFirst()
+        OrderReadHelper orh = new OrderReadHelper(delegator, productionRunOrder.orderId)
+        location = from("ProductFacilityLocation").where("productId", productionRun.productId, "facilityId", productionRun.facilityId).queryFirst()
 
         productionRunMap = [productionRun : productionRun,
                                           product : productionRunProduct,
                                           productionRunOrder : productionRunOrder,
                                           customer : orh.getPlacingParty(),
                                           address : orh.getShippingAddress(),
-                                          location : location];
+                                          location : location]
 
-        productionRunMap.plan = planName;
-        quantity = productionRun.estimatedQuantity;
+        productionRunMap.plan = planName
+        quantity = productionRun.estimatedQuantity
         for (int i = 0; i < quantity; i++) {
-            productionRuns.add(productionRunMap);
+            productionRuns.add(productionRunMap)
         }
     }
 }
-context.productionRuns = productionRuns;
+context.productionRuns = productionRuns

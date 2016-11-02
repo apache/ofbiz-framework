@@ -17,86 +17,86 @@
  * under the License.
  */
 
-import java.util.*;
-import java.lang.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.util.*;
+import java.util.*
+import java.lang.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.entity.util.*
 
-productId = parameters.productId;
-loginPartyId = userLogin.partyId;
-communicationEventId = parameters.communicationEventId;
-now = UtilDateTime.nowTimestamp();
+productId = parameters.productId
+loginPartyId = userLogin.partyId
+communicationEventId = parameters.communicationEventId
+now = UtilDateTime.nowTimestamp()
 try{
     if (UtilValidate.isNotEmpty(loginPartyId)) {
         if (UtilValidate.isNotEmpty(productId)) {
-        context.product = from("Product").where("productId", productId).queryOne();
+        context.product = from("Product").where("productId", productId).queryOne()
         }
-        communicationEvent = from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne();
-        communicationEvent.communicationEventTypeId = "EMAIL_COMMUNICATION";
-        communicationEvent.contactMechTypeId = "EMAIL_ADDRESS";
-        communicationEvent.datetimeStarted = now;
-        checkOwner = from("ProductRole").where("productId", productId,"partyId", loginPartyId,"roleTypeId", "PRODUCT_OWNER").queryList();
+        communicationEvent = from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne()
+        communicationEvent.communicationEventTypeId = "EMAIL_COMMUNICATION"
+        communicationEvent.contactMechTypeId = "EMAIL_ADDRESS"
+        communicationEvent.datetimeStarted = now
+        checkOwner = from("ProductRole").where("productId", productId,"partyId", loginPartyId,"roleTypeId", "PRODUCT_OWNER").queryList()
         if (checkOwner) {
             /* for product owner to our company */
             
             // for owner
-            productRole = from("ProductRole").where("productId", productId,"roleTypeId", "PRODUCT_OWNER").queryList();
+            productRole = from("ProductRole").where("productId", productId,"roleTypeId", "PRODUCT_OWNER").queryList()
             context.productOwnerId = productRole[0].partyId
-            parentCom = from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne();
+            parentCom = from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne()
             if (parentCom) {
-                context.partyIdFrom = productRole[0].partyId;
+                context.partyIdFrom = productRole[0].partyId
             } else {
-                context.partyIdFrom = parentCom.partyIdTo;
+                context.partyIdFrom = parentCom.partyIdTo
             }
-            resultsIdFrom = runService('getPartyEmail', ["partyId" : productRole[0].partyId, "userLogin" : userLogin]);
+            resultsIdFrom = runService('getPartyEmail', ["partyId" : productRole[0].partyId, "userLogin" : userLogin])
             if (resultsIdFrom.contactMechId != null) {
-                context.contactMechIdFrom = resultsIdFrom.contactMechId;
-                communicationEvent.contactMechIdFrom = resultsIdFrom.contactMechId;
+                context.contactMechIdFrom = resultsIdFrom.contactMechId
+                communicationEvent.contactMechIdFrom = resultsIdFrom.contactMechId
             }
             // for team
-            defaultPartyIdTo = organizationPartyId;
-            resultsIdTo = runService('getPartyEmail', ["partyId" : defaultPartyIdTo,"contactMechPurposeTypeId" :"SUPPORT_EMAIL", "userLogin" : userLogin]);
+            defaultPartyIdTo = organizationPartyId
+            resultsIdTo = runService('getPartyEmail', ["partyId" : defaultPartyIdTo,"contactMechPurposeTypeId" :"SUPPORT_EMAIL", "userLogin" : userLogin])
             if (resultsIdTo.contactMechId != null) {
-                context.contactMechIdTo = resultsIdTo.contactMechId;
-                communicationEvent.contactMechIdTo = resultsIdTo.contactMechId;
+                context.contactMechIdTo = resultsIdTo.contactMechId
+                communicationEvent.contactMechIdTo = resultsIdTo.contactMechId
             }
-            context.partyIdTo = defaultPartyIdTo;
-            communicationEvent.store();
-            context.communicationEvent = communicationEvent;
+            context.partyIdTo = defaultPartyIdTo
+            communicationEvent.store()
+            context.communicationEvent = communicationEvent
         } else {
             /* from company to owner */
             
             // for team
-            defaultPartyIdFrom = organizationPartyId;
-            context.partyIdFrom = defaultPartyIdFrom;
-            resultsIdFrom = runService('getPartyEmail', ["partyId" : defaultPartyIdFrom,"contactMechPurposeTypeId" :"SUPPORT_EMAIL", "userLogin" : userLogin]);
+            defaultPartyIdFrom = organizationPartyId
+            context.partyIdFrom = defaultPartyIdFrom
+            resultsIdFrom = runService('getPartyEmail', ["partyId" : defaultPartyIdFrom,"contactMechPurposeTypeId" :"SUPPORT_EMAIL", "userLogin" : userLogin])
             if (resultsIdFrom.contactMechId != null) {
-                context.contactMechIdFrom = resultsIdFrom.contactMechId;
-                communicationEvent.contactMechIdFrom = resultsIdFrom.contactMechId;
+                context.contactMechIdFrom = resultsIdFrom.contactMechId
+                communicationEvent.contactMechIdFrom = resultsIdFrom.contactMechId
             }
             // for owner
-            productRole = from("ProductRole").where("productId", productId,"roleTypeId", "PRODUCT_OWNER").queryList();
-            context.productOwnerId = productRole[0].partyId;
-            parentCom = from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne();
+            productRole = from("ProductRole").where("productId", productId,"roleTypeId", "PRODUCT_OWNER").queryList()
+            context.productOwnerId = productRole[0].partyId
+            parentCom = from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne()
             if(parentCom){
-                context.partyIdTo = productRole[0].partyId;
+                context.partyIdTo = productRole[0].partyId
             } else {
-                 context.partyIdTo = parentCom.partyIdFrom;
+                 context.partyIdTo = parentCom.partyIdFrom
             }
-           resultsIdTo = runService('getPartyEmail', ["partyId" : productRole[0].partyId, "userLogin" : userLogin]);
+           resultsIdTo = runService('getPartyEmail', ["partyId" : productRole[0].partyId, "userLogin" : userLogin])
            if (resultsIdTo.contactMechId != null) {
-              context.contactMechIdTo = resultsIdTo.contactMechId;
-              communicationEvent.contactMechIdTo = resultsIdTo.contactMechId;
+              context.contactMechIdTo = resultsIdTo.contactMechId
+              communicationEvent.contactMechIdTo = resultsIdTo.contactMechId
            }
-           communicationEvent.store();
-           context.communicationEvent = communicationEvent;
+           communicationEvent.store()
+           context.communicationEvent = communicationEvent
        }
     }
 } catch (exeption) {
-    Debug.logInfo("catch exeption ================" + exeption,"");
+    Debug.logInfo("catch exeption ================" + exeption,"")
 } catch (GenericEntityException e) {
-    Debug.logInfo("catch GenericEntityException ================" + e.getMessage(),"");
+    Debug.logInfo("catch GenericEntityException ================" + e.getMessage(),"")
 }

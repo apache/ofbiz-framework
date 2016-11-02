@@ -17,36 +17,36 @@
  * under the License.
  */
 
-import java.util.*;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import java.util.*
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityUtil
 
-facilityId = context.get("facilityId");
-searchParameterString = "action=Y&facilityId=" + facilityId;
+facilityId = context.get("facilityId")
+searchParameterString = "action=Y&facilityId=" + facilityId
 
-EntityCondition whereConditions = EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId);
-inventoryItems = select("productId").from("InventoryItem").where("facilityId", facilityId).orderBy("productId").queryList();
-inventoryItemProducts = EntityUtil.getFieldListFromEntityList(inventoryItems, "productId", true);
+EntityCondition whereConditions = EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId)
+inventoryItems = select("productId").from("InventoryItem").where("facilityId", facilityId).orderBy("productId").queryList()
+inventoryItemProducts = EntityUtil.getFieldListFromEntityList(inventoryItems, "productId", true)
 
-inventoryAverageCosts = [];
+inventoryAverageCosts = []
 inventoryItemProducts.each { productId ->
-    productFacility = from("ProductFacility").where("productId", productId, "facilityId", facilityId).queryOne();
+    productFacility = from("ProductFacility").where("productId", productId, "facilityId", facilityId).queryOne()
     if (UtilValidate.isNotEmpty(productFacility)) {
-        result = runService('calculateProductAverageCost', UtilMisc.toMap("productId": productId, "facilityId": facilityId, "userLogin": userLogin));
-        totalQuantityOnHand = result.get("totalQuantityOnHand");
+        result = runService('calculateProductAverageCost', UtilMisc.toMap("productId": productId, "facilityId": facilityId, "userLogin": userLogin))
+        totalQuantityOnHand = result.get("totalQuantityOnHand")
 
-        totalInventoryCost = result.get("totalInventoryCost");
-        productAverageCost = result.get("productAverageCost");
-        currencyUomId = result.get("currencyUomId");
+        totalInventoryCost = result.get("totalInventoryCost")
+        productAverageCost = result.get("productAverageCost")
+        currencyUomId = result.get("currencyUomId")
         if (!totalQuantityOnHand.equals(BigDecimal.ZERO)) {
             inventoryAverageCosts.add(UtilMisc.toMap("productId", productId, "totalQuantityOnHand", totalQuantityOnHand,
-                    "productAverageCost", productAverageCost, "totalInventoryCost", totalInventoryCost, "currencyUomId", currencyUomId));
+                    "productAverageCost", productAverageCost, "totalInventoryCost", totalInventoryCost, "currencyUomId", currencyUomId))
         }
     }
 }
 
-context.searchParameterString = searchParameterString;
-context.inventoryAverageCosts = inventoryAverageCosts;
+context.searchParameterString = searchParameterString
+context.inventoryAverageCosts = inventoryAverageCosts

@@ -17,59 +17,59 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.accounting.payment.*;
-import org.apache.ofbiz.party.contact.*;
-import org.apache.ofbiz.product.store.*;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.accounting.payment.*
+import org.apache.ofbiz.party.contact.*
+import org.apache.ofbiz.product.store.*
 
-cart = session.getAttribute("shoppingCart");
-currencyUomId = cart.getCurrency();
-userLogin = session.getAttribute("userLogin");
-partyId = cart.getPartyId();
-party = from("Party").where("partyId", partyId).cache(true).queryOne();
-productStoreId = ProductStoreWorker.getProductStoreId(request);
+cart = session.getAttribute("shoppingCart")
+currencyUomId = cart.getCurrency()
+userLogin = session.getAttribute("userLogin")
+partyId = cart.getPartyId()
+party = from("Party").where("partyId", partyId).cache(true).queryOne()
+productStoreId = ProductStoreWorker.getProductStoreId(request)
 
-checkOutPaymentId = "";
+checkOutPaymentId = ""
 if (cart) {
     if (cart.getPaymentMethodIds()) {
-        checkOutPaymentId = cart.getPaymentMethodIds().get(0);
+        checkOutPaymentId = cart.getPaymentMethodIds().get(0)
     } else if (cart.getPaymentMethodTypeIds()) {
-        checkOutPaymentId = cart.getPaymentMethodTypeIds().get(0);
+        checkOutPaymentId = cart.getPaymentMethodTypeIds().get(0)
     }
 }
 
-finAccounts = from("FinAccountAndRole").where("partyId", partyId, "roleTypeId", "OWNER").filterByDate(UtilDateTime.nowTimestamp(), "fromDate", "thruDate", "roleFromDate", "roleThruDate").queryList();
-context.finAccounts = finAccounts;
+finAccounts = from("FinAccountAndRole").where("partyId", partyId, "roleTypeId", "OWNER").filterByDate(UtilDateTime.nowTimestamp(), "fromDate", "thruDate", "roleFromDate", "roleThruDate").queryList()
+context.finAccounts = finAccounts
 
-context.shoppingCart = cart;
-context.userLogin = userLogin;
-context.productStoreId = productStoreId;
-context.checkOutPaymentId = checkOutPaymentId;
-context.paymentMethodList = EntityUtil.filterByDate(party.getRelated("PaymentMethod", null, ["paymentMethodTypeId"], false), true);
+context.shoppingCart = cart
+context.userLogin = userLogin
+context.productStoreId = productStoreId
+context.checkOutPaymentId = checkOutPaymentId
+context.paymentMethodList = EntityUtil.filterByDate(party.getRelated("PaymentMethod", null, ["paymentMethodTypeId"], false), true)
 
-billingAccountList = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher);
+billingAccountList = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher)
 if (billingAccountList) {
-    context.selectedBillingAccountId = cart.getBillingAccountId();
-    context.billingAccountList = billingAccountList;
+    context.selectedBillingAccountId = cart.getBillingAccountId()
+    context.billingAccountList = billingAccountList
 }
 
-checkIdealPayment = false;
-productStore = ProductStoreWorker.getProductStore(request);
-productStorePaymentSettingList = productStore.getRelated("ProductStorePaymentSetting", null, null, true);
-productStorePaymentSettingIter = productStorePaymentSettingList.iterator();
+checkIdealPayment = false
+productStore = ProductStoreWorker.getProductStore(request)
+productStorePaymentSettingList = productStore.getRelated("ProductStorePaymentSetting", null, null, true)
+productStorePaymentSettingIter = productStorePaymentSettingList.iterator()
 while (productStorePaymentSettingIter.hasNext()) {
-    productStorePaymentSetting = productStorePaymentSettingIter.next();
+    productStorePaymentSetting = productStorePaymentSettingIter.next()
     if (productStorePaymentSetting.get("paymentMethodTypeId") == "EXT_IDEAL") {
-        checkIdealPayment = true;
+        checkIdealPayment = true
     }
     
 }
 
 if (checkIdealPayment) {
-    issuerList = org.apache.ofbiz.accounting.thirdparty.ideal.IdealEvents.getIssuerList();
+    issuerList = org.apache.ofbiz.accounting.thirdparty.ideal.IdealEvents.getIssuerList()
     if (issuerList) {
-        context.issuerList = issuerList;
+        context.issuerList = issuerList
     }
 }

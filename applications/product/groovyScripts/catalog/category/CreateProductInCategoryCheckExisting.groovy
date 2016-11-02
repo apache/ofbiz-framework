@@ -17,38 +17,38 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.product.feature.*;
-import org.apache.ofbiz.product.product.ProductSearch;
-import org.apache.ofbiz.webapp.stats.VisitHandler;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.product.feature.*
+import org.apache.ofbiz.product.product.ProductSearch
+import org.apache.ofbiz.webapp.stats.VisitHandler
 
-visitId = VisitHandler.getVisitId(session);
+visitId = VisitHandler.getVisitId(session)
 
-featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(request);
-featureIdSet = [] as Set;
+featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(request)
+featureIdSet = [] as Set
 if (featureIdByType) {
-    featureIdSet.addAll(featureIdByType.values());
+    featureIdSet.addAll(featureIdByType.values())
 }
 
-productIds = ProductSearch.parametricKeywordSearch(featureIdSet, null, delegator, productCategoryId, true, visitId, true, true, false);
+productIds = ProductSearch.parametricKeywordSearch(featureIdSet, null, delegator, productCategoryId, true, visitId, true, true, false)
 
 // get the product for each ID
-products = new ArrayList(productIds.size());
+products = new ArrayList(productIds.size())
 productIds.each { productId ->
-    product = from("Product").where("productId", productId).cache(true).queryOne();
-    products.add(product);
+    product = from("Product").where("productId", productId).cache(true).queryOne()
+    products.add(product)
 }
 
-productFeatureAndTypeDatas = new ArrayList(featureIdByType.size());
+productFeatureAndTypeDatas = new ArrayList(featureIdByType.size())
 featureIdByType.each { featureIdByTypeEntry ->
-    productFeatureType = from("ProductFeatureType").where("productFeatureTypeId", featureIdByTypeEntry.key).cache(true).queryOne();
-    productFeature = from("ProductFeature").where("productFeatureId", featureIdByTypeEntry.value).cache(true).queryOne();
-    productFeatureAndTypeData = [:];
-    productFeatureAndTypeData.productFeatureType = productFeatureType;
-    productFeatureAndTypeData.productFeature = productFeature;
-    productFeatureAndTypeDatas.add(productFeatureAndTypeData);
+    productFeatureType = from("ProductFeatureType").where("productFeatureTypeId", featureIdByTypeEntry.key).cache(true).queryOne()
+    productFeature = from("ProductFeature").where("productFeatureId", featureIdByTypeEntry.value).cache(true).queryOne()
+    productFeatureAndTypeData = [:]
+    productFeatureAndTypeData.productFeatureType = productFeatureType
+    productFeatureAndTypeData.productFeature = productFeature
+    productFeatureAndTypeDatas.add(productFeatureAndTypeData)
 }
 
-context.productFeatureAndTypeDatas = productFeatureAndTypeDatas;
-context.products = products;
+context.productFeatureAndTypeDatas = productFeatureAndTypeDatas
+context.products = products

@@ -17,81 +17,81 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.accounting.payment.*;
-import org.apache.ofbiz.party.contact.*;
-import org.apache.ofbiz.product.store.*;
-import org.apache.ofbiz.order.shoppingcart.shipping.*;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.accounting.payment.*
+import org.apache.ofbiz.party.contact.*
+import org.apache.ofbiz.product.store.*
+import org.apache.ofbiz.order.shoppingcart.shipping.*
 
-shoppingCart = session.getAttribute("shoppingCart");
-currencyUomId = shoppingCart.getCurrency();
-partyId = shoppingCart.getPartyId();
-party = from("Party").where("partyId", partyId).cache(true).queryOne();
-productStore = ProductStoreWorker.getProductStore(request);
+shoppingCart = session.getAttribute("shoppingCart")
+currencyUomId = shoppingCart.getCurrency()
+partyId = shoppingCart.getPartyId()
+party = from("Party").where("partyId", partyId).cache(true).queryOne()
+productStore = ProductStoreWorker.getProductStore(request)
 
-shippingEstWpr = null;
+shippingEstWpr = null
 if (shoppingCart) {
-    shippingEstWpr = new ShippingEstimateWrapper(dispatcher, shoppingCart, 0);
-    context.shippingEstWpr = shippingEstWpr;
-    context.carrierShipmentMethodList = shippingEstWpr.getShippingMethods();
+    shippingEstWpr = new ShippingEstimateWrapper(dispatcher, shoppingCart, 0)
+    context.shippingEstWpr = shippingEstWpr
+    context.carrierShipmentMethodList = shippingEstWpr.getShippingMethods()
     // Reassign items requiring drop-shipping to new or existing drop-ship groups
-    shoppingCart.createDropShipGroups(dispatcher);    
+    shoppingCart.createDropShipGroups(dispatcher)
 }
 
-profiledefs = from("PartyProfileDefault").where("partyId", userLogin.partyId, "productStoreId", productStoreId).queryOne();
-context.profiledefs = profiledefs;
+profiledefs = from("PartyProfileDefault").where("partyId", userLogin.partyId, "productStoreId", productStoreId).queryOne()
+context.profiledefs = profiledefs
 
-context.shoppingCart = shoppingCart;
-context.userLogin = userLogin;
-context.productStoreId = productStore.get("productStoreId");
-context.productStore = productStore;
-shipToParty = from("Party").where("partyId", shoppingCart.getShipToCustomerPartyId()).cache(true).queryOne();
-context.shippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
-context.emailList = ContactHelper.getContactMechByType(party, "EMAIL_ADDRESS", false);
+context.shoppingCart = shoppingCart
+context.userLogin = userLogin
+context.productStoreId = productStore.get("productStoreId")
+context.productStore = productStore
+shipToParty = from("Party").where("partyId", shoppingCart.getShipToCustomerPartyId()).cache(true).queryOne()
+context.shippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false)
+context.emailList = ContactHelper.getContactMechByType(party, "EMAIL_ADDRESS", false)
 
 if (shoppingCart.getShipmentMethodTypeId() && shoppingCart.getCarrierPartyId()) {
-    context.chosenShippingMethod = shoppingCart.getShipmentMethodTypeId() + '@' + shoppingCart.getCarrierPartyId();
+    context.chosenShippingMethod = shoppingCart.getShipmentMethodTypeId() + '@' + shoppingCart.getCarrierPartyId()
 } else if (profiledefs?.defaultShipMeth) {
-    context.chosenShippingMethod = profiledefs.defaultShipMeth;
+    context.chosenShippingMethod = profiledefs.defaultShipMeth
 }
 
 // other profile defaults
 if (!shoppingCart.getShippingAddress() && profiledefs?.defaultShipAddr) {
-    shoppingCart.setAllShippingContactMechId(profiledefs.defaultShipAddr);
+    shoppingCart.setAllShippingContactMechId(profiledefs.defaultShipAddr)
 }
 if (shoppingCart.selectedPayments() == 0 && profiledefs?.defaultPayMeth) {
-    shoppingCart.addPayment(profiledefs.defaultPayMeth);
+    shoppingCart.addPayment(profiledefs.defaultPayMeth)
 }
 
 // create a list containing all the parties associated to the current cart, useful to change
 // the ship to party id
-cartParties = [shoppingCart.getShipToCustomerPartyId()];
+cartParties = [shoppingCart.getShipToCustomerPartyId()]
 if (!cartParties.contains(partyId)) {
-    cartParties.add(partyId);
+    cartParties.add(partyId)
 }
 if (!cartParties.contains(shoppingCart.getOrderPartyId())) {
-    cartParties.add(shoppingCart.getOrderPartyId());
+    cartParties.add(shoppingCart.getOrderPartyId())
 }
 if (!cartParties.contains(shoppingCart.getPlacingCustomerPartyId())) {
-    cartParties.add(shoppingCart.getPlacingCustomerPartyId());
+    cartParties.add(shoppingCart.getPlacingCustomerPartyId())
 }
 if (!cartParties.contains(shoppingCart.getBillToCustomerPartyId())) {
-    cartParties.add(shoppingCart.getBillToCustomerPartyId());
+    cartParties.add(shoppingCart.getBillToCustomerPartyId())
 }
 if (!cartParties.contains(shoppingCart.getEndUserCustomerPartyId())) {
-    cartParties.add(shoppingCart.getEndUserCustomerPartyId());
+    cartParties.add(shoppingCart.getEndUserCustomerPartyId())
 }
 if (!cartParties.contains(shoppingCart.getSupplierAgentPartyId())) {
-    cartParties.add(shoppingCart.getSupplierAgentPartyId());
+    cartParties.add(shoppingCart.getSupplierAgentPartyId())
 }
-salesReps = shoppingCart.getAdditionalPartyRoleMap().SALES_REP;
+salesReps = shoppingCart.getAdditionalPartyRoleMap().SALES_REP
 if (salesReps) {
     salesReps.each { salesRep ->
         if (!cartParties.contains(salesRep)) {
-            cartParties.add(salesRep);
+            cartParties.add(salesRep)
         }
     }
 }
-context.cartParties = cartParties;
+context.cartParties = cartParties

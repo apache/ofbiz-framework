@@ -18,76 +18,76 @@
  * under the License.
  */
 
-import java.sql.Timestamp;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.util.*;
+import java.sql.Timestamp
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
 
-productId = parameters.productId;
+productId = parameters.productId
 entryExprs =
     EntityCondition.makeCondition([
         EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
         EntityCondition.makeCondition("invoiceId", EntityOperator.NOT_EQUAL, null),
-        ], EntityOperator.AND);
+        ], EntityOperator.AND)
 // check if latest invoice generated is still in process so allow re-generation to correct errors
-entryIterator = from("ProjectSprintBacklogTaskAndTimeEntryTimeSheet").where(entryExprs).orderBy("-fromDate").queryIterator();
+entryIterator = from("ProjectSprintBacklogTaskAndTimeEntryTimeSheet").where(entryExprs).orderBy("-fromDate").queryIterator()
 while (entryItem = entryIterator.next()) {
-    invoice = entryItem.getRelatedOne("Invoice", false);
+    invoice = entryItem.getRelatedOne("Invoice", false)
     if (invoice.getString("statusId").equals("INVOICE_IN_PROCESS")) {
-        context.partyIdFrom = invoice.partyIdFrom;
-        context.partyId = invoice.partyId;
-        context.invoiceId = invoice.invoiceId;
-        context.invoiceDate = invoice.invoiceDate;
-        break;
+        context.partyIdFrom = invoice.partyIdFrom
+        context.partyId = invoice.partyId
+        context.invoiceId = invoice.invoiceId
+        context.invoiceDate = invoice.invoiceDate
+        break
         }
     }
-entryIterator.close();
+entryIterator.close()
 //start of this month
-context.thruDate = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp());
+context.thruDate = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp())
 
 // build find task conditions
-def taskConds = UtilMisc.toList(EntityCondition.makeCondition("productId", parameters.productId));
-taskConds.add(EntityCondition.makeCondition("invoiceId", null));
-taskConds.add(EntityCondition.makeCondition("timesheetStatusId", "TIMESHEET_COMPLETED"));
+def taskConds = UtilMisc.toList(EntityCondition.makeCondition("productId", parameters.productId))
+taskConds.add(EntityCondition.makeCondition("invoiceId", null))
+taskConds.add(EntityCondition.makeCondition("timesheetStatusId", "TIMESHEET_COMPLETED"))
 if (parameters.fromDate) {
-    fromDate = parameters.fromDate;
+    fromDate = parameters.fromDate
     if (fromDate.length() < 14) {
-        fromDate = fromDate + " " + "00:00:00.000";
+        fromDate = fromDate + " " + "00:00:00.000"
     }
-    taskConds.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)));
+    taskConds.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)))
 }
 if (parameters.thruDate) {
-    thruDate = parameters.thruDate;
+    thruDate = parameters.thruDate
     if (thruDate.length() < 14) {
-        thruDate = thruDate + " " + "00:00:00.000";
+        thruDate = thruDate + " " + "00:00:00.000"
     }
-    taskConds.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, Timestamp.valueOf(thruDate)));
+    taskConds.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, Timestamp.valueOf(thruDate)))
 } else {
-    taskConds.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, context.thruDate));
+    taskConds.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, context.thruDate))
 }
 // include meeting ?
 if ("N".equals(includeMeeting)) {
-    taskConds.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.NOT_EQUAL, "RF_SCRUM_MEETINGS"));
+    taskConds.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.NOT_EQUAL, "RF_SCRUM_MEETINGS"))
 }
 // get sprint task list
-def sprintTasks = from("ProjectSprintBacklogTaskAndTimeEntryTimeSheet").where(taskConds).queryList();
+def sprintTasks = from("ProjectSprintBacklogTaskAndTimeEntryTimeSheet").where(taskConds).queryList()
 
 // get cancelled backlog task list
-def cancelledBacklogTasks = from("CancelledBacklogsTaskAndTimeEntryTimeSheet").where(taskConds).queryList();
+def cancelledBacklogTasks = from("CancelledBacklogsTaskAndTimeEntryTimeSheet").where(taskConds).queryList()
 
 // get unplanned task list
-def unplannedTasks = from("UnPlannedBacklogsTaskAndTimeEntryTimeSheet").where(taskConds).queryList();
+def unplannedTasks = from("UnPlannedBacklogsTaskAndTimeEntryTimeSheet").where(taskConds).queryList()
 
-def hoursNotYetBilledTasks = [];
-hoursNotYetBilledTasks.addAll(sprintTasks);
-hoursNotYetBilledTasks.addAll(cancelledBacklogTasks);
-hoursNotYetBilledTasks.addAll(unplannedTasks);
+def hoursNotYetBilledTasks = []
+hoursNotYetBilledTasks.addAll(sprintTasks)
+hoursNotYetBilledTasks.addAll(cancelledBacklogTasks)
+hoursNotYetBilledTasks.addAll(unplannedTasks)
 context.hoursNotYetBilledTasks = UtilMisc.sortMaps(hoursNotYetBilledTasks, ["productId","custRequestId","taskId","fromDate"])
 
 // get time entry date
 timeEntryList = UtilMisc.sortMaps(hoursNotYetBilledTasks, ["fromDate"])
 if (!parameters.fromDate && timeEntryList) {
-    context.resultDate = timeEntryList[0].fromDate;
+    context.resultDate = timeEntryList[0].fromDate
 }

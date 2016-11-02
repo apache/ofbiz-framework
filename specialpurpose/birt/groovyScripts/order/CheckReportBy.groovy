@@ -17,51 +17,51 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilValidate
 
-reportBy = parameters.reportBy;
-exportType = parameters.exportType;
+reportBy = parameters.reportBy
+exportType = parameters.exportType
 
 if (UtilValidate.isEmpty(parameters.fromDate)) {
-    request.setAttribute("_ERROR_MESSAGE_", "Please select From Date.");
-    return "error";
+    request.setAttribute("_ERROR_MESSAGE_", "Please select From Date.")
+    return "error"
 }
 
 if (exportType == "pdf") {
     if (reportBy == "day") {
-        return "dayPDF";
+        return "dayPDF"
     } else if (reportBy == "week") {
-        return "weekPDF";
+        return "weekPDF"
     } else if (reportBy == "month") {
-        return "monthPDF";
+        return "monthPDF"
     } else {
-        request.setAttribute("_ERROR_MESSAGE_", "Please select Report By.");
-        return "error";
+        request.setAttribute("_ERROR_MESSAGE_", "Please select Report By.")
+        return "error"
     }
 }
 
 if (exportType == "excel") {
     if (reportBy == "day") {
-        return "dayExcel";
+        return "dayExcel"
     } else if (reportBy == "week") {
-        return "weekExcel";
+        return "weekExcel"
     } else if (reportBy == "month") {
-        return "monthExcel";
+        return "monthExcel"
     } else {
-        request.setAttribute("_ERROR_MESSAGE_", "Please select Report By.");
-        return "error";
+        request.setAttribute("_ERROR_MESSAGE_", "Please select Report By.")
+        return "error"
     }
 }
 
 if (exportType == "html") {
     if (reportBy == "day") {
-        return "dayHTML";
+        return "dayHTML"
     } else if (reportBy == "week") {
-        return "weekHTML";
+        return "weekHTML"
     } else if (reportBy == "month") {
-        return "monthHTML";
+        return "monthHTML"
     } else {
-        request.setAttribute("_ERROR_MESSAGE_", "Please select Report By.");
-        return "error";
+        request.setAttribute("_ERROR_MESSAGE_", "Please select Report By.")
+        return "error"
     }
 }

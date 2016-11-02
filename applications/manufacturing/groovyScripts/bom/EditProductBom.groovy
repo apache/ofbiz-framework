@@ -17,58 +17,58 @@
  * under the License.
  */
 
-import java.sql.Timestamp;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilDateTime;
+import java.sql.Timestamp
+import org.apache.ofbiz.base.util.UtilHttp
+import org.apache.ofbiz.base.util.UtilDateTime
 
-context.nowDate = UtilDateTime.nowDate();
-context.nowTimestampString = UtilHttp.encodeBlanks(UtilDateTime.nowTimestamp().toString());
+context.nowDate = UtilDateTime.nowDate()
+context.nowTimestampString = UtilHttp.encodeBlanks(UtilDateTime.nowTimestamp().toString())
 
-boolean useValues = true;
-if (request.getAttribute("_ERROR_MESSAGE_")) useValues = false;
+boolean useValues = true
+if (request.getAttribute("_ERROR_MESSAGE_")) useValues = false
 
-productId = parameters.productId;
-if (productId) context.productId = productId;
+productId = parameters.productId
+if (productId) context.productId = productId
 
-productIdTo = parameters.productIdTo;
-updateMode = parameters.UPDATE_MODE;
+productIdTo = parameters.productIdTo
+updateMode = parameters.UPDATE_MODE
 
-if (productIdTo) context.productIdTo = productIdTo;
+if (productIdTo) context.productIdTo = productIdTo
 
-productAssocTypeId = parameters.productAssocTypeId;
-if (productAssocTypeId) context.productAssocTypeId = productAssocTypeId;
+productAssocTypeId = parameters.productAssocTypeId
+if (productAssocTypeId) context.productAssocTypeId = productAssocTypeId
 
-fromDateStr = parameters.fromDate;
+fromDateStr = parameters.fromDate
 
-Timestamp fromDate = null;
-if (fromDateStr) fromDate = Timestamp.valueOf(fromDateStr) ?: (Timestamp)request.getAttribute("ProductAssocCreateFromDate");;
-context.fromDate = fromDate;
+Timestamp fromDate = null
+if (fromDateStr) fromDate = Timestamp.valueOf(fromDateStr) ?: (Timestamp)request.getAttribute("ProductAssocCreateFromDate")
+context.fromDate = fromDate
 
-productAssoc = from("ProductAssoc").where("productId", productId, "productIdTo", productIdTo, "productAssocTypeId", productAssocTypeId, "fromDate", fromDate).queryOne();
+productAssoc = from("ProductAssoc").where("productId", productId, "productIdTo", productIdTo, "productAssocTypeId", productAssocTypeId, "fromDate", fromDate).queryOne()
 if (updateMode) {
-    productAssoc = [:];
-    context.remove("productIdTo");
+    productAssoc = [:]
+    context.remove("productIdTo")
 }
 if (productAssoc) {
-    context.productAssoc = productAssoc;
+    context.productAssoc = productAssoc
 }
 
-if ("true".equalsIgnoreCase((String)request.getParameter("useValues"))) useValues = true;
-if (!productAssoc) useValues = false;
+if ("true".equalsIgnoreCase((String)request.getParameter("useValues"))) useValues = true
+if (!productAssoc) useValues = false
 
-context.useValues = useValues;
+context.useValues = useValues
 
-Collection assocTypes = from("ProductAssocType").where("parentTypeId", "PRODUCT_COMPONENT").orderBy("productAssocTypeId", "description").queryList();
-context.assocTypes = assocTypes;
+Collection assocTypes = from("ProductAssocType").where("parentTypeId", "PRODUCT_COMPONENT").orderBy("productAssocTypeId", "description").queryList()
+context.assocTypes = assocTypes
 
-Collection formulae = from("CustomMethod").where("customMethodTypeId", "BOM_FORMULA").orderBy("customMethodId", "description").queryList();
-context.formulae = formulae;
+Collection formulae = from("CustomMethod").where("customMethodTypeId", "BOM_FORMULA").orderBy("customMethodId", "description").queryList()
+context.formulae = formulae
 
 if (product) {
-    assocFromProducts = product.getRelated("MainProductAssoc", (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]), ["sequenceNum","productId"], false);
-    if (assocFromProducts) context.assocFromProducts = assocFromProducts;
+    assocFromProducts = product.getRelated("MainProductAssoc", (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]), ["sequenceNum","productId"], false)
+    if (assocFromProducts) context.assocFromProducts = assocFromProducts
 
-    assocToProducts = product.getRelated("AssocProductAssoc", (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]), ["sequenceNum","productId"], false);
-    if (assocToProducts) context.assocToProducts = assocToProducts;
+    assocToProducts = product.getRelated("AssocProductAssoc", (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]), ["sequenceNum","productId"], false)
+    if (assocToProducts) context.assocToProducts = assocToProducts
 }
 

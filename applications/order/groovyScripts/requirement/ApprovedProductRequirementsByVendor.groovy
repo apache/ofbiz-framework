@@ -24,16 +24,16 @@
 // view entitities chained together, RequirementByPartyCount and
 // ProductRequirementCount (see order entitymodel_view.xml).
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.entity.condition.*
 
 conditions = EntityCondition.makeCondition([
             EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER"),
             EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_APPROVED"),
             EntityCondition.makeCondition("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
             EntityUtil.getFilterByDateExpr()
-            ], EntityOperator.AND);
-requirements = select("partyId", "productId").from("RequirementPartyProductCount").where(conditions).orderBy("partyId").cursorScrollInsensitive().distinct().queryIterator();
-context.requirements = requirements;
+            ], EntityOperator.AND)
+requirements = select("partyId", "productId").from("RequirementPartyProductCount").where(conditions).orderBy("partyId").cursorScrollInsensitive().distinct().queryIterator()
+context.requirements = requirements

@@ -17,28 +17,28 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.party.contact.ContactHelper;
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.party.contact.ContactHelper
 
 if (userLogin) {
-    party = userLogin.getRelatedOne("Party", false);
+    party = userLogin.getRelatedOne("Party", false)
 
-    contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false));
+    contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false))
     if (contactMech) {
-        context.emailContactMechId = contactMech.contactMechId;
-        context.emailAddress = contactMech.infoString;
+        context.emailContactMechId = contactMech.contactMechId
+        context.emailAddress = contactMech.infoString
     }
 
-    contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false));
+    contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false))
     if (contactMech) {
-        partyContactMech = from("PartyContactMech").where("partyId", party.partyId, "contactMechId", contactMech.contactMechId).filterByDate().queryFirst();
+        partyContactMech = from("PartyContactMech").where("partyId", party.partyId, "contactMechId", contactMech.contactMechId).filterByDate().queryFirst()
         if (partyContactMech) {
-            telecomNumber = partyContactMech.getRelatedOne("TelecomNumber", false);
-            context.phoneContactMechId = telecomNumber.contactMechId;
-            context.countryCode = telecomNumber.countryCode;
-            context.areaCode = telecomNumber.areaCode;
-            context.contactNumber = telecomNumber.contactNumber;
-            context.extension = partyContactMech.extension;
+            telecomNumber = partyContactMech.getRelatedOne("TelecomNumber", false)
+            context.phoneContactMechId = telecomNumber.contactMechId
+            context.countryCode = telecomNumber.countryCode
+            context.areaCode = telecomNumber.areaCode
+            context.contactNumber = telecomNumber.contactNumber
+            context.extension = partyContactMech.extension
         }
     }
 }

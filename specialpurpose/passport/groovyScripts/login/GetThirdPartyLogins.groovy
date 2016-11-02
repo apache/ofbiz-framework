@@ -17,33 +17,33 @@
  * under the License.
  */
 
-package org.apache.ofbiz.passport;
+package org.apache.ofbiz.passport
 
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
 final String module = "GetThirdPartyLogins.groovy"
 
-adminErrorInfo = context.adminErrorInfo;
-productStoreId = context.productStoreId;
+adminErrorInfo = context.adminErrorInfo
+productStoreId = context.productStoreId
 if (!productStoreId) {
-    productStore = ProductStoreWorker.getProductStore(request);
-    productStoreId = productStore.productStoreId;
+    productStore = ProductStoreWorker.getProductStore(request)
+    productStoreId = productStore.productStoreId
 }
 
 if (!adminErrorInfo || !adminErrorInfo.hasError()) {
-    storePassportLoginMethList = null;
+    storePassportLoginMethList = null
     // Get lists of passport login methods
     if (productStoreId) {
-        storePassportLoginMethList = delegator.findByAnd("ThirdPartyLogin", ["productStoreId": productStoreId], ["sequenceNum ASC"], false);
-        storePassportLoginMethList = EntityUtil.filterByDate(storePassportLoginMethList);
+        storePassportLoginMethList = delegator.findByAnd("ThirdPartyLogin", ["productStoreId": productStoreId], ["sequenceNum ASC"], false)
+        storePassportLoginMethList = EntityUtil.filterByDate(storePassportLoginMethList)
     }
         
     // Extra data preparation for each login method.
     if (storePassportLoginMethList) {
         storeLoginMethList = []
         for (storeLoginMeth in storePassportLoginMethList) {
-            storeLoginMethDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd(storeLoginMeth.loginMethTypeId + storeLoginMeth.loginProviderId, ["productStoreId": productStoreId], null, false)));
+            storeLoginMethDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd(storeLoginMeth.loginMethTypeId + storeLoginMeth.loginProviderId, ["productStoreId": productStoreId], null, false)))
             storeLoginMethList.add(storeLoginMethDetail)
         }
         context.storeLoginMethList = storeLoginMethList

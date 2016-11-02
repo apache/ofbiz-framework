@@ -22,42 +22,42 @@ import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.base.util.UtilNumber
 
 // rounding mode
-decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-context.decimals = decimals;
-context.rounding = rounding;
+decimals = UtilNumber.getBigDecimalScale("invoice.decimals")
+rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding")
+context.decimals = decimals
+context.rounding = rounding
 
 // list of payments
-payments = [];
+payments = []
 
 // first ensure ability to print
-security = request.getAttribute("security");
-context.put("security", security);
+security = request.getAttribute("security")
+context.put("security", security)
 if (!security.hasEntityPermission("ACCOUNTING", "_PRINT_CHECKS", session)) {
-    context.payments = payments; // if no permission, just pass an empty list for now
-    return;
+    context.payments = payments // if no permission, just pass an empty list for now
+    return
 }
 
 // in the case of a single payment, the paymentId will be supplied
-paymentId = context.paymentId;
+paymentId = context.paymentId
 if (paymentId) {
-    payment = from("Payment").where("paymentId", paymentId).queryOne();
-    if (payment) payments.add(payment);
-    context.payments = payments;
-    return;
+    payment = from("Payment").where("paymentId", paymentId).queryOne()
+    if (payment) payments.add(payment)
+    context.payments = payments
+    return
 }
 
 // in the case of a multi form, parse the multi data and get all of the selected payments
-selected = UtilHttp.parseMultiFormData(parameters);
+selected = UtilHttp.parseMultiFormData(parameters)
 selected.each { row ->
-    payment = from("Payment").where("paymentId", row.paymentId).queryOne();
+    payment = from("Payment").where("paymentId", row.paymentId).queryOne()
     if (payment) {
-        payments.add(payment);
+        payments.add(payment)
     }
 }
-paymentGroupMembers = from("PaymentGroupMember").where("paymentGroupId", parameters.paymentGroupId).filterByDate().queryList();
+paymentGroupMembers = from("PaymentGroupMember").where("paymentGroupId", parameters.paymentGroupId).filterByDate().queryList()
 //in the case of a multiple payments, paymentId List is supplied.
 paymentGroupMembers.each { paymentGropupMember->
-    payments.add(paymentGropupMember.getRelatedOne("Payment", false));
+    payments.add(paymentGropupMember.getRelatedOne("Payment", false))
 }
-context.payments = payments;
+context.payments = payments

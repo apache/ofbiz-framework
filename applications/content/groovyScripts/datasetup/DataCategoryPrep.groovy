@@ -25,12 +25,12 @@ import org.apache.ofbiz.content.data.DataResourceWorker
  * DataCategory picklist.
  */
 
-dataCategoryTrail = [] as ArrayList;
-rootNode = [:];
-rootNode.id = "ROOT";
-DataResourceWorker.getDataCategoryMap(delegator, 0, rootNode, dataCategoryTrail, true);
+dataCategoryTrail = [] as ArrayList
+rootNode = [:]
+rootNode.id = "ROOT"
+DataResourceWorker.getDataCategoryMap(delegator, 0, rootNode, dataCategoryTrail, true)
 
-dataCategoryList = [] as ArrayList;
-DataResourceWorker.buildList(rootNode, dataCategoryList, 0);
+dataCategoryList = [] as ArrayList
+DataResourceWorker.buildList(rootNode, dataCategoryList, 0)
 
-context.dataCategoryList = dataCategoryList;
+context.dataCategoryList = dataCategoryList

@@ -17,35 +17,35 @@
  * under the License.
  */
 
-import java.util.List;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.string.*;
-import org.apache.ofbiz.base.util.UtilMisc;
+import java.util.List
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.string.*
+import org.apache.ofbiz.base.util.UtilMisc
 
-locales = [] as LinkedList;
+locales = [] as LinkedList
 availableLocales = UtilMisc.availableLocales()
 
-// Debug.logInfo(parameters.localeString + "==" +  parameters.localeName);
+// Debug.logInfo(parameters.localeString + "==" +  parameters.localeName)
 
 if (availableLocales) {
     availableLocales.each { availableLocale ->
-        locale = [:];
-        locale.localeName = availableLocale.getDisplayName(availableLocale);
-        locale.localeString = availableLocale.toString();
+        locale = [:]
+        locale.localeName = availableLocale.getDisplayName(availableLocale)
+        locale.localeString = availableLocale.toString()
         if (UtilValidate.isNotEmpty(parameters.localeString)) {
             if (locale.localeString.toUpperCase().contains(parameters.localeString.toUpperCase())) {
-                locales.add(locale);
+                locales.add(locale)
             }
         }
         if (UtilValidate.isNotEmpty(parameters.localeName)) {
             if (locale.localeName.toUpperCase().contains(parameters.localeName.toUpperCase())) {
-                locales.add(locale);
+                locales.add(locale)
             }
         }
         if (UtilValidate.isEmpty(parameters.localeString) && UtilValidate.isEmpty(parameters.localeName)) {
-            locales.add(locale);
+            locales.add(locale)
         }
     }
 }
 
-context.locales = locales;
+context.locales = locales

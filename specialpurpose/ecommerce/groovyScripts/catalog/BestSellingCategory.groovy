@@ -17,26 +17,26 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.product.catalog.*;
-import org.apache.ofbiz.product.category.*;
+import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.product.catalog.*
+import org.apache.ofbiz.product.category.*
 
-catalogId = CatalogWorker.getCurrentCatalogId(request);
-bestSellerCates = [];
+catalogId = CatalogWorker.getCurrentCatalogId(request)
+bestSellerCates = []
 
 if (UtilValidate.isNotEmpty(catalogId)) {
-    prodCatalogCategoryList = CatalogWorker.getProdCatalogCategories(request, catalogId, "PCCT_BEST_SELL");
+    prodCatalogCategoryList = CatalogWorker.getProdCatalogCategories(request, catalogId, "PCCT_BEST_SELL")
     if (prodCatalogCategoryList.size() > 0) {
         for (int i = 0; i < prodCatalogCategoryList.size(); i++) {
-            prodCatalogCategory = prodCatalogCategoryList[i];
-            productCategoryId = prodCatalogCategory.getString("productCategoryId");
-            childCategoryList = CategoryWorker.getRelatedCategoriesRet(request, "childCategoryList", productCategoryId, true);
+            prodCatalogCategory = prodCatalogCategoryList[i]
+            productCategoryId = prodCatalogCategory.getString("productCategoryId")
+            childCategoryList = CategoryWorker.getRelatedCategoriesRet(request, "childCategoryList", productCategoryId, true)
             if (childCategoryList.size() > 0) {
-                bestSellerCates.add(childCategoryList);
+                bestSellerCates.add(childCategoryList)
             }
         }
     }
 }
 
-context.productCategoryList = bestSellerCates;
+context.productCategoryList = bestSellerCates

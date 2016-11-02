@@ -17,49 +17,49 @@
  * under the License.
  */
 
-partyId = parameters.partyId;
-visitId = parameters.visitId;
+partyId = parameters.partyId
+visitId = parameters.visitId
 
-visit = null;
-serverHits = null;
+visit = null
+serverHits = null
 if (visitId) {
-    visit = from("Visit").where("visitId", visitId).queryOne();
+    visit = from("Visit").where("visitId", visitId).queryOne()
     if (visit) {
-        serverHits = from("ServerHit").where("visitId", visitId).orderBy("-hitStartDateTime").queryList();
+        serverHits = from("ServerHit").where("visitId", visitId).orderBy("-hitStartDateTime").queryList()
     }
 }
 
-viewIndex = 0;
+viewIndex = 0
 try {
-    viewIndex = Integer.valueOf((String) parameters.VIEW_INDEX).intValue();
+    viewIndex = Integer.valueOf((String) parameters.VIEW_INDEX).intValue()
 } catch (Exception e) {
-    viewIndex = 0;
+    viewIndex = 0
 }
 
-viewSize = 20;
+viewSize = 20
 try {
-    viewSize = Integer.valueOf((String) parameters.VIEW_SIZE).intValue();
+    viewSize = Integer.valueOf((String) parameters.VIEW_SIZE).intValue()
 } catch (Exception e) {
-    viewSize = 20;
+    viewSize = 20
 }
 
-listSize = 0;
+listSize = 0
 if (serverHits) {
-    listSize = serverHits.size();
+    listSize = serverHits.size()
 }
-lowIndex = viewIndex * viewSize;
-highIndex = (viewIndex + 1) * viewSize;
+lowIndex = viewIndex * viewSize
+highIndex = (viewIndex + 1) * viewSize
 if (listSize < highIndex) {
-    highIndex = listSize;
+    highIndex = listSize
 }
 
-context.partyId = partyId;
-context.visitId = visitId;
-context.visit = visit;
-context.serverHits = serverHits;
+context.partyId = partyId
+context.visitId = visitId
+context.visit = visit
+context.serverHits = serverHits
 
-context.viewIndex = viewIndex;
-context.viewSize = viewSize;
-context.listSize = listSize;
-context.lowIndex = lowIndex;
-context.highIndex = highIndex;
+context.viewIndex = viewIndex
+context.viewSize = viewSize
+context.listSize = listSize
+context.lowIndex = lowIndex
+context.highIndex = highIndex

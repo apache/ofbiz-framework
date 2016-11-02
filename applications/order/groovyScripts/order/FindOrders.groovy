@@ -17,164 +17,164 @@
  * under the License.
  */
 
-import java.util.*;
-import java.sql.Timestamp;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.util.*;
+import java.util.*
+import java.sql.Timestamp
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.util.*
 
-module = "FindOrders.groovy";
+module = "FindOrders.groovy"
 
 // get the order types
-orderTypes = from("OrderType").orderBy("description").queryList();
-context.orderTypes = orderTypes;
+orderTypes = from("OrderType").orderBy("description").queryList()
+context.orderTypes = orderTypes
 
 // get the role types
-roleTypes = from("RoleType").orderBy("description").queryList();
-context.roleTypes = roleTypes;
+roleTypes = from("RoleType").orderBy("description").queryList()
+context.roleTypes = roleTypes
 
 // get the order statuses
-orderStatuses = from("StatusItem").where("statusTypeId", "ORDER_STATUS").orderBy("sequenceId", "description").queryList();
-context.orderStatuses = orderStatuses;
+orderStatuses = from("StatusItem").where("statusTypeId", "ORDER_STATUS").orderBy("sequenceId", "description").queryList()
+context.orderStatuses = orderStatuses
 
 // get websites
-websites = from("WebSite").orderBy("siteName").queryList();
-context.webSites = websites;
+websites = from("WebSite").orderBy("siteName").queryList()
+context.webSites = websites
 
 // get the stores
-stores = from("ProductStore").orderBy("storeName").queryList();
-context.productStores = stores;
+stores = from("ProductStore").orderBy("storeName").queryList()
+context.productStores = stores
 
 // get the channels
-channels = from("Enumeration").where("enumTypeId", "ORDER_SALES_CHANNEL").orderBy("sequenceId").queryList();
-context.salesChannels = channels;
+channels = from("Enumeration").where("enumTypeId", "ORDER_SALES_CHANNEL").orderBy("sequenceId").queryList()
+context.salesChannels = channels
 
 // get the Shipping Methods
-carrierShipmentMethods = from("CarrierShipmentMethod").queryList();
-context.carrierShipmentMethods = carrierShipmentMethods;
+carrierShipmentMethods = from("CarrierShipmentMethod").queryList()
+context.carrierShipmentMethods = carrierShipmentMethods
 
 // get the Payment Status
-paymentStatusList = from("StatusItem").where("statusTypeId", "PAYMENT_PREF_STATUS").orderBy("description").queryList();
-context.paymentStatusList = paymentStatusList;
+paymentStatusList = from("StatusItem").where("statusTypeId", "PAYMENT_PREF_STATUS").orderBy("description").queryList()
+context.paymentStatusList = paymentStatusList
 
 // get the good identification types
-goodIdentificationTypes = from("GoodIdentificationType").orderBy("goodIdentificationTypeId", "description").queryList();
-context.goodIdentificationTypes = goodIdentificationTypes;
+goodIdentificationTypes = from("GoodIdentificationType").orderBy("goodIdentificationTypeId", "description").queryList()
+context.goodIdentificationTypes = goodIdentificationTypes
 
 // current role type
-currentRoleTypeId = request.getParameter("roleTypeId");
+currentRoleTypeId = request.getParameter("roleTypeId")
 if (currentRoleTypeId) {
-    currentRole = from("RoleType").where("roleTypeId", currentRoleTypeId).cache(true).queryOne();
-    context.currentRole = currentRole;
+    currentRole = from("RoleType").where("roleTypeId", currentRoleTypeId).cache(true).queryOne()
+    context.currentRole = currentRole
 }
 
 // current selected type
-currentTypeId = request.getParameter("orderTypeId");
+currentTypeId = request.getParameter("orderTypeId")
 if (currentTypeId) {
-    currentType = from("OrderType").where("orderTypeId", currentTypeId).cache(true).queryOne();
-    context.currentType = currentType;
+    currentType = from("OrderType").where("orderTypeId", currentTypeId).cache(true).queryOne()
+    context.currentType = currentType
 }
 // current selected status
-currentStatusIds = request.getParameter("orderStatusId");
-context.currentStatuses = currentStatusIds;
+currentStatusIds = request.getParameter("orderStatusId")
+context.currentStatuses = currentStatusIds
 
 // current website
-currentWebSiteId = request.getParameter("orderWebSiteId");
+currentWebSiteId = request.getParameter("orderWebSiteId")
 if (currentWebSiteId) {
-    currentWebSite = from("WebSite").where("webSiteId", currentWebSiteId).cache(true).queryOne();
-    context.currentWebSite = currentWebSite;
+    currentWebSite = from("WebSite").where("webSiteId", currentWebSiteId).cache(true).queryOne()
+    context.currentWebSite = currentWebSite
 }
 
 // current store
-currentProductStoreId = request.getParameter("productStoreId");
+currentProductStoreId = request.getParameter("productStoreId")
 if (currentProductStoreId) {
-    currentProductStore = from("ProductStore").where("productStoreId", currentProductStoreId).cache(true).queryOne();
-    context.currentProductStore = currentProductStore;
+    currentProductStore = from("ProductStore").where("productStoreId", currentProductStoreId).cache(true).queryOne()
+    context.currentProductStore = currentProductStore
 }
 
 // current Shipping Method
-shipmentMethod = request.getParameter("shipmentMethod");
+shipmentMethod = request.getParameter("shipmentMethod")
 if (shipmentMethod) {
-    carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf("@"));
-    shipmentMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf("@")+1);
+    carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf("@"))
+    shipmentMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf("@")+1)
     if (carrierPartyId && shipmentMethodTypeId) {
-        currentCarrierShipmentMethod = from("CarrierShipmentMethod").where("partyId", carrierPartyId, "shipmentMethodTypeId", shipmentMethodTypeId).queryFirst();
-        context.currentCarrierShipmentMethod = currentCarrierShipmentMethod;
+        currentCarrierShipmentMethod = from("CarrierShipmentMethod").where("partyId", carrierPartyId, "shipmentMethodTypeId", shipmentMethodTypeId).queryFirst()
+        context.currentCarrierShipmentMethod = currentCarrierShipmentMethod
     }
 }
 
 // current channel
-currentSalesChannelId = request.getParameter("salesChannelEnumId");
+currentSalesChannelId = request.getParameter("salesChannelEnumId")
 if (currentSalesChannelId) {
-    currentSalesChannel = from("Enumeration").where("enumId", currentSalesChannelId).queryOne();
-    context.currentSalesChannel = currentSalesChannel;
+    currentSalesChannel = from("Enumeration").where("enumId", currentSalesChannelId).queryOne()
+    context.currentSalesChannel = currentSalesChannel
 }
 
 // current good identification type
-currentGoodIdentificationTypeId = request.getParameter("goodIdentificationTypeId");
+currentGoodIdentificationTypeId = request.getParameter("goodIdentificationTypeId")
 if (currentGoodIdentificationTypeId) {
-    currentGoodIdentificationType = from("GoodIdentificationType").where("goodIdentificationTypeId", currentGoodIdentificationTypeId).queryOne();
-    context.currentGoodIdentificationType = currentGoodIdentificationType;
+    currentGoodIdentificationType = from("GoodIdentificationType").where("goodIdentificationTypeId", currentGoodIdentificationTypeId).queryOne()
+    context.currentGoodIdentificationType = currentGoodIdentificationType
 }
 
 // create the fromDate for calendar
-fromCal = Calendar.getInstance();
-fromCal.setTime(new java.util.Date());
-fromCal.set(Calendar.DAY_OF_WEEK, fromCal.getActualMinimum(Calendar.DAY_OF_WEEK));
-fromCal.set(Calendar.HOUR_OF_DAY, fromCal.getActualMinimum(Calendar.HOUR_OF_DAY));
-fromCal.set(Calendar.MINUTE, fromCal.getActualMinimum(Calendar.MINUTE));
-fromCal.set(Calendar.SECOND, fromCal.getActualMinimum(Calendar.SECOND));
-fromCal.set(Calendar.MILLISECOND, fromCal.getActualMinimum(Calendar.MILLISECOND));
-fromTs = new Timestamp(fromCal.getTimeInMillis());
-fromStr = fromTs.toString();
-fromStr = fromStr.substring(0, fromStr.indexOf('.'));
-context.fromDateStr = fromStr;
+fromCal = Calendar.getInstance()
+fromCal.setTime(new java.util.Date())
+fromCal.set(Calendar.DAY_OF_WEEK, fromCal.getActualMinimum(Calendar.DAY_OF_WEEK))
+fromCal.set(Calendar.HOUR_OF_DAY, fromCal.getActualMinimum(Calendar.HOUR_OF_DAY))
+fromCal.set(Calendar.MINUTE, fromCal.getActualMinimum(Calendar.MINUTE))
+fromCal.set(Calendar.SECOND, fromCal.getActualMinimum(Calendar.SECOND))
+fromCal.set(Calendar.MILLISECOND, fromCal.getActualMinimum(Calendar.MILLISECOND))
+fromTs = new Timestamp(fromCal.getTimeInMillis())
+fromStr = fromTs.toString()
+fromStr = fromStr.substring(0, fromStr.indexOf('.'))
+context.fromDateStr = fromStr
 
 // create the thruDate for calendar
-toCal = Calendar.getInstance();
-toCal.setTime(new java.util.Date());
-toCal.set(Calendar.DAY_OF_WEEK, toCal.getActualMaximum(Calendar.DAY_OF_WEEK));
-toCal.set(Calendar.HOUR_OF_DAY, toCal.getActualMaximum(Calendar.HOUR_OF_DAY));
-toCal.set(Calendar.MINUTE, toCal.getActualMaximum(Calendar.MINUTE));
-toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND));
-toCal.set(Calendar.MILLISECOND, toCal.getActualMaximum(Calendar.MILLISECOND));
-toTs = new Timestamp(toCal.getTimeInMillis());
-toStr = toTs.toString();
-context.thruDateStr = toStr;
+toCal = Calendar.getInstance()
+toCal.setTime(new java.util.Date())
+toCal.set(Calendar.DAY_OF_WEEK, toCal.getActualMaximum(Calendar.DAY_OF_WEEK))
+toCal.set(Calendar.HOUR_OF_DAY, toCal.getActualMaximum(Calendar.HOUR_OF_DAY))
+toCal.set(Calendar.MINUTE, toCal.getActualMaximum(Calendar.MINUTE))
+toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND))
+toCal.set(Calendar.MILLISECOND, toCal.getActualMaximum(Calendar.MILLISECOND))
+toTs = new Timestamp(toCal.getTimeInMillis())
+toStr = toTs.toString()
+context.thruDateStr = toStr
 
 // set the page parameters
-viewIndex = request.getParameter("viewIndex") ? Integer.valueOf(request.getParameter("viewIndex")) : 1;
-context.viewIndex = viewIndex;
+viewIndex = request.getParameter("viewIndex") ? Integer.valueOf(request.getParameter("viewIndex")) : 1
+context.viewIndex = viewIndex
 
 viewSize = request.getParameter("viewSize") ? Integer.valueOf(request.getParameter("viewSize")) : 
-                                                                EntityUtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20", delegator);
-context.viewSize = viewSize;
+                                                                EntityUtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20", delegator)
+context.viewSize = viewSize
 
 // get the lookup flag
-lookupFlag = request.getParameter("lookupFlag");
+lookupFlag = request.getParameter("lookupFlag")
 
 // fields from the service call
-paramList = request.getAttribute("paramList") ?: "";
-context.paramList = paramList;
+paramList = request.getAttribute("paramList") ?: ""
+context.paramList = paramList
 
 if (paramList) {
-    paramIds = paramList.split("&amp;");
-    context.paramIdList = Arrays.asList(paramIds);
+    paramIds = paramList.split("&amp;")
+    context.paramIdList = Arrays.asList(paramIds)
 }
 
-orderList = request.getAttribute("orderList");
-context.orderList = orderList;
+orderList = request.getAttribute("orderList")
+context.orderList = orderList
 
-orderListSize = request.getAttribute("orderListSize");
-context.orderListSize = orderListSize;
+orderListSize = request.getAttribute("orderListSize")
+context.orderListSize = orderListSize
 
-context.filterInventoryProblems = request.getAttribute("filterInventoryProblemsList");
-context.filterPOsWithRejectedItems = request.getAttribute("filterPOsWithRejectedItemsList");
-context.filterPOsOpenPastTheirETA = request.getAttribute("filterPOsOpenPastTheirETAList");
-context.filterPartiallyReceivedPOs = request.getAttribute("filterPartiallyReceivedPOsList");
+context.filterInventoryProblems = request.getAttribute("filterInventoryProblemsList")
+context.filterPOsWithRejectedItems = request.getAttribute("filterPOsWithRejectedItemsList")
+context.filterPOsOpenPastTheirETA = request.getAttribute("filterPOsOpenPastTheirETAList")
+context.filterPartiallyReceivedPOs = request.getAttribute("filterPartiallyReceivedPOsList")
 
-lowIndex = request.getAttribute("lowIndex");
-context.lowIndex = lowIndex;
+lowIndex = request.getAttribute("lowIndex")
+context.lowIndex = lowIndex
 
-highIndex = request.getAttribute("highIndex");
-context.highIndex = highIndex;
+highIndex = request.getAttribute("highIndex")
+context.highIndex = highIndex

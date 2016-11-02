@@ -17,94 +17,94 @@
  * under the License.
  */
 
-import java.lang.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.accounting.payment.*;
-import org.apache.ofbiz.order.order.*;
-import org.apache.ofbiz.party.contact.*;
-import org.apache.ofbiz.product.catalog.*;
-import org.apache.ofbiz.product.store.*;
-import org.apache.ofbiz.webapp.website.WebSiteWorker;
+import java.lang.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.accounting.payment.*
+import org.apache.ofbiz.order.order.*
+import org.apache.ofbiz.party.contact.*
+import org.apache.ofbiz.product.catalog.*
+import org.apache.ofbiz.product.store.*
+import org.apache.ofbiz.webapp.website.WebSiteWorker
 
-cart = session.getAttribute("shoppingCart");
-context.cart = cart;
+cart = session.getAttribute("shoppingCart")
+context.cart = cart
 
-orderItems = cart.makeOrderItems();
-context.orderItems = orderItems;
+orderItems = cart.makeOrderItems()
+context.orderItems = orderItems
 
-orderAdjustments = cart.makeAllAdjustments();
+orderAdjustments = cart.makeAllAdjustments()
 
-orderItemShipGroupInfo = cart.makeAllShipGroupInfos();
+orderItemShipGroupInfo = cart.makeAllShipGroupInfos()
 if (orderItemShipGroupInfo) {
     orderItemShipGroupInfo.each { valueObj ->
         if ("OrderAdjustment".equals(valueObj.getEntityName())) {
             // shipping / tax adjustment(s)
-            orderAdjustments.add(valueObj);
+            orderAdjustments.add(valueObj)
         }
     }
 }
-context.orderAdjustments = orderAdjustments;
+context.orderAdjustments = orderAdjustments
 
-workEfforts = cart.makeWorkEfforts();   // if required make workefforts for rental fixed assets too.
-context.workEfforts = workEfforts;
+workEfforts = cart.makeWorkEfforts() // if required make workefforts for rental fixed assets too.
+context.workEfforts = workEfforts
 
-orderHeaderAdjustments = OrderReadHelper.getOrderHeaderAdjustments(orderAdjustments, null);
-context.orderHeaderAdjustments = orderHeaderAdjustments;
-context.orderItemShipGroups = cart.getShipGroups();
-context.headerAdjustmentsToShow = OrderReadHelper.filterOrderAdjustments(orderHeaderAdjustments, true, false, false, false, false);
+orderHeaderAdjustments = OrderReadHelper.getOrderHeaderAdjustments(orderAdjustments, null)
+context.orderHeaderAdjustments = orderHeaderAdjustments
+context.orderItemShipGroups = cart.getShipGroups()
+context.headerAdjustmentsToShow = OrderReadHelper.filterOrderAdjustments(orderHeaderAdjustments, true, false, false, false, false)
 
-orderSubTotal = OrderReadHelper.getOrderItemsSubTotal(orderItems, orderAdjustments, workEfforts);
-context.orderSubTotal = orderSubTotal;
-context.placingCustomerPerson = userLogin?.getRelatedOne("Person", false);
-context.paymentMethods = cart.getPaymentMethods();
+orderSubTotal = OrderReadHelper.getOrderItemsSubTotal(orderItems, orderAdjustments, workEfforts)
+context.orderSubTotal = orderSubTotal
+context.placingCustomerPerson = userLogin?.getRelatedOne("Person", false)
+context.paymentMethods = cart.getPaymentMethods()
 
-paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
-paymentMethodType = null;
-paymentMethodTypeId = null;
+paymentMethodTypeIds = cart.getPaymentMethodTypeIds()
+paymentMethodType = null
+paymentMethodTypeId = null
 if (paymentMethodTypeIds) {
-    paymentMethodTypeId = paymentMethodTypeIds[0];
-    paymentMethodType = from("PaymentMethodType").where("paymentMethodTypeId", paymentMethodTypeId).queryOne();
-    context.paymentMethodType = paymentMethodType;
+    paymentMethodTypeId = paymentMethodTypeIds[0]
+    paymentMethodType = from("PaymentMethodType").where("paymentMethodTypeId", paymentMethodTypeId).queryOne()
+    context.paymentMethodType = paymentMethodType
 }
 
-webSiteId = WebSiteWorker.getWebSiteId(request);
+webSiteId = WebSiteWorker.getWebSiteId(request)
 
-productStore = ProductStoreWorker.getProductStore(request);
-context.productStore = productStore;
+productStore = ProductStoreWorker.getProductStore(request)
+context.productStore = productStore
 
-isDemoStore = !"N".equals(productStore.isDemoStore);
-context.isDemoStore = isDemoStore;
+isDemoStore = !"N".equals(productStore.isDemoStore)
+context.isDemoStore = isDemoStore
 
-payToPartyId = productStore.payToPartyId;
-paymentAddress = PaymentWorker.getPaymentAddress(delegator, payToPartyId);
-if (paymentAddress) context.paymentAddress = paymentAddress;
+payToPartyId = productStore.payToPartyId
+paymentAddress = PaymentWorker.getPaymentAddress(delegator, payToPartyId)
+if (paymentAddress) context.paymentAddress = paymentAddress
 
 
 // TODO: FIXME!
 /*
-billingAccount = cart.getBillingAccountId() ? delegator.findOne("BillingAccount", [billingAccountId : cart.getBillingAccountId()], false) : null;
+billingAccount = cart.getBillingAccountId() ? delegator.findOne("BillingAccount", [billingAccountId : cart.getBillingAccountId()], false) : null
 if (billingAccount)
-    context.billingAccount = billingAccount;
+    context.billingAccount = billingAccount
 */
 
-context.customerPoNumber = cart.getPoNumber();
-context.carrierPartyId = cart.getCarrierPartyId();
-context.shipmentMethodTypeId = cart.getShipmentMethodTypeId();
-context.shippingInstructions = cart.getShippingInstructions();
-context.maySplit = cart.getMaySplit();
-context.giftMessage = cart.getGiftMessage();
-context.isGift = cart.getIsGift();
-context.currencyUomId = cart.getCurrency();
+context.customerPoNumber = cart.getPoNumber()
+context.carrierPartyId = cart.getCarrierPartyId()
+context.shipmentMethodTypeId = cart.getShipmentMethodTypeId()
+context.shippingInstructions = cart.getShippingInstructions()
+context.maySplit = cart.getMaySplit()
+context.giftMessage = cart.getGiftMessage()
+context.isGift = cart.getIsGift()
+context.currencyUomId = cart.getCurrency()
 
-shipmentMethodType = from("ShipmentMethodType").where("shipmentMethodTypeId", cart.getShipmentMethodTypeId()).queryOne();
-if (shipmentMethodType) context.shipMethDescription = shipmentMethodType.description;
+shipmentMethodType = from("ShipmentMethodType").where("shipmentMethodTypeId", cart.getShipmentMethodTypeId()).queryOne()
+if (shipmentMethodType) context.shipMethDescription = shipmentMethodType.description
 
-orh = new OrderReadHelper(orderAdjustments, orderItems);
-context.localOrderReadHelper = orh;
-context.orderShippingTotal = cart.getTotalShipping();
-context.orderTaxTotal = cart.getTotalSalesTax();
-context.orderGrandTotal = cart.getGrandTotal();
+orh = new OrderReadHelper(orderAdjustments, orderItems)
+context.localOrderReadHelper = orh
+context.orderShippingTotal = cart.getTotalShipping()
+context.orderTaxTotal = cart.getTotalSalesTax()
+context.orderGrandTotal = cart.getGrandTotal()
 
 // nuke the event messages
-request.removeAttribute("_EVENT_MESSAGE_");
+request.removeAttribute("_EVENT_MESSAGE_")

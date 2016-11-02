@@ -17,17 +17,17 @@
 * under the License.
 */
 
-import org.apache.ofbiz.party.contact.ContactHelper;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.party.contact.ContactHelper
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
-shoppingCart = session.getAttribute("shoppingCart");
-partyId = shoppingCart.getPartyId();
-party = from("Party").where("partyId", partyId).cache(true).queryOne();
-productStoreId = ProductStoreWorker.getProductStoreId(request);
+shoppingCart = session.getAttribute("shoppingCart")
+partyId = shoppingCart.getPartyId()
+party = from("Party").where("partyId", partyId).cache(true).queryOne()
+productStoreId = ProductStoreWorker.getProductStoreId(request)
 
-context.cart = shoppingCart;
-context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
+context.cart = shoppingCart
+context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false)
 
-profiledefs = from("PartyProfileDefault").where("partyId", partyId, "productStoreId", productStoreId).cache(true).queryOne();
+profiledefs = from("PartyProfileDefault").where("partyId", partyId, "productStoreId", productStoreId).cache(true).queryOne()
 
-context.profileDefs = profiledefs;
+context.profileDefs = profiledefs

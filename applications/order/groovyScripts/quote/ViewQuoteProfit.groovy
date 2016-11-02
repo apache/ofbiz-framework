@@ -17,71 +17,71 @@
  * under the License.
  */
 
-import java.util.Date;
-import java.sql.Timestamp;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.base.util.Debug;
+import java.util.Date
+import java.sql.Timestamp
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.base.util.Debug
 
-costMult = 0.0;
+costMult = 0.0
 quoteCoefficients.each { quoteCoefficient ->
-    value = quoteCoefficient.coeffValue;
+    value = quoteCoefficient.coeffValue
     if (value) {
-        costMult += value;
+        costMult += value
     }
 }
-totalProfit = 0.0;
-costToPriceMult = 1.0;
+totalProfit = 0.0
+costToPriceMult = 1.0
 if (costMult != 100) {
-    costToPriceMult = 100 / (100 - costMult);
+    costToPriceMult = 100 / (100 - costMult)
 }
 
-issueDate = quote.issueDate ?: nowTimestamp;
-totalCost = 0.0;
-totalPrice = 0.0;
-totalCostMult = 0.0;
-currency = quote.currencyUomId;
-quoteItemAndCostInfos = [];
+issueDate = quote.issueDate ?: nowTimestamp
+totalCost = 0.0
+totalPrice = 0.0
+totalCostMult = 0.0
+currency = quote.currencyUomId
+quoteItemAndCostInfos = []
 quoteItems.each { quoteItem ->
-    defaultQuoteUnitPrice = 0.0;
-    averageCost = 0.0;
-    unitPrice = quoteItem.quoteUnitPrice ?: 0.0;
-    quantity = quoteItem.quantity ?: 1.0;
-    selectedAmount = quoteItem.selectedAmount ?: 1.0;
-    profit = 0.0;
-    percProfit = 0.0;
+    defaultQuoteUnitPrice = 0.0
+    averageCost = 0.0
+    unitPrice = quoteItem.quoteUnitPrice ?: 0.0
+    quantity = quoteItem.quantity ?: 1.0
+    selectedAmount = quoteItem.selectedAmount ?: 1.0
+    profit = 0.0
+    percProfit = 0.0
 
     try {
         if (currency && quoteItem.productId) {
             productPrice = from("ProductPrice")
                               .where(productId : quoteItem.productId, currencyUomId : currency, productPriceTypeId : "AVERAGE_COST")
                               .filterByDate(issueDate)
-                              .queryFirst();
+                              .queryFirst()
             if (productPrice?.price != null) {
-                averageCost = productPrice.price * selectedAmount;
+                averageCost = productPrice.price * selectedAmount
             }
         }
-        totalCost += (averageCost * quantity);
-        totalPrice += (unitPrice * quantity * selectedAmount);
+        totalCost += (averageCost * quantity)
+        totalPrice += (unitPrice * quantity * selectedAmount)
     } catch (Exception exc) {
-        Debug.logError("Problems getting the averageCost for quoteItem: " + quoteItem);
+        Debug.logError("Problems getting the averageCost for quoteItem: " + quoteItem)
     }
-    profit = unitPrice - averageCost;
-    percProfit = averageCost != 0 ? (profit / unitPrice) * 100.00 : 0.00;
-    quoteItemAndCostInfo = new java.util.HashMap(quoteItem);
-    quoteItemAndCostInfo.averageCost = averageCost;
-    quoteItemAndCostInfo.profit = profit;
-    quoteItemAndCostInfo.percProfit = percProfit;
-    quoteItemAndCostInfos.add(quoteItemAndCostInfo);
+    profit = unitPrice - averageCost
+    percProfit = averageCost != 0 ? (profit / unitPrice) * 100.00 : 0.00
+    quoteItemAndCostInfo = new java.util.HashMap(quoteItem)
+    quoteItemAndCostInfo.averageCost = averageCost
+    quoteItemAndCostInfo.profit = profit
+    quoteItemAndCostInfo.percProfit = percProfit
+    quoteItemAndCostInfos.add(quoteItemAndCostInfo)
 }
-totalProfit = totalPrice - totalCost;
+totalProfit = totalPrice - totalCost
 
-context.costMult = costMult;
-context.costToPriceMult = costToPriceMult;
-context.quoteItemAndCostInfos = quoteItemAndCostInfos;
+context.costMult = costMult
+context.costToPriceMult = costToPriceMult
+context.quoteItemAndCostInfos = quoteItemAndCostInfos
 
-context.totalCost = totalCost;
-context.totalPrice = totalPrice;
-context.totalProfit = totalProfit;
-context.totalPercProfit = totalCost != 0 ? (totalProfit / totalPrice) * 100.00: 0.00;
+context.totalCost = totalCost
+context.totalPrice = totalPrice
+context.totalProfit = totalProfit
+context.totalPercProfit = totalCost != 0 ? (totalProfit / totalPrice) * 100.00: 0.00

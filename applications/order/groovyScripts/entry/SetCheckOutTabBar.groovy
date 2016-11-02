@@ -17,13 +17,13 @@
  * under the License.
  */
 
-import java.util.ArrayList;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import java.util.ArrayList
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 
-checkoutSteps = [];
+checkoutSteps = []
 
-shoppingCart = ShoppingCartEvents.getCartObject(request);
+shoppingCart = ShoppingCartEvents.getCartObject(request)
 
 // ----------------------------------
 // The ordered list of steps is prepared here
@@ -47,19 +47,19 @@ checkoutSteps.add([label : "OrderReviewOrder", uri : "confirmOrder", enabled : "
 
 // ---------------------------------------
 
-isLastStep = "N";
-enabled = "Y";
+isLastStep = "N"
+enabled = "Y"
 checkoutSteps.eachWithIndex { checkoutStep, i ->
-    checkoutStep.put("enabled", enabled);
+    checkoutStep.put("enabled", enabled)
     if (enabled.equals("Y")) {
         if (i == (checkoutSteps.size() - 1)) {
-            isLastStep = "Y";
+            isLastStep = "Y"
         }
         if (stepLabelId.equals(checkoutStep.label)) {
-            enabled = "N";
+            enabled = "N"
         }
     }
 }
 
-context.isLastStep = isLastStep;
-context.checkoutSteps = checkoutSteps;
+context.isLastStep = isLastStep
+context.checkoutSteps = checkoutSteps

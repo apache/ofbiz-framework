@@ -17,33 +17,33 @@
  * under the License.
  */
 
- import org.apache.ofbiz.base.util.UtilDateTime;
+ import org.apache.ofbiz.base.util.UtilDateTime
  
- birtParameters = [:];
+ birtParameters = [:]
  /*
- birtParameters.facilityId = request.getParameter("facilityId");
- birtParameters.productId = request.getParameter("productId");
- birtParameters.productTypeId = request.getParameter("productTypeId");
- birtParameters.searchInProductCategoryId = request.getParameter("searchInProductCategoryId");
- birtParameters.contentType = request.getParameter("contentType");
- birtParameters.productSupplierId = request.getParameter("productSupplierId");
- birtParameters.statusId = request.getParameter("statusId");
- birtParameters.productsSoldThruTimestamp = request.getParameter("productsSoldThruTimestamp");
- birtParameters.VIEW_SIZE = request.getParameter("VIEW_SIZE");
- birtParameters.monthsInPastLimit = request.getParameter("monthsInPastLimit");
- birtParameters.fromDateSellThrough = request.getParameter("fromDateSellThrough");
- birtParameters.thruDateSellThrough = request.getParameter("thruDateSellThrough");
+ birtParameters.facilityId = request.getParameter("facilityId")
+ birtParameters.productId = request.getParameter("productId")
+ birtParameters.productTypeId = request.getParameter("productTypeId")
+ birtParameters.searchInProductCategoryId = request.getParameter("searchInProductCategoryId")
+ birtParameters.contentType = request.getParameter("contentType")
+ birtParameters.productSupplierId = request.getParameter("productSupplierId")
+ birtParameters.statusId = request.getParameter("statusId")
+ birtParameters.productsSoldThruTimestamp = request.getParameter("productsSoldThruTimestamp")
+ birtParameters.VIEW_SIZE = request.getParameter("VIEW_SIZE")
+ birtParameters.monthsInPastLimit = request.getParameter("monthsInPastLimit")
+ birtParameters.fromDateSellThrough = request.getParameter("fromDateSellThrough")
+ birtParameters.thruDateSellThrough = request.getParameter("thruDateSellThrough")
  */
 
- int lastIntMonth = Integer.parseInt(request.getParameter("lastIntMonth"));
+ int lastIntMonth = Integer.parseInt(request.getParameter("lastIntMonth"))
  if (lastIntMonth == 0 ){
-     fromOrderDate = null;
+     fromOrderDate = null
  }else{
-     fromDateTime = UtilDateTime.getDayStart(UtilDateTime.toTimestamp(UtilDateTime.nowTimestamp()), (lastIntMonth*(-30)));
+     fromDateTime = UtilDateTime.getDayStart(UtilDateTime.toTimestamp(UtilDateTime.nowTimestamp()), (lastIntMonth*(-30)))
      fromOrderDate = UtilDateTime.toDateString(fromDateTime,"MMMM dd, yyyy")
  }
 
- birtParameters.facilityId = request.getParameter("facilityId");
- birtParameters.orderDateDateValue_fld0_op = fromOrderDate.toString();
- request.setAttribute("birtParameters", birtParameters);
- return "success";
+ birtParameters.facilityId = request.getParameter("facilityId")
+ birtParameters.orderDateDateValue_fld0_op = fromOrderDate.toString()
+ request.setAttribute("birtParameters", birtParameters)
+ return "success"

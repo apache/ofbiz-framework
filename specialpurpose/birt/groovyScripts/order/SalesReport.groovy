@@ -16,29 +16,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.Debug;
-import java.sql.*;
+import org.apache.ofbiz.base.util.Debug
+import java.sql.*
 
-fromDateStr = parameters.fromDate;
-cal = Calendar.getInstance();
-cal.setTime(Date.valueOf(fromDateStr));
-int week = cal.get(Calendar.WEEK_OF_YEAR);
-int month = cal.get(Calendar.MONTH) + 1;
-int year = cal.get(Calendar.YEAR);
+fromDateStr = parameters.fromDate
+cal = Calendar.getInstance()
+cal.setTime(Date.valueOf(fromDateStr))
+int week = cal.get(Calendar.WEEK_OF_YEAR)
+int month = cal.get(Calendar.MONTH) + 1
+int year = cal.get(Calendar.YEAR)
 
-birtParameters = [:];
+birtParameters = [:]
 try {
-    birtParameters.reportBy = parameters.reportBy;
-    birtParameters.fromDate = (Date.valueOf(fromDateStr))-2;
-    birtParameters.thruDate = Date.valueOf(fromDateStr);
-    birtParameters.lastDate = (Date.valueOf(fromDateStr))-7;
-    birtParameters.thruWeek = week;
-    birtParameters.thruMonth = month;
-    birtParameters.thisYear = year;
+    birtParameters.reportBy = parameters.reportBy
+    birtParameters.fromDate = (Date.valueOf(fromDateStr))-2
+    birtParameters.thruDate = Date.valueOf(fromDateStr)
+    birtParameters.lastDate = (Date.valueOf(fromDateStr))-7
+    birtParameters.thruWeek = week
+    birtParameters.thruMonth = month
+    birtParameters.thisYear = year
 } catch (e) {
-    Debug.logError(e, "");
+    Debug.logError(e, "")
 }
 
-request.setAttribute("birtParameters", birtParameters);
+request.setAttribute("birtParameters", birtParameters)
 
-return "success";
+return "success"

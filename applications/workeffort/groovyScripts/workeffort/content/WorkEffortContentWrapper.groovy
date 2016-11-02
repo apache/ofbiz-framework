@@ -17,14 +17,14 @@
  * under the License.
  */
 
- import org.apache.ofbiz.workeffort.content.WorkEffortContentWrapper;
+ import org.apache.ofbiz.workeffort.content.WorkEffortContentWrapper
 
- workEffort = context.get("workEffort");
+ workEffort = context.get("workEffort")
  if (workEffort == null && workEffortId != null) {
-    workEffort = from("WorkEffort").where("workEffortId", workEffortId).cache(true).queryOne();
+    workEffort = from("WorkEffort").where("workEffortId", workEffortId).cache(true).queryOne()
  }
 
  if (workEffort != null) {
-    wrapper = WorkEffortContentWrapper.makeWorkEffortContentWrapper(workEffort, request);
-    context.put("workEffortContentWrapper", wrapper);
+    wrapper = WorkEffortContentWrapper.makeWorkEffortContentWrapper(workEffort, request)
+    context.put("workEffortContentWrapper", wrapper)
  }

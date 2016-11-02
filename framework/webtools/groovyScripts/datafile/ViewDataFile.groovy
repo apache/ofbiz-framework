@@ -17,87 +17,87 @@
  * under the License.
  */
 
-import java.util.*;
-import java.net.*;
-import org.apache.ofbiz.security.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.datafile.*;
+import java.util.*
+import java.net.*
+import org.apache.ofbiz.security.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.datafile.*
 
-uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
-messages = [];
+uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale)
+messages = []
 
-dataFileSave = request.getParameter("DATAFILE_SAVE");
+dataFileSave = request.getParameter("DATAFILE_SAVE")
 
-entityXmlFileSave = request.getParameter("ENTITYXML_FILE_SAVE");
+entityXmlFileSave = request.getParameter("ENTITYXML_FILE_SAVE")
 
-dataFileLoc = request.getParameter("DATAFILE_LOCATION");
-definitionLoc = request.getParameter("DEFINITION_LOCATION");
-definitionName = request.getParameter("DEFINITION_NAME");
-dataFileIsUrl = null != request.getParameter("DATAFILE_IS_URL");
-definitionIsUrl = null != request.getParameter("DEFINITION_IS_URL");
-
-try {
-    dataFileUrl = dataFileIsUrl?new URL(dataFileLoc):UtilURL.fromFilename(dataFileLoc);
-}
-catch (java.net.MalformedURLException e) {
-    messages.add(e.getMessage());
-}
+dataFileLoc = request.getParameter("DATAFILE_LOCATION")
+definitionLoc = request.getParameter("DEFINITION_LOCATION")
+definitionName = request.getParameter("DEFINITION_NAME")
+dataFileIsUrl = null != request.getParameter("DATAFILE_IS_URL")
+definitionIsUrl = null != request.getParameter("DEFINITION_IS_URL")
 
 try {
-    definitionUrl = definitionIsUrl?new URL(definitionLoc):UtilURL.fromFilename(definitionLoc);
+    dataFileUrl = dataFileIsUrl?new URL(dataFileLoc):UtilURL.fromFilename(dataFileLoc)
 }
 catch (java.net.MalformedURLException e) {
-    messages.add(e.getMessage());
+    messages.add(e.getMessage())
 }
 
-definitionNames = null;
+try {
+    definitionUrl = definitionIsUrl?new URL(definitionLoc):UtilURL.fromFilename(definitionLoc)
+}
+catch (java.net.MalformedURLException e) {
+    messages.add(e.getMessage())
+}
+
+definitionNames = null
 if (definitionUrl) {
     try {
-        ModelDataFileReader reader = ModelDataFileReader.getModelDataFileReader(definitionUrl);
+        ModelDataFileReader reader = ModelDataFileReader.getModelDataFileReader(definitionUrl)
         if (reader) {
-            definitionNames = ((Collection)reader.getDataFileNames()).iterator();
-            context.put("definitionNames", definitionNames);
+            definitionNames = ((Collection)reader.getDataFileNames()).iterator()
+            context.put("definitionNames", definitionNames)
         }
     }
     catch (Exception e) {
-        messages.add(e.getMessage());
+        messages.add(e.getMessage())
     }
 }
 
-dataFile = null;
+dataFile = null
 if (dataFileUrl && definitionUrl && definitionNames) {
     try {
-        dataFile = DataFile.readFile(dataFileUrl, definitionUrl, definitionName);
-        context.put("dataFile", dataFile);
+        dataFile = DataFile.readFile(dataFileUrl, definitionUrl, definitionName)
+        context.put("dataFile", dataFile)
     }
     catch (Exception e) {
-        messages.add(e.toString()); Debug.log(e);
+        messages.add(e.toString()); Debug.log(e)
     }
 }
 
 if (dataFile) {
-    modelDataFile = dataFile.getModelDataFile();
-    context.put("modelDataFile", modelDataFile);
+    modelDataFile = dataFile.getModelDataFile()
+    context.put("modelDataFile", modelDataFile)
 }
 
 if (dataFile && dataFileSave) {
     try {
-        dataFile.writeDataFile(dataFileSave);
-        messages.add(uiLabelMap.get("WebtoolsDataFileSavedTo") + dataFileSave);
+        dataFile.writeDataFile(dataFileSave)
+        messages.add(uiLabelMap.get("WebtoolsDataFileSavedTo") + dataFileSave)
     }
     catch (Exception e) {
-        messages.add(e.getMessage());
+        messages.add(e.getMessage())
     }
 }
 
 if (dataFile && entityXmlFileSave) {
     try {
-        //dataFile.writeDataFile(entityXmlFileSave);
-        DataFile2EntityXml.writeToEntityXml(entityXmlFileSave, dataFile);
-        messages.add(uiLabelMap.get("WebtoolsDataEntityFileSavedTo") + entityXmlFileSave);
+        //dataFile.writeDataFile(entityXmlFileSave)
+        DataFile2EntityXml.writeToEntityXml(entityXmlFileSave, dataFile)
+        messages.add(uiLabelMap.get("WebtoolsDataEntityFileSavedTo") + entityXmlFileSave)
     }
     catch (Exception e) {
-        messages.add(e.getMessage());
+        messages.add(e.getMessage())
     }
 }
-context.messages = messages;
+context.messages = messages

@@ -17,29 +17,29 @@
  * under the License.
  */
 
-import org.apache.ofbiz.content.content.ContentWorker;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.content.content.ContentWorker
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.entity.GenericValue
 
-productionRunId = parameters.productionRunId ?: parameters.workEffortId;
-context.productionRunId = productionRunId;
+productionRunId = parameters.productionRunId ?: parameters.workEffortId
+context.productionRunId = productionRunId
 
-delivGoodStandard = from("WorkEffortGoodStandard").where("workEffortId", productionRunId, "workEffortGoodStdTypeId", "PRUN_PROD_DELIV", "statusId", "WEGS_CREATED").orderBy("-fromDate").queryFirst();
+delivGoodStandard = from("WorkEffortGoodStandard").where("workEffortId", productionRunId, "workEffortGoodStdTypeId", "PRUN_PROD_DELIV", "statusId", "WEGS_CREATED").orderBy("-fromDate").queryFirst()
 if (delivGoodStandard) {
-    context.delivProductId = delivGoodStandard.productId;
+    context.delivProductId = delivGoodStandard.productId
 }
 if (context.delivProductId && (parameters.partyId || parameters.contentLocale)) {
-    delivProductContents = from("ProductContentAndInfo").where("productId", context.delivProductId).orderBy("-fromDate").filterByDate().queryList();
-    context.delivProductContents = delivProductContents;
+    delivProductContents = from("ProductContentAndInfo").where("productId", context.delivProductId).orderBy("-fromDate").filterByDate().queryList()
+    context.delivProductContents = delivProductContents
 
-    Locale contentLocale = null;
+    Locale contentLocale = null
     if (parameters.contentLocale) {
-        contentLocale = new Locale(parameters.contentLocale);
+        contentLocale = new Locale(parameters.contentLocale)
     }
-    delivProductContentsForLocaleAndUser = [];
+    delivProductContentsForLocaleAndUser = []
     delivProductContents.each { delivProductContent ->
-        GenericValue content = ContentWorker.findContentForRendering(delegator, delivProductContent.contentId, contentLocale, parameters.partyId, parameters.roleTypeId, true);
-        delivProductContentsForLocaleAndUser.add(from("ContentDataResourceView").where("contentId", content.contentId).queryFirst());
+        GenericValue content = ContentWorker.findContentForRendering(delegator, delivProductContent.contentId, contentLocale, parameters.partyId, parameters.roleTypeId, true)
+        delivProductContentsForLocaleAndUser.add(from("ContentDataResourceView").where("contentId", content.contentId).queryFirst())
     }
-    context.delivProductContentsForLocaleAndUser = delivProductContentsForLocaleAndUser;
+    context.delivProductContentsForLocaleAndUser = delivProductContentsForLocaleAndUser
 }

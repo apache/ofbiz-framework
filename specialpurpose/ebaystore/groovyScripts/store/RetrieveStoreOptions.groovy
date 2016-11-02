@@ -17,49 +17,49 @@
  * under the License.
  */
 
-productStoreId = parameters.productStoreId;
-storeThemeId = null;
+productStoreId = parameters.productStoreId
+storeThemeId = null
 if (parameters.ebayStore) {
-    ebayStore = parameters.get("ebayStore");
-    storeThemeId = ebayStore.get("storeThemeId");
+    ebayStore = parameters.get("ebayStore")
+    storeThemeId = ebayStore.get("storeThemeId")
 }
 if (productStoreId != null) {
-    flag = null;
-    storeBasicThemes = null;
-    resultsBasicThemes = runService('retrieveBasicThemeArray',["productStoreId":productStoreId, "userLogin": userLogin]);
+    flag = null
+    storeBasicThemes = null
+    resultsBasicThemes = runService('retrieveBasicThemeArray',["productStoreId":productStoreId, "userLogin": userLogin])
     if(resultsBasicThemes){
-        storeBasicThemes = resultsBasicThemes.get("storeThemeList");
+        storeBasicThemes = resultsBasicThemes.get("storeThemeList")
         //check what kind of theme?
-        context.put("storeThemeOptList",storeBasicThemes);
+        context.put("storeThemeOptList",storeBasicThemes)
         if (storeThemeId != null && storeBasicThemes != null) {
             storeBasicThemes.each { storeTheme ->
                 if (storeThemeId == storeTheme.storeThemeId) {
-                    flag = "Basic";
+                    flag = "Basic"
                 }
             }
         }
     }
-    storeAdvanceThemes = null;
-    storeAdvancedThemeColorOptList = null;
-    resultsAdvanceThemes = runService('retrieveAdvancedThemeArray',["productStoreId":productStoreId, "userLogin": userLogin]);
+    storeAdvanceThemes = null
+    storeAdvancedThemeColorOptList = null
+    resultsAdvanceThemes = runService('retrieveAdvancedThemeArray',["productStoreId":productStoreId, "userLogin": userLogin])
     if (resultsAdvanceThemes) {
-        storeAdvanceThemes = resultsAdvanceThemes.get("storeThemeList");
-        storeAdvancedThemeColorOptList = resultsAdvanceThemes.get("storeAdvancedThemeColorOptList");
-        context.put("storeAdvanceThemeOptList",storeAdvanceThemes);
-        context.put("storeAdvancedThemeColorOptList",storeAdvancedThemeColorOptList);
+        storeAdvanceThemes = resultsAdvanceThemes.get("storeThemeList")
+        storeAdvancedThemeColorOptList = resultsAdvanceThemes.get("storeAdvancedThemeColorOptList")
+        context.put("storeAdvanceThemeOptList",storeAdvanceThemes)
+        context.put("storeAdvancedThemeColorOptList",storeAdvancedThemeColorOptList)
 
         if (storeThemeId != null && storeAdvanceThemes != null) {
             storeAdvanceThemes.each { storeAdvanceTheme ->
                 if(storeThemeId == storeAdvanceTheme.storeThemeId){
-                    flag = "Advanced";
+                    flag = "Advanced"
                 }
             }
         }
     }
-    resultsFontTheme = runService('retrieveStoreFontTheme',["productStoreId":productStoreId, "userLogin": userLogin]);
+    resultsFontTheme = runService('retrieveStoreFontTheme',["productStoreId":productStoreId, "userLogin": userLogin])
     if (resultsFontTheme) {
-        storeFontTheme = resultsFontTheme.get("advanceFontTheme");
-        context.put("storeFontTheme",storeFontTheme);
+        storeFontTheme = resultsFontTheme.get("advanceFontTheme")
+        context.put("storeFontTheme",storeFontTheme)
     }
-    context.put("themeType",flag);
+    context.put("themeType",flag)
 }

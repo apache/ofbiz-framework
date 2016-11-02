@@ -20,39 +20,39 @@
 import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.product.category.*
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 
-state = request.getParameter("BrowseCategoriesState");
-isOpen = true;
+state = request.getParameter("BrowseCategoriesState")
+isOpen = true
 if (state) {
-    session.setAttribute("BrowseCategoriesState", state);
-    isOpen = "open".equals(state);
+    session.setAttribute("BrowseCategoriesState", state)
+    isOpen = "open".equals(state)
 } else {
-    state = (String) session.getAttribute("BrowseCategoriesState");
+    state = (String) session.getAttribute("BrowseCategoriesState")
     if (state) {
-        isOpen = "open".equals(state);
+        isOpen = "open".equals(state)
     }
 }
-context.isOpen = isOpen;
+context.isOpen = isOpen
 
-requestParameters = UtilHttp.getParameterMap(request);
-defaultTopCategoryId = requestParameters.TOP_CATEGORY ? requestParameters.TOP_CATEGORY : EntityUtilProperties.getPropertyValue("catalog", "top.category.default", delegator);
-currentTopCategoryId = CategoryWorker.getCatalogTopCategory(request, defaultTopCategoryId);
-currentTopCategory = null;
+requestParameters = UtilHttp.getParameterMap(request)
+defaultTopCategoryId = requestParameters.TOP_CATEGORY ? requestParameters.TOP_CATEGORY : EntityUtilProperties.getPropertyValue("catalog", "top.category.default", delegator)
+currentTopCategoryId = CategoryWorker.getCatalogTopCategory(request, defaultTopCategoryId)
+currentTopCategory = null
 if (isOpen) {
-    CategoryWorker.getRelatedCategories(request, "topLevelList", currentTopCategoryId, false);
-    currentTopCategory = from("ProductCategory").where("productCategoryId", currentTopCategoryId).cache(true).queryOne();
-    context.topLevelList = request.getAttribute("topLevelList");
+    CategoryWorker.getRelatedCategories(request, "topLevelList", currentTopCategoryId, false)
+    currentTopCategory = from("ProductCategory").where("productCategoryId", currentTopCategoryId).cache(true).queryOne()
+    context.topLevelList = request.getAttribute("topLevelList")
 }
-curCategoryId = UtilFormatOut.checkNull(requestParameters.productCategoryId);
-CategoryWorker.setTrail(request, curCategoryId);
+curCategoryId = UtilFormatOut.checkNull(requestParameters.productCategoryId)
+CategoryWorker.setTrail(request, curCategoryId)
 
-context.curCategoryId = curCategoryId;
-context.currentTopCategory = currentTopCategory;
+context.curCategoryId = curCategoryId
+context.currentTopCategory = currentTopCategory
 
-categoryList = request.getAttribute("topLevelList");
+categoryList = request.getAttribute("topLevelList")
 if (categoryList) {
-    catContentWrappers = [:];
-    CategoryWorker.getCategoryContentWrappers(catContentWrappers, categoryList, request);
-    context.catContentWrappers = catContentWrappers;
+    catContentWrappers = [:]
+    CategoryWorker.getCategoryContentWrappers(catContentWrappers, categoryList, request)
+    context.catContentWrappers = catContentWrappers
 }

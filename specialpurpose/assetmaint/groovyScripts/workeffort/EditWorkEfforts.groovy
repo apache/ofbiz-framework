@@ -17,61 +17,61 @@
     under the License.
 */
 
-maintHistSeqId = context.maintHistSeqId;
-fixedAssetId = context.fixedAssetId;
-workEffortId = context.workEffortId;
+maintHistSeqId = context.maintHistSeqId
+fixedAssetId = context.fixedAssetId
+workEffortId = context.workEffortId
 
 if (!maintHistSeqId) {
-    maintHistSeqId = parameters.maintHistSeqId;
+    maintHistSeqId = parameters.maintHistSeqId
 }
 if (!fixedAssetId) {
-    fixedAssetId = parameters.fixedAssetId;
+    fixedAssetId = parameters.fixedAssetId
 }
 if (!workEffortId) {
-    workEffortId = parameters.workEffortId;
+    workEffortId = parameters.workEffortId
 }
 
-fixedAssetMaint = null;
-workEffort = null;
-fixedAsset = null;
-rootWorkEffortId = null;
+fixedAssetMaint = null
+workEffort = null
+fixedAsset = null
+rootWorkEffortId = null
 
 if (workEffortId) {
-    workEffort = from("WorkEffort").where("workEffortId", workEffortId).queryOne();
+    workEffort = from("WorkEffort").where("workEffortId", workEffortId).queryOne()
     if (workEffort) {
         if (!fixedAssetId) {
-            fixedAssetId = workEffort.fixedAssetId;
+            fixedAssetId = workEffort.fixedAssetId
         }
         // If this is a child workeffort, locate the "root" workeffort
-        parentWorkEffort = from("WorkEffortAssoc").where("workEffortIdTo", workEffortId).queryFirst();
+        parentWorkEffort = from("WorkEffortAssoc").where("workEffortIdTo", workEffortId).queryFirst()
         while (parentWorkEffort) {
-            rootWorkEffortId = parentWorkEffort.workEffortIdFrom;
-            parentWorkEffort = from("WorkEffortAssoc").where("workEffortIdTo", rootWorkEffortId).queryFirst();
+            rootWorkEffortId = parentWorkEffort.workEffortIdFrom
+            parentWorkEffort = from("WorkEffortAssoc").where("workEffortIdTo", rootWorkEffortId).queryFirst()
         }
     }
 }
 
 if (!rootWorkEffortId) {
-    rootWorkEffortId = workEffortId;
+    rootWorkEffortId = workEffortId
 }
 
 if (rootWorkEffortId) {
-    fixedAssetMaint = from("FixedAssetMaint").where("scheduleWorkEffortId", rootWorkEffortId).queryFirst();
+    fixedAssetMaint = from("FixedAssetMaint").where("scheduleWorkEffortId", rootWorkEffortId).queryFirst()
     if (fixedAssetMaint) {
-        maintHistSeqId = fixedAssetMaint.maintHistSeqId;
+        maintHistSeqId = fixedAssetMaint.maintHistSeqId
         if (!fixedAssetId) {
-            fixedAssetId = fixedAssetMaint.fixedAssetId;
+            fixedAssetId = fixedAssetMaint.fixedAssetId
         }
     }
 }
 
 if (fixedAssetId) {
-    fixedAsset = from("FixedAsset").where("fixedAssetId", fixedAssetId).queryOne();
+    fixedAsset = from("FixedAsset").where("fixedAssetId", fixedAssetId).queryOne()
 }
 
-context.fixedAssetMaint = fixedAssetMaint;
-context.workEffort = workEffort;
-context.fixedAsset = fixedAsset;
-context.maintHistSeqId = maintHistSeqId;
-context.fixedAssetId = fixedAssetId;
-context.workEffortId = workEffortId;
+context.fixedAssetMaint = fixedAssetMaint
+context.workEffort = workEffort
+context.fixedAsset = fixedAsset
+context.maintHistSeqId = maintHistSeqId
+context.fixedAssetId = fixedAssetId
+context.workEffortId = workEffortId

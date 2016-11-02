@@ -20,12 +20,12 @@
 import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.base.util.*
 
-allSequenceNums = from("ProductContent").where("productId", parameters.productId, "productContentTypeId", "IMAGE").queryList();
-nullSequenceNums = from("ProductContent").where("productId", parameters.productId, "productContentTypeId", "IMAGE", "sequenceNum", null).queryList();
+allSequenceNums = from("ProductContent").where("productId", parameters.productId, "productContentTypeId", "IMAGE").queryList()
+nullSequenceNums = from("ProductContent").where("productId", parameters.productId, "productContentTypeId", "IMAGE", "sequenceNum", null).queryList()
 productContents = allSequenceNums - nullSequenceNums
 def duplicate = 0
 if(parameters.sequenceNum){
-    findExisted = from("ProductContent").where("productId", parameters.productId, "productContentTypeId", "IMAGE", "sequenceNum", (Long)parameters.sequenceNum).queryList();
+    findExisted = from("ProductContent").where("productId", parameters.productId, "productContentTypeId", "IMAGE", "sequenceNum", (Long)parameters.sequenceNum).queryList()
     duplicate = findExisted.size()
 }
 if(duplicate > 1){

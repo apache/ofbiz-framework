@@ -17,72 +17,72 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.ObjectType;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.base.util.ObjectType
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 
-productId = parameters.productId;
+productId = parameters.productId
 
 // get the lookup flag
-lookupFlag = parameters.lookupFlag;
+lookupFlag = parameters.lookupFlag
 
 // blank param list
-paramList = "";
-inventoryList = [];
+paramList = ""
+inventoryList = []
 
 if (lookupFlag) {
-    paramList = paramList + "&lookupFlag=" + lookupFlag;
-    andExprs = [];
+    paramList = paramList + "&lookupFlag=" + lookupFlag
+    andExprs = []
 
     //define main condition
-    mainCond = null;
+    mainCond = null
 
     // now do the filtering
 
-    eventDate = parameters.eventDate;
+    eventDate = parameters.eventDate
     if (eventDate?.length() > 8) {
-    eventDate = eventDate.trim();
-    if (eventDate.length() < 14) eventDate = eventDate + " " + "00:00:00.000";
-    paramList = paramList + "&eventDate=" + eventDate;
-        andExprs.add(EntityCondition.makeCondition("eventDate", EntityOperator.GREATER_THAN, ObjectType.simpleTypeConvert(eventDate, "Timestamp", null, null)));
+    eventDate = eventDate.trim()
+    if (eventDate.length() < 14) eventDate = eventDate + " " + "00:00:00.000"
+    paramList = paramList + "&eventDate=" + eventDate
+        andExprs.add(EntityCondition.makeCondition("eventDate", EntityOperator.GREATER_THAN, ObjectType.simpleTypeConvert(eventDate, "Timestamp", null, null)))
     }
 
     if (productId) {
-        paramList = paramList + "&productId=" + productId;
-        andExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
+        paramList = paramList + "&productId=" + productId
+        andExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId))
     }
-    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"));
-    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "ERROR"));
-    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "REQUIRED_MRP"));
+    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"))
+    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "ERROR"))
+    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "REQUIRED_MRP"))
 
-    mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
+    mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND)
 
     if ( mainCond) {
     // do the lookup
-        inventoryList = from("MrpEvent").where(mainCond).orderBy("productId", "eventDate").queryList();
+        inventoryList = from("MrpEvent").where(mainCond).orderBy("productId", "eventDate").queryList()
     }
 
-    context.inventoryList = inventoryList;
+    context.inventoryList = inventoryList
 }
-context.paramList = paramList;
+context.paramList = paramList
 
 // set the page parameters
-viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0);
-viewSize = parameters.VIEW_SIZE ?: EntityUtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20);
-listSize = 0;
+viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0)
+viewSize = parameters.VIEW_SIZE ?: EntityUtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20)
+listSize = 0
 if (inventoryList)
-    listSize = inventoryList.size();
+    listSize = inventoryList.size()
 
-lowIndex = viewIndex * viewSize;
-highIndex = (viewIndex + 1) * viewSize;
+lowIndex = viewIndex * viewSize
+highIndex = (viewIndex + 1) * viewSize
 if (listSize < highIndex)
-    highIndex = listSize;
+    highIndex = listSize
 if ( highIndex < 1 )
-    highIndex = 0;
-context.viewIndex = viewIndex;
-context.listSize = listSize;
-context.highIndex = highIndex;
-context.lowIndex = lowIndex;
-context.viewSize = viewSize;
+    highIndex = 0
+context.viewIndex = viewIndex
+context.listSize = listSize
+context.highIndex = highIndex
+context.lowIndex = lowIndex
+context.viewSize = viewSize
 

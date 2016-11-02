@@ -17,12 +17,12 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.entity.util.EntityUtil
 
-lastDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), -21); // should be there the last 3 weeks.
+lastDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), -21) // should be there the last 3 weeks.
 visits = select('partyId')
              .from('Visit')
              .where(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN, lastDate))
@@ -33,4 +33,4 @@ context.recentParties = select("partyId", "firstName", "middleName", "lastName",
                             .from("PartyNameView")
                             .where(EntityCondition.makeCondition('partyId', EntityOperator.IN, partyIds))
                             .distinct()
-                            .queryList();
+                            .queryList()

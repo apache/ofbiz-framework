@@ -16,34 +16,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.product.product.ProductContentWrapper;
-import org.apache.ofbiz.product.category.*;
-import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.product.product.ProductContentWrapper
+import org.apache.ofbiz.product.category.*
+import org.apache.ofbiz.base.util.UtilValidate
 
-parentCategoryStr = parameters.parentCategoryStr;
+parentCategoryStr = parameters.parentCategoryStr
 if(!UtilValidate.isEmpty(parentCategoryStr)) {
-    pathList = parentCategoryStr.split('/');
-    cateList = [];
-    pathTemp = '';
+    pathList = parentCategoryStr.split('/')
+    cateList = []
+    pathTemp = ''
     for(path in pathList) {
-        cateMap = [:];
-        category = from("ProductCategory").where("productCategoryId", path).queryOne();
-        categoryContentWrapper = new CategoryContentWrapper(category, request);
+        cateMap = [:]
+        category = from("ProductCategory").where("productCategoryId", path).queryOne()
+        categoryContentWrapper = new CategoryContentWrapper(category, request)
         
-        pathTemp = pathTemp + path;
-        cateMap.title = categoryContentWrapper.get("DESCRIPTION", "html");
-        cateMap.productCategoryId = category.productCategoryId;
-        cateMap.parentCategory = pathTemp;
+        pathTemp = pathTemp + path
+        cateMap.title = categoryContentWrapper.get("DESCRIPTION", "html")
+        cateMap.productCategoryId = category.productCategoryId
+        cateMap.parentCategory = pathTemp
         
-        cateList.add(cateMap);
+        cateList.add(cateMap)
         
-        pathTemp = pathTemp + '/';
+        pathTemp = pathTemp + '/'
     }
 
-    context.productCategoryTrail = cateList;
+    context.productCategoryTrail = cateList
 }
-currentCategory = from("ProductCategory").where("productCategoryId", productCategoryId).queryOne();
-currentCategoryContentWrapper = new CategoryContentWrapper(currentCategory, request);
-context.currentCategoryName = currentCategoryContentWrapper.get("CATEGORY_NAME", "html");
-context.currentCategoryDescription = currentCategoryContentWrapper.get("DESCRIPTION", "html");
-context.currentCategoryId = productCategoryId;
+currentCategory = from("ProductCategory").where("productCategoryId", productCategoryId).queryOne()
+currentCategoryContentWrapper = new CategoryContentWrapper(currentCategory, request)
+context.currentCategoryName = currentCategoryContentWrapper.get("CATEGORY_NAME", "html")
+context.currentCategoryDescription = currentCategoryContentWrapper.get("DESCRIPTION", "html")
+context.currentCategoryId = productCategoryId

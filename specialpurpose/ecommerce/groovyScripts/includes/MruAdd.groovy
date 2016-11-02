@@ -17,55 +17,55 @@
  * under the License.
  */
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList
+import java.util.Collection
+import java.util.HashMap
+import java.util.Iterator
+import java.util.LinkedList
+import java.util.List
+import java.util.Map
+import java.util.Set
+import java.util.TreeSet
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.security.*;
-import org.apache.ofbiz.service.*;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.content.ContentManagementWorker;
-import org.apache.ofbiz.content.content.ContentWorker;
-import org.apache.ofbiz.base.util.collections.LifoSet;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.security.*
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.entity.model.*
+import org.apache.ofbiz.content.ContentManagementWorker
+import org.apache.ofbiz.content.content.ContentWorker
+import org.apache.ofbiz.base.util.collections.LifoSet
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.*
+import javax.servlet.http.*
 
-lookupCaches = session.getAttribute("lookupCaches");
-//org.apache.ofbiz.base.util.Debug.logInfo("entityName:" + entityName, "");
-//org.apache.ofbiz.base.util.Debug.logInfo("in MruAdd.groovy, lookupCaches:" + lookupCaches, "");
+lookupCaches = session.getAttribute("lookupCaches")
+//org.apache.ofbiz.base.util.Debug.logInfo("entityName:" + entityName, "")
+//org.apache.ofbiz.base.util.Debug.logInfo("in MruAdd.groovy, lookupCaches:" + lookupCaches, "")
 
 if (!lookupCaches) {
-    lookupCaches = [:];
-    session.setAttribute("lookupCaches", lookupCaches);
+    lookupCaches = [:]
+    session.setAttribute("lookupCaches", lookupCaches)
 }
 
-cacheEntityName = entityName;
-//Debug.logInfo("cacheEntityName:" + cacheEntityName, "");
-lifoSet = lookupCaches[cacheEntityName];
-//org.apache.ofbiz.base.util.Debug.logInfo("lifoSet:" + lifoSet, "");
+cacheEntityName = entityName
+//Debug.logInfo("cacheEntityName:" + cacheEntityName, "")
+lifoSet = lookupCaches[cacheEntityName]
+//org.apache.ofbiz.base.util.Debug.logInfo("lifoSet:" + lifoSet, "")
 if (!lifoSet) {
-    lifoSet = new LifoSet(10);
-    lookupCaches[cacheEntityName] = lifoSet;
+    lifoSet = new LifoSet(10)
+    lookupCaches[cacheEntityName] = lifoSet
 }
 
-paramMap = UtilHttp.getParameterMap(request);
-contentId = paramMap.contentId;
-contentAssocDataResourceViewFrom = ContentWorker.getSubContentCache(delegator, null, null, contentId, null, null, null, null, null);
-//Debug.logInfo("in mruadd, contentAssocDataResourceViewFrom :" + contentAssocDataResourceViewFrom , "");
+paramMap = UtilHttp.getParameterMap(request)
+contentId = paramMap.contentId
+contentAssocDataResourceViewFrom = ContentWorker.getSubContentCache(delegator, null, null, contentId, null, null, null, null, null)
+//Debug.logInfo("in mruadd, contentAssocDataResourceViewFrom :" + contentAssocDataResourceViewFrom , "")
 if (contentAssocDataResourceViewFrom) {
-    lookupCaches = session.getAttribute("lookupCaches");
-    viewPK = contentAssocDataResourceViewFrom.getPrimaryKey();
-    //Debug.logInfo("in mruadd, viewPK :" + viewPK , "");
+    lookupCaches = session.getAttribute("lookupCaches")
+    viewPK = contentAssocDataResourceViewFrom.getPrimaryKey()
+    //Debug.logInfo("in mruadd, viewPK :" + viewPK , "")
     if (viewPK) {
-        ContentManagementWorker.mruAdd(session, viewPK);
+        ContentManagementWorker.mruAdd(session, viewPK)
     }
 }

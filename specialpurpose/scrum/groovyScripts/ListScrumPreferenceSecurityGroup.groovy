@@ -17,70 +17,70 @@
 * under the License.
 */
 
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 
-partyId = parameters.partyId;
+partyId = parameters.partyId
 
-andCond = [];
-orCond = [];
-combinedCondList = [];
+andCond = []
+orCond = []
+combinedCondList = []
 
-andCond.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
-andCond.add(EntityCondition.makeCondition("partyStatusId", EntityOperator.EQUALS, "PARTY_ENABLED"));
+andCond.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId))
+andCond.add(EntityCondition.makeCondition("partyStatusId", EntityOperator.EQUALS, "PARTY_ENABLED"))
 
-orCond.add(EntityCondition.makeCondition("groupId", EntityOperator.EQUALS, "SCRUM_PRODUCT_OWNER"));
-orCond.add(EntityCondition.makeCondition("groupId", EntityOperator.EQUALS, "SCRUM_MASTER"));
-orCond.add(EntityCondition.makeCondition("groupId", EntityOperator.EQUALS, "SCRUM_TEAM"));
-orCond.add(EntityCondition.makeCondition("enabled", EntityOperator.EQUALS, "Y"));
-orCond.add(EntityCondition.makeCondition("enabled", EntityOperator.EQUALS, null));
+orCond.add(EntityCondition.makeCondition("groupId", EntityOperator.EQUALS, "SCRUM_PRODUCT_OWNER"))
+orCond.add(EntityCondition.makeCondition("groupId", EntityOperator.EQUALS, "SCRUM_MASTER"))
+orCond.add(EntityCondition.makeCondition("groupId", EntityOperator.EQUALS, "SCRUM_TEAM"))
+orCond.add(EntityCondition.makeCondition("enabled", EntityOperator.EQUALS, "Y"))
+orCond.add(EntityCondition.makeCondition("enabled", EntityOperator.EQUALS, null))
 
-orCondList = EntityCondition.makeCondition(orCond, EntityOperator.OR);
-andCondList = EntityCondition.makeCondition(andCond, EntityOperator.AND);
+orCondList = EntityCondition.makeCondition(orCond, EntityOperator.OR)
+andCondList = EntityCondition.makeCondition(andCond, EntityOperator.AND)
 
-combinedCondList.add(orCondList);
-combinedCondList.add(andCondList);
+combinedCondList.add(orCondList)
+combinedCondList.add(andCondList)
 
-combinedConds = EntityCondition.makeCondition(combinedCondList, EntityOperator.AND);
+combinedConds = EntityCondition.makeCondition(combinedCondList, EntityOperator.AND)
 
-scrumUserLoginSecurityGroupList = from("ScrumMemberUserLoginAndSecurityGroup").where(combinedConds).queryList();
-userPreferenceList = [];
-userPreferenceOutList = [];
+scrumUserLoginSecurityGroupList = from("ScrumMemberUserLoginAndSecurityGroup").where(combinedConds).queryList()
+userPreferenceList = []
+userPreferenceOutList = []
 if (scrumUserLoginSecurityGroupList) {
     scrumUserLoginSecurityGroupList.each { scrumUserLoginSecurityGroupMap ->
         if (scrumUserLoginSecurityGroupMap.groupId == "SCRUM_PRODUCT_OWNER") {
-            ownerCond = [];
-            ownerCond.add(EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "SCRUM_PREFERENCE"));
-            ownerCond.add(EntityCondition.makeCondition("enumId", EntityOperator.NOT_EQUAL, "MASTER_NOTIFY"));
-            ownerConds = EntityCondition.makeCondition(ownerCond, EntityOperator.AND);
-            userPreferenceList = from("Enumeration").where(ownerConds).queryList();
+            ownerCond = []
+            ownerCond.add(EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "SCRUM_PREFERENCE"))
+            ownerCond.add(EntityCondition.makeCondition("enumId", EntityOperator.NOT_EQUAL, "MASTER_NOTIFY"))
+            ownerConds = EntityCondition.makeCondition(ownerCond, EntityOperator.AND)
+            userPreferenceList = from("Enumeration").where(ownerConds).queryList()
         } else if (scrumUserLoginSecurityGroupMap.groupId == "SCRUM_MASTER") {
-            masterCond = [];
-            masterCond.add(EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "SCRUM_PREFERENCE"));
-            masterCond.add(EntityCondition.makeCondition("enumId", EntityOperator.EQUALS, "MASTER_NOTIFY"));
-            masterConds = EntityCondition.makeCondition(masterCond, EntityOperator.AND);
-            userPreferenceList = from("Enumeration").where(masterConds).queryList();
+            masterCond = []
+            masterCond.add(EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "SCRUM_PREFERENCE"))
+            masterCond.add(EntityCondition.makeCondition("enumId", EntityOperator.EQUALS, "MASTER_NOTIFY"))
+            masterConds = EntityCondition.makeCondition(masterCond, EntityOperator.AND)
+            userPreferenceList = from("Enumeration").where(masterConds).queryList()
         } /*else if (scrumUserLoginSecurityGroupMap.groupId == "SCRUM_TEAM") {
-            teamCond = [];
-            teamCond.add(EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "SCRUM_PREFERENCE"));
-            teamCond.add(EntityCondition.makeCondition("enumId", EntityOperator.EQUALS, "INVITE_NOTIFI"));
-            teamConds = EntityCondition.makeCondition(teamCond, EntityOperator.AND);
-            userPreferenceList = delegator.findList("Enumeration" , teamConds, null, null, null, false);
+            teamCond = []
+            teamCond.add(EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "SCRUM_PREFERENCE"))
+            teamCond.add(EntityCondition.makeCondition("enumId", EntityOperator.EQUALS, "INVITE_NOTIFI"))
+            teamConds = EntityCondition.makeCondition(teamCond, EntityOperator.AND)
+            userPreferenceList = delegator.findList("Enumeration" , teamConds, null, null, null, false)
         }*/
         if (userPreferenceList) {
             userPreferenceList.each { userPreferenceMap ->
-                userPreferenceOutList.add(userPreferenceMap);
+                userPreferenceOutList.add(userPreferenceMap)
             }
         }
     }
-    context.userPreferenceList = userPreferenceOutList;
+    context.userPreferenceList = userPreferenceOutList
 } else {
     if (security.hasEntityPermission("SCRUM", "_ADMIN", session)) {
-        userPreferenceList = from("Enumeration").where("enumTypeId", "SCRUM_PREFERENCE").queryList();
-        context.userPreferenceList = userPreferenceList;
+        userPreferenceList = from("Enumeration").where("enumTypeId", "SCRUM_PREFERENCE").queryList()
+        context.userPreferenceList = userPreferenceList
     }
 }
 

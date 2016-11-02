@@ -17,73 +17,73 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.base.util.*
 
-facilityId = request.getParameter("facilityId");
-returnId = request.getParameter("returnId");
+facilityId = request.getParameter("facilityId")
+returnId = request.getParameter("returnId")
 
-facility = null;
+facility = null
 if (facilityId) {
-    facility = from("Facility").where("facilityId", facilityId).queryOne();
+    facility = from("Facility").where("facilityId", facilityId).queryOne()
 }
 
-returnHeader = null;
-returnItems = null;
+returnHeader = null
+returnItems = null
 if (returnId) {
-    returnHeader = from("ReturnHeader").where("returnId", returnId).queryOne();
+    returnHeader = from("ReturnHeader").where("returnId", returnId).queryOne()
     if (returnHeader) {
         if ("RETURN_ACCEPTED".equals(returnHeader.statusId)) {
-            returnItems = returnHeader.getRelated("ReturnItem", null, null, false);
+            returnItems = returnHeader.getRelated("ReturnItem", null, null, false)
         } else if ("RETURN_REQUESTED".equals(returnHeader.statusId)) {
-            uiLabelMap = UtilProperties.getResourceBundleMap("ProductErrorUiLabels", locale);
-            ProductReturnRequestedOK = uiLabelMap.ProductReturnRequestedOK;
-            request.setAttribute("_EVENT_MESSAGE_", ProductReturnRequestedOK + " (#" + returnId.toString() + ")" );
+            uiLabelMap = UtilProperties.getResourceBundleMap("ProductErrorUiLabels", locale)
+            ProductReturnRequestedOK = uiLabelMap.ProductReturnRequestedOK
+            request.setAttribute("_EVENT_MESSAGE_", ProductReturnRequestedOK + " (#" + returnId.toString() + ")" )
         }  else if ("RETURN_RECEIVED".equals(!returnHeader.statusId)) {
-            uiLabelMap = UtilProperties.getResourceBundleMap("ProductErrorUiLabels", locale);
-            ProductReturnNotYetAcceptedOrAlreadyReceived = uiLabelMap.ProductReturnNotYetAcceptedOrAlreadyReceived;
-            request.setAttribute("_ERROR_MESSAGE_", ProductReturnNotYetAcceptedOrAlreadyReceived + " (#" + returnId.toString() + ")" );
+            uiLabelMap = UtilProperties.getResourceBundleMap("ProductErrorUiLabels", locale)
+            ProductReturnNotYetAcceptedOrAlreadyReceived = uiLabelMap.ProductReturnNotYetAcceptedOrAlreadyReceived
+            request.setAttribute("_ERROR_MESSAGE_", ProductReturnNotYetAcceptedOrAlreadyReceived + " (#" + returnId.toString() + ")" )
         }
     }
 }
 
-receivedQuantities = [:];
+receivedQuantities = [:]
 if (returnItems) {
-    context.firstOrderItem = EntityUtil.getFirst(returnItems);
-    context.returnItemsSize = returnItems.size();
+    context.firstOrderItem = EntityUtil.getFirst(returnItems)
+    context.returnItemsSize = returnItems.size()
     returnItems.each { thisItem ->
-        totalReceived = 0.0;
-        receipts = thisItem.getRelated("ShipmentReceipt", null, null, false);
+        totalReceived = 0.0
+        receipts = thisItem.getRelated("ShipmentReceipt", null, null, false)
         if (receipts) {
             receipts.each { rec ->
-                accepted = rec.getDouble("quantityAccepted");
-                rejected = rec.getDouble("quantityRejected");
+                accepted = rec.getDouble("quantityAccepted")
+                rejected = rec.getDouble("quantityRejected")
                 if (accepted)
-                    totalReceived += accepted.doubleValue();
+                    totalReceived += accepted.doubleValue()
                 if (rejected)
-                    totalReceived += rejected.doubleValue();
+                    totalReceived += rejected.doubleValue()
             }
         }
-        receivedQuantities[thisItem.returnItemSeqId] = new Double(totalReceived);
+        receivedQuantities[thisItem.returnItemSeqId] = new Double(totalReceived)
     }
 }
 
 if (returnHeader) {
-    context.receivedItems = from("ShipmentReceiptAndItem").where("returnId", returnId).queryList();
+    context.receivedItems = from("ShipmentReceiptAndItem").where("returnId", returnId).queryList()
 }
 
 // facilities
-facilities = from("Facility").queryList();
+facilities = from("Facility").queryList()
 
 //all possible inventory item types
-inventoryItemTypes = from("InventoryItemType").orderBy("description").cache(true).queryList();
+inventoryItemTypes = from("InventoryItemType").orderBy("description").cache(true).queryList()
 
-context.facilityId = facilityId;
-context.facility = facility;
-context.returnHeader = returnHeader;
-context.returnItems = returnItems;
-context.receivedQuantities = receivedQuantities;
-context.facilities = facilities;
-context.inventoryItemTypes = inventoryItemTypes;
+context.facilityId = facilityId
+context.facility = facility
+context.returnHeader = returnHeader
+context.returnItems = returnItems
+context.receivedQuantities = receivedQuantities
+context.facilities = facilities
+context.inventoryItemTypes = inventoryItemTypes

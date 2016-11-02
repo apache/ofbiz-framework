@@ -17,30 +17,30 @@
  * under the License.
  */
 
-state = request.getParameter("BrowseCatalogsState");
-isOpen = true;
+state = request.getParameter("BrowseCatalogsState")
+isOpen = true
 if (state) {
-    session.setAttribute("BrowseCatalogsState", state);
-    isOpen = "open".equals(state);
+    session.setAttribute("BrowseCatalogsState", state)
+    isOpen = "open".equals(state)
 } else {
-    state = (String) session.getAttribute("BrowseCatalogsState");
+    state = (String) session.getAttribute("BrowseCatalogsState")
     if (state) {
-        isOpen = "open".equals(state);
+        isOpen = "open".equals(state)
     }
 }
-context.isOpen = isOpen;
+context.isOpen = isOpen
 
 //prodCatalogs
 if (isOpen) {
-    prodCatalogs = from("ProdCatalog").queryList();
-    context.prodCatalogs = prodCatalogs;
+    prodCatalogs = from("ProdCatalog").queryList()
+    context.prodCatalogs = prodCatalogs
 }
 
 //get the current prodCatalogId
-curProdCatalogId = request.getParameter("prodCatalogId");
+curProdCatalogId = request.getParameter("prodCatalogId")
 if (curProdCatalogId) {
-    session.setAttribute("curProdCatalogId", curProdCatalogId);
+    session.setAttribute("curProdCatalogId", curProdCatalogId)
 } else {
-    curProdCatalogId = (String) session.getAttribute("curProdCatalogId");
+    curProdCatalogId = (String) session.getAttribute("curProdCatalogId")
 }
-context.curProdCatalogId = curProdCatalogId;
+context.curProdCatalogId = curProdCatalogId

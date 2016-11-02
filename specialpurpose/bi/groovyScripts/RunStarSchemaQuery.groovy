@@ -17,17 +17,17 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilHttp
 
-starSchemaName = parameters.starSchemaName;
-selectedFieldList = UtilHttp.parseMultiFormData(parameters);
+starSchemaName = parameters.starSchemaName
+selectedFieldList = UtilHttp.parseMultiFormData(parameters)
 
-columnNames = [] as Set;
+columnNames = [] as Set
 selectedFieldList.each { selectedField ->
-  columnNames.add(selectedField.selectedFieldName);
+  columnNames.add(selectedField.selectedFieldName)
 }
-context.columnNames = columnNames;
-List records = [];
-records = select(context.columnNames).from(starSchemaName).distinct(false).queryList();
+context.columnNames = columnNames
+List records = []
+records = select(context.columnNames).from(starSchemaName).distinct(false).queryList()
 
-context.records = records;
+context.records = records

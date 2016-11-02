@@ -17,65 +17,65 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.util.EntityUtil
 
-costMult = 0.0;
+costMult = 0.0
 quoteCoefficients.each { quoteCoefficient ->
-    value = quoteCoefficient.coeffValue;
+    value = quoteCoefficient.coeffValue
     if (value) {
-        costMult += value;
+        costMult += value
     }
 }
-costToPriceMult = 1.0;
+costToPriceMult = 1.0
 if (costMult != 100) {
-    costToPriceMult = 100 / (100 - costMult);
+    costToPriceMult = 100 / (100 - costMult)
 }
 
-totalCost = 0.0;
-totalPrice = 0.0;
-totalCostMult = 0.0;
-currency = quote.currencyUomId;
-quoteItemAndCostInfos = [];
+totalCost = 0.0
+totalPrice = 0.0
+totalCostMult = 0.0
+currency = quote.currencyUomId
+quoteItemAndCostInfos = []
 quoteItems.each { quoteItem ->
-    defaultQuoteUnitPrice = 0.0;
-    averageCost = 0.0;
-    unitPrice = 0.0;
-    quantity = 1.0;
-    selectedAmount = quoteItem.selectedAmount ?: 1.0;
+    defaultQuoteUnitPrice = 0.0
+    averageCost = 0.0
+    unitPrice = 0.0
+    quantity = 1.0
+    selectedAmount = quoteItem.selectedAmount ?: 1.0
     if (quoteItem.quantity != null) {
-        quantity = quoteItem.quantity;
+        quantity = quoteItem.quantity
     }
     if (quoteItem.quoteUnitPrice != null) {
-        unitPrice = quoteItem.quoteUnitPrice;
+        unitPrice = quoteItem.quoteUnitPrice
     }
 
     try {
         if (currency && quoteItem.productId) {
-            productPrice = from("ProductPrice").where("productId", quoteItem.productId, "currencyUomId", currency, "productPriceTypeId", "AVERAGE_COST").filterByDate().queryFirst();
+            productPrice = from("ProductPrice").where("productId", quoteItem.productId, "currencyUomId", currency, "productPriceTypeId", "AVERAGE_COST").filterByDate().queryFirst()
             if (productPrice?.price != null) {
-                averageCost = productPrice.price;
+                averageCost = productPrice.price
             }
         }
-        defaultQuoteUnitPrice = averageCost * costToPriceMult * selectedAmount;
-        totalCost += (averageCost * quantity);
-        totalPrice += (unitPrice * quantity * selectedAmount);
+        defaultQuoteUnitPrice = averageCost * costToPriceMult * selectedAmount
+        totalCost += (averageCost * quantity)
+        totalPrice += (unitPrice * quantity * selectedAmount)
     } catch (Exception exc) {
-        Debug.logError("Problems getting the averageCost for quoteItem: " + quoteItem);
+        Debug.logError("Problems getting the averageCost for quoteItem: " + quoteItem)
     }
 
-    quoteItemAndCostInfo = new java.util.HashMap(quoteItem);
-    quoteItemAndCostInfo.averageCost = averageCost;
-    quoteItemAndCostInfo.costToPriceMult = costToPriceMult;
-    quoteItemAndCostInfo.defaultQuoteUnitPrice = defaultQuoteUnitPrice;
-    quoteItemAndCostInfos.add(quoteItemAndCostInfo);
+    quoteItemAndCostInfo = new java.util.HashMap(quoteItem)
+    quoteItemAndCostInfo.averageCost = averageCost
+    quoteItemAndCostInfo.costToPriceMult = costToPriceMult
+    quoteItemAndCostInfo.defaultQuoteUnitPrice = defaultQuoteUnitPrice
+    quoteItemAndCostInfos.add(quoteItemAndCostInfo)
 }
 
-context.costMult = costMult;
-context.costToPriceMult = costToPriceMult;
-context.quoteItemAndCostInfos = quoteItemAndCostInfos;
+context.costMult = costMult
+context.costToPriceMult = costToPriceMult
+context.quoteItemAndCostInfos = quoteItemAndCostInfos
 
-context.totalCost = totalCost;
-context.totalPrice = totalPrice;
-context.totalCostMult = (totalCost != 0 ? totalPrice / totalCost : 0);
+context.totalCost = totalCost
+context.totalPrice = totalPrice
+context.totalCostMult = (totalCost != 0 ? totalPrice / totalCost : 0)
 

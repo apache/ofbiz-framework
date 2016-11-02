@@ -23,118 +23,118 @@ import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 
-projectId = parameters.projectId;
-userLogin = parameters.userLogin;
+projectId = parameters.projectId
+userLogin = parameters.userLogin
 
 //project info
-result = runService('getProject', [projectId : projectId, userLogin : userLogin]);
-project = result.projectInfo;
+result = runService('getProject', [projectId : projectId, userLogin : userLogin])
+project = result.projectInfo
 if (project && project.startDate)
-    context.chartStart = project.startDate;
+    context.chartStart = project.startDate
 else
-    context.chartStart = UtilDateTime.nowTimestamp(); // default todays date
+    context.chartStart = UtilDateTime.nowTimestamp() // default todays date
 if (project && project.completionDate)
-    context.chartEnd = project.completionDate;
+    context.chartEnd = project.completionDate
 else
-    context.chartEnd = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 14); // default 14 days long
+    context.chartEnd = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 14) // default 14 days long
 
-if (project == null) return;
+if (project == null) return
 
-ganttList = new LinkedList();
-result = runService('getProjectPhaseList', [userLogin : userLogin , projectId : projectId]);
-phases = result.phaseList;
+ganttList = new LinkedList()
+result = runService('getProjectPhaseList', [userLogin : userLogin , projectId : projectId])
+phases = result.phaseList
 if (phases) {
     phases.each { phase ->
-        newPhase = phase;
-        newPhase.phaseNr = phase.phaseId;
+        newPhase = phase
+        newPhase.phaseNr = phase.phaseId
         if (!newPhase.estimatedStartDate && newPhase.actualStartDate) {
-            newPhase.estimatedStartDate = newPhase.actualStartDate;
+            newPhase.estimatedStartDate = newPhase.actualStartDate
         }
         if (!newPhase.estimatedStartDate) {
-            newPhase.estimatedStartDate = context.chartStart;
+            newPhase.estimatedStartDate = context.chartStart
         }
         if (!newPhase.estimatedCompletionDate && newPhase.actualCompletionDate) {
-            newPhase.estimatedCompletionDate = newPhase.actualCompletionDateDate;
+            newPhase.estimatedCompletionDate = newPhase.actualCompletionDateDate
         }
         if (!newPhase.estimatedCompletionDate) {
-            newPhase.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, 3);
+            newPhase.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, 3)
         }
-        newPhase.workEffortTypeId = "PHASE";
-        ganttList.add(newPhase);
+        newPhase.workEffortTypeId = "PHASE"
+        ganttList.add(newPhase)
         cond = EntityCondition.makeCondition(
                 [
                 EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_CANCELLED"),
                 EntityCondition.makeCondition("workEffortParentId", EntityOperator.EQUALS, phase.phaseId)
-                ], EntityOperator.AND);
-        tasks = from("WorkEffort").where(cond).orderBy("sequenceNum","workEffortName").queryList();
+                ], EntityOperator.AND)
+        tasks = from("WorkEffort").where(cond).orderBy("sequenceNum","workEffortName").queryList()
         if (tasks) {
             tasks.each { task ->
-                resultTaskInfo = runService('getProjectTask', [userLogin : userLogin , taskId : task.workEffortId]);
-                taskInfo = resultTaskInfo.taskInfo;
-                taskInfo.taskNr = task.workEffortId;
-                taskInfo.phaseNr = phase.phaseId;
+                resultTaskInfo = runService('getProjectTask', [userLogin : userLogin , taskId : task.workEffortId])
+                taskInfo = resultTaskInfo.taskInfo
+                taskInfo.taskNr = task.workEffortId
+                taskInfo.phaseNr = phase.phaseId
                 if (taskInfo.plannedHours && !taskInfo.currentStatusId.equals("PTS_COMPLETED") && taskInfo.plannedHours > taskInfo.actualHours) {
-                    taskInfo.resource = taskInfo.plannedHours + " Hrs";
+                    taskInfo.resource = taskInfo.plannedHours + " Hrs"
                 } else {
-                    taskInfo.resource = taskInfo.actualHours + " Hrs";
+                    taskInfo.resource = taskInfo.actualHours + " Hrs"
                 }
-                Double duration = resultTaskInfo.plannedHours;
+                Double duration = resultTaskInfo.plannedHours
                 if (taskInfo.currentStatusId.equals("PTS_COMPLETED")) {
-                    taskInfo.completion = 100;
+                    taskInfo.completion = 100
                 } else {
                     if (taskInfo.actualHours && taskInfo.plannedHours) {
-                        taskInfo.completion = new BigDecimal(taskInfo.actualHours * 100 / taskInfo.plannedHours).setScale(0, BigDecimal.ROUND_UP);
+                        taskInfo.completion = new BigDecimal(taskInfo.actualHours * 100 / taskInfo.plannedHours).setScale(0, BigDecimal.ROUND_UP)
                     } else {
-                        taskInfo.completion = 0;
+                        taskInfo.completion = 0
                     }
                 }
                 if (!taskInfo.estimatedStartDate && taskInfo.actualStartDate) {
-                    taskInfo.estimatedStartDate = taskInfo.actualStartDate;
+                    taskInfo.estimatedStartDate = taskInfo.actualStartDate
                 }
                 if (!taskInfo.estimatedStartDate) {
-                    taskInfo.estimatedStartDate = newPhase.estimatedStartDate;
+                    taskInfo.estimatedStartDate = newPhase.estimatedStartDate
                 }
                 if (!taskInfo.estimatedCompletionDate && taskInfo.actualCompletionDate) {
-                    taskInfo.estimatedCompletionDate = taskInfo.actualCompletionDate;
+                    taskInfo.estimatedCompletionDate = taskInfo.actualCompletionDate
                 }
                 if (!taskInfo.estimatedCompletionDate && !duration) {
-                    taskInfo.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, 3);
+                    taskInfo.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, 3)
                 } else if (!taskInfo.estimatedCompletionDate && duration) {
-                    taskInfo.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, duration/8);
+                    taskInfo.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, duration/8)
                 }
-                taskInfo.estimatedStartDate = UtilDateTime.toDateString(taskInfo.estimatedStartDate, "MM/dd/yyyy");
-                taskInfo.estimatedCompletionDate = UtilDateTime.toDateString(taskInfo.estimatedCompletionDate, "MM/dd/yyyy");
-                taskInfo.workEffortTypeId = task.workEffortTypeId;
+                taskInfo.estimatedStartDate = UtilDateTime.toDateString(taskInfo.estimatedStartDate, "MM/dd/yyyy")
+                taskInfo.estimatedCompletionDate = UtilDateTime.toDateString(taskInfo.estimatedCompletionDate, "MM/dd/yyyy")
+                taskInfo.workEffortTypeId = task.workEffortTypeId
                 if (security.hasEntityPermission("PROJECTMGR", "_READ", session) || security.hasEntityPermission("PROJECTMGR", "_ADMIN", session)) {
-                    taskInfo.url = "/projectmgr/control/taskView?workEffortId="+task.workEffortId;
+                    taskInfo.url = "/projectmgr/control/taskView?workEffortId="+task.workEffortId
                 } else {
-                    taskInfo.url = "";
+                    taskInfo.url = ""
                 }
 
                 // dependency can only show one in the ganttchart, so onl show the latest one..
-                preTasks = from("WorkEffortAssoc").where("workEffortIdTo", task.workEffortId).orderBy("workEffortIdFrom").queryList();
-                latestTaskIds = new LinkedList();
+                preTasks = from("WorkEffortAssoc").where("workEffortIdTo", task.workEffortId).orderBy("workEffortIdFrom").queryList()
+                latestTaskIds = new LinkedList()
                 preTasks.each { preTask ->
-                    wf = preTask.getRelatedOne("FromWorkEffort", false);
-                    latestTaskIds.add(wf.workEffortId);
+                    wf = preTask.getRelatedOne("FromWorkEffort", false)
+                    latestTaskIds.add(wf.workEffortId)
                 }
-                count = 0;
+                count = 0
                 if (UtilValidate.isNotEmpty(latestTaskIds)) {
-                    taskInfo.preDecessor = "";
+                    taskInfo.preDecessor = ""
                     for (i in latestTaskIds) {
                         if (count > 0) {
-                            taskInfo.preDecessor = taskInfo.preDecessor +", " + i; 
+                            taskInfo.preDecessor = taskInfo.preDecessor +", " + i
                         } else {
-                            taskInfo.preDecessor = taskInfo.preDecessor + i;
+                            taskInfo.preDecessor = taskInfo.preDecessor + i
                         }
-                        count ++;
+                        count ++
                     }
                 }
-                ganttList.add(taskInfo);
+                ganttList.add(taskInfo)
             }
         }
     }
 }
 
-context.phaseTaskList = ganttList;
+context.phaseTaskList = ganttList
 

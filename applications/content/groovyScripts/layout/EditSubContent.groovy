@@ -30,25 +30,25 @@ import freemarker.template.WrappingTemplateModel
 import javax.servlet.*
 import javax.servlet.http.*
 
-Locale locale = UtilHttp.getLocale(request);
+Locale locale = UtilHttp.getLocale(request)
 if (currentValue) {
-    dataResourceId = currentValue.drDataResourceId;
-    dataResourceTypeId = currentValue.drDataResourceTypeId;
+    dataResourceId = currentValue.drDataResourceId
+    dataResourceTypeId = currentValue.drDataResourceTypeId
     if (dataResourceTypeId) {
-        mimeTypeId = currentValue.drMimeTypeId;
-        rootDir = request.getSession().getServletContext().getRealPath("/");
-        wrapper = FreeMarkerWorker.getDefaultOfbizWrapper();
-        WrappingTemplateModel.setDefaultObjectWrapper(wrapper);
-        templateRoot = [:];
-        FreeMarkerViewHandler.prepOfbizRoot(templateRoot, request, response);
-        ctx = [:];
-        ctx.rootDir = rootDir;
+        mimeTypeId = currentValue.drMimeTypeId
+        rootDir = request.getSession().getServletContext().getRealPath("/")
+        wrapper = FreeMarkerWorker.getDefaultOfbizWrapper()
+        WrappingTemplateModel.setDefaultObjectWrapper(wrapper)
+        templateRoot = [:]
+        FreeMarkerViewHandler.prepOfbizRoot(templateRoot, request, response)
+        ctx = [:]
+        ctx.rootDir = rootDir
         // webSiteId and https need to go here, too
-        templateRoot.context = ctx;
-        out = new StringWriter();
-        currentValue.drDataTemplateTypeId = "NONE";
-        DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, out, templateRoot, locale, null, false);
-        textData = out.toString();
-        context.textData = textData;
+        templateRoot.context = ctx
+        out = new StringWriter()
+        currentValue.drDataTemplateTypeId = "NONE"
+        DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, out, templateRoot, locale, null, false)
+        textData = out.toString()
+        context.textData = textData
     }
 }

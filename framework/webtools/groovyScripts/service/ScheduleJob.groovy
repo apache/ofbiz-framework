@@ -17,64 +17,64 @@
  * under the License.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.sql.Timestamp;
+import java.util.ArrayList
+import java.util.HashMap
+import java.util.Iterator
+import java.util.List
+import java.util.Map
+import java.sql.Timestamp
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ModelParam;
-import org.apache.ofbiz.service.RunningService;
-import org.apache.ofbiz.service.engine.GenericEngine;
-import org.apache.ofbiz.service.config.ServiceConfigUtil;
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.service.DispatchContext
+import org.apache.ofbiz.service.ModelService
+import org.apache.ofbiz.service.ModelParam
+import org.apache.ofbiz.service.RunningService
+import org.apache.ofbiz.service.engine.GenericEngine
+import org.apache.ofbiz.service.config.ServiceConfigUtil
 
-savedSyncResult = null;
+savedSyncResult = null
 if (session.getAttribute("_SAVED_SYNC_RESULT_") != null) {
-    savedSyncResult = session.getAttribute("_SAVED_SYNC_RESULT_");
+    savedSyncResult = session.getAttribute("_SAVED_SYNC_RESULT_")
 }
 
-serviceName = parameters.SERVICE_NAME;
-context.POOL_NAME = ServiceConfigUtil.getServiceEngine().getThreadPool().getSendToPool();
+serviceName = parameters.SERVICE_NAME
+context.POOL_NAME = ServiceConfigUtil.getServiceEngine().getThreadPool().getSendToPool()
 
-scheduleOptions = [];
-serviceParameters = [];
-e = request.getParameterNames();
+scheduleOptions = []
+serviceParameters = []
+e = request.getParameterNames()
 while (e.hasMoreElements()) {
-    paramName = e.nextElement();
-    paramValue = parameters[paramName];
-    scheduleOptions.add([name : paramName, value : paramValue]);
+    paramName = e.nextElement()
+    paramValue = parameters[paramName]
+    scheduleOptions.add([name : paramName, value : paramValue])
 }
 
-context.scheduleOptions = scheduleOptions;
+context.scheduleOptions = scheduleOptions
 
 if (serviceName) {
-    dctx = dispatcher.getDispatchContext();
-    model = null;
+    dctx = dispatcher.getDispatchContext()
+    model = null
     try {
-        model = dctx.getModelService(serviceName);
+        model = dctx.getModelService(serviceName)
     } catch (Exception exc) {
-        context.errorMessageList = [exc.getMessage()];
+        context.errorMessageList = [exc.getMessage()]
     }
     if (model != null) {
         model.getInParamNames().each { paramName ->
-            par = model.getParam(paramName);
+            par = model.getParam(paramName)
             if (par.internal) {
-                return;
+                return
             }
-            serviceParam = null;
+            serviceParam = null
             if (savedSyncResult?.get(par.name)) {
-                serviceParam = [name : par.name, type : par.type, optional : par.optional ? "Y" : "N", defaultValue : par.defaultValue, value : savedSyncResult.get(par.name)];
+                serviceParam = [name : par.name, type : par.type, optional : par.optional ? "Y" : "N", defaultValue : par.defaultValue, value : savedSyncResult.get(par.name)]
             } else {
-                serviceParam = [name : par.name, type : par.type, optional : par.optional ? "Y" : "N", defaultValue : par.defaultValue];
+                serviceParam = [name : par.name, type : par.type, optional : par.optional ? "Y" : "N", defaultValue : par.defaultValue]
             }
-            serviceParameters.add(serviceParam);
+            serviceParameters.add(serviceParam)
         }
     }
 }
-context.serviceParameters = serviceParameters;
+context.serviceParameters = serviceParameters

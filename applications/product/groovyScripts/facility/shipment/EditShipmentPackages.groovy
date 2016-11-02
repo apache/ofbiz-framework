@@ -19,40 +19,40 @@
 
 import org.apache.ofbiz.entity.condition.*
 
-shipmentId = request.getParameter("shipmentId");
+shipmentId = request.getParameter("shipmentId")
 if (!shipmentId) {
-    shipmentId = context.shipmentId;
+    shipmentId = context.shipmentId
 }
 
-shipment = null;
+shipment = null
 if (shipmentId) {
-    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
+    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
 }
 
 if (shipment) {
-    shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false);
-    shipmentPackageDatas = [] as LinkedList;
+    shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false)
+    shipmentPackageDatas = [] as LinkedList
     if (shipmentPackages) {
         shipmentPackages.each { shipmentPackage ->
-            shipmentPackageData = [:];
-            shipmentPackageData.shipmentPackage = shipmentPackage;
-            shipmentPackageData.shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent", null, null, false);
-            shipmentPackageData.shipmentPackageRouteSegs = shipmentPackage.getRelated("ShipmentPackageRouteSeg", null, null, false);
-            shipmentPackageData.weightUom = shipmentPackage.getRelatedOne("WeightUom", false);
-            shipmentPackageDatas.add(shipmentPackageData);
+            shipmentPackageData = [:]
+            shipmentPackageData.shipmentPackage = shipmentPackage
+            shipmentPackageData.shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent", null, null, false)
+            shipmentPackageData.shipmentPackageRouteSegs = shipmentPackage.getRelated("ShipmentPackageRouteSeg", null, null, false)
+            shipmentPackageData.weightUom = shipmentPackage.getRelatedOne("WeightUom", false)
+            shipmentPackageDatas.add(shipmentPackageData)
         }
     }
 
-    shipmentItems = shipment.getRelated("ShipmentItem", null, ['shipmentItemSeqId'], false);
-    shipmentRouteSegments = shipment.getRelated("ShipmentRouteSegment", null, ['shipmentRouteSegmentId'], false);
-    weightUoms = from("Uom").where("uomTypeId", "WEIGHT_MEASURE").orderBy("description").queryList();
-    boxTypes = from("ShipmentBoxType").queryList();
+    shipmentItems = shipment.getRelated("ShipmentItem", null, ['shipmentItemSeqId'], false)
+    shipmentRouteSegments = shipment.getRelated("ShipmentRouteSegment", null, ['shipmentRouteSegmentId'], false)
+    weightUoms = from("Uom").where("uomTypeId", "WEIGHT_MEASURE").orderBy("description").queryList()
+    boxTypes = from("ShipmentBoxType").queryList()
 
-    context.shipment = shipment;
-    context.shipmentPackageDatas = shipmentPackageDatas;
-    context.shipmentItems = shipmentItems;
-    context.shipmentRouteSegments = shipmentRouteSegments;
-    context.weightUoms = weightUoms;
-    context.boxTypes = boxTypes;
+    context.shipment = shipment
+    context.shipmentPackageDatas = shipmentPackageDatas
+    context.shipmentItems = shipmentItems
+    context.shipmentRouteSegments = shipmentRouteSegments
+    context.weightUoms = weightUoms
+    context.boxTypes = boxTypes
 }
-context.shipmentId = shipmentId;
+context.shipmentId = shipmentId

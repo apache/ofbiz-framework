@@ -19,29 +19,29 @@
 
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.party.party.PartyHelper;
+import org.apache.ofbiz.party.party.PartyHelper
 
-partyNameList = [];
+partyNameList = []
 parties.each { party ->
-    partyName = PartyHelper.getPartyName(party);
-    partyNameList.add(partyName);
+    partyName = PartyHelper.getPartyName(party)
+    partyNameList.add(partyName)
 }
-context.partyNameList = partyNameList;
+context.partyNameList = partyNameList
 
 if (parameters.customTimePeriodId) {
-    customTimePeriod = from("CustomTimePeriod").where("customTimePeriodId", parameters.customTimePeriodId).cache(true).queryOne();
-    exprList = [];
+    customTimePeriod = from("CustomTimePeriod").where("customTimePeriodId", parameters.customTimePeriodId).cache(true).queryOne()
+    exprList = []
     exprList.add(EntityCondition.makeCondition('organizationPartyId', EntityOperator.IN, partyIds))
     exprList.add(EntityCondition.makeCondition('fromDate', EntityOperator.LESS_THAN, customTimePeriod.getTimestamp('thruDate')))
     exprList.add(EntityCondition.makeCondition(EntityCondition.makeCondition('thruDate', EntityOperator.GREATER_THAN_EQUAL_TO, customTimePeriod.getTimestamp('fromDate')), EntityOperator.OR, EntityCondition.makeCondition('thruDate', EntityOperator.EQUALS, null)))
-    List organizationGlAccounts = from("GlAccountOrganizationAndClass").where(exprList).orderBy("accountCode").queryList();
+    List organizationGlAccounts = from("GlAccountOrganizationAndClass").where(exprList).orderBy("accountCode").queryList()
 
     accountBalances = []
     postedDebitsTotal = 0
     postedCreditsTotal = 0
     organizationGlAccounts.each { organizationGlAccount ->
         accountBalance = [:]
-        accountBalance = runService('computeGlAccountBalanceForTimePeriod', [organizationPartyId: organizationGlAccount.organizationPartyId, customTimePeriodId: customTimePeriod.customTimePeriodId, glAccountId: organizationGlAccount.glAccountId]);
+        accountBalance = runService('computeGlAccountBalanceForTimePeriod', [organizationPartyId: organizationGlAccount.organizationPartyId, customTimePeriodId: customTimePeriod.customTimePeriodId, glAccountId: organizationGlAccount.glAccountId])
         if (accountBalance.postedDebits != 0 || accountBalance.postedCredits != 0) {
             accountBalance.glAccountId = organizationGlAccount.glAccountId
             accountBalance.accountCode = organizationGlAccount.accountCode

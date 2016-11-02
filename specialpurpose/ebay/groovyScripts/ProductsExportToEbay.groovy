@@ -16,54 +16,54 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtil
 
-webSiteList = [];
-webSite = null;
+webSiteList = []
+webSite = null
 if (parameters.productStoreId) {
-    productStoreId = parameters.productStoreId;
-    webSiteList = from("WebSite").where("productStoreId", productStoreId).queryList();
+    productStoreId = parameters.productStoreId
+    webSiteList = from("WebSite").where("productStoreId", productStoreId).queryList()
     if (parameters.webSiteId) {
-        webSite = from("WebSite").where("webSiteId", parameters.webSiteId).cache(true).queryOne();
-        context.selectedWebSiteId = parameters.webSiteId;
+        webSite = from("WebSite").where("webSiteId", parameters.webSiteId).cache(true).queryOne()
+        context.selectedWebSiteId = parameters.webSiteId
     } else if (webSiteList) {
-        webSite = EntityUtil.getFirst(webSiteList);
-        context.selectedWebSiteId = webSite.webSiteId;
+        webSite = EntityUtil.getFirst(webSiteList)
+        context.selectedWebSiteId = webSite.webSiteId
     }
-    context.productStoreId = productStoreId;
-    context.webSiteList = webSiteList;
-    countryCode = null;
+    context.productStoreId = productStoreId
+    context.webSiteList = webSiteList
+    countryCode = null
     if (parameters.country) {
-        countryCode = parameters.country;
+        countryCode = parameters.country
     } else {
-        countryCode = "US";
+        countryCode = "US"
     }
-    context.countryCode = countryCode;
+    context.countryCode = countryCode
     if (webSite) {
-        eBayConfig = from("EbayConfig").where("productStoreId", productStoreId).queryOne();
-        context.customXml = eBayConfig.customXml;
-        context.webSiteUrl = webSite.getString("standardContentPrefix");
+        eBayConfig = from("EbayConfig").where("productStoreId", productStoreId).queryOne()
+        context.customXml = eBayConfig.customXml
+        context.webSiteUrl = webSite.getString("standardContentPrefix")
         
-        categoryCode = parameters.categoryCode;
-        context.categoryCode = categoryCode; 
-        userLogin = parameters.userLogin;
+        categoryCode = parameters.categoryCode
+        context.categoryCode = categoryCode
+        userLogin = parameters.userLogin
         
         if (productStoreId) {
-            results = runService('getEbayCategories', [categoryCode : categoryCode, userLogin : userLogin, productStoreId : productStoreId]);
+            results = runService('getEbayCategories', [categoryCode : categoryCode, userLogin : userLogin, productStoreId : productStoreId])
         }
         
         if (results.categories) {
-            context.categories = results.categories;
+            context.categories = results.categories
         }
         
         if (categoryCode) {
             if (!"Y".equals(categoryCode.substring(0, 1)) && !"".equals(categoryCode)) {
-                context.hideExportOptions = "Y";
+                context.hideExportOptions = "Y"
             } else {
-                context.hideExportOptions = "N";
+                context.hideExportOptions = "N"
             }
         } else {
-            context.hideExportOptions = "N";
+            context.hideExportOptions = "N"
         }    
     }
 }

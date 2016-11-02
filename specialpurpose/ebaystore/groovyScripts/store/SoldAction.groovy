@@ -17,24 +17,24 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.base.util.*
 
-actionList = [];
-hasAction = false;
+actionList = []
+hasAction = false
 //Unpaid Item Dispute
 if (unpaidItemStatus == null && paidTime == null && checkoutStatus != "CheckoutComplete") {
-    inMap = [:];
-    inMap.put("action","openUnpaid");
-    inMap.put("actionName","Open Unpaid");
-    actionList.add(inMap);
-    hasAction = true;
+    inMap = [:]
+    inMap.put("action","openUnpaid")
+    inMap.put("actionName","Open Unpaid")
+    actionList.add(inMap)
+    hasAction = true
 }
 //Second Chance Offer
-inMap = [:];
-inMap.put("action","makeSecondChanceOffer");
-inMap.put("actionName","Make Second Chance Offer");
-actionList.add(inMap);
-hasAction = true;
+inMap = [:]
+inMap.put("action","makeSecondChanceOffer")
+inMap.put("actionName","Make Second Chance Offer")
+actionList.add(inMap)
+hasAction = true
 
-context.actionList = actionList;
-context.hasAction = hasAction;
+context.actionList = actionList
+context.hasAction = hasAction

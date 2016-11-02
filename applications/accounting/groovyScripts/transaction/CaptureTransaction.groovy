@@ -21,38 +21,38 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
 
-orderId = context.orderId;
-orderPaymentPreferenceId = context.orderPaymentPreferenceId;
+orderId = context.orderId
+orderPaymentPreferenceId = context.orderPaymentPreferenceId
 
-if ((!orderId) || (!orderPaymentPreferenceId)) return;
+if ((!orderId) || (!orderPaymentPreferenceId)) return
 
 if (orderId) {
-   orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
-   context.orderHeader = orderHeader;
+   orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+   context.orderHeader = orderHeader
 }
 
 if (orderPaymentPreferenceId) {
-   orderPaymentPreference = from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne();
-   context.orderPaymentPreference = orderPaymentPreference;
+   orderPaymentPreference = from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne()
+   context.orderPaymentPreference = orderPaymentPreference
 }
 
 if (orderPaymentPreference) {
-   paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType", true);
-   context.paymentMethodType = paymentMethodType;
+   paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType", true)
+   context.paymentMethodType = paymentMethodType
 }
 
 if (orderPaymentPreference) {
-    context.paymentTypeId = "CUSTOMER_PAYMENT";
+    context.paymentTypeId = "CUSTOMER_PAYMENT"
 }
 
 if (orderPaymentPreference) {
     // we retrieve the captureAmount by looking at the latest authorized gateway response for this orderPaymentPreference
-    gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, ["transactionDate DESC"], false);
-    EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition("transCodeEnumId", EntityOperator.EQUALS, "PGT_AUTHORIZE"));
+    gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, ["transactionDate DESC"], false)
+    EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition("transCodeEnumId", EntityOperator.EQUALS, "PGT_AUTHORIZE"))
 
     if (gatewayResponses) {
-        latestAuth = gatewayResponses[0];
-        context.captureAmount = latestAuth.getBigDecimal("amount");
+        latestAuth = gatewayResponses[0]
+        context.captureAmount = latestAuth.getBigDecimal("amount")
     } else {
         // todo: some kind of error telling user to re-authorize
     }

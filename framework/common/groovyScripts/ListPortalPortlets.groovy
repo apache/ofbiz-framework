@@ -17,33 +17,33 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.*;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
 
-ppCond = EntityCondition.makeCondition("portletCategoryId", EntityOperator.EQUALS, parameters.portletCategoryId);
-categories = delegator.findList("PortletPortletCategory", ppCond, null, null, null, false);
+ppCond = EntityCondition.makeCondition("portletCategoryId", EntityOperator.EQUALS, parameters.portletCategoryId)
+categories = delegator.findList("PortletPortletCategory", ppCond, null, null, null, false)
 
-portalPortlets = [];
+portalPortlets = []
     categories.each { category ->
-    pCond = EntityCondition.makeCondition("portalPortletId", EntityOperator.EQUALS, category.get("portalPortletId"));
-    listPortalPortlets = delegator.findList("PortalPortlet", pCond, null, null, null, false);
+    pCond = EntityCondition.makeCondition("portalPortletId", EntityOperator.EQUALS, category.get("portalPortletId"))
+    listPortalPortlets = delegator.findList("PortalPortlet", pCond, null, null, null, false)
 
-    inMap = [:];
+    inMap = [:]
     listPortalPortlets.each { listPortalPortlet ->
         if (listPortalPortlet.securityServiceName && listPortalPortlet.securityMainAction) {
-            inMap.mainAction = listPortalPortlet.securityMainAction;
-            inMap.userLogin = context.userLogin;
+            inMap.mainAction = listPortalPortlet.securityMainAction
+            inMap.userLogin = context.userLogin
             result = runService(listPortalPortlet.securityServiceName, inMap)
-            hasPermission = result.hasPermission;
+            hasPermission = result.hasPermission
         } else {
-            hasPermission = true;
+            hasPermission = true
         }
 
         if (hasPermission) {
-            portalPortlets.add(listPortalPortlet);
+            portalPortlets.add(listPortalPortlet)
         }
     }
 }
 
-context.portletCat = delegator.findList("PortletCategory", null, null, null, null, false);
-context.portalPortlets = portalPortlets;
+context.portletCat = delegator.findList("PortletCategory", null, null, null, null, false)
+context.portalPortlets = portalPortlets

@@ -24,17 +24,17 @@
  * expanded to work off other communication event types.
  */
 
-import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilDateTime
 
-partyIdFrom = context.partyIdFrom;
-partyIdTo = context.partyIdTo;
+partyIdFrom = context.partyIdFrom
+partyIdTo = context.partyIdTo
 
 if (parameters.communicationEventTypeId) {
    if ("EMAIL_COMMUNICATION".equals(parameters.communicationEventTypeId)) {
-      userEmailAddresses = from("PartyContactWithPurpose").where("contactMechTypeId", "EMAIL_ADDRESS" , "partyId", partyIdFrom).filterByDate(UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate").queryList();
-      context.userEmailAddresses = userEmailAddresses;
+      userEmailAddresses = from("PartyContactWithPurpose").where("contactMechTypeId", "EMAIL_ADDRESS" , "partyId", partyIdFrom).filterByDate(UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate").queryList()
+      context.userEmailAddresses = userEmailAddresses
 
-      targetEmailAddresses = from("PartyContactWithPurpose").where("contactMechTypeId", "EMAIL_ADDRESS", "partyId", partyIdTo).filterByDate(UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate").queryList();
-      context.targetEmailAddresses = targetEmailAddresses;
+      targetEmailAddresses = from("PartyContactWithPurpose").where("contactMechTypeId", "EMAIL_ADDRESS", "partyId", partyIdTo).filterByDate(UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate").queryList()
+      context.targetEmailAddresses = targetEmailAddresses
    }
 }

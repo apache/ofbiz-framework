@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.EntityUtil
 
 // executes only on startup when only the basic parameters.portalPageId (from commonscreens.xml) is available
 if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
@@ -30,43 +30,43 @@ if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
             EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
             EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, null),
             EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLogin.userLoginId)
-            ],EntityOperator.AND);
-    portalMainPages = EntityUtil.filterByDate(delegator.findList("PortalPageAndUserLogin", condSec, null, null, null, false));
+            ],EntityOperator.AND)
+    portalMainPages = EntityUtil.filterByDate(delegator.findList("PortalPageAndUserLogin", condSec, null, null, null, false))
     if (!portalMainPages) { // look for a null securityGroup if not found
         condSec = EntityCondition.makeCondition([
             EntityCondition.makeCondition("securityGroupId", EntityOperator.EQUALS, null),
             EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, null),
             EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%")
-            ],EntityOperator.AND);
-        portalMainPages = delegator.findList("PortalPage", condSec, null, null, null, false);
+            ],EntityOperator.AND)
+        portalMainPages = delegator.findList("PortalPage", condSec, null, null, null, false)
     }
     if (portalMainPages) {
-        portalPageId = portalMainPages.get(0).portalPageId;
+        portalPageId = portalMainPages.get(0).portalPageId
         // check if overridden with a privat page
-        privatMainPages = delegator.findByAnd("PortalPage", [originalPortalPageId : portalPageId, ownerUserLoginId : userLogin.userLoginId], null, false);
+        privatMainPages = delegator.findByAnd("PortalPage", [originalPortalPageId : portalPageId, ownerUserLoginId : userLogin.userLoginId], null, false)
         if (privatMainPages) {
-            context.parameters.portalPageId = privatMainPages.get(0).portalPageId;
+            context.parameters.portalPageId = privatMainPages.get(0).portalPageId
         } else {
-            context.parameters.portalPageId = portalPageId;
+            context.parameters.portalPageId = portalPageId
         }
     }
 }
-// Debug.log('======portalPageId: ' + parameters.portalPageId);
+// Debug.log('======portalPageId: ' + parameters.portalPageId)
 if (userLogin && parameters.portalPageId) {
-    portalPage = delegator.findOne("PortalPage", [portalPageId : parameters.portalPageId], false);
+    portalPage = delegator.findOne("PortalPage", [portalPageId : parameters.portalPageId], false)
     if (portalPage) {
         if (portalPage.parentPortalPageId) {
-            context.parameters.parentPortalPageId = portalPage.parentPortalPageId;
+            context.parameters.parentPortalPageId = portalPage.parentPortalPageId
         } else {
             if ("_NA_".equals(portalPage.ownerUserLoginId)) {
-                context.parameters.parentPortalPageId = portalPage.portalPageId;
+                context.parameters.parentPortalPageId = portalPage.portalPageId
             } else {
-                context.parameters.parentPortalPageId = portalPage.originalPortalPageId;
+                context.parameters.parentPortalPageId = portalPage.originalPortalPageId
             }
         }
     }
 }
-// Debug.log('======parent portalPageId: ' + parameters.parentPortalPageId);
+// Debug.log('======parent portalPageId: ' + parameters.parentPortalPageId)
 if (!context.headerItem && parameters.portalPageId) {
-    context.headerItem = parameters.portalPageId; // and the menu item is highlighted
+    context.headerItem = parameters.portalPageId // and the menu item is highlighted
 }

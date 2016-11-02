@@ -17,22 +17,22 @@
  * under the License.
  */
 
-import org.apache.ofbiz.product.feature.ParametricSearch;
-import org.apache.ofbiz.product.product.ProductSearchSession;
+import org.apache.ofbiz.product.feature.ParametricSearch
+import org.apache.ofbiz.product.product.ProductSearchSession
 
-productFeaturesByTypeMap = ParametricSearch.getAllFeaturesByType(delegator, 2000);
-productFeatureTypeIdsOrdered = new ArrayList(new TreeSet(productFeaturesByTypeMap.keySet()));
+productFeaturesByTypeMap = ParametricSearch.getAllFeaturesByType(delegator, 2000)
+productFeatureTypeIdsOrdered = new ArrayList(new TreeSet(productFeaturesByTypeMap.keySet()))
 
-searchOperator = request.getParameter("SEARCH_OPERATOR");
+searchOperator = request.getParameter("SEARCH_OPERATOR")
 if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
-  searchOperator = "OR";
+  searchOperator = "OR"
 }
 
-searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false, session, delegator);
-searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, request);
+searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false, session, delegator)
+searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, request)
 
-context.productFeaturesByTypeMap = productFeaturesByTypeMap;
-context.productFeatureTypeIdsOrdered = productFeatureTypeIdsOrdered;
-context.searchOperator = searchOperator;
-context.searchConstraintStrings = searchConstraintStrings;
-context.searchSortOrderString = searchSortOrderString;
+context.productFeaturesByTypeMap = productFeaturesByTypeMap
+context.productFeatureTypeIdsOrdered = productFeatureTypeIdsOrdered
+context.searchOperator = searchOperator
+context.searchConstraintStrings = searchConstraintStrings
+context.searchSortOrderString = searchSortOrderString
